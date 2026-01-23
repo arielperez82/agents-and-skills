@@ -258,6 +258,7 @@ Assess each pillar:
 - Abstract descriptions without concrete use cases
 - Poor or missing navigation aids
 - Inconsistent formatting or structure
+- **Undocumented architectural decisions** - Documentation explains "how" but not "why" (invoke `adr-writer` agent)
 
 💡 **Nice to Have:**
 - Additional examples for edge cases
@@ -731,7 +732,7 @@ if (result.success) {
 
 **For database migrations, require:**
 - [ ] Deployment checklist included (commands: `supabase db push`, verification steps)
-- [ ] Architecture decisions documented (ADR if significant changes)
+- [ ] Architecture decisions documented (invoke `adr-writer` agent if significant changes)
 - [ ] Verification steps documented (how to verify migration success)
 - [ ] RLS policy strategy documented (if RLS is implemented or planned)
 
@@ -820,6 +821,72 @@ Before finalizing documentation, verify:
 - [ ] Multiple entry points (ToC, problem nav, search-friendly)
 - [ ] Assumes minimal context
 - [ ] Defines terms before using them
+
+## When to Invoke Other Agents
+
+### Invoking adr-writer Agent
+
+**When to Invoke:**
+When reviewing architecture documentation and discovering undocumented architectural decisions that explain "how" but not "why".
+
+**Decision Criteria:**
+Apply the `adr-writer` agent's decision framework to assess if a decision merits an ADR:
+1. **Is this a one-way door?** (Hard/expensive to reverse) → YES
+2. **Did we evaluate alternatives?** (Considered trade-offs) → YES
+3. **Will this affect future architectural decisions?** (Foundational) → YES
+4. **Will future developers wonder "why did they do it this way?"** → YES
+
+**If 3+ criteria met → Invoke adr-writer**
+
+**Invocation Pattern:**
+```markdown
+# Pattern: Discover Undocumented Decision
+
+1. **Identify Gap**: While reviewing architecture documentation, notice missing context:
+   ```markdown
+   user: "Document the authentication system"
+   docs-guardian: "I notice the documentation explains HOW authentication works (JWT tokens, middleware), but there's no explanation of WHY we chose JWT over session-based auth. This is a significant architectural decision that should be documented."
+   ```
+
+2. **Assess Significance**: Apply adr-writer decision framework:
+   - Is this a one-way door? → YES (switching auth systems is expensive)
+   - Did we evaluate alternatives? → Likely YES (JWT vs sessions is a common decision)
+   - Will this affect future decisions? → YES (auth choice affects API design, security)
+   - Will future developers wonder "why"? → YES (common question)
+   
+   **Result**: 4/4 criteria met → Invoke adr-writer
+
+3. **Invoke adr-writer**:
+   ```markdown
+   docs-guardian: "I notice there's no ADR explaining why we chose JWT over sessions. Let me invoke the adr-writer agent to create a retroactive ADR."
+   
+   → Invoke adr-writer agent
+   → Provide context: "Authentication approach selection for stateless API"
+   → Provide alternatives: JWT tokens, session-based auth, OAuth
+   → Provide decision: JWT tokens
+   → Provide rationale: Stateless, scalable, works with microservices, no server-side session storage needed
+   → adr-writer creates ADR-XXX: Authentication Approach
+   → docs-guardian references ADR in architecture documentation
+   ```
+
+4. **Update Documentation**: Reference the new ADR in the architecture docs:
+   ```markdown
+   ## Authentication System
+   
+   We use JWT tokens for authentication. For the rationale behind this decision, including alternatives considered and trade-offs, see [ADR-XXX: Authentication Approach](docs/adr/XXX-authentication-approach.md).
+   ```
+
+**Common Scenarios:**
+- Documentation explains "we use PostgreSQL" but not why PostgreSQL over MongoDB/MySQL
+- Documentation shows "microservices architecture" but doesn't explain why microservices over monolith
+- Documentation describes "REST API" but doesn't explain why REST over GraphQL
+- Documentation mentions "AWS infrastructure" but doesn't explain why AWS over GCP/Azure
+
+**What NOT to Invoke adr-writer For:**
+- Implementation details already well-documented
+- Decisions that are clearly explained in the documentation
+- Trivial choices (naming conventions, code style)
+- Temporary workarounds
 
 ## Commands to Use
 

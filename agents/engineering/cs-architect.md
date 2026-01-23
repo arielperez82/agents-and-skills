@@ -164,11 +164,51 @@ The cs-architect agent bridges the gap between business requirements and technic
    - Data flow diagrams
    - Integration patterns
 
-5. **Document Architecture Decisions** - Record ADRs (Architecture Decision Records):
-   - Context and problem statement
-   - Considered alternatives
-   - Decision rationale
-   - Consequences and trade-offs
+5. **Document Architecture Decisions** - For significant architectural decisions, invoke the `adr-writer` agent:
+   
+   **Decision Criteria**: Use the adr-writer agent's decision framework to determine if a decision merits an ADR:
+   - Is this a one-way door? (Hard/expensive to reverse)
+   - Did we evaluate alternatives? (Considered trade-offs)
+   - Will this affect future architectural decisions? (Foundational)
+   - Will future developers wonder "why did they do it this way?"
+   
+   **When to Invoke adr-writer:**
+   - Technology stack selection (frontend framework, backend framework, database)
+   - Architecture pattern choice (microservices vs monolith vs event-driven)
+   - Infrastructure decisions (cloud provider, deployment strategy)
+   - Security architecture decisions (authentication approach, encryption strategy)
+   - Performance trade-offs with long-term impact (caching strategy, optimization decisions)
+   
+   **Invocation Pattern:**
+   ```markdown
+   # After making a significant architectural decision:
+   
+   1. Identify decision that meets ADR criteria (3+ of the decision framework questions = YES)
+   2. Gather context: problem statement, alternatives considered, trade-offs, decision made, rationale
+   3. Invoke adr-writer agent with decision context
+   4. adr-writer creates structured ADR document following standard format
+   5. Reference the ADR in architecture documentation
+   ```
+   
+   **Example:**
+   ```markdown
+   After selecting PostgreSQL as database:
+   → Decision meets criteria: one-way door (YES), alternatives evaluated (YES), foundational (YES), future developers will wonder why (YES)
+   → Invoke adr-writer agent
+   → Provide context: "Database selection for e-commerce platform requiring ACID transactions"
+   → Provide alternatives: PostgreSQL, MongoDB, MySQL
+   → Provide decision: PostgreSQL
+   → Provide rationale: ACID transactions, team SQL experience, TypeScript integration via Prisma
+   → adr-writer creates ADR-001: Database Selection
+   → Reference ADR-001 in architecture documentation
+   ```
+   
+   **What NOT to Invoke adr-writer For:**
+   - Implementation details (variable naming, function structure)
+   - Temporary workarounds
+   - Decisions already covered by existing ADRs or guidelines
+   - UI/styling choices
+   - Code style conventions (belong in CLAUDE.md)
 
 6. **Review and Validate** - Conduct architecture review:
    - Scalability analysis (can it handle 10x growth?)
@@ -186,7 +226,7 @@ The cs-architect agent bridges the gap between business requirements and technic
 mkdir -p architecture-docs
 python ../../skills/engineering-team/senior-architect/scripts/architecture_diagram_generator.py --input ./src --output json --file architecture-docs/system-design.json
 cat ../../skills/engineering-team/senior-architect/references/architecture_patterns.md > architecture-docs/patterns-reference.md
-# Create ADR documents and present to stakeholders
+# Invoke adr-writer agent for significant decisions, then present to stakeholders
 ```
 
 ### Workflow 2: Architecture Audit & Technical Debt Assessment
@@ -590,6 +630,7 @@ echo "4. Plan migration strategy"
 
 ## Related Agents
 
+- [adr-writer](../../adr-writer.md) - **Invoked for ADR creation** - Documents significant architectural decisions with context, alternatives, and rationale. cs-architect invokes adr-writer when decisions meet ADR criteria (one-way door, alternatives evaluated, foundational, future developers will wonder why)
 - [cs-cto-advisor](../c-level/cs-cto-advisor.md) - Provides strategic technical leadership and technology vision that guides architecture decisions
 - [cs-technical-writer](cs-technical-writer.md) - **Collaborates for Mermaid diagram generation** (architecture, sequence, class, ERD diagrams)
 - [cs-backend-engineer](cs-backend-engineer.md) - Implements backend services following architecture patterns and guidelines

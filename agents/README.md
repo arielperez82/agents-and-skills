@@ -103,8 +103,8 @@ This directory contains specifications for specialized Claude Code agents that w
 
 ---
 
-#### `adr`
-**Purpose**: Documents significant architectural decisions with context and trade-offs.
+#### `adr-writer`
+**Purpose**: Creates Architecture Decision Records (ADRs) documenting significant architectural decisions with context, alternatives, and trade-offs.
 
 **Use proactively when**:
 - About to make significant architectural choice
@@ -276,7 +276,7 @@ progress-guardian (orchestrates)
     │   └─→ supabase-migration-assistant (migration generation, validation)
     │
     ├─► When decisions arise:
-    │   └─→ adr (architectural decisions)
+    │   └─→ adr-writer (architectural decisions)
     │
     ├─► Before merge:
     │   └─→ pr-reviewer (comprehensive PR review)
@@ -310,7 +310,7 @@ progress-guardian (orchestrates)
 
 4. **When architectural decision arises**
    - Add to LEARNINGS.md immediately
-   - Invoke `adr` if decision warrants permanent record
+   - Invoke `adr-writer` if decision warrants permanent record
 
 5. **Before commits**
    - Invoke `ts-enforcer`: Verify TypeScript compliance
@@ -329,7 +329,7 @@ progress-guardian (orchestrates)
    - Invoke `progress-guardian`: Verify all criteria met
    - Review LEARNINGS.md for merge destinations
    - Invoke `learn`: Merge gotchas/patterns → CLAUDE.md
-   - Invoke `adr`: Create ADRs for architectural decisions
+   - Invoke `adr-writer`: Create ADRs for architectural decisions
    - Invoke `docs-guardian`: Update permanent docs
    - **DELETE PLAN.md, WIP.md, LEARNINGS.md**
 
@@ -337,7 +337,7 @@ progress-guardian (orchestrates)
 
 ### Documentation Types
 
-| Aspect | progress-guardian | adr | learn | docs-guardian |
+| Aspect | progress-guardian | adr-writer | learn | docs-guardian |
 |--------|------------------|-----|-------|---------------|
 | **Lifespan** | Temporary (days/weeks) | Permanent | Permanent | Permanent |
 | **Audience** | Current developer | Future developers | AI assistant + developers | Users + developers |
@@ -356,7 +356,7 @@ progress-guardian (orchestrates)
 - "What have we discovered so far?"
 - → Answer: Temporary PLAN.md, WIP.md, LEARNINGS.md (deleted when done)
 
-**Use `adr`** for:
+**Use `adr-writer`** for:
 - "Why did we choose technology X over Y?"
 - "What were the trade-offs in this architectural decision?"
 - "Why is the system designed this way?"
@@ -439,7 +439,7 @@ These agents work together to create a comprehensive development workflow:
 - **Quality**: tdd-guardian + ts-enforcer ensure code quality
 - **Improvement**: refactor-scan optimizes code after tests pass
 - **Review**: pr-reviewer validates PRs before merge
-- **Knowledge**: learn + adr + docs-guardian preserve knowledge
+- **Knowledge**: learn + adr-writer + docs-guardian preserve knowledge
 - **Progress**: progress-guardian manages incremental work with three-document model
 
 **Key workflow principles** (see `planning` skill for details):

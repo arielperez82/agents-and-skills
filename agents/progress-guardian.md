@@ -228,7 +228,7 @@ When all steps are complete:
 
    Should I invoke:
    - `learn` agent for CLAUDE.md updates?
-   - `adr` agent for the architectural decision?"
+   - `adr-writer` agent for the architectural decision?"
    ```
 
 3. **Delete documents**
@@ -244,7 +244,7 @@ When all steps are complete:
 | `ts-enforcer` | Before commits, to check TypeScript strictness |
 | `refactor-scan` | After GREEN, to assess refactoring |
 | `learn` | At end of feature, to merge learnings into CLAUDE.md |
-| `adr` | When architectural decisions need recording |
+| `adr-writer` | When architectural decisions need recording |
 | `docs-guardian` | When permanent docs need updating |
 
 ## Anti-Patterns
