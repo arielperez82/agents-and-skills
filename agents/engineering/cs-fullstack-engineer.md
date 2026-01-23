@@ -8,10 +8,8 @@ domain: engineering
 subdomain: fullstack-development
 skills: senior-fullstack
 
-# === WEBSITE DISPLAY ===
+# === USE CASES ===
 difficulty: advanced
-
-frequency: "TODO: Estimate usage frequency"
 use-cases:
   - Primary workflow for Fullstack Engineer
   - Analysis and recommendations for fullstack engineer tasks

@@ -8,10 +8,8 @@ domain: engineering
 subdomain: ios-development
 skills: engineering-team/senior-ios
 
-# === WEBSITE DISPLAY ===
+# === USE CASES ===
 difficulty: advanced
-
-frequency: "Daily for iOS development teams"
 use-cases:
   - Building native iOS applications with SwiftUI
   - Migrating UIKit apps to SwiftUI

@@ -8,10 +8,8 @@ domain: marketing
 subdomain: content-marketing
 skills: marketing-team/marketing-demand-acquisition
 
-# === WEBSITE DISPLAY ===
+# === USE CASES ===
 difficulty: advanced
-
-frequency: "TODO: Estimate usage frequency"
 use-cases:
   - Primary workflow for Demand Gen Specialist
   - Analysis and recommendations for demand gen specialist tasks

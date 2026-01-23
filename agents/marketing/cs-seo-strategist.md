@@ -8,10 +8,8 @@ domain: marketing
 subdomain: search-marketing
 skills: marketing-team/seo-strategist
 
-# === WEBSITE DISPLAY ===
+# === USE CASES ===
 difficulty: intermediate
-
-frequency: Weekly/Monthly for strategy, daily for monitoring
 use-cases:
   - Developing comprehensive keyword strategies and topic clusters
   - Performing technical SEO audits and site health analysis

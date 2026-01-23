@@ -7,10 +7,8 @@ domain: engineering
 subdomain: documentation
 skills: technical-writer
 
-# === WEBSITE DISPLAY ===
+# === USE CASES ===
 difficulty: intermediate
-
-frequency: "Daily"
 use-cases:
   - Generating comprehensive README files with usage examples and badges
   - Maintaining CHANGELOG with semantic versioning and release notes

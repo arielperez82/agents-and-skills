@@ -8,7 +8,7 @@ domain: delivery
 subdomain: agile-delivery
 skills: scrum-master
 
-# === WEBSITE DISPLAY ===
+# === USE CASES ===
 difficulty: advanced
 use-cases:
   - Primary workflow for Scrum Master

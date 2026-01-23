@@ -8,10 +8,8 @@ domain: engineering
 subdomain: quality-assurance
 skills: senior-qa
 
-# === WEBSITE DISPLAY ===
+# === USE CASES ===
 difficulty: advanced
-
-frequency: "TODO: Estimate usage frequency"
 use-cases:
   - Designing comprehensive test strategies and test plans
   - Implementing automated testing frameworks

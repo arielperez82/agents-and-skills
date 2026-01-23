@@ -8,10 +8,8 @@ domain: engineering
 subdomain: mobile-development
 skills: engineering-team/senior-mobile
 
-# === WEBSITE DISPLAY ===
+# === USE CASES ===
 difficulty: advanced
-
-frequency: "Weekly for active mobile development"
 use-cases:
   - Creating new React Native or Flutter projects with best practices
   - Selecting optimal framework based on project requirements

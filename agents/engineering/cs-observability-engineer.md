@@ -8,10 +8,8 @@ domain: engineering
 subdomain: observability-operations
 skills: senior-observability
 
-# === WEBSITE DISPLAY ===
+# === USE CASES ===
 difficulty: advanced
-
-frequency: "Weekly observability implementation and refinement"
 use-cases:
   - Implementing SLI/SLO frameworks with error budget tracking
   - Designing Grafana dashboards using RED/USE methods

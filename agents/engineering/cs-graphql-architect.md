@@ -8,10 +8,8 @@ domain: engineering
 subdomain: api-development
 skills: senior-graphql
 
-# === WEBSITE DISPLAY ===
+# === USE CASES ===
 difficulty: advanced
-
-frequency: "Weekly for API development teams"
 use-cases:
   - Designing type-safe GraphQL schemas with proper conventions
   - Implementing DataLoader patterns to prevent N+1 queries

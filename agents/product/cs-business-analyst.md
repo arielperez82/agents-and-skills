@@ -8,10 +8,8 @@ domain: product
 subdomain: product-management
 skills: business-analyst-toolkit
 
-# === WEBSITE DISPLAY ===
+# === USE CASES ===
 difficulty: advanced
-
-frequency: "TODO: Estimate usage frequency"
 use-cases:
   - Primary workflow for Business Analyst
   - Analysis and recommendations for business analyst tasks

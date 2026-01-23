@@ -8,7 +8,7 @@ domain: delivery
 subdomain: delivery-general
 skills: senior-pm
 
-# === WEBSITE DISPLAY ===
+# === USE CASES ===
 difficulty: advanced
 use-cases:
   - Primary workflow for Senior Pm

@@ -8,10 +8,8 @@ domain: engineering
 subdomain: security-engineering
 skills: senior-security
 
-# === WEBSITE DISPLAY ===
+# === USE CASES ===
 difficulty: advanced
-
-frequency: "TODO: Estimate usage frequency"
 use-cases:
   - Conducting security audits and vulnerability assessments
   - Implementing authentication and authorization patterns

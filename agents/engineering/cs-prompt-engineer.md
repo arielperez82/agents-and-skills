@@ -8,10 +8,8 @@ domain: engineering
 subdomain: ai-ml-engineering
 skills: senior-prompt-engineer
 
-# === WEBSITE DISPLAY ===
+# === USE CASES ===
 difficulty: advanced
-
-frequency: "TODO: Estimate usage frequency"
 use-cases:
   - Primary workflow for Prompt Engineer
   - Analysis and recommendations for prompt engineer tasks

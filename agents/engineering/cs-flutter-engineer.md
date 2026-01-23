@@ -8,10 +8,8 @@ domain: engineering
 subdomain: flutter-development
 skills: engineering-team/senior-flutter
 
-# === WEBSITE DISPLAY ===
+# === USE CASES ===
 difficulty: advanced
-
-frequency: "Daily for Flutter development teams"
 use-cases:
   - Building cross-platform apps with Flutter
   - Implementing clean architecture patterns

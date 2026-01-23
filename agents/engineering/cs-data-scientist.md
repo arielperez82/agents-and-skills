@@ -8,10 +8,8 @@ domain: engineering
 subdomain: data-engineering
 skills: senior-data-scientist
 
-# === WEBSITE DISPLAY ===
+# === USE CASES ===
 difficulty: advanced
-
-frequency: "TODO: Estimate usage frequency"
 use-cases:
   - Designing data pipelines for ETL/ELT processes
   - Building data warehouses and data lakes

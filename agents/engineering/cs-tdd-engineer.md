@@ -8,10 +8,8 @@ domain: engineering
 subdomain: test-driven-development
 skills: senior-qa
 
-# === WEBSITE DISPLAY ===
+# === USE CASES ===
 difficulty: advanced
-
-frequency: "Per feature implementation"
 use-cases:
   - Implementing features using strict Red-Green-Refactor cycles
   - Designing APIs through test-first specification

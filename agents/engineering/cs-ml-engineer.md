@@ -8,10 +8,8 @@ domain: engineering
 subdomain: ai-ml-engineering
 skills: senior-ml-engineer
 
-# === WEBSITE DISPLAY ===
+# === USE CASES ===
 difficulty: advanced
-
-frequency: "TODO: Estimate usage frequency"
 use-cases:
   - Primary workflow for Ml Engineer
   - Analysis and recommendations for ml engineer tasks

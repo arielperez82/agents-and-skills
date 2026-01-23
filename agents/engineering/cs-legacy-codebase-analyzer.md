@@ -7,10 +7,8 @@ domain: engineering
 subdomain: technical-debt
 skills: legacy-codebase-analyzer
 
-# === WEBSITE DISPLAY ===
+# === USE CASES ===
 difficulty: advanced
-
-frequency: "Quarterly per codebase"
 use-cases:
   - "Conducting comprehensive legacy codebase assessments before modernization initiatives"
   - "Quantifying technical debt with business impact metrics for executive presentations"

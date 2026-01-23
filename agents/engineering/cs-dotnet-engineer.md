@@ -8,10 +8,8 @@ domain: engineering
 subdomain: dotnet-development
 skills: senior-dotnet
 
-# === WEBSITE DISPLAY ===
+# === USE CASES ===
 difficulty: advanced
-
-frequency: "Daily for enterprise development teams"
 use-cases:
   - Building ASP.NET Core Web APIs with production-ready configuration
   - Designing microservices with Clean Architecture and CQRS patterns

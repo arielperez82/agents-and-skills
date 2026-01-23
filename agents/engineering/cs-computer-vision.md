@@ -8,10 +8,8 @@ domain: engineering
 subdomain: ai-ml-engineering
 skills: senior-computer-vision
 
-# === WEBSITE DISPLAY ===
+# === USE CASES ===
 difficulty: advanced
-
-frequency: "TODO: Estimate usage frequency"
 use-cases:
   - Primary workflow for Computer Vision
   - Analysis and recommendations for computer vision tasks

@@ -8,10 +8,8 @@ domain: engineering
 subdomain: devops-operations
 skills: senior-devops
 
-# === WEBSITE DISPLAY ===
+# === USE CASES ===
 difficulty: advanced
-
-frequency: "TODO: Estimate usage frequency"
 use-cases:
   - Setting up infrastructure as code with Terraform or CloudFormation
   - Implementing CI/CD pipelines with automated testing and deployment

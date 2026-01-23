@@ -8,10 +8,8 @@ domain: engineering
 subdomain: security-engineering
 skills: incident-response
 
-# === WEBSITE DISPLAY ===
+# === USE CASES ===
 difficulty: advanced
-
-frequency: "On-demand during security incidents"
 use-cases:
   - Triaging and classifying security alerts by severity
   - Executing containment playbooks for phishing, ransomware, data breaches

@@ -8,9 +8,8 @@ domain: product
 subdomain: user-research
 skills: product-team/ux-researcher-designer
 
-# === WEBSITE DISPLAY ===
+# === USE CASES ===
 difficulty: advanced
-frequency: "TODO: Estimate usage frequency"
 use-cases:
   - Primary workflow for Ux Researcher
   - Analysis and recommendations for ux researcher tasks

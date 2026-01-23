@@ -8,10 +8,8 @@ domain: product
 subdomain: ux-design
 skills: product-team/ui-design-system
 
-# === WEBSITE DISPLAY ===
+# === USE CASES ===
 difficulty: advanced
-
-frequency: "TODO: Estimate usage frequency"
 use-cases:
   - Primary workflow for Ui Designer
   - Analysis and recommendations for ui designer tasks

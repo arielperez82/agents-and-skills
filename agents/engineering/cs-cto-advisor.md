@@ -8,10 +8,8 @@ domain: engineering
 subdomain: system-architecture
 skills: cto-advisor
 
-# === WEBSITE DISPLAY ===
+# === USE CASES ===
 difficulty: advanced
-
-frequency: "TODO: Estimate usage frequency"
 use-cases:
   - Primary workflow for Cto Advisor
   - Analysis and recommendations for cto advisor tasks

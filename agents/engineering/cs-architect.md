@@ -8,7 +8,7 @@ domain: engineering
 subdomain: system-architecture
 skills: senior-architect
 
-# === WEBSITE DISPLAY ===
+# === USE CASES ===
 difficulty: advanced
 use-cases:
   - Designing scalable system architectures for cloud-native applications

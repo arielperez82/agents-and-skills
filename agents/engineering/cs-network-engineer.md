@@ -8,10 +8,8 @@ domain: engineering
 subdomain: network-infrastructure
 skills: senior-network-infrastructure
 
-# === WEBSITE DISPLAY ===
+# === USE CASES ===
 difficulty: advanced
-
-frequency: "Weekly for infrastructure changes, daily during deployments"
 use-cases:
   - Designing VPC/VNet architecture for multi-region applications
   - Configuring site-to-site VPN between cloud providers

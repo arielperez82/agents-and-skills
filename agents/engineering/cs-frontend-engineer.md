@@ -8,10 +8,8 @@ domain: engineering
 subdomain: frontend-development
 skills: engineering-team/senior-frontend
 
-# === WEBSITE DISPLAY ===
+# === USE CASES ===
 difficulty: advanced
-
-frequency: "TODO: Estimate usage frequency"
 use-cases:
   - Building responsive user interfaces with modern frameworks
   - Implementing state management and component architecture

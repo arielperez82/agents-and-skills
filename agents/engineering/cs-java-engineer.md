@@ -8,10 +8,8 @@ domain: engineering
 subdomain: java-development
 skills: senior-java
 
-# === WEBSITE DISPLAY ===
+# === USE CASES ===
 difficulty: advanced
-
-frequency: "Daily for enterprise development teams"
 use-cases:
   - Building enterprise Spring Boot applications with production-ready configuration
   - Designing microservices with Spring Cloud and service discovery

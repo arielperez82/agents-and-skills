@@ -8,10 +8,8 @@ domain: product
 subdomain: product-management
 skills: product-team/agile-product-owner
 
-# === WEBSITE DISPLAY ===
+# === USE CASES ===
 difficulty: advanced
-
-frequency: "TODO: Estimate usage frequency"
 use-cases:
   - Defining product roadmaps and feature prioritization
   - Writing user stories and acceptance criteria

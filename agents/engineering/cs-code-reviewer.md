@@ -8,10 +8,8 @@ domain: engineering
 subdomain: quality-assurance
 skills: code-reviewer
 
-# === WEBSITE DISPLAY ===
+# === USE CASES ===
 difficulty: advanced
-
-frequency: "TODO: Estimate usage frequency"
 use-cases:
   - Primary workflow for Code Reviewer
   - Analysis and recommendations for code reviewer tasks

@@ -8,10 +8,8 @@ domain: marketing
 subdomain: content-marketing
 skills: marketing-team/content-creator
 
-# === WEBSITE DISPLAY ===
+# === USE CASES ===
 difficulty: advanced
-
-frequency: "TODO: Estimate usage frequency"
 use-cases:
   - Creating engaging content for target audiences
   - Optimizing content for SEO and discoverability

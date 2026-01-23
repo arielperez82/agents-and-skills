@@ -8,10 +8,8 @@ domain: engineering
 subdomain: backend-development
 skills: senior-backend
 
-# === WEBSITE DISPLAY ===
+# === USE CASES ===
 difficulty: advanced
-
-frequency: "TODO: Estimate usage frequency"
 use-cases:
   - Building robust API services with proper authentication and authorization
   - Designing database schemas and optimizing query performance
