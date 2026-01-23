@@ -1,0 +1,60 @@
+Customer Interview Transcript: Jane Smith, IT Manager at TechCorp
+
+Date: November 4, 2025
+Duration: 45 minutes
+Interviewer: Sarah, Product Manager
+
+---
+
+Sarah: Thanks for taking the time to chat with us today, Jane. Can you tell me a bit about your current workflow and the tools you're using?
+
+Jane: Of course! So our team manages infrastructure for about 500 users across multiple offices. Right now we're using three different tools - one for user management, one for resource allocation, and a spreadsheet to track it all. It's a mess, honestly. We're constantly jumping between systems.
+
+Sarah: That sounds frustrating. What's the biggest pain point you face?
+
+Jane: The lack of integration is killing us. When we need to add a new user, we have to manually enter information in three places. It takes forever and we make mistakes constantly. Last week, a new hire wasn't set up correctly because the data didn't sync between systems. That caused problems for everyone.
+
+Sarah: Do you wish there was a single place where you could manage everything?
+
+Jane: Absolutely. We'd love a unified dashboard where we could see all user data, their access levels, and resource allocation in one place. That would save us at least 10 hours a week, which we could spend on more strategic work.
+
+Sarah: 10 hours a week is significant. Have you looked at other solutions?
+
+Jane: We've evaluated a few options, but most are either too expensive for our budget or require too much customization. Plus, we need something that integrates with Active Directory. That's non-negotiable for us.
+
+Sarah: That makes sense. What about reporting? Do you need to generate reports?
+
+Jane: Yes, constantly. Our CFO wants monthly reports on resource utilization, and our CEO wants dashboards showing headcount by department. Right now, I'm manually pulling that data and creating presentations. If I had automated reporting, even at a basic level, that would be amazing.
+
+Sarah: When you say basic level, what would be useful?
+
+Jane: Honestly, just the ability to filter by department, export to Excel, and see trends. I don't need anything fancy. The manual part is what kills the time.
+
+Sarah: Let's talk about mobile. Do you need to manage things on the go?
+
+Jane: We have some mobile capabilities we'd like, but honestly, it's lower priority. Most of our work happens at a desk. But it would be nice to approve requests from my phone if I'm out of the office.
+
+Sarah: What about your team? Are there features that would help them be more effective?
+
+Jane: My team struggles with visibility. They often don't know the current status of user requests. If there was a ticketing system or some way to track requests from submission to completion, that would be really helpful. We could also use role-based access - some team members should only see certain data.
+
+Sarah: That's important information. Are you looking at solutions right now?
+
+Jane: We're evaluating three vendors. The main criteria are integration capabilities, pricing, and ease of use. We need something our team can pick up quickly without extensive training. One of the solutions we're looking at has a steep learning curve, which is a deal-breaker for us.
+
+Sarah: What would make you excited about a solution?
+
+Jane: If we could reduce manual work by even 50%, that would be valuable. If we could get better visibility into our infrastructure, that's a bonus. And if it didn't require a PhD in technology to set up and maintain, we'd be happy customers.
+
+Sarah: One last question - what's your timeline?
+
+Jane: We need a solution by Q1. Our current setup is getting increasingly difficult to manage as we scale.
+
+---
+
+Key Takeaways:
+- Pain: Manual data entry across multiple systems
+- Need: Unified dashboard with Active Directory integration
+- Desire: Automated reporting and mobile approvals
+- Priority: Integration > Reporting > Mobile > Customization
+- Timeline: Q1 2026

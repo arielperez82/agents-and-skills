@@ -1,0 +1,137 @@
+{
+  "_comment": "Sample system data for technical debt analysis. Assess your systems and fill in the data.",
+  "system": {
+    "name": "Core Analytics Platform",
+    "description": "Main SaaS product - real-time data processing and visualization",
+    "age_years": 3,
+    "team_size": 12,
+    "language": "Python/Node.js/React",
+    "last_major_refactor": "2023-06-01"
+  },
+  "architecture": {
+    "pattern": "Monolithic with microservice migration underway",
+    "design_quality": "moderate",
+    "issues": {
+      "monolithic_design": {"present": true, "severity": "high"},
+      "tight_coupling": {"present": true, "severity": "high"},
+      "no_microservices": {"present": false, "severity": "none"},
+      "legacy_patterns": {"present": true, "severity": "medium"},
+      "no_api_gateway": {"present": false, "severity": "low"},
+      "synchronous_only": {"present": true, "severity": "medium"}
+    }
+  },
+  "code_quality": {
+    "test_coverage_percent": 68,
+    "cyclomatic_complexity": "moderate",
+    "code_duplication_percent": 12,
+    "documentation_level": "partial",
+    "standards_adherence": "inconsistent",
+    "issues": {
+      "low_test_coverage": {"present": false, "severity": "none"},
+      "high_complexity": {"present": true, "severity": "medium"},
+      "code_duplication": {"present": true, "severity": "medium"},
+      "no_documentation": {"present": false, "severity": "low"},
+      "inconsistent_standards": {"present": true, "severity": "medium"},
+      "legacy_language": {"present": false, "severity": "none"}
+    }
+  },
+  "infrastructure": {
+    "deployment_model": "Partial CI/CD",
+    "cloud_provider": "AWS",
+    "issues": {
+      "manual_deployments": {"present": true, "severity": "high"},
+      "no_ci_cd": {"present": false, "severity": "medium"},
+      "single_points_failure": {"present": true, "severity": "high"},
+      "no_monitoring": {"present": false, "severity": "low"},
+      "no_auto_scaling": {"present": false, "severity": "medium"},
+      "outdated_servers": {"present": true, "severity": "low"}
+    },
+    "uptime_percent": 99.5,
+    "incident_frequency_monthly": 2.5
+  },
+  "security": {
+    "compliance_requirements": ["SOC 2", "GDPR"],
+    "issues": {
+      "outdated_dependencies": {"present": true, "severity": "high"},
+      "no_security_scans": {"present": false, "severity": "medium"},
+      "plain_text_secrets": {"present": false, "severity": "high"},
+      "no_encryption": {"present": false, "severity": "high"},
+      "missing_auth": {"present": false, "severity": "medium"},
+      "no_audit_logs": {"present": true, "severity": "medium"}
+    },
+    "security_incidents_past_year": 0,
+    "vulnerability_scan_frequency": "monthly"
+  },
+  "performance": {
+    "api_response_time_p95_ms": 450,
+    "query_execution_time_p95_ms": 3200,
+    "issues": {
+      "slow_response_times": {"present": true, "severity": "medium"},
+      "no_caching": {"present": true, "severity": "high"},
+      "inefficient_queries": {"present": true, "severity": "high"},
+      "memory_leaks": {"present": false, "severity": "low"},
+      "no_optimization": {"present": true, "severity": "medium"},
+      "blocking_operations": {"present": true, "severity": "medium"}
+    }
+  },
+  "impact_assessment": {
+    "user_impact": {
+      "score": 7,
+      "description": "Performance issues affect user experience during peak hours"
+    },
+    "developer_velocity": {
+      "score": 6,
+      "description": "Monolithic architecture slows down feature development"
+    },
+    "system_reliability": {
+      "score": 8,
+      "description": "Generally reliable but occasional incidents during deployments"
+    },
+    "scalability": {
+      "score": 5,
+      "description": "Limited auto-scaling, manual capacity planning required"
+    },
+    "maintenance_cost": {
+      "score": 6,
+      "description": "Increasing maintenance burden as codebase grows"
+    }
+  },
+  "technical_debt_investment": {
+    "estimated_debt_hours": 2500,
+    "estimated_debt_cost": 300000,
+    "payback_period_months": 12,
+    "critical_debt_areas": [
+      "Caching layer implementation",
+      "Query optimization",
+      "Microservices migration foundation",
+      "Dependency updates and security patches",
+      "CI/CD pipeline completion"
+    ],
+    "recommended_roadmap": [
+      {
+        "quarter": "Q1",
+        "initiative": "Implement Redis caching",
+        "effort_hours": 200,
+        "expected_benefit": "30% faster query response"
+      },
+      {
+        "quarter": "Q2",
+        "initiative": "Query optimization and indexing",
+        "effort_hours": 300,
+        "expected_benefit": "50% faster database queries"
+      },
+      {
+        "quarter": "Q3",
+        "initiative": "Complete CI/CD pipeline",
+        "effort_hours": 150,
+        "expected_benefit": "Faster deployments, reduced incidents"
+      },
+      {
+        "quarter": "Q4",
+        "initiative": "Begin microservices extraction",
+        "effort_hours": 400,
+        "expected_benefit": "Improved scalability, team velocity"
+      }
+    ]
+  }
+}

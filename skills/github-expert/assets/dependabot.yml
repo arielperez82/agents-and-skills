@@ -1,0 +1,63 @@
+# Dependabot configuration
+# Place this file in .github/dependabot.yml
+
+version: 2
+updates:
+  # Enable version updates for npm
+  - package-ecosystem: "npm"
+    directory: "/"
+    schedule:
+      interval: "weekly"
+      day: "monday"
+      time: "09:00"
+    open-pull-requests-limit: 10
+    versioning-strategy: increase
+    labels:
+      - "dependencies"
+      - "automated"
+    commit-message:
+      prefix: "chore(deps):"
+      include: "scope"
+    # Auto-merge minor and patch updates
+    # (Requires GitHub Actions workflow)
+
+  # Enable security updates for npm
+  - package-ecosystem: "npm"
+    directory: "/"
+    schedule:
+      interval: "daily"
+    open-pull-requests-limit: 5
+    labels:
+      - "dependencies"
+      - "security"
+
+  # GitHub Actions
+  - package-ecosystem: "github-actions"
+    directory: "/"
+    schedule:
+      interval: "weekly"
+    labels:
+      - "dependencies"
+      - "github-actions"
+    commit-message:
+      prefix: "ci:"
+
+  # Docker (if you have Dockerfile)
+  # - package-ecosystem: "docker"
+  #   directory: "/"
+  #   schedule:
+  #     interval: "weekly"
+
+  # Python (if you have requirements.txt)
+  # - package-ecosystem: "pip"
+  #   directory: "/"
+  #   schedule:
+  #     interval: "weekly"
+
+# Groups to reduce PR noise
+# groups:
+#   dev-dependencies:
+#     dependency-type: "development"
+#     update-types:
+#       - "minor"
+#       - "patch"

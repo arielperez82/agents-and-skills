@@ -1,0 +1,41 @@
+{
+  "_comment": "Sample epic for user story generation. Customize scope and requirements for your product.",
+  "name": "Advanced Reporting Dashboard",
+  "description": "Build a comprehensive reporting dashboard that enables product managers, marketers, and executives to visualize key metrics, create custom reports, and make data-driven decisions without requiring technical expertise.",
+  "epic_id": "EPIC-2025-001",
+  "start_date": "2025-01-15",
+  "target_completion": "2025-03-31",
+  "personas": ["end_user", "power_user", "admin"],
+  "scope": [
+    "Create dashboard layout with customizable widgets",
+    "Display key metrics (MAU, DAU, conversion rate, churn)",
+    "Build report builder for custom queries",
+    "Export reports to PDF and Excel formats",
+    "Share dashboards with team members",
+    "Set up automated daily/weekly email reports",
+    "Create performance comparison reports (month-over-month)",
+    "Implement real-time data refresh capability"
+  ],
+  "technical_requirements": [
+    "Implement data aggregation pipeline",
+    "Set up caching layer for performance",
+    "Design scalable database schema for metrics storage",
+    "Implement role-based access control",
+    "Create API endpoints for report generation"
+  ],
+  "success_criteria": [
+    "Dashboard loads in under 2 seconds",
+    "Support 50+ concurrent users",
+    "Enable 95% of use cases without custom SQL",
+    "Achieve 90% user adoption within first month",
+    "Reduce time to insight from 1 hour to 5 minutes"
+  ],
+  "dependencies": [
+    "Data warehouse modernization (COMPLETED)",
+    "Authentication system upgrade (IN_PROGRESS)"
+  ],
+  "estimated_effort": "40 story points",
+  "business_impact": "Enable faster decision-making across the organization, reduce dependency on data team for ad-hoc reporting",
+  "priority": "high",
+  "owner": "product_manager_jane"
+}

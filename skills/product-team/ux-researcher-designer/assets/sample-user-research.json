@@ -1,0 +1,130 @@
+{
+  "_comment": "Sample user research data for persona generation. Include actual user data from surveys, analytics, and interviews.",
+  "research_metadata": {
+    "study_name": "Q4 2025 User Research",
+    "date_conducted": "2025-10-01",
+    "sample_size": 45,
+    "methodology": ["User interviews", "Survey", "Usage analytics"],
+    "duration_weeks": 4
+  },
+  "users": [
+    {
+      "user_id": "U001",
+      "age": 32,
+      "location": "San Francisco, CA",
+      "occupation": "Software Engineer",
+      "education": "BS Computer Science",
+      "income_bracket": "$120K-$160K",
+      "company_size": "Series B Startup",
+      "usage_frequency": "daily",
+      "features_used": ["dashboard", "reporting", "api", "integrations"],
+      "preferred_devices": ["laptop", "desktop"],
+      "tech_savviness": "high",
+      "key_activities": ["data analysis", "script automation", "api integration"],
+      "goals": ["reduce manual data work", "automate workflows", "customize reports"],
+      "frustrations": ["limited api documentation", "export lag time", "custom report builder complexity"],
+      "pain_points": ["slow query performance", "lacks advanced filtering", "poor mobile experience"],
+      "quotes": ["I need an API that actually lets me do what I want", "The documentation is outdated and confusing"],
+      "nps_score": 8,
+      "is_power_user": true
+    },
+    {
+      "user_id": "U002",
+      "age": 28,
+      "location": "Austin, TX",
+      "occupation": "Product Manager",
+      "education": "MBA",
+      "income_bracket": "$100K-$140K",
+      "company_size": "Mid-market (500-1000)",
+      "usage_frequency": "several_times_weekly",
+      "features_used": ["dashboard", "reporting"],
+      "preferred_devices": ["laptop", "tablet"],
+      "tech_savviness": "medium",
+      "key_activities": ["executive reporting", "metrics tracking", "stakeholder communication"],
+      "goals": ["communicate metrics to executives", "understand trends", "make data-driven decisions"],
+      "frustrations": ["too many clicks to create reports", "chart customization limited", "no scheduled reports"],
+      "pain_points": ["manual report creation", "inconsistent data", "collaboration challenges"],
+      "quotes": ["I spend hours every month building the same reports", "I need something I can send to my CEO without editing"],
+      "nps_score": 7,
+      "is_power_user": false
+    },
+    {
+      "user_id": "U003",
+      "age": 45,
+      "location": "New York, NY",
+      "occupation": "CFO",
+      "education": "MBA Finance",
+      "income_bracket": "$200K-$300K",
+      "company_size": "Enterprise (5000+)",
+      "usage_frequency": "weekly",
+      "features_used": ["dashboard", "reporting", "audit_logs"],
+      "preferred_devices": ["laptop"],
+      "tech_savviness": "low",
+      "key_activities": ["financial reporting", "audit compliance", "budget planning"],
+      "goals": ["ensure data accuracy", "meet compliance requirements", "reduce reporting time"],
+      "frustrations": ["complex interface", "requires IT support", "steep learning curve"],
+      "pain_points": ["security concerns", "data governance", "integration with accounting software"],
+      "quotes": ["I just need the numbers to be right", "Our IT team spends too much time maintaining this"],
+      "nps_score": 6,
+      "is_power_user": false
+    },
+    {
+      "user_id": "U004",
+      "age": 26,
+      "location": "Seattle, WA",
+      "occupation": "Marketing Analyst",
+      "education": "BS Marketing",
+      "income_bracket": "$60K-$90K",
+      "company_size": "Series B Startup",
+      "usage_frequency": "daily",
+      "features_used": ["dashboard", "reporting", "integrations"],
+      "preferred_devices": ["laptop", "phone"],
+      "tech_savviness": "medium-high",
+      "key_activities": ["campaign tracking", "roi analysis", "trend monitoring"],
+      "goals": ["track campaign performance", "prove marketing value", "optimize spend"],
+      "frustrations": ["limited integration options", "manual data syncing", "no mobile app"],
+      "pain_points": ["disconnected data sources", "time wasted on data cleanup", "cant access data on-the-go"],
+      "quotes": ["I wish I could see my dashboards on my phone", "We waste half our time cleaning up data from different tools"],
+      "nps_score": 9,
+      "is_power_user": true
+    }
+  ],
+  "usage_patterns": {
+    "peak_usage_time": "9am-11am EST",
+    "most_used_feature": "dashboard",
+    "export_frequency": "multiple_times_weekly",
+    "integration_usage": 0.65,
+    "mobile_usage_percentage": 0.15,
+    "average_session_duration_minutes": 22
+  },
+  "satisfaction_metrics": {
+    "average_nps": 7.5,
+    "feature_satisfaction": {
+      "dashboard": 8.2,
+      "reporting": 7.1,
+      "integrations": 6.8,
+      "mobile": 4.2,
+      "api": 7.9
+    }
+  },
+  "segment_insights": {
+    "power_users": {
+      "count": 18,
+      "characteristics": "tech-savvy, frequent usage, advanced features",
+      "primary_needs": ["api access", "customization", "automation"],
+      "satisfaction": 8.1
+    },
+    "business_users": {
+      "count": 22,
+      "characteristics": "occasional usage, basic needs, non-technical",
+      "primary_needs": ["simplicity", "pre-built reports", "mobile access"],
+      "satisfaction": 6.9
+    },
+    "executives": {
+      "count": 5,
+      "characteristics": "very low usage, expects it to just work",
+      "primary_needs": ["accuracy", "compliance", "executive dashboards"],
+      "satisfaction": 6.4
+    }
+  }
+}

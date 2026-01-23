@@ -1,0 +1,22 @@
+# Sample features for RICE prioritization
+# Columns: feature, reach, impact, confidence, effort
+# reach: number of users affected per quarter
+# impact: massive(3.0), high(2.0), medium(1.0), low(0.5), minimal(0.25)
+# confidence: high(1.0), medium(0.8), low(0.5)
+# effort: xl(13), l(8), m(5), s(3), xs(1) in person-months
+
+Mobile App - Dark Mode,2500,high,1.0,3
+Dashboard Performance Optimization,5000,massive,0.9,5
+API Rate Limiting,8000,high,0.95,3
+Two-Factor Authentication,3500,high,0.85,4
+Real-time Collaboration,6000,high,0.7,8
+Custom Branding for Enterprise,1200,medium,0.8,2
+Advanced Search Filters,4000,medium,0.9,2
+Integration with Slack,3000,high,0.8,4
+Data Export to Excel,2800,medium,0.9,1
+Webhook Support,2000,medium,0.7,3
+Video Tutorial Library,1500,medium,0.8,2
+Audit Logging,2200,high,0.85,2
+Single Sign-On (SSO),4500,high,0.9,4
+Mobile App Offline Mode,3000,medium,0.6,8
+Custom Roles and Permissions,5500,high,0.85,5

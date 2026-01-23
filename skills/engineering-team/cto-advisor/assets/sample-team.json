@@ -1,0 +1,182 @@
+{
+  "_comment": "Sample team data for scaling calculations. Estimate based on your current team and growth plans.",
+  "company": {
+    "name": "CloudAnalytics Inc.",
+    "current_stage": "Series A",
+    "target_stage": "Series B",
+    "planning_horizon_months": 12
+  },
+  "current_team": {
+    "total_engineers": 12,
+    "breakdown": {
+      "backend": 5,
+      "frontend": 3,
+      "devops": 2,
+      "qa": 2
+    },
+    "seniority_distribution": {
+      "junior": 3,
+      "mid_level": 6,
+      "senior": 2,
+      "staff": 1
+    },
+    "average_tenure_months": 18,
+    "team_satisfaction_score": 7.8,
+    "attrition_rate_annual": 0.15
+  },
+  "productivity_metrics": {
+    "features_shipped_per_quarter": 15,
+    "bugs_fixed_per_quarter": 45,
+    "deployment_frequency": "bi-weekly",
+    "mean_time_to_recovery_hours": 2.5,
+    "code_review_turnaround_hours": 4
+  },
+  "capacity_analysis": {
+    "total_available_hours_per_engineer": 1600,
+    "average_project_overhead_percent": 20,
+    "meeting_overhead_hours_per_week": 8,
+    "effective_delivery_capacity_percent": 60
+  },
+  "growth_plan": {
+    "target_team_size": 20,
+    "hiring_timeline": [
+      {
+        "month": 1,
+        "role": "Senior Backend Engineer",
+        "count": 1
+      },
+      {
+        "month": 2,
+        "role": "Frontend Engineer",
+        "count": 1
+      },
+      {
+        "month": 3,
+        "role": "DevOps Engineer",
+        "count": 1
+      },
+      {
+        "month": 4,
+        "role": "QA Engineer",
+        "count": 1
+      },
+      {
+        "month": 5,
+        "role": "Mid-level Backend Engineer",
+        "count": 2
+      },
+      {
+        "month": 6,
+        "role": "Engineering Manager",
+        "count": 1
+      },
+      {
+        "month": 7,
+        "role": "Frontend Engineers",
+        "count": 2
+      }
+    ]
+  },
+  "roadmap_capacity": {
+    "high_priority_initiatives": [
+      {
+        "initiative": "Microservices architecture migration",
+        "estimated_hours": 2000,
+        "team_allocation_percent": 40,
+        "start_month": 1,
+        "duration_months": 6
+      },
+      {
+        "initiative": "Performance optimization",
+        "estimated_hours": 800,
+        "team_allocation_percent": 20,
+        "start_month": 2,
+        "duration_months": 4
+      },
+      {
+        "initiative": "New enterprise features",
+        "estimated_hours": 1200,
+        "team_allocation_percent": 30,
+        "start_month": 1,
+        "duration_months": 12
+      },
+      {
+        "initiative": "Security and compliance",
+        "estimated_hours": 600,
+        "team_allocation_percent": 15,
+        "start_month": 1,
+        "duration_months": 12
+      }
+    ]
+  },
+  "skills_gap": {
+    "needed_skills": [
+      {
+        "skill": "Kubernetes/Container Orchestration",
+        "current_coverage_percent": 10,
+        "target_coverage_percent": 80,
+        "hiring_priority": "high"
+      },
+      {
+        "skill": "Machine Learning/Data Science",
+        "current_coverage_percent": 0,
+        "target_coverage_percent": 50,
+        "hiring_priority": "medium"
+      },
+      {
+        "skill": "Security/Compliance",
+        "current_coverage_percent": 20,
+        "target_coverage_percent": 60,
+        "hiring_priority": "high"
+      },
+      {
+        "skill": "Enterprise Architecture",
+        "current_coverage_percent": 10,
+        "target_coverage_percent": 70,
+        "hiring_priority": "high"
+      }
+    ]
+  },
+  "organizational_structure": {
+    "target_structure": [
+      {
+        "role": "VP Engineering",
+        "reports_to": "CTO"
+      },
+      {
+        "role": "Engineering Manager - Backend",
+        "reports_to": "VP Engineering",
+        "team_size": 6
+      },
+      {
+        "role": "Engineering Manager - Frontend",
+        "reports_to": "VP Engineering",
+        "team_size": 5
+      },
+      {
+        "role": "Engineering Manager - Infrastructure",
+        "reports_to": "VP Engineering",
+        "team_size": 3
+      }
+    ]
+  },
+  "compensation_budget": {
+    "current_annual_eng_budget": 1800000,
+    "target_annual_eng_budget": 3200000,
+    "budget_increase_required": 1400000,
+    "headcount_increase": 8
+  },
+  "culture_and_retention": {
+    "current_initiatives": [
+      "Mentorship program pairing senior and junior engineers",
+      "Monthly tech talks and learning sessions",
+      "Flexible work arrangements",
+      "Annual learning budget per engineer"
+    ],
+    "improvement_areas": [
+      "Career path clarity",
+      "Professional development opportunities",
+      "Work-life balance during high-intensity periods"
+    ]
+  }
+}
