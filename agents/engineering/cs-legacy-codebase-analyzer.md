@@ -6,11 +6,10 @@ description: Comprehensive legacy codebase analysis specialist for technical deb
 domain: engineering
 subdomain: technical-debt
 skills: legacy-codebase-analyzer
-model: opus
 
 # === WEBSITE DISPLAY ===
 difficulty: advanced
-time-saved: "3-5 days per assessment"
+
 frequency: "Quarterly per codebase"
 use-cases:
   - "Conducting comprehensive legacy codebase assessments before modernization initiatives"
@@ -18,15 +17,6 @@ use-cases:
   - "Identifying security vulnerabilities in aging systems requiring remediation"
   - "Generating data-driven modernization roadmaps with prioritized phases"
   - "Preparing executive summaries for board and stakeholder communication"
-
-# === AGENT CLASSIFICATION ===
-classification:
-  type: quality
-  color: red
-  field: quality
-  expertise: expert
-  execution: sequential
-  model: opus
 
 # === RELATIONSHIPS ===
 related-agents: [cs-architect, cs-code-reviewer, cs-secops-engineer, cs-cto-advisor]
@@ -41,10 +31,6 @@ dependencies:
   tools: [Read, Write, Bash, Grep, Glob]
   mcp-tools: []
   scripts: [codebase_inventory.py, security_vulnerability_scanner.py, performance_bottleneck_detector.py, code_quality_analyzer.py, architecture_health_analyzer.py, technical_debt_scorer.py, modernization_roadmap_generator.py]
-compatibility:
-  claude-ai: true
-  claude-code: true
-  platforms: [macos, linux, windows]
 
 # === EXAMPLES ===
 examples:
@@ -52,31 +38,6 @@ examples:
     input: "Analyze the legacy payment system for modernization planning"
     output: "Comprehensive assessment with debt score 7.2/10, 47 security vulnerabilities identified, 18-month modernization roadmap with 4 phases"
 
-# === ANALYTICS ===
-stats:
-  installs: 0
-  upvotes: 0
-  rating: 0.0
-  reviews: 0
-
-# === VERSIONING ===
-version: v1.0.0
-author: Claude Skills Team
-contributors: []
-created: 2025-12-13
-updated: 2025-12-13
-license: MIT
-
-# === DISCOVERABILITY ===
-tags: [legacy, codebase, analysis, technical-debt, modernization, security, assessment, engineering]
-featured: false
-verified: true
-
-# === LEGACY ===
-color: red
-field: quality
-expertise: expert
-execution: sequential
 ---
 
 # Legacy Codebase Analyzer

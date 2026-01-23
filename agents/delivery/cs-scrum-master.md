@@ -7,26 +7,14 @@ description: Scrum facilitation specialist for sprint ceremonies, team coaching,
 domain: delivery
 subdomain: agile-delivery
 skills: scrum-master
-model: opus
 
 # === WEBSITE DISPLAY ===
 difficulty: advanced
-time-saved: "TODO: Quantify time savings"
-frequency: "TODO: Estimate usage frequency"
 use-cases:
   - Primary workflow for Scrum Master
   - Analysis and recommendations for scrum master tasks
   - Best practices implementation for scrum master
   - Integration with related agents and workflows
-
-# === AGENT CLASSIFICATION ===
-classification:
-  type: coordination
-  color: purple
-  field: agile
-  expertise: expert
-  execution: parallel
-  model: sonnet
 
 # === RELATIONSHIPS ===
 related-agents: []
@@ -41,10 +29,6 @@ dependencies:
   tools: [Read, Write, Bash, Grep, Glob]
   mcp-tools: [mcp__atlassian]
   scripts: []
-compatibility:
-  claude-ai: true
-  claude-code: true
-  platforms: [macos, linux, windows]
 
 # === EXAMPLES ===
 examples:
@@ -53,31 +37,6 @@ examples:
     input: "TODO: Add example input for cs-scrum-master"
     output: "TODO: Add expected output"
 
-# === ANALYTICS ===
-stats:
-  installs: 0
-  upvotes: 0
-  rating: 0.0
-  reviews: 0
-
-# === VERSIONING ===
-version: v1.0.0
-author: Claude Skills Team
-contributors: []
-created: 2025-11-13
-updated: 2025-11-27
-license: MIT
-
-# === DISCOVERABILITY ===
-tags: [agile, delivery, master, scrum]
-featured: false
-verified: true
-
-# === LEGACY ===
-color: purple
-field: agile
-expertise: expert
-execution: parallel
 ---
 
 # Scrum Master Agent

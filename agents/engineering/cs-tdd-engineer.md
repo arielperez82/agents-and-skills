@@ -7,26 +7,16 @@ description: Test-Driven Development specialist for red-green-refactor workflows
 domain: engineering
 subdomain: test-driven-development
 skills: senior-qa
-model: opus
 
 # === WEBSITE DISPLAY ===
 difficulty: advanced
-time-saved: "4-6 hours per feature (40% faster development)"
+
 frequency: "Per feature implementation"
 use-cases:
   - Implementing features using strict Red-Green-Refactor cycles
   - Designing APIs through test-first specification
   - Refactoring legacy code with comprehensive test coverage
   - Teaching TDD methodology to engineering teams
-
-# === AGENT CLASSIFICATION ===
-classification:
-  type: quality
-  color: red
-  field: testing
-  expertise: expert
-  execution: sequential
-  model: sonnet
 
 # === RELATIONSHIPS ===
 related-agents: [cs-qa-engineer, cs-code-reviewer, cs-fullstack-engineer]
@@ -46,10 +36,6 @@ dependencies:
     - format_detector.py
     - test_spec_generator.py
     - refactor_analyzer.py
-compatibility:
-  claude-ai: true
-  claude-code: true
-  platforms: [macos, linux, windows]
 
 # === EXAMPLES ===
 examples:
@@ -62,31 +48,6 @@ examples:
     input: "Design REST API for user management using TDD"
     output: "Test specs for CRUD endpoints → Minimal handlers → Clean architecture"
 
-# === ANALYTICS ===
-stats:
-  installs: 0
-  upvotes: 0
-  rating: 0.0
-  reviews: 0
-
-# === VERSIONING ===
-version: v1.0.0
-author: Claude Skills Team
-contributors: []
-created: 2025-11-28
-updated: 2025-11-28
-license: MIT
-
-# === DISCOVERABILITY ===
-tags: [tdd, test-driven-development, red-green-refactor, testing, engineering, quality]
-featured: false
-verified: true
-
-# === LEGACY ===
-color: red
-field: testing
-expertise: expert
-execution: sequential
 ---
 
 # TDD Engineer Agent

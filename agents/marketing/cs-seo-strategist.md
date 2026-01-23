@@ -7,11 +7,10 @@ description: Strategic SEO planning and analysis specialist for site-wide optimi
 domain: marketing
 subdomain: search-marketing
 skills: marketing-team/seo-strategist
-model: sonnet
 
 # === WEBSITE DISPLAY ===
 difficulty: intermediate
-time-saved: "60%+ faster SEO strategy development"
+
 frequency: Weekly/Monthly for strategy, daily for monitoring
 use-cases:
   - Developing comprehensive keyword strategies and topic clusters
@@ -20,15 +19,6 @@ use-cases:
   - Creating SEO roadmaps with prioritized action items
   - Planning site architecture for optimal crawlability
   - Generating internal linking strategy recommendations
-
-# === AGENT CLASSIFICATION ===
-classification:
-  type: domain-specific
-  color: green
-  field: content
-  expertise: expert
-  execution: sequential
-  model: sonnet
 
 # === RELATIONSHIPS ===
 related-agents:
@@ -66,10 +56,6 @@ dependencies:
     - keyword_researcher.py
     - technical_seo_auditor.py
     - seo_roadmap_generator.py
-compatibility:
-  claude-ai: true
-  claude-code: true
-  platforms: [macos, linux, windows]
 
 # === EXAMPLES ===
 examples:
@@ -83,31 +69,6 @@ examples:
     input: "Create a quarterly SEO roadmap from our audit results"
     output: "Prioritized roadmap with quick wins, quarterly plans, and KPI targets"
 
-# === ANALYTICS ===
-stats:
-  installs: 0
-  upvotes: 0
-  rating: 0.0
-  reviews: 0
-
-# === VERSIONING ===
-version: v1.0.0
-author: Claude Skills Team
-contributors: []
-created: 2025-12-16
-updated: 2025-12-16
-license: MIT
-
-# === DISCOVERABILITY ===
-tags: [seo, strategy, keywords, technical-seo, search-marketing, audit, roadmap]
-featured: false
-verified: true
-
-# === LEGACY ===
-color: green
-field: content
-expertise: expert
-execution: sequential
 ---
 
 # SEO Strategist Agent

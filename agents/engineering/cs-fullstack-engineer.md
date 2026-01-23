@@ -7,26 +7,16 @@ description: Full-stack development specialist for end-to-end application archit
 domain: engineering
 subdomain: fullstack-development
 skills: senior-fullstack
-model: opus
 
 # === WEBSITE DISPLAY ===
 difficulty: advanced
-time-saved: "TODO: Quantify time savings"
+
 frequency: "TODO: Estimate usage frequency"
 use-cases:
   - Primary workflow for Fullstack Engineer
   - Analysis and recommendations for fullstack engineer tasks
   - Best practices implementation for fullstack engineer
   - Integration with related agents and workflows
-
-# === AGENT CLASSIFICATION ===
-classification:
-  type: implementation
-  color: green
-  field: fullstack
-  expertise: expert
-  execution: coordinated
-  model: sonnet
 
 # === RELATIONSHIPS ===
 related-agents: []
@@ -62,10 +52,6 @@ dependencies:
   tools: [Read, Write, Bash, Grep, Glob]
   mcp-tools: []
   scripts: []
-compatibility:
-  claude-ai: true
-  claude-code: true
-  platforms: [macos, linux, windows]
 
 # === EXAMPLES ===
 examples:
@@ -73,38 +59,6 @@ examples:
     input: "Implement user authentication with OAuth and profile management"
     output: "Complete auth flow with React frontend, Node.js backend, and PostgreSQL storage"
 
-# === ANALYTICS ===
-stats:
-  installs: 0
-  upvotes: 0
-  rating: 0.0
-  reviews: 0
-
-# === VERSIONING ===
-version: v1.0.0
-author: Claude Skills Team
-contributors: []
-created: 2025-11-06
-updated: 2025-11-27
-license: MIT
-
-# === DISCOVERABILITY ===
-tags:
-  - api
-  - architecture
-  - automation
-  - development
-  - engineer
-  - engineering
-  - fullstack
-featured: false
-verified: true
-
-# === LEGACY ===
-color: green
-field: fullstack
-expertise: expert
-execution: coordinated
 ---
 
 # Fullstack Engineer Agent

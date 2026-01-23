@@ -7,26 +7,14 @@ description: System architecture specialist for design patterns, scalability pla
 domain: engineering
 subdomain: system-architecture
 skills: senior-architect
-model: opus
 
 # === WEBSITE DISPLAY ===
 difficulty: advanced
-time-saved: "TODO: Quantify time savings"
-frequency: "TODO: Estimate usage frequency"
 use-cases:
   - Designing scalable system architectures for cloud-native applications
   - Evaluating technology stacks and making evidence-based decisions
   - Creating comprehensive architecture documentation with diagrams
   - Reviewing existing architectures for performance and security
-
-# === AGENT CLASSIFICATION ===
-classification:
-  type: coordination
-  color: purple
-  field: architecture
-  expertise: expert
-  execution: parallel
-  model: sonnet
 
 # === RELATIONSHIPS ===
 related-agents: [cs-technical-writer]
@@ -52,10 +40,6 @@ dependencies:
   tools: [Read, Write, Bash, Grep, Glob]
   mcp-tools: []
   scripts: []
-compatibility:
-  claude-ai: true
-  claude-code: true
-  platforms: [macos, linux, windows]
 
 # === EXAMPLES ===
 examples:
@@ -69,31 +53,6 @@ examples:
     input: "Create visual architecture diagram for payment processing system"
     output: "Mermaid diagram generated via cs-technical-writer collaboration"
 
-# === ANALYTICS ===
-stats:
-  installs: 0
-  upvotes: 0
-  rating: 0.0
-  reviews: 0
-
-# === VERSIONING ===
-version: v1.0.0
-author: Claude Skills Team
-contributors: []
-created: 2025-11-06
-updated: 2025-11-27
-license: MIT
-
-# === DISCOVERABILITY ===
-tags: [architect, architecture, design, diagrams, engineering, mermaid]
-featured: false
-verified: true
-
-# === LEGACY ===
-color: purple
-field: architecture
-expertise: expert
-execution: parallel
 ---
 
 # Architect Agent

@@ -7,11 +7,10 @@ description: Native iOS development specialist for Swift 5.9+, SwiftUI, UIKit, a
 domain: engineering
 subdomain: ios-development
 skills: engineering-team/senior-ios
-model: opus
 
 # === WEBSITE DISPLAY ===
 difficulty: advanced
-time-saved: "50% faster SwiftUI development, 70% fewer App Store rejections"
+
 frequency: "Daily for iOS development teams"
 use-cases:
   - Building native iOS applications with SwiftUI
@@ -19,15 +18,6 @@ use-cases:
   - Implementing modern Swift concurrency patterns
   - Performance profiling with Instruments
   - Preparing apps for App Store submission
-
-# === AGENT CLASSIFICATION ===
-classification:
-  type: implementation
-  color: green
-  field: frontend
-  expertise: expert
-  execution: coordinated
-  model: opus
 
 # === RELATIONSHIPS ===
 related-agents:
@@ -46,10 +36,6 @@ dependencies:
   tools: [Read, Write, Bash, Grep, Glob]
   mcp-tools: []
   scripts: []
-compatibility:
-  claude-ai: true
-  claude-code: true
-  platforms: [macos]
 
 # === EXAMPLES ===
 examples:
@@ -66,40 +52,6 @@ examples:
     input: "Our app is slow during scrolling"
     output: "Instruments analysis and optimization recommendations"
 
-# === ANALYTICS ===
-stats:
-  installs: 0
-  upvotes: 0
-  rating: 0.0
-  reviews: 0
-
-# === VERSIONING ===
-version: v1.0.0
-author: Claude Skills Team
-contributors: []
-created: 2025-12-13
-updated: 2025-12-13
-license: MIT
-
-# === DISCOVERABILITY ===
-tags:
-  - ios
-  - swift
-  - swiftui
-  - uikit
-  - xcode
-  - apple
-  - mobile
-  - app-store
-  - engineering
-featured: true
-verified: true
-
-# === LEGACY ===
-color: green
-field: frontend
-expertise: expert
-execution: coordinated
 ---
 
 # iOS Engineer Agent

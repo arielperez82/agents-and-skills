@@ -7,11 +7,10 @@ description: Flutter and Dart development specialist for cross-platform applicat
 domain: engineering
 subdomain: flutter-development
 skills: engineering-team/senior-flutter
-model: opus
 
 # === WEBSITE DISPLAY ===
 difficulty: advanced
-time-saved: "55% faster UI development, 40% reduced platform-specific code"
+
 frequency: "Daily for Flutter development teams"
 use-cases:
   - Building cross-platform apps with Flutter
@@ -19,15 +18,6 @@ use-cases:
   - Managing state with Riverpod, Bloc, or Provider
   - Integrating native code via platform channels
   - Optimizing widget performance
-
-# === AGENT CLASSIFICATION ===
-classification:
-  type: implementation
-  color: green
-  field: fullstack
-  expertise: expert
-  execution: coordinated
-  model: opus
 
 # === RELATIONSHIPS ===
 related-agents:
@@ -46,10 +36,6 @@ dependencies:
   tools: [Read, Write, Bash, Grep, Glob]
   mcp-tools: []
   scripts: []
-compatibility:
-  claude-ai: true
-  claude-code: true
-  platforms: [macos, linux, windows]
 
 # === EXAMPLES ===
 examples:
@@ -66,39 +52,6 @@ examples:
     input: "Access native battery API from Flutter"
     output: "MethodChannel implementation for iOS and Android"
 
-# === ANALYTICS ===
-stats:
-  installs: 0
-  upvotes: 0
-  rating: 0.0
-  reviews: 0
-
-# === VERSIONING ===
-version: v1.0.0
-author: Claude Skills Team
-contributors: []
-created: 2025-12-13
-updated: 2025-12-13
-license: MIT
-
-# === DISCOVERABILITY ===
-tags:
-  - flutter
-  - dart
-  - mobile
-  - cross-platform
-  - riverpod
-  - bloc
-  - widgets
-  - engineering
-featured: true
-verified: true
-
-# === LEGACY ===
-color: green
-field: fullstack
-expertise: expert
-execution: coordinated
 ---
 
 # Flutter Engineer Agent

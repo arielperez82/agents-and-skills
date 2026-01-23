@@ -6,11 +6,10 @@ description: Documentation specialist for README generation, CHANGELOG managemen
 domain: engineering
 subdomain: documentation
 skills: technical-writer
-model: opus
 
 # === WEBSITE DISPLAY ===
 difficulty: intermediate
-time-saved: "3-5 hours per documentation cycle"
+
 frequency: "Daily"
 use-cases:
   - Generating comprehensive README files with usage examples and badges
@@ -19,15 +18,6 @@ use-cases:
   - Generating Mermaid diagrams (architecture, flowcharts, sequence, ERD, swimlanes)
   - Auditing documentation quality across repositories
   - Synchronizing documentation with code changes
-
-# === AGENT CLASSIFICATION ===
-classification:
-  type: implementation
-  color: green
-  field: content
-  expertise: intermediate
-  execution: coordinated
-  model: sonnet
 
 # === RELATIONSHIPS ===
 related-agents: [cs-code-reviewer, cs-architect, cs-backend-engineer, cs-devops-engineer]
@@ -58,10 +48,6 @@ dependencies:
   tools: [Read, Write, Bash, Grep, Glob]
   mcp-tools: []
   scripts: [readme_generator.py, changelog_generator.py, api_doc_formatter.py, doc_quality_analyzer.py, mermaid_diagram_generator.py, interactive_doc_wizard.py]
-compatibility:
-  claude-ai: true
-  claude-code: true
-  platforms: [macos, linux, windows]
 
 # === EXAMPLES ===
 examples:
@@ -84,42 +70,6 @@ examples:
     input: "Review documentation across repository for completeness"
     output: "Quality report with coverage scores and improvement recommendations"
 
-# === ANALYTICS ===
-stats:
-  installs: 0
-  upvotes: 0
-  rating: 0.0
-  reviews: 0
-
-# === VERSIONING ===
-version: v1.1.0
-author: Claude Skills Team
-contributors: []
-created: 2025-11-28
-updated: 2025-12-16
-license: MIT
-
-# === DISCOVERABILITY ===
-tags:
-  - api-docs
-  - changelog
-  - content
-  - developer-experience
-  - diagrams
-  - documentation
-  - engineering
-  - markdown
-  - mermaid
-  - readme
-  - technical-writing
-featured: false
-verified: true
-
-# === LEGACY ===
-color: green
-field: content
-expertise: intermediate
-execution: coordinated
 ---
 
 # Technical Writer Specialist

@@ -7,11 +7,10 @@ description: Cross-platform mobile development specialist for React Native, Flut
 domain: engineering
 subdomain: mobile-development
 skills: engineering-team/senior-mobile
-model: opus
 
 # === WEBSITE DISPLAY ===
 difficulty: advanced
-time-saved: "60% faster project setup, 80% fewer store rejections"
+
 frequency: "Weekly for active mobile development"
 use-cases:
   - Creating new React Native or Flutter projects with best practices
@@ -19,15 +18,6 @@ use-cases:
   - Detecting platform capabilities and configuration issues
   - Validating apps before App Store/Play Store submission
   - Setting up CI/CD pipelines for mobile releases
-
-# === AGENT CLASSIFICATION ===
-classification:
-  type: implementation
-  color: green
-  field: fullstack
-  expertise: expert
-  execution: coordinated
-  model: opus
 
 # === RELATIONSHIPS ===
 related-agents:
@@ -51,10 +41,6 @@ dependencies:
     - mobile_scaffolder.py
     - platform_detector.py
     - app_store_validator.py
-compatibility:
-  claude-ai: true
-  claude-code: true
-  platforms: [macos, linux, windows]
 
 # === EXAMPLES ===
 examples:
@@ -71,40 +57,6 @@ examples:
     input: "Validate our app before submitting to the App Store"
     output: "Compliance report with required fixes and recommendations"
 
-# === ANALYTICS ===
-stats:
-  installs: 0
-  upvotes: 0
-  rating: 0.0
-  reviews: 0
-
-# === VERSIONING ===
-version: v1.0.0
-author: Claude Skills Team
-contributors: []
-created: 2025-12-13
-updated: 2025-12-13
-license: MIT
-
-# === DISCOVERABILITY ===
-tags:
-  - mobile
-  - react-native
-  - flutter
-  - expo
-  - ios
-  - android
-  - cross-platform
-  - app-store
-  - engineering
-featured: true
-verified: true
-
-# === LEGACY ===
-color: green
-field: fullstack
-expertise: expert
-execution: coordinated
 ---
 
 # Mobile Engineer Agent

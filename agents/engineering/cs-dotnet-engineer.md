@@ -7,11 +7,10 @@ description: C# and .NET development specialist for enterprise applications, ASP
 domain: engineering
 subdomain: dotnet-development
 skills: senior-dotnet
-model: sonnet
 
 # === WEBSITE DISPLAY ===
 difficulty: advanced
-time-saved: "60%+ on project scaffolding, 40% on security implementation"
+
 frequency: "Daily for enterprise development teams"
 use-cases:
   - Building ASP.NET Core Web APIs with production-ready configuration
@@ -19,15 +18,6 @@ use-cases:
   - Implementing Entity Framework Core data layers with optimized queries
   - Setting up ASP.NET Core Identity with JWT/OIDC authentication
   - Performance tuning .NET applications and async patterns
-
-# === AGENT CLASSIFICATION ===
-classification:
-  type: implementation
-  color: green
-  field: backend
-  expertise: expert
-  execution: coordinated
-  model: sonnet
 
 # === RELATIONSHIPS ===
 related-agents: [cs-backend-engineer, cs-architect, cs-devops-engineer]
@@ -74,10 +64,6 @@ dependencies:
     - api_endpoint_generator.py
     - security_config_generator.py
     - performance_profiler.py
-compatibility:
-  claude-ai: true
-  claude-code: true
-  platforms: [macos, linux, windows]
 
 # === EXAMPLES ===
 examples:
@@ -88,43 +74,6 @@ examples:
     input: "Generate a Product entity with category relationship and audit fields"
     output: "EF Core entity, repository, service, controller, DTOs, and AutoMapper profile with proper annotations"
 
-# === ANALYTICS ===
-stats:
-  installs: 0
-  upvotes: 0
-  rating: 0.0
-  reviews: 0
-
-# === VERSIONING ===
-version: v1.0.0
-author: Claude Skills Team
-contributors: []
-created: 2025-12-16
-updated: 2025-12-16
-license: MIT
-
-# === DISCOVERABILITY ===
-tags:
-  - csharp
-  - dotnet
-  - aspnet-core
-  - ef-core
-  - entity-framework
-  - blazor
-  - minimal-api
-  - clean-architecture
-  - microservices
-  - cloud-native
-  - backend
-  - api
-featured: false
-verified: true
-
-# === LEGACY ===
-color: green
-field: backend
-expertise: expert
-execution: coordinated
 ---
 
 # .NET Engineer Agent

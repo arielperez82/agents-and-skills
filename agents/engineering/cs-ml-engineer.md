@@ -7,26 +7,16 @@ description: Machine learning specialist for model development, training optimiz
 domain: engineering
 subdomain: ai-ml-engineering
 skills: senior-ml-engineer
-model: opus
 
 # === WEBSITE DISPLAY ===
 difficulty: advanced
-time-saved: "TODO: Quantify time savings"
+
 frequency: "TODO: Estimate usage frequency"
 use-cases:
   - Primary workflow for Ml Engineer
   - Analysis and recommendations for ml engineer tasks
   - Best practices implementation for ml engineer
   - Integration with related agents and workflows
-
-# === AGENT CLASSIFICATION ===
-classification:
-  type: implementation
-  color: green
-  field: ai
-  expertise: expert
-  execution: coordinated
-  model: sonnet
 
 # === RELATIONSHIPS ===
 related-agents: []
@@ -57,10 +47,6 @@ dependencies:
   tools: [Read, Write, Bash, Grep, Glob]
   mcp-tools: []
   scripts: []
-compatibility:
-  claude-ai: true
-  claude-code: true
-  platforms: [macos, linux, windows]
 
 # === EXAMPLES ===
 examples:
@@ -68,38 +54,6 @@ examples:
     input: "Deploy recommendation model with feature store and monitoring"
     output: "MLflow pipeline with feature engineering, model training, serving, and drift detection"
 
-# === ANALYTICS ===
-stats:
-  installs: 0
-  upvotes: 0
-  rating: 0.0
-  reviews: 0
-
-# === VERSIONING ===
-version: v1.0.0
-author: Claude Skills Team
-contributors: []
-created: 2025-11-06
-updated: 2025-11-27
-license: MIT
-
-# === DISCOVERABILITY ===
-tags:
-  - ai
-  - development
-  - engineer
-  - engineering
-  - machine-learning
-  - optimization
-  - product
-featured: false
-verified: true
-
-# === LEGACY ===
-color: green
-field: ai
-expertise: expert
-execution: coordinated
 ---
 
 # ML Engineer Agent

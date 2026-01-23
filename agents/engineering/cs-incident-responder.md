@@ -7,11 +7,10 @@ description: Security incident response specialist for detection, containment, i
 domain: engineering
 subdomain: security-engineering
 skills: incident-response
-model: opus
 
 # === WEBSITE DISPLAY ===
 difficulty: advanced
-time-saved: "70% reduction in incident response time"
+
 frequency: "On-demand during security incidents"
 use-cases:
   - Triaging and classifying security alerts by severity
@@ -19,15 +18,6 @@ use-cases:
   - Collecting forensic evidence with chain of custody
   - Conducting root cause analysis and impact assessment
   - Generating post-incident reports and remediation plans
-
-# === AGENT CLASSIFICATION ===
-classification:
-  type: quality
-  color: red
-  field: security
-  expertise: expert
-  execution: sequential
-  model: opus
 
 # === RELATIONSHIPS ===
 related-agents: [cs-secops-engineer, cs-devops-engineer, cs-technical-writer]
@@ -63,10 +53,6 @@ dependencies:
     - incident_analyzer.py
     - servicenow_incident_manager.py
     - servicenow_status_sync.py
-compatibility:
-  claude-ai: true
-  claude-code: true
-  platforms: [macos, linux, windows]
 
 # === EXAMPLES ===
 examples:
@@ -80,31 +66,6 @@ examples:
     input: "Unauthorized access to customer database detected. Need to assess impact."
     output: "Data breach analysis: 1) Access timeline reconstructed (3 days dwell time), 2) 15,000 records potentially exposed, 3) PII categories identified, 4) Regulatory notifications required (GDPR 72h), 5) Remediation plan generated"
 
-# === ANALYTICS ===
-stats:
-  installs: 0
-  upvotes: 0
-  rating: 0.0
-  reviews: 0
-
-# === VERSIONING ===
-version: v1.0.0
-author: Claude Skills Team
-contributors: []
-created: 2025-12-16
-updated: 2025-12-16
-license: MIT
-
-# === DISCOVERABILITY ===
-tags: [incident-response, security, forensics, containment, investigation, playbooks, MTTD, MTTR, servicenow, itsm]
-featured: false
-verified: true
-
-# === LEGACY ===
-color: red
-field: security
-expertise: expert
-execution: sequential
 ---
 
 # Incident Responder Agent

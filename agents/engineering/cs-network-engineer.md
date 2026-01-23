@@ -7,11 +7,10 @@ description: Network infrastructure specialist for VPC design, VPN configuration
 domain: engineering
 subdomain: network-infrastructure
 skills: senior-network-infrastructure
-model: opus
 
 # === WEBSITE DISPLAY ===
 difficulty: advanced
-time-saved: "70% reduction in network configuration time"
+
 frequency: "Weekly for infrastructure changes, daily during deployments"
 use-cases:
   - Designing VPC/VNet architecture for multi-region applications
@@ -19,15 +18,6 @@ use-cases:
   - Generating firewall rules and security groups
   - Planning subnet allocation and CIDR blocks
   - Auditing network security compliance
-
-# === AGENT CLASSIFICATION ===
-classification:
-  type: implementation
-  color: green
-  field: devops
-  expertise: expert
-  execution: coordinated
-  model: opus
 
 # === RELATIONSHIPS ===
 related-agents: []
@@ -67,10 +57,6 @@ dependencies:
     - firewall_policy_generator.py
     - network_topology_analyzer.py
     - subnet_planner.py
-compatibility:
-  claude-ai: true
-  claude-code: true
-  platforms: [macos, linux, windows]
 
 # === EXAMPLES ===
 examples:
@@ -84,31 +70,6 @@ examples:
     input: "Audit network security for PCI-DSS compliance"
     output: "Comprehensive audit report with findings, risk scores, and remediation steps"
 
-# === ANALYTICS ===
-stats:
-  installs: 0
-  upvotes: 0
-  rating: 0.0
-  reviews: 0
-
-# === VERSIONING ===
-version: v1.0.0
-author: Claude Skills Team
-contributors: []
-created: 2025-12-16
-updated: 2025-12-16
-license: MIT
-
-# === DISCOVERABILITY ===
-tags: [network, infrastructure, VPN, firewall, VPC, load-balancer, security-groups, routing, DNS, multi-cloud, networking, AWS, GCP, Azure, engineering]
-featured: false
-verified: true
-
-# === LEGACY ===
-color: green
-field: devops
-expertise: expert
-execution: coordinated
 ---
 
 # Network Engineer Agent

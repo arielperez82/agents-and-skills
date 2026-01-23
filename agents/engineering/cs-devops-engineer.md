@@ -7,26 +7,16 @@ description: DevOps specialist for CI/CD pipelines, infrastructure as code, cont
 domain: engineering
 subdomain: devops-operations
 skills: senior-devops
-model: opus
 
 # === WEBSITE DISPLAY ===
 difficulty: advanced
-time-saved: "TODO: Quantify time savings"
+
 frequency: "TODO: Estimate usage frequency"
 use-cases:
   - Setting up infrastructure as code with Terraform or CloudFormation
   - Implementing CI/CD pipelines with automated testing and deployment
   - Configuring container orchestration with Kubernetes
   - Monitoring and alerting setup for production systems
-
-# === AGENT CLASSIFICATION ===
-classification:
-  type: implementation
-  color: green
-  field: devops
-  expertise: expert
-  execution: coordinated
-  model: sonnet
 
 # === RELATIONSHIPS ===
 related-agents: []
@@ -76,10 +66,6 @@ dependencies:
     - terraform_scaffolder.py
     - deployment_manager.py
     - servicenow_change_manager.py
-compatibility:
-  claude-ai: true
-  claude-code: true
-  platforms: [macos, linux, windows]
 
 # === EXAMPLES ===
 examples:
@@ -87,31 +73,6 @@ examples:
     input: "Set up GitHub Actions for Node.js app with staging and production"
     output: "Complete CI/CD pipeline with testing, Docker builds, and multi-environment deployments"
 
-# === ANALYTICS ===
-stats:
-  installs: 0
-  upvotes: 0
-  rating: 0.0
-  reviews: 0
-
-# === VERSIONING ===
-version: v1.0.0
-author: Claude Skills Team
-contributors: []
-created: 2025-11-06
-updated: 2025-11-27
-license: MIT
-
-# === DISCOVERABILITY ===
-tags: [automation, ci/cd, devops, engineer, engineering, newrelic, prometheus, grafana, servicenow, change-management, itsm]
-featured: false
-verified: true
-
-# === LEGACY ===
-color: green
-field: devops
-expertise: expert
-execution: coordinated
 ---
 
 # DevOps Engineer Agent

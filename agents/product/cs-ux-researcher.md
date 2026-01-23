@@ -7,11 +7,9 @@ description: UX research agent for user persona generation, usability testing, u
 domain: product
 subdomain: user-research
 skills: product-team/ux-researcher-designer
-model: opus
 
 # === WEBSITE DISPLAY ===
 difficulty: advanced
-time-saved: "TODO: Quantify time savings"
 frequency: "TODO: Estimate usage frequency"
 use-cases:
   - Primary workflow for Ux Researcher
@@ -19,22 +17,13 @@ use-cases:
   - Best practices implementation for ux researcher
   - Integration with related agents and workflows
 
-# === AGENT CLASSIFICATION ===
-classification:
-  type: strategic
-  color: blue
-  field: research
-  expertise: expert
-  execution: parallel
-  model: sonnet
-
 # === RELATIONSHIPS ===
 related-agents: []
 related-skills:
-  - product-team/product-team/ux-researcher-designer
+  - product-team/ux-researcher-designer
 related-commands: []
 orchestrates:
-  skill: product-team/product-team/ux-researcher-designer
+  skill: product-team/ux-researcher-designer
 
 # === TECHNICAL ===
 tools: [Read, Write, Bash, Grep, Glob]
@@ -42,10 +31,6 @@ dependencies:
   tools: [Read, Write, Bash, Grep, Glob]
   mcp-tools: []
   scripts: []
-compatibility:
-  claude-ai: true
-  claude-code: true
-  platforms: [macos, linux, windows]
 
 # === EXAMPLES ===
 examples:
@@ -53,32 +38,6 @@ examples:
     title: Example Workflow
     input: "TODO: Add example input for cs-ux-researcher"
     output: "TODO: Add expected output"
-
-# === ANALYTICS ===
-stats:
-  installs: 0
-  upvotes: 0
-  rating: 0.0
-  reviews: 0
-
-# === VERSIONING ===
-version: v1.0.0
-author: Claude Skills Team
-contributors: []
-created: 2025-11-06
-updated: 2025-11-27
-license: MIT
-
-# === DISCOVERABILITY ===
-tags: [design, product, research, researcher, testing]
-featured: false
-verified: true
-
-# === LEGACY ===
-color: blue
-field: research
-expertise: expert
-execution: parallel
 ---
 
 # UX Researcher Agent

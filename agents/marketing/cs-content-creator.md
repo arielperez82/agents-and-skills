@@ -7,11 +7,10 @@ description: AI-powered content creation specialist for brand voice consistency,
 domain: marketing
 subdomain: content-marketing
 skills: marketing-team/content-creator
-model: opus
 
 # === WEBSITE DISPLAY ===
 difficulty: advanced
-time-saved: "TODO: Quantify time savings"
+
 frequency: "TODO: Estimate usage frequency"
 use-cases:
   - Creating engaging content for target audiences
@@ -19,22 +18,13 @@ use-cases:
   - Developing brand voice and messaging guidelines
   - Planning content calendars and campaigns
 
-# === AGENT CLASSIFICATION ===
-classification:
-  type: domain-specific
-  color: orange
-  field: content
-  expertise: expert
-  execution: parallel
-  model: sonnet
-
 # === RELATIONSHIPS ===
 related-agents: []
 related-skills:
-  - marketing-team/marketing-team/content-creator
+  - marketing-team/content-creator
 related-commands: []
 orchestrates:
-  skill: marketing-team/marketing-team/content-creator
+  skill: marketing-team/content-creator
 
 # === TECHNICAL ===
 tools: [Read, Write, Bash, Grep, Glob]
@@ -42,10 +32,6 @@ dependencies:
   tools: [Read, Write, Bash, Grep, Glob]
   mcp-tools: []
   scripts: []
-compatibility:
-  claude-ai: true
-  claude-code: true
-  platforms: [macos, linux, windows]
 
 # === EXAMPLES ===
 examples:
@@ -54,31 +40,6 @@ examples:
     input: "TODO: Add example input for cs-content-creator"
     output: "TODO: Add expected output"
 
-# === ANALYTICS ===
-stats:
-  installs: 0
-  upvotes: 0
-  rating: 0.0
-  reviews: 0
-
-# === VERSIONING ===
-version: v1.0.0
-author: Claude Skills Team
-contributors: []
-created: 2025-11-05
-updated: 2025-11-27
-license: MIT
-
-# === DISCOVERABILITY ===
-tags: [content, creator, marketing, optimization]
-featured: false
-verified: true
-
-# === LEGACY ===
-color: orange
-field: content
-expertise: expert
-execution: parallel
 ---
 
 # Content Creator Agent

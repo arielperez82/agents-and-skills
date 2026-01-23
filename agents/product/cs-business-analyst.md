@@ -7,26 +7,16 @@ description: Business process analysis, workflow mapping, gap identification, an
 domain: product
 subdomain: product-management
 skills: business-analyst-toolkit
-model: opus
 
 # === WEBSITE DISPLAY ===
 difficulty: advanced
-time-saved: "TODO: Quantify time savings"
+
 frequency: "TODO: Estimate usage frequency"
 use-cases:
   - Primary workflow for Business Analyst
   - Analysis and recommendations for business analyst tasks
   - Best practices implementation for business analyst
   - Integration with related agents and workflows
-
-# === AGENT CLASSIFICATION ===
-classification:
-  type: strategic
-  color: blue
-  field: product
-  expertise: expert
-  execution: parallel
-  model: sonnet
 
 # === RELATIONSHIPS ===
 related-agents: []
@@ -41,10 +31,6 @@ dependencies:
   tools: [Read, Write, Bash, Grep, Glob]
   mcp-tools: []
   scripts: []
-compatibility:
-  claude-ai: true
-  claude-code: true
-  platforms: [macos, linux, windows]
 
 # === EXAMPLES ===
 examples:
@@ -53,31 +39,6 @@ examples:
     input: "TODO: Add example input for cs-business-analyst"
     output: "TODO: Add expected output"
 
-# === ANALYTICS ===
-stats:
-  installs: 0
-  upvotes: 0
-  rating: 0.0
-  reviews: 0
-
-# === VERSIONING ===
-version: v1.0.0
-author: Claude Skills Team
-contributors: []
-created: 2025-11-21
-updated: 2025-11-27
-license: MIT
-
-# === DISCOVERABILITY ===
-tags: [analysis, analyst, automation, business, product]
-featured: false
-verified: true
-
-# === LEGACY ===
-color: blue
-field: product
-expertise: expert
-execution: parallel
 ---
 
 # Business Analyst

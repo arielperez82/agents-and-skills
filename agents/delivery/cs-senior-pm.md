@@ -7,26 +7,14 @@ description: Strategic program management specialist for portfolio planning, sta
 domain: delivery
 subdomain: delivery-general
 skills: senior-pm
-model: opus
 
 # === WEBSITE DISPLAY ===
 difficulty: advanced
-time-saved: "TODO: Quantify time savings"
-frequency: "TODO: Estimate usage frequency"
 use-cases:
   - Primary workflow for Senior Pm
   - Analysis and recommendations for senior pm tasks
   - Best practices implementation for senior pm
   - Integration with related agents and workflows
-
-# === AGENT CLASSIFICATION ===
-classification:
-  type: coordination
-  color: purple
-  field: product
-  expertise: expert
-  execution: parallel
-  model: sonnet
 
 # === RELATIONSHIPS ===
 related-agents: []
@@ -41,10 +29,6 @@ dependencies:
   tools: [Read, Write, Bash, Grep, Glob]
   mcp-tools: [mcp__atlassian]
   scripts: []
-compatibility:
-  claude-ai: true
-  claude-code: true
-  platforms: [macos, linux, windows]
 
 # === EXAMPLES ===
 examples:
@@ -53,31 +37,6 @@ examples:
     input: "TODO: Add example input for cs-senior-pm"
     output: "TODO: Add expected output"
 
-# === ANALYTICS ===
-stats:
-  installs: 0
-  upvotes: 0
-  rating: 0.0
-  reviews: 0
-
-# === VERSIONING ===
-version: v1.0.0
-author: Claude Skills Team
-contributors: []
-created: 2025-11-13
-updated: 2025-11-27
-license: MIT
-
-# === DISCOVERABILITY ===
-tags: [delivery, product, senior]
-featured: false
-verified: true
-
-# === LEGACY ===
-color: purple
-field: product
-expertise: expert
-execution: parallel
 ---
 
 # Senior PM Agent

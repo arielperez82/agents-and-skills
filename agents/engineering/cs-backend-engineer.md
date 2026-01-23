@@ -7,26 +7,16 @@ description: Backend development specialist for API design, database optimizatio
 domain: engineering
 subdomain: backend-development
 skills: senior-backend
-model: opus
 
 # === WEBSITE DISPLAY ===
 difficulty: advanced
-time-saved: "TODO: Quantify time savings"
+
 frequency: "TODO: Estimate usage frequency"
 use-cases:
   - Building robust API services with proper authentication and authorization
   - Designing database schemas and optimizing query performance
   - Implementing microservices patterns and service communication
   - Setting up CI/CD pipelines for backend applications
-
-# === AGENT CLASSIFICATION ===
-classification:
-  type: implementation
-  color: green
-  field: backend
-  expertise: expert
-  execution: coordinated
-  model: sonnet
 
 # === RELATIONSHIPS ===
 related-agents: []
@@ -72,10 +62,6 @@ dependencies:
   tools: [Read, Write, Bash, Grep, Glob]
   mcp-tools: []
   scripts: []
-compatibility:
-  claude-ai: true
-  claude-code: true
-  platforms: [macos, linux, windows]
 
 # === EXAMPLES ===
 examples:
@@ -83,41 +69,6 @@ examples:
     input: "Build REST API with authentication and rate limiting"
     output: "Express API with JWT auth, rate limiting middleware, and comprehensive error handling"
 
-# === ANALYTICS ===
-stats:
-  installs: 0
-  upvotes: 0
-  rating: 0.0
-  reviews: 0
-
-# === VERSIONING ===
-version: v1.0.0
-author: Claude Skills Team
-contributors: []
-created: 2025-11-06
-updated: 2025-11-27
-license: MIT
-
-# === DISCOVERABILITY ===
-tags:
-  - api
-  - architecture
-  - backend
-  - data
-  - database
-  - design
-  - development
-  - engineer
-  - engineering
-  - microservices
-featured: false
-verified: true
-
-# === LEGACY ===
-color: green
-field: backend
-expertise: expert
-execution: coordinated
 ---
 
 # Backend Engineer Agent

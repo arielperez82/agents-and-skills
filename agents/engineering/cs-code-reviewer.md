@@ -7,26 +7,16 @@ description: Code review specialist for quality assessment, security analysis, a
 domain: engineering
 subdomain: quality-assurance
 skills: code-reviewer
-model: opus
 
 # === WEBSITE DISPLAY ===
 difficulty: advanced
-time-saved: "TODO: Quantify time savings"
+
 frequency: "TODO: Estimate usage frequency"
 use-cases:
   - Primary workflow for Code Reviewer
   - Analysis and recommendations for code reviewer tasks
   - Best practices implementation for code reviewer
   - Integration with related agents and workflows
-
-# === AGENT CLASSIFICATION ===
-classification:
-  type: quality
-  color: red
-  field: quality
-  expertise: expert
-  execution: sequential
-  model: sonnet
 
 # === RELATIONSHIPS ===
 related-agents: []
@@ -57,10 +47,6 @@ dependencies:
   tools: [Read, Write, Bash, Grep, Glob]
   mcp-tools: [mcp__github]
   scripts: []
-compatibility:
-  claude-ai: true
-  claude-code: true
-  platforms: [macos, linux, windows]
 
 # === EXAMPLES ===
 examples:
@@ -68,31 +54,6 @@ examples:
     input: "Review pull request for API authentication refactor"
     output: "Detailed review with security findings, code quality issues, and improvement suggestions"
 
-# === ANALYTICS ===
-stats:
-  installs: 0
-  upvotes: 0
-  rating: 0.0
-  reviews: 0
-
-# === VERSIONING ===
-version: v1.0.0
-author: Claude Skills Team
-contributors: []
-created: 2025-11-06
-updated: 2025-11-27
-license: MIT
-
-# === DISCOVERABILITY ===
-tags: [analysis, code, engineering, quality, reviewer, security]
-featured: false
-verified: true
-
-# === LEGACY ===
-color: red
-field: quality
-expertise: expert
-execution: sequential
 ---
 
 # Code Reviewer

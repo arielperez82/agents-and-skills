@@ -7,11 +7,10 @@ description: Java and Spring Boot development specialist for enterprise applicat
 domain: engineering
 subdomain: java-development
 skills: senior-java
-model: sonnet
 
 # === WEBSITE DISPLAY ===
 difficulty: advanced
-time-saved: "60%+ on project scaffolding, 40% on security implementation"
+
 frequency: "Daily for enterprise development teams"
 use-cases:
   - Building enterprise Spring Boot applications with production-ready configuration
@@ -19,15 +18,6 @@ use-cases:
   - Implementing JPA/Hibernate data layers with optimized queries
   - Setting up Spring Security with OAuth2 and JWT authentication
   - Performance tuning JVM applications and reactive WebFlux systems
-
-# === AGENT CLASSIFICATION ===
-classification:
-  type: implementation
-  color: green
-  field: backend
-  expertise: expert
-  execution: coordinated
-  model: sonnet
 
 # === RELATIONSHIPS ===
 related-agents: [cs-backend-engineer, cs-architect, cs-devops-engineer]
@@ -74,10 +64,6 @@ dependencies:
     - api_endpoint_generator.py
     - security_config_generator.py
     - performance_profiler.py
-compatibility:
-  claude-ai: true
-  claude-code: true
-  platforms: [macos, linux, windows]
 
 # === EXAMPLES ===
 examples:
@@ -88,43 +74,6 @@ examples:
     input: "Generate a Product entity with category relationship and audit fields"
     output: "JPA entity, repository, service, controller, DTO, and mapper with proper annotations"
 
-# === ANALYTICS ===
-stats:
-  installs: 0
-  upvotes: 0
-  rating: 0.0
-  reviews: 0
-
-# === VERSIONING ===
-version: v1.0.0
-author: Claude Skills Team
-contributors: []
-created: 2025-12-16
-updated: 2025-12-16
-license: MIT
-
-# === DISCOVERABILITY ===
-tags:
-  - java
-  - spring-boot
-  - spring-framework
-  - microservices
-  - jpa
-  - hibernate
-  - spring-cloud
-  - webflux
-  - enterprise
-  - cloud-native
-  - backend
-  - api
-featured: false
-verified: true
-
-# === LEGACY ===
-color: green
-field: backend
-expertise: expert
-execution: coordinated
 ---
 
 # Java Engineer Agent

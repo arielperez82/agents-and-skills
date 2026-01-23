@@ -7,26 +7,16 @@ description: Product management agent for feature prioritization, customer disco
 domain: product
 subdomain: product-management
 skills: product-team/product-manager-toolkit
-model: opus
 
 # === WEBSITE DISPLAY ===
 difficulty: advanced
-time-saved: "TODO: Quantify time savings"
+
 frequency: "TODO: Estimate usage frequency"
 use-cases:
   - Defining product roadmaps and feature prioritization
   - Writing user stories and acceptance criteria
   - Conducting competitive analysis and market research
   - Stakeholder communication and alignment
-
-# === AGENT CLASSIFICATION ===
-classification:
-  type: strategic
-  color: blue
-  field: product
-  expertise: expert
-  execution: parallel
-  model: sonnet
 
 # === RELATIONSHIPS ===
 related-agents: [cs-technical-writer]
@@ -50,10 +40,6 @@ dependencies:
   tools: [Read, Write, Bash, Grep, Glob]
   mcp-tools: []
   scripts: []
-compatibility:
-  claude-ai: true
-  claude-code: true
-  platforms: [macos, linux, windows]
 
 # === EXAMPLES ===
 examples:
@@ -67,31 +53,6 @@ examples:
     input: "Synthesize insights from 15 customer discovery interviews"
     output: "Themes, pain points, and opportunity areas with journey map"
 
-# === ANALYTICS ===
-stats:
-  installs: 0
-  upvotes: 0
-  rating: 0.0
-  reviews: 0
-
-# === VERSIONING ===
-version: v1.0.0
-author: Claude Skills Team
-contributors: []
-created: 2025-11-05
-updated: 2025-11-27
-license: MIT
-
-# === DISCOVERABILITY ===
-tags: [development, diagrams, gantt, manager, mermaid, prioritization, product, roadmap]
-featured: false
-verified: true
-
-# === LEGACY ===
-color: blue
-field: product
-expertise: expert
-execution: parallel
 ---
 
 # Product Manager Agent

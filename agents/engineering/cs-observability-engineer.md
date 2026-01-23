@@ -7,26 +7,16 @@ description: Observability specialist for monitoring, logging, distributed traci
 domain: engineering
 subdomain: observability-operations
 skills: senior-observability
-model: opus
 
 # === WEBSITE DISPLAY ===
 difficulty: advanced
-time-saved: "70% reduction in monitoring setup time"
+
 frequency: "Weekly observability implementation and refinement"
 use-cases:
   - Implementing SLI/SLO frameworks with error budget tracking
   - Designing Grafana dashboards using RED/USE methods
   - Setting up distributed tracing with OpenTelemetry and Jaeger
   - Creating multi-burn-rate alerting with runbooks
-
-# === AGENT CLASSIFICATION ===
-classification:
-  type: implementation
-  color: blue
-  field: devops
-  expertise: expert
-  execution: coordinated
-  model: sonnet
 
 # === RELATIONSHIPS ===
 related-agents: []
@@ -67,10 +57,6 @@ dependencies:
   tools: [Read, Write, Bash, Grep, Glob]
   mcp-tools: []
   scripts: []
-compatibility:
-  claude-ai: true
-  claude-code: true
-  platforms: [macos, linux, windows]
 
 # === EXAMPLES ===
 examples:
@@ -78,31 +64,6 @@ examples:
     input: "Create an SLO dashboard for payment-api with 99.9% availability target"
     output: "Complete Grafana dashboard with error budget tracking, multi-burn-rate visualization, and alerting rules"
 
-# === ANALYTICS ===
-stats:
-  installs: 0
-  upvotes: 0
-  rating: 0.0
-  reviews: 0
-
-# === VERSIONING ===
-version: v1.0.0
-author: Claude Skills Team
-contributors: []
-created: 2025-12-16
-updated: 2025-12-16
-license: MIT
-
-# === DISCOVERABILITY ===
-tags: [observability, monitoring, logging, tracing, slo, sli, alerting, prometheus, grafana, newrelic, engineering, servicenow, itsm]
-featured: false
-verified: true
-
-# === LEGACY ===
-color: blue
-field: devops
-expertise: expert
-execution: coordinated
 ---
 
 # Observability Engineer Agent

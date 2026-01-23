@@ -7,26 +7,16 @@ description: Data engineering specialist for ETL/ELT pipelines, data warehousing
 domain: engineering
 subdomain: data-engineering
 skills: senior-data-engineer
-model: opus
 
 # === WEBSITE DISPLAY ===
 difficulty: advanced
-time-saved: "TODO: Quantify time savings"
+
 frequency: "TODO: Estimate usage frequency"
 use-cases:
   - Designing data pipelines for ETL/ELT processes
   - Building data warehouses and data lakes
   - Implementing data quality and governance frameworks
   - Creating analytics dashboards and reporting
-
-# === AGENT CLASSIFICATION ===
-classification:
-  type: implementation
-  color: green
-  field: data
-  expertise: expert
-  execution: coordinated
-  model: sonnet
 
 # === RELATIONSHIPS ===
 related-agents: []
@@ -72,10 +62,6 @@ dependencies:
   tools: [Read, Write, Bash, Grep, Glob]
   mcp-tools: []
   scripts: []
-compatibility:
-  claude-ai: true
-  claude-code: true
-  platforms: [macos, linux, windows]
 
 # === EXAMPLES ===
 examples:
@@ -83,31 +69,6 @@ examples:
     input: "Build ETL pipeline for customer analytics from multiple sources"
     output: "Airflow DAG with data extraction, transformation, quality checks, and warehouse loading"
 
-# === ANALYTICS ===
-stats:
-  installs: 0
-  upvotes: 0
-  rating: 0.0
-  reviews: 0
-
-# === VERSIONING ===
-version: v1.0.0
-author: Claude Skills Team
-contributors: []
-created: 2025-11-06
-updated: 2025-11-27
-license: MIT
-
-# === DISCOVERABILITY ===
-tags: [data, engineer, engineering]
-featured: false
-verified: true
-
-# === LEGACY ===
-color: green
-field: data
-expertise: expert
-execution: coordinated
 ---
 
 # Data Engineer Agent

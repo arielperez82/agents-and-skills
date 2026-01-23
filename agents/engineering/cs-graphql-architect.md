@@ -7,11 +7,10 @@ description: GraphQL API design specialist for schema architecture, resolver pat
 domain: engineering
 subdomain: api-development
 skills: senior-graphql
-model: opus
 
 # === WEBSITE DISPLAY ===
 difficulty: advanced
-time-saved: "60%+ reduction in GraphQL API design and implementation time"
+
 frequency: "Weekly for API development teams"
 use-cases:
   - Designing type-safe GraphQL schemas with proper conventions
@@ -19,15 +18,6 @@ use-cases:
   - Building federated supergraphs with Apollo Federation
   - Optimizing GraphQL performance with caching and complexity limits
   - Generating resolvers and TypeScript types from schemas
-
-# === AGENT CLASSIFICATION ===
-classification:
-  type: implementation
-  color: green
-  field: backend
-  expertise: expert
-  execution: coordinated
-  model: opus
 
 # === RELATIONSHIPS ===
 related-agents: [cs-backend-engineer, cs-frontend-engineer, cs-architect]
@@ -66,10 +56,6 @@ dependencies:
     - schema_analyzer.py
     - resolver_generator.py
     - federation_scaffolder.py
-compatibility:
-  claude-ai: true
-  claude-code: true
-  platforms: [macos, linux, windows]
 
 # === EXAMPLES ===
 examples:
@@ -83,43 +69,6 @@ examples:
     input: "Set up Apollo Federation for my microservices"
     output: "Scaffolded subgraphs with entity definitions and gateway configuration"
 
-# === ANALYTICS ===
-stats:
-  installs: 0
-  upvotes: 0
-  rating: 0.0
-  reviews: 0
-
-# === VERSIONING ===
-version: v1.0.0
-author: Claude Skills Team
-contributors: []
-created: 2025-12-16
-updated: 2025-12-16
-license: MIT
-
-# === DISCOVERABILITY ===
-tags:
-  - api
-  - apollo
-  - architecture
-  - backend
-  - dataloader
-  - engineering
-  - federation
-  - graphql
-  - performance
-  - schema
-  - subscriptions
-  - typescript
-featured: false
-verified: true
-
-# === LEGACY ===
-color: green
-field: backend
-expertise: expert
-execution: coordinated
 ---
 
 # GraphQL Architect Agent
