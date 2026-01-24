@@ -27,17 +27,15 @@ This guide provides comprehensive instructions for creating **cs-* prefixed agen
 | **C-Level (2 agents)** |||||
 | [cs-ceo-advisor](c-level/cs-ceo-advisor.md) | C-Level | Strategic leadership advisor for CEOs covering vision, strategy, board management | ceo-advisor | 360 |
 | [cs-cto-advisor](c-level/cs-cto-advisor.md) | C-Level | Technical leadership advisor for CTOs covering tech strategy and team scaling | cto-advisor | 412 |
-| **Product (5 agents)** |||||
+| **Product (4 agents)** |||||
 | [cs-product-manager](product/cs-product-manager.md) | Product | Product management agent for RICE prioritization and customer discovery | product-manager-toolkit | 407 |
-| [cs-agile-product-owner](product/cs-agile-product-owner.md) | Product | User story creation, backlog grooming, sprint planning | agile-product-owner | 490 |
-| [cs-product-strategist](product/cs-product-strategist.md) | Product | OKR cascades, strategic roadmaps, vision-driven prioritization | product-strategist | 524 |
+| [cs-product-analyst](product/cs-product-analyst.md) | Product | User story creation, process analysis, sprint planning | agile-product-owner, business-analyst-toolkit | 524 |
+| [cs-product-director](product/cs-product-director.md) | Product | OKR cascades, strategic roadmaps, vision-driven prioritization | product-strategist | 524 |
 | [cs-ux-researcher](product/cs-ux-researcher.md) | Product | Persona development, usability testing, customer interview analysis | ux-researcher-designer | 621 |
 | [cs-ui-designer](product/cs-ui-designer.md) | Product | Design tokens, component libraries, design system documentation | ui-design-system | 716 |
 | **Project Management (4 agents)** |||||
 | [cs-senior-pm](project-management/cs-senior-pm.md) | Project Management | Portfolio planning, stakeholder management, program governance | senior-pm | 546 |
-| [cs-scrum-master](project-management/cs-scrum-master.md) | Project Management | Sprint ceremonies, team facilitation, Agile coaching | scrum-master | 588 |
-| [cs-jira-expert](project-management/cs-jira-expert.md) | Project Management | JQL queries, workflow configuration, automation rules | jira-expert | 710 |
-| [cs-confluence-expert](project-management/cs-confluence-expert.md) | Project Management | Space architecture, template creation, documentation governance | confluence-expert | 788 |
+| [cs-agile-coach](delivery/cs-agile-coach.md) | Delivery | Agile ceremonies, team coaching, collaboration, transparency | agile-coach | 588 |
 | **Engineering (14 agents)** |||||
 | [cs-backend-engineer](engineering/cs-backend-engineer.md) | Engineering | API development, database optimization, microservices architecture | senior-backend | 745 |
 | [cs-frontend-engineer](engineering/cs-frontend-engineer.md) | Engineering | React/Vue development, UI/UX implementation, frontend performance | senior-frontend | 982 |
@@ -64,7 +62,7 @@ Agents are classified into four distinct types based on their operational charac
 
 | Type | Color | Tools | Execution | Process Count | Model | Examples |
 |------|-------|-------|-----------|---------------|-------|----------|
-| **Strategic** | 🔵 Blue | Read, Write, Grep | Parallel (4-5) | 15-20 | opus/sonnet | cs-product-strategist, cs-ceo-advisor, cs-ux-researcher |
+| **Strategic** | 🔵 Blue | Read, Write, Grep | Parallel (4-5) | 15-20 | opus/sonnet | cs-product-director, cs-ceo-advisor, cs-ux-researcher |
 | **Implementation** | 🟢 Green | Full tools | Coordinated (2-3) | 20-30 | sonnet | cs-fullstack, cs-backend-engineer, cs-frontend-engineer |
 | **Quality** | 🔴 Red | Full + Heavy Bash | Sequential (1) | 12-18 | sonnet | cs-code-reviewer, cs-qa-engineer, cs-security-engineer |
 | **Coordination** | 🟣 Purple | Read, Write, Grep | Lightweight | 10-15 | opus | cs-architect, cs-team-coordinator, cs-cto-advisor |
@@ -110,7 +108,7 @@ Agents are classified into four distinct types based on their operational charac
 **Strategic Agents in Parallel (4-5 agents max):**
 ```bash
 # Safe to run together - low resource usage
-cs-product-strategist &
+cs-product-director &
 cs-ux-researcher &
 cs-ceo-advisor &
 cs-product-marketer &
@@ -233,15 +231,6 @@ cs-qa-engineer --mcp playwright --test-suite e2e
 ```bash
 # Search documentation
 cs-tech-writer --mcp context7 --query "API patterns"
-```
-
-#### mcp__atlassian
-- **Purpose:** Jira and Confluence integration
-- **Use with:** `cs-jira-expert`, `cs-confluence-expert`, `cs-scrum-master`
-- **Example:**
-```bash
-# Update Jira tickets
-cs-jira-expert --mcp atlassian --update-sprint
 ```
 
 ### MCP Best Practices

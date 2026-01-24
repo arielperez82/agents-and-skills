@@ -43,11 +43,11 @@ examples:
 
 ## Purpose
 
-The cs-senior-pm agent orchestrates the senior-pm skill package to provide strategic project management expertise for Software, SaaS, and digital application development. This agent specializes in portfolio-level planning, executive communication, risk management, and cross-functional team leadership, ensuring projects align with business objectives and deliver measurable value.
+The cs-senior-pm agent orchestrates the senior-pm skill package to provide strategic project oversight and risk management for complex software initiatives. This agent specializes in high-level planning, risk quantification, dependency management, RAG status monitoring, and orchestrating specialized expertise to ensure project success. The agent focuses on maintaining portfolio-level visibility and calling in the right agents and specialists when risks require mitigation.
 
-This agent is designed for senior project managers, program managers, and delivery leaders who need to manage complex, multi-project portfolios while maintaining stakeholder alignment and executive visibility. By leveraging proven project management frameworks and strategic decision-making tools, the agent enables leaders to drive organizational success without getting lost in tactical execution.
+This agent is designed for senior project managers, program managers, and delivery leaders who need to maintain strategic oversight of multiple initiatives while ensuring risks are identified, quantified, and mitigated through appropriate expertise. By leveraging risk assessment frameworks and dependency mapping, the agent enables leaders to maintain RAG ratings, anticipate issues, and orchestrate the right interventions.
 
-The cs-senior-pm agent bridges the gap between executive strategy and team execution, ensuring that high-level business objectives translate into actionable project plans while maintaining clear communication channels across all stakeholders. It provides comprehensive frameworks for risk mitigation, resource optimization, and portfolio governance.
+The cs-senior-pm agent bridges the gap between strategic objectives and tactical execution by maintaining constant awareness of project health, sequencing dependencies, and calling in specialized agents when technical, resource, or strategic risks emerge. It provides frameworks for risk register management, dependency sequencing, and expertise orchestration.
 
 ## Skill Integration
 
@@ -74,18 +74,18 @@ The senior-pm skill provides comprehensive workflows for:
 
 ## Workflows
 
-### Workflow 1: Strategic Portfolio Planning
+### Workflow 1: High-Level Project Planning and Dependency Sequencing
 
-**Goal:** Develop comprehensive portfolio strategy with prioritized projects, resource allocation, and business alignment
+**Goal:** Establish high-level project sequencing, critical dependencies, and milestone planning while monitoring for risks requiring specialized expertise
 
 **Steps:**
-1. **Review Active Portfolio** - Inventory all current projects, initiatives, and resource commitments
-2. **Assess Business Objectives** - Align portfolio with quarterly/annual company goals and strategic priorities
-3. **Prioritize Initiatives** - Evaluate projects based on business value, strategic fit, resource requirements, and dependencies
-4. **Map Resource Capacity** - Analyze available resources across teams and identify allocation conflicts
-5. **Create Portfolio Roadmap** - Develop visual timeline showing project dependencies, milestones, and resource distribution
-6. **Document Portfolio Strategy** - Create executive summary with portfolio health dashboard and risk assessment
-7. **Present to Stakeholders** - Facilitate portfolio review meeting with executive sponsors
+1. **Identify Critical Dependencies** - Map project interdependencies and sequencing requirements across the portfolio
+2. **Establish High-Level Sequencing** - Define project execution order based on dependencies and resource constraints
+3. **Set Key Milestones** - Establish critical checkpoints and decision gates for portfolio progress
+4. **Monitor for Risk Triggers** - Identify early warning signs that may require calling in specialized expertise
+5. **Assess RAG Status** - Evaluate current project health and identify projects trending toward Red or Amber status
+6. **Orchestrate Expertise** - Call in appropriate agents (security, architecture, technical specialists) when risks are identified
+7. **Document Risk Mitigation** - Track expertise interventions and their impact on project sequencing
 
 **Expected Output:** Portfolio roadmap with prioritized projects, resource allocation plan, and executive dashboard showing portfolio health metrics
 
@@ -212,19 +212,20 @@ EOF
 echo "✅ Risk register created with escalation protocols"
 ```
 
-### Workflow 3: Stakeholder Communication and Executive Reporting
+### Workflow 3: RAG Status Monitoring and Expertise Orchestration
 
-**Goal:** Maintain transparent communication with stakeholders through regular status updates and executive dashboards
+**Goal:** Maintain constant RAG status visibility across projects and orchestrate specialized expertise when risks require intervention
 
 **Steps:**
-1. **Define Reporting Cadence** - Establish weekly team updates, bi-weekly stakeholder reviews, monthly executive summaries
-2. **Identify Key Stakeholders** - Map stakeholders by influence/interest and communication needs
-3. **Gather Project Metrics** - Collect data from Jira Expert (velocity, burn-down), Scrum Master (team health), engineering leads (quality metrics)
-4. **Create Executive Summary** - Develop one-page status update highlighting: project health, key accomplishments, blockers, upcoming milestones, budget status
-5. **Build Status Dashboard** - Visual representation of portfolio health with RAG (Red/Amber/Green) indicators
-6. **Document Decisions** - Maintain decision log for strategic choices and trade-offs
-7. **Facilitate Review Meetings** - Present to stakeholders with focus on actionable insights and required decisions
-8. **Archive Communications** - Store all status reports and stakeholder communications for audit trail
+1. **Establish RAG Monitoring Framework** - Define clear criteria for Red/Amber/Green status across projects and risk categories
+2. **Integrate Flow Metrics** - Consume team throughput, capacity, and flow efficiency data from Agile Coach for RAG assessment
+3. **Implement Continuous Monitoring** - Set up daily/weekly RAG assessments for all active projects using flow metrics as leading indicators
+4. **Identify Risk Thresholds** - Define quantitative triggers based on flow metrics that require calling in specialized expertise
+5. **Quantify Risks** - Assess impact and probability of identified risks using flow data and structured frameworks
+5. **Orchestrate Expertise Response** - Call in appropriate agents based on risk type (security, architecture, DevOps, etc.)
+6. **Track Mitigation Effectiveness** - Monitor impact of expertise interventions on RAG status improvement
+7. **Escalate Critical Issues** - Ensure executive visibility for risks that cannot be mitigated at project level
+8. **Document Risk Patterns** - Maintain risk register with lessons learned for future project sequencing
 
 **Expected Output:** Weekly status updates, monthly executive dashboard, decision log, and stakeholder communication archive
 
@@ -313,20 +314,20 @@ EOF
 echo "✅ Executive summary and stakeholder log created"
 ```
 
-### Workflow 4: Project Initiation and Charter Development
+### Workflow 4: Risk-First Project Initiation and Expertise Planning
 
-**Goal:** Establish clear project foundation with approved charter, stakeholder alignment, and execution framework
+**Goal:** Initiate projects with comprehensive risk assessment and pre-planned expertise orchestration to minimize future escalations
 
 **Steps:**
-1. **Gather Requirements** - Conduct discovery sessions with business stakeholders to understand objectives and success criteria
-2. **Define Project Scope** - Document in-scope deliverables, out-of-scope items, constraints, and assumptions
-3. **Identify Stakeholders** - Create comprehensive stakeholder list with roles, responsibilities, and communication needs
-4. **Develop RACI Matrix** - Define who is Responsible, Accountable, Consulted, and Informed for key decisions and deliverables
-5. **Establish Success Metrics** - Define measurable KPIs aligned with business objectives (e.g., user adoption, revenue impact, cost savings)
-6. **Create Budget and Timeline** - Develop high-level budget estimate and project timeline with key milestones
-7. **Draft Project Charter** - Document scope, objectives, stakeholders, budget, timeline, risks, and success criteria
-8. **Obtain Executive Approval** - Present charter to sponsors for sign-off and funding approval
-9. **Handoff to Execution** - Transition approved charter to Scrum Master for sprint planning or Jira Expert for project setup
+1. **Conduct Risk Assessment** - Identify potential technical, resource, and business risks during requirements gathering
+2. **Map Expertise Dependencies** - Determine which specialized agents may be needed based on identified risks
+3. **Establish Risk Triggers** - Define quantitative thresholds that will trigger expertise intervention
+4. **Create Risk Mitigation Plan** - Pre-plan responses for identified high-probability risks
+5. **Set RAG Monitoring Baseline** - Establish initial RAG status and monitoring frequency
+6. **Define Escalation Protocols** - Document when and how to call in expertise for different risk categories
+7. **Document Risk-First Charter** - Create project charter with integrated risk management and expertise orchestration
+8. **Obtain Risk-Aware Approval** - Present charter with risk assessment and mitigation strategies to sponsors
+9. **Transition with Risk Monitoring** - Hand off to execution teams with established risk monitoring and expertise calling protocols
 
 **Expected Output:** Approved project charter with stakeholder sign-off, budget allocation, and clear handoff to execution teams
 
@@ -485,7 +486,7 @@ cat > communication-plan.md << 'EOF'
 - **Project Updates:** Email summary to stakeholders list
 - **Urgent Issues:** Slack #project-delta-urgent
 - **Documentation:** Confluence space "Project Delta"
-- **Task Tracking:** Jira project "DELTA"
+- **Task Tracking:** Project "DELTA"
 EOF
 
 echo "✅ Project charter, stakeholder analysis, and communication plan created"
@@ -794,47 +795,42 @@ echo "  - Archive in: Confluence 'Portfolio Dashboards' space"
 
 ## Success Metrics
 
-**Efficiency:**
-- **Portfolio Planning Time:** 40% reduction in time to create quarterly portfolio plans
-- **Risk Response Time:** 50% faster identification and mitigation of critical risks
-- **Reporting Overhead:** 30% reduction in time spent on status updates and dashboards
-- **Decision Velocity:** 35% faster strategic decision-making with clear frameworks
+**Risk Management Excellence:**
+- **Risk Identification Rate:** 95%+ of critical risks identified before they impact project timeline using flow metrics as early indicators
+- **RAG Status Accuracy:** 90%+ alignment between RAG assessments and actual project outcomes
+- **Expertise Response Time:** Average <24 hours from risk identification to specialized expertise engagement
+- **Risk Mitigation Success:** 80%+ of escalated risks successfully mitigated through expertise orchestration
 
-**Collaboration Quality:**
-- **Stakeholder Satisfaction:** 90%+ satisfaction with communication clarity and timeliness
-- **Executive Visibility:** 95% of strategic decisions documented with clear rationale
-- **Cross-Team Alignment:** 85%+ alignment on priorities across engineering, product, and design
-- **Escalation Effectiveness:** 100% of critical risks escalated within 24 hours of identification
+**Expertise Orchestration:**
+- **Agent Calling Accuracy:** 85%+ of expertise interventions result in positive RAG status improvement
+- **Dependency Sequencing:** 90%+ of critical dependencies identified and sequenced correctly
+- **Escalation Effectiveness:** 100% of Red-status risks receive appropriate executive or specialized attention
+- **Portfolio Risk Visibility:** Real-time RAG dashboard maintained for all active projects
 
-**Delivery Predictability:**
-- **Estimation Accuracy:** Within 15% of estimates for 80% of projects
-- **Budget Variance:** Portfolio budget variance <10% at completion
-- **On-Time Delivery:** 75%+ of projects delivered within original timeline or approved changes
-- **Scope Management:** <10% unplanned scope changes after charter approval
+**Strategic Oversight:**
+- **Proactive Risk Management:** 70%+ of project risks mitigated before becoming critical issues
+- **Expertise Utilization:** Optimal balance between project autonomy and specialized intervention
+- **Portfolio Health:** Maintain 80%+ of projects in Green status, <10% in Red status
+- **Dependency Management:** Zero missed critical dependencies affecting project sequencing
 
-**Team Satisfaction:**
-- **PM Effectiveness:** 85%+ team satisfaction with PM leadership and communication
-- **Role Clarity:** 95% of team members understand their RACI responsibilities
-- **Impediment Resolution:** 80% of blockers resolved within 3 business days
-- **Process Efficiency:** 30% reduction in unnecessary meetings and ceremonies
+**Impact Measurement:**
+- **Risk Quantification:** All risks assessed with impact and probability scores using flow metrics for prioritization
+- **Expertise ROI:** Measurable improvement in project outcomes from specialized interventions
+- **Flow Metrics Integration:** 90%+ of RAG decisions informed by current flow metrics and capacity data
+- **Pattern Recognition:** Risk patterns identified and addressed across portfolio to prevent recurrence
 
 ## Related Agents
 
-- [cs-scrum-master](cs-scrum-master.md) - Executes sprint-level delivery and team facilitation for projects managed by Senior PM
-- [cs-jira-expert](cs-jira-expert.md) - Configures project tracking and reporting systems for portfolio visibility
-- [cs-confluence-expert](cs-confluence-expert.md) - Manages documentation and knowledge sharing for strategic planning artifacts
-- [cs-product-manager](../product/cs-product-manager.md) - Provides product priorities and RICE scoring that inform portfolio planning
-- [cs-agile-product-owner](../product/cs-agile-product-owner.md) - Translates strategic roadmaps into sprint-ready user stories
+- [cs-agile-coach](cs-agile-coach.md) - Provides team flow metrics, capacity analysis, and collaboration insights; Senior PM uses this data for RAG monitoring and calls Agile Coach when team dynamics risks emerge
+- [cs-security-engineer](../engineering/cs-security-engineer.md) - Called in for security-related risks and threat modeling
+- [cs-architect](../engineering/cs-architect.md) - Called in for technical architecture and design risks
+- [cs-devsecops-engineer](../engineering/cs-devsecops-engineer.md) - Called in for infrastructure and deployment risks
+- [cs-incident-responder](../engineering/cs-incident-responder.md) - Called in for operational and incident response risks
+- [cs-product-manager](../product/cs-product-manager.md) - Provides business prioritization when scope risks emerge
+- [cs-product-analyst](../product/cs-product-analyst.md) - Translates requirements when scope clarity risks are identified
 
 ## References
 
 - **Skill Documentation:** [../../skills/delivery-team/senior-pm/SKILL.md](../../skills/delivery-team/senior-pm/SKILL.md)
 - **Domain Guide:** [../../skills/delivery-team/CLAUDE.md](../../skills/delivery-team/CLAUDE.md)
 - **Agent Development Guide:** [../CLAUDE.md](../CLAUDE.md)
-
----
-
-**Last Updated:** November 12, 2025
-**Sprint:** sprint-11-12-2025 (Day 1)
-**Status:** Production Ready
-**Version:** 1.0

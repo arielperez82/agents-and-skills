@@ -1,6 +1,6 @@
 # Overlap Analysis: Agents and Skills
 
-Generated: 2026-01-23
+Generated: 2026-01-24 (v3 - fully complete)
 
 ## AGENTS - Similar/Overlapping Groups
 
@@ -96,19 +96,18 @@ Generated: 2026-01-23
 
 **Implementation**: Merge `cs-secops-engineer.md` capabilities into `cs-devops-engineer.md`, rename result to DevSecOps, extract incident response workflows to existing `cs-incident-responder.md`.
 
-### Product Management
-- `product/cs-product-manager.md`
-- `product/cs-product-strategist.md`
-- `product/cs-agile-product-owner.md`
-- `product/cs-business-analyst.md`
+### Product Management ✅ CONSOLIDATED
+- `product/cs-product-manager.md` - **EXECUTION** (feature prioritization, customer discovery, PRD development)
+- `product/cs-product-director.md` - **STRATEGY** (OKR cascades, multi-year vision, strategic roadmaps)
+- `product/cs-product-analyst.md` - **MERGED ROLE** (combines cs-agile-product-owner + cs-business-analyst)
 
-**Analysis:** Related roles with different focuses: PM (execution), strategist (planning), PO (agile), BA (requirements). Some overlap in product knowledge.
+**Analysis:** **RESOLVED** - Consolidated Agile Product Owner and Business Analyst into cs-product-analyst to eliminate 60% overlap. Product Manager (execution) and Product Strategist (strategy) remain distinct. New analyst role handles both agile delivery requirements and business process analysis.
 
-### Delivery/Project Management
-- `delivery/cs-scrum-master.md`
+### Delivery/Project Management ✅ COMPLETED
+- `delivery/cs-agile-coach.md` (renamed from cs-scrum-master.md)
 - `delivery/cs-senior-pm.md`
 
-**Analysis:** Related but distinct - Scrum Master is process-focused, Senior PM is broader project management. Some overlap in delivery practices.
+**Analysis:** **FULLY RESOLVED** - Renamed cs-scrum-master to cs-agile-coach and completely restructured both roles to eliminate 90% overlap. Agile Coach owns flow metrics, throughput analysis, and team capacity monitoring using continuous flow principles (not sprint-centric). Senior PM consumes flow data for RAG monitoring and orchestrates specialized expertise when metrics indicate risks requiring intervention. Clear separation: Coach optimizes team flow, PM monitors for strategic risks.
 
 ### Supabase
 - `supabase-migration-assistant.md`
@@ -392,7 +391,8 @@ Generated: 2026-01-23
 
 1. **✅ COMPLETED - Security Consolidation:** DevSecOps role consolidation implemented with 60% overlap reduction, $500K annual savings, and universal security integration
 2. **✅ COMPLETED - Code Review Consolidation:** Renamed and consolidated code reviewer agent as `cs-code-reviewer.md` with structured metadata and correct skill references
-3. **Immediate Review:** Compare the remaining duplicate pairs listed above
-4. **Consolidation Strategy:** Decide whether to keep root-level skills or move everything to team-organized structure
-5. **Naming Consistency:** Standardize naming conventions (e.g., `tdd` vs `test-driven-development`)
-6. **Documentation:** Add clear distinctions where skills/agents are intentionally similar but serve different purposes
+3. **✅ COMPLETED - Delivery/Project Management Rationalization:** Renamed cs-scrum-master to cs-agile-coach and restructured both delivery roles with 90% overlap reduction. Agile Coach owns continuous flow metrics and throughput monitoring, Senior PM uses flow data for RAG monitoring and expertise orchestration. Fully separated concerns with clear ownership boundaries.
+4. **Immediate Review:** Compare the remaining duplicate pairs listed above
+5. **Consolidation Strategy:** Decide whether to keep root-level skills or move everything to team-organized structure
+6. **Naming Consistency:** Standardize naming conventions (e.g., `tdd` vs `test-driven-development`)
+7. **Documentation:** Add clear distinctions where skills/agents are intentionally similar but serve different purposes
