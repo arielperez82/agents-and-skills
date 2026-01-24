@@ -17,7 +17,7 @@ use-cases:
   - Reviewing existing architectures for performance and security
 
 # === RELATIONSHIPS ===
-related-agents: [cs-technical-writer]
+related-agents: [cs-technical-writer, cs-graphql-architect]
 related-skills: [engineering-team/senior-architect, engineering-team/technical-writer]
 related-commands: []
 orchestrates:
@@ -33,6 +33,11 @@ collaborates-with:
     required: optional
     features-enabled: [observability-patterns, distributed-tracing, slo-architecture]
     without-collaborator: "Architecture documentation without observability considerations"
+  - agent: cs-graphql-architect
+    purpose: GraphQL API architecture design, schema-first patterns, and federation planning when GraphQL is selected as API technology
+    required: optional
+    features-enabled: [graphql-architecture, schema-design, federation-patterns, api-performance]
+    without-collaborator: "GraphQL-specific architecture decisions made without specialized expertise"
 
 # === TECHNICAL ===
 tools: [Read, Write, Bash, Grep, Glob]
@@ -150,7 +155,7 @@ The cs-architect agent bridges the gap between business requirements and technic
 
 3. **Design System Components** - Define core architecture components:
    - Frontend layer (React/Next.js, React Native, Flutter)
-   - API layer (REST, GraphQL, gRPC)
+   - API layer (REST, GraphQL, gRPC) - when GraphQL is selected, invoke cs-graphql-architect for detailed schema and federation design
    - Backend services (Node.js/Express, Go, Python)
    - Data layer (PostgreSQL, Redis, message queues)
    - Infrastructure (Docker, Kubernetes, cloud services)
@@ -307,7 +312,7 @@ python ../../skills/engineering-team/senior-architect/scripts/dependency_analyze
    - **Backend**: Node.js/Express vs Go vs Python
    - **Mobile**: React Native vs Flutter vs Swift/Kotlin
    - **Database**: PostgreSQL vs MongoDB vs DynamoDB
-   - **API**: REST vs GraphQL vs gRPC
+   - **API**: REST vs GraphQL vs gRPC - if GraphQL is selected, invoke cs-graphql-architect for detailed evaluation
    - **Infrastructure**: Docker/Kubernetes vs Serverless vs VMs
 
 3. **Build Proof of Concept** - Validate technology choices:
@@ -328,7 +333,7 @@ python ../../skills/engineering-team/senior-architect/scripts/dependency_analyze
 5. **Create Migration Roadmap** - Plan phased approach:
    - **Phase 0**: Set up new infrastructure, CI/CD pipelines
    - **Phase 1**: Migrate least critical services (validate approach)
-   - **Phase 2**: Migrate high-traffic services (scale validation)
+   - **Phase 2**: Migrate high-traffic services (scale validation) - if GraphQL services, invoke cs-graphql-architect for federation planning
    - **Phase 3**: Migrate core services (business critical)
    - **Phase 4**: Decommission legacy systems
 
@@ -633,6 +638,7 @@ echo "4. Plan migration strategy"
 - [adr-writer](../../adr-writer.md) - **Invoked for ADR creation** - Documents significant architectural decisions with context, alternatives, and rationale. cs-architect invokes adr-writer when decisions meet ADR criteria (one-way door, alternatives evaluated, foundational, future developers will wonder why)
 - [cs-cto-advisor](../c-level/cs-cto-advisor.md) - Provides strategic technical leadership and technology vision that guides architecture decisions
 - [cs-technical-writer](cs-technical-writer.md) - **Collaborates for Mermaid diagram generation** (architecture, sequence, class, ERD diagrams)
+- [cs-graphql-architect](cs-graphql-architect.md) - **Invoked for GraphQL architecture** - When GraphQL is selected as API technology, cs-architect delegates detailed schema design, federation planning, and GraphQL-specific performance optimization to cs-graphql-architect
 - [cs-backend-engineer](cs-backend-engineer.md) - Implements backend services following architecture patterns and guidelines
 - [cs-frontend-engineer](cs-frontend-engineer.md) - Implements frontend applications following architecture patterns and component design
 - [cs-fullstack-engineer](cs-fullstack-engineer.md) - Implements end-to-end features following full-stack architecture patterns

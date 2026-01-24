@@ -18,7 +18,7 @@ use-cases:
   - Generating resolvers and TypeScript types from schemas
 
 # === RELATIONSHIPS ===
-related-agents: [cs-backend-engineer, cs-frontend-engineer, cs-architect]
+related-agents: [cs-backend-engineer, cs-frontend-engineer, cs-architect, adr-writer]
 related-skills: [engineering-team/senior-graphql, engineering-team/senior-backend]
 related-commands: []
 collaborates-with:
@@ -44,6 +44,17 @@ collaborates-with:
     without-collaborator: "Resolver implementation may require additional backend expertise"
 orchestrates:
   skill: engineering-team/senior-graphql
+collaborates-with:
+  - agent: cs-architect
+    purpose: High-level API architecture decisions and technology stack evaluation
+    required: optional
+    features-enabled: [api-pattern-selection, scalability-planning, infrastructure-design]
+    without-collaborator: "GraphQL implementation may not align with overall system architecture"
+  - agent: adr-writer
+    purpose: Documenting GraphQL architecture decisions and schema design choices
+    required: optional
+    features-enabled: [graphql-adrs, schema-decisions, federation-adrs]
+    without-collaborator: "GraphQL architectural decisions may not be documented"
 
 # === TECHNICAL ===
 tools: [Read, Write, Bash, Grep, Glob]
@@ -481,6 +492,8 @@ python ../../skills/engineering-team/senior-graphql/scripts/federation_scaffolde
 
 **Reference:** `../../skills/engineering-team/senior-graphql/references/federation-guide.md`
 
+**Architecture Decisions:** For significant GraphQL architecture decisions like federation strategy selection, invoke adr-writer to document the rationale and alternatives.
+
 ### Workflow 4: Performance Optimization
 
 **Goal:** Optimize GraphQL API performance for production load.
@@ -712,8 +725,9 @@ docker-compose up -d
 
 - [cs-backend-engineer](cs-backend-engineer.md) - Backend API implementation
 - [cs-frontend-engineer](cs-frontend-engineer.md) - GraphQL client integration
-- [cs-architect](cs-architect.md) - System architecture decisions
+- [cs-architect](cs-architect.md) - System architecture decisions - provides high-level API technology evaluation and delegates GraphQL-specific details
 - [cs-devops-engineer](cs-devops-engineer.md) - Deployment and infrastructure
+- [adr-writer](../../adr-writer.md) - Documents GraphQL architecture decisions and schema design choices
 
 ## References
 
