@@ -1,3 +1,59 @@
+---
+
+# === CORE IDENTITY ===
+name: cs-code-reviewer
+title: Code Reviewer Specialist
+description: Code review specialist for quality assessment, security analysis, and best practices enforcement across all tech stacks
+domain: engineering
+subdomain: quality-assurance
+skills: code-reviewer
+
+# === USE CASES ===
+difficulty: advanced
+use-cases:
+  - Primary workflow for Code Reviewer
+  - Analysis and recommendations for code reviewer tasks
+  - Best practices implementation for code reviewer
+  - Integration with related agents and workflows
+
+# === RELATIONSHIPS ===
+related-agents: []
+related-skills: [engineering-team/code-reviewer, core-testing-methodology]
+related-commands: []
+collaborates-with:
+  - agent: tdd-guardian
+    purpose: TDD compliance verification and test structure review
+    required: recommended
+    features-enabled: [tdd-review, test-structure-validation, behavior-testing-assessment]
+    without-collaborator: "Code reviews will lack TDD methodology assessment"
+  - agent: cs-qa-engineer
+    purpose: Test automation and quality metrics review
+    required: recommended
+    features-enabled: [coverage-analysis, quality-metrics, automation-review]
+    without-collaborator: "Code reviews will lack comprehensive testing assessment"
+  - agent: cs-architect
+    purpose: Architecture pattern validation and design review
+    required: optional
+    features-enabled: [pattern-review, design-validation, refactoring-guidance]
+    without-collaborator: "Code reviews will lack architecture-level feedback"
+orchestrates:
+  skill: engineering-team/code-reviewer
+
+# === TECHNICAL ===
+tools: [Read, Write, Bash, Grep, Glob]
+dependencies:
+  tools: [Read, Write, Bash, Grep, Glob]
+  mcp-tools: [mcp__github]
+  scripts: []
+
+# === EXAMPLES ===
+examples:
+  - title: "Code Review"
+    input: "Review pull request for API authentication refactor"
+    output: "Detailed review with security findings, code quality issues, and improvement suggestions"
+
+---
+
 # Code Reviewer
 
 ## Purpose
@@ -10,14 +66,14 @@ By bridging the gap between manual expertise and automated tooling, this agent e
 
 ## Skill Integration
 
-**Skill Location:** `../skills/code-reviewer/`
+**Skill Location:** `../skills/engineering-team/code-reviewer/`
 
 ### Python Tools
 
 1. **PR Analyzer**
    - **Purpose:** Automated pull request analysis with comprehensive metrics, security scanning, and review priority recommendations
-   - **Path:** `../skills/code-reviewer/scripts/pr_analyzer.py`
-   - **Usage:** `python ../skills/code-reviewer/scripts/pr_analyzer.py <pr-number> [--repo=owner/name] [--json]`
+   - **Path:** `../skills/engineering-team/code-reviewer/scripts/pr_analyzer.py`
+   - **Usage:** `python ../skills/engineering-team/code-reviewer/scripts/pr_analyzer.py <pr-number> [--repo=owner/name] [--json]`
    - **Features:**
      - Code diff analysis and impact assessment
      - Cyclomatic complexity calculation
@@ -29,8 +85,8 @@ By bridging the gap between manual expertise and automated tooling, this agent e
 
 2. **Code Quality Checker**
    - **Purpose:** Multi-language code analysis for SOLID principles, code smells, performance issues, and documentation quality
-   - **Path:** `../skills/code-reviewer/scripts/code_quality_checker.py`
-   - **Usage:** `python ../skills/code-reviewer/scripts/code_quality_checker.py <path> [--language=typescript] [--verbose] [--json]`
+   - **Path:** `../skills/engineering-team/code-reviewer/scripts/code_quality_checker.py`
+   - **Usage:** `python ../skills/engineering-team/code-reviewer/scripts/code_quality_checker.py <path> [--language=typescript] [--verbose] [--json]`
    - **Features:**
      - Multi-language support (TypeScript/JavaScript/Python/Swift/Kotlin/Go)
      - Cyclomatic complexity analysis
@@ -43,12 +99,12 @@ By bridging the gap between manual expertise and automated tooling, this agent e
 
 3. **Review Report Generator**
    - **Purpose:** Generate detailed, categorized review reports with actionable feedback and security assessments
-   - **Path:** `../skills/code-reviewer/scripts/review_report_generator.py`
-   - **Usage:** `python ../skills/code-reviewer/scripts/review_report_generator.py <pr-number> [--format=markdown|json]`
+   - **Path:** `../skills/engineering-team/code-reviewer/scripts/review_report_generator.py`
+   - **Usage:** `python ../skills/engineering-team/code-reviewer/scripts/review_report_generator.py <pr-number> [--format=markdown|json]`
    - **Features:**
      - Multi-level issue categorization (blocking/major/minor)
      - Language-specific best practice checks
-     - Seity assessment
+     - Security vulnerability assessment
      - Performance concern flagging
      - Markdown and JSON output formats
      - Automated feedback suggestions
@@ -57,17 +113,17 @@ By bridging the gap between manual expertise and automated tooling, this agent e
 ### Knowledge Bases
 
 1. **Code Review Checklist**
-   - **Location:** `../skills/code-reviewer/references/code_review_checklist.md`
+   - **Location:** `../skills/engineering-team/code-reviewer/references/code_review_checklist.md`
    - **Content:** Comprehensive review framework covering pre-review preparation, code quality assessment (functionality, readability, maintainability), language-specific checklists for all supported languages, testing requirements, security review protocols, architecture considerations, documentation standards, git workflow validation, performance optimization checks, and feedback guidelines
    - **Use Case:** Systematic PR reviews, training reviewers, establishing team standards, audit compliance
 
 2. **Coding Standards**
-   - **Location:** `../skills/code-reviewer/references/coding_standards.md`
+   - **Location:** `../skills/engineering-team/code-reviewer/references/coding_standards.md`
    - **Content:** Language-specific standards including naming conventions, TypeScript/JavaScript modern patterns, React best practices (hooks, components, performance), Python PEP 8 compliance, Swift optionals and protocol-oriented design, Kotlin null safety, Go error handling, code formatting, file organization, documentation standards (JSDoc, docstrings), and linting tool recommendations
    - **Use Case:** Enforcing consistency, onboarding developers, resolving style debates, configuring linters
 
 3. **Common Anti-Patterns**
-   - **Location:** `../skills/code-reviewer/references/common_antipatterns.md`
+   - **Location:** `../skills/engineering-team/code-reviewer/references/common_antipatterns.md`
    - **Content:** Extensive catalog of anti-patterns covering general issues (God objects, magic numbers, deep nesting), language-specific problems (TypeScript 'any' abuse, Python mutable defaults, Swift force unwrapping, Kotlin null assertions, Go error ignoring), database anti-patterns (N+1 queries, missing indexes), security vulnerabilities (SQL injection, plaintext passwords), performance issues, and testing anti-patterns
    - **Use Case:** Pattern recognition during reviews, developer education, preventing recurring issues
 
@@ -81,17 +137,17 @@ By bridging the gap between manual expertise and automated tooling, this agent e
 
 1. **Analyze PR Metrics** - Run automated analysis to understand scope and complexity
    ```bash
-   python ../skills/code-reviewer/scripts/pr_analyzer.py 123 --repo=company/project
+   python ../skills/engineering-team/code-reviewer/scripts/pr_analyzer.py 123 --repo=company/project
    ```
 2. **Review Priority Assessment** - Examine complexity score, security concerns, and estimated review time from analyzer output
 3. **Code Quality Analysis** - Run quality checker on changed files to identify code smells and violations
    ```bash
-   python ../skills/code-reviewer/scripts/code_quality_checker.py ./src --language=typescript
+   python ../skills/engineering-team/code-reviewer/scripts/code_quality_checker.py ./src --language=typescript
    ```
 4. **Manual Review with Checklist** - Follow comprehensive checklist from `references/code_review_checklist.md` covering functionality, security, performance, tests, and documentation
 5. **Generate Review Report** - Create structured feedback with categorized issues
    ```bash
-   python ../skills/code-reviewer/scripts/review_report_generator.py 123 --format=markdown
+   python ../skills/engineering-team/code-reviewer/scripts/review_report_generator.py 123 --format=markdown
    ```
 6. **Provide Feedback** - Post review with blocking/major/minor issues clearly categorized, include specific line references and improvement suggestions
 
@@ -106,13 +162,13 @@ By bridging the gap between manual expertise and automated tooling, this agent e
 cd /path/to/repo
 
 # Step 1: Initial analysis
-python ../skills/code-reviewer/scripts/pr_analyzer.py 123 --repo=myorg/myproject
+python ../skills/engineering-team/code-reviewer/scripts/pr_analyzer.py 123 --repo=myorg/myproject
 
 # Step 2: Quality check on changed files
-python ../skills/code-reviewer/scripts/code_quality_checker.py ./src/services/UserService.ts --language=typescript
+python ../skills/engineering-team/code-reviewer/scripts/code_quality_checker.py ./src/services/UserService.ts --language=typescript
 
 # Step 3: Generate comprehensive report
-python ../skills/code-reviewer/scripts/review_report_generator.py 123 --format=markdown > pr-123-review.md
+python ../skills/engineering-team/code-reviewer/scripts/review_report_generator.py 123 --format=markdown > pr-123-review.md
 
 # Step 4: Review output and post feedback
 cat pr-123-review.md
@@ -126,7 +182,7 @@ cat pr-123-review.md
 
 1. **Comprehensive Quality Scan** - Run quality checker across entire codebase with verbose output
    ```bash
-   python ../skills/code-reviewer/scripts/code_quality_checker.py ./ --verbose --json > codebase-quality.json
+   python ../skills/engineering-team/code-reviewer/scripts/code_quality_checker.py ./ --verbose --json > codebase-quality.json
    ```
 2. **Anti-Pattern Detection** - Search for common anti-patterns using grep and reference guide
 
@@ -158,7 +214,7 @@ cat pr-123-review.md
 
 1. **Security Scan** - Run PR analyzer with focus on security metrics
    ```bash
-   python ../skills/code-reviewer/scripts/pr_analyzer.py <pr-number> --repo=company/project
+   python ../skills/engineering-team/code-reviewer/scripts/pr_analyzer.py <pr-number> --repo=company/project
    ```
 2. **Authentication Review** - Check authentication/authorization changes against security checklist (SQL injection, XSS, CSRF, authentication bypass)
 3. **Data Protection Audit** - Verify sensitive data handling, encryption usage, secret management, and PII protection
@@ -208,7 +264,7 @@ cat pr-123-review.md
 STAGED_FILES=$(git diff --cached --name-only --diff-filter=ACM)
 
 if [ -n "$STAGED_FILES" ]; then
-python ../skills/code-reviewer/scripts/code_quality_checker.py $STAGED_FILES
+python ../skills/engineering-team/code-reviewer/scripts/code_quality_checker.py $STAGED_FILES
 if [ $? -ne 0 ]; then
 echo "Code quality check failed. Please fix issues before committing."
 exit 1
@@ -264,10 +320,10 @@ for PR in $OPEN_PRS; do
     echo "Reviewing PR #$PR..."
 
     # Analyze PR
-    python ../skills/code-reviewer/scripts/pr_analyzer.py $PR --repo=$REPO --json > pr-$PR-analysis.json
+    python ../skills/engineering-team/code-reviewer/scripts/pr_analyzer.py $PR --repo=$REPO --json > pr-$PR-analysis.json
 
     # Generate review report
-    python ../skills/code-reviewer/scripts/review_report_generator.py $PR --format=markdown > pr-$PR-review.md
+    python ../skills/engineering-team/code-reviewer/scripts/review_report_generator.py $PR --format=markdown > pr-$PR-review.md
 
     echo "Review complete for PR #$PR. Report saved to pr-$PR-review.md"
 done
@@ -290,7 +346,7 @@ echo "Generating weekly quality report for week $WEEK"
 
 # Run comprehensive quality check
 echo "Running quality analysis..."
-python ../skills/code-reviewer/scripts/code_quality_checker.py ./ --verbose --json > $OUTPUT_DIR/quality-metrics.json
+python ../skills/engineering-team/code-reviewer/scripts/code_quality_checker.py ./ --verbose --json > $OUTPUT_DIR/quality-metrics.json
 
 # Check for anti-patterns
 echo "Detecting anti-patterns..."
@@ -331,7 +387,7 @@ fi
 
 # Step 3: Run comprehensive quality check
 echo "Running code quality analysis..."
-python ../skills/code-reviewer/scripts/code_quality_checker.py ./src --verbose
+python ../skills/engineering-team/code-reviewer/scripts/code_quality_checker.py ./src --verbose
 
 # Step 4: Check dependency vulnerabilities
 echo "Checking dependencies..."
@@ -375,13 +431,15 @@ echo "Security check complete. Safe to deploy."
 
 ## Related Agents
 
-- [senior-qa](senior-qa.md) - Complements code review with comprehensive testing strategy and test automation
-- [devops-engineer](devops-engineer.md) - Integrates code quality gates into CI/CD pipeline and deployment automation
-- [architect](architect.md) - Provides architectural guidance for large-scale refactoring identified in reviews
+- [cs-senior-qa](cs-senior-qa.md) - Complements code review with comprehensive testing strategy and test automation
+- [cs-senior-secops](cs-senior-secops.md) - Extends security review with infrastructure security, compliance, and incident response
+- [cs-senior-devops](cs-senior-devops.md) - Integrates code quality gates into CI/CD pipeline and deployment automation
+- [cs-senior-architect](cs-senior-architect.md) - Provides architectural guidance for large-scale refactoring identified in reviews
 
 ## References
 
-- **Skill Documentation:** [../skills/code-reviewer/SKILL.md](../skills/code-reviewer/SKILL.md)
+- **Skill Documentation:** [../skills/engineering-team/code-reviewer/SKILL.md](../skills/engineering-team/code-reviewer/SKILL.md)
+- **Domain Guide:** [../skills/engineering-team/CLAUDE.md](../skills/engineering-team/CLAUDE.md)
 
 ---
 

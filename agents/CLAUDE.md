@@ -47,7 +47,7 @@ This guide provides comprehensive instructions for creating **cs-* prefixed agen
 | [cs-security-engineer](engineering/cs-security-engineer.md) | Engineering | Security audits, vulnerability assessment, secure coding | senior-security | 1,094 |
 | [cs-devsecops-engineer](engineering/cs-devsecops-engineer.md) | Engineering | DevSecOps: secure CI/CD, vulnerability management, compliance automation | senior-devops, senior-secops | 816 |
 | [cs-qa-engineer](engineering/cs-qa-engineer.md) | Engineering | Test automation, quality assurance, test strategy | senior-qa | 383 |
-| [cs-code-reviewer](engineering/cs-code-reviewer.md) | Engineering | Code review, quality assessment, refactoring guidance | code-reviewer | 427 |
+| [cs-code-reviewer](cs-code-reviewer.md) | Engineering | Code review, quality assessment, refactoring guidance | engineering-team/code-reviewer | 427 |
 | [cs-ml-engineer](engineering/cs-ml-engineer.md) | Engineering | Model training, MLOps pipelines, experiment tracking, model deployment | senior-ml-engineer | 1,059 |
 | [cs-data-engineer](engineering/cs-data-engineer.md) | Engineering | ETL/ELT pipelines, data warehousing, data quality, scalable data infrastructure | senior-data-engineer | 1,305 |
 | [cs-data-scientist](engineering/cs-data-scientist.md) | Engineering | Statistical analysis, exploratory data analysis, feature engineering, model evaluation | senior-data-scientist | 1,368 |
