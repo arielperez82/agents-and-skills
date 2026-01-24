@@ -11,21 +11,27 @@ skills: senior-backend
 # === USE CASES ===
 difficulty: advanced
 use-cases:
-  - Building robust API services with proper authentication and authorization
-  - Designing database schemas and optimizing query performance
-  - Implementing microservices patterns and service communication
+  - Building robust API services with proper authentication and authorization using TDD
+  - Designing database schemas and optimizing query performance with comprehensive testing
+  - Implementing microservices patterns and service communication with integration tests
   - Setting up CI/CD pipelines for backend applications
+  - Writing maintainable, well-tested backend code following TDD principles
 
 # === RELATIONSHIPS ===
 related-agents: []
-related-skills: [engineering-team/senior-backend]
+related-skills: [engineering-team/senior-backend, core-testing-methodology]
 related-commands: []
 collaborates-with:
-  - agent: cs-qa-engineer
-    purpose: Test strategy and quality assurance for API endpoints and backend services
+  - agent: tdd-guardian
+    purpose: TDD methodology coaching and RED-GREEN-REFACTOR guidance for backend development
     required: recommended
-    features-enabled: [api-test-generation, integration-tests, load-testing]
-    without-collaborator: "Backend code will lack comprehensive test coverage and quality validation"
+    features-enabled: [tdd-process, api-testing, database-testing]
+    without-collaborator: "Backend development may not follow strict TDD principles"
+  - agent: cs-qa-engineer
+    purpose: Test automation infrastructure and quality metrics for backend services
+    required: recommended
+    features-enabled: [api-test-automation, integration-testing, performance-testing]
+    without-collaborator: "Backend code will lack comprehensive automated testing infrastructure"
   - agent: cs-security-engineer
     purpose: Security review for authentication, authorization, and API security patterns
     required: recommended

@@ -11,11 +11,11 @@ skills: engineering-team/senior-ios
 # === USE CASES ===
 difficulty: advanced
 use-cases:
-  - Building native iOS applications with SwiftUI
-  - Migrating UIKit apps to SwiftUI
-  - Implementing modern Swift concurrency patterns
-  - Performance profiling with Instruments
-  - Preparing apps for App Store submission
+  - Building native iOS applications with SwiftUI using TDD
+  - Migrating UIKit apps to SwiftUI with comprehensive testing
+  - Implementing modern Swift concurrency patterns with async testing
+  - Performance profiling with automated performance testing
+  - Preparing apps for App Store submission with quality assurance
 
 # === RELATIONSHIPS ===
 related-agents:
@@ -24,9 +24,21 @@ related-agents:
 related-skills:
   - engineering-team/senior-ios
   - engineering-team/senior-mobile
+  - core-testing-methodology
 related-commands: []
 orchestrates:
   skill: engineering-team/senior-ios
+collaborates-with:
+  - agent: tdd-guardian
+    purpose: TDD methodology coaching for iOS development and Swift testing
+    required: optional
+    features-enabled: [ios-tdd, swift-testing, uikit-testing, swiftui-testing]
+    without-collaborator: "iOS development may not follow TDD principles"
+  - agent: cs-qa-engineer
+    purpose: Test automation infrastructure for iOS applications and mobile testing
+    required: optional
+    features-enabled: [ios-automation, mobile-testing, app-store-testing]
+    without-collaborator: "iOS applications will lack comprehensive test automation"
 
 # === TECHNICAL ===
 tools: [Read, Write, Bash, Grep, Glob]

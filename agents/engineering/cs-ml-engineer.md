@@ -11,16 +11,22 @@ skills: senior-ml-engineer
 # === USE CASES ===
 difficulty: advanced
 use-cases:
-  - Primary workflow for Ml Engineer
-  - Analysis and recommendations for ml engineer tasks
-  - Best practices implementation for ml engineer
-  - Integration with related agents and workflows
+  - Building ML models and pipelines using TDD for data processing
+  - Implementing MLOps with comprehensive model validation and testing
+  - Creating production ML systems with automated quality assurance
+  - Developing feature engineering with testable data transformations
+  - Deploying ML models with continuous testing and monitoring
 
 # === RELATIONSHIPS ===
 related-agents: []
-related-skills: [engineering-team/senior-ml-engineer]
+related-skills: [engineering-team/senior-ml-engineer, core-testing-methodology]
 related-commands: []
 collaborates-with:
+  - agent: tdd-guardian
+    purpose: TDD methodology for ML pipeline development and model validation testing
+    required: optional
+    features-enabled: [ml-tdd, pipeline-testing, model-validation-tdd]
+    without-collaborator: "ML engineering may not follow TDD principles"
   - agent: cs-qa-engineer
     purpose: Model testing, validation pipelines, and ML quality assurance
     required: recommended

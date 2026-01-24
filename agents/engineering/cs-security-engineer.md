@@ -11,16 +11,27 @@ skills: senior-security
 # === USE CASES ===
 difficulty: advanced
 use-cases:
-  - Conducting security audits and vulnerability assessments
-  - Implementing authentication and authorization patterns
-  - Setting up security monitoring and incident response
-  - Reviewing code for OWASP Top 10 vulnerabilities
+  - Conducting security audits and vulnerability assessments with automated testing
+  - Implementing authentication and authorization patterns using TDD
+  - Setting up security monitoring and incident response with validation testing
+  - Reviewing code for OWASP Top 10 vulnerabilities with security testing
+  - Developing security controls with comprehensive test coverage
 
 # === RELATIONSHIPS ===
 related-agents: []
-related-skills: [engineering-team/senior-security]
+related-skills: [engineering-team/senior-security, core-testing-methodology]
 related-commands: []
 collaborates-with:
+  - agent: tdd-guardian
+    purpose: TDD methodology for security control development and vulnerability testing
+    required: optional
+    features-enabled: [security-tdd, vulnerability-testing, auth-testing, compliance-tdd]
+    without-collaborator: "Security engineering may not follow TDD principles"
+  - agent: cs-qa-engineer
+    purpose: Test automation for security controls and vulnerability validation
+    required: optional
+    features-enabled: [security-testing, vulnerability-automation, compliance-testing]
+    without-collaborator: "Security controls will lack comprehensive automated testing"
   - agent: cs-code-reviewer
     purpose: Security-aware code review integration
     required: recommended

@@ -18,9 +18,14 @@ use-cases:
 
 # === RELATIONSHIPS ===
 related-agents: []
-related-skills: [engineering-team/senior-devops]
+related-skills: [engineering-team/senior-devops, core-testing-methodology]
 related-commands: []
 collaborates-with:
+  - agent: tdd-guardian
+    purpose: Ensuring CI/CD pipelines support TDD workflows and quality gates
+    required: optional
+    features-enabled: [tdd-pipeline-support, quality-gate-setup]
+    without-collaborator: "CI/CD pipelines may not enforce TDD compliance"
   - agent: cs-architect
     purpose: Infrastructure architecture and deployment topology design
     required: recommended

@@ -11,11 +11,11 @@ skills: engineering-team/senior-mobile
 # === USE CASES ===
 difficulty: advanced
 use-cases:
-  - Creating new React Native or Flutter projects with best practices
-  - Selecting optimal framework based on project requirements
-  - Detecting platform capabilities and configuration issues
-  - Validating apps before App Store/Play Store submission
-  - Setting up CI/CD pipelines for mobile releases
+  - Creating new React Native or Flutter projects with best practices using TDD
+  - Selecting optimal framework based on project requirements with comprehensive testing
+  - Detecting platform capabilities and configuration issues with automated testing
+  - Validating apps before App Store/Play Store submission with quality assurance
+  - Setting up CI/CD pipelines for mobile releases with automated testing
 
 # === RELATIONSHIPS ===
 related-agents:
@@ -26,9 +26,21 @@ related-skills:
   - engineering-team/senior-mobile
   - engineering-team/senior-ios
   - engineering-team/senior-flutter
+  - core-testing-methodology
 related-commands: []
 orchestrates:
   skill: engineering-team/senior-mobile
+collaborates-with:
+  - agent: tdd-guardian
+    purpose: TDD methodology coaching for mobile development across platforms
+    required: optional
+    features-enabled: [mobile-tdd, cross-platform-testing, react-native-tdd, flutter-tdd]
+    without-collaborator: "Mobile development may not follow TDD principles"
+  - agent: cs-qa-engineer
+    purpose: Test automation infrastructure for mobile applications and app store validation
+    required: optional
+    features-enabled: [mobile-automation, app-store-testing, cross-platform-testing]
+    without-collaborator: "Mobile applications will lack comprehensive test automation"
 
 # === TECHNICAL ===
 tools: [Read, Write, Bash, Grep, Glob]

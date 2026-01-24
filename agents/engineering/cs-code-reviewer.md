@@ -18,19 +18,19 @@ use-cases:
 
 # === RELATIONSHIPS ===
 related-agents: []
-related-skills: [engineering-team/code-reviewer]
+related-skills: [engineering-team/code-reviewer, core-testing-methodology]
 related-commands: []
 collaborates-with:
-  - agent: cs-security-engineer
-    purpose: Security-focused code review and vulnerability detection
+  - agent: tdd-guardian
+    purpose: TDD compliance verification and test structure review
     required: recommended
-    features-enabled: [security-review, vulnerability-scanning, owasp-checks]
-    without-collaborator: "Code reviews will lack deep security analysis"
+    features-enabled: [tdd-review, test-structure-validation, behavior-testing-assessment]
+    without-collaborator: "Code reviews will lack TDD methodology assessment"
   - agent: cs-qa-engineer
-    purpose: Test coverage analysis and quality metrics review
-    required: optional
-    features-enabled: [coverage-analysis, quality-metrics, test-review]
-    without-collaborator: "Code reviews will lack test coverage assessment"
+    purpose: Test automation and quality metrics review
+    required: recommended
+    features-enabled: [coverage-analysis, quality-metrics, automation-review]
+    without-collaborator: "Code reviews will lack comprehensive testing assessment"
   - agent: cs-architect
     purpose: Architecture pattern validation and design review
     required: optional

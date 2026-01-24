@@ -11,17 +11,22 @@ skills: senior-dotnet
 # === USE CASES ===
 difficulty: advanced
 use-cases:
-  - Building ASP.NET Core Web APIs with production-ready configuration
-  - Designing microservices with Clean Architecture and CQRS patterns
-  - Implementing Entity Framework Core data layers with optimized queries
-  - Setting up ASP.NET Core Identity with JWT/OIDC authentication
-  - Performance tuning .NET applications and async patterns
+  - Building ASP.NET Core Web APIs with production-ready configuration using TDD
+  - Designing microservices with Clean Architecture and CQRS patterns with comprehensive testing
+  - Implementing Entity Framework Core data layers with optimized queries and test coverage
+  - Setting up ASP.NET Core Identity with JWT/OIDC authentication using TDD
+  - Performance tuning .NET applications with automated performance testing
 
 # === RELATIONSHIPS ===
 related-agents: [cs-backend-engineer, cs-architect, cs-devops-engineer]
-related-skills: [engineering-team/senior-dotnet]
+related-skills: [engineering-team/senior-dotnet, core-testing-methodology]
 related-commands: []
 collaborates-with:
+  - agent: tdd-guardian
+    purpose: TDD methodology coaching for .NET development and ASP.NET Core testing
+    required: optional
+    features-enabled: [dotnet-tdd, aspnet-testing, csharp-tdd]
+    without-collaborator: ".NET development may not follow TDD principles"
   - agent: cs-qa-engineer
     purpose: Test strategy and quality assurance for ASP.NET Core services and API endpoints
     required: recommended

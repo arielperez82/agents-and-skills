@@ -8,17 +8,29 @@ This directory contains specifications for specialized Claude Code agents that w
 ### Development Process Agents
 
 #### `tdd-guardian`
-**Purpose**: Ensures strict Test-Driven Development compliance throughout the coding process.
+**Purpose**: TDD methodology coach and guardian - ensures TDD principles are followed by ALL developers.
 
-**Use proactively when**:
-- Planning to implement a new feature
-- About to write any production code
+**Use when**:
+- Need TDD methodology guidance and coaching
+- Reviewing code for TDD compliance
+- Establishing TDD standards for teams
+- Debugging test-first development issues
 
-**Use reactively when**:
-- Code has been written (verify TDD was followed)
-- Tests are green (assess refactoring opportunities)
+**Core responsibility**: Coach RED-GREEN-REFACTOR cycle, educate on TDD principles.
 
-**Core responsibility**: Enforce RED-GREEN-REFACTOR cycle, verify tests written first.
+---
+
+#### `qa-engineer`
+**Purpose**: Quality automation specialist and testing infrastructure expert.
+
+**Use when**:
+- Setting up test automation frameworks
+- Optimizing CI/CD testing pipelines
+- Implementing quality metrics and dashboards
+- Designing testing infrastructure and environments
+- Troubleshooting automation and framework issues
+
+**Core responsibility**: Test automation, quality metrics, testing infrastructure.
 
 ---
 

@@ -11,18 +11,29 @@ skills: senior-secops
 # === USE CASES ===
 difficulty: advanced
 use-cases:
-  - Conducting security audits and vulnerability assessments
-  - Implementing authentication and authorization patterns
-  - Setting up security monitoring and incident response
-  - Reviewing code for OWASP Top 10 vulnerabilities
+  - Conducting security audits and vulnerability assessments with automated testing
+  - Implementing authentication and authorization patterns using TDD
+  - Setting up security monitoring and incident response with validation testing
+  - Reviewing code for OWASP Top 10 vulnerabilities with security automation
+  - Developing security operations with comprehensive test coverage
 
 # === RELATIONSHIPS ===
 related-agents: []
-related-skills: [engineering-team/senior-secops]
+related-skills: [engineering-team/senior-secops, core-testing-methodology]
 related-commands: []
 orchestrates:
   skill: engineering-team/senior-secops
 collaborates-with:
+  - agent: tdd-guardian
+    purpose: TDD methodology for security operations and automation testing
+    required: optional
+    features-enabled: [secops-tdd, automation-testing, monitoring-validation, incident-testing]
+    without-collaborator: "Security operations may not follow testing principles"
+  - agent: cs-qa-engineer
+    purpose: Test automation for security operations and compliance validation
+    required: optional
+    features-enabled: [secops-automation, compliance-testing, security-validation]
+    without-collaborator: "Security operations will lack automated validation"
   - agent: cs-incident-responder
     purpose: Incident response handoff and post-incident hardening coordination
     required: recommended

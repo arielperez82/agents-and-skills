@@ -18,11 +18,21 @@ use-cases:
 
 # === RELATIONSHIPS ===
 related-agents: [cs-technical-writer, cs-graphql-architect]
-related-skills: [engineering-team/senior-architect, engineering-team/technical-writer]
+related-skills: [engineering-team/senior-architect, engineering-team/technical-writer, core-testing-methodology]
 related-commands: []
 orchestrates:
   skill: engineering-team/senior-architect
 collaborates-with:
+  - agent: tdd-guardian
+    purpose: Ensuring architecture supports TDD practices and testability
+    required: optional
+    features-enabled: [architecture-testability, tdd-friendly-design]
+    without-collaborator: "Architecture may not prioritize testability and TDD practices"
+  - agent: qa-engineer
+    purpose: Architecture review for testability and automation infrastructure requirements
+    required: optional
+    features-enabled: [testable-architecture, automation-infrastructure, quality-architecture]
+    without-collaborator: "Architecture documentation without testing infrastructure considerations"
   - agent: cs-technical-writer
     purpose: Architecture diagram generation using Mermaid (flowcharts, sequence, class, ERD, architecture)
     required: optional

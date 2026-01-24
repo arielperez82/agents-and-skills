@@ -11,11 +11,11 @@ skills: engineering-team/senior-flutter
 # === USE CASES ===
 difficulty: advanced
 use-cases:
-  - Building cross-platform apps with Flutter
-  - Implementing clean architecture patterns
-  - Managing state with Riverpod, Bloc, or Provider
-  - Integrating native code via platform channels
-  - Optimizing widget performance
+  - Building cross-platform apps with Flutter using TDD
+  - Implementing clean architecture patterns with comprehensive testing
+  - Managing state with Riverpod, Bloc, or Provider and state testing
+  - Integrating native code via platform channels with integration tests
+  - Optimizing widget performance with automated performance testing
 
 # === RELATIONSHIPS ===
 related-agents:
@@ -24,9 +24,21 @@ related-agents:
 related-skills:
   - engineering-team/senior-flutter
   - engineering-team/senior-mobile
+  - core-testing-methodology
 related-commands: []
 orchestrates:
   skill: engineering-team/senior-flutter
+collaborates-with:
+  - agent: tdd-guardian
+    purpose: TDD methodology coaching for Flutter development and widget testing
+    required: optional
+    features-enabled: [flutter-tdd, widget-testing, dart-tdd]
+    without-collaborator: "Flutter development may not follow TDD principles"
+  - agent: cs-qa-engineer
+    purpose: Test automation infrastructure for Flutter applications and mobile testing
+    required: optional
+    features-enabled: [flutter-automation, mobile-testing, cross-platform-testing]
+    without-collaborator: "Flutter applications will lack comprehensive test automation"
 
 # === TECHNICAL ===
 tools: [Read, Write, Bash, Grep, Glob]

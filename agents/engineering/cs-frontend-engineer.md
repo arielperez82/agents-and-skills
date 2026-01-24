@@ -11,22 +11,29 @@ skills: engineering-team/senior-frontend
 # === USE CASES ===
 difficulty: advanced
 use-cases:
-  - Building responsive user interfaces with modern frameworks
-  - Implementing state management and component architecture
+  - Building responsive user interfaces with modern frameworks using TDD
+  - Implementing state management and component architecture with comprehensive testing
   - Optimizing frontend performance and bundle sizes
   - Creating accessible and user-friendly web experiences
+  - Writing maintainable, well-tested frontend code following TDD principles
 
 # === RELATIONSHIPS ===
 related-agents: []
 related-skills:
   - engineering-team/senior-frontend
+  - core-testing-methodology
 related-commands: []
 collaborates-with:
-  - agent: cs-qa-engineer
-    purpose: Test strategy and quality assurance for UI components and user flows
+  - agent: tdd-guardian
+    purpose: TDD methodology coaching and RED-GREEN-REFACTOR guidance
     required: recommended
-    features-enabled: [component-testing, e2e-testing, accessibility-testing]
-    without-collaborator: "Frontend code will lack comprehensive test coverage"
+    features-enabled: [tdd-process, test-structure, refactoring-assessment]
+    without-collaborator: "Frontend development may not follow strict TDD principles"
+  - agent: cs-qa-engineer
+    purpose: Test automation infrastructure and quality metrics for frontend applications
+    required: recommended
+    features-enabled: [test-automation, quality-metrics, ci-cd-testing]
+    without-collaborator: "Frontend code will lack comprehensive automated testing infrastructure"
   - agent: cs-technical-writer
     purpose: Component documentation with state diagrams and user journey maps
     required: optional

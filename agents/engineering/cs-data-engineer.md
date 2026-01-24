@@ -11,16 +11,21 @@ skills: senior-data-engineer
 # === USE CASES ===
 difficulty: advanced
 use-cases:
-  - Designing data pipelines for ETL/ELT processes
-  - Building data warehouses and data lakes
-  - Implementing data quality and governance frameworks
-  - Creating analytics dashboards and reporting
+  - Designing data pipelines for ETL/ELT processes with comprehensive testing
+  - Building data warehouses and data lakes with data quality validation
+  - Implementing data quality and governance frameworks using TDD
+  - Creating analytics dashboards and reporting with automated testing
 
 # === RELATIONSHIPS ===
 related-agents: []
-related-skills: [engineering-team/senior-data-engineer]
+related-skills: [engineering-team/senior-data-engineer, core-testing-methodology]
 related-commands: []
 collaborates-with:
+  - agent: tdd-guardian
+    purpose: TDD methodology for data pipeline and transformation testing
+    required: optional
+    features-enabled: [pipeline-testing, data-transformation-tdd, quality-tdd]
+    without-collaborator: "Data engineering may not follow TDD principles"
   - agent: cs-qa-engineer
     purpose: Data quality testing and pipeline validation
     required: recommended

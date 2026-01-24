@@ -11,17 +11,22 @@ skills: senior-java
 # === USE CASES ===
 difficulty: advanced
 use-cases:
-  - Building enterprise Spring Boot applications with production-ready configuration
-  - Designing microservices with Spring Cloud and service discovery
-  - Implementing JPA/Hibernate data layers with optimized queries
-  - Setting up Spring Security with OAuth2 and JWT authentication
-  - Performance tuning JVM applications and reactive WebFlux systems
+  - Building enterprise Spring Boot applications with production-ready configuration using TDD
+  - Designing microservices with Spring Cloud and service discovery with comprehensive testing
+  - Implementing JPA/Hibernate data layers with optimized queries and test coverage
+  - Setting up Spring Security with OAuth2 and JWT authentication using TDD
+  - Performance tuning JVM applications with automated performance testing
 
 # === RELATIONSHIPS ===
 related-agents: [cs-backend-engineer, cs-architect, cs-devops-engineer]
-related-skills: [engineering-team/senior-java]
+related-skills: [engineering-team/senior-java, core-testing-methodology]
 related-commands: []
 collaborates-with:
+  - agent: tdd-guardian
+    purpose: TDD methodology coaching for Java development and Spring Boot testing
+    required: optional
+    features-enabled: [java-tdd, spring-testing, jpa-testing, junit-tdd]
+    without-collaborator: "Java development may not follow TDD principles"
   - agent: cs-qa-engineer
     purpose: Test strategy and quality assurance for Spring Boot services and API endpoints
     required: recommended

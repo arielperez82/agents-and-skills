@@ -11,17 +11,27 @@ skills: senior-network-infrastructure
 # === USE CASES ===
 difficulty: advanced
 use-cases:
-  - Designing VPC/VNet architecture for multi-region applications
-  - Configuring site-to-site VPN between cloud providers
-  - Generating firewall rules and security groups
-  - Planning subnet allocation and CIDR blocks
-  - Auditing network security compliance
+  - Designing VPC/VNet architecture for multi-region applications with infrastructure testing
+  - Configuring site-to-site VPN between cloud providers with validation testing
+  - Generating firewall rules and security groups with automated testing
+  - Planning subnet allocation and CIDR blocks with configuration testing
+  - Auditing network security compliance with automated validation
 
 # === RELATIONSHIPS ===
 related-agents: []
-related-skills: [engineering-team/senior-network-infrastructure]
+related-skills: [engineering-team/senior-network-infrastructure, core-testing-methodology]
 related-commands: []
 collaborates-with:
+  - agent: tdd-guardian
+    purpose: TDD methodology for network configuration and infrastructure code testing
+    required: optional
+    features-enabled: [infrastructure-tdd, configuration-testing, network-validation]
+    without-collaborator: "Network infrastructure may not follow testing principles"
+  - agent: cs-qa-engineer
+    purpose: Test automation for network configurations and infrastructure validation
+    required: optional
+    features-enabled: [infrastructure-testing, configuration-automation, compliance-testing]
+    without-collaborator: "Network configurations will lack automated validation"
   - agent: cs-devops-engineer
     purpose: Infrastructure deployment and CI/CD integration for network changes
     required: recommended

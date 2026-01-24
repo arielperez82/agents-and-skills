@@ -17,13 +17,13 @@ Generated: 2026-01-23
 
 **Analysis:** Likely duplicates - both appear to be code review agents. The `cs-` prefix suggests they may be from different sources.
 
-### TDD/Testing
-- `tdd-guardian.md` (guardian/monitor role)
-- `engineering/cs-tdd-engineer.md` (implementation role)
-- `engineering/cs-qa-engineer.md` (qa planning role)
-- `tester.md` (general testing)
+### TDD/Testing ✅ DONE
+- `tdd-guardian.md` (guardian/monitor role) - **REFORMED** as pure TDD methodology coach
+- `engineering/cs-tdd-engineer.md` (implementation role) - **ELIMINATED** (TDD is every engineer's job)
+- `engineering/cs-qa-engineer.md` (qa planning role) - **REFORMED** as quality automation specialist → `qa-engineer.md`
+- `tester.md` (general testing) - **MERGED** into qa-engineer
 
-**Analysis:** Different roles: guardian monitors TDD practices, engineer implements TDD, tester performs testing. May have some overlap in testing knowledge.
+**Analysis:** Consolidated to 2 focused agents: `tdd-guardian` (TDD coach) and `qa-engineer` (automation expert). Eliminated separate TDD engineer role, focused QA on automation/infrastructure expertise.
 
 ### Mobile Development
 - `engineering/cs-mobile-engineer.md` (general mobile)
@@ -123,20 +123,14 @@ Generated: 2026-01-23
 
 ## SKILLS - Similar/Overlapping Groups
 
-### Testing (High Overlap Risk)
-- `testing/SKILL.md` (general testing)
-- `tdd/SKILL.md` (TDD methodology)
-- `test-driven-development/SKILL.md` (TDD - likely duplicate of above)
-- `front-end-testing/SKILL.md` (frontend-specific)
-- `react-testing/SKILL.md` (React-specific)
-- `e2e-testing-patterns/SKILL.md` (E2E patterns)
-- `qa-test-planner/SKILL.md` (QA planning)
-- `playwright-skill/SKILL.md` (Playwright tool)
-- `vitest-testing-patterns/SKILL.md` (Vitest patterns)
-- `vitest-configuration/SKILL.md` (Vitest config)
-- `vitest-performance/SKILL.md` (Vitest performance)
+### Testing ✅ DONE
+- `core-testing-methodology/SKILL.md` - **NEW** (merged `testing`, `tdd`, `test-driven-development`, `qa-test-planner`)
+- `testing-automation-patterns/SKILL.md` - **NEW** (merged `e2e-testing-patterns`, `vitest-*` skills)
+- `front-end-testing/SKILL.md` (frontend-specific) - **KEPT** (domain-specific)
+- `react-testing/SKILL.md` (React-specific) - **KEPT** (domain-specific)
+- `playwright-skill/SKILL.md` (Playwright tool) - **KEPT** (tool-specific)
 
-**Analysis:** Significant overlap risk. `tdd/SKILL.md` and `test-driven-development/SKILL.md` are likely duplicates. Vitest skills could potentially be consolidated. Front-end, React, and E2E are domain-specific but may share patterns.
+**Analysis:** Consolidated overlapping skills into 2 core skills plus domain-specific ones. Eliminated duplicates and focused on clear separation between methodology and automation patterns.
 
 ### TypeScript
 - `typescript/SKILL.md`
@@ -335,13 +329,11 @@ Generated: 2026-01-23
 2. **Scouting:** `scout.md` vs `scout-external.md` - need to verify distinction
 
 ### Skills
-1. **TDD:** `tdd/SKILL.md` vs `test-driven-development/SKILL.md` - likely duplicates
-2. **Skill Creation:** `creating-skill/SKILL.md` vs `skill-creator/SKILL.md` - likely duplicates
-3. **Backend:** `senior-backend/SKILL.md` vs `engineering-team/senior-backend/SKILL.md` - likely duplicates
-4. **DevOps:** `senior-devops/SKILL.md` vs `engineering-team/senior-devops/SKILL.md` - likely duplicates
-5. **Fullstack:** `senior-fullstack/SKILL.md` vs `engineering-team/senior-fullstack/SKILL.md` - likely duplicates
-6. **Backend Development:** `backend-development/SKILL.md` vs `senior-backend/SKILL.md` - potential overlap
-7. **Testing Skills:** Multiple testing-related skills with potential consolidation opportunities
+1. **Skill Creation:** `creating-skill/SKILL.md` vs `skill-creator/SKILL.md` - likely duplicates
+2. **Backend:** `senior-backend/SKILL.md` vs `engineering-team/senior-backend/SKILL.md` - likely duplicates
+3. **DevOps:** `senior-devops/SKILL.md` vs `engineering-team/senior-devops/SKILL.md` - likely duplicates
+4. **Fullstack:** `senior-fullstack/SKILL.md` vs `engineering-team/senior-fullstack/SKILL.md` - likely duplicates
+5. **Backend Development:** `backend-development/SKILL.md` vs `senior-backend/SKILL.md` - potential overlap
 
 ---
 

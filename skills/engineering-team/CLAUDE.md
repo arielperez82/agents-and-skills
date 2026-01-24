@@ -248,14 +248,35 @@ python senior-ml-engineer/scripts/model_deployment_pipeline.py model.pkl
 # Check MLflow dashboard
 ```
 
+## Core Engineering Practices
+
+### TDD (Test-Driven Development) - Universal Requirement
+
+**TDD is every developer's responsibility.** All engineering work follows RED-GREEN-REFACTOR:
+
+1. **RED**: Write failing test first
+2. **GREEN**: Minimal code to pass test
+3. **REFACTOR**: Improve while keeping tests green
+
+**All engineering skills include TDD support:**
+- `core-testing-methodology` skill for TDD patterns
+- `tdd-guardian` agent for methodology coaching
+- `qa-engineer` agent for automation infrastructure
+
+**Quality Gates:**
+- 100% test coverage required (exceptions documented)
+- Tests verify behavior, not implementation
+- All tests pass before commits
+- TDD evidence in commit history
+
 ## Quality Standards
 
 **All engineering tools must:**
 - Support modern tech stacks (Next.js, React, Vue, Express)
-- Generate production-ready code
-- Include testing infrastructure
+- Generate production-ready code with comprehensive tests
+- Include TDD-compliant testing infrastructure
 - Provide Docker configurations
-- Support CI/CD integration
+- Support CI/CD integration with quality gates
 
 ## Integration Patterns
 

@@ -11,21 +11,27 @@ skills: senior-fullstack
 # === USE CASES ===
 difficulty: advanced
 use-cases:
-  - Primary workflow for Fullstack Engineer
-  - Analysis and recommendations for fullstack engineer tasks
-  - Best practices implementation for fullstack engineer
-  - Integration with related agents and workflows
+  - Building full-stack applications using TDD across frontend and backend
+  - Implementing end-to-end features with comprehensive test coverage
+  - Coordinating frontend-backend integration with automated testing
+  - Delivering production-ready applications following TDD principles
+  - Managing full-stack development with quality assurance throughout
 
 # === RELATIONSHIPS ===
 related-agents: []
-related-skills: [engineering-team/senior-fullstack]
+related-skills: [engineering-team/senior-fullstack, core-testing-methodology]
 related-commands: []
 collaborates-with:
-  - agent: cs-qa-engineer
-    purpose: End-to-end test strategy across frontend and backend layers
+  - agent: tdd-guardian
+    purpose: TDD methodology guidance for full-stack development across all layers
     required: recommended
-    features-enabled: [e2e-testing, integration-tests, api-contract-testing]
-    without-collaborator: "Full-stack applications will lack comprehensive test coverage"
+    features-enabled: [tdd-process, full-stack-testing, integration-tdd]
+    without-collaborator: "Full-stack development may not follow consistent TDD principles"
+  - agent: cs-qa-engineer
+    purpose: Test automation infrastructure and quality metrics for full-stack applications
+    required: recommended
+    features-enabled: [e2e-automation, integration-testing, quality-metrics]
+    without-collaborator: "Full-stack applications will lack comprehensive automated testing infrastructure"
   - agent: cs-architect
     purpose: Architecture guidance for full-stack patterns and system design
     required: recommended
