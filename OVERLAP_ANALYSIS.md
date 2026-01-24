@@ -20,6 +20,7 @@ Generated: 2026-01-23
 ### TDD/Testing
 - `tdd-guardian.md` (guardian/monitor role)
 - `engineering/cs-tdd-engineer.md` (implementation role)
+- `engineering/cs-qa-engineer.md` (qa planning role)
 - `tester.md` (general testing)
 
 **Analysis:** Different roles: guardian monitors TDD practices, engineer implements TDD, tester performs testing. May have some overlap in testing knowledge.
