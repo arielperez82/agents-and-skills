@@ -42,9 +42,9 @@ Follow strictly these following steps:
 ### Research & Planning: Tech Stack, Wireframe & Design
 
 1. **Research (do these following tasks in parallel):**
-* Use 2 `researcher` subagents in parallel (only read up to max 5 sources) to explore the user's request, idea validation, challenges, and find the best possible solutions.
-* Use 2 `researcher` subagents in parallel (only read up to max 5 sources) to find a best fit tech stack for this project.
-* Use 2 `researcher` subagents in parallel (only read up to max 5 sources) to create a design plan that follows the progressive disclosure structure:
+* Use 2 `cs-researcher` subagents in parallel (only read up to max 5 sources) to explore the user's request, idea validation, challenges, and find the best possible solutions.
+* Use 2 `cs-researcher` subagents in parallel (only read up to max 5 sources) to find a best fit tech stack for this project.
+* Use 2 `cs-researcher` subagents in parallel (only read up to max 5 sources) to create a design plan that follows the progressive disclosure structure:
   - Create a directory `plans/{date}-plan-name` (date format from `$CK_PLAN_DATE_FORMAT`).
   - Save the overview access point at `plan.md`, keep it generic, under 80 lines, and list each phase with status/progress and links.
   - For each phase, add `phase-XX-phase-name.md` files containing sections (Context links, Overview with date/priority/statuses, Key Insights, Requirements, Architecture, Related code files, Implementation Steps, Todo list, Success Criteria, Risk Assessment, Security Considerations, Next steps).
@@ -58,7 +58,7 @@ Follow strictly these following steps:
 * Use `ui-ux-designer` subagent to analyze the research results and create the design guidelines at `./docs/design-guidelines.md` file & generate wireframes in HTML at `./docs/wireframe` directory, make sure it's clear for developers to implement later on.
 * If there are no logo provided, use `ai-multimodal` skill to generate a logo.
 * Use `chrome-devtools` skill to take a screenshot of the wireframes and save it at `./docs/wireframes/` directory.
-* Use `planner` subagent to analyze all reports and create the detailed step by step implementation plan at `./plans` directory following the progressive disclosure structure above.
+* Use `cs-implementation-planner` subagent to analyze all reports and create the detailed step by step implementation plan at `./plans` directory following the progressive disclosure structure above.
 * **IMPORTANT:** Sacrifice grammar for the sake of concision when writing outputs.
 
 ### Implementation

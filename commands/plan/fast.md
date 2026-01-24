@@ -33,7 +33,7 @@ Before creating plan folder, check plan state:
    - Update session state: `node .claude/scripts/set-active-plan.cjs plans/{date}-plan-name`
 
 ## Workflow
-Use `planner` subagent to:
+Use `cs-implementation-planner` subagent to:
 1. If creating new plan: Create directory `plans/{date}-plan-name` and run `node .claude/scripts/set-active-plan.cjs plans/...`
    If reusing existing: Use the active plan path from `$CK_ACTIVE_PLAN`.
    Make sure you pass the directory path to every subagent during the process.

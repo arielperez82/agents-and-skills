@@ -116,12 +116,306 @@ Generated: 2026-01-24 (v3 - fully complete)
 
 **Analysis:** **RESOLVED** - Merged both agents into `cs-supabase-database-engineer` which combines schema design, migration management, and RLS policy architecture into a single comprehensive Supabase database engineering agent. The merged agent handles both strategic schema design and tactical migration workflows.
 
-### Research/Planning
-- `researcher.md`
-- `planner.md`
-- `brainstormer.md`
+### Research/Planning ✅ DONE
+- `engineering/cs-researcher.md` (haiku) - **INFORMATION GATHERING** (external research, documentation synthesis)
+- `engineering/cs-implementation-planner.md` (opus) - **STRUCTURED PLANNING** (implementation plans, step-by-step roadmaps)
+- `engineering/cs-brainstormer.md` (fast) - **IDEATION & DEBATE** (solution exploration, trade-off evaluation)
 
-**Analysis:** Related cognitive functions - research (information gathering), planning (structuring), brainstorming (ideation). Some overlap in analytical thinking.
+**Analysis:** ✅ **RESOLVED** - All three agents renamed with `cs-` prefix and moved to `engineering/` directory. Skills updated, boundaries clarified, research delegation implemented. Planner renamed to `cs-implementation-planner` to clarify it creates implementation plans (not architecture designs). All command references updated. ✅ **VERIFIED** - docs-guardian review complete: frontmatter structure matches cs-* agents, all references correct, no dead links, catalog updated, collaboration protocols documented.
+
+#### Role Differentiation
+
+**Researcher (haiku - fast/cheap)**
+- **Primary Function**: External information gathering and synthesis
+- **Focus**: Technologies, libraries, best practices, documentation
+- **Output**: Research reports (`researcher-{date}-{topic-slug}.md`)
+- **Model Choice**: haiku (token-efficient for parallel research tasks)
+- **Key Strength**: Multi-source research, query fan-out, source validation
+
+**Planner (opus - expensive/quality)**
+- **Primary Function**: Structured implementation planning
+- **Focus**: Architecture, system design, technical solutions
+- **Output**: Comprehensive plans (`plans/{date}-{name}/` with progressive disclosure)
+- **Model Choice**: opus (high-quality structured thinking)
+- **Key Strength**: Mental models, decomposition, risk management, structured planning
+
+**Brainstormer (fast - quick iterations)**
+- **Primary Function**: Interactive ideation and solution debate
+- **Focus**: Architectural approaches, trade-offs, feasibility validation
+- **Output**: Brainstorm reports (`brainstorm-{date}-{topic-slug}.md`)
+- **Model Choice**: fast (rapid iteration for debate/exploration)
+- **Key Strength**: Brutal honesty, assumption challenging, stakeholder consideration
+
+#### Unnecessary Overlaps (Should Be Eliminated)
+
+1. **Research Duplication**: Planner and Brainstormer both do research, but should consume Researcher's output
+   - **Issue**: Planner description says "research, analyze, and create plans" - but research should be delegated to Researcher
+   - **Issue**: Brainstormer does "Research Phase" with web searches - should use Researcher instead
+   - **Fix**: Planner should consume Researcher reports, not do research itself
+   - **Fix**: Brainstormer should consume Researcher reports, not do web searches directly
+
+2. **Trade-off Analysis Duplication**: Planner and Brainstormer both evaluate trade-offs
+   - **Issue**: Planner evaluates "technical trade-offs" in description
+   - **Issue**: Brainstormer evaluates "multiple approaches with pros/cons"
+   - **Assessment**: This is actually appropriate - Planner evaluates trade-offs for planning, Brainstormer for debate. Keep both but clarify distinction.
+
+3. **Report Structure Similarity**: All three create markdown reports with similar sections
+   - **Assessment**: This is appropriate - each serves different purpose. Keep distinct formats.
+
+4. **External Tool Usage**: Researcher and Brainstormer both use WebSearch/Google
+   - **Issue**: Brainstormer uses "Search Google" tool directly
+   - **Fix**: Brainstormer should delegate research to Researcher, not search directly
+
+#### Good Overlaps (Should Remain)
+
+1. **YAGNI/KISS/DRY Principles**: All three correctly follow these
+   - **Status**: ✅ Appropriate - universal software engineering principles
+
+2. **Token Efficiency**: All three mention token efficiency
+   - **Status**: ✅ Appropriate - all should be efficient
+
+3. **Non-Implementation**: All three correctly don't implement
+   - **Status**: ✅ Appropriate - clear boundary
+
+4. **Markdown Output**: All produce structured markdown
+   - **Status**: ✅ Appropriate - consistent output format
+
+5. **Analytical Thinking**: All three analyze and evaluate
+   - **Status**: ✅ Appropriate - different analysis types (research synthesis vs planning vs debate)
+
+#### What They Can Learn From Each Other
+
+**Researcher → Planner:**
+- ✅ **Systematic Research Methodology**: Planner should adopt Researcher's multi-source approach, query fan-out, and source validation when it needs to do research (though ideally delegates to Researcher)
+- ✅ **Source Attribution**: Planner should cite sources like Researcher does
+- ✅ **Research Report Structure**: Planner could benefit from Researcher's structured report format for research phases
+
+**Researcher → Brainstormer:**
+- ✅ **Systematic Research**: Brainstormer should use Researcher's methodology instead of direct web searches
+- ✅ **Authoritative Source Identification**: Brainstormer should prioritize authoritative sources like Researcher does
+- ✅ **Research Report Consumption**: Brainstormer should consume Researcher reports rather than doing research itself
+
+**Planner → Researcher:**
+- ✅ **Mental Models**: Researcher could benefit from Planner's structured thinking (decomposition, working backwards, second-order thinking) when analyzing research findings
+- ✅ **Risk Assessment**: Researcher could include risk analysis in research reports using Planner's risk management approach
+- ✅ **Systems Thinking**: Researcher could consider system-wide implications when researching technologies
+
+**Planner → Brainstormer:**
+- ✅ **Mental Models Toolkit**: Brainstormer should adopt Planner's mental models (decomposition, working backwards, 5 Whys, 80/20 rule) for structured analysis
+- ✅ **Capacity Planning**: Brainstormer should consider team capacity and resource allocation like Planner does
+- ✅ **Systems Thinking**: Brainstormer should evaluate system-wide impact like Planner does
+- ✅ **Structured Output**: Brainstormer could benefit from Planner's progressive disclosure structure for complex solutions
+
+**Brainstormer → Researcher:**
+- ✅ **Brutal Honesty**: Researcher could be more critical of sources and highlight limitations/risks
+- ✅ **Assumption Challenging**: Researcher could question assumptions in sources and highlight controversies
+- ✅ **Feasibility Focus**: Researcher could include feasibility assessments in reports
+
+**Brainstormer → Planner:**
+- ✅ **Interactive Debate**: Planner could benefit from Brainstormer's interactive questioning approach when requirements are unclear
+- ✅ **Stakeholder Consideration**: Planner should explicitly consider all stakeholders like Brainstormer does
+- ✅ **Feasibility Validation**: Planner should validate feasibility before creating plans, like Brainstormer does
+- ✅ **Assumption Challenging**: Planner should challenge user assumptions more aggressively
+
+#### Workflow Integration (Current vs Ideal)
+
+**Current Workflow Issues:**
+- Planner description says it "researches" - should delegate to Researcher
+- Brainstormer does "Research Phase" with direct web searches - should use Researcher
+- No clear handoff protocol between agents
+
+**Ideal Workflow:**
+```
+Brainstormer (if needed for debate/ideation)
+    ↓
+Researcher (parallel research on multiple aspects)
+    ↓
+Planner (consumes research reports, creates structured plan)
+```
+
+**Recommended Changes:**
+
+1. **Planner**: Remove research capability, add explicit delegation to Researcher
+   - Change description from "research, analyze, and create plans" to "analyze research and create implementation plans"
+   - Add: "Use `researcher` subagent for all external research needs"
+
+2. **Brainstormer**: Remove direct web search, add explicit delegation to Researcher
+   - Remove "Use `Search Google` tool" from Collaboration Tools
+   - Add: "Delegate all research to `researcher` subagent"
+   - Change "Research Phase" to "Consume Research Phase" - use Researcher reports
+
+3. **Researcher**: Add mental models from Planner for analysis
+   - Add section on using decomposition, working backwards, second-order thinking when analyzing findings
+   - Add risk assessment section to research reports
+
+4. **All Three**: Add explicit collaboration protocol
+   - Document when to use each agent
+   - Document handoff patterns
+   - Clarify that Researcher feeds Planner and Brainstormer
+
+#### Summary Assessment
+
+**Distinctness**: ✅ All three serve different purposes and should remain separate
+- Researcher: Information gathering (external)
+- Planner: Structured planning (internal + research synthesis)
+- Brainstormer: Interactive ideation (debate + exploration)
+
+**Overlap Issues**: ⚠️ Some unnecessary duplication in research capabilities
+- Planner and Brainstormer should delegate research to Researcher
+- This would create cleaner separation and better reuse
+
+**Enhancement Opportunities**: ✅ Significant cross-learning potential
+- Researcher could adopt Planner's mental models
+- Planner and Brainstormer should adopt Researcher's systematic methodology
+- All could benefit from each other's strengths
+
+**Recommendation**: Keep all three agents, but clarify boundaries and improve delegation patterns. Eliminate research duplication by making Researcher the single source for external research.
+
+#### Skills Analysis
+
+**Researcher - Current Skills:**
+- ✅ `research` (primary skill)
+- ✅ `docs-seeker` (documentation finding)
+- ✅ `document-skills` (document analysis)
+- ⚠️ Generic "analyze skills catalog" instruction
+
+**Researcher - Should Add:**
+- ✅ `updating-knowledge` - Systematic research methodology with web search integration
+- ✅ `asking-questions` - For clarifying research scope and requirements
+- ✅ `problem-solving` - For analyzing research findings and identifying patterns
+- ⚠️ Consider `sequential-thinking` for complex multi-step research analysis
+
+**Planner - Current Skills:**
+- ✅ `planning` (primary skill)
+- ⚠️ Generic "analyze skills catalog" instruction
+
+**Planner - Should Add:**
+- ✅ `sequential-thinking` - For complex planning requiring multi-step analysis
+- ✅ `problem-solving` - For breaking down complex problems into manageable steps
+- ✅ `software-architecture` - For architecture planning (overlaps with cs-architect domain)
+- ⚠️ Consider `brainstorming` - For exploring alternative approaches before planning
+- ⚠️ Consider `asking-questions` - For clarifying ambiguous requirements before planning
+
+**Brainstormer - Current Skills:**
+- ✅ `docs-seeker` (documentation)
+- ✅ `ai-multimodal` (visual analysis)
+- ✅ `sequential-thinking` (complex problem-solving)
+- ⚠️ Generic "analyze skills catalog" instruction
+
+**Brainstormer - Should Add:**
+- ✅ `brainstorming` - **CRITICAL MISSING** - There's a dedicated brainstorming skill that should be primary
+- ✅ `problem-solving` - For systematic problem-solving techniques (collision-zone thinking, inversion, etc.)
+- ✅ `software-architecture` - For architectural brainstorming (overlaps with cs-architect domain)
+- ✅ `asking-questions` - Already uses this approach, should explicitly reference the skill
+
+#### Scope Determination & Naming
+
+**Researcher - Scope Analysis:**
+- **Current Description**: "comprehensive research on **software development topics**, including investigating **new technologies**, finding **documentation**, exploring **best practices**, or gathering information about **plugins, packages, and open source projects**"
+- **Examples**: React Server Components, Flutter authentication libraries, REST API security best practices
+- **Verdict**: ✅ **TECHNICAL ONLY** - All examples and focus are software engineering/technical
+- **Recommendation**: 
+  - Rename to: `cs-researcher.md`
+  - Move to: `agents/engineering/cs-researcher.md`
+  - Update description to emphasize technical/engineering focus
+
+**Planner - Scope Analysis:**
+- **Current Description**: "research, analyze, and create comprehensive **implementation plans** for **new features, system architectures, or complex technical solutions**"
+- **Examples**: OAuth2 authentication implementation, SQLite to PostgreSQL migration, performance optimization strategies
+- **Verdict**: ✅ **TECHNICAL IMPLEMENTATION PLANNER** - Focuses on technical implementation planning
+- **Recommendation**:
+  - Rename to: `cs-implementation-planner.md` (or `cs-technical-planner.md`)
+  - Move to: `agents/engineering/cs-implementation-planner.md`
+  - Update description to remove "research" (delegate to cs-researcher) and emphasize "implementation planning"
+
+**Brainstormer - Scope Analysis:**
+- **Current Description**: "brainstorm **software solutions**, evaluate **architectural approaches**, or debate **technical decisions** before implementation"
+- **Examples**: Real-time notifications (WebSockets/SSE), REST vs GraphQL migration, large file upload handling
+- **Verdict**: ✅ **TECHNICAL ONLY** - All examples are software engineering/technical
+- **Recommendation**:
+  - Rename to: `cs-brainstormer.md`
+  - Move to: `agents/engineering/cs-brainstormer.md`
+  - Update description to emphasize technical/engineering focus
+
+#### Overlap Analysis: Planner vs cs-architect
+
+**Planner (cs-implementation-planner) vs cs-architect:**
+
+**Overlap Areas:**
+1. **System Architecture**: Both mention "system architectures" and "system design"
+   - Planner: "create comprehensive implementation plans for new features, **system architectures**, or complex technical solutions"
+   - cs-architect: "System architecture specialist for design patterns, scalability planning, technology evaluation"
+
+2. **Technology Evaluation**: Both evaluate technologies
+   - Planner: "evaluating technical trade-offs"
+   - cs-architect: "Evaluating technology stacks and making evidence-based decisions"
+
+3. **Architecture Documentation**: Both create architecture-related documentation
+   - Planner: Creates implementation plans with architecture considerations
+   - cs-architect: "Creating comprehensive architecture documentation with diagrams"
+
+**Key Differences:**
+1. **Focus Level**:
+   - **cs-architect**: High-level system design, architecture patterns, scalability planning, technology stack selection
+   - **Planner**: Step-by-step implementation plans, breaking down features into actionable tasks
+
+2. **Output Type**:
+   - **cs-architect**: Architecture diagrams, ADRs, system design documents, technology evaluation matrices
+   - **Planner**: Implementation plans with phases, steps, tasks, dependencies, timelines
+
+3. **Scope**:
+   - **cs-architect**: "What should the system look like?" (design)
+   - **Planner**: "How do we build it?" (implementation roadmap)
+
+4. **Delegation Pattern**:
+   - **cs-architect**: Delegates to cs-graphql-architect (GraphQL), cs-supabase-database-engineer (Supabase), adr-writer (ADRs)
+   - **Planner**: Should consume cs-architect's architecture designs and create implementation plans
+
+**Recommended Relationship:**
+```
+cs-architect (designs system architecture)
+    ↓
+cs-implementation-planner (creates step-by-step implementation plan based on architecture)
+```
+
+**Boundary Clarification:**
+- **cs-architect** answers: "What architecture should we use?" (microservices vs monolith, REST vs GraphQL, database choice)
+- **cs-implementation-planner** answers: "How do we implement this architecture?" (Phase 1: Set up infrastructure, Phase 2: Build API layer, etc.)
+
+**Recommendation**: 
+- Planner should **consume** cs-architect's architecture designs, not create them
+- Planner should **delegate** architecture design decisions to cs-architect
+- Planner should focus on **implementation planning** (breaking down architecture into actionable steps)
+- Update Planner description to clarify: "Creates implementation plans **based on existing architecture designs**" rather than "creates plans for system architectures"
+
+#### Final Recommendations Summary
+
+**Naming & Location:**
+1. ✅ `researcher.md` → `engineering/cs-researcher.md`
+2. ✅ `planner.md` → `engineering/cs-implementation-planner.md` (or `cs-technical-planner.md`)
+3. ✅ `brainstormer.md` → `engineering/cs-brainstormer.md`
+
+**Skills Updates:**
+1. **cs-researcher**: Add `updating-knowledge`, `asking-questions`, `problem-solving`
+2. **cs-implementation-planner**: Add `sequential-thinking`, `problem-solving`, `software-architecture`, `asking-questions`
+3. **cs-brainstormer**: Add `brainstorming` (CRITICAL - missing primary skill), `problem-solving`, `software-architecture`, `asking-questions`
+
+**Boundary Clarifications:**
+1. **cs-researcher**: Single source for all external research (Planner and Brainstormer delegate to it)
+2. **cs-implementation-planner**: Consumes architecture from cs-architect, creates step-by-step implementation plans
+3. **cs-brainstormer**: Consumes research from cs-researcher, debates technical approaches before planning
+4. **cs-architect**: Designs system architecture, delegates to specialized architects (GraphQL, Supabase), creates ADRs via adr-writer
+
+**Workflow Integration:**
+```
+cs-brainstormer (debates approaches, validates feasibility)
+    ↓
+cs-researcher (parallel research on chosen approach)
+    ↓
+cs-architect (designs system architecture if needed)
+    ↓
+cs-implementation-planner (creates step-by-step implementation plan)
+```
 
 ### Guardians/Monitors
 - `tdd-guardian.md` (TDD practices)

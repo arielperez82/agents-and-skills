@@ -42,19 +42,19 @@ Follow strictly these following steps:
 
 ### Research
 
-* Use multiple `researcher` subagents in parallel to explore the user's request, idea validation, challenges, and find the best possible solutions.
+* Use multiple `cs-researcher` subagents in parallel to explore the user's request, idea validation, challenges, and find the best possible solutions.
 * Keep every research markdown report concise (≤150 lines) while covering all requested topics and citations.
 * **IMPORTANT:** Sacrifice grammar for the sake of concision when writing outputs.
 
 ### Tech Stack
 
-1. Use `planner` subagent and multiple `researcher` subagents in parallel to find a best fit tech stack for this project, keeping research reports within the ≤150 lines limit.
+1. Use `cs-implementation-planner` subagent and multiple `cs-researcher` subagents in parallel to find a best fit tech stack for this project, keeping research reports within the ≤150 lines limit.
 2. Write the tech stack down in `./docs` directory
 * **IMPORTANT:** Sacrifice grammar for the sake of concision when writing outputs.
 
 ### Wireframe & Design
 
-* Use `ui-ux-designer` subagent and multiple `researcher` subagents in parallel to create a design plan that follows the progressive disclosure structure:
+* Use `ui-ux-designer` subagent and multiple `cs-researcher` subagents in parallel to create a design plan that follows the progressive disclosure structure:
   - Create a directory `plans/{date}-plan-name` (date format from `$CK_PLAN_DATE_FORMAT`).
   - Save the overview access point at `plan.md`, keep it generic, under 80 lines, and list each phase with status/progress and links.
   - For each phase, add `phase-XX-phase-name.md` files containing sections (Context links, Overview with date/priority/statuses, Key Insights, Requirements, Architecture, Related code files, Implementation Steps, Todo list, Success Criteria, Risk Assessment, Security Considerations, Next steps).

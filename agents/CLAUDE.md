@@ -16,7 +16,7 @@ This guide provides comprehensive instructions for creating **cs-* prefixed agen
 
 ### Production Agents
 
-**36 Agents Currently Available** (as of December 16, 2025):
+**39 Agents Currently Available** (as of January 24, 2026):
 
 | Agent | Domain | Description | Skills Used | Lines |
 |-------|--------|-------------|-------------|-------|
@@ -33,10 +33,13 @@ This guide provides comprehensive instructions for creating **cs-* prefixed agen
 | [cs-product-director](product/cs-product-director.md) | Product | OKR cascades, strategic roadmaps, vision-driven prioritization | product-strategist | 524 |
 | [cs-ux-researcher](product/cs-ux-researcher.md) | Product | Persona development, usability testing, customer interview analysis | ux-researcher-designer | 621 |
 | [cs-ui-designer](product/cs-ui-designer.md) | Product | Design tokens, component libraries, design system documentation | ui-design-system | 716 |
-| **Project Management (4 agents)** |||||
-| [cs-senior-pm](project-management/cs-senior-pm.md) | Project Management | Portfolio planning, stakeholder management, program governance | senior-pm | 546 |
-| [cs-agile-coach](delivery/cs-agile-coach.md) | Delivery | Agile ceremonies, team coaching, collaboration, transparency | agile-coach | 588 |
-| **Engineering (14 agents)** |||||
+| **Project Management (2 agents)** |||||
+| [cs-senior-pm](delivery/cs-senior-pm.md) | Delivery | Portfolio planning, stakeholder management, program governance | senior-pm | 836 |
+| [cs-agile-coach](delivery/cs-agile-coach.md) | Delivery | Agile ceremonies, team coaching, collaboration, transparency | agile-coach | 430 |
+| **Engineering (17 agents)** |||||
+|| [cs-researcher](engineering/cs-researcher.md) | Engineering | Technology research, documentation synthesis, best practices investigation | research | 141 |
+|| [cs-brainstormer](engineering/cs-brainstormer.md) | Engineering | Solution brainstorming, architectural approach evaluation, technical decision debate | brainstorming | 186 |
+|| [cs-implementation-planner](engineering/cs-implementation-planner.md) | Engineering | Implementation planning, step-by-step roadmaps, sprint-sized increments | planning | 371 |
 | [cs-backend-engineer](engineering/cs-backend-engineer.md) | Engineering | API development, database optimization, microservices architecture | senior-backend | 745 |
 | [cs-frontend-engineer](engineering/cs-frontend-engineer.md) | Engineering | React/Vue development, UI/UX implementation, frontend performance | senior-frontend | 982 |
 | [cs-fullstack-engineer](engineering/cs-fullstack-engineer.md) | Engineering | End-to-end development, API integration, full-stack architecture | senior-fullstack | 1,191 |
@@ -52,7 +55,7 @@ This guide provides comprehensive instructions for creating **cs-* prefixed agen
 | [cs-computer-vision-engineer](engineering/cs-computer-vision-engineer.md) | Engineering | Image classification, object detection, semantic segmentation, computer vision pipelines | senior-computer-vision | 1,183 |
 | [cs-prompt-engineer](engineering/cs-prompt-engineer.md) | Engineering | Prompt design, LLM optimization, RAG systems, multi-agent orchestration | senior-prompt-engineer | 1,381 |
 
-**Total**: 20,330 lines of comprehensive agent documentation
+**Total**: 20,901 lines of comprehensive agent documentation (includes 3 new research/planning agents: cs-researcher, cs-brainstormer, cs-implementation-planner)
 
 **Template Available**: [templates/agent-template.md](../templates/agent-template.md) (318 lines) - Use this to create new agents
 
@@ -715,6 +718,6 @@ After creating an agent:
 
 ---
 
-**Last Updated:** December 16, 2025
-**Current Status:** 36 production agents, website-ready format with 10-section YAML frontmatter (includes collaborates-with)
+**Last Updated:** January 24, 2026
+**Current Status:** 39 production agents, website-ready format with 10-section YAML frontmatter (includes collaborates-with)
 **Related:** See [main CLAUDE.md](../CLAUDE.md) for repository overview

@@ -10,7 +10,7 @@ argument-hint: [tasks]
 ## Workflow
 
 ### 1. Research (Optional)
-- Use max 2 `researcher` agents in parallel if tasks complex
+- Use max 2 `cs-researcher` agents in parallel if tasks complex
 - Use `/scout:ext` to search codebase
 - Keep reports ≤150 lines
 

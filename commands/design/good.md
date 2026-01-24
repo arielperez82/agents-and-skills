@@ -21,7 +21,7 @@ Think hard to plan & start working on these tasks follow the Orchestration Proto
    python3 $HOME/.claude/skills/ui-ux-pro-max/scripts/search.py "<mood>" --domain typography
    python3 $HOME/.claude/skills/ui-ux-pro-max/scripts/search.py "<industry>" --domain color
    ```
-2. Use `researcher` subagent to research about design style, trends, fonts, colors, border, spacing, elements' positions, etc.
+2. Use `cs-researcher` subagent to research about design style, trends, fonts, colors, border, spacing, elements' positions, etc.
 3. Use `ui-ux-designer` subagent to implement the design step by step based on the research.
 4. If user doesn't specify, create the design in pure HTML/CSS/JS.
 5. Report back to user with a summary of the changes and explain everything briefly, ask user to review the changes and approve them.
