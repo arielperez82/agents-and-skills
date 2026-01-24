@@ -163,21 +163,15 @@ From OVERLAP_ANALYSIS.md:
 - [ ] Create migration guide for users
 - [ ] Document new agent usage patterns
 
-**Week 6: Team Training**
-- [ ] Present new agent structure to team
-- [ ] Provide training on when to use each agent
-- [ ] Update any automated workflows using old agents
-- [ ] Monitor adoption and gather feedback
-
 ### Phase 4: Cleanup & Validation (Week 7-8)
 
-**Week 7: Cleanup**
+**Week 6: Cleanup**
 - [ ] Remove deprecated agent files
 - [ ] Update all cross-references
 - [ ] Clean up unused skills
 - [ ] Archive old agent definitions
 
-**Week 8: Validation**
+**Week 7: Validation**
 - [ ] Test new agent workflows end-to-end
 - [ ] Validate that all use cases are covered
 - [ ] Measure improvement in agent discoverability
@@ -498,11 +492,12 @@ From OVERLAP_ANALYSIS.md:
 - [ ] Clean up unused skills
 - [ ] Archive old agent definitions
 
-**Week 8: Validation**
+**Week 10: Validation**
 - [ ] Test new agent workflows end-to-end
 - [ ] Validate that all use cases are covered
+- [ ] `cs-business-analyst.md` measures business impact and ROI
 - [ ] Measure improvement in agent discoverability
-- [ ] Final documentation review
+- [ ] Final documentation review with `docs-guardian.md`
 
 ---
 
@@ -666,7 +661,7 @@ This rationalization aligns with the core philosophy that:
 3. **Agent Naming:** Do "tdd-guardian" and "qa-engineer" clearly convey the intended roles?
 4. **Timeline:** Is 8-week implementation plan realistic for our current sprint cycle?
 
-This analysis provides a clear path forward to eliminate testing agent overlap while maintaining comprehensive testing coverage aligned with modern development practices.</content>
+This analysis provides a clear path forward to eliminate testing agent overlap while maintaining comprehensive testing coverage aligned with modern development practices. The refined approach incorporates multi-agent collaboration for thorough planning and implementation.</content>
 </xai:function_call.0>### Testing (High Overlap Risk) - ANALYSIS COMPLETE ✅ DONE
 - `tdd-guardian.md` (guardian/monitor role) - **KEEP & REFORM** as TDD methodology coach
 - `cs-tdd-engineer.md` (implementation role) - **ELIMINATE** (TDD is every engineer's job)
