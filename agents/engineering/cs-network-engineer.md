@@ -32,21 +32,21 @@ collaborates-with:
     required: optional
     features-enabled: [infrastructure-testing, configuration-automation, compliance-testing]
     without-collaborator: "Network configurations will lack automated validation"
-  - agent: cs-devops-engineer
-    purpose: Infrastructure deployment and CI/CD integration for network changes
+  - agent: cs-devsecops-engineer
+    purpose: DevSecOps integration for secure network infrastructure deployment and CI/CD with security validation
     required: recommended
-    features-enabled: [infra-deployment, network-ci-cd, terraform-automation]
-    without-collaborator: "Network infrastructure deployed manually without automation"
+    features-enabled: [infra-deployment, network-ci-cd, terraform-automation, secure-networking]
+    without-collaborator: "Network infrastructure deployed manually without DevSecOps security automation"
   - agent: cs-architect
     purpose: Network topology and architecture design decisions
     required: recommended
     features-enabled: [network-architecture, topology-design, scalability-planning]
     without-collaborator: "Network decisions made without broader architecture context"
-  - agent: cs-secops-engineer
-    purpose: Network security monitoring and threat detection
+  - agent: cs-devsecops-engineer
+    purpose: DevSecOps network security monitoring and threat detection integration
     required: optional
-    features-enabled: [traffic-monitoring, threat-detection, incident-response]
-    without-collaborator: "Network security monitoring handled separately"
+    features-enabled: [traffic-monitoring, threat-detection, incident-response, secure-networking]
+    without-collaborator: "Network security monitoring lacks DevSecOps integration"
   - agent: cs-security-engineer
     purpose: Security policy review and compliance validation
     required: recommended
@@ -457,9 +457,9 @@ fi
 
 ## Related Agents
 
-- **cs-devops-engineer**: Infrastructure deployment and CI/CD for network changes
+- **cs-devsecops-engineer**: DevSecOps integration for secure infrastructure deployment and CI/CD for network changes
 - **cs-architect**: Network topology and architecture design
-- **cs-secops-engineer**: Network security monitoring and threat detection
+- **cs-devsecops-engineer**: DevSecOps network security monitoring and threat detection integration
 - **cs-security-engineer**: Security policy review and compliance validation
 
 ## Best Practices

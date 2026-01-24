@@ -726,7 +726,7 @@ docker-compose up -d
 - [cs-backend-engineer](cs-backend-engineer.md) - Backend API implementation
 - [cs-frontend-engineer](cs-frontend-engineer.md) - GraphQL client integration
 - [cs-architect](cs-architect.md) - System architecture decisions - provides high-level API technology evaluation and delegates GraphQL-specific details
-- [cs-devops-engineer](cs-devops-engineer.md) - Deployment and infrastructure
+- [cs-devsecops-engineer](cs-devsecops-engineer.md) - DevSecOps integration for secure deployment and infrastructure
 - [adr-writer](../../adr-writer.md) - Documents GraphQL architecture decisions and schema design choices
 
 ## References

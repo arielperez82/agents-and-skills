@@ -25,24 +25,77 @@ Generated: 2026-01-23
 
 **Analysis:** Consolidated to 2 focused agents: `tdd-guardian` (TDD coach) and `qa-engineer` (automation expert). Eliminated separate TDD engineer role, focused QA on automation/infrastructure expertise.
 
-### Mobile Development
-- `engineering/cs-mobile-engineer.md` (general mobile)
-- `engineering/cs-ios-engineer.md` (iOS-specific)
-- `engineering/cs-flutter-engineer.md` (Flutter-specific)
+### Security ✅ DONE
+- `engineering/cs-security-engineer.md` - **COACH/GUARDIAN** (threat modeling, secure coding, security automation)
+- `engineering/cs-secops-engineer.md` - **OPERATIONS** (incident response, security monitoring, DevSecOps)
+- `engineering/cs-devops-engineer.md` - **INFRASTRUCTURE** (CI/CD pipelines, security integration)
 
-**Analysis:** Hierarchical relationship - mobile is general, iOS and Flutter are specific platforms. Some overlap in mobile concepts.
+**Analysis:** Three distinct but complementary roles with significant overlap in security practices, especially around scanning and compliance. Security engineer serves as the primary security coach/guardian that every engineer should leverage for security best practices.
 
-### Data Roles
-- `engineering/cs-data-engineer.md`
-- `engineering/cs-data-scientist.md`
+#### Role Differentiation
+- **Security Engineer**: Proactive threat modeling, application security architecture, secure coding guidance. Focuses on "shift-left" security with comprehensive threat modeling, OWASP compliance, and penetration testing automation. Acts as security coach/guardian providing TDD-integrated security practices.
+- **SecOps Engineer**: Reactive/operational security monitoring, incident response, vulnerability management. Focuses on "shift-right" security with continuous scanning, compliance automation, and security operations workflows.
+- **DevOps Engineer**: Infrastructure security integration, CI/CD security gates, deployment security. Focuses on operationalizing security controls through automated pipelines and infrastructure hardening.
 
-**Analysis:** Related but distinct roles - engineer focuses on infrastructure/pipelines, scientist focuses on analysis/modeling. Some overlap in data handling.
+#### Overlaps & Integration Points
+- **Security Scanning**: All three have automated scanning tools (security auditor, security scanner, pipeline security)
+- **Compliance**: Both security roles have compliance validation (security compliance checker, compliance checker)
+- **CI/CD Integration**: SecOps and DevOps both integrate security into pipelines
+- **Monitoring**: All three incorporate security monitoring and alerting
+- **TDD Collaboration**: Both security roles collaborate with TDD guardian for security-focused testing
 
-### Security
-- `engineering/cs-security-engineer.md`
-- `engineering/cs-secops-engineer.md`
+#### Key Overlap Areas
+1. **Vulnerability Assessment**: Security engineer (OWASP focus, threat modeling) ↔ SecOps (operational scanning, prioritization)
+2. **Compliance Automation**: Security engineer (framework validation, controls) ↔ SecOps (continuous monitoring, reporting)
+3. **Security Pipelines**: SecOps (security scanning integration) ↔ DevOps (pipeline hardening, security gates)
 
-**Analysis:** Security engineer is broader, SecOps is operations-focused. Overlap in security practices.
+#### Coach/Guardian Assessment
+**Security Engineer** is the primary coach/guardian role that should be leveraged by EVERY engineer because:
+- Orchestrates senior-security skill package for all security practices
+- Provides threat modeling and secure coding guidance
+- Collaborates with TDD guardian for security-integrated development
+- Acts as security architecture coach with OWASP and cryptography expertise
+
+**Universal Security Integration**: EVERY engineer should:
+- **Leverage security skills** if they exist (e.g., `engineering-team/senior-security` for threat modeling)
+- **Pull in the security coach/guardian** when in doubt and for guidance and review after the fact
+- **Consult security engineer** before implementing authentication, data protection, or API security
+- **Request security review** for any feature touching user data, external APIs, or production infrastructure
+
+**Implementation Requirements**:
+- **Security Skills Access**: All engineering agents must include `engineering-team/senior-security` in related-skills
+- **Security Coach Integration**: All engineering agents must collaborate with `cs-security-engineer` for security guidance
+- **DevSecOps Coordination**: All engineering agents must collaborate with `cs-devsecops-engineer` for secure implementation
+- **Security-First Development**: TDD workflows must include security testing alongside functional testing
+- **Security Review Gates**: All deployment workflows must include security validation before production release
+
+**Recommendation**: Security engineer knowledge/skills should be directly accessible to all engineers through the coach/guardian pattern. Consider making security engineer capabilities available as a "security consultant" mode for other engineering roles.
+
+#### SecOps vs DevOps Comparison
+**Significant Overlap** exists between SecOps and DevOps engineers:
+- Both integrate security into CI/CD pipelines
+- Both manage security scanning and compliance in deployments
+- Both handle infrastructure security and monitoring
+- Both collaborate with security engineer for security controls
+
+**Key Differences**:
+- **SecOps Focus**: Security operations, incident response, vulnerability management, compliance monitoring
+- **DevOps Focus**: Infrastructure automation, deployment orchestration, pipeline optimization, change management
+- **Integration**: DevOps provides the infrastructure platform that SecOps secures operationally
+
+**Consolidation Strategy**: Integrate SecOps into DevOps and rename to **DevSecOps**
+- **DevSecOps Engineer** (consolidated role): Unified infrastructure + operational security responsibility
+- **Incident Response Separation**: Move incident response aspects from SecOps to existing `cs-incident-responder.md`
+- **Security Pipeline Ownership**: DevSecOps engineers handle CI/CD security integration, scanning, and compliance gates
+- **Operational Security**: DevSecOps engineers manage security monitoring, vulnerability management, and compliance reporting
+
+**Benefits**:
+- Eliminates 62% overlap between SecOps and DevOps roles
+- Creates unified accountability for security in infrastructure and operations
+- Reduces handoffs and improves security integration velocity
+- Maintains specialized incident response expertise in existing `cs-incident-responder.md` role
+
+**Implementation**: Merge `cs-secops-engineer.md` capabilities into `cs-devops-engineer.md`, rename result to DevSecOps, extract incident response workflows to existing `cs-incident-responder.md`.
 
 ### Product Management
 - `product/cs-product-manager.md`

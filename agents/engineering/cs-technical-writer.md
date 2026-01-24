@@ -18,7 +18,7 @@ use-cases:
   - Synchronizing documentation with code changes
 
 # === RELATIONSHIPS ===
-related-agents: [cs-code-reviewer, cs-architect, cs-backend-engineer, cs-devops-engineer]
+related-agents: [cs-code-reviewer, cs-architect, cs-backend-engineer, cs-devsecops-engineer]
 related-skills: [engineering-team/technical-writer, engineering-team/code-reviewer, engineering-team/senior-backend]
 related-commands: [update.docs, generate.api-docs]
 collaborates-with:
@@ -1225,7 +1225,7 @@ This agent leverages five production-ready Python automation tools for comprehen
 - Migration guide needs architectural context
 - API design decisions need review before documentation
 
-**Escalate to [cs-devops-engineer](cs-devops-engineer.md) when:**
+**Escalate to [cs-devsecops-engineer](cs-devsecops-engineer.md) when:**
 - Deployment documentation needs infrastructure details
 - CI/CD integration for documentation automation
 - Documentation hosting and deployment strategy
@@ -1618,7 +1618,7 @@ echo "Report generated: $REPORT_DIR/report-$WEEK.html"
 - **[cs-code-reviewer](cs-code-reviewer.md)** - Ensures code quality supports clear documentation, identifies user-facing changes requiring docs
 - **[cs-architect](cs-architect.md)** - Provides architectural context for system documentation, reviews technical accuracy
 - **[cs-backend-engineer](cs-backend-engineer.md)** - Validates API documentation accuracy, provides implementation details for docs
-- **[cs-devops-engineer](cs-devops-engineer.md)** - Automates documentation deployment, integrates quality checks in CI/CD
+- **[cs-devsecops-engineer](cs-devsecops-engineer.md)** - DevSecOps integration for secure documentation deployment with quality and security checks in CI/CD
 - **[cs-frontend-engineer](../engineering/cs-frontend-engineer.md)** - Contributes client-side integration examples, validates SDK documentation
 
 ## References

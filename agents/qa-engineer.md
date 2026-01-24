@@ -195,7 +195,7 @@ Let's address these systematically."
 - **tdd-guardian**: For TDD methodology coaching
 - **cs-frontend-engineer**: For component testing implementation
 - **cs-backend-engineer**: For API and integration testing
-- **cs-devops-engineer**: For CI/CD pipeline integration
+- **cs-devsecops-engineer**: For DevSecOps CI/CD pipeline integration with security validation
 - **Individual Engineers**: For writing and running tests during development
 
 ## Success Metrics

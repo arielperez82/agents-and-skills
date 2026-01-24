@@ -37,11 +37,11 @@ collaborates-with:
     required: recommended
     features-enabled: [security-code-review, vulnerability-reporting, fix-validation]
     without-collaborator: "Security findings will lack code review context"
-  - agent: cs-devops-engineer
-    purpose: Infrastructure security and CI/CD pipeline hardening
+  - agent: cs-devsecops-engineer
+    purpose: DevSecOps integration for infrastructure security, CI/CD pipeline hardening, and security automation
     required: recommended
-    features-enabled: [infra-security, pipeline-hardening, secrets-management]
-    without-collaborator: "Security recommendations may lack infrastructure context"
+    features-enabled: [infra-security, pipeline-hardening, secrets-management, devsecops-integration]
+    without-collaborator: "Security recommendations may lack DevSecOps infrastructure and pipeline context"
   - agent: cs-technical-writer
     purpose: Security documentation with threat models and architecture diagrams
     required: optional
@@ -796,7 +796,7 @@ rm pentest-config.json
 ## Related Agents
 
 - [cs-architect](cs-architect.md) - Provides system design context for security architecture decisions and threat modeling
-- [cs-devops-engineer](cs-devops-engineer.md) - Collaborates on DevSecOps practices, security pipeline integration, and infrastructure security
+- [cs-devsecops-engineer](cs-devsecops-engineer.md) - DevSecOps integration for security practices, secure pipeline integration, and infrastructure security
 - [cs-backend-engineer](cs-backend-engineer.md) - Works together on API security, authentication implementation, and secure coding practices
 - [cs-fullstack-engineer](cs-fullstack-engineer.md) - Coordinates on end-to-end application security including frontend security controls
 - [cs-code-reviewer](cs-code-reviewer.md) - Integrates security review into code review process for secure coding validation

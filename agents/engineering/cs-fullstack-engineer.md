@@ -19,7 +19,7 @@ use-cases:
 
 # === RELATIONSHIPS ===
 related-agents: []
-related-skills: [engineering-team/senior-fullstack, core-testing-methodology]
+related-skills: [engineering-team/senior-fullstack, engineering-team/senior-security, core-testing-methodology]
 related-commands: []
 collaborates-with:
   - agent: tdd-guardian
@@ -47,6 +47,11 @@ collaborates-with:
     required: optional
     features-enabled: [system-docs, architecture-diagrams, api-docs]
     without-collaborator: "System documentation will be text-only without visual diagrams"
+  - agent: cs-devsecops-engineer
+    purpose: End-to-end DevSecOps implementation for full-stack applications with security integration throughout development lifecycle
+    required: recommended
+    features-enabled: [full-stack-security, devsecops-integration, end-to-end-security, security-testing]
+    without-collaborator: "Full-stack applications may lack comprehensive DevSecOps security integration and end-to-end security validation"
 orchestrates:
   skill: engineering-team/senior-fullstack
 
@@ -943,7 +948,7 @@ echo "   - React admin UI"
 
 - [cs-frontend-engineer](cs-frontend-engineer.md) - Specialized frontend development with React/Vue expertise
 - [cs-backend-engineer](cs-backend-engineer.md) - Backend API development and microservices architecture
-- [cs-devops-engineer](cs-devops-engineer.md) - Infrastructure automation, CI/CD, and container orchestration
+- [cs-devsecops-engineer](cs-devsecops-engineer.md) - DevSecOps integration for secure infrastructure automation, CI/CD with security, and container orchestration
 - [cs-architect](cs-architect.md) - System design, architectural patterns, and scalability planning
 - [cs-qa-engineer](cs-qa-engineer.md) - Test automation, quality assurance, and test strategy
 - [cs-security-engineer](cs-security-engineer.md) - Security audits, vulnerability assessment, and secure coding

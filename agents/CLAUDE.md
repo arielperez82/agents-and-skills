@@ -42,10 +42,10 @@ This guide provides comprehensive instructions for creating **cs-* prefixed agen
 | [cs-backend-engineer](engineering/cs-backend-engineer.md) | Engineering | API development, database optimization, microservices architecture | senior-backend | 745 |
 | [cs-frontend-engineer](engineering/cs-frontend-engineer.md) | Engineering | React/Vue development, UI/UX implementation, frontend performance | senior-frontend | 982 |
 | [cs-fullstack-engineer](engineering/cs-fullstack-engineer.md) | Engineering | End-to-end development, API integration, full-stack architecture | senior-fullstack | 1,191 |
-| [cs-devops-engineer](engineering/cs-devops-engineer.md) | Engineering | CI/CD pipelines, infrastructure as code, container orchestration | senior-devops | 799 |
+| [cs-devsecops-engineer](engineering/cs-devsecops-engineer.md) | Engineering | DevSecOps: secure CI/CD pipelines, infrastructure security, vulnerability management | senior-devops, senior-secops | 816 |
 | [cs-architect](engineering/cs-architect.md) | Engineering | System design, architecture patterns, scalability planning | senior-architect | 869 |
 | [cs-security-engineer](engineering/cs-security-engineer.md) | Engineering | Security audits, vulnerability assessment, secure coding | senior-security | 1,094 |
-| [cs-secops-engineer](engineering/cs-secops-engineer.md) | Engineering | Security operations, incident response, threat detection | senior-secops | 365 |
+| [cs-devsecops-engineer](engineering/cs-devsecops-engineer.md) | Engineering | DevSecOps: secure CI/CD, vulnerability management, compliance automation | senior-devops, senior-secops | 816 |
 | [cs-qa-engineer](engineering/cs-qa-engineer.md) | Engineering | Test automation, quality assurance, test strategy | senior-qa | 383 |
 | [cs-code-reviewer](engineering/cs-code-reviewer.md) | Engineering | Code review, quality assessment, refactoring guidance | code-reviewer | 427 |
 | [cs-ml-engineer](engineering/cs-ml-engineer.md) | Engineering | Model training, MLOps pipelines, experiment tracking, model deployment | senior-ml-engineer | 1,059 |

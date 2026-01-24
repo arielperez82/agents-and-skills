@@ -18,22 +18,22 @@ use-cases:
   - Generating post-incident reports and remediation plans
 
 # === RELATIONSHIPS ===
-related-agents: [cs-secops-engineer, cs-devops-engineer, cs-technical-writer]
+related-agents: [cs-devsecops-engineer, cs-technical-writer]
 related-skills: [engineering-team/incident-response, engineering-team/senior-secops]
 related-commands: []
 orchestrates:
   skill: engineering-team/incident-response
 collaborates-with:
-  - agent: cs-secops-engineer
-    purpose: Preventive security controls and vulnerability management handoff
+  - agent: cs-devsecops-engineer
+    purpose: DevSecOps security controls coordination and security incident response integration
     required: recommended
-    features-enabled: [vulnerability-context, compliance-integration, security-hardening]
-    without-collaborator: "Post-incident hardening recommendations will be generic"
-  - agent: cs-devops-engineer
-    purpose: Infrastructure isolation and emergency deployment rollback
+    features-enabled: [devsecops-coordination, security-incident-integration, vulnerability-management, compliance-validation]
+    without-collaborator: "Security incident response lacks DevSecOps pipeline and infrastructure context"
+  - agent: cs-devsecops-engineer
+    purpose: DevSecOps infrastructure isolation and emergency deployment rollback during security incidents
     required: recommended
-    features-enabled: [system-isolation, deployment-rollback, log-collection]
-    without-collaborator: "Containment actions will require manual infrastructure changes"
+    features-enabled: [system-isolation, deployment-rollback, security-incident-response, log-collection]
+    without-collaborator: "Security incident containment will require manual infrastructure changes"
   - agent: cs-technical-writer
     purpose: Post-incident documentation and runbook updates
     required: optional
@@ -76,8 +76,9 @@ Designed for SOC analysts, security engineers, and incident commanders respondin
 
 The cs-incident-responder agent bridges the gap between security alerts and effective response. It ensures that incidents are triaged rapidly, contained before spreading, investigated thoroughly, and documented for compliance and continuous improvement. By leveraging Python-based automation tools and extensive playbook documentation, the agent enables teams to respond to incidents systematically while maintaining forensic integrity and regulatory compliance.
 
-**Key Differentiation from cs-secops-engineer:**
-- **cs-secops-engineer** focuses on preventive security: vulnerability management, compliance monitoring, security pipeline setup
+**Key Differentiation from cs-devsecops-engineer:**
+- **cs-devsecops-engineer** focuses on preventive security integration: DevSecOps pipelines, vulnerability management, compliance monitoring, security automation
+- **cs-incident-responder** focuses on reactive security: incident detection, containment, investigation, and recovery
 - **cs-incident-responder** focuses on reactive security: incident detection, containment, investigation, and recovery
 
 ## Skill Integration
@@ -748,6 +749,174 @@ python3 ../../skills/engineering-team/incident-response/scripts/incident_analyze
 python3 ../../skills/engineering-team/incident-response/scripts/servicenow_incident_manager.py --alert-file alert.json --assignment-group "Security Operations" --output curl | bash
 ```
 
+### Workflow 6: Security Incident Response (Integrated from DevSecOps)
+
+**Goal:** Execute systematic security incident response process from detection through remediation and post-mortem analysis, coordinating with DevSecOps teams
+
+**Steps:**
+
+1. **Detect Security Incident** - Identify potential security incident through monitoring alerts or DevSecOps pipeline failures
+   ```bash
+   # Review security monitoring alerts from DevSecOps environments
+   # Example: Security scan failures, vulnerability exploitation attempts, unauthorized access
+   # Example: Compliance violations, anomalous behavior patterns, threat intelligence matches
+   ```
+
+2. **Run Emergency Security Assessment** - Immediately assess affected systems using DevSecOps security tools
+   ```bash
+   python3 ../../skills/engineering-team/senior-secops/scripts/security_scanner.py \
+     --input /path/to/affected/system \
+     --output json \
+     --file security-incident-scan-$(date +%Y%m%d-%H%M%S).json \
+     --emergency-mode \
+     --verbose
+   ```
+
+3. **Assess Security Impact** - Evaluate scope, severity, and business impact of security incident
+   ```bash
+   python3 ../../skills/engineering-team/senior-secops/scripts/vulnerability_assessor.py \
+     --input security-incident-scan-*.json \
+     --output json \
+     --file security-incident-assessment.json \
+     --security-incident \
+     --business-impact \
+     --verbose
+
+   # Review critical security metrics
+   cat security-incident-assessment.json | jq '{
+     severity: .severity,
+     exploitability: .exploitability,
+     affected_systems: .affected_systems,
+     data_exposure_risk: .data_exposure_risk,
+     compliance_impact: .compliance_impact,
+     recommended_actions: .recommended_actions
+   }'
+   ```
+
+4. **Initiate Security Incident Response Playbook** - Execute appropriate security response based on incident type
+   ```bash
+   # Reference security incident response playbook from DevSecOps framework
+   cat ../../skills/engineering-team/senior-secops/references/security-incident-response-playbooks.md
+
+   # Common immediate security actions:
+   # 1. Isolate affected systems from network (coordinate with DevOps)
+   # 2. Preserve forensic evidence with chain of custody
+   # 3. Notify security team and executive stakeholders
+   # 4. Begin security remediation and hardening
+   ```
+
+5. **Coordinate with DevSecOps Team** - Work with DevOps engineers for containment and system isolation
+   ```bash
+   # Notify DevSecOps engineer for infrastructure isolation
+   # Request emergency deployment rollback if needed
+   # Coordinate log collection and system snapshots
+   # Implement immediate security hardening measures
+   ```
+
+6. **Collect Security Evidence** - Preserve forensic evidence for security investigation and compliance
+   ```bash
+   # Collect security-relevant logs and evidence
+   mkdir security-incident-evidence-$(date +%Y%m%d)
+   cp /var/log/security/* security-incident-evidence-$(date +%Y%m%d)/
+   cp /var/log/auth.log security-incident-evidence-$(date +%Y%m%d)/
+   cp security-incident-scan-*.json security-incident-evidence-$(date +%Y%m%d)/
+   cp security-incident-assessment.json security-incident-evidence-$(date +%Y%m%d)/
+
+   # Collect DevSecOps pipeline evidence
+   cp .github/workflows/devsecops.yml security-incident-evidence-$(date +%Y%m%d)/ 2>/dev/null || true
+   cp security-scan-results.json security-incident-evidence-$(date +%Y%m%d)/ 2>/dev/null || true
+
+   # Create evidence archive with security chain of custody
+   tar -czf security-incident-evidence-$(date +%Y%m%d).tar.gz security-incident-evidence-$(date +%Y%m%d)/
+   ```
+
+7. **Execute Security Remediation** - Fix identified security vulnerabilities and implement hardening
+   ```bash
+   # Apply security patches and updates
+   # Update vulnerable dependencies in DevSecOps pipeline
+   npm audit fix --force
+   pip install --upgrade -r requirements.txt
+
+   # Deploy security configuration updates
+   # Implement additional security controls (WAF, rate limiting, etc.)
+   # Update DevSecOps pipeline with security hardening
+   # Enhance monitoring and alerting rules
+   ```
+
+8. **Verify Security Remediation** - Confirm security vulnerabilities are resolved
+   ```bash
+   # Re-scan systems after security remediation
+   python3 ../../skills/engineering-team/senior-secops/scripts/security_scanner.py \
+     --input /path/to/affected/system \
+     --output json \
+     --file post-security-remediation-scan.json
+
+   # Compare before/after security findings
+   # Validate security controls are effective
+   ```
+
+9. **Conduct Security Post-Incident Review** - Document security lessons learned and improve DevSecOps practices
+   ```bash
+   # Create security incident report
+   cat > security-incident-report-$(date +%Y%m%d).md <<EOF
+   # Security Incident Report
+
+   ## Incident Summary
+   - Date: $(date)
+   - Severity: [Critical/High/Medium/Low]
+   - Type: [Vulnerability exploitation/Unauthorized access/Data breach/Compliance violation]
+   - DevSecOps Integration: [Pipeline failure/Security scan alert/Monitoring alert]
+
+   ## Timeline
+   - Detection: [timestamp]
+   - Assessment: [timestamp]
+   - Containment: [timestamp]
+   - Remediation: [timestamp]
+   - Resolution: [timestamp]
+
+   ## Root Cause
+   [Detailed security analysis of how incident occurred]
+
+   ## DevSecOps Impact Assessment
+   - Pipeline affected: [Yes/No]
+   - Security controls bypassed: [List]
+   - Compliance violations: [List]
+   - Data exposure risk: [Assessment]
+
+   ## Remediation Actions
+   [List of security actions taken]
+
+   ## DevSecOps Improvements
+   [Recommendations for enhancing DevSecOps security]
+
+   ## Preventive Measures
+   [New security controls and DevSecOps enhancements]
+   EOF
+   ```
+
+10. **Update DevSecOps Security Controls** - Implement preventive measures based on security incident learnings
+    ```bash
+    # Update DevSecOps pipeline with additional security gates
+    # Enhance security scanning configurations
+    # Add new security monitoring rules
+    # Update compliance validation rules
+    # Implement security training and awareness programs
+    ```
+
+**Expected Output:** Security incident contained and remediated with comprehensive documentation, DevSecOps security controls enhanced, evidence preserved for security investigation and compliance requirements
+
+**Time Estimate:** 4-12 hours depending on security incident severity and scope, including DevSecOps coordination
+
+**Example:**
+```bash
+# Security incident response workflow
+python3 ../../skills/engineering-team/senior-secops/scripts/security_scanner.py --input ./ --output json --file security-incident-scan.json --emergency-mode
+python3 ../../skills/engineering-team/senior-secops/scripts/vulnerability_assessor.py --input security-incident-scan.json --output json --security-incident
+# Execute containment and security remediation
+# Coordinate with DevSecOps team
+# Generate security incident report
+```
+
 ## Integration Examples
 
 ### Example 1: Automated Incident Response Pipeline
@@ -1088,9 +1257,9 @@ echo "Full Report: ./incidents/$INCIDENT_ID/data-breach-report.md"
 
 ## Related Agents
 
-- [cs-secops-engineer](cs-secops-engineer.md) - Preventive security, vulnerability management, compliance automation
+- [cs-devsecops-engineer](cs-devsecops-engineer.md) - DevSecOps integration for preventive security, vulnerability management, compliance automation, and security incident coordination
 - [cs-security-engineer](cs-security-engineer.md) - Application security, secure coding, security architecture
-- [cs-devops-engineer](cs-devops-engineer.md) - Infrastructure automation, deployment rollback, log collection
+- [cs-devsecops-engineer](cs-devsecops-engineer.md) - DevSecOps infrastructure automation, deployment rollback, security incident response
 - [cs-technical-writer](cs-technical-writer.md) - Post-incident documentation, runbook creation
 - [cs-architect](cs-architect.md) - Security architecture improvements post-incident
 

@@ -973,7 +973,7 @@ echo "   3. Monitor performance"
 - [cs-data-engineer](cs-data-engineer.md) - Data pipeline development for large-scale dataset management
 - [cs-data-scientist](cs-data-scientist.md) - Statistical analysis and feature engineering for vision tasks
 - [cs-prompt-engineer](cs-prompt-engineer.md) - Vision-language models (CLIP, LLaVA) and multimodal AI systems
-- [cs-devops-engineer](cs-devops-engineer.md) - Kubernetes infrastructure and CI/CD for model deployment
+- [cs-devsecops-engineer](cs-devsecops-engineer.md) - DevSecOps integration for secure Kubernetes infrastructure and CI/CD for model deployment
 - [cs-backend-engineer](cs-backend-engineer.md) - API development for model serving endpoints
 - [cs-fullstack-engineer](cs-fullstack-engineer.md) - Web interfaces for vision system management
 - [cs-architect](cs-architect.md) - System architecture design for scalable vision pipelines

@@ -19,7 +19,7 @@ use-cases:
   - Auditing network security compliance
 
 # === RELATIONSHIPS ===
-related-agents: [cs-network-engineer, cs-devops-engineer, cs-architect]
+related-agents: [cs-network-engineer, cs-devsecops-engineer, cs-architect]
 related-skills: [engineering-team/senior-devops, engineering-team/senior-security]
 related-commands: []
 orchestrated-by: [cs-network-engineer]

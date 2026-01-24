@@ -18,7 +18,7 @@ use-cases:
   - Performance tuning JVM applications with automated performance testing
 
 # === RELATIONSHIPS ===
-related-agents: [cs-backend-engineer, cs-architect, cs-devops-engineer]
+related-agents: [cs-backend-engineer, cs-architect, cs-devsecops-engineer]
 related-skills: [engineering-team/senior-java, core-testing-methodology]
 related-commands: []
 collaborates-with:
@@ -47,11 +47,11 @@ collaborates-with:
     required: optional
     features-enabled: [architecture-review, design-patterns, scalability-planning]
     without-collaborator: "Architecture decisions made without formal review process"
-  - agent: cs-devops-engineer
-    purpose: CI/CD pipeline setup and Kubernetes deployment for Spring Boot applications
+  - agent: cs-devsecops-engineer
+    purpose: DevSecOps integration for secure CI/CD pipelines and Kubernetes deployment of Spring Boot applications with security validation
     required: optional
-    features-enabled: [github-actions, docker-compose, kubernetes-deployment]
-    without-collaborator: "Deployment configuration requires manual setup"
+    features-enabled: [github-actions, docker-compose, kubernetes-deployment, secure-java-deployment]
+    without-collaborator: "Deployment configuration requires manual setup without DevSecOps security automation"
 orchestrates:
   skill: engineering-team/senior-java
 
@@ -375,7 +375,7 @@ echo "Security audit complete. Review security-report.md"
 
 - [cs-backend-engineer](cs-backend-engineer.md) - General backend patterns, useful for non-Java backends in polyglot systems
 - [cs-architect](cs-architect.md) - System design and microservices architecture decisions
-- [cs-devops-engineer](cs-devops-engineer.md) - CI/CD pipelines and Kubernetes deployment
+- [cs-devsecops-engineer](cs-devsecops-engineer.md) - DevSecOps integration for secure CI/CD pipelines and Kubernetes deployment
 - [cs-security-engineer](cs-security-engineer.md) - Security audits and penetration testing
 - [cs-qa-engineer](cs-qa-engineer.md) - Test strategy and quality assurance
 

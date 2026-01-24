@@ -19,7 +19,7 @@ use-cases:
 
 # === RELATIONSHIPS ===
 related-agents: []
-related-skills: [engineering-team/senior-backend, core-testing-methodology]
+related-skills: [engineering-team/senior-backend, engineering-team/senior-security, core-testing-methodology]
 related-commands: []
 collaborates-with:
   - agent: tdd-guardian
@@ -57,6 +57,11 @@ collaborates-with:
     required: optional
     features-enabled: [event-sourcing, cdc-setup, kafka-producers, schema-registry]
     without-collaborator: "Event streaming patterns may not align with data platform architecture"
+  - agent: cs-devsecops-engineer
+    purpose: Secure backend development with DevSecOps integration, vulnerability scanning, and compliance validation
+    required: recommended
+    features-enabled: [secure-backend-development, vulnerability-scanning, compliance-validation, security-testing]
+    without-collaborator: "Backend services may lack security hardening, vulnerability scanning, and compliance validation"
 orchestrates:
   skill: engineering-team/senior-backend
 
@@ -860,7 +865,7 @@ python3 ../../skills/engineering-team/senior-backend/scripts/performance_analyze
 ## Related Agents
 
 - [cs-frontend-engineer](cs-frontend-engineer.md) - Consumes backend APIs
-- [cs-devops-engineer](cs-devops-engineer.md) - Deploys backend services
+- [cs-devsecops-engineer](cs-devsecops-engineer.md) - DevSecOps deployment of secure backend services with security validation
 - [cs-security-engineer](cs-security-engineer.md) - Secures backend infrastructure
 
 ## Integration with Other Skills

@@ -41,11 +41,11 @@ collaborates-with:
     required: optional
     features-enabled: [data-architecture, warehouse-design, scalability-review]
     without-collaborator: "Data architecture decisions made without formal review"
-  - agent: cs-devops-engineer
-    purpose: Streaming infrastructure deployment (Kafka clusters, Flink on K8s)
+  - agent: cs-devsecops-engineer
+    purpose: DevSecOps integration for secure streaming infrastructure deployment (Kafka clusters, Flink on Kubernetes) with CI/CD and security validation
     required: recommended
-    features-enabled: [kafka-deployment, flink-kubernetes, streaming-ci-cd, infrastructure-monitoring]
-    without-collaborator: "Streaming infrastructure must be managed manually without GitOps"
+    features-enabled: [kafka-deployment, flink-kubernetes, streaming-ci-cd, infrastructure-monitoring, secure-data-streaming]
+    without-collaborator: "Streaming infrastructure must be managed manually without DevSecOps security and GitOps automation"
   - agent: cs-backend-engineer
     purpose: Event producers and CDC integration from application databases
     required: recommended
@@ -1110,7 +1110,7 @@ mail -s "Weekly Pipeline Performance Report" data-eng@company.com < "$REPORT_DIR
 - [cs-data-scientist](cs-data-scientist.md) - Consumes data warehouse outputs for statistical analysis, feature engineering, and model training; collaborates on data quality requirements
 - [cs-ml-engineer](cs-ml-engineer.md) - Integrates with data pipelines for ML feature stores and model training data; requires reliable, high-quality data infrastructure
 - [cs-architect](cs-architect.md) - Defines overall system architecture including data platform strategy; ensures data systems integrate with broader technical architecture
-- [cs-devops-engineer](cs-devops-engineer.md) - Manages infrastructure for data pipelines (Kubernetes, Docker); implements CI/CD for data pipeline deployment
+- [cs-devsecops-engineer](cs-devsecops-engineer.md) - DevSecOps integration for secure data pipeline infrastructure (Kubernetes, Docker) with CI/CD deployment and security validation
 - [cs-backend-engineer](cs-backend-engineer.md) - Provides source data via application databases and APIs; collaborates on CDC and event streaming patterns
 
 ## References

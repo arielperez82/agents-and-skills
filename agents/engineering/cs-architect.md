@@ -652,7 +652,7 @@ echo "4. Plan migration strategy"
 - [cs-backend-engineer](cs-backend-engineer.md) - Implements backend services following architecture patterns and guidelines
 - [cs-frontend-engineer](cs-frontend-engineer.md) - Implements frontend applications following architecture patterns and component design
 - [cs-fullstack-engineer](cs-fullstack-engineer.md) - Implements end-to-end features following full-stack architecture patterns
-- [cs-devops-engineer](cs-devops-engineer.md) - Implements infrastructure and deployment pipelines based on architecture design
+- [cs-devsecops-engineer](cs-devsecops-engineer.md) - DevSecOps implementation of secure infrastructure and deployment pipelines based on architecture design
 - [cs-security-engineer](cs-security-engineer.md) - Validates security patterns and implements security requirements in architecture
 
 ## Collaboration: Architecture Diagram Generation

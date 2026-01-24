@@ -21,11 +21,11 @@ related-agents: []
 related-skills: [engineering-team/senior-observability]
 related-commands: []
 collaborates-with:
-  - agent: cs-devops-engineer
-    purpose: Infrastructure deployment for monitoring stack (Prometheus/Grafana or NewRelic agents)
+  - agent: cs-devsecops-engineer
+    purpose: DevSecOps integration for secure monitoring infrastructure deployment (Prometheus/Grafana or NewRelic agents) with security monitoring
     required: recommended
-    features-enabled: [prometheus-deployment, grafana-provisioning, alertmanager-setup, newrelic-infrastructure-agent, newrelic-apm-deployment]
-    without-collaborator: "Monitoring infrastructure must be deployed manually"
+    features-enabled: [prometheus-deployment, grafana-provisioning, alertmanager-setup, newrelic-infrastructure-agent, newrelic-apm-deployment, security-monitoring-integration]
+    without-collaborator: "Monitoring infrastructure must be deployed manually without DevSecOps security integration"
   - agent: cs-architect
     purpose: System architecture alignment for observability design
     required: recommended
@@ -36,11 +36,11 @@ collaborates-with:
     required: optional
     features-enabled: [custom-metrics, trace-instrumentation, log-correlation]
     without-collaborator: "Limited to infrastructure-level observability"
-  - agent: cs-secops-engineer
-    purpose: Security monitoring and compliance alerting integration
+  - agent: cs-devsecops-engineer
+    purpose: DevSecOps security monitoring and compliance alerting integration
     required: optional
-    features-enabled: [security-dashboards, audit-logging, compliance-alerts]
-    without-collaborator: "Security-specific observability not included"
+    features-enabled: [security-dashboards, audit-logging, compliance-alerts, security-observability]
+    without-collaborator: "DevSecOps security observability not integrated"
   - agent: cs-incident-responder
     purpose: ServiceNow incident creation from observability alerts
     required: optional
@@ -1378,10 +1378,10 @@ echo "Alert health check complete!"
 
 ## Related Agents
 
-- [cs-devops-engineer](cs-devops-engineer.md) - Infrastructure deployment for monitoring stack
+- [cs-devsecops-engineer](cs-devsecops-engineer.md) - DevSecOps integration for secure monitoring infrastructure deployment with security monitoring
 - [cs-backend-engineer](cs-backend-engineer.md) - Application instrumentation for metrics and traces
 - [cs-architect](cs-architect.md) - System design alignment for observability architecture
-- [cs-secops-engineer](cs-secops-engineer.md) - Security monitoring and compliance alerting
+- [cs-devsecops-engineer](cs-devsecops-engineer.md) - DevSecOps security monitoring and compliance alerting integration
 - [cs-sre-engineer](cs-sre-engineer.md) - Site reliability engineering and incident response
 - [cs-qa-engineer](cs-qa-engineer.md) - Test environment monitoring and quality metrics
 

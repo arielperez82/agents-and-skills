@@ -17,7 +17,7 @@ use-cases:
   - "Preparing executive summaries for board and stakeholder communication"
 
 # === RELATIONSHIPS ===
-related-agents: [cs-architect, cs-code-reviewer, cs-secops-engineer, cs-cto-advisor]
+related-agents: [cs-architect, cs-code-reviewer, cs-devsecops-engineer, cs-cto-advisor]
 related-skills: [engineering-team/legacy-codebase-analyzer]
 related-commands: [/plan.refactor, /review.code, /audit.security]
 orchestrates:
@@ -1877,9 +1877,9 @@ echo "Next: Review executive-summary.md and schedule stakeholder presentation"
 
 - **[cs-architect](cs-architect.md)** - Provides architectural guidance for modernization patterns, reviews refactoring strategies, validates target architecture
 - **[cs-code-reviewer](cs-code-reviewer.md)** - Detailed code quality analysis, refactoring recommendations, ongoing quality monitoring during modernization
-- **[cs-secops-engineer](cs-secops-engineer.md)** - Security vulnerability remediation planning, compliance validation, security testing during migration
+- **[cs-devsecops-engineer](cs-devsecops-engineer.md)** - DevSecOps security vulnerability remediation planning, compliance validation, secure migration testing
 - **[cs-cto-advisor](cs-cto-advisor.md)** - Strategic technology decisions, ROI validation, executive stakeholder management, budget approval support
-- **[cs-devops-engineer](../engineering/cs-devops-engineer.md)** - CI/CD pipeline modernization, infrastructure migration, deployment automation, monitoring setup
+- **[cs-devsecops-engineer](../engineering/cs-devsecops-engineer.md)** - DevSecOps modernization of CI/CD pipelines, secure infrastructure migration, deployment automation, security monitoring setup
 
 ## References
 

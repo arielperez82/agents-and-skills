@@ -629,7 +629,7 @@ echo "4. Schedule Q3 2026 review"
 ## Related Agents
 
 - [cs-architect](cs-architect.md) - Provides system design and architecture patterns that inform strategic technology decisions and architecture governance processes
-- [cs-devops-engineer](cs-devops-engineer.md) - Implements CI/CD and infrastructure improvements that support DORA metrics and engineering excellence initiatives
+- [cs-devsecops-engineer](cs-devsecops-engineer.md) - DevSecOps implementation of secure CI/CD and infrastructure improvements that support DORA metrics and engineering excellence initiatives
 - [cs-security-engineer](cs-security-engineer.md) - Executes security assessments and remediation plans that reduce security debt and improve compliance posture
 - [cs-backend-engineer](cs-backend-engineer.md) - Implements architecture decisions and contributes to technical debt reduction through code quality improvements
 

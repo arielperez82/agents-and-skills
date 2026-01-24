@@ -294,7 +294,7 @@ The agent leverages these automation tools:
 | cs-ios-engineer | Deep iOS/Swift expertise needed |
 | cs-flutter-engineer | Deep Flutter/Dart expertise needed |
 | cs-frontend-engineer | Web frontend integration |
-| cs-devops-engineer | CI/CD pipeline setup |
+| cs-devsecops-engineer | DevSecOps CI/CD pipeline setup |
 
 ## Success Metrics
 

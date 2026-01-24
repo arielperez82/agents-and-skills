@@ -1361,7 +1361,7 @@ Complements security audits from secops skill:
 python scripts/security_vulnerability_scanner.py /path/to/legacy-project --detailed
 
 # 2. Deep security analysis (manual)
-# Use cs-secops-engineer agent for comprehensive audit
+# Use cs-devsecops-engineer agent for comprehensive DevSecOps audit
 
 # 3. Track remediation progress
 python scripts/security_vulnerability_scanner.py /path/to/legacy-project --compare baseline-security.json

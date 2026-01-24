@@ -26,11 +26,11 @@ collaborates-with:
     required: recommended
     features-enabled: [coverage-review, quality-gates, review-automation]
     without-collaborator: "Test results will lack code review integration"
-  - agent: cs-devops-engineer
-    purpose: CI/CD integration for continuous testing pipelines
+  - agent: cs-devsecops-engineer
+    purpose: DevSecOps integration for secure CI/CD pipelines with continuous testing, security validation, and automated quality gates
     required: recommended
-    features-enabled: [ci-testing, pipeline-integration, automated-gates]
-    without-collaborator: "Tests will not be integrated into CI/CD pipelines"
+    features-enabled: [ci-testing, pipeline-integration, automated-gates, security-testing-integration]
+    without-collaborator: "Tests and security validation will not be integrated into DevSecOps CI/CD pipelines"
   - agent: cs-technical-writer
     purpose: Test documentation with coverage reports and test architecture diagrams
     required: optional
@@ -1052,7 +1052,7 @@ echo "📝 Open report: open $REPORT_DIR/quality-report.html"
 - [cs-fullstack-engineer](cs-fullstack-engineer.md) - Collaborates on end-to-end application quality and integration testing strategies
 - [cs-frontend-engineer](cs-frontend-engineer.md) - Partners on React component testing, accessibility testing, and visual regression
 - [cs-backend-engineer](cs-backend-engineer.md) - Coordinates on API testing, integration tests, and database testing strategies
-- [cs-devops-engineer](cs-devops-engineer.md) - Integrates test automation into CI/CD pipelines and monitors production quality
+- [cs-devsecops-engineer](cs-devsecops-engineer.md) - DevSecOps integration of test automation into secure CI/CD pipelines with quality and security monitoring
 - [cs-security-engineer](cs-security-engineer.md) - Collaborates on security testing integration (OWASP, penetration testing)
 - [cs-code-reviewer](cs-code-reviewer.md) - Uses quality metrics to inform code review priorities and standards
 - [cs-architect](cs-architect.md) - Aligns test strategy with system architecture and quality attributes

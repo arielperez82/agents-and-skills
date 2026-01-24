@@ -21,6 +21,7 @@ use-cases:
 related-agents: []
 related-skills:
   - engineering-team/senior-frontend
+  - engineering-team/senior-security
   - core-testing-methodology
 related-commands: []
 collaborates-with:
@@ -44,6 +45,11 @@ collaborates-with:
     required: optional
     features-enabled: [design-review, accessibility-audit, responsive-validation]
     without-collaborator: "UI components may lack design system consistency"
+  - agent: cs-devsecops-engineer
+    purpose: Secure frontend development with client-side security, vulnerability scanning, and secure deployment practices
+    required: recommended
+    features-enabled: [frontend-security, client-side-security, secure-deployment, vulnerability-scanning]
+    without-collaborator: "Frontend applications may lack client-side security protections and secure deployment validation"
 orchestrates:
   skill: engineering-team/senior-frontend
 
@@ -702,7 +708,7 @@ echo "✅ Audit complete. Review a11y-report.txt for findings."
 - [cs-fullstack-engineer](cs-fullstack-engineer.md) - End-to-end development combining frontend and backend
 - [cs-ui-designer](../product/cs-ui-designer.md) - Design system development and design token management
 - [cs-qa-engineer](cs-qa-engineer.md) - Test automation and quality assurance for frontend applications
-- [cs-devops-engineer](cs-devops-engineer.md) - CI/CD pipelines and deployment automation
+- [cs-devsecops-engineer](cs-devsecops-engineer.md) - DevSecOps integration for secure CI/CD pipelines and deployment with security validation
 
 ## References
 

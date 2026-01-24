@@ -1336,7 +1336,7 @@ echo "📍 API endpoint: http://llm-api:8000/generate"
 - [cs-data-engineer](cs-data-engineer.md) - Data pipelines, feature stores, and data infrastructure for ML training
 - [cs-computer-vision-engineer](cs-computer-vision-engineer.md) - Specialized computer vision model training and deployment
 - [cs-prompt-engineer](cs-prompt-engineer.md) - LLM prompt optimization, RAG system tuning, and multi-agent orchestration
-- [cs-devops-engineer](cs-devops-engineer.md) - CI/CD pipelines, Kubernetes orchestration, infrastructure automation
+- [cs-devsecops-engineer](cs-devsecops-engineer.md) - DevSecOps integration for secure CI/CD pipelines, Kubernetes orchestration, and infrastructure automation
 - [cs-backend-engineer](cs-backend-engineer.md) - API development for model serving endpoints
 - [cs-architect](cs-architect.md) - ML system architecture, scalability planning, infrastructure design
 - [cs-security-engineer](cs-security-engineer.md) - ML model security, API security, data privacy compliance
