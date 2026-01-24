@@ -52,6 +52,11 @@ collaborates-with:
     required: recommended
     features-enabled: [full-stack-security, devsecops-integration, end-to-end-security, security-testing]
     without-collaborator: "Full-stack applications may lack comprehensive DevSecOps security integration and end-to-end security validation"
+  - agent: cs-database-engineer
+    purpose: Database design and optimization for full-stack applications
+    required: optional
+    features-enabled: [database-design, query-optimization, migration-strategy]
+    without-collaborator: "Full-stack applications may lack database optimization expertise"
 orchestrates:
   skill: engineering-team/senior-fullstack
 
@@ -954,6 +959,7 @@ echo "   - React admin UI"
 - [cs-security-engineer](cs-security-engineer.md) - Security audits, vulnerability assessment, and secure coding
 - [cs-code-reviewer](cs-code-reviewer.md) - Code review automation and quality assessment
 - [cs-data-engineer](cs-data-engineer.md) - Data pipeline development and database optimization
+- [cs-database-engineer](cs-database-engineer.md) - Database design, query optimization, and performance tuning
 
 ## References
 

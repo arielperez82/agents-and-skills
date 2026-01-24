@@ -167,7 +167,7 @@ The cs-architect agent bridges the gap between business requirements and technic
    - Frontend layer (React/Next.js, React Native, Flutter)
    - API layer (REST, GraphQL, gRPC) - when GraphQL is selected, invoke cs-graphql-architect for detailed schema and federation design
    - Backend services (Node.js/Express, Go, Python)
-   - Data layer (PostgreSQL, Redis, message queues)
+   - Data layer (PostgreSQL, Redis, message queues) - when Supabase is selected, invoke cs-supabase-database-engineer for schema design, RLS policies, and migration management
    - Infrastructure (Docker, Kubernetes, cloud services)
 
 4. **Generate Architecture Diagrams** - Create visual documentation:
@@ -649,6 +649,7 @@ echo "4. Plan migration strategy"
 - [cs-cto-advisor](../c-level/cs-cto-advisor.md) - Provides strategic technical leadership and technology vision that guides architecture decisions
 - [cs-technical-writer](cs-technical-writer.md) - **Collaborates for Mermaid diagram generation** (architecture, sequence, class, ERD diagrams)
 - [cs-graphql-architect](cs-graphql-architect.md) - **Invoked for GraphQL architecture** - When GraphQL is selected as API technology, cs-architect delegates detailed schema design, federation planning, and GraphQL-specific performance optimization to cs-graphql-architect
+- [cs-supabase-database-engineer](cs-supabase-database-engineer.md) - **Invoked for Supabase database design** - When Supabase is selected as the database solution, cs-architect delegates schema design, RLS policy architecture, and migration management to cs-supabase-database-engineer
 - [cs-backend-engineer](cs-backend-engineer.md) - Implements backend services following architecture patterns and guidelines
 - [cs-frontend-engineer](cs-frontend-engineer.md) - Implements frontend applications following architecture patterns and component design
 - [cs-fullstack-engineer](cs-fullstack-engineer.md) - Implements end-to-end features following full-stack architecture patterns

@@ -636,7 +636,7 @@ echo "- Usability Testing: ../../skills/product-team/ux-researcher-designer/refe
 ## Related Agents
 
 - [cs-product-manager](cs-product-manager.md) - Customer discovery and interview analysis, provides prioritized problems for research validation
-- [cs-agile-product-owner](cs-agile-product-owner.md) - User story creation with persona context, uses personas to write better user stories
+- [cs-product-analyst](cs-product-analyst.md) - User story creation with persona context, uses personas to write better user stories
 - [cs-ui-designer](cs-ui-designer.md) - Design system development informed by research findings, translates insights into design decisions
 
 ## References

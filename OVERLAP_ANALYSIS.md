@@ -11,7 +11,7 @@ Generated: 2026-01-24 (v3 - fully complete)
 
 **Analysis:** All three focus on architecture but from different angles. `adr-writer` is process-focused for documenting decisions, `cs-architect` handles general system architecture with delegation to specialists, `cs-graphql-architect` handles GraphQL-specific architecture details.
 
-### Code Review ✅ CONSOLIDATED
+### Code Review ✅ DONE
 - `cs-code-reviewer.md` - **PRIMARY** (consolidated agent with fixed skill path references, now points to `engineering-team/code-reviewer/`)
 
 **Analysis:** **RESOLVED** - Agent renamed and consolidated with structured metadata, comprehensive workflows, and correct skill references. Single authoritative code reviewer agent now exists.
@@ -24,7 +24,7 @@ Generated: 2026-01-24 (v3 - fully complete)
 
 **Analysis:** Consolidated to 2 focused agents: `tdd-guardian` (TDD coach) and `qa-engineer` (automation expert). Eliminated separate TDD engineer role, focused QA on automation/infrastructure expertise.
 
-### Security ✅ IMPLEMENTED
+### Security ✅ DONE
 - `engineering/cs-security-engineer.md` - **COACH/GUARDIAN** (threat modeling, secure coding, security automation)
 - `engineering/cs-secops-engineer.md` - **OPERATIONS** (incident response, security monitoring, DevSecOps)
 - `engineering/cs-devops-engineer.md` - **INFRASTRUCTURE** (CI/CD pipelines, security integration)
@@ -96,24 +96,25 @@ Generated: 2026-01-24 (v3 - fully complete)
 
 **Implementation**: Merge `cs-secops-engineer.md` capabilities into `cs-devops-engineer.md`, rename result to DevSecOps, extract incident response workflows to existing `cs-incident-responder.md`.
 
-### Product Management ✅ CONSOLIDATED
+### Product Management ✅ DONE
 - `product/cs-product-manager.md` - **EXECUTION** (feature prioritization, customer discovery, PRD development)
 - `product/cs-product-director.md` - **STRATEGY** (OKR cascades, multi-year vision, strategic roadmaps)
 - `product/cs-product-analyst.md` - **MERGED ROLE** (combines cs-agile-product-owner + cs-business-analyst)
 
 **Analysis:** **RESOLVED** - Consolidated Agile Product Owner and Business Analyst into cs-product-analyst to eliminate 60% overlap. Product Manager (execution) and Product Strategist (strategy) remain distinct. New analyst role handles both agile delivery requirements and business process analysis.
 
-### Delivery/Project Management ✅ COMPLETED
+### Delivery/Project Management ✅ DONE
 - `delivery/cs-agile-coach.md` (renamed from cs-scrum-master.md)
 - `delivery/cs-senior-pm.md`
 
 **Analysis:** **FULLY RESOLVED** - Renamed cs-scrum-master to cs-agile-coach and completely restructured both roles to eliminate 90% overlap. Agile Coach owns flow metrics, throughput analysis, and team capacity monitoring using continuous flow principles (not sprint-centric). Senior PM consumes flow data for RAG monitoring and orchestrates specialized expertise when metrics indicate risks requiring intervention. Clear separation: Coach optimizes team flow, PM monitors for strategic risks.
 
-### Supabase
-- `supabase-migration-assistant.md`
-- `supabase-schema-architect.md`
+### Supabase ✅ DONE
+- ~~`supabase-migration-assistant.md`~~ (merged)
+- ~~`supabase-schema-architect.md`~~ (merged)
+- `engineering/cs-supabase-database-engineer.md` (merged agent)
 
-**Analysis:** Related but distinct - migration focuses on moving data, schema architect focuses on design. Some overlap in Supabase knowledge.
+**Analysis:** **RESOLVED** - Merged both agents into `cs-supabase-database-engineer` which combines schema design, migration management, and RLS policy architecture into a single comprehensive Supabase database engineering agent. The merged agent handles both strategic schema design and tactical migration workflows.
 
 ### Research/Planning
 - `researcher.md`
@@ -140,7 +141,7 @@ Generated: 2026-01-24 (v3 - fully complete)
 ### Miscellaneous Unique Agents
 - `CLAUDE.md` (main agent)
 - `README.md` (documentation)
-- `database-admin.md`
+- ~~`database-admin.md`~~ (renamed to `engineering/cs-database-engineer.md`)
 - `debugger.md`
 - `engineering/cs-computer-vision.md`
 - `engineering/cs-cto-advisor.md`

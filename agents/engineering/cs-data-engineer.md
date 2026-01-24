@@ -56,6 +56,11 @@ collaborates-with:
     required: optional
     features-enabled: [feature-stores, online-inference, streaming-features, model-monitoring]
     without-collaborator: "ML features will rely on batch processing only"
+  - agent: cs-database-engineer
+    purpose: Database optimization for data pipelines, ETL processes, and data warehouse design
+    required: optional
+    features-enabled: [warehouse-optimization, etl-performance, data-pipeline-db]
+    without-collaborator: "Data pipelines may have unoptimized database operations"
 orchestrates:
   skill: engineering-team/senior-data-engineer
 
@@ -1112,6 +1117,7 @@ mail -s "Weekly Pipeline Performance Report" data-eng@company.com < "$REPORT_DIR
 - [cs-architect](cs-architect.md) - Defines overall system architecture including data platform strategy; ensures data systems integrate with broader technical architecture
 - [cs-devsecops-engineer](cs-devsecops-engineer.md) - DevSecOps integration for secure data pipeline infrastructure (Kubernetes, Docker) with CI/CD deployment and security validation
 - [cs-backend-engineer](cs-backend-engineer.md) - Provides source data via application databases and APIs; collaborates on CDC and event streaming patterns
+- [cs-database-engineer](cs-database-engineer.md) - Database optimization for data pipelines, ETL processes, and data warehouse design
 
 ## References
 

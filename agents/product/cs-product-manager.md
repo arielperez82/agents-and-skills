@@ -435,8 +435,8 @@ echo "Report: $QUARTER-roadmap.txt"
 
 ## Related Agents
 
-- [cs-agile-product-owner](cs-agile-product-owner.md) - Sprint planning and user story generation (planned)
-- [cs-product-strategist](cs-product-strategist.md) - OKR cascade and strategic planning (planned)
+- [cs-product-analyst](cs-product-analyst.md) - Sprint planning, user story generation, and process analysis
+- [cs-product-director](cs-product-director.md) - OKR cascade and strategic planning (planned)
 - [cs-ux-researcher](cs-ux-researcher.md) - Persona generation and user research (planned)
 
 ## References

@@ -42,6 +42,11 @@ collaborates-with:
     required: optional
     features-enabled: [model-docs, architecture-diagrams, pipeline-diagrams]
     without-collaborator: "ML documentation will be text-only without visual diagrams"
+  - agent: cs-database-engineer
+    purpose: Database optimization for ML feature stores, model serving databases, and vector databases
+    required: optional
+    features-enabled: [feature-store-optimization, vector-db-tuning, ml-db-performance]
+    without-collaborator: "ML systems may have unoptimized database operations for features and serving"
 orchestrates:
   skill: engineering-team/senior-ml-engineer
 
@@ -1340,6 +1345,7 @@ echo "📍 API endpoint: http://llm-api:8000/generate"
 - [cs-backend-engineer](cs-backend-engineer.md) - API development for model serving endpoints
 - [cs-architect](cs-architect.md) - ML system architecture, scalability planning, infrastructure design
 - [cs-security-engineer](cs-security-engineer.md) - ML model security, API security, data privacy compliance
+- [cs-database-engineer](cs-database-engineer.md) - Database optimization for ML feature stores, model serving databases, and vector databases
 
 ## References
 

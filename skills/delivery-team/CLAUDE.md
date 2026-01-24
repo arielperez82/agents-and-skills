@@ -6,35 +6,9 @@ This guide covers the 4 production-ready delivery management skills with Atlassi
 
 **Available Skills:**
 1. **senior-pm/** - Senior project manager workflows and best practices
-2. **scrum-master/** - Scrum ceremonies, agile coaching, team facilitation
-3. **jira-expert/** - Jira administration, workflows, automation
-4. **confluence-expert/** - Documentation, knowledge management, collaboration
-
-**Key Feature:** Atlassian MCP Server integration for direct Jira/Confluence operations
+2. **agile-coach/** - Agile ceremonies, coaching, team facilitation
 
 **Note:** This domain focuses on knowledge frameworks and MCP integration patterns rather than Python automation tools.
-
-## Atlassian MCP Integration
-
-**Purpose:** Direct integration with Jira and Confluence via Model Context Protocol (MCP)
-
-**Capabilities:**
-- Create, read, update Jira issues
-- Manage Confluence pages and spaces
-- Automate workflows and transitions
-- Generate reports and dashboards
-- Bulk operations on issues
-
-**Setup:** Atlassian MCP server configured in Claude Code settings
-
-**Usage Pattern:**
-```bash
-# Jira operations via MCP
-mcp__atlassian__create_issue project="PROJ" summary="New feature" type="Story"
-
-# Confluence operations via MCP
-mcp__atlassian__create_page space="TEAM" title="Sprint Retrospective"
-```
 
 ## Skill-Specific Guidance
 
@@ -48,37 +22,15 @@ mcp__atlassian__create_page space="TEAM" title="Sprint Retrospective"
 - Risk register maintenance
 - Status reporting and escalation
 
-### Scrum Master (`scrum-master/`)
+### Agile Coach (`agile-coach/`)
 
 **Focus:** Agile ceremonies, team coaching, impediment removal
 
 **Key Workflows:**
-- Sprint planning facilitation
-- Daily standup coordination
-- Sprint retrospectives
+- Planning facilitation
+- Team sync coordination
+- Retrospectives
 - Backlog refinement
-
-### Jira Expert (`jira-expert/`)
-
-**Focus:** Jira configuration, custom workflows, automation rules
-
-**Key Workflows:**
-- Workflow customization
-- Automation rule creation
-- Board configuration
-- JQL query optimization
-
-### Confluence Expert (`confluence-expert/`)
-
-**Focus:** Documentation strategy, templates, knowledge management
-
-**Key Workflows:**
-- Space architecture design
-- Template library creation
-- Documentation standards
-- Search optimization
-
-
 ## Integration Patterns
 
 ### Pattern 1: Sprint Planning

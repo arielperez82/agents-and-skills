@@ -62,6 +62,11 @@ collaborates-with:
     required: recommended
     features-enabled: [secure-backend-development, vulnerability-scanning, compliance-validation, security-testing]
     without-collaborator: "Backend services may lack security hardening, vulnerability scanning, and compliance validation"
+  - agent: cs-database-engineer
+    purpose: Database optimization, query performance tuning, and schema design for backend services
+    required: optional
+    features-enabled: [query-optimization, schema-design, index-strategy, performance-tuning]
+    without-collaborator: "Backend services may have unoptimized database queries and schemas"
 orchestrates:
   skill: engineering-team/senior-backend
 
@@ -865,6 +870,7 @@ python3 ../../skills/engineering-team/senior-backend/scripts/performance_analyze
 ## Related Agents
 
 - [cs-frontend-engineer](cs-frontend-engineer.md) - Consumes backend APIs
+- [cs-database-engineer](cs-database-engineer.md) - Database optimization, query performance tuning, and schema design
 - [cs-devsecops-engineer](cs-devsecops-engineer.md) - DevSecOps deployment of secure backend services with security validation
 - [cs-security-engineer](cs-security-engineer.md) - Secures backend infrastructure
 

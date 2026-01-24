@@ -19,7 +19,7 @@ use-cases:
   - Strategic positioning assessment
 
 # === RELATIONSHIPS ===
-related-agents: [cs-product-strategist, cs-product-manager, cs-business-analyst]
+related-agents: [cs-product-director, cs-product-manager, cs-product-analyst]
 related-skills: []
 related-commands: []
 orchestrated-by: []
@@ -410,7 +410,7 @@ python scripts/scorecard_generator.py --detailed --analysis-file analysis.json
 
 This skill integrates with the following product team agents:
 
-### cs-product-strategist
+### cs-product-director
 
 Uses competitive analysis for:
 - Market positioning decisions
@@ -428,12 +428,13 @@ Uses competitive analysis for:
 
 **Invocation**: "Run a competitive scorecard against this repository"
 
-### cs-business-analyst
+### cs-product-analyst
 
 Uses competitive analysis for:
 - Requirements gathering
 - Gap documentation
 - Stakeholder reporting
+- Process improvement analysis
 
 **Invocation**: "Generate a gap analysis comparing our capabilities to competitor Y"
 

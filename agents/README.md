@@ -179,22 +179,26 @@ This directory contains specifications for specialized Claude Code agents that w
 
 ---
 
-#### `supabase-schema-architect`
-**Purpose**: Designs Supabase database schemas, migration strategies, and Row Level Security (RLS) policies.
+#### `cs-supabase-database-engineer`
+**Purpose**: Supabase database specialist for schema design, migration management, RLS policy architecture, and database optimization.
 
 **Use proactively when**:
 - Designing new database schemas for Supabase
 - Planning schema changes or migrations
 - Implementing RLS policies for security
+- Creating and managing database migrations
 - Optimizing database performance
+- Generating TypeScript types from schemas
 
 **Use reactively when**:
 - Reviewing existing schema design
 - Analyzing performance bottlenecks
 - Assessing security coverage
-- Planning migration sequences
+- Migration execution fails
+- Need to validate migration impact
+- Testing rollback procedures
 
-**Core responsibility**: Design normalized schemas, create safe migrations, implement comprehensive RLS policies, optimize indexes and constraints.
+**Core responsibility**: Design normalized schemas, create safe migrations with rollback strategies, implement comprehensive RLS policies, optimize indexes and constraints, manage migration workflows.
 
 **Key capabilities**:
 - Schema design with 3NF normalization
@@ -202,31 +206,8 @@ This directory contains specifications for specialized Claude Code agents that w
 - RLS policy architecture and testing
 - TypeScript type generation
 - Performance optimization
-
----
-
-#### `supabase-migration-assistant`
-**Purpose**: Generates and manages Supabase database migrations with automated testing and validation.
-
-**Use proactively when**:
-- Creating new migrations (`--create`)
-- Altering existing schemas (`--alter`)
-- Seeding database data (`--seed`)
-- Planning rollback procedures (`--rollback`)
-
-**Use reactively when**:
-- Migration execution fails
-- Need to validate migration impact
-- Testing rollback procedures
-- Generating TypeScript types from schema
-
-**Core responsibility**: Generate migration SQL files, validate migrations, test on local Supabase, integrate with Supabase CLI, create rollback strategies.
-
-**Key capabilities**:
-- Migration SQL generation
-- Automated validation and testing
-- TypeScript type generation
-- Rollback strategy creation
+- Migration validation and testing
+- Automated safety checks
 - Performance impact analysis
 
 ---
@@ -284,8 +265,7 @@ progress-guardian (orchestrates)
     │   └─→ refactor-scan (after GREEN)
     │
     ├─► For database/schema work:
-    │   ├─→ supabase-schema-architect (schema design, RLS policies)
-    │   └─→ supabase-migration-assistant (migration generation, validation)
+    │   └─→ cs-supabase-database-engineer (schema design, RLS policies, migration management)
     │
     ├─► When decisions arise:
     │   └─→ adr-writer (architectural decisions)
@@ -392,19 +372,16 @@ progress-guardian (orchestrates)
 - "What's missing to implement this feature?"
 - → Answer: Analytical report mapping use cases to data patterns
 
-**Use `supabase-schema-architect`** for:
+**Use `cs-supabase-database-engineer`** for:
 - "How should I design this Supabase schema?"
 - "What RLS policies do I need?"
 - "How do I optimize this database structure?"
 - "What's the best migration strategy?"
-- → Answer: Comprehensive schema design with migrations and RLS policies
-
-**Use `supabase-migration-assistant`** for:
 - "Generate a migration for this schema change"
 - "Test this migration before applying"
 - "Create rollback for this migration"
 - "Generate TypeScript types from schema"
-- → Answer: Migration SQL files with validation and type generation
+- → Answer: Comprehensive schema design with migrations, RLS policies, validation, and type generation
 
 ## Using These Agents
 
@@ -447,7 +424,7 @@ When creating a new agent specification:
 These agents work together to create a comprehensive development workflow:
 
 - **Analysis**: use-case-data-patterns maps use cases to implementation patterns
-- **Database**: supabase-schema-architect designs schemas, supabase-migration-assistant manages migrations
+- **Database**: cs-supabase-database-engineer designs schemas and manages migrations
 - **Quality**: tdd-guardian + ts-enforcer ensure code quality
 - **Improvement**: refactor-scan optimizes code after tests pass
 - **Review**: pr-reviewer validates PRs before merge

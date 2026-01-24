@@ -732,7 +732,7 @@ echo "6. Add do's and don'ts"
 ## Related Agents
 
 - [cs-ux-researcher](cs-ux-researcher.md) - User research insights inform design system patterns and component needs
-- [cs-agile-product-owner](cs-agile-product-owner.md) - User stories reference design system components for implementation clarity
+- [cs-product-analyst](cs-product-analyst.md) - User stories reference design system components for implementation clarity
 - [cs-product-manager](cs-product-manager.md) - Feature requirements specify design system usage for consistency
 
 ## References
