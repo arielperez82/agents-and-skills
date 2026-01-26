@@ -31,7 +31,7 @@ related-commands: []
 orchestrates:
   skill: engineering-team/senior-mobile
 collaborates-with:
-  - agent: tdd-guardian
+  - agent: cs-tdd-guardian
     purpose: TDD methodology coaching for mobile development across platforms
     required: optional
     features-enabled: [mobile-tdd, cross-platform-testing, react-native-tdd, flutter-tdd]

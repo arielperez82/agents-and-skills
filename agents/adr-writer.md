@@ -184,7 +184,7 @@ assistant: "That's an important infrastructure decision. Let me invoke the adr-w
 - UI/styling choices
 ```
 
-### For docs-guardian Agent
+### For cs-docs-guardian Agent
 
 **When to Invoke:**
 - When reviewing architecture documentation and discovering undocumented decisions
@@ -193,14 +193,14 @@ assistant: "That's an important infrastructure decision. Let me invoke the adr-w
 
 **How to Invoke:**
 ```markdown
-# In docs-guardian reactive workflow:
+# In cs-docs-guardian reactive workflow:
 
 **Pattern: Discover Undocumented Decision**
 
 1. **Identify Gap**: While reviewing architecture documentation, notice missing context:
    ```markdown
    user: "Document the authentication system"
-   docs-guardian: "I notice the documentation explains HOW authentication works, but there's no explanation of WHY we chose JWT over session-based auth. This is a significant architectural decision that should be documented."
+   cs-docs-guardian: "I notice the documentation explains HOW authentication works, but there's no explanation of WHY we chose JWT over session-based auth. This is a significant architectural decision that should be documented."
    ```
 
 2. **Assess Significance**: Apply adr-writer decision framework:
@@ -213,7 +213,7 @@ assistant: "That's an important infrastructure decision. Let me invoke the adr-w
 
 3. **Invoke adr-writer**:
    ```markdown
-   docs-guardian: "I notice there's no ADR explaining why we chose JWT over sessions. Let me invoke the adr-writer agent to create a retroactive ADR."
+   cs-docs-guardian: "I notice there's no ADR explaining why we chose JWT over sessions. Let me invoke the adr-writer agent to create a retroactive ADR."
    
    → Invoke adr-writer agent
    → Provide context: "Authentication approach selection"
@@ -221,7 +221,7 @@ assistant: "That's an important infrastructure decision. Let me invoke the adr-w
    → Provide decision: JWT tokens
    → Provide rationale: Stateless, scalable, works with microservices
    → adr-writer creates ADR-XXX: Authentication Approach
-   → docs-guardian references ADR in architecture documentation
+   → cs-docs-guardian references ADR in architecture documentation
    ```
 
 4. **Update Documentation**: Reference the new ADR in the architecture docs:
@@ -927,15 +927,15 @@ The `adr-writer` agent is successful when:
 → cs-architect references ADRs in architecture documentation
 ```
 
-### With docs-guardian
+### With cs-docs-guardian
 
 ```markdown
-[docs-guardian reviewing architecture docs]
+[cs-docs-guardian reviewing architecture docs]
 → Discovers undocumented architectural decision
 → Applies decision framework to assess significance
 → Invokes adr-writer agent to create retroactive ADR
 → adr-writer creates ADR with context, alternatives, rationale
-→ docs-guardian references ADR in architecture documentation
+→ cs-docs-guardian references ADR in architecture documentation
 ```
 
 ### With learn agent
@@ -958,7 +958,7 @@ The `adr-writer` agent creates Architecture Decision Records for significant arc
 - Identifies when decisions merit ADRs (not everything does)
 - Documents context, alternatives, trade-offs, and consequences
 - Maintains ADR index and numbering
-- Integrates with cs-architect, docs-guardian, and other agents
+- Integrates with cs-architect, cs-docs-guardian, and other agents
 - Prevents "why did we do it this way?" confusion
 - Provides architectural continuity as team evolves
 

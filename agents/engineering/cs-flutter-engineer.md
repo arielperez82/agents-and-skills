@@ -29,7 +29,7 @@ related-commands: []
 orchestrates:
   skill: engineering-team/senior-flutter
 collaborates-with:
-  - agent: tdd-guardian
+  - agent: cs-tdd-guardian
     purpose: TDD methodology coaching for Flutter development and widget testing
     required: optional
     features-enabled: [flutter-tdd, widget-testing, dart-tdd]

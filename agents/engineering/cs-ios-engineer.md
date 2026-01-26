@@ -29,7 +29,7 @@ related-commands: []
 orchestrates:
   skill: engineering-team/senior-ios
 collaborates-with:
-  - agent: tdd-guardian
+  - agent: cs-tdd-guardian
     purpose: TDD methodology coaching for iOS development and Swift testing
     required: optional
     features-enabled: [ios-tdd, swift-testing, uikit-testing, swiftui-testing]

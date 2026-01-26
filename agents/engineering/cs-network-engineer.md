@@ -22,7 +22,7 @@ related-agents: []
 related-skills: [engineering-team/senior-network-infrastructure, core-testing-methodology]
 related-commands: []
 collaborates-with:
-  - agent: tdd-guardian
+  - agent: cs-tdd-guardian
     purpose: TDD methodology for network configuration and infrastructure code testing
     required: optional
     features-enabled: [infrastructure-tdd, configuration-testing, network-validation]

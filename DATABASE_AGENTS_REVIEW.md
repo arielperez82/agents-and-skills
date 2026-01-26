@@ -1,6 +1,6 @@
 # Database Agents Review Report
 **Date:** January 24, 2026  
-**Reviewer:** docs-guardian  
+**Reviewer:** cs-docs-guardian  
 **Scope:** Database agents and skills since last commit
 
 ## Executive Summary

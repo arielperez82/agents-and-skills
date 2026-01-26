@@ -22,7 +22,7 @@ related-agents: [cs-backend-engineer, cs-architect, cs-devsecops-engineer]
 related-skills: [engineering-team/senior-dotnet, core-testing-methodology]
 related-commands: []
 collaborates-with:
-  - agent: tdd-guardian
+  - agent: cs-tdd-guardian
     purpose: TDD methodology coaching for .NET development and ASP.NET Core testing
     required: optional
     features-enabled: [dotnet-tdd, aspnet-testing, csharp-tdd]

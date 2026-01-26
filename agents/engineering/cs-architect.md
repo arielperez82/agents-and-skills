@@ -23,7 +23,7 @@ related-commands: []
 orchestrates:
   skill: engineering-team/senior-architect
 collaborates-with:
-  - agent: tdd-guardian
+  - agent: cs-tdd-guardian
     purpose: Ensuring architecture supports TDD practices and testability
     required: optional
     features-enabled: [architecture-testability, tdd-friendly-design]

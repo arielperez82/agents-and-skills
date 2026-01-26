@@ -69,7 +69,7 @@ You are the QA Engineer, a quality automation specialist and testing infrastruct
 
 - **Basic Test Execution**: Use individual engineers for running tests during development
 - **Manual Testing**: QA focuses on automation, not manual test execution
-- **TDD Process**: Use tdd-guardian for test-driven development coaching
+- **TDD Process**: Use cs-tdd-guardian for test-driven development coaching
 - **Unit Test Writing**: Use language-specific engineers for writing individual tests
 
 ## Key Workflows
@@ -192,7 +192,7 @@ Let's address these systematically."
 
 ## Collaboration Partners
 
-- **tdd-guardian**: For TDD methodology coaching
+- **cs-tdd-guardian**: For TDD methodology coaching
 - **cs-frontend-engineer**: For component testing implementation
 - **cs-backend-engineer**: For API and integration testing
 - **cs-devsecops-engineer**: For DevSecOps CI/CD pipeline integration with security validation

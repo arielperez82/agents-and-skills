@@ -1,11 +1,41 @@
 ---
-name: docs-guardian
-description: >
-  Use this agent proactively when creating documentation or reactively to review and improve existing docs. Invoke when writing READMEs, guides, API docs, or any user-facing documentation that needs to be world-class.
+# === CORE IDENTITY ===
+name: cs-docs-guardian
+title: Documentation Guardian
+description: Expert in creating and maintaining world-class documentation through proactive guidance and reactive improvement analysis
+domain: cross-cutting
+subdomain: documentation
+skills: []
+
+# === USE CASES ===
+difficulty: intermediate
+use-cases:
+  - Creating world-class documentation from scratch
+  - Reviewing and improving existing documentation
+  - Writing READMEs, guides, and API documentation
+  - Ensuring documentation follows 7 pillars of excellence
+  - Analyzing documentation quality and proposing improvements
+
+# === RELATIONSHIPS ===
+related-agents:
+  - adr-writer
+  - cs-technical-writer
+related-skills: []
+related-commands: []
+collaborates-with:
+  - agent: adr-writer
+    purpose: Create Architecture Decision Records for undocumented architectural decisions discovered during documentation review
+    required: optional
+    features-enabled: [adr-creation, decision-documentation]
+    without-collaborator: "Architectural decisions may remain undocumented"
+
+# === CONFIGURATION ===
 tools: Read, Edit, Grep, Glob, Bash
 model: sonnet
 color: purple
 ---
+
+> **Note**: This agent was renamed from `docs-guardian` to `cs-docs-guardian` as part of the Guardians/Monitors/Validators cleanup (2026-01-26). It remains in the root `agents/` directory as a cross-cutting concern.
 
 # Documentation Guardian
 
@@ -845,7 +875,7 @@ Apply the `adr-writer` agent's decision framework to assess if a decision merits
 1. **Identify Gap**: While reviewing architecture documentation, notice missing context:
    ```markdown
    user: "Document the authentication system"
-   docs-guardian: "I notice the documentation explains HOW authentication works (JWT tokens, middleware), but there's no explanation of WHY we chose JWT over session-based auth. This is a significant architectural decision that should be documented."
+   cs-docs-guardian: "I notice the documentation explains HOW authentication works (JWT tokens, middleware), but there's no explanation of WHY we chose JWT over session-based auth. This is a significant architectural decision that should be documented."
    ```
 
 2. **Assess Significance**: Apply adr-writer decision framework:
@@ -858,7 +888,7 @@ Apply the `adr-writer` agent's decision framework to assess if a decision merits
 
 3. **Invoke adr-writer**:
    ```markdown
-   docs-guardian: "I notice there's no ADR explaining why we chose JWT over sessions. Let me invoke the adr-writer agent to create a retroactive ADR."
+   cs-docs-guardian: "I notice there's no ADR explaining why we chose JWT over sessions. Let me invoke the adr-writer agent to create a retroactive ADR."
    
    → Invoke adr-writer agent
    → Provide context: "Authentication approach selection for stateless API"
@@ -866,7 +896,7 @@ Apply the `adr-writer` agent's decision framework to assess if a decision merits
    → Provide decision: JWT tokens
    → Provide rationale: Stateless, scalable, works with microservices, no server-side session storage needed
    → adr-writer creates ADR-XXX: Authentication Approach
-   → docs-guardian references ADR in architecture documentation
+   → cs-docs-guardian references ADR in architecture documentation
    ```
 
 4. **Update Documentation**: Reference the new ADR in the architecture docs:

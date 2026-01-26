@@ -21,7 +21,7 @@ related-agents: []
 related-skills: [engineering-team/code-reviewer, core-testing-methodology]
 related-commands: []
 collaborates-with:
-  - agent: tdd-guardian
+  - agent: cs-tdd-guardian
     purpose: TDD compliance verification and test structure review
     required: recommended
     features-enabled: [tdd-review, test-structure-validation, behavior-testing-assessment]

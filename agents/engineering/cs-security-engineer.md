@@ -22,7 +22,7 @@ related-agents: []
 related-skills: [engineering-team/senior-security, core-testing-methodology]
 related-commands: []
 collaborates-with:
-  - agent: tdd-guardian
+  - agent: cs-tdd-guardian
     purpose: TDD methodology for security control development and vulnerability testing
     required: optional
     features-enabled: [security-tdd, vulnerability-testing, auth-testing, compliance-tdd]

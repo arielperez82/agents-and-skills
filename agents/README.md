@@ -7,7 +7,7 @@ This directory contains specifications for specialized Claude Code agents that w
 
 ### Development Process Agents
 
-#### `tdd-guardian`
+#### `cs-tdd-guardian`
 **Purpose**: TDD methodology coach and guardian - ensures TDD principles are followed by ALL developers.
 
 **Use when**:
@@ -34,7 +34,7 @@ This directory contains specifications for specialized Claude Code agents that w
 
 ---
 
-#### `ts-enforcer`
+#### `cs-ts-enforcer`
 **Purpose**: Enforces TypeScript strict mode and best practices.
 
 **Use proactively when**:
@@ -97,7 +97,7 @@ This directory contains specifications for specialized Claude Code agents that w
 
 ### Documentation & Knowledge Agents
 
-#### `docs-guardian`
+#### `cs-docs-guardian`
 **Purpose**: Creates and maintains world-class permanent documentation.
 
 **Use proactively when**:
@@ -214,7 +214,7 @@ This directory contains specifications for specialized Claude Code agents that w
 
 ### Workflow & Planning Agents
 
-#### `progress-guardian`
+#### `cs-progress-guardian`
 **Purpose**: Manages progress through significant work using a three-document system.
 
 **Use proactively when**:
@@ -255,13 +255,13 @@ This directory contains specifications for specialized Claude Code agents that w
 ### Orchestration Flow
 
 ```
-progress-guardian (orchestrates)
+cs-progress-guardian (orchestrates)
     │
     ├─► Creates: PLAN.md, WIP.md, LEARNINGS.md
     │
     ├─► For each step:
-    │   ├─→ tdd-guardian (RED-GREEN-REFACTOR)
-    │   ├─→ ts-enforcer (before commits)
+    │   ├─→ cs-tdd-guardian (RED-GREEN-REFACTOR)
+    │   ├─→ cs-ts-enforcer (before commits)
     │   └─→ refactor-scan (after GREEN)
     │
     ├─► For database/schema work:
@@ -275,7 +275,7 @@ progress-guardian (orchestrates)
     │
     ├─► At end:
     │   ├─→ learn (merge LEARNINGS.md → CLAUDE.md)
-    │   ├─→ docs-guardian (update permanent docs)
+    │   ├─→ cs-docs-guardian (update permanent docs)
     │   └─→ DELETE all three docs
     │
     └─► Related: `planning` skill (incremental work principles)
@@ -285,7 +285,7 @@ progress-guardian (orchestrates)
 
 1. **Start significant work**
    - Load `planning` skill for principles
-   - Invoke `progress-guardian`: Creates PLAN.md, WIP.md, LEARNINGS.md
+   - Invoke `cs-progress-guardian`: Assesses if PLAN.md, WIP.md, LEARNINGS.md exist, recommends creation
    - Get approval for PLAN.md
 
 2. **For each step in plan**
@@ -297,7 +297,7 @@ progress-guardian (orchestrates)
    - **WAIT FOR COMMIT APPROVAL**
 
 3. **When plan needs changing**
-   - Invoke `progress-guardian`: Propose changes
+   - Invoke `cs-progress-guardian`: Propose changes
    - **Get approval before modifying PLAN.md**
 
 4. **When architectural decision arises**
@@ -305,12 +305,12 @@ progress-guardian (orchestrates)
    - Invoke `adr-writer` if decision warrants permanent record
 
 5. **Before commits**
-   - Invoke `ts-enforcer`: Verify TypeScript compliance
-   - Invoke `tdd-guardian`: Verify TDD compliance
+   - Invoke `cs-ts-enforcer`: Verify TypeScript compliance
+   - Invoke `cs-tdd-guardian`: Verify TDD compliance
    - **Ask for commit approval**
 
 6. **End of session**
-   - Invoke `progress-guardian`: Update WIP.md, session checkpoint
+   - Invoke `cs-progress-guardian`: Validate WIP.md is up to date, report what's missing
 
 7. **Before creating PR**
    - Invoke `pr-reviewer`: Self-review changes
@@ -318,18 +318,18 @@ progress-guardian (orchestrates)
    - Create PR using `/pr` command
 
 8. **Feature complete**
-   - Invoke `progress-guardian`: Verify all criteria met
+   - Invoke `cs-progress-guardian`: Verify all criteria met
    - Review LEARNINGS.md for merge destinations
    - Invoke `learn`: Merge gotchas/patterns → CLAUDE.md
    - Invoke `adr-writer`: Create ADRs for architectural decisions
-   - Invoke `docs-guardian`: Update permanent docs
+   - Invoke `cs-docs-guardian`: Update permanent docs
    - **DELETE PLAN.md, WIP.md, LEARNINGS.md**
 
 ## Key Distinctions
 
 ### Documentation Types
 
-| Aspect | progress-guardian | adr-writer | learn | docs-guardian |
+| Aspect | cs-progress-guardian | adr-writer | learn | cs-docs-guardian |
 |--------|------------------|-----|-------|---------------|
 | **Lifespan** | Temporary (days/weeks) | Permanent | Permanent | Permanent |
 | **Audience** | Current developer | Future developers | AI assistant + developers | Users + developers |
@@ -341,7 +341,7 @@ progress-guardian (orchestrates)
 
 ### When to Use Which Documentation Agent
 
-**Use `progress-guardian`** for:
+**Use `cs-progress-guardian`** for:
 - "What am I working on right now?"
 - "What's the next step?"
 - "Where was I when I stopped yesterday?"
@@ -360,7 +360,7 @@ progress-guardian (orchestrates)
 - "How do I avoid this common mistake?"
 - → Answer: Permanent entry in `CLAUDE.md`
 
-**Use `docs-guardian`** for:
+**Use `cs-docs-guardian`** for:
 - "How do I install this?"
 - "How do I use this API?"
 - "What features does this have?"
@@ -425,11 +425,11 @@ These agents work together to create a comprehensive development workflow:
 
 - **Analysis**: use-case-data-patterns maps use cases to implementation patterns
 - **Database**: cs-supabase-database-engineer designs schemas and manages migrations
-- **Quality**: tdd-guardian + ts-enforcer ensure code quality
+- **Quality**: cs-tdd-guardian + cs-ts-enforcer ensure code quality
 - **Improvement**: refactor-scan optimizes code after tests pass
 - **Review**: pr-reviewer validates PRs before merge
-- **Knowledge**: learn + adr-writer + docs-guardian preserve knowledge
-- **Progress**: progress-guardian manages incremental work with three-document model
+- **Knowledge**: learn + adr-writer + cs-docs-guardian preserve knowledge
+- **Progress**: cs-progress-guardian validates progress tracking discipline with three-document model
 
 **Key workflow principles** (see `planning` skill for details):
 - All work in small, known-good increments

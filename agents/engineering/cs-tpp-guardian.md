@@ -1,13 +1,42 @@
 ---
-name: tpp-guardian
-description: >
-  Provides strategic guidance using the Transformation Priority Premise (TPP) during Test-Driven Development.
-  Helps choose which tests to write next and which transformations to use when making tests pass.
-  Invoke when planning test order, stuck during GREEN phase, or when implementation path is unclear.
+# === CORE IDENTITY ===
+name: cs-tpp-guardian
+title: TPP Guardian
+description: Strategic TDD coach using Transformation Priority Premise (TPP) to guide test selection and transformation choices during TDD
+domain: engineering
+subdomain: quality-assurance
+skills: core-testing-methodology
+
+# === USE CASES ===
+difficulty: advanced
+use-cases:
+  - Planning test order for TDD cycles
+  - Choosing which tests to write next
+  - Selecting transformations to make tests pass
+  - Detecting and resolving TDD impasses
+  - Teaching incremental algorithm development
+
+# === RELATIONSHIPS ===
+related-agents:
+  - cs-tdd-guardian
+  - cs-qa-engineer
+related-skills:
+  - core-testing-methodology
+related-commands: []
+collaborates-with:
+  - agent: cs-tdd-guardian
+    purpose: Work within TDD methodology framework to provide strategic transformation guidance
+    required: recommended
+    features-enabled: [transformation-guidance, test-ordering]
+    without-collaborator: "TPP guidance may not align with TDD principles"
+
+# === CONFIGURATION ===
 tools: Read, Grep, Glob, Bash
 model: sonnet
 color: blue
 ---
+
+> **Note**: This agent was renamed from `tpp-guardian` to `cs-tpp-guardian` and moved to `agents/engineering/` as part of the Guardians/Monitors/Validators cleanup (2026-01-26).
 
 # TPP Guide: Strategic Test & Transformation Coach
 

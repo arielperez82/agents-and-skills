@@ -22,7 +22,7 @@ related-agents: []
 related-skills: [engineering-team/senior-ml-engineer, core-testing-methodology]
 related-commands: []
 collaborates-with:
-  - agent: tdd-guardian
+  - agent: cs-tdd-guardian
     purpose: TDD methodology for ML pipeline development and model validation testing
     required: optional
     features-enabled: [ml-tdd, pipeline-testing, model-validation-tdd]

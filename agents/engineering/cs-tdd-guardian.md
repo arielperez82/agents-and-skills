@@ -1,11 +1,43 @@
 ---
-name: tdd-guardian
-description: >
-  Use this agent to get TDD methodology coaching and guidance. Invoke when developers need help understanding TDD principles, structuring test-first approaches, or ensuring TDD compliance across teams.
+# === CORE IDENTITY ===
+name: cs-tdd-guardian
+title: TDD Guardian
+description: TDD methodology coach and guardian ensuring test-driven development principles are followed by all developers
+domain: engineering
+subdomain: quality-assurance
+skills: core-testing-methodology
+
+# === USE CASES ===
+difficulty: intermediate
+use-cases:
+  - Getting TDD methodology coaching and guidance
+  - Understanding TDD principles and test-first approaches
+  - Ensuring TDD compliance across teams
+  - Structuring RED-GREEN-REFACTOR cycles
+  - Reviewing code for TDD compliance
+
+# === RELATIONSHIPS ===
+related-agents:
+  - cs-qa-engineer
+  - cs-tpp-guardian
+related-skills:
+  - core-testing-methodology
+related-commands: []
+collaborates-with:
+  - agent: cs-qa-engineer
+    purpose: Test automation infrastructure for TDD workflows
+    required: recommended
+    features-enabled: [test-automation, test-infrastructure]
+    when: When setting up test infrastructure, when implementing test automation
+    without-collaborator: "TDD workflows may lack proper test automation infrastructure"
+
+# === CONFIGURATION ===
 tools: Read, Grep, Glob
 model: sonnet
 color: red
 ---
+
+> **Note**: This agent was renamed from `tdd-guardian` to `cs-tdd-guardian` and moved to `agents/engineering/` as part of the Guardians/Monitors/Validators cleanup (2026-01-26).
 
 # TDD Guardian
 

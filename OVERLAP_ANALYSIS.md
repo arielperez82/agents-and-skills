@@ -417,16 +417,413 @@ cs-architect (designs system architecture if needed)
 cs-implementation-planner (creates step-by-step implementation plan)
 ```
 
-### Guardians/Monitors
-- `tdd-guardian.md` (TDD practices)
-- `docs-guardian.md` (documentation)
-- `progress-guardian.md` (progress tracking)
-- `tpp-guardian.md` (TPP - Test Pyramid Principle?)
-- `ts-enforcer.md` (TypeScript)
+### Guardians/Monitors/Validators ✅ DONE
+- `engineering/cs-tdd-guardian.md` (TDD methodology coaching) - **RENAMED & MOVED**
+- `cs-docs-guardian.md` (documentation quality) - **RENAMED** (stays in root)
+- `delivery/cs-progress-guardian.md` (progress tracking) - **RENAMED & MOVED**
+- `engineering/cs-tpp-guardian.md` (Transformation Priority Premise - TDD strategy) - **RENAMED & MOVED**
+- `engineering/cs-ts-enforcer.md` (TypeScript strict mode) - **RENAMED & MOVED**
 
-**Analysis:** All are guardian/enforcer roles monitoring different aspects. Similar pattern but different domains.
+**Analysis:** ✅ **RESOLVED** - All five agents renamed with `cs-` prefix and moved to appropriate directories. Frontmatter updated to match cs-* agent standard. All references updated across codebase (engineering agents, README, skills, documentation). Zero functional overlap confirmed - each serves distinct guardian/validator/reviewer role. cs-progress-guardian refactored to follow guardian pattern (assesses and reports, does not implement). Strategic vs Tactical planning analysis complete - decision: keep single planner with delegation pattern.
 
-### Scouting/Exploration ✅ COMPLETED
+#### Role Verification: Guardians/Validators/Reviewers (Not Implementers)
+
+**✅ CONFIRMED - All are pure guardian/validator/reviewer roles:**
+
+1. **tdd-guardian.md** - TDD Methodology Coach
+   - **Role**: Coach and guardian for TDD principles
+   - **Does**: Provides methodology guidance, process coaching, standards enforcement, education
+   - **Does NOT**: Implement code, provide technical details, execute tests
+   - **Assessment Pattern**: Reviews code for TDD compliance, identifies violations, provides guidance
+   - **Prioritization**: Focuses on TDD principles (test-first, RED-GREEN-REFACTOR)
+
+2. **docs-guardian.md** - Documentation Quality Guardian
+   - **Role**: Proactive creation guide + reactive improvement analyzer
+   - **Does**: Guides documentation creation, analyzes existing docs, provides improvement reports
+   - **Does NOT**: Implement code
+   - **Assessment Pattern**: Analyzes docs against 7 pillars, identifies critical/high priority/nice-to-have issues
+   - **Prioritization**: 🔴 Critical (must fix) → ⚠️ High Priority (should fix) → 💡 Nice to Have (consider)
+
+3. **progress-guardian.md** - Progress Tracking Manager
+   - **Role**: Manages progress through work using PLAN.md, WIP.md, LEARNINGS.md
+   - **Does**: Creates/updates tracking documents, verifies completion, orchestrates learning merge
+   - **Does NOT**: Implement code
+   - **Assessment Pattern**: Tracks progress, verifies completion against acceptance criteria
+   - **Prioritization**: Critical (blockers) → In Progress → Complete
+
+4. **tpp-guardian.md** - Transformation Priority Premise Coach
+   - **Role**: Strategic TDD coach for test selection and transformation guidance
+   - **Does**: Guides test selection, recommends transformations, detects impasses, teaches incrementalism
+   - **Does NOT**: Implement code
+   - **Assessment Pattern**: Analyzes code state, identifies transformation priorities, detects impasses
+   - **Prioritization**: Low risk transformations (prefer) → Medium risk (use when needed) → High risk (last resort)
+
+5. **ts-enforcer.md** - TypeScript Strict Mode Enforcer
+   - **Role**: Proactive coach + reactive enforcer for TypeScript compliance
+   - **Does**: Guides TypeScript patterns during development, validates compliance after code, provides structured reports
+   - **Does NOT**: Implement code
+   - **Assessment Pattern**: Scans for violations, provides severity-based recommendations
+   - **Prioritization**: 🔴 Critical (must fix) → ⚠️ High Priority (should fix) → 💡 Style improvements (consider)
+
+**Conclusion**: All five agents are pure guardian/validator/reviewer roles. They assess, guide, and validate work but do NOT implement code themselves.
+
+#### Overlap Analysis: Zero Functional Overlap
+
+**Domain Separation:**
+- **tdd-guardian**: TDD methodology (test-first, RED-GREEN-REFACTOR cycle)
+- **docs-guardian**: Documentation quality (7 pillars, world-class standards)
+- **progress-guardian**: Progress tracking (PLAN/WIP/LEARNINGS documents)
+- **tpp-guardian**: TDD strategy (transformation priority, test ordering)
+- **ts-enforcer**: TypeScript compliance (strict mode, type safety, schemas)
+
+**No Overlaps Detected:**
+- ✅ Each agent focuses on a distinct domain
+- ✅ No shared responsibilities
+- ✅ No conflicting guidance
+- ✅ Complementary roles (can work together)
+
+**Relationship to TDD:**
+- **tdd-guardian** and **tpp-guardian** both relate to TDD but serve different purposes:
+  - **tdd-guardian**: General TDD methodology and principles (test-first mindset, RED-GREEN-REFACTOR)
+  - **tpp-guardian**: Specific TDD strategy (which test to write next, which transformation to use)
+  - **Relationship**: tpp-guardian is a specialized coach that works within tdd-guardian's methodology framework
+  - **No overlap**: Different levels of abstraction (methodology vs strategy)
+
+#### When to Invoke: Before vs After Implementation
+
+**Proactive Invocation (Before Implementation):**
+- **tdd-guardian**: When planning new features, before writing code
+- **docs-guardian**: When creating documentation from scratch
+- **progress-guardian**: At start of significant work (assesses if PLAN.md exists, recommends creation)
+- **tpp-guardian**: When planning test order, before writing tests
+- **ts-enforcer**: When defining types/schemas, during development
+
+**Reactive Invocation (After Implementation):**
+- **tdd-guardian**: When reviewing code for TDD compliance
+- **docs-guardian**: When reviewing existing documentation for improvement
+- **progress-guardian**: During work (validates WIP.md is up to date, reports what's missing), at end (verifies completion)
+- **tpp-guardian**: When stuck during GREEN phase, when impasse detected
+- **ts-enforcer**: When reviewing TypeScript code for compliance
+
+**Recommended Workflow:**
+```
+1. Start work → progress-guardian (assesses if PLAN.md/WIP.md/LEARNINGS.md exist, recommends creation)
+2. Plan tests → tpp-guardian (suggests test order)
+3. Before coding → tdd-guardian (TDD guidance)
+4. During coding → ts-enforcer (proactive TypeScript guidance)
+5. After coding → tdd-guardian + ts-enforcer (compliance review)
+6. Update docs → docs-guardian (documentation review)
+7. End work → progress-guardian (verifies completion, merges learnings)
+```
+
+**Key Insight**: Implementers should:
+- **Ask guardians FIRST** when planning work (proactive guidance)
+- **Ask guardians AFTER** when work is complete (validation/review)
+- **Get thumbs up** from guardians before considering work complete
+
+#### Integration with Other Agents: Key Questions Answered
+
+**Q1: Should we update ALL relevant cs-* agents to know when to ask for help from these guardians before they embark on a new endeavor?**
+
+**Answer: YES** - All implementer agents (cs-*-engineer, cs-*-architect, etc.) should be updated to proactively consult guardians before starting work.
+
+**Recommended Pattern for Implementer Agents:**
+```yaml
+# Add to frontmatter of all implementer agents
+collaborates-with:
+  - agent: cs-tdd-guardian
+    purpose: TDD methodology guidance before writing code
+    required: recommended
+    when: Before starting implementation, when planning test-first approach
+  - agent: cs-ts-enforcer
+    purpose: TypeScript pattern guidance during development
+    required: recommended
+    when: When developing with Typescript and defining types/schemas, proactively during coding
+  - agent: cs-tpp-guardian
+    purpose: Test order and transformation guidance
+    required: optional
+    when: When planning test sequence, when stuck during GREEN phase
+  - agent: cs-docs-guardian
+    purpose: Documentation quality review
+    required: recommended
+    when: After implementation complete, when creating/updating docs
+```
+
+**Implementation Strategy:**
+- **Engineering agents** (cs-frontend-engineer, cs-backend-engineer, etc.): Add guardian collaboration to frontmatter
+- **Planning agents** (cs-implementation-planner): Add guardian consultation to planning workflow
+- **Architecture agents** (cs-architect): Add guardian review to architecture validation (only cs-docs-guardian needed for architect)
+
+**Q2: How does cs-progress-guardian interact with cs-implementation-planner, cs-agile-coach, and/or cs-senior-pm?**
+
+**Answer: Different roles, complementary workflows**
+
+**Role Clarification:**
+- **cs-implementation-planner**: Creates implementation plans (phases, steps, dependencies, milestones) - **PLAN CREATOR**
+- **cs-progress-guardian**: Reviews plans for quality, validates progress tracking, enforces tracking discipline - **GUARDIAN/REVIEWER**
+- **cs-agile-coach**: Monitors team flow metrics (throughput, capacity, velocity) - team health data provider
+- **cs-senior-pm**: Consumes flow metrics for RAG monitoring, orchestrates expertise when risks emerge - portfolio oversight
+
+**Workflow Integration:**
+```
+1. cs-implementation-planner → Creates implementation plan (strategic or tactical)
+2. cs-progress-guardian → Reviews plan for quality/completeness (guardian review)
+3. cs-implementation-planner → Refines plan based on guardian feedback
+4. cs-progress-guardian → Validates final plan, sets up tracking (PLAN.md, WIP.md, LEARNINGS.md)
+5. cs-agile-coach → Provides flow metrics (throughput, capacity) to cs-senior-pm
+6. cs-senior-pm → Monitors RAG status using flow metrics, calls in expertise when needed
+7. Implementers → Update progress, invoke cs-progress-guardian to validate tracking
+8. cs-progress-guardian → Reviews WIP.md updates, ensures tracking discipline
+```
+
+**Key Distinction:**
+- **cs-implementation-planner** creates plans (strategic or tactical) - **IMPLEMENTER**
+- **cs-progress-guardian** reviews plans and enforces tracking discipline - **GUARDIAN/REVIEWER**
+- **cs-agile-coach** provides **team health data** (flow metrics, capacity)
+- **cs-senior-pm** uses **flow metrics for RAG monitoring** and **orchestrates expertise**
+
+**Recommended Collaboration:**
+```yaml
+# cs-implementation-planner frontmatter
+collaborates-with:
+  - agent: cs-progress-guardian
+    purpose: Review implementation plan for quality and tracking readiness
+    required: recommended
+    when: After creating plan, before finalizing
+
+# cs-progress-guardian frontmatter
+collaborates-with:
+  - agent: cs-implementation-planner
+    purpose: Review and validate implementation plans
+    required: recommended
+    when: When plans are created, to ensure quality and tracking readiness
+  - agent: cs-agile-coach
+    purpose: Reference flow metrics for progress assessment
+    required: optional
+    when: When assessing progress, when identifying blockers
+  - agent: cs-senior-pm
+    purpose: Provide progress updates for RAG monitoring
+    required: optional
+    when: When milestones reached, when blockers identified
+```
+
+**Q3: Does cs-progress-guardian create the plan or does cs-implementation-planner create the plan in conjunction with this agent?**
+
+**Answer: cs-implementation-planner creates the plan; cs-progress-guardian reviews and validates it**
+
+**Clarification:**
+- **cs-implementation-planner** creates: Implementation plans (phases, steps, dependencies, milestones, risk assessment) - **PLAN CREATOR**
+- **cs-progress-guardian** reviews: Validates plan quality, ensures tracking readiness, enforces tracking discipline - **GUARDIAN/REVIEWER**
+
+**Workflow:**
+```
+1. User: "I need to implement OAuth2 authentication"
+2. cs-implementation-planner → Creates implementation plan:
+   - Phase 1: Research and architecture (2 weeks)
+   - Phase 2: Backend implementation (3 weeks)
+   - Phase 3: Frontend integration (2 weeks)
+   - Dependencies, risks, milestones
+3. cs-progress-guardian → Reviews plan:
+   - Validates plan structure and completeness
+   - Ensures plan supports tracking (PLAN.md format)
+   - Provides feedback on plan quality
+4. cs-implementation-planner → Refines plan based on guardian feedback
+5. cs-progress-guardian → Validates final plan, recommends tracking document structure (PLAN.md, WIP.md, LEARNINGS.md)
+6. Execution → Implementers create/update tracking documents, cs-progress-guardian validates tracking updates and reports what's missing
+```
+
+**Key Insight**: cs-implementation-planner is the **plan creator**; cs-progress-guardian is the **plan reviewer and tracking enforcer**. Guardians review and validate, they don't create plans.
+
+**Open Question: Strategic vs Tactical Planners (Separate Implementation Step)**
+
+**Question**: Do we need different levels of implementation planners?
+- **Strategic Planner**: High-level phases, dependencies, milestones, risk assessment (what cs-implementation-planner currently does)
+- **Tactical Planner**: TDD-focused step-by-step breakdown, test-first approach, transformation guidance
+
+**Current State**: cs-implementation-planner handles both strategic and tactical planning in one agent.
+
+**Consideration**: 
+- **Option A**: Keep single planner that can create both strategic and tactical plans
+- **Option B**: Split into cs-strategic-planner (high-level) and cs-tactical-planner (TDD-focused step-by-step)
+- **Option C**: cs-implementation-planner creates strategic plans, add cs-tdd-planner for tactical TDD-focused breakdowns
+
+**Recommendation**: **Defer to separate implementation step** - This requires analysis of:
+- Whether tactical planning is distinct enough to warrant separate agent
+- Whether TDD-focused planning should be integrated into cs-tdd-guardian or separate planner
+- Whether current cs-implementation-planner can handle both levels effectively
+
+**Action**: Document this as a separate analysis task after guardian renaming is complete.
+
+**Q4: Should developers proactively engage cs-tpp-guardian to confirm the next change follows TPP correctly?**
+
+**Answer: YES - Proactive engagement recommended during GREEN phase**
+
+**Recommended Pattern:**
+- **Before GREEN phase**: Consult cs-tpp-guardian when planning test order (proactive)
+- **During GREEN phase**: Consult cs-tpp-guardian before making code changes to pass test (proactive validation)
+- **When stuck**: Consult cs-tpp-guardian when impasse detected (reactive rescue)
+
+**Workflow Integration:**
+```
+1. RED phase: Write failing test
+2. GREEN phase: BEFORE implementing code to pass test
+   → Consult cs-tpp-guardian: "Which transformation should I use to pass this test?"
+   → cs-tpp-guardian recommends: "Use (constant→scalar) transformation - simplest approach"
+   → Developer implements recommended transformation
+3. REFACTOR phase: Assess if refactoring needed
+4. If stuck or impasse detected → Consult cs-tpp-guardian for recovery path
+```
+
+**Recommended Update to cs-tpp-guardian:**
+```yaml
+# cs-tpp-guardian frontmatter
+description: >
+  Strategic TDD coach for test selection and transformation guidance.
+  Invoke PROACTIVELY before making code changes during GREEN phase to confirm
+  transformation follows TPP correctly. Also invoke when planning test order
+  or when stuck during implementation.
+```
+
+**Key Insight**: Developers should **proactively consult cs-tpp-guardian during GREEN phase** before implementing code changes, not just when stuck. This prevents impasses by ensuring correct transformation selection upfront.
+
+#### Naming and Directory Structure
+
+**Current State:**
+- All guardians are in root `agents/` directory
+- Naming inconsistent: `*-guardian.md` vs `*-enforcer.md`
+- No `cs-` prefix (inconsistent with other agents)
+
+**Recommended Changes:**
+
+1. **Rename with `cs-` prefix** (consistent with other agents):
+   - `tdd-guardian.md` → `cs-tdd-guardian.md`
+   - `docs-guardian.md` → `cs-docs-guardian.md`
+   - `progress-guardian.md` → `cs-progress-guardian.md`
+   - `tpp-guardian.md` → `cs-tpp-guardian.md`
+   - `ts-enforcer.md` → `cs-ts-enforcer.md`
+
+2. **Directory Placement:**
+   - **Option A**: Keep in root `agents/` (if they're cross-cutting concerns)
+   - **Option B**: Move to `agents/engineering/` (if they're engineering-specific)
+   - **Option C**: Move to `agents/{delivery,product}/` (if they're delivery-specific or product-specific)
+   
+   **Analysis:**
+   - **tdd-guardian**: Engineering-specific (TDD methodology)
+   - **docs-guardian**: Cross-cutting (all teams need documentation)
+   - **progress-guardian**: Delivery-specific (delivery team tracks progress)
+   - **tpp-guardian**: Engineering-specific (TDD strategy)
+   - **ts-enforcer**: Engineering-specific (TypeScript)
+
+   **Recommendation**: 
+   - **Engineering-specific** (tdd-guardian, tpp-guardian, ts-enforcer) → `agents/engineering/`
+   - **Delivery-specific** (progress-guardian) → Keep in root `agents/delivery`
+   - **Cross-cutting** (docs-guardian) → Keep in root `agents/`
+
+3. **Naming Consistency:**
+   - Consider standardizing on `*-guardian.md` or `*-validator.md` or `*-reviewer.md`
+   - Current mix: `*-guardian.md` (4) vs `*-enforcer.md` (1)
+   - **Recommendation**: Keep current names (guardian/enforcer are descriptive), but add `cs-` prefix
+
+#### Summary Assessment
+
+**Distinctness**: ✅ **ZERO OVERLAP** - All five agents serve distinct purposes with no functional overlap
+
+**Guardian/Validator Role**: ✅ **CONFIRMED** - All are pure guardian/validator/reviewer roles that assess, guide, and validate without implementing
+
+**Prioritization**: ✅ **CONFIRMED** - All provide prioritization (critical/urgent vs good-to-have vs nice-to-have)
+
+**Invocation Timing**: ✅ **CLARIFIED** - Can be called proactively (before) or reactively (after) implementation
+
+**Naming**: ⚠️ **INCONSISTENT** - Missing `cs-` prefix, inconsistent directory structure
+
+**Recommendation**: 
+- ✅ Keep all five agents (no consolidation needed)
+- ✅ Rename with `cs-` prefix for consistency
+- ✅ Move engineering-specific guardians to `agents/engineering/`
+- ✅ Keep cross-cutting guardians in root `agents/`
+- ✅ Update all references across codebase
+
+#### Step-by-Step Implementation Plan
+
+**Phase 1: Analysis and Preparation**
+1. ✅ Complete overlap analysis (this document)
+2. ✅ Search codebase for all references to guardian/enforcer agents
+3. ✅ Document all files that reference these agents (commands, other agents, documentation)
+
+**Phase 2: Rename Agents**
+1. ✅ Rename `tdd-guardian.md` → `engineering/cs-tdd-guardian.md`
+2. ✅ Rename `docs-guardian.md` → `cs-docs-guardian.md` (stays in root)
+3. ✅ Rename `progress-guardian.md` → `delivery/cs-progress-guardian.md`
+4. ✅ Rename `tpp-guardian.md` → `engineering/cs-tpp-guardian.md`
+5. ✅ Rename `ts-enforcer.md` → `engineering/cs-ts-enforcer.md`
+
+**Phase 3: Update Agent Files**
+1. ✅ Update frontmatter `name:` field in each agent file to match new filename
+2. ✅ Add all other missing frontmatter fields to align with current standard for all other cs-* agents
+3. ✅ Update any internal references within agent files (collaboration sections, examples)
+4. ✅ Verify all agent descriptions are accurate
+
+**Phase 4: Update References**
+1. ✅ Update command files that reference these agents (none found)
+2. ✅ Update other agent files that reference these agents (collaboration sections)
+3. ✅ **Update ALL implementer agents** (cs-*-engineer, cs-*-architect) to include guardian collaboration patterns:
+   - ✅ Add cs-tdd-guardian collaboration (recommended, before implementation)
+   - ✅ Add cs-ts-enforcer collaboration (recommended, during development)
+   - ✅ Add cs-tpp-guardian collaboration (optional, when planning tests)
+   - ✅ Add cs-docs-guardian collaboration (recommended, after implementation)
+4. ✅ **Update planning/delivery agents** with progress-guardian integration:
+   - ✅ cs-implementation-planner: Document collaboration where cs-progress-guardian REVIEWS plans (not creates them)
+   - ✅ cs-progress-guardian: Document role as plan reviewer and tracking validator (not plan creator)
+   - ✅ Implementers: Document that they invoke cs-progress-guardian to VALIDATE progress tracking updates (not to create plans)
+   - ⚠️ cs-agile-coach: Document flow metrics sharing with progress-guardian (pending - agent may not exist yet)
+   - ⚠️ cs-senior-pm: Document RAG monitoring using progress-guardian updates (pending - agent may not exist yet)
+5. ✅ Update documentation files (README.md, CLAUDE.md, etc.)
+6. ✅ Update any scripts or automation that reference these agents
+
+**Phase 5: Verification**
+1. ✅ Search for old names to ensure no references remain
+2. ✅ Verify all new names are correctly referenced
+3. ✅ Test that agents can be invoked with new names
+4. ✅ Update OVERLAP_ANALYSIS.md to mark as complete
+
+**Phase 6: Documentation**
+1. ✅ Update agent catalog/index if one exists (README.md updated)
+2. ✅ Document the guardian/validator/reviewer pattern (in README.md and agent files)
+3. ✅ Clarify when to invoke each guardian (proactive vs reactive) (documented in agent files and README.md)
+
+**Phase 7: Enforcement**
+1. ✅ Invoke cs-docs-guardian to review all changes made and ensure they're coherent, cohesive, and complete.
+2. ✅ Implement cs-docs-guardian suggestions:
+   - ✅ Added collaboration patterns to cs-tdd-guardian (with cs-qa-engineer)
+   - ✅ Added collaboration patterns to cs-ts-enforcer (with cs-tdd-guardian)
+   - ✅ Added migration notes to all 5 renamed agent files
+
+**Phase 8: Future Analysis - Strategic vs Tactical Planners ✅ COMPLETE**
+1. ✅ Analyze whether cs-implementation-planner should handle both strategic and tactical planning
+2. ✅ Evaluate if tactical TDD-focused planning warrants separate agent (cs-tactical-planner or cs-tdd-planner)
+3. ✅ Determine if tactical planning should be integrated into cs-tdd-guardian or remain separate
+4. ✅ Document decision and implement if split is warranted
+
+**Decision: Keep Option A - Single Planner with Delegation Pattern**
+
+**Analysis Summary:**
+- **Strategic Planning** (cs-implementation-planner): High-level phases, dependencies, milestones, risk assessment, portfolio alignment, sprint-sized increments
+- **Tactical TDD Planning**: Already comprehensively handled by existing guardians:
+  - **cs-tpp-guardian**: Test ordering, transformation guidance (TPP) - handles "which test next?" and "which transformation?"
+  - **cs-tdd-guardian**: TDD methodology coaching (RED-GREEN-REFACTOR) - handles "is this TDD-compliant?"
+  - **cs-progress-guardian**: Step-by-step tracking (PLAN.md, WIP.md, LEARNINGS.md) - handles "where are we in execution?"
+
+**Key Insight**: Tactical TDD planning is NOT a separate planning concern - it's already fully covered by specialized guardians. There is no gap that requires a new agent.
+
+**Recommended Pattern**:
+1. **cs-implementation-planner** creates strategic plans with TDD-aware steps (high-level phases and milestones)
+2. During execution, developers consult **cs-tpp-guardian** for tactical test ordering and transformation guidance
+3. Developers consult **cs-tdd-guardian** for TDD methodology validation
+4. **cs-progress-guardian** tracks progress through PLAN.md/WIP.md
+
+**Conclusion**: No split needed. The current pattern (strategic planner + tactical guardians) is correct. See `STRATEGIC_VS_TACTICAL_PLANNING_ANALYSIS.md` for full analysis.
+
+### Scouting/Exploration ✅ DONE
 - `scout.md` - **INTERNAL TOOLS** (Glob, Grep, Read for codebase search)
 - `scout-external.md` - **EXTERNAL AGENTIC TOOLS** (Gemini, OpenCode for codebase search)
 

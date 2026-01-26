@@ -22,7 +22,7 @@ related-agents: [cs-backend-engineer, cs-architect, cs-devsecops-engineer]
 related-skills: [engineering-team/senior-java, core-testing-methodology]
 related-commands: []
 collaborates-with:
-  - agent: tdd-guardian
+  - agent: cs-tdd-guardian
     purpose: TDD methodology coaching for Java development and Spring Boot testing
     required: optional
     features-enabled: [java-tdd, spring-testing, jpa-testing, junit-tdd]

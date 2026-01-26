@@ -22,7 +22,7 @@ related-agents: []
 related-skills: [engineering-team/senior-fullstack, engineering-team/senior-security, core-testing-methodology]
 related-commands: []
 collaborates-with:
-  - agent: tdd-guardian
+  - agent: cs-tdd-guardian
     purpose: TDD methodology guidance for full-stack development across all layers
     required: recommended
     features-enabled: [tdd-process, full-stack-testing, integration-tdd]

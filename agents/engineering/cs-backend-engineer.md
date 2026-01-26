@@ -22,7 +22,7 @@ related-agents: []
 related-skills: [engineering-team/senior-backend, engineering-team/senior-security, core-testing-methodology]
 related-commands: []
 collaborates-with:
-  - agent: tdd-guardian
+  - agent: cs-tdd-guardian
     purpose: TDD methodology coaching and RED-GREEN-REFACTOR guidance for backend development
     required: recommended
     features-enabled: [tdd-process, api-testing, database-testing]

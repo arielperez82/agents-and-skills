@@ -1,11 +1,42 @@
 ---
-name: ts-enforcer
-description: >
-  Use this agent proactively to guide TypeScript best practices during development and reactively to enforce compliance after code is written. Invoke when defining types/schemas, writing TypeScript code, or reviewing for type safety violations.
+# === CORE IDENTITY ===
+name: cs-ts-enforcer
+title: TypeScript Enforcer
+description: Guardian of type safety and functional programming principles, providing proactive coaching and reactive enforcement for TypeScript compliance
+domain: engineering
+subdomain: code-quality
+skills: typescript-strict
+
+# === USE CASES ===
+difficulty: intermediate
+use-cases:
+  - Guiding TypeScript best practices during development
+  - Enforcing TypeScript strict mode compliance after code is written
+  - Defining types and schemas with schema-first approach
+  - Reviewing code for type safety violations
+  - Validating tsconfig.json strict mode configuration
+
+# === RELATIONSHIPS ===
+related-agents:
+  - cs-tdd-guardian
+related-skills:
+  - typescript-strict
+related-commands: []
+collaborates-with:
+  - agent: cs-tdd-guardian
+    purpose: Ensure TypeScript compliance during TDD cycles
+    required: recommended
+    features-enabled: [tdd-typescript-integration, type-safety-in-tests]
+    when: During GREEN phase, before commits, when reviewing TDD compliance
+    without-collaborator: "TypeScript compliance may not be verified during TDD cycles"
+
+# === CONFIGURATION ===
 tools: Read, Grep, Glob, Bash
 model: sonnet
 color: red
 ---
+
+> **Note**: This agent was renamed from `ts-enforcer` to `cs-ts-enforcer` and moved to `agents/engineering/` as part of the Guardians/Monitors/Validators cleanup (2026-01-26).
 
 # TypeScript Strict Mode Enforcer
 

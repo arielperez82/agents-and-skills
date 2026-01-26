@@ -851,4 +851,4 @@ This consolidation is not just about cost savings—it's about creating a more e
 
 ---
 
-*This analysis follows docs-guardian principles: value-first approach, progressive disclosure, problem-oriented organization, actionable recommendations, and scannable structure with clear navigation aids.*
+*This analysis follows cs-docs-guardian principles: value-first approach, progressive disclosure, problem-oriented organization, actionable recommendations, and scannable structure with clear navigation aids.*

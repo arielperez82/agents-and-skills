@@ -7,7 +7,7 @@ description: Planning work in small, known-good increments. Use when starting si
 
 **All work must be done in small, known-good increments.** Each increment leaves the codebase in a working state where all tests pass.
 
-**Document Management**: Use the `progress-guardian` agent to create and maintain planning documents (PLAN.md, WIP.md, LEARNINGS.md).
+**Document Management**: Use the `cs-progress-guardian` agent to assess and validate progress tracking documents (PLAN.md, WIP.md, LEARNINGS.md). The guardian reports on what's missing and needs to be documented - implementers create and maintain the documents.
 
 ## Three-Document Model
 

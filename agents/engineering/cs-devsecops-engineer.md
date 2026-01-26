@@ -21,7 +21,7 @@ related-agents: []
 related-skills: [engineering-team/senior-devops, core-testing-methodology]
 related-commands: []
 collaborates-with:
-  - agent: tdd-guardian
+  - agent: cs-tdd-guardian
     purpose: Ensuring CI/CD pipelines support TDD workflows and quality gates
     required: optional
     features-enabled: [tdd-pipeline-support, quality-gate-setup]

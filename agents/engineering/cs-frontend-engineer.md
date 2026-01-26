@@ -25,7 +25,7 @@ related-skills:
   - core-testing-methodology
 related-commands: []
 collaborates-with:
-  - agent: tdd-guardian
+  - agent: cs-tdd-guardian
     purpose: TDD methodology coaching and RED-GREEN-REFACTOR guidance
     required: recommended
     features-enabled: [tdd-process, test-structure, refactoring-assessment]
