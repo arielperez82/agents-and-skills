@@ -23,6 +23,6 @@ Plan & start implementing payment integration with [https://developer.sepay.vn/v
 
 ## Workflow:
 
-- **Scout**: Use `scout` subagent to find related resources, documents, and code snippets in the current codebase.
-- **Plan**: Trigger slash command `/plan:fast <detailed-instruction-prompt>` to create an implementation plan based on the reports from `scout` subagent.
+- **Scout**: Use `cs-codebase-scout` subagent to find related resources, documents, and code snippets in the current codebase.
+- **Plan**: Trigger slash command `/plan:fast <detailed-instruction-prompt>` to create an implementation plan based on the reports from `cs-codebase-scout` subagent.
 - **Implementation**: Trigger slash command `/code <plan>` to implement the plan.

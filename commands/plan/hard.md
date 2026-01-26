@@ -41,7 +41,7 @@ Before creating plan folder, check plan state:
    Each agent research for a different aspect of the task and are allowed to perform max 5 tool calls.
 4. Analyze the codebase by reading `codebase-summary.md`, `code-standards.md`, `system-architecture.md` and `project-overview-pdr.md` file.
    **ONLY PERFORM THIS FOLLOWING STEP IF `codebase-summary.md` is not available or older than 3 days**: Use `/scout <instructions>` slash command to search the codebase for files needed to complete the task.
-5. Main agent gathers all research and scout report filepaths, and pass them to `cs-implementation-planner` subagent with the prompt to create an implementation plan of this task.
+5. Main agent gathers all research and cs-codebase-scout report filepaths, and pass them to `cs-implementation-planner` subagent with the prompt to create an implementation plan of this task.
 6. Main agent receives the implementation plan from `cs-implementation-planner` subagent, and ask user to review the plan
 
 ## Output Requirements

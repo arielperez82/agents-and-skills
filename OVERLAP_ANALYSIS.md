@@ -426,11 +426,124 @@ cs-implementation-planner (creates step-by-step implementation plan)
 
 **Analysis:** All are guardian/enforcer roles monitoring different aspects. Similar pattern but different domains.
 
-### Scouting/Exploration
-- `scout.md`
-- `scout-external.md`
+### Scouting/Exploration ✅ COMPLETED
+- `scout.md` - **INTERNAL TOOLS** (Glob, Grep, Read for codebase search)
+- `scout-external.md` - **EXTERNAL AGENTIC TOOLS** (Gemini, OpenCode for codebase search)
 
-**Analysis:** Likely related - one may be internal codebase scouting, other external. Need to verify distinction.
+**Analysis:** ✅ **SHOULD BE MERGED** - Both agents serve identical purpose (locating files in LOCAL codebase) but use different implementation strategies. The distinction is implementation method, not domain or purpose.
+
+#### Role Differentiation
+
+**scout.md (Internal Tools)**
+- **Primary Function**: Locate files in local codebase using internal tools (Glob, Grep, Read)
+- **Focus**: Fast codebase file discovery using built-in search tools
+- **Output**: File lists organized by category (`scout-{date}-{topic-slug}.md`)
+- **Model Choice**: haiku (token-efficient)
+- **Key Strength**: No external dependencies, works immediately
+
+**scout-external.md (External Agentic Tools)**
+- **Primary Function**: Locate files in local codebase using external agentic tools (Gemini, OpenCode)
+- **Focus**: Fast codebase file discovery using external LLMs with large context windows
+- **Output**: File lists organized by category (`scout-ext-{date}-{topic-slug}.md`)
+- **Model Choice**: haiku (token-efficient coordinator)
+- **Key Strength**: Leverages external tools with 1M+ token context windows for large codebases
+
+#### Overlap Analysis
+
+**100% Functional Overlap:**
+- Both search the **LOCAL codebase** for files
+- Both use parallel search strategies
+- Both produce identical output (file lists)
+- Both have same use cases (finding payment files, auth files, migration files, etc.)
+- Both have same timeout strategy (3 minutes per agent)
+- Both have same report format and naming conventions
+
+**Only Difference:**
+- **Implementation method**: Internal tools vs external agentic tools
+- This is a **strategy choice**, not a **domain distinction**
+
+#### Relationship to cs-researcher
+
+**Key Distinction:**
+- **Scout agents**: Search **LOCAL codebase** (finding files in the project)
+- **cs-researcher**: Research **EXTERNAL information** (technologies, documentation, best practices from web)
+
+**Different Domains:**
+- Scout = Internal codebase exploration
+- cs-researcher = External information gathering
+
+**Potential Integration:**
+- Scout agents could **leverage cs-researcher** when they need to understand what to look for:
+  - Example: "What file patterns typically handle authentication in React apps?" → cs-researcher provides patterns → scout searches for those patterns
+  - Example: "What are common database migration file structures?" → cs-researcher provides structure info → scout searches for matching files
+- This would be **optional enhancement**, not required integration
+
+#### Consolidation Strategy
+
+**Recommendation: MERGE into single `cs-codebase-scout.md`**
+
+**Rationale:**
+1. **100% functional overlap** - same purpose, same output, same use cases
+2. **Implementation strategy should be adaptive**, not separate agents:
+   - Try external tools first (if available and codebase is large)
+   - Fallback to internal tools (if external tools unavailable or codebase is small)
+   - Single agent can intelligently choose strategy
+3. **Reduces maintenance burden** - one agent to maintain instead of two
+4. **Clearer user experience** - one scout agent, not two confusingly similar ones
+5. **Follows cs-* naming convention** - should be `cs-codebase-scout.md` in `engineering/` directory
+
+**Merged Agent Design:**
+- **Name**: `engineering/cs-codebase-scout.md`
+- **Primary Strategy**: Try external agentic tools first (Gemini, OpenCode) if available
+- **Fallback Strategy**: Use internal tools (Glob, Grep, Read) if external tools unavailable
+- **Adaptive**: Choose strategy based on codebase size and tool availability
+- **Output**: Single consistent format (`scout-{date}-{topic-slug}.md`)
+
+**Optional Enhancement:**
+- Add collaboration with `cs-researcher` for pattern discovery:
+  - When scout needs to understand "what to look for", delegate to cs-researcher
+  - Use research findings to inform search patterns
+  - This is **optional** - scout can work independently
+
+#### Implementation Plan
+
+1. **Create merged agent**: `engineering/cs-codebase-scout.md`
+   - Combine best practices from both agents
+   - Implement adaptive strategy selection (external tools → internal tools fallback)
+   - Update description to clarify: "Searches LOCAL codebase for files"
+
+2. **Update commands**: 
+   - Merge `commands/scout.md` and `commands/scout/ext.md` into single command
+   - Command can specify strategy preference if needed, but defaults to adaptive
+
+3. **Remove duplicate agents**:
+   - Delete `agents/scout.md`
+   - Delete `agents/scout-external.md`
+
+4. **Update references**:
+   - Update all agent references to use `cs-codebase-scout`
+   - Update OVERLAP_ANALYSIS.md to mark as resolved
+
+5. **Optional**: Add cs-researcher collaboration protocol
+   - Document when scout should leverage cs-researcher for pattern discovery
+   - Make it optional, not required
+
+#### Summary Assessment
+
+**Distinctness**: ❌ **NOT DISTINCT** - Both agents serve identical purpose with different implementation strategies
+
+**Overlap Issues**: ⚠️ **100% FUNCTIONAL OVERLAP** - Same purpose, same output, same use cases
+
+**Recommendation**: ✅ **MERGED** - Consolidated into single `engineering/cs-codebase-scout.md` with adaptive strategy selection (external tools preferred, internal tools fallback)
+
+**cs-researcher Integration**: ✅ **IMPLEMENTED** - Scout can leverage cs-researcher for pattern discovery when search scope is unclear, but works independently otherwise
+
+**Implementation Status**: ✅ **COMPLETE**
+- Created `engineering/cs-codebase-scout.md` with adaptive strategy
+- Merged command files into single `/scout` command
+- Updated all references across command files
+- Deleted old `scout.md` and `scout-external.md` agents
+- Deleted old `commands/scout/ext.md` command file
 
 ### Miscellaneous Unique Agents
 - `CLAUDE.md` (main agent)
@@ -671,7 +784,7 @@ cs-implementation-planner (creates step-by-step implementation plan)
 ## Summary of High-Priority Overlaps
 
 ### Agents
-1. **Scouting:** `scout.md` vs `scout-external.md` - need to verify distinction
+1. **Scouting:** `scout.md` vs `scout-external.md` - ✅ **COMPLETED** - Merged into `engineering/cs-codebase-scout.md` with adaptive strategy and cs-researcher integration
 
 ### Skills
 1. **Skill Creation:** `creating-skill/SKILL.md` vs `skill-creator/SKILL.md` - likely duplicates
@@ -687,7 +800,8 @@ cs-implementation-planner (creates step-by-step implementation plan)
 1. **✅ COMPLETED - Security Consolidation:** DevSecOps role consolidation implemented with 60% overlap reduction, $500K annual savings, and universal security integration
 2. **✅ COMPLETED - Code Review Consolidation:** Renamed and consolidated code reviewer agent as `cs-code-reviewer.md` with structured metadata and correct skill references
 3. **✅ COMPLETED - Delivery/Project Management Rationalization:** Renamed cs-scrum-master to cs-agile-coach and restructured both delivery roles with 90% overlap reduction. Agile Coach owns continuous flow metrics and throughput monitoring, Senior PM uses flow data for RAG monitoring and expertise orchestration. Fully separated concerns with clear ownership boundaries.
-4. **Immediate Review:** Compare the remaining duplicate pairs listed above
+4. **✅ COMPLETED - Scouting/Exploration Consolidation:** Merged scout.md and scout-external.md into `engineering/cs-codebase-scout.md` with adaptive strategy selection (external tools preferred, internal tools fallback). Implemented optional cs-researcher integration for pattern discovery when search scope is unclear. Updated all command references and deleted old agents.
+5. **Immediate Review:** Compare the remaining duplicate pairs listed above
 5. **Consolidation Strategy:** Decide whether to keep root-level skills or move everything to team-organized structure
 6. **Naming Consistency:** Standardize naming conventions (e.g., `tdd` vs `test-driven-development`)
 7. **Documentation:** Add clear distinctions where skills/agents are intentionally similar but serve different purposes

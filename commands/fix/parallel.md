@@ -11,7 +11,7 @@ argument-hint: [issues]
 
 ### 1. Issue Analysis
 - Use `debugger` subagent to analyze root causes
-- Use `/scout:ext` to find related files
+- Use `/scout` to find related files (adaptive: external tools preferred, internal tools fallback)
 - Categorize issues by scope/area (frontend, backend, auth, payments, etc.)
 - Identify dependencies between issues
 

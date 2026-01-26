@@ -17,7 +17,7 @@ argument-hint: [issue]
 2. Use `debugger` subagent to analyze `./logs.txt` and find root causes:
    - Use `Grep` with `head_limit: 30` to read only last 30 lines (avoid loading entire file)
    - If insufficient context, increase `head_limit` as needed
-3. Use `scout` subagent to analyze the codebase and find the exact location of the issues, then report back to main agent.
+3. Use `cs-codebase-scout` subagent to analyze the codebase and find the exact location of the issues, then report back to main agent.
 4. Use `cs-implementation-planner` subagent to create an implementation plan based on the reports, then report back to main agent.
 5. Start implementing the fix based the reports and solutions.
 6. Use `tester` agent to test the fix and make sure it works, then report back to main agent.

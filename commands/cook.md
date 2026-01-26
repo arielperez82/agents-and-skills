@@ -43,11 +43,11 @@ Think harder to plan & start working on these tasks follow the Orchestration Pro
 
 * Use multiple `cs-researcher` subagents in parallel to explore the user's request, idea validation, challenges, and find the best possible solutions.
 * Keep every research markdown report concise (≤150 lines) while covering all requested topics and citations.
-* Use `/scout:ext` (preferred) or `/scout` (fallback) slash command to search the codebase for files needed to complete the task
+* Use `/scout` slash command to search the codebase for files needed to complete the task (adaptive: external tools preferred, internal tools fallback)
 
 ### Plan
 
-*. Use `cs-implementation-planner` subagent to analyze reports from `cs-researcher` and `scout` subagents to create an implementation plan using the progressive disclosure structure:
+*. Use `cs-implementation-planner` subagent to analyze reports from `cs-researcher` and `cs-codebase-scout` subagents to create an implementation plan using the progressive disclosure structure:
   - Create a directory `plans/{date}-plan-name` (date format from `$CK_PLAN_DATE_FORMAT`).
   - Save the overview access point at `plan.md`, keep it generic, under 80 lines, and list each phase with status/progress and links.
   - For each phase, add `phase-XX-phase-name.md` files containing sections (Context links, Overview with date/priority/statuses, Key Insights, Requirements, Architecture, Related code files, Implementation Steps, Todo list, Success Criteria, Risk Assessment, Security Considerations, Next steps).

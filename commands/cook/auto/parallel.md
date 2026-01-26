@@ -11,7 +11,7 @@ argument-hint: [tasks]
 
 ### 1. Research (Optional)
 - Use max 2 `cs-researcher` agents in parallel if tasks complex
-- Use `/scout:ext` to search codebase
+- Use `/scout` to search codebase (adaptive: external tools preferred, internal tools fallback)
 - Keep reports ≤150 lines
 
 ### 2. Parallel Planning
