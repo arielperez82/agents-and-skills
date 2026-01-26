@@ -444,12 +444,12 @@ cs-implementation-planner (creates step-by-step implementation plan)
    - **Assessment Pattern**: Analyzes docs against 7 pillars, identifies critical/high priority/nice-to-have issues
    - **Prioritization**: 🔴 Critical (must fix) → ⚠️ High Priority (should fix) → 💡 Nice to Have (consider)
 
-3. **progress-guardian.md** - Progress Tracking Manager
-   - **Role**: Manages progress through work using PLAN.md, WIP.md, LEARNINGS.md
-   - **Does**: Creates/updates tracking documents, verifies completion, orchestrates learning merge
-   - **Does NOT**: Implement code
-   - **Assessment Pattern**: Tracks progress, verifies completion against acceptance criteria
-   - **Prioritization**: Critical (blockers) → In Progress → Complete
+3. **cs-progress-guardian.md** - Progress Tracking Validator
+   - **Role**: Assesses and validates progress tracking discipline using PLAN.md, WIP.md, LEARNINGS.md
+   - **Does**: Assesses tracking documents, reports what's missing, validates completion, recommends documentation
+   - **Does NOT**: Implement code, create or update tracking documents (implementers do this)
+   - **Assessment Pattern**: Reviews tracking documents, identifies gaps, reports missing information
+   - **Prioritization**: Critical (missing documents) → High Priority (stale documents) → Complete (all tracking current)
 
 4. **tpp-guardian.md** - Transformation Priority Premise Coach
    - **Role**: Strategic TDD coach for test selection and transformation guidance
@@ -513,7 +513,7 @@ cs-implementation-planner (creates step-by-step implementation plan)
 4. During coding → ts-enforcer (proactive TypeScript guidance)
 5. After coding → tdd-guardian + ts-enforcer (compliance review)
 6. Update docs → docs-guardian (documentation review)
-7. End work → progress-guardian (verifies completion, merges learnings)
+7. End work → progress-guardian (verifies completion, recommends learning merge destinations)
 ```
 
 **Key Insight**: Implementers should:
@@ -569,7 +569,7 @@ collaborates-with:
 1. cs-implementation-planner → Creates implementation plan (strategic or tactical)
 2. cs-progress-guardian → Reviews plan for quality/completeness (guardian review)
 3. cs-implementation-planner → Refines plan based on guardian feedback
-4. cs-progress-guardian → Validates final plan, sets up tracking (PLAN.md, WIP.md, LEARNINGS.md)
+4. cs-progress-guardian → Validates final plan, recommends tracking document structure (PLAN.md, WIP.md, LEARNINGS.md)
 5. cs-agile-coach → Provides flow metrics (throughput, capacity) to cs-senior-pm
 6. cs-senior-pm → Monitors RAG status using flow metrics, calls in expertise when needed
 7. Implementers → Update progress, invoke cs-progress-guardian to validate tracking
