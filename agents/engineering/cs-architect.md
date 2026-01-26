@@ -179,15 +179,15 @@ The cs-architect agent bridges the gap between business requirements and technic
    - Data flow diagrams
    - Integration patterns
 
-5. **Document Architecture Decisions** - For significant architectural decisions, invoke the `adr-writer` agent:
+5. **Document Architecture Decisions** - For significant architectural decisions, invoke the `cs-adr-writer` agent:
    
-   **Decision Criteria**: Use the adr-writer agent's decision framework to determine if a decision merits an ADR:
+   **Decision Criteria**: Use the cs-adr-writer agent's decision framework to determine if a decision merits an ADR:
    - Is this a one-way door? (Hard/expensive to reverse)
    - Did we evaluate alternatives? (Considered trade-offs)
    - Will this affect future architectural decisions? (Foundational)
    - Will future developers wonder "why did they do it this way?"
    
-   **When to Invoke adr-writer:**
+   **When to Invoke cs-adr-writer:**
    - Technology stack selection (frontend framework, backend framework, database)
    - Architecture pattern choice (microservices vs monolith vs event-driven)
    - Infrastructure decisions (cloud provider, deployment strategy)
@@ -200,8 +200,8 @@ The cs-architect agent bridges the gap between business requirements and technic
    
    1. Identify decision that meets ADR criteria (3+ of the decision framework questions = YES)
    2. Gather context: problem statement, alternatives considered, trade-offs, decision made, rationale
-   3. Invoke adr-writer agent with decision context
-   4. adr-writer creates structured ADR document following standard format
+   3. Invoke cs-adr-writer agent with decision context
+   4. cs-adr-writer creates structured ADR document following standard format
    5. Reference the ADR in architecture documentation
    ```
    
@@ -209,16 +209,16 @@ The cs-architect agent bridges the gap between business requirements and technic
    ```markdown
    After selecting PostgreSQL as database:
    → Decision meets criteria: one-way door (YES), alternatives evaluated (YES), foundational (YES), future developers will wonder why (YES)
-   → Invoke adr-writer agent
+   → Invoke cs-adr-writer agent
    → Provide context: "Database selection for e-commerce platform requiring ACID transactions"
    → Provide alternatives: PostgreSQL, MongoDB, MySQL
    → Provide decision: PostgreSQL
    → Provide rationale: ACID transactions, team SQL experience, TypeScript integration via Prisma
-   → adr-writer creates ADR-001: Database Selection
+   → cs-adr-writer creates ADR-001: Database Selection
    → Reference ADR-001 in architecture documentation
    ```
    
-   **What NOT to Invoke adr-writer For:**
+   **What NOT to Invoke cs-adr-writer For:**
    - Implementation details (variable naming, function structure)
    - Temporary workarounds
    - Decisions already covered by existing ADRs or guidelines
@@ -241,7 +241,7 @@ The cs-architect agent bridges the gap between business requirements and technic
 mkdir -p architecture-docs
 python ../../skills/engineering-team/senior-architect/scripts/architecture_diagram_generator.py --input ./src --output json --file architecture-docs/system-design.json
 cat ../../skills/engineering-team/senior-architect/references/architecture_patterns.md > architecture-docs/patterns-reference.md
-# Invoke adr-writer agent for significant decisions, then present to stakeholders
+# Invoke cs-adr-writer agent for significant decisions, then present to stakeholders
 ```
 
 ### Workflow 2: Architecture Audit & Technical Debt Assessment
@@ -645,7 +645,7 @@ echo "4. Plan migration strategy"
 
 ## Related Agents
 
-- [adr-writer](../../adr-writer.md) - **Invoked for ADR creation** - Documents significant architectural decisions with context, alternatives, and rationale. cs-architect invokes adr-writer when decisions meet ADR criteria (one-way door, alternatives evaluated, foundational, future developers will wonder why)
+- [cs-adr-writer](cs-adr-writer.md) - **Invoked for ADR creation** - Documents significant architectural decisions with context, alternatives, and rationale. cs-architect invokes cs-adr-writer when decisions meet ADR criteria (one-way door, alternatives evaluated, foundational, future developers will wonder why)
 - [cs-cto-advisor](../c-level/cs-cto-advisor.md) - Provides strategic technical leadership and technology vision that guides architecture decisions
 - [cs-technical-writer](cs-technical-writer.md) - **Collaborates for Mermaid diagram generation** (architecture, sequence, class, ERD diagrams)
 - [cs-graphql-architect](cs-graphql-architect.md) - **Invoked for GraphQL architecture** - When GraphQL is selected as API technology, cs-architect delegates detailed schema design, federation planning, and GraphQL-specific performance optimization to cs-graphql-architect

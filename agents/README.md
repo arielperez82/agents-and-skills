@@ -115,7 +115,7 @@ This directory contains specifications for specialized Claude Code agents that w
 
 ---
 
-#### `adr-writer`
+#### `cs-adr-writer`
 **Purpose**: Creates Architecture Decision Records (ADRs) documenting significant architectural decisions with context, alternatives, and trade-offs.
 
 **Use proactively when**:
@@ -268,7 +268,7 @@ cs-progress-guardian (orchestrates)
     │   └─→ cs-supabase-database-engineer (schema design, RLS policies, migration management)
     │
     ├─► When decisions arise:
-    │   └─→ adr-writer (architectural decisions)
+    │   └─→ cs-adr-writer (architectural decisions)
     │
     ├─► Before merge:
     │   └─→ pr-reviewer (comprehensive PR review)
@@ -302,7 +302,7 @@ cs-progress-guardian (orchestrates)
 
 4. **When architectural decision arises**
    - Add to LEARNINGS.md immediately
-   - Invoke `adr-writer` if decision warrants permanent record
+   - Invoke `cs-adr-writer` if decision warrants permanent record
 
 5. **Before commits**
    - Invoke `cs-ts-enforcer`: Verify TypeScript compliance
@@ -321,7 +321,7 @@ cs-progress-guardian (orchestrates)
    - Invoke `cs-progress-guardian`: Verify all criteria met
    - Review LEARNINGS.md for merge destinations
    - Invoke `learn`: Merge gotchas/patterns → CLAUDE.md
-   - Invoke `adr-writer`: Create ADRs for architectural decisions
+   - Invoke `cs-adr-writer`: Create ADRs for architectural decisions
    - Invoke `cs-docs-guardian`: Update permanent docs
    - **DELETE PLAN.md, WIP.md, LEARNINGS.md**
 
@@ -329,7 +329,7 @@ cs-progress-guardian (orchestrates)
 
 ### Documentation Types
 
-| Aspect | cs-progress-guardian | adr-writer | learn | cs-docs-guardian |
+| Aspect | cs-progress-guardian | cs-adr-writer | learn | cs-docs-guardian |
 |--------|------------------|-----|-------|---------------|
 | **Lifespan** | Temporary (days/weeks) | Permanent | Permanent | Permanent |
 | **Audience** | Current developer | Future developers | AI assistant + developers | Users + developers |
@@ -348,7 +348,7 @@ cs-progress-guardian (orchestrates)
 - "What have we discovered so far?"
 - → Answer: Temporary PLAN.md, WIP.md, LEARNINGS.md (deleted when done)
 
-**Use `adr-writer`** for:
+**Use `cs-adr-writer`** for:
 - "Why did we choose technology X over Y?"
 - "What were the trade-offs in this architectural decision?"
 - "Why is the system designed this way?"
@@ -428,7 +428,7 @@ These agents work together to create a comprehensive development workflow:
 - **Quality**: cs-tdd-guardian + cs-ts-enforcer ensure code quality
 - **Improvement**: refactor-scan optimizes code after tests pass
 - **Review**: pr-reviewer validates PRs before merge
-- **Knowledge**: learn + adr-writer + cs-docs-guardian preserve knowledge
+- **Knowledge**: learn + cs-adr-writer + cs-docs-guardian preserve knowledge
 - **Progress**: cs-progress-guardian validates progress tracking discipline with three-document model
 
 **Key workflow principles** (see `planning` skill for details):

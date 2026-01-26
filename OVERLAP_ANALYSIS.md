@@ -5,11 +5,11 @@ Generated: 2026-01-24 (v3 - fully complete)
 ## AGENTS - Similar/Overlapping Groups
 
 ### Architecture ✅ DONE
-- `adr-writer.md` (Architecture Decision Records) - Renamed from `adr.md`
-- `engineering/cs-architect.md` - Updated with clear delegation to `adr-writer` and `cs-graphql-architect`
-- `engineering/cs-graphql-architect.md` - Updated with collaboration relationship to `cs-architect` and `adr-writer`
+- `engineering/cs-adr-writer.md` (Architecture Decision Records) - Moved from `adr-writer.md` to engineering team with cs- prefix
+- `engineering/cs-architect.md` - Updated with clear delegation to `cs-adr-writer` and `cs-graphql-architect`
+- `engineering/cs-graphql-architect.md` - Updated with collaboration relationship to `cs-architect` and `cs-adr-writer`
 
-**Analysis:** All three focus on architecture but from different angles. `adr-writer` is process-focused for documenting decisions, `cs-architect` handles general system architecture with delegation to specialists, `cs-graphql-architect` handles GraphQL-specific architecture details.
+**Analysis:** All three focus on architecture but from different angles. `cs-adr-writer` is process-focused for documenting decisions, `cs-architect` handles general system architecture with delegation to specialists, `cs-graphql-architect` handles GraphQL-specific architecture details.
 
 ### Code Review ✅ DONE
 - `cs-code-reviewer.md` - **PRIMARY** (consolidated agent with fixed skill path references, now points to `engineering-team/code-reviewer/`)
@@ -368,7 +368,7 @@ Planner (consumes research reports, creates structured plan)
    - **Planner**: "How do we build it?" (implementation roadmap)
 
 4. **Delegation Pattern**:
-   - **cs-architect**: Delegates to cs-graphql-architect (GraphQL), cs-supabase-database-engineer (Supabase), adr-writer (ADRs)
+   - **cs-architect**: Delegates to cs-graphql-architect (GraphQL), cs-supabase-database-engineer (Supabase), cs-adr-writer (ADRs)
    - **Planner**: Should consume cs-architect's architecture designs and create implementation plans
 
 **Recommended Relationship:**
@@ -404,7 +404,7 @@ cs-implementation-planner (creates step-by-step implementation plan based on arc
 1. **cs-researcher**: Single source for all external research (Planner and Brainstormer delegate to it)
 2. **cs-implementation-planner**: Consumes architecture from cs-architect, creates step-by-step implementation plans
 3. **cs-brainstormer**: Consumes research from cs-researcher, debates technical approaches before planning
-4. **cs-architect**: Designs system architecture, delegates to specialized architects (GraphQL, Supabase), creates ADRs via adr-writer
+4. **cs-architect**: Designs system architecture, delegates to specialized architects (GraphQL, Supabase), creates ADRs via cs-adr-writer
 
 **Workflow Integration:**
 ```
@@ -948,20 +948,7 @@ description: >
 - ~~`database-admin.md`~~ (renamed to `engineering/cs-database-engineer.md`)
 - `debugger.md`
 - `engineering/cs-computer-vision.md`
-- `engineering/cs-cto-advisor.md`
-- `engineering/cs-devops-engineer.md`
-- `engineering/cs-dotnet-engineer.md`
-- `engineering/cs-frontend-engineer.md`
-- `engineering/cs-fullstack-engineer.md`
-- `engineering/cs-backend-engineer.md`
-- `engineering/cs-incident-responder.md`
-- `engineering/cs-java-engineer.md`
 - `engineering/cs-legacy-codebase-analyzer.md`
-- `engineering/cs-ml-engineer.md`
-- `engineering/cs-network-engineer.md`
-- `engineering/cs-observability-engineer.md`
-- `engineering/cs-prompt-engineer.md`
-- `engineering/cs-qa-engineer.md`
 - `engineering/cs-technical-writer.md`
 - `learn.md`
 - `marketing/cs-content-creator.md`
@@ -970,9 +957,7 @@ description: >
 - `marketing/cs-seo-strategist.md`
 - `product/cs-ui-designer.md`
 - `product/cs-ux-researcher.md`
-- `progress-guardian.md`
 - `refactor-scan.md`
-- `tester.md`
 - `use-case-data-patterns.md`
 
 ---

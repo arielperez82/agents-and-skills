@@ -18,16 +18,21 @@ use-cases:
 
 # === RELATIONSHIPS ===
 related-agents:
-  - adr-writer
+  - cs-adr-writer
   - cs-technical-writer
 related-skills: []
 related-commands: []
 collaborates-with:
-  - agent: adr-writer
+  - agent: cs-adr-writer
     purpose: Create Architecture Decision Records for undocumented architectural decisions discovered during documentation review
     required: optional
     features-enabled: [adr-creation, decision-documentation]
     without-collaborator: "Architectural decisions may remain undocumented"
+  - agent: cs-technical-writer
+    purpose: Generate specific documentation types (README, CHANGELOG, API docs) using automated tools while cs-docs-guardian ensures quality standards and structure
+    required: optional
+    features-enabled: [readme-generation, changelog-management, api-docs, diagram-generation, quality-metrics]
+    without-collaborator: "Documentation generation will rely on manual creation without automated tools"
 
 # === CONFIGURATION ===
 tools: Read, Edit, Grep, Glob, Bash
@@ -288,7 +293,7 @@ Assess each pillar:
 - Abstract descriptions without concrete use cases
 - Poor or missing navigation aids
 - Inconsistent formatting or structure
-- **Undocumented architectural decisions** - Documentation explains "how" but not "why" (invoke `adr-writer` agent)
+- **Undocumented architectural decisions** - Documentation explains "how" but not "why" (invoke `cs-adr-writer` agent)
 
 💡 **Nice to Have:**
 - Additional examples for edge cases
@@ -762,7 +767,7 @@ if (result.success) {
 
 **For database migrations, require:**
 - [ ] Deployment checklist included (commands: `supabase db push`, verification steps)
-- [ ] Architecture decisions documented (invoke `adr-writer` agent if significant changes)
+- [ ] Architecture decisions documented (invoke `cs-adr-writer` agent if significant changes)
 - [ ] Verification steps documented (how to verify migration success)
 - [ ] RLS policy strategy documented (if RLS is implemented or planned)
 
@@ -854,19 +859,19 @@ Before finalizing documentation, verify:
 
 ## When to Invoke Other Agents
 
-### Invoking adr-writer Agent
+### Invoking cs-adr-writer Agent
 
 **When to Invoke:**
 When reviewing architecture documentation and discovering undocumented architectural decisions that explain "how" but not "why".
 
 **Decision Criteria:**
-Apply the `adr-writer` agent's decision framework to assess if a decision merits an ADR:
+Apply the `cs-adr-writer` agent's decision framework to assess if a decision merits an ADR:
 1. **Is this a one-way door?** (Hard/expensive to reverse) → YES
 2. **Did we evaluate alternatives?** (Considered trade-offs) → YES
 3. **Will this affect future architectural decisions?** (Foundational) → YES
 4. **Will future developers wonder "why did they do it this way?"** → YES
 
-**If 3+ criteria met → Invoke adr-writer**
+**If 3+ criteria met → Invoke cs-adr-writer**
 
 **Invocation Pattern:**
 ```markdown
@@ -878,24 +883,24 @@ Apply the `adr-writer` agent's decision framework to assess if a decision merits
    cs-docs-guardian: "I notice the documentation explains HOW authentication works (JWT tokens, middleware), but there's no explanation of WHY we chose JWT over session-based auth. This is a significant architectural decision that should be documented."
    ```
 
-2. **Assess Significance**: Apply adr-writer decision framework:
+2. **Assess Significance**: Apply cs-adr-writer decision framework:
    - Is this a one-way door? → YES (switching auth systems is expensive)
    - Did we evaluate alternatives? → Likely YES (JWT vs sessions is a common decision)
    - Will this affect future decisions? → YES (auth choice affects API design, security)
    - Will future developers wonder "why"? → YES (common question)
    
-   **Result**: 4/4 criteria met → Invoke adr-writer
+   **Result**: 4/4 criteria met → Invoke cs-adr-writer
 
-3. **Invoke adr-writer**:
+3. **Invoke cs-adr-writer**:
    ```markdown
-   cs-docs-guardian: "I notice there's no ADR explaining why we chose JWT over sessions. Let me invoke the adr-writer agent to create a retroactive ADR."
+   cs-docs-guardian: "I notice there's no ADR explaining why we chose JWT over sessions. Let me invoke the cs-adr-writer agent to create a retroactive ADR."
    
-   → Invoke adr-writer agent
+   → Invoke cs-adr-writer agent
    → Provide context: "Authentication approach selection for stateless API"
    → Provide alternatives: JWT tokens, session-based auth, OAuth
    → Provide decision: JWT tokens
    → Provide rationale: Stateless, scalable, works with microservices, no server-side session storage needed
-   → adr-writer creates ADR-XXX: Authentication Approach
+   → cs-adr-writer creates ADR-XXX: Authentication Approach
    → cs-docs-guardian references ADR in architecture documentation
    ```
 
@@ -912,11 +917,66 @@ Apply the `adr-writer` agent's decision framework to assess if a decision merits
 - Documentation describes "REST API" but doesn't explain why REST over GraphQL
 - Documentation mentions "AWS infrastructure" but doesn't explain why AWS over GCP/Azure
 
-**What NOT to Invoke adr-writer For:**
+**What NOT to Invoke cs-adr-writer For:**
 - Implementation details already well-documented
 - Decisions that are clearly explained in the documentation
 - Trivial choices (naming conventions, code style)
 - Temporary workarounds
+
+### Collaborating with cs-technical-writer Agent
+
+**When to Collaborate:**
+`cs-docs-guardian` focuses on documentation quality principles, structure, and world-class standards. `cs-technical-writer` specializes in generating specific documentation types using automated tools and templates. They complement each other:
+
+- **cs-docs-guardian**: Sets quality standards, structure, and principles (the "what makes good docs")
+- **cs-technical-writer**: Generates specific documentation types using tools (the "how to create specific docs")
+
+**Collaboration Scenarios:**
+
+1. **When Generating Specific Documentation Types:**
+   ```markdown
+   cs-docs-guardian: "I've assessed the documentation needs and structure. For generating the actual README/CHANGELOG/API docs with proper formatting and automation, let me collaborate with cs-technical-writer."
+   
+   → cs-docs-guardian defines structure and quality standards
+   → cs-technical-writer generates documentation using automated tools
+   → cs-docs-guardian reviews output against 7 pillars
+   ```
+
+2. **When Using Automated Documentation Tools:**
+   - README generation from repository metadata
+   - CHANGELOG management with semantic versioning
+   - API documentation from OpenAPI specs or code
+   - Mermaid diagram generation for architecture/flowcharts
+
+3. **When Running Documentation Quality Audits:**
+   ```markdown
+   cs-docs-guardian: "I'll assess documentation against world-class principles. For quantitative quality metrics and coverage analysis, let me use cs-technical-writer's quality analyzer."
+   
+   → cs-technical-writer runs doc_quality_analyzer.py for metrics
+   → cs-docs-guardian interprets results through 7 pillars lens
+   → cs-docs-guardian proposes improvements based on both quantitative and qualitative assessment
+   ```
+
+4. **When Creating Diagrams:**
+   ```markdown
+   cs-docs-guardian: "This documentation needs a visual diagram to show the architecture. Let me collaborate with cs-technical-writer to generate a Mermaid diagram."
+   
+   → cs-docs-guardian defines diagram requirements and structure
+   → cs-technical-writer generates Mermaid diagram using mermaid_diagram_generator.py
+   → cs-docs-guardian integrates diagram into documentation with proper context
+   ```
+
+**Workflow Pattern:**
+1. **cs-docs-guardian** assesses needs and defines structure/standards
+2. **cs-technical-writer** generates documentation using automated tools
+3. **cs-docs-guardian** reviews output against 7 pillars and refines
+4. **cs-docs-guardian** ensures final documentation follows world-class principles
+
+**Key Distinction:**
+- **cs-docs-guardian**: Quality standards, structure, principles, progressive disclosure, value-first approach
+- **cs-technical-writer**: Tool-based generation, automation, specific documentation types, quantitative metrics
+
+Together, they ensure documentation is both well-structured (cs-docs-guardian) and efficiently generated (cs-technical-writer).
 
 ## Commands to Use
 

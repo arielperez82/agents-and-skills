@@ -312,12 +312,12 @@ Read LEARNINGS.md
 ✅ All steps complete
 ✅ LEARNINGS.md contains:
    - 2 gotchas → recommend merging to CLAUDE.md via `learn` agent
-   - 1 architectural decision → recommend creating ADR via `adr-writer` agent
+   - 1 architectural decision → recommend creating ADR via `cs-adr-writer` agent
    - 3 edge cases → already captured in tests
 
 **Recommendations:**
 1. Invoke `learn` agent to merge gotchas to CLAUDE.md
-2. Invoke `adr-writer` agent for architectural decision
+2. Invoke `cs-adr-writer` agent for architectural decision
 3. Delete PLAN.md, WIP.md, LEARNINGS.md after merge complete
 ```
 
@@ -329,7 +329,7 @@ Read LEARNINGS.md
 | `cs-ts-enforcer` | Before commits, to check TypeScript strictness |
 | `refactor-scan` | After GREEN, to assess refactoring |
 | `learn` | At end of feature, to merge learnings into CLAUDE.md |
-| `adr-writer` | When architectural decisions need recording |
+| `cs-adr-writer` | When architectural decisions need recording |
 | `cs-docs-guardian` | When permanent docs need updating |
 
 ## Anti-Patterns (What NOT to Do)
@@ -432,7 +432,7 @@ cs-progress-guardian: "I've validated completion:
 
 **Recommendations:**
 1. Invoke `learn` agent to merge gotchas to CLAUDE.md
-2. Invoke `adr-writer` agent for architectural decision
+2. Invoke `cs-adr-writer` agent for architectural decision
 3. After merge complete, delete PLAN.md, WIP.md, LEARNINGS.md
 
 Feature tracking is complete and ready for knowledge merge."

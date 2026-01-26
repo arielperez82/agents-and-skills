@@ -18,7 +18,7 @@ use-cases:
   - Generating resolvers and TypeScript types from schemas
 
 # === RELATIONSHIPS ===
-related-agents: [cs-backend-engineer, cs-frontend-engineer, cs-architect, adr-writer]
+related-agents: [cs-backend-engineer, cs-frontend-engineer, cs-architect, cs-adr-writer]
 related-skills: [engineering-team/senior-graphql, engineering-team/senior-backend]
 related-commands: []
 collaborates-with:
@@ -50,7 +50,7 @@ collaborates-with:
     required: optional
     features-enabled: [api-pattern-selection, scalability-planning, infrastructure-design]
     without-collaborator: "GraphQL implementation may not align with overall system architecture"
-  - agent: adr-writer
+  - agent: cs-adr-writer
     purpose: Documenting GraphQL architecture decisions and schema design choices
     required: optional
     features-enabled: [graphql-adrs, schema-decisions, federation-adrs]
@@ -492,7 +492,7 @@ python ../../skills/engineering-team/senior-graphql/scripts/federation_scaffolde
 
 **Reference:** `../../skills/engineering-team/senior-graphql/references/federation-guide.md`
 
-**Architecture Decisions:** For significant GraphQL architecture decisions like federation strategy selection, invoke adr-writer to document the rationale and alternatives.
+**Architecture Decisions:** For significant GraphQL architecture decisions like federation strategy selection, invoke cs-adr-writer to document the rationale and alternatives.
 
 ### Workflow 4: Performance Optimization
 
@@ -727,7 +727,7 @@ docker-compose up -d
 - [cs-frontend-engineer](cs-frontend-engineer.md) - GraphQL client integration
 - [cs-architect](cs-architect.md) - System architecture decisions - provides high-level API technology evaluation and delegates GraphQL-specific details
 - [cs-devsecops-engineer](cs-devsecops-engineer.md) - DevSecOps integration for secure deployment and infrastructure
-- [adr-writer](../../adr-writer.md) - Documents GraphQL architecture decisions and schema design choices
+- [cs-adr-writer](cs-adr-writer.md) - Documents GraphQL architecture decisions and schema design choices
 
 ## References
 
