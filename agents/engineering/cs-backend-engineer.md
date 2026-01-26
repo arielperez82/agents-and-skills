@@ -67,6 +67,12 @@ collaborates-with:
     required: optional
     features-enabled: [query-optimization, schema-design, index-strategy, performance-tuning]
     without-collaborator: "Backend services may have unoptimized database queries and schemas"
+  - agent: cs-debugger
+    purpose: Root cause analysis and debugging for API issues, database problems, test failures, and performance bottlenecks
+    required: optional
+    features-enabled: [issue-investigation, api-debugging, database-diagnostics, test-failure-analysis, performance-debugging]
+    when-to-use: "When encountering bugs, API errors, database issues, test failures, or performance problems"
+    without-collaborator: "Issues may take longer to resolve without systematic debugging methodology"
 orchestrates:
   skill: engineering-team/senior-backend
 

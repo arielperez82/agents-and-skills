@@ -14,7 +14,7 @@ argument-hint: [issue]
      - **Bash/Unix**: append `2>&1 | tee logs.txt`
      - **PowerShell**: append `*>&1 | Tee-Object logs.txt`
    - Run the command to generate logs
-2. Use `debugger` subagent to analyze `./logs.txt` and find root causes:
+2. Use `cs-debugger` subagent to analyze `./logs.txt` and find root causes:
    - Use `Grep` with `head_limit: 30` to read only last 30 lines (avoid loading entire file)
    - If insufficient context, increase `head_limit` as needed
 3. Use `cs-codebase-scout` subagent to analyze the codebase and find the exact location of the issues, then report back to main agent.

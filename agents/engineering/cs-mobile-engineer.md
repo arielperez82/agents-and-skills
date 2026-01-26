@@ -41,6 +41,12 @@ collaborates-with:
     required: optional
     features-enabled: [mobile-automation, app-store-testing, cross-platform-testing]
     without-collaborator: "Mobile applications will lack comprehensive test automation"
+  - agent: cs-debugger
+    purpose: Root cause analysis and debugging for mobile app issues, test failures, platform-specific bugs, and performance problems
+    required: optional
+    features-enabled: [issue-investigation, mobile-debugging, test-failure-analysis, performance-debugging, platform-debugging]
+    when-to-use: "When encountering bugs, test failures, platform-specific issues, performance problems, or when systematic debugging is needed"
+    without-collaborator: "Issues may take longer to resolve without systematic debugging methodology"
 
 # === TECHNICAL ===
 tools: [Read, Write, Bash, Grep, Glob]

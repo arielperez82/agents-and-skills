@@ -57,6 +57,12 @@ collaborates-with:
     required: optional
     features-enabled: [database-design, query-optimization, migration-strategy]
     without-collaborator: "Full-stack applications may lack database optimization expertise"
+  - agent: cs-debugger
+    purpose: Root cause analysis and debugging for complex issues, test failures, and performance problems
+    required: optional
+    features-enabled: [issue-investigation, test-failure-analysis, performance-debugging, log-analysis]
+    when-to-use: "When encountering bugs, test failures, performance issues, or when systematic debugging is needed"
+    without-collaborator: "Issues may take longer to resolve without systematic debugging methodology"
 orchestrates:
   skill: engineering-team/senior-fullstack
 

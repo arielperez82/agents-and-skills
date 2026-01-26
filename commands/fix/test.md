@@ -11,7 +11,7 @@ Analyze the skills catalog and activate the skills that are needed for the task 
 ## Workflow:
 1. Use `tester` subagent to compile the code and fix all syntax errors if any.
 2. Use `tester` subagent to run the tests and report back to main agent.
-3. If there are issues or failed tests, use `debugger` subagent to find the root cause of the issues, then report back to main agent.
+3. If there are issues or failed tests, use `cs-debugger` subagent to find the root cause of the issues, then report back to main agent.
 4. Use `cs-implementation-planner` subagent to create an implementation plan based on the reports, then report back to main agent.
 5. Use main agent to implement the plan step by step.
 6. Use `tester` agent to test the fix and make sure it works, then report back to main agent.

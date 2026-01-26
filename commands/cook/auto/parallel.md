@@ -30,7 +30,7 @@ argument-hint: [tasks]
 ### 4. Testing
 - Use `tester` subagent for full test suite
 - NO fake data/mocks/cheats
-- If fail: use `debugger`, fix, repeat
+- If fail: use `cs-debugger`, fix, repeat
 
 ### 5. Code Review
 - Use `code-reviewer` for all changes

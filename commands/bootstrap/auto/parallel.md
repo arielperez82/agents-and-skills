@@ -43,7 +43,7 @@ argument-hint: [user-requirements]
 ### 6. Testing
 - Write real tests (NO fake data/mocks)
 - Use `tester` subagent
-- If fail: `debugger` → fix → repeat
+- If fail: `cs-debugger` → fix → repeat
 
 ### 7. Code Review
 - Use `code-reviewer`

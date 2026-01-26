@@ -39,6 +39,12 @@ collaborates-with:
     required: optional
     features-enabled: [ios-automation, mobile-testing, app-store-testing]
     without-collaborator: "iOS applications will lack comprehensive test automation"
+  - agent: cs-debugger
+    purpose: Root cause analysis and debugging for iOS app issues, Swift/SwiftUI bugs, test failures, and performance problems
+    required: optional
+    features-enabled: [issue-investigation, ios-debugging, swift-debugging, test-failure-analysis, performance-debugging, instruments-analysis]
+    when-to-use: "When encountering bugs, test failures, SwiftUI rendering issues, performance problems, or when systematic debugging is needed"
+    without-collaborator: "Issues may take longer to resolve without systematic debugging methodology"
 
 # === TECHNICAL ===
 tools: [Read, Write, Bash, Grep, Glob]

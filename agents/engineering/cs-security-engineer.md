@@ -47,6 +47,12 @@ collaborates-with:
     required: optional
     features-enabled: [security-docs, threat-model-diagrams, compliance-reports]
     without-collaborator: "Security documentation will be text-only without visual diagrams"
+  - agent: cs-debugger
+    purpose: Root cause analysis and debugging for security test failures, vulnerability investigations, security control issues, and performance problems in security code
+    required: optional
+    features-enabled: [issue-investigation, security-debugging, vulnerability-investigation, security-test-failure-analysis, performance-debugging]
+    when-to-use: "When debugging security test failures, investigating vulnerabilities, analyzing security incidents, or when systematic debugging of security code is needed"
+    without-collaborator: "Security issues may take longer to resolve without systematic debugging methodology"
 orchestrates:
   skill: engineering-team/senior-security
 

@@ -52,6 +52,12 @@ collaborates-with:
     required: optional
     features-enabled: [github-actions, docker-compose, kubernetes-deployment, secure-dotnet-deployment]
     without-collaborator: "Deployment configuration requires manual setup without DevSecOps security automation"
+  - agent: cs-debugger
+    purpose: Root cause analysis and debugging for .NET application issues, API errors, EF Core problems, test failures, and performance bottlenecks
+    required: optional
+    features-enabled: [issue-investigation, dotnet-debugging, api-debugging, ef-core-debugging, test-failure-analysis, performance-debugging]
+    when-to-use: "When encountering bugs, API errors, database issues, test failures, performance problems, or when systematic debugging is needed"
+    without-collaborator: "Issues may take longer to resolve without systematic debugging methodology"
 orchestrates:
   skill: engineering-team/senior-dotnet
 

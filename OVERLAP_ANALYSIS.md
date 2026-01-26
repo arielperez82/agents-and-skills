@@ -942,14 +942,42 @@ description: >
 - Deleted old `scout.md` and `scout-external.md` agents
 - Deleted old `commands/scout/ext.md` command file
 
+### Debugging/Investigation ✅ ANALYZED
+- `engineering/cs-debugger.md` - **GENERAL DEBUGGING** (issue investigation, test failures, performance optimization, log analysis)
+- `engineering/cs-observability-engineer.md` - **OBSERVABILITY INFRASTRUCTURE** (monitoring setup, dashboards, SLI/SLO, distributed tracing)
+- `engineering/cs-incident-responder.md` - **SECURITY INCIDENTS** (security incident response, containment, forensics)
+- `engineering/cs-qa-engineer.md` - **TEST INFRASTRUCTURE** (test automation, quality metrics, testing frameworks)
+
+**Analysis:** All four focus on investigation but from different angles:
+- **cs-debugger**: General technical debugging for bugs, test failures, performance issues, log analysis. Uses systematic methodology for root cause analysis.
+- **cs-observability-engineer**: Sets up and maintains observability infrastructure (monitoring, logging, tracing). Focuses on infrastructure setup and dashboard design.
+- **cs-incident-responder**: Security-focused incident response with containment playbooks, forensics, and security incident investigation.
+- **cs-qa-engineer**: Test automation infrastructure, quality metrics, and testing framework setup. Analyzes test failures from infrastructure perspective.
+
+**Key Overlap Areas:**
+1. **Log Analysis**: cs-debugger (uses logs for debugging) ↔ observability-engineer (sets up logging infrastructure)
+2. **Test Failure Analysis**: cs-debugger (understands why tests fail) ↔ qa-engineer (sets up test infrastructure)
+3. **Root Cause Analysis**: cs-debugger (general technical issues) ↔ incident-responder (security incidents)
+
+**Differentiation:**
+- **cs-debugger** is a **general-purpose debugging specialist** that should be leveraged by ALL implementation agents when encountering bugs, test failures, or performance issues
+- **observability-engineer** focuses on **infrastructure setup** (what cs-debugger uses)
+- **incident-responder** focuses on **security incidents** (specialized subset)
+- **qa-engineer** focuses on **test infrastructure** (what cs-debugger uses for test analysis)
+
+**Recommendation**: cs-debugger should be available as a collaborator to ALL implementation agents (cs-*-engineer) for systematic debugging when issues arise. Implementation agents should explicitly collaborate with cs-debugger when:
+- Encountering bugs or errors
+- Test failures that aren't immediately obvious
+- Performance issues requiring investigation
+- Complex issues requiring systematic root cause analysis
+
+**Implementation**: Add cs-debugger collaboration to all implementation agents with explicit `when-to-use` conditions.
+
 ### Miscellaneous Unique Agents
 - `CLAUDE.md` (main agent)
-- `README.md` (documentation)
-- ~~`database-admin.md`~~ (renamed to `engineering/cs-database-engineer.md`)
-- `debugger.md`
+- `README.md` (documentation)- ~~`database-admin.md`~~ (renamed to `engineering/cs-database-engineer.md`)
 - `engineering/cs-computer-vision.md`
 - `engineering/cs-legacy-codebase-analyzer.md`
-- `engineering/cs-technical-writer.md`
 - `learn.md`
 - `marketing/cs-content-creator.md`
 - `marketing/cs-demand-gen-specialist.md`

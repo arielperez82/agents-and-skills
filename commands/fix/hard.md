@@ -23,7 +23,7 @@ Use `sequential-thinking` skill to break complex problems into sequential though
 Use `problem-solving` skills to tackle the issues.
 Analyze the skills catalog and activate other skills that are needed for the task during the process.
 
-1. Use `debugger` subagent to find the root cause of the issues and report back to main agent.
+1. Use `cs-debugger` subagent to find the root cause of the issues and report back to main agent.
 2. Use `cs-researcher` subagent to research quickly about the root causes on the internet (if needed) and report back to main agent.
 3. Use `cs-implementation-planner` subagent to create an implementation plan based on the reports, then report back to main agent.
 4. Then use `/code` SlashCommand to implement the plan step by step.

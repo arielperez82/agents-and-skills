@@ -52,6 +52,12 @@ collaborates-with:
     required: optional
     features-enabled: [github-actions, docker-compose, kubernetes-deployment, secure-java-deployment]
     without-collaborator: "Deployment configuration requires manual setup without DevSecOps security automation"
+  - agent: cs-debugger
+    purpose: Root cause analysis and debugging for Java/Spring Boot application issues, API errors, JPA problems, test failures, and JVM performance bottlenecks
+    required: optional
+    features-enabled: [issue-investigation, java-debugging, spring-debugging, jpa-debugging, test-failure-analysis, jvm-performance-debugging]
+    when-to-use: "When encountering bugs, API errors, database issues, test failures, JVM performance problems, or when systematic debugging is needed"
+    without-collaborator: "Issues may take longer to resolve without systematic debugging methodology"
 orchestrates:
   skill: engineering-team/senior-java
 

@@ -50,6 +50,12 @@ collaborates-with:
     required: recommended
     features-enabled: [frontend-security, client-side-security, secure-deployment, vulnerability-scanning]
     without-collaborator: "Frontend applications may lack client-side security protections and secure deployment validation"
+  - agent: cs-debugger
+    purpose: Root cause analysis and debugging for UI issues, component failures, test failures, and performance problems
+    required: optional
+    features-enabled: [issue-investigation, component-debugging, test-failure-analysis, performance-debugging, browser-debugging]
+    when-to-use: "When encountering bugs, component errors, test failures, rendering issues, or performance problems"
+    without-collaborator: "Issues may take longer to resolve without systematic debugging methodology"
 orchestrates:
   skill: engineering-team/senior-frontend
 

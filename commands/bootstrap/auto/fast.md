@@ -76,7 +76,7 @@ Follow strictly these following steps:
 
 * Write the tests for the plan, make sure you don't use fake data just to pass the tests, tests should be real and cover all possible cases.
 * Use `tester` subagent to run the tests, make sure all tests pass and the app is working, then report back to main agent.
-* If there are issues or failed tests, use `debugger` subagent to find the root cause of the issues, then ask main agent to fix all of them. 
+* If there are issues or failed tests, use `cs-debugger` subagent to find the root cause of the issues, then ask main agent to fix all of them. 
 * Repeat the process until all tests pass or no more issues are reported. 
 * **Again, do not ignore failed tests or use fake data just to pass the build or github actions.**
 
