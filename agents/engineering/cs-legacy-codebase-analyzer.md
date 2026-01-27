@@ -18,7 +18,7 @@ use-cases:
 
 # === RELATIONSHIPS ===
 related-agents: [cs-architect, cs-code-reviewer, cs-devsecops-engineer, cs-cto-advisor]
-related-skills: [engineering-team/legacy-codebase-analyzer]
+related-skills: [engineering-team/legacy-codebase-analyzer, refactoring, code-review]
 related-commands: [/plan.refactor, /review.code, /audit.security]
 orchestrates:
   skill: engineering-team/legacy-codebase-analyzer
@@ -1902,10 +1902,3 @@ echo "Next: Review executive-summary.md and schedule stakeholder presentation"
 **Project Documentation:**
 - `/docs/WORKFLOW.md` - Git workflow and branching strategy
 - `/docs/standards/quality-standards.md` - Code quality standards
-
----
-
-**Version:** 1.0.0
-**Last Updated:** 2025-12-13
-**Agent Type:** Quality specialist
-**Skill Version:** 1.0.0

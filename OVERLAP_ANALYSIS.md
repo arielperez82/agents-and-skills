@@ -979,7 +979,6 @@ description: >
 - `engineering/cs-computer-vision.md`
 - `engineering/cs-legacy-codebase-analyzer.md`
 - `learn.md`
-- `engineering/cs-refactor-guardian.md`
 - `use-case-data-patterns.md`
 
 ---

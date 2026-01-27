@@ -56,6 +56,11 @@ collaborates-with:
     required: optional
     features-enabled: [kafka-deployment, flink-kubernetes, streaming-ci-cd, schema-registry]
     without-collaborator: "Streaming infrastructure deployment handled without data engineering expertise"
+  - agent: cs-legacy-codebase-analyzer
+    purpose: Security vulnerability scanning and remediation planning for legacy systems during infrastructure modernization
+    required: optional
+    features-enabled: [vulnerability-assessment, security-remediation-roadmap, legacy-system-security]
+    without-collaborator: "Legacy system security assessment may lack comprehensive vulnerability analysis"
 orchestrates:
   skill: engineering-team/senior-devops
 
@@ -1221,16 +1226,9 @@ echo "📄 Configuration saved to ./configs/$ENVIRONMENT-outputs.json"
 - [cs-security-engineer](cs-security-engineer.md) - Security scanning and compliance integration into CI/CD pipelines
 - [cs-incident-responder](cs-incident-responder.md) - Security incident response coordination and emergency rollback
 - [cs-qa-engineer](cs-qa-engineer.md) - Test automation integration into deployment pipelines
+- [cs-legacy-codebase-analyzer](cs-legacy-codebase-analyzer.md) - Security vulnerability scanning and remediation planning for legacy systems during infrastructure modernization
 
 ## References
 
 - **Skill Documentation:** [../../skills/engineering-team/senior-devops/SKILL.md](../../skills/engineering-team/senior-devops/SKILL.md)
 - **Domain Guide:** [../../skills/engineering-team/CLAUDE.md](../../skills/engineering-team/CLAUDE.md)
-- **Agent Development Guide:** [../CLAUDE.md](../CLAUDE.md)
-
----
-
-**Last Updated:** November 12, 2025
-**Sprint:** sprint-11-12-2025 (Day 1)
-**Status:** Production Ready
-**Version:** 1.0

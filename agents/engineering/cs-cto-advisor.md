@@ -632,16 +632,9 @@ echo "4. Schedule Q3 2026 review"
 - [cs-devsecops-engineer](cs-devsecops-engineer.md) - DevSecOps implementation of secure CI/CD and infrastructure improvements that support DORA metrics and engineering excellence initiatives
 - [cs-security-engineer](cs-security-engineer.md) - Executes security assessments and remediation plans that reduce security debt and improve compliance posture
 - [cs-backend-engineer](cs-backend-engineer.md) - Implements architecture decisions and contributes to technical debt reduction through code quality improvements
+- [cs-legacy-codebase-analyzer](cs-legacy-codebase-analyzer.md) - Comprehensive legacy codebase assessment for technical debt quantification, modernization roadmap generation, and detailed analysis beyond cto-advisor's high-level tech debt analyzer tool
 
 ## References
 
 - **Skill Documentation:** [../../skills/engineering-team/cto-advisor/SKILL.md](../../skills/engineering-team/cto-advisor/SKILL.md)
 - **Domain Guide:** [../../skills/engineering-team/CLAUDE.md](../../skills/engineering-team/CLAUDE.md)
-- **Agent Development Guide:** [../CLAUDE.md](../CLAUDE.md)
-
----
-
-**Last Updated:** November 12, 2025
-**Sprint:** sprint-11-12-2025 (Day 3)
-**Status:** Production Ready
-**Version:** 1.0

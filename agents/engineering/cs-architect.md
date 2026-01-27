@@ -48,6 +48,11 @@ collaborates-with:
     required: optional
     features-enabled: [graphql-architecture, schema-design, federation-patterns, api-performance]
     without-collaborator: "GraphQL-specific architecture decisions made without specialized expertise"
+  - agent: cs-legacy-codebase-analyzer
+    purpose: Legacy codebase assessment and modernization pattern selection for architecture refactoring and migration planning
+    required: optional
+    features-enabled: [modernization-patterns, architecture-health-analysis, technical-debt-assessment]
+    without-collaborator: "Architecture modernization decisions made without comprehensive legacy system analysis"
 
 # === TECHNICAL ===
 tools: [Read, Write, Bash, Grep, Glob]
