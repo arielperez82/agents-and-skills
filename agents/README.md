@@ -140,7 +140,7 @@ This directory contains specifications for specialized Claude Code agents that w
 
 ---
 
-#### `learn`
+#### `cs-learn`
 **Purpose**: Captures learnings, gotchas, and patterns into CLAUDE.md.
 
 **Use proactively when**:
@@ -274,7 +274,7 @@ cs-progress-guardian (orchestrates)
     │   └─→ pr-reviewer (comprehensive PR review)
     │
     ├─► At end:
-    │   ├─→ learn (merge LEARNINGS.md → CLAUDE.md)
+    │   ├─→ cs-learn (merge LEARNINGS.md → CLAUDE.md)
     │   ├─→ cs-docs-guardian (update permanent docs)
     │   └─→ DELETE all three docs
     │
@@ -320,7 +320,7 @@ cs-progress-guardian (orchestrates)
 8. **Feature complete**
    - Invoke `cs-progress-guardian`: Verify all criteria met
    - Review LEARNINGS.md for merge destinations
-   - Invoke `learn`: Merge gotchas/patterns → CLAUDE.md
+   - Invoke `cs-learn`: Merge gotchas/patterns → CLAUDE.md
    - Invoke `cs-adr-writer`: Create ADRs for architectural decisions
    - Invoke `cs-docs-guardian`: Update permanent docs
    - **DELETE PLAN.md, WIP.md, LEARNINGS.md**
@@ -329,7 +329,7 @@ cs-progress-guardian (orchestrates)
 
 ### Documentation Types
 
-| Aspect | cs-progress-guardian | cs-adr-writer | learn | cs-docs-guardian |
+| Aspect | cs-progress-guardian | cs-adr-writer | cs-learn | cs-docs-guardian |
 |--------|------------------|-----|-------|---------------|
 | **Lifespan** | Temporary (days/weeks) | Permanent | Permanent | Permanent |
 | **Audience** | Current developer | Future developers | AI assistant + developers | Users + developers |
@@ -354,7 +354,7 @@ cs-progress-guardian (orchestrates)
 - "Why is the system designed this way?"
 - → Answer: Permanent ADR in `docs/adr/`
 
-**Use `learn`** for:
+**Use `cs-learn`** for:
 - "What gotchas should I know about?"
 - "What patterns work well here?"
 - "How do I avoid this common mistake?"
@@ -428,7 +428,7 @@ These agents work together to create a comprehensive development workflow:
 - **Quality**: cs-tdd-guardian + cs-ts-enforcer ensure code quality
 - **Improvement**: cs-refactor-guardian optimizes code after tests pass
 - **Review**: pr-reviewer validates PRs before merge
-- **Knowledge**: learn + cs-adr-writer + cs-docs-guardian preserve knowledge
+- **Knowledge**: cs-learn + cs-adr-writer + cs-docs-guardian preserve knowledge
 - **Progress**: cs-progress-guardian validates progress tracking discipline with three-document model
 
 **Key workflow principles** (see `planning` skill for details):

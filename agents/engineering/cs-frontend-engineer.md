@@ -56,6 +56,12 @@ collaborates-with:
     features-enabled: [issue-investigation, component-debugging, test-failure-analysis, performance-debugging, browser-debugging]
     when-to-use: "When encountering bugs, component errors, test failures, rendering issues, or performance problems"
     without-collaborator: "Issues may take longer to resolve without systematic debugging methodology"
+  - agent: cs-learn
+    purpose: Document gotchas, patterns, and learnings discovered during frontend development into CLAUDE.md
+    required: optional
+    features-enabled: [learning-capture, gotcha-documentation, pattern-preservation]
+    when: After completing significant features, when discovering gotchas or unexpected behaviors, after fixing complex bugs
+    without-collaborator: "Valuable learnings and gotchas may not be preserved for future developers"
 orchestrates:
   skill: engineering-team/senior-frontend
 

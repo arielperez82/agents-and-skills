@@ -52,6 +52,12 @@ collaborates-with:
     required: recommended
     features-enabled: [policy-review, compliance-audit, vulnerability-assessment]
     without-collaborator: "Security policies may lack comprehensive review"
+  - agent: cs-learn
+    purpose: Document gotchas, patterns, and learnings discovered during network engineering into CLAUDE.md
+    required: optional
+    features-enabled: [learning-capture, gotcha-documentation, pattern-preservation]
+    when: After completing significant features, when discovering gotchas or unexpected behaviors, after fixing complex bugs
+    without-collaborator: "Valuable learnings and gotchas may not be preserved for future developers"
 orchestrates:
   skill: engineering-team/senior-network-infrastructure
 

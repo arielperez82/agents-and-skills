@@ -53,6 +53,12 @@ collaborates-with:
     features-enabled: [issue-investigation, security-debugging, vulnerability-investigation, security-test-failure-analysis, performance-debugging]
     when-to-use: "When debugging security test failures, investigating vulnerabilities, analyzing security incidents, or when systematic debugging of security code is needed"
     without-collaborator: "Security issues may take longer to resolve without systematic debugging methodology"
+  - agent: cs-learn
+    purpose: Document gotchas, patterns, and learnings discovered during security engineering into CLAUDE.md
+    required: optional
+    features-enabled: [learning-capture, gotcha-documentation, pattern-preservation]
+    when: After completing significant features, when discovering gotchas or unexpected behaviors, after fixing complex bugs
+    without-collaborator: "Valuable learnings and gotchas may not be preserved for future developers"
 orchestrates:
   skill: engineering-team/senior-security
 

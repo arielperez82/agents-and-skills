@@ -311,12 +311,12 @@ Read LEARNINGS.md
 ✅ All acceptance criteria met
 ✅ All steps complete
 ✅ LEARNINGS.md contains:
-   - 2 gotchas → recommend merging to CLAUDE.md via `learn` agent
+   - 2 gotchas → recommend merging to CLAUDE.md via `cs-learn` agent
    - 1 architectural decision → recommend creating ADR via `cs-adr-writer` agent
    - 3 edge cases → already captured in tests
 
 **Recommendations:**
-1. Invoke `learn` agent to merge gotchas to CLAUDE.md
+1. Invoke `cs-learn` agent to merge gotchas to CLAUDE.md
 2. Invoke `cs-adr-writer` agent for architectural decision
 3. Delete PLAN.md, WIP.md, LEARNINGS.md after merge complete
 ```
@@ -328,7 +328,7 @@ Read LEARNINGS.md
 | `cs-tdd-guardian` | Before commits, to verify TDD compliance |
 | `cs-ts-enforcer` | Before commits, to check TypeScript strictness |
 | `cs-refactor-guardian` | After GREEN, to assess refactoring |
-| `learn` | At end of feature, to merge learnings into CLAUDE.md |
+| `cs-learn` | At end of feature, to merge learnings into CLAUDE.md |
 | `cs-adr-writer` | When architectural decisions need recording |
 | `cs-docs-guardian` | When permanent docs need updating |
 
@@ -431,7 +431,7 @@ cs-progress-guardian: "I've validated completion:
    - 3 edge cases → already in tests
 
 **Recommendations:**
-1. Invoke `learn` agent to merge gotchas to CLAUDE.md
+1. Invoke `cs-learn` agent to merge gotchas to CLAUDE.md
 2. Invoke `cs-adr-writer` agent for architectural decision
 3. After merge complete, delete PLAN.md, WIP.md, LEARNINGS.md
 

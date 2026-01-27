@@ -61,6 +61,12 @@ collaborates-with:
     required: optional
     features-enabled: [warehouse-optimization, etl-performance, data-pipeline-db]
     without-collaborator: "Data pipelines may have unoptimized database operations"
+  - agent: cs-learn
+    purpose: Document gotchas, patterns, and learnings discovered during data engineering into CLAUDE.md
+    required: optional
+    features-enabled: [learning-capture, gotcha-documentation, pattern-preservation]
+    when: After completing significant features, when discovering gotchas or unexpected behaviors, after fixing complex bugs
+    without-collaborator: "Valuable learnings and gotchas may not be preserved for future developers"
 orchestrates:
   skill: engineering-team/senior-data-engineer
 

@@ -47,6 +47,12 @@ collaborates-with:
     required: optional
     features-enabled: [feature-store-optimization, vector-db-tuning, ml-db-performance]
     without-collaborator: "ML systems may have unoptimized database operations for features and serving"
+  - agent: cs-learn
+    purpose: Document gotchas, patterns, and learnings discovered during ML development into CLAUDE.md
+    required: optional
+    features-enabled: [learning-capture, gotcha-documentation, pattern-preservation]
+    when: After completing significant features, when discovering gotchas or unexpected behaviors, after fixing complex bugs
+    without-collaborator: "Valuable learnings and gotchas may not be preserved for future developers"
 orchestrates:
   skill: engineering-team/senior-ml-engineer
 

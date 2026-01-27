@@ -53,6 +53,12 @@ collaborates-with:
     required: optional
     features-enabled: [db-security-audit, access-control, compliance-validation]
     without-collaborator: "Database security may not be comprehensively reviewed"
+  - agent: cs-learn
+    purpose: Document gotchas, patterns, and learnings discovered during database engineering into CLAUDE.md
+    required: optional
+    features-enabled: [learning-capture, gotcha-documentation, pattern-preservation]
+    when: After completing significant features, when discovering gotchas or unexpected behaviors, after fixing complex bugs
+    without-collaborator: "Valuable learnings and gotchas may not be preserved for future developers"
 orchestrates:
   skill: databases, sql-expert
 

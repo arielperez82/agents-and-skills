@@ -63,6 +63,12 @@ collaborates-with:
     features-enabled: [issue-investigation, test-failure-analysis, performance-debugging, log-analysis]
     when-to-use: "When encountering bugs, test failures, performance issues, or when systematic debugging is needed"
     without-collaborator: "Issues may take longer to resolve without systematic debugging methodology"
+  - agent: cs-learn
+    purpose: Document gotchas, patterns, and learnings discovered during full-stack development into CLAUDE.md
+    required: optional
+    features-enabled: [learning-capture, gotcha-documentation, pattern-preservation]
+    when: After completing significant features, when discovering gotchas or unexpected behaviors, after fixing complex bugs
+    without-collaborator: "Valuable learnings and gotchas may not be preserved for future developers"
 orchestrates:
   skill: engineering-team/senior-fullstack
 

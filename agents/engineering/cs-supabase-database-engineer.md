@@ -37,6 +37,12 @@ collaborates-with:
     required: optional
     features-enabled: [api-integration, type-safety, backend-optimization]
     without-collaborator: "Backend integration may not fully utilize Supabase features"
+  - agent: cs-learn
+    purpose: Document gotchas, patterns, and learnings discovered during Supabase database engineering into CLAUDE.md
+    required: optional
+    features-enabled: [learning-capture, gotcha-documentation, pattern-preservation]
+    when: After completing significant features, when discovering gotchas or unexpected behaviors, after fixing complex bugs
+    without-collaborator: "Valuable learnings and gotchas may not be preserved for future developers"
 orchestrates:
   skill: supabase-best-practices
 

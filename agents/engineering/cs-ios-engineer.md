@@ -45,6 +45,12 @@ collaborates-with:
     features-enabled: [issue-investigation, ios-debugging, swift-debugging, test-failure-analysis, performance-debugging, instruments-analysis]
     when-to-use: "When encountering bugs, test failures, SwiftUI rendering issues, performance problems, or when systematic debugging is needed"
     without-collaborator: "Issues may take longer to resolve without systematic debugging methodology"
+  - agent: cs-learn
+    purpose: Document gotchas, patterns, and learnings discovered during iOS development into CLAUDE.md
+    required: optional
+    features-enabled: [learning-capture, gotcha-documentation, pattern-preservation]
+    when: After completing significant features, when discovering gotchas or unexpected behaviors, after fixing complex bugs
+    without-collaborator: "Valuable learnings and gotchas may not be preserved for future developers"
 
 # === TECHNICAL ===
 tools: [Read, Write, Bash, Grep, Glob]
