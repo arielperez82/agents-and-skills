@@ -50,7 +50,7 @@ This directory contains specifications for specialized Claude Code agents that w
 
 ---
 
-#### `refactor-scan`
+#### `cs-refactor-guardian`
 **Purpose**: Assesses refactoring opportunities after tests pass (TDD's third step).
 
 **Use proactively when**:
@@ -262,7 +262,7 @@ cs-progress-guardian (orchestrates)
     ├─► For each step:
     │   ├─→ cs-tdd-guardian (RED-GREEN-REFACTOR)
     │   ├─→ cs-ts-enforcer (before commits)
-    │   └─→ refactor-scan (after GREEN)
+    │   └─→ cs-refactor-guardian (after GREEN)
     │
     ├─► For database/schema work:
     │   └─→ cs-supabase-database-engineer (schema design, RLS policies, migration management)
@@ -291,7 +291,7 @@ cs-progress-guardian (orchestrates)
 2. **For each step in plan**
    - RED: Write failing test (TDD non-negotiable)
    - GREEN: Minimal code to pass
-   - REFACTOR: Invoke `refactor-scan` to assess improvements
+   - REFACTOR: Invoke `cs-refactor-guardian` to assess improvements
    - Update WIP.md with progress
    - Capture discoveries in LEARNINGS.md
    - **WAIT FOR COMMIT APPROVAL**
@@ -426,7 +426,7 @@ These agents work together to create a comprehensive development workflow:
 - **Analysis**: use-case-data-patterns maps use cases to implementation patterns
 - **Database**: cs-supabase-database-engineer designs schemas and manages migrations
 - **Quality**: cs-tdd-guardian + cs-ts-enforcer ensure code quality
-- **Improvement**: refactor-scan optimizes code after tests pass
+- **Improvement**: cs-refactor-guardian optimizes code after tests pass
 - **Review**: pr-reviewer validates PRs before merge
 - **Knowledge**: learn + cs-adr-writer + cs-docs-guardian preserve knowledge
 - **Progress**: cs-progress-guardian validates progress tracking discipline with three-document model

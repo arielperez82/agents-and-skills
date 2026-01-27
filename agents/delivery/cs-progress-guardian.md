@@ -327,7 +327,7 @@ Read LEARNINGS.md
 |-------|-----------------|
 | `cs-tdd-guardian` | Before commits, to verify TDD compliance |
 | `cs-ts-enforcer` | Before commits, to check TypeScript strictness |
-| `refactor-scan` | After GREEN, to assess refactoring |
+| `cs-refactor-guardian` | After GREEN, to assess refactoring |
 | `learn` | At end of feature, to merge learnings into CLAUDE.md |
 | `cs-adr-writer` | When architectural decisions need recording |
 | `cs-docs-guardian` | When permanent docs need updating |

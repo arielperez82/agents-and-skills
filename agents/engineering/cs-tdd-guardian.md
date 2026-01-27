@@ -20,6 +20,7 @@ use-cases:
 related-agents:
   - cs-qa-engineer
   - cs-tpp-guardian
+  - cs-refactor-guardian
 related-skills:
   - core-testing-methodology
 related-commands: []

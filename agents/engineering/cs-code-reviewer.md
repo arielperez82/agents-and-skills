@@ -36,6 +36,11 @@ collaborates-with:
     required: optional
     features-enabled: [pattern-review, design-validation, refactoring-guidance]
     without-collaborator: "Code reviews will lack architecture-level feedback"
+  - agent: cs-refactor-guardian
+    purpose: Refactoring opportunity assessment and semantic analysis during code review
+    required: recommended
+    features-enabled: [refactoring-assessment, semantic-analysis, knowledge-duplication-detection]
+    without-collaborator: "Code reviews will lack specialized refactoring opportunity analysis"
 orchestrates:
   skill: engineering-team/code-reviewer
 
@@ -144,11 +149,12 @@ By bridging the gap between manual expertise and automated tooling, this agent e
    python ../../skills/engineering-team/code-reviewer/scripts/code_quality_checker.py ./src --language=typescript
    ```
 4. **Manual Review with Checklist** - Follow comprehensive checklist from `references/code_review_checklist.md` covering functionality, security, performance, tests, and documentation
-5. **Generate Review Report** - Create structured feedback with categorized issues
+5. **Refactoring Opportunity Assessment** - Delegate to `cs-refactor-guardian` to assess refactoring opportunities, identify knowledge duplication, and evaluate semantic vs structural similarity
+6. **Generate Review Report** - Create structured feedback with categorized issues
    ```bash
    python ../../skills/engineering-team/code-reviewer/scripts/review_report_generator.py 123 --format=markdown
    ```
-6. **Provide Feedback** - Post review with blocking/major/minor issues clearly categorized, include specific line references and improvement suggestions
+7. **Provide Feedback** - Post review with blocking/major/minor issues clearly categorized, include specific line references and improvement suggestions
 
 **Expected Output:** Comprehensive review report with prioritized issues (blocking: 0, major: 2, minor: 5), actionable recommendations, security assessment, and estimated remediation time
 
@@ -411,6 +417,9 @@ echo "Security check complete. Safe to deploy."
 
 ## Related Agents
 
+- [cs-refactor-guardian](cs-refactor-guardian.md) - Assesses refactoring opportunities, identifies knowledge duplication, and evaluates semantic vs structural similarity during code reviews
+- [cs-tdd-guardian](cs-tdd-guardian.md) - Verifies TDD compliance and test structure during code reviews
+- [cs-qa-engineer](cs-qa-engineer.md) - Provides test automation and quality metrics assessment during reviews
 - [cs-senior-qa](cs-senior-qa.md) - Complements code review with comprehensive testing strategy and test automation
 - [cs-senior-secops](cs-senior-secops.md) - Extends security review with infrastructure security, compliance, and incident response
 - [cs-senior-devops](cs-senior-devops.md) - Integrates code quality gates into CI/CD pipeline and deployment automation

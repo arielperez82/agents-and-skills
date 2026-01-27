@@ -979,13 +979,7 @@ description: >
 - `engineering/cs-computer-vision.md`
 - `engineering/cs-legacy-codebase-analyzer.md`
 - `learn.md`
-- `marketing/cs-content-creator.md`
-- `marketing/cs-demand-gen-specialist.md`
-- `marketing/cs-product-marketer.md`
-- `marketing/cs-seo-strategist.md`
-- `product/cs-ui-designer.md`
-- `product/cs-ux-researcher.md`
-- `refactor-scan.md`
+- `engineering/cs-refactor-guardian.md`
 - `use-case-data-patterns.md`
 
 ---
