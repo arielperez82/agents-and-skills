@@ -705,6 +705,147 @@ cat ../../skills/marketing-team/content-creator/references/brand_guidelines.md
 ❌ Duplicating skill content in agent files
 ❌ Using LLM calls instead of referencing Python tools
 
+## Agent Design Principles & Learnings
+
+These principles are derived from systematic analysis of agent overlap, collaboration patterns, and refactoring efforts across the agent ecosystem.
+
+### 1. Separate Agents by Job-to-Be-Done, Not Implementation Method
+
+**Principle:** Agents should be distinguished by their **purpose and output**, not by how they achieve it.
+
+**Good Separation:**
+- ✅ Same domain, different **purpose/output**: `cs-architect` (designs "what"), `cs-implementation-planner` (plans "how"), `cs-adr-writer` (documents "why")
+- ✅ Different abstraction levels: `cs-tdd-guardian` (methodology) vs `cs-tpp-guardian` (strategy)
+
+**Bad Separation:**
+- ❌ Same purpose/output, different **implementation method**: `scout` vs `scout-external` → should merge
+- ❌ Same responsibility, different tools → creates coordination overhead
+
+**Example:** `cs-researcher` is the single source for external research. `cs-implementation-planner` and `cs-brainstormer` should **consume** researcher reports, not do web searches directly.
+
+### 2. Default to Delegation Graph with Clear Single-Owners
+
+**Principle:** Establish clear ownership and consumption patterns to avoid duplication.
+
+**Patterns:**
+- **Single source for external research**: Planner/Brainstormer consume researcher reports
+- **Single source for tactical TDD guidance**: Strategic planner delegates to `cs-tpp-guardian` (test ordering), `cs-tdd-guardian` (methodology), `cs-progress-guardian` (tracking)
+- **Security split**: Coach/guardian (`cs-security-engineer`) + unified DevSecOps owner (`cs-devsecops-engineer`) + incident specialist (`cs-incident-responder`)
+
+**Implementation:**
+- Document **who produces** which artifact
+- Document **who consumes** it
+- Document **when** the handoff occurs
+- Make delegation explicit in `collaborates-with` sections
+
+### 3. Guardian/Validator Roles Are Non-Implementers
+
+**Principle:** Some agents should **assess, guide, and validate** but **never implement**.
+
+**Guardian Pattern:**
+- **Proactive**: Provide guidance before implementation
+- **Reactive**: Validate and review after implementation
+- **Output**: Prioritized findings (🔴 Critical → ⚠️ High Priority → 💡 Nice to Have)
+- **Timing**: Document "when to invoke" (before vs after)
+
+**Examples:**
+- `cs-tdd-guardian`: TDD methodology coaching (doesn't write code)
+- `cs-docs-guardian`: Documentation quality review (doesn't write docs)
+- `cs-progress-guardian`: Progress tracking validation (doesn't create plans)
+- `cs-refactor-guardian`: Refactoring opportunity assessment (doesn't refactor code)
+
+**Key Insight:** Implementers should **ask guardians FIRST** when planning work, and **ask guardians AFTER** when work is complete.
+
+### 4. Overlap Detection: Function + Output + Timing
+
+**Principle:** Use a systematic rubric to identify problematic overlap.
+
+**High-Risk Overlap (Merge Candidates):**
+- Same user prompts/use cases
+- Same outputs/artifacts
+- Same invocation timing
+- **Result:** Usually merge or re-scope
+
+**Acceptable Overlap (Keep Separate):**
+- Different abstraction levels (methodology vs strategy)
+- Different scope boundaries (cross-cutting vs team-specific)
+- Different deliverables (plan vs ADR vs review report)
+- **Result:** Complementary, not duplicative
+
+**Example:** `cs-tdd-guardian` (TDD methodology) and `cs-tpp-guardian` (TPP strategy) both relate to TDD but serve different purposes at different abstraction levels.
+
+### 5. Refactoring Agents: Five Levers for Crispness
+
+**Principle:** Use these five mechanisms to improve agent clarity and reduce overlap.
+
+**1. Rename + Relocate**
+- Use `cs-*` prefix consistently
+- Team folders for team-specific roles (`engineering/`, `product/`, `delivery/`)
+- Root directory for cross-cutting concerns (`cs-docs-guardian.md`)
+
+**2. Tighten Descriptions**
+- Remove stray responsibilities (e.g., "research" creeping into non-research agents)
+- Focus on core job-to-be-done
+- Remove implementation details that belong in skills
+
+**3. Declare Orchestration Explicitly**
+- If agent "owns" a skill, include `orchestrates:` section
+- Makes skill ownership clear and discoverable
+- Required for consistency across engineering agents
+
+**4. Bidirectional Relationships**
+- If A collaborates with B, B should list A in `related-agents`
+- Improves discoverability
+- Prevents "one-way" ecosystem drift
+
+**5. Document Handoffs as Protocols**
+- Who produces which artifact
+- Who consumes it
+- At what step in the workflow
+- Make it a protocol, not a suggestion
+
+### 6. Merge vs Keep Separate: Decision Rule
+
+**Principle:** Use a simple heuristic to decide when to merge agents.
+
+**Merge When:**
+- ~80-100% overlap on purpose + output (e.g., `scout` vs `scout-external`)
+- Role boundaries create coordination cost without adding specialization
+- Same user need, different implementation method
+
+**Keep Separate When:**
+- Different stages in a pipeline (research → debate → architecture → plan)
+- One is coach/guardian, other is implementer
+- Different abstraction levels (strategic vs tactical)
+- Different scope boundaries (cross-cutting vs team-specific)
+
+**Example:** `cs-implementation-planner` (strategic) stays separate from `cs-tpp-guardian` (tactical TDD) because they serve different stages and abstraction levels.
+
+### 7. Collaboration Contracts > More Agents
+
+**Principle:** Explicit collaboration protocols reduce need for additional agents.
+
+**Best Practices:**
+- Document **who calls whom** and **when**
+- Remove duplicate capabilities in favor of **consuming outputs**
+- Make collaboration explicit in `collaborates-with` sections
+- Use `required: optional|recommended|required` to indicate dependency strength
+
+**Example:** Instead of giving `cs-implementation-planner` research capabilities, document that it should consume `cs-researcher` reports. This creates cleaner separation and better reuse.
+
+### Agent Design Checklist
+
+Before creating or refactoring an agent, verify:
+
+- [ ] **Purpose clarity**: Can you state the agent's job-to-be-done in one sentence?
+- [ ] **Output uniqueness**: Does this agent produce artifacts that no other agent produces?
+- [ ] **Delegation pattern**: If this agent needs research/planning/validation, does it delegate to specialized agents?
+- [ ] **Guardian vs implementer**: Is this agent a guardian (assesses/validates) or implementer (creates/modifies)?
+- [ ] **Orchestration declared**: If this agent owns a skill, is `orchestrates:` section present?
+- [ ] **Bidirectional relationships**: If A collaborates with B, does B list A in `related-agents`?
+- [ ] **Overlap check**: Does this agent overlap >80% with another agent on purpose + output + timing?
+- [ ] **Collaboration documented**: Are handoff protocols clearly documented in `collaborates-with` sections?
+
 ## Next Steps
 
 After creating an agent:
@@ -718,6 +859,6 @@ After creating an agent:
 
 ---
 
-**Last Updated:** January 24, 2026
+**Last Updated:** January 28, 2026
 **Current Status:** 39 production agents, website-ready format with 10-section YAML frontmatter (includes collaborates-with)
 **Related:** See [main CLAUDE.md](../CLAUDE.md) for repository overview

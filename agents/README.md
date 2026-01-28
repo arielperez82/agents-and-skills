@@ -160,7 +160,7 @@ This directory contains specifications for specialized Claude Code agents that w
 
 ### Analysis & Architecture Agents
 
-#### `use-case-data-patterns`
+#### `cs-use-case-data-analyzer`
 **Purpose**: Analyzes how user-facing use cases map to underlying data access patterns and architectural implementation.
 
 **Use proactively when**:
@@ -366,7 +366,7 @@ cs-progress-guardian (orchestrates)
 - "What features does this have?"
 - → Answer: Permanent `README.md`, guides, API docs
 
-**Use `use-case-data-patterns`** for:
+**Use `cs-use-case-data-analyzer`** for:
 - "How does this feature work end-to-end?"
 - "What data patterns support this use case?"
 - "What's missing to implement this feature?"
@@ -423,7 +423,7 @@ When creating a new agent specification:
 
 These agents work together to create a comprehensive development workflow:
 
-- **Analysis**: use-case-data-patterns maps use cases to implementation patterns
+- **Analysis**: cs-use-case-data-analyzer maps use cases to implementation patterns
 - **Database**: cs-supabase-database-engineer designs schemas and manages migrations
 - **Quality**: cs-tdd-guardian + cs-ts-enforcer ensure code quality
 - **Improvement**: cs-refactor-guardian optimizes code after tests pass

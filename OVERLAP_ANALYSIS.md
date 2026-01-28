@@ -976,8 +976,7 @@ description: >
 ### Miscellaneous Unique Agents
 - `CLAUDE.md` (main agent)
 - `README.md` (documentation)
-- `cs-learn.md` (learning guardian - renamed from `learn.md`, cross-cutting knowledge management)
-- `use-case-data-patterns.md`
+- `engineering/cs-use-case-data-analyzer.md` (renamed from `use-case-data-patterns.md`, moved to engineering/)
 
 ---
 
