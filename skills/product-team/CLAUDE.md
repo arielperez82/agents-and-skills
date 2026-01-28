@@ -326,7 +326,7 @@ See `product_team_implementation_guide.md` for detailed plans.
 
 - **Implementation Guide:** `product_team_implementation_guide.md`
 - **Real-World Scenario:** `REAL_WORLD_SCENARIO.md` (if exists)
-- **Main Documentation:** `../CLAUDE.md`
+- **Agent Authoring Guide:** `../../agents/cs-agent-author.md`
 
 ---
 

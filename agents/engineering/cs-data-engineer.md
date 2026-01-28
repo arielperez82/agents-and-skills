@@ -1132,7 +1132,7 @@ mail -s "Weekly Pipeline Performance Report" data-eng@company.com < "$REPORT_DIR
 - **Templates Library:** [../../skills/engineering-team/senior-data-engineer/references/templates.md](../../skills/engineering-team/senior-data-engineer/references/templates.md)
 - **Tool Documentation:** [../../skills/engineering-team/senior-data-engineer/references/tools.md](../../skills/engineering-team/senior-data-engineer/references/tools.md)
 - **Domain Guide:** [../../skills/engineering-team/CLAUDE.md](../../skills/engineering-team/CLAUDE.md)
-- **Agent Development Guide:** [../CLAUDE.md](../CLAUDE.md)
+- **Agent Development Guide:** [cs-agent-author](../cs-agent-author.md)
 
 ---
 

@@ -289,7 +289,7 @@ The agent produces comprehensive analysis reports that include:
 
 - **Attribution**: Adapted from [Kieran O'Hara's dotfiles](https://github.com/kieran-ohara/dotfiles/blob/main/config/claude/agents/analyse-use-case-to-data-patterns.md)
 - **Domain Guide**: [../../skills/engineering-team/CLAUDE.md](../../skills/engineering-team/CLAUDE.md)
-- **Agent Development Guide**: [../CLAUDE.md](../CLAUDE.md)
+- **Agent Development Guide**: [cs-agent-author](../cs-agent-author.md)
 
 ---
 

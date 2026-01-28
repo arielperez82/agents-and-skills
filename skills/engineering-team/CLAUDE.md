@@ -306,7 +306,7 @@ services:
 - **Quick Start:** `START_HERE.md`
 - **Team Structure:** `TEAM_STRUCTURE_GUIDE.md`
 - **Engineering Roadmap:** `engineering_skills_roadmap.md` (if exists)
-- **Main Documentation:** `../CLAUDE.md`
+- **Agent Authoring Guide:** `../../agents/cs-agent-author.md`
 
 ---
 

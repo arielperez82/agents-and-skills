@@ -982,7 +982,7 @@ echo "   3. Monitor performance"
 
 - **Skill Documentation:** [../../skills/engineering-team/senior-computer-vision/SKILL.md](../../skills/engineering-team/senior-computer-vision/SKILL.md)
 - **Engineering Team Guide:** [../../skills/engineering-team/CLAUDE.md](../../skills/engineering-team/CLAUDE.md)
-- **Agent Development Guide:** [../CLAUDE.md](../CLAUDE.md)
+- **Agent Development Guide:** [cs-agent-author](../cs-agent-author.md)
 - **Computer Vision Architectures Reference:** [../../skills/engineering-team/senior-computer-vision/references/computer_vision_architectures.md](../../skills/engineering-team/senior-computer-vision/references/computer_vision_architectures.md)
 - **Object Detection Optimization Reference:** [../../skills/engineering-team/senior-computer-vision/references/object_detection_optimization.md](../../skills/engineering-team/senior-computer-vision/references/object_detection_optimization.md)
 - **Production Vision Systems Reference:** [../../skills/engineering-team/senior-computer-vision/references/production_vision_systems.md](../../skills/engineering-team/senior-computer-vision/references/production_vision_systems.md)

@@ -62,7 +62,7 @@ mcp__atlassian__link_issue issue="PROJ-123" confluence_page_id="456789"
 - **Implementation Summary:** `IMPLEMENTATION_SUMMARY.md`
 - **Real-World Scenario:** `REAL_WORLD_SCENARIO.md`
 - **PM Overview:** `README.md`
-- **Main Documentation:** `../CLAUDE.md`
+- **Agent Authoring Guide:** `../../agents/cs-agent-author.md`
 
 ---
 

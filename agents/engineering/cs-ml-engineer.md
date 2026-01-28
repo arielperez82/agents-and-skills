@@ -1357,7 +1357,7 @@ echo "📍 API endpoint: http://llm-api:8000/generate"
 
 - **Skill Documentation:** [../../skills/engineering-team/senior-ml-engineer/SKILL.md](../../skills/engineering-team/senior-ml-engineer/SKILL.md)
 - **Engineering Team Guide:** [../../skills/engineering-team/CLAUDE.md](../../skills/engineering-team/CLAUDE.md)
-- **Agent Development Guide:** [../CLAUDE.md](../CLAUDE.md)
+- **Agent Development Guide:** [cs-agent-author](../cs-agent-author.md)
 - **MLOps Production Patterns Reference:** [../../skills/engineering-team/senior-ml-engineer/references/mlops_production_patterns.md](../../skills/engineering-team/senior-ml-engineer/references/mlops_production_patterns.md)
 - **LLM Integration Guide Reference:** [../../skills/engineering-team/senior-ml-engineer/references/llm_integration_guide.md](../../skills/engineering-team/senior-ml-engineer/references/llm_integration_guide.md)
 - **RAG System Architecture Reference:** [../../skills/engineering-team/senior-ml-engineer/references/rag_system_architecture.md](../../skills/engineering-team/senior-ml-engineer/references/rag_system_architecture.md)

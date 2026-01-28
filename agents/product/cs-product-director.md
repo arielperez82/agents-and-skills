@@ -559,7 +559,7 @@ echo "📊 Update KR progress values in: $OKR_FILE"
 
 - **Skill Documentation:** [../../skills/product-team/product-strategist/SKILL.md](../../skills/product-team/product-strategist/SKILL.md)
 - **Product Domain Guide:** [../../skills/product-team/CLAUDE.md](../../skills/product-team/CLAUDE.md)
-- **Agent Development Guide:** [../CLAUDE.md](../CLAUDE.md)
+- **Agent Development Guide:** [cs-agent-author](../cs-agent-author.md)
 
 ---
 

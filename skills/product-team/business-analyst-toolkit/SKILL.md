@@ -732,7 +732,7 @@ cp assets/stakeholder-analysis-template.md feature-request-stakeholders.md
 
 **Documentation:** Full skill guide and workflows available in this file
 
-**Support:** For issues or questions, refer to parent domain guide at `../CLAUDE.md`
+**Support:** For issues or questions, refer to parent domain guide at `../CLAUDE.md` and agent authoring guide at `../../../agents/cs-agent-author.md`
 
 **Version:** 1.1.0 | **Last Updated:** 2025-11-27 | **Status:** Production Ready
 

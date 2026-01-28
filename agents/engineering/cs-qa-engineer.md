@@ -1061,7 +1061,7 @@ echo "📝 Open report: open $REPORT_DIR/quality-report.html"
 
 - **Skill Documentation:** [../../skills/engineering-team/senior-qa/SKILL.md](../../skills/engineering-team/senior-qa/SKILL.md)
 - **Engineering Team Guide:** [../../skills/engineering-team/CLAUDE.md](../../skills/engineering-team/CLAUDE.md)
-- **Agent Development Guide:** [../CLAUDE.md](../CLAUDE.md)
+- **Agent Development Guide:** [cs-agent-author](../cs-agent-author.md)
 - **Testing Strategies Reference:** [../../skills/engineering-team/senior-qa/references/testing_strategies.md](../../skills/engineering-team/senior-qa/references/testing_strategies.md)
 - **Test Automation Patterns Reference:** [../../skills/engineering-team/senior-qa/references/test_automation_patterns.md](../../skills/engineering-team/senior-qa/references/test_automation_patterns.md)
 - **QA Best Practices Reference:** [../../skills/engineering-team/senior-qa/references/qa_best_practices.md](../../skills/engineering-team/senior-qa/references/qa_best_practices.md)

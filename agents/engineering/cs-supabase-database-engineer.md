@@ -521,7 +521,7 @@ For backend API development:
 
 - **Skill Documentation:** [../../skills/supabase-best-practices/SKILL.md](../../skills/supabase-best-practices/SKILL.md)
 - **Supabase Guidelines:** [../../skills/supabase-best-practices/references/supabase-guidelines.md](../../skills/supabase-best-practices/references/supabase-guidelines.md)
-- **Agent Development Guide:** [../CLAUDE.md](../CLAUDE.md)
+- **Agent Development Guide:** [cs-agent-author](../cs-agent-author.md)
 
 ---
 

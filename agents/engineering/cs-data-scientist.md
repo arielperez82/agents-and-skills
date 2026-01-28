@@ -599,7 +599,7 @@ echo "Analysis complete! Report saved to $REPORT_DIR"
 
 - **Skill Documentation:** [../../skills/engineering-team/senior-data-scientist/SKILL.md](../../skills/engineering-team/senior-data-scientist/SKILL.md)
 - **Domain Guide:** [../../skills/engineering-team/CLAUDE.md](../../skills/engineering-team/CLAUDE.md)
-- **Agent Development Guide:** [../CLAUDE.md](../CLAUDE.md)
+- **Agent Development Guide:** [cs-agent-author](../cs-agent-author.md)
 
 ---
 

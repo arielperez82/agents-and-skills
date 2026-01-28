@@ -299,7 +299,7 @@ done
 
 - **Skill Documentation:** [../../skills/marketing-team/content-creator/SKILL.md](../../skills/marketing-team/content-creator/SKILL.md)
 - **Marketing Domain Guide:** [../../skills/marketing-team/CLAUDE.md](../../skills/marketing-team/CLAUDE.md)
-- **Agent Development Guide:** [../CLAUDE.md](../CLAUDE.md)
+- **Agent Development Guide:** [cs-agent-author](../cs-agent-author.md)
 - **Marketing Roadmap:** [../../skills/marketing-team/marketing_skills_roadmap.md](../../skills/marketing-team/marketing_skills_roadmap.md)
 
 ---

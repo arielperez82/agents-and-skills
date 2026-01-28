@@ -3,6 +3,12 @@
 
 This directory contains specifications for specialized Claude Code agents that work together to maintain code quality, documentation, and development workflow.
 
+## What this file is (and isn’t)
+
+- **What this is**: The **operator’s guide + index** for the `agents/` directory — which agents exist, **when to invoke each**, and how they **handoff** to each other in a typical workflow.
+- **Who it’s for**: Humans (and assistants) who want to **use/run agents**, pick the right agent for the job, or understand the overall agent system at a glance.
+- **What this is not**: The spec for how to *author* agents (frontmatter schema, templates, validation rules, execution safety). For that, see `agents/CLAUDE.md`.
+
 ## Agent Overview
 
 ### Development Process Agents

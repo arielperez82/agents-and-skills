@@ -261,7 +261,7 @@ When working with project-specific databases, you will adhere to any established
 - **Databases Skill:** [../../skills/databases/SKILL.md](../../skills/databases/SKILL.md)
 - **SQL Expert Skill:** [../../skills/sql-expert/SKILL.md](../../skills/sql-expert/SKILL.md)
 - **Engineering Team Skills:** [../../skills/engineering-team/CLAUDE.md](../../skills/engineering-team/CLAUDE.md)
-- **Agent Development Guide:** [../CLAUDE.md](../CLAUDE.md)
+- **Agent Development Guide:** [cs-agent-author](../cs-agent-author.md)
 
 ---
 

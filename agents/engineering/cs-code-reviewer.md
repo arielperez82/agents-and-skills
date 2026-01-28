@@ -429,7 +429,7 @@ echo "Security check complete. Safe to deploy."
 
 - **Skill Documentation:** [../../skills/engineering-team/code-reviewer/SKILL.md](../../skills/engineering-team/code-reviewer/SKILL.md)
 - **Domain Guide:** [../../skills/engineering-team/CLAUDE.md](../../skills/engineering-team/CLAUDE.md)
-- **Agent Development Guide:** [../CLAUDE.md](../CLAUDE.md)
+- **Agent Development Guide:** [cs-agent-author](../cs-agent-author.md)
 
 ---
 

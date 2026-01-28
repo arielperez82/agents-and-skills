@@ -977,7 +977,7 @@ echo "   - React admin UI"
 
 - **Skill Documentation:** [../../skills/engineering-team/senior-fullstack/SKILL.md](../../skills/engineering-team/senior-fullstack/SKILL.md)
 - **Engineering Team Guide:** [../../skills/engineering-team/CLAUDE.md](../../skills/engineering-team/CLAUDE.md)
-- **Agent Development Guide:** [../CLAUDE.md](../CLAUDE.md)
+- **Agent Development Guide:** [cs-agent-author](../cs-agent-author.md)
 - **Architecture Patterns Reference:** [../../skills/engineering-team/senior-fullstack/references/architecture-patterns.md](../../skills/engineering-team/senior-fullstack/references/architecture-patterns.md)
 - **Technology Stacks Reference:** [../../skills/engineering-team/senior-fullstack/references/tech-stacks.md](../../skills/engineering-team/senior-fullstack/references/tech-stacks.md)
 - **Best Practices Reference:** [../../skills/engineering-team/senior-fullstack/references/best-practices.md](../../skills/engineering-team/senior-fullstack/references/best-practices.md)

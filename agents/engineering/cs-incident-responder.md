@@ -1267,7 +1267,7 @@ echo "Full Report: ./incidents/$INCIDENT_ID/data-breach-report.md"
 
 - **Skill Documentation:** [../../skills/engineering-team/incident-response/SKILL.md](../../skills/engineering-team/incident-response/SKILL.md)
 - **Engineering Team Guide:** [../../skills/engineering-team/CLAUDE.md](../../skills/engineering-team/CLAUDE.md)
-- **Agent Development Guide:** [../CLAUDE.md](../CLAUDE.md)
+- **Agent Development Guide:** [cs-agent-author](../cs-agent-author.md)
 - **Incident Response Playbooks:** [../../skills/engineering-team/incident-response/references/incident-response-playbooks.md](../../skills/engineering-team/incident-response/references/incident-response-playbooks.md)
 - **Forensics Evidence Guide:** [../../skills/engineering-team/incident-response/references/forensics-evidence-guide.md](../../skills/engineering-team/incident-response/references/forensics-evidence-guide.md)
 - **Communication Templates:** [../../skills/engineering-team/incident-response/references/communication-templates.md](../../skills/engineering-team/incident-response/references/communication-templates.md)

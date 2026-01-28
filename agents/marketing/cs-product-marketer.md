@@ -423,7 +423,7 @@ echo "Plan complete: ${TARGET_MARKET}-gtm-plan.txt"
 - **Launch Checklists:** [../../skills/marketing-team/marketing-strategy-pmm/references/launch-checklists.md](../../skills/marketing-team/marketing-strategy-pmm/references/launch-checklists.md)
 - **International GTM:** [../../skills/marketing-team/marketing-strategy-pmm/references/international-gtm.md](../../skills/marketing-team/marketing-strategy-pmm/references/international-gtm.md)
 - **Marketing Domain Guide:** [../../skills/marketing-team/CLAUDE.md](../../skills/marketing-team/CLAUDE.md)
-- **Agent Development Guide:** [../CLAUDE.md](../CLAUDE.md)
+- **Agent Development Guide:** [cs-agent-author](../cs-agent-author.md)
 - **Marketing Roadmap:** [../../skills/marketing-team/marketing_skills_roadmap.md](../../skills/marketing-team/marketing_skills_roadmap.md)
 
 ---

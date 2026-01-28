@@ -643,7 +643,7 @@ echo "- Usability Testing: ../../skills/product-team/ux-researcher-designer/refe
 
 - **Skill Documentation:** [../../skills/product-team/ux-researcher-designer/SKILL.md](../../skills/product-team/ux-researcher-designer/SKILL.md)
 - **Product Domain Guide:** [../../skills/product-team/CLAUDE.md](../../skills/product-team/CLAUDE.md)
-- **Agent Development Guide:** [../CLAUDE.md](../CLAUDE.md)
+- **Agent Development Guide:** [cs-agent-author](../cs-agent-author.md)
 
 ---
 

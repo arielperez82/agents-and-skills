@@ -1395,7 +1395,7 @@ echo "Alert health check complete!"
 
 - **Skill Documentation:** [../../skills/engineering-team/senior-observability/SKILL.md](../../skills/engineering-team/senior-observability/SKILL.md)
 - **Domain Guide:** [../../skills/engineering-team/CLAUDE.md](../../skills/engineering-team/CLAUDE.md)
-- **Agent Development Guide:** [../CLAUDE.md](../CLAUDE.md)
+- **Agent Development Guide:** [cs-agent-author](../cs-agent-author.md)
 
 ---
 

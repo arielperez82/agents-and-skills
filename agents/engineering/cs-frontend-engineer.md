@@ -726,7 +726,7 @@ echo "✅ Audit complete. Review a11y-report.txt for findings."
 
 - **Skill Documentation:** [../../skills/engineering-team/senior-frontend/SKILL.md](../../skills/engineering-team/senior-frontend/SKILL.md)
 - **Engineering Domain Guide:** [../../skills/engineering-team/CLAUDE.md](../../skills/engineering-team/CLAUDE.md)
-- **Agent Development Guide:** [../CLAUDE.md](../CLAUDE.md)
+- **Agent Development Guide:** [cs-agent-author](../cs-agent-author.md)
 
 ---
 

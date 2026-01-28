@@ -833,4 +833,4 @@ echo "  - Archive in: Confluence 'Portfolio Dashboards' space"
 
 - **Skill Documentation:** [../../skills/delivery-team/senior-pm/SKILL.md](../../skills/delivery-team/senior-pm/SKILL.md)
 - **Domain Guide:** [../../skills/delivery-team/CLAUDE.md](../../skills/delivery-team/CLAUDE.md)
-- **Agent Development Guide:** [../CLAUDE.md](../CLAUDE.md)
+- **Agent Development Guide:** [cs-agent-author](../cs-agent-author.md)

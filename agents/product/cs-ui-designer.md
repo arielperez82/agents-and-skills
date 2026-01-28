@@ -739,7 +739,7 @@ echo "6. Add do's and don'ts"
 
 - **Skill Documentation:** [../../skills/product-team/ui-design-system/SKILL.md](../../skills/product-team/ui-design-system/SKILL.md)
 - **Product Domain Guide:** [../../skills/product-team/CLAUDE.md](../../skills/product-team/CLAUDE.md)
-- **Agent Development Guide:** [../CLAUDE.md](../CLAUDE.md)
+- **Agent Development Guide:** [cs-agent-author](../cs-agent-author.md)
 
 ---
 

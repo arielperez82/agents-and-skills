@@ -448,7 +448,7 @@ echo "✅ Weekly dashboard complete in $DASHBOARD_DIR/"
 - **Agile Product Owner Skill:** [../../skills/product-team/agile-product-owner/SKILL.md](../../skills/product-team/agile-product-owner/SKILL.md)
 - **Business Analyst Toolkit Skill:** [../../skills/product-team/business-analyst-toolkit/SKILL.md](../../skills/product-team/business-analyst-toolkit/SKILL.md)
 - **Product Domain Guide:** [../../skills/product-team/CLAUDE.md](../../skills/product-team/CLAUDE.md)
-- **Agent Development Guide:** [../CLAUDE.md](../CLAUDE.md)
+- **Agent Development Guide:** [cs-agent-author](../cs-agent-author.md)
 
 ---
 

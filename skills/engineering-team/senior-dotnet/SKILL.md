@@ -581,6 +581,6 @@ Use this pattern for end-to-end feature implementation with backend API, fronten
 
 **Documentation:** Full skill guide and workflows available in this file
 
-**Support:** For issues or questions, refer to domain guide at `../CLAUDE.md`
+**Support:** For issues or questions, refer to domain guide at `../CLAUDE.md` and agent authoring guide at `../../../agents/cs-agent-author.md`
 
 **Version:** 1.0.0 | **Last Updated:** 2025-12-16 | **Status:** Production Ready

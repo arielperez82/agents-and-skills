@@ -443,7 +443,7 @@ echo "Report: $QUARTER-roadmap.txt"
 
 - **Skill Documentation:** [../../skills/product-team/product-manager-toolkit/SKILL.md](../../skills/product-team/product-manager-toolkit/SKILL.md)
 - **Product Domain Guide:** [../../skills/product-team/CLAUDE.md](../../skills/product-team/CLAUDE.md)
-- **Agent Development Guide:** [../CLAUDE.md](../CLAUDE.md)
+- **Agent Development Guide:** [cs-agent-author](../cs-agent-author.md)
 
 ---
 
