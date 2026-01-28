@@ -35,7 +35,9 @@ These agents live directly in the `agents/` root directory:
 - **`cs-docs-guardian`** - Creates and maintains world-class permanent documentation (README, guides, API docs)
 - **`cs-learn`** - Captures learnings, gotchas, and patterns into CLAUDE.md
 
-### Engineering Agents (`agents/engineering/`)
+### Engineering Agents (root `agents/`)
+
+These agents now live directly in the root `agents/` directory (no `engineering/` subfolder):
 
 #### Architecture & Design
 - **`cs-architect`** - System architecture specialist for design patterns, scalability planning, and technology evaluation

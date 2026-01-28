@@ -15,7 +15,7 @@ REPORT_OUTPUT_DIR: `plans/<plan-name>/reports/scout-report.md`
 
 ## Agent
 
-Use `cs-codebase-scout` agent (located at `agents/engineering/cs-codebase-scout.md`).
+Use `cs-codebase-scout` agent (located at `agents/cs-codebase-scout.md`).
 
 ## Adaptive Strategy
 

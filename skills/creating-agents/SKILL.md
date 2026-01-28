@@ -275,9 +275,9 @@ These patterns help you understand the conventions for each domain when creating
 - **Common tools**: `rice_prioritizer.py`, `user_story_generator.py`
 - **Example agents**: `cs-product-manager`, `cs-product-director`, `cs-ux-researcher`
 
-### Engineering Agents (`agents/engineering/`)
-- **Location**: `agents/engineering/` subdirectory
-- **Reference**: `../../skills/engineering-team/`
+### Engineering Agents (root `agents/`)
+- **Location**: Root `agents/` directory (no subfolder)
+- **Reference**: `../skills/engineering-team/`
 - **Focus**: Code development, quality, architecture
 - **Common tools**: `project_scaffolder.py`, `code_quality_analyzer.py`
 - **Example agents**: `cs-backend-engineer`, `cs-frontend-engineer`, `cs-architect`

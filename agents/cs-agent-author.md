@@ -195,7 +195,7 @@ Use this agent when:
 
 1. Use `creating-agents`:
    - Load `../../skills/creating-agents/SKILL.md`.
-   - Create `agents/engineering/cs-supabase-analytics-engineer.md` using `agent-template.md`.
+   - Create `agents/cs-supabase-analytics-engineer.md` using `agent-template.md`.
 2. Wire skills:
    - Reference Supabase and analytics skills under `../../skills/`.
 3. Add workflows:

@@ -356,10 +356,10 @@ python ../../skills/domain-team/skill-name/scripts/tool.py input.txt
 - Reference: relevant skills (e.g., c-level advisor skills)  
 - Tools: strategic analysis and planning tools
 
-### Engineering Agents (`agents/engineering/`)
+### Engineering Agents (root `agents/`)
 
 - Focus on scaffolding, code quality, fullstack development  
-- Reference: `../../skills/engineering-team/`  
+- Reference: `../skills/engineering-team/`  
 - Typical tools: `project_scaffolder.py`, `code_quality_analyzer.py`
 
 ## Quality Standards

@@ -822,10 +822,10 @@ echo "  - Archive in: Confluence 'Portfolio Dashboards' space"
 ## Related Agents
 
 - [cs-agile-coach](cs-agile-coach.md) - Provides team flow metrics, capacity analysis, and collaboration insights; Senior PM uses this data for RAG monitoring and calls Agile Coach when team dynamics risks emerge
-- [cs-security-engineer](../engineering/cs-security-engineer.md) - Called in for security-related risks and threat modeling
-- [cs-architect](../engineering/cs-architect.md) - Called in for technical architecture and design risks
-- [cs-devsecops-engineer](../engineering/cs-devsecops-engineer.md) - Called in for infrastructure and deployment risks
-- [cs-incident-responder](../engineering/cs-incident-responder.md) - Called in for operational and incident response risks
+- [cs-security-engineer](cs-security-engineer.md) - Called in for security-related risks and threat modeling
+- [cs-architect](cs-architect.md) - Called in for technical architecture and design risks
+- [cs-devsecops-engineer](cs-devsecops-engineer.md) - Called in for infrastructure and deployment risks
+- [cs-incident-responder](cs-incident-responder.md) - Called in for operational and incident response risks
 - [cs-product-manager](cs-product-manager.md) - Provides business prioritization when scope risks emerge
 - [cs-product-analyst](cs-product-analyst.md) - Translates requirements when scope clarity risks are identified
 
@@ -833,4 +833,4 @@ echo "  - Archive in: Confluence 'Portfolio Dashboards' space"
 
 - **Skill Documentation:** [../skills/delivery-team/senior-pm/SKILL.md](../skills/delivery-team/senior-pm/SKILL.md)
 - **Domain Guide:** [../skills/delivery-team/CLAUDE.md](../skills/delivery-team/CLAUDE.md)
-- **Agent Development Guide:** [cs-agent-author](../cs-agent-author.md)
+- **Agent Development Guide:** [cs-agent-author](cs-agent-author.md)
