@@ -272,8 +272,8 @@ Agents should delegate to specialized agents rather than duplicating capabilitie
 - Focus: Code development, quality, architecture
 - Common tools: `project_scaffolder.py`, `code_quality_analyzer.py`
 
-### Delivery Agents (`agents/delivery/`)
-- Reference: `../../skills/delivery-team/`
+### Delivery Agents (root `agents/`)
+- Reference: `../skills/delivery-team/`
 - Focus: Project management, agile coaching, progress tracking
 - Common tools: Project planning and tracking tools
 

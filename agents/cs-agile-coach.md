@@ -51,7 +51,7 @@ The cs-agile-coach agent bridges the gap between agile theory and daily practice
 
 ## Skill Integration
 
-**Skill Location:** `../../skills/delivery-team/agile-coach/`
+**Skill Location:** `../skills/delivery-team/agile-coach/`
 
 ### Python Tools
 
@@ -60,7 +60,7 @@ This is a coaching-driven skill focused on facilitation, communication, and agil
 ### Knowledge Bases
 
 1. **Retrospective Formats**
-   - **Location:** `../../skills/delivery-team/agile-coach/references/retro-formats.md`
+   - **Location:** `../skills/delivery-team/agile-coach/references/retro-formats.md`
    - **Content:** 8 proven retrospective formats including Start/Stop/Continue, Glad/Sad/Mad, 4Ls (Liked/Learned/Lacked/Longed For), Sailboat, Timeline, Starfish, Speed Dating, and Three Little Pigs. Each format includes structure, process steps, duration estimates, example outputs, and facilitation tips.
    - **Use Case:** Selecting and running effective retrospectives based on team needs, varying formats to maintain engagement, and facilitating productive improvement discussions
 
@@ -86,7 +86,7 @@ This is a coaching-driven skill focused on facilitation, communication, and agil
 **Example:**
 ```bash
 # Review backlog and prepare for planning
-cat ../../skills/delivery-team/scrum-master/SKILL.md
+cat ../skills/delivery-team/scrum-master/SKILL.md
 
 # During planning, reference estimation best practices
 # Use planning poker: Team members select Fibonacci values (1,2,3,5,8,13,21)
@@ -141,7 +141,7 @@ cat ../../skills/delivery-team/scrum-master/SKILL.md
 **Steps:**
 1. **Agile Values Reinforcement** - Select format that aligns with agile principles of collaboration and continuous improvement
    ```bash
-   cat ../../skills/delivery-team/agile-coach/references/retro-formats.md
+   cat ../skills/delivery-team/agile-coach/references/retro-formats.md
    ```
 2. **Continuous Improvement Check** - Review progress on previous improvement commitments, celebrating successes and learning from challenges
 3. **Psychological Safety** - Create environment of trust and openness, reminding team that retrospectives are about improvement, not blame
@@ -426,5 +426,5 @@ echo "- Monitor throughput trends weekly for continuous improvement"
 
 ## References
 
-- **Skill Documentation:** [../../skills/delivery-team/agile-coach/SKILL.md](../../skills/delivery-team/agile-coach/SKILL.md)
-- **Domain Guide:** [../../skills/delivery-team/CLAUDE.md](../../skills/delivery-team/CLAUDE.md)
+- **Skill Documentation:** [../skills/delivery-team/agile-coach/SKILL.md](../skills/delivery-team/agile-coach/SKILL.md)
+- **Domain Guide:** [../skills/delivery-team/CLAUDE.md](../skills/delivery-team/CLAUDE.md)

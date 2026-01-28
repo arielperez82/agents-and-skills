@@ -49,7 +49,7 @@ model: sonnet
 color: green
 ---
 
-> **Note**: This agent was renamed from `progress-guardian` to `cs-progress-guardian` and moved to `agents/delivery/` as part of the Guardians/Monitors/Validators cleanup (2026-01-26).
+> **Note**: This agent was renamed from `progress-guardian` to `cs-progress-guardian` during the Guardians/Monitors/Validators cleanup (2026-01-26). It now lives in the root `agents/` directory as a cross-cutting progress tracking guardian.
 
 # Progress Guardian
 

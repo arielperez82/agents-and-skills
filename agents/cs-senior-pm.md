@@ -51,7 +51,7 @@ The cs-senior-pm agent bridges the gap between strategic objectives and tactical
 
 ## Skill Integration
 
-**Skill Location:** `../../skills/delivery-team/senior-pm/`
+**Skill Location:** `../skills/delivery-team/senior-pm/`
 
 ### Python Tools
 
@@ -60,7 +60,7 @@ This skill focuses on strategic planning and does not include Python automation 
 ### Knowledge Bases
 
 1. **API Reference**
-   - **Location:** `../../skills/delivery-team/senior-pm/references/api_reference.md`
+   - **Location:** `../skills/delivery-team/senior-pm/references/api_reference.md`
    - **Content:** Placeholder reference for technical integrations and API documentation patterns
    - **Use Case:** Template for documenting system integrations and technical reference materials
 
@@ -831,6 +831,6 @@ echo "  - Archive in: Confluence 'Portfolio Dashboards' space"
 
 ## References
 
-- **Skill Documentation:** [../../skills/delivery-team/senior-pm/SKILL.md](../../skills/delivery-team/senior-pm/SKILL.md)
-- **Domain Guide:** [../../skills/delivery-team/CLAUDE.md](../../skills/delivery-team/CLAUDE.md)
+- **Skill Documentation:** [../skills/delivery-team/senior-pm/SKILL.md](../skills/delivery-team/senior-pm/SKILL.md)
+- **Domain Guide:** [../skills/delivery-team/CLAUDE.md](../skills/delivery-team/CLAUDE.md)
 - **Agent Development Guide:** [cs-agent-author](../cs-agent-author.md)
