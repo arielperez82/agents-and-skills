@@ -387,3 +387,72 @@ Before committing an agent:
 - Duplicating skill content in agent files
 - Using LLM calls instead of referencing Python tools
 
+## Learnings from Agent Authoring Refactor (2026-01-28)
+
+### Agent Length and Structure
+
+**Learning:** Agents should be **thin orchestrators** (200-300 lines), not comprehensive documentation repositories.
+
+**What we learned:**
+- Initial `cs-agent-author` was 1188 lines with all doctrine embedded
+- Refactored to 237 lines as a pure orchestrator
+- Detailed standards moved to skill references (`references/authoring-guide.md`)
+- Templates and checklists moved to skill assets (`assets/`)
+
+**Principle:** Use **progressive disclosure**:
+1. **Agent file** = Purpose, skill integration, workflows, examples, references (concise)
+2. **Skill SKILL.md** = Quick start, core principles, structure overview (intermediate)
+3. **Skill references/** = Complete doctrinal content, detailed patterns, edge cases (comprehensive)
+
+**Why this matters:**
+- Agents are discoverable and scannable
+- Detailed doctrine lives in one place (skill references)
+- Skills can evolve independently
+- Reduces cognitive load when reading agent specs
+
+### Skill Organization Pattern
+
+**Learning:** Skills should hold detailed doctrine; agents orchestrate skills.
+
+**Pattern:**
+```
+agent-file.md (237 lines)
+  ├─ References: ../../skills/creating-agents/SKILL.md
+  └─ References: ../../skills/creating-agents/references/authoring-guide.md
+
+skills/creating-agents/
+  ├─ SKILL.md (concise overview)
+  ├─ references/authoring-guide.md (detailed doctrine)
+  └─ assets/ (templates, checklists)
+```
+
+**Anti-pattern:** Embedding all doctrine directly in agent files (leads to 1000+ line files).
+
+### Tool Limitations: Large Deletions
+
+**Learning:** `ApplyPatch` tool has limitations when deleting large sections (>500 lines).
+
+**What happened:**
+- Attempted to delete ~900 lines of duplicated content from `cs-agent-author.md`
+- `ApplyPatch` failed with "Failed to find context" errors
+- Multiple attempts with different context windows still failed
+
+**Workaround:**
+- For large deletions, use `search_replace` with the exact old_string
+- Or manually delete the section (user intervention)
+- Or break into smaller, sequential deletions
+
+**Best practice:** When refactoring, delete duplicated content **before** adding new content to avoid large trailing blocks.
+
+### Documentation Location for Agent Learnings
+
+**Learning:** Agent-specific learnings should go into skill references, not a single CLAUDE.md.
+
+**Where to document:**
+- **Agent authoring learnings** → `skills/creating-agents/references/authoring-guide.md` (this file)
+- **Agent refactoring learnings** → `skills/refactoring-agents/references/refactor-guide.md`
+- **General codebase learnings** → Project-specific CLAUDE.md (if exists) or appropriate skill references
+- **Architectural decisions** → ADRs via `cs-adr-writer`
+
+**Note:** The `cs-learn` agent should be updated to route learnings to appropriate skill references based on domain, not just a single CLAUDE.md file.
+

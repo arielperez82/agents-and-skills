@@ -185,3 +185,75 @@ Use this checklist before creating or refactoring an agent:
 - [ ] **Overlap check**: Does this agent overlap >80% with another agent on purpose + output + timing?
 - [ ] **Collaboration documented**: Are handoff protocols clearly documented in `collaborates-with` sections?
 
+## Learnings from Agent Authoring Refactor (2026-01-28)
+
+### Thin Orchestrator Pattern
+
+**Learning:** Successful refactors move from monolithic agent files to thin orchestrators that delegate to specialized skills.
+
+**Refactor pattern:**
+1. **Identify** large agent file (>800 lines) with embedded doctrine
+2. **Extract** detailed standards into skill references
+3. **Create** skill structure: `SKILL.md` (overview) + `references/` (doctrine) + `assets/` (templates)
+4. **Slim** agent file to orchestrator role: purpose, skill integration, workflows, examples
+5. **Update** all cross-references to point to new skill locations
+
+**Success metrics:**
+- Agent file reduced from 1188 → 237 lines (80% reduction)
+- Zero duplication between agent and skills
+- Clear separation: agent = orchestrator, skills = doctrine
+
+### Progressive Disclosure Architecture
+
+**Learning:** Three-level documentation structure improves discoverability and maintainability.
+
+**Level 1: Agent File** (~200-300 lines)
+- Purpose and when to use
+- Skill integration overview
+- Workflow summaries
+- Integration examples
+- References to skills
+
+**Level 2: Skill SKILL.md** (~200-400 lines)
+- Quick start guide
+- Core principles
+- Structure overview
+- When to use this skill
+- References to detailed guides
+
+**Level 3: Skill References** (unlimited)
+- Complete doctrinal content
+- Detailed patterns and examples
+- Edge cases and gotchas
+- Historical context and rationale
+
+**Benefit:** Readers can stop at the appropriate depth for their needs.
+
+### Refactoring Large Agent Files
+
+**Learning:** When refactoring, delete duplicated content **before** adding new content to avoid tool limitations.
+
+**What we learned:**
+- `ApplyPatch` fails on large deletions (>500 lines) with "Failed to find context"
+- Better approach: Use `search_replace` with exact old_string for large blocks
+- Or: Break into smaller sequential deletions
+- Or: Manual deletion for very large sections (user intervention)
+
+**Best practice:** During refactor:
+1. Extract content to skills first
+2. Delete duplicated sections from agent file immediately
+3. Then add new orchestrator content
+4. This prevents large trailing blocks that are hard to remove
+
+### Documentation Routing for Learnings
+
+**Learning:** Agent ecosystem learnings belong in skill references, not a single CLAUDE.md.
+
+**Routing rules:**
+- **Agent authoring patterns** → `creating-agents/references/authoring-guide.md`
+- **Agent refactoring patterns** → `refactoring-agents/references/refactor-guide.md` (this file)
+- **General codebase learnings** → Project-specific CLAUDE.md or domain skill references
+- **Architectural decisions** → ADRs via `cs-adr-writer`
+
+**Implication:** `cs-learn` agent needs updating to route learnings to appropriate skill references based on domain, not assume a single CLAUDE.md exists.
+
