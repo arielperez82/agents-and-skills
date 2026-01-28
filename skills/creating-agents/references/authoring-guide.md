@@ -277,9 +277,9 @@ All skill references use the `../../` pattern from agent files:
    - **Usage:** `python ../../skills/marketing-team/content-creator/scripts/seo_optimizer.py article.md \"keyword\"`
 ```
 
-From `agents/marketing/cs-content-creator.md` to `skills/marketing-team/content-creator/`:
+From `agents/cs-content-creator.md` (root) to `skills/marketing-team/content-creator/`:
 
-- `agents/marketing/` → `../../` → repo root → `skills/marketing-team/content-creator/`
+- `agents/` (root) → `../` → repo root → `skills/marketing-team/content-creator/`
 
 **Always test that these paths resolve correctly** from the agent directory.
 
@@ -288,8 +288,8 @@ From `agents/marketing/cs-content-creator.md` to `skills/marketing-team/content-
 Agents execute Python tools from skill packages:
 
 ```bash
-# From agent context
-python ../../skills/marketing-team/content-creator/scripts/brand_voice_analyzer.py input.txt
+# From agent context (root agents/)
+python ../skills/marketing-team/content-creator/scripts/brand_voice_analyzer.py input.txt
 
 # With JSON output
 python ../../skills/marketing-team/content-creator/scripts/brand_voice_analyzer.py input.txt json
@@ -338,10 +338,10 @@ python ../../skills/domain-team/skill-name/scripts/tool.py input.txt
 
 ## Domain-Specific Guidelines
 
-### Marketing Agents (`agents/marketing/`)
+### Marketing Agents (root `agents/`)
 
 - Focus on content creation, SEO, demand generation  
-- Reference: `../../skills/marketing-team/`  
+- Reference: `../skills/marketing-team/`  
 - Typical tools: `brand_voice_analyzer.py`, `seo_optimizer.py`
 
 ### Product Agents (`agents/product/`)

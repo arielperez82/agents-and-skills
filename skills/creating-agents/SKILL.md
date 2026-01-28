@@ -255,27 +255,39 @@ Agents should delegate to specialized agents rather than duplicating capabilitie
 
 ❌ **Using LLM calls instead of Python tools** - Agents orchestrate tools, don't replace them
 
-## Domain-Specific Guidelines
+## Domain-Specific Patterns & Examples
 
-### Marketing Agents (`agents/marketing/`)
-- Reference: `../../skills/marketing-team/`
-- Focus: Content creation, SEO, demand generation
-- Common tools: `brand_voice_analyzer.py`, `seo_optimizer.py`
+> **Note**: This section shows **patterns and examples** for creating agents in each domain. It is NOT a complete listing of all agents. For the complete agent catalog, see `agents/README.md`.
+
+These patterns help you understand the conventions for each domain when creating new agents:
+
+### Marketing Agents (root `agents/`)
+- **Location**: Root `agents/` directory (no subfolder)
+- **Reference**: `../skills/marketing-team/`
+- **Focus**: Content creation, SEO, demand generation
+- **Common tools**: `brand_voice_analyzer.py`, `seo_optimizer.py`
+- **Example agents**: `cs-content-creator`, `cs-seo-strategist`, `cs-product-marketer`
 
 ### Product Agents (`agents/product/`)
-- Reference: `../../skills/product-team/`
-- Focus: Prioritization, user research, agile workflows
-- Common tools: `rice_prioritizer.py`, `user_story_generator.py`
+- **Location**: `agents/product/` subdirectory
+- **Reference**: `../../skills/product-team/`
+- **Focus**: Prioritization, user research, agile workflows
+- **Common tools**: `rice_prioritizer.py`, `user_story_generator.py`
+- **Example agents**: `cs-product-manager`, `cs-product-director`, `cs-ux-researcher`
 
 ### Engineering Agents (`agents/engineering/`)
-- Reference: `../../skills/engineering-team/`
-- Focus: Code development, quality, architecture
-- Common tools: `project_scaffolder.py`, `code_quality_analyzer.py`
+- **Location**: `agents/engineering/` subdirectory
+- **Reference**: `../../skills/engineering-team/`
+- **Focus**: Code development, quality, architecture
+- **Common tools**: `project_scaffolder.py`, `code_quality_analyzer.py`
+- **Example agents**: `cs-backend-engineer`, `cs-frontend-engineer`, `cs-architect`
 
 ### Delivery Agents (root `agents/`)
-- Reference: `../skills/delivery-team/`
-- Focus: Project management, agile coaching, progress tracking
-- Common tools: Project planning and tracking tools
+- **Location**: Root `agents/` directory (no subfolder)
+- **Reference**: `../skills/delivery-team/`
+- **Focus**: Project management, agile coaching, progress tracking
+- **Common tools**: Project planning and tracking tools
+- **Example agents**: `cs-agile-coach`, `cs-senior-pm`, `cs-progress-guardian`
 
 ## When to Use This Skill
 
@@ -298,8 +310,10 @@ After creating an agent:
 
 1. **Validate**: Run through [assets/agent-checklists.md](assets/agent-checklists.md)
 2. **Test**: Verify all paths, tools, and workflows
-3. **Document**: Update `agents/README.md` with new agent entry
+3. **Update README**: **REQUIRED** - Add the new agent to `agents/README.md` in the "Complete Agent Catalog" section
 4. **Commit**: Use conventional commit: `feat(agents): implement cs-agent-name`
+
+> **⚠️ Maintenance Requirement**: You MUST update `agents/README.md` whenever you add, delete, move, or rename an agent. The README serves as the complete catalog and operator's guide. See the maintenance note at the top of `agents/README.md` for details.
 
 ## Reference Files
 

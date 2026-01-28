@@ -83,60 +83,60 @@ This agent is designed for marketing teams, SEO specialists, and digital markete
 
 ## Skill Integration
 
-**Skill Location:** `../../skills/marketing-team/seo-strategist/`
+**Skill Location:** `../skills/marketing-team/seo-strategist/`
 
 ### Python Tools
 
 1. **Keyword Researcher**
    - **Purpose:** Keyword research, clustering, and content mapping with priority scoring
-   - **Path:** `../../skills/marketing-team/seo-strategist/scripts/keyword_researcher.py`
-   - **Usage:** `python ../../skills/marketing-team/seo-strategist/scripts/keyword_researcher.py keywords.csv --cluster --score`
+   - **Path:** `../skills/marketing-team/seo-strategist/scripts/keyword_researcher.py`
+   - **Usage:** `python ../skills/marketing-team/seo-strategist/scripts/keyword_researcher.py keywords.csv --cluster --score`
    - **Output Formats:** Text report, JSON, CSV
    - **Use Cases:** Keyword strategy, topic cluster planning, content gap analysis
 
 2. **Technical SEO Auditor**
    - **Purpose:** Site-wide technical SEO audit with crawlability, indexation, and structure checks
-   - **Path:** `../../skills/marketing-team/seo-strategist/scripts/technical_seo_auditor.py`
-   - **Usage:** `python ../../skills/marketing-team/seo-strategist/scripts/technical_seo_auditor.py ./site-export/`
+   - **Path:** `../skills/marketing-team/seo-strategist/scripts/technical_seo_auditor.py`
+   - **Usage:** `python ../skills/marketing-team/seo-strategist/scripts/technical_seo_auditor.py ./site-export/`
    - **Output Formats:** Text report, JSON, CSV
    - **Use Cases:** Technical SEO audits, site health monitoring, issue prioritization
 
 3. **SEO Roadmap Generator**
    - **Purpose:** Generate prioritized SEO action plans from audit findings
-   - **Path:** `../../skills/marketing-team/seo-strategist/scripts/seo_roadmap_generator.py`
-   - **Usage:** `python ../../skills/marketing-team/seo-strategist/scripts/seo_roadmap_generator.py audit.json --quarters 4`
+   - **Path:** `../skills/marketing-team/seo-strategist/scripts/seo_roadmap_generator.py`
+   - **Usage:** `python ../skills/marketing-team/seo-strategist/scripts/seo_roadmap_generator.py audit.json --quarters 4`
    - **Output Formats:** Text, JSON, Markdown, CSV
    - **Use Cases:** Quarterly planning, resource allocation, KPI setting
 
 ### Knowledge Bases
 
 1. **SEO Strategy Framework**
-   - **Location:** `../../skills/marketing-team/seo-strategist/references/seo_strategy_framework.md`
+   - **Location:** `../skills/marketing-team/seo-strategist/references/seo_strategy_framework.md`
    - **Content:** Pillar-cluster model, keyword research methodology, search intent classification, SERP feature targeting, SEO maturity assessment
    - **Use Case:** Strategic planning, keyword prioritization, content architecture
 
 2. **Technical SEO Guide**
-   - **Location:** `../../skills/marketing-team/seo-strategist/references/technical_seo_guide.md`
+   - **Location:** `../skills/marketing-team/seo-strategist/references/technical_seo_guide.md`
    - **Content:** Crawlability (robots.txt, sitemaps), indexation (canonicals, noindex), Core Web Vitals, structured data, mobile-first indexing
    - **Use Case:** Technical implementation, audit checklists, best practices
 
 3. **Competitive SEO Analysis**
-   - **Location:** `../../skills/marketing-team/seo-strategist/references/competitive_seo_analysis.md`
+   - **Location:** `../skills/marketing-team/seo-strategist/references/competitive_seo_analysis.md`
    - **Content:** Competitor identification, SERP analysis, content gap analysis, backlink comparison, keyword overlap
    - **Use Case:** Competitive intelligence, opportunity identification, positioning
 
 ### Templates
 
 1. **Keyword Research Template**
-   - **Location:** `../../skills/marketing-team/seo-strategist/assets/keyword_research_template.md`
+   - **Location:** `../skills/marketing-team/seo-strategist/assets/keyword_research_template.md`
    - **Use Case:** Documenting keyword research with clusters, priorities, and content mapping
 
 2. **SEO Audit Checklist**
-   - **Location:** `../../skills/marketing-team/seo-strategist/assets/seo_audit_checklist.md`
+   - **Location:** `../skills/marketing-team/seo-strategist/assets/seo_audit_checklist.md`
    - **Use Case:** Comprehensive SEO audit with technical, on-page, and off-page checks
 
 3. **SEO Roadmap Template**
-   - **Location:** `../../skills/marketing-team/seo-strategist/assets/seo_roadmap_template.md`
+   - **Location:** `../skills/marketing-team/seo-strategist/assets/seo_roadmap_template.md`
    - **Use Case:** Quarterly planning with initiatives, KPIs, and milestones
 
 ## Workflows
@@ -149,7 +149,7 @@ This agent is designed for marketing teams, SEO specialists, and digital markete
 1. **Prepare keyword list** - Export from tools or compile manually
 2. **Run keyword researcher** - Cluster and prioritize keywords
    ```bash
-   python ../../skills/marketing-team/seo-strategist/scripts/keyword_researcher.py keywords.csv --cluster --score --output json > clusters.json
+   python ../skills/marketing-team/seo-strategist/scripts/keyword_researcher.py keywords.csv --cluster --score --output json > clusters.json
    ```
 3. **Review clusters** - Identify pillar topics and supporting clusters
 4. **Map to content** - Assign clusters to existing or planned content
@@ -163,10 +163,10 @@ This agent is designed for marketing teams, SEO specialists, and digital markete
 **Example:**
 ```bash
 # Cluster keywords and score
-python ../../skills/marketing-team/seo-strategist/scripts/keyword_researcher.py keywords.csv --cluster --score
+python ../skills/marketing-team/seo-strategist/scripts/keyword_researcher.py keywords.csv --cluster --score
 
 # Include content gap analysis
-python ../../skills/marketing-team/seo-strategist/scripts/keyword_researcher.py keywords.csv --cluster --score --content-file content-inventory.txt
+python ../skills/marketing-team/seo-strategist/scripts/keyword_researcher.py keywords.csv --cluster --score --content-file content-inventory.txt
 ```
 
 ### Workflow 2: Technical SEO Audit
@@ -177,7 +177,7 @@ python ../../skills/marketing-team/seo-strategist/scripts/keyword_researcher.py 
 1. **Export site data** - Download HTML files or use crawler export
 2. **Run technical audit** - Analyze site structure and issues
    ```bash
-   python ../../skills/marketing-team/seo-strategist/scripts/technical_seo_auditor.py ./site-export/ --checks all --output json > audit.json
+   python ../skills/marketing-team/seo-strategist/scripts/technical_seo_auditor.py ./site-export/ --checks all --output json > audit.json
    ```
 3. **Review findings** - Analyze issues by category and severity
 4. **Prioritize fixes** - Focus on critical and high-severity issues first
@@ -191,10 +191,10 @@ python ../../skills/marketing-team/seo-strategist/scripts/keyword_researcher.py 
 **Example:**
 ```bash
 # Full technical audit
-python ../../skills/marketing-team/seo-strategist/scripts/technical_seo_auditor.py ./site-export/ --output text
+python ../skills/marketing-team/seo-strategist/scripts/technical_seo_auditor.py ./site-export/ --output text
 
 # JSON for roadmap generation
-python ../../skills/marketing-team/seo-strategist/scripts/technical_seo_auditor.py ./site-export/ --output json > audit.json
+python ../skills/marketing-team/seo-strategist/scripts/technical_seo_auditor.py ./site-export/ --output json > audit.json
 ```
 
 ### Workflow 3: SEO Roadmap Planning
@@ -205,11 +205,11 @@ python ../../skills/marketing-team/seo-strategist/scripts/technical_seo_auditor.
 1. **Complete technical audit** - Generate audit.json from technical_seo_auditor.py
 2. **Generate roadmap** - Create prioritized action plan
    ```bash
-   python ../../skills/marketing-team/seo-strategist/scripts/seo_roadmap_generator.py audit.json --quarters 4 --output md > roadmap.md
+   python ../skills/marketing-team/seo-strategist/scripts/seo_roadmap_generator.py audit.json --quarters 4 --output md > roadmap.md
    ```
 3. **Identify quick wins** - Focus on high-impact, low-effort tasks
    ```bash
-   python ../../skills/marketing-team/seo-strategist/scripts/seo_roadmap_generator.py audit.json --quick-wins
+   python ../skills/marketing-team/seo-strategist/scripts/seo_roadmap_generator.py audit.json --quick-wins
    ```
 4. **Set KPI targets** - Define measurable targets for each quarter
 5. **Assign resources** - Allocate team hours to initiatives
@@ -222,13 +222,13 @@ python ../../skills/marketing-team/seo-strategist/scripts/technical_seo_auditor.
 **Example:**
 ```bash
 # Quick wins only
-python ../../skills/marketing-team/seo-strategist/scripts/seo_roadmap_generator.py audit.json --quick-wins
+python ../skills/marketing-team/seo-strategist/scripts/seo_roadmap_generator.py audit.json --quick-wins
 
 # Full quarterly roadmap in markdown
-python ../../skills/marketing-team/seo-strategist/scripts/seo_roadmap_generator.py audit.json --quarters 4 --output md > roadmap.md
+python ../skills/marketing-team/seo-strategist/scripts/seo_roadmap_generator.py audit.json --quarters 4 --output md > roadmap.md
 
 # Custom hours per quarter
-python ../../skills/marketing-team/seo-strategist/scripts/seo_roadmap_generator.py audit.json --quarters 4 --hours-per-quarter 120
+python ../skills/marketing-team/seo-strategist/scripts/seo_roadmap_generator.py audit.json --quarters 4 --hours-per-quarter 120
 ```
 
 ### Workflow 4: Competitive SEO Analysis
@@ -239,12 +239,12 @@ python ../../skills/marketing-team/seo-strategist/scripts/seo_roadmap_generator.
 1. **Identify competitors** - List 3-5 SERP competitors
 2. **Reference framework** - Review competitive analysis guide
    ```bash
-   cat ../../skills/marketing-team/seo-strategist/references/competitive_seo_analysis.md
+   cat ../skills/marketing-team/seo-strategist/references/competitive_seo_analysis.md
    ```
 3. **Gather competitor data** - Export competitor sitemaps, backlinks, rankings
 4. **Run keyword analysis** - Compare keyword coverage
    ```bash
-   python ../../skills/marketing-team/seo-strategist/scripts/keyword_researcher.py competitor-keywords.csv --cluster
+   python ../skills/marketing-team/seo-strategist/scripts/keyword_researcher.py competitor-keywords.csv --cluster
    ```
 5. **Identify gaps** - Find opportunities where competitors rank and you don't
 6. **Develop positioning** - Create differentiation strategy
@@ -267,15 +267,15 @@ OUTPUT_DIR="./seo-audit-$(date +%Y%m%d)"
 mkdir -p "$OUTPUT_DIR"
 
 echo "Running technical SEO audit..."
-python ../../skills/marketing-team/seo-strategist/scripts/technical_seo_auditor.py \
+python ../skills/marketing-team/seo-strategist/scripts/technical_seo_auditor.py \
     "$SITE_PATH" --checks all --output json > "$OUTPUT_DIR/audit.json"
 
 echo "Generating SEO roadmap..."
-python ../../skills/marketing-team/seo-strategist/scripts/seo_roadmap_generator.py \
+python ../skills/marketing-team/seo-strategist/scripts/seo_roadmap_generator.py \
     "$OUTPUT_DIR/audit.json" --quarters 4 --output md > "$OUTPUT_DIR/roadmap.md"
 
 echo "Identifying quick wins..."
-python ../../skills/marketing-team/seo-strategist/scripts/seo_roadmap_generator.py \
+python ../skills/marketing-team/seo-strategist/scripts/seo_roadmap_generator.py \
     "$OUTPUT_DIR/audit.json" --quick-wins --output json > "$OUTPUT_DIR/quick-wins.json"
 
 echo "Audit complete. Results in: $OUTPUT_DIR"
@@ -287,7 +287,7 @@ echo "Audit complete. Results in: $OUTPUT_DIR"
 
 ```bash
 # Generate keyword clusters
-python ../../skills/marketing-team/seo-strategist/scripts/keyword_researcher.py \
+python ../skills/marketing-team/seo-strategist/scripts/keyword_researcher.py \
     keywords.csv --cluster --score --output json > clusters.json
 
 # Extract top priority cluster for content brief
@@ -310,11 +310,11 @@ echo "=== Weekly SEO Health Check ===" > "$REPORT_FILE"
 echo "Date: $(date)" >> "$REPORT_FILE"
 echo "" >> "$REPORT_FILE"
 
-python ../../skills/marketing-team/seo-strategist/scripts/technical_seo_auditor.py \
+python ../skills/marketing-team/seo-strategist/scripts/technical_seo_auditor.py \
     "$SITE_PATH" --checks crawlability,indexation,meta --output text >> "$REPORT_FILE"
 
 # Alert if score drops below threshold
-SCORE=$(python ../../skills/marketing-team/seo-strategist/scripts/technical_seo_auditor.py \
+SCORE=$(python ../skills/marketing-team/seo-strategist/scripts/technical_seo_auditor.py \
     "$SITE_PATH" --output json | jq '.summary.seo_score')
 
 if [ "$SCORE" -lt 70 ]; then
@@ -345,16 +345,16 @@ This agent works alongside cs-content-creator in a complementary workflow:
 
 ```bash
 # 1. SEO Strategist: Keyword research
-python ../../skills/marketing-team/seo-strategist/scripts/keyword_researcher.py keywords.csv --cluster --score > keyword-strategy.txt
+python ../skills/marketing-team/seo-strategist/scripts/keyword_researcher.py keywords.csv --cluster --score > keyword-strategy.txt
 
 # 2. Content Creator: Optimize content for target keyword
-python ../../skills/marketing-team/content-creator/scripts/seo_optimizer.py article.md --keyword "target keyword"
+python ../skills/marketing-team/content-creator/scripts/seo_optimizer.py article.md --keyword "target keyword"
 
 # 3. Content Creator: Check brand voice
-python ../../skills/marketing-team/content-creator/scripts/brand_voice_analyzer.py article.md
+python ../skills/marketing-team/content-creator/scripts/brand_voice_analyzer.py article.md
 
 # 4. SEO Strategist: Technical audit verification
-python ../../skills/marketing-team/seo-strategist/scripts/technical_seo_auditor.py ./site/ --checks meta,structure
+python ../skills/marketing-team/seo-strategist/scripts/technical_seo_auditor.py ./site/ --checks meta,structure
 ```
 
 ## Success Metrics
@@ -384,10 +384,10 @@ python ../../skills/marketing-team/seo-strategist/scripts/technical_seo_auditor.
 
 ## References
 
-- **Skill Documentation:** [../../skills/marketing-team/seo-strategist/SKILL.md](../../skills/marketing-team/seo-strategist/SKILL.md)
-- **Content Creator Skill:** [../../skills/marketing-team/content-creator/SKILL.md](../../skills/marketing-team/content-creator/SKILL.md)
-- **Marketing Domain Guide:** [../../skills/marketing-team/CLAUDE.md](../../skills/marketing-team/CLAUDE.md)
-- **Agent Development Guide:** [cs-agent-author](../cs-agent-author.md)
+- **Skill Documentation:** [../skills/marketing-team/seo-strategist/SKILL.md](../skills/marketing-team/seo-strategist/SKILL.md)
+- **Content Creator Skill:** [../skills/marketing-team/content-creator/SKILL.md](../skills/marketing-team/content-creator/SKILL.md)
+- **Marketing Domain Guide:** [../skills/marketing-team/CLAUDE.md](../skills/marketing-team/CLAUDE.md)
+- **Agent Development Guide:** [cs-agent-author](cs-agent-author.md)
 
 ---
 

@@ -148,8 +148,9 @@ Use this agent when:
    - Purpose, skill integration, workflows, integration examples, success metrics, related agents.
 4. Validate:
    - Run through `../../skills/creating-agents/assets/agent-checklists.md`.
+5. **Update README**: Add the new agent to `agents/README.md` in the "Complete Agent Catalog" section.
 
-**Expected Output:** A single, standards-compliant cs-* agent file ready for review and integration.
+**Expected Output:** A single, standards-compliant cs-* agent file ready for review and integration, with `agents/README.md` updated.
 
 ### Workflow 2: Refactor Overlapping Agents
 
@@ -165,7 +166,7 @@ Use this agent when:
 4. Decide on refactor levers:
    - Merge, split, rename, relocate, tighten descriptions, update collaborations.
 5. Implement changes incrementally:
-   - Update agent files, relationships, and `agents/README.md`.
+   - Update agent files, relationships, and **`agents/README.md`** (update catalog entries for moved/renamed/deleted agents).
 6. Validate with the checklist in `references/refactor-guide.md`.
 
 **Expected Output:** A completed refactor report and updated agent files with clarified responsibilities.

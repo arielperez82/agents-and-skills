@@ -127,6 +127,7 @@ Apply the plan incrementally:
 
 - Update agent files (frontmatter + body) to match new responsibilities
 - Adjust `related-agents`, `collaborates-with`, and `orchestrates`
+- **Update `agents/README.md`**: Update the "Complete Agent Catalog" section for any agents that were added, deleted, moved, or renamed
 - Move or rename files/directories as needed
 - Update references (e.g., `agents/README.md`, SKILL docs) to new names/paths
 

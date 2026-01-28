@@ -3,13 +3,99 @@
 
 This directory contains specifications for specialized Claude Code agents that work together to maintain code quality, documentation, and development workflow.
 
-## What this file is (and isn’t)
+> **⚠️ Maintenance Note**: This README must be updated whenever an agent is added, deleted, moved, or renamed. See maintenance instructions in `cs-agent-author.md`, `skills/creating-agents/SKILL.md`, and `skills/refactoring-agents/SKILL.md`.
 
-- **What this is**: The **operator’s guide + index** for the `agents/` directory — which agents exist, **when to invoke each**, and how they **handoff** to each other in a typical workflow.
-- **Who it’s for**: Humans (and assistants) who want to **use/run agents**, pick the right agent for the job, or understand the overall agent system at a glance.
-- **What this is not**: The spec for how to *author* agents (frontmatter schema, templates, validation rules, execution safety). For that, see `agents/CLAUDE.md`.
+## What this file is (and isn't)
 
-## Agent Overview
+- **What this is**: The **operator's guide + complete catalog** for the `agents/` directory — which agents exist, **when to invoke each**, and how they **handoff** to each other in a typical workflow.
+- **Who it's for**: Humans (and assistants) who want to **use/run agents**, pick the right agent for the job, or understand the overall agent system at a glance.
+- **What this is not**: The spec for how to *author* agents (frontmatter schema, templates, validation rules, execution safety). For that, see `skills/creating-agents/SKILL.md`.
+
+## Complete Agent Catalog
+
+### Root Agents (Meta, Delivery, Marketing)
+
+These agents live directly in the `agents/` root directory:
+
+#### Meta Development
+- **`cs-agent-author`** - Orchestrates creation and maintenance of cs-* agents and skills, enforcing standards and templates
+
+#### Delivery & Project Management
+- **`cs-agile-coach`** - Agile coaching specialist for ceremonies, team dynamics, communication, and agile manifesto adherence
+- **`cs-progress-guardian`** - Assesses and validates progress tracking through PLAN.md, WIP.md, and LEARNINGS.md
+- **`cs-senior-pm`** - Strategic program management for portfolio planning, stakeholder management, and delivery excellence
+
+#### Marketing
+- **`cs-content-creator`** - AI-powered content creation for brand voice consistency, SEO optimization, and multi-platform strategy
+- **`cs-demand-gen-specialist`** - Demand generation and customer acquisition for lead generation and conversion optimization
+- **`cs-product-marketer`** - Product marketing for positioning strategy, GTM execution, competitive intelligence, and launch planning
+- **`cs-seo-strategist`** - Strategic SEO planning for site-wide optimization, keyword research, technical audits, and competitive positioning
+
+#### Documentation & Knowledge
+- **`cs-docs-guardian`** - Creates and maintains world-class permanent documentation (README, guides, API docs)
+- **`cs-learn`** - Captures learnings, gotchas, and patterns into CLAUDE.md
+
+### Engineering Agents (`agents/engineering/`)
+
+#### Architecture & Design
+- **`cs-architect`** - System architecture specialist for design patterns, scalability planning, and technology evaluation
+- **`cs-adr-writer`** - Creates Architecture Decision Records (ADRs) documenting significant architectural choices
+- **`cs-graphql-architect`** - GraphQL API design specialist for schema architecture, resolver patterns, and federation
+
+#### Development Specialists
+- **`cs-backend-engineer`** - Backend development for API design, database optimization, and microservices architecture
+- **`cs-frontend-engineer`** - Frontend development for React/Vue components, UI/UX implementation, and performance optimization
+- **`cs-fullstack-engineer`** - Fullstack development for complete web applications with React, Next.js, Node.js, GraphQL
+- **`cs-mobile-engineer`** - Cross-platform mobile development for React Native, Flutter, and Expo
+- **`cs-ios-engineer`** - Native iOS development for Swift, SwiftUI, and Apple ecosystem integration
+- **`cs-flutter-engineer`** - Flutter and Dart development for cross-platform applications
+- **`cs-java-engineer`** - Java and Spring Boot development for enterprise applications and microservices
+- **`cs-dotnet-engineer`** - C# and .NET development for enterprise applications and cloud-native systems
+
+#### Data & ML
+- **`cs-data-engineer`** - Data engineering for scalable pipelines, ETL/ELT systems, and real-time streaming
+- **`cs-data-scientist`** - Data science for statistical modeling, experimentation, causal inference, and analytics
+- **`cs-database-engineer`** - Database specialist for MongoDB and PostgreSQL schema design and optimization
+- **`cs-supabase-database-engineer`** - Supabase specialist for schema design, migration management, and RLS policies
+- **`cs-ml-engineer`** - ML engineering for productionizing models, MLOps, and scalable ML systems
+- **`cs-computer-vision`** - Computer vision for image/video processing, object detection, and visual AI systems
+
+#### Quality & Testing
+- **`cs-tdd-guardian`** - TDD methodology coach ensuring RED-GREEN-REFACTOR cycle adherence
+- **`cs-qa-engineer`** - QA and testing specialist for test automation, coverage analysis, and quality metrics
+- **`cs-code-reviewer`** - Code review specialist for quality assessment, security analysis, and best practices
+- **`cs-refactor-guardian`** - Assesses refactoring opportunities after tests pass (TDD's third step)
+- **`cs-ts-enforcer`** - Enforces TypeScript strict mode and best practices
+- **`cs-tpp-guardian`** - Transformation Priority Premise (TPP) guardian for TDD transformations
+
+#### DevOps & Infrastructure
+- **`cs-devsecops-engineer`** - DevSecOps for CI/CD, infrastructure automation, containerization, and cloud platforms
+- **`cs-network-engineer`** - Network infrastructure for VPC/VNet design, VPN configuration, and load balancing
+- **`cs-observability-engineer`** - Observability for monitoring, logging, distributed tracing, and SLI/SLO implementation
+- **`cs-security-engineer`** - Security engineering for application security, penetration testing, and compliance auditing
+- **`cs-incident-responder`** - Incident response for security incident detection, containment, and recovery
+
+#### Specialized Engineering
+- **`cs-prompt-engineer`** - Prompt engineering for LLM optimization, prompt patterns, and AI product development
+- **`cs-technical-writer`** - Technical writing for documentation automation, README generation, and API documentation
+- **`cs-debugger`** - Debugging specialist for root cause analysis and error resolution
+- **`cs-researcher`** - Technology researcher for external research, best practices, and technology evaluation
+- **`cs-brainstormer`** - Solution brainstorming for evaluating architectural approaches and exploring solutions
+- **`cs-codebase-scout`** - Codebase exploration specialist for searching and analyzing codebases
+- **`cs-implementation-planner`** - Implementation planning for creating comprehensive step-by-step implementation plans
+- **`cs-use-case-data-analyzer`** - Analyzes how user-facing use cases map to data access patterns and architecture
+- **`cs-legacy-codebase-analyzer`** - Legacy codebase analysis for technical debt assessment and modernization
+- **`cs-cto-advisor`** - Technical leadership guidance for engineering teams, architecture decisions, and tech strategy
+
+### Product Agents (`agents/product/`)
+
+- **`cs-product-director`** - Strategic product leadership for OKR cascade, market analysis, vision setting, and team scaling
+- **`cs-product-manager`** - Product management for feature prioritization, customer discovery, PRD development, and roadmap planning
+- **`cs-product-analyst`** - Product analysis for user story structure, sprint readiness, and business process analysis
+- **`cs-ux-researcher`** - UX research and design for data-driven personas, journey mapping, and usability testing
+- **`cs-ui-designer`** - UI design system for design token generation, component documentation, and responsive design
+
+## Agent Overview (Detailed)
 
 ### Development Process Agents
 
@@ -26,7 +112,7 @@ This directory contains specifications for specialized Claude Code agents that w
 
 ---
 
-#### `qa-engineer`
+#### `cs-qa-engineer`
 **Purpose**: Quality automation specialist and testing infrastructure expert.
 
 **Use when**:
@@ -75,8 +161,8 @@ This directory contains specifications for specialized Claude Code agents that w
 
 ### Code Review Agents
 
-#### `pr-reviewer`
-**Purpose**: Reviews pull requests for TDD compliance, TypeScript strictness, testing quality, and functional patterns.
+#### `cs-code-reviewer`
+**Purpose**: Reviews code for quality, security, and best practices across all tech stacks.
 
 **Use proactively when**:
 - About to review a PR
@@ -88,16 +174,7 @@ This directory contains specifications for specialized Claude Code agents that w
 - Need to analyze specific code changes
 - Evaluating merge readiness
 
-**Core responsibility**: Ensure PRs meet quality standards before merge.
-
-**Review categories**:
-1. TDD Compliance - Was test-first development followed?
-2. Testing Quality - Are tests behavior-focused?
-3. TypeScript Strictness - No `any`, proper types?
-4. Functional Patterns - Immutability, pure functions?
-5. General Quality - Clean code, security, scope?
-
-**Project-specific extensions**: Use `/generate-pr-review` command to create project-specific review automation that combines global rules with project conventions.
+**Core responsibility**: Ensure code meets quality standards before merge.
 
 ---
 
@@ -277,7 +354,7 @@ cs-progress-guardian (orchestrates)
     │   └─→ cs-adr-writer (architectural decisions)
     │
     ├─► Before merge:
-    │   └─→ pr-reviewer (comprehensive PR review)
+    │   └─→ cs-code-reviewer (comprehensive code review)
     │
     ├─► At end:
     │   ├─→ cs-learn (merge LEARNINGS.md → CLAUDE.md)
@@ -319,7 +396,7 @@ cs-progress-guardian (orchestrates)
    - Invoke `cs-progress-guardian`: Validate WIP.md is up to date, report what's missing
 
 7. **Before creating PR**
-   - Invoke `pr-reviewer`: Self-review changes
+   - Invoke `cs-code-reviewer`: Self-review changes
    - Fix any issues found
    - Create PR using `/pr` command
 
@@ -424,6 +501,7 @@ When creating a new agent specification:
 4. **Document integration points**: How does it work with other agents?
 5. **Include anti-patterns**: What should users avoid?
 6. **Follow the template**: Use existing agents as reference
+7. **Update this README**: Add the new agent to the Complete Agent Catalog section above
 
 ## Summary
 
@@ -433,7 +511,7 @@ These agents work together to create a comprehensive development workflow:
 - **Database**: cs-supabase-database-engineer designs schemas and manages migrations
 - **Quality**: cs-tdd-guardian + cs-ts-enforcer ensure code quality
 - **Improvement**: cs-refactor-guardian optimizes code after tests pass
-- **Review**: pr-reviewer validates PRs before merge
+- **Review**: cs-code-reviewer validates code before merge
 - **Knowledge**: cs-learn + cs-adr-writer + cs-docs-guardian preserve knowledge
 - **Progress**: cs-progress-guardian validates progress tracking discipline with three-document model
 
