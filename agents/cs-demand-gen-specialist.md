@@ -306,7 +306,7 @@ fi
 ## Related Agents
 
 - [cs-content-creator](cs-content-creator.md) - Content creation for demand gen campaigns
-- [cs-product-marketing](../product/cs-product-marketing.md) - Product positioning and messaging (planned)
+- [cs-product-marketer](cs-product-marketer.md) - Product positioning and messaging (planned)
 - [cs-growth-marketer](cs-growth-marketer.md) - Growth hacking and viral acquisition (planned)
 
 ## References

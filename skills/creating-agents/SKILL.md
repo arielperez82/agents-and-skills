@@ -268,9 +268,9 @@ These patterns help you understand the conventions for each domain when creating
 - **Common tools**: `brand_voice_analyzer.py`, `seo_optimizer.py`
 - **Example agents**: `cs-content-creator`, `cs-seo-strategist`, `cs-product-marketer`
 
-### Product Agents (`agents/product/`)
-- **Location**: `agents/product/` subdirectory
-- **Reference**: `../../skills/product-team/`
+### Product Agents (root `agents/`)
+- **Location**: Root `agents/` directory (no subfolder)
+- **Reference**: `../skills/product-team/`
 - **Focus**: Prioritization, user research, agile workflows
 - **Common tools**: `rice_prioritizer.py`, `user_story_generator.py`
 - **Example agents**: `cs-product-manager`, `cs-product-director`, `cs-ux-researcher`

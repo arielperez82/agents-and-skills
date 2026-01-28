@@ -826,8 +826,8 @@ echo "  - Archive in: Confluence 'Portfolio Dashboards' space"
 - [cs-architect](../engineering/cs-architect.md) - Called in for technical architecture and design risks
 - [cs-devsecops-engineer](../engineering/cs-devsecops-engineer.md) - Called in for infrastructure and deployment risks
 - [cs-incident-responder](../engineering/cs-incident-responder.md) - Called in for operational and incident response risks
-- [cs-product-manager](../product/cs-product-manager.md) - Provides business prioritization when scope risks emerge
-- [cs-product-analyst](../product/cs-product-analyst.md) - Translates requirements when scope clarity risks are identified
+- [cs-product-manager](cs-product-manager.md) - Provides business prioritization when scope risks emerge
+- [cs-product-analyst](cs-product-analyst.md) - Translates requirements when scope clarity risks are identified
 
 ## References
 

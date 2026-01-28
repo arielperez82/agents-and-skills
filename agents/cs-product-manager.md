@@ -65,29 +65,29 @@ The cs-product-manager agent bridges the gap between customer insights and produ
 
 ## Skill Integration
 
-**Skill Location:** `../../skills/product-team/product-manager-toolkit/`
+**Skill Location:** `../skills/product-team/product-manager-toolkit/`
 
 ### Python Tools
 
 1. **RICE Prioritizer**
    - **Purpose:** RICE framework implementation for feature prioritization with portfolio analysis and capacity planning
-   - **Path:** `../../skills/product-team/product-manager-toolkit/scripts/rice_prioritizer.py`
-   - **Usage:** `python ../../skills/product-team/product-manager-toolkit/scripts/rice_prioritizer.py features.csv --capacity 20`
+   - **Path:** `../skills/product-team/product-manager-toolkit/scripts/rice_prioritizer.py`
+   - **Usage:** `python ../skills/product-team/product-manager-toolkit/scripts/rice_prioritizer.py features.csv --capacity 20`
    - **Formula:** RICE Score = (Reach × Impact × Confidence) / Effort
    - **Features:** Portfolio analysis (quick wins vs big bets), quarterly roadmap generation, capacity planning, JSON/CSV export
    - **Use Cases:** Feature prioritization, roadmap planning, stakeholder alignment, resource allocation
 
 2. **Customer Interview Analyzer**
    - **Purpose:** NLP-based interview transcript analysis to extract pain points, feature requests, and themes
-   - **Path:** `../../skills/product-team/product-manager-toolkit/scripts/customer_interview_analyzer.py`
-   - **Usage:** `python ../../skills/product-team/product-manager-toolkit/scripts/customer_interview_analyzer.py interview.txt`
+   - **Path:** `../skills/product-team/product-manager-toolkit/scripts/customer_interview_analyzer.py`
+   - **Usage:** `python ../skills/product-team/product-manager-toolkit/scripts/customer_interview_analyzer.py interview.txt`
    - **Features:** Pain point extraction with severity, feature request identification, jobs-to-be-done patterns, sentiment analysis, theme extraction
    - **Use Cases:** User research synthesis, discovery validation, problem prioritization, insight generation
 
 ### Knowledge Bases
 
 1. **PRD Templates**
-   - **Location:** `../../skills/product-team/product-manager-toolkit/references/prd_templates.md`
+   - **Location:** `../skills/product-team/product-manager-toolkit/references/prd_templates.md`
    - **Content:** Multiple PRD formats (Standard PRD, One-Page PRD, Feature Brief, Agile Epic), structure guidelines, best practices
    - **Use Case:** Requirements documentation, stakeholder communication, engineering handoff
 
@@ -119,7 +119,7 @@ The cs-product-manager agent bridges the gap between customer insights and produ
 
 3. **Run RICE Prioritization** - Execute analysis with team capacity
    ```bash
-   python ../../skills/product-team/product-manager-toolkit/scripts/rice_prioritizer.py features.csv --capacity 20
+   python ../skills/product-team/product-manager-toolkit/scripts/rice_prioritizer.py features.csv --capacity 20
    ```
 
 4. **Analyze Portfolio** - Review output for:
@@ -145,7 +145,7 @@ The cs-product-manager agent bridges the gap between customer insights and produ
 **Example:**
 ```bash
 # Complete prioritization workflow
-python ../../skills/product-team/product-manager-toolkit/scripts/rice_prioritizer.py q4-features.csv --capacity 20 > roadmap.txt
+python ../skills/product-team/product-manager-toolkit/scripts/rice_prioritizer.py q4-features.csv --capacity 20 > roadmap.txt
 cat roadmap.txt
 # Review quick wins, big bets, and generate quarterly plan
 ```
@@ -171,7 +171,7 @@ cat roadmap.txt
 
 3. **Run Interview Analyzer** - Extract structured insights
    ```bash
-   python ../../skills/product-team/product-manager-toolkit/scripts/customer_interview_analyzer.py interview-001.txt
+   python ../skills/product-team/product-manager-toolkit/scripts/customer_interview_analyzer.py interview-001.txt
    ```
 
 4. **Review Analysis Output** - Study extracted insights:
@@ -185,9 +185,9 @@ cat roadmap.txt
 5. **Synthesize Across Interviews** - Aggregate insights:
    ```bash
    # Analyze multiple interviews
-   python ../../skills/product-team/product-manager-toolkit/scripts/customer_interview_analyzer.py interview-001.txt json > insights-001.json
-   python ../../skills/product-team/product-manager-toolkit/scripts/customer_interview_analyzer.py interview-002.txt json > insights-002.json
-   python ../../skills/product-team/product-manager-toolkit/scripts/customer_interview_analyzer.py interview-003.txt json > insights-003.json
+   python ../skills/product-team/product-manager-toolkit/scripts/customer_interview_analyzer.py interview-001.txt json > insights-001.json
+   python ../skills/product-team/product-manager-toolkit/scripts/customer_interview_analyzer.py interview-002.txt json > insights-002.json
+   python ../skills/product-team/product-manager-toolkit/scripts/customer_interview_analyzer.py interview-003.txt json > insights-003.json
    # Aggregate JSON files to find patterns
    ```
 
@@ -213,7 +213,7 @@ cat roadmap.txt
 **Steps:**
 1. **Choose PRD Template** - Select based on complexity:
    ```bash
-   cat ../../skills/product-team/product-manager-toolkit/references/prd_templates.md
+   cat ../skills/product-team/product-manager-toolkit/references/prd_templates.md
    ```
    - **Standard PRD**: Complex features (6-8 weeks dev)
    - **One-Page PRD**: Simple features (2-4 weeks)
@@ -272,7 +272,7 @@ cat roadmap.txt
 
 2. **Run Feature Prioritization** - Use RICE for candidate features
    ```bash
-   python ../../skills/product-team/product-manager-toolkit/scripts/rice_prioritizer.py q4-candidates.csv --capacity 18
+   python ../skills/product-team/product-manager-toolkit/scripts/rice_prioritizer.py q4-candidates.csv --capacity 18
    ```
 
 3. **Define Product OKRs** - Set ambitious but achievable goals:
@@ -323,13 +323,13 @@ echo "=========================================="
 # Current roadmap status
 echo ""
 echo "🎯 Roadmap Priorities (RICE Sorted):"
-python ../../skills/product-team/product-manager-toolkit/scripts/rice_prioritizer.py current-roadmap.csv --capacity 20
+python ../skills/product-team/product-manager-toolkit/scripts/rice_prioritizer.py current-roadmap.csv --capacity 20
 
 # Recent interview insights
 echo ""
 echo "💡 Latest Customer Insights:"
 if [ -f latest-interview.txt ]; then
-  python ../../skills/product-team/product-manager-toolkit/scripts/customer_interview_analyzer.py latest-interview.txt
+  python ../skills/product-team/product-manager-toolkit/scripts/customer_interview_analyzer.py latest-interview.txt
 else
   echo "No new interviews this week"
 fi
@@ -338,7 +338,7 @@ fi
 echo ""
 echo "📝 PRD Templates:"
 echo "Standard PRD, One-Page PRD, Feature Brief, Agile Epic"
-echo "Location: ../../skills/product-team/product-manager-toolkit/references/prd_templates.md"
+echo "Location: ../skills/product-team/product-manager-toolkit/references/prd_templates.md"
 ```
 
 ### Example 2: Discovery Sprint Workflow
@@ -353,11 +353,11 @@ echo "=============================="
 echo "Conducting 5 customer interviews..."
 
 # Day 3-5: Analyze insights
-python ../../skills/product-team/product-manager-toolkit/scripts/customer_interview_analyzer.py interview-001.txt > insights-001.txt
-python ../../skills/product-team/product-manager-toolkit/scripts/customer_interview_analyzer.py interview-002.txt > insights-002.txt
-python ../../skills/product-team/product-manager-toolkit/scripts/customer_interview_analyzer.py interview-003.txt > insights-003.txt
-python ../../skills/product-team/product-manager-toolkit/scripts/customer_interview_analyzer.py interview-004.txt > insights-004.txt
-python ../../skills/product-team/product-manager-toolkit/scripts/customer_interview_analyzer.py interview-005.txt > insights-005.txt
+python ../skills/product-team/product-manager-toolkit/scripts/customer_interview_analyzer.py interview-001.txt > insights-001.txt
+python ../skills/product-team/product-manager-toolkit/scripts/customer_interview_analyzer.py interview-002.txt > insights-002.txt
+python ../skills/product-team/product-manager-toolkit/scripts/customer_interview_analyzer.py interview-003.txt > insights-003.txt
+python ../skills/product-team/product-manager-toolkit/scripts/customer_interview_analyzer.py interview-004.txt > insights-004.txt
+python ../skills/product-team/product-manager-toolkit/scripts/customer_interview_analyzer.py interview-005.txt > insights-005.txt
 
 echo ""
 echo "🔍 Discovery Sprint - Week 2"
@@ -367,7 +367,7 @@ echo "=============================="
 echo "Creating solution candidates..."
 
 # Day 9-10: RICE prioritization
-python ../../skills/product-team/product-manager-toolkit/scripts/rice_prioritizer.py solution-candidates.csv
+python ../skills/product-team/product-manager-toolkit/scripts/rice_prioritizer.py solution-candidates.csv
 
 echo ""
 echo "✅ Discovery Complete - Ready for PRD creation"
@@ -387,7 +387,7 @@ echo "===================="
 # Step 1: Prioritize backlog
 echo ""
 echo "1. Feature Prioritization:"
-python ../../skills/product-team/product-manager-toolkit/scripts/rice_prioritizer.py backlog.csv --capacity $CAPACITY > $QUARTER-roadmap.txt
+python ../skills/product-team/product-manager-toolkit/scripts/rice_prioritizer.py backlog.csv --capacity $CAPACITY > $QUARTER-roadmap.txt
 
 # Step 2: Extract quick wins
 echo ""
@@ -441,9 +441,9 @@ echo "Report: $QUARTER-roadmap.txt"
 
 ## References
 
-- **Skill Documentation:** [../../skills/product-team/product-manager-toolkit/SKILL.md](../../skills/product-team/product-manager-toolkit/SKILL.md)
-- **Product Domain Guide:** [../../skills/product-team/CLAUDE.md](../../skills/product-team/CLAUDE.md)
-- **Agent Development Guide:** [cs-agent-author](../cs-agent-author.md)
+- **Skill Documentation:** [../skills/product-team/product-manager-toolkit/SKILL.md](../skills/product-team/product-manager-toolkit/SKILL.md)
+- **Product Domain Guide:** [../skills/product-team/CLAUDE.md](../skills/product-team/CLAUDE.md)
+- **Agent Development Guide:** [cs-agent-author](cs-agent-author.md)
 
 ---
 

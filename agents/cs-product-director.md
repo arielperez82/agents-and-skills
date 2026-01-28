@@ -65,42 +65,42 @@ The cs-product-director agent bridges the gap between executive vision and produ
 
 ## Skill Integration
 
-**Skill Location:** `../../skills/product-team/product-strategist/`
+**Skill Location:** `../skills/product-team/product-strategist/`
 
 ### Python Tools
 
 1. **OKR Cascade Generator**
    - **Purpose:** Automated generation of cascaded OKRs from company-level objectives to team-level key results with alignment scoring
-   - **Path:** `../../skills/product-team/product-strategist/scripts/okr_cascade_generator.py`
-   - **Usage:** `python ../../skills/product-team/product-strategist/scripts/okr_cascade_generator.py company-okrs.yaml --output json`
+   - **Path:** `../skills/product-team/product-strategist/scripts/okr_cascade_generator.py`
+   - **Usage:** `python ../skills/product-team/product-strategist/scripts/okr_cascade_generator.py company-okrs.yaml --output json`
    - **Features:** Multi-level OKR cascading (company → product → team), alignment scoring, key result measurability validation, progress tracking templates, JSON/YAML export
    - **Use Cases:** Quarterly OKR planning, strategic alignment, team goal setting, progress tracking
 
 ### Knowledge Bases
 
 1. **Strategic Planning Framework**
-   - **Location:** `../../skills/product-team/product-strategist/references/strategic_planning_framework.md`
+   - **Location:** `../skills/product-team/product-strategist/references/strategic_planning_framework.md`
    - **Content:** Strategic planning methodologies (Vision → Strategy → Objectives → Tactics), OKR best practices, strategy decomposition patterns, roadmap planning approaches (now/next/later, theme-based)
    - **Use Case:** Annual planning, strategy development, roadmap creation
 
 2. **OKR Methodology Guide**
-   - **Location:** `../../skills/product-team/product-strategist/references/okr_methodology.md`
+   - **Location:** `../skills/product-team/product-strategist/references/okr_methodology.md`
    - **Content:** OKR writing guidelines (objectives vs key results), SMART criteria for key results, common OKR pitfalls, alignment techniques, grading and scoring methods
    - **Use Case:** OKR creation, team alignment, quarterly planning
 
 3. **Roadmap Frameworks**
-   - **Location:** `../../skills/product-team/product-strategist/references/roadmap_frameworks.md`
+   - **Location:** `../skills/product-team/product-strategist/references/roadmap_frameworks.md`
    - **Content:** Now/Next/Later roadmap, Theme-based roadmap, Outcome-based roadmap, Timeline-based roadmap, stakeholder communication strategies
    - **Use Case:** Roadmap planning, stakeholder communication, strategic prioritization
 
 ### Templates
 
 1. **OKR Planning Template**
-   - **Location:** `../../skills/product-team/product-strategist/assets/okr-planning-template.yaml`
+   - **Location:** `../skills/product-team/product-strategist/assets/okr-planning-template.yaml`
    - **Use Case:** Quarterly OKR planning, team goal setting
 
 2. **Strategic Roadmap Template**
-   - **Location:** `../../skills/product-team/product-strategist/assets/strategic-roadmap-template.md`
+   - **Location:** `../skills/product-team/product-strategist/assets/strategic-roadmap-template.md`
    - **Use Case:** Multi-year roadmap development, stakeholder alignment
 
 ## Workflows
@@ -135,7 +135,7 @@ The cs-product-director agent bridges the gap between executive vision and produ
 
 3. **Generate Product OKR Cascade** - Run OKR cascade tool
    ```bash
-   python ../../skills/product-team/product-strategist/scripts/okr_cascade_generator.py company-okrs.yaml --output human
+   python ../skills/product-team/product-strategist/scripts/okr_cascade_generator.py company-okrs.yaml --output human
    ```
 
 4. **Review Cascaded OKRs** - Analyze generated output:
@@ -182,7 +182,7 @@ company_okrs:
         current: 8
 EOF
 
-python ../../skills/product-team/product-strategist/scripts/okr_cascade_generator.py q4-company-okrs.yaml
+python ../skills/product-team/product-strategist/scripts/okr_cascade_generator.py q4-company-okrs.yaml
 
 # Review cascaded OKRs for product and teams
 ```
@@ -206,7 +206,7 @@ python ../../skills/product-team/product-strategist/scripts/okr_cascade_generato
 
 3. **Map Themes to Timeline** - Assign themes to time horizons:
    ```bash
-   cat ../../skills/product-team/product-strategist/references/roadmap_frameworks.md
+   cat ../skills/product-team/product-strategist/references/roadmap_frameworks.md
    ```
    - **Now (0-3 months)**: Current sprint commitments
    - **Next (3-6 months)**: Next quarter priorities
@@ -228,7 +228,7 @@ python ../../skills/product-team/product-strategist/scripts/okr_cascade_generato
 
 6. **Create Roadmap Visualization** - Document roadmap:
    ```bash
-   cp ../../skills/product-team/product-strategist/assets/strategic-roadmap-template.md 2025-roadmap.md
+   cp ../skills/product-team/product-strategist/assets/strategic-roadmap-template.md 2025-roadmap.md
    ```
    - Now/Next/Later format
    - Theme-based grouping
@@ -257,7 +257,7 @@ python ../../skills/product-team/product-strategist/scripts/okr_cascade_generato
 **Steps:**
 1. **Review Current OKRs** - Understand quarterly objectives:
    ```bash
-   python ../../skills/product-team/product-strategist/scripts/okr_cascade_generator.py current-okrs.yaml --output json > okrs.json
+   python ../skills/product-team/product-strategist/scripts/okr_cascade_generator.py current-okrs.yaml --output json > okrs.json
    ```
 
 2. **Collect Feature Candidates** - Gather backlog items:
@@ -324,7 +324,7 @@ Strategic Score: 6.0
 EOF
 
 # Review OKR alignment
-python ../../skills/product-team/product-strategist/scripts/okr_cascade_generator.py current-okrs.yaml
+python ../skills/product-team/product-strategist/scripts/okr_cascade_generator.py current-okrs.yaml
 ```
 
 ### Workflow 4: Strategy Review & Roadmap Adjustment
@@ -341,7 +341,7 @@ python ../../skills/product-team/product-strategist/scripts/okr_cascade_generato
 
 2. **Grade OKRs** - Score key results on 0.0-1.0 scale:
    ```bash
-   cat ../../skills/product-team/product-strategist/references/okr_methodology.md | grep -A 15 "Grading OKRs"
+   cat ../skills/product-team/product-strategist/references/okr_methodology.md | grep -A 15 "Grading OKRs"
    ```
    - **0.0-0.3**: Significantly missed target
    - **0.4-0.6**: Made progress but fell short
@@ -374,7 +374,7 @@ python ../../skills/product-team/product-strategist/scripts/okr_cascade_generato
 
 7. **Update Roadmap** - Revise next quarter priorities:
    ```bash
-   cp ../../skills/product-team/product-strategist/assets/strategic-roadmap-template.md q4-2025-roadmap.md
+   cp ../skills/product-team/product-strategist/assets/strategic-roadmap-template.md q4-2025-roadmap.md
    ```
    - Move "Next" items to "Now"
    - Promote "Later" items to "Next"
@@ -420,26 +420,26 @@ fi
 
 # Generate OKR cascade
 echo "1. Generating OKR Cascade..."
-python ../../skills/product-team/product-strategist/scripts/okr_cascade_generator.py "$COMPANY_OKRS" --output json > "$QUARTER-okr-cascade.json"
+python ../skills/product-team/product-strategist/scripts/okr_cascade_generator.py "$COMPANY_OKRS" --output json > "$QUARTER-okr-cascade.json"
 
 echo "   ✅ OKR cascade generated: $QUARTER-okr-cascade.json"
 echo ""
 
 # Generate human-readable report
 echo "2. Creating Human-Readable OKR Report..."
-python ../../skills/product-team/product-strategist/scripts/okr_cascade_generator.py "$COMPANY_OKRS" --output human > "$QUARTER-okr-report.txt"
+python ../skills/product-team/product-strategist/scripts/okr_cascade_generator.py "$COMPANY_OKRS" --output human > "$QUARTER-okr-report.txt"
 
 echo "   ✅ OKR report generated: $QUARTER-okr-report.txt"
 echo ""
 
 # Review OKR methodology
 echo "3. OKR Best Practices Reference:"
-cat ../../skills/product-team/product-strategist/references/okr_methodology.md | head -30
+cat ../skills/product-team/product-strategist/references/okr_methodology.md | head -30
 echo ""
 
 # Copy planning template
 echo "4. Creating OKR Planning Template..."
-cp ../../skills/product-team/product-strategist/assets/okr-planning-template.yaml "$QUARTER-planning.yaml"
+cp ../skills/product-team/product-strategist/assets/okr-planning-template.yaml "$QUARTER-planning.yaml"
 
 echo "   ✅ Planning template created: $QUARTER-planning.yaml"
 echo ""
@@ -466,17 +466,17 @@ echo ""
 
 # Review strategic planning framework
 echo "1. Strategic Planning Framework:"
-cat ../../skills/product-team/product-strategist/references/strategic_planning_framework.md | head -40
+cat ../skills/product-team/product-strategist/references/strategic_planning_framework.md | head -40
 echo ""
 
 # Review roadmap frameworks
 echo "2. Roadmap Framework Options:"
-cat ../../skills/product-team/product-strategist/references/roadmap_frameworks.md | grep "^## " | head -10
+cat ../skills/product-team/product-strategist/references/roadmap_frameworks.md | grep "^## " | head -10
 echo ""
 
 # Create roadmap from template
 echo "3. Creating Roadmap Template..."
-cp ../../skills/product-team/product-strategist/assets/strategic-roadmap-template.md "$YEAR-strategic-roadmap.md"
+cp ../skills/product-team/product-strategist/assets/strategic-roadmap-template.md "$YEAR-strategic-roadmap.md"
 
 echo "   ✅ Roadmap template created: $YEAR-strategic-roadmap.md"
 echo ""
@@ -510,7 +510,7 @@ fi
 
 # Display current OKRs
 echo "Current Quarter: $QUARTER"
-python ../../skills/product-team/product-strategist/scripts/okr_cascade_generator.py company-okrs.yaml --output human | grep -A 3 "Key Result"
+python ../skills/product-team/product-strategist/scripts/okr_cascade_generator.py company-okrs.yaml --output human | grep -A 3 "Key Result"
 
 echo ""
 echo "Weekly Check-In Questions:"
@@ -557,9 +557,9 @@ echo "📊 Update KR progress values in: $OKR_FILE"
 
 ## References
 
-- **Skill Documentation:** [../../skills/product-team/product-strategist/SKILL.md](../../skills/product-team/product-strategist/SKILL.md)
-- **Product Domain Guide:** [../../skills/product-team/CLAUDE.md](../../skills/product-team/CLAUDE.md)
-- **Agent Development Guide:** [cs-agent-author](../cs-agent-author.md)
+- **Skill Documentation:** [../skills/product-team/product-strategist/SKILL.md](../skills/product-team/product-strategist/SKILL.md)
+- **Product Domain Guide:** [../skills/product-team/CLAUDE.md](../skills/product-team/CLAUDE.md)
+- **Agent Development Guide:** [cs-agent-author](cs-agent-author.md)
 
 ---
 

@@ -1243,7 +1243,7 @@ This agent leverages five production-ready Python automation tools for comprehen
 - Integration examples from frontend perspective
 - UI component documentation
 
-**Collaborate with [cs-product-manager](../product/cs-product-manager.md) for:**
+**Collaborate with [cs-product-manager](../cs-product-manager.md) for:**
 - Feature description accuracy
 - User-facing release notes
 - Migration guide user impact assessment

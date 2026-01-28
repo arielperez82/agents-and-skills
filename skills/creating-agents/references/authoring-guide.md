@@ -344,10 +344,10 @@ python ../../skills/domain-team/skill-name/scripts/tool.py input.txt
 - Reference: `../skills/marketing-team/`  
 - Typical tools: `brand_voice_analyzer.py`, `seo_optimizer.py`
 
-### Product Agents (`agents/product/`)
+### Product Agents (root `agents/`)
 
 - Focus on prioritization, user research, agile workflows  
-- Reference: `../../skills/product-team/`  
+- Reference: `../skills/product-team/`  
 - Typical tools: `rice_prioritizer.py`, `user_story_generator.py`, `okr_cascade_generator.py`
 
 ### C-Level Agents (`agents/c-level/`)

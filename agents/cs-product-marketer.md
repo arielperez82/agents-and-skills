@@ -414,7 +414,7 @@ echo "Plan complete: ${TARGET_MARKET}-gtm-plan.txt"
 - [cs-content-creator](cs-content-creator.md) - Creates content for positioning and GTM campaigns
 - [cs-demand-gen-specialist](cs-demand-gen-specialist.md) - Executes acquisition campaigns based on PMM positioning
 - [cs-ceo-advisor](../c-level/cs-ceo-advisor.md) - Strategic planning context for market expansion
-- [cs-product-manager](../product/cs-product-manager.md) - Product roadmap prioritization based on competitive intelligence (planned)
+- [cs-product-manager](cs-product-manager.md) - Product roadmap prioritization based on competitive intelligence (planned)
 
 ## References
 

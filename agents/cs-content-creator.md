@@ -292,7 +292,7 @@ done
 ## Related Agents
 
 - [cs-demand-gen-specialist](cs-demand-gen-specialist.md) - Demand generation and acquisition campaigns
-- [cs-product-marketing](../product/cs-product-marketing.md) - Product positioning and messaging (planned)
+- [cs-product-marketer](cs-product-marketer.md) - Product positioning and messaging (planned)
 - [cs-social-media-manager](cs-social-media-manager.md) - Social media management and scheduling (planned)
 
 ## References

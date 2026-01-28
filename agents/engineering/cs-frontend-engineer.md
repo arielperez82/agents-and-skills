@@ -718,7 +718,7 @@ echo "✅ Audit complete. Review a11y-report.txt for findings."
 
 - [cs-backend-engineer](cs-backend-engineer.md) - API development and backend integration for fullstack features
 - [cs-fullstack-engineer](cs-fullstack-engineer.md) - End-to-end development combining frontend and backend
-- [cs-ui-designer](../product/cs-ui-designer.md) - Design system development and design token management
+- [cs-ui-designer](../cs-ui-designer.md) - Design system development and design token management
 - [cs-qa-engineer](cs-qa-engineer.md) - Test automation and quality assurance for frontend applications
 - [cs-devsecops-engineer](cs-devsecops-engineer.md) - DevSecOps integration for secure CI/CD pipelines and deployment with security validation
 
