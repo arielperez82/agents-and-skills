@@ -105,8 +105,6 @@ Use these five mechanisms to improve agent clarity and reduce overlap.
 ### 1. Rename + Relocate
 
 - Use `cs-*` prefix consistently for agents
-- Use team folders for team-specific roles (`engineering/`, `product/`, `delivery/`)
-- Keep cross-cutting concerns in the root `agents/` directory (e.g., `cs-docs-guardian.md`)
 
 ### 2. Tighten Descriptions
 

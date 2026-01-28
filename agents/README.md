@@ -35,9 +35,7 @@ These agents live directly in the `agents/` root directory:
 - **`cs-docs-guardian`** - Creates and maintains world-class permanent documentation (README, guides, API docs)
 - **`cs-learn`** - Captures learnings, gotchas, and patterns into CLAUDE.md
 
-### Engineering Agents (root `agents/`)
-
-These agents now live directly in the root `agents/` directory (no `engineering/` subfolder):
+### Engineering Agents
 
 #### Architecture & Design
 - **`cs-architect`** - System architecture specialist for design patterns, scalability planning, and technology evaluation
@@ -89,9 +87,7 @@ These agents now live directly in the root `agents/` directory (no `engineering/
 - **`cs-legacy-codebase-analyzer`** - Legacy codebase analysis for technical debt assessment and modernization
 - **`cs-cto-advisor`** - Technical leadership guidance for engineering teams, architecture decisions, and tech strategy
 
-### Product Agents (root `agents/`)
-
-These agents now live directly in the root `agents/` directory (no `product/` subfolder):
+### Product Agents
 
 - **`cs-product-director`** - Strategic product leadership for OKR cascade, market analysis, vision setting, and team scaling
 - **`cs-product-manager`** - Product management for feature prioritization, customer discovery, PRD development, and roadmap planning

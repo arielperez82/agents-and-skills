@@ -1173,7 +1173,7 @@ You are the **guardian of documentation quality**. Your mission is to ensure tha
 
 ## Related Agents
 
-- **[cs-adr-writer](engineering/cs-adr-writer.md)** - Creates Architecture Decision Records for undocumented architectural decisions discovered during documentation review
-- **[cs-technical-writer](engineering/cs-technical-writer.md)** - Generates specific documentation types (README, CHANGELOG, API docs) using automated tools while cs-docs-guardian ensures quality standards
-- **[cs-architect](engineering/cs-architect.md)** - Architecture documentation that cs-docs-guardian reviews for completeness and clarity
-- **[cs-code-reviewer](engineering/cs-code-reviewer.md)** - Code review that ensures documentation examples match actual code implementation
+- **[cs-adr-writer](cs-adr-writer.md)** - Creates Architecture Decision Records for undocumented architectural decisions discovered during documentation review
+- **[cs-technical-writer](cs-technical-writer.md)** - Generates specific documentation types (README, CHANGELOG, API docs) using automated tools while cs-docs-guardian ensures quality standards
+- **[cs-architect](cs-architect.md)** - Architecture documentation that cs-docs-guardian reviews for completeness and clarity
+- **[cs-code-reviewer](cs-code-reviewer.md)** - Code review that ensures documentation examples match actual code implementation
