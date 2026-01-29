@@ -1,0 +1,381 @@
+# Agent Skills
+
+This directory contains on-demand skill packages that extend agent capabilities with detailed patterns, workflows, and reference material.
+
+> **Maintenance note**: This README must be updated whenever a skill is added, deleted, moved, or renamed. See maintenance instructions in `creating-skill/SKILL.md`, `creating-agents/SKILL.md` (for agent/skill alignment), and `versioning-skills/SKILL.md`.
+
+## What this file is (and isn't)
+
+- **What this is**: The **operator's guide + complete catalog** for the `skills/` directory — which skills exist, **when to load each**, and how they **relate to agents** and to each other.
+- **Who it's for**: Humans (and assistants) who want to **use/load skills**, pick the right skill for the task, or understand the overall skill system at a glance.
+- **What this is not**: The spec for how to *author* skills (frontmatter schema, structure, packaging). For that, see `creating-skill/SKILL.md`.
+
+## Discovery & Installation
+
+| Skill | When to Use | What It Provides |
+|-------|-------------|------------------|
+| **find-skills** | Finding/installing skills | Discover and install skills from the open agent skills ecosystem via `npx skills find` |
+
+**Use `find-skills` when**:
+- User asks "how do I do X" where X might have an existing skill
+- User says "find a skill for X" or "is there a skill that can..."
+- User wants to extend capabilities with installable skills
+- Searching for tools, templates, or workflows in the skills ecosystem
+
+**Quick start**: `npx skills find [query]` to search, `npx skills add <package>` to install. Browse at https://skills.sh/
+
+## Complete Skill Catalog
+
+### Core Development (TDD, Testing, TypeScript, Refactoring)
+
+These skills are loaded proactively per AGENTS.md when writing or reviewing code:
+
+| Skill | When to Use | What It Provides |
+|-------|-------------|------------------|
+| **tdd** | Writing any code | TDD workflow, RED-GREEN-REFACTOR cycle |
+| **typescript-strict** | Writing TypeScript | TypeScript strict mode patterns, schema organization |
+| **typescript** | TS performance, tsc, type errors | TypeScript optimization, tsconfig, async patterns |
+| **refactoring** | After GREEN tests | Refactoring assessment, priority classification |
+| **testing** | Writing tests | Testing patterns, behavior-focused testing |
+| **react-testing** | Testing React components | React Testing Library patterns |
+| **front-end-testing** | Testing front-end code | Front-end testing strategies |
+| **functional** | Writing functional code | Functional programming patterns, immutability |
+| **planning** | Planning work | Incremental work principles, small increments |
+| **tpp** | TDD transformations | Transformation Priority Premise reference |
+| **expectations** | Setting expectations | Expectations management patterns |
+| **test-driven-development** | Before implementation | Feature/bugfix implementation, test-first |
+| **test-design-review** | Reviewing tests | Test quality (e.g. Dave Farley's 8 properties) |
+| **core-testing-methodology** | Testing guidance | TDD workflow, test structure, coverage, QA planning |
+| **testing-automation-patterns** | Test automation | E2E (Playwright/Cypress), Vitest, automation practices |
+| **e2e-testing-patterns** | E2E tests | Playwright/Cypress, flaky tests, testing standards |
+| **vitest-configuration** | Vitest setup | Vitest config, Vite integration, test environment |
+| **vitest-performance** | Vitest speed | Fast execution, watch mode, parallelization |
+| **vitest-testing-patterns** | Vitest usage | Unit tests, mocks, spies, browser mode |
+
+### Creating & Authoring
+
+| Skill | When to Use | What It Provides |
+|-------|-------------|------------------|
+| **creating-skill** | Creating/updating skills | Skill structure, frontmatter, packaging |
+| **creating-agents** | Creating ap-* agents | Agent frontmatter, workflows, collaborations |
+| **refactoring-agents** | Agent overlap/merge/split | Ecosystem refactors, collaboration contracts |
+| **skill-creator** | New skill guidance | Skill structure, best practices, SKILL.md format |
+| **crafting-instructions** | Prompts, instructions | Instruction design, project vs skill vs prompt |
+| **agent-md-refactor** | Bloated AGENTS/CLAUDE.md | Progressive disclosure, split monolithic docs |
+| **versioning-skills** | Skill file changes | Version control for skill modifications |
+| **template-skill** | Skill template | Placeholder skill structure |
+
+### Code Quality & Review
+
+| Skill | When to Use | What It Provides |
+|-------|-------------|------------------|
+| **code-review** | PRs, completion claims | Receiving feedback, ap-code-reviewer, verification gates |
+| **clean-code** | Code standards | Pragmatic standards, no over-engineering |
+| **verification-before-completion** | Before claiming done | Run verification, evidence before assertions |
+| **code-maturity-assessor** | Codebase assessment | Trail of Bits 9-category scorecard |
+| **component-refactoring** | High-complexity React | Complexity reduction, Dify frontend |
+| **coverage-analysis** | Fuzzing, harness effectiveness | Code exercised during fuzzing, fuzzing blockers |
+
+### Architecture & Documentation
+
+| Skill | When to Use | What It Provides |
+|-------|-------------|------------------|
+| **architecture-decision-records** | Documenting decisions | ADR writing, technical decision docs |
+| **c4-architecture** | Architecture diagrams | C4 model Mermaid diagrams |
+| **mermaid-diagrams** | Software diagrams | Mermaid syntax, class/sequence/flow/ER/C4 |
+| **software-architecture** | Design, analyze code | Quality-focused architecture guidance |
+| **doc-coauthoring** | Writing docs | Structured doc co-authoring workflow |
+| **docs-seeker** | Technical docs | llms.txt/context7 search, library/repo docs |
+
+### Backend, Data & DevOps
+
+| Skill | When to Use | What It Provides |
+|-------|-------------|------------------|
+| **backend-development** | Backend systems | Frameworks, DBs, APIs, auth, testing, security |
+| **senior-backend** | Backend development | Node, Express, Go, Python, PostgreSQL, GraphQL |
+| **databases** | Database work | MongoDB, PostgreSQL schemas, queries, migrations |
+| **sql-expert** | SQL | Queries, optimization, schema design (Postgres, MySQL, SQLite, SQL Server) |
+| **supabase-best-practices** | Supabase | RLS, Clerk auth, security, performance |
+| **nocodb** | NocoDB | Setup, external DBs, views, backups |
+| **tinybird** | Tinybird projects | Datafiles, queries, endpoints, deployments, tests |
+| **senior-devops** | DevOps | CI/CD, infra automation, containers, cloud |
+| **deployment-pipeline-design** | CI/CD design | Multi-stage pipelines, GitOps |
+| **check-tools** | Environment validation | Tool installs (Python, Node, Java, Go, Rust, Git) |
+| **cost-optimization** | Cloud costs | Rightsizing, tagging, reserved instances |
+| **github-expert** | GitHub | Actions, CI/CD, automation, PRs |
+
+### Frontend & Fullstack
+
+| Skill | When to Use | What It Provides |
+|-------|-------------|------------------|
+| **senior-fullstack** | Fullstack apps | React, Next.js, Node, GraphQL, PostgreSQL |
+| **react-best-practices** | React/Next.js | Performance, patterns from Vercel Engineering |
+| **react-testing** | React tests | React Testing Library patterns |
+| **react-vite-expert** | React + Vite | Project structure, performance, TypeScript |
+| **playwright-skill** | Browser automation | Playwright testing, forms, screenshots |
+| **chrome-devtools** | Browser automation | Puppeteer CLI, debugging, performance |
+| **web-design-guidelines** | UI review | Web interface guidelines, accessibility |
+| **visual-design-foundations** | Design systems | Typography, color, spacing, iconography |
+| **ux-designer** | UX/UI | User experience and interface design |
+
+### Engineering Team (`engineering-team/`)
+
+| Skill | When to Use | What It Provides |
+|-------|-------------|------------------|
+| **senior-architect** | System design | Design patterns, scalability, tech evaluation |
+| **senior-backend** | Backend | Node, Express, Go, Python, PostgreSQL, GraphQL |
+| **senior-frontend** | Frontend | React, Next.js, TypeScript, Tailwind, UI |
+| **senior-fullstack** | Fullstack | React, Next.js, Node, GraphQL, PostgreSQL |
+| **senior-devops** | DevOps | CI/CD, IaC, containers, AWS/GCP/Azure |
+| **senior-qa** | QA/testing | Test automation, coverage, E2E, quality metrics |
+| **senior-security** | Security | App security, pentesting, compliance |
+| **senior-secops** | SecOps | App security, vuln management, compliance |
+| **senior-observability** | Observability | Monitoring, tracing, alerting, SLOs |
+| **senior-graphql** | GraphQL | Schema, resolvers, federation |
+| **senior-data-engineer** | Data pipelines | ETL/ELT, streaming, data infra |
+| **senior-data-scientist** | Data science | Stats, experimentation, causal inference |
+| **senior-ml-engineer** | ML systems | MLOps, model deployment, ML infra |
+| **senior-prompt-engineer** | LLM/prompts | Prompt patterns, RAG, agent design |
+| **senior-computer-vision** | Vision AI | Image/video, detection, segmentation |
+| **code-reviewer** | Code review | Quality, security, best practices (multi-language) |
+| **cto-advisor** | Tech leadership | Tech debt, scaling, architecture, strategy |
+| **technical-writer** | Documentation | README, CHANGELOG, API docs, diagrams |
+| **incident-response** | Security incidents | Detection, containment, RCA, playbooks |
+| **legacy-codebase-analyzer** | Legacy code | Tech debt, vulns, modernization roadmap |
+| **senior-ios** | iOS | Swift, SwiftUI, UIKit, App Store |
+| **senior-mobile** | Mobile | React Native, Flutter, Expo |
+| **senior-flutter** | Flutter | Flutter/Dart, widgets, state, deployment |
+| **senior-java** | Java/Spring | Spring Boot, microservices, enterprise |
+| **senior-dotnet** | C#/.NET | .NET 8, ASP.NET Core, Blazor |
+| **senior-network-infrastructure** | Networking | VPC, VPN, firewall, load balancing |
+
+### Delivery Team (`delivery-team/`)
+
+| Skill | When to Use | What It Provides |
+|-------|-------------|------------------|
+| **jira-expert** | Jira | Projects, JQL, workflows, automation |
+| **confluence-expert** | Confluence | Spaces, docs, macros, knowledge bases |
+| **scrum-master** | Scrum | Ceremonies, backlog, velocity, impediments |
+| **senior-pm** | Program management | Portfolio, stakeholders, delivery |
+
+### Marketing Team (`marketing-team/`)
+
+| Skill | When to Use | What It Provides |
+|-------|-------------|------------------|
+| **content-creator** | Content, SEO | Brand voice, SEO, content frameworks |
+| **marketing-demand-acquisition** | Demand gen | Paid, SEO, partnerships, CAC |
+| **marketing-strategy-pmm** | GTM, positioning | Positioning, launches, competitive intel |
+| **seo-strategist** | SEO strategy | Keyword strategy, technical SEO, SERP |
+
+### Product Team (`product-team/`)
+
+| Skill | When to Use | What It Provides |
+|-------|-------------|------------------|
+| **product-strategist** | Product strategy | OKRs, market analysis, vision |
+| **product-manager-toolkit** | Product management | RICE, PRDs, discovery, GTM |
+| **agile-product-owner** | Product ownership | User stories, backlog, agile |
+| **ux-researcher-designer** | UX research | Personas, journey mapping, usability |
+| **ui-design-system** | Design systems | Tokens, components, handoff |
+| **competitive-analysis** | Competitive analysis | Skills, agents, features vs competitors |
+| **business-analyst-toolkit** | Business analysis | Requirements, workflows, optimization |
+
+### Research, Problem-Solving & Workflow
+
+| Skill | When to Use | What It Provides |
+|-------|-------------|------------------|
+| **asking-questions** | Ambiguous requests | Clarifying questions, critical decisions |
+| **avoid-feature-creep** | Scope/backlog | MVP focus, "just one more feature" |
+| **brainstorming** | Before creative work | Intent, requirements, design exploration |
+| **debugging** | Debugging issues | Root cause, call stack, validation |
+| **internal-comms** | Internal comms | Status, updates, newsletters, incidents |
+| **iterating** | Multi-session work | Context accumulation, work logs |
+| **mapping-codebases** | New codebase | Code maps, _MAP.md, exports/imports |
+| **orchestrating-agents** | Multi-agent | Parallel APIs, delegated tasks, streaming |
+| **convening-experts** | Panels, experts, RCA | Expert panels, MECE/DMAIC/RAPID, process improvement |
+| **problem-solving** | Complex problems | Complexity, innovation blocks, patterns |
+| **research** | Technical research | Scalable, secure, maintainable solutions |
+| **sequential-thinking** | Complex problem-solving | Multi-step analysis, revision, hypotheses |
+| **subagent-driven-development** | Implementation plans | Independent tasks, spec/implement/review |
+| **updating-knowledge** | Research methodology | Current knowledge, synthesis |
+
+### Domain & Integration
+
+| Skill | When to Use | What It Provides |
+|-------|-------------|------------------|
+| **agent-browser** | Web testing, extraction | Browser automation, forms, screenshots |
+| **api-credentials** | API keys | Secure credential handling (multi-provider) |
+| **api-design-principles** | API design | REST/GraphQL design standards |
+| **algorithmic-art** | Generative art | p5.js, seeded randomness, flow fields |
+| **artifacts-builder** | Complex artifacts | React, Tailwind, shadcn/ui artifacts |
+| **brand-guidelines** | Brand | Anthropic brand colors, typography |
+| **exploring-data** | EDA | ydata-profiling, CSV/JSON/Parquet reports |
+| **extracting-keywords** | Keywords | YAKE extraction, multi-language |
+| **multi-cloud-architecture** | Multi-cloud | AWS, Azure, GCP decision framework |
+| **mcp-builder** | MCP servers | MCP server design (Python/Node) |
+| **page-cro** | Conversion optimization | Marketing pages, CRO |
+| **marketing-psychology** | Marketing + psychology | Mental models, persuasion, behavior |
+| **seo-audit** | SEO audit | Technical SEO, on-page, health |
+| **remembering** | Memory ops | Profile, recall, background writes |
+| **qa-test-planner** | QA planning | Test plans, cases, regression, bug reports |
+| **vercel-deploy-claimable** | Vercel deploy | Preview deploy, claimable link |
+
+## Skill Overview (Detailed)
+
+### Core Development Skills
+
+#### `tdd`
+
+**Purpose**: TDD methodology and RED-GREEN-REFACTOR workflow.
+
+**Use when**:
+
+- Writing any production code (AGENTS.md: load first when writing code)
+- Establishing TDD standards
+- Reviewing test-first compliance
+
+**Core responsibility**: RED-GREEN-REFACTOR cycle, test evidence, commit discipline.
+
+---
+
+#### `typescript-strict`
+
+**Purpose**: TypeScript strict mode and schema-first patterns.
+
+**Use when**:
+
+- Writing TypeScript
+- Defining types or schemas
+- Planning TS structure
+
+**Core responsibility**: No `any`, schema at trust boundaries, immutability.
+
+---
+
+#### `refactoring`
+
+**Purpose**: Assess refactoring after tests pass (TDD third step).
+
+**Use when**:
+
+- Tests just turned green
+- Considering abstractions
+- Evaluating duplication (semantic vs structural)
+
+**Core responsibility**: Priority classification (Critical/High/Nice/Skip), refactor only if it adds value.
+
+---
+
+#### `planning`
+
+**Purpose**: Work in small, known-good increments.
+
+**Use when**:
+
+- Starting significant work
+- Breaking down complex tasks
+- Aligning with PLAN.md / progress guardians
+
+**Core responsibility**: Incremental steps, small batches, clear next actions.
+
+---
+
+### Creating & Authoring Skills
+
+#### `creating-skill`
+
+**Purpose**: Create and maintain skills (structure, frontmatter, packaging).
+
+**Use when**:
+
+- Creating or updating a skill
+- Need skill structure or naming guidance
+- Extending capabilities via custom skills
+
+**Core responsibility**: SKILL.md format, frontmatter, references/assets/scripts, packaging.
+
+---
+
+#### `creating-agents`
+
+**Purpose**: Design and write ap-* agent specifications.
+
+**Use when**:
+
+- Creating a new agent
+- Drafting agent frontmatter or workflows
+- Structuring agent collaborations
+
+**Core responsibility**: Single-agent authoring; for ecosystem refactors see `refactoring-agents`.
+
+---
+
+## Skill–Agent Relationships
+
+### How skills and agents work together
+
+- **Agents** are invoked by name (e.g. `ap-tdd-guardian`); they orchestrate skills and enforce workflows.
+- **Skills** are loaded on-demand by reference or trigger; they provide patterns and reference material.
+- AGENTS.md mandates loading specific skills at the start of relevant work (e.g. `tdd` when writing code, `typescript-strict` when writing TypeScript).
+
+### Typical loading sequence (from AGENTS.md)
+
+1. **Writing any code** → Load `tdd` first.
+2. **Writing TypeScript** → Load `typescript-strict`.
+3. **Writing tests** → Load `testing` (and optionally `react-testing`, `front-end-testing`).
+4. **After tests pass** → Load `refactoring` to assess improvements.
+5. **Planning work** → Load `planning`.
+6. **Functional style** → Load `functional`.
+
+### Skill ↔ agent mapping (examples)
+
+| When you… | Load skill | Engage agent |
+|-----------|------------|---------------|
+| Start coding | tdd | ap-tdd-guardian |
+| Write TypeScript | typescript-strict | ap-ts-enforcer |
+| Tests just passed | refactoring | ap-refactor-guardian |
+| Need progress tracking | planning | ap-progress-guardian |
+| Before claiming done | verification-before-completion | — |
+| Code review | code-review | ap-code-reviewer |
+| Document decisions | architecture-decision-records | ap-adr-writer |
+| Permanent docs | — | ap-docs-guardian |
+| Capture learnings | — | ap-learn |
+
+## Using These Skills
+
+1. **Reference by name** in Cursor Agent/Chat (e.g. "Load the tdd skill") so the right skill is loaded.
+2. **Match task to catalog**: Use the tables above to choose "when to use" and "what it provides."
+3. **Combine with agents**: Per AGENTS.md, load the relevant skill and engage the relevant agent at the start of work.
+4. **Read SKILL.md**: Each skill directory has a `SKILL.md` with full instructions and, where present, `references/` and `scripts/`.
+
+Skills are:
+
+- **On-demand**: Loaded when the task matches their "when to use."
+- **Composable**: Multiple skills can be loaded (e.g. tdd + typescript-strict + testing).
+- **Stable interface**: Skills expose instructions and references; agents call skills by path or name.
+
+## Skill Design Principles
+
+From `creating-skill/SKILL.md` and project practice:
+
+1. **Clear purpose**: One primary capability and clear trigger patterns.
+2. **Progressive disclosure**: SKILL.md concise; detail in `references/` or `assets/`.
+3. **Frontmatter**: `name` and `description` (what it does + when to use).
+4. **Portable**: Usable across projects/conversations, not project-specific.
+5. **Stable**: Interfaces and naming stay consistent; internals can evolve.
+
+## Contributing New Skills
+
+When adding a skill:
+
+1. **Follow structure**: `skill-name/SKILL.md` plus optional `references/`, `scripts/`, `assets/` (see `creating-skill/SKILL.md`).
+2. **Set frontmatter**: `name`, `description` (with trigger patterns).
+3. **Distinguish from existing skills**: Avoid overlap; link related skills.
+4. **Update this README**: Add the skill to the appropriate catalog table and, if it’s core or authoring, consider a detailed overview entry.
+5. **Version if required**: Follow `versioning-skills/SKILL.md` when modifying skill files.
+
+## Summary
+
+- **Catalog**: This README lists all skills in `skills/`, grouped by domain (core development, creating & authoring, code quality, architecture, backend/frontend, engineering/delivery/marketing/product teams, research/workflow, domain-specific).
+- **Core skills** (tdd, typescript-strict, testing, refactoring, planning, functional) are loaded proactively per AGENTS.md when writing or reviewing code.
+- **Agents** orchestrate workflows; **skills** supply patterns and references. Use the catalog to pick the right skill and the "Skill–Agent Relationships" section to pair skills with agents.
+- **Authoring**: New skills follow `creating-skill/SKILL.md`; new agents follow `creating-agents/SKILL.md`. Keep this README in sync when adding, removing, or renaming skills.
