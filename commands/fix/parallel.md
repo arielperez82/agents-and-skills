@@ -10,7 +10,7 @@ argument-hint: [issues]
 ## Workflow
 
 ### 1. Issue Analysis
-- Use `cs-debugger` subagent to analyze root causes
+- Use `ap-debugger` subagent to analyze root causes
 - Use `/scout` to find related files (adaptive: external tools preferred, internal tools fallback)
 - Categorize issues by scope/area (frontend, backend, auth, payments, etc.)
 - Identify dependencies between issues
@@ -34,7 +34,7 @@ argument-hint: [issues]
 - Use `tester` subagent for full test suite
 - NO fake data/mocks/cheats
 - Verify all issues resolved
-- If fail: use `cs-debugger`, fix, repeat
+- If fail: use `ap-debugger`, fix, repeat
 
 ### 5. Code Review
 - Use `code-reviewer` for all changes

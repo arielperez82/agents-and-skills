@@ -1,13 +1,13 @@
 ---
 name: creating-agents
-description: Guide for designing and writing cs-* agent specifications. Use when creating a new agent, drafting agent frontmatter, defining agent workflows, or structuring agent collaborations. For ecosystem-wide refactoring guidance, see refactoring-agents skill.
+description: Guide for designing and writing ap-* agent specifications. Use when creating a new agent, drafting agent frontmatter, defining agent workflows, or structuring agent collaborations. For ecosystem-wide refactoring guidance, see refactoring-agents skill.
 metadata:
-  short-description: Create or update cs-* agent specifications
+  short-description: Create or update ap-* agent specifications
 ---
 
 # Creating Agents
 
-This skill guides you through designing and writing effective cs-* agent specifications. Agents are specialized Claude Code agents that orchestrate skills to accomplish specific tasks.
+This skill guides you through designing and writing effective ap-* agent specifications. Agents are specialized Claude Code agents that orchestrate skills to accomplish specific tasks.
 
 ## What This Skill Covers
 
@@ -91,10 +91,10 @@ Agents are classified into four types based on operational characteristics:
 
 | Type | Color | Tools | Execution | Model | Examples |
 |------|-------|-------|-----------|-------|----------|
-| **Strategic** | 🔵 Blue | Read, Write, Grep | Parallel (4-5) | opus/sonnet | cs-product-director, cs-ceo-advisor |
-| **Implementation** | 🟢 Green | Full tools | Coordinated (2-3) | sonnet | cs-fullstack, cs-backend-engineer |
-| **Quality** | 🔴 Red | Full + Heavy Bash | Sequential (1) | sonnet | cs-code-reviewer, cs-qa-engineer |
-| **Coordination** | 🟣 Purple | Read, Write, Grep | Lightweight | opus | cs-architect, cs-progress-guardian |
+| **Strategic** | 🔵 Blue | Read, Write, Grep | Parallel (4-5) | opus/sonnet | ap-product-director, ap-ceo-advisor |
+| **Implementation** | 🟢 Green | Full tools | Coordinated (2-3) | sonnet | ap-fullstack-engineer, ap-backend-engineer |
+| **Quality** | 🔴 Red | Full + Heavy Bash | Sequential (1) | sonnet | ap-code-reviewer, ap-qa-engineer |
+| **Coordination** | 🟣 Purple | Read, Write, Grep | Lightweight | opus | ap-architect, ap-progress-guardian |
 
 **Classification rules**: See [references/authoring-guide.md](references/authoring-guide.md#agent-type-classification-system) for detailed criteria and execution safety rules.
 
@@ -112,7 +112,7 @@ All agents reference skills using relative paths:
    - **Usage:** `python ../../skills/domain-team/skill-name/scripts/tool.py [args]`
 ```
 
-**Path resolution**: From `agents/domain/cs-agent-name.md` to `skills/domain-team/skill-name/` uses `../../` pattern.
+**Path resolution**: From `agents/domain/ap-agent-name.md` to `skills/domain-team/skill-name/` uses `../../` pattern.
 
 **Always test paths resolve correctly** before committing.
 
@@ -152,7 +152,7 @@ Use `collaborates-with` section to define optional agent dependencies:
 
 ```yaml
 collaborates-with:
-  - agent: cs-technical-writer
+  - agent: ap-technical-writer
     purpose: API documentation generation with sequence diagrams
     required: optional
     features-enabled: [api-docs, sequence-diagrams]
@@ -167,7 +167,7 @@ Before committing an agent, validate against:
 
 - [ ] YAML frontmatter valid (no parsing errors)
 - [ ] All required fields present
-- [ ] cs-* prefix used for agent naming
+- [ ] ap-* prefix used for agent naming
 - [ ] Relative paths resolve correctly
 - [ ] Skill location documented and accessible
 - [ ] Python tools referenced with correct paths
@@ -216,7 +216,7 @@ Guardian agents assess, guide, and validate but **never implement**:
 - **Reactive**: Validate and review after implementation
 - **Output**: Prioritized findings (🔴 Critical → ⚠️ High Priority → 💡 Nice to Have)
 
-**Examples**: `cs-tdd-guardian`, `cs-docs-guardian`, `cs-refactor-guardian`
+**Examples**: `ap-tdd-guardian`, `ap-docs-guardian`, `ap-refactor-guardian`
 
 ### Orchestration Pattern
 
@@ -233,8 +233,8 @@ This makes skill ownership clear and discoverable.
 
 Agents should delegate to specialized agents rather than duplicating capabilities:
 
-- **Research**: Delegate to `cs-researcher` for external research
-- **Planning**: Delegate to `cs-implementation-planner` for tactical planning
+- **Research**: Delegate to `ap-researcher` for external research
+- **Planning**: Delegate to `ap-implementation-planner` for tactical planning
 - **Validation**: Delegate to guardian agents for quality checks
 
 **Delegation rules**: See [references/authoring-guide.md](references/authoring-guide.md#delegation-patterns) for detailed guidance.
@@ -266,34 +266,34 @@ These patterns help you understand the conventions for each domain when creating
 - **Reference**: `../skills/marketing-team/`
 - **Focus**: Content creation, SEO, demand generation
 - **Common tools**: `brand_voice_analyzer.py`, `seo_optimizer.py`
-- **Example agents**: `cs-content-creator`, `cs-seo-strategist`, `cs-product-marketer`
+- **Example agents**: `ap-content-creator`, `ap-seo-strategist`, `ap-product-marketer`
 
 ### Product Agents (root `agents/`)
 - **Location**: Root `agents/` directory (no subfolder)
 - **Reference**: `../skills/product-team/`
 - **Focus**: Prioritization, user research, agile workflows
 - **Common tools**: `rice_prioritizer.py`, `user_story_generator.py`
-- **Example agents**: `cs-product-manager`, `cs-product-director`, `cs-ux-researcher`
+- **Example agents**: `ap-product-manager`, `ap-product-director`, `ap-ux-researcher`
 
 ### Engineering Agents (root `agents/`)
 - **Location**: Root `agents/` directory (no subfolder)
 - **Reference**: `../skills/engineering-team/`
 - **Focus**: Code development, quality, architecture
 - **Common tools**: `project_scaffolder.py`, `code_quality_analyzer.py`
-- **Example agents**: `cs-backend-engineer`, `cs-frontend-engineer`, `cs-architect`
+- **Example agents**: `ap-backend-engineer`, `ap-frontend-engineer`, `ap-architect`
 
 ### Delivery Agents (root `agents/`)
 - **Location**: Root `agents/` directory (no subfolder)
 - **Reference**: `../skills/delivery-team/`
 - **Focus**: Project management, agile coaching, progress tracking
 - **Common tools**: Project planning and tracking tools
-- **Example agents**: `cs-agile-coach`, `cs-senior-pm`, `cs-progress-guardian`
+- **Example agents**: `ap-agile-coach`, `ap-senior-pm`, `ap-progress-guardian`
 
 ## When to Use This Skill
 
 Use this skill when:
 
-- Creating a new cs-* agent from scratch
+- Creating a new ap-* agent from scratch
 - Updating an existing agent's structure or workflows
 - Adding collaboration relationships to an agent
 - Validating agent quality before committing
@@ -311,7 +311,7 @@ After creating an agent:
 1. **Validate**: Run through [assets/agent-checklists.md](assets/agent-checklists.md)
 2. **Test**: Verify all paths, tools, and workflows
 3. **Update README**: **REQUIRED** - Add the new agent to `agents/README.md` in the "Complete Agent Catalog" section
-4. **Commit**: Use conventional commit: `feat(agents): implement cs-agent-name`
+4. **Commit**: Use conventional commit: `feat(agents): implement ap-agent-name`
 
 > **⚠️ Maintenance Requirement**: You MUST update `agents/README.md` whenever you add, delete, move, or rename an agent. The README serves as the complete catalog and operator's guide. See the maintenance note at the top of `agents/README.md` for details.
 

@@ -53,10 +53,10 @@ tech-stack:
   - JSON/CSV data processing
   - HTML parsing
   - SEO frameworks
-  python-tools:
-    - keyword_researcher.py
-    - technical_seo_auditor.py
-    - seo_roadmap_generator.py
+python-tools:
+  - keyword_researcher.py
+  - technical_seo_auditor.py
+  - seo_roadmap_generator.py
 
 # === EXAMPLES ===
 examples:

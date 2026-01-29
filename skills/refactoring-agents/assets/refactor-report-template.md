@@ -17,8 +17,8 @@
 
 List each in-scope agent with a brief summary:
 
-- `cs-agent-1` – Purpose, key outputs, invocation timing
-- `cs-agent-2` – Purpose, key outputs, invocation timing
+- `ap-agent-1` – Purpose, key outputs, invocation timing
+- `ap-agent-2` – Purpose, key outputs, invocation timing
 - ...
 
 ### Overlap & Gaps

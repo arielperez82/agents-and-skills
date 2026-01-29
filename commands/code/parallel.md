@@ -33,7 +33,7 @@ Follow `./.claude/workflows/primary-workflow.md`:
 
 ### 3. Testing
 - Use `tester` for full suite (NO fake data/mocks)
-- If fail: `cs-debugger` → fix → repeat
+- If fail: `ap-debugger` → fix → repeat
 
 ### 4. Code Review
 - Use `code-reviewer` for all changes

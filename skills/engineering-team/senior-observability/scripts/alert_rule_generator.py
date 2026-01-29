@@ -824,7 +824,7 @@ def main():
         formatter_class=argparse.RawDescriptionHelpFormatter,
         epilog="""
 Examples:
-  # Generate Prometheus alerts for 99.9% SLO
+  # Generate Prometheus alerts for 99.9%% SLO
   %(prog)s --service payment-api --slo-target 99.9 --platform prometheus --output yaml
 
   # Generate DataDog monitors

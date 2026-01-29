@@ -1,13 +1,13 @@
 ---
 name: refactoring-agents
-description: Guides ecosystem-level refactors of cs-* agents. Use when agents overlap, responsibilities are unclear, or you need to merge, split, rename, or re-scope agents and formalize collaboration contracts.
+description: Guides ecosystem-level refactors of ap-* agents. Use when agents overlap, responsibilities are unclear, or you need to merge, split, rename, or re-scope agents and formalize collaboration contracts.
 metadata:
-  short-description: Refactor and reshape the cs-* agent catalogue
+  short-description: Refactor and reshape the ap-* agent catalogue
 ---
 
 # Refactoring Agents
 
-This skill guides systematic refactoring of the cs-* agent ecosystem: identifying overlap, deciding when to merge or keep agents separate, tightening responsibilities, and formalizing collaboration patterns.
+This skill guides systematic refactoring of the ap-* agent ecosystem: identifying overlap, deciding when to merge or keep agents separate, tightening responsibilities, and formalizing collaboration patterns.
 
 ## What This Skill Covers
 

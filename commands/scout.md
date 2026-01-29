@@ -15,7 +15,7 @@ REPORT_OUTPUT_DIR: `plans/<plan-name>/reports/scout-report.md`
 
 ## Agent
 
-Use `cs-codebase-scout` agent (located at `agents/cs-codebase-scout.md`).
+Use `ap-codebase-scout` agent (located at `agents/ap-codebase-scout.md`).
 
 ## Adaptive Strategy
 
@@ -27,7 +27,7 @@ The agent automatically selects the best strategy based on tool availability.
 
 ## Optional: Pattern Discovery
 
-If search scope is unclear, the scout agent can optionally leverage `cs-researcher` for pattern discovery:
+If search scope is unclear, the scout agent can optionally leverage `ap-researcher` for pattern discovery:
 - Example: "What file patterns typically handle authentication in React apps?"
 - Use research findings to inform search patterns
 - Then proceed with codebase search
@@ -36,7 +36,7 @@ If search scope is unclear, the scout agent can optionally leverage `cs-research
 
 The scout agent will:
 1. Analyze the search request and identify relevant directories
-2. Optionally delegate to `cs-researcher` if pattern discovery is needed
+2. Optionally delegate to `ap-researcher` if pattern discovery is needed
 3. Divide codebase into logical sections for parallel searching
 4. Execute parallel searches using adaptive strategy:
    - **External tools** (if available): `gemini -y -p "[prompt]" --model gemini-2.5-flash` or `opencode run "[prompt]" --model opencode/grok-code`
@@ -67,7 +67,7 @@ The scout agent will:
 ## Notes
 
 - **IMPORTANT**: Scout searches LOCAL codebase only - not external sources
-- **IMPORTANT**: For external research (technologies, docs, best practices), use `cs-researcher` instead
-- **IMPORTANT**: Scout can optionally leverage `cs-researcher` for pattern discovery when search scope is unclear
+- **IMPORTANT**: For external research (technologies, docs, best practices), use `ap-researcher` instead
+- **IMPORTANT**: Scout can optionally leverage `ap-researcher` for pattern discovery when search scope is unclear
 - **Timeout**: 3 minutes per parallel search operation
 - **Skip timeouts**: Don't restart operations that timeout, continue with others

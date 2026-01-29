@@ -158,7 +158,7 @@ Code reviewer: ✅ Approved
 ...
 
 [After all tasks]
-[Dispatch final cs-code-reviewer]
+[Dispatch final ap-code-reviewer]
 Final reviewer: All requirements met, ready to merge
 
 Done!

@@ -260,7 +260,7 @@ python senior-ml-engineer/scripts/model_deployment_pipeline.py model.pkl
 
 **All engineering skills include TDD support:**
 - `core-testing-methodology` skill for TDD patterns
-- `cs-tdd-guardian` agent for methodology coaching
+- `ap-tdd-guardian` agent for methodology coaching
 - `qa-engineer` agent for automation infrastructure
 
 **Quality Gates:**
@@ -306,7 +306,7 @@ services:
 - **Quick Start:** `START_HERE.md`
 - **Team Structure:** `TEAM_STRUCTURE_GUIDE.md`
 - **Engineering Roadmap:** `engineering_skills_roadmap.md` (if exists)
-- **Agent Authoring Guide:** `../../agents/cs-agent-author.md`
+- **Agent Authoring Guide:** `../../agents/ap-agent-author.md`
 
 ---
 

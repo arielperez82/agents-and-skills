@@ -1,6 +1,6 @@
 ---
 # === CORE IDENTITY ===
-name: cs-agent-name
+name: ap-agent-name
 title: Human Readable Title
 description: One-line description (under ~300 chars)
 domain: domain-name
@@ -145,7 +145,7 @@ python ../../skills/domain-team/skill-name/scripts/tool.py input.txt
 
 ## Related Agents
 
-- [cs-related-agent](../domain/cs-related-agent.md) – How they relate
+- [ap-related-agent](../domain/ap-related-agent.md) – How they relate
 
 ## References
 

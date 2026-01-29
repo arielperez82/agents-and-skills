@@ -3,7 +3,7 @@
 
 This directory contains specifications for specialized Claude Code agents that work together to maintain code quality, documentation, and development workflow.
 
-> **⚠️ Maintenance Note**: This README must be updated whenever an agent is added, deleted, moved, or renamed. See maintenance instructions in `cs-agent-author.md`, `skills/creating-agents/SKILL.md`, and `skills/refactoring-agents/SKILL.md`.
+> **⚠️ Maintenance Note**: This README must be updated whenever an agent is added, deleted, moved, or renamed. See maintenance instructions in `ap-agent-author.md`, `skills/creating-agents/SKILL.md`, and `skills/refactoring-agents/SKILL.md`.
 
 ## What this file is (and isn't)
 
@@ -18,88 +18,88 @@ This directory contains specifications for specialized Claude Code agents that w
 These agents live directly in the `agents/` root directory:
 
 #### Meta Development
-- **`cs-agent-author`** - Orchestrates creation and maintenance of cs-* agents and skills, enforcing standards and templates
+- **`ap-agent-author`** - Orchestrates creation and maintenance of ap-* agents and skills, enforcing standards and templates
 
 #### Delivery & Project Management
-- **`cs-agile-coach`** - Agile coaching specialist for ceremonies, team dynamics, communication, and agile manifesto adherence
-- **`cs-progress-guardian`** - Assesses and validates progress tracking through PLAN.md, WIP.md, and LEARNINGS.md
-- **`cs-senior-pm`** - Strategic program management for portfolio planning, stakeholder management, and delivery excellence
+- **`ap-agile-coach`** - Agile coaching specialist for ceremonies, team dynamics, communication, and agile manifesto adherence
+- **`ap-progress-guardian`** - Assesses and validates progress tracking through PLAN.md, WIP.md, and LEARNINGS.md
+- **`ap-senior-pm`** - Strategic program management for portfolio planning, stakeholder management, and delivery excellence
 
 #### Marketing
-- **`cs-content-creator`** - AI-powered content creation for brand voice consistency, SEO optimization, and multi-platform strategy
-- **`cs-demand-gen-specialist`** - Demand generation and customer acquisition for lead generation and conversion optimization
-- **`cs-product-marketer`** - Product marketing for positioning strategy, GTM execution, competitive intelligence, and launch planning
-- **`cs-seo-strategist`** - Strategic SEO planning for site-wide optimization, keyword research, technical audits, and competitive positioning
+- **`ap-content-creator`** - AI-powered content creation for brand voice consistency, SEO optimization, and multi-platform strategy
+- **`ap-demand-gen-specialist`** - Demand generation and customer acquisition for lead generation and conversion optimization
+- **`ap-product-marketer`** - Product marketing for positioning strategy, GTM execution, competitive intelligence, and launch planning
+- **`ap-seo-strategist`** - Strategic SEO planning for site-wide optimization, keyword research, technical audits, and competitive positioning
 
 #### Documentation & Knowledge
-- **`cs-docs-guardian`** - Creates and maintains world-class permanent documentation (README, guides, API docs)
-- **`cs-learn`** - Captures learnings, gotchas, and patterns into CLAUDE.md
+- **`ap-docs-guardian`** - Creates and maintains world-class permanent documentation (README, guides, API docs)
+- **`ap-learn`** - Captures learnings, gotchas, and patterns into CLAUDE.md
 
 ### Engineering Agents
 
 #### Architecture & Design
-- **`cs-architect`** - System architecture specialist for design patterns, scalability planning, and technology evaluation
-- **`cs-adr-writer`** - Creates Architecture Decision Records (ADRs) documenting significant architectural choices
-- **`cs-graphql-architect`** - GraphQL API design specialist for schema architecture, resolver patterns, and federation
+- **`ap-architect`** - System architecture specialist for design patterns, scalability planning, and technology evaluation
+- **`ap-adr-writer`** - Creates Architecture Decision Records (ADRs) documenting significant architectural choices
+- **`ap-graphql-architect`** - GraphQL API design specialist for schema architecture, resolver patterns, and federation
 
 #### Development Specialists
-- **`cs-backend-engineer`** - Backend development for API design, database optimization, and microservices architecture
-- **`cs-frontend-engineer`** - Frontend development for React/Vue components, UI/UX implementation, and performance optimization
-- **`cs-fullstack-engineer`** - Fullstack development for complete web applications with React, Next.js, Node.js, GraphQL
-- **`cs-mobile-engineer`** - Cross-platform mobile development for React Native, Flutter, and Expo
-- **`cs-ios-engineer`** - Native iOS development for Swift, SwiftUI, and Apple ecosystem integration
-- **`cs-flutter-engineer`** - Flutter and Dart development for cross-platform applications
-- **`cs-java-engineer`** - Java and Spring Boot development for enterprise applications and microservices
-- **`cs-dotnet-engineer`** - C# and .NET development for enterprise applications and cloud-native systems
+- **`ap-backend-engineer`** - Backend development for API design, database optimization, and microservices architecture
+- **`ap-frontend-engineer`** - Frontend development for React/Vue components, UI/UX implementation, and performance optimization
+- **`ap-fullstack-engineer`** - Fullstack development for complete web applications with React, Next.js, Node.js, GraphQL
+- **`ap-mobile-engineer`** - Cross-platform mobile development for React Native, Flutter, and Expo
+- **`ap-ios-engineer`** - Native iOS development for Swift, SwiftUI, and Apple ecosystem integration
+- **`ap-flutter-engineer`** - Flutter and Dart development for cross-platform applications
+- **`ap-java-engineer`** - Java and Spring Boot development for enterprise applications and microservices
+- **`ap-dotnet-engineer`** - C# and .NET development for enterprise applications and cloud-native systems
 
 #### Data & ML
-- **`cs-data-engineer`** - Data engineering for scalable pipelines, ETL/ELT systems, and real-time streaming
-- **`cs-data-scientist`** - Data science for statistical modeling, experimentation, causal inference, and analytics
-- **`cs-database-engineer`** - Database specialist for MongoDB and PostgreSQL schema design and optimization
-- **`cs-supabase-database-engineer`** - Supabase specialist for schema design, migration management, and RLS policies
-- **`cs-ml-engineer`** - ML engineering for productionizing models, MLOps, and scalable ML systems
-- **`cs-computer-vision`** - Computer vision for image/video processing, object detection, and visual AI systems
+- **`ap-data-engineer`** - Data engineering for scalable pipelines, ETL/ELT systems, and real-time streaming
+- **`ap-data-scientist`** - Data science for statistical modeling, experimentation, causal inference, and analytics
+- **`ap-database-engineer`** - Database specialist for MongoDB and PostgreSQL schema design and optimization
+- **`ap-supabase-database-engineer`** - Supabase specialist for schema design, migration management, and RLS policies
+- **`ap-ml-engineer`** - ML engineering for productionizing models, MLOps, and scalable ML systems
+- **`ap-computer-vision`** - Computer vision for image/video processing, object detection, and visual AI systems
 
 #### Quality & Testing
-- **`cs-tdd-guardian`** - TDD methodology coach ensuring RED-GREEN-REFACTOR cycle adherence
-- **`cs-qa-engineer`** - QA and testing specialist for test automation, coverage analysis, and quality metrics
-- **`cs-code-reviewer`** - Code review specialist for quality assessment, security analysis, and best practices
-- **`cs-refactor-guardian`** - Assesses refactoring opportunities after tests pass (TDD's third step)
-- **`cs-ts-enforcer`** - Enforces TypeScript strict mode and best practices
-- **`cs-tpp-guardian`** - Transformation Priority Premise (TPP) guardian for TDD transformations
+- **`ap-tdd-guardian`** - TDD methodology coach ensuring RED-GREEN-REFACTOR cycle adherence
+- **`ap-qa-engineer`** - QA and testing specialist for test automation, coverage analysis, and quality metrics
+- **`ap-code-reviewer`** - Code review specialist for quality assessment, security analysis, and best practices
+- **`ap-refactor-guardian`** - Assesses refactoring opportunities after tests pass (TDD's third step)
+- **`ap-ts-enforcer`** - Enforces TypeScript strict mode and best practices
+- **`ap-tpp-guardian`** - Transformation Priority Premise (TPP) guardian for TDD transformations
 
 #### DevOps & Infrastructure
-- **`cs-devsecops-engineer`** - DevSecOps for CI/CD, infrastructure automation, containerization, and cloud platforms
-- **`cs-network-engineer`** - Network infrastructure for VPC/VNet design, VPN configuration, and load balancing
-- **`cs-observability-engineer`** - Observability for monitoring, logging, distributed tracing, and SLI/SLO implementation
-- **`cs-security-engineer`** - Security engineering for application security, penetration testing, and compliance auditing
-- **`cs-incident-responder`** - Incident response for security incident detection, containment, and recovery
+- **`ap-devsecops-engineer`** - DevSecOps for CI/CD, infrastructure automation, containerization, and cloud platforms
+- **`ap-network-engineer`** - Network infrastructure for VPC/VNet design, VPN configuration, and load balancing
+- **`ap-observability-engineer`** - Observability for monitoring, logging, distributed tracing, and SLI/SLO implementation
+- **`ap-security-engineer`** - Security engineering for application security, penetration testing, and compliance auditing
+- **`ap-incident-responder`** - Incident response for security incident detection, containment, and recovery
 
 #### Specialized Engineering
-- **`cs-prompt-engineer`** - Prompt engineering for LLM optimization, prompt patterns, and AI product development
-- **`cs-technical-writer`** - Technical writing for documentation automation, README generation, and API documentation
-- **`cs-debugger`** - Debugging specialist for root cause analysis and error resolution
-- **`cs-researcher`** - Technology researcher for external research, best practices, and technology evaluation
-- **`cs-brainstormer`** - Solution brainstorming for evaluating architectural approaches and exploring solutions
-- **`cs-codebase-scout`** - Codebase exploration specialist for searching and analyzing codebases
-- **`cs-implementation-planner`** - Implementation planning for creating comprehensive step-by-step implementation plans
-- **`cs-use-case-data-analyzer`** - Analyzes how user-facing use cases map to data access patterns and architecture
-- **`cs-legacy-codebase-analyzer`** - Legacy codebase analysis for technical debt assessment and modernization
-- **`cs-cto-advisor`** - Technical leadership guidance for engineering teams, architecture decisions, and tech strategy
+- **`ap-prompt-engineer`** - Prompt engineering for LLM optimization, prompt patterns, and AI product development
+- **`ap-technical-writer`** - Technical writing for documentation automation, README generation, and API documentation
+- **`ap-debugger`** - Debugging specialist for root cause analysis and error resolution
+- **`ap-researcher`** - Technology researcher for external research, best practices, and technology evaluation
+- **`ap-brainstormer`** - Solution brainstorming for evaluating architectural approaches and exploring solutions
+- **`ap-codebase-scout`** - Codebase exploration specialist for searching and analyzing codebases
+- **`ap-implementation-planner`** - Implementation planning for creating comprehensive step-by-step implementation plans
+- **`ap-use-case-data-analyzer`** - Analyzes how user-facing use cases map to data access patterns and architecture
+- **`ap-legacy-codebase-analyzer`** - Legacy codebase analysis for technical debt assessment and modernization
+- **`ap-cto-advisor`** - Technical leadership guidance for engineering teams, architecture decisions, and tech strategy
 
 ### Product Agents
 
-- **`cs-product-director`** - Strategic product leadership for OKR cascade, market analysis, vision setting, and team scaling
-- **`cs-product-manager`** - Product management for feature prioritization, customer discovery, PRD development, and roadmap planning
-- **`cs-product-analyst`** - Product analysis for user story structure, sprint readiness, and business process analysis
-- **`cs-ux-researcher`** - UX research and design for data-driven personas, journey mapping, and usability testing
-- **`cs-ui-designer`** - UI design system for design token generation, component documentation, and responsive design
+- **`ap-product-director`** - Strategic product leadership for OKR cascade, market analysis, vision setting, and team scaling
+- **`ap-product-manager`** - Product management for feature prioritization, customer discovery, PRD development, and roadmap planning
+- **`ap-product-analyst`** - Product analysis for user story structure, sprint readiness, and business process analysis
+- **`ap-ux-researcher`** - UX research and design for data-driven personas, journey mapping, and usability testing
+- **`ap-ui-designer`** - UI design system for design token generation, component documentation, and responsive design
 
 ## Agent Overview (Detailed)
 
 ### Development Process Agents
 
-#### `cs-tdd-guardian`
+#### `ap-tdd-guardian`
 **Purpose**: TDD methodology coach and guardian - ensures TDD principles are followed by ALL developers.
 
 **Use when**:
@@ -112,7 +112,7 @@ These agents live directly in the `agents/` root directory:
 
 ---
 
-#### `cs-qa-engineer`
+#### `ap-qa-engineer`
 **Purpose**: Quality automation specialist and testing infrastructure expert.
 
 **Use when**:
@@ -126,7 +126,7 @@ These agents live directly in the `agents/` root directory:
 
 ---
 
-#### `cs-ts-enforcer`
+#### `ap-ts-enforcer`
 **Purpose**: Enforces TypeScript strict mode and best practices.
 
 **Use proactively when**:
@@ -142,7 +142,7 @@ These agents live directly in the `agents/` root directory:
 
 ---
 
-#### `cs-refactor-guardian`
+#### `ap-refactor-guardian`
 **Purpose**: Assesses refactoring opportunities after tests pass (TDD's third step).
 
 **Use proactively when**:
@@ -161,7 +161,7 @@ These agents live directly in the `agents/` root directory:
 
 ### Code Review Agents
 
-#### `cs-code-reviewer`
+#### `ap-code-reviewer`
 **Purpose**: Reviews code for quality, security, and best practices across all tech stacks.
 
 **Use proactively when**:
@@ -180,7 +180,7 @@ These agents live directly in the `agents/` root directory:
 
 ### Documentation & Knowledge Agents
 
-#### `cs-docs-guardian`
+#### `ap-docs-guardian`
 **Purpose**: Creates and maintains world-class permanent documentation.
 
 **Use proactively when**:
@@ -198,7 +198,7 @@ These agents live directly in the `agents/` root directory:
 
 ---
 
-#### `cs-adr-writer`
+#### `ap-adr-writer`
 **Purpose**: Creates Architecture Decision Records (ADRs) documenting significant architectural decisions with context, alternatives, and trade-offs.
 
 **Use proactively when**:
@@ -223,7 +223,7 @@ These agents live directly in the `agents/` root directory:
 
 ---
 
-#### `cs-learn`
+#### `ap-learn`
 **Purpose**: Captures learnings, gotchas, and patterns into CLAUDE.md.
 
 **Use proactively when**:
@@ -243,7 +243,7 @@ These agents live directly in the `agents/` root directory:
 
 ### Analysis & Architecture Agents
 
-#### `cs-use-case-data-analyzer`
+#### `ap-use-case-data-analyzer`
 **Purpose**: Analyzes how user-facing use cases map to underlying data access patterns and architectural implementation.
 
 **Use proactively when**:
@@ -262,7 +262,7 @@ These agents live directly in the `agents/` root directory:
 
 ---
 
-#### `cs-supabase-database-engineer`
+#### `ap-supabase-database-engineer`
 **Purpose**: Supabase database specialist for schema design, migration management, RLS policy architecture, and database optimization.
 
 **Use proactively when**:
@@ -297,7 +297,7 @@ These agents live directly in the `agents/` root directory:
 
 ### Workflow & Planning Agents
 
-#### `cs-progress-guardian`
+#### `ap-progress-guardian`
 **Purpose**: Manages progress through significant work using a three-document system.
 
 **Use proactively when**:
@@ -338,27 +338,27 @@ These agents live directly in the `agents/` root directory:
 ### Orchestration Flow
 
 ```
-cs-progress-guardian (orchestrates)
+ap-progress-guardian (orchestrates)
     │
     ├─► Creates: PLAN.md, WIP.md, LEARNINGS.md
     │
     ├─► For each step:
-    │   ├─→ cs-tdd-guardian (RED-GREEN-REFACTOR)
-    │   ├─→ cs-ts-enforcer (before commits)
-    │   └─→ cs-refactor-guardian (after GREEN)
+    │   ├─→ ap-tdd-guardian (RED-GREEN-REFACTOR)
+    │   ├─→ ap-ts-enforcer (before commits)
+    │   └─→ ap-refactor-guardian (after GREEN)
     │
     ├─► For database/schema work:
-    │   └─→ cs-supabase-database-engineer (schema design, RLS policies, migration management)
+    │   └─→ ap-supabase-database-engineer (schema design, RLS policies, migration management)
     │
     ├─► When decisions arise:
-    │   └─→ cs-adr-writer (architectural decisions)
+    │   └─→ ap-adr-writer (architectural decisions)
     │
     ├─► Before merge:
-    │   └─→ cs-code-reviewer (comprehensive code review)
+    │   └─→ ap-code-reviewer (comprehensive code review)
     │
     ├─► At end:
-    │   ├─→ cs-learn (merge LEARNINGS.md → CLAUDE.md)
-    │   ├─→ cs-docs-guardian (update permanent docs)
+    │   ├─→ ap-learn (merge LEARNINGS.md → CLAUDE.md)
+    │   ├─→ ap-docs-guardian (update permanent docs)
     │   └─→ DELETE all three docs
     │
     └─► Related: `planning` skill (incremental work principles)
@@ -368,51 +368,51 @@ cs-progress-guardian (orchestrates)
 
 1. **Start significant work**
    - Load `planning` skill for principles
-   - Invoke `cs-progress-guardian`: Assesses if PLAN.md, WIP.md, LEARNINGS.md exist, recommends creation
+   - Invoke `ap-progress-guardian`: Assesses if PLAN.md, WIP.md, LEARNINGS.md exist, recommends creation
    - Get approval for PLAN.md
 
 2. **For each step in plan**
    - RED: Write failing test (TDD non-negotiable)
    - GREEN: Minimal code to pass
-   - REFACTOR: Invoke `cs-refactor-guardian` to assess improvements
+   - REFACTOR: Invoke `ap-refactor-guardian` to assess improvements
    - Update WIP.md with progress
    - Capture discoveries in LEARNINGS.md
    - **WAIT FOR COMMIT APPROVAL**
 
 3. **When plan needs changing**
-   - Invoke `cs-progress-guardian`: Propose changes
+   - Invoke `ap-progress-guardian`: Propose changes
    - **Get approval before modifying PLAN.md**
 
 4. **When architectural decision arises**
    - Add to LEARNINGS.md immediately
-   - Invoke `cs-adr-writer` if decision warrants permanent record
+   - Invoke `ap-adr-writer` if decision warrants permanent record
 
 5. **Before commits**
-   - Invoke `cs-ts-enforcer`: Verify TypeScript compliance
-   - Invoke `cs-tdd-guardian`: Verify TDD compliance
+   - Invoke `ap-ts-enforcer`: Verify TypeScript compliance
+   - Invoke `ap-tdd-guardian`: Verify TDD compliance
    - **Ask for commit approval**
 
 6. **End of session**
-   - Invoke `cs-progress-guardian`: Validate WIP.md is up to date, report what's missing
+   - Invoke `ap-progress-guardian`: Validate WIP.md is up to date, report what's missing
 
 7. **Before creating PR**
-   - Invoke `cs-code-reviewer`: Self-review changes
+   - Invoke `ap-code-reviewer`: Self-review changes
    - Fix any issues found
    - Create PR using `/pr` command
 
 8. **Feature complete**
-   - Invoke `cs-progress-guardian`: Verify all criteria met
+   - Invoke `ap-progress-guardian`: Verify all criteria met
    - Review LEARNINGS.md for merge destinations
-   - Invoke `cs-learn`: Merge gotchas/patterns → CLAUDE.md
-   - Invoke `cs-adr-writer`: Create ADRs for architectural decisions
-   - Invoke `cs-docs-guardian`: Update permanent docs
+   - Invoke `ap-learn`: Merge gotchas/patterns → CLAUDE.md
+   - Invoke `ap-adr-writer`: Create ADRs for architectural decisions
+   - Invoke `ap-docs-guardian`: Update permanent docs
    - **DELETE PLAN.md, WIP.md, LEARNINGS.md**
 
 ## Key Distinctions
 
 ### Documentation Types
 
-| Aspect | cs-progress-guardian | cs-adr-writer | cs-learn | cs-docs-guardian |
+| Aspect | ap-progress-guardian | ap-adr-writer | ap-learn | ap-docs-guardian |
 |--------|------------------|-----|-------|---------------|
 | **Lifespan** | Temporary (days/weeks) | Permanent | Permanent | Permanent |
 | **Audience** | Current developer | Future developers | AI assistant + developers | Users + developers |
@@ -424,38 +424,38 @@ cs-progress-guardian (orchestrates)
 
 ### When to Use Which Documentation Agent
 
-**Use `cs-progress-guardian`** for:
+**Use `ap-progress-guardian`** for:
 - "What am I working on right now?"
 - "What's the next step?"
 - "Where was I when I stopped yesterday?"
 - "What have we discovered so far?"
 - → Answer: Temporary PLAN.md, WIP.md, LEARNINGS.md (deleted when done)
 
-**Use `cs-adr-writer`** for:
+**Use `ap-adr-writer`** for:
 - "Why did we choose technology X over Y?"
 - "What were the trade-offs in this architectural decision?"
 - "Why is the system designed this way?"
 - → Answer: Permanent ADR in `docs/adr/`
 
-**Use `cs-learn`** for:
+**Use `ap-learn`** for:
 - "What gotchas should I know about?"
 - "What patterns work well here?"
 - "How do I avoid this common mistake?"
 - → Answer: Permanent entry in `CLAUDE.md`
 
-**Use `cs-docs-guardian`** for:
+**Use `ap-docs-guardian`** for:
 - "How do I install this?"
 - "How do I use this API?"
 - "What features does this have?"
 - → Answer: Permanent `README.md`, guides, API docs
 
-**Use `cs-use-case-data-analyzer`** for:
+**Use `ap-use-case-data-analyzer`** for:
 - "How does this feature work end-to-end?"
 - "What data patterns support this use case?"
 - "What's missing to implement this feature?"
 - → Answer: Analytical report mapping use cases to data patterns
 
-**Use `cs-supabase-database-engineer`** for:
+**Use `ap-supabase-database-engineer`** for:
 - "How should I design this Supabase schema?"
 - "What RLS policies do I need?"
 - "How do I optimize this database structure?"
@@ -507,13 +507,13 @@ When creating a new agent specification:
 
 These agents work together to create a comprehensive development workflow:
 
-- **Analysis**: cs-use-case-data-analyzer maps use cases to implementation patterns
-- **Database**: cs-supabase-database-engineer designs schemas and manages migrations
-- **Quality**: cs-tdd-guardian + cs-ts-enforcer ensure code quality
-- **Improvement**: cs-refactor-guardian optimizes code after tests pass
-- **Review**: cs-code-reviewer validates code before merge
-- **Knowledge**: cs-learn + cs-adr-writer + cs-docs-guardian preserve knowledge
-- **Progress**: cs-progress-guardian validates progress tracking discipline with three-document model
+- **Analysis**: ap-use-case-data-analyzer maps use cases to implementation patterns
+- **Database**: ap-supabase-database-engineer designs schemas and manages migrations
+- **Quality**: ap-tdd-guardian + ap-ts-enforcer ensure code quality
+- **Improvement**: ap-refactor-guardian optimizes code after tests pass
+- **Review**: ap-code-reviewer validates code before merge
+- **Knowledge**: ap-learn + ap-adr-writer + ap-docs-guardian preserve knowledge
+- **Progress**: ap-progress-guardian validates progress tracking discipline with three-document model
 
 **Key workflow principles** (see `planning` skill for details):
 - All work in small, known-good increments

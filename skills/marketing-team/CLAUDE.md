@@ -244,7 +244,7 @@ See `marketing_skills_roadmap.md` for detailed expansion plans.
 
 - **Marketing Roadmap:** `marketing_skills_roadmap.md`
 - **Team Overview:** `README.md`
-- **Agent Authoring Guide:** `../../agents/cs-agent-author.md`
+- **Agent Authoring Guide:** `../../agents/ap-agent-author.md`
 
 ---
 

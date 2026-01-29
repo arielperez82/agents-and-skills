@@ -15,16 +15,16 @@ $ARGUMENTS
 1. Create a directory named `plans/{date}-plan-name` (date format from `$CK_PLAN_DATE_FORMAT`).
    Make sure you pass the directory path to every subagent during the process.
 2. Follow strictly to the "Plan Creation & Organization" rules of `planning` skill.
-3. Use multiple `cs-researcher` agents (max 2 agents) in parallel to research for this task:
+3. Use multiple `ap-researcher` agents (max 2 agents) in parallel to research for this task:
    Each agent research for a different aspect of the task and are allowed to perform max 5 tool calls.
 4. Analyze the codebase by reading `codebase-summary.md`, `code-standards.md`, `system-architecture.md` and `project-overview-pdr.md` file.
    **ONLY PERFORM THIS FOLLOWING STEP IF `codebase-summary.md` is not available or older than 3 days**: Use `/scout <instructions>` slash command to search the codebase for files needed to complete the task.
-5. Main agent gathers all research and cs-codebase-scout report filepaths, and pass them to `cs-implementation-planner` subagent with the prompt to create a parallel-optimized implementation plan.
-6. Main agent receives the implementation plan from `cs-implementation-planner` subagent, and ask user to review the plan
+5. Main agent gathers all research and ap-codebase-scout report filepaths, and pass them to `ap-implementation-planner` subagent with the prompt to create a parallel-optimized implementation plan.
+6. Main agent receives the implementation plan from `ap-implementation-planner` subagent, and ask user to review the plan
 
 ## Special Requirements for Parallel Execution
 
-**CRITICAL:** The cs-implementation-planner subagent must create phases that:
+**CRITICAL:** The ap-implementation-planner subagent must create phases that:
 1. **Can be executed independently** - Each phase should be self-contained with no runtime dependencies on other phases
 2. **Have clear boundaries** - No file overlap between phases (each file should only be modified in ONE phase)
 3. **Separate concerns logically** - Group by architectural layer, feature domain, or technology stack

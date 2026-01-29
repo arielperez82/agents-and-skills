@@ -1,6 +1,6 @@
 # Agent Refactor Guide
 
-This reference captures ecosystem-level design and refactor principles for cs-* agents. It is extracted from the agent design doctrine previously embedded in `agents/cs-agent-author.md`.
+This reference captures ecosystem-level design and refactor principles for ap-* agents. It is extracted from the agent design doctrine previously embedded in `agents/ap-agent-author.md`.
 
 ## Agent Design Principles
 
@@ -11,12 +11,12 @@ This reference captures ecosystem-level design and refactor principles for cs-* 
 Good separation:
 
 - Same domain, different **purpose/output**:
-  - `cs-architect` – designs *what* the system should be
-  - `cs-implementation-planner` – plans *how* to implement it
-  - `cs-adr-writer` – documents *why* decisions were made
+  - `ap-architect` – designs *what* the system should be
+  - `ap-implementation-planner` – plans *how* to implement it
+  - `ap-adr-writer` – documents *why* decisions were made
 - Different abstraction levels:
-  - `cs-tdd-guardian` (methodology)
-  - `cs-tpp-guardian` (test plan strategy)
+  - `ap-tdd-guardian` (methodology)
+  - `ap-tpp-guardian` (test plan strategy)
 
 Bad separation:
 
@@ -31,17 +31,17 @@ Bad separation:
 Patterns:
 
 - Single source for external research:
-  - `cs-researcher` produces research reports
-  - Other agents (e.g., `cs-implementation-planner`, `cs-brainstormer`) *consume* them
+  - `ap-researcher` produces research reports
+  - Other agents (e.g., `ap-implementation-planner`, `ap-brainstormer`) *consume* them
 - Single source for tactical TDD guidance:
   - Strategic planner delegates to:
-    - `cs-tpp-guardian` – test ordering
-    - `cs-tdd-guardian` – methodology
-    - `cs-progress-guardian` – tracking
+    - `ap-tpp-guardian` – test ordering
+    - `ap-tdd-guardian` – methodology
+    - `ap-progress-guardian` – tracking
 - Security split:
-  - `cs-security-engineer` – security coaching/guardian
-  - `cs-devsecops-engineer` – unified DevSecOps owner
-  - `cs-incident-responder` – incident specialist
+  - `ap-security-engineer` – security coaching/guardian
+  - `ap-devsecops-engineer` – unified DevSecOps owner
+  - `ap-incident-responder` – incident specialist
 
 Implementation:
 
@@ -63,10 +63,10 @@ Guardian pattern:
 
 Examples:
 
-- `cs-tdd-guardian` – TDD methodology coaching (does not write code)
-- `cs-docs-guardian` – documentation quality review (does not write docs)
-- `cs-progress-guardian` – progress tracking validation (does not create plans)
-- `cs-refactor-guardian` – refactoring opportunity assessment (does not refactor code)
+- `ap-tdd-guardian` – TDD methodology coaching (does not write code)
+- `ap-docs-guardian` – documentation quality review (does not write docs)
+- `ap-progress-guardian` – progress tracking validation (does not create plans)
+- `ap-refactor-guardian` – refactoring opportunity assessment (does not refactor code)
 
 Key insight: Implementers should **ask guardians first** when planning work and **ask guardians again after** work is complete.
 
@@ -96,7 +96,7 @@ Result: agents are **complementary**, not duplicative.
 
 Example:
 
-- `cs-tdd-guardian` (TDD methodology) and `cs-tpp-guardian` (test planning strategy) both relate to TDD but serve different purposes at different abstraction levels.
+- `ap-tdd-guardian` (TDD methodology) and `ap-tpp-guardian` (test planning strategy) both relate to TDD but serve different purposes at different abstraction levels.
 
 ## Five Refactor Levers
 
@@ -104,7 +104,7 @@ Use these five mechanisms to improve agent clarity and reduce overlap.
 
 ### 1. Rename + Relocate
 
-- Use `cs-*` prefix consistently for agents
+- Use `ap-*` prefix consistently for agents
 
 ### 2. Tighten Descriptions
 
@@ -150,7 +150,7 @@ Use this heuristic to decide when to merge agents.
 
 Example:
 
-- `cs-implementation-planner` (strategic implementation planning) remains separate from `cs-tpp-guardian` (tactical TDD planning) because they serve different stages and abstraction levels.
+- `ap-implementation-planner` (strategic implementation planning) remains separate from `ap-tpp-guardian` (tactical TDD planning) because they serve different stages and abstraction levels.
 
 ## Collaboration Contracts > More Agents
 
@@ -165,9 +165,9 @@ Best practices:
 
 Example:
 
-Instead of giving `cs-implementation-planner` research capabilities:
+Instead of giving `ap-implementation-planner` research capabilities:
 
-- Document that it should **consume** `cs-researcher` reports
+- Document that it should **consume** `ap-researcher` reports
 - This creates cleaner separation and better reuse of research capabilities
 
 ## Agent Design Checklist
@@ -251,7 +251,7 @@ Use this checklist before creating or refactoring an agent:
 - **Agent authoring patterns** → `creating-agents/references/authoring-guide.md`
 - **Agent refactoring patterns** → `refactoring-agents/references/refactor-guide.md` (this file)
 - **General codebase learnings** → Project-specific CLAUDE.md or domain skill references
-- **Architectural decisions** → ADRs via `cs-adr-writer`
+- **Architectural decisions** → ADRs via `ap-adr-writer`
 
-**Implication:** `cs-learn` agent needs updating to route learnings to appropriate skill references based on domain, not assume a single CLAUDE.md exists.
+**Implication:** `ap-learn` agent needs updating to route learnings to appropriate skill references based on domain, not assume a single CLAUDE.md exists.
 

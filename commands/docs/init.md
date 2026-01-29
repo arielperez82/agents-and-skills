@@ -7,7 +7,7 @@ description: ⚡⚡⚡⚡ Analyze the codebase and create initial documentation
 **You (main agent) must spawn scouts** - subagents cannot spawn subagents.
 
 1. Run `ls -la` to identify actual project directories
-2. Spawn 2-4 `cs-codebase-scout` agents via Task tool (adaptive: uses external tools if available, falls back to internal tools)
+2. Spawn 2-4 `ap-codebase-scout` agents via Task tool (adaptive: uses external tools if available, falls back to internal tools)
 3. Target directories **that actually exist** - adapt to project structure, don't hardcode paths
 4. Merge scout results into context summary
 

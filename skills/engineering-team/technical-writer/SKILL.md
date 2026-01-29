@@ -22,9 +22,9 @@ use-cases:
 
 # === RELATIONSHIPS ===
 related-agents:
-  - cs-code-reviewer
-  - cs-fullstack-engineer
-  - cs-backend-engineer
+  - ap-code-reviewer
+  - ap-fullstack-engineer
+  - ap-backend-engineer
 related-skills:
   - code-reviewer
   - senior-devops
@@ -32,7 +32,7 @@ related-commands:
   - update.docs
   - review.code
 orchestrated-by:
-  - cs-code-reviewer
+  - ap-code-reviewer
 
 # === TECHNICAL ===
 dependencies:

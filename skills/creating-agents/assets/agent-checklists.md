@@ -1,6 +1,6 @@
 # Agent Authoring Checklists
 
-Use these checklists when creating or updating cs-* agents.
+Use these checklists when creating or updating ap-* agents.
 
 ## Authoring Checklist
 
@@ -14,7 +14,7 @@ Use these checklists when creating or updating cs-* agents.
 ## Frontmatter Checklist
 
 - [ ] YAML parses without error
-- [ ] `name` starts with `cs-` prefix
+- [ ] `name` starts with `ap-` prefix
 - [ ] `title` is human-readable
 - [ ] `description` under ~300 chars, concrete, non-marketing fluff
 - [ ] `domain` and `subdomain` set correctly

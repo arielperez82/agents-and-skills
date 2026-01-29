@@ -161,7 +161,7 @@ def discover_items(path: str, scope: str) -> dict:
         ]
         for agents_path in agents_paths:
             if agents_path.exists():
-                for item in agents_path.rglob("cs-*.md"):
+                for item in agents_path.rglob("ap-*.md"):
                     items["agents"].append({
                         "name": item.stem,
                         "path": str(item),

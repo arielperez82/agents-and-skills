@@ -18,10 +18,10 @@ use-cases:
   - Conducting performance and load testing
 
 # === RELATIONSHIPS ===
-related-agents: [cs-qa-engineer, cs-tdd-engineer]
+related-agents: [ap-qa-engineer]
 related-skills: [engineering-team/code-reviewer]
 related-commands: [/generate.tests, /generate.tdd]
-orchestrated-by: [cs-qa-engineer, cs-tdd-engineer]
+orchestrated-by: [ap-qa-engineer]
 
 # === TECHNICAL ===
 dependencies:

@@ -1,6 +1,6 @@
 # Agent Authoring Guide
 
-This reference consolidates detailed standards and patterns for creating cs-* agents. It pulls the doctrinal content out of `agents/cs-agent-author.md` so agent specs can remain concise.
+This reference consolidates detailed standards and patterns for creating ap-* agents. It pulls the doctrinal content out of `agents/ap-agent-author.md` so agent specs can remain concise.
 
 ## Agent Type Classification System
 
@@ -8,10 +8,10 @@ Agents are classified into four distinct types based on their operational charac
 
 | Type | Color | Tools | Execution | Process Count | Model | Examples |
 |------|-------|-------|-----------|---------------|-------|----------|
-| **Strategic** | 🔵 Blue | Read, Write, Grep | Parallel (4-5) | 15-20 | opus/sonnet | cs-product-director, cs-ceo-advisor, cs-ux-researcher |
-| **Implementation** | 🟢 Green | Full tools | Coordinated (2-3) | 20-30 | sonnet | cs-fullstack, cs-backend-engineer, cs-frontend-engineer |
-| **Quality** | 🔴 Red | Full + Heavy Bash | Sequential (1) | 12-18 | sonnet | cs-code-reviewer, cs-qa-engineer, cs-security-engineer |
-| **Coordination** | 🟣 Purple | Read, Write, Grep | Lightweight | 10-15 | opus | cs-architect, cs-team-coordinator, cs-cto-advisor |
+| **Strategic** | 🔵 Blue | Read, Write, Grep | Parallel (4-5) | 15-20 | opus/sonnet | ap-product-director, ap-ceo-advisor, ap-ux-researcher |
+| **Implementation** | 🟢 Green | Full tools | Coordinated (2-3) | 20-30 | sonnet | ap-fullstack-engineer, ap-backend-engineer, ap-frontend-engineer |
+| **Quality** | 🔴 Red | Full + Heavy Bash | Sequential (1) | 12-18 | sonnet | ap-code-reviewer, ap-qa-engineer, ap-security-engineer |
+| **Coordination** | 🟣 Purple | Read, Write, Grep | Lightweight | 10-15 | opus | ap-architect, ap-cto-advisor |
 
 ### Agent Type Details
 
@@ -55,10 +55,10 @@ Agents are classified into four distinct types based on their operational charac
 
 ```bash
 # Safe to run together – low resource usage
-cs-product-director &
-cs-ux-researcher &
-cs-ceo-advisor &
-cs-product-marketer &
+ap-product-director &
+ap-ux-researcher &
+ap-ceo-advisor &
+ap-product-marketer &
 wait
 ```
 
@@ -70,12 +70,12 @@ Why it's safe: strategic agents primarily read and analyze, with minimal resourc
 
 ```bash
 # Frontend and backend development with coordination
-cs-frontend-engineer --component user-dashboard &
-cs-backend-engineer --api user-endpoints &
+ap-frontend-engineer --component user-dashboard &
+ap-backend-engineer --api user-endpoints &
 wait
 
 # Ensure no file conflicts before continuing
-cs-fullstack --integrate
+ap-fullstack-engineer --integrate
 ```
 
 Why it's safe: limited concurrency with explicit coordination prevents file conflicts.
@@ -86,9 +86,9 @@ Why it's safe: limited concurrency with explicit coordination prevents file conf
 
 ```bash
 # DANGEROUS – will cause system overload
-cs-qa-engineer --full-suite &
-cs-code-reviewer --deep-analysis &
-cs-security-engineer --full-scan &
+ap-qa-engineer --full-suite &
+ap-code-reviewer --deep-analysis &
+ap-security-engineer --full-scan &
 # DON'T DO THIS – system will become unresponsive
 ```
 
@@ -152,7 +152,7 @@ Every agent file should use a consistent multi-section frontmatter schema:
 ```yaml
 ---
 # === CORE IDENTITY ===
-name: cs-agent-name                  # Required: cs-* prefix
+name: ap-agent-name                  # Required: ap-* prefix
 title: Human Readable Title          # Display name
 description: One-line description    # Under ~300 chars
 domain: engineering                  # engineering, product, marketing, delivery
@@ -177,7 +177,7 @@ classification:
   model: opus                        # recommended model
 
 # === RELATIONSHIPS ===
-related-agents: [cs-frontend-engineer, cs-architect]
+related-agents: [ap-frontend-engineer, ap-architect]
 related-skills: [engineering-team/senior-backend]
 related-commands: [/review.code, /generate.tests]
 orchestrates:
@@ -185,7 +185,7 @@ orchestrates:
 
 # === COLLABORATION ===
 collaborates-with:
-  - agent: cs-technical-writer
+  - agent: ap-technical-writer
     purpose: Architecture diagram generation using Mermaid
     required: optional               # optional, recommended, required
     features-enabled: [architecture-diagrams, sequence-diagrams]
@@ -242,7 +242,7 @@ Use `collaborates-with` to define optional dependencies between agents:
 
 ```yaml
 collaborates-with:
-  - agent: cs-technical-writer
+  - agent: ap-technical-writer
     purpose: API documentation generation with sequence diagrams
     required: optional
     features-enabled: [api-docs, sequence-diagrams, architecture-diagrams]
@@ -253,7 +253,7 @@ Field definitions:
 
 | Field | Required | Values | Description |
 |-------|----------|--------|-------------|
-| `agent` | Yes | cs-* name | Collaborating agent identifier |
+| `agent` | Yes | ap-* name | Collaborating agent identifier |
 | `purpose` | Yes | string | Why this collaboration exists |
 | `required` | No | optional, recommended, required | Dependency strength |
 | `features-enabled` | No | list | Features unlocked by collaborator |
@@ -277,7 +277,7 @@ All skill references use the `../../` pattern from agent files:
    - **Usage:** `python ../../skills/marketing-team/content-creator/scripts/seo_optimizer.py article.md \"keyword\"`
 ```
 
-From `agents/cs-content-creator.md` (root) to `skills/marketing-team/content-creator/`:
+From `agents/ap-content-creator.md` (root) to `skills/marketing-team/content-creator/`:
 
 - `agents/` (root) → `../` → repo root → `skills/marketing-team/content-creator/`
 
@@ -368,7 +368,7 @@ Before committing an agent:
 
 - [ ] YAML frontmatter valid (no parsing errors)
 - [ ] All required fields present (name, description, skills, domain, model, tools)
-- [ ] `cs-*` prefix used for agent naming
+- [ ] `ap-*` prefix used for agent naming
 - [ ] Relative paths resolve correctly (`../../` pattern)
 - [ ] Skill location documented and accessible
 - [ ] Python tools referenced with correct paths
@@ -394,7 +394,7 @@ Before committing an agent:
 **Learning:** Agents should be **thin orchestrators** (200-300 lines), not comprehensive documentation repositories.
 
 **What we learned:**
-- Initial `cs-agent-author` was 1188 lines with all doctrine embedded
+- Initial `ap-agent-author` was 1188 lines with all doctrine embedded
 - Refactored to 237 lines as a pure orchestrator
 - Detailed standards moved to skill references (`references/authoring-guide.md`)
 - Templates and checklists moved to skill assets (`assets/`)
@@ -433,7 +433,7 @@ skills/creating-agents/
 **Learning:** `ApplyPatch` tool has limitations when deleting large sections (>500 lines).
 
 **What happened:**
-- Attempted to delete ~900 lines of duplicated content from `cs-agent-author.md`
+- Attempted to delete ~900 lines of duplicated content from `ap-agent-author.md`
 - `ApplyPatch` failed with "Failed to find context" errors
 - Multiple attempts with different context windows still failed
 
@@ -452,7 +452,7 @@ skills/creating-agents/
 - **Agent authoring learnings** → `skills/creating-agents/references/authoring-guide.md` (this file)
 - **Agent refactoring learnings** → `skills/refactoring-agents/references/refactor-guide.md`
 - **General codebase learnings** → Project-specific CLAUDE.md (if exists) or appropriate skill references
-- **Architectural decisions** → ADRs via `cs-adr-writer`
+- **Architectural decisions** → ADRs via `ap-adr-writer`
 
-**Note:** The `cs-learn` agent should be updated to route learnings to appropriate skill references based on domain, not just a single CLAUDE.md file.
+**Note:** The `ap-learn` agent should be updated to route learnings to appropriate skill references based on domain, not just a single CLAUDE.md file.
 

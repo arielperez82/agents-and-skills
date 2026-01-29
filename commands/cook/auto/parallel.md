@@ -10,7 +10,7 @@ argument-hint: [tasks]
 ## Workflow
 
 ### 1. Research (Optional)
-- Use max 2 `cs-researcher` agents in parallel if tasks complex
+- Use max 2 `ap-researcher` agents in parallel if tasks complex
 - Use `/scout` to search codebase (adaptive: external tools preferred, internal tools fallback)
 - Keep reports ≤150 lines
 
@@ -30,7 +30,7 @@ argument-hint: [tasks]
 ### 4. Testing
 - Use `tester` subagent for full test suite
 - NO fake data/mocks/cheats
-- If fail: use `cs-debugger`, fix, repeat
+- If fail: use `ap-debugger`, fix, repeat
 
 ### 5. Code Review
 - Use `code-reviewer` for all changes
