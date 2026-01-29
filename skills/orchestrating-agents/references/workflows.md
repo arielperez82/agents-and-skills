@@ -1,6 +1,6 @@
 # Multi-Agent Coordination Workflows
 
-Detailed examples and patterns for using the multi-agent-coordination skill.
+Examples and patterns for the orchestrating-agents skill (backend: Cursor CLI).
 
 ## Example Workflows
 
@@ -84,12 +84,12 @@ final_code = invoke_claude(integration_prompt)
 
 ### When to Use Agent SDK Instances
 
-The functions above use direct Anthropic API calls (stateless, no tools). For sub-agents that need:
+The functions above use Cursor CLI invocations (stateless, no tools). For sub-agents that need:
 - **Tool access**: File system operations, bash commands, code execution
 - **Persistent state**: Multi-turn conversations with tool results
 - **Sandboxed environments**: Isolated execution contexts
 
-Consider delegating to Claude Agent SDK instances via WebSocket.
+Consider delegating to tool-enabled agent instances (e.g. WebSocket or other SDK).
 
 ### Architecture Overview
 
@@ -159,107 +159,31 @@ For a production WebSocket-based Agent SDK server:
 | Code execution | | ✓ |
 | Sandboxed environment | | ✓ |
 | Multi-turn with tools | | ✓ |
-| Cost optimization | ✓ (with caching) | |
+| Cost optimization | ✓ (shared_system) | |
 | Setup complexity | Low | High |
 
 **Rule of thumb**: Use this skill's API functions by default. Only delegate to Agent SDK when tools are essential.
 
-## Prompt Caching Workflows
+## Shared Context (Cursor CLI)
 
-### Pattern 1: Orchestrator with Parallel Sub-Agents
+Prompt caching is N/A for Cursor CLI. Use `shared_system` to prepend context to each parallel invocation:
 
 ```python
 from claude_client import invoke_parallel
 
-# Orchestrator provides large shared context
 codebase = """
 <codebase>
-...entire codebase (10,000+ tokens)...
+...entire codebase...
 </codebase>
 """
 
-# Each sub-agent gets different task with shared cached context
 tasks = [
     {"prompt": "Analyze authentication security", "system": "Security expert"},
     {"prompt": "Optimize database queries", "system": "Performance expert"},
     {"prompt": "Improve error handling", "system": "Reliability expert"}
 ]
 
-# Shared context is cached, 90% cost reduction for subsequent agents
-results = invoke_parallel(
-    tasks,
-    shared_system=codebase,
-    cache_shared_system=True
-)
+results = invoke_parallel(tasks, shared_system=codebase)
 ```
 
-### Pattern 2: Multi-Round Sub-Agent Conversations
-
-```python
-from claude_client import ConversationThread
-
-# Base context for all sub-agents
-base_context = [
-    {"type": "text", "text": "You are analyzing this codebase:"},
-    {"type": "text", "text": "<codebase>...</codebase>", "cache_control": {"type": "ephemeral"}}
-]
-
-# Create specialized sub-agent
-security_agent = ConversationThread(system=base_context)
-
-# Multiple rounds (each reuses cached context + history)
-issue1 = security_agent.send("Find SQL injection vulnerabilities")
-issue2 = security_agent.send("Now check for XSS issues")
-remediation = security_agent.send("Generate fixes for the issues found")
-```
-
-### Pattern 3: Orchestrator + Sub-Agent Multi-Turn
-
-```python
-from claude_client import ConversationThread, invoke_parallel
-
-# Step 1: Orchestrator delegates with shared context
-shared_context = "<large_documentation>...</large_documentation>"
-
-initial_analyses = invoke_parallel(
-    [
-        {"prompt": "Identify top 3 bugs"},
-        {"prompt": "Identify top 3 performance issues"}
-    ],
-    shared_system=shared_context,
-    cache_shared_system=True
-)
-
-# Step 2: Create sub-agents for detailed investigation
-bug_agent = ConversationThread(system=shared_context, cache_system=True)
-perf_agent = ConversationThread(system=shared_context, cache_system=True)
-
-# Step 3: Multi-turn investigation (reusing cached context)
-bug_details = bug_agent.send(f"Analyze this bug: {initial_analyses[0]}")
-bug_fix = bug_agent.send("Provide a detailed fix")
-
-perf_details = perf_agent.send(f"Analyze this issue: {initial_analyses[1]}")
-perf_solution = perf_agent.send("Provide optimization strategy")
-```
-
-### Caching Best Practices
-
-1. **Cache breakpoint placement**:
-   - Put stable, large context first (cached)
-   - Put variable content after (not cached)
-   - Minimum 1,024 tokens per cache breakpoint
-
-2. **Shared context in parallel operations**:
-   - ALWAYS use `shared_system` + `cache_shared_system=True` for parallel with common context
-   - First agent creates cache, others reuse (5-minute lifetime)
-   - All agents must have IDENTICAL shared_system for cache hits
-
-3. **Multi-turn conversations**:
-   - Use `ConversationThread` for automatic history caching
-   - Each turn caches full history (system + all messages)
-   - Subsequent turns reuse cache (significant savings)
-
-4. **Cost optimization**:
-   - Cached content: 10% of normal cost (90% savings)
-   - Cache for 1000 tokens ≈ $0.0003 vs $0.003 (10x cheaper)
-   - For 10 parallel agents with 10K shared context: ~$0.27 vs $3.00
+**ConversationThread (Cursor CLI):** Multi-turn uses last user message per call (no server-side history). Use for single-shot or when local history is sufficient.

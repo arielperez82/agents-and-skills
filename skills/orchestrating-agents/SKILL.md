@@ -7,7 +7,7 @@ metadata:
 
 # Orchestrating Agents
 
-This skill enables programmatic API invocations for advanced workflows including parallel processing, task delegation, and multi-agent analysis using the Anthropic API.
+This skill enables programmatic invocations for advanced workflows including parallel processing, task delegation, and multi-agent analysis using the **Cursor CLI** (`agent`). No API key; requires `agent` installed and authenticated.
 
 ## When to Use This Skill
 
@@ -67,17 +67,16 @@ for i, result in enumerate(results):
     print(result)
 ```
 
-### Parallel with Shared Cached Context (Recommended)
+### Parallel with Shared Context
 
-For parallel operations with shared base context, use caching to reduce costs by up to 90%:
+For parallel operations with shared base context, pass `shared_system`; it is prepended to each prompt (no prompt caching in Cursor CLI):
 
 ```python
 from claude_client import invoke_parallel
 
-# Large context shared across all sub-agents (e.g., codebase, documentation)
 base_context = """
 <codebase>
-...large codebase or documentation (1000+ tokens)...
+...large codebase or documentation...
 </codebase>
 """
 
@@ -87,12 +86,7 @@ prompts = [
     {"prompt": "Suggest refactoring opportunities in the database layer"}
 ]
 
-# First sub-agent creates cache, subsequent ones reuse it
-results = invoke_parallel(
-    prompts,
-    shared_system=base_context,
-    cache_shared_system=True  # 90% cost reduction for cached content
-)
+results = invoke_parallel(prompts, shared_system=base_context)
 ```
 
 ### Multi-Turn Conversation with Auto-Caching
@@ -221,7 +215,7 @@ invoke_claude(
 
 **Returns:** Response text as string
 
-**Note:** Caching requires minimum 1,024 tokens per cache breakpoint. Cache lifetime is 5 minutes (refreshed on use).
+**Note:** `cache_system`, `cache_prompt` ignored (N/A for Cursor CLI). Optional `timeout` in kwargs (default 300).
 
 ### `invoke_parallel()`
 
@@ -239,16 +233,13 @@ invoke_parallel(
 ```
 
 **Parameters:**
-- `prompts`: List of dicts with 'prompt' (required) and optional 'system', 'temperature', 'cache_system', 'cache_prompt', etc.
-- `model`: Claude model for all invocations
-- `max_tokens`: Max tokens per response
-- `max_workers`: Max concurrent API calls (default: 5, max: 10)
-- `shared_system`: System context shared across ALL invocations (for cache efficiency)
-- `cache_shared_system`: Add cache_control to shared_system (default: False)
+- `prompts`: List of dicts with 'prompt' (required) and optional 'system', etc.
+- `model`, `max_tokens`: Ignored (Cursor uses subscription model)
+- `max_workers`: Max concurrent CLI invocations (default: 5, max: 10)
+- `shared_system`: System context prepended to each prompt (no caching in Cursor CLI)
+- `cache_shared_system`: Ignored (N/A for Cursor CLI)
 
 **Returns:** List of response strings in same order as prompts
-
-**Note:** For optimal cost savings, put large common context (1024+ tokens) in `shared_system` with `cache_shared_system=True`. First invocation creates cache, subsequent ones reuse it (90% cost reduction).
 
 ### `invoke_claude_streaming()`
 
@@ -337,7 +328,7 @@ response = thread.send(
 - `clear()`: Clear conversation history
 - `__len__()`: Get number of turns
 
-**Note:** Automatically caches conversation history to minimize token costs across turns.
+**Note:** Multi-turn uses last user message per call (Cursor CLI has no server-side history; local history kept for reference).
 
 ## Example Workflows
 
@@ -354,31 +345,18 @@ See [references/workflows.md](references/workflows.md) for detailed examples inc
 
 **Prerequisites:**
 
-1. Install anthropic library:
+1. Install Cursor CLI and authenticate:
    ```bash
-   uv pip install anthropic
+   curl https://cursor.com/install -fsS | bash
+   agent login
    ```
+   Or set `CURSOR_API_KEY` for headless/CI.
 
-2. Configure API key via project knowledge file:
+2. No API key file; Cursor uses its own auth (subscription).
 
-   **Option 1 (recommended): Individual file**
-   - Create document: `ANTHROPIC_API_KEY.txt`
-   - Content: Your API key (e.g., `sk-ant-api03-...`)
-
-   **Option 2: Combined file**
-   - Create document: `API_CREDENTIALS.json`
-   - Content:
-     ```json
-     {
-       "anthropic_api_key": "sk-ant-api03-..."
-     }
-     ```
-
-   Get your API key: https://console.anthropic.com/settings/keys
-
-Installation check:
+Check:
 ```bash
-python3 -c "import anthropic; print(f'✓ anthropic {anthropic.__version__}')"
+agent -p "Reply OK" --output-format text
 ```
 
 ## Error Handling
@@ -399,35 +377,20 @@ except ValueError as e:
 ```
 
 Common errors:
-- **API key missing**: Add ANTHROPIC_API_KEY.txt to project knowledge (see Setup above)
-- **Rate limits**: Reduce max_workers or add delays
-- **Token limits**: Reduce prompt size or max_tokens
-- **Network errors**: Automatic retry with exponential backoff
-
+- **Cursor CLI not found**: Install with `curl https://cursor.com/install -fsS | bash`
+- **Not authenticated**: Run `agent login` or set `CURSOR_API_KEY`
+- **Timeout**: Increase `timeout` in kwargs (default 300s)
+- **Non-zero exit**: Check stderr on `ClaudeInvocationError` (alias of `CursorInvocationError`)
 
 ## Prompt Caching
 
-For detailed caching workflows and best practices, see [references/workflows.md](references/workflows.md#prompt-caching-workflows).
+N/A for Cursor CLI backend. Use `shared_system` to prepend context; no server-side caching.
 
 ## Performance Considerations
 
-**Token efficiency:**
-- Parallel calls use more tokens but save wall-clock time
-- Use prompt caching for shared context (90% cost reduction)
-- Use concise system prompts to reduce overhead
-- Consider token budgets when setting max_tokens
-
-**Rate limits:**
-- Anthropic API has per-minute rate limits
-- Default max_workers=5 is safe for most tiers
-- Adjust based on your API tier and rate limits
-
-**Cost management:**
-- Each invocation consumes API credits
-- Monitor usage in Anthropic Console
-- Use smaller models (haiku) for simple tasks
-- Use prompt caching for repeated context (90% savings)
-- Cache lifetime: 5 minutes, refreshed on each use
+- Parallel calls run multiple `agent` subprocesses; default `max_workers=5`.
+- Use `timeout` in kwargs for long-running prompts (default 300s).
+- Cursor CLI may hang in some environments; timeouts recommended for automation.
 
 ## Best Practices
 
@@ -458,4 +421,4 @@ This skill uses ~800 tokens when loaded but enables powerful multi-agent pattern
 ## See Also
 
 - [references/api-reference.md](references/api-reference.md) - Detailed API documentation
-- [Anthropic API Docs](https://docs.anthropic.com/claude/reference) - Official documentation
+- [Cursor CLI — Using Agent](https://cursor.com/docs/cli/using) - Official Cursor CLI docs

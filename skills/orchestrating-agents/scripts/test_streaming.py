@@ -1,52 +1,64 @@
 #!/usr/bin/env python3
-"""Test streaming functionality."""
+"""Test streaming functionality (Cursor CLI backend). Skips when agent not authenticated."""
 
 import sys
 from pathlib import Path
 sys.path.append(str(Path(__file__).parent))
 
-from claude_client import invoke_claude_streaming, invoke_parallel_streaming
+
+def _cursor_available():
+    import shutil
+    if not shutil.which("agent"):
+        return False
+    try:
+        from cursor_client import invoke_cursor
+        invoke_cursor("Reply OK", timeout=10)
+        return True
+    except Exception:
+        return False
+
 
 def test_basic_streaming():
-    """Test basic streaming with callback."""
+    """Test basic streaming with callback (Cursor CLI returns full response; callback called once)."""
+    if not _cursor_available():
+        print("SKIP: Cursor CLI not available or not authenticated")
+        return
     print("=== Test 1: Basic Streaming ===")
+    from claude_client import invoke_claude_streaming
 
     chunks = []
     def collect_chunk(chunk):
         chunks.append(chunk)
-        print(chunk, end='', flush=True)
 
     response = invoke_claude_streaming(
         "Count from 1 to 5, one number per line.",
-        callback=collect_chunk
+        callback=collect_chunk,
     )
-
-    print(f"\n\nTotal chunks received: {len(chunks)}")
-    print(f"Complete response: {response}")
-    assert len(chunks) > 0
-    assert response == ''.join(chunks)
+    print(f"Response: {response[:80]}...")
+    assert len(chunks) >= 1
+    assert response == "".join(chunks)
 
 
 def test_parallel_streaming():
     """Test parallel streaming with multiple callbacks."""
+    if not _cursor_available():
+        print("SKIP: Cursor CLI not available or not authenticated")
+        return
     print("\n=== Test 2: Parallel Streaming ===")
-
-    def callback1(chunk):
-        print(f"[Agent1] {chunk}", end='', flush=True)
-
-    def callback2(chunk):
-        print(f"[Agent2] {chunk}", end='', flush=True)
+    from claude_client import invoke_parallel_streaming
 
     results = invoke_parallel_streaming(
         [
             {"prompt": "Say 'Hello from agent 1'"},
-            {"prompt": "Say 'Hello from agent 2'"}
+            {"prompt": "Say 'Hello from agent 2'"},
         ],
-        callbacks=[callback1, callback2]
+        callbacks=[
+            lambda c: print(f"[Agent1] {c[:40]}..."),
+            lambda c: print(f"[Agent2] {c[:40]}..."),
+        ],
     )
-
-    print(f"\n\nResults: {results}")
     assert len(results) == 2
+    print(f"Results: {[r[:40] for r in results]}")
 
 
 if __name__ == "__main__":

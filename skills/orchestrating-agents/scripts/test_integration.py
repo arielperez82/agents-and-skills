@@ -211,34 +211,28 @@ def test_interruptible():
 
 
 def test_credentials_fallback():
-    """Test 4: Credentials system check"""
+    """Test 4: Cursor CLI availability (agent on PATH and authenticated)"""
+    import shutil
+
     print("=" * 60)
-    print("TEST 4: Credentials System Check")
+    print("TEST 4: Cursor CLI Check")
     print("=" * 60)
+
+    if not shutil.which("agent"):
+        print("\n⚠ Cursor CLI not found.")
+        print("  Install with: curl https://cursor.com/install -fsS | bash\n")
+        return False
 
     try:
-        # Import credentials module
-        api_creds_path = Path(__file__).parent.parent.parent / "api-credentials" / "scripts"
-        sys.path.append(str(api_creds_path))
-        from credentials import get_anthropic_api_key, get_api_key_masked
+        from cursor_client import invoke_cursor
 
-        # Test key retrieval
-        print("\nAttempting to retrieve API key...")
-        key = get_anthropic_api_key()
-        masked = get_api_key_masked()
-
-        print(f"✓ API key found: {masked}")
-        print(f"  Key length: {len(key)} characters")
-        print(f"  Source: config.json or environment variable\n")
+        print("\nChecking Cursor CLI authentication...")
+        invoke_cursor("Reply with OK", timeout=15)
+        print("✓ Cursor CLI available and authenticated\n")
         return True
-
-    except ValueError as e:
-        print(f"\n⚠ No API key configured:")
-        print(f"  {e}\n")
-        print("This is expected if you haven't set up credentials yet.")
-        return False
     except Exception as e:
-        print(f"\n✗ Unexpected error: {e}\n")
+        print(f"\n⚠ Cursor CLI not authenticated: {e}")
+        print("  Run 'agent login' or set CURSOR_API_KEY.\n")
         return False
 
 
@@ -254,11 +248,11 @@ def main():
 
     if not has_credentials:
         print("\n" + "!" * 60)
-        print("SKIPPING API TESTS - No credentials configured")
+        print("SKIPPING API TESTS - Cursor CLI not available or not authenticated")
         print("!" * 60)
-        print("\nTo run full tests, configure API credentials:")
-        print("1. Copy config.json.example to config.json")
-        print("2. Add your Anthropic API key")
+        print("\nTo run full tests:")
+        print("1. Install Cursor CLI: curl https://cursor.com/install -fsS | bash")
+        print("2. Run 'agent login' or set CURSOR_API_KEY")
         print("3. Run this script again")
         print()
         return

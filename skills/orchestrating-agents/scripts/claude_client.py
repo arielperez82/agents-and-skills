@@ -1,168 +1,42 @@
 """
-Claude API Client Module
+Orchestrating-Agents Client Module
 
-Provides functions for invoking Claude programmatically, including parallel invocations
-and prompt caching support for optimized token usage.
+Invokes Cursor Agent via the `agent` CLI. Public API preserved (invoke_claude, etc.)
+for backward compatibility; backend is Cursor CLI, not Anthropic API.
 """
 
-import json
 import threading
-from pathlib import Path
 from concurrent.futures import ThreadPoolExecutor, as_completed
-from typing import Any, Union
 from copy import deepcopy
+from typing import Any, Union
 
-try:
-    import anthropic
-except ImportError:
-    raise ImportError(
-        "anthropic library not installed.\n"
-        "Install with: uv pip install anthropic"
-    )
+from cursor_client import invoke_cursor, CursorInvocationError
+
+ClaudeInvocationError = CursorInvocationError
 
 
-def get_anthropic_api_key() -> str:
-    """
-    Get Anthropic API key from project knowledge files.
-
-    Priority order:
-    1. Individual file: /mnt/project/ANTHROPIC_API_KEY.txt
-    2. Combined file: /mnt/project/API_CREDENTIALS.json
-
-    Returns:
-        str: Anthropic API key
-
-    Raises:
-        ValueError: If no API key found in any source
-    """
-    # Pattern 1: Individual key file (recommended)
-    key_file = Path("/mnt/project/ANTHROPIC_API_KEY.txt")
-    if key_file.exists():
-        try:
-            key = key_file.read_text().strip()
-            if key:
-                return key
-        except (IOError, OSError) as e:
-            raise ValueError(
-                f"Found ANTHROPIC_API_KEY.txt but couldn't read it: {e}\n"
-                f"Please check file permissions or recreate the file"
-            )
-
-    # Pattern 2: Combined credentials file
-    creds_file = Path("/mnt/project/API_CREDENTIALS.json")
-    if creds_file.exists():
-        try:
-            with open(creds_file) as f:
-                config = json.load(f)
-                key = config.get("anthropic_api_key", "").strip()
-                if key:
-                    return key
-        except (json.JSONDecodeError, IOError, OSError) as e:
-            raise ValueError(
-                f"Found API_CREDENTIALS.json but couldn't parse it: {e}\n"
-                f"Please check file format"
-            )
-
-    # No key found - provide helpful error message
-    raise ValueError(
-        "No Anthropic API key found!\n\n"
-        "Add a project knowledge file using one of these methods:\n\n"
-        "Option 1 (recommended): Individual file\n"
-        "  File: ANTHROPIC_API_KEY.txt\n"
-        "  Content: sk-ant-api03-...\n\n"
-        "Option 2: Combined file\n"
-        "  File: API_CREDENTIALS.json\n"
-        "  Content: {\"anthropic_api_key\": \"sk-ant-api03-...\"}\n\n"
-        "Get your API key from: https://console.anthropic.com/settings/keys"
-    )
+def _prompt_to_string(prompt: Union[str, list[dict]]) -> str:
+    """Normalize prompt (str or list of content blocks) to a single string."""
+    if isinstance(prompt, str):
+        return prompt
+    parts = []
+    for block in prompt or []:
+        if isinstance(block, dict) and block.get("type") == "text":
+            parts.append(block.get("text", ""))
+    return "\n".join(parts)
 
 
-class ClaudeInvocationError(Exception):
-    """Custom exception for Claude API invocation errors"""
-    def __init__(self, message: str, status_code: int = None, details: Any = None):
-        super().__init__(message)
-        self.status_code = status_code
-        self.details = details
-
-
-def _format_cache_control() -> dict:
-    """Returns cache_control structure for ephemeral caching"""
-    return {"type": "ephemeral"}
-
-
-def _format_system_with_cache(
-    system: Union[str, list[dict]],
-    cache_system: bool = False
-) -> Union[str, list[dict]]:
-    """
-    Format system prompt with optional cache_control.
-
-    Args:
-        system: System prompt (string or list of content blocks)
-        cache_system: Whether to add cache_control to the last system block
-
-    Returns:
-        Formatted system prompt (string or list with cache_control)
-    """
-    if not system:
-        return system
-
+def _system_to_string(system: Union[str, list[dict], None]) -> str:
+    """Normalize system prompt to a single string."""
+    if system is None:
+        return ""
     if isinstance(system, str):
-        if cache_system:
-            # Convert string to content block with cache_control
-            return [
-                {
-                    "type": "text",
-                    "text": system,
-                    "cache_control": _format_cache_control()
-                }
-            ]
         return system
-
-    # Already a list of content blocks
-    if cache_system and len(system) > 0:
-        # Add cache_control to last block if not present
-        system = deepcopy(system)
-        if "cache_control" not in system[-1]:
-            system[-1]["cache_control"] = _format_cache_control()
-
-    return system
-
-
-def _format_message_with_cache(
-    content: Union[str, list[dict]],
-    cache_content: bool = False
-) -> Union[str, list[dict]]:
-    """
-    Format message content with optional cache_control.
-
-    Args:
-        content: Message content (string or list of content blocks)
-        cache_content: Whether to add cache_control to the last content block
-
-    Returns:
-        Formatted content (string or list with cache_control)
-    """
-    if isinstance(content, str):
-        if cache_content:
-            # Convert string to content block with cache_control
-            return [
-                {
-                    "type": "text",
-                    "text": content,
-                    "cache_control": _format_cache_control()
-                }
-            ]
-        return content
-
-    # Already a list of content blocks
-    if cache_content and len(content) > 0:
-        # Add cache_control to last block if not present
-        content = deepcopy(content)
-        if "cache_control" not in content[-1]:
-            content[-1]["cache_control"] = _format_cache_control()
-
-    return content
+    parts = []
+    for block in system or []:
+        if isinstance(block, dict) and block.get("type") == "text":
+            parts.append(block.get("text", ""))
+    return "\n".join(parts)
 
 
 def invoke_claude(
@@ -178,121 +52,62 @@ def invoke_claude(
     **kwargs
 ) -> str:
     """
-    Invoke Claude API with a single prompt.
+    Invoke Cursor Agent CLI with a single prompt (backend: Cursor CLI).
 
     Args:
-        prompt: The user message to send to Claude (string or list of content blocks)
-        model: Claude model to use (default: claude-sonnet-4-5-20250929)
-        system: Optional system prompt to set context/role (string or list of content blocks)
-        max_tokens: Maximum tokens in response (default: 4096)
-        temperature: Randomness 0-1 (default: 1.0)
-        streaming: Enable streaming response (default: False)
-        cache_system: Add cache_control to system prompt (requires 1024+ tokens, default: False)
-        cache_prompt: Add cache_control to user prompt (requires 1024+ tokens, default: False)
-        messages: Optional pre-built messages list (overrides prompt parameter)
-        **kwargs: Additional API parameters (top_p, top_k, etc.)
+        prompt: The user message (string or list of content blocks)
+        model: Ignored (Cursor uses subscription model)
+        system: Optional system prompt; prefixed to prompt (no separate system in CLI)
+        max_tokens: Ignored
+        temperature: Ignored
+        streaming: If True, returns full response (streaming not yet implemented for CLI)
+        cache_system, cache_prompt: Ignored (N/A for Cursor CLI)
+        messages: If provided, last user message used as prompt (multi-turn limited)
+        **kwargs: Optional timeout (default 300). Other args ignored.
 
     Returns:
-        str: Response text from Claude
+        str: Response text from Cursor Agent
 
     Raises:
-        ClaudeInvocationError: If API call fails
-        ValueError: If parameters are invalid
-
-    Note:
-        Prompt caching requires minimum 1,024 tokens per cache breakpoint.
-        Cache lifetime is 5 minutes, refreshed on each use.
-        Maximum 4 cache breakpoints allowed per request.
+        ClaudeInvocationError (CursorInvocationError): If CLI fails or times out
+        ValueError: If prompt is empty
     """
-    # Validate prompt unless using pre-built messages
-    if not messages:
-        if isinstance(prompt, str):
-            if not prompt or not prompt.strip():
-                raise ValueError("Prompt cannot be empty")
-        elif not prompt:
-            raise ValueError("Prompt cannot be empty")
+    if messages:
+        prompt_str = _prompt_from_messages(messages)
+    else:
+        prompt_str = _prompt_to_string(prompt)
+    if not prompt_str or not prompt_str.strip():
+        raise ValueError("Prompt cannot be empty")
 
-    if max_tokens < 1 or max_tokens > 8192:
+    if max_tokens is not None and (max_tokens < 1 or max_tokens > 8192):
         raise ValueError("max_tokens must be between 1 and 8192")
-
-    if not 0 <= temperature <= 1:
+    if temperature is not None and not 0 <= temperature <= 1:
         raise ValueError("temperature must be between 0 and 1")
 
-    try:
-        api_key = get_anthropic_api_key()
-    except ValueError as e:
-        raise ClaudeInvocationError(
-            f"Failed to get API key: {e}",
-            status_code=None,
-            details="Check api-credentials skill configuration"
-        )
+    system_str = _system_to_string(system)
+    full_prompt = f"{system_str}\n\n{prompt_str}" if system_str else prompt_str
 
-    client = anthropic.Anthropic(api_key=api_key)
-
-    # Build message parameters
-    message_params = {
-        "model": model,
-        "max_tokens": max_tokens,
-        "temperature": temperature,
-        **kwargs
-    }
-
-    # Handle messages (pre-built or from prompt)
-    if messages:
-        # Use pre-built messages list (for multi-turn conversations)
-        message_params["messages"] = messages
-    else:
-        # Build single message from prompt with optional caching
-        content = _format_message_with_cache(prompt, cache_prompt)
-        message_params["messages"] = [{"role": "user", "content": content}]
-
-    # Handle system prompt with optional caching
-    if system:
-        formatted_system = _format_system_with_cache(system, cache_system)
-        message_params["system"] = formatted_system
-
-    try:
-        if streaming:
-            # Streaming mode
-            full_response = ""
-            with client.messages.stream(**message_params) as stream:
-                for text in stream.text_stream:
-                    print(text, end="", flush=True)
-                    full_response += text
-            print()  # Newline after stream
-            return full_response
-        else:
-            # Non-streaming mode
-            message = client.messages.create(**message_params)
-            return message.content[0].text
-
-    except anthropic.APIStatusError as e:
-        raise ClaudeInvocationError(
-            f"API request failed: {e.message}",
-            status_code=e.status_code,
-            details=e.response
-        )
-    except anthropic.APIConnectionError as e:
-        raise ClaudeInvocationError(
-            f"Connection error: {e}",
-            status_code=None,
-            details="Check network connection"
-        )
-    except Exception as e:
-        raise ClaudeInvocationError(
-            f"Unexpected error: {e}",
-            status_code=None,
-            details=type(e).__name__
-        )
+    timeout = kwargs.get("timeout", 300)
+    result = invoke_cursor(full_prompt, timeout=timeout)
+    if streaming and kwargs.get("callback"):
+        try:
+            kwargs["callback"](result)
+        except Exception:
+            pass
+    return result
 
 
-def _build_messages(
-    prompt: Union[str, list[dict]],
-    cache_prompt: bool = False
-) -> list[dict]:
-    """Build messages list from prompt with optional caching."""
-    content = _format_message_with_cache(prompt, cache_prompt)
-    return [{"role": "user", "content": content}]
+def _prompt_from_messages(messages: list[dict]) -> str:
+    """Derive prompt string from messages list (last user content)."""
+    for m in reversed(messages):
+        if m.get("role") == "user":
+            content = m.get("content", "")
+            if isinstance(content, str):
+                return content
+            if isinstance(content, list):
+                parts = [b.get("text", "") for b in content if b.get("type") == "text"]
+                return "\n".join(parts)
+    return ""
 
 
 def invoke_claude_streaming(
@@ -332,42 +147,17 @@ def invoke_claude_streaming(
             callback=print_chunk
         )
     """
-    api_key = get_anthropic_api_key()
-    if not api_key:
-        raise ClaudeInvocationError("Anthropic API key not found")
-
-    client = anthropic.Anthropic(api_key=api_key)
-
-    # Format system and messages
-    formatted_system = _format_system_with_cache(system, cache_system)
-    messages = _build_messages(prompt, cache_prompt)
-
-    accumulated_text = ""
-
-    try:
-        with client.messages.stream(
-            model=model,
-            max_tokens=max_tokens,
-            temperature=temperature,
-            system=formatted_system,
-            messages=messages,
-            **kwargs
-        ) as stream:
-            for text in stream.text_stream:
-                accumulated_text += text
-                if callback:
-                    callback(text)
-
-        return accumulated_text
-
-    except anthropic.APIError as e:
-        raise ClaudeInvocationError(
-            f"Anthropic API error: {str(e)}",
-            status_code=getattr(e, 'status_code', None),
-            details=getattr(e, 'response', None)
-        )
-    except Exception as e:
-        raise ClaudeInvocationError(f"Unexpected error: {str(e)}")
+    system_str = _system_to_string(system)
+    prompt_str = _prompt_to_string(prompt)
+    full_prompt = f"{system_str}\n\n{prompt_str}" if system_str else prompt_str
+    timeout = kwargs.get("timeout", 300)
+    result = invoke_cursor(full_prompt, timeout=timeout)
+    if callback:
+        try:
+            callback(result)
+        except Exception:
+            pass
+    return result
 
 
 def invoke_parallel(
@@ -425,13 +215,8 @@ def invoke_parallel(
     # Clamp max_workers
     max_workers = max(1, min(max_workers, 10))
 
-    # Format shared system context with caching if provided
-    formatted_shared_system = None
-    if shared_system:
-        formatted_shared_system = _format_system_with_cache(
-            shared_system,
-            cache_shared_system
-        )
+    # Shared system as string (cache_shared_system ignored for Cursor CLI)
+    shared_system_str = _system_to_string(shared_system) if shared_system else ""
 
     # Storage for results with indices to maintain order
     results = [None] * len(prompts)
@@ -440,33 +225,13 @@ def invoke_parallel(
     def invoke_with_index(index: int, prompt_dict: dict) -> tuple[int, str]:
         """Wrapper to track original index"""
         try:
-            # Extract parameters
-            prompt = prompt_dict['prompt']
-            params = {k: v for k, v in prompt_dict.items() if k != 'prompt'}
-            params['model'] = params.get('model', model)
-            params['max_tokens'] = params.get('max_tokens', max_tokens)
-
-            # Merge shared_system with individual system prompt if both exist
-            if formatted_shared_system:
-                individual_system = params.get('system')
-                if individual_system:
-                    # Combine shared and individual system prompts
-                    # shared_system is cached, individual_system follows
-                    if isinstance(formatted_shared_system, str):
-                        shared_blocks = [{"type": "text", "text": formatted_shared_system}]
-                    else:
-                        shared_blocks = formatted_shared_system
-
-                    if isinstance(individual_system, str):
-                        individual_blocks = [{"type": "text", "text": individual_system}]
-                    else:
-                        individual_blocks = individual_system
-
-                    params['system'] = shared_blocks + individual_blocks
-                else:
-                    params['system'] = formatted_shared_system
-
-            response = invoke_claude(prompt, **params)
+            prompt = prompt_dict["prompt"]
+            individual_system = prompt_dict.get("system")
+            system_str = shared_system_str
+            if individual_system:
+                ind_str = _system_to_string(individual_system)
+                system_str = f"{system_str}\n\n{ind_str}" if system_str else ind_str
+            response = invoke_claude(prompt, system=system_str or None)
             return index, response
         except Exception as e:
             return index, e
@@ -537,21 +302,20 @@ def invoke_parallel_streaming(
     if callbacks and len(callbacks) != len(prompts):
         raise ValueError("callbacks list must match prompts list length")
 
-    formatted_shared = _format_system_with_cache(shared_system, cache_shared_system)
+    shared_system_str = _system_to_string(shared_system) if shared_system else ""
 
     def process_single(idx: int, prompt_config: dict) -> tuple[int, str]:
-        system = prompt_config.get('system', formatted_shared)
+        individual_system = prompt_config.get("system")
+        system_str = shared_system_str
+        if individual_system:
+            ind_str = _system_to_string(individual_system)
+            system_str = f"{system_str}\n\n{ind_str}" if system_str else ind_str
         callback = callbacks[idx] if callbacks else None
 
         result = invoke_claude_streaming(
-            prompt=prompt_config['prompt'],
+            prompt=prompt_config["prompt"],
             callback=callback,
-            model=model,
-            system=system,
-            max_tokens=max_tokens,
-            temperature=prompt_config.get('temperature', 1.0),
-            cache_system=prompt_config.get('cache_system', False),
-            cache_prompt=prompt_config.get('cache_prompt', False)
+            system=system_str or None,
         )
         return (idx, result)
 
@@ -622,24 +386,19 @@ def invoke_parallel_interruptible(
     if interrupt_token is None:
         interrupt_token = InterruptToken()
 
-    formatted_shared = _format_system_with_cache(shared_system, cache_shared_system)
+    shared_system_str = _system_to_string(shared_system) if shared_system else ""
 
     def process_single_with_check(idx: int, config: dict) -> tuple[int, str]:
         if interrupt_token.is_interrupted():
             return (idx, None)
-
-        system = config.get('system', formatted_shared)
-
-        # Note: Anthropic API doesn't support mid-request cancellation
-        # This checks before starting each request
+        individual_system = config.get("system")
+        system_str = shared_system_str
+        if individual_system:
+            ind_str = _system_to_string(individual_system)
+            system_str = f"{system_str}\n\n{ind_str}" if system_str else ind_str
         result = invoke_claude(
-            prompt=config['prompt'],
-            model=model,
-            system=system,
-            max_tokens=max_tokens,
-            temperature=config.get('temperature', 1.0),
-            cache_system=config.get('cache_system', False),
-            cache_prompt=config.get('cache_prompt', False)
+            config["prompt"],
+            system=system_str or None,
         )
         return (idx, result)
 
@@ -713,32 +472,16 @@ class ConversationThread:
             When cache_history=True, the entire conversation history up to and
             including this user message will be cached for the next turn.
         """
-        # Format user message content
-        content = _format_message_with_cache(user_message, cache_history)
+        content = _prompt_to_string(user_message)
         self.messages.append({"role": "user", "content": content})
 
-        # Make API call with full conversation history
         response = invoke_claude(
-            prompt="",  # Not used when messages provided
-            model=self.model,
+            prompt="",
             system=self.system,
-            max_tokens=self.max_tokens,
-            temperature=self.temperature,
-            cache_system=self.cache_system,
-            messages=self.messages
+            messages=self.messages,
         )
 
-        # Add assistant response to history (no caching on assistant messages)
         self.messages.append({"role": "assistant", "content": response})
-
-        # Remove cache_control from previous messages since we're caching the latest
-        if cache_history and len(self.messages) >= 3:
-            # Remove cache_control from older user messages
-            for msg in self.messages[:-2]:
-                if msg["role"] == "user" and isinstance(msg["content"], list):
-                    for block in msg["content"]:
-                        block.pop("cache_control", None)
-
         return response
 
     def get_messages(self) -> list[dict]:

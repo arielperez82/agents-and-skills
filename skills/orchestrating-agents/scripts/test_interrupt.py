@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Test interrupt functionality."""
+"""Test interrupt functionality (Cursor CLI). Skips when agent not authenticated."""
 
 import sys
 from pathlib import Path
@@ -7,38 +7,42 @@ sys.path.append(str(Path(__file__).parent))
 
 import threading
 import time
-from claude_client import invoke_parallel_interruptible, InterruptToken
+
+
+def _cursor_available():
+    import shutil
+    if not shutil.which("agent"):
+        return False
+    try:
+        from cursor_client import invoke_cursor
+        invoke_cursor("Reply OK", timeout=10)
+        return True
+    except Exception:
+        return False
+
 
 def test_interrupt():
-    """Test interrupting parallel operations."""
+    """Test interrupting parallel operations (interrupt checked before each request)."""
+    if not _cursor_available():
+        print("SKIP: Cursor CLI not available or not authenticated")
+        return
     print("=== Test: Interrupt ===")
+    from claude_client import invoke_parallel_interruptible, InterruptToken
 
     token = InterruptToken()
-
-    # Create long-running prompts
     prompts = [
-        {"prompt": f"Write a long essay about topic {i}"}
-        for i in range(5)
+        {"prompt": f"Reply with one word: {i}"}
+        for i in range(3)
     ]
 
     def run_analysis():
-        results = invoke_parallel_interruptible(
-            prompts,
-            interrupt_token=token
-        )
-        return results
+        return invoke_parallel_interruptible(prompts, interrupt_token=token)
 
-    # Start in background
     thread = threading.Thread(target=run_analysis)
     thread.start()
-
-    # Interrupt after 2 seconds
-    print("Starting analysis...")
-    time.sleep(2)
-    print("\nInterrupting...")
+    time.sleep(1)
     token.interrupt()
-
-    thread.join(timeout=5)
+    thread.join(timeout=15)
     print("✓ Interrupt test completed")
 
 
