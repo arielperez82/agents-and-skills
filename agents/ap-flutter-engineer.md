@@ -24,7 +24,7 @@ related-agents:
 related-skills:
   - engineering-team/senior-flutter
   - engineering-team/senior-mobile
-  - core-testing-methodology
+  - engineering-team/core-testing-methodology
 related-commands: []
 orchestrates:
   skill: engineering-team/senior-flutter

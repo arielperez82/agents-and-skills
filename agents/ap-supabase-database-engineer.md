@@ -5,7 +5,7 @@ title: Supabase Database Engineer
 description: Supabase database specialist for schema design, migration management, RLS policy architecture, and database optimization
 domain: engineering
 subdomain: database-engineering
-skills: supabase-best-practices
+skills: engineering-team/supabase-best-practices
 
 # === USE CASES ===
 difficulty: advanced
@@ -19,7 +19,7 @@ use-cases:
 
 # === RELATIONSHIPS ===
 related-agents: [ap-database-engineer, ap-architect, ap-backend-engineer]
-related-skills: [supabase-best-practices, engineering-team/senior-backend, core-testing-methodology]
+related-skills: [engineering-team/supabase-best-practices, engineering-team/senior-backend, engineering-team/core-testing-methodology]
 related-commands: []
 collaborates-with:
   - agent: ap-database-engineer
@@ -44,7 +44,7 @@ collaborates-with:
     when: After completing significant features, when discovering gotchas or unexpected behaviors, after fixing complex bugs
     without-collaborator: "Valuable learnings and gotchas may not be preserved for future developers"
 orchestrates:
-  skill: supabase-best-practices
+  skill: engineering-team/supabase-best-practices
 
 # === TECHNICAL ===
 tools: [Read, Write, Edit, Bash, Grep, Glob]
@@ -79,17 +79,17 @@ The ap-supabase-database-engineer agent bridges database design and implementati
 
 ## Skill Integration
 
-**Skill Location:** `../../skills/supabase-best-practices/`
+**Skill Location:** `../../skills/engineering-team/supabase-best-practices/`
 
 ### Knowledge Base
 
 1. **Supabase Best Practices**
-   - **Location:** `../../skills/supabase-best-practices/SKILL.md`
+   - **Location:** `../../skills/engineering-team/supabase-best-practices/SKILL.md`
    - **Content:** 40+ security and performance rules across 10 categories covering RLS policies, Clerk integration, database security, authentication patterns, API security, storage security, realtime security, Edge Functions, testing, and general security
    - **Use Case:** Reference for all Supabase development, code review, security audits, and performance optimization
 
 2. **Supabase Guidelines**
-   - **Location:** `../../skills/supabase-best-practices/references/supabase-guidelines.md`
+   - **Location:** `../../skills/engineering-team/supabase-best-practices/references/supabase-guidelines.md`
    - **Content:** Comprehensive guidelines for Supabase development
    - **Use Case:** Schema design, migration planning, RLS implementation
 
@@ -221,7 +221,7 @@ The ap-supabase-database-engineer agent bridges database design and implementati
 2. **Schema Design**
    ```bash
    # Review Supabase best practices
-   cat ../../skills/supabase-best-practices/SKILL.md
+   cat ../../skills/engineering-team/supabase-best-practices/SKILL.md
    ```
    - Design normalized tables with proper relationships
    - Define foreign key constraints
@@ -519,8 +519,8 @@ For backend API development:
 
 ## References
 
-- **Skill Documentation:** [../../skills/supabase-best-practices/SKILL.md](../../skills/supabase-best-practices/SKILL.md)
-- **Supabase Guidelines:** [../../skills/supabase-best-practices/references/supabase-guidelines.md](../../skills/supabase-best-practices/references/supabase-guidelines.md)
+- **Skill Documentation:** [../../skills/engineering-team/supabase-best-practices/SKILL.md](../../skills/engineering-team/supabase-best-practices/SKILL.md)
+- **Supabase Guidelines:** [../../skills/engineering-team/supabase-best-practices/references/supabase-guidelines.md](../../skills/engineering-team/supabase-best-practices/references/supabase-guidelines.md)
 - **Agent Development Guide:** [ap-agent-author](ap-agent-author.md)
 
 ---

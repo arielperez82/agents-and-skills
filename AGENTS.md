@@ -276,7 +276,7 @@ When starting work in a domain, IMMEDIATELY load the relevant skill:
 - **Planning work** → Load `planning` skill
 - **Writing functional code** → Load `functional` skill
 
-**How to load**: Explicitly state "Loading [skill-name] skill" and reference patterns from `.cursor/skills/[skill-name]/SKILL.md`
+**How to load**: Explicitly state "Loading [skill-name] skill" and reference patterns from `.cursor/skills/[skill-name]/SKILL.md`. Engineering Team skills (e.g. typescript-strict, backend-development, databases) are in `skills/engineering-team/`; use `.cursor/skills/engineering-team/[skill-name]/SKILL.md` or the path from [skills/README.md](skills/README.md).
 
 ### Automatic Agent Engagement (MANDATORY)
 

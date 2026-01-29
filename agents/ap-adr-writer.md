@@ -5,7 +5,7 @@ title: Architecture Decision Record Writer
 description: Specialized agent for creating Architecture Decision Records (ADRs) that document significant architectural choices with context, alternatives, and consequences
 domain: engineering
 subdomain: architecture-documentation
-skills: architecture-decision-records
+skills: engineering-team/architecture-decision-records
 
 # === USE CASES ===
 difficulty: intermediate
@@ -17,7 +17,7 @@ use-cases:
 
 # === RELATIONSHIPS ===
 related-agents: [ap-architect, ap-docs-guardian, ap-technical-writer]
-related-skills: [architecture-decision-records, engineering-team/senior-architect]
+related-skills: [engineering-team/architecture-decision-records, engineering-team/senior-architect]
 related-commands: []
 collaborates-with:
   - agent: ap-architect
@@ -36,7 +36,7 @@ collaborates-with:
     features-enabled: [decision-context, architectural-rationale]
     without-collaborator: "Documentation may lack decision rationale"
 orchestrates:
-  skill: architecture-decision-records
+  skill: engineering-team/architecture-decision-records
 
 # === TECHNICAL ===
 tools: [Read, Write, Edit, Grep, Glob, Bash]

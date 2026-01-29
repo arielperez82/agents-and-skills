@@ -259,7 +259,7 @@ python senior-ml-engineer/scripts/model_deployment_pipeline.py model.pkl
 3. **REFACTOR**: Improve while keeping tests green
 
 **All engineering skills include TDD support:**
-- `core-testing-methodology` skill for TDD patterns
+- `engineering-team/core-testing-methodology` skill for TDD patterns
 - `ap-tdd-guardian` agent for methodology coaching
 - `qa-engineer` agent for automation infrastructure
 

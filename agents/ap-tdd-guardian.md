@@ -5,7 +5,7 @@ title: TDD Guardian
 description: TDD methodology coach and guardian ensuring test-driven development principles are followed by all developers
 domain: engineering
 subdomain: quality-assurance
-skills: core-testing-methodology
+skills: engineering-team/core-testing-methodology
 
 # === USE CASES ===
 difficulty: intermediate
@@ -22,7 +22,7 @@ related-agents:
   - ap-tpp-guardian
   - ap-refactor-guardian
 related-skills:
-  - core-testing-methodology
+  - engineering-team/core-testing-methodology
 related-commands: []
 collaborates-with:
   - agent: ap-qa-engineer

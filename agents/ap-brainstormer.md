@@ -20,7 +20,7 @@ use-cases:
 
 # === RELATIONSHIPS ===
 related-agents: [ap-researcher, ap-architect, ap-implementation-planner]
-related-skills: [brainstorming, problem-solving, software-architecture, asking-questions, sequential-thinking]
+related-skills: [brainstorming, problem-solving, engineering-team/software-architecture, asking-questions, sequential-thinking]
 related-commands: []
 orchestrates:
   skill: brainstorming
@@ -77,7 +77,7 @@ The ap-brainstormer agent bridges the gap between problem identification and sol
 **Primary Skills:**
 - `brainstorming` - Primary brainstorming methodology
 - `problem-solving` - Systematic problem-solving techniques (collision-zone thinking, inversion, simplification cascades, etc.)
-- `software-architecture` - Architectural brainstorming
+- `engineering-team/software-architecture` - Architectural brainstorming
 - `asking-questions` - Clarifying requirements, constraints, and objectives
 - `sequential-thinking` - Complex problem-solving requiring structured analysis
 - `docs-seeker` - Reading latest documentation of external plugins/packages

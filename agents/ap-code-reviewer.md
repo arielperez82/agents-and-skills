@@ -18,7 +18,7 @@ use-cases:
 
 # === RELATIONSHIPS ===
 related-agents: []
-related-skills: [engineering-team/code-reviewer, core-testing-methodology]
+related-skills: [engineering-team/code-reviewer, engineering-team/core-testing-methodology]
 related-commands: []
 collaborates-with:
   - agent: ap-tdd-guardian
@@ -29,7 +29,7 @@ collaborates-with:
   - agent: ap-qa-engineer
     purpose: Test automation and quality metrics review
     required: recommended
-    features-enabled: [coverage-analysis, quality-metrics, automation-review]
+    features-enabled: [engineering-team/coverage-analysis, quality-metrics, automation-review]
     without-collaborator: "Code reviews will lack comprehensive testing assessment"
   - agent: ap-architect
     purpose: Architecture pattern validation and design review

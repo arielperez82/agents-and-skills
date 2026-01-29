@@ -5,7 +5,7 @@ title: TPP Guardian
 description: Strategic TDD coach using Transformation Priority Premise (TPP) to guide test selection and transformation choices during TDD
 domain: engineering
 subdomain: quality-assurance
-skills: core-testing-methodology
+skills: engineering-team/core-testing-methodology
 
 # === USE CASES ===
 difficulty: advanced
@@ -21,7 +21,7 @@ related-agents:
   - ap-tdd-guardian
   - ap-qa-engineer
 related-skills:
-  - core-testing-methodology
+  - engineering-team/core-testing-methodology
 related-commands: []
 collaborates-with:
   - agent: ap-tdd-guardian

@@ -13,7 +13,7 @@ skills:
   - agent-md-refactor
   - check-tools
   - crafting-instructions
-  - cost-optimization
+  - engineering-team/cost-optimization
   - docs-seeker
   - doc-coauthoring
   - iterating

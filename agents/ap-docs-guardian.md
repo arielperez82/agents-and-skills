@@ -22,7 +22,7 @@ related-agents:
   - ap-technical-writer
   - ap-architect
   - ap-code-reviewer
-related-skills: [architecture-decision-records]
+related-skills: [engineering-team/architecture-decision-records]
 related-commands: []
 collaborates-with:
   - agent: ap-adr-writer

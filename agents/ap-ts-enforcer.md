@@ -5,7 +5,7 @@ title: TypeScript Enforcer
 description: Guardian of type safety and functional programming principles, providing proactive coaching and reactive enforcement for TypeScript compliance
 domain: engineering
 subdomain: code-quality
-skills: typescript-strict
+skills: engineering-team/typescript-strict
 
 # === USE CASES ===
 difficulty: intermediate
@@ -20,7 +20,7 @@ use-cases:
 related-agents:
   - ap-tdd-guardian
 related-skills:
-  - typescript-strict
+  - engineering-team/typescript-strict
 related-commands: []
 collaborates-with:
   - agent: ap-tdd-guardian

@@ -20,7 +20,7 @@ use-cases:
 
 # === RELATIONSHIPS ===
 related-agents: [ap-researcher, ap-architect, ap-product-manager, ap-product-analyst, ap-senior-pm, ap-agile-coach]
-related-skills: [planning, sequential-thinking, problem-solving, software-architecture, asking-questions, brainstorming]
+related-skills: [planning, sequential-thinking, problem-solving, engineering-team/software-architecture, asking-questions, brainstorming]
 related-commands: []
 collaborates-with:
   - agent: ap-researcher
@@ -98,7 +98,7 @@ The ap-implementation-planner agent bridges the gap between architecture design 
 - `planning` - Primary planning methodology
 - `sequential-thinking` - Complex planning requiring multi-step analysis
 - `problem-solving` - Breaking down complex problems into manageable steps
-- `software-architecture` - Architecture planning considerations
+- `engineering-team/software-architecture` - Architecture planning considerations
 - `asking-questions` - Clarifying ambiguous requirements before planning
 - `brainstorming` - Exploring alternative approaches before planning (when needed)
 

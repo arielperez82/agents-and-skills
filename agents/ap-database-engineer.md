@@ -5,7 +5,7 @@ title: Database Engineer
 description: Database administration and optimization specialist for query performance, schema design, indexing strategies, backup/restore, and database health assessments
 domain: engineering
 subdomain: database-engineering
-skills: databases, sql-expert
+skills: engineering-team/databases, engineering-team/sql-expert
 
 # === USE CASES ===
 difficulty: advanced
@@ -20,7 +20,7 @@ use-cases:
 
 # === RELATIONSHIPS ===
 related-agents: [ap-supabase-database-engineer, ap-architect]
-related-skills: [databases, sql-expert, core-testing-methodology]
+related-skills: [engineering-team/databases, engineering-team/sql-expert, engineering-team/core-testing-methodology]
 related-commands: []
 collaborates-with:
   - agent: ap-backend-engineer
@@ -60,7 +60,7 @@ collaborates-with:
     when: After completing significant features, when discovering gotchas or unexpected behaviors, after fixing complex bugs
     without-collaborator: "Valuable learnings and gotchas may not be preserved for future developers"
 orchestrates:
-  skill: databases, sql-expert
+  skill: engineering-team/databases, engineering-team/sql-expert
 
 # === TECHNICAL ===
 tools: [Read, Write, Edit, Bash, Grep, Glob]
@@ -96,25 +96,25 @@ The ap-database-engineer agent bridges database administration and application d
 ## Skill Integration
 
 **Skill Locations:**
-- `../../skills/databases/` - MongoDB and PostgreSQL expertise
-- `../../skills/sql-expert/` - Advanced SQL query optimization and schema design
+- `../../skills/engineering-team/databases/` - MongoDB and PostgreSQL expertise
+- `../../skills/engineering-team/sql-expert/` - Advanced SQL query optimization and schema design
 
 ### Knowledge Bases
 
 1. **Databases Skill**
-   - **Location:** `../../skills/databases/SKILL.md`
+   - **Location:** `../../skills/engineering-team/databases/SKILL.md`
    - **Content:** Unified guide for MongoDB (document-oriented) and PostgreSQL (relational) databases including schema design, query optimization, indexing, migrations, replication, backups, and administration
    - **Use Case:** Database selection, schema design, query writing, performance optimization, administration
 
 2. **SQL Expert Skill**
-   - **Location:** `../../skills/sql-expert/SKILL.md`
+   - **Location:** `../../skills/engineering-team/sql-expert/SKILL.md`
    - **Content:** Expert SQL query writing, optimization, and database schema design with support for PostgreSQL, MySQL, SQLite, and SQL Server
    - **Use Case:** Complex SQL queries, query optimization, schema design, index creation, migration writing
 
 3. **Database References**
-   - **PostgreSQL:** `../../skills/databases/references/postgresql-*.md` - Administration, performance, queries, psql CLI
-   - **MongoDB:** `../../skills/databases/references/mongodb-*.md` - CRUD, aggregation, indexing, Atlas
-   - **SQL Expert:** `../../skills/sql-expert/references/*.md` - Advanced patterns, best practices, indexes, query optimization, common pitfalls
+   - **PostgreSQL:** `../../skills/engineering-team/databases/references/postgresql-*.md` - Administration, performance, queries, psql CLI
+   - **MongoDB:** `../../skills/engineering-team/databases/references/mongodb-*.md` - CRUD, aggregation, indexing, Atlas
+   - **SQL Expert:** `../../skills/engineering-team/sql-expert/references/*.md` - Advanced patterns, best practices, indexes, query optimization, common pitfalls
 
 ## Core Competencies
 
@@ -258,8 +258,8 @@ When working with project-specific databases, you will adhere to any established
 
 ## References
 
-- **Databases Skill:** [../../skills/databases/SKILL.md](../../skills/databases/SKILL.md)
-- **SQL Expert Skill:** [../../skills/sql-expert/SKILL.md](../../skills/sql-expert/SKILL.md)
+- **Databases Skill:** [../../skills/engineering-team/databases/SKILL.md](../../skills/engineering-team/databases/SKILL.md)
+- **SQL Expert Skill:** [../../skills/engineering-team/sql-expert/SKILL.md](../../skills/engineering-team/sql-expert/SKILL.md)
 - **Engineering Team Skills:** [../skills/engineering-team/CLAUDE.md](../skills/engineering-team/CLAUDE.md)
 - **Agent Development Guide:** [ap-agent-author](ap-agent-author.md)
 

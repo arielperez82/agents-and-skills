@@ -26,7 +26,7 @@ related-skills:
   - engineering-team/senior-mobile
   - engineering-team/senior-ios
   - engineering-team/senior-flutter
-  - core-testing-methodology
+  - engineering-team/core-testing-methodology
 related-commands: []
 orchestrates:
   skill: engineering-team/senior-mobile

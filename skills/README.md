@@ -33,24 +33,13 @@ These skills are loaded proactively per AGENTS.md when writing or reviewing code
 | Skill | When to Use | What It Provides |
 |-------|-------------|------------------|
 | **tdd** | Writing any code | TDD workflow, RED-GREEN-REFACTOR cycle |
-| **typescript-strict** | Writing TypeScript | TypeScript strict mode patterns, schema organization |
-| **typescript** | TS performance, tsc, type errors | TypeScript optimization, tsconfig, async patterns |
 | **refactoring** | After GREEN tests | Refactoring assessment, priority classification |
 | **testing** | Writing tests | Testing patterns, behavior-focused testing |
-| **react-testing** | Testing React components | React Testing Library patterns |
-| **front-end-testing** | Testing front-end code | Front-end testing strategies |
 | **functional** | Writing functional code | Functional programming patterns, immutability |
 | **planning** | Planning work | Incremental work principles, small increments |
 | **tpp** | TDD transformations | Transformation Priority Premise reference |
 | **expectations** | Setting expectations | Expectations management patterns |
 | **test-driven-development** | Before implementation | Feature/bugfix implementation, test-first |
-| **test-design-review** | Reviewing tests | Test quality (e.g. Dave Farley's 8 properties) |
-| **core-testing-methodology** | Testing guidance | TDD workflow, test structure, coverage, QA planning |
-| **testing-automation-patterns** | Test automation | E2E (Playwright/Cypress), Vitest, automation practices |
-| **e2e-testing-patterns** | E2E tests | Playwright/Cypress, flaky tests, testing standards |
-| **vitest-configuration** | Vitest setup | Vitest config, Vite integration, test environment |
-| **vitest-performance** | Vitest speed | Fast execution, watch mode, parallelization |
-| **vitest-testing-patterns** | Vitest usage | Unit tests, mocks, spies, browser mode |
 
 ### Creating & Authoring
 
@@ -69,21 +58,14 @@ These skills are loaded proactively per AGENTS.md when writing or reviewing code
 
 | Skill | When to Use | What It Provides |
 |-------|-------------|------------------|
-| **code-review** | PRs, completion claims | Receiving feedback, ap-code-reviewer, verification gates |
 | **clean-code** | Code standards | Pragmatic standards, no over-engineering |
 | **verification-before-completion** | Before claiming done | Run verification, evidence before assertions |
-| **code-maturity-assessor** | Codebase assessment | Trail of Bits 9-category scorecard |
-| **component-refactoring** | High-complexity React | Complexity reduction, Dify frontend |
-| **coverage-analysis** | Fuzzing, harness effectiveness | Code exercised during fuzzing, fuzzing blockers |
 
 ### Architecture & Documentation
 
 | Skill | When to Use | What It Provides |
 |-------|-------------|------------------|
-| **architecture-decision-records** | Documenting decisions | ADR writing, technical decision docs |
-| **c4-architecture** | Architecture diagrams | C4 model Mermaid diagrams |
 | **mermaid-diagrams** | Software diagrams | Mermaid syntax, class/sequence/flow/ER/C4 |
-| **software-architecture** | Design, analyze code | Quality-focused architecture guidance |
 | **doc-coauthoring** | Writing docs | Structured doc co-authoring workflow |
 | **docs-seeker** | Technical docs | llms.txt/context7 search, library/repo docs |
 
@@ -91,32 +73,61 @@ These skills are loaded proactively per AGENTS.md when writing or reviewing code
 
 | Skill | When to Use | What It Provides |
 |-------|-------------|------------------|
-| **backend-development** | Backend systems | Frameworks, DBs, APIs, auth, testing, security |
-| **senior-backend** | Backend development | Node, Express, Go, Python, PostgreSQL, GraphQL |
-| **databases** | Database work | MongoDB, PostgreSQL schemas, queries, migrations |
-| **sql-expert** | SQL | Queries, optimization, schema design (Postgres, MySQL, SQLite, SQL Server) |
-| **supabase-best-practices** | Supabase | RLS, Clerk auth, security, performance |
 | **nocodb** | NocoDB | Setup, external DBs, views, backups |
 | **tinybird** | Tinybird projects | Datafiles, queries, endpoints, deployments, tests |
+| **senior-backend** | Backend development | Node, Express, Go, Python, PostgreSQL, GraphQL |
 | **senior-devops** | DevOps | CI/CD, infra automation, containers, cloud |
-| **deployment-pipeline-design** | CI/CD design | Multi-stage pipelines, GitOps |
 | **check-tools** | Environment validation | Tool installs (Python, Node, Java, Go, Rust, Git) |
-| **cost-optimization** | Cloud costs | Rightsizing, tagging, reserved instances |
-| **github-expert** | GitHub | Actions, CI/CD, automation, PRs |
 
 ### Frontend & Fullstack
 
 | Skill | When to Use | What It Provides |
 |-------|-------------|------------------|
 | **senior-fullstack** | Fullstack apps | React, Next.js, Node, GraphQL, PostgreSQL |
-| **react-best-practices** | React/Next.js | Performance, patterns from Vercel Engineering |
-| **react-testing** | React tests | React Testing Library patterns |
-| **react-vite-expert** | React + Vite | Project structure, performance, TypeScript |
-| **playwright-skill** | Browser automation | Playwright testing, forms, screenshots |
-| **chrome-devtools** | Browser automation | Puppeteer CLI, debugging, performance |
-| **web-design-guidelines** | UI review | Web interface guidelines, accessibility |
 
 ### Engineering Team (`engineering-team/`)
+
+Migrated engineering skills (path: `skills/engineering-team/<name>/`):
+
+| Skill | When to Use | What It Provides |
+|-------|-------------|------------------|
+| **backend-development** | Backend systems | Frameworks, DBs, APIs, auth, testing, security |
+| **databases** | Database work | MongoDB, PostgreSQL schemas, queries, migrations |
+| **supabase-best-practices** | Supabase | RLS, Clerk auth, security, performance |
+| **sql-expert** | SQL | Queries, optimization, schema design (Postgres, MySQL, SQLite, SQL Server) |
+| **api-design-principles** | API design | REST/GraphQL design standards |
+| **qa-test-planner** | QA planning | Test plans, cases, regression, bug reports |
+| **e2e-testing-patterns** | E2E tests | Playwright/Cypress, flaky tests, testing standards |
+| **testing-automation-patterns** | Test automation | E2E (Playwright/Cypress), Vitest, automation practices |
+| **core-testing-methodology** | Testing guidance | TDD workflow, test structure, coverage, QA planning |
+| **react-testing** | Testing React components | React Testing Library patterns |
+| **front-end-testing** | Testing front-end code | Front-end testing strategies |
+| **vitest-configuration** | Vitest setup | Vitest config, Vite integration, test environment |
+| **vitest-performance** | Vitest speed | Fast execution, watch mode, parallelization |
+| **vitest-testing-patterns** | Vitest usage | Unit tests, mocks, spies, browser mode |
+| **coverage-analysis** | Fuzzing, harness effectiveness | Code exercised during fuzzing, fuzzing blockers |
+| **playwright-skill** | Browser automation | Playwright testing, forms, screenshots |
+| **test-design-review** | Reviewing tests | Test quality (e.g. Dave Farley's 8 properties) |
+| **component-refactoring** | High-complexity React | Complexity reduction, Dify frontend |
+| **react-best-practices** | React/Next.js | Performance, patterns from Vercel Engineering |
+| **react-vite-expert** | React + Vite | Project structure, performance, TypeScript |
+| **modern-javascript-patterns** | Modern JS | ES6+ patterns, async, functional patterns |
+| **web-design-guidelines** | UI review | Web interface guidelines, accessibility |
+| **code-review** | PRs, completion claims | Receiving feedback, ap-code-reviewer, verification gates |
+| **code-maturity-assessor** | Codebase assessment | Trail of Bits 9-category scorecard |
+| **software-architecture** | Design, analyze code | Quality-focused architecture guidance |
+| **architecture-decision-records** | Documenting decisions | ADR writing, technical decision docs |
+| **c4-architecture** | Architecture diagrams | C4 model Mermaid diagrams |
+| **deployment-pipeline-design** | CI/CD design | Multi-stage pipelines, GitOps |
+| **github-expert** | GitHub | Actions, CI/CD, automation, PRs |
+| **cost-optimization** | Cloud costs | Rightsizing, tagging, reserved instances |
+| **chrome-devtools** | Browser automation | Puppeteer CLI, debugging, performance |
+| **typescript** | TS performance, tsc, type errors | TypeScript optimization, tsconfig, async patterns |
+| **typescript-strict** | Writing TypeScript | TypeScript strict mode patterns, schema organization |
+
+Role and specialist skills (same folder):
+
+### Engineering Team – Roles (`engineering-team/`)
 
 | Skill | When to Use | What It Provides |
 |-------|-------------|------------------|
@@ -207,7 +218,6 @@ These skills are loaded proactively per AGENTS.md when writing or reviewing code
 |-------|-------------|------------------|
 | **agent-browser** | Web testing, extraction | Browser automation, forms, screenshots |
 | **api-credentials** | API keys | Secure credential handling (multi-provider) |
-| **api-design-principles** | API design | REST/GraphQL design standards |
 | **algorithmic-art** | Generative art | p5.js, seeded randomness, flow fields |
 | **artifacts-builder** | Complex artifacts | React, Tailwind, shadcn/ui artifacts |
 | **brand-guidelines** | Brand | Anthropic brand colors, typography |
@@ -216,7 +226,6 @@ These skills are loaded proactively per AGENTS.md when writing or reviewing code
 | **multi-cloud-architecture** | Multi-cloud | AWS, Azure, GCP decision framework |
 | **mcp-builder** | MCP servers | MCP server design (Python/Node) |
 | **remembering** | Memory ops | Profile, recall, background writes |
-| **qa-test-planner** | QA planning | Test plans, cases, regression, bug reports |
 | **vercel-deploy-claimable** | Vercel deploy | Preview deploy, claimable link |
 
 ## Skill Overview (Detailed)
