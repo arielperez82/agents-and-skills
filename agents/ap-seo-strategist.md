@@ -24,6 +24,7 @@ related-agents:
   - ap-demand-gen-specialist
 related-skills:
   - marketing-team/seo-strategist
+  - marketing-team/seo-audit
   - marketing-team/content-creator
 related-commands: []
 collaborates-with:

@@ -20,6 +20,8 @@ use-cases:
 related-agents: []
 related-skills:
   - marketing-team/content-creator
+  - marketing-team/marketing-psychology
+  - marketing-team/page-cro
 related-commands: []
 orchestrates:
   skill: marketing-team/content-creator

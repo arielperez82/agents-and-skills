@@ -115,8 +115,6 @@ These skills are loaded proactively per AGENTS.md when writing or reviewing code
 | **playwright-skill** | Browser automation | Playwright testing, forms, screenshots |
 | **chrome-devtools** | Browser automation | Puppeteer CLI, debugging, performance |
 | **web-design-guidelines** | UI review | Web interface guidelines, accessibility |
-| **visual-design-foundations** | Design systems | Typography, color, spacing, iconography |
-| **ux-designer** | UX/UI | User experience and interface design |
 
 ### Engineering Team (`engineering-team/`)
 
@@ -166,6 +164,9 @@ These skills are loaded proactively per AGENTS.md when writing or reviewing code
 | **marketing-demand-acquisition** | Demand gen | Paid, SEO, partnerships, CAC |
 | **marketing-strategy-pmm** | GTM, positioning | Positioning, launches, competitive intel |
 | **seo-strategist** | SEO strategy | Keyword strategy, technical SEO, SERP |
+| **seo-audit** | SEO audit, health | Technical SEO, on-page, crawlability, health check |
+| **page-cro** | Conversion optimization | Marketing pages, CRO, landing pages |
+| **marketing-psychology** | Marketing + psychology | Mental models, persuasion, consumer behavior |
 
 ### Product Team (`product-team/`)
 
@@ -175,7 +176,9 @@ These skills are loaded proactively per AGENTS.md when writing or reviewing code
 | **product-manager-toolkit** | Product management | RICE, PRDs, discovery, GTM |
 | **agile-product-owner** | Product ownership | User stories, backlog, agile |
 | **ux-researcher-designer** | UX research | Personas, journey mapping, usability |
+| **ux-designer** | UX/UI design | User experience, wireframes, user flows, accessibility |
 | **ui-design-system** | Design systems | Tokens, components, handoff |
+| **visual-design-foundations** | Visual design | Typography, color, spacing, iconography, design tokens |
 | **competitive-analysis** | Competitive analysis | Skills, agents, features vs competitors |
 | **business-analyst-toolkit** | Business analysis | Requirements, workflows, optimization |
 
@@ -212,9 +215,6 @@ These skills are loaded proactively per AGENTS.md when writing or reviewing code
 | **extracting-keywords** | Keywords | YAKE extraction, multi-language |
 | **multi-cloud-architecture** | Multi-cloud | AWS, Azure, GCP decision framework |
 | **mcp-builder** | MCP servers | MCP server design (Python/Node) |
-| **page-cro** | Conversion optimization | Marketing pages, CRO |
-| **marketing-psychology** | Marketing + psychology | Mental models, persuasion, behavior |
-| **seo-audit** | SEO audit | Technical SEO, on-page, health |
 | **remembering** | Memory ops | Profile, recall, background writes |
 | **qa-test-planner** | QA planning | Test plans, cases, regression, bug reports |
 | **vercel-deploy-claimable** | Vercel deploy | Preview deploy, claimable link |

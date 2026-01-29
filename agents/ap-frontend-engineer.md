@@ -23,6 +23,7 @@ related-skills:
   - engineering-team/senior-frontend
   - engineering-team/senior-security
   - core-testing-methodology
+  - product-team/visual-design-foundations
 related-commands: []
 collaborates-with:
   - agent: ap-tdd-guardian

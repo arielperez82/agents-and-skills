@@ -20,6 +20,7 @@ use-cases:
 related-agents: []
 related-skills:
   - marketing-team/marketing-strategy-pmm
+  - marketing-team/marketing-psychology
 related-commands: []
 orchestrates:
   skill: marketing-team/marketing-strategy-pmm
