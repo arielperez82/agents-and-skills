@@ -18,7 +18,7 @@ use-cases:
 
 # === RELATIONSHIPS ===
 related-agents: [ap-architect, ap-codebase-scout, ap-implementation-planner, ap-supabase-database-engineer]
-related-skills: [mapping-codebases, problem-solving, engineering-team/software-architecture, engineering-team/databases]
+related-skills: [engineering-team/mapping-codebases, problem-solving, engineering-team/software-architecture, engineering-team/databases]
 related-commands: []
 orchestrates: []
 collaborates-with:

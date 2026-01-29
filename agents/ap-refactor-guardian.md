@@ -5,7 +5,7 @@ title: Refactor Guardian
 description: Refactoring opportunity scanner and guardian ensuring code quality improvements during TDD's REFACTOR phase. Distinguishes valuable refactoring from premature optimization.
 domain: engineering
 subdomain: quality-assurance
-skills: refactoring
+skills: engineering-team/refactoring
 
 # === USE CASES ===
 difficulty: intermediate

@@ -22,6 +22,7 @@ related-agents:
   - ap-tpp-guardian
   - ap-refactor-guardian
 related-skills:
+  - engineering-team/tdd
   - engineering-team/core-testing-methodology
 related-commands: []
 collaborates-with:

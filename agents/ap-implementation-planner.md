@@ -6,7 +6,7 @@ title: Implementation Planner Specialist
 description: Implementation planning specialist for analyzing research and creating comprehensive step-by-step implementation plans for new features and complex technical solutions
 domain: engineering
 subdomain: planning
-skills: planning
+skills: engineering-team/planning
 
 # === USE CASES ===
 difficulty: advanced
@@ -20,7 +20,7 @@ use-cases:
 
 # === RELATIONSHIPS ===
 related-agents: [ap-researcher, ap-architect, ap-product-manager, ap-product-analyst, ap-senior-pm, ap-agile-coach]
-related-skills: [planning, sequential-thinking, problem-solving, engineering-team/software-architecture, asking-questions, brainstorming]
+related-skills: [engineering-team/planning, sequential-thinking, problem-solving, engineering-team/software-architecture, asking-questions, brainstorming]
 related-commands: []
 collaborates-with:
   - agent: ap-researcher

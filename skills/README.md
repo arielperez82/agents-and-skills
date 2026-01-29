@@ -26,20 +26,7 @@ This directory contains on-demand skill packages that extend agent capabilities 
 
 ## Complete Skill Catalog
 
-### Core Development (TDD, Testing, TypeScript, Refactoring)
-
-These skills are loaded proactively per AGENTS.md when writing or reviewing code:
-
-| Skill | When to Use | What It Provides |
-|-------|-------------|------------------|
-| **tdd** | Writing any code | TDD workflow, RED-GREEN-REFACTOR cycle |
-| **refactoring** | After GREEN tests | Refactoring assessment, priority classification |
-| **testing** | Writing tests | Testing patterns, behavior-focused testing |
-| **functional** | Writing functional code | Functional programming patterns, immutability |
-| **planning** | Planning work | Incremental work principles, small increments |
-| **tpp** | TDD transformations | Transformation Priority Premise reference |
-| **expectations** | Setting expectations | Expectations management patterns |
-| **test-driven-development** | Before implementation | Feature/bugfix implementation, test-first |
+**Where skills live:** Engineering skills (tdd, testing, refactoring, typescript-strict, etc.) are in `skills/engineering-team/<name>/`. Meta and cross-team skills (creating-skill, brainstorming, etc.) stay in `skills/<name>/`. Use [skills/README.md](README.md) and [AGENTS.md](../AGENTS.md) for load order and paths.
 
 ### Creating & Authoring
 
@@ -54,13 +41,6 @@ These skills are loaded proactively per AGENTS.md when writing or reviewing code
 | **versioning-skills** | Skill file changes | Version control for skill modifications |
 | **template-skill** | Skill template | Placeholder skill structure |
 
-### Code Quality & Review
-
-| Skill | When to Use | What It Provides |
-|-------|-------------|------------------|
-| **clean-code** | Code standards | Pragmatic standards, no over-engineering |
-| **verification-before-completion** | Before claiming done | Run verification, evidence before assertions |
-
 ### Architecture & Documentation
 
 | Skill | When to Use | What It Provides |
@@ -69,28 +49,29 @@ These skills are loaded proactively per AGENTS.md when writing or reviewing code
 | **doc-coauthoring** | Writing docs | Structured doc co-authoring workflow |
 | **docs-seeker** | Technical docs | llms.txt/context7 search, library/repo docs |
 
-### Backend, Data & DevOps
-
-| Skill | When to Use | What It Provides |
-|-------|-------------|------------------|
-| **nocodb** | NocoDB | Setup, external DBs, views, backups |
-| **tinybird** | Tinybird projects | Datafiles, queries, endpoints, deployments, tests |
-| **senior-backend** | Backend development | Node, Express, Go, Python, PostgreSQL, GraphQL |
-| **senior-devops** | DevOps | CI/CD, infra automation, containers, cloud |
-| **check-tools** | Environment validation | Tool installs (Python, Node, Java, Go, Rust, Git) |
-
-### Frontend & Fullstack
-
-| Skill | When to Use | What It Provides |
-|-------|-------------|------------------|
-| **senior-fullstack** | Fullstack apps | React, Next.js, Node, GraphQL, PostgreSQL |
-
 ### Engineering Team (`engineering-team/`)
 
-Migrated engineering skills (path: `skills/engineering-team/<name>/`):
+Engineering skills (path: `skills/engineering-team/<name>/`). Load proactively per AGENTS.md when writing or reviewing code:
 
 | Skill | When to Use | What It Provides |
 |-------|-------------|------------------|
+| **tdd** | Writing any code | TDD workflow, RED-GREEN-REFACTOR cycle |
+| **test-driven-development** | Before implementation | Feature/bugfix implementation, test-first |
+| **testing** | Writing tests | Testing patterns, behavior-focused testing |
+| **functional** | Writing functional code | Functional programming patterns, immutability |
+| **refactoring** | After GREEN tests | Refactoring assessment, priority classification |
+| **planning** | Planning work | Incremental work principles, small increments |
+| **tpp** | TDD transformations | Transformation Priority Premise reference |
+| **expectations** | Setting expectations | Expectations management patterns |
+| **clean-code** | Code standards | Pragmatic standards, no over-engineering |
+| **verification-before-completion** | Before claiming done | Run verification, evidence before assertions |
+| **debugging** | Debugging issues | Root cause, call stack, validation |
+| **mapping-codebases** | New codebase | Code maps, _MAP.md, exports/imports |
+| **subagent-driven-development** | Implementation plans | Independent tasks, spec/implement/review |
+| **nocodb** | NocoDB | Setup, external DBs, views, backups |
+| **tinybird** | Tinybird projects | Datafiles, queries, endpoints, deployments, tests |
+| **check-tools** | Environment validation | Tool installs (Python, Node, Java, Go, Rust, Git) |
+| **multi-cloud-architecture** | Multi-cloud | AWS, Azure, GCP decision framework |
 | **backend-development** | Backend systems | Frameworks, DBs, APIs, auth, testing, security |
 | **databases** | Database work | MongoDB, PostgreSQL schemas, queries, migrations |
 | **supabase-best-practices** | Supabase | RLS, Clerk auth, security, performance |
@@ -200,16 +181,13 @@ Role and specialist skills (same folder):
 | **asking-questions** | Ambiguous requests | Clarifying questions, critical decisions |
 | **avoid-feature-creep** | Scope/backlog | MVP focus, "just one more feature" |
 | **brainstorming** | Before creative work | Intent, requirements, design exploration |
-| **debugging** | Debugging issues | Root cause, call stack, validation |
 | **internal-comms** | Internal comms | Status, updates, newsletters, incidents |
 | **iterating** | Multi-session work | Context accumulation, work logs |
-| **mapping-codebases** | New codebase | Code maps, _MAP.md, exports/imports |
 | **orchestrating-agents** | Multi-agent | Parallel APIs, delegated tasks, streaming |
 | **convening-experts** | Panels, experts, RCA | Expert panels, MECE/DMAIC/RAPID, process improvement |
 | **problem-solving** | Complex problems | Complexity, innovation blocks, patterns |
 | **research** | Technical research | Scalable, secure, maintainable solutions |
 | **sequential-thinking** | Complex problem-solving | Multi-step analysis, revision, hypotheses |
-| **subagent-driven-development** | Implementation plans | Independent tasks, spec/implement/review |
 | **updating-knowledge** | Research methodology | Current knowledge, synthesis |
 
 ### Domain & Integration
@@ -223,7 +201,6 @@ Role and specialist skills (same folder):
 | **brand-guidelines** | Brand | Anthropic brand colors, typography |
 | **exploring-data** | EDA | ydata-profiling, CSV/JSON/Parquet reports |
 | **extracting-keywords** | Keywords | YAKE extraction, multi-language |
-| **multi-cloud-architecture** | Multi-cloud | AWS, Azure, GCP decision framework |
 | **mcp-builder** | MCP servers | MCP server design (Python/Node) |
 | **remembering** | Memory ops | Profile, recall, background writes |
 | **vercel-deploy-claimable** | Vercel deploy | Preview deploy, claimable link |
@@ -354,7 +331,7 @@ Role and specialist skills (same folder):
 1. **Reference by name** in Cursor Agent/Chat (e.g. "Load the tdd skill") so the right skill is loaded.
 2. **Match task to catalog**: Use the tables above to choose "when to use" and "what it provides."
 3. **Combine with agents**: Per AGENTS.md, load the relevant skill and engage the relevant agent at the start of work.
-4. **Read SKILL.md**: Each skill directory has a `SKILL.md` with full instructions and, where present, `references/` and `scripts/`.
+4. **Read SKILL.md**: Each skill directory has a `SKILL.md` with full instructions. Engineering-team skills (tdd, testing, refactoring, etc.) live in `skills/engineering-team/<name>/`; others in `skills/<name>/`.
 
 Skills are:
 
@@ -385,6 +362,6 @@ When adding a skill:
 ## Summary
 
 - **Catalog**: This README lists all skills in `skills/`, grouped by domain (core development, creating & authoring, code quality, architecture, backend/frontend, engineering/delivery/marketing/product teams, research/workflow, domain-specific).
-- **Core skills** (tdd, typescript-strict, testing, refactoring, planning, functional) are loaded proactively per AGENTS.md when writing or reviewing code.
+- **Core skills** (tdd, typescript-strict, testing, refactoring, planning, functional) are in `engineering-team/` and loaded proactively per AGENTS.md when writing or reviewing code.
 - **Agents** orchestrate workflows; **skills** supply patterns and references. Use the catalog to pick the right skill and the "Skill–Agent Relationships" section to pair skills with agents.
 - **Authoring**: New skills follow `creating-skill/SKILL.md`; new agents follow `creating-agents/SKILL.md`. Keep this README in sync when adding, removing, or renaming skills.

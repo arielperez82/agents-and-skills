@@ -276,7 +276,7 @@ When starting work in a domain, IMMEDIATELY load the relevant skill:
 - **Planning work** → Load `planning` skill
 - **Writing functional code** → Load `functional` skill
 
-**How to load**: Explicitly state "Loading [skill-name] skill" and reference patterns from `.cursor/skills/[skill-name]/SKILL.md`. Engineering Team skills (e.g. typescript-strict, backend-development, databases) are in `skills/engineering-team/`; use `.cursor/skills/engineering-team/[skill-name]/SKILL.md` or the path from [skills/README.md](skills/README.md).
+**How to load**: Explicitly state "Loading [skill-name] skill" and reference patterns from [skills/README.md](skills/README.md). Engineering Team skills (e.g. tdd, typescript-strict, testing, refactoring, backend-development, databases) are in `skills/engineering-team/`; use `.cursor/skills/engineering-team/[skill-name]/SKILL.md`. Other skills are in `skills/[skill-name]/`.
 
 ### Automatic Agent Engagement (MANDATORY)
 
@@ -304,7 +304,7 @@ Before writing any code, verify:
 - ALWAYS FOLLOW TDD - no production code without failing test
 - ALWAYS load relevant skills at work start
 - ALWAYS engage relevant agents proactively
-- **Before committing**: Engage validation agents (tdd-guardian, ts-enforcer, refactor-scan) to verify quality
+- **Before committing**: Engage validation agents (ap-tdd-guardian, ap-ts-enforcer, ap-refactor-guardian) to verify quality
 - Assess refactoring after every green (but only if adds value)
 - Ask "What do I wish I'd known at the start?" after significant changes
 - Document gotchas, patterns, decisions, edge cases while context is fresh
@@ -314,7 +314,7 @@ Before committing any work, engage these agents in sequence:
 
 1. `ap-tdd-guardian` - Verify TDD compliance, test quality, coverage
 2. `ap-ts-enforcer` - Verify TypeScript strict mode, no `any` types, schema usage
-3. `ap-refactor-quardian` - Classify refactoring opportunities
+3. `ap-refactor-guardian` - Classify refactoring opportunities
 4. `ap-code-reviewer` - Assess code quality and review code
 
 This ensures all work meets quality standards before commit.

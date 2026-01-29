@@ -129,8 +129,8 @@ Use this agent when:
 `ap-agent-author` also expects:
 
 - `../../skills/skill-creator/` and `../../skills/creating-skill/` for general skill packaging
-- `../../skills/subagent-driven-development/` when executing multi-step refactor plans via subagents
-- `../../skills/check-tools/` when you need to validate Python tools used by skills
+- `../../skills/engineering-team/subagent-driven-development/` when executing multi-step refactor plans via subagents
+- `../../skills/engineering-team/check-tools/` when you need to validate Python tools used by skills
 
 ## Workflows
 

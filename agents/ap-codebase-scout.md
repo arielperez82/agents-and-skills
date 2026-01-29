@@ -18,7 +18,7 @@ use-cases:
 
 # === RELATIONSHIPS ===
 related-agents: [ap-researcher, ap-implementation-planner]
-related-skills: [mapping-codebases, problem-solving]
+related-skills: [engineering-team/mapping-codebases, problem-solving]
 related-commands: [scout]
 orchestrates: []
 collaborates-with:
@@ -73,7 +73,7 @@ This agent uses an **adaptive strategy** that intelligently selects between exte
 **Usage:**
 ```bash
 # Generate code maps before searching (if maps don't exist)
-python ../../skills/mapping-codebases/scripts/codemap.py /path/to/repo
+python ../../skills/engineering-team/mapping-codebases/scripts/codemap.py /path/to/repo
 
 # Then navigate using _MAP.md files at repo root and subdirectories
 # Read _MAP.md files to understand structure before targeted searches
@@ -131,7 +131,7 @@ You excel at:
 ### 0. Codebase Mapping (Optional but Recommended for Large Codebases)
 If codebase is large (>100 files) or unfamiliar:
 - Check if `_MAP.md` exists at repo root
-- If missing and codebase is large/unfamiliar, generate maps: `python ../../skills/mapping-codebases/scripts/codemap.py .`
+- If missing and codebase is large/unfamiliar, generate maps: `python ../../skills/engineering-team/mapping-codebases/scripts/codemap.py .`
 - Read root `_MAP.md` to understand high-level structure
 - Use maps to identify likely directories before searching
 - Navigate to relevant subdirectory maps as needed for targeted exploration
