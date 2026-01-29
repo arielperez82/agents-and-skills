@@ -18,7 +18,7 @@
 
 Example:
 
-```
+```sql
 DESCRIPTION >
     Some meaningful description of the datasource
 

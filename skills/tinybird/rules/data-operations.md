@@ -6,7 +6,7 @@ Operations for updating and removing data from Data Sources.
 
 Delete rows matching a SQL condition:
 
-```bash
+```sh
 tb datasource delete events --sql-condition "toDate(date) >= '2019-11-01' AND toDate(date) <= '2019-11-30'"
 ```
 
@@ -19,7 +19,7 @@ tb datasource delete events --sql-condition "toDate(date) >= '2019-11-01' AND to
 
 Delete all rows from a Data Source:
 
-```bash
+```sh
 tb datasource truncate events
 ```
 
@@ -29,7 +29,7 @@ Use `--cascade` to also truncate dependent Data Sources attached via Materialize
 
 Replace only data matching a condition:
 
-```bash
+```sh
 tb datasource replace events data.csv --sql-condition "toDate(date) >= '2019-11-01' AND toDate(date) <= '2019-11-30'"
 ```
 
@@ -44,7 +44,7 @@ tb datasource replace events data.csv --sql-condition "toDate(date) >= '2019-11-
 ### Why Partition Key Matters
 
 If your Data Source uses `ENGINE_PARTITION_KEY "country"` and you run:
-```bash
+```sh
 tb datasource replace events data.csv --sql-condition "status='active'"
 ```
 This will **not work as expected**—the replace process uses payload rows to identify partitions. Always match the partition key.
@@ -53,7 +53,7 @@ This will **not work as expected**—the replace process uses payload rows to id
 
 Replace entire Data Source contents (no `--sql-condition`):
 
-```bash
+```sh
 tb datasource replace events data.csv
 ```
 

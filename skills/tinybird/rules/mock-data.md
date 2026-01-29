@@ -13,7 +13,7 @@ Tinybird mock data flow (as implemented by the agent) for a datasource:
 
 ## Example Mock Query
 
-```
+```sql
 SELECT
     rand() % 1000 AS experience_gained,
     1 + rand() % 100 AS level,

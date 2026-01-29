@@ -43,7 +43,7 @@ Use this checklist when optimizing endpoints.
 ## Templates
 
 Materialized view:
-```
+```sql
 NODE materialized_view_name
 SQL >
   SELECT toDate(timestamp) as date, customer_id, countState(*) as event_count
@@ -58,7 +58,7 @@ ENGINE_SORTING_KEY "customer_id, date"
 ```
 
 Optimized query:
-```
+```sql
 NODE endpoint_query
 SQL >
   %

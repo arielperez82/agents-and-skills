@@ -7,7 +7,7 @@
 
 Example:
 
-```
+```sql
 DESCRIPTION Copy Pipe to export sales hour every hour to the sales_hour_copy Data Source
 
 NODE daily_sales

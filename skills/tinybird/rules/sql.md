@@ -25,12 +25,14 @@
 - In `defined()` checks, do not quote the parameter name.
 
 Bad:
-```
+
+```sql
 SELECT * FROM events WHERE session_id={{String(my_param, "default")}}
 ```
 
 Good:
-```
+
+```sql
 %
 SELECT * FROM events WHERE session_id={{String(my_param, "default")}}
 ```

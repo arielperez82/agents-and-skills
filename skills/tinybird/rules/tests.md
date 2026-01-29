@@ -13,7 +13,7 @@
 
 Test format:
 
-```
+```yaml
 - name: kpis_single_day
   description: Test hourly granularity for a single day
   parameters: date_from=2024-01-01&date_to=2024-01-01

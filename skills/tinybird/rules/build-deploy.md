@@ -34,7 +34,7 @@ Use this rule to keep Tinybird Local and Tinybird Cloud in sync with your projec
 - If you see warnings about deletions, stop and ask for confirmation before re-running with the flag.
 
 Example:
-```
+```sh
 tb --cloud deploy --allow-destructive-operations
 ```
 

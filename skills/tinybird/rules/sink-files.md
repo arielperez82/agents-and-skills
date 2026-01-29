@@ -9,7 +9,7 @@
 
 Example:
 
-```
+```sql
 DESCRIPTION Sink Pipe to export sales hour every hour using my_connection
 
 NODE daily_sales

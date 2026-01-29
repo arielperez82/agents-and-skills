@@ -8,7 +8,7 @@
 
 Example:
 
-```
+```sql
 DESCRIPTION >
     Some meaningful description of the pipe
 

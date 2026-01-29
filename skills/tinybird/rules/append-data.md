@@ -4,15 +4,15 @@ Tinybird CLI supports three ways to append data to an existing datasource: local
 
 ## CLI: tb datasource append
 
-```
+```sh
 tb datasource append [datasource_name] --file /path/to/local/file
 ```
 
-```
+```sh
 tb datasource append [datasource_name] --url https://url_to_csv
 ```
 
-```
+```sh
 tb datasource append [datasource_name] --events '{"a":"b", "c":"d"}'
 ```
 

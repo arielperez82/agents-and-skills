@@ -8,7 +8,7 @@ Endpoint files are `.pipe` files with `TYPE endpoint` and should live under `/en
 
 Example:
 
-```
+```sql
 DESCRIPTION >
     Some meaningful description of the endpoint
 

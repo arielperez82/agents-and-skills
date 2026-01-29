@@ -19,6 +19,7 @@
 - `tb local generate-tokens`
 
 Notes:
+
 - If you remove the container without a persisted volume, local data is lost.
 - Use `tb --cloud ...` for Cloud operations.
 

@@ -54,7 +54,7 @@ Use Copy Pipes when:
 - You need downstream Materialized Views for rollups
 - Full replace with COPY_MODE replace if table is not massive and you don't have control over when duplicates can occur. If you have control, use COPY_MODE append.
 
-```
+```sql
 NODE generate_snapshot
 SQL >
     SELECT post_id, argMax(views, updated_at) as views, max(updated_at) as updated_at
