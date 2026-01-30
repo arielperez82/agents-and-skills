@@ -39,7 +39,7 @@ This directory contains on-demand skill packages that extend agent capabilities 
 | **crafting-instructions** | Prompts, instructions | Instruction design, project vs skill vs prompt |
 | **agent-md-refactor** | Bloated AGENTS/CLAUDE.md | Progressive disclosure, split monolithic docs |
 | **versioning-skills** | Skill file changes | Version control for skill modifications |
-| **template-skill** | Skill template | Placeholder skill structure |
+| *(skill template)* | New skill scaffold | Use **skill-creator** `scripts/init_skill.py`; standalone template-skill was intentionally removed |
 
 ### Architecture & Documentation
 
@@ -183,7 +183,7 @@ Role and specialist skills (same folder):
 | **brainstorming** | Before creative work | Intent, requirements, design exploration |
 | **internal-comms** | Internal comms | Status, updates, newsletters, incidents |
 | **iterating** | Multi-session work | Context accumulation, work logs |
-| **orchestrating-agents** | Multi-agent | Parallel APIs, delegated tasks, streaming |
+| **orchestrating-agents** | Multi-agent | Parallel APIs, delegated tasks, streaming (Cursor CLI) |
 | **convening-experts** | Panels, experts, RCA | Expert panels, MECE/DMAIC/RAPID, process improvement |
 | **problem-solving** | Complex problems | Complexity, innovation blocks, patterns |
 | **research** | Technical research | Scalable, secure, maintainable solutions |

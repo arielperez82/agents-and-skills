@@ -4,7 +4,7 @@ argument-hint: [task]
 ---
 
 Think strategically about parallelization.
-Activate `planning` skill.
+Activate `planning` skill. When invoking multiple subagents in parallel (e.g. ap-researcher), load `orchestrating-agents` skill for Cursor CLI invocation patterns.
 
 ## Your mission
 <task>

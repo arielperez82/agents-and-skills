@@ -30,12 +30,13 @@ This skill enables programmatic invocations for advanced workflows including par
 
 ```python
 import sys
-sys.path.append('/home/user/claude-skills/orchestrating-agents/scripts')
+from pathlib import Path
+# Add scripts dir to path (e.g. from repo root: skills/orchestrating-agents/scripts)
+sys.path.insert(0, str(Path(__file__).resolve().parent / "skills" / "orchestrating-agents" / "scripts"))
 from claude_client import invoke_claude
 
 response = invoke_claude(
     prompt="Analyze this code for security vulnerabilities: ...",
-    model="claude-sonnet-4-5-20250929"
 )
 print(response)
 ```
@@ -60,7 +61,7 @@ prompts = [
     }
 ]
 
-results = invoke_parallel(prompts, model="claude-sonnet-4-5-20250929")
+results = invoke_parallel(prompts)
 
 for i, result in enumerate(results):
     print(f"\n=== Perspective {i+1} ===")

@@ -20,7 +20,7 @@ use-cases:
 
 # === RELATIONSHIPS ===
 related-agents: [ap-implementation-planner, ap-brainstormer, ap-architect]
-related-skills: [research, updating-knowledge, asking-questions, problem-solving, docs-seeker]
+related-skills: [research, updating-knowledge, asking-questions, problem-solving, docs-seeker, orchestrating-agents]
 related-commands: []
 orchestrates:
   skill: research

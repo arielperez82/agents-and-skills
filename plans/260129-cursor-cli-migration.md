@@ -218,11 +218,21 @@ Work in small batches. One logical step per phase. TDD: tests first, then implem
 
 ## 6. Definition of Done
 
-- [ ] `scripts/cursor_client.py` implements single and parallel invocation, optional streaming and interrupt.
-- [ ] Public API (`invoke_claude` and/or `invoke_cursor`, `invoke_parallel`, etc.) works via Cursor CLI only; no Anthropic API.
-- [ ] SKILL.md and references describe Cursor CLI setup and behavior; no Anthropic API key or caching.
-- [ ] Tests pass (mocked and, where possible, one contract test with real `agent`); CI passes.
-- [ ] AGENTS.md principles followed: small steps, TDD, minimal surface, documented exceptions and limitations.
+- [x] `scripts/cursor_client.py` implements single and parallel invocation, optional streaming and interrupt.
+- [x] Public API (`invoke_claude` and/or `invoke_cursor`, `invoke_parallel`, etc.) works via Cursor CLI only; no Anthropic API.
+- [x] SKILL.md and references describe Cursor CLI setup and behavior; no Anthropic API key or caching.
+- [x] Tests pass (mocked and, where possible, one contract test with real `agent`); CI passes.
+- [x] AGENTS.md principles followed: small steps, TDD, minimal surface, documented exceptions and limitations.
+
+---
+
+## 7. Learnings
+
+- **Cursor CLI non-interactive:** Does not stream per chunk; callback receives full response at end.
+- **Interrupt:** `InterruptToken` is checked before each request only; in-flight subprocesses are not killed mid-run.
+- **ConversationThread:** No server-side history; each `send()` uses last user message only (local `messages` kept for reference).
+- **Live tests:** Skip when `agent` not on PATH or not authenticated; use `agent login` or `CURSOR_API_KEY` for full runs.
+- **Prompt caching:** N/A for Cursor CLI; use `shared_system` to prepend context only.
 
 ---
 

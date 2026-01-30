@@ -5,7 +5,7 @@ argument-hint: [plan-path]
 
 Execute plan: <plan>$ARGUMENTS</plan>
 
-**IMPORTANT:** Activate needed skills. Ensure token efficiency. Sacrifice grammar for concision.
+**IMPORTANT:** Activate needed skills (e.g. `orchestrating-agents` when launching multiple agents in parallel via Cursor CLI). Ensure token efficiency. Sacrifice grammar for concision.
 
 ## Workflow
 

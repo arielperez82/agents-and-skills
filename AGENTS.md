@@ -157,7 +157,7 @@ The following agents and skills provide detailed guidance and can be loaded on-d
 | **databases**            | Database work            | Work with MongoDB and PostgreSQL for schemas, queries, aggregations, migrations, performance, administration          |
 | **debugging**            | Debugging issues         | Systematic debugging framework for root cause investigation, backward call stack tracing, multi-layer validation      |
 | **internal-comms**       | Internal communications  | Write internal communications (status reports, leadership updates, newsletters, FAQs, incident reports)               |
-| **orchestrating-agents** | Multi-agent workflows    | Orchestrates parallel API instances, delegated sub-tasks, multi-agent workflows with streaming                        |
+| **orchestrating-agents** | Multi-agent workflows    | Orchestrates parallel API instances, delegated sub-tasks, multi-agent workflows with streaming (via Cursor CLI)       |
 | **playwright-skill**     | Browser automation       | Complete browser automation with Playwright for testing, form filling, screenshots, responsive design validation      |
 | **problem-solving**      | Complex problems         | Systematic problem-solving techniques for complexity spirals, innovation blocks, recurring patterns                   |
 | **research**             | Technical research       | Research, analyze, and plan technical solutions that are scalable, secure, and maintainable                           |

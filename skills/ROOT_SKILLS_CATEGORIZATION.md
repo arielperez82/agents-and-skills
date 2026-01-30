@@ -40,7 +40,7 @@ These are foundational, meta, or cross-cutting concerns used by all teams:
 - **crafting-instructions** - Meta skill for instruction design
 - **agent-md-refactor** - Meta skill for refactoring documentation
 - **versioning-skills** - Meta skill for version control
-- **template-skill** - Meta skill template
+- **template-skill** - Removed; use skill-creator `init_skill.py` for new skill template
 
 #### Code Quality & Review (Engineering-Focused)
 **REVISED:** These are engineering-focused and should move to `engineering-team/`:

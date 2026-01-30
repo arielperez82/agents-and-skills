@@ -18,7 +18,7 @@ Think harder to scan the codebase and analyze it follow the Orchestration Protoc
 
 ## Workflow:
 
-**IMPORTANT:** Analyze the skills catalog and activate the skills that are needed for the task during the process.
+**IMPORTANT:** Analyze the skills catalog and activate the skills that are needed for the task during the process. When running multiple subagents in parallel (e.g. ap-researcher, code-reviewer), load `orchestrating-agents` skill for Cursor CLI invocation patterns.
 
 ### Research
 

@@ -18,7 +18,7 @@ use-cases:
 
 # === RELATIONSHIPS ===
 related-agents: []
-related-skills: [engineering-team/senior-prompt-engineer]
+related-skills: [engineering-team/senior-prompt-engineer, orchestrating-agents]
 related-commands: []
 orchestrates:
   skill: engineering-team/senior-prompt-engineer
