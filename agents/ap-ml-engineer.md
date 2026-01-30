@@ -6,7 +6,7 @@ title: ML Engineer
 description: Machine learning specialist for model development, training optimization, MLOps pipelines, and production deployment
 domain: engineering
 subdomain: ai-ml-engineering
-skills: senior-ml-engineer
+skills: engineering-team/senior-ml-engineer
 
 # === USE CASES ===
 difficulty: advanced
@@ -19,7 +19,7 @@ use-cases:
 
 # === RELATIONSHIPS ===
 related-agents: []
-related-skills: [engineering-team/avoid-feature-creep, engineering-team/senior-ml-engineer, engineering-team/core-testing-methodology]
+related-skills: [engineering-team/avoid-feature-creep, engineering-team/senior-ml-engineer, engineering-team/core-testing-methodology, engineering-team/tinybird]
 related-commands: []
 collaborates-with:
   - agent: ap-tdd-guardian

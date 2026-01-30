@@ -5,7 +5,7 @@ title: Supabase Database Engineer
 description: Supabase database specialist for schema design, migration management, RLS policy architecture, and database optimization
 domain: engineering
 subdomain: database-engineering
-skills: engineering-team/supabase-best-practices
+skills: engineering-team/supabase-best-practices, engineering-team/tinybird
 
 # === USE CASES ===
 difficulty: advanced

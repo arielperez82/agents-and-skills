@@ -6,7 +6,7 @@ title: Data Engineer
 description: Data engineering specialist for ETL/ELT pipelines, data warehousing, data quality, and scalable data infrastructure
 domain: engineering
 subdomain: data-engineering
-skills: senior-data-engineer
+skills: engineering-team/senior-data-engineer, engineering-team/tinybird
 
 # === USE CASES ===
 difficulty: advanced
@@ -18,7 +18,7 @@ use-cases:
 
 # === RELATIONSHIPS ===
 related-agents: []
-related-skills: [engineering-team/avoid-feature-creep, engineering-team/senior-data-engineer, engineering-team/core-testing-methodology]
+related-skills: [engineering-team/avoid-feature-creep, engineering-team/senior-data-engineer, engineering-team/tinybird, engineering-team/core-testing-methodology]
 related-commands: []
 collaborates-with:
   - agent: ap-tdd-guardian
@@ -68,7 +68,7 @@ collaborates-with:
     when: After completing significant features, when discovering gotchas or unexpected behaviors, after fixing complex bugs
     without-collaborator: "Valuable learnings and gotchas may not be preserved for future developers"
 orchestrates:
-  skill: engineering-team/senior-data-engineer
+  skill: engineering-team/senior-data-engineer, engineering-team/tinybird
 
 # === TECHNICAL ===
 tools: [Read, Write, Bash, Grep, Glob]
