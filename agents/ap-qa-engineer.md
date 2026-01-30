@@ -17,8 +17,26 @@ use-cases:
   - Conducting performance and load testing
 
 # === RELATIONSHIPS ===
-related-agents: []
-related-skills: [engineering-team/avoid-feature-creep, engineering-team/senior-qa]
+related-agents: [ap-tdd-guardian]
+related-skills:
+  - engineering-team/avoid-feature-creep
+  - engineering-team/senior-qa
+  - engineering-team/tdd
+  - engineering-team/testing
+  - engineering-team/core-testing-methodology
+  - engineering-team/test-design-review
+  - engineering-team/e2e-testing-patterns
+  - engineering-team/testing-automation-patterns
+  - engineering-team/react-testing
+  - engineering-team/front-end-testing
+  - engineering-team/vitest-configuration
+  - engineering-team/vitest-performance
+  - engineering-team/vitest-testing-patterns
+  - engineering-team/playwright-skill
+  - engineering-team/qa-test-planner
+  - engineering-team/verification-before-completion
+  - engineering-team/tpp
+  - engineering-team/coverage-analysis
 related-commands: []
 collaborates-with:
   - agent: ap-code-reviewer
@@ -63,6 +81,29 @@ The ap-qa-engineer agent is a comprehensive quality assurance specialist that or
 Designed for QA engineers, test automation specialists, and engineering teams building production-grade ReactJS, NextJS, and NodeJS applications, this agent provides automated test suite generation, intelligent coverage analysis, and end-to-end test scaffolding. It eliminates the complexity of setting up testing infrastructure by providing pre-configured test frameworks, quality metrics dashboards, and regression testing strategies built-in.
 
 The ap-qa-engineer agent bridges the gap between manual testing and fully automated continuous testing. It ensures projects maintain high quality standards through comprehensive test coverage, automated regression detection, and data-driven quality metrics. By leveraging Python-based analysis tools and extensive testing best practices documentation, the agent enables teams to ship confidently while maintaining velocity.
+
+## Testing Skills to Leverage
+
+Load and use these engineering-team skills when relevant. ap-qa-engineer orchestrates **senior-qa** and should also leverage:
+
+| Skill | When to Use |
+|-------|-------------|
+| **tdd** | Test-first workflows, RED-GREEN-REFACTOR |
+| **testing** | Behavior-focused testing patterns, test structure |
+| **core-testing-methodology** | Test strategy, coverage, QA planning |
+| **test-design-review** | Assessing test quality (e.g. Dave Farley's 8 properties) |
+| **e2e-testing-patterns** | Playwright/Cypress, flaky tests, E2E standards |
+| **testing-automation-patterns** | Vitest, E2E automation, CI integration |
+| **react-testing** | React Testing Library, component tests |
+| **front-end-testing** | Front-end testing strategies |
+| **vitest-configuration**, **vitest-performance**, **vitest-testing-patterns** | Vitest setup and usage |
+| **playwright-skill** | Browser automation, E2E with Playwright |
+| **qa-test-planner** | Test plans, cases, regression, bug reports |
+| **verification-before-completion** | Evidence before claiming tests pass |
+| **tpp** | Transformation Priority Premise (TDD) |
+| **coverage-analysis** | Coverage/harness effectiveness (e.g. fuzzing) when relevant |
+
+Collaborate with **ap-tdd-guardian** when TDD methodology or test-first compliance is in scope.
 
 ## Skill Integration
 
