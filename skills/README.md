@@ -94,7 +94,6 @@ Engineering skills (path: `skills/engineering-team/<name>/`). Load proactively p
 | **react-vite-expert** | React + Vite | Project structure, performance, TypeScript |
 | **modern-javascript-patterns** | Modern JS | ES6+ patterns, async, functional patterns |
 | **web-design-guidelines** | UI review | Web interface guidelines, accessibility |
-| **code-review** | PRs, completion claims | Receiving feedback, ap-code-reviewer, verification gates |
 | **code-maturity-assessor** | Codebase assessment | Trail of Bits 9-category scorecard |
 | **software-architecture** | Design, analyze code | Quality-focused architecture guidance |
 | **architecture-decision-records** | Documenting decisions | ADR writing, technical decision docs |
@@ -129,7 +128,7 @@ Role and specialist skills (same folder):
 | **senior-ml-engineer** | ML systems | MLOps, model deployment, ML infra |
 | **senior-prompt-engineer** | LLM/prompts | Prompt patterns, RAG, agent design |
 | **senior-computer-vision** | Vision AI | Image/video, detection, segmentation |
-| **code-reviewer** | Code review | Quality, security, best practices (multi-language) |
+| **code-reviewer** | Code review, PRs, completion claims | Quality, security, best practices (multi-language); receiving feedback, ap-code-reviewer, verification gates |
 | **cto-advisor** | Tech leadership | Tech debt, scaling, architecture, strategy |
 | **technical-writer** | Documentation | README, CHANGELOG, API docs, diagrams |
 | **incident-response** | Security incidents | Detection, containment, RCA, playbooks |
@@ -320,7 +319,7 @@ Role and specialist skills (same folder):
 | Tests just passed | refactoring | ap-refactor-guardian |
 | Need progress tracking | planning | ap-progress-guardian |
 | Before claiming done | verification-before-completion | — |
-| Code review | code-review | ap-code-reviewer |
+| Code review | code-reviewer | ap-code-reviewer |
 | Document decisions | architecture-decision-records | ap-adr-writer |
 | Permanent docs | — | ap-docs-guardian |
 | Capture learnings | — | ap-learn |

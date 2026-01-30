@@ -8,7 +8,7 @@ Use this template when dispatching a code quality reviewer subagent.
 
 ```
 Task tool (superpowers:ap-code-reviewer):
-  Use template at requesting-code-review/ap-code-reviewer.md
+  Use template at agents/ap-code-reviewer.md; placeholders in code-reviewer/references/requesting-code-review.md
 
   WHAT_WAS_IMPLEMENTED: [from implementer's report]
   PLAN_OR_REQUIREMENTS: Task N from [plan-file]

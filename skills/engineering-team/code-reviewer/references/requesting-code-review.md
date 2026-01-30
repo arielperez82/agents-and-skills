@@ -102,4 +102,4 @@ You: [Fix progress indicators]
 - Show code/tests that prove it works
 - Request clarification
 
-See template at: requesting-code-review/ap-code-reviewer.md
+See template at: `../../agents/ap-code-reviewer.md`
