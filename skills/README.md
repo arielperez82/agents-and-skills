@@ -2,13 +2,13 @@
 
 This directory contains on-demand skill packages that extend agent capabilities with detailed patterns, workflows, and reference material.
 
-> **Maintenance note**: This README must be updated whenever a skill is added, deleted, moved, or renamed. See maintenance instructions in `creating-skill/SKILL.md`, `creating-agents/SKILL.md` (for agent/skill alignment), and `versioning-skills/SKILL.md`.
+> **Maintenance note**: This README must be updated whenever a skill is added, deleted, moved, or renamed. See maintenance instructions in `agent-development-team/creating-skill/SKILL.md`, `agent-development-team/creating-agents/SKILL.md` (for agent/skill alignment), and `agent-development-team/versioning-skills/SKILL.md`.
 
 ## What this file is (and isn't)
 
 - **What this is**: The **operator's guide + complete catalog** for the `skills/` directory — which skills exist, **when to load each**, and how they **relate to agents** and to each other.
 - **Who it's for**: Humans (and assistants) who want to **use/load skills**, pick the right skill for the task, or understand the overall skill system at a glance.
-- **What this is not**: The spec for how to *author* skills (frontmatter schema, structure, packaging). For that, see `creating-skill/SKILL.md`.
+- **What this is not**: The spec for how to *author* skills (frontmatter schema, structure, packaging). For that, see `agent-development-team/creating-skill/SKILL.md`.
 
 ## Discovery & Installation
 
@@ -26,7 +26,7 @@ This directory contains on-demand skill packages that extend agent capabilities 
 
 ## Complete Skill Catalog
 
-**Where skills live:** Engineering skills (tdd, testing, refactoring, typescript-strict, etc.) are in `skills/engineering-team/<name>/`. Meta and cross-team skills (creating-skill, brainstorming, etc.) stay in `skills/<name>/`. Use [skills/README.md](README.md) and [AGENTS.md](../AGENTS.md) for load order and paths.
+**Where skills live:** Engineering skills (tdd, testing, refactoring, typescript-strict, etc.) are in `skills/engineering-team/<name>/`. Agent-development skills (creating-skill, creating-agents, find-skills, etc.) are in `skills/agent-development-team/<name>/`. Other meta and cross-team skills (e.g. brainstorming) are in `skills/<name>/`. Use [skills/README.md](README.md) and [AGENTS.md](../AGENTS.md) for load order and paths.
 
 ### Creating & Authoring
 
@@ -331,7 +331,7 @@ Role and specialist skills (same folder):
 1. **Reference by name** in Cursor Agent/Chat (e.g. "Load the tdd skill") so the right skill is loaded.
 2. **Match task to catalog**: Use the tables above to choose "when to use" and "what it provides."
 3. **Combine with agents**: Per AGENTS.md, load the relevant skill and engage the relevant agent at the start of work.
-4. **Read SKILL.md**: Each skill directory has a `SKILL.md` with full instructions. Engineering-team skills (tdd, testing, refactoring, etc.) live in `skills/engineering-team/<name>/`; others in `skills/<name>/`.
+4. **Read SKILL.md**: Each skill directory has a `SKILL.md` with full instructions. Engineering-team skills live in `skills/engineering-team/<name>/`; agent-development skills (creating-skill, creating-agents, etc.) in `skills/agent-development-team/<name>/`; others in `skills/<name>/`.
 
 Skills are:
 
@@ -341,7 +341,7 @@ Skills are:
 
 ## Skill Design Principles
 
-From `creating-skill/SKILL.md` and project practice:
+From `agent-development-team/creating-skill/SKILL.md` and project practice:
 
 1. **Clear purpose**: One primary capability and clear trigger patterns.
 2. **Progressive disclosure**: SKILL.md concise; detail in `references/` or `assets/`.
@@ -353,15 +353,15 @@ From `creating-skill/SKILL.md` and project practice:
 
 When adding a skill:
 
-1. **Follow structure**: `skill-name/SKILL.md` plus optional `references/`, `scripts/`, `assets/` (see `creating-skill/SKILL.md`).
+1. **Follow structure**: `skill-name/SKILL.md` plus optional `references/`, `scripts/`, `assets/` (see `agent-development-team/creating-skill/SKILL.md`).
 2. **Set frontmatter**: `name`, `description` (with trigger patterns).
 3. **Distinguish from existing skills**: Avoid overlap; link related skills.
 4. **Update this README**: Add the skill to the appropriate catalog table and, if it’s core or authoring, consider a detailed overview entry.
-5. **Version if required**: Follow `versioning-skills/SKILL.md` when modifying skill files.
+5. **Version if required**: Follow `agent-development-team/versioning-skills/SKILL.md` when modifying skill files.
 
 ## Summary
 
 - **Catalog**: This README lists all skills in `skills/`, grouped by domain (core development, creating & authoring, code quality, architecture, backend/frontend, engineering/delivery/marketing/product teams, research/workflow, domain-specific).
 - **Core skills** (tdd, typescript-strict, testing, refactoring, planning, functional) are in `engineering-team/` and loaded proactively per AGENTS.md when writing or reviewing code.
 - **Agents** orchestrate workflows; **skills** supply patterns and references. Use the catalog to pick the right skill and the "Skill–Agent Relationships" section to pair skills with agents.
-- **Authoring**: New skills follow `creating-skill/SKILL.md`; new agents follow `creating-agents/SKILL.md`. Keep this README in sync when adding, removing, or renaming skills.
+- **Authoring**: New skills follow `agent-development-team/creating-skill/SKILL.md`; new agents follow `agent-development-team/creating-agents/SKILL.md`. Keep this README in sync when adding, removing, or renaming skills.

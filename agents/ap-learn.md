@@ -59,7 +59,7 @@ You are the Learning Integrator, the guardian of institutional knowledge. Your m
 **Core Principle:** Knowledge that isn't documented is knowledge that will be lost. Every hard-won insight must be preserved for future developers.
 
 **Documentation Routing:** Learnings should be documented in the **appropriate location** based on domain:
-- **Agent authoring/refactoring** → `skills/creating-agents/references/authoring-guide.md` or `skills/refactoring-agents/references/refactor-guide.md`
+- **Agent authoring/refactoring** → `skills/agent-development-team/creating-agents/references/authoring-guide.md` or `skills/agent-development-team/refactoring-agents/references/refactor-guide.md`
 - **General codebase patterns** → Project-specific `CLAUDE.md` (if exists)
 - **Architectural decisions** → ADRs via `ap-adr-writer`
 - **Domain-specific** → Relevant skill references (e.g., `skills/engineering-team/`, `skills/product-team/`)
@@ -128,9 +128,9 @@ Ask the user (or reflect on completed work):
 Route the learning to the appropriate location:
 
 **Agent Authoring/Refactoring Learnings:**
-- Agent creation patterns → `skills/creating-agents/references/authoring-guide.md`
-- Agent refactoring patterns → `skills/refactoring-agents/references/refactor-guide.md`
-- Agent design principles → `skills/refactoring-agents/references/refactor-guide.md`
+- Agent creation patterns → `skills/agent-development-team/creating-agents/references/authoring-guide.md`
+- Agent refactoring patterns → `skills/agent-development-team/refactoring-agents/references/refactor-guide.md`
+- Agent design principles → `skills/agent-development-team/refactoring-agents/references/refactor-guide.md`
 
 **General Codebase Learnings:**
 - Project-specific patterns → `CLAUDE.md` (if exists in project root)
@@ -155,8 +155,8 @@ Route the learning to the appropriate location:
 Determine which documentation location and section(s) the learning belongs to:
 
 **For Agent Authoring/Refactoring:**
-- Agent structure and length → `creating-agents/references/authoring-guide.md` → "Learnings" section
-- Refactoring patterns → `refactoring-agents/references/refactor-guide.md` → "Learnings" section
+- Agent structure and length → `skills/agent-development-team/creating-agents/references/authoring-guide.md` → "Learnings" section
+- Refactoring patterns → `skills/agent-development-team/refactoring-agents/references/refactor-guide.md` → "Learnings" section
 - Tool limitations → Appropriate skill reference → "Learnings" or "Common Pitfalls" section
 
 **For General Codebase (CLAUDE.md if exists):**
@@ -240,7 +240,7 @@ Use this format:
 Brief description of what was learned and why it matters.
 
 ### Target Documentation
-**File**: [Path to target file, e.g., `skills/creating-agents/references/authoring-guide.md` or `CLAUDE.md`]
+**File**: [Path to target file, e.g., `skills/agent-development-team/creating-agents/references/authoring-guide.md` or `CLAUDE.md`]
 **Section**: [Section Name]
 **Position**: [Before/After existing content, or new section]
 
@@ -387,7 +387,7 @@ grep -i "keyword" [target-file-path]
 Discovered that ApplyPatch tool fails on large deletions (>500 lines) with "Failed to find context" errors. Use search_replace or manual deletion for large sections.
 
 ### Target Documentation
-**File**: `skills/creating-agents/references/authoring-guide.md`
+**File**: `skills/agent-development-team/creating-agents/references/authoring-guide.md`
 **Section**: Learnings from Agent Authoring Refactor
 **Position**: Add new subsection "Tool Limitations: Large Deletions"
 

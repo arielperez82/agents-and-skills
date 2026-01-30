@@ -3,13 +3,13 @@
 
 This directory contains specifications for specialized Claude Code agents that work together to maintain code quality, documentation, and development workflow.
 
-> **⚠️ Maintenance Note**: This README must be updated whenever an agent is added, deleted, moved, or renamed. See maintenance instructions in `ap-agent-author.md`, `skills/creating-agents/SKILL.md`, and `skills/refactoring-agents/SKILL.md`.
+> **⚠️ Maintenance Note**: This README must be updated whenever an agent is added, deleted, moved, or renamed. See maintenance instructions in `ap-agent-author.md`, `skills/agent-development-team/creating-agents/SKILL.md`, and `skills/agent-development-team/refactoring-agents/SKILL.md`.
 
 ## What this file is (and isn't)
 
 - **What this is**: The **operator's guide + complete catalog** for the `agents/` directory — which agents exist, **when to invoke each**, and how they **handoff** to each other in a typical workflow.
 - **Who it's for**: Humans (and assistants) who want to **use/run agents**, pick the right agent for the job, or understand the overall agent system at a glance.
-- **What this is not**: The spec for how to *author* agents (frontmatter schema, templates, validation rules, execution safety). For that, see `skills/creating-agents/SKILL.md`.
+- **What this is not**: The spec for how to *author* agents (frontmatter schema, templates, validation rules, execution safety). For that, see `skills/agent-development-team/creating-agents/SKILL.md`.
 
 ## Complete Agent Catalog
 

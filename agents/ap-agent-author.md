@@ -113,14 +113,14 @@ Use this agent when:
 
 `ap-agent-author` primarily orchestrates two meta-skills:
 
-- **`../../skills/creating-agents/`** – Per-agent authoring standards  
+- **`../../skills/agent-development-team/creating-agents/`** – Per-agent authoring standards  
   Use this for:
   - YAML frontmatter schema and required sections
   - Agent classification and execution safety rules
   - Path and tool integration patterns
   - Authoring templates and checklists
 
-- **`../../skills/refactoring-agents/`** – Ecosystem-level refactor guidance  
+- **`../../skills/agent-development-team/refactoring-agents/`** – Ecosystem-level refactor guidance  
   Use this for:
   - Agent design principles and overlap detection
   - Merge vs keep separate decisions
@@ -129,7 +129,7 @@ Use this agent when:
 
 `ap-agent-author` also expects:
 
-- `../../skills/skill-creator/` and `../../skills/creating-skill/` for general skill packaging
+- `../../skills/agent-development-team/skill-creator/` and `../../skills/agent-development-team/creating-skill/` for general skill packaging
 - `../../skills/engineering-team/subagent-driven-development/` when executing multi-step refactor plans via subagents
 - `../../skills/engineering-team/check-tools/` when you need to validate Python tools used by skills
 
@@ -142,13 +142,13 @@ Use this agent when:
 **Steps:**
 1. Clarify the agent’s **job-to-be-done** and outputs.
 2. Invoke the `creating-agents` skill:
-   - Read `../../skills/creating-agents/SKILL.md`.
-   - Use `../../skills/creating-agents/assets/agent-template.md` as a starting point.
+   - Read `../../skills/agent-development-team/creating-agents/SKILL.md`.
+   - Use `../../skills/agent-development-team/creating-agents/assets/agent-template.md` as a starting point.
    - Follow the classification and integration patterns from `references/authoring-guide.md`.
 3. Fill in:
    - Purpose, skill integration, workflows, integration examples, success metrics, related agents.
 4. Validate:
-   - Run through `../../skills/creating-agents/assets/agent-checklists.md`.
+   - Run through `../../skills/agent-development-team/creating-agents/assets/agent-checklists.md`.
 5. **Update README**: Add the new agent to `agents/README.md` in the "Complete Agent Catalog" section.
 
 **Expected Output:** A single, standards-compliant ap-* agent file ready for review and integration, with `agents/README.md` updated.
@@ -160,8 +160,8 @@ Use this agent when:
 **Steps:**
 1. Identify in-scope agents and symptoms (overlap, confusion, missing role).
 2. Invoke the `refactoring-agents` skill:
-   - Read `../../skills/refactoring-agents/SKILL.md`.
-   - Copy `../../skills/refactoring-agents/assets/refactor-report-template.md` to a working location.
+   - Read `../../skills/agent-development-team/refactoring-agents/SKILL.md`.
+   - Copy `../../skills/agent-development-team/refactoring-agents/assets/refactor-report-template.md` to a working location.
 3. Fill in **Context** and **Analysis**:
    - Apply the overlap rubric and design principles from `references/refactor-guide.md`.
 4. Decide on refactor levers:
@@ -195,7 +195,7 @@ Use this agent when:
 ### Example: New Supabase Analytics Agent
 
 1. Use `creating-agents`:
-   - Load `../../skills/creating-agents/SKILL.md`.
+   - Load `../../skills/agent-development-team/creating-agents/SKILL.md`.
    - Create `agents/ap-supabase-analytics-engineer.md` using `agent-template.md`.
 2. Wire skills:
    - Reference Supabase and analytics skills under `../../skills/`.
@@ -230,7 +230,7 @@ For `ap-agent-author` itself:
 
 ## References
 
-- `../../skills/creating-agents/SKILL.md`
-- `../../skills/creating-agents/references/authoring-guide.md`
-- `../../skills/refactoring-agents/SKILL.md`
-- `../../skills/refactoring-agents/references/refactor-guide.md`
+- `../../skills/agent-development-team/creating-agents/SKILL.md`
+- `../../skills/agent-development-team/creating-agents/references/authoring-guide.md`
+- `../../skills/agent-development-team/refactoring-agents/SKILL.md`
+- `../../skills/agent-development-team/refactoring-agents/references/refactor-guide.md`

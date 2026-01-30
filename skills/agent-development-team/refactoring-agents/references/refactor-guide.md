@@ -248,8 +248,8 @@ Use this checklist before creating or refactoring an agent:
 **Learning:** Agent ecosystem learnings belong in skill references, not a single CLAUDE.md.
 
 **Routing rules:**
-- **Agent authoring patterns** → `creating-agents/references/authoring-guide.md`
-- **Agent refactoring patterns** → `refactoring-agents/references/refactor-guide.md` (this file)
+- **Agent authoring patterns** → `skills/agent-development-team/creating-agents/references/authoring-guide.md`
+- **Agent refactoring patterns** → `skills/agent-development-team/refactoring-agents/references/refactor-guide.md` (this file)
 - **General codebase learnings** → Project-specific CLAUDE.md or domain skill references
 - **Architectural decisions** → ADRs via `ap-adr-writer`
 

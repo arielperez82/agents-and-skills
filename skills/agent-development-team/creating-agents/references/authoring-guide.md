@@ -417,10 +417,10 @@ Before committing an agent:
 **Pattern:**
 ```
 agent-file.md (237 lines)
-  ├─ References: ../../skills/creating-agents/SKILL.md
-  └─ References: ../../skills/creating-agents/references/authoring-guide.md
+  ├─ References: ../../skills/agent-development-team/creating-agents/SKILL.md
+  └─ References: ../../skills/agent-development-team/creating-agents/references/authoring-guide.md
 
-skills/creating-agents/
+skills/agent-development-team/creating-agents/
   ├─ SKILL.md (concise overview)
   ├─ references/authoring-guide.md (detailed doctrine)
   └─ assets/ (templates, checklists)
@@ -449,8 +449,8 @@ skills/creating-agents/
 **Learning:** Agent-specific learnings should go into skill references, not a single CLAUDE.md.
 
 **Where to document:**
-- **Agent authoring learnings** → `skills/creating-agents/references/authoring-guide.md` (this file)
-- **Agent refactoring learnings** → `skills/refactoring-agents/references/refactor-guide.md`
+- **Agent authoring learnings** → `skills/agent-development-team/creating-agents/references/authoring-guide.md` (this file)
+- **Agent refactoring learnings** → `skills/agent-development-team/refactoring-agents/references/refactor-guide.md`
 - **General codebase learnings** → Project-specific CLAUDE.md (if exists) or appropriate skill references
 - **Architectural decisions** → ADRs via `ap-adr-writer`
 

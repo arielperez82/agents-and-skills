@@ -148,16 +148,16 @@ These skills exist in BOTH root AND team directories. **Must resolve duplicates 
 These skills should **remain in root** due to ambiguity or cross-team usage:
 
 ### Meta/Infrastructure Skills
-- `creating-agents/` - Agent creation, meta-skill
-- `refactoring-agents/` - Agent refactoring, meta-skill
-- `creating-skill/` - Skill creation, meta-skill
-- `skill-creator/` - Skill creation tool, meta-skill
+- `agent-development-team/creating-agents/` - Agent creation, meta-skill
+- `agent-development-team/refactoring-agents/` - Agent refactoring, meta-skill
+- `agent-development-team/creating-skill/` - Skill creation, meta-skill
+- `agent-development-team/skill-creator/` - Skill creation tool, meta-skill
 - `crafting-instructions/` - Instruction creation, meta-skill
-- `versioning-skills/` - Skill versioning, meta-skill
-- `agent-md-refactor/` - Agent documentation refactoring, meta-skill
+- `agent-development-team/versioning-skills/` - Skill versioning, meta-skill
+- `agent-development-team/agent-md-refactor/` - Agent documentation refactoring, meta-skill
 - `subagent-driven-development/` - Development methodology, meta-skill
 - `orchestrating-agents/` - Multi-agent orchestration, meta-skill
-- `find-skills/` - Skill discovery, meta-skill
+- `agent-development-team/find-skills/` - Skill discovery, meta-skill
 
 ### General Development Practices
 - `tdd/` - Test-driven development, used across teams
