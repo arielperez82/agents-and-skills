@@ -1,8 +1,6 @@
 ---
 name: convening-experts
 description: Convenes expert panels for problem-solving. Use when user mentions panel, experts, multiple perspectives, MECE, DMAIC, RAPID, Six Sigma, root cause analysis, strategic decisions, or process improvement.
-metadata:
-  version: 1.0.3
 ---
 
 # Convening Experts
@@ -34,11 +32,11 @@ For complex problems requiring collaborative reasoning:
 
 See [references/msd-domain-experts.md](references/msd-domain-experts.md) and [references/consulting-frameworks.md](references/consulting-frameworks.md) for complete role catalog.
 
-Claude loads relevant references based on problem domain.
+Agent loads relevant references based on problem domain.
 
 ## Panel Convening Logic
 
-Claude selects 3-5 experts based on problem characteristics:
+Agent selects 3-5 experts based on problem characteristics:
 
 **Problem type → Primary expert + Supporting experts**
 

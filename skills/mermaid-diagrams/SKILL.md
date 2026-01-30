@@ -5,7 +5,7 @@ description: Comprehensive guide for creating software diagrams using Mermaid sy
 
 # Mermaid Diagramming
 
-Create professional software diagrams using Mermaid's text-based syntax. Mermaid renders diagrams from simple text definitions, making diagrams version-controllable, easy to update, and maintainable alongside code.
+Create professional diagrams using Mermaid's text-based syntax. Mermaid renders diagrams from simple text definitions, making diagrams version-controllable, easy to update, and maintainable alongside code.
 
 ## Core Syntax Structure
 

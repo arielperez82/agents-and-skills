@@ -37,7 +37,7 @@ Use `refactoring-agents` when:
 Do **NOT** use this skill when:
 
 - You’re authoring a single new agent from scratch → use `creating-agents`
-- You’re writing or updating a skill → use `skill-creator` / `creating-skill`
+- You’re writing or updating a skill → use `skill-creator`
 - You’re just deciding **which** existing agent to run → see `agents/README.md`
 
 ## Core Principles
@@ -191,7 +191,7 @@ Use this when you need a non-implementing assessor for a cross-cutting concern.
 ## Integration with Other Skills
 
 - **creating-agents**: Use for per-agent authoring once refactor decisions are made
-- **skill-creator / creating-skill**: Use when refactor implies new skills or skill splits
+- **skill-creator**: Use when refactor implies new skills or skill splits
 - **subagent-driven-development**: Use to execute multi-step refactor plans with independent tasks
 
 ## Next Steps

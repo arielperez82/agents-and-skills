@@ -1,8 +1,6 @@
 ---
 name: updating-knowledge
-description: Systematic research methodology for building comprehensive, current knowledge on any topic. Requires web_search tool. Use when questions require thorough investigation, recent developments post-cutoff, synthesis across multiple sources, or when Claude's knowledge may be outdated or incomplete. Triggered by "Research", "Investigate", "What's current on", "Latest info on", complex queries needing validation, or technical topics with recent changes.
-metadata:
-  version: 1.0.3
+description: Systematic research methodology for building comprehensive, current knowledge on any topic. Requires web_search tool. Use when questions require thorough investigation, recent developments post-cutoff, synthesis across multiple sources, or when the agent's knowledge may be outdated or incomplete. Triggered by "Research", "Investigate", "What's current on", "Latest info on", complex queries needing validation, or technical topics with recent changes.
 ---
 
 # Updating Knowledge
@@ -19,13 +17,13 @@ metadata:
 **CRITICAL: This skill requires web_search tool access.**
 
 Before proceeding:
-1. Verify web_search tool is available in tool set
+1. Verify WebSearch tool is available in tool set
 2. If NOT available:
-   - Immediately inform user: "I need web search enabled for research tasks. Please toggle on 'Web search' in the feature menu."
-   - DO NOT attempt research without web_search
+   - Immediately inform user: "I need web search enabled for research tasks."
+   - DO NOT attempt research without web search
    - DO NOT proceed with workflow
 
-If web_search is unavailable, fail fast—don't waste context attempting workarounds.
+If WebSearch is unavailable, fail fast—don't waste context attempting workarounds.
 
 ## Imperative Triggers
 
@@ -57,8 +55,8 @@ Identify in thinking block:
 3. Community discussions (for ecosystem context only)
 
 **Tool selection:**
-- `web_search` - Find authoritative sources
-- `web_fetch` - Extract complete content from any URL (no prior search required)
+- `WebSearch` - Find authoritative sources
+- `mcp_web_fetch` - Extract complete content from any URL (no prior search required)
 - Internal tools (GitHub, Drive, etc.) - Company/personal context
 - Multiple tool types as needed
 

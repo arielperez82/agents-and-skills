@@ -24,18 +24,18 @@ For fragile operations, create validation scripts that catch errors early.
 
 ### Script Best Practices
 
-- Make scripts solve problems rather than punt to Claude
+- Make scripts solve problems rather than defer to the agent
 - Include explicit, helpful error handling
 - Avoid "voodoo constants" - justify all hardcoded values
 - Document what each script does and when to use it
 
 ## Create Verifiable Intermediate Outputs
 
-The "plan-validate-execute" pattern catches errors early by having Claude create a plan in structured format, validate with a script, then execute.
+The "plan-validate-execute" pattern catches errors early by having the agent create a plan in structured format, validate with a script, then execute.
 
 ### Problem Example
 
-User asks Claude to update 50 form fields in a PDF based on a spreadsheet. Without validation, Claude might:
+User asks the agent to update 50 form fields in a PDF based on a spreadsheet. Without validation, the agent might:
 - Reference non-existent fields
 - Create conflicting values
 - Miss required fields
@@ -51,7 +51,7 @@ Add intermediate `changes.json` file validated before applying changes.
 
 - **Catches errors early**: Validation finds problems before changes applied
 - **Machine-verifiable**: Scripts provide objective verification
-- **Reversible planning**: Claude can iterate on plan without touching originals
+- **Reversible planning**: The agent can iterate on plan without touching originals
 - **Clear debugging**: Error messages point to specific problems
 
 ### When to Use
@@ -60,7 +60,7 @@ Batch operations, destructive changes, complex validation rules, high-stakes ope
 
 ## Use Visual Analysis
 
-When inputs can be rendered as images, have Claude analyze them:
+When inputs can be rendered as images, have the agent analyze them:
 
 ````markdown
 ## Form layout analysis
@@ -71,10 +71,10 @@ When inputs can be rendered as images, have Claude analyze them:
    ```
 
 2. Analyze each page image to identify form fields
-3. Claude can see field locations and types visually
+3. The agent can see field locations and types visually
 ````
 
-Claude's vision capabilities help understand layouts and structures difficult to describe programmatically.
+Vision-capable agents can understand layouts and structures difficult to describe programmatically.
 
 ## Workflow Pattern Examples
 
@@ -119,7 +119,7 @@ Claude's vision capabilities help understand layouts and structures difficult to
 
 ## XML Tags for Structure
 
-Claude was trained with XML tags in training data. Use them to structure complex skills:
+Many models are trained with XML tags in training data. Use them to structure complex skills:
 
 ```markdown
 <workflow>

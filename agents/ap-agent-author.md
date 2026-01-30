@@ -9,7 +9,6 @@ skills:
   - creating-agents
   - refactoring-agents
   - skill-creator
-  - creating-skill
   - agent-md-refactor
   - check-tools
   - crafting-instructions
@@ -48,7 +47,6 @@ related-agents:
 related-skills:
   - engineering-team/avoid-feature-creep
   - skill-creator
-  - creating-skill
   - crafting-instructions
   - iterating
   - remembering
@@ -129,7 +127,7 @@ Use this agent when:
 
 `ap-agent-author` also expects:
 
-- `../../skills/agent-development-team/skill-creator/` and `../../skills/agent-development-team/creating-skill/` for general skill packaging
+- `../../skills/agent-development-team/skill-creator/` for general skill packaging
 - `../../skills/engineering-team/subagent-driven-development/` when executing multi-step refactor plans via subagents
 - `../../skills/engineering-team/check-tools/` when you need to validate Python tools used by skills
 

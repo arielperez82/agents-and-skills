@@ -301,7 +301,7 @@ Use this skill when:
 
 **Do NOT use this skill for**:
 - Refactoring multiple agents or analyzing ecosystem overlap
-- Creating or modifying skills (use `skill-creator` or `creating-skill` instead)
+- Creating or modifying skills (use `skill-creator` instead)
 - Understanding when to invoke agents (see `agents/README.md`)
 
 ## Next Steps

@@ -150,8 +150,7 @@ These skills should **remain in root** due to ambiguity or cross-team usage:
 ### Meta/Infrastructure Skills
 - `agent-development-team/creating-agents/` - Agent creation, meta-skill
 - `agent-development-team/refactoring-agents/` - Agent refactoring, meta-skill
-- `agent-development-team/creating-skill/` - Skill creation, meta-skill
-- `agent-development-team/skill-creator/` - Skill creation tool, meta-skill
+- `agent-development-team/skill-creator/` - Skill creation, meta-skill
 - `crafting-instructions/` - Instruction creation, meta-skill
 - `agent-development-team/versioning-skills/` - Skill versioning, meta-skill
 - `agent-development-team/agent-md-refactor/` - Agent documentation refactoring, meta-skill
