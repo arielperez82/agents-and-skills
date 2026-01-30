@@ -1,22 +1,21 @@
 ---
 name: Playwright Browser Automation
-description: Complete browser automation with Playwright. Auto-detects dev servers, writes clean test scripts to /tmp. Test pages, fill forms, take screenshots, check responsive design, validate UX, test login flows, check links, automate any browser task. Use when user wants to test websites, automate browser interactions, validate web functionality, or perform any browser-based testing.
-version: 4.0.0
-author: Claude Assistant
-tags: [testing, automation, browser, e2e, playwright, web-testing]
+description: Complete browser automation with Playwright. Prefer Page Object Model (POM) for reusable flows and test suites; auto-detects dev servers, writes scripts to /tmp. Test pages, fill forms, screenshots, responsive design, login flows, link checks. Use when testing websites, automating browser interactions, building E2E test suites, or reusing page interactions across tests.
 ---
 
 **IMPORTANT - Path Resolution:**
 This skill can be installed in different locations (plugin system, manual installation, global, or project-specific). Before executing any commands, determine the skill directory based on where you loaded this SKILL.md file, and use that path in all commands below. Replace `$SKILL_DIR` with the actual discovered path.
 
 Common installation paths:
-- Plugin system: `~/.claude/plugins/marketplaces/playwright-skill/skills/playwright-skill`
-- Manual global: `~/.claude/skills/playwright-skill`
-- Project-specific: `<project>/.claude/skills/playwright-skill`
+
+- Manual global: `~/.{cursor,claude,codex}/skills/engineering-team/playwright-skill`
+- Project-specific: `<project>/.{cursor,claude,codex}/skills/engineering-team/playwright-skill`
 
 # Playwright Browser Automation
 
-General-purpose browser automation skill. I'll write custom Playwright code for any automation task you request and execute it via the universal executor.
+General-purpose browser automation skill. Write custom Playwright code for any automation task and execute it via the universal executor.
+
+**Reuse and structure:** For any flow or suite that will be reused or maintained, use the **Page Object Model (POM)**. Centralize locators and actions in page/component classes; keep assertions in tests. See [references/page-object-models.md](references/page-object-models.md) for the full guide. For one-off scripts (single screenshot, quick check), inline code is fine.
 
 **CRITICAL WORKFLOW - Follow these steps in order:**
 
@@ -47,7 +46,7 @@ General-purpose browser automation skill. I'll write custom Playwright code for 
 
 ```bash
 cd $SKILL_DIR
-npm run setup
+pnpm run setup
 ```
 
 This installs Playwright and Chromium browser. Only needed once.
@@ -89,6 +88,19 @@ const TARGET_URL = 'http://localhost:3001'; // <-- Auto-detected or from user
 cd $SKILL_DIR && node run.js /tmp/playwright-test-page.js
 ```
 
+## Page Object Model (POM)
+
+**When to use POM:** Multiple tests for the same pages, reusable flows (e.g. login), or any suite you plan to maintain. One UI change then updates one page object instead of many test files.
+
+**Rules:**
+
+- One page or major section = one class (constructor receives `page`).
+- Locators as readonly class properties; use resilient selectors: `getByRole()`, `getByLabel()`, `getByPlaceholder()`, `getByText()`, `getByTestId()` over raw CSS when possible.
+- Methods perform actions (e.g. `goto()`, `login()`); do **not** put assertions inside page objects—tests call `expect()`.
+- Optional: base page for shared behavior; component classes for shared UI (nav, modals).
+
+**Full guide and examples:** [references/page-object-models.md](references/page-object-models.md). Official docs: [Playwright – Page object models](https://playwright.dev/docs/pom).
+
 ## Common Patterns
 
 ### Test a Page (Multiple Viewports)
@@ -119,53 +131,49 @@ const TARGET_URL = 'http://localhost:3001'; // Auto-detected
 
 ### Test Login Flow
 
+For one-off runs, inline is fine. For reuse or multiple tests, use a page object (see [references/page-object-models.md](references/page-object-models.md)).
+
+**Inline (one-off):**
+
 ```javascript
 // /tmp/playwright-test-login.js
 const { chromium } = require('playwright');
-
-const TARGET_URL = 'http://localhost:3001'; // Auto-detected
+const TARGET_URL = process.env.TARGET_URL || 'http://localhost:3001';
 
 (async () => {
   const browser = await chromium.launch({ headless: false });
   const page = await browser.newPage();
-
   await page.goto(`${TARGET_URL}/login`);
-
-  await page.fill('input[name="email"]', 'test@example.com');
-  await page.fill('input[name="password"]', 'password123');
-  await page.click('button[type="submit"]');
-
-  // Wait for redirect
+  await page.getByLabel(/email|username/i).fill('test@example.com');
+  await page.getByLabel(/password/i).fill('password123');
+  await page.getByRole('button', { name: /log in|sign in|submit/i }).click();
   await page.waitForURL('**/dashboard');
   console.log('✅ Login successful, redirected to dashboard');
-
   await browser.close();
 })();
 ```
 
+**With POM (reusable):** Define a `LoginPage` class with locators and `login(username, password)`; instantiate in script and call `await loginPage.login(...)`. Assertions stay in the script (e.g. `expect(page).toHaveURL(/dashboard/)`).
+
 ### Fill and Submit Form
+
+Use resilient locators (`getByLabel`, `getByRole`). For forms reused across tests, put them in a page object (e.g. `ContactPage`) with locators and a `submitForm({ name, email, message })` method.
 
 ```javascript
 // /tmp/playwright-test-form.js
 const { chromium } = require('playwright');
-
-const TARGET_URL = 'http://localhost:3001'; // Auto-detected
+const TARGET_URL = process.env.TARGET_URL || 'http://localhost:3001';
 
 (async () => {
   const browser = await chromium.launch({ headless: false, slowMo: 50 });
   const page = await browser.newPage();
-
   await page.goto(`${TARGET_URL}/contact`);
-
-  await page.fill('input[name="name"]', 'John Doe');
-  await page.fill('input[name="email"]', 'john@example.com');
-  await page.fill('textarea[name="message"]', 'Test message');
-  await page.click('button[type="submit"]');
-
-  // Verify submission
-  await page.waitForSelector('.success-message');
+  await page.getByLabel(/name/i).fill('John Doe');
+  await page.getByLabel(/email/i).fill('john@example.com');
+  await page.getByLabel(/message/i).fill('Test message');
+  await page.getByRole('button', { name: /submit|send/i }).click();
+  await page.getByText(/success|thank you/i).waitFor({ state: 'visible' });
   console.log('✅ Form submitted successfully');
-
   await browser.close();
 })();
 ```
@@ -325,34 +333,27 @@ See `lib/helpers.js` for full list.
 
 ## Advanced Usage
 
-For comprehensive Playwright API documentation, see [API_REFERENCE.md](API_REFERENCE.md):
-
-- Selectors & Locators best practices
-- Network interception & API mocking
-- Authentication & session management
-- Visual regression testing
-- Mobile device emulation
-- Performance testing
-- Debugging techniques
-- CI/CD integration
+- **POM and reuse:** [references/page-object-models.md](references/page-object-models.md) – structure, base page, components, when to use POM.
+- **Playwright API:** [Playwright Docs](https://playwright.dev/docs/intro) – locators, network mocking, auth, visual regression, emulation, debugging, CI/CD.
+- **Locators:** [Playwright Locators](https://playwright.dev/docs/locators) – getByRole, getByLabel, and resilient selector strategy.
 
 ## Tips
 
-- **CRITICAL: Detect servers FIRST** - Always run `detectDevServers()` before writing test code for localhost testing
-- **Use /tmp for test files** - Write to `/tmp/playwright-test-*.js`, never to skill directory or user's project
-- **Parameterize URLs** - Put detected/provided URL in a `TARGET_URL` constant at the top of every script
-- **DEFAULT: Visible browser** - Always use `headless: false` unless user explicitly asks for headless mode
-- **Headless mode** - Only use `headless: true` when user specifically requests "headless" or "background" execution
-- **Slow down:** Use `slowMo: 100` to make actions visible and easier to follow
-- **Wait strategies:** Use `waitForURL`, `waitForSelector`, `waitForLoadState` instead of fixed timeouts
-- **Error handling:** Always use try-catch for robust automation
-- **Console output:** Use `console.log()` to track progress and show what's happening
+- **CRITICAL: Detect servers FIRST** – Run `detectDevServers()` before writing test code for localhost.
+- **Use /tmp for test files** – Write to `/tmp/playwright-test-*.js`, not the skill directory or user project.
+- **Parameterize URLs** – Use `TARGET_URL` (or `BASE_URL`) at the top of every script.
+- **Reuse: Prefer POM** – For flows or suites used in more than one place, use page objects; see [references/page-object-models.md](references/page-object-models.md).
+- **Resilient locators** – Prefer `getByRole()`, `getByLabel()`, `getByText()` over raw CSS; use `getByTestId()` only when needed.
+- **DEFAULT: Visible browser** – Use `headless: false` unless the user asks for headless.
+- **Slow down:** Use `slowMo: 100` for visibility when debugging.
+- **Wait strategies:** Use `waitForURL`, `waitForSelector`, `waitForLoadState` instead of fixed timeouts.
+- **Error handling:** Use try-catch for robust automation; use `console.log()` to show progress.
 
 ## Troubleshooting
 
 **Playwright not installed:**
 ```bash
-cd $SKILL_DIR && npm run setup
+cd $SKILL_DIR && pnpm run setup
 ```
 
 **Module not found:**
@@ -362,7 +363,7 @@ Ensure running from skill directory via `run.js` wrapper
 Check `headless: false` and ensure display available
 
 **Element not found:**
-Add wait: `await page.waitForSelector('.element', { timeout: 10000 })`
+Add wait: `await page.waitForSelector('.element')`
 
 ## Example Usage
 
@@ -398,9 +399,7 @@ User: "Use 3001"
 
 ## Notes
 
-- Each automation is custom-written for your specific request
-- Not limited to pre-built scripts - any browser task possible
-- Auto-detects running dev servers to eliminate hardcoded URLs
-- Test scripts written to `/tmp` for automatic cleanup (no clutter)
-- Code executes reliably with proper module resolution via `run.js`
-- Progressive disclosure - API_REFERENCE.md loaded only when advanced features needed
+- Automation is custom-written per request; any browser task is supported.
+- For reuse and maintainability, use **Page Object Model** – see [references/page-object-models.md](references/page-object-models.md).
+- Auto-detect dev servers first; write scripts to `/tmp`; run via `run.js`.
+- Progressive disclosure: POM details and examples live in `references/`; load when structuring suites or reusing flows.
