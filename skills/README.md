@@ -54,8 +54,7 @@ Engineering skills (path: `skills/engineering-team/<name>/`). Load proactively p
 
 | Skill | When to Use | What It Provides |
 |-------|-------------|------------------|
-| **tdd** | Writing any code | TDD workflow, RED-GREEN-REFACTOR cycle |
-| **test-driven-development** | Before implementation | Feature/bugfix implementation, test-first |
+| **tdd** | Writing any code | TDD workflow, RED-GREEN-REFACTOR cycle, test-first |
 | **testing** | Writing tests | Testing patterns, behavior-focused testing |
 | **functional** | Writing functional code | Functional programming patterns, immutability |
 | **refactoring** | After GREEN tests | Refactoring assessment, priority classification |

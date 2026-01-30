@@ -150,7 +150,7 @@ The following agents and skills provide detailed guidance and can be loaded on-d
 - Tests must document expected business behavior
 - No 1:1 mapping between test files and implementation files
 
-**For detailed testing patterns:** Load the `tdd` skill or use the `tdd-guardian` agent.
+**For detailed testing patterns:** Load the `tdd` skill or use the `ap-tdd-guardian` agent.
 
 ## TypeScript Guidelines
 
@@ -201,7 +201,7 @@ The following agents and skills provide detailed guidance and can be loaded on-d
 - Each increment leaves codebase in working state
 - Capture learnings as they occur, merge at end
 
-**For detailed TDD workflow:** Load the `tdd` skill or use the `tdd-guardian` agent.  
+**For detailed TDD workflow:** Load the `tdd` skill or use the `ap-tdd-guardian` agent.  
 **For refactoring methodology:** Load the `refactoring` skill or use the `refactor-scan` agent.
 
 ## Refactoring Priorities

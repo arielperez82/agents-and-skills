@@ -874,3 +874,7 @@ describe('RLS security', () => {
 - Test all error paths (foreign key violations, constraint violations)
 - Test both success and failure scenarios
 - Use coverage reports to identify untested branches
+
+### Testing Anti-Patterns (Mocks and Behavior)
+
+For mock-related anti-patterns (testing mock behavior, test-only methods in production, mocking without understanding, incomplete mocks, coverage theater), see [testing-anti-patterns.md](testing-anti-patterns.md) in this skill folder.

@@ -9,7 +9,17 @@ TDD is the fundamental practice. Every line of production code must be written i
 
 **For how to write good tests**, load the `testing` skill. This skill focuses on the TDD workflow/process.
 
----
+**Core principle:** If you didn't watch the test fail, you don't know if it tests the right thing. Violating the letter of the rules is violating the spirit.
+
+## The Iron Law
+
+```
+NO PRODUCTION CODE WITHOUT A FAILING TEST FIRST
+```
+
+Write code before the test? Delete it. Start over.
+
+**No exceptions:** Don't keep it as "reference", don't "adapt" it while writing tests, don't look at it. Delete means delete. Implement fresh from tests.
 
 ## RED-GREEN-REFACTOR Cycle
 
@@ -17,16 +27,45 @@ TDD is the fundamental practice. Every line of production code must be written i
 - NO production code until you have a failing test
 - Test describes desired behavior, not implementation
 - Test should fail for the right reason
+- One behavior, clear name, real code (no mocks unless unavoidable)
+
+### Verify RED (MANDATORY)
+
+Never skip. Run the test and confirm:
+- Test fails (not errors)
+- Failure message is expected
+- Fails because feature is missing (not typos)
+
+Test passes? You're testing existing behavior. Fix test. Test errors? Fix error, re-run until it fails correctly.
+
+```bash
+pnpm test path/to/test.test.ts
+# or: npm test path/to/test.test.ts
+```
 
 ### GREEN: Minimum Code to Pass
 - Write ONLY enough code to make the test pass
 - Resist adding functionality not demanded by a test
+- Don't add features, refactor other code, or "improve" beyond the test
 - Commit immediately after green
+
+### Verify GREEN (MANDATORY)
+
+Confirm test passes, other tests still pass, output pristine (no errors, warnings). Test fails? Fix code, not test. Other tests fail? Fix now.
 
 ### REFACTOR: Assess Improvements
 - Assess AFTER every green (but only refactor if it adds value)
+- Remove duplication, improve names, extract helpers—keep tests green, don't add behavior
 - Commit before refactoring
 - All tests must pass after refactoring
+
+### Good Tests
+
+| Quality | Good | Bad |
+|---------|------|-----|
+| **Minimal** | One thing. "and" in name? Split it. | `test('validates email and domain and whitespace')` |
+| **Clear** | Name describes behavior | `test('test1')` |
+| **Shows intent** | Demonstrates desired API | Obscures what code should do |
 
 ---
 
@@ -260,6 +299,35 @@ git add .
 git commit -m "feat: reject empty user names"
 ```
 
+### Why Order Matters
+
+Tests written after code pass immediately. Passing immediately proves nothing: might test wrong thing, implementation not behavior, or miss edge cases. Test-first forces you to see the test fail, proving it actually tests something.
+
+### Common Rationalizations
+
+| Excuse | Reality |
+|--------|---------|
+| "Too simple to test" | Simple code breaks. Test takes 30 seconds. |
+| "I'll test after" | Tests passing immediately prove nothing. |
+| "Tests after achieve same goals" | Tests-after = "what does this do?" Tests-first = "what should this do?" |
+| "Already manually tested" | Ad-hoc ≠ systematic. No record, can't re-run. |
+| "Deleting X hours is wasteful" | Sunk cost. Keeping unverified code is technical debt. |
+| "Keep as reference, write tests first" | You'll adapt it. That's testing after. Delete means delete. |
+| "TDD will slow me down" | TDD faster than debugging. Pragmatic = test-first. |
+
+### When Stuck
+
+| Problem | Solution |
+|---------|----------|
+| Don't know how to test | Write wished-for API. Write assertion first. Ask your human partner. |
+| Test too complicated | Design too complicated. Simplify interface. |
+| Must mock everything | Code too coupled. Use dependency injection. |
+| Test setup huge | Extract helpers. Still complex? Simplify design. |
+
+### Debugging Integration
+
+Bug found? Write failing test reproducing it. Follow TDD cycle. Test proves fix and prevents regression. Never fix bugs without a test.
+
 ---
 
 ## Commit Messages
@@ -337,7 +405,8 @@ For detailed refactoring methodology, load the `refactoring` skill.
 
 ## Anti-Patterns to Avoid
 
-- ❌ Writing production code without failing test
+- ❌ Writing production code without failing test (code before test)
+- ❌ Test after implementation; test passes immediately
 - ❌ Testing implementation details (spies on internal methods)
 - ❌ 1:1 mapping between test files and implementation files
 - ❌ Using `let`/`beforeEach` for test data
@@ -346,8 +415,12 @@ For detailed refactoring methodology, load the `refactoring` skill.
 - ❌ Redefining schemas in test files
 - ❌ Factories returning partial/incomplete objects
 - ❌ Speculative code ("just in case" logic without tests)
+- ❌ "Keep as reference" or "adapt existing code" instead of delete-and-restart
+- ❌ Rationalizing "just this once" or "this is different because..."
 
-**For detailed testing anti-patterns**, load the `testing` skill.
+**Red flags:** Can't explain why test failed; tests added "later"; "I already manually tested it"; "spirit not ritual." All of these mean: delete code, start over with TDD.
+
+**For detailed testing anti-patterns** (mocks, test-only methods, coverage theater), load the `testing` skill.
 
 ---
 
@@ -363,3 +436,5 @@ Before marking work complete:
 - [ ] Tests verify behavior (not implementation details)
 - [ ] Refactoring assessed and applied if valuable
 - [ ] Conventional commit messages used
+
+**Final rule:** Production code → test exists and failed first. Otherwise → not TDD. No exceptions without your human partner's permission.
