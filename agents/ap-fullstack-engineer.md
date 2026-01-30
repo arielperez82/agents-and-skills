@@ -30,6 +30,8 @@ related-skills:
   - engineering-team/testing
   - engineering-team/test-design-review
   - engineering-team/react-testing
+  - engineering-team/react-best-practices
+  - engineering-team/react-vite-expert
   - engineering-team/front-end-testing
   - engineering-team/vitest-testing-patterns
   - engineering-team/e2e-testing-patterns
