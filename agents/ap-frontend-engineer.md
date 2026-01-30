@@ -26,6 +26,16 @@ related-skills:
   - engineering-team/senior-security
   - engineering-team/core-testing-methodology
   - product-team/visual-design-foundations
+  - engineering-team/tdd
+  - engineering-team/testing
+  - engineering-team/test-design-review
+  - engineering-team/react-testing
+  - engineering-team/front-end-testing
+  - engineering-team/vitest-testing-patterns
+  - engineering-team/e2e-testing-patterns
+  - engineering-team/testing-automation-patterns
+  - engineering-team/playwright-skill
+  - engineering-team/verification-before-completion
 related-commands: []
 collaborates-with:
   - agent: ap-tdd-guardian
