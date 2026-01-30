@@ -38,6 +38,7 @@ related-skills:
   - engineering-team/testing-automation-patterns
   - engineering-team/playwright-skill
   - engineering-team/verification-before-completion
+  - engineering-team/web-design-guidelines
 related-commands: []
 collaborates-with:
   - agent: ap-tdd-guardian
