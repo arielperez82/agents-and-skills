@@ -55,7 +55,6 @@ These are foundational, meta, or cross-cutting concerns used by all teams:
 
 **Cross-cutting (should stay at root):**
 - **asking-questions** - Clarifying ambiguous requests, all teams
-- **avoid-feature-creep** - Scope management, all teams
 - **brainstorming** - Creative work prep, all teams
 - **iterating** - Multi-session work, all teams
 - **orchestrating-agents** - Multi-agent workflows, all teams
@@ -78,10 +77,13 @@ These are foundational, meta, or cross-cutting concerns used by all teams:
 - **brand-guidelines** - Brand guidelines (Anthropic-specific)
 - **exploring-data** - EDA tool
 - **extracting-keywords** - Keyword extraction tool
-- **mcp-builder** - MCP server creation tool
 - **remembering** - Memory operations tool
-- **vercel-deploy-claimable** - Deployment tool
 - **find-skills** - Skill discovery tool
+
+**Moved to `engineering-team/`:**
+- **avoid-feature-creep** - Scope/MVP, all engineering agents → `engineering-team/avoid-feature-creep/`
+- **mcp-builder** - MCP server creation → `engineering-team/mcp-builder/`
+- **vercel-deploy-claimable** - Vercel deploy → `engineering-team/vercel-deploy-claimable/`
 
 ### 🤔 Should Move to `engineering-team/`
 
@@ -162,7 +164,7 @@ These are engineering-specific and should align with the engineering team struct
 - Creating & authoring (8) - Meta skills for creating skills/agents
 - Research & workflow (10) - problem-solving, brainstorming, iterating, etc. (truly cross-team)
 - Architecture & docs (3) - mermaid-diagrams, doc-coauthoring, docs-seeker (if cross-team)
-- Domain & integration (11) - agent-browser, api-credentials, mcp-builder, etc.
+- Domain & integration (8) - agent-browser, api-credentials, etc. (mcp-builder, vercel-deploy-claimable moved to engineering-team)
 
 **Should move to engineering-team**: ~18
 - **Core development practices (8):**

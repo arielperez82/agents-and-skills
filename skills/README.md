@@ -63,6 +63,7 @@ Engineering skills (path: `skills/engineering-team/<name>/`). Load proactively p
 | **planning** | Planning work | Incremental work principles, small increments |
 | **tpp** | TDD transformations | Transformation Priority Premise reference |
 | **expectations** | Setting expectations | Expectations management patterns |
+| **avoid-feature-creep** | Scope/backlog, MVP | MVP focus, "just one more feature", scope discipline |
 | **clean-code** | Code standards | Pragmatic standards, no over-engineering |
 | **verification-before-completion** | Before claiming done | Run verification, evidence before assertions |
 | **debugging** | Debugging issues | Root cause, call stack, validation |
@@ -101,6 +102,8 @@ Engineering skills (path: `skills/engineering-team/<name>/`). Load proactively p
 | **c4-architecture** | Architecture diagrams | C4 model Mermaid diagrams |
 | **deployment-pipeline-design** | CI/CD design | Multi-stage pipelines, GitOps |
 | **github-expert** | GitHub | Actions, CI/CD, automation, PRs |
+| **mcp-builder** | MCP servers | MCP server design (Python/Node), tool/resource patterns |
+| **vercel-deploy-claimable** | Vercel deploy | Preview deploy, claimable link, no auth required |
 | **cost-optimization** | Cloud costs | Rightsizing, tagging, reserved instances |
 | **chrome-devtools** | Browser automation | Puppeteer CLI, debugging, performance |
 | **typescript** | TS performance, tsc, type errors | TypeScript optimization, tsconfig, async patterns |
@@ -179,7 +182,6 @@ Role and specialist skills (same folder):
 | Skill | When to Use | What It Provides |
 |-------|-------------|------------------|
 | **asking-questions** | Ambiguous requests | Clarifying questions, critical decisions |
-| **avoid-feature-creep** | Scope/backlog | MVP focus, "just one more feature" |
 | **brainstorming** | Before creative work | Intent, requirements, design exploration |
 | **internal-comms** | Internal comms | Status, updates, newsletters, incidents |
 | **iterating** | Multi-session work | Context accumulation, work logs |
@@ -201,9 +203,7 @@ Role and specialist skills (same folder):
 | **brand-guidelines** | Brand | Anthropic brand colors, typography |
 | **exploring-data** | EDA | ydata-profiling, CSV/JSON/Parquet reports |
 | **extracting-keywords** | Keywords | YAKE extraction, multi-language |
-| **mcp-builder** | MCP servers | MCP server design (Python/Node) |
 | **remembering** | Memory ops | Profile, recall, background writes |
-| **vercel-deploy-claimable** | Vercel deploy | Preview deploy, claimable link |
 
 ## Skill Overview (Detailed)
 

@@ -23,6 +23,7 @@ related-agents:
   - ap-flutter-engineer
   - ap-frontend-engineer
 related-skills:
+  - engineering-team/avoid-feature-creep
   - engineering-team/senior-mobile
   - engineering-team/senior-ios
   - engineering-team/senior-flutter

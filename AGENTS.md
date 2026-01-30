@@ -148,6 +148,7 @@ The following agents and skills provide detailed guidance and can be loaded on-d
 | **planning**             | Planning work            | Incremental work principles, small increments                                                                         |
 | **tpp**                  | TDD transformations      | Transformation Priority Premise reference                                                                             |
 | **expectations**         | Setting expectations     | Expectations management patterns                                                                                      |
+| **avoid-feature-creep**   | Scope/backlog, MVP       | MVP focus, scope discipline, "just one more feature" (engineering-team)                                                |
 | **asking-questions**     | Ambiguous requests       | Guidance for asking clarifying questions when requests are ambiguous or require critical decisions                    |
 | **backend-development**  | Backend systems          | Build robust backend systems with modern technologies, frameworks, databases, APIs, authentication, testing, security |
 | **check-tools**          | Environment validation   | Validates development tool installations across Python, Node.js, Java, Go, Rust, C/C++, Git, system utilities         |
@@ -163,6 +164,8 @@ The following agents and skills provide detailed guidance and can be loaded on-d
 | **research**             | Technical research       | Research, analyze, and plan technical solutions that are scalable, secure, and maintainable                           |
 | **senior-backend**       | Backend development      | Comprehensive backend development for scalable systems using Node.js, Express, Go, Python, PostgreSQL, GraphQL        |
 | **senior-devops**        | DevOps operations        | Comprehensive DevOps for CI/CD, infrastructure automation, containerization, cloud platforms (AWS, GCP, Azure)        |
+| **mcp-builder**          | MCP servers              | MCP server design (Python/Node), tools and resources (engineering-team)                                                |
+| **vercel-deploy-claimable** | Vercel deploy          | Preview deploy, claimable link, no auth (engineering-team)                                                            |
 | **senior-fullstack**     | Fullstack development    | Comprehensive fullstack development for complete web applications with React, Next.js, Node.js, GraphQL, PostgreSQL   |
 | **sequential-thinking**  | Complex problem-solving  | Structured, reflective problem-solving for complex tasks requiring multi-step analysis, revision capability           |
 | **sql-expert**           | SQL queries              | Expert SQL query writing, optimization, database schema design for PostgreSQL, MySQL, SQLite, SQL Server              |

@@ -18,7 +18,7 @@ use-cases:
 
 # === RELATIONSHIPS ===
 related-agents: []
-related-skills: [engineering-team/senior-qa]
+related-skills: [engineering-team/avoid-feature-creep, engineering-team/senior-qa]
 related-commands: []
 collaborates-with:
   - agent: ap-code-reviewer

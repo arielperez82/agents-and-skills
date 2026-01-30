@@ -19,7 +19,7 @@ use-cases:
 
 # === RELATIONSHIPS ===
 related-agents: [ap-devsecops-engineer, ap-technical-writer]
-related-skills: [engineering-team/incident-response, engineering-team/senior-secops]
+related-skills: [engineering-team/avoid-feature-creep, engineering-team/incident-response, engineering-team/senior-secops]
 related-commands: []
 orchestrates:
   skill: engineering-team/incident-response

@@ -18,7 +18,7 @@ use-cases:
 
 # === RELATIONSHIPS ===
 related-agents: []
-related-skills: [engineering-team/senior-data-engineer, engineering-team/core-testing-methodology]
+related-skills: [engineering-team/avoid-feature-creep, engineering-team/senior-data-engineer, engineering-team/core-testing-methodology]
 related-commands: []
 collaborates-with:
   - agent: ap-tdd-guardian

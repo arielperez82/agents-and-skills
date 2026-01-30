@@ -18,7 +18,7 @@ use-cases:
 
 # === RELATIONSHIPS ===
 related-agents: []
-related-skills: [engineering-team/code-reviewer, engineering-team/core-testing-methodology, orchestrating-agents]
+related-skills: [engineering-team/avoid-feature-creep, engineering-team/code-reviewer, engineering-team/core-testing-methodology, orchestrating-agents]
 related-commands: []
 collaborates-with:
   - agent: ap-tdd-guardian

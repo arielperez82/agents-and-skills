@@ -18,7 +18,7 @@ use-cases:
 
 # === RELATIONSHIPS ===
 related-agents: [ap-researcher, ap-implementation-planner]
-related-skills: [engineering-team/mapping-codebases, problem-solving]
+related-skills: [engineering-team/avoid-feature-creep, engineering-team/mapping-codebases, problem-solving]
 related-commands: [scout]
 orchestrates: []
 collaborates-with:

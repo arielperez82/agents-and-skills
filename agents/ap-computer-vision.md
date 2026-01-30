@@ -18,7 +18,7 @@ use-cases:
 
 # === RELATIONSHIPS ===
 related-agents: []
-related-skills: [engineering-team/senior-computer-vision]
+related-skills: [engineering-team/avoid-feature-creep, engineering-team/senior-computer-vision]
 related-commands: []
 orchestrates:
   skill: engineering-team/senior-computer-vision

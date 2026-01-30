@@ -19,7 +19,7 @@ use-cases:
 
 # === RELATIONSHIPS ===
 related-agents: [ap-code-reviewer, ap-architect, ap-backend-engineer, ap-devsecops-engineer]
-related-skills: [engineering-team/technical-writer, engineering-team/code-reviewer, engineering-team/senior-backend]
+related-skills: [engineering-team/avoid-feature-creep, engineering-team/technical-writer, engineering-team/code-reviewer, engineering-team/senior-backend]
 related-commands: [update.docs, generate.api-docs]
 collaborates-with:
   - agent: ap-architect

@@ -18,7 +18,7 @@ use-cases:
 
 # === RELATIONSHIPS ===
 related-agents: [ap-technical-writer, ap-graphql-architect]
-related-skills: [engineering-team/senior-architect, engineering-team/technical-writer, engineering-team/core-testing-methodology]
+related-skills: [engineering-team/avoid-feature-creep, engineering-team/senior-architect, engineering-team/technical-writer, engineering-team/core-testing-methodology]
 related-commands: []
 orchestrates:
   skill: engineering-team/senior-architect

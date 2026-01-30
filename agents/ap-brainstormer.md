@@ -20,7 +20,7 @@ use-cases:
 
 # === RELATIONSHIPS ===
 related-agents: [ap-researcher, ap-architect, ap-implementation-planner]
-related-skills: [brainstorming, problem-solving, engineering-team/software-architecture, asking-questions, sequential-thinking]
+related-skills: [engineering-team/avoid-feature-creep, brainstorming, problem-solving, engineering-team/software-architecture, asking-questions, sequential-thinking]
 related-commands: []
 orchestrates:
   skill: brainstorming

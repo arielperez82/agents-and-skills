@@ -18,7 +18,7 @@ use-cases:
 
 # === RELATIONSHIPS ===
 related-agents: []
-related-skills: [engineering-team/senior-observability]
+related-skills: [engineering-team/avoid-feature-creep, engineering-team/senior-observability]
 related-commands: []
 collaborates-with:
   - agent: ap-devsecops-engineer

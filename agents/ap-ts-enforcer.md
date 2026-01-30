@@ -20,6 +20,7 @@ use-cases:
 related-agents:
   - ap-tdd-guardian
 related-skills:
+  - engineering-team/avoid-feature-creep
   - engineering-team/typescript-strict
 related-commands: []
 collaborates-with:

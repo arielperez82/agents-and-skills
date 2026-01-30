@@ -17,7 +17,7 @@ use-cases:
 
 # === RELATIONSHIPS ===
 related-agents: [ap-architect, ap-docs-guardian, ap-technical-writer]
-related-skills: [engineering-team/architecture-decision-records, engineering-team/senior-architect]
+related-skills: [engineering-team/avoid-feature-creep, engineering-team/architecture-decision-records, engineering-team/senior-architect]
 related-commands: []
 collaborates-with:
   - agent: ap-architect

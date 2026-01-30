@@ -21,6 +21,7 @@ related-agents:
   - ap-tdd-guardian
   - ap-qa-engineer
 related-skills:
+  - engineering-team/avoid-feature-creep
   - engineering-team/core-testing-methodology
 related-commands: []
 collaborates-with:

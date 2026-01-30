@@ -19,7 +19,7 @@ use-cases:
 
 # === RELATIONSHIPS ===
 related-agents: [ap-database-engineer, ap-architect, ap-backend-engineer]
-related-skills: [engineering-team/supabase-best-practices, engineering-team/senior-backend, engineering-team/core-testing-methodology]
+related-skills: [engineering-team/avoid-feature-creep, engineering-team/supabase-best-practices, engineering-team/senior-backend, engineering-team/core-testing-methodology]
 related-commands: []
 collaborates-with:
   - agent: ap-database-engineer

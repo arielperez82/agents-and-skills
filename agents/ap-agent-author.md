@@ -46,6 +46,7 @@ related-agents:
   - ap-architect
   - ap-cto-advisor
 related-skills:
+  - engineering-team/avoid-feature-creep
   - skill-creator
   - creating-skill
   - crafting-instructions

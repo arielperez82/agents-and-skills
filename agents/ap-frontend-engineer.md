@@ -20,6 +20,8 @@ use-cases:
 # === RELATIONSHIPS ===
 related-agents: []
 related-skills:
+  - engineering-team/avoid-feature-creep
+  - engineering-team/vercel-deploy-claimable
   - engineering-team/senior-frontend
   - engineering-team/senior-security
   - engineering-team/core-testing-methodology

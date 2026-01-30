@@ -19,7 +19,7 @@ use-cases:
 
 # === RELATIONSHIPS ===
 related-agents: [ap-backend-engineer, ap-frontend-engineer, ap-architect, ap-adr-writer]
-related-skills: [engineering-team/senior-graphql, engineering-team/senior-backend]
+related-skills: [engineering-team/avoid-feature-creep, engineering-team/senior-graphql, engineering-team/senior-backend]
 related-commands: []
 collaborates-with:
   - agent: ap-qa-engineer

@@ -192,10 +192,10 @@ These skills should **remain in root** due to ambiguity or cross-team usage:
 - `extracting-keywords/` - Keyword extraction, could be marketing or content
 - `docs-seeker/` - Documentation search, cross-team utility
 
-### Platform/Infrastructure Tools
-- `mcp-builder/` - MCP server creation, infrastructure
+### Platform/Infrastructure Tools (moved to engineering-team)
+- `engineering-team/mcp-builder/` - MCP server creation, infrastructure
+- `engineering-team/vercel-deploy-claimable/` - Deployment tool, infrastructure
 - `multi-cloud-architecture/` - Cloud architecture, could be engineering or delivery
-- `vercel-deploy-claimable/` - Deployment tool, infrastructure
 - `check-tools/` - Environment validation, infrastructure
 - `api-credentials/` - API credential management, infrastructure
 
@@ -206,7 +206,7 @@ These skills should **remain in root** due to ambiguity or cross-team usage:
 - `brand-guidelines/` - Brand guidelines, could be marketing or product
 - `template-skill/` - Template skill, meta-skill
 - `tinybird/` - Tinybird platform, specialized
-- `avoid-feature-creep/` - Product management principle, could be product or engineering
+- `engineering-team/avoid-feature-creep/` - Scope/MVP discipline, all engineering agents
 
 ---
 

@@ -20,6 +20,7 @@ related-agents:
   - ap-tdd-guardian
   - ap-code-reviewer
 related-skills:
+  - engineering-team/avoid-feature-creep
   - refactoring
 related-commands: []
 collaborates-with:

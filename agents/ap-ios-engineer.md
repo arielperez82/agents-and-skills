@@ -22,6 +22,7 @@ related-agents:
   - ap-mobile-engineer
   - ap-flutter-engineer
 related-skills:
+  - engineering-team/avoid-feature-creep
   - engineering-team/senior-ios
   - engineering-team/senior-mobile
   - engineering-team/core-testing-methodology
