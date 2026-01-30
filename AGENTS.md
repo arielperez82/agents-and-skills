@@ -1,13 +1,9 @@
 # Development Guidelines for AI Agents
 
-> **Adapted from:** Paul Hammond's CLAUDE.md (v3.0.0)  
-> **For use with:** Cursor, Claude Code, VS Code, and other AI coding agents  
-> **Architecture:** Core principles in this file + detailed patterns in Agent Skills
->
 > > **Architecture:**
 >
 > - **AGENTS.md** (this file): Core philosophy + quick reference (~100 lines, always loaded)
-> - **Skills**: Detailed patterns loaded on-demand (tdd, testing, tpp, typescript-strict, functional, refactoring, expectations, planning)
+> - **Skills**: Detailed patterns loaded on-demand
 > - **Agents**: Specialized subprocesses for verification and analysis
 
 ## Core Philosophy
@@ -136,40 +132,7 @@ The following agents and skills provide detailed guidance and can be loaded on-d
 
 ### Skills
 
-| Skill                    | When to Use              | What It Provides                                                                                                      |
-| ------------------------ | ------------------------ | --------------------------------------------------------------------------------------------------------------------- |
-| **tdd**                  | Writing any code         | TDD workflow, RED-GREEN-REFACTOR cycle                                                                                |
-| **typescript-strict**    | Writing TypeScript       | TypeScript strict mode patterns, schema organization                                                                  |
-| **refactoring**          | After GREEN tests        | Refactoring assessment, priority classification                                                                       |
-| **testing**              | Writing tests            | Testing patterns, behavior-focused testing                                                                            |
-| **react-testing**        | Testing React components | React Testing Library patterns                                                                                        |
-| **front-end-testing**    | Testing front-end code   | Front-end testing strategies                                                                                          |
-| **functional**           | Writing functional code  | Functional programming patterns, immutability                                                                         |
-| **planning**             | Planning work            | Incremental work principles, small increments                                                                         |
-| **tpp**                  | TDD transformations      | Transformation Priority Premise reference                                                                             |
-| **expectations**         | Setting expectations     | Expectations management patterns                                                                                      |
-| **avoid-feature-creep**   | Scope/backlog, MVP       | MVP focus, scope discipline, "just one more feature" (engineering-team)                                                |
-| **asking-questions**     | Ambiguous requests       | Guidance for asking clarifying questions when requests are ambiguous or require critical decisions                    |
-| **backend-development**  | Backend systems          | Build robust backend systems with modern technologies, frameworks, databases, APIs, authentication, testing, security |
-| **check-tools**          | Environment validation   | Validates development tool installations across Python, Node.js, Java, Go, Rust, C/C++, Git, system utilities         |
-| **chrome-devtools**      | Browser automation       | Browser automation, debugging, performance analysis using Puppeteer CLI scripts                                       |
-| **code-review**          | Code review practices    | Receiving feedback, requesting reviews, verification gates requiring evidence before status claims                    |
-| **cost-optimization**    | Cloud costs              | Optimize cloud costs through resource rightsizing, tagging strategies, reserved instances, spending analysis          |
-| **databases**            | Database work            | Work with MongoDB and PostgreSQL for schemas, queries, aggregations, migrations, performance, administration          |
-| **debugging**            | Debugging issues         | Systematic debugging framework for root cause investigation, backward call stack tracing, multi-layer validation      |
-| **internal-comms**       | Internal communications  | Write internal communications (status reports, leadership updates, newsletters, FAQs, incident reports)               |
-| **orchestrating-agents** | Multi-agent workflows    | Orchestrates parallel API instances, delegated sub-tasks, multi-agent workflows with streaming (via Cursor CLI)       |
-| **playwright-skill**     | Browser automation       | Complete browser automation with Playwright for testing, form filling, screenshots, responsive design validation      |
-| **problem-solving**      | Complex problems         | Systematic problem-solving techniques for complexity spirals, innovation blocks, recurring patterns                   |
-| **research**             | Technical research       | Research, analyze, and plan technical solutions that are scalable, secure, and maintainable                           |
-| **senior-backend**       | Backend development      | Comprehensive backend development for scalable systems using Node.js, Express, Go, Python, PostgreSQL, GraphQL        |
-| **senior-devops**        | DevOps operations        | Comprehensive DevOps for CI/CD, infrastructure automation, containerization, cloud platforms (AWS, GCP, Azure)        |
-| **mcp-builder**          | MCP servers              | MCP server design (Python/Node), tools and resources (engineering-team)                                                |
-| **vercel-deploy-claimable** | Vercel deploy          | Preview deploy, claimable link, no auth (engineering-team)                                                            |
-| **senior-fullstack**     | Fullstack development    | Comprehensive fullstack development for complete web applications with React, Next.js, Node.js, GraphQL, PostgreSQL   |
-| **sequential-thinking**  | Complex problem-solving  | Structured, reflective problem-solving for complex tasks requiring multi-step analysis, revision capability           |
-| **sql-expert**           | SQL queries              | Expert SQL query writing, optimization, database schema design for PostgreSQL, MySQL, SQLite, SQL Server              |
-| **updating-knowledge**   | Research methodology     | Systematic research methodology for building comprehensive, current knowledge on any topic                            |
+**See [skills/README.md](skills/README.md)** for the complete skill catalog: when to load each skill, what each provides, and where skills live (engineering-team, agent-development-team, etc.).
 
 **To use:** In Cursor Agent/Chat, reference the agent or skill by name or describe your task. Cursor will automatically load relevant resources.
 
