@@ -18,7 +18,17 @@ use-cases:
 
 # === RELATIONSHIPS ===
 related-agents: []
-related-skills: [engineering-team/avoid-feature-creep, engineering-team/code-reviewer, engineering-team/core-testing-methodology, orchestrating-agents]
+related-skills:
+  - engineering-team/avoid-feature-creep
+  - engineering-team/code-reviewer
+  - engineering-team/core-testing-methodology
+  - orchestrating-agents
+  - engineering-team/accessibility
+  - engineering-team/best-practices
+  - engineering-team/core-web-vitals
+  - engineering-team/performance
+  - engineering-team/seo
+  - engineering-team/web-quality-audit
 related-commands: []
 collaborates-with:
   - agent: ap-tdd-guardian
@@ -72,6 +82,23 @@ By bridging the gap between manual expertise and automated tooling, this agent e
 ## Skill Integration
 
 **Skill Location:** `../skills/engineering-team/code-reviewer/`
+
+### Frontend & Web Quality Skills
+
+**Engage only when the PR or codebase is frontend and/or website work.** Do not load these skills for backend-only, API-only, or non-web work (e.g. services, CLI tools, data pipelines).
+
+When the review does touch frontend or web-facing code (HTML/CSS/JS/React, pages, UI components), load these skills as follows:
+
+| Skill | When to load during review | What to check |
+|-------|----------------------------|----------------|
+| **accessibility** | UI/frontend changes, new components, forms | WCAG 2.1, ARIA, keyboard/focus, contrast, alt text |
+| **best-practices** | Any web-facing code, security-sensitive changes | HTTPS/CSP, security headers, browser compatibility |
+| **core-web-vitals** | Layout, images, above-fold content, client-side rendering | LCP/INP/CLS issues, dimensions, render-blocking |
+| **performance** | New assets, scripts, data fetching, bundle changes | Critical path, budgets, lazy loading, caching |
+| **seo** | **Websites only:** public-facing pages intended for search indexing (not internal tools, dashboards, or API docs) | Meta tags, canonicals, sitemap, crawlability |
+| **web-quality-audit** | Full-page or site-level review of a website | Combined performance, a11y, SEO, best-practices checklist |
+
+**Usage:** For PRs that touch frontend or web pages, load **web-quality-audit** for a full pass, or load the specific skill(s) relevant to the changed areas. **SEO:** load only when the product is a website (indexed pages). Reference skill docs at `../skills/engineering-team/<skill-name>/SKILL.md`.
 
 ### Python Tools
 
@@ -430,6 +457,7 @@ echo "Security check complete. Safe to deploy."
 - **Skill Documentation:** [../skills/engineering-team/code-reviewer/SKILL.md](../skills/engineering-team/code-reviewer/SKILL.md)
 - **Domain Guide:** [../skills/engineering-team/CLAUDE.md](../skills/engineering-team/CLAUDE.md)
 - **Agent Development Guide:** [ap-agent-author](ap-agent-author.md)
+- **Frontend & Web Quality (for reviews):** [accessibility](../skills/engineering-team/accessibility/SKILL.md), [best-practices](../skills/engineering-team/best-practices/SKILL.md), [core-web-vitals](../skills/engineering-team/core-web-vitals/SKILL.md), [performance](../skills/engineering-team/performance/SKILL.md), [seo](../skills/engineering-team/seo/SKILL.md), [web-quality-audit](../skills/engineering-team/web-quality-audit/SKILL.md)
 
 ---
 

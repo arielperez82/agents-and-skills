@@ -39,6 +39,12 @@ related-skills:
   - engineering-team/playwright-skill
   - engineering-team/verification-before-completion
   - engineering-team/web-design-guidelines
+  - engineering-team/accessibility
+  - engineering-team/best-practices
+  - engineering-team/core-web-vitals
+  - engineering-team/performance
+  - engineering-team/seo
+  - engineering-team/web-quality-audit
 related-commands: []
 collaborates-with:
   - agent: ap-tdd-guardian
@@ -119,6 +125,21 @@ The ap-fullstack-engineer agent bridges the gap between rapid prototyping and pr
 ## Skill Integration
 
 **Skill Location:** `../skills/engineering-team/senior-fullstack/`
+
+### Frontend & Web Quality Skills
+
+Load these skills **only when the work is frontend and/or website** (not for backend-only, API-only, or non-web work).
+
+| Skill | When to load | What it provides |
+|-------|--------------|------------------|
+| **accessibility** | A11y audit, WCAG compliance, screen reader/keyboard work | WCAG 2.1 POUR, ARIA, contrast, focus, testing patterns |
+| **best-practices** | Security audit, modernize code, code quality review | HTTPS, CSP, security headers, browser compatibility |
+| **core-web-vitals** | LCP/INP/CLS issues, page experience, layout shifts | LCP/INP/CLS optimization, render-blocking, resource hints |
+| **performance** | Speed up site, reduce load time, performance audit | Critical path, budgets, JS/CSS optimization, caching |
+| **seo** | **Websites only:** public-facing pages for search (not internal apps, dashboards, or API services) | Technical SEO, on-page SEO, structured data, crawlability |
+| **web-quality-audit** | Full site audit, Lighthouse-style review | Combined performance, a11y, SEO, best-practices checklist |
+
+**Usage:** For broad quality checks (e.g. "audit my site", "review page quality"), load **web-quality-audit** first; for specific areas (e.g. "fix LCP", "improve accessibility"), load the corresponding skill. **SEO:** load only when the product is a website (pages intended for search indexing). Reference skill docs at `../skills/engineering-team/<skill-name>/SKILL.md`.
 
 ### Python Tools
 
@@ -1000,6 +1021,7 @@ echo "   - React admin UI"
 - **Architecture Patterns Reference:** [../skills/engineering-team/senior-fullstack/references/architecture-patterns.md](../skills/engineering-team/senior-fullstack/references/architecture-patterns.md)
 - **Technology Stacks Reference:** [../skills/engineering-team/senior-fullstack/references/tech-stacks.md](../skills/engineering-team/senior-fullstack/references/tech-stacks.md)
 - **Best Practices Reference:** [../skills/engineering-team/senior-fullstack/references/best-practices.md](../skills/engineering-team/senior-fullstack/references/best-practices.md)
+- **Frontend & Web Quality Skills:** [accessibility](../skills/engineering-team/accessibility/SKILL.md), [best-practices](../skills/engineering-team/best-practices/SKILL.md), [core-web-vitals](../skills/engineering-team/core-web-vitals/SKILL.md), [performance](../skills/engineering-team/performance/SKILL.md), [seo](../skills/engineering-team/seo/SKILL.md), [web-quality-audit](../skills/engineering-team/web-quality-audit/SKILL.md)
 
 ---
 
