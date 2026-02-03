@@ -125,7 +125,21 @@ The ap-frontend-engineer agent bridges the gap between design mockups and produc
 
 ## Skill Integration
 
-**Skill Location:** `../skills/engineering-team/senior-frontend/`
+This agent orchestrates multiple core skills. Each skill provides detailed documentation, tools, and patterns. Reference the skill's SKILL.md for complete details.
+
+**Base Path:** All skill paths in this section are relative to `../skills/engineering-team/`. For example, `tdd/` refers to `../skills/engineering-team/tdd/`.
+
+### Core Skills
+
+| Skill | Location | What It Provides |
+|-------|----------|------------------|
+| **senior-frontend** | `senior-frontend/` | Component scaffolding, bundle analysis, project scaffolding, React/Next.js patterns |
+| **tdd** | `tdd/` | TDD workflow (RED-GREEN-REFACTOR), test-first development, TDD methodology |
+| **typescript-strict** | `typescript-strict/` | TypeScript strict mode patterns, schema-first development, no `any` types |
+| **testing** | `testing/` | Testing patterns, behavior-driven testing, test factories, public API testing |
+| **react-testing** | `react-testing/` | React Testing Library patterns, component testing, hooks testing, context testing |
+
+**Usage:** Load these skills automatically when starting frontend development work. The agent provides an index to these skills; consult each skill's SKILL.md for detailed documentation, tools, and examples.
 
 ### Frontend & Web Quality Skills
 
@@ -231,7 +245,8 @@ These skills apply only to **frontend and/or website** work. Do not load them fo
    ```
 
 3. **Generate Molecule Components** - Compose atoms into functional units
-   ```bash
+   
+   ```sh
    # FormField combining Label + Input
    python ../skills/engineering-team/senior-frontend/scripts/component_generator.py FormField --complete --level molecule
 
@@ -240,7 +255,8 @@ These skills apply only to **frontend and/or website** work. Do not load them fo
    ```
 
 4. **Generate Organism Components** - Build complex UI sections
-   ```bash
+   
+   ```sh
    # LoginForm using FormField molecules
    python ../skills/engineering-team/senior-frontend/scripts/component_generator.py LoginForm --complete --level organism
 
@@ -249,7 +265,8 @@ These skills apply only to **frontend and/or website** work. Do not load them fo
    ```
 
 5. **Add Tests and Documentation** - Ensure quality and usability
-   ```bash
+   
+   ```sh
    # Run all tests
    npm test
 
@@ -268,7 +285,8 @@ These skills apply only to **frontend and/or website** work. Do not load them fo
 **Time Estimate:** 2-3 days for 10-15 component library (atoms through organisms)
 
 **Example:**
-```bash
+
+```sh
 # Complete component library workflow
 python ../skills/engineering-team/senior-frontend/scripts/frontend_scaffolder.py design-system --framework nextjs --complete
 cd design-system
@@ -284,14 +302,16 @@ npm test && npm run storybook
 
 **Steps:**
 1. **Build Production Bundle** - Generate optimized build
-   ```bash
-   npm run build
-   ```
+   
+```sh
+   pnpm run build
+```
 
 2. **Analyze Bundle Composition** - Identify optimization opportunities
-   ```bash
+
+```sh
    python ../skills/engineering-team/senior-frontend/scripts/bundle_analyzer.py .next/ --verbose
-   ```
+```
 
 3. **Review Analysis Output** - Study bundle metrics:
    - **Total Bundle Size**: Page-by-page breakdown
@@ -300,26 +320,29 @@ npm test && npm run storybook
    - **Optimization Recommendations**: Actionable suggestions
 
 4. **Implement Code Splitting** - Reduce initial bundle size
-   ```javascript
+
+```javascript
    // Before: Heavy synchronous import
    import HeavyComponent from './HeavyComponent';
 
    // After: Dynamic import with lazy loading
    const HeavyComponent = lazy(() => import('./HeavyComponent'));
-   ```
+```
 
 5. **Replace Heavy Dependencies** - Swap large libraries for lighter alternatives
-   ```bash
+
+```sh
    # Replace moment.js (71KB) with date-fns (13KB)
-   npm uninstall moment
-   npm install date-fns
+   pnpm uninstall moment
+   pnpm install date-fns
 
    # Use lodash-es for tree-shaking
-   npm install lodash-es
+   pnpm install lodash-es
    ```
 
 6. **Implement Memoization** - Optimize expensive computations
-   ```javascript
+
+```javascript
    // Memoize expensive component renders
    const ExpensiveComponent = memo(({ data }) => {
      const processed = useMemo(() => processData(data), [data]);
@@ -328,8 +351,9 @@ npm test && npm run storybook
    ```
 
 7. **Re-analyze and Compare** - Verify improvements
-   ```bash
-   npm run build
+
+```sh
+   pnpm run build
    python ../skills/engineering-team/senior-frontend/scripts/bundle_analyzer.py .next/ --compare baseline-report.html
    ```
 
@@ -343,16 +367,17 @@ npm test && npm run storybook
 **Time Estimate:** 1-2 days for complete optimization cycle
 
 **Example:**
-```bash
+
+```sh
 # Complete optimization workflow
-npm run build
+pnpm run build
 python ../skills/engineering-team/senior-frontend/scripts/bundle_analyzer.py .next/ --verbose > baseline-report.txt
 
 # Review recommendations, implement optimizations
 # (code splitting, dependency replacement, memoization)
 
 # Re-analyze
-npm run build
+pnpm run build
 python ../skills/engineering-team/senior-frontend/scripts/bundle_analyzer.py .next/ --verbose > optimized-report.txt
 
 # Compare results
@@ -365,18 +390,21 @@ diff baseline-report.txt optimized-report.txt
 
 **Steps:**
 1. **Review Accessibility Requirements** - Understand WCAG standards
-   ```bash
+
+```sh
    cat ../skills/engineering-team/senior-frontend/references/frameworks.md | grep -A 20 "Accessibility"
    ```
 
 2. **Generate Accessible Components** - Use semantic HTML and ARIA labels
-   ```bash
+
+```sh
    # Generate button with proper ARIA support
    python ../skills/engineering-team/senior-frontend/scripts/component_generator.py AccessibleButton --complete
    ```
 
 3. **Implement Keyboard Navigation** - Ensure keyboard-only usability:
-   ```javascript
+
+```javascript
    // Modal with focus trap
    const Modal = ({ isOpen, onClose, children }) => {
      const modalRef = useRef(null);
@@ -407,7 +435,8 @@ diff baseline-report.txt optimized-report.txt
    ```
 
 4. **Add ARIA Labels and Roles** - Improve screen reader support
-   ```javascript
+
+```javascript
    // Form with proper labels
    <form aria-label="Login form">
      <label htmlFor="email">Email</label>
@@ -435,7 +464,8 @@ diff baseline-report.txt optimized-report.txt
    - Test in dark mode if applicable
 
 7. **Run Automated Accessibility Tests** - Catch common issues
-   ```bash
+
+```sh
    # Install axe-core for automated testing
    npm install --save-dev @axe-core/react
 
@@ -457,7 +487,8 @@ diff baseline-report.txt optimized-report.txt
 **Time Estimate:** 3-5 days for full accessibility audit and implementation
 
 **Example:**
-```bash
+
+```sh
 # Accessibility implementation workflow
 python ../skills/engineering-team/senior-frontend/scripts/component_generator.py AccessibleModal --complete
 python ../skills/engineering-team/senior-frontend/scripts/component_generator.py AccessibleForm --complete
@@ -473,14 +504,16 @@ npm test
 
 **Steps:**
 1. **Scaffold Next.js Project** - Initialize with complete configuration
-   ```bash
+
+```sh
    python ../skills/engineering-team/senior-frontend/scripts/frontend_scaffolder.py my-nextjs-app --framework nextjs --complete
    cd my-nextjs-app
    npm install
    ```
 
 2. **Implement Layout System** - Create reusable layouts
-   ```bash
+
+```sh
    # Generate dashboard layout
    python ../skills/engineering-team/senior-frontend/scripts/component_generator.py DashboardLayout --type functional --complete
 
@@ -489,7 +522,8 @@ npm test
    ```
 
 3. **Create Server Components** - Leverage Next.js App Router
-   ```javascript
+
+```javascript
    // app/dashboard/page.tsx (Server Component)
    async function DashboardPage() {
      // Fetch data on server
@@ -503,7 +537,8 @@ npm test
    ```
 
 4. **Add Client Components** - Interactive UI elements
-   ```bash
+
+```sh
    # Generate interactive components
    python ../skills/engineering-team/senior-frontend/scripts/component_generator.py InteractiveChart --complete
    ```
@@ -524,7 +559,8 @@ npm test
    ```
 
 6. **Configure Data Fetching** - React Query for client-side data
-   ```bash
+
+```sh
    npm install @tanstack/react-query
    ```
 
@@ -537,17 +573,19 @@ npm test
    ```
 
 7. **Add Authentication** - JWT or NextAuth implementation
-   ```bash
+
+```sh
    npm install next-auth
    ```
 
    Review authentication patterns in:
-   ```bash
+```sh
    cat ../skills/engineering-team/senior-frontend/references/templates.md | grep -A 30 "Authentication"
    ```
 
 8. **Optimize for Production** - Performance tuning
-   ```bash
+
+```sh
    # Build and analyze
    npm run build
    python ../skills/engineering-team/senior-frontend/scripts/bundle_analyzer.py .next/ --verbose
@@ -557,15 +595,17 @@ npm test
    ```
 
 9. **Test Application** - Run full test suite
-   ```bash
-   npm test
-   npm run test:e2e  # if Playwright configured
+
+```sh
+   pnpm test
+   pnpm run test:e2e  # if Playwright configured
    ```
 
 10. **Deploy** - Production deployment
-    ```bash
+
+```bash
     # Vercel deployment
-    npm run build
+    pnpm run build
     vercel deploy --prod
     ```
 
@@ -574,7 +614,8 @@ npm test
 **Time Estimate:** 1-2 weeks for complete Next.js application (depending on complexity)
 
 **Example:**
-```bash
+
+```sh
 # Complete Next.js workflow
 python ../skills/engineering-team/senior-frontend/scripts/frontend_scaffolder.py ecommerce-app --framework nextjs --complete
 cd ecommerce-app
