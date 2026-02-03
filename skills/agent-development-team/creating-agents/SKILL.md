@@ -67,11 +67,24 @@ Every agent is a single markdown file with:
 
 See [references/authoring-guide.md](references/authoring-guide.md#yaml-frontmatter-schema) for complete schema. Required sections:
 
-- **Core Identity**: `name`, `title`, `description`, `domain`, `subdomain`, `skills`, `model`
+- **Core Identity**: `name`, `title`, `description`, `domain`, `subdomain`, `skills`
 - **Agent Classification**: `classification` (type, color, field, expertise, execution)
-- **Relationships**: `related-agents`, `related-skills`, `orchestrates`
+- **Relationships**: `related-agents`, `related-skills`, `related-commands`
 - **Collaboration**: `collaborates-with` (optional agent dependencies)
-- **Technical**: `tools`, `dependencies`, `compatibility`
+- **Technical**: `tools`, `dependencies`
+
+### Skill Relationship Fields
+
+Two fields describe how an agent relates to skills (see [authoring-guide.md#skill-relationship-semantics](references/authoring-guide.md#skill-relationship-semantics) for full details):
+
+| Field | Meaning | Documentation Obligation |
+|-------|---------|-------------------------|
+| `skills` | Core skills that define the agent | Index (path + brief description) |
+| `related-skills` | Supplementary skills to pull in as-needed | None (consult skill docs) |
+
+**Key rule:** Index, don't duplicate. For `skills`, provide exact paths and brief descriptions pointing to skill docs. Agents perform better with retrieval-led reasoning (knowing WHERE to find info) than with duplicated content.
+
+**Deprecated:** The `orchestrates` field has been removed.
 
 ### Body Sections
 

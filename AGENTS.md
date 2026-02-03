@@ -2,7 +2,7 @@
 
 > > **Architecture:**
 >
-> - **AGENTS.md** (this file): Core philosophy + quick reference (~100 lines, always loaded)
+> - **AGENTS.md** (this file): Core philosophy + quick reference (~400 lines, always loaded)
 > - **Skills**: Detailed patterns loaded on-demand
 > - **Agents**: Specialized subprocesses for verification and analysis
 
@@ -130,13 +130,15 @@ The following agents and skills provide detailed guidance and can be loaded on-d
 
 **See [agents/README.md](agents/README.md)** for the complete agent catalog: when to invoke each agent, what each provides, and how they hand off. Agents in this repo use the `ap-*` prefix (e.g. `ap-tdd-guardian`, `ap-ts-enforcer`).
 
+**Understanding agent frontmatter:** When parsing agent definitions, `skills` are core skills that define the agent (agent provides index/paths; load skill SKILL.md for details), while `related-skills` are supplementary skills to pull in as-needed. Agents serve as an index pointing to skills—prefer retrieval-led reasoning. See [agents/README.md#understanding-agent-frontmatter](agents/README.md#understanding-agent-frontmatter) for operational interpretation.
+
 ### Skills
 
 **See [skills/README.md](skills/README.md)** for the complete skill catalog: when to load each skill, what each provides, and where skills live (engineering-team, agent-development-team, etc.).
 
 **To use:** In Cursor Agent/Chat, reference the agent or skill by name or describe your task. Cursor will automatically load relevant resources.
 
-**MANDATORY USAGE**: You MUST proactively load skills and engage agents at the start of relevant work. See "Working with AI Agents" section below for automatic engagement rules.
+**MANDATORY USAGE**: You MUST proactively load skills and engage agents at the start of relevant work. See "Working with AI Agents" section below for automatic engagement rules. ALWAYS specify which agent your using and which skills you're leveraging. ALWAYS.
 
 ## Testing Principles
 
@@ -202,7 +204,7 @@ The following agents and skills provide detailed guidance and can be loaded on-d
 - Capture learnings as they occur, merge at end
 
 **For detailed TDD workflow:** Load the `tdd` skill or use the `ap-tdd-guardian` agent.  
-**For refactoring methodology:** Load the `refactoring` skill or use the `refactor-scan` agent.
+**For refactoring methodology:** Load the `refactoring` skill or use the `ap-refactor-scan` agent.
 
 ## Refactoring Priorities
 

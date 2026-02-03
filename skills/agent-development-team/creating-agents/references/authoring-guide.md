@@ -155,15 +155,12 @@ Every agent file should use a consistent multi-section frontmatter schema:
 name: ap-agent-name                  # Required: ap-* prefix
 title: Human Readable Title          # Display name
 description: One-line description    # Under ~300 chars
-domain: engineering                  # engineering, product, marketing, delivery
+domain: engineering                  # engineering, product, marketing, delivery, general
 subdomain: backend-development       # Finer categorization
-skills: skill-folder-name            # Primary skill this agent orchestrates
+skills: skill-folder-name(s)         # Core skills that define this agent (must be documented in body)
 
-# === WEBSITE DISPLAY ===
-difficulty: intermediate             # beginner, intermediate, advanced
-time-saved: "2-4 hours per project"  # Quantified benefit
-frequency: "Weekly"                  # Usage frequency
-use-cases:                           # 3–5 concrete scenarios
+# === USE-CASES ===
+use-cases:                           # 3–5 concrete scenarios/use-cases for this agent
   - "Developing REST APIs"
   - "Database schema design"
 
@@ -177,19 +174,17 @@ classification:
   model: opus                        # recommended model
 
 # === RELATIONSHIPS ===
-related-agents: [ap-frontend-engineer, ap-architect]
-related-skills: [engineering-team/senior-backend]
-related-commands: [/review.code, /generate.tests]
-orchestrates:
-  skill: engineering-team/senior-backend
+related-agents: [ap-frontend-engineer, ap-architect]  # Agents it might typically work with or who it might overlap with and pull in
+related-skills: [engineering-team/databases]          # Supplementary skills (consult skill docs)
+related-commands: [/review.code, /generate.tests]     # Commands it might typically invoke
 
 # === COLLABORATION ===
-collaborates-with:
+collaborates-with:                                                                  # Agents it regularly delegates work to and works with extensively
   - agent: ap-technical-writer
-    purpose: Architecture diagram generation using Mermaid
-    required: optional               # optional, recommended, required
-    features-enabled: [architecture-diagrams, sequence-diagrams]
-    without-collaborator: "Documentation will be text-only without visual diagrams"
+    purpose: Architecture diagram generation using Mermaid                          # Why/when it works with it
+    required: optional                                                              # optional, recommended, required
+    features-enabled: [architecture-diagrams, sequence-diagrams]                    # features/skills unlocked by collaborator
+    without-collaborator: "Documentation will be text-only without visual diagrams" # Limitations if it does not collaborate
 
 # === TECHNICAL ===
 tools: [Read, Edit, Bash, Grep, Glob]
@@ -197,10 +192,7 @@ dependencies:
   tools: [Read, Edit, Bash, Grep, Glob]
   mcp-tools: []                      # Optional MCP servers
   scripts: []                        # Python tools used
-compatibility:
-  claude-ai: true
-  claude-code: true
-  platforms: [macos, linux, windows]
+
 
 # === EXAMPLES ===
 examples:
@@ -208,33 +200,64 @@ examples:
     input: "Design a user authentication API"
     output: "API endpoints created with JWT auth..."
 
-# === ANALYTICS ===
-stats:
-  installs: 0
-  upvotes: 0
-  rating: 0.0
-  reviews: 0
-
-# === VERSIONING ===
-version: v1.0.0
-author: Claude Skills Team
-contributors: []
-created: 2025-11-17
-updated: 2025-11-27
-license: MIT
-
 # === DISCOVERABILITY ===
 tags: [backend, api, nodejs, express]
-featured: false
-verified: true
 
-# === CLASSIFICATION (for agent type system) ===
-color: green
-field: backend
-expertise: expert
-execution: coordinated
 ---
 ```
+
+## Skill Relationship Semantics
+
+Agent frontmatter uses two fields to describe relationships with skills:
+
+### `skills` (Core Identity section)
+
+**Definition:** The primary skills that define this agent—what it does and how it does it.
+
+**Obligations:**
+- Agent documentation SHOULD include:
+  - Skill location path(s) with exact paths to SKILL.md and key resources
+  - Brief description of what the skill provides
+  - When/why to use each skill
+- These skills are CORE to the agent's identity and purpose
+- **Index, don't duplicate:** Point to skill documentation rather than copying it into the agent body
+
+**Design principle (from Vercel research):** Passive context (an index pointing to retrievable files) outperforms duplicated content. Agents perform better with "retrieval-led reasoning" where they know WHERE to find information rather than having it all embedded.
+
+**Use when:** This skill defines what the agent IS and DOES.
+
+**Parsing hint for invoking agents:** Load the referenced skill's SKILL.md for detailed documentation. The agent provides the index; the skill provides the content.
+
+### `related-skills` (Relationships section)
+
+**Definition:** Other skills the agent should know about and pull in as-needed, but aren't core to its identity.
+
+**Obligations:**
+- Agent MAY reference or use these skills when relevant
+- No obligation to document them in the agent body
+- Users should consult the skill's own SKILL.md for details
+
+**Use when:** "This skill complement my work but don't define me."
+
+**Parsing hint for invoking agents:** Load these skills as-needed for supplementary capabilities. The agent may reference them without fully documenting them.
+
+### Summary Table
+
+| Field | Role | Documentation Required | Core to Agent |
+|-------|------|----------------------|---------------|
+| `skills` | Defines the agent | Index (path + brief description) | Yes |
+| `related-skills` | Supplements the agent | None (consult skill docs) | No |
+
+### Validation Rule
+
+If a skill appears in `skills`, the agent body SHOULD reference it with:
+1. Exact path to the skill's SKILL.md
+2. Brief description of what it provides
+3. When/why to use it
+
+If the skill lacks even a path reference, either:
+1. Add the skill path and brief description, OR
+2. Move to `related-skills` (if supplementary, not core)
 
 ## Collaboration Pattern (`collaborates-with`)
 
@@ -256,7 +279,7 @@ Field definitions:
 | `agent` | Yes | ap-* name | Collaborating agent identifier |
 | `purpose` | Yes | string | Why this collaboration exists |
 | `required` | No | optional, recommended, required | Dependency strength |
-| `features-enabled` | No | list | Features unlocked by collaborator |
+| `features-enabled` | No | list | Features/skills unlocked by collaborator |
 | `without-collaborator` | No | string | What functionality is lost |
 
 ## Relative Path Resolution
@@ -316,7 +339,7 @@ Each agent must document **at least 3 workflows**:
 
 Recommended workflow structure:
 
-```markdown
+``````markdown
 ### Workflow 1: [Clear Descriptive Name]
 
 **Goal:** One-sentence description
@@ -331,10 +354,11 @@ Recommended workflow structure:
 **Time Estimate:** How long this workflow takes
 
 **Example:**
-```bash
+```sh
 python ../../skills/domain-team/skill-name/scripts/tool.py input.txt
 ```
-```
+
+``````
 
 ## Domain-Specific Guidelines
 
@@ -400,11 +424,13 @@ Before committing an agent:
 - Templates and checklists moved to skill assets (`assets/`)
 
 **Principle:** Use **progressive disclosure**:
+
 1. **Agent file** = Purpose, skill integration, workflows, examples, references (concise)
 2. **Skill SKILL.md** = Quick start, core principles, structure overview (intermediate)
 3. **Skill references/** = Complete doctrinal content, detailed patterns, edge cases (comprehensive)
 
 **Why this matters:**
+
 - Agents are discoverable and scannable
 - Detailed doctrine lives in one place (skill references)
 - Skills can evolve independently
@@ -415,7 +441,8 @@ Before committing an agent:
 **Learning:** Skills should hold detailed doctrine; agents orchestrate skills.
 
 **Pattern:**
-```
+
+```text
 agent-file.md (237 lines)
   ├─ References: ../../skills/agent-development-team/creating-agents/SKILL.md
   └─ References: ../../skills/agent-development-team/creating-agents/references/authoring-guide.md
@@ -433,11 +460,13 @@ skills/agent-development-team/creating-agents/
 **Learning:** `ApplyPatch` tool has limitations when deleting large sections (>500 lines).
 
 **What happened:**
+
 - Attempted to delete ~900 lines of duplicated content from `ap-agent-author.md`
 - `ApplyPatch` failed with "Failed to find context" errors
 - Multiple attempts with different context windows still failed
 
 **Workaround:**
+
 - For large deletions, use `search_replace` with the exact old_string
 - Or manually delete the section (user intervention)
 - Or break into smaller, sequential deletions
@@ -449,6 +478,7 @@ skills/agent-development-team/creating-agents/
 **Learning:** Agent-specific learnings should go into skill references, not a single CLAUDE.md.
 
 **Where to document:**
+
 - **Agent authoring learnings** → `skills/agent-development-team/creating-agents/references/authoring-guide.md` (this file)
 - **Agent refactoring learnings** → `skills/agent-development-team/refactoring-agents/references/refactor-guide.md`
 - **General codebase learnings** → Project-specific CLAUDE.md (if exists) or appropriate skill references

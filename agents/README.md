@@ -491,6 +491,42 @@ All agents follow these principles:
 5. **Anti-Patterns**: Explicit documentation of what NOT to do
 6. **Success Criteria**: Clear metrics for agent effectiveness
 
+## Understanding Agent Frontmatter
+
+When invoking or parsing an agent, two frontmatter fields describe its relationship with skills:
+
+### Skill Relationship Fields
+
+| Field | What It Means | How to Use When Invoking |
+|-------|---------------|--------------------------|
+| **`skills`** | Core skills that define the agent | Agent provides index (paths); load skill SKILL.md for details |
+| **`related-skills`** | Supplementary skills to pull in as-needed | Load skill SKILL.md as-needed |
+
+### Operational Interpretation
+
+**When you see `skills: engineering-team/senior-data-engineer`:**
+- This skill defines what the agent IS and DOES
+- Agent body provides an INDEX: paths and brief descriptions pointing to the skill
+- Load the skill's SKILL.md for detailed documentation (tools, workflows, examples)
+- **Prefer retrieval-led reasoning:** Use the agent's index to find and read skill docs rather than expecting everything in the agent body
+
+**When you see `related-skills: [engineering-team/tinybird, engineering-team/databases]`:**
+- These skills complement the agent's capabilities
+- Load them as-needed for supplementary functionality
+- Consult the skill's own SKILL.md for documentation
+
+### Design Principle
+
+Agents serve as an **index** pointing to skills, not as duplicated documentation. Research shows agents perform better with "retrieval-led reasoning" (knowing WHERE to find info) than with embedded content.
+
+### Validation When Parsing
+
+If an agent declares a skill in `skills` but the body lacks even a path reference to it, this is an inconsistency. The skill should either be:
+1. Referenced with path and brief description, OR
+2. Moved to `related-skills` (if supplementary, not core)
+
+For complete authoring rules, see `skills/agent-development-team/creating-agents/references/authoring-guide.md`.
+
 ## Contributing New Agents
 
 When creating a new agent specification:

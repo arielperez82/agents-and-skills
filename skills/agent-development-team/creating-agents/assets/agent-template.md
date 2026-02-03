@@ -26,10 +26,8 @@ classification:
 
 # === RELATIONSHIPS ===
 related-agents: []
-related-skills: []
+related-skills: []             # Supplementary skills (consult skill docs)
 related-commands: []
-orchestrates:
-  skill: domain-team/skill-name
 
 # === COLLABORATION ===
 collaborates-with: []
