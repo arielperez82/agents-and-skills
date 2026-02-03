@@ -82,6 +82,12 @@ collaborates-with:
     features-enabled: [learning-capture, gotcha-documentation, pattern-preservation]
     when: After completing significant features, when discovering gotchas or unexpected behaviors, after fixing complex bugs
     without-collaborator: "Valuable learnings and gotchas may not be preserved for future developers"
+  - agent: ap-seo-strategist
+    purpose: SEO strategy review and technical SEO audits for public-facing websites
+    required: optional
+    features-enabled: [technical-seo-audit, keyword-strategy, site-architecture-seo, seo-roadmap-planning]
+    when-to-use: "Only for public-facing websites (pages intended for search indexing), not internal apps or dashboards"
+    without-collaborator: "Public-facing websites may lack comprehensive SEO strategy and technical optimization"
 
 # === TECHNICAL ===
 tools: [Read, Write, Bash, Grep, Glob]
