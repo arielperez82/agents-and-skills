@@ -6,7 +6,12 @@ title: Frontend Engineer
 description: Frontend development specialist for React/Vue components, UI/UX implementation, performance optimization, and accessibility
 domain: engineering
 subdomain: frontend-development
-skills: engineering-team/senior-frontend
+skills:
+  - engineering-team/senior-frontend
+  - engineering-team/tdd
+  - engineering-team/typescript-strict
+  - engineering-team/testing
+  - engineering-team/react-testing
 
 # === USE CASES ===
 difficulty: advanced
@@ -20,32 +25,24 @@ use-cases:
 # === RELATIONSHIPS ===
 related-agents: []
 related-skills:
-  - engineering-team/avoid-feature-creep
-  - engineering-team/vercel-deploy-claimable
-  - engineering-team/senior-frontend
-  - engineering-team/senior-security
   - engineering-team/core-testing-methodology
-  - product-team/visual-design-foundations
-  - engineering-team/tdd
-  - engineering-team/testing
-  - engineering-team/test-design-review
-  - engineering-team/react-testing
   - engineering-team/react-best-practices
   - engineering-team/react-vite-expert
-  - engineering-team/front-end-testing
-  - engineering-team/vitest-testing-patterns
-  - engineering-team/e2e-testing-patterns
-  - engineering-team/testing-automation-patterns
-  - engineering-team/playwright-skill
-  - engineering-team/verification-before-completion
-  - engineering-team/web-design-guidelines
   - engineering-team/accessibility
-  - engineering-team/best-practices
   - engineering-team/core-web-vitals
   - engineering-team/performance
-  - engineering-team/seo
   - engineering-team/web-quality-audit
+  - engineering-team/vitest-testing-patterns
+  - engineering-team/e2e-testing-patterns
+  - engineering-team/playwright-skill
+  - engineering-team/verification-before-completion
+  - engineering-team/test-design-review
+  - engineering-team/avoid-feature-creep
+  - engineering-team/vercel-deploy-claimable
+  - engineering-team/best-practices
+  - engineering-team/seo
   - engineering-team/remotion-best-practices
+  - product-team/visual-design-foundations
 related-commands: []
 collaborates-with:
   - agent: ap-tdd-guardian
@@ -69,10 +66,10 @@ collaborates-with:
     features-enabled: [design-review, accessibility-audit, responsive-validation]
     without-collaborator: "UI components may lack design system consistency"
   - agent: ap-devsecops-engineer
-    purpose: Secure frontend development with client-side security, vulnerability scanning, and secure deployment practices
+    purpose: Secure frontend development with security scanning (SAST/DAST), dependency scanning (npm audit), vulnerability assessment, and secure deployment practices
     required: recommended
-    features-enabled: [frontend-security, client-side-security, secure-deployment, vulnerability-scanning]
-    without-collaborator: "Frontend applications may lack client-side security protections and secure deployment validation"
+    features-enabled: [security-scanning, dependency-scanning, vulnerability-assessment, secure-deployment, compliance-automation]
+    without-collaborator: "Frontend applications may lack security scanning, vulnerability assessment, and secure deployment validation"
   - agent: ap-debugger
     purpose: Root cause analysis and debugging for UI issues, component failures, test failures, and performance problems
     required: optional
