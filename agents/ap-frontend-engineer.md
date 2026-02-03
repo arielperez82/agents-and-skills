@@ -45,6 +45,7 @@ related-skills:
   - engineering-team/performance
   - engineering-team/seo
   - engineering-team/web-quality-audit
+  - engineering-team/remotion-best-practices
 related-commands: []
 collaborates-with:
   - agent: ap-tdd-guardian
@@ -128,8 +129,9 @@ These skills apply only to **frontend and/or website** work. Do not load them fo
 | **performance** | Speed up site, reduce load time, performance audit | Critical path, budgets, JS/CSS optimization, caching |
 | **seo** | **Websites only:** public-facing pages for search (not internal apps or dashboards) | Technical SEO, on-page SEO, structured data, crawlability |
 | **web-quality-audit** | Full site audit, Lighthouse-style review | Combined performance, a11y, SEO, best-practices checklist |
+| **remotion-best-practices** | Building animations, video compositions, or Remotion-based content in a frontend/web app | Remotion patterns: compositions, timing, assets, Lottie, transitions, text animations, sequencing |
 
-**Usage:** For broad quality checks (e.g. "audit my site", "review page quality"), load **web-quality-audit** first; for specific areas (e.g. "fix LCP", "improve accessibility"), load the corresponding skill. **SEO:** load only when the product is a website (pages intended for search indexing). Reference skill docs at `../skills/engineering-team/<skill-name>/SKILL.md`.
+**Usage:** For broad quality checks (e.g. "audit my site", "review page quality"), load **web-quality-audit** first; for specific areas (e.g. "fix LCP", "improve accessibility"), load the corresponding skill. **Animation/video:** when building animations or video compositions in a frontend or web app (especially with Remotion), load **remotion-best-practices**. **SEO:** load only when the product is a website (pages intended for search indexing). Reference skill docs at `../skills/engineering-team/<skill-name>/SKILL.md`.
 
 ### Python Tools
 
@@ -764,7 +766,7 @@ echo "✅ Audit complete. Review a11y-report.txt for findings."
 - **Skill Documentation:** [../skills/engineering-team/senior-frontend/SKILL.md](../skills/engineering-team/senior-frontend/SKILL.md)
 - **Engineering Domain Guide:** [../skills/engineering-team/CLAUDE.md](../skills/engineering-team/CLAUDE.md)
 - **Agent Development Guide:** [ap-agent-author](ap-agent-author.md)
-- **Frontend & Web Quality Skills:** [accessibility](../skills/engineering-team/accessibility/SKILL.md), [best-practices](../skills/engineering-team/best-practices/SKILL.md), [core-web-vitals](../skills/engineering-team/core-web-vitals/SKILL.md), [performance](../skills/engineering-team/performance/SKILL.md), [seo](../skills/engineering-team/seo/SKILL.md), [web-quality-audit](../skills/engineering-team/web-quality-audit/SKILL.md)
+- **Frontend & Web Quality Skills:** [accessibility](../skills/engineering-team/accessibility/SKILL.md), [best-practices](../skills/engineering-team/best-practices/SKILL.md), [core-web-vitals](../skills/engineering-team/core-web-vitals/SKILL.md), [performance](../skills/engineering-team/performance/SKILL.md), [seo](../skills/engineering-team/seo/SKILL.md), [web-quality-audit](../skills/engineering-team/web-quality-audit/SKILL.md), [remotion-best-practices](../skills/engineering-team/remotion-best-practices/SKILL.md)
 
 ---
 
