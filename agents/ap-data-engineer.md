@@ -6,19 +6,20 @@ title: Data Engineer
 description: Data engineering specialist for ETL/ELT pipelines, data warehousing, data quality, and scalable data infrastructure
 domain: engineering
 subdomain: data-engineering
-skills: engineering-team/senior-data-engineer, engineering-team/tinybird
+skills: [engineering-team/senior-data-engineer, engineering-team/tinybird]
 
 # === USE CASES ===
 difficulty: advanced
 use-cases:
   - Designing data pipelines for ETL/ELT processes with comprehensive testing
   - Building data warehouses and data lakes with data quality validation
+  - Building real-time OLAP solutions when latency and/or concurrency matter
   - Implementing data quality and governance frameworks using TDD
   - Creating analytics dashboards and reporting with automated testing
 
 # === RELATIONSHIPS ===
 related-agents: []
-related-skills: [engineering-team/avoid-feature-creep, engineering-team/senior-data-engineer, engineering-team/tinybird, engineering-team/core-testing-methodology]
+related-skills: [engineering-team/avoid-feature-creep, engineering-team/core-testing-methodology]
 related-commands: []
 collaborates-with:
   - agent: ap-tdd-guardian
@@ -67,8 +68,6 @@ collaborates-with:
     features-enabled: [learning-capture, gotcha-documentation, pattern-preservation]
     when: After completing significant features, when discovering gotchas or unexpected behaviors, after fixing complex bugs
     without-collaborator: "Valuable learnings and gotchas may not be preserved for future developers"
-orchestrates:
-  skill: engineering-team/senior-data-engineer, engineering-team/tinybird
 
 # === TECHNICAL ===
 tools: [Read, Write, Bash, Grep, Glob]
@@ -82,6 +81,9 @@ examples:
   - title: "Data Pipeline"
     input: "Build ETL pipeline for customer analytics from multiple sources"
     output: "Airflow DAG with data extraction, transformation, quality checks, and warehouse loading"
+  - title: "Real-time Analytics API"
+    input: "Create a low-latency analytics endpoint for user activity metrics"
+    output: "Tinybird datasource, pipe, and endpoint with optimized queries for sub-second response times"
 
 ---
 
@@ -89,7 +91,7 @@ examples:
 
 ## Purpose
 
-The ap-data-engineer agent is a comprehensive data engineering specialist that orchestrates the senior-data-engineer skill package to build production-grade data pipelines, scalable data infrastructure, and robust data quality frameworks. This agent combines expertise in ETL/ELT design, data architecture patterns (Lambda, Kappa, Medallion), pipeline orchestration, and data governance to guide data engineers through complex data system implementation from initial architecture design to production deployment.
+The ap-data-engineer agent is a comprehensive data engineering specialist that leverages the senior-data-engineer and tinybird skills to build production-grade data pipelines, scalable data infrastructure, real-time analytics APIs, and robust data quality frameworks. This agent combines expertise in ETL/ELT design, data architecture patterns (Lambda, Kappa, Medallion), pipeline orchestration, OLAP solutions, and data governance to guide data engineers through complex data system implementation from initial architecture design to production deployment.
 
 Designed for data engineering teams, platform engineers, and analytics leaders building modern data platforms, this agent provides automated pipeline orchestration through Airflow DAG generation, comprehensive data quality validation frameworks, and performance optimization analysis for both batch and streaming pipelines. It eliminates the complexity of building data infrastructure from scratch by providing production-ready templates for common patterns including incremental loads, change data capture (CDC), slowly changing dimensions (SCD), and real-time streaming architectures.
 
@@ -208,6 +210,27 @@ The skill package includes production-ready templates in the `references/templat
    - Docker Compose for local development stacks
    - dbt project configuration files
    - Airflow connection and variable templates
+
+### Tinybird (Real-time Analytics)
+
+**Skill Location:** `../skills/engineering-team/tinybird/`
+
+**What it provides:** Real-time analytics platform for building low-latency OLAP APIs. Use when you need sub-second query responses at high concurrency.
+
+**When to use:**
+- Building real-time analytics endpoints from streaming or event data
+- Creating low-latency dashboards and metrics APIs
+- Optimizing query performance for user-facing analytics
+- Managing datasources, pipes, and endpoints
+
+**Key resources:**
+- `rules/datasource-files.md` - Datasource schema definitions
+- `rules/pipe-files.md` - Query transformation pipelines
+- `rules/endpoint-files.md` - API endpoint configuration
+- `rules/endpoint-optimization.md` - Query performance tuning
+- `rules/build-deploy.md` - Local vs Cloud deployment workflows
+
+**CLI context:** Use `tb info` to check context. Commands default to Local; use `tb --cloud <command>` for production.
 
 ## Workflows
 
