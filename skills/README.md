@@ -93,6 +93,13 @@ Engineering skills (path: `skills/engineering-team/<name>/`). Load proactively p
 | **react-vite-expert** | React + Vite | Project structure, performance, TypeScript |
 | **modern-javascript-patterns** | Modern JS | ES6+ patterns, async, functional patterns |
 | **web-design-guidelines** | UI review | Web interface guidelines, accessibility |
+| **accessibility** | Web accessibility | WCAG 2.1 compliance, a11y audit, screen reader support |
+| **best-practices** | Web best practices | Security, compatibility, code quality patterns |
+| **performance** | Web performance | Loading speed, runtime efficiency, resource optimization |
+| **core-web-vitals** | Core Web Vitals | LCP, INP, CLS optimization, page experience |
+| **seo** | SEO optimization | Technical SEO, meta tags, structured data, sitemaps |
+| **web-quality-audit** | Web quality audit | Comprehensive Lighthouse audit (performance, a11y, SEO, best practices) |
+| **remotion-best-practices** | Remotion video | Video creation in React, animations, compositions |
 | **code-maturity-assessor** | Codebase assessment | Trail of Bits 9-category scorecard |
 | **software-architecture** | Design, analyze code | Quality-focused architecture guidance |
 | **architecture-decision-records** | Documenting decisions | ADR writing, technical decision docs |
@@ -194,13 +201,10 @@ Role and specialist skills (same folder):
 | Skill | When to Use | What It Provides |
 |-------|-------------|------------------|
 | **agent-browser** | Web testing, extraction | Browser automation, forms, screenshots |
-| **api-credentials** | API keys | Secure credential handling (multi-provider) |
 | **algorithmic-art** | Generative art | p5.js, seeded randomness, flow fields |
 | **artifacts-builder** | Complex artifacts | React, Tailwind, shadcn/ui artifacts |
-| **brand-guidelines** | Brand | Anthropic brand colors, typography |
 | **exploring-data** | EDA | ydata-profiling, CSV/JSON/Parquet reports |
 | **extracting-keywords** | Keywords | YAKE extraction, multi-language |
-| **remembering** | Memory ops | Profile, recall, background writes |
 
 ## Skill Overview (Detailed)
 
