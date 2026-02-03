@@ -25,7 +25,9 @@ When creating a new agent:
 1. **Read the authoring guide**: See [references/authoring-guide.md](references/authoring-guide.md) for complete doctrinal details
 2. **Use the template**: Start from [assets/agent-template.md](assets/agent-template.md)
 3. **Follow the checklist**: Validate against [assets/agent-checklists.md](assets/agent-checklists.md)
-4. **Test integration**: Verify skill paths, Python tools, and workflows
+4. **Run automated validation**: Execute `python3 scripts/validate_agent.py agents/ap-agent-name.md` or `/agent/validate ap-agent-name`
+5. **Test roll-call**: Verify agent loads correctly using `/agent/roll-call ap-agent-name`
+6. **Test integration**: Verify skill paths, Python tools, and workflows
 
 ## Core Principles
 
@@ -178,6 +180,7 @@ collaborates-with:
 
 Before committing an agent, validate against:
 
+- [ ] **Automated validation passed**: Run `python3 scripts/validate_agent.py agents/ap-agent-name.md` or `/agent/validate ap-agent-name`
 - [ ] YAML frontmatter valid (no parsing errors)
 - [ ] All required fields present
 - [ ] ap-* prefix used for agent naming
@@ -188,10 +191,40 @@ Before committing an agent, validate against:
 - [ ] Integration examples provided and tested
 - [ ] Success metrics defined
 - [ ] Related agents cross-referenced
+- [ ] **Roll-call test passed**: Verify agent loads correctly in Cursor using `/agent/roll-call ap-agent-name`
 
 **Complete checklist**: See [assets/agent-checklists.md](assets/agent-checklists.md) for detailed validation criteria.
 
 ## Testing Agent Integration
+
+**Automated Validation (Recommended First Step)**
+
+Run the validation script before manual testing:
+
+```bash
+# Validate agent structure, paths, and frontmatter
+python3 scripts/validate_agent.py agents/ap-agent-name.md
+
+# Or use the command
+/agent/validate ap-agent-name
+```
+
+**Roll-Call Test (Dynamic Validation)**
+
+Test that the agent loads correctly in Cursor:
+
+```bash
+# Test agent loading and skill access
+/agent/roll-call ap-agent-name
+```
+
+Or manually in Cursor Chat:
+```
+@agents/ap-agent-name.md
+What skills are you using?
+```
+
+**Manual Testing**
 
 Test these aspects before committing:
 

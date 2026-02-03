@@ -40,6 +40,21 @@ Use these checklists when creating or updating ap-* agents.
 - [ ] **Success Metrics** are concrete and measurable
 - [ ] **Related Agents** and **References** sections present
 
+## Validation Checklist
+
+**Automated Validation (Run First):**
+- [ ] **Static validation passed**: `python3 scripts/validate_agent.py agents/ap-agent-name.md` or `/agent/validate ap-agent-name`
+  - ✅ YAML frontmatter valid
+  - ✅ All required fields present
+  - ✅ Skills format correct (array, not string)
+  - ✅ All skill paths exist and resolve
+  - ✅ Core skills indexed in body
+  - ✅ Classification type/color mapping correct
+- [ ] **Roll-call test passed**: `/agent/roll-call ap-agent-name` (verify agent loads in Cursor)
+  - ✅ Agent loads successfully
+  - ✅ Skills accessible
+  - ✅ Agent follows documented patterns
+
 ## Integration & Testing Checklist
 
 - [ ] Relative paths validated from agent directory:

@@ -146,7 +146,10 @@ Use this agent when:
 3. Fill in:
    - Purpose, skill integration, workflows, integration examples, success metrics, related agents.
 4. Validate:
-   - Run through `../../skills/agent-development-team/creating-agents/assets/agent-checklists.md`.
+   - Run automated validation: `python3 ../../skills/agent-development-team/creating-agents/scripts/validate_agent.py agents/ap-agent-name.md`
+   - Or use command: `/agent/validate ap-agent-name`
+   - Review manual checklist: `../../skills/agent-development-team/creating-agents/assets/agent-checklists.md`
+   - Test roll-call: `/agent/roll-call ap-agent-name` (verify agent loads correctly in Cursor)
 5. **Update README**: Add the new agent to `agents/README.md` in the "Complete Agent Catalog" section.
 
 **Expected Output:** A single, standards-compliant ap-* agent file ready for review and integration, with `agents/README.md` updated.
@@ -200,7 +203,9 @@ Use this agent when:
 3. Add workflows:
    - “Design analytics schema”, “Implement events pipeline”, “Validate reports”.
 4. Validate:
-   - Run through `agent-checklists.md`.
+   - Run automated validation: `python3 ../../skills/agent-development-team/creating-agents/scripts/validate_agent.py agents/ap-agent-name.md`
+   - Test roll-call: `/agent/roll-call ap-agent-name`
+   - Review checklist: `agent-checklists.md`.
 
 ### Example: Consolidating Duplicate “Scout” Agents
 
@@ -212,6 +217,8 @@ Use this agent when:
 3. Implement:
    - Update the surviving agent and remove/alias the duplicate.
 4. Validate:
+   - Run automated validation: `python3 ../../skills/agent-development-team/creating-agents/scripts/validate_agent.py agents/ap-agent-name.md`
+   - Test roll-call: `/agent/roll-call ap-agent-name`
    - Run the design checklist and update `agents/README.md`.
 
 ## Success Metrics
