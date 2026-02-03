@@ -22,6 +22,15 @@ use-cases:
   - Creating accessible and user-friendly web experiences
   - Writing maintainable, well-tested frontend code following TDD principles
 
+# === AGENT CLASSIFICATION ===
+classification:
+  type: implementation
+  color: green
+  field: frontend
+  expertise: expert
+  execution: coordinated
+  model: opus
+
 # === RELATIONSHIPS ===
 related-agents: []
 related-skills:
