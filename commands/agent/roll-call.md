@@ -14,6 +14,30 @@ Dynamically tests that an agent loads correctly in Cursor and can access its ref
 /agent/roll-call ap-frontend-engineer
 ```
 
+## Agent resolution (search hierarchy)
+
+When resolving the agent file for roll-call, search in this order:
+
+1. **Project config agents** – In the local project root, under any of:
+   - `.cursor/agents/`
+   - `.claude/agents/`
+   - `.gemini/agents/`
+   - `.agent/agents/`
+   - `.agents/agents/`
+   Look for `{agent-name}.md` (e.g. `ap-frontend-engineer.md`).
+
+2. **User home agents** – In the user’s home directory, under any of:
+   - `~/.cursor/agents/`
+   - `~/.claude/agents/`
+   - `~/.gemini/agents/`
+   - `~/.agent/agents/`
+   - `~/.agents/agents/`
+   Look for `{agent-name}.md`.
+
+3. **Project fallback** – If not found above, search the local project for any `.md` file whose base name matches the agent name (e.g. `ap-frontend-engineer` → first match of `**/ap-frontend-engineer.md` under the project root).
+
+Use the first path that exists; then load that file for the roll-call test.
+
 ## What It Tests
 
 ### Agent Loading
@@ -69,10 +93,7 @@ Use this command after:
 
 To manually test an agent:
 
-1. **Load the agent** in Cursor Chat:
-   ```
-   @agents/ap-frontend-engineer.md
-   ```
+1. **Resolve the agent** using the [Agent resolution](#agent-resolution-search-hierarchy) hierarchy, then **load that file** in Cursor Chat (e.g. `@agents/ap-frontend-engineer.md` if under project `agents/`, or the resolved path).
 
 2. **Verify it loads skills automatically**:
    ```
@@ -94,3 +115,4 @@ To manually test an agent:
 - This is a **dynamic test** that requires Cursor to be running
 - For **static validation** (no Cursor required), use `/agent/validate` instead
 - Roll-call tests actual agent behavior, not just structure
+- Agent file location is determined by the [resolution hierarchy](#agent-resolution-search-hierarchy): project config dirs → user home dirs → project-wide `**/*.md` match
