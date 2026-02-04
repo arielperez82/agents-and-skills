@@ -75,6 +75,7 @@ Engineering skills (path: `skills/engineering-team/<name>/`). Load proactively p
 | **databases** | Database work | MongoDB, PostgreSQL schemas, queries, migrations |
 | **supabase-best-practices** | Supabase | RLS, Clerk auth, security, performance |
 | **sql-expert** | SQL | Queries, optimization, schema design (Postgres, MySQL, SQLite, SQL Server) |
+| **database-schema-designer** | Schema design | Normalization, indexing, migrations, constraints, SQL/NoSQL data models |
 | **api-design-principles** | API design | REST/GraphQL design standards |
 | **qa-test-planner** | QA planning | Test plans, cases, regression, bug reports |
 | **e2e-testing-patterns** | E2E tests | Playwright/Cypress, flaky tests, testing standards |

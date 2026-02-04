@@ -5,7 +5,7 @@ title: Database Engineer
 description: Database administration and optimization specialist for query performance, schema design, indexing strategies, backup/restore, and database health assessments
 domain: engineering
 subdomain: database-engineering
-skills: engineering-team/databases, engineering-team/sql-expert, engineering-team/tinybird
+skills: [engineering-team/databases, engineering-team/sql-expert, engineering-team/database-schema-designer, engineering-team/tinybird]
 
 # === USE CASES ===
 difficulty: advanced
@@ -20,7 +20,7 @@ use-cases:
 
 # === RELATIONSHIPS ===
 related-agents: [ap-supabase-database-engineer, ap-architect]
-related-skills: [engineering-team/avoid-feature-creep, engineering-team/databases, engineering-team/sql-expert, engineering-team/tinybird, engineering-team/core-testing-methodology]
+related-skills: [engineering-team/avoid-feature-creep, engineering-team/sql-expert, engineering-team/tinybird, engineering-team/core-testing-methodology]
 related-commands: []
 collaborates-with:
   - agent: ap-backend-engineer
@@ -59,8 +59,6 @@ collaborates-with:
     features-enabled: [learning-capture, gotcha-documentation, pattern-preservation]
     when: After completing significant features, when discovering gotchas or unexpected behaviors, after fixing complex bugs
     without-collaborator: "Valuable learnings and gotchas may not be preserved for future developers"
-orchestrates:
-  skill: engineering-team/databases, engineering-team/sql-expert, engineering-team/tinybird
 
 # === TECHNICAL ===
 tools: [Read, Write, Edit, Bash, Grep, Glob]
