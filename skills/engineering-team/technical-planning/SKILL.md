@@ -210,6 +210,10 @@ Must be sequential:
 - [ ] Test on mobile
 ```
 
+## Phase 0 (Quality Gate) First
+
+For **new projects**, the quality gate must be **complete before any feature work**. Two patterns: (1) minimal skeleton then add all gates, or (2) scaffold that includes quality tooling then verify and add missing pieces. Phase 0 = one of these + type-check (full-project when source staged), pre-commit (Husky + lint-staged), ESLint, Prettier, MarkdownLint (when many `.md`), a11y lint, audit script (e.g. Lighthouse; script + optional CI). Document which pattern in the plan. Load the `quality-gate-first` skill for the full table. Feature work starts in Phase 1.
+
 ## Plan Document Structure
 
 ```markdown
@@ -236,6 +240,9 @@ Must be sequential:
 [Alternatives considered and why not chosen]
 
 ## Tasks
+
+### Phase 0: Quality gate
+[Minimal skeleton or scaffold-with-gates, then full gate: type-check, pre-commit (Husky/lint-staged), ESLint, Prettier, MarkdownLint, a11y lint, audit script. No feature work until complete. See quality-gate-first skill.]
 
 ### Phase 1: Foundation
 

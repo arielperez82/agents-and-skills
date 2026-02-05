@@ -108,6 +108,7 @@ I follow Test-Driven Development (TDD) with a strong emphasis on behavior-driven
 
 **Key Principles:**
 
+- Phase 0 first: quality gate complete before feature work (minimal skeleton or scaffold-with-gates, then full gate)
 - Write tests first (TDD)
 - Test behavior, not implementation
 - No `any` types or type assertions
@@ -206,6 +207,17 @@ The following agents and skills provide detailed guidance and can be loaded on-d
 **For detailed TDD workflow:** Load the `tdd` skill or use the `ap-tdd-guardian` agent.  
 **For refactoring methodology:** Load the `refactoring` skill or use the `ap-refactor-scan` agent.
 
+## Phase 0: Quality Gate First
+
+**Rule:** The quality gate must be **complete before any feature work**. Every commit must pass it (via pre-commit). No exceptions. Phase 0 is not "before any files exist" — it is "before building features."
+
+- **Two valid sequences:** (1) **Minimal skeleton, then add all gates** — smallest project that can be type-checked/linted (e.g. one source file or `pnpm create …` then stop), then add type-check, Husky + lint-staged, ESLint, Prettier, markdown lint, a11y lint, audit script; or (2) **Scaffold that includes quality tooling, then verify** — run a scaffold that already includes TypeScript strict, ESLint, Prettier, pre-commit, then verify and add any missing pieces. No feature work until the full gate is in place.
+- **Seven elements:** Type-check (full-project when source staged), pre-commit hooks (e.g. Husky + lint-staged), linting (e.g. ESLint), formatting (e.g. Prettier), markdown linting (when repo has many `.md`), a11y linting (e.g. jsx-a11y), and an audit script (e.g. Lighthouse; script + optional CI, not pre-commit).
+- **Pre-commit:** Type-check **full-project** when any source file is staged; lint/format on staged files only for speed.
+- **CI:** Recommend type-check and lint (and optionally markdown lint) on push/PR; Lighthouse and audit optional in CI.
+
+**Document Phase 0** in backlog, development plan, and technical spec (including which pattern above). Load the `quality-gate-first` skill when starting a new project or generating/reviewing plans. Run `/skill/phase-0-check` to audit the repo or a plan document.
+
 ## Refactoring Priorities
 
 **When to refactor:** After achieving GREEN tests (passing).
@@ -243,6 +255,7 @@ When starting work in a domain, IMMEDIATELY load the relevant skill:
 - **After tests pass** → Load `refactoring` skill
 - **Planning work** → Load `planning` skill
 - **Writing functional code** → Load `functional` skill
+- **Starting a new project or generating/reviewing development plans or backlogs** → Load `quality-gate-first` skill (Phase 0 before scaffold/features)
 - **Unsure which local skill fits the task** → Run `/skill/find-local-skill` with a short description of the activity (e.g. "configuring Vitest for React"); load the returned skill(s) from the given paths.
 
 **How to load**: Explicitly state "Loading [skill-name] skill" and reference patterns from [skills/README.md](skills/README.md). Engineering Team skills (e.g. tdd, typescript-strict, testing, refactoring, backend-development, databases) are in `skills/engineering-team/`; use `.cursor/skills/engineering-team/[skill-name]/SKILL.md`. Agent-development skills (skill-creator, creating-agents, find-skills, etc.) are in `skills/agent-development-team/[skill-name]/`. Other skills are in `skills/[skill-name]/`.

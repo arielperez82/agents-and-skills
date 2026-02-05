@@ -64,6 +64,7 @@ Engineering skills (path: `skills/engineering-team/<name>/`). Load proactively p
 | **functional** | Writing functional code | Functional programming patterns, immutability |
 | **refactoring** | After GREEN tests | Refactoring assessment, priority classification |
 | **planning** | Planning work | Incremental work principles, small increments |
+| **quality-gate-first** | New project, dev plans, backlogs | Phase 0 = quality gate before scaffold/features; type-check, pre-commit, lint, format, etc. |
 | **tpp** | TDD transformations | Transformation Priority Premise reference |
 | **expectations** | Setting expectations | Expectations management patterns |
 | **avoid-feature-creep** | Scope/backlog, MVP | MVP focus, "just one more feature", scope discipline |

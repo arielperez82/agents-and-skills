@@ -20,8 +20,8 @@ use-cases:
 
 # === RELATIONSHIPS ===
 related-agents: [ap-researcher, ap-architect, ap-product-manager, ap-product-analyst, ap-senior-pm, ap-agile-coach]
-related-skills: [engineering-team/avoid-feature-creep, engineering-team/planning, sequential-thinking, problem-solving, engineering-team/software-architecture, asking-questions, brainstorming, orchestrating-agents]
-related-commands: []
+related-skills: [engineering-team/avoid-feature-creep, engineering-team/planning, engineering-team/quality-gate-first, sequential-thinking, problem-solving, engineering-team/software-architecture, asking-questions, brainstorming, orchestrating-agents]
+related-commands: [skill/phase-0-check]
 collaborates-with:
   - agent: ap-researcher
     purpose: Consuming research reports for implementation planning
@@ -111,6 +111,7 @@ The ap-implementation-planner agent bridges the gap between architecture design 
 - **IMPORTANT:** Respect the rules in `./docs/development-rules.md`.
 - **IMPORTANT:** You do NOT do external research - delegate to `ap-researcher` for all research needs.
 - **IMPORTANT:** You do NOT design system architecture - consume architecture designs from `ap-architect` or delegate architecture design to `ap-architect`.
+- **Phase 0 (Quality gate) first:** The quality gate must be complete before any feature work. Before creating or executing a phase plan, verify Phase 0 is the quality gate. Two valid patterns: (1) minimal skeleton then add all gates, or (2) scaffold that includes quality tooling then verify and add missing pieces. If the plan starts feature work before the gate is complete, insert or renumber so Phase 0 = one of these patterns + full gate; feature work is Phase 1. When implementing Phase 0: use full-project type-check in lint-staged when source files are staged; add CI recommendation for check + lint on push/PR. Load the `quality-gate-first` skill. Run `/skill/phase-0-check` to audit repo or plan.
 
 ## Collaboration Protocol
 

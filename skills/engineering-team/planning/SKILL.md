@@ -118,6 +118,10 @@ Only proceed with commit after explicit approval.
 - Prevents accidental commits of incomplete work
 - Creates natural checkpoint for discussion
 
+## Phase 0 (Quality Gate) First
+
+When the plan involves a **new project**, the quality gate must be **complete before any feature work**. Two valid patterns: (1) minimal skeleton then add all gates (type-check, pre-commit, lint, format, markdown lint, a11y lint, audit script), or (2) scaffold that includes quality tooling then verify and add missing pieces. Document which pattern in PLAN.md. Load the `quality-gate-first` skill for the full checklist. Feature work starts only after the gate is in place (Phase 1 or Step 2+).
+
 ## PLAN.md Structure
 
 ```markdown
@@ -134,6 +138,9 @@ Only proceed with commit after explicit approval.
 - [ ] Criterion 3
 
 ## Steps
+
+### Step 0 (Phase 0): Quality gate — [when new project]
+[Minimal skeleton or scaffold-with-gates, then full gate (type-check, pre-commit, lint, format, markdown lint, a11y lint, audit script). No feature work until complete. See quality-gate-first skill.]
 
 ### Step 1: [One sentence description]
 

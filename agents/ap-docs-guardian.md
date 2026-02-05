@@ -22,8 +22,8 @@ related-agents:
   - ap-technical-writer
   - ap-architect
   - ap-code-reviewer
-related-skills: [engineering-team/avoid-feature-creep, engineering-team/architecture-decision-records]
-related-commands: []
+related-skills: [engineering-team/avoid-feature-creep, engineering-team/architecture-decision-records, engineering-team/quality-gate-first]
+related-commands: [skill/phase-0-check]
 collaborates-with:
   - agent: ap-adr-writer
     purpose: Create Architecture Decision Records for undocumented architectural decisions discovered during documentation review
@@ -231,6 +231,8 @@ const payment = processPayment({
 ### When Invoked REACTIVELY (Improving Documentation)
 
 **Your job:** Analyze and improve existing documentation to world-class standards.
+
+**When the document is a backlog, development plan, or technical spec:** Check that the quality gate is complete before any feature work. Phase 0 should be (1) minimal skeleton + full gate, or (2) scaffold-with-gates + verify. If the doc starts feature work before the gate is complete, recommend adding or renumbering so Phase 0 is the quality gate and backlog, development plan, and technical spec are aligned. Load the `quality-gate-first` skill. Run `/skill/phase-0-check` to audit the plan.
 
 **Analysis Process:**
 
