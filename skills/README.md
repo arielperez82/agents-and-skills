@@ -24,6 +24,8 @@ This directory contains on-demand skill packages that extend agent capabilities 
 
 **Quick start**: `npx skills find [query]` to search, `npx skills add <package>` to install. Browse at https://skills.sh/
 
+**Finding local skills (this repo):** When you need a skill that already lives in this repo, use the `/skill/find-local-skill` command with a short description of the activity (e.g. "configuring Vitest for React", "writing BDD scenarios"). It returns matching skills and paths so you can load the right `SKILL.md`. Use this before starting work when unsure which skill applies.
+
 ## Complete Skill Catalog
 
 **Where skills live:** Engineering skills (tdd, testing, refactoring, typescript-strict, etc.) are in `skills/engineering-team/<name>/`. Agent-development skills (skill-creator, creating-agents, find-skills, etc.) are in `skills/agent-development-team/<name>/`. Other meta and cross-team skills (e.g. brainstorming) are in `skills/<name>/`. Use [skills/README.md](README.md) and [AGENTS.md](../AGENTS.md) for load order and paths.

@@ -243,6 +243,7 @@ When starting work in a domain, IMMEDIATELY load the relevant skill:
 - **After tests pass** → Load `refactoring` skill
 - **Planning work** → Load `planning` skill
 - **Writing functional code** → Load `functional` skill
+- **Unsure which local skill fits the task** → Run `/skill/find-local-skill` with a short description of the activity (e.g. "configuring Vitest for React"); load the returned skill(s) from the given paths.
 
 **How to load**: Explicitly state "Loading [skill-name] skill" and reference patterns from [skills/README.md](skills/README.md). Engineering Team skills (e.g. tdd, typescript-strict, testing, refactoring, backend-development, databases) are in `skills/engineering-team/`; use `.cursor/skills/engineering-team/[skill-name]/SKILL.md`. Agent-development skills (skill-creator, creating-agents, find-skills, etc.) are in `skills/agent-development-team/[skill-name]/`. Other skills are in `skills/[skill-name]/`.
 
@@ -271,6 +272,7 @@ Before writing any code, verify:
 
 - ALWAYS FOLLOW TDD - no production code without failing test
 - ALWAYS load relevant skills at work start
+- When unsure which local skill to load, run `/skill/find-local-skill [activity description]` and load the returned skill(s)
 - ALWAYS engage relevant agents proactively
 - **Before committing**: Engage validation agents (ap-tdd-guardian, ap-ts-enforcer, ap-refactor-guardian) to verify quality
 - Assess refactoring after every green (but only if adds value)
