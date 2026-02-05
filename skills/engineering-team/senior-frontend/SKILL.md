@@ -7,22 +7,6 @@ description: Comprehensive frontend development skill for building modern, perfo
 domain: engineering
 subdomain: frontend-development
 
-# === WEBSITE DISPLAY ===
-difficulty: advanced
-time-saved: "TODO: Quantify time savings"
-frequency: "TODO: Estimate usage frequency"
-use-cases:
-  - Building responsive user interfaces with modern frameworks
-  - Implementing state management and component architecture
-  - Optimizing frontend performance and bundle sizes
-  - Creating accessible and user-friendly web experiences
-
-# === RELATIONSHIPS ===
-related-agents: []
-related-skills: []
-related-commands: []
-orchestrated-by: []
-
 # === TECHNICAL ===
 dependencies:
   scripts: []
@@ -50,21 +34,6 @@ examples:
     input: "TODO: Add example input for senior-frontend"
     output: "TODO: Add expected output"
 
-# === ANALYTICS ===
-stats:
-  downloads: 0
-  stars: 0
-  rating: 0.0
-  reviews: 0
-
-# === VERSIONING ===
-version: v1.0.0
-author: Claude Skills Team
-contributors: []
-created: 2025-10-19
-updated: 2025-11-08
-license: MIT
-
 # === DISCOVERABILITY ===
 tags:
   - analysis
@@ -75,44 +44,9 @@ tags:
   - optimization
   - performance
   - senior
-featured: false
-verified: true
 ---
 
 # Senior Frontend
-
-## Core Capabilities
-
-- **[Capability 1]** - [Description]
-- **[Capability 2]** - [Description]
-- **[Capability 3]** - [Description]
-- **[Capability 4]** - [Description]
-
-
-## Key Workflows
-
-### Workflow 1: [Workflow Name]
-
-**Time:** [Duration estimate]
-
-**Steps:**
-1. [Step 1]
-2. [Step 2]
-3. [Step 3]
-
-**Expected Output:** [What success looks like]
-
-### Workflow 2: [Workflow Name]
-
-**Time:** [Duration estimate]
-
-**Steps:**
-1. [Step 1]
-2. [Step 2]
-3. [Step 3]
-
-**Expected Output:** [What success looks like]
-
 
 Expert frontend development skill with comprehensive tools for building modern, performant, and accessible web applications using React, Next.js, and the latest frontend technologies.
 
@@ -438,23 +372,23 @@ Complete tool documentation:
 
 ```bash
 # Development
-npm run dev          # Start dev server
-npm run build        # Build for production
-npm start            # Start production server
+pnpm run dev          # Start dev server
+pnpm run build        # Build for production
+pnpm start            # Start production server
 
 # Testing
-npm test             # Run tests
-npm run test:watch   # Watch mode
-npm run test:coverage  # Coverage report
+pnpm test             # Run tests
+pnpm run test:watch   # Watch mode
+pnpm run test:coverage  # Coverage report
 
 # Quality
-npm run lint         # ESLint
-npm run format       # Prettier
-npm run type-check   # TypeScript
+pnpm run lint         # ESLint
+pnpm run format       # Prettier
+pnpm run type-check   # TypeScript
 
 # Storybook
-npm run storybook    # Start Storybook
-npm run build-storybook  # Build static Storybook
+pnpm run storybook    # Start Storybook
+pnpm run build-storybook  # Build static Storybook
 ```
 
 ## Integration Points
@@ -472,9 +406,3 @@ This skill integrates with:
 2. **Code templates:** See [templates.md](references/templates.md)
 3. **Tool usage:** See [tools.md](references/tools.md) or run with `--help`
 4. **Project setup:** Use frontend_scaffolder.py to generate boilerplate
-
----
-
-**Version:** 1.0.0
-**Last Updated:** 2025-11-08
-**Documentation Structure:** Progressive disclosure with references/
