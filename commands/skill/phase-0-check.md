@@ -33,6 +33,7 @@ In the repo root, check for:
 | Lint | ESLint config (e.g. `eslint.config.js`, `.eslintrc*`), `lint` / `lint:fix` scripts | |
 | Format | Prettier config (`.prettierrc*`, `prettier` in package.json), `format` or `lint:format` scripts | |
 | Markdown lint | markdownlint config, `lint:md` or similar script | When repo has many `.md` files |
+| Stylelint (CSS) | Stylelint config, `lint:css` / `lint:css:fix` scripts; lint-staged for `*.css` | Frontend/web projects only; Tailwind-aware config, stylelint-config-prettier |
 | A11y lint | eslint-plugin-jsx-a11y or equivalent in ESLint config | For React/JSX/Astro client code |
 | Audit script | Lighthouse or similar script; optional CI | Not required in pre-commit |
 
@@ -52,6 +53,6 @@ Report: **Present** / **Missing** / **Partial** per element. If partial, state w
 
 ## Relationship to other commands and skills
 
-- **quality-gate-first skill:** This command loads and applies that skill; the skill defines the rule, the seven elements, and where to document.
+- **quality-gate-first skill:** This command loads and applies that skill; the skill defines the rule, the seven to eight elements (eight for frontend: add Stylelint), and where to document.
 - **find-local-skill:** Use `/skill/find-local-skill phase 0 quality gate` to discover the skill; this command runs the checklist.
 - **AGENTS.md:** Phase 0 is mandatory before feature work; this command helps verify compliance.
