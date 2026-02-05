@@ -47,6 +47,9 @@ This directory contains on-demand skill packages that extend agent capabilities 
 | **mermaid-diagrams** | Software diagrams | Mermaid syntax, class/sequence/flow/ER/C4 |
 | **doc-coauthoring** | Writing docs | Structured doc co-authoring workflow |
 | **docs-seeker** | Technical docs | llms.txt/context7 search, library/repo docs |
+| **markdown-documentation** | Technical docs in markdown | Structure, conventions, best practices (READMEs, project docs) |
+| **markdown-syntax-fundamentals** | Writing/editing markdown | Headings, formatting, lists, links, images, code blocks |
+| **markdown-tables** | Markdown tables | Table syntax, alignment, escaping, best practices |
 
 ### Engineering Team (`engineering-team/`)
 
@@ -113,6 +116,52 @@ Engineering skills (path: `skills/engineering-team/<name>/`). Load proactively p
 | **chrome-devtools** | Browser automation | Puppeteer CLI, debugging, performance |
 | **typescript** | TS performance, tsc, type errors | TypeScript optimization, tsconfig, async patterns |
 | **typescript-strict** | Writing TypeScript | TypeScript strict mode patterns, schema organization |
+| **typescript-async-patterns** | Async TypeScript | Promises, async/await, async iterators with typing |
+| **typescript-type-system** | TS type system | Strict mode, generics, type guards, compiler config |
+| **typescript-utility-types** | TS utility types | Mapped types, advanced type manipulation |
+| **architecture-design** | System architecture, tech decisions | Structure, patterns, long-term strategy |
+| **technical-planning** | Implementation plans | Tactical execution, tasks, dependencies, success criteria |
+| **documentation** | Creating/updating docs | READMEs, API docs, technical guides; clarity for audience |
+| **orthogonality-principle** | Modules, APIs, architecture | Independent, non-overlapping components |
+| **performance-optimization** | Performance, bundle size, load times | Measurement-driven optimization |
+| **bdd-principles** | BDD concepts | Core BDD philosophy, Three Amigos |
+| **bdd-patterns** | BDD patterns | Given-When-Then, feature files, acceptance criteria |
+| **bdd-scenarios** | BDD scenarios | Acceptance criteria, edge cases, scenario organization |
+| **bdd-collaboration** | BDD collaboration | Discovery workshops, example mapping, Three Amigos |
+| **boy-scout-rule** | Modifying/refactoring code | Leave code better than you found it; incremental improvements |
+| **legacy-code-safety** | Untested/legacy code changes | RGR workflow, characterization tests before modifications |
+| **docker-compose-basics** | Multi-container Docker | Docker Compose YAML, defining and running services |
+| **docker-compose-networking** | Docker Compose networking | Bridge/overlay networks, service discovery, inter-service communication |
+| **docker-compose-production** | Docker Compose in production | Security, health checks, logging, monitoring, HA |
+| **eslint-configuration** | ESLint setup | Config files, extends, plugins, environment |
+| **eslint-rules** | ESLint rules | Built-in rules, severity, disabling strategies |
+| **eslint-custom** | Custom ESLint | Custom rules and plugins, AST, publishing |
+| **markdownlint-configuration** | Markdownlint config | Rule management, config files, inline comments |
+| **markdownlint-custom-rules** | Markdownlint custom rules | Rule structure, parser integration, auto-fixing |
+| **markdownlint-integration** | Markdownlint in workflows | CLI, programmatic API, CI/CD, editor integration |
+| **monorepo-architecture** | Monorepo design | Structure, packages, dependencies, workspace config |
+| **monorepo-tooling** | Monorepo tooling | Turborepo, Nx, Bazel, Lerna; caching, codegen |
+| **monorepo-workflows** | Monorepo CI/CD, releases | Versioning, publishing, team workflows |
+| **playwright-test-architecture** | Playwright test setup | Project config, test suite organization |
+| **playwright-bdd-configuration** | Playwright BDD | defineBddConfig(), feature/step paths, Playwright config |
+| **playwright-bdd-gherkin-syntax** | Gherkin in Playwright | Feature files, Scenario Outline, tags, Background |
+| **playwright-bdd-step-definitions** | Playwright BDD steps | Given/When/Then, createBdd(), POM, fixtures |
+| **playwright-fixtures-and-hooks** | Playwright fixtures | Reusable fixtures, lifecycle hooks, test setup/teardown |
+| **playwright-page-object-model** | Playwright POM | Page objects, test maintainability |
+| **prettier-configuration** | Prettier config | Options, config files, ignore patterns |
+| **prettier-integration** | Prettier in workflow | Editors, pre-commit, ESLint, CI/CD |
+| **prettier-plugins** | Prettier plugins | Plugin ecosystem, custom parsers, plugin development |
+| **sre-incident-response** | Production incidents | SRE principles, incident response best practices |
+| **sre-monitoring-and-observability** | Monitoring, observability | Comprehensive monitoring and observability systems |
+| **sre-reliability-engineering** | Reliable systems | Reliable, scalable distributed systems |
+| **tailwind-components** | Tailwind components | Reusable patterns, @apply, composable design |
+| **tailwind-configuration** | Tailwind config | Theme, plugins, tailwind.config.js, content paths |
+| **tailwind-performance** | Tailwind production | Bundle size, PurgeCSS, JIT, build optimization |
+| **tailwind-responsive-design** | Tailwind responsive | Breakpoints, container queries, mobile-first |
+| **tailwind-utility-classes** | Tailwind utilities | Layout, spacing, typography, colors, composition |
+| **terraform-configuration** | Terraform IaC | Writing and organizing Terraform configs for cloud |
+| **terraform-modules** | Terraform modules | Reusable modules, sharing infrastructure code |
+| **terraform-state** | Terraform state | State files, remote backends, state locking |
 
 Role and specialist skills (same folder):
 
