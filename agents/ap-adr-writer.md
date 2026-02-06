@@ -463,9 +463,26 @@ Before writing the ADR, gather:
 - ❌ Ignores negative consequences
 - ❌ No implementation guidance
 
-### 5. Maintain ADR Index (optional)
+### 5. Required front matter and post-acceptance
 
-Optionally keep `.docs/canonical/adrs/index.md` updated with links and statuses. ADRs live in the same directory with naming `adr-YYYYMMDD-<subject>.md`. Any accepted ADR that changes constraints must update the Charter and/or Plan/Backlog (ADR is rationale; those docs are operating truth).
+Every ADR under `.docs/canonical/adrs/` must include this front matter (minimal):
+
+```yaml
+---
+type: adr
+endeavor: <slug>
+status: proposed|accepted|superseded
+date: YYYY-MM-DD
+supersedes: []
+superseded_by: null
+---
+```
+
+**After acceptance:** If an accepted ADR changes constraints or decisions, update the Charter and/or Plan/Backlog to reflect the new operating truth (the ADR is the rationale; the charter/plan/backlog are what we follow).
+
+### 6. Maintain ADR Index (optional)
+
+Optionally keep `.docs/canonical/adrs/index.md` updated with links and statuses.
 
 ## Examples
 

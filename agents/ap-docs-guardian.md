@@ -234,6 +234,8 @@ const payment = processPayment({
 
 **When the document is a backlog, development plan, or technical spec:** Check that the quality gate is complete before any feature work. Phase 0 should be (1) minimal skeleton + full gate, or (2) scaffold-with-gates + verify. If the doc starts feature work before the gate is complete, recommend adding or renumbering so Phase 0 is the quality gate and backlog, development plan, and technical spec are aligned. Load the `quality-gate-first` skill. Run `/skill/phase-0-check` to audit the plan.
 
+**When the document is an assessment or contains a "Learnings" section:** Ensure learnings that change what we do next are reflected in canonical docs — e.g. backlog items or charter updates. Assessments must produce backlog candidates or constraints (charter updates); recommend linking or updating those when reviewing.
+
 **Analysis Process:**
 
 #### 1. Read and Understand

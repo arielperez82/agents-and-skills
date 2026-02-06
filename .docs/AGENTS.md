@@ -42,7 +42,27 @@ Do **not** create or expect PLAN.md, WIP.md, LEARNINGS.md, or ad-hoc names like 
 - **Naming (reports):** `report-<endeavor>-<topic>-<timeframe>.md` under `.docs/reports/`.
 - **ADRs:** `.docs/canonical/adrs/adr-YYYYMMDD-<subject>.md`.
 - **Decision hierarchy:** Charter → Roadmap → Backlog → Plan. Disputes resolve upstream.
-- **Learnings:** Layer 1 = this file; layer 2 = assessments or "Learnings" section in canonical docs; layer 3 = skills/commands. Bridge rule: cross-agent behavior change → short entry here + pointer to source.
+---
+
+## Learnings (three layers)
+
+Route learnings by scope and half-life:
+
+1. **Layer 1 — Operational (cross-agent, persistent):** This file (`.docs/AGENTS.md`). Use for: agent behavior changes, global conventions, repo-wide "how we work", recurring failure modes, guardrails. **Rule:** This is the only place every agent should consult for shared operating truth.
+2. **Layer 2 — Domain (endeavor-level):** `.docs/canonical/assessments/assessment-<endeavor>-<subject>-<date>.md` and/or a **"Learnings" section** inside the relevant charter, roadmap, backlog, or plan. Use for: conclusions that shape prioritization, constraints, risk posture, architecture direction — anything that should alter canonical truth. **Rule:** If a learning changes what we do next, it must land in canonical docs (directly or via an assessment that produces backlog/charter updates).
+3. **Layer 3 — Deep specialist (tooling/techniques/templates):** Keep with the agent's skills/commands. Use for: detailed checklists, frameworks, heuristics, implementation patterns, prompt patterns, template improvements. **Rule:** "How to think/do", not "what this repo/endeavor has decided."
+
+**Bridge rule:** Any deep specialist learning that materially changes cross-agent behavior gets a short distilled entry in `.docs/AGENTS.md` pointing to the deeper source.
+
+---
+
+## ADR placement
+
+- **Location:** `.docs/canonical/adrs/`
+- **Naming:** `adr-YYYYMMDD-<subject>.md` (e.g. `adr-20260206-event-ingestion-format.md`)
+- **Optional index:** `.docs/canonical/adrs/index.md` (links + statuses)
+- **Required front matter (minimal):** `type: adr`, `endeavor`, `status: proposed|accepted|superseded`, `date`, `supersedes`, `superseded_by`
+- **Hierarchy:** ADRs sit alongside charter, roadmap, backlog, plan as decision artifacts. Any **accepted** ADR that changes constraints must update the Charter and/or Plan/Backlog (ADR is the rationale; those docs are the operating truth).
 
 ---
 
