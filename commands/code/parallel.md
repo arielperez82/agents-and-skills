@@ -10,7 +10,7 @@ Execute plan: <plan>$ARGUMENTS</plan>
 ## Workflow
 
 ### 1. Plan Analysis
-- Read `plan.md` from given path
+- Read `plan.md` from given path (or from `.docs/canonical/plans/` when project uses artifact conventions; see `.docs/AGENTS.md`)
 - **Check for:** Dependency graph, Execution strategy, Parallelization Info, File Ownership matrix
 - **Decision:** IF parallel-executable → Step 2A, ELSE → Step 2B
 

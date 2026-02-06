@@ -12,8 +12,7 @@ $ARGUMENTS
 </task>
 
 ## Workflow
-1. Create a directory named `plans/{date}-plan-name` (date format from `$CK_PLAN_DATE_FORMAT`).
-   Make sure you pass the directory path to every subagent during the process.
+1. Create a directory for the plan: either `plans/{date}-plan-name` (date format from `$CK_PLAN_DATE_FORMAT`) or, when the project uses artifact conventions, under `.docs/canonical/plans/` with naming `plan-<endeavor>-<subject>[-<timeframe>].md` (see `.docs/AGENTS.md`). Pass the directory path to every subagent during the process.
 2. Follow strictly to the "Plan Creation & Organization" rules of `planning` skill.
 3. Use multiple `ap-researcher` agents (max 2 agents) in parallel to research for this task:
    Each agent research for a different aspect of the task and are allowed to perform max 5 tool calls.

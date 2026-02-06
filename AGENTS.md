@@ -1,5 +1,7 @@
 # Development Guidelines for AI Agents
 
+**Artifact conventions:** For canonical docs, plans, roadmaps, backlogs, and learnings, see **`.docs/AGENTS.md`** — the single operating reference. Read and write coordination artifacts only under `.docs/` when using the artifact-conventions layout.
+
 > > **Architecture:**
 >
 > - **AGENTS.md** (this file): Core philosophy + quick reference (~400 lines, always loaded)

@@ -55,8 +55,8 @@ Follow strictly these following steps:
 ### Wireframe & Design
 
 * Use `ui-ux-designer` subagent and multiple `ap-researcher` subagents in parallel to create a design plan that follows the progressive disclosure structure:
-  - Create a directory `plans/{date}-plan-name` (date format from `$CK_PLAN_DATE_FORMAT`).
-  - Save the overview access point at `plan.md`, keep it generic, under 80 lines, and list each phase with status/progress and links.
+  - Create a directory `plans/{date}-plan-name` (date format from `$CK_PLAN_DATE_FORMAT`), or when using artifact conventions use `.docs/canonical/plans/` with naming from `.docs/AGENTS.md`.
+  - Save the overview access point at `plan.md` (or the canonical plan file), keep it generic, under 80 lines, and list each phase with status/progress and links.
   - For each phase, add `phase-XX-phase-name.md` files containing sections (Context links, Overview with date/priority/statuses, Key Insights, Requirements, Architecture, Related code files, Implementation Steps, Todo list, Success Criteria, Risk Assessment, Security Considerations, Next steps).
 * Keep related research reports within the ≤150 lines limit.
    - **Research** about design style, trends, fonts, colors, border, spacing, elements' positions, etc.

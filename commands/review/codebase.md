@@ -35,8 +35,8 @@ Think harder to scan the codebase and analyze it follow the Orchestration Protoc
 
 ### Plan
 * Use `ap-implementation-planner` subagent to analyze reports from `ap-researcher` and `ap-codebase-scout` subagents to create an improvement plan following the progressive disclosure structure:
-  - Create a directory `plans/{date}-plan-name` (date format from `$CK_PLAN_DATE_FORMAT`).
-  - Save the overview access point at `plan.md`, keep it generic, under 80 lines, and list each phase with status/progress and links.
+  - Create a directory `plans/{date}-plan-name` (date format from `$CK_PLAN_DATE_FORMAT`), or when using artifact conventions use `.docs/canonical/plans/` (see `.docs/AGENTS.md`).
+  - Save the overview access point at `plan.md` (or the canonical plan file), keep it generic, under 80 lines, and list each phase with status/progress and links.
   - For each phase, add `phase-XX-phase-name.md` files containing sections (Context links, Overview with date/priority/statuses, Key Insights, Requirements, Architecture, Related code files, Implementation Steps, Todo list, Success Criteria, Risk Assessment, Security Considerations, Next steps).
 
 ### Final Report

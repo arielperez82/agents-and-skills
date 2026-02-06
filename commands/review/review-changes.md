@@ -31,7 +31,7 @@ Engage these agents **in sequence**, each with the same context: the uncommitted
 ### Optional (when applicable)
 
 5. **ap-docs-guardian** – **Add** when the diff touches documentation (e.g. `*.md`, `README*`, `docs/`, or user specifies doc focus). Reviews permanent docs for clarity, structure, and correctness.
-6. **ap-progress-guardian** – **Add** when the review is based on a plan or roadmap (e.g. PLAN.md, WIP.md, LEARNINGS.md in scope, or user says work is plan-based). Validates progress tracking and plan alignment.
+6. **ap-progress-guardian** – **Add** when the review is based on a plan or roadmap (e.g. plan under `.docs/canonical/plans/`, status under `.docs/reports/`, or user says work is plan-based). Validates progress tracking and plan alignment.
 
 Use `Task(subagent_type="...", prompt="...", description="...")` for each. Pass the diff and the optional user prompt in each task prompt.
 

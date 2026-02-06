@@ -9,7 +9,7 @@ Load the **quality-gate-first** skill and run the Phase 0 checklist: verify that
 
 ## Inputs
 
-- **TARGET** (optional): `$ARGUMENTS` — path to repo root (default: current workspace) or name/path of a plan document (e.g. `PLAN.md`, `docs/development-plan.md`). If omitted, use workspace root and look for common plan/backlog files.
+- **TARGET** (optional): `$ARGUMENTS` — path to repo root (default: current workspace) or name/path of a plan document (e.g. `.docs/canonical/plans/plan-*.md`, `.docs/canonical/backlogs/backlog-*.md`, or legacy `PLAN.md`, `docs/development-plan.md`). If omitted, use workspace root and look for common plan/backlog files (prefer `.docs/canonical/` when present).
 
 ## Behavior
 
@@ -41,7 +41,7 @@ Report: **Present** / **Missing** / **Partial** per element. If partial, state w
 
 ### 4. Plan/backlog/spec review (when scope is document)
 
-- Open the given document (or common names: `PLAN.md`, `WIP.md`, `docs/development-plan.md`, `BACKLOG.md`, technical spec).
+- Open the given document (or common names: `.docs/canonical/plans/plan-*.md`, `.docs/canonical/backlogs/backlog-*.md` when using artifact conventions; else `PLAN.md`, `WIP.md`, `docs/development-plan.md`, `BACKLOG.md`, technical spec).
 - Check: Is "Phase 0 — Quality gate" (or equivalent) the first phase? Does it state which pattern (minimal skeleton + gates, or scaffold-with-gates + verify)? Is feature work explicitly after the gate is complete?
 - Report: Phase 0 present and aligned / Phase 0 missing or feature work before gate / Phase 0 present but pattern or alignment unclear. Recommend edits if needed.
 
