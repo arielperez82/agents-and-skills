@@ -41,6 +41,7 @@ Single continuous queue of **changes** (smallest independently valuable incremen
 | B26 | refactoring-agents: refactor report destination → .docs/reports/ when using conventions | 6 | Skills alignment | Phase 6 |
 | B27 | skills/README + delivery/engineering/marketing CLAUDE: PLAN.md ref, IMPLEMENTATION_SUMMARY, roadmap refs | 6 | Skills alignment | Phase 6 |
 | B28 | Align brainstorming skill: design output `docs/plans/` → `.docs/canonical/plans/` with naming grammar | 6 | Skills alignment | Phase 6 |
+| B29 | Phase 7 validation: grep skills for legacy paths; update skills audit report with completion/validation summary | 6 | Skills validation | Phase 7 |
 
 ## Backlog item lens (per charter)
 

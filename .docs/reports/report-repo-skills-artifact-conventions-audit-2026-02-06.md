@@ -186,6 +186,22 @@
 
 ---
 
+## Phase 6/7 complete — validation (2026-02-06)
+
+All audit items (critical, moderate, minor) have been addressed. Backlog B18–B28 and Phase 7 validation (B29) implemented.
+
+**Phase 7 grep (skills/**/*.md):**
+
+| Pattern | Matches | Status |
+|---------|---------|--------|
+| `PLAN\.md` / `WIP\.md` / `LEARNINGS\.md` | 1 | planning/SKILL.md anti-pattern only: "Using PLAN.md / WIP.md / LEARNINGS.md when .docs/ is adopted" (do not use). Acceptable. |
+| `docs/plans/` | 1 | brainstorming/SKILL.md: fallback "Otherwise `docs/plans/YYYY-MM-DD-<topic>-design.md` is acceptable." Primary is .docs/canonical/plans/. Acceptable. |
+| `roadmap\.md` | 0 | No skill prescribes generic roadmap.md as primary output. CLAUDE refs to team-internal roadmap filenames (e.g. marketing_skills_roadmap.md) include note that repo-level roadmaps live under .docs/canonical/roadmaps/. Acceptable. |
+
+**Conclusion:** Skills no longer prescribe legacy coordination paths as primary. Remaining mentions are intentional (anti-pattern, fallback, or team-internal with convention note).
+
+---
+
 ## References
 
 - Charter: [charter-repo-artifact-conventions.md](../canonical/charters/charter-repo-artifact-conventions.md)

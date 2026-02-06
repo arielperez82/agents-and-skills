@@ -231,13 +231,28 @@ Use the earlier audit. Summary mapping:
 
 ---
 
+### Phase 7: Skills alignment validation
+
+**Goal:** Confirm no skills prescribe legacy coordination paths as primary; document validation and update audit report.
+
+| Task | Backlog | Notes |
+|------|---------|--------|
+| 7.1 | B29 | Grep `skills/` for `PLAN\.md`, `WIP\.md`, `LEARNINGS\.md`, `docs/plans/`, ad-hoc `roadmap\.md` (as primary output). Document: only acceptable mentions are "do not use" or "when conventions apply use .docs/". |
+| 7.2 | B29 | Update skills audit report with "Phase 6/7 complete" and validation summary (grep result: clean or listed exceptions). |
+
+**Exit criteria:** Grep run documented; audit report updated; any remaining legacy path mentions are intentional (fallback or anti-pattern only).
+
+**Phase 7 status (complete):** Grep run; results documented in report-repo-skills-artifact-conventions-audit-2026-02-06.md (Phase 6/7 complete — validation). All remaining PLAN.md/WIP.md/LEARNINGS.md and docs/plans/ mentions are anti-pattern or fallback only.
+
+---
+
 ## Dependency order
 
 - Phase 0 before Phase 1 (structure and AGENTS.md must exist).
 - Phase 1 before Phase 2 (need mapping to edit agents correctly).
 - Phase 2 and 3 can overlap (agent path updates + learnings/ADR wiring).
 - Phase 4 after Phase 2 (commands reference agent behavior).
-- Phase 5 (validation and cleanup); Phase 6 (skills alignment) after Phase 5.
+- Phase 5 (validation and cleanup); Phase 6 (skills alignment) after Phase 5; Phase 7 (skills validation) after Phase 6.
 
 ---
 
