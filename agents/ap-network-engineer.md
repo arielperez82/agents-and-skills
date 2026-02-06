@@ -432,7 +432,7 @@ python3 ../skills/engineering-team/senior-network-infrastructure/scripts/network
   --output .docs/reports/report-repo-network-audit-$(date +%Y-%m-%d).md
 
 # Check for critical findings
-if grep -q "severity.*critical" audit-$(date +%Y%m%d).md; then
+if grep -q "severity.*critical" ".docs/reports/report-repo-network-audit-$(date +%Y-%m-%d).md"; then
   echo "CRITICAL FINDINGS DETECTED"
   exit 1
 fi
