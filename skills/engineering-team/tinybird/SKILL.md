@@ -1,11 +1,11 @@
 ---
 name: tinybird
-description: Tinybird Code agent tools and prompts for working with Tinybird projects, datafiles, queries, deployments, and tests.
+description: Tinybird Code agent tools and prompts for working with Tinybird projects, datafiles, queries, deployments, tests, and the TypeScript SDK (@tinybirdco/sdk).
 ---
 
 # Tinybird Agent Skills
 
-Reusable guidance extracted from Tinybird Code (the Tinybird CLI coding agent). Use this skill when working in Tinybird projects, editing datafiles, running build/deploy flows, exploring data, or managing tests/secrets.
+Reusable guidance extracted from Tinybird Code (the Tinybird CLI coding agent). Use this skill when working in Tinybird projects, editing datafiles, running build/deploy flows, exploring data, managing tests/secrets, or using the Tinybird TypeScript SDK for type-safe definitions and typed client ingest/query.
 
 ## When to Apply
 
@@ -13,6 +13,7 @@ Reusable guidance extracted from Tinybird Code (the Tinybird CLI coding agent). 
 - Working with queries, endpoints, or data exploration
 - Managing Tinybird deployments, secrets, or tests
 - Reviewing or refactoring Tinybird project files
+- Using the Tinybird TypeScript SDK: defining datasources/pipes/endpoints in TypeScript, `tinybird.json` config, SDK CLI (`tinybird dev|build|deploy`), or the typed client for ingest and query
 
 ## Rule Files
 
@@ -36,10 +37,10 @@ Reusable guidance extracted from Tinybird Code (the Tinybird CLI coding agent). 
 - `rules/data-operations.md`
 - `rules/deduplication-patterns.md`
 - `rules/local-development.md`
+- `rules/typescript-sdk.md`
 
 ## Quick Reference
 
-- Project local files are the source of truth; build for Local, deploy for Cloud.
+- **Classic (datafiles):** Project local files are the source of truth; build for Local, deploy for Cloud. Use `tb info` to check CLI context. CLI commands by default target Local; use `tb --cloud <command>` for Cloud and `tb --branch <branch-name> <command>` for a branch.
+- **TypeScript SDK:** Use `@tinybirdco/sdk` when you want type-safe definitions and a typed client; configure with `tinybird.json`, sync with `npx tinybird dev|build|deploy` (see `rules/typescript-sdk.md`). Can mix SDK and datafiles via `include`.
 - SQL is SELECT-only with Tinybird templating rules and strict parameter handling.
-- Use `tb info` to check CLI context.
-- CLI commands by default target Local; use `tb --cloud <command>` to target Cloud (production) and `tb --branch <branch-name> <command>` to target a specific branch in Cloud.
