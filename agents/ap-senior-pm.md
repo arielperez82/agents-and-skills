@@ -125,7 +125,7 @@ cat > resource-capacity.md << 'EOF'
 EOF
 
 # Document portfolio priorities
-cat > portfolio-roadmap.md << 'EOF'
+cat > .docs/canonical/roadmaps/roadmap-repo-portfolio-2026.md << 'EOF'
 # Q4 2025 Portfolio Roadmap
 
 ## Strategic Priorities

@@ -13,7 +13,7 @@ $ARGUMENTS
 Before delegating to plan subcommands, check plan state:
 
 1. **Check `$CK_ACTIVE_PLAN` env var (explicitly active):**
-   - If set and points to valid directory:
+   - If set and points to valid path (prefer `.docs/canonical/plans/` per artifact conventions):
      - Ask user: "Active plan found: {path}. Continue with this? [Y/n]"
      - If Y (default): Pass existing plan path to subcommand, skip folder creation
      - If n: Proceed to create new plan
@@ -23,7 +23,7 @@ Before delegating to plan subcommands, check plan state:
    - This is a hint only - do NOT auto-use it
    - Ask user if they want to activate it or create new plan
 
-3. **If neither is set:** Proceed to create new plan (subcommand handles)
+3. **If neither is set:** Proceed to create new plan (subcommand handles). Create plans under `.docs/canonical/plans/` with naming `plan-<endeavor>-<subject>[-<timeframe>].md` (see `.docs/AGENTS.md`).
 
 ## Workflow
 - Analyze the given task and use `AskUserQuestion` tool to ask for more details if needed.

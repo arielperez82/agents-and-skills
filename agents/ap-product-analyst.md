@@ -222,7 +222,7 @@ See [Session-Based Output Guide](../../output/README.md) for complete documentat
 
 4. **Generate Improvement Plan** - Create phased roadmap with priorities and timelines
    ```bash
-   python3 ../skills/product-team/business-analyst-toolkit/scripts/improvement_planner.py --gaps gaps.json --timeline 12 --output markdown > improvement-plan.md
+   python3 ../skills/product-team/business-analyst-toolkit/scripts/improvement_planner.py --gaps gaps.json --timeline 12 --output markdown > .docs/canonical/plans/plan-repo-improvement-2026.md
    ```
 
 5. **Create Process Charter** - Build comprehensive charter integrating all analysis
@@ -350,7 +350,7 @@ python3 ../skills/product-team/business-analyst-toolkit/scripts/stakeholder_mapp
 
 # Phase 3: Planning & Charter
 echo "📈 Phase 3: Generating improvement plan and charter..."
-python3 ../skills/product-team/business-analyst-toolkit/scripts/improvement_planner.py --gaps gaps.json --timeline 12 --output markdown > improvement-plan.md
+python3 ../skills/product-team/business-analyst-toolkit/scripts/improvement_planner.py --gaps gaps.json --timeline 12 --output markdown > .docs/canonical/plans/plan-repo-improvement-2026.md
 python3 ../skills/product-team/business-analyst-toolkit/scripts/charter_builder.py \
   --process process.json \
   --objectives "$OBJECTIVES" \
@@ -366,15 +366,15 @@ python ../skills/product-team/agile-product-owner/scripts/user_story_generator.p
 
 # Phase 5: Sprint Planning
 echo "📅 Phase 5: Generating sprint backlog..."
-cp ../skills/product-team/agile-product-owner/assets/sprint-backlog-template.md sprint-backlog.md
+cp ../skills/product-team/agile-product-owner/assets/sprint-backlog-template.md .docs/canonical/backlogs/backlog-repo.md
 
 echo "✅ Process improvement and sprint planning complete!"
-echo "📁 Deliverables:"
-echo "   - process-charter.md (Executive charter)"
-echo "   - improvement-plan.md (Implementation roadmap)"
-echo "   - stakeholder-analysis.md (Engagement strategies)"
+echo "📁 Deliverables (under .docs/ per convention):"
+echo "   - process-charter (in .docs/canonical/ or report)"
+echo "   - .docs/canonical/plans/plan-repo-improvement-*.md (Implementation roadmap)"
+echo "   - stakeholder-analysis (in .docs/canonical/ or report)"
 echo "   - sprint-stories.json (Ready user stories)"
-echo "   - sprint-backlog.md (Sprint planning template)"
+echo "   - .docs/canonical/backlogs/backlog-repo.md (Single backlog)"
 ```
 
 ### Example 2: Weekly Process Health & Sprint Readiness Dashboard

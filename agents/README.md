@@ -22,7 +22,7 @@ These agents live directly in the `agents/` root directory:
 
 #### Delivery & Project Management
 - **`ap-agile-coach`** - Agile coaching specialist for ceremonies, team dynamics, communication, and agile manifesto adherence
-- **`ap-progress-guardian`** - Assesses and validates progress tracking through PLAN.md, WIP.md, and LEARNINGS.md
+- **`ap-progress-guardian`** - Assesses and validates progress tracking through canonical docs under `.docs/` (plans, status reports, learnings in AGENTS.md and canonical docs)
 - **`ap-senior-pm`** - Strategic program management for portfolio planning, stakeholder management, and delivery excellence
 
 #### Marketing
@@ -306,28 +306,28 @@ These agents live directly in the `agents/` root directory:
 - Starting complex refactoring or investigation
 
 **Use reactively when**:
-- Completing a step (update WIP.md)
-- Discovering something (add to LEARNINGS.md)
+- Completing a step (update status report under `.docs/reports/`)
+- Discovering something (add via ap-learn to `.docs/AGENTS.md` or Learnings section in canonical doc)
 - Plan needs changing (propose changes, get approval)
 - End of work session (checkpoint)
-- Feature complete (merge learnings, delete docs)
+- Feature complete (merge learnings, update canonical docs as needed)
 
 **Core responsibility**:
-- Create and maintain three documents: **PLAN.md**, **WIP.md**, **LEARNINGS.md**
+- Use canonical docs under `.docs/`: plan(s) in `.docs/canonical/plans/`, status in `.docs/reports/`, learnings in `.docs/AGENTS.md` or "Learnings" sections in charter/roadmap/backlog/plan
 - Enforce small increments, TDD, commit approval
-- Never modify PLAN.md without explicit user approval
-- Capture learnings as they occur
-- At end: orchestrate learning merge, then **DELETE all three docs**
+- Never modify the plan without explicit user approval
+- Capture learnings as they occur (via ap-learn)
+- At end: orchestrate learning merge; no root-level PLAN.md/WIP.md/LEARNINGS.md
 
-**Three-Document Model**:
+**Canonical docs model** (see `.docs/AGENTS.md`):
 
-| Document | Purpose | Updates |
+| Location | Purpose | Updates |
 |----------|---------|---------|
-| **PLAN.md** | What we're doing (approved steps) | Only with user approval |
-| **WIP.md** | Where we are now (current state) | Constantly |
-| **LEARNINGS.md** | What we discovered | As discoveries occur |
+| `.docs/canonical/plans/plan-<endeavor>-*.md` | What we're doing (approved steps) | Only with user approval |
+| `.docs/reports/report-<endeavor>-status-*.md` | Where we are now (current state) | Constantly |
+| `.docs/AGENTS.md` + Learnings sections | What we discovered | As discoveries occur; merge via ap-learn |
 
-**Key distinction**: Creates TEMPORARY docs (deleted when done). Learnings merged into CLAUDE.md/ADRs before deletion.
+**Key distinction**: Progress tracking uses `.docs/` only. Learnings merged into `.docs/AGENTS.md` or canonical Learnings sections; ADRs under `.docs/canonical/adrs/`.
 
 **Related skill**: Load `planning` skill for detailed incremental work principles.
 
@@ -340,7 +340,7 @@ These agents live directly in the `agents/` root directory:
 ```
 ap-progress-guardian (orchestrates)
     │
-    ├─► Creates: PLAN.md, WIP.md, LEARNINGS.md
+    ├─► Uses: .docs/canonical/plans/, .docs/reports/, .docs/AGENTS.md + Learnings sections
     │
     ├─► For each step:
     │   ├─→ ap-tdd-guardian (RED-GREEN-REFACTOR)
@@ -351,15 +351,15 @@ ap-progress-guardian (orchestrates)
     │   └─→ ap-supabase-database-engineer (schema design, RLS policies, migration management)
     │
     ├─► When decisions arise:
-    │   └─→ ap-adr-writer (architectural decisions)
+    │   └─→ ap-adr-writer (architectural decisions → .docs/canonical/adrs/)
     │
     ├─► Before merge:
     │   └─→ ap-code-reviewer (comprehensive code review)
     │
     ├─► At end:
-    │   ├─→ ap-learn (merge LEARNINGS.md → CLAUDE.md)
+    │   ├─→ ap-learn (merge learnings → .docs/AGENTS.md or canonical Learnings sections)
     │   ├─→ ap-docs-guardian (update permanent docs)
-    │   └─→ DELETE all three docs
+    │   └─→ Update/archive canonical docs as needed
     │
     └─► Related: `planning` skill (incremental work principles)
 ```
@@ -368,24 +368,23 @@ ap-progress-guardian (orchestrates)
 
 1. **Start significant work**
    - Load `planning` skill for principles
-   - Invoke `ap-progress-guardian`: Assesses if PLAN.md, WIP.md, LEARNINGS.md exist, recommends creation
-   - Get approval for PLAN.md
+   - Invoke `ap-progress-guardian`: Assesses if canonical plan and status report exist under `.docs/`, recommends creation
+   - Get approval for plan (under `.docs/canonical/plans/`)
 
 2. **For each step in plan**
    - RED: Write failing test (TDD non-negotiable)
    - GREEN: Minimal code to pass
    - REFACTOR: Invoke `ap-refactor-guardian` to assess improvements
-   - Update WIP.md with progress
-   - Capture discoveries in LEARNINGS.md
+   - Update status report in `.docs/reports/` with progress
+   - Capture discoveries via ap-learn (`.docs/AGENTS.md` or Learnings section)
    - **WAIT FOR COMMIT APPROVAL**
 
 3. **When plan needs changing**
    - Invoke `ap-progress-guardian`: Propose changes
-   - **Get approval before modifying PLAN.md**
+   - **Get approval before modifying plan**
 
 4. **When architectural decision arises**
-   - Add to LEARNINGS.md immediately
-   - Invoke `ap-adr-writer` if decision warrants permanent record
+   - Capture learning; invoke `ap-adr-writer` if decision warrants permanent record (`.docs/canonical/adrs/`)
 
 5. **Before commits**
    - Invoke `ap-ts-enforcer`: Verify TypeScript compliance
@@ -393,7 +392,7 @@ ap-progress-guardian (orchestrates)
    - **Ask for commit approval**
 
 6. **End of session**
-   - Invoke `ap-progress-guardian`: Validate WIP.md is up to date, report what's missing
+   - Invoke `ap-progress-guardian`: Validate status report is up to date, report what's missing
 
 7. **Before creating PR**
    - Invoke `ap-code-reviewer`: Self-review changes
@@ -402,11 +401,11 @@ ap-progress-guardian (orchestrates)
 
 8. **Feature complete**
    - Invoke `ap-progress-guardian`: Verify all criteria met
-   - Review LEARNINGS.md for merge destinations
-   - Invoke `ap-learn`: Merge gotchas/patterns → CLAUDE.md
-   - Invoke `ap-adr-writer`: Create ADRs for architectural decisions
+   - Review learnings for merge destinations (`.docs/AGENTS.md` or canonical Learnings sections)
+   - Invoke `ap-learn`: Merge gotchas/patterns → `.docs/AGENTS.md` or canonical docs
+   - Invoke `ap-adr-writer`: Create ADRs under `.docs/canonical/adrs/`
    - Invoke `ap-docs-guardian`: Update permanent docs
-   - **DELETE PLAN.md, WIP.md, LEARNINGS.md**
+   - **Update/archive canonical docs as needed** (no root PLAN.md/WIP.md/LEARNINGS.md to delete)
 
 ## Key Distinctions
 
@@ -414,13 +413,13 @@ ap-progress-guardian (orchestrates)
 
 | Aspect | ap-progress-guardian | ap-adr-writer | ap-learn | ap-docs-guardian |
 |--------|------------------|-----|-------|---------------|
-| **Lifespan** | Temporary (days/weeks) | Permanent | Permanent | Permanent |
+| **Lifespan** | Plan/status in .docs/ (updated; may archive) | Permanent | Permanent | Permanent |
 | **Audience** | Current developer | Future developers | AI assistant + developers | Users + developers |
 | **Purpose** | Track progress, capture learnings | Explain "why" decisions | Explain "how" to work | Explain "what" and "how to use" |
-| **Content** | PLAN + WIP + LEARNINGS | Context, decision, consequences | Gotchas, patterns | Features, API, setup |
-| **Updates** | Constantly (WIP), on approval (PLAN) | Once (rarely updated) | As learning occurs | When features change |
-| **Format** | Informal notes | Structured ADR format | Informal examples | Professional, polished |
-| **End of life** | **DELETED** when done | Lives forever | Lives forever | Lives forever |
+| **Content** | Plan + status report + learnings (all under .docs/) | Context, decision, consequences | Gotchas, patterns | Features, API, setup |
+| **Updates** | Constantly (status), on approval (plan) | Once (rarely updated) | As learning occurs | When features change |
+| **Format** | Canonical naming in .docs/ | Structured ADR in .docs/canonical/adrs/ | .docs/AGENTS.md or Learnings sections | Professional, polished |
+| **End of life** | Archive/update as needed | Lives forever | Lives forever | Lives forever |
 
 ### When to Use Which Documentation Agent
 
@@ -429,19 +428,19 @@ ap-progress-guardian (orchestrates)
 - "What's the next step?"
 - "Where was I when I stopped yesterday?"
 - "What have we discovered so far?"
-- → Answer: Temporary PLAN.md, WIP.md, LEARNINGS.md (deleted when done)
+- → Answer: Canonical plan and status under `.docs/`; learnings in `.docs/AGENTS.md` or Learnings sections
 
 **Use `ap-adr-writer`** for:
 - "Why did we choose technology X over Y?"
 - "What were the trade-offs in this architectural decision?"
 - "Why is the system designed this way?"
-- → Answer: Permanent ADR in `docs/adr/`
+- → Answer: Permanent ADR in `.docs/canonical/adrs/`
 
 **Use `ap-learn`** for:
 - "What gotchas should I know about?"
 - "What patterns work well here?"
 - "How do I avoid this common mistake?"
-- → Answer: Permanent entry in `CLAUDE.md`
+- → Answer: Permanent entry in `.docs/AGENTS.md` or canonical Learnings sections
 
 **Use `ap-docs-guardian`** for:
 - "How do I install this?"

@@ -280,7 +280,7 @@ assistant: "That's an important infrastructure decision. Let me invoke the ap-ad
    ```markdown
    ## Authentication System
    
-   We use JWT tokens for authentication. For the rationale behind this decision, see [ADR-XXX: Authentication Approach](docs/adr/XXX-authentication-approach.md).
+   We use JWT tokens for authentication. For the rationale behind this decision, see [ADR: Authentication Approach](.docs/canonical/adrs/adr-YYYYMMDD-authentication-approach.md).
    ```
 ```
 
@@ -430,13 +430,11 @@ user: "We're going with a monorepo structure"
 When triggered, create a new ADR:
 
 ```bash
-# Determine next ADR number
-ls docs/adr/ | grep -E '^[0-9]+' | sort -n | tail -1
-# If last is 003, create 004
-
-# Create new ADR
-# File: docs/adr/004-validation-library-choice.md
+# Create new ADR under .docs/canonical/adrs/
+# Naming: adr-YYYYMMDD-<subject>.md (e.g. adr-20260206-validation-library-choice.md)
+# File: .docs/canonical/adrs/adr-YYYYMMDD-<subject>.md
 ```
+Required front matter: type, endeavor, status (proposed|accepted|superseded), date, supersedes, superseded_by. See .docs/AGENTS.md and charter for placement. Accepted ADRs that change constraints must update Charter/Plan/Backlog links.
 
 ### 3. Gather Context
 
@@ -465,31 +463,9 @@ Before writing the ADR, gather:
 - ❌ Ignores negative consequences
 - ❌ No implementation guidance
 
-### 5. Maintain ADR Index
+### 5. Maintain ADR Index (optional)
 
-Keep `docs/adr/README.md` updated:
-
-```markdown
-# Architecture Decision Records
-
-This directory contains Architecture Decision Records (ADRs) documenting significant architectural choices.
-
-## Active ADRs
-
-- [ADR-001: Email Provider Selection](001-email-provider-selection.md) - 2025-11-01
-- [ADR-002: Job Queue Infrastructure](002-job-queue-infrastructure.md) - 2025-11-02
-- [ADR-003: State Management Library](003-state-management-library.md) - 2025-11-05
-
-## Superseded ADRs
-
-- [ADR-000: Initial Architecture](000-initial-architecture.md) - Superseded by ADR-001, ADR-002
-
-## Tags
-
-- **infrastructure**: ADR-001, ADR-002
-- **frontend**: ADR-003
-- **backend**: ADR-001, ADR-002
-```
+Optionally keep `.docs/canonical/adrs/index.md` updated with links and statuses. ADRs live in the same directory with naming `adr-YYYYMMDD-<subject>.md`. Any accepted ADR that changes constraints must update the Charter and/or Plan/Backlog (ADR is rationale; those docs are operating truth).
 
 ## Examples
 
@@ -592,7 +568,7 @@ We will use **SendGrid** for all email sending.
 
 ### Neutral
 
-- Need to add rate limiting to handle free tier limits (see step 8 in WIP.md)
+- Need to add rate limiting to handle free tier limits (see current plan or status report under .docs/canonical/plans/ or .docs/reports/)
 
 ## Implementation Notes
 

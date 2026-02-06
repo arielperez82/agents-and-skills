@@ -199,10 +199,10 @@ python ../skills/engineering-team/code-reviewer/scripts/pr_analyzer.py 123 --rep
 python ../skills/engineering-team/code-reviewer/scripts/code_quality_checker.py ./src/services/UserService.ts --language=typescript
 
 # Step 3: Generate comprehensive report
-python ../skills/engineering-team/code-reviewer/scripts/review_report_generator.py 123 --format=markdown > pr-123-review.md
+python ../skills/engineering-team/code-reviewer/scripts/review_report_generator.py 123 --format=markdown > .docs/canonical/reviews/review-repo-commit-<hash>.md
 
 # Step 4: Review output and post feedback
-cat pr-123-review.md
+cat .docs/canonical/reviews/review-repo-commit-<hash>.md
 ```
 
 ### Workflow 2: Codebase Architecture Review
@@ -340,9 +340,9 @@ for PR in $OPEN_PRS; do
     python ../skills/engineering-team/code-reviewer/scripts/pr_analyzer.py $PR --repo=$REPO --json > pr-$PR-analysis.json
 
     # Generate review report
-    python ../skills/engineering-team/code-reviewer/scripts/review_report_generator.py $PR --format=markdown > pr-$PR-review.md
+    python ../skills/engineering-team/code-reviewer/scripts/review_report_generator.py $PR --format=markdown > .docs/canonical/reviews/review-repo-commit-$COMMIT_HASH.md
 
-    echo "Review complete for PR #$PR. Report saved to pr-$PR-review.md"
+    echo "Review complete. Report saved to .docs/canonical/reviews/review-repo-commit-$COMMIT_HASH.md"
 done
 
 echo "Daily PR review complete. Reviewed $OPEN_PRS PRs."

@@ -206,7 +206,7 @@ python ../skills/marketing-team/seo-strategist/scripts/technical_seo_auditor.py 
 1. **Complete technical audit** - Generate audit.json from technical_seo_auditor.py
 2. **Generate roadmap** - Create prioritized action plan
    ```bash
-   python ../skills/marketing-team/seo-strategist/scripts/seo_roadmap_generator.py audit.json --quarters 4 --output md > roadmap.md
+   python ../skills/marketing-team/seo-strategist/scripts/seo_roadmap_generator.py audit.json --quarters 4 --output md > .docs/canonical/roadmaps/roadmap-repo-seo-2026.md
    ```
 3. **Identify quick wins** - Focus on high-impact, low-effort tasks
    ```bash
@@ -226,7 +226,7 @@ python ../skills/marketing-team/seo-strategist/scripts/technical_seo_auditor.py 
 python ../skills/marketing-team/seo-strategist/scripts/seo_roadmap_generator.py audit.json --quick-wins
 
 # Full quarterly roadmap in markdown
-python ../skills/marketing-team/seo-strategist/scripts/seo_roadmap_generator.py audit.json --quarters 4 --output md > roadmap.md
+python ../skills/marketing-team/seo-strategist/scripts/seo_roadmap_generator.py audit.json --quarters 4 --output md > .docs/canonical/roadmaps/roadmap-repo-seo-2026.md
 
 # Custom hours per quarter
 python ../skills/marketing-team/seo-strategist/scripts/seo_roadmap_generator.py audit.json --quarters 4 --hours-per-quarter 120
@@ -273,7 +273,7 @@ python ../skills/marketing-team/seo-strategist/scripts/technical_seo_auditor.py 
 
 echo "Generating SEO roadmap..."
 python ../skills/marketing-team/seo-strategist/scripts/seo_roadmap_generator.py \
-    "$OUTPUT_DIR/audit.json" --quarters 4 --output md > "$OUTPUT_DIR/roadmap.md"
+    "$OUTPUT_DIR/audit.json" --quarters 4 --output md > ".docs/canonical/roadmaps/roadmap-repo-seo-$(date +%Y).md"
 
 echo "Identifying quick wins..."
 python ../skills/marketing-team/seo-strategist/scripts/seo_roadmap_generator.py \

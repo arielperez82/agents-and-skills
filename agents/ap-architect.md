@@ -544,7 +544,7 @@ echo "Architecture documentation generated successfully at $DOCS_OUTPUT/"
 
 # Configuration
 PROJECT_PATH="."
-ASSESSMENT_DIR="./migration-assessment"
+ASSESSMENT_DIR=".docs/canonical/assessments"
 TIMESTAMP=$(date +%Y%m%d-%H%M%S)
 
 # Create assessment directory
@@ -576,15 +576,15 @@ python ../skills/engineering-team/senior-architect/scripts/architecture_diagram_
   --file "$ASSESSMENT_DIR/architecture-diagrams-$TIMESTAMP.txt"
 
 # Step 4: Create assessment summary
-cat > "$ASSESSMENT_DIR/assessment-summary-$TIMESTAMP.md" << 'EOF'
+cat > "$ASSESSMENT_DIR/assessment-repo-architecture-$TIMESTAMP.md" << 'EOF'
 # Pre-Migration Architecture Assessment
 
 ## Assessment Date
 EOF
 
-echo "$(date)" >> "$ASSESSMENT_DIR/assessment-summary-$TIMESTAMP.md"
+echo "$(date)" >> "$ASSESSMENT_DIR/assessment-repo-architecture-$TIMESTAMP.md"
 
-cat >> "$ASSESSMENT_DIR/assessment-summary-$TIMESTAMP.md" << 'EOF'
+cat >> "$ASSESSMENT_DIR/assessment-repo-architecture-$TIMESTAMP.md" << 'EOF'
 
 ## Assessment Artifacts
 1. Current Architecture Analysis (JSON)
@@ -618,7 +618,7 @@ echo "Assessment complete!"
 echo "Results saved to: $ASSESSMENT_DIR/"
 echo ""
 echo "Next steps:"
-echo "1. Review assessment-summary-$TIMESTAMP.md"
+echo "1. Review $ASSESSMENT_DIR/assessment-repo-architecture-$TIMESTAMP.md"
 echo "2. Analyze current-architecture-$TIMESTAMP.json"
 echo "3. Review dependencies-$TIMESTAMP.csv"
 echo "4. Plan migration strategy"

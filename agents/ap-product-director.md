@@ -228,7 +228,7 @@ python ../skills/product-team/product-strategist/scripts/okr_cascade_generator.p
 
 6. **Create Roadmap Visualization** - Document roadmap:
    ```bash
-   cp ../skills/product-team/product-strategist/assets/strategic-roadmap-template.md 2025-roadmap.md
+   cp ../skills/product-team/product-strategist/assets/strategic-roadmap-template.md .docs/canonical/roadmaps/roadmap-repo-strategic-2025.md
    ```
    - Now/Next/Later format
    - Theme-based grouping
@@ -374,7 +374,7 @@ python ../skills/product-team/product-strategist/scripts/okr_cascade_generator.p
 
 7. **Update Roadmap** - Revise next quarter priorities:
    ```bash
-   cp ../skills/product-team/product-strategist/assets/strategic-roadmap-template.md q4-2025-roadmap.md
+   cp ../skills/product-team/product-strategist/assets/strategic-roadmap-template.md .docs/canonical/roadmaps/roadmap-repo-strategic-2025-q4.md
    ```
    - Move "Next" items to "Now"
    - Promote "Later" items to "Next"
@@ -476,9 +476,9 @@ echo ""
 
 # Create roadmap from template
 echo "3. Creating Roadmap Template..."
-cp ../skills/product-team/product-strategist/assets/strategic-roadmap-template.md "$YEAR-strategic-roadmap.md"
+cp ../skills/product-team/product-strategist/assets/strategic-roadmap-template.md ".docs/canonical/roadmaps/roadmap-repo-strategic-$YEAR.md"
 
-echo "   ✅ Roadmap template created: $YEAR-strategic-roadmap.md"
+echo "   ✅ Roadmap template created: .docs/canonical/roadmaps/roadmap-repo-strategic-$YEAR.md"
 echo ""
 
 echo "Next steps:"
