@@ -450,7 +450,8 @@ python3 ../skills/engineering-team/incident-response/scripts/incident_responder.
 8. **Document Findings** - Compile investigation results
    ```bash
    # Generate investigation summary
-   cat > ./incidents/$INCIDENT_ID/investigation-summary.md <<EOF
+   mkdir -p .docs/reports/incidents/$INCIDENT_ID
+cat > .docs/reports/incidents/$INCIDENT_ID/investigation-summary.md <<EOF
    # Investigation Summary: $INCIDENT_ID
 
    ## Attack Vector
@@ -973,7 +974,7 @@ if [ "$CRITICAL_COUNT" -gt 0 ]; then
       --evidence-dir "$OUTPUT_DIR/$INCIDENT_ID/evidence" \
       --report \
       --output markdown \
-      --file "$OUTPUT_DIR/$INCIDENT_ID/preliminary-report.md"
+      --file ".docs/reports/incidents/$INCIDENT_ID/preliminary-report.md"
   done
 
   # Step 5: Send alerts
@@ -1056,10 +1057,10 @@ python3 ../skills/engineering-team/incident-response/scripts/incident_analyzer.p
   --evidence-dir "$EVIDENCE_DIR" \
   --report \
   --output markdown \
-  --file "./incidents/$INCIDENT_ID/preliminary-report.md"
+  --file ".docs/reports/incidents/$INCIDENT_ID/preliminary-report.md"
 
 # Step 7: Executive notification
-cat > "./incidents/$INCIDENT_ID/executive-alert.md" <<EOF
+cat > ".docs/reports/incidents/$INCIDENT_ID/executive-alert.md" <<EOF
 ## RANSOMWARE INCIDENT - EXECUTIVE ALERT
 
 **Incident ID:** $INCIDENT_ID
@@ -1087,8 +1088,8 @@ EOF
 
 echo "=== Ransomware Response Complete ==="
 echo "Evidence: $EVIDENCE_DIR"
-echo "Report: ./incidents/$INCIDENT_ID/preliminary-report.md"
-echo "Executive Alert: ./incidents/$INCIDENT_ID/executive-alert.md"
+echo "Report: .docs/reports/incidents/$INCIDENT_ID/preliminary-report.md"
+echo "Executive Alert: .docs/reports/incidents/$INCIDENT_ID/executive-alert.md"
 ```
 
 **Expected Result:** Rapid containment, evidence preservation, variant identification, and executive notification
@@ -1137,7 +1138,7 @@ EU_RESIDENTS=$(jq '.impact.eu_residents // false' "./incidents/$INCIDENT_ID/impa
 HEALTHCARE=$(jq '.impact.healthcare_data // false' "./incidents/$INCIDENT_ID/impact-assessment.json")
 PAYMENT=$(jq '.impact.payment_data // false' "./incidents/$INCIDENT_ID/impact-assessment.json")
 
-cat > "./incidents/$INCIDENT_ID/regulatory-requirements.md" <<EOF
+cat > ".docs/reports/incidents/$INCIDENT_ID/regulatory-requirements.md" <<EOF
 # Regulatory Notification Requirements
 
 ## Data Breach Summary
@@ -1153,15 +1154,15 @@ cat > "./incidents/$INCIDENT_ID/regulatory-requirements.md" <<EOF
 EOF
 
 if [ "$EU_RESIDENTS" == "true" ]; then
-  echo "| GDPR | Yes | 72 hours | PENDING |" >> "./incidents/$INCIDENT_ID/regulatory-requirements.md"
+  echo "| GDPR | Yes | 72 hours | PENDING |" >> ".docs/reports/incidents/$INCIDENT_ID/regulatory-requirements.md"
 fi
 
 if [ "$HEALTHCARE" == "true" ]; then
-  echo "| HIPAA | Yes | 60 days | PENDING |" >> "./incidents/$INCIDENT_ID/regulatory-requirements.md"
+  echo "| HIPAA | Yes | 60 days | PENDING |" >> ".docs/reports/incidents/$INCIDENT_ID/regulatory-requirements.md"
 fi
 
 if [ "$PAYMENT" == "true" ]; then
-  echo "| PCI-DSS | Yes | Immediate | PENDING |" >> "./incidents/$INCIDENT_ID/regulatory-requirements.md"
+  echo "| PCI-DSS | Yes | Immediate | PENDING |" >> ".docs/reports/incidents/$INCIDENT_ID/regulatory-requirements.md"
 fi
 
 # Step 4: Estimate financial impact
@@ -1181,13 +1182,13 @@ python3 ../skills/engineering-team/incident-response/scripts/incident_analyzer.p
   --evidence-dir "$EVIDENCE_DIR" \
   --report \
   --output markdown \
-  --file "./incidents/$INCIDENT_ID/data-breach-report.md"
+  --file ".docs/reports/incidents/$INCIDENT_ID/data-breach-report.md"
 
 echo "=== Assessment Complete ==="
-echo "Impact Assessment: ./incidents/$INCIDENT_ID/impact-assessment.json"
-echo "Regulatory Requirements: ./incidents/$INCIDENT_ID/regulatory-requirements.md"
-echo "Cost Estimate: ./incidents/$INCIDENT_ID/cost-estimate.json"
-echo "Full Report: ./incidents/$INCIDENT_ID/data-breach-report.md"
+echo "Impact Assessment: .docs/reports/incidents/$INCIDENT_ID/impact-assessment.json"
+echo "Regulatory Requirements: .docs/reports/incidents/$INCIDENT_ID/regulatory-requirements.md"
+echo "Cost Estimate: .docs/reports/incidents/$INCIDENT_ID/cost-estimate.json"
+echo "Full Report: .docs/reports/incidents/$INCIDENT_ID/data-breach-report.md"
 ```
 
 **Expected Result:** Complete impact assessment with regulatory notification requirements and cost estimates

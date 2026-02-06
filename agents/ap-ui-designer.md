@@ -656,7 +656,7 @@ cat ../skills/product-team/ui-design-system/references/design_system_principles.
 # Check component documentation
 echo ""
 echo "3. Component Documentation Status:"
-COMPONENT_DOCS=$(find docs/components -name "*.md" 2>/dev/null | wc -l)
+COMPONENT_DOCS=$(find .docs/canonical/ops docs/components -name "*.md" 2>/dev/null | wc -l)
 echo "   Components documented: $COMPONENT_DOCS"
 
 # Review governance
@@ -680,7 +680,7 @@ if [ -z "$COMPONENT_NAME" ]; then
   exit 1
 fi
 
-COMPONENT_FILE="docs/components/$COMPONENT_NAME.md"
+COMPONENT_FILE=".docs/canonical/ops/ops-repo-component-$COMPONENT_NAME.md"
 
 echo "📝 Creating Component Documentation: $COMPONENT_NAME"
 echo "=========================================="

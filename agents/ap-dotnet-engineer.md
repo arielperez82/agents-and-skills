@@ -283,7 +283,7 @@ python ../skills/engineering-team/senior-dotnet/scripts/performance_profiler.py 
    ```bash
    python ../skills/engineering-team/senior-dotnet/scripts/performance_profiler.py ./src \
      --format markdown \
-     --output performance-report.md
+     --output .docs/reports/report-repo-performance-$(date +%Y-%m-%d).md
    ```
 
 2. **Review Report** - Identify N+1 queries, async antipatterns, memory issues
@@ -299,7 +299,7 @@ python ../skills/engineering-team/senior-dotnet/scripts/performance_profiler.py 
    ```bash
    # Re-run analysis
    python ../skills/engineering-team/senior-dotnet/scripts/performance_profiler.py ./src \
-     --format markdown --output performance-report-after.md
+     --format markdown --output .docs/reports/report-repo-performance-after-$(date +%Y-%m-%d).md
    ```
 
 **Expected Output:** Optimized queries with measurable performance improvements.
@@ -369,14 +369,14 @@ echo "Domain model generated!"
 python ../skills/engineering-team/senior-dotnet/scripts/dependency_analyzer.py ./src \
   --check-security \
   --format markdown \
-  --output security-report.md
+  --output .docs/reports/report-repo-security-audit-$(date +%Y-%m-%d).md
 
 # Analyze performance (includes some security checks)
 python ../skills/engineering-team/senior-dotnet/scripts/performance_profiler.py ./src \
   --format markdown \
-  --output performance-security-report.md
+  --output .docs/reports/report-repo-performance-security-$(date +%Y-%m-%d).md
 
-echo "Security audit complete. Review security-report.md"
+echo "Security audit complete. Review .docs/reports/report-repo-security-audit-$(date +%Y-%m-%d).md"
 ```
 
 ## Success Metrics

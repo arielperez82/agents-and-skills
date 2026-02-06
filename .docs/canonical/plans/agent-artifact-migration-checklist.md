@@ -46,4 +46,6 @@ Per-agent mapping: current read/write paths → canonical or report path. Use th
 
 **Instructions for implementers:** When editing an agent, use this table to replace every current path with the new path. Preserve agent behavior; only change artifact locations and naming. After each agent update, ensure no references to PLAN.md, WIP.md, LEARNINGS.md, or ad-hoc names (roadmap.md, summary.md) remain for coordination.
 
+**Phase 2 status:** All agents in this checklist updated to use `.docs/` paths (as of 2026-02-06). Remaining `./incidents/` references in ap-incident-responder (evidence dir, JSON artifacts) left as-is; report outputs (preliminary-report, executive-alert, regulatory-requirements, data-breach-report, investigation-summary) now under `.docs/reports/incidents/$INCIDENT_ID/`.
+
 **Governed by:** [charter-repo-artifact-conventions.md](../charters/charter-repo-artifact-conventions.md), [plan-repo-artifact-conventions-migration.md](plan-repo-artifact-conventions-migration.md).

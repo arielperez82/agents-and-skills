@@ -200,7 +200,7 @@ Design and deploy VPC architecture for multi-region, high-availability applicati
      --check-redundancy \
      --security-audit \
      --compliance pci-dss \
-     --output report.md
+     --output .docs/reports/report-repo-network-$(date +%Y-%m-%d).md
    ```
 
 5. **Review and Deploy**
@@ -333,7 +333,7 @@ Comprehensive security audit for compliance validation.
      --check-redundancy \
      --security-audit \
      --compliance pci-dss \
-     --output audit-report.md \
+     --output .docs/reports/report-repo-network-audit-$(date +%Y-%m-%d).md \
      --verbose
    ```
 
@@ -429,7 +429,7 @@ python3 ../skills/engineering-team/senior-network-infrastructure/scripts/network
   --check-redundancy \
   --security-audit \
   --compliance pci-dss \
-  --output audit-$(date +%Y%m%d).md
+  --output .docs/reports/report-repo-network-audit-$(date +%Y-%m-%d).md
 
 # Check for critical findings
 if grep -q "severity.*critical" audit-$(date +%Y%m%d).md; then
