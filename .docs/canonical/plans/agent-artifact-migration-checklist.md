@@ -48,4 +48,6 @@ Per-agent mapping: current read/write paths → canonical or report path. Use th
 
 **Phase 2 status:** All agents in this checklist updated to use `.docs/` paths (as of 2026-02-06). Remaining `./incidents/` references in ap-incident-responder (evidence dir, JSON artifacts) left as-is; report outputs (preliminary-report, executive-alert, regulatory-requirements, data-breach-report, investigation-summary) now under `.docs/reports/incidents/$INCIDENT_ID/`.
 
+**Phase 5 status:** Validation complete. Grep: PLAN.md/WIP.md/LEARNINGS.md only in anti-pattern or legacy-fallback text. ap-docs-guardian `docs/adr/` examples updated to `.docs/canonical/adrs/`. Validation section added to `.docs/AGENTS.md`. Bootstrap/docs commands keep `./docs/` paths for backward compatibility; projects using conventions use `.docs/` per charter.
+
 **Governed by:** [charter-repo-artifact-conventions.md](../charters/charter-repo-artifact-conventions.md), [plan-repo-artifact-conventions-migration.md](plan-repo-artifact-conventions-migration.md).

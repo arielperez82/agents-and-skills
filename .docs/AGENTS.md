@@ -66,6 +66,12 @@ Route learnings by scope and half-life:
 
 ---
 
+## Validation (canonical filenames)
+
+Filenames under `.docs/canonical/` should follow the naming grammar above. To audit: grep for `<type>-<endeavor>` in path; types are `charter`, `roadmap`, `backlog`, `plan`, `assessment`, `review`, `ops`; ADRs use `adr-YYYYMMDD-<subject>.md`. Reports under `.docs/reports/` use `report-<endeavor>-<topic>-<timeframe>.md`. Legacy paths (`PLAN.md`, `WIP.md`, `LEARNINGS.md`, `docs/adr/`) are obsolete; if present in a consumer repo, treat as redirect to `.docs/` (e.g. stub: "See .docs/canonical/plans/ for current plan(s).").
+
+---
+
 ## References
 
 - **Charter:** [.docs/canonical/charters/charter-repo-artifact-conventions.md](canonical/charters/charter-repo-artifact-conventions.md)

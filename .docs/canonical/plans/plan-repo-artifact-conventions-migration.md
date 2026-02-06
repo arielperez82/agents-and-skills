@@ -203,6 +203,8 @@ Use the earlier audit. Summary mapping:
 
 **Exit criteria:** Grep clean for old names; migration checklist complete; redirects in place if needed.
 
+**Phase 5 status (complete):** Grep run; remaining references to `PLAN.md`/`WIP.md`/`LEARNINGS.md` are in ap-progress-guardian and README as "do not use" or in phase-0-check as legacy fallback. `docs/adr/` links in ap-docs-guardian updated to `.docs/canonical/adrs/`. Bootstrap/docs commands that create `./docs/project-roadmap.md` or `codebase-summary.md` left as-is for backward compatibility; when a project adopts artifact conventions, use `.docs/canonical/roadmaps/` and `.docs/reports/` per charter. Validation section added to `.docs/AGENTS.md`.
+
 ---
 
 ## Dependency order

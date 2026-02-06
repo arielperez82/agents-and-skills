@@ -910,7 +910,7 @@ Apply the `ap-adr-writer` agent's decision framework to assess if a decision mer
    ```markdown
    ## Authentication System
    
-   We use JWT tokens for authentication. For the rationale behind this decision, including alternatives considered and trade-offs, see [ADR-XXX: Authentication Approach](docs/adr/XXX-authentication-approach.md).
+   We use JWT tokens for authentication. For the rationale behind this decision, including alternatives considered and trade-offs, see [ADR: Authentication Approach](.docs/canonical/adrs/adr-YYYYMMDD-authentication-approach.md).
    ```
 
 **Common Scenarios:**
@@ -1041,7 +1041,7 @@ Together, they ensure documentation is both well-structured (ap-docs-guardian) a
 
 3. **Documentation Update:**
    - ap-docs-guardian references ADR in architecture documentation
-   - Update architecture docs: "We use PostgreSQL. For rationale, see [ADR-001: Database Selection](docs/adr/001-database-selection.md)."
+   - Update architecture docs: "We use PostgreSQL. For rationale, see [ADR-001: Database Selection](.docs/canonical/adrs/adr-YYYYMMDD-database-selection.md)."
    - Ensure documentation follows 7 pillars with proper cross-references
 ```
 

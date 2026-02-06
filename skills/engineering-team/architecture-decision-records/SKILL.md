@@ -393,6 +393,8 @@ adr generate toc > docs/adr/README.md
 adr link 2 "Complements" 1 "Is complemented by"
 ```
 
+When using this repo's artifact conventions (see `.docs/AGENTS.md`), use `.docs/canonical/adrs/` instead of `docs/adr` and naming `adr-YYYYMMDD-<subject>.md`.
+
 ## Review Process
 
 ```markdown
