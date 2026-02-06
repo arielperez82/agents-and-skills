@@ -283,7 +283,7 @@ git add . && git commit -m "test: initialize comprehensive test infrastructure"
 
 4. **Create Test Plan Document** - Document test scope, strategy, and timeline
    ```bash
-   # Create test-plan.md with:
+   # Create .docs/canonical/plans/plan-repo-test-<timeframe>.md (or add Test Strategy section to existing plan) with:
    # - Current coverage baseline (from analysis)
    # - Target coverage goals (80%+ critical paths)
    # - Prioritized test list
@@ -375,7 +375,7 @@ grep -A 5 "Critical Gaps" gaps.txt
    # 4. Data CRUD operations
    # 5. Admin functions
 
-   # Create user-journeys.md documenting each flow
+   # Document user journeys in plan section or .docs/reports/report-repo-user-journeys-<date>.md
    ```
 
 3. **Setup Visual Regression Testing** - Configure screenshot comparison tests

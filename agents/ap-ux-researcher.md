@@ -102,7 +102,7 @@ The ap-ux-researcher agent bridges the gap between user insights and product dec
 **Steps:**
 1. **Plan Research Study** - Define persona research scope:
    ```bash
-   cp ../skills/product-team/ux-researcher-designer/assets/research-plan-template.md persona-research-plan.md
+   cp ../skills/product-team/ux-researcher-designer/assets/research-plan-template.md .docs/canonical/plans/plan-repo-research-persona-2026.md
    ```
    - Research objectives: Understand user segments and their needs
    - Research questions: Who are our users? What are their goals? What problems do they face?
@@ -231,7 +231,7 @@ python ../skills/product-team/ux-researcher-designer/scripts/persona_generator.p
 
 2. **Create Test Plan** - Document study details:
    ```bash
-   cp ../skills/product-team/ux-researcher-designer/assets/research-plan-template.md usability-test-plan.md
+   cp ../skills/product-team/ux-researcher-designer/assets/research-plan-template.md .docs/canonical/plans/plan-repo-research-usability-test-2026.md
    ```
    - Research questions: What do we want to learn?
    - Tasks: 5-7 realistic user tasks
@@ -550,7 +550,7 @@ echo ""
 
 # Create research plan
 echo "1. Creating Research Plan..."
-cp ../skills/product-team/ux-researcher-designer/assets/research-plan-template.md "usability-test-plan-$TEST_NAME.md"
+cp ../skills/product-team/ux-researcher-designer/assets/research-plan-template.md ".docs/canonical/plans/plan-repo-research-usability-$TEST_NAME-2026.md"
 
 echo "   ✅ Research plan template created"
 echo ""

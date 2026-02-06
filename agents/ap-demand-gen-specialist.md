@@ -110,7 +110,7 @@ The ap-demand-gen-specialist agent bridges the gap between marketing strategy an
    ```
 4. **Create Campaign Plan** - Use template to structure multi-channel approach
    ```bash
-   cp ../skills/marketing-team/marketing-demand-acquisition/assets/campaign-plan.md q4-demand-gen-campaign.md
+   cp ../skills/marketing-team/marketing-demand-acquisition/assets/campaign-plan.md .docs/canonical/plans/plan-repo-campaign-2026-q4.md
    ```
 5. **Design Landing Pages** - Reference conversion optimization best practices
    ```bash

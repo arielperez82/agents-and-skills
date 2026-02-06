@@ -336,10 +336,10 @@ This agent leverages seven production-ready Python analysis tools for comprehens
    Read the technical debt report template:
    ```bash
    # Copy and populate template
-   cp ${SKILL_PATH}/assets/technical_debt_report_template.md assessment-report.md
+   cp ${SKILL_PATH}/assets/technical_debt_report_template.md .docs/canonical/assessments/assessment-repo-legacy-$(date +%Y-%m-%d).md
    ```
 
-   Edit `assessment-report.md` to populate:
+   Edit that assessment file to populate:
    - Executive Summary (from debt-score.json)
    - Codebase Inventory (from inventory.json)
    - Security Findings (from security-report.txt)
@@ -352,7 +352,7 @@ This agent leverages seven production-ready Python analysis tools for comprehens
 9. **Create Executive Summary**
    ```bash
    # Copy executive template
-   cp ${SKILL_PATH}/assets/executive_summary_template.md executive-summary.md
+   cp ${SKILL_PATH}/assets/executive_summary_template.md .docs/canonical/assessments/assessment-repo-legacy-executive-$(date +%Y-%m-%d).md
    ```
 
    Populate with:
@@ -695,7 +695,7 @@ This agent leverages seven production-ready Python analysis tools for comprehens
 
    Use executive summary template:
    ```bash
-   cp ${SKILL_PATH}/assets/executive_summary_template.md debt-presentation.md
+   cp ${SKILL_PATH}/assets/executive_summary_template.md .docs/reports/report-repo-debt-presentation-$(date +%Y-%m-%d).md
    ```
 
    Populate with:
@@ -831,7 +831,7 @@ This agent leverages seven production-ready Python analysis tools for comprehens
 
    Copy roadmap template and populate:
    ```bash
-   cp ${SKILL_PATH}/assets/roadmap_template.md modernization-plan.md
+   cp ${SKILL_PATH}/assets/roadmap_template.md .docs/canonical/plans/plan-repo-modernization-$(date +%Y).md
    ```
 
    **Phase 1 (Months 1-3): Foundation & Quick Wins**

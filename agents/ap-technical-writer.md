@@ -1072,7 +1072,7 @@ This agent leverages five production-ready Python automation tools for comprehen
 
    # Or run documentation audit
    python ../skills/engineering-team/technical-writer/scripts/interactive_doc_wizard.py \
-     --workflow audit --output audit-report.md
+     --workflow audit --output .docs/reports/report-repo-audit-$(date +%Y-%m-%d).md
    ```
 
 3. **Follow Step-by-Step Prompts**

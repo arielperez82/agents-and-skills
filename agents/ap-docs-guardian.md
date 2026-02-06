@@ -242,8 +242,8 @@ const payment = processPayment({
 # Read the documentation file(s)
 Read <file>
 
-# Search for related docs
-Glob "**/*.md"
+# Search for related docs (prefer canonical under .docs/)
+Glob ".docs/**/*.md"
 Grep "pattern" --type md
 ```
 
@@ -989,7 +989,7 @@ Together, they ensure documentation is both well-structured (ap-docs-guardian) a
 1. **Discovery Phase:**
    - ap-docs-guardian: "Let me read the current README and assess it against world-class standards."
    - Use `Read README.md` to understand current state
-   - Use `Glob "docs/**/*.md"` to find related documentation
+   - Use `Glob ".docs/**/*.md"` for canonical docs; treat `.docs/canonical/**` as authoritative. Optionally `Glob "docs/**/*.md"` for legacy docs.
 
 2. **Analysis Phase:**
    - Apply 7 pillars checklist
@@ -1098,7 +1098,7 @@ Together, they ensure documentation is both well-structured (ap-docs-guardian) a
 **Glob:**
 - Find all documentation files matching patterns
 - Use when: Discovering documentation structure, finding related docs, auditing documentation coverage
-- Example: `Glob "**/*.md"` to find all markdown files in project
+- Prefer `Glob ".docs/**/*.md"` for coordination/canonical docs; `.docs/canonical/**` is authoritative. Example: `Glob "**/*.md"` for project-wide markdown.
 
 **Grep:**
 - Search documentation for specific terms, patterns, or content

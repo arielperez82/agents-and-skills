@@ -1227,7 +1227,7 @@ python3 ../skills/engineering-team/senior-observability/scripts/metrics_analyzer
   --file "$REPORT_DIR/anomalies.json"
 
 # 3. Generate summary report
-cat > "$REPORT_DIR/weekly-review.md" <<EOF
+cat > ".docs/reports/report-repo-weekly-$(date +%Y-w%V).md" <<EOF
 # Weekly SLO Review - $REPORT_DATE
 
 ### SLO Status Summary
@@ -1251,8 +1251,8 @@ $(jq -r 'if .budget_remaining < 50 then "- [ ] Review error budget consumption f
 Generated: $(date)
 EOF
 
-echo "Report saved to $REPORT_DIR/weekly-review.md"
-cat "$REPORT_DIR/weekly-review.md"
+echo "Report saved to .docs/reports/report-repo-weekly-$(date +%Y-w%V).md"
+cat ".docs/reports/report-repo-weekly-$(date +%Y-w%V).md"
 ```
 
 ### Example 2: Automated Dashboard Sync

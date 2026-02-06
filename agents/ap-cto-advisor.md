@@ -437,7 +437,7 @@ echo "Risk Assessment:" >> "$PLANNING_DIR/board_summary.txt"
 cat "$PLANNING_DIR/scaling_plan.json" | jq -r '.risk_assessment' >> "$PLANNING_DIR/board_summary.txt"
 
 # Step 4: Use board update template
-cat ../skills/engineering-team/cto-advisor/references/templates.md | grep -A 40 "Board Update Email" > "$PLANNING_DIR/board_email_template.md"
+cat ../skills/engineering-team/cto-advisor/references/templates.md | grep -A 40 "Board Update Email" > ".docs/reports/report-repo-board-email-$(date +%Y-%m-%d).md"
 
 # Output results
 cat "$PLANNING_DIR/board_summary.txt"
@@ -455,14 +455,12 @@ echo "- Board presentation template ready for customization"
 # adr-workflow.sh - Create and manage Architecture Decision Records
 
 # Configuration
-ADR_DIR="./docs/architecture/decisions"
+ADR_DIR=".docs/canonical/adrs"
 mkdir -p "$ADR_DIR"
-ADR_NUMBER=$(ls "$ADR_DIR" | wc -l | xargs)
-ADR_NUMBER=$((ADR_NUMBER + 1))
-ADR_FILE="$ADR_DIR/$(printf "%04d" $ADR_NUMBER)-database-selection.md"
+ADR_FILE="$ADR_DIR/adr-$(date +%Y%m%d)-database-selection.md"
 
 # Step 1: Copy ADR template
-echo "Creating ADR #$ADR_NUMBER for database selection decision..."
+echo "Creating ADR for database selection decision at $ADR_FILE..."
 cat > "$ADR_FILE" <<'EOF'
 # ADR-0001: Database Selection for User Service
 

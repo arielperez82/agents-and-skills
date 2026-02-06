@@ -1035,7 +1035,7 @@ python3 ../skills/engineering-team/senior-devops/scripts/deployment_manager.py \
 
 # 4. Generate summary report
 echo "📊 Generating Summary Report..."
-cat > "$REPORT_DIR/summary.md" <<EOF
+cat > ".docs/reports/report-repo-security-audit-$(date +%Y-%m-%d).md" <<EOF
 # Infrastructure Audit Report - $REPORT_DATE
 
 ### CI/CD Pipeline Analysis
@@ -1056,8 +1056,8 @@ $(jq -r '.summary' "$REPORT_DIR/k8s-audit.json")
 Generated: $REPORT_DATE
 EOF
 
-echo "✅ Audit Complete! Report saved to $REPORT_DIR/summary.md"
-cat "$REPORT_DIR/summary.md"
+echo "✅ Audit Complete! Report saved to .docs/reports/report-repo-security-audit-$(date +%Y-%m-%d).md"
+cat ".docs/reports/report-repo-security-audit-$(date +%Y-%m-%d).md"
 ```
 
 ### Example 2: Automated Deployment Pipeline with Rollback

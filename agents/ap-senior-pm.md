@@ -238,7 +238,7 @@ mkdir -p stakeholder-reporting/$(date +%Y-%m)
 
 # Create executive status update
 cd stakeholder-reporting/$(date +%Y-%m)
-cat > executive-summary-$(date +%Y-%m-%d).md << 'EOF'
+cat > .docs/reports/report-repo-executive-summary-$(date +%Y-%m-%d).md << 'EOF'
 # Executive Status Update - November 12, 2025
 
 ## Portfolio Health: 🟢 GREEN (On Track)
@@ -509,7 +509,7 @@ mkdir -p "$REPORT_DIR"
 echo "📊 Generating Monthly Portfolio Report for $MONTH"
 
 # Create portfolio summary
-cat > "$REPORT_DIR/portfolio-summary.md" << 'EOF'
+cat > ".docs/reports/report-repo-portfolio-summary-$(date +%Y-%m-%d).md" << 'EOF'
 # Portfolio Summary Report
 
 ### Portfolio Overview
