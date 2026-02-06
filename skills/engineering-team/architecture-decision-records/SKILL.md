@@ -373,27 +373,29 @@ This directory contains Architecture Decision Records (ADRs) for [Project Name].
 
 ### Automation (adr-tools)
 
+**Preferred (repos using this repo's artifact conventions):** Store ADRs under `.docs/canonical/adrs/` with naming `adr-YYYYMMDD-<subject>.md`. See `.docs/AGENTS.md` for the operating reference.
+
 ```bash
 # Install adr-tools
 brew install adr-tools
 
-# Initialize ADR directory
-adr init docs/adr
+# Initialize ADR directory (canonical layout)
+adr init .docs/canonical/adrs
 
-# Create new ADR
+# Create new ADR (use date-prefixed naming: adr-YYYYMMDD-<subject>.md)
 adr new "Use PostgreSQL as Primary Database"
 
 # Supersede an ADR
 adr new -s 3 "Deprecate MongoDB in Favor of PostgreSQL"
 
-# Generate table of contents
-adr generate toc > docs/adr/README.md
+# Generate table of contents (optional index)
+adr generate toc > .docs/canonical/adrs/index.md
 
 # Link related ADRs
 adr link 2 "Complements" 1 "Is complemented by"
 ```
 
-When using this repo's artifact conventions (see `.docs/AGENTS.md`), use `.docs/canonical/adrs/` instead of `docs/adr` and naming `adr-YYYYMMDD-<subject>.md`.
+**Alternative (repos not yet using conventions):** You can use `docs/adr` and `adr init docs/adr`, `adr generate toc > docs/adr/README.md`; migrate to `.docs/canonical/adrs/` when adopting the conventions.
 
 ## Review Process
 

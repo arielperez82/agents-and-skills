@@ -39,7 +39,7 @@ python /mnt/skills/user/exploring-data/scripts/summarize_insights.py /mnt/user-d
 ```
 
 **Reads:** `eda_report.json` (comprehensive ydata output)  
-**Writes:** `eda_insights_summary.md` (condensed for Claude)  
+**Writes:** `eda_insights_summary.md` (condensed for Claude). When this repo's artifact conventions are in use (see `.docs/AGENTS.md`), write instead to `.docs/reports/report-<endeavor>-eda-insights-<timeframe>.md` (e.g. `report-repo-eda-insights-2026-02-06.md`).  
 **Outputs to stdout:** Formatted markdown summary
 
 Claude should read the stdout markdown summary, NOT the full JSON report.

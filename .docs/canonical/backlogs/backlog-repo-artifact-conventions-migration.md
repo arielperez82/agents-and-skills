@@ -30,6 +30,17 @@ Single continuous queue of **changes** (smallest independently valuable incremen
 | B15 | Wire ap-learn, ap-adr-writer, ap-progress-guardian, ap-docs-guardian for learnings/ADR | 4 | Agent behavior | Phase 3.2–3.5 |
 | B16 | Update commands (e.g. plan.md) and agents/README.md to `.docs/` | 5 | Commands/READMEs | Phase 4 |
 | B17 | Validation: grep for old names; complete checklist; redirects if needed | 6 | Clean state | Phase 5 |
+| B18 | Align planning skill: .docs/ plans, reports, three-layer learnings; remove PLAN.md/WIP.md/LEARNINGS.md | 6 | Skills alignment | Phase 6 |
+| B19 | Fix code-reviewer reference example: docs/plans → .docs/canonical/plans/ | 6 | Skills alignment | Phase 6 |
+| B20 | Fix subagent-driven-development: plan path → .docs/canonical/plans/ | 6 | Skills alignment | Phase 6 |
+| B21 | Align seo-strategist: roadmap output → .docs/canonical/roadmaps/ with naming grammar | 6 | Skills alignment | Phase 6 |
+| B22 | Align legacy-codebase-analyzer: assessments/reports → .docs/canonical/assessments/ and .docs/reports/ | 6 | Skills alignment | Phase 6 |
+| B23 | Align exploring-data: output → .docs/reports/ with report naming | 6 | Skills alignment | Phase 6 |
+| B24 | architecture-decision-records: lead with .docs/canonical/adrs/; docs/adr as fallback | 6 | Skills alignment | Phase 6 |
+| B25 | technical-writer reference: prefer .docs/canonical/adrs/ as default for ADR storage | 6 | Skills alignment | Phase 6 |
+| B26 | refactoring-agents: refactor report destination → .docs/reports/ when using conventions | 6 | Skills alignment | Phase 6 |
+| B27 | skills/README + delivery/engineering/marketing CLAUDE: PLAN.md ref, IMPLEMENTATION_SUMMARY, roadmap refs | 6 | Skills alignment | Phase 6 |
+| B28 | Align brainstorming skill: design output `docs/plans/` → `.docs/canonical/plans/` with naming grammar | 6 | Skills alignment | Phase 6 |
 
 ## Backlog item lens (per charter)
 
@@ -48,3 +59,4 @@ Single continuous queue of **changes** (smallest independently valuable incremen
 - Charter: [charter-repo-artifact-conventions.md](../charters/charter-repo-artifact-conventions.md)
 - Roadmap: [roadmap-repo-artifact-conventions-migration-2026.md](../roadmaps/roadmap-repo-artifact-conventions-migration-2026.md)
 - Plan: [plan-repo-artifact-conventions-migration.md](../plans/plan-repo-artifact-conventions-migration.md)
+- Skills audit: [report-repo-skills-artifact-conventions-audit-2026-02-06.md](../../reports/report-repo-skills-artifact-conventions-audit-2026-02-06.md)

@@ -35,7 +35,7 @@ Start by understanding the current project context, then ask questions one at a 
 ## After the Design
 
 **Documentation:**
-- Write the validated design to `docs/plans/YYYY-MM-DD-<topic>-design.md`
+- Write the validated design to a plan document. When this repo's artifact conventions are in use (see `.docs/AGENTS.md`), use `.docs/canonical/plans/plan-<endeavor>-<subject>[-<timeframe>].md` (e.g. `plan-repo-auth-design-2026-02-06.md`). Otherwise `docs/plans/YYYY-MM-DD-<topic>-design.md` is acceptable.
 - Use elements-of-style:writing-clearly-and-concisely skill if available
 - Commit the design document to git
 

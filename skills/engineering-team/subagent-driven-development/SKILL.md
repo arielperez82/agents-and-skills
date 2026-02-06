@@ -93,7 +93,7 @@ digraph process {
 ```
 You: I'm using Subagent-Driven Development to execute this plan.
 
-[Read plan file once: docs/plans/feature-plan.md]
+[Read plan file once: .docs/canonical/plans/plan-<endeavor>-<subject>[-<timeframe>].md — e.g. plan-repo-feature-auth.md. When artifact conventions are in use, plans live under .docs/canonical/plans/.]
 [Extract all 5 tasks with full text and context]
 [Create TodoWrite with all tasks]
 

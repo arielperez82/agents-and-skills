@@ -110,7 +110,7 @@ This skill provides automated tools and expert frameworks for developing compreh
 - **Keyword Research & Clustering** - Analyze keyword lists, create topic clusters, map to content pillars
 - **Technical SEO Audits** - Crawlability, indexation, site structure, Core Web Vitals assessment
 - **Competitive Analysis** - SERP position tracking, content gap analysis, competitor benchmarking
-- **SEO Roadmap Planning** - Prioritized action items, quarterly planning, resource estimation
+- **SEO Roadmap Planning** - Prioritized action items, quarterly planning, resource estimation. When this repo's artifact conventions are in use, write roadmaps to `.docs/canonical/roadmaps/roadmap-<endeavor>-seo-<timeframe>.md` (see `.docs/AGENTS.md`).
 - **Site Architecture** - Internal linking strategy, URL structure, information architecture
 - **Performance Monitoring** - KPI tracking, ranking reports, progress dashboards
 
@@ -286,8 +286,8 @@ python scripts/seo_roadmap_generator.py audit.json --quarters 4
 # Focus on quick wins
 python scripts/seo_roadmap_generator.py audit.json --quick-wins
 
-# Markdown report
-python scripts/seo_roadmap_generator.py audit.json --output md > roadmap.md
+# Markdown report (when using artifact conventions, write to .docs/canonical/roadmaps/ with naming roadmap-<endeavor>-seo-<timeframe>.md, e.g. roadmap-repo-seo-2026-q1.md)
+python scripts/seo_roadmap_generator.py audit.json --output md > .docs/canonical/roadmaps/roadmap-repo-seo-2026-q1.md
 
 # Help
 python scripts/seo_roadmap_generator.py --help

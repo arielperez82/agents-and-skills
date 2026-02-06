@@ -78,6 +78,8 @@ This skill delivers enterprise-grade legacy codebase analysis capabilities throu
 - **50% faster** modernization roadmap creation
 - **80% increase** in stakeholder confidence with data-driven insights
 
+**Artifact conventions:** When this repo's artifact conventions are in use (see `.docs/AGENTS.md`), write assessments to `.docs/canonical/assessments/assessment-<endeavor>-<subject>-<date>.md` and reports (e.g. baseline, quarterly, progress) to `.docs/reports/report-<endeavor>-<topic>-<timeframe>.md`. Use the naming grammar for all coordination outputs (executive summary, modernization roadmap, assessment summary). Scripts that write to `reports/` can be directed to `.docs/reports/` when the project adopts conventions.
+
 **Use this skill when:**
 - Inheriting a legacy codebase and need comprehensive assessment
 - Planning major system modernization or replatforming initiatives
@@ -144,7 +146,7 @@ python scripts/modernization_roadmap_generator.py /path/to/legacy-project
 python scripts/modernization_roadmap_generator.py /path/to/legacy-project --timeline 12
 
 # Generate executive summary
-python scripts/modernization_roadmap_generator.py /path/to/legacy-project --executive-summary --output roadmap.md
+python scripts/modernization_roadmap_generator.py /path/to/legacy-project --executive-summary --output .docs/canonical/assessments/assessment-repo-modernization-$(date +%Y-%m-%d).md
 ```
 
 ### Access Documentation
@@ -1140,7 +1142,7 @@ python scripts/modernization_roadmap_generator.py /path/to/legacy-project
 python scripts/modernization_roadmap_generator.py /path/to/legacy-project --timeline 24
 
 # Executive summary format
-python scripts/modernization_roadmap_generator.py /path/to/legacy-project --executive-summary --output roadmap.md
+python scripts/modernization_roadmap_generator.py /path/to/legacy-project --executive-summary --output .docs/canonical/assessments/assessment-repo-modernization-$(date +%Y-%m-%d).md
 
 # Include cost analysis
 python scripts/modernization_roadmap_generator.py /path/to/legacy-project --cost-analysis --team-size 8

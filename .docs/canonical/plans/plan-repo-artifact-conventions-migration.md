@@ -207,13 +207,37 @@ Use the earlier audit. Summary mapping:
 
 ---
 
+### Phase 6: Skills alignment
+
+**Goal:** All skills that prescribe or exemplify coordination-artifact paths use `.docs/` and the naming grammar. Source: [report-repo-skills-artifact-conventions-audit-2026-02-06.md](../../reports/report-repo-skills-artifact-conventions-audit-2026-02-06.md).
+
+| Task | Backlog | Notes |
+|------|---------|--------|
+| 6.1 | B18 | **planning**: Replace three-doc model (PLAN.md, WIP.md, LEARNINGS.md) with `.docs/canonical/plans/`, `.docs/reports/report-<endeavor>-status-<timeframe>.md`, and three-layer learnings (AGENTS.md, assessments/Learnings sections, skills). Update asset deployment-checklist.md. |
+| 6.2 | B19 | **code-reviewer**: references/requesting-code-review.md — example path `docs/plans/deployment-plan.md` → `.docs/canonical/plans/plan-<endeavor>-deployment-<timeframe>.md` (or note conventions). |
+| 6.3 | B20 | **subagent-driven-development**: Plan read path `docs/plans/feature-plan.md` → `.docs/canonical/plans/` with naming grammar. |
+| 6.4 | B21 | **seo-strategist**: Roadmap output → `.docs/canonical/roadmaps/roadmap-<endeavor>-seo-<timeframe>.md`; document in skill. |
+| 6.5 | B22 | **legacy-codebase-analyzer**: Assessments → `.docs/canonical/assessments/`; reports → `.docs/reports/`; update skill text and examples. |
+| 6.6 | B23 | **exploring-data**: Output `eda_insights_summary.md` → `.docs/reports/report-<endeavor>-eda-insights-<timeframe>.md`; document conventions. |
+| 6.7 | B24 | **architecture-decision-records**: Lead with `.docs/canonical/adrs/` and naming; keep `docs/adr` as optional fallback. |
+| 6.8 | B25 | **technical-writer** references: developer_documentation_guide.md — prefer `.docs/canonical/adrs/` as default. |
+| 6.9 | B26 | **refactoring-agents**: State that refactor reports go to `.docs/reports/report-<endeavor>-refactor-<timeframe>.md` when using conventions. |
+| 6.10 | B27 | **skills/README.md**: "PLAN.md" → ".docs/ plans and progress (see .docs/AGENTS.md)". **delivery-team/CLAUDE.md**: IMPLEMENTATION_SUMMARY.md → note `.docs/reports/` for repo-level. **engineering-team/CLAUDE.md**, **marketing-team/CLAUDE.md**: Optional note that repo-level roadmaps live under `.docs/` per AGENTS.md. |
+| 6.11 | B28 | **brainstorming**: Design output path `docs/plans/YYYY-MM-DD-<topic>-design.md` → `.docs/canonical/plans/plan-<endeavor>-<subject>[-<timeframe>].md` (or document conventions); see `skills/brainstorming/SKILL.md`. |
+
+**Exit criteria:** All skills in the audit that were marked critical or moderate updated; README and CLAUDE minor items addressed. No skill prescribes PLAN.md, WIP.md, LEARNINGS.md, or ad-hoc coordination paths as the primary location.
+
+**Phase 6 status (complete):** B18–B28 implemented. Planning skill now uses `.docs/` and three-layer learnings; code-reviewer, subagent-driven-development, seo-strategist, legacy-codebase-analyzer, exploring-data, architecture-decision-records, technical-writer reference, refactoring-agents, brainstorming aligned; skills/README and delivery/engineering/marketing CLAUDE updated.
+
+---
+
 ## Dependency order
 
 - Phase 0 before Phase 1 (structure and AGENTS.md must exist).
 - Phase 1 before Phase 2 (need mapping to edit agents correctly).
 - Phase 2 and 3 can overlap (agent path updates + learnings/ADR wiring).
 - Phase 4 after Phase 2 (commands reference agent behavior).
-- Phase 5 last (validation and cleanup).
+- Phase 5 (validation and cleanup); Phase 6 (skills alignment) after Phase 5.
 
 ---
 

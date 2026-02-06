@@ -59,7 +59,7 @@ mcp__atlassian__link_issue issue="PROJ-123" confluence_page_id="456789"
 ## Additional Resources
 
 - **Installation Guide:** `INSTALLATION_GUIDE.txt`
-- **Implementation Summary:** `IMPLEMENTATION_SUMMARY.md`
+- **Implementation Summary:** `IMPLEMENTATION_SUMMARY.md` (for repo-level coordination outputs, use `.docs/reports/report-<endeavor>-<topic>-<timeframe>.md` per `.docs/AGENTS.md`)
 - **Real-World Scenario:** `REAL_WORLD_SCENARIO.md`
 - **PM Overview:** `README.md`
 - **Agent Authoring Guide:** `../../agents/ap-agent-author.md`

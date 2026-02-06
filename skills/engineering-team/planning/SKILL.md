@@ -7,41 +7,46 @@ description: Planning work in small, known-good increments. Use when starting si
 
 **All work must be done in small, known-good increments.** Each increment leaves the codebase in a working state where all tests pass.
 
-**Document Management**: Use the `ap-progress-guardian` agent to assess and validate progress tracking documents (PLAN.md, WIP.md, LEARNINGS.md). The guardian reports on what's missing and needs to be documented - implementers create and maintain the documents.
+**Document management:** When this repo's artifact conventions are in use, all coordination artifacts live under `.docs/`. Use the `ap-progress-guardian` agent to assess and validate progress: it checks `.docs/canonical/plans/plan-<endeavor>-*.md`, `.docs/reports/report-<endeavor>-status-*.md`, and learnings in `.docs/AGENTS.md` plus "Learnings" sections in canonical docs. Implementers create and maintain those documents.
 
-## Three-Document Model
+## Canonical layout (when using .docs/)
 
-For significant work, maintain three documents:
+For significant work under artifact conventions:
 
-| Document | Purpose | Lifecycle |
-|----------|---------|-----------|
-| **PLAN.md** | What we're doing | Created at start, changes need approval |
-| **WIP.md** | Where we are now | Updated constantly, always accurate |
-| **LEARNINGS.md** | What we discovered | Temporary, merged at end then deleted |
+| Artifact | Location | Purpose |
+|----------|----------|---------|
+| **Plan** | `.docs/canonical/plans/plan-<endeavor>-<subject>[-<timeframe>].md` | What we're doing; created at start, changes need approval |
+| **Status** | `.docs/reports/report-<endeavor>-status-<timeframe>.md` | Where we are now; updated constantly |
+| **Learnings** | Three layers (see below) | What we discovered; routed by scope |
 
-### Document Relationships
+### Learnings (three layers)
+
+Route learnings by scope and half-life:
+
+1. **Layer 1 — Operational (cross-agent):** `.docs/AGENTS.md`. Use for: gotchas and patterns that change how agents behave; global conventions. Bridge rule: cross-agent behavior change → short entry in AGENTS.md + pointer to source.
+2. **Layer 2 — Domain (endeavor-level):** `.docs/canonical/assessments/assessment-<endeavor>-<subject>-<date>.md` or a **"Learnings" section** in the relevant plan, charter, roadmap, or backlog. Use for: conclusions that shape prioritization, constraints, architecture direction. Rule: if a learning changes what we do next, it must land in canonical docs.
+3. **Layer 3 — Deep specialist:** With the agent's skills/commands. Use for: checklists, frameworks, implementation patterns. Rule: "how to think/do", not "what this repo has decided."
+
+**ADR:** Architectural decisions → `.docs/canonical/adrs/adr-YYYYMMDD-<subject>.md`. Use the `ap-adr-writer` agent when appropriate.
+
+### Document flow
 
 ```
-PLAN.md (static)          WIP.md (living)           LEARNINGS.md (temporary)
-┌─────────────────┐       ┌─────────────────┐       ┌─────────────────┐
-│ Goal            │       │ Current step    │       │ Gotchas         │
-│ Acceptance      │  ──►  │ Status          │  ──►  │ Patterns        │
-│ Steps 1-N       │       │ Blockers        │       │ Decisions       │
-│ (approved)      │       │ Next action     │       │ Edge cases      │
-└─────────────────┘       └─────────────────┘       └─────────────────┘
-        │                         │                         │
-        │                         │                         │
-        └─────────────────────────┴─────────────────────────┘
-                                  │
-                                  ▼
-                         END OF FEATURE
-                                  │
-                    ┌─────────────┴─────────────┐
-                    │                           │
-                    ▼                           ▼
-              DELETE all              Merge LEARNINGS into:
-              three docs              - CLAUDE.md (gotchas, patterns)
-                                      - ADRs (architectural decisions)
+Plan (canonical)              Status (report)              Learnings (layers)
+┌─────────────────┐           ┌─────────────────┐           ┌─────────────────┐
+│ Goal            │           │ Current step    │           │ Layer 1→AGENTS  │
+│ Acceptance      │  ──►      │ Status          │  ──►     │ Layer 2→assess  │
+│ Steps 1-N       │           │ Blockers        │           │   or Learnings   │
+│ (approved)      │           │ Next action     │           │   section       │
+└─────────────────┘           └─────────────────┘           │ Layer 3→skills  │
+        │                             │                     │ ADR→.docs/.../adrs
+        └─────────────────────────────┴─────────────────────┘
+                                      │
+                                      ▼
+                             END OF FEATURE
+                                      │
+                          Merge learnings to layers 1–3;
+                          archive or supersede plan/status as needed.
 ```
 
 ## What Makes a "Known-Good Increment"
@@ -105,8 +110,8 @@ After completing a step (RED-GREEN-REFACTOR):
 
 1. Verify all tests pass
 2. Verify static analysis passes
-3. Update WIP.md with progress
-4. Capture any learnings in LEARNINGS.md
+3. Update status report (`.docs/reports/report-<endeavor>-status-<timeframe>.md`) with progress
+4. Capture learnings in the appropriate layer (AGENTS.md, assessment or Learnings section, or skill)
 5. **STOP and ask**: "Ready to commit [description]. Approve?"
 
 Only proceed with commit after explicit approval.
@@ -120,9 +125,11 @@ Only proceed with commit after explicit approval.
 
 ## Phase 0 (Quality Gate) First
 
-When the plan involves a **new project**, the quality gate must be **complete before any feature work**. Two valid patterns: (1) minimal skeleton then add all gates (type-check, pre-commit, lint, format, markdown lint, a11y lint, audit script), or (2) scaffold that includes quality tooling then verify and add missing pieces. Document which pattern in PLAN.md. Load the `quality-gate-first` skill for the full checklist. Feature work starts only after the gate is in place (Phase 1 or Step 2+).
+When the plan involves a **new project**, the quality gate must be **complete before any feature work**. Two valid patterns: (1) minimal skeleton then add all gates (type-check, pre-commit, lint, format, markdown lint, a11y lint, audit script), or (2) scaffold that includes quality tooling then verify and add missing pieces. Document which pattern in the plan (under `.docs/canonical/plans/`). Load the `quality-gate-first` skill for the full checklist. Feature work starts only after the gate is in place (Phase 1 or Step 2+).
 
-## PLAN.md Structure
+## Plan structure (canonical)
+
+Plans live under `.docs/canonical/plans/` with naming `plan-<endeavor>-<subject>[-<timeframe>].md`. Example structure:
 
 ```markdown
 # Plan: [Feature Name]
@@ -155,7 +162,7 @@ When the plan involves a **new project**, the quality gate must be **complete be
 **Done when**: ...
 ```
 
-### Plan Changes Require Approval
+### Plan changes require approval
 
 If the plan needs to change:
 
@@ -165,10 +172,12 @@ If the plan needs to change:
 
 Plans are not immutable, but changes must be explicit and approved.
 
-## WIP.md Structure
+## Status report structure
+
+Status lives under `.docs/reports/report-<endeavor>-status-<timeframe>.md` (e.g. `report-repo-status-2026-w06.md`). Keep it current.
 
 ```markdown
-# WIP: [Feature Name]
+# Status: [Feature Name]
 
 ## Current Step
 
@@ -196,96 +205,40 @@ Step N of M: [Description]
 [Specific next thing to do]
 ```
 
-### WIP Must Always Be Accurate
+**If the status report doesn't reflect reality, update it immediately.**
 
-Update WIP.md:
-- When starting a new step
-- When status changes (RED → GREEN → REFACTOR)
-- When blockers appear or resolve
-- After each commit
-- At end of each session
+## Capturing learnings
 
-**If WIP.md doesn't reflect reality, update it immediately.**
+Capture learnings as they occur. Route by type:
 
-## LEARNINGS.md Structure
+| Learning type | Destination |
+|---------------|-------------|
+| Gotchas, patterns (cross-agent) | Layer 1: `.docs/AGENTS.md` (use `ap-learn` or equivalent) |
+| Domain conclusions, "what we do next" | Layer 2: assessment or "Learnings" section in plan/charter/roadmap/backlog |
+| How-to, checklists, templates | Layer 3: with the relevant skill or command |
+| Architectural decisions | `.docs/canonical/adrs/adr-YYYYMMDD-<subject>.md` (use `ap-adr-writer` when applicable) |
 
-```markdown
-# Learnings: [Feature Name]
+Don't wait until the end of the feature; add to the appropriate place as you discover.
 
-## Gotchas
-
-### [Title]
-- **Context**: When this occurs
-- **Issue**: What goes wrong
-- **Solution**: How to handle it
-
-## Patterns That Worked
-
-### [Title]
-- **What**: Description
-- **Why it works**: Rationale
-- **Example**: Brief code example
-
-## Decisions Made
-
-### [Title]
-- **Options considered**: What we evaluated
-- **Decision**: What we chose
-- **Rationale**: Why
-- **Trade-offs**: What we gained/lost
-
-## Edge Cases
-
-- [Edge case 1]: How we handled it
-- [Edge case 2]: How we handled it
-```
-
-### Capture Learnings As They Occur
-
-Don't wait until the end. When you discover something:
-
-1. Add it to LEARNINGS.md immediately
-2. Continue with current work
-3. At end of feature, learnings are ready to merge
-
-## End of Feature
+## End of feature
 
 When all steps are complete:
 
-### 1. Verify Completion
+### 1. Verify completion
 
 - All acceptance criteria met
 - All tests passing
-- All steps marked complete in WIP.md
+- All steps marked complete in the status report
 
-### 2. Merge Learnings
+### 2. Merge learnings
 
-Review LEARNINGS.md and determine destination:
+Ensure every learning is in the right layer (AGENTS.md, canonical "Learnings" or assessment, skill, or ADR). No standalone LEARNINGS file; knowledge lives in the three-layer model and ADRs.
 
-| Learning Type | Destination | Method |
-|---------------|-------------|--------|
-| Gotchas | CLAUDE.md | Use `learn` agent |
-| Patterns | CLAUDE.md | Use `learn` agent |
-| Architectural decisions | ADR | Use `adr` agent |
-| Domain knowledge | Project docs | Direct update |
+### 3. Archive or supersede plan/status
 
-### 3. Delete Documents
+Per repo policy: archive the plan or mark it complete; status report can be superseded by a final report or removed when no longer needed. No deletion of canonical docs required—they remain under `.docs/`.
 
-After learnings are merged:
-
-```bash
-rm PLAN.md WIP.md LEARNINGS.md
-git add -A
-git commit -m "chore: complete [feature], remove planning docs"
-```
-
-**The knowledge lives on in:**
-- CLAUDE.md (gotchas, patterns)
-- ADRs (architectural decisions)
-- Git history (what was done)
-- Project docs (if applicable)
-
-## Anti-Patterns
+## Anti-patterns
 
 ❌ **Committing without approval**
 - Always wait for explicit "yes" before committing
@@ -296,46 +249,46 @@ git commit -m "chore: complete [feature], remove planning docs"
 ❌ **Writing code before tests**
 - RED comes first, always
 
-❌ **Letting WIP.md become stale**
+❌ **Letting status report become stale**
 - Update immediately when reality changes
 
 ❌ **Waiting until end to capture learnings**
-- Add to LEARNINGS.md as discoveries occur
+- Route to the appropriate layer as discoveries occur
 
 ❌ **Plans that change silently**
 - All plan changes require discussion and approval
 
-❌ **Keeping planning docs after feature complete**
-- Delete them; knowledge is now in permanent locations
+❌ **Using PLAN.md / WIP.md / LEARNINGS.md when .docs/ is adopted**
+- Use `.docs/canonical/plans/`, `.docs/reports/`, and the three-layer learnings model instead. See `.docs/AGENTS.md` for the operating reference.
 
-## Quick Reference
+## Quick reference
 
 ```
-START FEATURE
+START FEATURE (with .docs/)
 │
-├─► Create PLAN.md (get approval)
-├─► Create WIP.md
-├─► Create LEARNINGS.md
+├─► Create plan under .docs/canonical/plans/ (get approval)
+├─► Create/update status under .docs/reports/report-<endeavor>-status-<timeframe>.md
+├─► Capture learnings in layers 1–3 (AGENTS.md, canonical Learnings/assessment, skills) as you go
 │
 │   FOR EACH STEP:
 │   │
 │   ├─► RED: Failing test
 │   ├─► GREEN: Make it pass
 │   ├─► REFACTOR: If valuable
-│   ├─► Update WIP.md
-│   ├─► Capture learnings
+│   ├─► Update status report
+│   ├─► Capture learnings in correct layer
 │   └─► **WAIT FOR COMMIT APPROVAL**
 │
 END FEATURE
 │
 ├─► Verify all criteria met
-├─► Merge learnings (learn agent, adr agent)
-└─► Delete PLAN.md, WIP.md, LEARNINGS.md
+├─► Merge learnings (layers 1–3, ADRs)
+└─► Archive/supersede plan and status as needed
 ```
 
-## Documentation Templates
+## Documentation templates
 
-### Deployment Checklist Template
+### Deployment checklist template
 
 **For database migrations, use the template:** `assets/deployment-checklist.md`
 
@@ -365,9 +318,9 @@ END FEATURE
 - [ ] No errors in application logs
 ```
 
-### Architecture Decision Record (ADR) Template
+### Architecture Decision Record (ADR) template
 
-**For significant architectural decisions:**
+**For significant architectural decisions:** Write under `.docs/canonical/adrs/adr-YYYYMMDD-<subject>.md`. Required front matter: `type: adr`, `endeavor`, `status: proposed|accepted|superseded`, `date`, `supersedes`, `superseded_by`. See `.docs/AGENTS.md` and the `architecture-decision-records` skill.
 
 ```markdown
 # ADR-XXX: [Decision Title]
@@ -391,7 +344,7 @@ END FEATURE
 - [Link to related discussions, PRs, or documentation]
 ```
 
-### RLS Policy Strategy Template
+### RLS policy strategy template
 
 **Document RLS policy strategy for application tables:**
 

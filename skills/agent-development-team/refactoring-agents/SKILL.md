@@ -70,7 +70,7 @@ Clarify what you’re touching and why:
 - What problems are you seeing? (e.g., overlap, confusion, missing role)
 - What outcomes do you want? (fewer agents, clearer responsibilities, new roles)
 
-Capture this in a refactor report using `assets/refactor-report-template.md`.
+Capture this in a refactor report using `assets/refactor-report-template.md`. When this repo's artifact conventions are in use (see `.docs/AGENTS.md`), write the report to `.docs/reports/report-<endeavor>-refactor-<timeframe>.md` (e.g. `report-repo-refactor-2026-02-06.md`).
 
 ### Step 2: Inventory Current State
 
@@ -198,7 +198,7 @@ Use this when you need a non-implementing assessor for a cross-cutting concern.
 
 When starting an agent ecosystem refactor:
 
-1. Copy `assets/refactor-report-template.md` to a working location
+1. Copy `assets/refactor-report-template.md` to a working location (when using artifact conventions, use `.docs/reports/report-<endeavor>-refactor-<timeframe>.md`)
 2. Fill in **Context** and **Analysis** using this skill and `references/refactor-guide.md`
 3. Decide on refactor levers and target design
 4. Execute implementation using subagent-driven or manual workflows

@@ -38,7 +38,7 @@ If deployment fails:
 2. **Review error logs**: Identify root cause
 3. **Execute rollback**: Run rollback section from migration file
 4. **Verify rollback**: `supabase db diff` should show migration changes removed
-5. **Document issue**: Add to LEARNINGS.md or create issue
+5. **Document issue**: Add to learnings (appropriate layer per `.docs/AGENTS.md`) or create issue
 
 ## Notes
 

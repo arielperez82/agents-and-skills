@@ -305,7 +305,7 @@ services:
 
 - **Quick Start:** `START_HERE.md`
 - **Team Structure:** `TEAM_STRUCTURE_GUIDE.md`
-- **Engineering Roadmap:** `engineering_skills_roadmap.md` (if exists)
+- **Engineering Roadmap:** `engineering_skills_roadmap.md` (if exists). Repo-level roadmaps live under `.docs/canonical/roadmaps/` when artifact conventions are in use (see `.docs/AGENTS.md`).
 - **Agent Authoring Guide:** `../../agents/ap-agent-author.md`
 
 ---

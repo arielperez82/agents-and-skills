@@ -721,7 +721,7 @@ Create an ADR when deciding:
 - ADR-003: Implement feature flags
 - ADR-004: Choose JWT for authentication
 
-**Storage:** `docs/adr/` directory (or `.docs/canonical/adrs/` when using this repo's artifact conventions; see `.docs/AGENTS.md`).
+**Storage:** Prefer `.docs/canonical/adrs/` with naming `adr-YYYYMMDD-<subject>.md` when using this repo's artifact conventions (see `.docs/AGENTS.md`). Alternative: `docs/adr/` for repos not yet on conventions.
 
 ### 4. ADR Statuses
 

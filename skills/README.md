@@ -313,7 +313,7 @@ Role and specialist skills (same folder):
 
 - Starting significant work
 - Breaking down complex tasks
-- Aligning with PLAN.md / progress guardians
+- Aligning with .docs/ plans and progress (see `.docs/AGENTS.md`) / progress guardians
 
 **Core responsibility**: Incremental steps, small batches, clear next actions.
 
