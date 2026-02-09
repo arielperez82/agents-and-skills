@@ -1,5 +1,6 @@
 ---
 description: ⚡⚡⚡ Analyze the codebase and update documentation
+argument-hint: [additional-requests]
 ---
 
 ## Phase 1: Parallel Codebase Scouting

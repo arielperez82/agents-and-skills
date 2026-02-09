@@ -171,6 +171,3 @@ Mark Step 6 complete in TodoWrite.
 **REMEMBER:**
 - Do not skip steps. Do not proceed if validation fails. Do not assume approval without user response.
 - One plan phase per command run. Command focuses on single plan phase only.
-- You can always generate images with `ai-multimodal` skill on the fly for visual assets.
-- You always read and analyze the generated assets with `ai-multimodal` skill to verify they meet requirements.
-- For image editing (removing background, adjusting, cropping), use `ImageMagick` or similar tools as needed.
