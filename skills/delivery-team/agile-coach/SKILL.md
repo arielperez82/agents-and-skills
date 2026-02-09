@@ -1,20 +1,18 @@
 ---
 
 # === CORE IDENTITY ===
-name: scrum-master
-title: Scrum Master Skill Package
-description: Scrum Master for agile software development teams. Use for sprint planning, daily standups, retrospectives, backlog refinement, velocity tracking, removing impediments, facilitating ceremonies, coaching teams on agile practices, and managing sprint execution for R&D and development teams.
+name: agile-coach
+title: Agile Coach Skill Package
+description: Agile Coach for agile software development teams. Use for iteration planning, daily standups, retrospectives, backlog refinement, velocity tracking, removing impediments, facilitating ceremonies, coaching teams on agile practices, and managing execution for R&D and development teams.
 domain: delivery
 subdomain: agile-methodology
 
-# === WEBSITE DISPLAY ===
+# ===  DISPLAY ===
 difficulty: intermediate
-time-saved: "TODO: Quantify time savings"
-frequency: "TODO: Estimate usage frequency"
 use-cases:
-  - Primary workflow for Scrum Master
-  - Analysis and recommendations for scrum master tasks
-  - Best practices implementation for scrum master
+  - Primary workflow for Agile Coach
+  - Analysis and recommendations for agile coach tasks
+  - Best practices implementation for agile coach
   - Integration with related skills and workflows
 
 # === RELATIONSHIPS ===
@@ -40,56 +38,38 @@ examples:
     input: "TODO: Add example input for scrum-master"
     output: "TODO: Add expected output"
 
-# === ANALYTICS ===
-stats:
-  downloads: 0
-  stars: 0
-  rating: 0.0
-  reviews: 0
-
-# === VERSIONING ===
-version: v1.0.0
-author: Claude Skills Team
-contributors: []
-created: 2025-10-21
-updated: 2025-11-23
-license: MIT
-
 # === DISCOVERABILITY ===
 tags: [agile, delivery, development, master, scrum]
-featured: false
-verified: true
 ---
 
 
-# Scrum Master Expert
+# Agile Coach Expert
 
 ## Overview
 
-This skill provides comprehensive Scrum Master expertise for facilitating agile ceremonies (sprint planning, daily standups, sprint reviews, retrospectives), coaching teams on Scrum practices, removing impediments, tracking velocity, and ensuring sprint success. It includes frameworks for backlog refinement, estimation techniques, metrics tracking, team coaching, and integration with Jira and Confluence through the Atlassian MCP server.
+This skill provides comprehensive Agile Coaching expertise for facilitating agile ceremonies (iteration planning, daily standups, iteration reviews, retrospectives), coaching teams on agile practices, removing impediments, tracking velocity, and ensuring success. It includes frameworks for backlog refinement, estimation techniques, metrics tracking, and team coaching.
 
-Target users include Scrum Masters, agile coaches, team leads, and project managers working with software development teams using Scrum methodology. This skill is essential for facilitating effective sprint ceremonies, building high-performing self-organizing teams, tracking team health metrics, and establishing continuous improvement practices.
+Target users include agile coaches, team leads, and project managers working with software development teams using agile methodology. This skill is essential for facilitating effective agile ceremonies, building high-performing self-organizing teams, tracking team health metrics, and establishing continuous improvement practices.
 
-**Core Value:** Increase sprint velocity by 25% through effective facilitation and impediment removal, improve team predictability by 40% through consistent ceremonies and estimation, and boost team satisfaction by 35% through retrospectives and continuous improvement practices.
+**Core Value:** Increase flow by 25% through effective facilitation and impediment removal, improve team predictability by 40% through consistent ceremonies and estimation, and boost team satisfaction by 35% through retrospectives and continuous improvement practices.
 
 ## Core Capabilities
 
-- **Sprint Ceremony Facilitation** - Plan and run sprint ceremonies (planning, daily standup, review, retrospective) ensuring team adheres to Scrum framework and timeboxes
-- **Team Coaching & Development** - Coach teams on agile principles, Scrum practices, estimation techniques, and foster self-organizing, high-performing team culture
+- **Agile Ceremony Facilitation** - Plan and run agile ceremonies (planning, standup, review, retrospective) ensuring team adheres to agile principles and timeboxes
+- **Team Coaching & Development** - Coach teams on agile principles, practices, estimation techniques, and foster self-organizing, high-performing team culture
 - **Impediment Management** - Identify and remove blockers quickly, escalate critical issues, shield team from external interruptions, facilitate cross-team dependencies
 - **Metrics & Velocity Tracking** - Track velocity, burndown, sprint health indicators, identify trends, forecast capacity, provide data for portfolio planning
-- **Atlassian MCP Integration** - Use Jira MCP for sprint management and board updates, Confluence MCP for ceremony documentation and retrospective notes
 
 ## Quick Start
 
-### Common Scrum Master Operations
+### Common Agile Coach Operations
 
-This skill provides Scrum Master expertise through ceremony frameworks, coaching techniques, and metrics patterns. Jira and Confluence operations are performed through the Atlassian MCP server configured in Claude Code settings.
+This skill provides gile Coach expertise through ceremony frameworks, coaching techniques, and metrics patterns. 
 
 ### Access Documentation Resources
 
-- **Ceremony frameworks:** See Workflows section for sprint planning, daily standup, sprint review, and retrospective patterns
-- **Metrics guidance:** See Scrum Metrics section for sprint health indicators and team health tracking
+- **Ceremony frameworks:** See Workflows section for planning, daily standup, review, and retrospective patterns
+- **Metrics guidance:** See Scrum Metrics section for health indicators and team health tracking
 - **Best practices:** See Agile Best Practices section for story estimation, Definition of Done, and Definition of Ready
 - **Timeboxes:** See Ceremony Timeboxes section for recommended durations
 
