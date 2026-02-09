@@ -61,6 +61,7 @@ These agents live directly in the `agents/` root directory:
 - **`ap-computer-vision`** - Computer vision for image/video processing, object detection, and visual AI systems
 
 #### Quality & Testing
+- **`ap-agent-validator`** - Validates agent specifications against the frontmatter schema, skill paths, classification rules, and body structure
 - **`ap-tdd-guardian`** - TDD methodology coach ensuring RED-GREEN-REFACTOR cycle adherence
 - **`ap-qa-engineer`** - QA and testing specialist for test automation, coverage analysis, and quality metrics
 - **`ap-code-reviewer`** - Code review specialist for quality assessment, security analysis, and best practices
