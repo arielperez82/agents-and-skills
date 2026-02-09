@@ -458,6 +458,15 @@ Review checklist:
 - Security
 - Maintainability
 
+## Consolidated References
+
+This skill consolidates the following sub-topics as reference documents:
+
+- **Integration** — `references/integration.md` — Editor, pre-commit, ESLint, and CI/CD integration patterns
+- **Plugins** — `references/plugins.md` — Plugin ecosystem, custom parsers, and plugin development
+
+Load these references on-demand when working in the specific sub-topic area.
+
 ## Troubleshooting Guide
 
 ### Common Issue 1

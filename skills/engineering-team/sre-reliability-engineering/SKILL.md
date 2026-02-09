@@ -355,3 +355,12 @@ function withFailureInjection(fn, { probability = 0.05 }) {
 - Automate rollbacks
 - Automate capacity scaling
 - Automate incident response
+
+## Consolidated References
+
+This skill consolidates the following sub-topics as reference documents:
+
+- **Monitoring and Observability** — `references/monitoring-observability.md` — Monitoring and observability systems for production
+- **Incident Response** — `references/incident-response.md` — Incident response procedures and SRE principles
+
+Load these references on-demand when working in the specific sub-topic area.

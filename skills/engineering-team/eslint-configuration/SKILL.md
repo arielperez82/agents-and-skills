@@ -458,6 +458,15 @@ Review checklist:
 - Security
 - Maintainability
 
+## Consolidated References
+
+This skill consolidates the following sub-topics as reference documents:
+
+- **Rules** — `references/rules.md` — Built-in rules, severity levels, and disabling strategies
+- **Custom Rules** — `references/custom-rules.md` — Custom rule development, AST traversal, and publishing
+
+Load these references on-demand when working in the specific sub-topic area.
+
 ## Troubleshooting Guide
 
 ### Common Issue 1

@@ -199,3 +199,12 @@ locals {
   full_name = "${var.prefix}-${var.name}-${var.suffix}"
 }
 ```
+
+## Consolidated References
+
+This skill consolidates the following sub-topics as reference documents:
+
+- **Modules** — `references/modules.md` — Reusable modules for infrastructure sharing and composition
+- **State Management** — `references/state-management.md` — State files, remote backends, and locking strategies
+
+Load these references on-demand when working in the specific sub-topic area.

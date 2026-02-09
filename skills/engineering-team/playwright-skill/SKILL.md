@@ -397,6 +397,18 @@ User: "Use 3001"
 [Reports: ✅ Login successful, redirected to /dashboard]
 ```
 
+## Consolidated References
+
+This skill consolidates the following sub-topics as reference documents:
+
+- **Test Architecture** — `references/test-architecture.md` — Test project/suite organization, configuration, and execution setup
+- **Page Object Model** — `references/page-object-model.md` — POM patterns for maintainable and reusable test code
+- **Fixtures and Hooks** — `references/fixtures-and-hooks.md` — Test state/infrastructure management with Playwright fixtures
+- **BDD Configuration** — `references/bdd-configuration.md` — Playwright BDD project configuration with Cucumber integration
+- **BDD Gherkin Syntax** — `references/bdd-gherkin-syntax.md` — Gherkin feature files and scenario structure for BDD tests
+
+Load these references on-demand when working in the specific sub-topic area.
+
 ## Notes
 
 - Automation is custom-written per request; any browser task is supported.

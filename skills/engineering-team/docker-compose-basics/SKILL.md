@@ -106,3 +106,12 @@ services:
           cpus: '0.5'
           memory: 512M
 ```
+
+## Consolidated References
+
+This skill consolidates the following sub-topics as reference documents:
+
+- **Networking** — `references/networking.md` — Bridge/overlay networks and service discovery patterns
+- **Production** — `references/production.md` — Security hardening, health checks, and high availability patterns
+
+Load these references on-demand when working in the specific sub-topic area.

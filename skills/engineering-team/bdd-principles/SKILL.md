@@ -332,3 +332,13 @@ Scenario Passes ───────┴─────────────�
 - **Business confidence**: Stakeholders see value being delivered
 
 Remember: BDD is fundamentally about communication and collaboration. The goal is to build software that delivers real value by ensuring everyone has a shared understanding of what needs to be built.
+
+## Consolidated References
+
+This skill consolidates the following sub-topics as reference documents:
+
+- **Patterns** — `references/patterns.md` — Given-When-Then structure and BDD patterns for writing scenarios
+- **Scenarios** — `references/scenarios.md` — Writing effective scenarios and acceptance criteria
+- **Collaboration** — `references/collaboration.md` — Three Amigos practice, discovery workshops, and example mapping
+
+Load these references on-demand when working in the specific sub-topic area.

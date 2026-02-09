@@ -705,3 +705,15 @@ type EntityInsert = Database['public']['Tables']['entity']['Insert'];
 - [ ] Types committed with migration
 - [ ] Types verified in tests (import and use generated types)
 - [ ] Type errors resolved (if any)
+
+## Consolidated References
+
+This skill consolidates the following sub-topics as reference documents:
+
+- **TypeScript Performance** — `references/typescript-performance.md` — 42 performance optimization rules across 8 categories for compilation and runtime efficiency
+- **Type System** — `references/type-system.md` — Advanced types, generics, and type guards
+- **Utility Types** — `references/utility-types.md` — Utility types, mapped types, and type manipulation patterns
+- **Async Patterns** — `references/async-patterns.md` — Promises, async/await, and async iterators with proper typing
+- **Individual Rule Files** — `references/safety-*.md`, `references/runtime-*.md`, `references/async-*.md`, `references/mem-*.md`, `references/module-*.md`, `references/tscfg-*.md`, `references/type-*.md`, `references/advanced-*.md` — 44 individual performance rule files (see typescript-performance.md for index)
+
+Load these references on-demand when working in the specific sub-topic area.

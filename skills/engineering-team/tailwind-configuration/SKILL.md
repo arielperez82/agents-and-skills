@@ -596,6 +596,17 @@ module.exports = {
 <div className={color === 'red' ? 'bg-red-500' : 'bg-blue-500'}>
 ```
 
+## Consolidated References
+
+This skill consolidates the following sub-topics as reference documents:
+
+- **Utility Classes** — `references/utility-classes.md` — Utility-first CSS patterns and Tailwind class usage
+- **Responsive Design** — `references/responsive-design.md` — Breakpoints and mobile-first design patterns
+- **Components** — `references/components.md` — Reusable component patterns with @apply directive
+- **Performance** — `references/performance.md` — PurgeCSS, JIT mode, and bundle optimization strategies
+
+Load these references on-demand when working in the specific sub-topic area.
+
 ## Related Skills
 
 - **tailwind-utility-classes**: Using Tailwind's utility classes effectively

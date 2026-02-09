@@ -1210,6 +1210,15 @@ Apply monorepo architecture principles when:
 - **Troubleshooting issues** - Solving dependency or organization problems
 - **Planning refactors** - Restructuring packages or dependencies
 
+## Consolidated References
+
+This skill consolidates the following sub-topics as reference documents:
+
+- **Tooling** — `references/tooling.md` — Turborepo, Nx, Bazel, Lerna — build optimization and task execution
+- **Workflows** — `references/workflows.md` — CI/CD, versioning, releases, and team collaboration patterns
+
+Load these references on-demand when working in the specific sub-topic area.
+
 ## Resources
 
 - [Monorepo.tools](https://monorepo.tools/) - Comprehensive comparison of

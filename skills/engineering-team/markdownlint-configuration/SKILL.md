@@ -654,6 +654,15 @@ Package-specific `packages/api/docs/.markdownlint.json`:
 14. **No Testing** - Not testing configuration before committing
 15. **Unclear Disable Reasons** - Using disable without explanation
 
+## Consolidated References
+
+This skill consolidates the following sub-topics as reference documents:
+
+- **Integration** — `references/integration.md` — CLI, API, CI/CD, and editor integration patterns
+- **Custom Rules** — `references/custom-rules.md` — Custom rule structure, AST parsing, and fixing
+
+Load these references on-demand when working in the specific sub-topic area.
+
 ## Resources
 
 - [markdownlint GitHub Repository](https://github.com/DavidAnson/markdownlint)
