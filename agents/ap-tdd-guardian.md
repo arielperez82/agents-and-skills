@@ -16,6 +16,15 @@ use-cases:
   - Structuring RED-GREEN-REFACTOR cycles
   - Reviewing code for TDD compliance
 
+# === AGENT CLASSIFICATION ===
+classification:
+  type: quality
+  color: red
+  field: engineering
+  expertise: advanced
+  execution: autonomous
+  model: sonnet
+
 # === RELATIONSHIPS ===
 related-agents:
   - ap-qa-engineer
@@ -50,8 +59,6 @@ collaborates-with:
 
 # === CONFIGURATION ===
 tools: Read, Grep, Glob
-model: sonnet
-color: red
 ---
 
 > **Note**: This agent was renamed from `tdd-guardian` to `ap-tdd-guardian` and moved to root `agents/` directory as part of the Guardians/Monitors/Validators cleanup (2026-01-26).

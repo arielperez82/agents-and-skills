@@ -17,6 +17,15 @@ use-cases:
   - Setting up ASP.NET Core Identity with JWT/OIDC authentication using TDD
   - Performance tuning .NET applications with automated performance testing
 
+# === AGENT CLASSIFICATION ===
+classification:
+  type: implementation
+  color: green
+  field: dotnet
+  expertise: expert
+  execution: coordinated
+  model: opus
+
 # === RELATIONSHIPS ===
 related-agents: [ap-backend-engineer, ap-architect, ap-devsecops-engineer]
 related-skills: [engineering-team/avoid-feature-creep, engineering-team/senior-dotnet, engineering-team/core-testing-methodology]

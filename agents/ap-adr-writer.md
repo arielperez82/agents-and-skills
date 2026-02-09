@@ -15,6 +15,15 @@ use-cases:
   - Maintaining ADR index and tracking decision history
   - Evaluating whether decisions merit ADR documentation
 
+# === AGENT CLASSIFICATION ===
+classification:
+  type: coordination
+  color: purple
+  field: engineering
+  expertise: intermediate
+  execution: coordinated
+  model: sonnet
+
 # === RELATIONSHIPS ===
 related-agents: [ap-architect, ap-docs-guardian, ap-technical-writer]
 related-skills: [engineering-team/avoid-feature-creep, engineering-team/architecture-decision-records, engineering-team/senior-architect]

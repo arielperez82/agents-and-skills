@@ -18,6 +18,15 @@ use-cases:
   - Gathering information about plugins, packages, and open source projects
   - Synthesizing information from multiple sources into actionable intelligence
 
+# === AGENT CLASSIFICATION ===
+classification:
+  type: strategic
+  color: blue
+  field: engineering
+  expertise: intermediate
+  execution: autonomous
+  model: sonnet
+
 # === RELATIONSHIPS ===
 related-agents: [ap-implementation-planner, ap-brainstormer, ap-architect]
 related-skills: [engineering-team/avoid-feature-creep, research, updating-knowledge, asking-questions, problem-solving, docs-seeker, orchestrating-agents]

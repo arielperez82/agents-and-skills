@@ -16,6 +16,15 @@ use-cases:
   - Best practices implementation for code reviewer
   - Integration with related agents and workflows
 
+# === AGENT CLASSIFICATION ===
+classification:
+  type: quality
+  color: red
+  field: engineering
+  expertise: expert
+  execution: autonomous
+  model: sonnet
+
 # === RELATIONSHIPS ===
 related-agents: [ap-security-guardian, ap-refactor-guardian]
 related-skills:

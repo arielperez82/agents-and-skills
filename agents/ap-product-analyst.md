@@ -16,6 +16,15 @@ use-cases:
   - Requirements documentation and stakeholder management
   - Agile delivery facilitation and process optimization
 
+# === AGENT CLASSIFICATION ===
+classification:
+  type: coordination
+  color: purple
+  field: product
+  expertise: advanced
+  execution: coordinated
+  model: sonnet
+
 # === RELATIONSHIPS ===
 related-agents: []
 related-skills:
@@ -23,7 +32,6 @@ related-skills:
   - product-team/business-analyst-toolkit
   - product-team/competitive-analysis
 related-commands: []
-  skill: product-team/business-analyst-toolkit
 
 # === TECHNICAL ===
 tools: [Read, Write, Bash, Grep, Glob]

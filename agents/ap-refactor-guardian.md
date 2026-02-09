@@ -15,6 +15,15 @@ use-cases:
   - Evaluating semantic vs structural similarity
   - Identifying knowledge duplication vs code duplication
 
+# === AGENT CLASSIFICATION ===
+classification:
+  type: quality
+  color: red
+  field: engineering
+  expertise: advanced
+  execution: autonomous
+  model: sonnet
+
 # === RELATIONSHIPS ===
 related-agents:
   - ap-tdd-guardian
@@ -32,8 +41,6 @@ collaborates-with:
 
 # === TECHNICAL ===
 tools: [Read, Grep, Glob, Bash]
-model: sonnet
-color: yellow
 ---
 
 > **Note**: This agent was renamed from `refactor-scan` to `ap-refactor-guardian` and moved to root `agents/` directory as part of the Guardians/Monitors/Validators cleanup (2026-01-26).

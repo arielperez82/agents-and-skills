@@ -16,6 +16,15 @@ use-cases:
   - "Generating data-driven modernization roadmaps with prioritized phases"
   - "Preparing executive summaries for board and stakeholder communication"
 
+# === AGENT CLASSIFICATION ===
+classification:
+  type: quality
+  color: red
+  field: engineering
+  expertise: expert
+  execution: autonomous
+  model: opus
+
 # === RELATIONSHIPS ===
 related-agents: [ap-architect, ap-code-reviewer, ap-devsecops-engineer, ap-cto-advisor]
 related-skills: [engineering-team/avoid-feature-creep, engineering-team/legacy-codebase-analyzer, engineering-team/refactoring, engineering-team/code-reviewer]

@@ -17,6 +17,15 @@ use-cases:
   - Implementing data quality and governance frameworks using TDD
   - Creating analytics dashboards and reporting with automated testing
 
+# === AGENT CLASSIFICATION ===
+classification:
+  type: implementation
+  color: green
+  field: data
+  expertise: expert
+  execution: coordinated
+  model: opus
+
 # === RELATIONSHIPS ===
 related-agents: []
 related-skills: [engineering-team/avoid-feature-creep, engineering-team/core-testing-methodology]

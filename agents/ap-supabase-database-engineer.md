@@ -17,6 +17,15 @@ use-cases:
   - Managing migration workflows with automated testing and validation
   - Generating TypeScript types from database schemas
 
+# === AGENT CLASSIFICATION ===
+classification:
+  type: implementation
+  color: green
+  field: database
+  expertise: expert
+  execution: coordinated
+  model: opus
+
 # === RELATIONSHIPS ===
 related-agents: [ap-database-engineer, ap-architect, ap-backend-engineer]
 related-skills: [engineering-team/avoid-feature-creep, engineering-team/supabase-best-practices, engineering-team/tinybird, engineering-team/senior-backend, engineering-team/core-testing-methodology]

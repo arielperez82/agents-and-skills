@@ -16,6 +16,15 @@ use-cases:
   - Verifying completion against acceptance criteria
   - Recommending what needs to be documented for progress tracking
 
+# === AGENT CLASSIFICATION ===
+classification:
+  type: coordination
+  color: purple
+  field: delivery
+  expertise: intermediate
+  execution: autonomous
+  model: sonnet
+
 # === RELATIONSHIPS ===
 related-agents:
   - ap-implementation-planner
@@ -45,8 +54,6 @@ collaborates-with:
 
 # === CONFIGURATION ===
 tools: Read, Grep, Glob, Bash
-model: sonnet
-color: green
 ---
 
 > **Note**: This agent was renamed from `progress-guardian` to `ap-progress-guardian` during the Guardians/Monitors/Validators cleanup (2026-01-26). It now lives in the root `agents/` directory as a cross-cutting progress tracking guardian.

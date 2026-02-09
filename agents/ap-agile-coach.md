@@ -16,6 +16,15 @@ use-cases:
   - Best practices implementation for scrum master
   - Integration with related agents and workflows
 
+# === AGENT CLASSIFICATION ===
+classification:
+  type: coordination
+  color: purple
+  field: delivery
+  expertise: expert
+  execution: coordinated
+  model: sonnet
+
 # === RELATIONSHIPS ===
 related-agents: []
 related-skills: [delivery-team/agile-coach]

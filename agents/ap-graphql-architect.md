@@ -17,6 +17,15 @@ use-cases:
   - Optimizing GraphQL performance with caching and complexity limits
   - Generating resolvers and TypeScript types from schemas
 
+# === AGENT CLASSIFICATION ===
+classification:
+  type: strategic
+  color: blue
+  field: api
+  expertise: expert
+  execution: coordinated
+  model: opus
+
 # === RELATIONSHIPS ===
 related-agents: [ap-backend-engineer, ap-frontend-engineer, ap-architect, ap-adr-writer]
 related-skills: [engineering-team/avoid-feature-creep, engineering-team/senior-graphql, engineering-team/senior-backend]

@@ -18,6 +18,15 @@ use-cases:
   - Providing brutal honesty about technical approaches
   - Collaborating to find optimal solutions while maintaining maintainability
 
+# === AGENT CLASSIFICATION ===
+classification:
+  type: strategic
+  color: blue
+  field: engineering
+  expertise: advanced
+  execution: autonomous
+  model: opus
+
 # === RELATIONSHIPS ===
 related-agents: [ap-researcher, ap-architect, ap-implementation-planner]
 related-skills: [engineering-team/avoid-feature-creep, brainstorming, problem-solving, engineering-team/software-architecture, asking-questions, sequential-thinking]

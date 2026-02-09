@@ -16,6 +16,15 @@ use-cases:
   - Quick codebase exploration before making changes
   - Debugging sessions requiring file location
 
+# === AGENT CLASSIFICATION ===
+classification:
+  type: implementation
+  color: green
+  field: engineering
+  expertise: intermediate
+  execution: autonomous
+  model: haiku
+
 # === RELATIONSHIPS ===
 related-agents: [ap-researcher, ap-implementation-planner]
 related-skills: [engineering-team/avoid-feature-creep, engineering-team/mapping-codebases, problem-solving]

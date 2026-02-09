@@ -17,6 +17,15 @@ use-cases:
   - Integrating native code via platform channels with integration tests
   - Optimizing widget performance with automated performance testing
 
+# === AGENT CLASSIFICATION ===
+classification:
+  type: implementation
+  color: green
+  field: mobile
+  expertise: expert
+  execution: coordinated
+  model: opus
+
 # === RELATIONSHIPS ===
 related-agents:
   - ap-mobile-engineer

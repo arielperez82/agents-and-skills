@@ -17,6 +17,15 @@ use-cases:
   - Auditing documentation quality across repositories
   - Synchronizing documentation with code changes
 
+# === AGENT CLASSIFICATION ===
+classification:
+  type: coordination
+  color: purple
+  field: documentation
+  expertise: advanced
+  execution: coordinated
+  model: sonnet
+
 # === RELATIONSHIPS ===
 related-agents: [ap-code-reviewer, ap-architect, ap-backend-engineer, ap-devsecops-engineer]
 related-skills: [engineering-team/avoid-feature-creep, engineering-team/technical-writer, engineering-team/code-reviewer, engineering-team/senior-backend]

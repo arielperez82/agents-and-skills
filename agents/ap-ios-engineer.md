@@ -17,6 +17,15 @@ use-cases:
   - Performance profiling with automated performance testing
   - Preparing apps for App Store submission with quality assurance
 
+# === AGENT CLASSIFICATION ===
+classification:
+  type: implementation
+  color: green
+  field: ios
+  expertise: expert
+  execution: coordinated
+  model: opus
+
 # === RELATIONSHIPS ===
 related-agents:
   - ap-mobile-engineer

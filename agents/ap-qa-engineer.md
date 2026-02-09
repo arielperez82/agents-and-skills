@@ -16,6 +16,15 @@ use-cases:
   - Setting up continuous testing in CI/CD pipelines
   - Conducting performance and load testing
 
+# === AGENT CLASSIFICATION ===
+classification:
+  type: quality
+  color: red
+  field: engineering
+  expertise: expert
+  execution: coordinated
+  model: opus
+
 # === RELATIONSHIPS ===
 related-agents: [ap-tdd-guardian]
 related-skills:

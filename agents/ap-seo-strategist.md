@@ -18,6 +18,15 @@ use-cases:
   - Planning site architecture for optimal crawlability
   - Generating internal linking strategy recommendations
 
+# === AGENT CLASSIFICATION ===
+classification:
+  type: strategic
+  color: blue
+  field: marketing
+  expertise: advanced
+  execution: coordinated
+  model: sonnet
+
 # === RELATIONSHIPS ===
 related-agents:
   - ap-content-creator

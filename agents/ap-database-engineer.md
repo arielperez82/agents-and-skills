@@ -18,6 +18,15 @@ use-cases:
   - Managing database security, user permissions, and audit logging
   - Performing comprehensive database health assessments
 
+# === AGENT CLASSIFICATION ===
+classification:
+  type: implementation
+  color: green
+  field: database
+  expertise: expert
+  execution: coordinated
+  model: opus
+
 # === RELATIONSHIPS ===
 related-agents: [ap-supabase-database-engineer, ap-architect]
 related-skills: [engineering-team/avoid-feature-creep, engineering-team/sql-expert, engineering-team/database-schema-designer, engineering-team/tinybird, engineering-team/core-testing-methodology]

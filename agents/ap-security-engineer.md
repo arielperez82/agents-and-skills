@@ -17,6 +17,15 @@ use-cases:
   - Reviewing code for OWASP Top 10 vulnerabilities with security testing
   - Developing security controls with comprehensive test coverage
 
+# === AGENT CLASSIFICATION ===
+classification:
+  type: implementation
+  color: green
+  field: security
+  expertise: expert
+  execution: coordinated
+  model: opus
+
 # === RELATIONSHIPS ===
 related-agents: [ap-security-guardian, ap-code-reviewer]
 related-skills: [engineering-team/avoid-feature-creep, engineering-team/senior-security, engineering-team/core-testing-methodology]

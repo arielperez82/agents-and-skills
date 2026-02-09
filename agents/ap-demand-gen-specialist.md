@@ -16,6 +16,15 @@ use-cases:
   - Best practices implementation for demand gen specialist
   - Integration with related agents and workflows
 
+# === AGENT CLASSIFICATION ===
+classification:
+  type: implementation
+  color: green
+  field: marketing
+  expertise: expert
+  execution: coordinated
+  model: sonnet
+
 # === RELATIONSHIPS ===
 related-agents: []
 related-skills:

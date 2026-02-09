@@ -16,6 +16,15 @@ use-cases:
   - Configuring container orchestration with Kubernetes
   - Monitoring and alerting setup for production systems
 
+# === AGENT CLASSIFICATION ===
+classification:
+  type: implementation
+  color: green
+  field: devops
+  expertise: expert
+  execution: coordinated
+  model: opus
+
 # === RELATIONSHIPS ===
 related-agents: []
 related-skills: [engineering-team/avoid-feature-creep, engineering-team/vercel-deploy-claimable, engineering-team/senior-devops, engineering-team/core-testing-methodology]

@@ -16,6 +16,15 @@ use-cases:
   - Conducting competitive analysis and market research
   - Stakeholder communication and alignment
 
+# === AGENT CLASSIFICATION ===
+classification:
+  type: strategic
+  color: blue
+  field: marketing
+  expertise: expert
+  execution: coordinated
+  model: opus
+
 # === RELATIONSHIPS ===
 related-agents: []
 related-skills:

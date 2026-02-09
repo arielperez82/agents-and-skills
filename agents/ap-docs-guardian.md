@@ -16,6 +16,15 @@ use-cases:
   - Ensuring documentation follows 7 pillars of excellence
   - Analyzing documentation quality and proposing improvements
 
+# === AGENT CLASSIFICATION ===
+classification:
+  type: coordination
+  color: purple
+  field: documentation
+  expertise: advanced
+  execution: autonomous
+  model: sonnet
+
 # === RELATIONSHIPS ===
 related-agents:
   - ap-adr-writer
@@ -38,8 +47,6 @@ collaborates-with:
 
 # === CONFIGURATION ===
 tools: Read, Edit, Grep, Glob, Bash
-model: sonnet
-color: purple
 
 # === EXAMPLES ===
 examples:

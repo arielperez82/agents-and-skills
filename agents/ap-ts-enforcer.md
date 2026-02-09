@@ -16,6 +16,15 @@ use-cases:
   - Reviewing code for type safety violations
   - Validating tsconfig.json strict mode configuration
 
+# === AGENT CLASSIFICATION ===
+classification:
+  type: quality
+  color: red
+  field: engineering
+  expertise: advanced
+  execution: autonomous
+  model: sonnet
+
 # === RELATIONSHIPS ===
 related-agents:
   - ap-tdd-guardian
@@ -33,8 +42,6 @@ collaborates-with:
 
 # === CONFIGURATION ===
 tools: Read, Grep, Glob, Bash
-model: sonnet
-color: red
 ---
 
 > **Note**: This agent was renamed from `ts-enforcer` to `ap-ts-enforcer` and moved to root `agents/` directory as part of the Guardians/Monitors/Validators cleanup (2026-01-26).

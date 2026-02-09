@@ -16,6 +16,15 @@ use-cases:
   - Best practices implementation for computer vision
   - Integration with related agents and workflows
 
+# === AGENT CLASSIFICATION ===
+classification:
+  type: implementation
+  color: green
+  field: ai-ml
+  expertise: expert
+  execution: coordinated
+  model: opus
+
 # === RELATIONSHIPS ===
 related-agents: []
 related-skills: [engineering-team/avoid-feature-creep, engineering-team/senior-computer-vision]

@@ -16,6 +16,15 @@ use-cases:
   - Best practices implementation for ui designer
   - Integration with related agents and workflows
 
+# === AGENT CLASSIFICATION ===
+classification:
+  type: implementation
+  color: green
+  field: design
+  expertise: expert
+  execution: coordinated
+  model: opus
+
 # === RELATIONSHIPS ===
 related-agents: []
 related-skills:

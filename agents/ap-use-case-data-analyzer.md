@@ -16,6 +16,15 @@ use-cases:
   - Understanding end-to-end data flow for features
   - Planning refactoring of data-heavy systems
 
+# === AGENT CLASSIFICATION ===
+classification:
+  type: strategic
+  color: blue
+  field: engineering
+  expertise: intermediate
+  execution: autonomous
+  model: sonnet
+
 # === RELATIONSHIPS ===
 related-agents: [ap-architect, ap-codebase-scout, ap-implementation-planner, ap-supabase-database-engineer]
 related-skills: [engineering-team/avoid-feature-creep, engineering-team/mapping-codebases, problem-solving, engineering-team/software-architecture, engineering-team/databases]

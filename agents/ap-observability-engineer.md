@@ -16,6 +16,15 @@ use-cases:
   - Setting up distributed tracing with OpenTelemetry and Jaeger
   - Creating multi-burn-rate alerting with runbooks
 
+# === AGENT CLASSIFICATION ===
+classification:
+  type: implementation
+  color: green
+  field: devops
+  expertise: expert
+  execution: coordinated
+  model: opus
+
 # === RELATIONSHIPS ===
 related-agents: []
 related-skills: [engineering-team/avoid-feature-creep, engineering-team/senior-observability]

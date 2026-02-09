@@ -17,6 +17,15 @@ use-cases:
   - Delivering production-ready applications following TDD principles
   - Managing full-stack development with quality assurance throughout
 
+# === AGENT CLASSIFICATION ===
+classification:
+  type: implementation
+  color: green
+  field: fullstack
+  expertise: expert
+  execution: coordinated
+  model: opus
+
 # === RELATIONSHIPS ===
 related-agents: []
 related-skills:

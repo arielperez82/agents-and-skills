@@ -15,6 +15,15 @@ use-cases:
   - Acting as a lightweight security gate without running full audits or pentests
   - Delegating from ap-code-reviewer for security-focused assessment of changes
 
+# === AGENT CLASSIFICATION ===
+classification:
+  type: quality
+  color: red
+  field: security
+  expertise: advanced
+  execution: autonomous
+  model: sonnet
+
 # === RELATIONSHIPS ===
 related-agents:
   - ap-security-engineer

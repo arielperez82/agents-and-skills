@@ -16,6 +16,15 @@ use-cases:
   - Detecting and resolving TDD impasses
   - Teaching incremental algorithm development
 
+# === AGENT CLASSIFICATION ===
+classification:
+  type: strategic
+  color: blue
+  field: engineering
+  expertise: expert
+  execution: autonomous
+  model: sonnet
+
 # === RELATIONSHIPS ===
 related-agents:
   - ap-tdd-guardian
@@ -33,8 +42,6 @@ collaborates-with:
 
 # === CONFIGURATION ===
 tools: Read, Grep, Glob, Bash
-model: sonnet
-color: blue
 ---
 
 > **Note**: This agent was renamed from `tpp-guardian` to `ap-tpp-guardian` and moved to root `agents/` directory as part of the Guardians/Monitors/Validators cleanup (2026-01-26).

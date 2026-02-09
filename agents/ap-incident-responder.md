@@ -17,6 +17,15 @@ use-cases:
   - Conducting root cause analysis and impact assessment
   - Generating post-incident reports and remediation plans
 
+# === AGENT CLASSIFICATION ===
+classification:
+  type: implementation
+  color: green
+  field: security
+  expertise: expert
+  execution: autonomous
+  model: opus
+
 # === RELATIONSHIPS ===
 related-agents: [ap-devsecops-engineer, ap-technical-writer]
 related-skills: [engineering-team/avoid-feature-creep, engineering-team/incident-response, engineering-team/senior-secops]

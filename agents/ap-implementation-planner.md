@@ -18,6 +18,15 @@ use-cases:
   - Structuring work into sprint-sized increments
   - Aligning implementation plans with product requirements and delivery constraints
 
+# === AGENT CLASSIFICATION ===
+classification:
+  type: strategic
+  color: blue
+  field: engineering
+  expertise: advanced
+  execution: coordinated
+  model: opus
+
 # === RELATIONSHIPS ===
 related-agents: [ap-researcher, ap-architect, ap-product-manager, ap-product-analyst, ap-senior-pm, ap-agile-coach]
 related-skills: [engineering-team/avoid-feature-creep, engineering-team/planning, engineering-team/quality-gate-first, sequential-thinking, problem-solving, engineering-team/software-architecture, asking-questions, brainstorming, orchestrating-agents]

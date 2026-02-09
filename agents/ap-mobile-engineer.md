@@ -17,6 +17,15 @@ use-cases:
   - Validating apps before App Store/Play Store submission with quality assurance
   - Setting up CI/CD pipelines for mobile releases with automated testing
 
+# === AGENT CLASSIFICATION ===
+classification:
+  type: implementation
+  color: green
+  field: mobile
+  expertise: expert
+  execution: coordinated
+  model: opus
+
 # === RELATIONSHIPS ===
 related-agents:
   - ap-ios-engineer

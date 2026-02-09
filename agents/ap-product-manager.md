@@ -16,6 +16,15 @@ use-cases:
   - Conducting competitive analysis and market research
   - Stakeholder communication and alignment
 
+# === AGENT CLASSIFICATION ===
+classification:
+  type: strategic
+  color: blue
+  field: product
+  expertise: advanced
+  execution: coordinated
+  model: sonnet
+
 # === RELATIONSHIPS ===
 related-agents: [ap-technical-writer]
 related-skills:

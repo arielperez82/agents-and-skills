@@ -16,6 +16,15 @@ use-cases:
   - Best practices implementation for cto advisor
   - Integration with related agents and workflows
 
+# === AGENT CLASSIFICATION ===
+classification:
+  type: strategic
+  color: blue
+  field: engineering
+  expertise: expert
+  execution: autonomous
+  model: opus
+
 # === RELATIONSHIPS ===
 related-agents: []
 related-skills: [engineering-team/avoid-feature-creep, engineering-team/cto-advisor]

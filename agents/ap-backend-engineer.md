@@ -17,6 +17,15 @@ use-cases:
   - Setting up CI/CD pipelines for backend applications
   - Writing maintainable, well-tested backend code following TDD principles
 
+# === AGENT CLASSIFICATION ===
+classification:
+  type: implementation
+  color: green
+  field: backend
+  expertise: expert
+  execution: coordinated
+  model: opus
+
 # === RELATIONSHIPS ===
 related-agents: []
 related-skills: [engineering-team/avoid-feature-creep, engineering-team/deno-core, engineering-team/mcp-builder, engineering-team/senior-backend, engineering-team/senior-security, engineering-team/core-testing-methodology, engineering-team/supabase-edge-functions]

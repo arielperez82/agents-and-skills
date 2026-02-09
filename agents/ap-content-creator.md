@@ -16,6 +16,15 @@ use-cases:
   - Developing brand voice and messaging guidelines
   - Planning content calendars and campaigns
 
+# === AGENT CLASSIFICATION ===
+classification:
+  type: implementation
+  color: green
+  field: marketing
+  expertise: expert
+  execution: coordinated
+  model: opus
+
 # === RELATIONSHIPS ===
 related-agents: []
 related-skills:

@@ -17,6 +17,15 @@ use-cases:
   - Planning subnet allocation and CIDR blocks with configuration testing
   - Auditing network security compliance with automated validation
 
+# === AGENT CLASSIFICATION ===
+classification:
+  type: implementation
+  color: green
+  field: infrastructure
+  expertise: expert
+  execution: coordinated
+  model: opus
+
 # === RELATIONSHIPS ===
 related-agents: []
 related-skills: [engineering-team/avoid-feature-creep, engineering-team/senior-network-infrastructure, engineering-team/core-testing-methodology]

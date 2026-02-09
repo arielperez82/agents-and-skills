@@ -17,6 +17,15 @@ use-cases:
   - Setting up Spring Security with OAuth2 and JWT authentication using TDD
   - Performance tuning JVM applications with automated performance testing
 
+# === AGENT CLASSIFICATION ===
+classification:
+  type: implementation
+  color: green
+  field: java
+  expertise: expert
+  execution: coordinated
+  model: opus
+
 # === RELATIONSHIPS ===
 related-agents: [ap-backend-engineer, ap-architect, ap-devsecops-engineer]
 related-skills: [engineering-team/avoid-feature-creep, engineering-team/senior-java, engineering-team/core-testing-methodology]

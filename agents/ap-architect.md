@@ -16,6 +16,15 @@ use-cases:
   - Creating comprehensive architecture documentation with diagrams
   - Reviewing existing architectures for performance and security
 
+# === AGENT CLASSIFICATION ===
+classification:
+  type: strategic
+  color: blue
+  field: engineering
+  expertise: expert
+  execution: coordinated
+  model: opus
+
 # === RELATIONSHIPS ===
 related-agents: [ap-technical-writer, ap-graphql-architect]
 related-skills: [engineering-team/avoid-feature-creep, engineering-team/senior-architect, engineering-team/technical-writer, engineering-team/core-testing-methodology]

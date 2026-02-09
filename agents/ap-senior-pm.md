@@ -16,6 +16,15 @@ use-cases:
   - Best practices implementation for senior pm
   - Integration with related agents and workflows
 
+# === AGENT CLASSIFICATION ===
+classification:
+  type: coordination
+  color: purple
+  field: delivery
+  expertise: expert
+  execution: coordinated
+  model: opus
+
 # === RELATIONSHIPS ===
 related-agents: []
 related-skills: [delivery-team/senior-pm]

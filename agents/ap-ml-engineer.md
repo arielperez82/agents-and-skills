@@ -17,6 +17,15 @@ use-cases:
   - Developing feature engineering with testable data transformations
   - Deploying ML models with continuous testing and monitoring
 
+# === AGENT CLASSIFICATION ===
+classification:
+  type: implementation
+  color: green
+  field: ai-ml
+  expertise: expert
+  execution: coordinated
+  model: opus
+
 # === RELATIONSHIPS ===
 related-agents: []
 related-skills: [engineering-team/avoid-feature-creep, engineering-team/senior-ml-engineer, engineering-team/core-testing-methodology, engineering-team/tinybird]

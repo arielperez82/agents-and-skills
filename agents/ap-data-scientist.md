@@ -16,6 +16,15 @@ use-cases:
   - Implementing data quality and governance frameworks
   - Creating analytics dashboards and reporting
 
+# === AGENT CLASSIFICATION ===
+classification:
+  type: implementation
+  color: green
+  field: data
+  expertise: expert
+  execution: coordinated
+  model: opus
+
 # === RELATIONSHIPS ===
 related-agents: []
 related-skills: [engineering-team/avoid-feature-creep, engineering-team/senior-data-scientist]

@@ -16,6 +16,15 @@ use-cases:
   - Integrating learnings from complex features into appropriate documentation (skill references, CLAUDE.md, or ADRs)
   - Identifying learning opportunities proactively during work
 
+# === AGENT CLASSIFICATION ===
+classification:
+  type: coordination
+  color: purple
+  field: knowledge
+  expertise: intermediate
+  execution: autonomous
+  model: sonnet
+
 # === RELATIONSHIPS ===
 related-agents:
   - ap-docs-guardian
@@ -43,8 +52,6 @@ collaborates-with:
 
 # === CONFIGURATION ===
 tools: Read, Edit, Grep
-model: sonnet
-color: blue
 ---
 
 > **Note**: This agent was renamed from `learn` to `ap-learn` as part of the Guardians/Monitors/Validators cleanup (2026-01-27). It remains in the root `agents/` directory as a cross-cutting concern for knowledge management.
