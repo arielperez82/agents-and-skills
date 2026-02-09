@@ -19,7 +19,7 @@ use-cases:
 
 # === RELATIONSHIPS ===
 related-agents: []
-related-skills: [engineering-team/avoid-feature-creep, engineering-team/mcp-builder, engineering-team/senior-backend, engineering-team/senior-security, engineering-team/core-testing-methodology]
+related-skills: [engineering-team/avoid-feature-creep, engineering-team/deno-core, engineering-team/mcp-builder, engineering-team/senior-backend, engineering-team/senior-security, engineering-team/core-testing-methodology, engineering-team/supabase-edge-functions]
 related-commands: []
 collaborates-with:
   - agent: ap-tdd-guardian
