@@ -75,6 +75,7 @@ Engineering skills (path: `skills/engineering-team/<name>/`). Load proactively p
 | **subagent-driven-development** | Implementation plans | Independent tasks, spec/implement/review |
 | **nocodb** | NocoDB | Setup, external DBs, views, backups |
 | **tinybird** | Tinybird projects | Datafiles, queries, endpoints, deployments, tests |
+| **clickhouse-best-practices** | ClickHouse (or Tinybird) schemas, queries, configs | 28 rules for schema, query, insert, materialized views; check before recommendations |
 | **check-tools** | Environment validation | Tool installs (Python, Node, Java, Go, Rust, Git) |
 | **multi-cloud-architecture** | Multi-cloud | AWS, Azure, GCP decision framework |
 | **backend-development** | Backend systems | Frameworks, DBs, APIs, auth, testing, security |

@@ -5,7 +5,7 @@ title: Database Engineer
 description: Database administration and optimization specialist for query performance, schema design, indexing strategies, backup/restore, and database health assessments
 domain: engineering
 subdomain: database-engineering
-skills: [engineering-team/databases, engineering-team/sql-expert, engineering-team/database-schema-designer, engineering-team/tinybird]
+skills: [engineering-team/databases, engineering-team/sql-expert, engineering-team/database-schema-designer, engineering-team/tinybird, engineering-team/clickhouse-best-practices]
 
 # === USE CASES ===
 difficulty: advanced
@@ -113,6 +113,8 @@ The ap-database-engineer agent bridges database administration and application d
    - **PostgreSQL:** `../../skills/engineering-team/databases/references/postgresql-*.md` - Administration, performance, queries, psql CLI
    - **MongoDB:** `../../skills/engineering-team/databases/references/mongodb-*.md` - CRUD, aggregation, indexing, Atlas
    - **SQL Expert:** `../../skills/engineering-team/sql-expert/references/*.md` - Advanced patterns, best practices, indexes, query optimization, common pitfalls
+
+**ClickHouse / Tinybird:** When working with Tinybird or ClickHouse directly, also consult the **clickhouse-best-practices** skill (`skills/engineering-team/clickhouse-best-practices/`) for schema design, query optimization, and ingestion; cite relevant rules in recommendations.
 
 ## Core Competencies
 

@@ -6,7 +6,7 @@ title: Data Engineer
 description: Data engineering specialist for ETL/ELT pipelines, data warehousing, data quality, and scalable data infrastructure
 domain: engineering
 subdomain: data-engineering
-skills: [engineering-team/senior-data-engineer, engineering-team/tinybird]
+skills: [engineering-team/senior-data-engineer, engineering-team/tinybird, engineering-team/clickhouse-best-practices]
 
 # === USE CASES ===
 difficulty: advanced
@@ -231,6 +231,8 @@ The skill package includes production-ready templates in the `references/templat
 - `rules/build-deploy.md` - Local vs Cloud deployment workflows
 
 **CLI context:** Use `tb info` to check context. Commands default to Local; use `tb --cloud <command>` for production.
+
+**ClickHouse / Tinybird:** When working with Tinybird (which uses ClickHouse under the hood), also consult the **clickhouse-best-practices** skill (`skills/engineering-team/clickhouse-best-practices/`) for schema design, query optimization, and ingestion patterns; cite relevant rules in recommendations.
 
 ## Workflows
 
