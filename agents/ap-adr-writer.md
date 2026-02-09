@@ -35,8 +35,6 @@ collaborates-with:
     required: optional
     features-enabled: [decision-context, architectural-rationale]
     without-collaborator: "Documentation may lack decision rationale"
-orchestrates:
-  skill: engineering-team/architecture-decision-records
 
 # === TECHNICAL ===
 tools: [Read, Write, Edit, Grep, Glob, Bash]

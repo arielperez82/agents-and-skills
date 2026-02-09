@@ -20,8 +20,6 @@ use-cases:
 related-agents: [ap-technical-writer, ap-graphql-architect]
 related-skills: [engineering-team/avoid-feature-creep, engineering-team/senior-architect, engineering-team/technical-writer, engineering-team/core-testing-methodology]
 related-commands: []
-orchestrates:
-  skill: engineering-team/senior-architect
 collaborates-with:
   - agent: ap-tdd-guardian
     purpose: Ensuring architecture supports TDD practices and testability

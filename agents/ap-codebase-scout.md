@@ -20,7 +20,6 @@ use-cases:
 related-agents: [ap-researcher, ap-implementation-planner]
 related-skills: [engineering-team/avoid-feature-creep, engineering-team/mapping-codebases, problem-solving]
 related-commands: [scout]
-orchestrates: []
 collaborates-with:
   - agent: ap-researcher
     purpose: Research file patterns and common structures when search scope is unclear

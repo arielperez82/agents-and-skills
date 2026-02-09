@@ -54,8 +54,6 @@ collaborates-with:
     required: optional
     features-enabled: [test-docs, coverage-reports, test-architecture-diagrams]
     without-collaborator: "Test documentation will be text-only without visual diagrams"
-orchestrates:
-  skill: engineering-team/senior-qa
 
 # === TECHNICAL ===
 tools: [Read, Write, Bash, Grep, Glob]

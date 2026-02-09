@@ -20,8 +20,6 @@ use-cases:
 related-agents: []
 related-skills: [delivery-team/agile-coach]
 related-commands: []
-orchestrates:
-  skill: delivery-team/agile-coach
 
 # === TECHNICAL ===
 tools: [Read, Write, Bash, Grep, Glob]

@@ -61,8 +61,6 @@ collaborates-with:
     required: optional
     features-enabled: [vulnerability-assessment, security-remediation-roadmap, legacy-system-security]
     without-collaborator: "Legacy system security assessment may lack comprehensive vulnerability analysis"
-orchestrates:
-  skill: engineering-team/senior-devops
 
 # === TECHNICAL ===
 tools: [Read, Write, Bash, Grep, Glob]

@@ -20,8 +20,6 @@ use-cases:
 related-agents: []
 related-skills: [engineering-team/avoid-feature-creep, engineering-team/senior-prompt-engineer, orchestrating-agents]
 related-commands: []
-orchestrates:
-  skill: engineering-team/senior-prompt-engineer
 
 # === TECHNICAL ===
 tools: [Read, Write, Bash, Grep, Glob]

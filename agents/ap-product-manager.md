@@ -23,8 +23,6 @@ related-skills:
   - product-team/competitive-analysis
   - engineering-team/technical-writer
 related-commands: []
-orchestrates:
-  skill: product-team/product-manager-toolkit
 collaborates-with:
   - agent: ap-technical-writer
     purpose: Mermaid diagram generation for roadmaps (Gantt), prioritization matrices (quadrant), and feature mindmaps

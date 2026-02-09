@@ -20,8 +20,6 @@ use-cases:
 related-agents: []
 related-skills: [engineering-team/avoid-feature-creep, engineering-team/cto-advisor]
 related-commands: []
-orchestrates:
-  skill: engineering-team/cto-advisor
 
 # === TECHNICAL ===
 tools: [Read, Write, Bash, Grep, Glob]

@@ -22,8 +22,6 @@ related-skills:
   - product-team/ui-design-system
   - product-team/visual-design-foundations
 related-commands: []
-orchestrates:
-  skill: product-team/ui-design-system
 
 # === TECHNICAL ===
 tools: [Read, Write, Bash, Grep, Glob]

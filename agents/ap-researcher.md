@@ -22,8 +22,6 @@ use-cases:
 related-agents: [ap-implementation-planner, ap-brainstormer, ap-architect]
 related-skills: [engineering-team/avoid-feature-creep, research, updating-knowledge, asking-questions, problem-solving, docs-seeker, orchestrating-agents]
 related-commands: []
-orchestrates:
-  skill: research
 collaborates-with:
   - agent: ap-implementation-planner
     purpose: Providing research reports for implementation planning

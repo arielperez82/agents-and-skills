@@ -22,8 +22,6 @@ related-skills:
   - marketing-team/marketing-strategy-pmm
   - marketing-team/marketing-psychology
 related-commands: []
-orchestrates:
-  skill: marketing-team/marketing-strategy-pmm
 
 # === TECHNICAL ===
 tools: [Read, Write, Bash, Grep, Glob]

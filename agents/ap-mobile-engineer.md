@@ -29,8 +29,6 @@ related-skills:
   - engineering-team/senior-flutter
   - engineering-team/core-testing-methodology
 related-commands: []
-orchestrates:
-  skill: engineering-team/senior-mobile
 collaborates-with:
   - agent: ap-tdd-guardian
     purpose: TDD methodology coaching for mobile development across platforms

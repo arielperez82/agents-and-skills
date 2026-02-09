@@ -43,8 +43,6 @@ collaborates-with:
     required: optional
     features-enabled: [seo-ppc-alignment, funnel-optimization, campaign-coordination]
     without-collaborator: "SEO efforts may not be coordinated with paid channels"
-orchestrates:
-  skill: marketing-team/seo-strategist
 
 # === TECHNICAL ===
 tools: [Read, Write, Bash, Grep, Glob]

@@ -23,8 +23,6 @@ related-skills:
   - product-team/business-analyst-toolkit
   - product-team/competitive-analysis
 related-commands: []
-orchestrates:
-  skill: product-team/agile-product-owner
   skill: product-team/business-analyst-toolkit
 
 # === TECHNICAL ===

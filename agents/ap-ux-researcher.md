@@ -21,8 +21,6 @@ related-agents: []
 related-skills:
   - product-team/ux-researcher-designer
 related-commands: []
-orchestrates:
-  skill: product-team/ux-researcher-designer
 
 # === TECHNICAL ===
 tools: [Read, Write, Bash, Grep, Glob]

@@ -22,8 +22,6 @@ use-cases:
 related-agents: [ap-researcher, ap-architect, ap-implementation-planner]
 related-skills: [engineering-team/avoid-feature-creep, brainstorming, problem-solving, engineering-team/software-architecture, asking-questions, sequential-thinking]
 related-commands: []
-orchestrates:
-  skill: brainstorming
 collaborates-with:
   - agent: ap-researcher
     purpose: Consuming research reports for informed brainstorming

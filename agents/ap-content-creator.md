@@ -23,8 +23,6 @@ related-skills:
   - marketing-team/marketing-psychology
   - marketing-team/page-cro
 related-commands: []
-orchestrates:
-  skill: marketing-team/content-creator
 
 # === TECHNICAL ===
 tools: [Read, Write, Bash, Grep, Glob]

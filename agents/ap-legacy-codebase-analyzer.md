@@ -20,8 +20,6 @@ use-cases:
 related-agents: [ap-architect, ap-code-reviewer, ap-devsecops-engineer, ap-cto-advisor]
 related-skills: [engineering-team/avoid-feature-creep, engineering-team/legacy-codebase-analyzer, engineering-team/refactoring, engineering-team/code-reviewer]
 related-commands: [/plan.refactor, /review.code, /audit.security]
-orchestrates:
-  skill: engineering-team/legacy-codebase-analyzer
 
 # === TECHNICAL ===
 tools: [Read, Write, Bash, Grep, Glob]

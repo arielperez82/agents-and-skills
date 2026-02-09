@@ -20,8 +20,6 @@ use-cases:
 related-agents: []
 related-skills: [delivery-team/senior-pm]
 related-commands: []
-orchestrates:
-  skill: delivery-team/senior-pm
 
 # === TECHNICAL ===
 tools: [Read, Write, Bash, Grep, Glob]

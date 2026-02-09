@@ -23,8 +23,6 @@ related-skills:
   - product-team/competitive-analysis
   - engineering-team/technical-writer
 related-commands: []
-orchestrates:
-  skill: product-team/product-strategist
 collaborates-with:
   - agent: ap-technical-writer
     purpose: Mermaid diagram generation for roadmap timelines, OKR mindmaps, and strategic prioritization quadrants

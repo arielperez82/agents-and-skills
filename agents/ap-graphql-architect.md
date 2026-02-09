@@ -42,8 +42,6 @@ collaborates-with:
     required: optional
     features-enabled: [resolver-integration, dataloader-setup, database-optimization]
     without-collaborator: "Resolver implementation may require additional backend expertise"
-orchestrates:
-  skill: engineering-team/senior-graphql
 collaborates-with:
   - agent: ap-architect
     purpose: High-level API architecture decisions and technology stack evaluation

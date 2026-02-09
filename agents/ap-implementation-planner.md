@@ -58,8 +58,6 @@ collaborates-with:
     required: recommended
     features-enabled: [sprint-sizing, velocity-alignment, sustainable-pace]
     without-collaborator: "Implementation plans may not fit within sprint capacity"
-orchestrates:
-  skill: planning
 
 # === TECHNICAL ===
 tools: [Read, Write, Bash, Grep, Glob]

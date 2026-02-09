@@ -27,8 +27,6 @@ related-skills:
   - engineering-team/senior-mobile
   - engineering-team/core-testing-methodology
 related-commands: []
-orchestrates:
-  skill: engineering-team/senior-ios
 collaborates-with:
   - agent: ap-tdd-guardian
     purpose: TDD methodology coaching for iOS development and Swift testing

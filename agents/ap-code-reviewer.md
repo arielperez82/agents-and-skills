@@ -56,8 +56,6 @@ collaborates-with:
     required: optional
     features-enabled: [security-findings-report, criticality-assessment, delegated-security-review]
     without-collaborator: "Security analysis remains general; no dedicated criticality report"
-orchestrates:
-  skill: engineering-team/code-reviewer
 
 # === TECHNICAL ===
 tools: [Read, Write, Bash, Grep, Glob]

@@ -52,8 +52,6 @@ collaborates-with:
     features-enabled: [learning-capture, gotcha-documentation, pattern-preservation]
     when: After completing significant features, when discovering gotchas or unexpected behaviors, after fixing complex bugs
     without-collaborator: "Valuable learnings and gotchas may not be preserved for future developers"
-orchestrates:
-  skill: engineering-team/senior-observability
 
 # === TECHNICAL ===
 tools: [Read, Write, Bash, Grep, Glob]

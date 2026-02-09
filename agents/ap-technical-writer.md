@@ -37,8 +37,6 @@ collaborates-with:
     required: optional
     features-enabled: [incident-reports, timeline-diagrams, lessons-learned]
     without-collaborator: "Incident documentation will use basic templates"
-orchestrates:
-  skill: engineering-team/technical-writer
 
 # === TECHNICAL ===
 tools: [Read, Write, Bash, Grep, Glob]

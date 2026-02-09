@@ -21,8 +21,6 @@ related-agents: []
 related-skills:
   - marketing-team/marketing-demand-acquisition
 related-commands: []
-orchestrates:
-  skill: marketing-team/marketing-demand-acquisition
 
 # === TECHNICAL ===
 tools: [Read, Write, Bash, Grep, Glob]
