@@ -6,7 +6,7 @@ title: Java Engineer
 description: Java and Spring Boot development specialist for enterprise applications, microservices architecture, and cloud-native systems. Handles Spring Framework, JPA/Hibernate, RESTful APIs, and JVM performance optimization.
 domain: engineering
 subdomain: java-development
-skills: senior-java
+skills: engineering-team/senior-java
 
 # === USE CASES ===
 difficulty: advanced

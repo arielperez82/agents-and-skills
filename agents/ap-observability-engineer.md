@@ -6,7 +6,7 @@ title: Observability Engineer
 description: Observability specialist for monitoring, logging, distributed tracing, alerting, and SLI/SLO implementation for distributed systems
 domain: engineering
 subdomain: observability-operations
-skills: senior-observability
+skills: engineering-team/senior-observability
 
 # === USE CASES ===
 difficulty: advanced

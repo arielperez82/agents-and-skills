@@ -6,7 +6,7 @@ title: Code Reviewer Specialist
 description: Code review specialist for quality assessment, security analysis, and best practices enforcement across all tech stacks
 domain: engineering
 subdomain: quality-assurance
-skills: code-reviewer
+skills: engineering-team/code-reviewer
 
 # === USE CASES ===
 difficulty: advanced

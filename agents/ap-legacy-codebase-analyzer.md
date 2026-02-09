@@ -5,7 +5,7 @@ title: Legacy Codebase Analyzer
 description: Comprehensive legacy codebase analysis specialist for technical debt quantification, security vulnerability detection, and modernization roadmap generation
 domain: engineering
 subdomain: technical-debt
-skills: legacy-codebase-analyzer
+skills: engineering-team/legacy-codebase-analyzer
 
 # === USE CASES ===
 difficulty: advanced

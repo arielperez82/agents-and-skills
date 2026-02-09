@@ -6,7 +6,7 @@ title: Backend Engineer
 description: Backend development specialist for API design, database optimization, microservices architecture, and system performance
 domain: engineering
 subdomain: backend-development
-skills: senior-backend
+skills: engineering-team/senior-backend
 
 # === USE CASES ===
 difficulty: advanced

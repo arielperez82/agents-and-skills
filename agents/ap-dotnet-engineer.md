@@ -6,7 +6,7 @@ title: .NET Engineer
 description: C# and .NET development specialist for enterprise applications, ASP.NET Core APIs, Entity Framework Core, and cloud-native systems. Handles Clean Architecture, Blazor, Minimal APIs, and .NET performance optimization.
 domain: engineering
 subdomain: dotnet-development
-skills: senior-dotnet
+skills: engineering-team/senior-dotnet
 
 # === USE CASES ===
 difficulty: advanced

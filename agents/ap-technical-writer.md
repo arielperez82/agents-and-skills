@@ -5,7 +5,7 @@ title: Technical Writer Specialist
 description: Documentation specialist for README generation, CHANGELOG management, API documentation, Mermaid diagram generation, and documentation quality analysis across engineering projects
 domain: engineering
 subdomain: documentation
-skills: technical-writer
+skills: engineering-team/technical-writer
 
 # === USE CASES ===
 difficulty: intermediate

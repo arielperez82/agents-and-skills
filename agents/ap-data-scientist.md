@@ -6,7 +6,7 @@ title: Data Scientist Specialist
 description: Data science specialist for statistical analysis, predictive modeling, experiment design, and data-driven insights
 domain: engineering
 subdomain: data-engineering
-skills: senior-data-scientist
+skills: engineering-team/senior-data-scientist
 
 # === USE CASES ===
 difficulty: advanced

@@ -6,7 +6,7 @@ title: QA Engineer
 description: Quality assurance specialist for test automation, quality metrics, test strategy, and continuous testing integration
 domain: engineering
 subdomain: quality-assurance
-skills: senior-qa
+skills: engineering-team/senior-qa
 
 # === USE CASES ===
 difficulty: advanced

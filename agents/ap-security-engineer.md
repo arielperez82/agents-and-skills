@@ -6,7 +6,7 @@ title: Security Engineer
 description: Security specialist for threat modeling, vulnerability assessment, secure coding practices, and security automation
 domain: engineering
 subdomain: security-engineering
-skills: senior-security
+skills: engineering-team/senior-security
 
 # === USE CASES ===
 difficulty: advanced

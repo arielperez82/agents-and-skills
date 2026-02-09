@@ -6,7 +6,7 @@ title: Senior PM Specialist
 description: Strategic program management specialist for portfolio planning, stakeholder management, cross-team coordination, and delivery excellence
 domain: delivery
 subdomain: delivery-general
-skills: senior-pm
+skills: delivery-team/senior-pm
 
 # === USE CASES ===
 difficulty: advanced

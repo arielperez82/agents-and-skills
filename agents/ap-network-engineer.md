@@ -6,7 +6,7 @@ title: Network Engineer
 description: Network infrastructure specialist for VPC design, VPN configuration, firewall policies, and multi-cloud networking
 domain: engineering
 subdomain: network-infrastructure
-skills: senior-network-infrastructure
+skills: engineering-team/senior-network-infrastructure
 
 # === USE CASES ===
 difficulty: advanced

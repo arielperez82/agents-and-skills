@@ -6,7 +6,7 @@ title: CTO Advisor Specialist
 description: Technical leadership advisor for technology strategy, team scaling, architecture governance, and executive decision-making
 domain: engineering
 subdomain: system-architecture
-skills: cto-advisor
+skills: engineering-team/cto-advisor
 
 # === USE CASES ===
 difficulty: advanced

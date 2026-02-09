@@ -6,7 +6,7 @@ title: Architect Specialist
 description: System architecture specialist for design patterns, scalability planning, technology evaluation, and architecture documentation
 domain: engineering
 subdomain: system-architecture
-skills: senior-architect
+skills: engineering-team/senior-architect
 
 # === USE CASES ===
 difficulty: advanced

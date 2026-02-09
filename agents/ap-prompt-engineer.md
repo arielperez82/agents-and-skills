@@ -6,7 +6,7 @@ title: Prompt Engineer
 description: Prompt engineering specialist for LLM optimization, RAG systems, prompt templates, and multi-agent orchestration
 domain: engineering
 subdomain: ai-ml-engineering
-skills: senior-prompt-engineer
+skills: engineering-team/senior-prompt-engineer
 
 # === USE CASES ===
 difficulty: advanced

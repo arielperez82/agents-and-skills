@@ -6,7 +6,7 @@ title: Agile Coach Specialist
 description: Agile coaching specialist for agile ceremonies, team dynamics, communication, collaboration, transparency, and agile manifesto adherence
 domain: delivery
 subdomain: agile-delivery
-skills: agile-coach
+skills: delivery-team/agile-coach
 
 # === USE CASES ===
 difficulty: advanced

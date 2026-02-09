@@ -6,7 +6,7 @@ title: Fullstack Engineer
 description: Full-stack development specialist for end-to-end application architecture, API integration, and deployment automation
 domain: engineering
 subdomain: fullstack-development
-skills: senior-fullstack
+skills: engineering-team/senior-fullstack
 
 # === USE CASES ===
 difficulty: advanced

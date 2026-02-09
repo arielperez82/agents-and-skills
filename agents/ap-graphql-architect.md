@@ -6,7 +6,7 @@ title: GraphQL Architect
 description: GraphQL API design specialist for schema architecture, resolver patterns, Apollo Federation, and performance optimization
 domain: engineering
 subdomain: api-development
-skills: senior-graphql
+skills: engineering-team/senior-graphql
 
 # === USE CASES ===
 difficulty: advanced

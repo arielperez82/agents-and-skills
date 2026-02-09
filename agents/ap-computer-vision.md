@@ -6,7 +6,7 @@ title: Computer Vision Specialist
 description: Computer vision specialist for image classification, object detection, model optimization, and vision pipeline deployment
 domain: engineering
 subdomain: ai-ml-engineering
-skills: senior-computer-vision
+skills: engineering-team/senior-computer-vision
 
 # === USE CASES ===
 difficulty: advanced

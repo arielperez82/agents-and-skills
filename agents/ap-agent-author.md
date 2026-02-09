@@ -6,18 +6,17 @@ description: Orchestrates the creation and maintenance of ap-* agents and skills
 domain: engineering
 subdomain: meta-development
 skills:
-  - creating-agents
-  - refactoring-agents
-  - skill-creator
-  - agent-md-refactor
-  - check-tools
+  - agent-development-team/creating-agents
+  - agent-development-team/refactoring-agents
+  - agent-development-team/skill-creator
+  - agent-development-team/agent-md-refactor
+  - engineering-team/check-tools
   - crafting-instructions
   - engineering-team/cost-optimization
   - docs-seeker
   - doc-coauthoring
   - iterating
-  - remembering
-  - subagent-driven-development
+  - engineering-team/subagent-driven-development
   - algorithmic-art
 
 # === WEBSITE DISPLAY ===
@@ -46,12 +45,11 @@ related-agents:
   - ap-cto-advisor
 related-skills:
   - engineering-team/avoid-feature-creep
-  - skill-creator
+  - agent-development-team/skill-creator
   - crafting-instructions
   - iterating
-  - remembering
-  - subagent-driven-development
-  - check-tools
+  - engineering-team/subagent-driven-development
+  - engineering-team/check-tools
 related-commands: []
 
 # === COLLABORATION ===

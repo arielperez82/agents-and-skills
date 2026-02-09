@@ -6,7 +6,7 @@ title: Incident Responder
 description: Security incident response specialist for detection, containment, investigation, and post-incident analysis with automated playbooks and forensic evidence collection
 domain: engineering
 subdomain: security-engineering
-skills: incident-response
+skills: engineering-team/incident-response
 
 # === USE CASES ===
 difficulty: advanced

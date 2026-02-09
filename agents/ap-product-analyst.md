@@ -6,7 +6,7 @@ title: Product Analyst Specialist
 description: Comprehensive product analysis agent combining agile delivery requirements, business process analysis, user story creation, and strategic documentation
 domain: product
 subdomain: product-management
-skills: product-team/agile-product-owner, business-analyst-toolkit
+skills: product-team/agile-product-owner, product-team/business-analyst-toolkit
 
 # === USE CASES ===
 difficulty: advanced

@@ -6,7 +6,7 @@ title: DevSecOps Engineer
 description: DevSecOps specialist for secure CI/CD pipelines, infrastructure security, vulnerability management, compliance automation, and secure deployment practices
 domain: engineering
 subdomain: devops-operations
-skills: senior-devops
+skills: engineering-team/senior-devops
 
 # === USE CASES ===
 difficulty: advanced
