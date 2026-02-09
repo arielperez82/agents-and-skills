@@ -1,14 +1,14 @@
-# Project Management Skills - Claude Code Guidance
+# Delivery Team Skills - Claude Code Guidance
 
-This guide covers the 4 production-ready delivery management skills with Atlassian MCP integration.
+This guide covers the 4 production-ready delivery management skills.
 
 ## Delivery Skills Overview
 
 **Available Skills:**
 1. **senior-pm/** - Senior project manager workflows and best practices
 2. **agile-coach/** - Agile ceremonies, coaching, team facilitation
-
-**Note:** This domain focuses on knowledge frameworks and MCP integration patterns rather than Python automation tools.
+3. **wiki-documentation/** - Documentation strategy, space architecture, templates, governance
+4. **ticket-management/** - Issue tracking, workflow design, queries, dashboards, automation
 
 ## Skill-Specific Guidance
 
@@ -31,41 +31,59 @@ This guide covers the 4 production-ready delivery management skills with Atlassi
 - Team sync coordination
 - Retrospectives
 - Backlog refinement
+
+### Wiki Documentation (`wiki-documentation/`)
+
+**Focus:** Documentation spaces, templates, content governance, knowledge bases
+
+**Key Workflows:**
+- Space architecture and setup
+- Template library management
+- Content governance and review cycles
+- Knowledge base organization
+- `.docs/` hierarchy integration
+
+### Ticket Management (`ticket-management/`)
+
+**Focus:** Issue tracking configuration, queries, workflows, dashboards
+
+**Key Workflows:**
+- Project setup with workflows and permissions
+- Advanced query patterns for reporting
+- Automation rules (assignment, transitions, notifications)
+- Dashboard creation for sprint and portfolio metrics
+- `.docs/` hierarchy integration for markdown-based tracking
+
 ## Integration Patterns
 
 ### Pattern 1: Sprint Planning
 
 ```bash
-# 1. Create sprint in Jira (via MCP)
-mcp__atlassian__create_sprint board="TEAM-board" name="Sprint 23" start="2025-11-06"
+# 1. Create sprint in issue tracker
+# (Via MCP server or tracker API)
 
 # 2. Generate user stories (product-team integration)
 python ../product-team/agile-product-owner/scripts/user_story_generator.py sprint 30
 
-# 3. Import stories to Jira
-# (Manual or via Jira API integration)
+# 3. Import stories to tracker
+# (Via API or bulk import)
 ```
 
 ### Pattern 2: Documentation Workflow
 
 ```bash
-# 1. Create Confluence page template
-mcp__atlassian__create_page space="DOCS" title="Feature Spec" template="feature-spec"
-
-# 2. Link to Jira epic
-mcp__atlassian__link_issue issue="PROJ-123" confluence_page_id="456789"
+# 1. Set up documentation space using wiki-documentation templates
+# 2. Link documentation to tickets for traceability
+# 3. Apply content governance standards
 ```
 
 ## Additional Resources
 
-- **Installation Guide:** `INSTALLATION_GUIDE.txt`
-- **Implementation Summary:** `IMPLEMENTATION_SUMMARY.md` (for repo-level coordination outputs, use `.docs/reports/report-<endeavor>-<topic>-<timeframe>.md` per `.docs/AGENTS.md`)
-- **Real-World Scenario:** `REAL_WORLD_SCENARIO.md`
-- **PM Overview:** `README.md`
 - **Agent Authoring Guide:** `../../agents/ap-agent-author.md`
+- **Artifact Conventions:** `../../.docs/AGENTS.md`
 
 ---
 
-**Last Updated:** November 17, 2025
+**Last Updated:** February 9, 2026
 **Skills Deployed:** 4/4 delivery skills production-ready
-**Integration:** Atlassian MCP Server for Jira/Confluence automation
+**Integration:** Product-agnostic patterns for any wiki/ticket platform or `.docs/` hierarchy
