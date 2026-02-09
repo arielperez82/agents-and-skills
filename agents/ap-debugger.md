@@ -1,5 +1,6 @@
 ---
 name: ap-debugger
+title: Debugging Specialist
 description: Senior debugging specialist for root cause analysis, system behavior investigation, and performance optimization.
 domain: engineering
 subdomain: debugging

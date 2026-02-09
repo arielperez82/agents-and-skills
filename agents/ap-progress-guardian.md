@@ -5,7 +5,7 @@ title: Progress Guardian
 description: Assesses and validates progress tracking via canonical docs under .docs/ (plans, status reports, learnings in AGENTS.md and canonical docs). Reports on what's missing and needs to be documented.
 domain: delivery
 subdomain: project-management
-skills: []
+skills: engineering-team/planning
 
 # === USE CASES ===
 difficulty: intermediate

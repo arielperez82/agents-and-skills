@@ -5,7 +5,7 @@ title: Learning Guardian
 description: Guardian of institutional knowledge that proactively identifies learning opportunities during development and reactively documents insights into appropriate skill references, CLAUDE.md, or ADRs based on learning domain
 domain: cross-cutting
 subdomain: knowledge-management
-skills: []
+skills: engineering-team/planning
 
 # === USE CASES ===
 difficulty: intermediate

@@ -5,7 +5,7 @@ title: Documentation Guardian
 description: Expert in creating and maintaining world-class documentation through proactive guidance and reactive improvement analysis
 domain: cross-cutting
 subdomain: documentation
-skills: []
+skills: engineering-team/documentation
 
 # === USE CASES ===
 difficulty: intermediate

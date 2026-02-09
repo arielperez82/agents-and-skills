@@ -5,7 +5,7 @@ title: Codebase Scout Specialist
 description: Rapidly locate relevant files across large codebases using adaptive parallel search strategies. Searches LOCAL codebase for files needed to complete tasks.
 domain: engineering
 subdomain: exploration
-skills: []
+skills: engineering-team/mapping-codebases
 
 # === USE CASES ===
 difficulty: intermediate

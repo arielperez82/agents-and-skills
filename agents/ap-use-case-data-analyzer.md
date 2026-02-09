@@ -5,7 +5,7 @@ title: Use Case Data Analyzer Specialist
 description: Analyzes how user-facing use cases map to underlying data access patterns and architectural implementation in the codebase
 domain: engineering
 subdomain: data-architecture
-skills: []
+skills: engineering-team/mapping-codebases
 
 # === USE CASES ===
 difficulty: intermediate

@@ -35,7 +35,7 @@ collaborates-with:
     required: optional
     features-enabled: [architecture-testability, tdd-friendly-design]
     without-collaborator: "Architecture may not prioritize testability and TDD practices"
-  - agent: qa-engineer
+  - agent: ap-qa-engineer
     purpose: Architecture review for testability and automation infrastructure requirements
     required: optional
     features-enabled: [testable-architecture, automation-infrastructure, quality-architecture]
