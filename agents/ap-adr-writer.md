@@ -59,6 +59,12 @@ examples:
 
 # Architecture Decision Record Writer
 
+## Skill Integration
+
+**Skill Location:** `../../skills/engineering-team/architecture-decision-records/`
+
+- **`engineering-team/architecture-decision-records`** — ADR format standards, templates, and decision frameworks for documenting significant architectural choices.
+
 ## Purpose & Philosophy
 
 The `ap-adr-writer` agent creates Architecture Decision Records (ADRs) for significant architectural choices. ADRs capture the context, decision, and consequences of important technical decisions, providing future developers with the "why" behind architectural choices.

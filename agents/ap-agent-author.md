@@ -11,13 +11,7 @@ skills:
   - agent-development-team/skill-creator
   - agent-development-team/agent-md-refactor
   - engineering-team/check-tools
-  - crafting-instructions
-  - engineering-team/cost-optimization
-  - docs-seeker
-  - doc-coauthoring
-  - iterating
   - engineering-team/subagent-driven-development
-  - algorithmic-art
 
 # === WEBSITE DISPLAY ===
 difficulty: advanced
@@ -47,7 +41,11 @@ related-skills:
   - engineering-team/avoid-feature-creep
   - agent-development-team/skill-creator
   - crafting-instructions
+  - engineering-team/cost-optimization
+  - docs-seeker
+  - doc-coauthoring
   - iterating
+  - algorithmic-art
   - engineering-team/subagent-driven-development
   - engineering-team/check-tools
 related-commands: []
