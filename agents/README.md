@@ -65,6 +65,7 @@ These agents live directly in the `agents/` root directory:
 - **`ap-qa-engineer`** - QA and testing specialist for test automation, coverage analysis, and quality metrics
 - **`ap-code-reviewer`** - Code review specialist for quality assessment, security analysis, and best practices
 - **`ap-refactor-guardian`** - Assesses refactoring opportunities after tests pass (TDD's third step)
+- **`ap-security-guardian`** - Assesses code or diffs for security and produces a findings report with criticality (no implementation)
 - **`ap-ts-enforcer`** - Enforces TypeScript strict mode and best practices
 - **`ap-tpp-guardian`** - Transformation Priority Premise (TPP) guardian for TDD transformations
 
@@ -156,6 +157,18 @@ These agents live directly in the `agents/` root directory:
 - Evaluating semantic vs structural similarity
 
 **Core responsibility**: Identify valuable refactoring (only refactor if adds value), distinguish knowledge duplication from structural similarity.
+
+---
+
+#### `ap-security-guardian`
+**Purpose**: Assesses code or diffs for security issues and produces a structured findings report with criticality (Critical/High/Medium/Low). Does not implement fixes—only assesses and reports.
+
+**Use when**:
+- Pre-commit or PR: want a security assessment of changed code without full audits
+- Need a structured security findings report for triage or handoff
+- ap-code-reviewer delegates the security slice of a code review
+
+**Core responsibility**: Assess and report only; recommend ap-security-engineer (or ap-devsecops-engineer for infra) for remediation.
 
 ---
 

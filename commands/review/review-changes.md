@@ -3,7 +3,7 @@ description: Run guardian and review agents on uncommitted changes
 argument-hint: [optional focus or file scope]
 ---
 
-## Purpose
+# Purpose
 
 Run the pre-commit validation agents on **uncommitted changes only** (working tree + staged since last commit). Optionally scope or focus the review via the argument.
 
@@ -26,14 +26,13 @@ Engage these agents **in sequence**, each with the same context: the uncommitted
 1. **ap-tdd-guardian** – TDD compliance, test quality, behavior-focused tests.
 2. **ap-ts-enforcer** – TypeScript strict mode, no `any`, schema usage, immutability. (Skip or make no-op if no TypeScript in diff.)
 3. **ap-refactor-guardian** – Refactoring opportunities (Critical / High / Nice / Skip).
-4. **ap-code-reviewer** – Code quality, security, best practices, merge readiness.
+4. **ap-security-guardian** – Security assessment of the diff; produces a findings report with criticality (Critical/High/Medium/Low). Does not implement fixes.
+5. **ap-code-reviewer** – Code quality, security, best practices, merge readiness.
 
 ### Optional (when applicable)
 
-5. **ap-docs-guardian** – **Add** when the diff touches documentation (e.g. `*.md`, `README*`, `docs/`, or user specifies doc focus). Reviews permanent docs for clarity, structure, and correctness.
-6. **ap-progress-guardian** – **Add** when the review is based on a plan or roadmap (e.g. plan under `.docs/canonical/plans/`, status under `.docs/reports/`, or user says work is plan-based). Validates progress tracking and plan alignment.
-
-Use `Task(subagent_type="...", prompt="...", description="...")` for each. Pass the diff and the optional user prompt in each task prompt.
+6. **ap-docs-guardian** – **Add** when the diff touches documentation (e.g. `*.md`, `README*`, `docs/`, or user specifies doc focus). Reviews permanent docs for clarity, structure, and correctness.
+7. **ap-progress-guardian** – **Add** when the review is based on a plan or roadmap (e.g. plan under `.docs/canonical/plans/`, status under `.docs/reports/`, or user says work is plan-based). Validates progress tracking and plan alignment.
 
 ## Workflow
 
@@ -46,6 +45,7 @@ Use `Task(subagent_type="...", prompt="...", description="...")` for each. Pass 
    - Call ap-tdd-guardian with: uncommitted diff + optional scope/focus.
    - Call ap-ts-enforcer with same (or skip if no TS in diff).
    - Call ap-refactor-guardian with same.
+   - Call ap-security-guardian with same (security findings report with criticality).
    - Call ap-code-reviewer with same.
    - If docs changed: call ap-docs-guardian with same (doc-related paths or full diff).
    - If plan-based: call ap-progress-guardian with same (plan context + diff).

@@ -17,7 +17,7 @@ use-cases:
   - Integration with related agents and workflows
 
 # === RELATIONSHIPS ===
-related-agents: []
+related-agents: [ap-security-guardian, ap-refactor-guardian]
 related-skills:
   - engineering-team/avoid-feature-creep
   - engineering-team/code-reviewer
@@ -51,6 +51,11 @@ collaborates-with:
     required: recommended
     features-enabled: [refactoring-assessment, semantic-analysis, knowledge-duplication-detection]
     without-collaborator: "Code reviews will lack specialized refactoring opportunity analysis"
+  - agent: ap-security-guardian
+    purpose: Security-focused assessment of changes; produces findings report with criticality for integration into review
+    required: optional
+    features-enabled: [security-findings-report, criticality-assessment, delegated-security-review]
+    without-collaborator: "Security analysis remains general; no dedicated criticality report"
 orchestrates:
   skill: engineering-team/code-reviewer
 
@@ -444,6 +449,7 @@ echo "Security check complete. Safe to deploy."
 
 ## Related Agents
 
+- [ap-security-guardian](ap-security-guardian.md) - Delegates security assessment of changes; produces findings report with criticality for integration into review
 - [ap-refactor-guardian](ap-refactor-guardian.md) - Assesses refactoring opportunities, identifies knowledge duplication, and evaluates semantic vs structural similarity during code reviews
 - [ap-tdd-guardian](ap-tdd-guardian.md) - Verifies TDD compliance and test structure during code reviews
 - [ap-qa-engineer](ap-qa-engineer.md) - Provides test automation and quality metrics assessment during reviews

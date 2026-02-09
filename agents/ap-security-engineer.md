@@ -18,7 +18,7 @@ use-cases:
   - Developing security controls with comprehensive test coverage
 
 # === RELATIONSHIPS ===
-related-agents: []
+related-agents: [ap-security-guardian, ap-code-reviewer]
 related-skills: [engineering-team/avoid-feature-creep, engineering-team/senior-security, engineering-team/core-testing-methodology]
 related-commands: []
 collaborates-with:
@@ -811,6 +811,7 @@ rm pentest-config.json
 - [ap-devsecops-engineer](ap-devsecops-engineer.md) - DevSecOps integration for security practices, secure pipeline integration, and infrastructure security
 - [ap-backend-engineer](ap-backend-engineer.md) - Works together on API security, authentication implementation, and secure coding practices
 - [ap-fullstack-engineer](ap-fullstack-engineer.md) - Coordinates on end-to-end application security including frontend security controls
+- [ap-security-guardian](ap-security-guardian.md) - Assesses code or diffs and produces security findings report with criticality; hands off remediation to this agent
 - [ap-code-reviewer](ap-code-reviewer.md) - Integrates security review into code review process for secure coding validation
 
 ## References
