@@ -3,7 +3,7 @@ description: ⚡⚡ Analyze & fix issues with parallel fullstack-developer agent
 argument-hint: [issues]
 ---
 
-**Ultrathink parallel** to fix: <issues>$ARGUMENTS</issues>
+**Think hard** to fix: <issues>$ARGUMENTS</issues>
 
 **IMPORTANT:** Activate needed skills. Ensure token efficiency. Sacrifice grammar for concision.
 

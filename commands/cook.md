@@ -31,7 +31,7 @@ Think harder to plan & start working on these tasks follow the Orchestration Pro
 
 ## Workflow:
 
-### Fullfill the request
+### Fulfill the request
 
 * If you have any questions, use `AskUserQuestion` tool to ask the user to clarify them.
 * Ask 1 question at a time, wait for the user to answer before moving to the next question.
@@ -65,7 +65,7 @@ Think harder to plan & start working on these tasks follow the Orchestration Pro
 
 * Write the tests for the plan, **make sure you don't use fake data, mocks, cheats, tricks, temporary solutions, just to pass the build or github actions**, tests should be real and cover all possible cases.
 * Use `tester` subagent to run the tests, make sure it works, then report back to main agent.
-* If there are issues or failed tests, use `ap-debugger` subagent to find the root cause of the issues, then ask main agent to fix all of them and 
+* If there are issues or failed tests, use `ap-debugger` subagent to find the root cause of the issues, then ask main agent to fix all of them.
 * Repeat the process until all tests pass or no more issues are reported. Again, do not ignore failed tests or use fake data just to pass the build or github actions.
 
 ### Code Review

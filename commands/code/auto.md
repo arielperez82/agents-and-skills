@@ -3,7 +3,7 @@ description: ⚡⚡⚡ [AUTO] Start coding & testing an existing plan ("trust me
 argument-hint: [plan]
 ---
 
-**MUST READ** `CLAUDE.md` then **THINK HARDER** to start working on the following plan follow the Orchestration Protocol, Core Responsibilities, Subagents Team and Development Rules:
+**MUST READ** `CLAUDE.md` then **think harder** to start working on the following plan follow the Orchestration Protocol, Core Responsibilities, Subagents Team and Development Rules:
 <plan>$ARGUMENTS</plan>
 
 ---

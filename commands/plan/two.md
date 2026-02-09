@@ -3,7 +3,7 @@ description: ⚡⚡⚡⚡ Research & create an implementation plan with 2 approa
 argument-hint: [task]
 ---
 
-Think harder.
+**Ultrathink.**
 Activate `planning` skill.
 
 ## Your mission
@@ -20,7 +20,7 @@ Use the `ap-implementation-planner` subagent to create 2 detailed implementation
 4. Use `scout` agent to search the codebase for files needed to complete the task.
 5. Main agent gathers all research and ap-codebase-scout report filepaths, and pass them to `ap-implementation-planner` subagent with the detailed instructions prompt to create an implementation plan of this task.
   **Output:** Provide at least 2 implementation approaches with clear trade-offs, and explain the pros and cons of each approach, and provide a recommended approach.
-1. Main agent receives the implementation plan from `ap-implementation-planner` subagent, and ask user to review the plan
+6. Main agent receives the implementation plan from `ap-implementation-planner` subagent, and ask user to review the plan
 
 ## Important Notes
 **IMPORTANT:** Analyze the skills catalog and activate the skills that are needed for the task during the process.

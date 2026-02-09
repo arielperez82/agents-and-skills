@@ -3,7 +3,7 @@ description: ⚡⚡ Start coding an existing plan (no testing)
 argument-hint: [plan]
 ---
 
-**MUST READ** `CLAUDE.md` then **THINK HARDER** to start working on the following plan follow the Orchestration Protocol, Core Responsibilities, Subagents Team and Development Rules:
+**MUST READ** `CLAUDE.md` then **think hard** to start working on the following plan follow the Orchestration Protocol, Core Responsibilities, Subagents Team and Development Rules:
 <plan>$ARGUMENTS</plan>
 
 ---

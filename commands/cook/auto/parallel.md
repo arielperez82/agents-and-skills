@@ -3,7 +3,7 @@ description: ⚡⚡⚡ Plan parallel phases & execute with fullstack-developer a
 argument-hint: [tasks]
 ---
 
-**Ultrathink parallel** to implement: <tasks>$ARGUMENTS</tasks>
+**Think harder** to implement: <tasks>$ARGUMENTS</tasks>
 
 **IMPORTANT:** Activate needed skills. Ensure token efficiency. Sacrifice grammar for concision.
 

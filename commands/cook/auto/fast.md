@@ -3,7 +3,7 @@ description: ⚡ No research. Only scout, plan & implement ["trust me bro"]
 argument-hint: [tasks-or-prompt]
 ---
 
-Think harder to plan & start working on these tasks follow the Orchestration Protocol, Core Responsibilities, Subagents Team and Development Rules: 
+Plan & start working on these tasks follow the Orchestration Protocol, Core Responsibilities, Subagents Team and Development Rules: 
 <tasks>$ARGUMENTS</tasks>
 
 ---

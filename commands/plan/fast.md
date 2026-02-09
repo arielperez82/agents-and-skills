@@ -3,7 +3,7 @@ description: ⚡⚡ No research. Only analyze and create an implementation plan
 argument-hint: [task]
 ---
 
-Think.
+**Think hard.**
 Activate `planning` skill.
 
 ## Your mission

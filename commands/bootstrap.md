@@ -41,7 +41,7 @@ Follow strictly these following steps:
 
 **First thing first:** check if Git has been initialized, if not, ask the user if they want to initialize it, if yes, use `git-manager` subagent to initialize it.
 
-### Fullfill the request
+### Fulfill the request
 
 * If you have any questions, use `AskUserQuestion` tool to ask the user to clarify them.
 * Ask 1 question at a time, wait for the user to answer before moving to the next question.
@@ -104,7 +104,7 @@ Follow strictly these following steps:
 
 * Write the tests for the plan, make sure you don't use fake data just to pass the tests, tests should be real and cover all possible cases.
 * Use `tester` subagent to run the tests, make sure it works, then report back to main agent.
-* If there are issues or failed tests, use `ap-debugger` subagent to find the root cause of the issues, then ask main agent to fix all of them and 
+* If there are issues or failed tests, use `ap-debugger` subagent to find the root cause of the issues, then ask main agent to fix all of them.
 * Repeat the process until all tests pass or no more issues are reported. Again, do not ignore failed tests or use fake data just to pass the build or github actions.
 
 ### Code Review
@@ -118,7 +118,7 @@ Follow strictly these following steps:
 * If user approves the changes, use `docs-manager` subagent to update the docs if needed.
   * Create/update `./docs/README.md` file (keep it concise, under 300 lines).
   * Create/update `./docs/codebase-summary.md` file.
-  * Create/update `./docs/project-overview.-pdr.md` (Product Development Requirements) file.
+  * Create/update `./docs/project-overview-pdr.md` (Product Development Requirements) file.
   * Create/update `./docs/code-standards.md` file.
   * Create/update `./docs/system-architecture.md` file.
 * Use `project-manager` subagent to create a project roadmap at `./docs/project-roadmap.md` file & project progress and task status in the given plan file.

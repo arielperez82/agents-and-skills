@@ -3,7 +3,7 @@ description: ⚡⚡⚡ Quickly bootstrap a new project automatically
 argument-hint: [user-requirements]
 ---
 
-**Think hard** to plan & bootstrap a new project follow the Orchestration Protocol, Core Responsibilities, Subagents Team and Development Rules in your `CLAUDE.md` file: 
+**Think harder** to plan & bootstrap a new project follow the Orchestration Protocol, Core Responsibilities, Subagents Team and Development Rules in your `CLAUDE.md` file: 
 
 ---
 
@@ -90,7 +90,7 @@ Follow strictly these following steps:
 
 * Use `docs-manager` subagent to update the docs if needed.
   * Create/update `./docs/README.md` file (keep it concise and under 300 lines).
-  * Create/update `./docs/project-overview.-pdr.md` (Product Development Requirements) file.
+  * Create/update `./docs/project-overview-pdr.md` (Product Development Requirements) file.
   * Create/update `./docs/code-standards.md` file.
   * Create/update `./docs/system-architecture.md` file.
   * **IMPORTANT:** Sacrifice grammar for the sake of concision when writing outputs.

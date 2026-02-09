@@ -3,14 +3,14 @@ description: ⚡⚡⚡ Use subagents to plan and fix hard issues
 argument-hint: [issues]
 ---
 
-**Ultrathink** to plan & start fixing these issues follow the Orchestration Protocol, Core Responsibilities, Subagents Team and Development Rules: 
+**Think harder** to plan & start fixing these issues follow the Orchestration Protocol, Core Responsibilities, Subagents Team and Development Rules: 
 <issues>$ARGUMENTS</issues>
 
 ## Workflow:
 
 If the user provides a screenshots or videos, use `ai-multimodal` skill to describe as detailed as possible the issue, make sure developers can predict the root causes easily based on the description.
 
-### Fullfill the request
+### Fulfill the request
 **Question Everything**: Use `AskUserQuestion` tool to ask probing questions to fully understand the user's request, constraints, and true objectives. Don't assume - clarify until you're 100% certain.
 
 * If you have any questions, use `AskUserQuestion` tool to ask the user to clarify them.

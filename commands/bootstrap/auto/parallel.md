@@ -3,7 +3,7 @@ description: ⚡⚡⚡⚡⚡ Bootstrap project with parallel execution
 argument-hint: [user-requirements]
 ---
 
-**Ultrathink parallel** to bootstrap: <user-requirements>$ARGUMENTS</user-requirements>
+**Ultrathink** to bootstrap: <user-requirements>$ARGUMENTS</user-requirements>
 
 **IMPORTANT:** Activate needed skills. Ensure token efficiency. Sacrifice grammar for concision.
 **YAGNI, KISS, DRY** principles apply.
