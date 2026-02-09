@@ -48,6 +48,7 @@ related-skills:
   - engineering-team/senior-qa
   - engineering-team/verification-before-completion
   - engineering-team/tpp
+  - engineering-team/bdd-principles
 related-commands: []
 collaborates-with:
   - agent: ap-qa-engineer

@@ -28,7 +28,7 @@ classification:
 
 # === RELATIONSHIPS ===
 related-agents: []
-related-skills: [engineering-team/avoid-feature-creep, engineering-team/senior-network-infrastructure, engineering-team/core-testing-methodology]
+related-skills: [engineering-team/avoid-feature-creep, engineering-team/senior-network-infrastructure, engineering-team/core-testing-methodology, engineering-team/terraform-configuration]
 related-commands: []
 collaborates-with:
   - agent: ap-tdd-guardian

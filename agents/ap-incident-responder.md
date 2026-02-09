@@ -28,7 +28,7 @@ classification:
 
 # === RELATIONSHIPS ===
 related-agents: [ap-devsecops-engineer, ap-technical-writer]
-related-skills: [engineering-team/avoid-feature-creep, engineering-team/incident-response, engineering-team/senior-secops]
+related-skills: [engineering-team/avoid-feature-creep, engineering-team/incident-response, engineering-team/senior-secops, engineering-team/sre-reliability-engineering]
 related-commands: []
 collaborates-with:
   - agent: ap-devsecops-engineer

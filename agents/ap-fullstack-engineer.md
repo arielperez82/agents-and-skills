@@ -55,6 +55,10 @@ related-skills:
   - engineering-team/seo
   - engineering-team/web-quality-audit
   - engineering-team/remotion-best-practices
+  - engineering-team/tailwind-configuration
+  - engineering-team/docker-compose-basics
+  - engineering-team/eslint-configuration
+  - engineering-team/prettier-configuration
 related-commands: []
 collaborates-with:
   - agent: ap-tdd-guardian

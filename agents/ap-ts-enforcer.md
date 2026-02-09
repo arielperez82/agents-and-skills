@@ -31,6 +31,8 @@ related-agents:
 related-skills:
   - engineering-team/avoid-feature-creep
   - engineering-team/typescript-strict
+  - engineering-team/eslint-configuration
+  - engineering-team/prettier-configuration
 related-commands: []
 collaborates-with:
   - agent: ap-tdd-guardian

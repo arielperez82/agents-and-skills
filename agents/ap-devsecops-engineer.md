@@ -27,7 +27,7 @@ classification:
 
 # === RELATIONSHIPS ===
 related-agents: []
-related-skills: [engineering-team/avoid-feature-creep, engineering-team/vercel-deploy-claimable, engineering-team/senior-devops, engineering-team/core-testing-methodology]
+related-skills: [engineering-team/avoid-feature-creep, engineering-team/vercel-deploy-claimable, engineering-team/senior-devops, engineering-team/core-testing-methodology, engineering-team/docker-compose-basics, engineering-team/terraform-configuration]
 related-commands: []
 collaborates-with:
   - agent: ap-tdd-guardian

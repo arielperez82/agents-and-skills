@@ -46,6 +46,7 @@ related-skills:
   - engineering-team/verification-before-completion
   - engineering-team/tpp
   - engineering-team/coverage-analysis
+  - engineering-team/bdd-principles
 related-commands: []
 collaborates-with:
   - agent: ap-code-reviewer

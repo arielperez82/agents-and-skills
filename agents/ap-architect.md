@@ -27,7 +27,7 @@ classification:
 
 # === RELATIONSHIPS ===
 related-agents: [ap-technical-writer, ap-graphql-architect]
-related-skills: [engineering-team/avoid-feature-creep, engineering-team/senior-architect, engineering-team/technical-writer, engineering-team/core-testing-methodology]
+related-skills: [engineering-team/avoid-feature-creep, engineering-team/senior-architect, engineering-team/technical-writer, engineering-team/core-testing-methodology, engineering-team/docker-compose-basics, engineering-team/terraform-configuration, engineering-team/monorepo-architecture]
 related-commands: []
 collaborates-with:
   - agent: ap-tdd-guardian

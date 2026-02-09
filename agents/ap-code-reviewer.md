@@ -38,6 +38,8 @@ related-skills:
   - engineering-team/performance
   - engineering-team/seo
   - engineering-team/web-quality-audit
+  - engineering-team/eslint-configuration
+  - engineering-team/prettier-configuration
 related-commands: []
 collaborates-with:
   - agent: ap-tdd-guardian

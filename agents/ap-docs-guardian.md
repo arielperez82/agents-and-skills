@@ -31,7 +31,7 @@ related-agents:
   - ap-technical-writer
   - ap-architect
   - ap-code-reviewer
-related-skills: [engineering-team/avoid-feature-creep, engineering-team/architecture-decision-records, engineering-team/quality-gate-first]
+related-skills: [engineering-team/avoid-feature-creep, engineering-team/architecture-decision-records, engineering-team/quality-gate-first, engineering-team/markdownlint-configuration]
 related-commands: [skill/phase-0-check]
 collaborates-with:
   - agent: ap-adr-writer
