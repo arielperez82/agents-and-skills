@@ -80,6 +80,7 @@ Engineering skills (path: `skills/engineering-team/<name>/`). Load proactively p
 | **backend-development** | Backend systems | Frameworks, DBs, APIs, auth, testing, security |
 | **databases** | Database work | MongoDB, PostgreSQL schemas, queries, migrations |
 | **supabase-best-practices** | Supabase | RLS, Clerk auth, security, performance |
+| **supabase-edge-functions** | Supabase Edge Functions (Deno) | Deno/Node dual tsconfig, ambient types, DI for testability, Vitest testing in TypeScript monorepo without Deno runtime |
 | **sql-expert** | SQL | Queries, optimization, schema design (Postgres, MySQL, SQLite, SQL Server) |
 | **database-schema-designer** | Schema design | Normalization, indexing, migrations, constraints, SQL/NoSQL data models |
 | **api-design-principles** | API design | REST/GraphQL design standards |
