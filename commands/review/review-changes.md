@@ -28,11 +28,12 @@ Engage these agents **in parallel**, each with the same context: the uncommitted
 3. **ap-refactor-guardian** – Refactoring opportunities (Critical / High / Nice / Skip).
 4. **ap-security-guardian** – Security assessment of the diff; produces a findings report with criticality (Critical/High/Medium/Low). Does not implement fixes.
 5. **ap-code-reviewer** – Code quality, security, best practices, merge readiness.
+6. **ap-cognitive-load-assessor** – Cognitive Load Index (CLI) for changed code; 8-dimension report, top offenders, recommendations (read-only).
 
 ### Optional (when applicable)
 
-6. **ap-docs-guardian** – **Add** when the diff touches documentation (e.g. `*.md`, `README*`, `docs/`, or user specifies doc focus). Reviews permanent docs for clarity, structure, and correctness.
-7. **ap-progress-guardian** – **Add** when the review is based on a plan or roadmap (e.g. plan under `.docs/canonical/plans/`, status under `.docs/reports/`, or user says work is plan-based). Validates progress tracking and plan alignment.
+7. **ap-docs-guardian** – **Add** when the diff touches documentation (e.g. `*.md`, `README*`, `docs/`, or user specifies doc focus). Reviews permanent docs for clarity, structure, and correctness.
+8. **ap-progress-guardian** – **Add** when the review is based on a plan or roadmap (e.g. plan under `.docs/canonical/plans/`, status under `.docs/reports/`, or user says work is plan-based). Validates progress tracking and plan alignment.
 
 ## Workflow
 
@@ -43,7 +44,7 @@ Engage these agents **in parallel**, each with the same context: the uncommitted
 
 2. **Run all agents in parallel**
    - Launch all applicable agents concurrently, each with: uncommitted diff + optional scope/focus.
-   - Core (always): ap-tdd-guardian, ap-ts-enforcer (skip if no TS in diff), ap-refactor-guardian, ap-security-guardian, ap-code-reviewer.
+   - Core (always): ap-tdd-guardian, ap-ts-enforcer (skip if no TS in diff), ap-refactor-guardian, ap-security-guardian, ap-code-reviewer, ap-cognitive-load-assessor.
    - Optional: ap-docs-guardian (if docs changed), ap-progress-guardian (if plan-based).
    - Wait for all agents to complete before proceeding to summarize.
 
