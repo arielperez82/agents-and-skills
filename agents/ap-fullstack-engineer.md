@@ -59,6 +59,9 @@ related-skills:
   - engineering-team/docker-compose-basics
   - engineering-team/eslint-configuration
   - engineering-team/prettier-configuration
+  - engineering-team/api-design-principles
+  - engineering-team/modern-javascript-patterns
+  - engineering-team/nocodb
 related-commands: []
 collaborates-with:
   - agent: ap-tdd-guardian

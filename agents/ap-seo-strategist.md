@@ -35,6 +35,7 @@ related-skills:
   - marketing-team/seo-strategist
   - marketing-team/seo-audit
   - marketing-team/content-creator
+  - extracting-keywords
 related-commands: []
 collaborates-with:
   - agent: ap-content-creator

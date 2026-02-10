@@ -47,6 +47,7 @@ related-skills:
   - engineering-team/tpp
   - engineering-team/coverage-analysis
   - engineering-team/bdd-principles
+  - engineering-team/playwright-bdd-step-definitions
 related-commands: []
 collaborates-with:
   - agent: ap-code-reviewer

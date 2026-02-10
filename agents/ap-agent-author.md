@@ -48,6 +48,8 @@ related-skills:
   - algorithmic-art
   - engineering-team/subagent-driven-development
   - engineering-team/check-tools
+  - agent-development-team/find-skills
+  - agent-development-team/versioning-skills
 related-commands: []
 
 # === COLLABORATION ===

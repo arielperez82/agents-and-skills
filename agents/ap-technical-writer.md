@@ -28,7 +28,7 @@ classification:
 
 # === RELATIONSHIPS ===
 related-agents: [ap-code-reviewer, ap-architect, ap-backend-engineer, ap-devsecops-engineer]
-related-skills: [engineering-team/avoid-feature-creep, engineering-team/technical-writer, engineering-team/code-reviewer, engineering-team/senior-backend, engineering-team/markdownlint-configuration]
+related-skills: [engineering-team/avoid-feature-creep, engineering-team/technical-writer, engineering-team/code-reviewer, engineering-team/senior-backend, engineering-team/markdownlint-configuration, delivery-team/wiki-documentation, engineering-team/c4-architecture, mermaid-diagrams, markdown-documentation, markdown-syntax-fundamentals, markdown-tables, extracting-keywords]
 related-commands: [update.docs, generate.api-docs]
 collaborates-with:
   - agent: ap-architect

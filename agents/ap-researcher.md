@@ -29,7 +29,7 @@ classification:
 
 # === RELATIONSHIPS ===
 related-agents: [ap-implementation-planner, ap-brainstormer, ap-architect]
-related-skills: [engineering-team/avoid-feature-creep, research, updating-knowledge, asking-questions, problem-solving, docs-seeker, orchestrating-agents]
+related-skills: [engineering-team/avoid-feature-creep, research, updating-knowledge, asking-questions, problem-solving, docs-seeker, orchestrating-agents, extracting-keywords, convening-experts]
 related-commands: []
 collaborates-with:
   - agent: ap-implementation-planner

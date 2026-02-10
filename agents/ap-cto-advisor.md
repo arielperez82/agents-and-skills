@@ -27,7 +27,7 @@ classification:
 
 # === RELATIONSHIPS ===
 related-agents: []
-related-skills: [engineering-team/avoid-feature-creep, engineering-team/cto-advisor]
+related-skills: [engineering-team/avoid-feature-creep, engineering-team/cto-advisor, engineering-team/code-maturity-assessor, engineering-team/multi-cloud-architecture]
 related-commands: []
 
 # === TECHNICAL ===

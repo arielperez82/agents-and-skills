@@ -40,6 +40,10 @@ related-skills:
   - engineering-team/web-quality-audit
   - engineering-team/eslint-configuration
   - engineering-team/prettier-configuration
+  - engineering-team/boy-scout-rule
+  - engineering-team/clean-code
+  - engineering-team/code-maturity-assessor
+  - engineering-team/functional
 related-commands: []
 collaborates-with:
   - agent: ap-tdd-guardian

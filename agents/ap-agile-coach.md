@@ -27,7 +27,7 @@ classification:
 
 # === RELATIONSHIPS ===
 related-agents: []
-related-skills: [delivery-team/agile-coach]
+related-skills: [delivery-team/agile-coach, delivery-team/ticket-management]
 related-commands: []
 
 # === TECHNICAL ===

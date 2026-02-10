@@ -31,7 +31,7 @@ related-agents:
   - ap-adr-writer
   - ap-progress-guardian
   - ap-architect
-related-skills: []
+related-skills: [markdown-documentation, markdown-syntax-fundamentals, markdown-tables]
 related-commands: []
 collaborates-with:
   - agent: ap-docs-guardian

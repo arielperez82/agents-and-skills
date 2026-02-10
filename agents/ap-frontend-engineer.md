@@ -55,6 +55,8 @@ related-skills:
   - engineering-team/tailwind-configuration
   - engineering-team/eslint-configuration
   - engineering-team/prettier-configuration
+  - engineering-team/functional
+  - engineering-team/modern-javascript-patterns
 related-commands: []
 collaborates-with:
   - agent: ap-tdd-guardian

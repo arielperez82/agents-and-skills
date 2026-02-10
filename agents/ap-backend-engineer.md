@@ -38,6 +38,10 @@ related-skills:
   - engineering-team/supabase-edge-functions
   - engineering-team/docker-compose-basics
   - engineering-team/eslint-configuration
+  - engineering-team/api-design-principles
+  - engineering-team/functional
+  - engineering-team/modern-javascript-patterns
+  - exploring-data
 related-commands: []
 collaborates-with:
   - agent: ap-tdd-guardian

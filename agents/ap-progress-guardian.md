@@ -33,7 +33,7 @@ related-agents:
   - ap-tdd-guardian
   - ap-ts-enforcer
   - ap-docs-guardian
-related-skills: [engineering-team/quality-gate-first]
+related-skills: [engineering-team/quality-gate-first, delivery-team/wiki-documentation]
 related-commands: [skill/phase-0-check]
 collaborates-with:
   - agent: ap-implementation-planner

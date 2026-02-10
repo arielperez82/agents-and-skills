@@ -26,7 +26,7 @@ classification:
 
 # === RELATIONSHIPS ===
 related-agents: [ap-architect, ap-docs-guardian, ap-technical-writer]
-related-skills: [engineering-team/avoid-feature-creep, engineering-team/architecture-decision-records, engineering-team/senior-architect, engineering-team/markdownlint-configuration]
+related-skills: [engineering-team/avoid-feature-creep, engineering-team/architecture-decision-records, engineering-team/senior-architect, engineering-team/markdownlint-configuration, markdown-documentation, markdown-syntax-fundamentals, markdown-tables]
 related-commands: []
 collaborates-with:
   - agent: ap-architect

@@ -27,7 +27,7 @@ classification:
 
 # === RELATIONSHIPS ===
 related-agents: []
-related-skills: [delivery-team/senior-pm]
+related-skills: [delivery-team/senior-pm, delivery-team/ticket-management]
 related-commands: []
 
 # === TECHNICAL ===

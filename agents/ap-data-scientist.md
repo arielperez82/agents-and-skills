@@ -27,7 +27,7 @@ classification:
 
 # === RELATIONSHIPS ===
 related-agents: []
-related-skills: [engineering-team/avoid-feature-creep, engineering-team/senior-data-scientist]
+related-skills: [engineering-team/avoid-feature-creep, engineering-team/senior-data-scientist, exploring-data, extracting-keywords]
 related-commands: []
 
 # === TECHNICAL ===

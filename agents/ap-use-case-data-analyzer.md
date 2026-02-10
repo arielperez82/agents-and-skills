@@ -27,7 +27,7 @@ classification:
 
 # === RELATIONSHIPS ===
 related-agents: [ap-architect, ap-codebase-scout, ap-implementation-planner, ap-supabase-database-engineer]
-related-skills: [engineering-team/avoid-feature-creep, engineering-team/mapping-codebases, problem-solving, engineering-team/software-architecture, engineering-team/databases]
+related-skills: [engineering-team/avoid-feature-creep, engineering-team/mapping-codebases, problem-solving, engineering-team/software-architecture, engineering-team/databases, exploring-data]
 related-commands: []
 collaborates-with:
   - agent: ap-codebase-scout

@@ -31,6 +31,9 @@ related-agents:
 related-skills:
   - engineering-team/avoid-feature-creep
   - engineering-team/refactoring
+  - engineering-team/boy-scout-rule
+  - engineering-team/clean-code
+  - engineering-team/orthogonality-principle
 related-commands: []
 collaborates-with:
   - agent: ap-tdd-guardian
