@@ -1,6 +1,6 @@
 # Engineering Team Skills - Claude Code Guidance
 
-This guide covers the 15 production-ready engineering skills and their Python automation tools.
+This guide covers the 26 production-ready engineering role skills and their Python automation tools.
 
 ## Engineering Skills Overview
 
@@ -15,6 +15,14 @@ This guide covers the 15 production-ready engineering skills and their Python au
 **AI/ML/Data (5 skills):**
 - senior-data-scientist, senior-data-engineer, senior-ml-engineer
 - senior-prompt-engineer, senior-computer-vision
+
+**Platform & Language (6 skills):**
+- senior-ios, senior-mobile, senior-flutter
+- senior-java, senior-dotnet, senior-network-infrastructure
+
+**Specialist (5 skills):**
+- senior-graphql, senior-observability, technical-writer
+- incident-response, legacy-codebase-analyzer
 
 **Total Tools:** 44 Python automation tools
 
@@ -261,7 +269,7 @@ python senior-ml-engineer/scripts/model_deployment_pipeline.py model.pkl
 **All engineering skills include TDD support:**
 - `engineering-team/core-testing-methodology` skill for TDD patterns
 - `ap-tdd-guardian` agent for methodology coaching
-- `qa-engineer` agent for automation infrastructure
+- `ap-qa-engineer` agent for automation infrastructure
 
 **Quality Gates:**
 - 100% test coverage required (exceptions documented)
@@ -303,13 +311,13 @@ services:
 
 ## Additional Resources
 
-- **Quick Start:** `START_HERE.md`
-- **Team Structure:** `TEAM_STRUCTURE_GUIDE.md`
-- **Engineering Roadmap:** `engineering_skills_roadmap.md` (if exists). Repo-level roadmaps live under `.docs/canonical/roadmaps/` when artifact conventions are in use (see `.docs/AGENTS.md`).
+- **Skill Catalog:** `../README.md` — complete skill inventory with "when to use" guidance
+- **Agent Catalog:** `../../agents/README.md` — all ap-* agents and their skill mappings
 - **Agent Authoring Guide:** `../../agents/ap-agent-author.md`
+- **Engineering Roadmap:** Repo-level roadmaps live under `.docs/canonical/roadmaps/` when artifact conventions are in use (see `.docs/AGENTS.md`)
 
 ---
 
-**Last Updated:** November 17, 2025
-**Skills Deployed:** 15/15 engineering skills production-ready
-**Total Tools:** 44 Python automation tools across core + strategic + AI/ML/Data
+**Last Updated:** February 10, 2026
+**Skills Deployed:** 26/26 engineering role skills production-ready
+**Total Tools:** 44 Python automation tools across core + strategic + AI/ML/Data + platform + specialist
