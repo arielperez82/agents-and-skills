@@ -44,6 +44,7 @@ If a plan says "Phase 0 — Scaffold" or "Step 1 — Initialize app," treat Phas
 
 - **Include Phase 0** as the first phase: either (1) minimal skeleton + add all elements (seven, or eight for frontend: add Stylelint), or (2) scaffold that includes quality tooling + verify/complete the gate. Then feature work in Phase 1.
 - When the user says "set up a new [stack] project," remind or add: "Phase 0 = quality gate before feature work: minimal skeleton or scaffold-with-gates, then type-check, pre-commit (Husky/lint-staged), ESLint, Prettier, MarkdownLint, Stylelint when frontend, a11y lint, Lighthouse script; no feature work until gate is complete."
+- When plans or backlogs live under `.docs/canonical/` and belong to an initiative, include `initiative` and `initiative_name` in front matter (see `.docs/AGENTS.md` initiative naming).
 
 ## When reviewing plans
 

@@ -344,6 +344,7 @@ This agent leverages seven production-ready Python analysis tools for comprehens
    ```bash
    # Copy and populate template
    cp ${SKILL_PATH}/assets/technical_debt_report_template.md .docs/canonical/assessments/assessment-repo-legacy-$(date +%Y-%m-%d).md
+   # When tied to an initiative, add initiative + initiative_name to front matter (see .docs/AGENTS.md initiative naming).
    ```
 
    Edit that assessment file to populate:

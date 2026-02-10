@@ -111,6 +111,7 @@ The ap-ux-researcher agent bridges the gap between user insights and product dec
 1. **Plan Research Study** - Define persona research scope:
    ```bash
    cp ../skills/ux-team/ux-researcher-designer/assets/research-plan-template.md .docs/canonical/plans/plan-repo-research-persona-2026.md
+   # When the plan belongs to an initiative, add initiative + initiative_name to front matter (see .docs/AGENTS.md initiative naming).
    ```
    - Research objectives: Understand user segments and their needs
    - Research questions: Who are our users? What are their goals? What problems do they face?

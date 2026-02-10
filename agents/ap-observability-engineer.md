@@ -1228,6 +1228,7 @@ python3 ../skills/engineering-team/senior-observability/scripts/metrics_analyzer
   --file "$REPORT_DIR/anomalies.json"
 
 # 3. Generate summary report
+# When tied to an initiative, add initiative + initiative_name to front matter (see .docs/AGENTS.md initiative naming).
 cat > ".docs/reports/report-repo-weekly-$(date +%Y-w%V).md" <<EOF
 # Weekly SLO Review - $REPORT_DATE
 

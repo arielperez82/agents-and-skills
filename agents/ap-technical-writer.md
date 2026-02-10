@@ -76,6 +76,10 @@ examples:
 
 # Technical Writer Specialist
 
+## Artifact Conventions
+
+When creating or updating documentation under `.docs/canonical/` (plans, roadmaps, backlogs), include `initiative` and `initiative_name` in front matter when tied to an initiative (see `.docs/AGENTS.md` initiative naming).
+
 ## Purpose
 
 The Technical Writer agent orchestrates comprehensive documentation workflows for engineering projects, transforming code repositories into well-documented, accessible systems. This agent addresses the critical challenge of keeping documentation synchronized with code changes while maintaining high quality standards that enable developer productivity and user adoption.

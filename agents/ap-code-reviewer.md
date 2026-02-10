@@ -213,6 +213,7 @@ python ../skills/engineering-team/code-reviewer/scripts/code_quality_checker.py 
 
 # Step 3: Generate comprehensive report
 python ../skills/engineering-team/code-reviewer/scripts/review_report_generator.py 123 --format=markdown > .docs/canonical/reviews/review-repo-commit-<hash>.md
+# When tied to an initiative, add initiative + initiative_name to front matter (see .docs/AGENTS.md initiative naming).
 
 # Step 4: Review output and post feedback
 cat .docs/canonical/reviews/review-repo-commit-<hash>.md

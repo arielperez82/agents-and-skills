@@ -289,7 +289,9 @@ git add . && git commit -m "test: initialize comprehensive test infrastructure"
 
 4. **Create Test Plan Document** - Document test scope, strategy, and timeline
    ```bash
-   # Create .docs/canonical/plans/plan-repo-test-<timeframe>.md (or add Test Strategy section to existing plan) with:
+   # Create .docs/canonical/plans/plan-repo-test-<timeframe>.md (or add Test Strategy section to existing plan).
+   # When the plan belongs to an initiative, include initiative + initiative_name in front matter (see .docs/AGENTS.md initiative naming).
+   # Populate with:
    # - Current coverage baseline (from analysis)
    # - Target coverage goals (80%+ critical paths)
    # - Prioritized test list

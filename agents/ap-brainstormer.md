@@ -164,7 +164,7 @@ ap-implementation-planner (creates step-by-step implementation plan)
 
 ## Report Output
 
-Check "Plan Context" section above for `Reports Path`. Use that path, or `plans/reports/` as fallback.
+Check "Plan Context" section above for `Reports Path`. Use that path, or `plans/reports/` as fallback. When the brainstorm produces a plan or roadmap under `.docs/canonical/`, include `initiative` and `initiative_name` in front matter if it belongs to an initiative (see `.docs/AGENTS.md` initiative naming).
 
 ### File Naming
 `brainstorm-{date}-{topic-slug}.md`

@@ -212,6 +212,7 @@ python ../skills/marketing-team/seo-strategist/scripts/technical_seo_auditor.py 
 2. **Generate roadmap** - Create prioritized action plan
    ```bash
    python ../skills/marketing-team/seo-strategist/scripts/seo_roadmap_generator.py audit.json --quarters 4 --output md > .docs/canonical/roadmaps/roadmap-repo-seo-2026.md
+   # Add initiative + initiative_name to the roadmap front matter when it belongs to an initiative (see .docs/AGENTS.md initiative naming).
    ```
 3. **Identify quick wins** - Focus on high-impact, low-effort tasks
    ```bash

@@ -373,7 +373,7 @@ This directory contains Architecture Decision Records (ADRs) for [Project Name].
 
 ### Automation (adr-tools)
 
-**Preferred (repos using this repo's artifact conventions):** Store ADRs under `.docs/canonical/adrs/` with naming `adr-YYYYMMDD-<subject>.md`. See `.docs/AGENTS.md` for the operating reference.
+**Preferred (repos using this repo's artifact conventions):** Store ADRs under `.docs/canonical/adrs/` with naming `adr-YYYYMMDD-<subject>.md`. See `.docs/AGENTS.md` for the operating reference. When an ADR belongs to an initiative, include `initiative` and `initiative_name` in front matter (see initiative naming in `.docs/AGENTS.md`).
 
 ```bash
 # Install adr-tools

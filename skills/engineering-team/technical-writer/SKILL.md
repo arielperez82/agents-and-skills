@@ -1395,6 +1395,7 @@ fi
 - **API Best Practices:** [references/api_documentation_patterns.md](references/api_documentation_patterns.md)
 - **Python Tools:** `scripts/` directory
 - **/update.docs Command:** [commands/workflow/update.docs.md](../../commands/workflow/update.docs.md)
+- **Initiative naming:** When creating or updating docs under `.docs/canonical/` that belong to an initiative, include `initiative` and `initiative_name` in front matter (see `.docs/AGENTS.md` initiative naming).
 
 ## Getting Help
 

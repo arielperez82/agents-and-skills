@@ -445,6 +445,7 @@ cat "$PLANNING_DIR/scaling_plan.json" | jq -r '.risk_assessment' >> "$PLANNING_D
 
 # Step 4: Use board update template
 cat ../skills/engineering-team/cto-advisor/references/templates.md | grep -A 40 "Board Update Email" > ".docs/reports/report-repo-board-email-$(date +%Y-%m-%d).md"
+# When tied to an initiative, add initiative + initiative_name to front matter (see .docs/AGENTS.md initiative naming).
 
 # Output results
 cat "$PLANNING_DIR/board_summary.txt"
