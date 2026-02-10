@@ -87,6 +87,7 @@ These agents live directly in the `agents/` root directory:
 - **`ap-implementation-planner`** - Implementation planning for creating comprehensive step-by-step implementation plans
 - **`ap-use-case-data-analyzer`** - Analyzes how user-facing use cases map to data access patterns and architecture
 - **`ap-legacy-codebase-analyzer`** - Legacy codebase analysis for technical debt assessment and modernization
+- **`ap-cognitive-load-assessor`** - Calculates Cognitive Load Index (CLI) for codebases; 8-dimension scored report with recommendations
 - **`ap-cto-advisor`** - Technical leadership guidance for engineering teams, architecture decisions, and tech strategy
 
 ### Product Agents
@@ -274,6 +275,18 @@ These agents live directly in the `agents/` root directory:
 **Core responsibility**: Create comprehensive analytical reports mapping use cases to data patterns, database interactions, and architectural decisions.
 
 > **Attribution**: Adapted from [Kieran O'Hara's dotfiles](https://github.com/kieran-ohara/dotfiles/blob/main/config/claude/agents/analyse-use-case-to-data-patterns.md).
+
+---
+
+#### `ap-cognitive-load-assessor`
+**Purpose**: Calculates a Cognitive Load Index (CLI) score (0-1000) for a codebase using eight dimensions (structural complexity, nesting, volume, naming, coupling, cohesion, duplication, navigability), producing a scored report with per-dimension breakdown and recommendations.
+
+**Use when**:
+- Assessing maintainability or mental effort of a codebase
+- Producing a repeatable CLI report with top offenders and actionable recommendations
+- Analyzing polyglot or large (>100K LOC) codebases (uses deterministic sampling)
+
+**Core responsibility**: Read-only analysis; invoke the cognitive-load-analysis skill's calculator for all normalization and aggregation; report methodology (tools/fallbacks, sampling, D4 mode) for reproducibility.
 
 ---
 

@@ -156,6 +156,7 @@ Role and specialist skills (same folder):
 | **technical-writer** | Documentation | README, CHANGELOG, API docs, diagrams |
 | **incident-response** | Security incidents | Detection, containment, RCA, playbooks |
 | **legacy-codebase-analyzer** | Legacy code | Tech debt, vulns, modernization roadmap |
+| **cognitive-load-analysis** | Cognitive Load Index (CLI) | 8-dimension CLI score (0-1000), formulas, tool commands, calculator (lib/) |
 | **senior-ios** | iOS | Swift, SwiftUI, UIKit, App Store |
 | **senior-mobile** | Mobile | React Native, Flutter, Expo |
 | **senior-flutter** | Flutter | Flutter/Dart, widgets, state, deployment |
