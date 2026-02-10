@@ -29,6 +29,7 @@ classification:
 related-agents: []
 related-skills:
   - product-team/ux-researcher-designer
+  - product-team/ux-designer
 related-commands: []
 
 # === TECHNICAL ===

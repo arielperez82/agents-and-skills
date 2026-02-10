@@ -2,7 +2,7 @@
 type: backlog
 endeavor: repo
 status: active
-updated: 2026-02-09
+updated: 2026-02-10
 ---
 
 # Backlog: Skills Audit Cleanup (Deferred Items)
@@ -13,7 +13,7 @@ Remaining items from the Feb 2026 skills audit and consolidation. The audit merg
 
 | ID | Change | Category | Value | Notes |
 |----|--------|----------|-------|-------|
-| S1 | Decide ownership for `ux-designer` skill — distinct from `ux-researcher-designer`, needs its own agent or explicit agent wiring | Orphan skill | High | User confirmed these are distinct skills for distinct agents. Currently no agent references `ux-designer`. |
+| S1 | ~~Decide ownership for `ux-designer` skill~~ **DONE** — created `ap-ux-designer` agent; wired as `related-skill` on `ap-ux-researcher` and `ap-ui-designer` | Orphan skill | High | Resolved 2026-02-10. New agent `ap-ux-designer` owns `ux-designer` as core skill. Also added as related-skill to ap-ux-researcher and ap-ui-designer. |
 | S2 | Audit `component-refactoring` skill — Dify-specific, decide if it should be generalized or archived | Orphan skill | Low | Dify-specific content. May not be useful in its current form for other projects. |
 | S3 | Wire remaining 75 orphan skills to agents as `related-skills` or mark as standalone/deprecated | Orphan skills | Medium | 108 of 183 skills are referenced by agents; 75 are unreferenced. Many are standalone reference docs that don't need agent wiring, but some valuable ones may be missing connections. |
 | S4 | Review standalone orphan skills for quality and relevance — archive low-value ones | Housekeeping | Low | Some orphan skills have placeholder content (TODO fields) and may not provide value. |

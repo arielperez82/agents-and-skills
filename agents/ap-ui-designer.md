@@ -30,6 +30,7 @@ related-agents: []
 related-skills:
   - product-team/ui-design-system
   - product-team/visual-design-foundations
+  - product-team/ux-designer
 related-commands: []
 
 # === TECHNICAL ===

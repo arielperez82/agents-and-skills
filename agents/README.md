@@ -95,6 +95,7 @@ These agents live directly in the `agents/` root directory:
 - **`ap-product-manager`** - Product management for feature prioritization, customer discovery, PRD development, and roadmap planning
 - **`ap-product-analyst`** - Product analysis for user story structure, sprint readiness, and business process analysis
 - **`ap-ux-researcher`** - UX research and design for data-driven personas, journey mapping, and usability testing
+- **`ap-ux-designer`** - UX design for wireframe creation, user flow design, accessibility compliance, and developer handoff
 - **`ap-ui-designer`** - UI design system for design token generation, component documentation, and responsive design
 
 ## Agent Overview (Detailed)
