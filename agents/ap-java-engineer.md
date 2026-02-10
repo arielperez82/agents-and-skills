@@ -34,43 +34,35 @@ collaborates-with:
   - agent: ap-tdd-guardian
     purpose: TDD methodology coaching for Java development and Spring Boot testing
     required: optional
-    features-enabled: [java-tdd, spring-testing, jpa-testing, junit-tdd]
     without-collaborator: "Java development may not follow TDD principles"
   - agent: ap-qa-engineer
     purpose: Test strategy and quality assurance for Spring Boot services and API endpoints
     required: recommended
-    features-enabled: [junit-test-generation, integration-tests, load-testing]
     without-collaborator: "Java code will lack comprehensive test coverage and quality validation"
   - agent: ap-security-engineer
     purpose: Security review for Spring Security configuration, OAuth2, and JWT implementation
     required: recommended
-    features-enabled: [security-audit, spring-security-review, owasp-compliance]
     without-collaborator: "Security vulnerabilities may go undetected in Spring applications"
   - agent: ap-technical-writer
     purpose: API documentation generation with OpenAPI specs and architecture diagrams
     required: optional
-    features-enabled: [openapi-docs, sequence-diagrams, architecture-diagrams]
     without-collaborator: "API documentation will be text-only without visual diagrams"
   - agent: ap-architect
     purpose: Architecture guidance for microservices design, Spring Cloud patterns, and scalability
     required: optional
-    features-enabled: [architecture-review, design-patterns, scalability-planning]
     without-collaborator: "Architecture decisions made without formal review process"
   - agent: ap-devsecops-engineer
     purpose: DevSecOps integration for secure CI/CD pipelines and Kubernetes deployment of Spring Boot applications with security validation
     required: optional
-    features-enabled: [github-actions, docker-compose, kubernetes-deployment, secure-java-deployment]
     without-collaborator: "Deployment configuration requires manual setup without DevSecOps security automation"
   - agent: ap-debugger
     purpose: Root cause analysis and debugging for Java/Spring Boot application issues, API errors, JPA problems, test failures, and JVM performance bottlenecks
     required: optional
-    features-enabled: [issue-investigation, java-debugging, spring-debugging, jpa-debugging, test-failure-analysis, jvm-performance-debugging]
     when-to-use: "When encountering bugs, API errors, database issues, test failures, JVM performance problems, or when systematic debugging is needed"
     without-collaborator: "Issues may take longer to resolve without systematic debugging methodology"
   - agent: ap-learn
     purpose: Document gotchas, patterns, and learnings discovered during Java development into CLAUDE.md
     required: optional
-    features-enabled: [learning-capture, gotcha-documentation, pattern-preservation]
     when: After completing significant features, when discovering gotchas or unexpected behaviors, after fixing complex bugs
     without-collaborator: "Valuable learnings and gotchas may not be preserved for future developers"
 

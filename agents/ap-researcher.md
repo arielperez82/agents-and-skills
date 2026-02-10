@@ -35,17 +35,14 @@ collaborates-with:
   - agent: ap-implementation-planner
     purpose: Providing research reports for implementation planning
     required: recommended
-    features-enabled: [research-reports, technology-evaluation, best-practices-synthesis]
     without-collaborator: "Implementation planning may lack external research validation"
   - agent: ap-brainstormer
     purpose: Providing research reports for solution brainstorming
     required: recommended
-    features-enabled: [research-reports, technology-comparison, feasibility-analysis]
     without-collaborator: "Brainstorming may lack external research validation"
   - agent: ap-architect
     purpose: Technology evaluation research for architecture decisions
     required: optional
-    features-enabled: [technology-evaluation, stack-comparison, architecture-research]
     without-collaborator: "Architecture decisions may lack comprehensive technology research"
 
 # === TECHNICAL ===

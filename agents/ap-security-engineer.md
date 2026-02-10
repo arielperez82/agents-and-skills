@@ -34,38 +34,31 @@ collaborates-with:
   - agent: ap-tdd-guardian
     purpose: TDD methodology for security control development and vulnerability testing
     required: optional
-    features-enabled: [security-tdd, vulnerability-testing, auth-testing, compliance-tdd]
     without-collaborator: "Security engineering may not follow TDD principles"
   - agent: ap-qa-engineer
     purpose: Test automation for security controls and vulnerability validation
     required: optional
-    features-enabled: [security-testing, vulnerability-automation, compliance-testing]
     without-collaborator: "Security controls will lack comprehensive automated testing"
   - agent: ap-code-reviewer
     purpose: Security-aware code review integration
     required: recommended
-    features-enabled: [security-code-review, vulnerability-reporting, fix-validation]
     without-collaborator: "Security findings will lack code review context"
   - agent: ap-devsecops-engineer
     purpose: DevSecOps integration for infrastructure security, CI/CD pipeline hardening, and security automation
     required: recommended
-    features-enabled: [infra-security, pipeline-hardening, secrets-management, devsecops-integration]
     without-collaborator: "Security recommendations may lack DevSecOps infrastructure and pipeline context"
   - agent: ap-technical-writer
     purpose: Security documentation with threat models and architecture diagrams
     required: optional
-    features-enabled: [security-docs, threat-model-diagrams, compliance-reports]
     without-collaborator: "Security documentation will be text-only without visual diagrams"
   - agent: ap-debugger
     purpose: Root cause analysis and debugging for security test failures, vulnerability investigations, security control issues, and performance problems in security code
     required: optional
-    features-enabled: [issue-investigation, security-debugging, vulnerability-investigation, security-test-failure-analysis, performance-debugging]
     when-to-use: "When debugging security test failures, investigating vulnerabilities, analyzing security incidents, or when systematic debugging of security code is needed"
     without-collaborator: "Security issues may take longer to resolve without systematic debugging methodology"
   - agent: ap-learn
     purpose: Document gotchas, patterns, and learnings discovered during security engineering into CLAUDE.md
     required: optional
-    features-enabled: [learning-capture, gotcha-documentation, pattern-preservation]
     when: After completing significant features, when discovering gotchas or unexpected behaviors, after fixing complex bugs
     without-collaborator: "Valuable learnings and gotchas may not be preserved for future developers"
 

@@ -54,7 +54,6 @@ collaborates-with:
   - agent: ap-qa-engineer
     purpose: Test automation infrastructure for TDD workflows
     required: recommended
-    features-enabled: [test-automation, test-infrastructure]
     when: When setting up test infrastructure, when implementing test automation
     without-collaborator: "TDD workflows may lack proper test automation infrastructure"
 

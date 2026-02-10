@@ -57,12 +57,10 @@ collaborates-with:
   - agent: ap-docs-guardian
     purpose: Ensure all new/updated agents and skills ship with world-class documentation and examples.
     required: recommended
-    features-enabled: [documentation-templates, doc-quality-audits]
     without-collaborator: "Agents/skills may have weaker documentation quality and navigation."
   - agent: ap-progress-guardian
     purpose: Manage multi-session refactors of the agent/skill ecosystem with PLAN/WIP/LEARNINGS discipline.
     required: optional
-    features-enabled: [multi-step-refactor-tracking, learning-capture]
     without-collaborator: "Large refactors risk losing context and learnings."
 
 # === TECHNICAL ===

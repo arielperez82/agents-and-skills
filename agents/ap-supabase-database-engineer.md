@@ -34,22 +34,18 @@ collaborates-with:
   - agent: ap-database-engineer
     purpose: General database administration tasks, performance optimization, and PostgreSQL expertise beyond Supabase-specific features
     required: optional
-    features-enabled: [query-optimization, index-strategy, performance-tuning, backup-strategy]
     without-collaborator: "General database administration tasks may lack specialized expertise"
   - agent: ap-architect
     purpose: Architecture guidance when Supabase is selected as the database solution for system design
     required: optional
-    features-enabled: [database-architecture, scalability-planning, data-layer-design]
     without-collaborator: "System architecture may not fully leverage Supabase capabilities"
   - agent: ap-backend-engineer
     purpose: Backend API development that integrates with Supabase database
     required: optional
-    features-enabled: [api-integration, type-safety, backend-optimization]
     without-collaborator: "Backend integration may not fully utilize Supabase features"
   - agent: ap-learn
     purpose: Document gotchas, patterns, and learnings discovered during Supabase database engineering into CLAUDE.md
     required: optional
-    features-enabled: [learning-capture, gotcha-documentation, pattern-preservation]
     when: After completing significant features, when discovering gotchas or unexpected behaviors, after fixing complex bugs
     without-collaborator: "Valuable learnings and gotchas may not be preserved for future developers"
 

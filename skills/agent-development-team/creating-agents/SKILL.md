@@ -170,7 +170,6 @@ collaborates-with:
   - agent: ap-technical-writer
     purpose: API documentation generation with sequence diagrams
     required: optional
-    features-enabled: [api-docs, sequence-diagrams]
     without-collaborator: "API documentation will be text-only without visual diagrams"
 ```
 

@@ -35,37 +35,30 @@ collaborates-with:
   - agent: ap-researcher
     purpose: Consuming research reports for implementation planning
     required: recommended
-    features-enabled: [research-informed-planning, technology-validation, best-practices-integration]
     without-collaborator: "Implementation plans may lack external research validation"
   - agent: ap-architect
     purpose: Consuming architecture designs and validating architectural decisions
     required: recommended
-    features-enabled: [architecture-aligned-planning, technology-validation, scalability-planning]
     without-collaborator: "Implementation plans may not align with system architecture"
   - agent: ap-product-director
     purpose: Strategic alignment with OKRs, vision, and roadmap priorities
     required: optional
-    features-enabled: [strategic-alignment, okr-integration, roadmap-coordination]
     without-collaborator: "Implementation plans may not align with strategic objectives"
   - agent: ap-product-manager
     purpose: Requirements validation and feature prioritization alignment
     required: recommended
-    features-enabled: [prd-alignment, rice-prioritization, mvp-scoping]
     without-collaborator: "Implementation plans may not address product requirements"
   - agent: ap-product-analyst
     purpose: User story structure and sprint readiness validation
     required: recommended
-    features-enabled: [user-story-structure, acceptance-criteria, sprint-readiness]
     without-collaborator: "Implementation plans may not be convertible to sprint-ready user stories"
   - agent: ap-senior-pm
     purpose: Portfolio dependencies, risk management, and milestone planning
     required: optional
-    features-enabled: [dependency-sequencing, risk-mitigation, milestone-alignment]
     without-collaborator: "Implementation plans may not account for portfolio dependencies and risks"
   - agent: ap-agile-coach
     purpose: Team capacity, velocity, and sprint planning alignment
     required: recommended
-    features-enabled: [sprint-sizing, velocity-alignment, sustainable-pace]
     without-collaborator: "Implementation plans may not fit within sprint capacity"
 
 # === TECHNICAL ===

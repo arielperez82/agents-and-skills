@@ -34,33 +34,27 @@ collaborates-with:
   - agent: ap-qa-engineer
     purpose: GraphQL API testing including query validation, mutation testing, and schema coverage
     required: recommended
-    features-enabled: [graphql-testing, query-validation, schema-coverage]
     without-collaborator: "GraphQL APIs will lack comprehensive test coverage"
   - agent: ap-security-engineer
     purpose: GraphQL security review for query depth limits, rate limiting, and authorization
     required: recommended
-    features-enabled: [security-audit, query-depth-limits, auth-patterns]
     without-collaborator: "GraphQL endpoints may be vulnerable to DoS and unauthorized access"
   - agent: ap-technical-writer
     purpose: API documentation generation with schema diagrams and query examples
     required: optional
-    features-enabled: [api-docs, schema-diagrams, query-examples]
     without-collaborator: "API documentation will be text-only without visual schema diagrams"
   - agent: ap-backend-engineer
     purpose: Backend integration for resolvers, data sources, and database optimization
     required: optional
-    features-enabled: [resolver-integration, dataloader-setup, database-optimization]
     without-collaborator: "Resolver implementation may require additional backend expertise"
 collaborates-with:
   - agent: ap-architect
     purpose: High-level API architecture decisions and technology stack evaluation
     required: optional
-    features-enabled: [api-pattern-selection, scalability-planning, infrastructure-design]
     without-collaborator: "GraphQL implementation may not align with overall system architecture"
   - agent: ap-adr-writer
     purpose: Documenting GraphQL architecture decisions and schema design choices
     required: optional
-    features-enabled: [graphql-adrs, schema-decisions, federation-adrs]
     without-collaborator: "GraphQL architectural decisions may not be documented"
 
 # === TECHNICAL ===

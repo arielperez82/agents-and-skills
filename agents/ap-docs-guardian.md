@@ -37,12 +37,10 @@ collaborates-with:
   - agent: ap-adr-writer
     purpose: Create Architecture Decision Records for undocumented architectural decisions discovered during documentation review
     required: optional
-    features-enabled: [adr-creation, decision-documentation]
     without-collaborator: "Architectural decisions may remain undocumented"
   - agent: ap-technical-writer
     purpose: Generate specific documentation types (README, CHANGELOG, API docs) using automated tools while ap-docs-guardian ensures quality standards and structure
     required: optional
-    features-enabled: [readme-generation, changelog-management, api-docs, diagram-generation, quality-metrics]
     without-collaborator: "Documentation generation will rely on manual creation without automated tools"
 
 # === CONFIGURATION ===

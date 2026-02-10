@@ -33,32 +33,26 @@ collaborates-with:
   - agent: ap-tdd-guardian
     purpose: Ensuring architecture supports TDD practices and testability
     required: optional
-    features-enabled: [architecture-testability, tdd-friendly-design]
     without-collaborator: "Architecture may not prioritize testability and TDD practices"
   - agent: ap-qa-engineer
     purpose: Architecture review for testability and automation infrastructure requirements
     required: optional
-    features-enabled: [testable-architecture, automation-infrastructure, quality-architecture]
     without-collaborator: "Architecture documentation without testing infrastructure considerations"
   - agent: ap-technical-writer
     purpose: Architecture diagram generation using Mermaid (flowcharts, sequence, class, ERD, architecture)
     required: optional
-    features-enabled: [architecture-diagrams, sequence-diagrams, class-diagrams, erd-diagrams]
     without-collaborator: "Architecture documentation will be text-only without visual diagrams"
   - agent: ap-observability-engineer
     purpose: Observability architecture and service health monitoring design
     required: optional
-    features-enabled: [observability-patterns, distributed-tracing, slo-architecture]
     without-collaborator: "Architecture documentation without observability considerations"
   - agent: ap-graphql-architect
     purpose: GraphQL API architecture design, schema-first patterns, and federation planning when GraphQL is selected as API technology
     required: optional
-    features-enabled: [graphql-architecture, schema-design, federation-patterns, api-performance]
     without-collaborator: "GraphQL-specific architecture decisions made without specialized expertise"
   - agent: ap-legacy-codebase-analyzer
     purpose: Legacy codebase assessment and modernization pattern selection for architecture refactoring and migration planning
     required: optional
-    features-enabled: [modernization-patterns, architecture-health-analysis, technical-debt-assessment]
     without-collaborator: "Architecture modernization decisions made without comprehensive legacy system analysis"
 
 # === TECHNICAL ===

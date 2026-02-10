@@ -40,23 +40,19 @@ collaborates-with:
   - agent: ap-tdd-guardian
     purpose: TDD methodology coaching for iOS development and Swift testing
     required: optional
-    features-enabled: [ios-tdd, swift-testing, uikit-testing, swiftui-testing]
     without-collaborator: "iOS development may not follow TDD principles"
   - agent: ap-qa-engineer
     purpose: Test automation infrastructure for iOS applications and mobile testing
     required: optional
-    features-enabled: [ios-automation, mobile-testing, app-store-testing]
     without-collaborator: "iOS applications will lack comprehensive test automation"
   - agent: ap-debugger
     purpose: Root cause analysis and debugging for iOS app issues, Swift/SwiftUI bugs, test failures, and performance problems
     required: optional
-    features-enabled: [issue-investigation, ios-debugging, swift-debugging, test-failure-analysis, performance-debugging, instruments-analysis]
     when-to-use: "When encountering bugs, test failures, SwiftUI rendering issues, performance problems, or when systematic debugging is needed"
     without-collaborator: "Issues may take longer to resolve without systematic debugging methodology"
   - agent: ap-learn
     purpose: Document gotchas, patterns, and learnings discovered during iOS development into CLAUDE.md
     required: optional
-    features-enabled: [learning-capture, gotcha-documentation, pattern-preservation]
     when: After completing significant features, when discovering gotchas or unexpected behaviors, after fixing complex bugs
     without-collaborator: "Valuable learnings and gotchas may not be preserved for future developers"
 

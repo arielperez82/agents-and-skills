@@ -42,23 +42,19 @@ collaborates-with:
   - agent: ap-tdd-guardian
     purpose: TDD methodology coaching for mobile development across platforms
     required: optional
-    features-enabled: [mobile-tdd, cross-platform-testing, react-native-tdd, flutter-tdd]
     without-collaborator: "Mobile development may not follow TDD principles"
   - agent: ap-qa-engineer
     purpose: Test automation infrastructure for mobile applications and app store validation
     required: optional
-    features-enabled: [mobile-automation, app-store-testing, cross-platform-testing]
     without-collaborator: "Mobile applications will lack comprehensive test automation"
   - agent: ap-debugger
     purpose: Root cause analysis and debugging for mobile app issues, test failures, platform-specific bugs, and performance problems
     required: optional
-    features-enabled: [issue-investigation, mobile-debugging, test-failure-analysis, performance-debugging, platform-debugging]
     when-to-use: "When encountering bugs, test failures, platform-specific issues, performance problems, or when systematic debugging is needed"
     without-collaborator: "Issues may take longer to resolve without systematic debugging methodology"
   - agent: ap-learn
     purpose: Document gotchas, patterns, and learnings discovered during mobile development into CLAUDE.md
     required: optional
-    features-enabled: [learning-capture, gotcha-documentation, pattern-preservation]
     when: After completing significant features, when discovering gotchas or unexpected behaviors, after fixing complex bugs
     without-collaborator: "Valuable learnings and gotchas may not be preserved for future developers"
 

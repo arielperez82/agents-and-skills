@@ -183,7 +183,6 @@ collaborates-with:                                                              
   - agent: ap-technical-writer
     purpose: Architecture diagram generation using Mermaid                          # Why/when it works with it
     required: optional                                                              # optional, recommended, required
-    features-enabled: [architecture-diagrams, sequence-diagrams]                    # features/skills unlocked by collaborator
     without-collaborator: "Documentation will be text-only without visual diagrams" # Limitations if it does not collaborate
 
 # === TECHNICAL ===
@@ -268,7 +267,6 @@ collaborates-with:
   - agent: ap-technical-writer
     purpose: API documentation generation with sequence diagrams
     required: optional
-    features-enabled: [api-docs, sequence-diagrams, architecture-diagrams]
     without-collaborator: "API documentation will be text-only without visual diagrams"
 ```
 
@@ -279,7 +277,6 @@ Field definitions:
 | `agent` | Yes | ap-* name | Collaborating agent identifier |
 | `purpose` | Yes | string | Why this collaboration exists |
 | `required` | No | optional, recommended, required | Dependency strength |
-| `features-enabled` | No | list | Features/skills unlocked by collaborator |
 | `without-collaborator` | No | string | What functionality is lost |
 
 ## Relative Path Resolution

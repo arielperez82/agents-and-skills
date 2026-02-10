@@ -39,7 +39,6 @@ collaborates-with:
   - agent: ap-tdd-guardian
     purpose: Works within TDD REFACTOR phase after GREEN tests
     required: recommended
-    features-enabled: [refactor-assessment, semantic-analysis]
     without-collaborator: "Refactoring assessment may not align with TDD principles"
 
 # === TECHNICAL ===

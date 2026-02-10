@@ -36,7 +36,6 @@ collaborates-with:
   - agent: ap-technical-writer
     purpose: Mermaid diagram generation for roadmaps (Gantt), prioritization matrices (quadrant), and feature mindmaps
     required: optional
-    features-enabled: [gantt-roadmaps, quadrant-prioritization, journey-maps, feature-mindmaps]
     without-collaborator: "Roadmaps and prioritization will be text/table format without visual diagrams"
 
 # === TECHNICAL ===

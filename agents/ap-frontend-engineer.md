@@ -62,44 +62,36 @@ collaborates-with:
   - agent: ap-tdd-guardian
     purpose: TDD methodology coaching and RED-GREEN-REFACTOR guidance
     required: recommended
-    features-enabled: [tdd-process, test-structure, refactoring-assessment]
     without-collaborator: "Frontend development may not follow strict TDD principles"
   - agent: ap-qa-engineer
     purpose: Test automation infrastructure and quality metrics for frontend applications
     required: recommended
-    features-enabled: [test-automation, quality-metrics, ci-cd-testing]
     without-collaborator: "Frontend code will lack comprehensive automated testing infrastructure"
   - agent: ap-technical-writer
     purpose: Component documentation with state diagrams and user journey maps
     required: optional
-    features-enabled: [component-docs, state-diagrams, journey-maps]
     without-collaborator: "Component documentation will be text-only without visual diagrams"
   - agent: ap-ui-designer
     purpose: Design system alignment and UI/UX review for components
     required: optional
-    features-enabled: [design-review, accessibility-audit, responsive-validation]
     without-collaborator: "UI components may lack design system consistency"
   - agent: ap-devsecops-engineer
     purpose: Secure frontend development with security scanning (SAST/DAST), dependency scanning (npm audit), vulnerability assessment, and secure deployment practices
     required: recommended
-    features-enabled: [security-scanning, dependency-scanning, vulnerability-assessment, secure-deployment, compliance-automation]
     without-collaborator: "Frontend applications may lack security scanning, vulnerability assessment, and secure deployment validation"
   - agent: ap-debugger
     purpose: Root cause analysis and debugging for UI issues, component failures, test failures, and performance problems
     required: optional
-    features-enabled: [issue-investigation, component-debugging, test-failure-analysis, performance-debugging, browser-debugging]
     when-to-use: "When encountering bugs, component errors, test failures, rendering issues, or performance problems"
     without-collaborator: "Issues may take longer to resolve without systematic debugging methodology"
   - agent: ap-learn
     purpose: Document gotchas, patterns, and learnings discovered during frontend development into CLAUDE.md
     required: optional
-    features-enabled: [learning-capture, gotcha-documentation, pattern-preservation]
     when: After completing significant features, when discovering gotchas or unexpected behaviors, after fixing complex bugs
     without-collaborator: "Valuable learnings and gotchas may not be preserved for future developers"
   - agent: ap-seo-strategist
     purpose: SEO strategy review and technical SEO audits for public-facing websites
     required: optional
-    features-enabled: [technical-seo-audit, keyword-strategy, site-architecture-seo, seo-roadmap-planning]
     when-to-use: "Only for public-facing websites (pages intended for search indexing), not internal apps or dashboards"
     without-collaborator: "Public-facing websites may lack comprehensive SEO strategy and technical optimization"
 

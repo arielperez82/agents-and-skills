@@ -49,27 +49,22 @@ collaborates-with:
   - agent: ap-tdd-guardian
     purpose: TDD compliance verification and test structure review
     required: recommended
-    features-enabled: [tdd-review, test-structure-validation, behavior-testing-assessment]
     without-collaborator: "Code reviews will lack TDD methodology assessment"
   - agent: ap-qa-engineer
     purpose: Test automation and quality metrics review
     required: recommended
-    features-enabled: [engineering-team/coverage-analysis, quality-metrics, automation-review]
     without-collaborator: "Code reviews will lack comprehensive testing assessment"
   - agent: ap-architect
     purpose: Architecture pattern validation and design review
     required: optional
-    features-enabled: [pattern-review, design-validation, refactoring-guidance]
     without-collaborator: "Code reviews will lack architecture-level feedback"
   - agent: ap-refactor-guardian
     purpose: Refactoring opportunity assessment and semantic analysis during code review
     required: recommended
-    features-enabled: [refactoring-assessment, semantic-analysis, knowledge-duplication-detection]
     without-collaborator: "Code reviews will lack specialized refactoring opportunity analysis"
   - agent: ap-security-guardian
     purpose: Security-focused assessment of changes; produces findings report with criticality for integration into review
     required: optional
-    features-enabled: [security-findings-report, criticality-assessment, delegated-security-review]
     without-collaborator: "Security analysis remains general; no dedicated criticality report"
 
 # === TECHNICAL ===

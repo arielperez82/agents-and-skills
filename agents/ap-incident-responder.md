@@ -34,17 +34,14 @@ collaborates-with:
   - agent: ap-devsecops-engineer
     purpose: DevSecOps security controls coordination and security incident response integration
     required: recommended
-    features-enabled: [devsecops-coordination, security-incident-integration, vulnerability-management, compliance-validation]
     without-collaborator: "Security incident response lacks DevSecOps pipeline and infrastructure context"
   - agent: ap-devsecops-engineer
     purpose: DevSecOps infrastructure isolation and emergency deployment rollback during security incidents
     required: recommended
-    features-enabled: [system-isolation, deployment-rollback, security-incident-response, log-collection]
     without-collaborator: "Security incident containment will require manual infrastructure changes"
   - agent: ap-technical-writer
     purpose: Post-incident documentation and runbook updates
     required: optional
-    features-enabled: [incident-reports, timeline-diagrams, lessons-learned]
     without-collaborator: "Incident documentation will use basic templates"
 
 # === TECHNICAL ===

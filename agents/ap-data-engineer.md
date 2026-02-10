@@ -34,47 +34,38 @@ collaborates-with:
   - agent: ap-tdd-guardian
     purpose: TDD methodology for data pipeline and transformation testing
     required: optional
-    features-enabled: [pipeline-testing, data-transformation-tdd, quality-tdd]
     without-collaborator: "Data engineering may not follow TDD principles"
   - agent: ap-qa-engineer
     purpose: Data quality testing and pipeline validation
     required: recommended
-    features-enabled: [data-quality-tests, pipeline-validation, schema-testing]
     without-collaborator: "Data pipelines will lack comprehensive quality validation"
   - agent: ap-technical-writer
     purpose: Pipeline documentation with data flow and ERD diagrams
     required: optional
-    features-enabled: [pipeline-docs, erd-diagrams, data-flow-diagrams]
     without-collaborator: "Data documentation will be text-only without visual diagrams"
   - agent: ap-architect
     purpose: Data architecture review and warehouse design guidance
     required: optional
-    features-enabled: [data-architecture, warehouse-design, scalability-review]
     without-collaborator: "Data architecture decisions made without formal review"
   - agent: ap-devsecops-engineer
     purpose: DevSecOps integration for secure streaming infrastructure deployment (Kafka clusters, Flink on Kubernetes) with CI/CD and security validation
     required: recommended
-    features-enabled: [kafka-deployment, flink-kubernetes, streaming-ci-cd, infrastructure-monitoring, secure-data-streaming]
     without-collaborator: "Streaming infrastructure must be managed manually without DevSecOps security and GitOps automation"
   - agent: ap-backend-engineer
     purpose: Event producers and CDC integration from application databases
     required: recommended
-    features-enabled: [event-sourcing, cdc-setup, schema-registry, producer-optimization]
     without-collaborator: "Event production patterns may not align with application architecture"
   - agent: ap-ml-engineer
     purpose: Real-time feature engineering and ML model serving integration
     required: optional
-    features-enabled: [feature-stores, online-inference, streaming-features, model-monitoring]
     without-collaborator: "ML features will rely on batch processing only"
   - agent: ap-database-engineer
     purpose: Database optimization for data pipelines, ETL processes, and data warehouse design
     required: optional
-    features-enabled: [warehouse-optimization, etl-performance, data-pipeline-db]
     without-collaborator: "Data pipelines may have unoptimized database operations"
   - agent: ap-learn
     purpose: Document gotchas, patterns, and learnings discovered during data engineering into CLAUDE.md
     required: optional
-    features-enabled: [learning-capture, gotcha-documentation, pattern-preservation]
     when: After completing significant features, when discovering gotchas or unexpected behaviors, after fixing complex bugs
     without-collaborator: "Valuable learnings and gotchas may not be preserved for future developers"
 

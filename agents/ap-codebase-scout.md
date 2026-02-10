@@ -33,7 +33,6 @@ collaborates-with:
   - agent: ap-researcher
     purpose: Research file patterns and common structures when search scope is unclear
     required: optional
-    features-enabled: [pattern-discovery, structure-research, best-practices-guidance]
     without-collaborator: "Scout works independently using direct codebase search"
     when-to-use: "When you need to understand what file patterns or structures to search for (e.g., 'what files typically handle authentication in React apps?')"
 

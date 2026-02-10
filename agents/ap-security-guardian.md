@@ -37,17 +37,14 @@ collaborates-with:
   - agent: ap-security-engineer
     purpose: Implements fixes, full audits, threat modeling, and remediation; receives findings reports from guardian
     required: recommended
-    features-enabled: [remediation, full-audit, threat-modeling]
     without-collaborator: "Findings remain unfixed unless another implementer is used"
   - agent: ap-code-reviewer
     purpose: Can delegate security slice of code review to guardian; integrates security findings into full review
     required: optional
-    features-enabled: [security-findings-in-review, delegated-security-assessment]
     without-collaborator: "Code review may include security but without dedicated criticality report"
   - agent: ap-devsecops-engineer
     purpose: Implements pipeline and infrastructure security; receives findings for infra/config issues
     required: optional
-    features-enabled: [pipeline-remediation, infra-security]
     without-collaborator: "Infra-related findings may need manual handoff to DevOps"
 
 # === TECHNICAL ===

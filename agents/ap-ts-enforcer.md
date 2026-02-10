@@ -38,7 +38,6 @@ collaborates-with:
   - agent: ap-tdd-guardian
     purpose: Ensure TypeScript compliance during TDD cycles
     required: recommended
-    features-enabled: [tdd-typescript-integration, type-safety-in-tests]
     when: During GREEN phase, before commits, when reviewing TDD compliance
     without-collaborator: "TypeScript compliance may not be verified during TDD cycles"
 

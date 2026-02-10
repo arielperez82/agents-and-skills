@@ -33,42 +33,34 @@ collaborates-with:
   - agent: ap-tdd-guardian
     purpose: Ensuring CI/CD pipelines support TDD workflows and quality gates
     required: optional
-    features-enabled: [tdd-pipeline-support, quality-gate-setup]
     without-collaborator: "CI/CD pipelines may not enforce TDD compliance"
   - agent: ap-architect
     purpose: Infrastructure architecture and deployment topology design
     required: recommended
-    features-enabled: [infra-architecture, deployment-patterns, scalability-planning]
     without-collaborator: "Infrastructure decisions made without architecture review"
   - agent: ap-security-engineer
     purpose: Security hardening for CI/CD pipelines and infrastructure
     required: recommended
-    features-enabled: [pipeline-security, secrets-management, compliance-scanning]
     without-collaborator: "Infrastructure may lack security hardening and compliance"
   - agent: ap-technical-writer
     purpose: Infrastructure documentation with architecture and deployment diagrams
     required: optional
-    features-enabled: [infra-docs, architecture-diagrams, runbooks]
     without-collaborator: "Infrastructure documentation will be text-only without visual diagrams"
   - agent: ap-incident-responder
     purpose: Infrastructure isolation and emergency deployment rollback during incidents
     required: optional
-    features-enabled: [system-isolation, deployment-rollback, log-collection]
     without-collaborator: "Incident containment will require manual infrastructure changes"
   - agent: ap-observability-engineer
     purpose: Observability stack design and SLO implementation (Prometheus/Grafana or NewRelic)
     required: recommended
-    features-enabled: [monitoring-design, alerting-strategy, slo-framework, newrelic-dashboards, newrelic-alerting]
     without-collaborator: "Basic monitoring without comprehensive observability strategy"
   - agent: ap-data-engineer
     purpose: Streaming infrastructure deployment (Kafka clusters, Flink on Kubernetes, Kinesis)
     required: optional
-    features-enabled: [kafka-deployment, flink-kubernetes, streaming-ci-cd, schema-registry]
     without-collaborator: "Streaming infrastructure deployment handled without data engineering expertise"
   - agent: ap-legacy-codebase-analyzer
     purpose: Security vulnerability scanning and remediation planning for legacy systems during infrastructure modernization
     required: optional
-    features-enabled: [vulnerability-assessment, security-remediation-roadmap, legacy-system-security]
     without-collaborator: "Legacy system security assessment may lack comprehensive vulnerability analysis"
 
 # === TECHNICAL ===

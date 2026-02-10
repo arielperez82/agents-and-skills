@@ -37,7 +37,6 @@ collaborates-with:
   - agent: ap-tdd-guardian
     purpose: Work within TDD methodology framework to provide strategic transformation guidance
     required: recommended
-    features-enabled: [transformation-guidance, test-ordering]
     without-collaborator: "TPP guidance may not align with TDD principles"
 
 # === CONFIGURATION ===

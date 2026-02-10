@@ -67,48 +67,39 @@ collaborates-with:
   - agent: ap-tdd-guardian
     purpose: TDD methodology guidance for full-stack development across all layers
     required: recommended
-    features-enabled: [tdd-process, full-stack-testing, integration-tdd]
     without-collaborator: "Full-stack development may not follow consistent TDD principles"
   - agent: ap-qa-engineer
     purpose: Test automation infrastructure and quality metrics for full-stack applications
     required: recommended
-    features-enabled: [e2e-automation, integration-testing, quality-metrics]
     without-collaborator: "Full-stack applications will lack comprehensive automated testing infrastructure"
   - agent: ap-architect
     purpose: Architecture guidance for full-stack patterns and system design
     required: recommended
-    features-enabled: [architecture-review, system-design, tech-stack-decisions]
     without-collaborator: "Architecture decisions made without formal review process"
   - agent: ap-security-engineer
     purpose: Security review across full application stack
     required: recommended
-    features-enabled: [security-audit, auth-patterns, data-protection]
     without-collaborator: "Security vulnerabilities may go undetected across stack"
   - agent: ap-technical-writer
     purpose: System documentation with architecture and data flow diagrams
     required: optional
-    features-enabled: [system-docs, architecture-diagrams, api-docs]
     without-collaborator: "System documentation will be text-only without visual diagrams"
   - agent: ap-devsecops-engineer
     purpose: End-to-end DevSecOps implementation for full-stack applications with security integration throughout development lifecycle
     required: recommended
-    features-enabled: [full-stack-security, devsecops-integration, end-to-end-security, security-testing]
     without-collaborator: "Full-stack applications may lack comprehensive DevSecOps security integration and end-to-end security validation"
   - agent: ap-database-engineer
     purpose: Database design and optimization for full-stack applications
     required: optional
-    features-enabled: [database-design, query-optimization, migration-strategy]
     without-collaborator: "Full-stack applications may lack database optimization expertise"
   - agent: ap-debugger
     purpose: Root cause analysis and debugging for complex issues, test failures, and performance problems
     required: optional
-    features-enabled: [issue-investigation, test-failure-analysis, performance-debugging, log-analysis]
     when-to-use: "When encountering bugs, test failures, performance issues, or when systematic debugging is needed"
     without-collaborator: "Issues may take longer to resolve without systematic debugging methodology"
   - agent: ap-learn
     purpose: Document gotchas, patterns, and learnings discovered during full-stack development into CLAUDE.md
     required: optional
-    features-enabled: [learning-capture, gotcha-documentation, pattern-preservation]
     when: After completing significant features, when discovering gotchas or unexpected behaviors, after fixing complex bugs
     without-collaborator: "Valuable learnings and gotchas may not be preserved for future developers"
 

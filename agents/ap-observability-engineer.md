@@ -33,32 +33,26 @@ collaborates-with:
   - agent: ap-devsecops-engineer
     purpose: DevSecOps integration for secure monitoring infrastructure deployment (Prometheus/Grafana or NewRelic agents) with security monitoring
     required: recommended
-    features-enabled: [prometheus-deployment, grafana-provisioning, alertmanager-setup, newrelic-infrastructure-agent, newrelic-apm-deployment, security-monitoring-integration]
     without-collaborator: "Monitoring infrastructure must be deployed manually without DevSecOps security integration"
   - agent: ap-architect
     purpose: System architecture alignment for observability design
     required: recommended
-    features-enabled: [service-dependency-mapping, capacity-planning, performance-modeling]
     without-collaborator: "Observability design may not align with system architecture"
   - agent: ap-backend-engineer
     purpose: Application instrumentation for custom metrics and traces
     required: optional
-    features-enabled: [custom-metrics, trace-instrumentation, log-correlation]
     without-collaborator: "Limited to infrastructure-level observability"
   - agent: ap-devsecops-engineer
     purpose: DevSecOps security monitoring and compliance alerting integration
     required: optional
-    features-enabled: [security-dashboards, audit-logging, compliance-alerts, security-observability]
     without-collaborator: "DevSecOps security observability not integrated"
   - agent: ap-incident-responder
     purpose: ServiceNow incident creation from observability alerts
     required: optional
-    features-enabled: [alert-to-incident, slo-breach-tickets, ci-impact-mapping]
     without-collaborator: "ServiceNow incidents must be created manually from alerts"
   - agent: ap-learn
     purpose: Document gotchas, patterns, and learnings discovered during observability engineering into CLAUDE.md
     required: optional
-    features-enabled: [learning-capture, gotcha-documentation, pattern-preservation]
     when: After completing significant features, when discovering gotchas or unexpected behaviors, after fixing complex bugs
     without-collaborator: "Valuable learnings and gotchas may not be preserved for future developers"
 

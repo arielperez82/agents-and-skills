@@ -33,19 +33,16 @@ collaborates-with:
   - agent: ap-codebase-scout
     purpose: Locate relevant files for data pattern analysis (API routes, database queries, data models)
     required: recommended
-    features-enabled: [file-discovery, codebase-navigation, pattern-location]
     without-collaborator: "Manual file searching required, may miss relevant files"
     when-to-use: "Before analyzing patterns, when you need to find all relevant files for a use case"
   - agent: ap-architect
     purpose: Understand architectural patterns and design decisions that inform data access patterns
     required: optional
-    features-enabled: [architecture-context, pattern-validation, design-rationale]
     without-collaborator: "Analysis may miss architectural context and design rationale"
     when-to-use: "When analyzing complex systems or when architectural decisions affect data patterns"
   - agent: ap-supabase-database-engineer
     purpose: Understand Supabase-specific schema design, RLS policies, and data access patterns when Supabase is used
     required: optional
-    features-enabled: [supabase-schema-analysis, rls-policy-understanding, migration-context]
     without-collaborator: "Supabase-specific patterns may be misunderstood"
     when-to-use: "When analyzing use cases that interact with Supabase databases"
 

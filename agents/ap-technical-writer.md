@@ -34,17 +34,14 @@ collaborates-with:
   - agent: ap-architect
     purpose: Architecture documentation with system design context
     required: optional
-    features-enabled: [architecture-context, design-docs, system-diagrams]
     without-collaborator: "Architecture documentation may lack system context"
   - agent: ap-code-reviewer
     purpose: Documentation review and API accuracy validation
     required: optional
-    features-enabled: [doc-review, api-validation, example-verification]
     without-collaborator: "Documentation accuracy will lack code review validation"
   - agent: ap-incident-responder
     purpose: Post-incident report generation and runbook documentation
     required: optional
-    features-enabled: [incident-reports, timeline-diagrams, lessons-learned]
     without-collaborator: "Incident documentation will use basic templates"
 
 # === TECHNICAL ===

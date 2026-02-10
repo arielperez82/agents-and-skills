@@ -47,58 +47,47 @@ collaborates-with:
   - agent: ap-tdd-guardian
     purpose: TDD methodology coaching and RED-GREEN-REFACTOR guidance for backend development
     required: recommended
-    features-enabled: [tdd-process, api-testing, database-testing]
     without-collaborator: "Backend development may not follow strict TDD principles"
   - agent: ap-qa-engineer
     purpose: Test automation infrastructure and quality metrics for backend services
     required: recommended
-    features-enabled: [api-test-automation, integration-testing, performance-testing]
     without-collaborator: "Backend code will lack comprehensive automated testing infrastructure"
   - agent: ap-security-engineer
     purpose: Security review for authentication, authorization, and API security patterns
     required: recommended
-    features-enabled: [security-audit, auth-patterns, owasp-compliance]
     without-collaborator: "Security vulnerabilities may go undetected in backend services"
   - agent: ap-technical-writer
     purpose: API documentation generation with sequence diagrams and architecture docs
     required: optional
-    features-enabled: [api-docs, sequence-diagrams, architecture-diagrams]
     without-collaborator: "API documentation will be text-only without visual diagrams"
   - agent: ap-architect
     purpose: Architecture guidance for microservices, database design, and scalability
     required: optional
-    features-enabled: [architecture-review, design-patterns, scalability-planning]
     without-collaborator: "Architecture decisions made without formal review process"
   - agent: ap-observability-engineer
     purpose: Metrics instrumentation and distributed tracing integration
     required: optional
-    features-enabled: [custom-metrics, trace-context, log-correlation]
     without-collaborator: "Backend services without observability instrumentation guidance"
   - agent: ap-data-engineer
     purpose: Event producers, CDC integration, and streaming architecture patterns
     required: optional
-    features-enabled: [event-sourcing, cdc-setup, kafka-producers, schema-registry]
     without-collaborator: "Event streaming patterns may not align with data platform architecture"
   - agent: ap-devsecops-engineer
     purpose: Secure backend development with DevSecOps integration, vulnerability scanning, and compliance validation
     required: recommended
-    features-enabled: [secure-backend-development, vulnerability-scanning, compliance-validation, security-testing]
     without-collaborator: "Backend services may lack security hardening, vulnerability scanning, and compliance validation"
   - agent: ap-database-engineer
     purpose: Database optimization, query performance tuning, and schema design for backend services
     required: optional
-    features-enabled: [query-optimization, schema-design, index-strategy, performance-tuning]
     without-collaborator: "Backend services may have unoptimized database queries and schemas"
   - agent: ap-debugger
     purpose: Root cause analysis and debugging for API issues, database problems, test failures, and performance bottlenecks
     required: optional
-    features-enabled: [issue-investigation, api-debugging, database-diagnostics, test-failure-analysis, performance-debugging]
     when-to-use: "When encountering bugs, API errors, database issues, test failures, or performance problems"
     without-collaborator: "Issues may take longer to resolve without systematic debugging methodology"
   - agent: ap-learn
     purpose: Document gotchas, patterns, and learnings discovered during backend development into CLAUDE.md
     required: optional
-    features-enabled: [learning-capture, gotcha-documentation, pattern-preservation]
     when: After completing significant features, when discovering gotchas or unexpected behaviors, after fixing complex bugs
     without-collaborator: "Valuable learnings and gotchas may not be preserved for future developers"
 

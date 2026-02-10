@@ -34,37 +34,30 @@ collaborates-with:
   - agent: ap-tdd-guardian
     purpose: TDD methodology for network configuration and infrastructure code testing
     required: optional
-    features-enabled: [infrastructure-tdd, configuration-testing, network-validation]
     without-collaborator: "Network infrastructure may not follow testing principles"
   - agent: ap-qa-engineer
     purpose: Test automation for network configurations and infrastructure validation
     required: optional
-    features-enabled: [infrastructure-testing, configuration-automation, compliance-testing]
     without-collaborator: "Network configurations will lack automated validation"
   - agent: ap-devsecops-engineer
     purpose: DevSecOps integration for secure network infrastructure deployment and CI/CD with security validation
     required: recommended
-    features-enabled: [infra-deployment, network-ci-cd, terraform-automation, secure-networking]
     without-collaborator: "Network infrastructure deployed manually without DevSecOps security automation"
   - agent: ap-architect
     purpose: Network topology and architecture design decisions
     required: recommended
-    features-enabled: [network-architecture, topology-design, scalability-planning]
     without-collaborator: "Network decisions made without broader architecture context"
   - agent: ap-devsecops-engineer
     purpose: DevSecOps network security monitoring and threat detection integration
     required: optional
-    features-enabled: [traffic-monitoring, threat-detection, incident-response, secure-networking]
     without-collaborator: "Network security monitoring lacks DevSecOps integration"
   - agent: ap-security-engineer
     purpose: Security policy review and compliance validation
     required: recommended
-    features-enabled: [policy-review, compliance-audit, vulnerability-assessment]
     without-collaborator: "Security policies may lack comprehensive review"
   - agent: ap-learn
     purpose: Document gotchas, patterns, and learnings discovered during network engineering into CLAUDE.md
     required: optional
-    features-enabled: [learning-capture, gotcha-documentation, pattern-preservation]
     when: After completing significant features, when discovering gotchas or unexpected behaviors, after fixing complex bugs
     without-collaborator: "Valuable learnings and gotchas may not be preserved for future developers"
 

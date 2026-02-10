@@ -39,17 +39,14 @@ collaborates-with:
   - agent: ap-implementation-planner
     purpose: Review and validate implementation plans for quality and tracking readiness
     required: recommended
-    features-enabled: [plan-validation, tracking-setup]
     without-collaborator: "Implementation plans may lack tracking structure"
   - agent: ap-agile-coach
     purpose: Reference flow metrics for progress assessment and blocker identification
     required: optional
-    features-enabled: [flow-metrics, capacity-tracking]
     without-collaborator: "Progress tracking may lack team flow context"
   - agent: ap-senior-pm
     purpose: Provide progress updates for RAG monitoring and risk assessment
     required: optional
-    features-enabled: [rag-monitoring, risk-escalation]
     without-collaborator: "Progress updates may not reach portfolio oversight"
 
 # === CONFIGURATION ===

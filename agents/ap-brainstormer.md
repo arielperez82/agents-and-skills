@@ -35,17 +35,14 @@ collaborates-with:
   - agent: ap-researcher
     purpose: Consuming research reports for informed brainstorming
     required: recommended
-    features-enabled: [research-informed-brainstorming, technology-validation, best-practices-integration]
     without-collaborator: "Brainstorming may lack external research validation"
   - agent: ap-architect
     purpose: Architecture design guidance and validation
     required: optional
-    features-enabled: [architecture-guidance, design-validation, pattern-evaluation]
     without-collaborator: "Architectural decisions may lack formal architecture review"
   - agent: ap-implementation-planner
     purpose: Providing brainstormed solutions for implementation planning
     required: recommended
-    features-enabled: [solution-options, trade-off-analysis, feasibility-validation]
     without-collaborator: "Implementation planning may lack solution exploration and trade-off analysis"
 
 # === TECHNICAL ===

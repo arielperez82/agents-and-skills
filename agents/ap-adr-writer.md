@@ -32,17 +32,14 @@ collaborates-with:
   - agent: ap-architect
     purpose: Documenting architectural decisions made during system design
     required: recommended
-    features-enabled: [decision-documentation, architecture-context, technology-selection-records]
     without-collaborator: "Architectural decisions may go undocumented"
   - agent: ap-docs-guardian
     purpose: Creating retroactive ADRs for undocumented architectural decisions discovered during documentation review
     required: optional
-    features-enabled: [retroactive-adrs, decision-discovery, documentation-completeness]
     without-collaborator: "Undocumented architectural decisions may remain undocumented"
   - agent: ap-technical-writer
     purpose: ADRs complement general documentation by providing decision context
     required: optional
-    features-enabled: [decision-context, architectural-rationale]
     without-collaborator: "Documentation may lack decision rationale"
 
 # === TECHNICAL ===

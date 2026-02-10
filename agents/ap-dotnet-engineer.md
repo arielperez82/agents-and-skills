@@ -34,43 +34,35 @@ collaborates-with:
   - agent: ap-tdd-guardian
     purpose: TDD methodology coaching for .NET development and ASP.NET Core testing
     required: optional
-    features-enabled: [dotnet-tdd, aspnet-testing, csharp-tdd]
     without-collaborator: ".NET development may not follow TDD principles"
   - agent: ap-qa-engineer
     purpose: Test strategy and quality assurance for ASP.NET Core services and API endpoints
     required: recommended
-    features-enabled: [xunit-test-generation, integration-tests, load-testing]
     without-collaborator: ".NET code will lack comprehensive test coverage and quality validation"
   - agent: ap-security-engineer
     purpose: Security review for ASP.NET Core Identity, JWT/OIDC, and authorization policies
     required: recommended
-    features-enabled: [security-audit, aspnet-security-review, owasp-compliance]
     without-collaborator: "Security vulnerabilities may go undetected in ASP.NET Core applications"
   - agent: ap-technical-writer
     purpose: API documentation generation with OpenAPI specs and architecture diagrams
     required: optional
-    features-enabled: [openapi-docs, sequence-diagrams, architecture-diagrams]
     without-collaborator: "API documentation will be text-only without visual diagrams"
   - agent: ap-architect
     purpose: Architecture guidance for Clean Architecture, CQRS patterns, and scalability
     required: optional
-    features-enabled: [architecture-review, design-patterns, scalability-planning]
     without-collaborator: "Architecture decisions made without formal review process"
   - agent: ap-devsecops-engineer
     purpose: DevSecOps integration for secure CI/CD pipelines and container deployment of ASP.NET Core applications with security validation
     required: optional
-    features-enabled: [github-actions, docker-compose, kubernetes-deployment, secure-dotnet-deployment]
     without-collaborator: "Deployment configuration requires manual setup without DevSecOps security automation"
   - agent: ap-debugger
     purpose: Root cause analysis and debugging for .NET application issues, API errors, EF Core problems, test failures, and performance bottlenecks
     required: optional
-    features-enabled: [issue-investigation, dotnet-debugging, api-debugging, ef-core-debugging, test-failure-analysis, performance-debugging]
     when-to-use: "When encountering bugs, API errors, database issues, test failures, performance problems, or when systematic debugging is needed"
     without-collaborator: "Issues may take longer to resolve without systematic debugging methodology"
   - agent: ap-learn
     purpose: Document gotchas, patterns, and learnings discovered during .NET development into CLAUDE.md
     required: optional
-    features-enabled: [learning-capture, gotcha-documentation, pattern-preservation]
     when: After completing significant features, when discovering gotchas or unexpected behaviors, after fixing complex bugs
     without-collaborator: "Valuable learnings and gotchas may not be preserved for future developers"
 

@@ -53,17 +53,14 @@ collaborates-with:
   - agent: ap-code-reviewer
     purpose: Code review with test coverage assessment and quality validation
     required: recommended
-    features-enabled: [coverage-review, quality-gates, review-automation]
     without-collaborator: "Test results will lack code review integration"
   - agent: ap-devsecops-engineer
     purpose: DevSecOps integration for secure CI/CD pipelines with continuous testing, security validation, and automated quality gates
     required: recommended
-    features-enabled: [ci-testing, pipeline-integration, automated-gates, security-testing-integration]
     without-collaborator: "Tests and security validation will not be integrated into DevSecOps CI/CD pipelines"
   - agent: ap-technical-writer
     purpose: Test documentation with coverage reports and test architecture diagrams
     required: optional
-    features-enabled: [test-docs, coverage-reports, test-architecture-diagrams]
     without-collaborator: "Test documentation will be text-only without visual diagrams"
 
 # === TECHNICAL ===

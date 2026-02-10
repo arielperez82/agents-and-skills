@@ -35,37 +35,30 @@ collaborates-with:
   - agent: ap-backend-engineer
     purpose: Database optimization for backend services, query performance tuning, and schema design
     required: optional
-    features-enabled: [query-optimization, schema-design, index-strategy, performance-tuning]
     without-collaborator: "Backend services may have unoptimized database queries and schemas"
   - agent: ap-fullstack-engineer
     purpose: Database design and optimization for full-stack applications
     required: optional
-    features-enabled: [database-design, query-optimization, migration-strategy]
     without-collaborator: "Full-stack applications may lack database optimization expertise"
   - agent: ap-data-engineer
     purpose: Database optimization for data pipelines, ETL processes, and data warehouse design
     required: optional
-    features-enabled: [warehouse-optimization, etl-performance, data-pipeline-db]
     without-collaborator: "Data pipelines may have unoptimized database operations"
   - agent: ap-ml-engineer
     purpose: Database optimization for ML feature stores, model serving databases, and vector databases
     required: optional
-    features-enabled: [feature-store-optimization, vector-db-tuning, ml-db-performance]
     without-collaborator: "ML systems may have unoptimized database operations for features and serving"
   - agent: ap-supabase-database-engineer
     purpose: General PostgreSQL administration and optimization beyond Supabase-specific features
     required: optional
-    features-enabled: [postgresql-optimization, general-db-admin, cross-db-migration]
     without-collaborator: "Supabase-specific tasks may lack general database administration expertise"
   - agent: ap-security-engineer
     purpose: Database security review, access control, and compliance validation
     required: optional
-    features-enabled: [db-security-audit, access-control, compliance-validation]
     without-collaborator: "Database security may not be comprehensively reviewed"
   - agent: ap-learn
     purpose: Document gotchas, patterns, and learnings discovered during database engineering into CLAUDE.md
     required: optional
-    features-enabled: [learning-capture, gotcha-documentation, pattern-preservation]
     when: After completing significant features, when discovering gotchas or unexpected behaviors, after fixing complex bugs
     without-collaborator: "Valuable learnings and gotchas may not be preserved for future developers"
 

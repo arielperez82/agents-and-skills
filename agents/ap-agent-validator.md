@@ -42,12 +42,10 @@ collaborates-with:
   - agent: ap-agent-author
     purpose: Validate agents produced or modified by the author workflow
     required: recommended
-    features-enabled: [post-authoring-validation, batch-validation]
     without-collaborator: "Agents may be authored without automated quality checks"
   - agent: ap-docs-guardian
     purpose: Ensure validated agents have proper documentation in README
     required: optional
-    features-enabled: [readme-listing-check, documentation-completeness]
     without-collaborator: "README listing check still runs but documentation quality is not assessed"
 
 # === TECHNICAL ===

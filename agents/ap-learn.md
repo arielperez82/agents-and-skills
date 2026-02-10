@@ -37,17 +37,14 @@ collaborates-with:
   - agent: ap-docs-guardian
     purpose: Ensure documented learnings follow world-class documentation standards and structure
     required: optional
-    features-enabled: [documentation-quality, structure-validation]
     when: When learnings need to be integrated into permanent documentation
   - agent: ap-adr-writer
     purpose: Create Architecture Decision Records for architectural learnings that warrant formal ADRs
     required: optional
-    features-enabled: [adr-creation, decision-documentation]
     when: When learnings involve significant architectural decisions
   - agent: ap-progress-guardian
     purpose: Extract learnings from tracking (plan/status under .docs/) and route to appropriate documentation (.docs/AGENTS.md, canonical Learnings sections, or .docs/canonical/adrs/)
     required: optional
-    features-enabled: [learning-extraction, knowledge-integration]
     when: At end of features when learnings need merging to canonical docs
 
 # === CONFIGURATION ===

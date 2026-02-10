@@ -36,7 +36,6 @@ collaborates-with:
   - agent: ap-technical-writer
     purpose: Mermaid diagram generation for roadmap timelines, OKR mindmaps, and strategic prioritization quadrants
     required: optional
-    features-enabled: [timeline-roadmaps, okr-mindmaps, quadrant-prioritization]
     without-collaborator: "Strategic roadmaps and OKR visualizations will be text/table format without visual diagrams"
 
 # === TECHNICAL ===

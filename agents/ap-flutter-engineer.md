@@ -40,23 +40,19 @@ collaborates-with:
   - agent: ap-tdd-guardian
     purpose: TDD methodology coaching for Flutter development and widget testing
     required: optional
-    features-enabled: [flutter-tdd, widget-testing, dart-tdd]
     without-collaborator: "Flutter development may not follow TDD principles"
   - agent: ap-qa-engineer
     purpose: Test automation infrastructure for Flutter applications and mobile testing
     required: optional
-    features-enabled: [flutter-automation, mobile-testing, cross-platform-testing]
     without-collaborator: "Flutter applications will lack comprehensive test automation"
   - agent: ap-debugger
     purpose: Root cause analysis and debugging for Flutter app issues, widget bugs, test failures, and performance problems
     required: optional
-    features-enabled: [issue-investigation, flutter-debugging, widget-debugging, test-failure-analysis, performance-debugging, dart-debugging]
     when-to-use: "When encountering bugs, test failures, widget rendering issues, performance problems, or when systematic debugging is needed"
     without-collaborator: "Issues may take longer to resolve without systematic debugging methodology"
   - agent: ap-learn
     purpose: Document gotchas, patterns, and learnings discovered during Flutter development into CLAUDE.md
     required: optional
-    features-enabled: [learning-capture, gotcha-documentation, pattern-preservation]
     when: After completing significant features, when discovering gotchas or unexpected behaviors, after fixing complex bugs
     without-collaborator: "Valuable learnings and gotchas may not be preserved for future developers"
 
