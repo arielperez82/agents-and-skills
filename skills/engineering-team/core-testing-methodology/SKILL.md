@@ -1,11 +1,11 @@
 ---
 name: core-testing-methodology
-description: Core testing principles including TDD workflow, test structure patterns, coverage verification, and QA planning fundamentals. Use for all testing-related guidance and planning.
+description: Core testing principles including TDD workflow, test structure patterns, test type strategy (unit vs integration vs e2e decision rubric), coverage verification, and QA planning fundamentals. Use for all testing-related guidance and planning.
 ---
 
 # Core Testing Methodology
 
-Comprehensive testing principles covering TDD workflow, test structure, coverage verification, and QA planning. This skill consolidates core testing knowledge for reliable, maintainable test suites.
+Comprehensive testing principles covering TDD workflow, test structure, test type strategy (unit vs integration vs e2e decision rubric), coverage verification, and QA planning. This skill consolidates core testing knowledge for reliable, maintainable test suites.
 
 ## TDD Workflow: RED-GREEN-REFACTOR
 
@@ -248,6 +248,91 @@ The burden of proof is on the requester. 100% is the default expectation.
 - [Related test cases]
 - [Known issues]
 ```
+
+## Test Type Strategy
+
+Use three distinct test types, each with a clear scope. The decision rubric below determines where every test belongs.
+
+### Unit Tests
+
+**Location**: Co-located with source files (`src/**/*.test.ts`)
+
+**Purpose**: Test individual components in complete isolation — all dependencies use test doubles.
+
+**What belongs here**:
+- Domain services and business logic
+- Pure functions and utilities
+- Adapters with no external dependencies (e.g., loggers, formatters)
+- Transformations, data mapping, validation rules
+
+**What does NOT belong here**:
+- Adapters that call external services (use integration tests)
+- Real infrastructure (databases, HTTP clients)
+- Mocking `global.fetch` or `vi.fn()` for HTTP (use MSW in integration tests)
+- Full application entry points (use e2e tests)
+
+**Characteristics**: Fast (milliseconds), no setup/teardown, complete isolation.
+
+### Integration Tests
+
+**Location**: `tests/integration/**/*.test.ts`
+
+**Purpose**: Test adapters against real infrastructure you control. Validate the contract between your code and external services.
+
+**What belongs here**:
+- Adapters that interact with infrastructure you control (databases, queues, caches) — use real local instances (Docker, LocalStack, etc.)
+- HTTP adapters for external APIs — use MSW (Mock Service Worker), never `global.fetch` mocks
+- Infrastructure contract validation (schemas, request/response formats)
+- Error handling and retry logic with realistic service behavior
+
+**What does NOT belong here**:
+- Domain logic (use unit tests)
+- Full application flow (use e2e tests)
+- Multiple adapters orchestrated together
+- Test doubles for infrastructure dependencies (use real instances)
+
+**Characteristics**: Seconds per test, requires container setup, per-suite isolation.
+
+### E2E Tests
+
+**Location**: `tests/e2e/**/*.test.ts`
+
+**Purpose**: Test the complete flow from entry point through all layers to final output or persistence.
+
+**What belongs here**:
+- Full application entry point execution (handler, controller, CLI)
+- Complete data flow: trigger → processing → storage
+- Integration between all components (domain + adapters + config)
+- Environment variable configuration and factory behavior
+- End-to-end error scenarios and graceful degradation
+
+**What does NOT belong here**:
+- Individual components in isolation (use unit tests)
+- Adapters independently (use integration tests)
+- Mocked infrastructure you control (use real local instances)
+- Business logic details (use unit tests)
+
+**Characteristics**: Slowest, highest confidence, single-threaded to avoid resource contention.
+
+### Decision Rubric: Where Does This Test Belong?
+
+1. **Is it testing a single component with all dependencies mocked?** → Unit test
+2. **Is it testing an adapter against real infrastructure?** → Integration test
+3. **Is it testing the full application flow end-to-end?** → E2E test
+
+**Quick checks**:
+- Test sits next to the source file → Unit test
+- Test needs Docker containers → Integration or E2E test
+- Test invokes the real entry point → E2E test
+- Test uses MSW for external HTTP → Integration test (or E2E if full flow)
+
+### Principles
+
+1. **Mock what you don't control, use real instances of what you do control.** External APIs → MSW mocks. Infrastructure you own (databases, queues) → real local instances.
+2. **Test at the right level of abstraction.** Unit: logic in isolation. Integration: contracts with infrastructure. E2E: complete user-facing flows.
+3. **Speed vs confidence trade-off.** Unit tests: fast, frequent feedback. Integration: moderate speed, validate contracts. E2E: slower, highest confidence.
+4. **File location determines test type.** `src/**/*.test.ts` → unit. `tests/integration/` → integration. `tests/e2e/` → e2e.
+5. **Coverage expectations increase with scope.** Unit tests cover core logic. Integration tests validate contracts comprehensively. E2E tests cover all critical paths. Combined coverage should exceed any single type.
 
 ## Development Workflow
 
