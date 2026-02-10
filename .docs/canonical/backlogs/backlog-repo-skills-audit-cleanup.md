@@ -1,7 +1,7 @@
 ---
 type: backlog
 endeavor: repo
-status: active
+status: completed
 updated: 2026-02-10
 ---
 
@@ -19,7 +19,7 @@ Remaining items from the Feb 2026 skills audit and consolidation. The audit merg
 | S4 | ~~Review standalone orphan skills for quality and relevance~~ **DONE** — reviewed 4 remaining orphans: deleted `expectations` (duplicative of CLAUDE.md), kept 3 as standalone (agent-browser, artifacts-builder, internal-comms) | Housekeeping | Low | Resolved 2026-02-10. Only 4 orphans remained after S3. Three are high-quality standalone tool/reference skills; `expectations` was entirely duplicative of project CLAUDE.md content. |
 | S5 | ~~Update `skills/README.md` to reflect consolidation~~ **DONE** — removed 38 stale entries (deleted sub-skills, merged duplicates, renamed delivery-team skills), added "Refs:" notes to consolidated primaries | Documentation | Medium | Resolved 2026-02-10. Removed expectations, backend-development, component-refactoring, chrome-devtools, 4 typescript sub-skills, architecture-design, technical-planning, performance-optimization, 3 bdd sub-skills, legacy-code-safety, and 22 more consolidated sub-skills. Updated delivery-team: jira-expert→ticket-management, confluence-expert→wiki-documentation, scrum-master→agile-coach. |
 | S6 | ~~Update `skills/engineering-team/CLAUDE.md` to reflect consolidation~~ **DONE** — updated skill count (15→26), added Platform & Language and Specialist categories, fixed `qa-engineer`→`ap-qa-engineer`, removed 3 dead file references, added catalog links | Documentation | Medium | Resolved 2026-02-10. Overview now lists all 26 role skills across 5 categories. Footer updated to 26/26 and current date. |
-| S7 | Make `review-changes` command run guardian/review agents in parallel instead of sequentially | Improvement | Low | Currently runs agents one-by-one; could run ap-tdd-guardian, ap-ts-enforcer, ap-refactor-guardian, ap-code-reviewer concurrently for faster feedback. |
+| S7 | ~~Make `review-changes` command run guardian/review agents in parallel instead of sequentially~~ **DONE** — updated command to launch all agents concurrently | Improvement | Low | Resolved 2026-02-10. All agents receive the same diff with no ordering dependencies; parallel execution is safe and gives faster feedback. |
 
 ## Context
 

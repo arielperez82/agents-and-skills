@@ -17,9 +17,9 @@ Run the pre-commit validation agents on **uncommitted changes only** (working tr
 
 Apply the argument when gathering the diff and when instructing each subagent (e.g. "Review only the following files" or "Focus on: ...").
 
-## Subagents (run in order)
+## Subagents (run in parallel)
 
-Engage these agents **in sequence**, each with the same context: the uncommitted diff (and optional scope/focus).
+Engage these agents **in parallel**, each with the same context: the uncommitted diff (and optional scope/focus). All agents operate independently on the same input, so there are no ordering dependencies.
 
 ### Core (always)
 
@@ -41,14 +41,11 @@ Engage these agents **in sequence**, each with the same context: the uncommitted
    - If argument provided: filter or annotate which paths to include/exclude or what to focus on.
    - **Decide optional agents**: If diff includes doc files → include ap-docs-guardian. If plan/roadmap context (plan files in diff or user indicated) → include ap-progress-guardian.
 
-2. **Run guardians then reviewer**
-   - Call ap-tdd-guardian with: uncommitted diff + optional scope/focus.
-   - Call ap-ts-enforcer with same (or skip if no TS in diff).
-   - Call ap-refactor-guardian with same.
-   - Call ap-security-guardian with same (security findings report with criticality).
-   - Call ap-code-reviewer with same.
-   - If docs changed: call ap-docs-guardian with same (doc-related paths or full diff).
-   - If plan-based: call ap-progress-guardian with same (plan context + diff).
+2. **Run all agents in parallel**
+   - Launch all applicable agents concurrently, each with: uncommitted diff + optional scope/focus.
+   - Core (always): ap-tdd-guardian, ap-ts-enforcer (skip if no TS in diff), ap-refactor-guardian, ap-security-guardian, ap-code-reviewer.
+   - Optional: ap-docs-guardian (if docs changed), ap-progress-guardian (if plan-based).
+   - Wait for all agents to complete before proceeding to summarize.
 
 3. **Summarize**
    - Collate findings from all agents used.
@@ -56,5 +53,6 @@ Engage these agents **in sequence**, each with the same context: the uncommitted
 
 ## Notes
 
-- Load `orchestrating-agents` skill if invoking multiple subagents in parallel is desired; this command specifies **sequential** invocation so each agent sees the same diff and focus.
+- All agents receive the same diff and focus — no ordering dependencies exist, so parallel execution is safe and preferred for faster feedback.
+- Load `orchestrating-agents` skill for advanced parallel patterns if needed.
 - Reference AGENTS.md "Validation Workflow Pattern" and agents/README.md for when to use each agent.
