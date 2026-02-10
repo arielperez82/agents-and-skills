@@ -6,7 +6,7 @@ title: UI Designer Specialist
 description: UI design system agent for design token management, component library creation, design system documentation, and scalable design infrastructure
 domain: product
 subdomain: ux-design
-skills: product-team/ui-design-system
+skills: ux-team/ui-design-system
 
 # === USE CASES ===
 difficulty: advanced
@@ -28,9 +28,9 @@ classification:
 # === RELATIONSHIPS ===
 related-agents: []
 related-skills:
-  - product-team/ui-design-system
-  - product-team/visual-design-foundations
-  - product-team/ux-designer
+  - ux-team/ui-design-system
+  - ux-team/visual-design-foundations
+  - ux-team/ux-designer
 related-commands: []
 
 # === TECHNICAL ===
@@ -61,42 +61,42 @@ The ap-ui-designer agent bridges the gap between design and code, providing acti
 
 ## Skill Integration
 
-**Skill Location:** `../skills/product-team/ui-design-system/`
+**Skill Location:** `../skills/ux-team/ui-design-system/`
 
 ### Python Tools
 
 1. **Design Token Generator**
    - **Purpose:** Automated generation of design tokens from design specifications with multi-platform export (CSS, SCSS, JSON, iOS, Android)
-   - **Path:** `../skills/product-team/ui-design-system/scripts/design_token_generator.py`
-   - **Usage:** `python ../skills/product-team/ui-design-system/scripts/design_token_generator.py tokens.json --format css`
+   - **Path:** `../skills/ux-team/ui-design-system/scripts/design_token_generator.py`
+   - **Usage:** `python ../skills/ux-team/ui-design-system/scripts/design_token_generator.py tokens.json --format css`
    - **Features:** Token validation, semantic token generation (colors, typography, spacing, shadows, etc.), platform-specific output (web, iOS, Android), token documentation, design-code sync
    - **Use Cases:** Token generation, platform export, design-developer handoff, token documentation
 
 ### Knowledge Bases
 
 1. **Design System Principles**
-   - **Location:** `../skills/product-team/ui-design-system/references/design_system_principles.md`
+   - **Location:** `../skills/ux-team/ui-design-system/references/design_system_principles.md`
    - **Content:** Design system fundamentals, atomic design methodology, component hierarchy (atoms → molecules → organisms → templates), design token architecture, accessibility standards (WCAG 2.1 AA), naming conventions
    - **Use Case:** System architecture, component planning, accessibility compliance
 
 2. **Component API Guidelines**
-   - **Location:** `../skills/product-team/ui-design-system/references/component_api_guidelines.md`
+   - **Location:** `../skills/ux-team/ui-design-system/references/component_api_guidelines.md`
    - **Content:** Component API design patterns, prop naming conventions, variant systems, composition patterns, state management, accessibility props (ARIA), documentation requirements
    - **Use Case:** Component design, API consistency, developer experience
 
 3. **Design Token Standards**
-   - **Location:** `../skills/product-team/ui-design-system/references/design_token_standards.md`
+   - **Location:** `../skills/ux-team/ui-design-system/references/design_token_standards.md`
    - **Content:** Token taxonomy (global vs alias vs component tokens), naming conventions, semantic token patterns, color systems, typography scales, spacing scales, token governance
    - **Use Case:** Token architecture, naming consistency, scale definitions
 
 ### Templates
 
 1. **Design System Starter Kit**
-   - **Location:** `../skills/product-team/ui-design-system/assets/design-system-starter.md`
+   - **Location:** `../skills/ux-team/ui-design-system/assets/design-system-starter.md`
    - **Use Case:** New design system kickoff, foundational setup
 
 2. **Component Documentation Template**
-   - **Location:** `../skills/product-team/ui-design-system/assets/component-doc-template.md`
+   - **Location:** `../skills/ux-team/ui-design-system/assets/component-doc-template.md`
    - **Use Case:** Component documentation, Storybook integration
 
 ## Workflows
@@ -117,7 +117,7 @@ The ap-ui-designer agent bridges the gap between design and code, providing acti
 
 2. **Define Token Architecture** - Structure token system:
    ```bash
-   cat ../skills/product-team/ui-design-system/references/design_token_standards.md | grep -A 20 "Token Taxonomy"
+   cat ../skills/ux-team/ui-design-system/references/design_token_standards.md | grep -A 20 "Token Taxonomy"
    ```
    - **Global Tokens**: Core values (color palette, type scale)
    - **Alias Tokens**: Semantic meanings (color-text-primary, color-bg-error)
@@ -181,19 +181,19 @@ The ap-ui-designer agent bridges the gap between design and code, providing acti
 4. **Generate Platform-Specific Tokens** - Export for all platforms:
    ```bash
    # CSS Variables
-   python ../skills/product-team/ui-design-system/scripts/design_token_generator.py tokens.json --format css > tokens.css
+   python ../skills/ux-team/ui-design-system/scripts/design_token_generator.py tokens.json --format css > tokens.css
 
    # SCSS Variables
-   python ../skills/product-team/ui-design-system/scripts/design_token_generator.py tokens.json --format scss > _tokens.scss
+   python ../skills/ux-team/ui-design-system/scripts/design_token_generator.py tokens.json --format scss > _tokens.scss
 
    # JavaScript/TypeScript
-   python ../skills/product-team/ui-design-system/scripts/design_token_generator.py tokens.json --format json > tokens.json
+   python ../skills/ux-team/ui-design-system/scripts/design_token_generator.py tokens.json --format json > tokens.json
 
    # iOS (Swift)
-   python ../skills/product-team/ui-design-system/scripts/design_token_generator.py tokens.json --format ios > DesignTokens.swift
+   python ../skills/ux-team/ui-design-system/scripts/design_token_generator.py tokens.json --format ios > DesignTokens.swift
 
    # Android (XML)
-   python ../skills/product-team/ui-design-system/scripts/design_token_generator.py tokens.json --format android > design_tokens.xml
+   python ../skills/ux-team/ui-design-system/scripts/design_token_generator.py tokens.json --format android > design_tokens.xml
    ```
 
 5. **Validate Token Output** - Review generated tokens:
@@ -239,9 +239,9 @@ cat > design-tokens.json << 'EOF'
 EOF
 
 # Generate tokens for all platforms
-python ../skills/product-team/ui-design-system/scripts/design_token_generator.py design-tokens.json --format css
-python ../skills/product-team/ui-design-system/scripts/design_token_generator.py design-tokens.json --format json
-python ../skills/product-team/ui-design-system/scripts/design_token_generator.py design-tokens.json --format ios
+python ../skills/ux-team/ui-design-system/scripts/design_token_generator.py design-tokens.json --format css
+python ../skills/ux-team/ui-design-system/scripts/design_token_generator.py design-tokens.json --format json
+python ../skills/ux-team/ui-design-system/scripts/design_token_generator.py design-tokens.json --format ios
 ```
 
 ### Workflow 2: Component Library Development
@@ -251,7 +251,7 @@ python ../skills/product-team/ui-design-system/scripts/design_token_generator.py
 **Steps:**
 1. **Plan Component Hierarchy** - Structure component library:
    ```bash
-   cat ../skills/product-team/ui-design-system/references/design_system_principles.md | grep -A 30 "Atomic Design"
+   cat ../skills/ux-team/ui-design-system/references/design_system_principles.md | grep -A 30 "Atomic Design"
    ```
    - **Atoms**: Button, Input, Label, Icon, Badge
    - **Molecules**: Form Field, Search Bar, Card Header
@@ -260,7 +260,7 @@ python ../skills/product-team/ui-design-system/scripts/design_token_generator.py
 
 2. **Define Component API** - Design consistent component interfaces:
    ```bash
-   cat ../skills/product-team/ui-design-system/references/component_api_guidelines.md | head -40
+   cat ../skills/ux-team/ui-design-system/references/component_api_guidelines.md | head -40
    ```
    - **Props**: size, variant, disabled, loading, error
    - **Composition**: children, slots, render props
@@ -347,7 +347,7 @@ python ../skills/product-team/ui-design-system/scripts/design_token_generator.py
 
 6. **Document Components** - Create comprehensive documentation:
    ```bash
-   cp ../skills/product-team/ui-design-system/assets/component-doc-template.md docs/button.md
+   cp ../skills/ux-team/ui-design-system/assets/component-doc-template.md docs/button.md
    ```
    - Overview: Purpose, when to use, when not to use
    - Variants: Visual examples of all variants
@@ -450,7 +450,7 @@ python ../skills/product-team/ui-design-system/scripts/design_token_generator.py
 
 5. **Create Contribution Guidelines** - Enable team contributions:
    ```bash
-   cat ../skills/product-team/ui-design-system/assets/design-system-starter.md | grep -A 20 "Contributing"
+   cat ../skills/ux-team/ui-design-system/assets/design-system-starter.md | grep -A 20 "Contributing"
    ```
    - How to propose new components
    - Token addition process
@@ -498,7 +498,7 @@ python ../skills/product-team/ui-design-system/scripts/design_token_generator.py
 2. **Use Design Tokens in Figma** - Sync design and code tokens:
    ```bash
    # Export Figma tokens
-   python ../skills/product-team/ui-design-system/scripts/design_token_generator.py figma-export.json --format css > tokens.css
+   python ../skills/ux-team/ui-design-system/scripts/design_token_generator.py figma-export.json --format css > tokens.css
    ```
    - Install Figma Tokens plugin
    - Import token JSON into Figma
@@ -608,27 +608,27 @@ mkdir -p dist/css dist/scss dist/js dist/ios dist/android
 
 # Generate CSS Variables
 echo "1. Generating CSS Variables..."
-python ../skills/product-team/ui-design-system/scripts/design_token_generator.py "$TOKENS_FILE" --format css > dist/css/tokens.css
+python ../skills/ux-team/ui-design-system/scripts/design_token_generator.py "$TOKENS_FILE" --format css > dist/css/tokens.css
 echo "   ✅ Generated: dist/css/tokens.css"
 
 # Generate SCSS Variables
 echo "2. Generating SCSS Variables..."
-python ../skills/product-team/ui-design-system/scripts/design_token_generator.py "$TOKENS_FILE" --format scss > dist/scss/_tokens.scss
+python ../skills/ux-team/ui-design-system/scripts/design_token_generator.py "$TOKENS_FILE" --format scss > dist/scss/_tokens.scss
 echo "   ✅ Generated: dist/scss/_tokens.scss"
 
 # Generate JavaScript/JSON
 echo "3. Generating JavaScript Tokens..."
-python ../skills/product-team/ui-design-system/scripts/design_token_generator.py "$TOKENS_FILE" --format json > dist/js/tokens.json
+python ../skills/ux-team/ui-design-system/scripts/design_token_generator.py "$TOKENS_FILE" --format json > dist/js/tokens.json
 echo "   ✅ Generated: dist/js/tokens.json"
 
 # Generate iOS (Swift)
 echo "4. Generating iOS Tokens..."
-python ../skills/product-team/ui-design-system/scripts/design_token_generator.py "$TOKENS_FILE" --format ios > dist/ios/DesignTokens.swift
+python ../skills/ux-team/ui-design-system/scripts/design_token_generator.py "$TOKENS_FILE" --format ios > dist/ios/DesignTokens.swift
 echo "   ✅ Generated: dist/ios/DesignTokens.swift"
 
 # Generate Android (XML)
 echo "5. Generating Android Tokens..."
-python ../skills/product-team/ui-design-system/scripts/design_token_generator.py "$TOKENS_FILE" --format android > dist/android/design_tokens.xml
+python ../skills/ux-team/ui-design-system/scripts/design_token_generator.py "$TOKENS_FILE" --format android > dist/android/design_tokens.xml
 echo "   ✅ Generated: dist/android/design_tokens.xml"
 
 echo ""
@@ -659,7 +659,7 @@ fi
 # Review design system principles
 echo ""
 echo "2. Design System Principles:"
-cat ../skills/product-team/ui-design-system/references/design_system_principles.md | grep "^## " | head -5
+cat ../skills/ux-team/ui-design-system/references/design_system_principles.md | grep "^## " | head -5
 
 # Check component documentation
 echo ""
@@ -670,9 +670,9 @@ echo "   Components documented: $COMPONENT_DOCS"
 # Review governance
 echo ""
 echo "4. Design System Resources:"
-echo "   - Principles: ../skills/product-team/ui-design-system/references/design_system_principles.md"
-echo "   - Component API: ../skills/product-team/ui-design-system/references/component_api_guidelines.md"
-echo "   - Token Standards: ../skills/product-team/ui-design-system/references/design_token_standards.md"
+echo "   - Principles: ../skills/ux-team/ui-design-system/references/design_system_principles.md"
+echo "   - Component API: ../skills/ux-team/ui-design-system/references/component_api_guidelines.md"
+echo "   - Token Standards: ../skills/ux-team/ui-design-system/references/design_token_standards.md"
 ```
 
 ### Example 3: Component Documentation Generator
@@ -695,7 +695,7 @@ echo "=========================================="
 echo ""
 
 # Copy documentation template
-cp ../skills/product-team/ui-design-system/assets/component-doc-template.md "$COMPONENT_FILE"
+cp ../skills/ux-team/ui-design-system/assets/component-doc-template.md "$COMPONENT_FILE"
 
 # Replace placeholder with component name
 sed -i.bak "s/ComponentName/$COMPONENT_NAME/g" "$COMPONENT_FILE"
@@ -746,7 +746,7 @@ echo "6. Add do's and don'ts"
 
 ## References
 
-- **Skill Documentation:** [../skills/product-team/ui-design-system/SKILL.md](../skills/product-team/ui-design-system/SKILL.md)
+- **Skill Documentation:** [../skills/ux-team/ui-design-system/SKILL.md](../skills/ux-team/ui-design-system/SKILL.md)
 - **Product Domain Guide:** [../skills/product-team/CLAUDE.md](../skills/product-team/CLAUDE.md)
 - **Agent Development Guide:** [ap-agent-author](ap-agent-author.md)
 

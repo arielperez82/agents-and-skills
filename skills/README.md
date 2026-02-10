@@ -184,6 +184,15 @@ Role and specialist skills (same folder):
 | **page-cro** | Conversion optimization | Marketing pages, CRO, landing pages |
 | **marketing-psychology** | Marketing + psychology | Mental models, persuasion, consumer behavior |
 
+### UX Team (`ux-team/`)
+
+| Skill | When to Use | What It Provides |
+|-------|-------------|------------------|
+| **ux-researcher-designer** | UX research | Personas, journey mapping, usability |
+| **ux-designer** | UX/UI design | User experience, wireframes, user flows, accessibility |
+| **ui-design-system** | Design systems | Tokens, components, handoff |
+| **visual-design-foundations** | Visual design | Typography, color, spacing, iconography, design tokens |
+
 ### Product Team (`product-team/`)
 
 | Skill | When to Use | What It Provides |
@@ -191,10 +200,6 @@ Role and specialist skills (same folder):
 | **product-strategist** | Product strategy | OKRs, market analysis, vision |
 | **product-manager-toolkit** | Product management | RICE, PRDs, discovery, GTM |
 | **agile-product-owner** | Product ownership | User stories, backlog, agile |
-| **ux-researcher-designer** | UX research | Personas, journey mapping, usability |
-| **ux-designer** | UX/UI design | User experience, wireframes, user flows, accessibility |
-| **ui-design-system** | Design systems | Tokens, components, handoff |
-| **visual-design-foundations** | Visual design | Typography, color, spacing, iconography, design tokens |
 | **competitive-analysis** | Competitive analysis | Skills, agents, features vs competitors |
 | **business-analyst-toolkit** | Business analysis | Requirements, workflows, optimization |
 

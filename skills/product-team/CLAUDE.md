@@ -1,6 +1,8 @@
 # Product Team Skills - Claude Code Guidance
 
-This guide covers the 6 production-ready product management skills and their Python automation tools.
+This guide covers the 4 production-ready product management skills and their Python automation tools.
+
+> **Note:** UX/design skills (ux-researcher-designer, ux-designer, ui-design-system, visual-design-foundations) moved to `skills/ux-team/` in Feb 2026.
 
 ## Product Skills Overview
 
@@ -8,11 +10,9 @@ This guide covers the 6 production-ready product management skills and their Pyt
 1. **product-manager-toolkit/** - RICE prioritization, customer interview analysis (2 tools)
 2. **agile-product-owner/** - User story generation, sprint planning (1 tool)
 3. **product-strategist/** - OKR cascade, strategic planning (1 tool)
-4. **ux-researcher-designer/** - Persona generation, user research (1 tool)
-5. **ui-design-system/** - Design token generation, component systems (1 tool)
-6. **competitive-analysis/** - Competitive scorecard, gap analysis, adoption prioritization (3 tools)
+4. **competitive-analysis/** - Competitive scorecard, gap analysis, adoption prioritization (3 tools)
 
-**Total Tools:** 9 Python automation tools
+**Total Tools:** 7 Python automation tools
 
 ## Python Automation Tools
 
@@ -116,49 +116,7 @@ python product-strategist/scripts/okr_cascade_generator.py growth
 python product-strategist/scripts/okr_cascade_generator.py retention
 ```
 
-### 5. Persona Generator (`ux-researcher-designer/scripts/persona_generator.py`)
-
-**Purpose:** Data-driven persona creation from user research
-
-**Features:**
-- Demographic and psychographic profiling
-- Goals, pain points, and behavior patterns
-- User journey mapping integration
-- Empathy map generation
-
-**Usage:**
-```bash
-# Interactive persona creation
-python ux-researcher-designer/scripts/persona_generator.py
-
-# JSON export
-python ux-researcher-designer/scripts/persona_generator.py --output json
-```
-
-### 6. Design Token Generator (`ui-design-system/scripts/design_token_generator.py`)
-
-**Purpose:** Complete design token system from brand color
-
-**Features:**
-- Color palette generation (primary, secondary, neutrals)
-- Typography scale (font sizes, line heights, weights)
-- Spacing system (4px/8px grid)
-- Shadow and elevation tokens
-- Export formats: CSS, JSON, SCSS
-
-**Usage:**
-```bash
-# Generate design tokens
-python ui-design-system/scripts/design_token_generator.py "#0066CC" modern css
-
-# SCSS output
-python ui-design-system/scripts/design_token_generator.py "#0066CC" modern scss
-
-# JSON for Figma integration
-python ui-design-system/scripts/design_token_generator.py "#0066CC" modern json
-```
-
-### 7. Competitive Analyzer (`competitive-analysis/scripts/competitive_analyzer.py`)
+### 5. Competitive Analyzer (`competitive-analysis/scripts/competitive_analyzer.py`)
 
 **Purpose:** Analyze competitor products against your repository
 
@@ -180,7 +138,7 @@ python competitive-analysis/scripts/competitive_analyzer.py --scope skills --com
 python competitive-analysis/scripts/competitive_analyzer.py --output json --competitor-path ./competitor
 ```
 
-### 8. Gap Analyzer (`competitive-analysis/scripts/gap_analyzer.py`)
+### 6. Gap Analyzer (`competitive-analysis/scripts/gap_analyzer.py`)
 
 **Purpose:** Identify and prioritize competitive gaps
 
@@ -202,7 +160,7 @@ python competitive-analysis/scripts/gap_analyzer.py --severity critical --compet
 python competitive-analysis/scripts/gap_analyzer.py --prioritize --competitor-path ./competitor
 ```
 
-### 9. Scorecard Generator (`competitive-analysis/scripts/scorecard_generator.py`)
+### 7. Scorecard Generator (`competitive-analysis/scripts/scorecard_generator.py`)
 
 **Purpose:** Generate visual competitive scorecards
 
@@ -249,8 +207,8 @@ python agile-product-owner/scripts/user_story_generator.py sprint 30
 # 2. Analyze transcripts
 python product-manager-toolkit/scripts/customer_interview_analyzer.py interview-001.txt
 
-# 3. Generate personas
-python ux-researcher-designer/scripts/persona_generator.py
+# 3. Generate personas (see ux-team/ skills)
+# python ../ux-team/ux-researcher-designer/scripts/persona_generator.py
 
 # 4. Create OKRs based on insights
 python product-strategist/scripts/okr_cascade_generator.py growth
@@ -280,22 +238,9 @@ All tools support JSON output for Jira import:
 python product-manager-toolkit/scripts/rice_prioritizer.py features.csv --output json > jira-import.json
 ```
 
-### Figma Integration
+### Figma / UX Integration
 
-Design tokens export for Figma plugins:
-
-```bash
-# Generate tokens
-python ui-design-system/scripts/design_token_generator.py "#0066CC" modern json > design-tokens.json
-```
-
-### Confluence Documentation
-
-Use persona generator output for user documentation:
-
-```bash
-python ux-researcher-designer/scripts/persona_generator.py --output json > personas.json
-```
+Design tokens and persona tools are now in `skills/ux-team/`. See `ux-team/ui-design-system/` and `ux-team/ux-researcher-designer/`.
 
 ## Quality Standards
 
@@ -308,7 +253,7 @@ python ux-researcher-designer/scripts/persona_generator.py --output json > perso
 
 ## Roadmap
 
-**Current (Phase 1):** 6 skills deployed with 9 tools
+**Current (Phase 1):** 4 product skills deployed with 7 tools (UX skills moved to ux-team/)
 
 **Phase 2 (Q1 2026):** Product analytics
 - A/B test analyzer
@@ -330,6 +275,6 @@ See `product_team_implementation_guide.md` for detailed plans.
 
 ---
 
-**Last Updated:** November 27, 2025
-**Skills Deployed:** 6/6 product skills production-ready
-**Total Tools:** 9 Python automation tools
+**Last Updated:** February 10, 2026
+**Skills Deployed:** 4/4 product skills production-ready (UX skills → ux-team/)
+**Total Tools:** 7 Python automation tools

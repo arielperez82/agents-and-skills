@@ -51,7 +51,7 @@ related-skills:
   - engineering-team/best-practices
   - engineering-team/seo
   - engineering-team/remotion-best-practices
-  - product-team/visual-design-foundations
+  - ux-team/visual-design-foundations
   - engineering-team/tailwind-configuration
   - engineering-team/eslint-configuration
   - engineering-team/prettier-configuration

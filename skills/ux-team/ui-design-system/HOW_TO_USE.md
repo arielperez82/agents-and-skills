@@ -1,24 +1,24 @@
-# How to Use the Ux Researcher Designer Skill
+# How to Use the Ui Design System Skill
 
 ## Quick Start
 
-Hey Claude—I just added the "ux-researcher-designer" skill. Can you design a user-friendly interface?
+Hey Claude—I just added the "ui-design-system" skill. Can you design a user-friendly interface?
 
 ## Example Invocations
 
 ### Example 1: Basic Usage
 ```
-Hey Claude—I just added the "ux-researcher-designer" skill. Can you design a user-friendly interface?
+Hey Claude—I just added the "ui-design-system" skill. Can you design a user-friendly interface?
 ```
 
 ### Example 2: Specific Workflow
 ```
-Hey Claude—I just added the "ux-researcher-designer" skill. Can you help me with [workflow name]?
+Hey Claude—I just added the "ui-design-system" skill. Can you help me with [workflow name]?
 ```
 
 ### Example 3: Integration with Other Skills
 ```
-Hey Claude—I just added the "ux-researcher-designer" skill. Can you use it together with related skills to deliver a complete solution?
+Hey Claude—I just added the "ui-design-system" skill. Can you use it together with related skills to deliver a complete solution?
 ```
 
 ## What to Provide
@@ -42,12 +42,12 @@ This skill will provide:
 
 This skill includes the following Python tools:
 
-- **persona_generator.py**: Data-Driven Persona Generator
+- **design_token_generator.py**: Design Token Generator
 
 You can run these tools directly:
 
 ```bash
-python skills/product-team/ux-researcher-designer/scripts/persona_generator.py --help
+python skills/ux-team/ui-design-system/scripts/design_token_generator.py --help
 ```
 
 ## Tips for Best Results
@@ -67,7 +67,7 @@ Consider using these skills together:
 
 ---
 
-**Skill**: ux-researcher-designer
+**Skill**: ui-design-system
 **Domain**: product-team
 **Version**: 1.0.0
 **Last Updated**: 2025-11-08

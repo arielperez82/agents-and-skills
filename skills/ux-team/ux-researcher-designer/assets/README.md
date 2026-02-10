@@ -45,7 +45,7 @@ cat sample-user-research.json | python -m json.tool
 ### Quick Start
 
 ```bash
-cd /Users/ricky/Library/CloudStorage/GoogleDrive-rickydwilson@gmail.com/My\ Drive/Websites/GitHub/claude-skills/product-team/ux-researcher-designer/
+cd skills/ux-team/ux-researcher-designer/
 
 # Generate personas from sample research
 python scripts/persona_generator.py
