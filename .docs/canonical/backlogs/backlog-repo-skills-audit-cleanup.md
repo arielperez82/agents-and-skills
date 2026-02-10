@@ -14,7 +14,7 @@ Remaining items from the Feb 2026 skills audit and consolidation. The audit merg
 | ID | Change | Category | Value | Notes |
 |----|--------|----------|-------|-------|
 | S1 | ~~Decide ownership for `ux-designer` skill~~ **DONE** — created `ap-ux-designer` agent; wired as `related-skill` on `ap-ux-researcher` and `ap-ui-designer` | Orphan skill | High | Resolved 2026-02-10. New agent `ap-ux-designer` owns `ux-designer` as core skill. Also added as related-skill to ap-ux-researcher and ap-ui-designer. |
-| S2 | Audit `component-refactoring` skill — Dify-specific, decide if it should be generalized or archived | Orphan skill | Low | Dify-specific content. May not be useful in its current form for other projects. |
+| S2 | ~~Audit `component-refactoring` skill~~ **DONE** — deleted (Dify-specific, all generic React patterns already covered by react-vite-expert, react-best-practices, react-testing) | Orphan skill | Low | Resolved 2026-02-10. Deleted entire skill directory; no unique content to salvage. |
 | S3 | Wire remaining 75 orphan skills to agents as `related-skills` or mark as standalone/deprecated | Orphan skills | Medium | 108 of 183 skills are referenced by agents; 75 are unreferenced. Many are standalone reference docs that don't need agent wiring, but some valuable ones may be missing connections. |
 | S4 | Review standalone orphan skills for quality and relevance — archive low-value ones | Housekeeping | Low | Some orphan skills have placeholder content (TODO fields) and may not provide value. |
 | S5 | Update `skills/README.md` to reflect consolidation — remove deleted skill entries, add consolidated references section | Documentation | Medium | skills/README.md may still list the 30 deleted sub-skills and 5 merged duplicates. |
