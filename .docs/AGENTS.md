@@ -42,6 +42,20 @@ Do **not** create or expect PLAN.md, WIP.md, LEARNINGS.md, or ad-hoc names like 
 - **Naming (reports):** `report-<endeavor>-<topic>-<timeframe>.md` under `.docs/reports/`.
 - **ADRs:** `.docs/canonical/adrs/adr-YYYYMMDD-<subject>.md`.
 - **Decision hierarchy:** Charter → Roadmap → Backlog → Plan. Disputes resolve upstream.
+
+---
+
+## Initiative naming (required for roadmap, backlog, plan)
+
+Every roadmap, backlog, and plan that belongs to an initiative **MUST** have in front matter:
+
+- `initiative: I<nn>-<ACRONYM>` (e.g. `I01-ACM`, `I02-INNC`)
+- `initiative_name: <long-form>` (slug or human-readable; same across roadmap, backlog, plan)
+
+**ID grammar:** Initiative `I<nn>-<ACRONYM>`; backlog item `I<nn>-<ACRONYM>-B<nn>` (in-doc shorthand `B<nn>`); plan step `B<nn>` or `B<nn>-P<p>.<s>` for sub-steps. Backlog table MUST have a Phase or Roadmap outcome column. Phases live in roadmap outcomes, backlog column, and plan structure—not in the backlog item ID.
+
+**Charter:** [charter-repo-initiative-naming-convention.md](canonical/charters/charter-repo-initiative-naming-convention.md). Agents and skills that create or reference roadmap/backlog/plan must follow this convention.
+
 ---
 
 ## Learnings (three layers)
@@ -72,11 +86,20 @@ Filenames under `.docs/canonical/` should follow the naming grammar above. To au
 
 ---
 
-## References
+## References (by initiative)
 
-- **Charter:** [.docs/canonical/charters/charter-repo-artifact-conventions.md](canonical/charters/charter-repo-artifact-conventions.md)
-- **Roadmap:** [.docs/canonical/roadmaps/roadmap-repo-artifact-conventions-migration-2026.md](canonical/roadmaps/roadmap-repo-artifact-conventions-migration-2026.md)
-- **Backlog:** [.docs/canonical/backlogs/backlog-repo-artifact-conventions-migration.md](canonical/backlogs/backlog-repo-artifact-conventions-migration.md)
-- **Plan:** [.docs/canonical/plans/plan-repo-artifact-conventions-migration.md](canonical/plans/plan-repo-artifact-conventions-migration.md)
+**I01-ACM** (artifact-conventions-migration):
+
+- Charter: [charter-repo-artifact-conventions.md](canonical/charters/charter-repo-artifact-conventions.md)
+- Roadmap: [roadmap-repo-artifact-conventions-migration-2026.md](canonical/roadmaps/roadmap-repo-artifact-conventions-migration-2026.md)
+- Backlog: [backlog-repo-artifact-conventions-migration.md](canonical/backlogs/backlog-repo-artifact-conventions-migration.md)
+- Plan: [plan-repo-artifact-conventions-migration.md](canonical/plans/plan-repo-artifact-conventions-migration.md)
+
+**I02-INNC** (initiative-naming-convention):
+
+- Charter: [charter-repo-initiative-naming-convention.md](canonical/charters/charter-repo-initiative-naming-convention.md)
+- Roadmap: [roadmap-repo-I02-INNC-initiative-naming-convention-2026.md](canonical/roadmaps/roadmap-repo-I02-INNC-initiative-naming-convention-2026.md)
+- Backlog: [backlog-repo-I02-INNC-initiative-naming-convention.md](canonical/backlogs/backlog-repo-I02-INNC-initiative-naming-convention.md)
+- Plan: [plan-repo-I02-INNC-initiative-naming-convention.md](canonical/plans/plan-repo-I02-INNC-initiative-naming-convention.md)
 
 Root `AGENTS.md` (if present) should point here: "See .docs/AGENTS.md for agent artifact conventions and operating reference."

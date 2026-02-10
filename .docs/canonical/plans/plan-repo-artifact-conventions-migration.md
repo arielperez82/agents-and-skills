@@ -1,10 +1,16 @@
+---
+type: plan
+endeavor: repo
+initiative: I01-ACM
+initiative_name: artifact-conventions-migration
+status: draft
+updated: 2026-02-10
+---
+
 # Plan: Agent Artifact Conventions Migration
 
 **Endeavor:** repo (agents-and-skills)  
 **Purpose:** Achieve the Agent Artifact Conventions charter and three-layer learnings model across all agents.  
-**Status:** draft  
-**Updated:** 2026-02-06  
-
 **Governed by:** Charter → Roadmap → Backlog → Plan.
 
 - **Charter:** [charter-repo-artifact-conventions.md](../charters/charter-repo-artifact-conventions.md)

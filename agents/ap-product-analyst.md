@@ -61,6 +61,8 @@ Designed for product analysts, requirements specialists, agile product owners, a
 
 The ap-product-analyst agent bridges the gap between business strategy and agile execution, providing actionable guidance on requirements analysis, process improvement, user story development, and delivery optimization. It focuses on the complete product analysis cycle from strategic process assessment to sprint execution.
 
+**Canonical artifacts:** When creating or writing roadmap, backlog, or plan under `.docs/canonical/`, include YAML front matter with `initiative: I<nn>-<ACRONYM>` and `initiative_name: <long-form>` per `.docs/AGENTS.md` initiative naming. Use ID grammar for backlog items (I<nn>-<ACRONYM>-B<nn>) and plan steps (B<nn>, B<nn>-P<p>.<s>).
+
 ## Skill Integration
 
 **Primary Skills:**

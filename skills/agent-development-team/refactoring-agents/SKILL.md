@@ -70,7 +70,7 @@ Clarify what you’re touching and why:
 - What problems are you seeing? (e.g., overlap, confusion, missing role)
 - What outcomes do you want? (fewer agents, clearer responsibilities, new roles)
 
-Capture this in a refactor report using `assets/refactor-report-template.md`. When this repo's artifact conventions are in use (see `.docs/AGENTS.md`), write the report to `.docs/reports/report-<endeavor>-refactor-<timeframe>.md` (e.g. `report-repo-refactor-2026-02-06.md`).
+Capture this in a refactor report using `assets/refactor-report-template.md`. When this repo's artifact conventions are in use (see `.docs/AGENTS.md`), write the report to `.docs/reports/report-<endeavor>-refactor-<timeframe>.md` (e.g. `report-repo-refactor-2026-02-06.md`). When referencing an initiative or its plan/backlog, use `.docs/AGENTS.md` References (by initiative).
 
 ### Step 2: Inventory Current State
 

@@ -78,7 +78,7 @@ This skill delivers enterprise-grade legacy codebase analysis capabilities throu
 - **50% faster** modernization roadmap creation
 - **80% increase** in stakeholder confidence with data-driven insights
 
-**Artifact conventions:** When this repo's artifact conventions are in use (see `.docs/AGENTS.md`), write assessments to `.docs/canonical/assessments/assessment-<endeavor>-<subject>-<date>.md` and reports (e.g. baseline, quarterly, progress) to `.docs/reports/report-<endeavor>-<topic>-<timeframe>.md`. Use the naming grammar for all coordination outputs (executive summary, modernization roadmap, assessment summary). Scripts that write to `reports/` can be directed to `.docs/reports/` when the project adopts conventions.
+**Artifact conventions:** When this repo's artifact conventions are in use (see `.docs/AGENTS.md`), write assessments to `.docs/canonical/assessments/assessment-<endeavor>-<subject>-<date>.md` and reports (e.g. baseline, quarterly, progress) to `.docs/reports/report-<endeavor>-<topic>-<timeframe>.md`. Use the naming grammar for all coordination outputs (executive summary, modernization roadmap, assessment summary). When writing a roadmap or plan to `.docs/canonical/roadmaps/` or `.docs/canonical/plans/`, include `initiative` and `initiative_name` in front matter per `.docs/AGENTS.md` initiative naming. Scripts that write to `reports/` can be directed to `.docs/reports/` when the project adopts conventions.
 
 **Use this skill when:**
 - Inheriting a legacy codebase and need comprehensive assessment

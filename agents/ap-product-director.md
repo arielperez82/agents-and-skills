@@ -236,6 +236,7 @@ python ../skills/product-team/product-strategist/scripts/okr_cascade_generator.p
    ```bash
    cp ../skills/product-team/product-strategist/assets/strategic-roadmap-template.md .docs/canonical/roadmaps/roadmap-repo-strategic-2025.md
    ```
+   - **Initiative naming (required):** Add YAML front matter with `initiative: I<nn>-<ACRONYM>` and `initiative_name: <long-form>` per `.docs/AGENTS.md`. Same for any backlog or plan created under `.docs/canonical/`. Use ID grammar for backlog items (I<nn>-<ACRONYM>-B<nn>) and plan steps (B<nn>, B<nn>-P<p>.<s>).
    - Now/Next/Later format
    - Theme-based grouping
    - Quarterly milestones

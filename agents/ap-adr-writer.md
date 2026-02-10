@@ -444,7 +444,7 @@ When triggered, create a new ADR:
 # Naming: adr-YYYYMMDD-<subject>.md (e.g. adr-20260206-validation-library-choice.md)
 # File: .docs/canonical/adrs/adr-YYYYMMDD-<subject>.md
 ```
-Required front matter: type, endeavor, status (proposed|accepted|superseded), date, supersedes, superseded_by. See .docs/AGENTS.md and charter for placement. Accepted ADRs that change constraints must update Charter/Plan/Backlog links.
+Required front matter: type, endeavor, status (proposed|accepted|superseded), date, supersedes, superseded_by. See .docs/AGENTS.md and charter for placement. Accepted ADRs that change constraints must update Charter/Plan/Backlog links. Do not create roadmap, backlog, or plan files; when referencing plan/backlog, use initiative from .docs/AGENTS.md References (by initiative).
 
 ### 3. Gather Context
 

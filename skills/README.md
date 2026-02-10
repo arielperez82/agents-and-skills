@@ -285,7 +285,7 @@ Role and specialist skills (same folder):
 - Breaking down complex tasks
 - Aligning with .docs/ plans and progress (see `.docs/AGENTS.md`) / progress guardians
 
-**Core responsibility**: Incremental steps, small batches, clear next actions.
+**Core responsibility**: Incremental steps, small batches, clear next actions. When referencing roadmap/backlog/plan, use initiative naming: `initiative`, `initiative_name` in front matter; see `.docs/AGENTS.md` References (by initiative).
 
 ---
 

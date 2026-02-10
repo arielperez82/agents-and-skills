@@ -241,6 +241,8 @@ const payment = processPayment({
 
 **When the document is an assessment or contains a "Learnings" section:** Ensure learnings that change what we do next are reflected in canonical docs — e.g. backlog items or charter updates. Assessments must produce backlog candidates or constraints (charter updates); recommend linking or updating those when reviewing.
 
+**When the document is a roadmap, backlog, or plan under .docs/canonical/:** Verify front matter includes `initiative: I<nn>-<ACRONYM>` and `initiative_name: <long-form>` per .docs/AGENTS.md initiative naming. Do not recommend creating roadmap/backlog/plan without these fields.
+
 **Analysis Process:**
 
 #### 1. Read and Understand

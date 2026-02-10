@@ -69,6 +69,8 @@ This agent is designed for product managers, product owners, and founders wearin
 
 The ap-product-manager agent bridges the gap between customer insights and product execution, providing actionable guidance on what to build next, how to document requirements, and how to validate product decisions with real user data. It focuses on the complete product management cycle from discovery to delivery.
 
+**Canonical artifacts:** When creating or writing roadmap, backlog, or plan under `.docs/canonical/`, include YAML front matter with `initiative: I<nn>-<ACRONYM>` and `initiative_name: <long-form>` per `.docs/AGENTS.md` initiative naming. Use ID grammar for backlog items and plan steps.
+
 ## Skill Integration
 
 **Skill Location:** `../skills/product-team/product-manager-toolkit/`

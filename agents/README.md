@@ -355,6 +355,8 @@ These agents live directly in the `agents/` root directory:
 | `.docs/reports/report-<endeavor>-status-*.md` | Where we are now (current state) | Constantly |
 | `.docs/AGENTS.md` + Learnings sections | What we discovered | As discoveries occur; merge via ap-learn |
 
+**Initiative naming:** All agents that create or reference roadmap, backlog, or plan under `.docs/canonical/` must follow the initiative naming convention: front matter **MUST** include `initiative: I<nn>-<ACRONYM>` and `initiative_name: <long-form>`. Use **References (by initiative)** in `.docs/AGENTS.md` to resolve the current plan for an initiative. See charter: `.docs/canonical/charters/charter-repo-initiative-naming-convention.md`.
+
 **Key distinction**: Progress tracking uses `.docs/` only. Learnings merged into `.docs/AGENTS.md` or canonical Learnings sections; ADRs under `.docs/canonical/adrs/`.
 
 **Related skill**: Load `planning` skill for detailed incremental work principles.

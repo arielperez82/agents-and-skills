@@ -110,7 +110,7 @@ This skill provides automated tools and expert frameworks for developing compreh
 - **Keyword Research & Clustering** - Analyze keyword lists, create topic clusters, map to content pillars
 - **Technical SEO Audits** - Crawlability, indexation, site structure, Core Web Vitals assessment
 - **Competitive Analysis** - SERP position tracking, content gap analysis, competitor benchmarking
-- **SEO Roadmap Planning** - Prioritized action items, quarterly planning, resource estimation. When this repo's artifact conventions are in use, write roadmaps to `.docs/canonical/roadmaps/roadmap-<endeavor>-seo-<timeframe>.md` (see `.docs/AGENTS.md`).
+- **SEO Roadmap Planning** - Prioritized action items, quarterly planning, resource estimation. When this repo's artifact conventions are in use, write roadmaps to `.docs/canonical/roadmaps/roadmap-<endeavor>-seo-<timeframe>.md` with front matter `initiative: I<nn>-<ACRONYM>` and `initiative_name: <long-form>` per `.docs/AGENTS.md` initiative naming.
 - **Site Architecture** - Internal linking strategy, URL structure, information architecture
 - **Performance Monitoring** - KPI tracking, ranking reports, progress dashboards
 

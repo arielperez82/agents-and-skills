@@ -1,8 +1,10 @@
 ---
 type: backlog
 endeavor: repo
+initiative: I01-ACM
+initiative_name: artifact-conventions-migration
 status: active
-updated: 2026-02-06
+updated: 2026-02-10
 ---
 
 # Backlog: Agent Artifact Conventions Migration
@@ -10,6 +12,8 @@ updated: 2026-02-06
 Single continuous queue of **changes** (smallest independently valuable increments). Ordered by roadmap outcome and dependency. Implementers pull from here; execution is planned in the plan doc.
 
 ## Changes (ranked)
+
+Full ID prefix for this initiative: **I01-ACM**. In-doc shorthand: B1, B2, … Cross-doc or reports: use I01-ACM-B01, I01-ACM-B02, etc.
 
 | ID | Change | Roadmap outcome | Value | Notes |
 |----|--------|-----------------|-------|--------|

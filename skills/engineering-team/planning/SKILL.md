@@ -7,7 +7,7 @@ description: Planning work in small, known-good increments. Use when starting si
 
 **All work must be done in small, known-good increments.** Each increment leaves the codebase in a working state where all tests pass.
 
-**Document management:** When this repo's artifact conventions are in use, all coordination artifacts live under `.docs/`. Use the `ap-progress-guardian` agent to assess and validate progress: it checks `.docs/canonical/plans/plan-<endeavor>-*.md`, `.docs/reports/report-<endeavor>-status-*.md`, and learnings in `.docs/AGENTS.md` plus "Learnings" sections in canonical docs. Implementers create and maintain those documents.
+**Document management:** When this repo's artifact conventions are in use, all coordination artifacts live under `.docs/`. Use the `ap-progress-guardian` agent to assess and validate progress: it checks `.docs/canonical/plans/plan-<endeavor>-*.md`, `.docs/reports/report-<endeavor>-status-*.md`, and learnings in `.docs/AGENTS.md` plus "Learnings" sections in canonical docs. Implementers create and maintain those documents. **Initiative naming:** Roadmap, backlog, and plan must include `initiative` and `initiative_name` in front matter; use `.docs/AGENTS.md` **References (by initiative)** to resolve the current plan for an initiative. Do not use PLAN.md, WIP.md, or LEARNINGS.md at repo root.
 
 ## Canonical layout (when using .docs/)
 
@@ -15,7 +15,7 @@ For significant work under artifact conventions:
 
 | Artifact | Location | Purpose |
 |----------|----------|---------|
-| **Plan** | `.docs/canonical/plans/plan-<endeavor>-<subject>[-<timeframe>].md` | What we're doing; created at start, changes need approval |
+| **Plan** | `.docs/canonical/plans/plan-<endeavor>-<subject>[-<timeframe>].md` | What we're doing; created at start, changes need approval. **Initiative naming:** Plan must have front matter `initiative: I<nn>-<ACRONYM>`, `initiative_name: <long-form>` when it belongs to an initiative; steps reference backlog items (Bnn or full ID). See `.docs/AGENTS.md` initiative naming and **References (by initiative)**. |
 | **Status** | `.docs/reports/report-<endeavor>-status-<timeframe>.md` | Where we are now; updated constantly |
 | **Learnings** | Three layers (see below) | What we discovered; routed by scope |
 

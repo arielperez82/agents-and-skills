@@ -341,13 +341,15 @@ If you see a section like this at the start of your context:
 - Git Branch: kai/feat/plan-name-config
 ```
 
-**STEP 2: Apply the naming format.**
+**STEP 2: Apply the naming format and initiative front matter.**
 
 | If Plan Context shows... | Then create folder like... |
 |--------------------------|---------------------------|
 | Naming (canonical) | `.docs/canonical/plans/plan-<endeavor>-<subject>[-<timeframe>].md` |
 | With issue/slug | `plan-repo-<subject>-<timeframe>.md` (e.g. plan-repo-auth-2026-02) |
 | No plan context | Create under `.docs/canonical/plans/` with endeavor slug and subject; use grammar in .docs/AGENTS.md |
+
+**Initiative naming (required):** Every plan that belongs to an initiative MUST have in front matter: `initiative: I<nn>-<ACRONYM>`, `initiative_name: <long-form>`. Same values as the roadmap and backlog for that initiative. Plan steps MUST reference backlog items by ID (Bnn or full I<nn>-<ACRONYM>-B<nn>). Sub-steps use plan step IDs: Bnn-Pp.s (e.g. B07-P1.1, B07-P1.2). See initiative naming in `.docs/AGENTS.md`.
 
 **STEP 3: Get current date dynamically.**
 

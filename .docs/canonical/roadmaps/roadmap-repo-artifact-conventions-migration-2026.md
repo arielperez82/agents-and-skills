@@ -1,12 +1,14 @@
 ---
 type: roadmap
 endeavor: repo
+initiative: I01-ACM
+initiative_name: artifact-conventions-migration
 lead: product
 collaborators:
   - engineering
   - design
 status: active
-updated: 2026-02-06
+updated: 2026-02-10
 ---
 
 # Roadmap: Agent Artifact Conventions Migration (2026)

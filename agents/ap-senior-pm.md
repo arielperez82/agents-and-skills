@@ -131,8 +131,12 @@ cat > resource-capacity.md << 'EOF'
 | QA | 4 FTE | 3.5 FTE | 87% | Good capacity |
 EOF
 
-# Document portfolio priorities
+# Document portfolio priorities (include initiative + initiative_name in front matter per .docs/AGENTS.md)
 cat > .docs/canonical/roadmaps/roadmap-repo-portfolio-2026.md << 'EOF'
+---
+initiative: I<nn>-<ACRONYM>
+initiative_name: <long-form>
+---
 # Q4 2025 Portfolio Roadmap
 
 ## Strategic Priorities
