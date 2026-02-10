@@ -66,7 +66,6 @@ Engineering skills (path: `skills/engineering-team/<name>/`). Load proactively p
 | **planning** | Planning work | Incremental work principles, small increments |
 | **quality-gate-first** | New project, dev plans, backlogs | Phase 0 = quality gate before scaffold/features; type-check, pre-commit, lint, format, etc. |
 | **tpp** | TDD transformations | Transformation Priority Premise reference |
-| **expectations** | Setting expectations | Expectations management patterns |
 | **avoid-feature-creep** | Scope/backlog, MVP | MVP focus, "just one more feature", scope discipline |
 | **clean-code** | Code standards | Pragmatic standards, no over-engineering |
 | **verification-before-completion** | Before claiming done | Run verification, evidence before assertions |
@@ -78,7 +77,6 @@ Engineering skills (path: `skills/engineering-team/<name>/`). Load proactively p
 | **clickhouse-best-practices** | ClickHouse (or Tinybird) schemas, queries, configs | 28 rules for schema, query, insert, materialized views; check before recommendations |
 | **check-tools** | Environment validation | Tool installs (Python, Node, Java, Go, Rust, Git) |
 | **multi-cloud-architecture** | Multi-cloud | AWS, Azure, GCP decision framework |
-| **backend-development** | Backend systems | Frameworks, DBs, APIs, auth, testing, security |
 | **databases** | Database work | MongoDB, PostgreSQL schemas, queries, migrations |
 | **supabase-best-practices** | Supabase | RLS, Clerk auth, security, performance |
 | **supabase-edge-functions** | Supabase Edge Functions (Deno) | Deno/Node dual tsconfig, ambient types, DI for testability, Vitest testing in TypeScript monorepo without Deno runtime |
@@ -95,16 +93,15 @@ Engineering skills (path: `skills/engineering-team/<name>/`). Load proactively p
 | **vitest-performance** | Vitest speed | Fast execution, watch mode, parallelization |
 | **vitest-testing-patterns** | Vitest usage | Unit tests, mocks, spies, browser mode |
 | **coverage-analysis** | Fuzzing, harness effectiveness | Code exercised during fuzzing, fuzzing blockers |
-| **playwright-skill** | Browser automation | Playwright testing, forms, screenshots |
+| **playwright-skill** | Browser automation | Playwright testing, forms, screenshots. Refs: test-architecture, POM, fixtures, bdd-config, gherkin |
 | **test-design-review** | Reviewing tests | Test quality (e.g. Dave Farley's 8 properties) |
-| **component-refactoring** | High-complexity React | Complexity reduction, Dify frontend |
 | **react-best-practices** | React/Next.js | Performance, patterns from Vercel Engineering |
 | **react-vite-expert** | React + Vite | Project structure, performance, TypeScript |
 | **modern-javascript-patterns** | Modern JS | ES6+ patterns, async, functional patterns |
 | **web-design-guidelines** | UI review | Web interface guidelines, accessibility |
 | **accessibility** | Web accessibility | WCAG 2.1 compliance, a11y audit, screen reader support |
 | **best-practices** | Web best practices | Security, compatibility, code quality patterns |
-| **performance** | Web performance | Loading speed, runtime efficiency, resource optimization |
+| **performance** | Web performance | Loading speed, runtime efficiency, resource optimization. Ref: performance-optimization |
 | **core-web-vitals** | Core Web Vitals | LCP, INP, CLS optimization, page experience |
 | **seo** | SEO optimization | Technical SEO, meta tags, structured data, sitemaps |
 | **web-quality-audit** | Web quality audit | Comprehensive Lighthouse audit (performance, a11y, SEO, best practices) |
@@ -118,55 +115,20 @@ Engineering skills (path: `skills/engineering-team/<name>/`). Load proactively p
 | **mcp-builder** | MCP servers | MCP server design (Python/Node), tool/resource patterns |
 | **vercel-deploy-claimable** | Vercel deploy | Preview deploy, claimable link, no auth required |
 | **cost-optimization** | Cloud costs | Rightsizing, tagging, reserved instances |
-| **chrome-devtools** | Browser automation | Puppeteer CLI, debugging, performance |
-| **typescript** | TS performance, tsc, type errors | TypeScript optimization, tsconfig, async patterns |
-| **typescript-strict** | Writing TypeScript | TypeScript strict mode patterns, schema organization |
-| **typescript-async-patterns** | Async TypeScript | Promises, async/await, async iterators with typing |
-| **typescript-type-system** | TS type system | Strict mode, generics, type guards, compiler config |
-| **typescript-utility-types** | TS utility types | Mapped types, advanced type manipulation |
-| **architecture-design** | System architecture, tech decisions | Structure, patterns, long-term strategy |
-| **technical-planning** | Implementation plans | Tactical execution, tasks, dependencies, success criteria |
+| **typescript-strict** | Writing TypeScript | TypeScript strict mode patterns, schema organization. Refs: typescript, type-system, utility-types, async-patterns |
 | **documentation** | Creating/updating docs | READMEs, API docs, technical guides; clarity for audience |
 | **orthogonality-principle** | Modules, APIs, architecture | Independent, non-overlapping components |
-| **performance-optimization** | Performance, bundle size, load times | Measurement-driven optimization |
-| **bdd-principles** | BDD concepts | Core BDD philosophy, Three Amigos |
-| **bdd-patterns** | BDD patterns | Given-When-Then, feature files, acceptance criteria |
-| **bdd-scenarios** | BDD scenarios | Acceptance criteria, edge cases, scenario organization |
-| **bdd-collaboration** | BDD collaboration | Discovery workshops, example mapping, Three Amigos |
+| **bdd-principles** | BDD concepts | Core BDD philosophy, Three Amigos. Refs: patterns, scenarios, collaboration |
 | **boy-scout-rule** | Modifying/refactoring code | Leave code better than you found it; incremental improvements |
-| **legacy-code-safety** | Untested/legacy code changes | RGR workflow, characterization tests before modifications |
-| **docker-compose-basics** | Multi-container Docker | Docker Compose YAML, defining and running services |
-| **docker-compose-networking** | Docker Compose networking | Bridge/overlay networks, service discovery, inter-service communication |
-| **docker-compose-production** | Docker Compose in production | Security, health checks, logging, monitoring, HA |
-| **eslint-configuration** | ESLint setup | Config files, extends, plugins, environment |
-| **eslint-rules** | ESLint rules | Built-in rules, severity, disabling strategies |
-| **eslint-custom** | Custom ESLint | Custom rules and plugins, AST, publishing |
-| **markdownlint-configuration** | Markdownlint config | Rule management, config files, inline comments |
-| **markdownlint-custom-rules** | Markdownlint custom rules | Rule structure, parser integration, auto-fixing |
-| **markdownlint-integration** | Markdownlint in workflows | CLI, programmatic API, CI/CD, editor integration |
-| **monorepo-architecture** | Monorepo design | Structure, packages, dependencies, workspace config |
-| **monorepo-tooling** | Monorepo tooling | Turborepo, Nx, Bazel, Lerna; caching, codegen |
-| **monorepo-workflows** | Monorepo CI/CD, releases | Versioning, publishing, team workflows |
-| **playwright-test-architecture** | Playwright test setup | Project config, test suite organization |
-| **playwright-bdd-configuration** | Playwright BDD | defineBddConfig(), feature/step paths, Playwright config |
-| **playwright-bdd-gherkin-syntax** | Gherkin in Playwright | Feature files, Scenario Outline, tags, Background |
+| **docker-compose-basics** | Multi-container Docker | Docker Compose YAML, services. Refs: networking, production |
+| **eslint-configuration** | ESLint setup | Config files, extends, plugins, environment. Refs: rules, custom-rules |
+| **markdownlint-configuration** | Markdownlint config | Rule management, config files, inline comments. Refs: custom-rules, integration |
+| **monorepo-architecture** | Monorepo design | Structure, packages, dependencies, workspace config. Refs: tooling, workflows |
 | **playwright-bdd-step-definitions** | Playwright BDD steps | Given/When/Then, createBdd(), POM, fixtures |
-| **playwright-fixtures-and-hooks** | Playwright fixtures | Reusable fixtures, lifecycle hooks, test setup/teardown |
-| **playwright-page-object-model** | Playwright POM | Page objects, test maintainability |
-| **prettier-configuration** | Prettier config | Options, config files, ignore patterns |
-| **prettier-integration** | Prettier in workflow | Editors, pre-commit, ESLint, CI/CD |
-| **prettier-plugins** | Prettier plugins | Plugin ecosystem, custom parsers, plugin development |
-| **sre-incident-response** | Production incidents | SRE principles, incident response best practices |
-| **sre-monitoring-and-observability** | Monitoring, observability | Comprehensive monitoring and observability systems |
-| **sre-reliability-engineering** | Reliable systems | Reliable, scalable distributed systems |
-| **tailwind-components** | Tailwind components | Reusable patterns, @apply, composable design |
-| **tailwind-configuration** | Tailwind config | Theme, plugins, tailwind.config.js, content paths |
-| **tailwind-performance** | Tailwind production | Bundle size, PurgeCSS, JIT, build optimization |
-| **tailwind-responsive-design** | Tailwind responsive | Breakpoints, container queries, mobile-first |
-| **tailwind-utility-classes** | Tailwind utilities | Layout, spacing, typography, colors, composition |
-| **terraform-configuration** | Terraform IaC | Writing and organizing Terraform configs for cloud |
-| **terraform-modules** | Terraform modules | Reusable modules, sharing infrastructure code |
-| **terraform-state** | Terraform state | State files, remote backends, state locking |
+| **prettier-configuration** | Prettier config | Options, config files, ignore patterns. Refs: integration, plugins |
+| **sre-reliability-engineering** | Reliable systems | Reliable, scalable distributed systems. Refs: monitoring-observability, incident-response |
+| **tailwind-configuration** | Tailwind config | Theme, plugins, tailwind.config.js, content paths. Refs: utility-classes, responsive, components, performance |
+| **terraform-configuration** | Terraform IaC | Writing and organizing Terraform configs for cloud. Refs: modules, state-management |
 
 Role and specialist skills (same folder):
 
@@ -205,9 +167,9 @@ Role and specialist skills (same folder):
 
 | Skill | When to Use | What It Provides |
 |-------|-------------|------------------|
-| **jira-expert** | Jira | Projects, JQL, workflows, automation |
-| **confluence-expert** | Confluence | Spaces, docs, macros, knowledge bases |
-| **scrum-master** | Scrum | Ceremonies, backlog, velocity, impediments |
+| **ticket-management** | Issue tracking | Product-agnostic ticket workflows, JQL patterns, automation |
+| **wiki-documentation** | Team wikis | Product-agnostic wiki structure, knowledge bases, macros |
+| **agile-coach** | Agile/Scrum | Ceremonies, backlog, velocity, impediments |
 | **senior-pm** | Program management | Portfolio, stakeholders, delivery |
 
 ### Marketing Team (`marketing-team/`)
