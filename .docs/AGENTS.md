@@ -67,6 +67,14 @@ Route learnings by scope and half-life:
 
 **L6 — Graduate conventions early** (I01→I04, 2026-02-11): The `.docs/` layout started as a temporary "override" for the artifact-conventions migration (I01-ACM). By I04-SLSE it was proven across 4 initiatives with zero friction. Graduated from "override (migration)" to permanent convention. Lesson: when a convention works across 2+ initiatives, promote it from temporary to permanent — don't let stale framing confuse future agents.
 
+**L7 — Methodology-first skills for non-engineering domains** (I04-SLSE, 2026-02-11): Skills don't require scripts or tooling. The 6 sales-team skills are pure methodology (frameworks, rubrics, templates, scoring models) with zero tools — `"Total Tools: 0"`. This pattern works well for domains where the value is *structured thinking* (qualification frameworks, call evaluation rubrics, pipeline health scoring) rather than automation. Scripts can be added in follow-on initiatives.
+
+**L8 — Team CLAUDE.md as onboarding guide** (I04-SLSE, 2026-02-11): A `skills/<team>/CLAUDE.md` that maps agents → skills → workflows provides a single entry point for understanding a team's capability surface. Include: skill overview, agent mapping table, integration abstraction principles, and end-to-end workflow diagrams. Effective for onboarding both humans and agents to a new domain.
+
+**L9 — Research report as charter input** (I04-SLSE, 2026-02-11): Persist expert panel output as a `.docs/reports/researcher-*` report *before* writing the charter. The charter then references the report's classification table (BUILD/EXTEND/REFERENCE/DISCARD) as source material analysis. This creates an auditable chain: raw source → research report → charter → roadmap → backlog.
+
+**L10 — Initiative naming pays compound returns** (I02-INNC→I04-SLSE, 2026-02-11): The `I<nn>-<ACRONYM>` naming convention (established in I02-INNC) makes cross-referencing trivial — backlog items are `I04-SLSE-B01`, commit messages use `feat(I04-SLSE):`, and the References section in AGENTS.md links every initiative's full doc set. Worth the upfront effort; compounds across every initiative.
+
 ---
 
 ## ADR placement
