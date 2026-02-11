@@ -6,32 +6,17 @@ This file is the **single operating reference** for agent behavior and artifact 
 
 ---
 
-## Canonical docs override (migration)
+## Canonical docs location (all agents)
 
-**For the duration of the artifact-conventions migration, the following override applies to every agent, especially:**
+**All agents** must read and write coordination artifacts under `.docs/`. This is not optional — it is the permanent convention for this repo, proven across initiatives I01-ACM through I04-SLSE.
 
-- **ap-product-director**
-- **ap-product-manager**
-- **ap-product-analyst**
-- **ap-senior-pm**
-- **ap-architect**
-- **ap-implementation-planner**
-
-**Override:** IGNORE where you normally read or write docs (e.g. root-level plans, `docs/` elsewhere, skill-specific paths for *coordination* artifacts). For this repo and this migration:
-
-- **Read and write only under `.docs/`.**
 - **Canonical truth:** charter, roadmap, backlog, plan, assessments, reviews, ADRs live under `.docs/canonical/`.
 - **Reports:** time-stamped outputs live under `.docs/reports/`.
 - **Operating reference:** this file (`.docs/AGENTS.md`).
 
-When working on the artifact-conventions migration (or any work that touches charter/roadmap/backlog/plan):
+**How to find docs for an initiative:** Look in the References section at the bottom of this file for the initiative ID (e.g. I04-SLSE). Each initiative lists its charter, roadmap, backlog, and plan paths.
 
-1. Read charter from: `.docs/canonical/charters/charter-repo-artifact-conventions.md`
-2. Read roadmap from: `.docs/canonical/roadmaps/roadmap-repo-artifact-conventions-migration-2026.md`
-3. Read backlog from: `.docs/canonical/backlogs/backlog-repo-artifact-conventions-migration.md`
-4. Read plan from: `.docs/canonical/plans/plan-repo-artifact-conventions-migration.md`
-
-Do **not** create or expect PLAN.md, WIP.md, LEARNINGS.md, or ad-hoc names like `roadmap.md`, `summary.md` at repo root or under arbitrary paths. Use the naming grammar in the charter.
+Do **not** create or expect PLAN.md, WIP.md, LEARNINGS.md, or ad-hoc names like `roadmap.md`, `summary.md` at repo root or under arbitrary paths. Use the naming grammar in the Artifact conventions section below.
 
 ---
 
@@ -79,6 +64,8 @@ Route learnings by scope and half-life:
 **L4 — Tool-agnostic skill design** (I04-SLSE, 2026-02-11): Skills that define Input/Output Contracts without vendor-specific references (no HubSpot, Salesforce, Gmail, etc.) are more reusable and composable. Define *what data* the skill needs and *what it produces*; list external actions (CRM update, send email) as recommendations the user wires to their platform.
 
 **L5 — Validation as final backlog gate** (I04-SLSE, 2026-02-11): Run agent validation (`ap-agent-validator --all`) as the last backlog item. This catches issues across all new/modified agents in one pass and confirms the initiative didn't introduce regressions.
+
+**L6 — Graduate conventions early** (I01→I04, 2026-02-11): The `.docs/` layout started as a temporary "override" for the artifact-conventions migration (I01-ACM). By I04-SLSE it was proven across 4 initiatives with zero friction. Graduated from "override (migration)" to permanent convention. Lesson: when a convention works across 2+ initiatives, promote it from temporary to permanent — don't let stale framing confuse future agents.
 
 ---
 
