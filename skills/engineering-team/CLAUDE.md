@@ -196,11 +196,12 @@ python senior-fullstack/scripts/fullstack_scaffolder.py my-app --stack nextjs-gr
 - Testing (Jest + React Testing Library)
 
 ### Backend (Node.js/Express)
+
 - Clean architecture
 - Dependency injection
 - Repository pattern
 - Domain-driven design
-- Testing (Jest + Supertest)
+- Testing (Vitest + Supertest)
 
 ### Fullstack Integration
 - GraphQL for API layer

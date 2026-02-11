@@ -17,6 +17,7 @@ status: draft
 ## Expert Panel: Initiative Naming and Traceability
 
 **Panel members:**
+
 - **ap-senior-pm** (strategic program / portfolio)
 - **ap-product-manager** (roadmap, backlog, PRD)
 - **ap-product-analyst** (requirements, analysis)
