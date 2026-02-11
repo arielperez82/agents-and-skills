@@ -131,7 +131,7 @@ The following agents and skills provide detailed guidance and can be loaded on-d
 
 ### Agents
 
-**See [agents/README.md](agents/README.md)** for the complete agent catalog: when to invoke each agent, what each provides, and how they hand off. Agents in this repo use the `ap-*` prefix (e.g. `ap-tdd-guardian`, `ap-ts-enforcer`).
+**See [agents/README.md](agents/README.md)** for the complete agent catalog: when to invoke each agent, what each provides, and how they hand off. Agents in this repo use the `ap-*` prefix (e.g. `ap-tdd-reviewer`, `ap-ts-enforcer`).
 
 **Understanding agent frontmatter:** When parsing agent definitions, `skills` are core skills that define the agent (agent provides index/paths; load skill SKILL.md for details), while `related-skills` are supplementary skills to pull in as-needed. Agents serve as an index pointing to skills—prefer retrieval-led reasoning. See [agents/README.md#understanding-agent-frontmatter](agents/README.md#understanding-agent-frontmatter) for operational interpretation.
 
@@ -155,7 +155,7 @@ The following agents and skills provide detailed guidance and can be loaded on-d
 - Tests must document expected business behavior
 - No 1:1 mapping between test files and implementation files
 
-**For detailed testing patterns:** Load the `tdd` skill or use the `ap-tdd-guardian` agent.
+**For detailed testing patterns:** Load the `tdd` skill or use the `ap-tdd-reviewer` agent.
 
 ## TypeScript Guidelines
 
@@ -206,7 +206,7 @@ The following agents and skills provide detailed guidance and can be loaded on-d
 - Each increment leaves codebase in working state
 - Capture learnings as they occur, merge at end
 
-**For detailed TDD workflow:** Load the `tdd` skill or use the `ap-tdd-guardian` agent.  
+**For detailed TDD workflow:** Load the `tdd` skill or use the `ap-tdd-reviewer` agent.  
 **For refactoring methodology:** Load the `refactoring` skill or use the `ap-refactor-scan` agent.
 
 ## Phase 0: Quality Gate First
@@ -235,7 +235,7 @@ The following agents and skills provide detailed guidance and can be loaded on-d
 
 **DRY principle:** "Don't Repeat Knowledge", not "Don't Repeat Code"
 
-**For detailed refactoring framework:** Load the `refactoring` skill or use the `ap-refactor-guardian` agent.
+**For detailed refactoring framework:** Load the `refactoring` skill or use the `ap-refactor-assessor` agent.
 
 ## Working with AI Agents
 
@@ -266,13 +266,13 @@ When starting work in a domain, IMMEDIATELY load the relevant skill:
 
 Engage agents proactively, not just reactively:
 
-- **Before writing ANY production code** → Engage `ap-tdd-guardian` to verify test-first approach
+- **Before writing ANY production code** → Engage `ap-tdd-reviewer` to verify test-first approach
 - **When writing TypeScript** → Engage `ap-ts-enforcer` to verify strict mode compliance
-- **After tests turn GREEN** → Engage `ap-refactor-guardian` to assess refactoring opportunities
+- **After tests turn GREEN** → Engage `ap-refactor-assessor` to assess refactoring opportunities
 - **Starting multi-step work** → Engage `ap-implementation-planner` and `ap-product-analyst` to manage plan.
-- **Before committing** → Engage `ap-tdd-guardian`, `ap-ts-enforcer`, and `ap-refactor-guardian` for verification
+- **Before committing** → Engage `ap-tdd-reviewer`, `ap-ts-enforcer`, and `ap-refactor-assessor` for verification
 
-**How to engage**: Explicitly invoke the agent by name and follow its guidance. Example: "Engaging ap-tdd-guardian to verify TDD compliance before writing production code."
+**How to engage**: Explicitly invoke the agent by name and follow its guidance. Example: "Engaging ap-tdd-reviewer to verify TDD compliance before writing production code."
 
 ### Verification Checklist
 
@@ -289,7 +289,7 @@ Before writing any code, verify:
 - ALWAYS load relevant skills at work start
 - When unsure which local skill to load, run `/skill/find-local-skill [activity description]` and load the returned skill(s)
 - ALWAYS engage relevant agents proactively
-- **Before committing**: Engage validation agents (ap-tdd-guardian, ap-ts-enforcer, ap-refactor-guardian) to verify quality
+- **Before committing**: Engage validation agents (ap-tdd-reviewer, ap-ts-enforcer, ap-refactor-assessor) to verify quality
 - Assess refactoring after every green (but only if adds value)
 - Ask "What do I wish I'd known at the start?" after significant changes
 - Document gotchas, patterns, decisions, edge cases while context is fresh
@@ -297,9 +297,9 @@ Before writing any code, verify:
 **Validation Workflow Pattern:**
 Before committing any work, engage these agents in sequence:
 
-1. `ap-tdd-guardian` - Verify TDD compliance, test quality, coverage
+1. `ap-tdd-reviewer` - Verify TDD compliance, test quality, coverage
 2. `ap-ts-enforcer` - Verify TypeScript strict mode, no `any` types, schema usage
-3. `ap-refactor-guardian` - Classify refactoring opportunities
+3. `ap-refactor-assessor` - Classify refactoring opportunities
 4. `ap-code-reviewer` - Assess code quality and review code
 
 This ensures all work meets quality standards before commit.
@@ -308,9 +308,9 @@ This ensures all work meets quality standards before commit.
 
 Before committing, run these checks (use the agents):
 
-1. **TDD Compliance**: Use `ap-tdd-guardian` agent - Verify tests written first, behavior-focused
+1. **TDD Compliance**: Use `ap-tdd-reviewer` agent - Verify tests written first, behavior-focused
 2. **TypeScript Safety**: Use `ap-ts-enforcer` agent - Check any types, missing schemas, mutations
-3. **Refactoring Assessment**: Use `ap-refactor-quardian` agent - Classify opportunities (Critical/High/Nice/Skip)
+3. **Refactoring Assessment**: Use `ap-refactor-assessor` agent - Classify opportunities (Critical/High/Nice/Skip)
 
 These agents will provide structured analysis and recommendations.
 

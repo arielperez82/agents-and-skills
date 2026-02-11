@@ -37,7 +37,7 @@ related-skills:
   - engineering-team/core-testing-methodology
 related-commands: []
 collaborates-with:
-  - agent: ap-tdd-guardian
+  - agent: ap-tdd-reviewer
     purpose: TDD methodology coaching for iOS development and Swift testing
     required: optional
     without-collaborator: "iOS development may not follow TDD principles"

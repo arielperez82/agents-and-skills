@@ -31,7 +31,7 @@ related-agents: [ap-backend-engineer, ap-architect, ap-devsecops-engineer]
 related-skills: [engineering-team/avoid-feature-creep, engineering-team/senior-java, engineering-team/core-testing-methodology]
 related-commands: []
 collaborates-with:
-  - agent: ap-tdd-guardian
+  - agent: ap-tdd-reviewer
     purpose: TDD methodology coaching for Java development and Spring Boot testing
     required: optional
     without-collaborator: "Java development may not follow TDD principles"

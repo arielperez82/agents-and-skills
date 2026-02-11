@@ -335,7 +335,7 @@ Role and specialist skills (same folder):
 
 ### How skills and agents work together
 
-- **Agents** are invoked by name (e.g. `ap-tdd-guardian`); they orchestrate skills and enforce workflows.
+- **Agents** are invoked by name (e.g. `ap-tdd-reviewer`); they orchestrate skills and enforce workflows.
 - **Skills** are loaded on-demand by reference or trigger; they provide patterns and reference material.
 - AGENTS.md mandates loading specific skills at the start of relevant work (e.g. `tdd` when writing code, `typescript-strict` when writing TypeScript).
 
@@ -352,14 +352,14 @@ Role and specialist skills (same folder):
 
 | When you… | Load skill | Engage agent |
 |-----------|------------|---------------|
-| Start coding | tdd | ap-tdd-guardian |
+| Start coding | tdd | ap-tdd-reviewer |
 | Write TypeScript | typescript-strict | ap-ts-enforcer |
-| Tests just passed | refactoring | ap-refactor-guardian |
-| Need progress tracking | planning | ap-progress-guardian |
+| Tests just passed | refactoring | ap-refactor-assessor |
+| Need progress tracking | planning | ap-progress-assessor |
 | Before claiming done | verification-before-completion | — |
 | Code review | code-reviewer | ap-code-reviewer |
 | Document decisions | architecture-decision-records | ap-adr-writer |
-| Permanent docs | — | ap-docs-guardian |
+| Permanent docs | — | ap-docs-reviewer |
 | Capture learnings | — | ap-learn |
 
 ## Using These Skills

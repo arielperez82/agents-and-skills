@@ -25,7 +25,7 @@ classification:
   model: sonnet
 
 # === RELATIONSHIPS ===
-related-agents: [ap-architect, ap-docs-guardian, ap-technical-writer]
+related-agents: [ap-architect, ap-docs-reviewer, ap-technical-writer]
 related-skills: [engineering-team/avoid-feature-creep, engineering-team/architecture-decision-records, engineering-team/senior-architect, engineering-team/markdownlint-configuration, markdown-documentation, markdown-syntax-fundamentals, markdown-tables]
 related-commands: []
 collaborates-with:
@@ -33,7 +33,7 @@ collaborates-with:
     purpose: Documenting architectural decisions made during system design
     required: recommended
     without-collaborator: "Architectural decisions may go undocumented"
-  - agent: ap-docs-guardian
+  - agent: ap-docs-reviewer
     purpose: Creating retroactive ADRs for undocumented architectural decisions discovered during documentation review
     required: optional
     without-collaborator: "Undocumented architectural decisions may remain undocumented"
@@ -246,7 +246,7 @@ assistant: "That's an important infrastructure decision. Let me invoke the ap-ad
 - UI/styling choices
 ```
 
-### For ap-docs-guardian Agent
+### For ap-docs-reviewer Agent
 
 **When to Invoke:**
 - When reviewing architecture documentation and discovering undocumented decisions
@@ -255,14 +255,14 @@ assistant: "That's an important infrastructure decision. Let me invoke the ap-ad
 
 **How to Invoke:**
 ```markdown
-# In ap-docs-guardian reactive workflow:
+# In ap-docs-reviewer reactive workflow:
 
 **Pattern: Discover Undocumented Decision**
 
 1. **Identify Gap**: While reviewing architecture documentation, notice missing context:
    ```markdown
    user: "Document the authentication system"
-   ap-docs-guardian: "I notice the documentation explains HOW authentication works, but there's no explanation of WHY we chose JWT over session-based auth. This is a significant architectural decision that should be documented."
+   ap-docs-reviewer: "I notice the documentation explains HOW authentication works, but there's no explanation of WHY we chose JWT over session-based auth. This is a significant architectural decision that should be documented."
    ```
 
 2. **Assess Significance**: Apply ap-adr-writer decision framework:
@@ -275,7 +275,7 @@ assistant: "That's an important infrastructure decision. Let me invoke the ap-ad
 
 3. **Invoke ap-adr-writer**:
    ```markdown
-   ap-docs-guardian: "I notice there's no ADR explaining why we chose JWT over sessions. Let me invoke the ap-adr-writer agent to create a retroactive ADR."
+   ap-docs-reviewer: "I notice there's no ADR explaining why we chose JWT over sessions. Let me invoke the ap-adr-writer agent to create a retroactive ADR."
    
    → Invoke ap-adr-writer agent
    → Provide context: "Authentication approach selection"
@@ -283,7 +283,7 @@ assistant: "That's an important infrastructure decision. Let me invoke the ap-ad
    → Provide decision: JWT tokens
    → Provide rationale: Stateless, scalable, works with microservices
    → ap-adr-writer creates ADR-XXX: Authentication Approach
-   → ap-docs-guardian references ADR in architecture documentation
+   → ap-docs-reviewer references ADR in architecture documentation
    ```
 
 4. **Update Documentation**: Reference the new ADR in the architecture docs:
@@ -982,15 +982,15 @@ The `ap-adr-writer` agent is successful when:
 → ap-architect references ADRs in architecture documentation
 ```
 
-### With ap-docs-guardian
+### With ap-docs-reviewer
 
 ```markdown
-[ap-docs-guardian reviewing architecture docs]
+[ap-docs-reviewer reviewing architecture docs]
 → Discovers undocumented architectural decision
 → Applies decision framework to assess significance
 → Invokes ap-adr-writer agent to create retroactive ADR
 → ap-adr-writer creates ADR with context, alternatives, rationale
-→ ap-docs-guardian references ADR in architecture documentation
+→ ap-docs-reviewer references ADR in architecture documentation
 ```
 
 ### With ap-learn agent
@@ -1053,7 +1053,7 @@ The `ap-adr-writer` agent creates Architecture Decision Records for significant 
 - Identifies when decisions merit ADRs (not everything does)
 - Documents context, alternatives, trade-offs, and consequences
 - Maintains ADR index and numbering
-- Integrates with ap-architect, ap-docs-guardian, and other agents
+- Integrates with ap-architect, ap-docs-reviewer, and other agents
 - Prevents "why did we do it this way?" confusion
 - Provides architectural continuity as team evolves
 

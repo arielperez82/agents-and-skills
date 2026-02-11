@@ -30,7 +30,7 @@ related-agents: []
 related-skills: [engineering-team/avoid-feature-creep, engineering-team/vercel-deploy-claimable, engineering-team/senior-devops, engineering-team/core-testing-methodology, engineering-team/docker-compose-basics, engineering-team/terraform-configuration, engineering-team/deployment-pipeline-design, engineering-team/github-expert, engineering-team/multi-cloud-architecture, engineering-team/nocodb]
 related-commands: []
 collaborates-with:
-  - agent: ap-tdd-guardian
+  - agent: ap-tdd-reviewer
     purpose: Ensuring CI/CD pipelines support TDD workflows and quality gates
     required: optional
     without-collaborator: "CI/CD pipelines may not enforce TDD compliance"

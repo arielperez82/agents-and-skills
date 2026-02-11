@@ -109,7 +109,7 @@ Agents are classified into four types based on operational characteristics:
 | **Strategic** | 🔵 Blue | Read, Write, Grep | Parallel (4-5) | opus/sonnet | ap-product-director, ap-ceo-advisor |
 | **Implementation** | 🟢 Green | Full tools | Coordinated (2-3) | sonnet | ap-fullstack-engineer, ap-backend-engineer |
 | **Quality** | 🔴 Red | Full + Heavy Bash | Sequential (1) | sonnet | ap-code-reviewer, ap-qa-engineer |
-| **Coordination** | 🟣 Purple | Read, Write, Grep | Lightweight | opus | ap-architect, ap-progress-guardian |
+| **Coordination** | 🟣 Purple | Read, Write, Grep | Lightweight | opus | ap-architect, ap-progress-assessor |
 
 **Classification rules**: See [references/authoring-guide.md](references/authoring-guide.md#agent-type-classification-system) for detailed criteria and execution safety rules.
 
@@ -261,7 +261,7 @@ Guardian agents assess, guide, and validate but **never implement**:
 - **Reactive**: Validate and review after implementation
 - **Output**: Prioritized findings (🔴 Critical → ⚠️ High Priority → 💡 Nice to Have)
 
-**Examples**: `ap-tdd-guardian`, `ap-docs-guardian`, `ap-refactor-guardian`
+**Examples**: `ap-tdd-reviewer`, `ap-docs-reviewer`, `ap-refactor-assessor`
 
 ### Orchestration Pattern
 
@@ -332,7 +332,7 @@ These patterns help you understand the conventions for each domain when creating
 - **Reference**: `../skills/delivery-team/`
 - **Focus**: Project management, agile coaching, progress tracking
 - **Common tools**: Project planning and tracking tools
-- **Example agents**: `ap-agile-coach`, `ap-senior-pm`, `ap-progress-guardian`
+- **Example agents**: `ap-agile-coach`, `ap-senior-pm`, `ap-progress-assessor`
 
 ## When to Use This Skill
 

@@ -38,12 +38,12 @@ updated: 2026-02-10
 
 | Step ID | Backlog | Description |
 |---------|---------|-------------|
-| B07 | I02-INNC-B07 | ap-progress-guardian |
+| B07 | I02-INNC-B07 | ap-progress-assessor |
 | B08 | I02-INNC-B08 | ap-implementation-planner |
 | B09 | I02-INNC-B09 | ap-product-manager, ap-product-analyst, ap-product-director |
 | B10 | I02-INNC-B10 | ap-senior-pm |
 | B11 | I02-INNC-B11 | ap-architect |
-| B12 | I02-INNC-B12 | ap-adr-writer, ap-learn, ap-docs-guardian |
+| B12 | I02-INNC-B12 | ap-adr-writer, ap-learn, ap-docs-reviewer |
 | B13 | I02-INNC-B13 | Remaining agents (qa, ux, technical-writer, seo, legacy-codebase, cto-advisor, code-reviewer, observability, devsecops, brainstormer, etc.) |
 
 ## Phase 4: Skills + READMEs (B14–B20)

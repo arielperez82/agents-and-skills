@@ -11,7 +11,7 @@ Per-agent mapping: current read/write paths → canonical or report path. Use th
 
 | Agent | Current (read/write) | New path / action |
 |-------|------------------------|-------------------|
-| ap-progress-guardian | PLAN.md, WIP.md, LEARNINGS.md (assess) | Assess `.docs/canonical/plans/plan-repo-*.md`, `.docs/reports/report-repo-status-*.md`; learnings in `.docs/AGENTS.md` + "Learnings" sections in canonical docs. Remove PLAN/WIP/LEARNINGS. |
+| ap-progress-assessor | PLAN.md, WIP.md, LEARNINGS.md (assess) | Assess `.docs/canonical/plans/plan-repo-*.md`, `.docs/reports/report-repo-status-*.md`; learnings in `.docs/AGENTS.md` + "Learnings" sections in canonical docs. Remove PLAN/WIP/LEARNINGS. |
 | ap-adr-writer | docs/adr/*, docs/adr/README.md, WIP.md ref | Write `.docs/canonical/adrs/adr-YYYYMMDD-<subject>.md`; optional `.docs/canonical/adrs/index.md`. Remove WIP.md ref. |
 | ap-implementation-planner | ./docs/development-rules.md; plan output | Read `.docs/AGENTS.md` or `.docs/canonical/ops/ops-repo-development-rules.md`. Write plans to `.docs/canonical/plans/plan-repo-<subject>[-<timeframe>].md`. |
 | ap-qa-engineer | test-plan.md, user-journeys.md | Plan sections or `.docs/canonical/plans/plan-repo-test-<timeframe>.md`; user-journeys as section or `.docs/reports/`. |
@@ -28,7 +28,7 @@ Per-agent mapping: current read/write paths → canonical or report path. Use th
 | ap-architect | assessment-summary-*.md, system-architecture.md, etc. | Assessments → `.docs/canonical/assessments/assessment-repo-<subject>-<date>.md`; architecture docs → `.docs/canonical/` (charter/ops) or `.docs/reports/`. |
 | ap-devsecops-engineer | $REPORT_DIR/summary.md | `.docs/reports/report-repo-security-audit-<timeframe>.md`. |
 | ap-technical-writer | README.md, CHANGELOG.md, API.md, audit-report.md, docs/*, SECURITY.md | Project root README/CHANGELOG/API unchanged per charter; audit/release outputs → `.docs/reports/report-repo-audit-<timeframe>.md`. No uppercase coordination files. |
-| ap-docs-guardian | Glob **/*.md | Glob `.docs/**/*.md`; treat `.docs/canonical/**` as authoritative. |
+| ap-docs-reviewer | Glob **/*.md | Glob `.docs/**/*.md`; treat `.docs/canonical/**` as authoritative. |
 | ap-learn | CLAUDE.md, skill refs, ADR | Layer 1 → `.docs/AGENTS.md`; layer 2 → assessment or "Learnings" in charter/roadmap/backlog/plan; layer 3 → skills. Bridge rule: cross-agent change → short entry in AGENTS.md + pointer. |
 | ap-dotnet-engineer | performance-report.md, security-report.md, etc. | `.docs/reports/report-repo-<topic>-<timeframe>.md` or `.docs/canonical/assessments/` as appropriate. |
 | ap-network-engineer | report.md, audit-report.md | `.docs/reports/report-repo-audit-<timeframe>.md` or assessment. |
@@ -48,6 +48,6 @@ Per-agent mapping: current read/write paths → canonical or report path. Use th
 
 **Phase 2 status:** All agents in this checklist updated to use `.docs/` paths (as of 2026-02-06). Remaining `./incidents/` references in ap-incident-responder (evidence dir, JSON artifacts) left as-is; report outputs (preliminary-report, executive-alert, regulatory-requirements, data-breach-report, investigation-summary) now under `.docs/reports/incidents/$INCIDENT_ID/`.
 
-**Phase 5 status:** Validation complete. Grep: PLAN.md/WIP.md/LEARNINGS.md only in anti-pattern or legacy-fallback text. ap-docs-guardian `docs/adr/` examples updated to `.docs/canonical/adrs/`. Validation section added to `.docs/AGENTS.md`. Bootstrap/docs commands keep `./docs/` paths for backward compatibility; projects using conventions use `.docs/` per charter.
+**Phase 5 status:** Validation complete. Grep: PLAN.md/WIP.md/LEARNINGS.md only in anti-pattern or legacy-fallback text. ap-docs-reviewer `docs/adr/` examples updated to `.docs/canonical/adrs/`. Validation section added to `.docs/AGENTS.md`. Bootstrap/docs commands keep `./docs/` paths for backward compatibility; projects using conventions use `.docs/` per charter.
 
 **Governed by:** [charter-repo-artifact-conventions.md](../charters/charter-repo-artifact-conventions.md), [plan-repo-artifact-conventions-migration.md](plan-repo-artifact-conventions-migration.md).

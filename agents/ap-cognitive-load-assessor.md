@@ -24,7 +24,7 @@ classification:
   model: sonnet
 
 # === RELATIONSHIPS ===
-related-agents: [ap-code-reviewer, ap-refactor-guardian, ap-legacy-codebase-analyzer]
+related-agents: [ap-code-reviewer, ap-refactor-assessor, ap-legacy-codebase-analyzer]
 related-skills: [engineering-team/refactoring, engineering-team/mapping-codebases]
 related-commands: []
 
@@ -173,7 +173,7 @@ Resolve from workspace root (e.g. `skills/engineering-team/cognitive-load-analys
 ## Related Agents
 
 - **ap-code-reviewer**: Quality and best-practices review; can act on CLI recommendations.
-- **ap-refactor-guardian**: Assesses refactoring opportunities; complements CLI with TDD/refactor focus.
+- **ap-refactor-assessor**: Assesses refactoring opportunities; complements CLI with TDD/refactor focus.
 - **ap-legacy-codebase-analyzer**: Broader technical-debt and modernization analysis; CLI can feed into it.
 
 ## Constraints

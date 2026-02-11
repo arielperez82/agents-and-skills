@@ -27,14 +27,14 @@ classification:
 
 # === RELATIONSHIPS ===
 related-agents:
-  - ap-docs-guardian
+  - ap-docs-reviewer
   - ap-adr-writer
-  - ap-progress-guardian
+  - ap-progress-assessor
   - ap-architect
 related-skills: [markdown-documentation, markdown-syntax-fundamentals, markdown-tables]
 related-commands: []
 collaborates-with:
-  - agent: ap-docs-guardian
+  - agent: ap-docs-reviewer
     purpose: Ensure documented learnings follow world-class documentation standards and structure
     required: optional
     when: When learnings need to be integrated into permanent documentation
@@ -42,7 +42,7 @@ collaborates-with:
     purpose: Create Architecture Decision Records for architectural learnings that warrant formal ADRs
     required: optional
     when: When learnings involve significant architectural decisions
-  - agent: ap-progress-guardian
+  - agent: ap-progress-assessor
     purpose: Extract learnings from tracking (plan/status under .docs/) and route to appropriate documentation (.docs/AGENTS.md, canonical Learnings sections, or .docs/canonical/adrs/)
     required: optional
     when: At end of features when learnings need merging to canonical docs
@@ -438,16 +438,16 @@ Discovered that ApplyPatch tool fails on large deletions (>500 lines) with "Fail
 
 ## Collaboration with Other Agents
 
-### With ap-docs-guardian
+### With ap-docs-reviewer
 
-When learnings need to be integrated into permanent documentation, collaborate with `ap-docs-guardian` to ensure the documentation follows world-class standards:
+When learnings need to be integrated into permanent documentation, collaborate with `ap-docs-reviewer` to ensure the documentation follows world-class standards:
 
 ```
-ap-learn: "I've identified a valuable learning about agent authoring patterns. Let me collaborate with ap-docs-guardian to ensure it's documented with proper structure and quality in the appropriate skill reference."
+ap-learn: "I've identified a valuable learning about agent authoring patterns. Let me collaborate with ap-docs-reviewer to ensure it's documented with proper structure and quality in the appropriate skill reference."
 
 → ap-learn identifies target location (skill reference, CLAUDE.md, or ADR)
 → ap-learn extracts the learning and proposes content
-→ ap-docs-guardian reviews against 7 pillars of documentation excellence
+→ ap-docs-reviewer reviews against 7 pillars of documentation excellence
 → ap-learn integrates feedback and finalizes documentation update
 ```
 
@@ -464,18 +464,18 @@ ap-learn: "This learning involves a significant architectural decision about our
 → Both documents cross-reference each other
 ```
 
-### With ap-progress-guardian
+### With ap-progress-assessor
 
-When extracting learnings from tracking (plan/status under .docs/ or Learnings sections), collaborate with `ap-progress-guardian`:
+When extracting learnings from tracking (plan/status under .docs/ or Learnings sections), collaborate with `ap-progress-assessor`:
 
 ```
-ap-progress-guardian: "Feature complete. Learnings (in plan or .docs/AGENTS.md) contain 3 gotchas and 2 patterns. Recommend routing to appropriate documentation via ap-learn agent."
+ap-progress-assessor: "Feature complete. Learnings (in plan or .docs/AGENTS.md) contain 3 gotchas and 2 patterns. Recommend routing to appropriate documentation via ap-learn agent."
 
-→ ap-progress-guardian validates completion and identifies learnings
+→ ap-progress-assessor validates completion and identifies learnings
 → ap-learn extracts learnings from canonical docs / status and routes to .docs/AGENTS.md or canonical Learnings sections or ADRs
 → ap-learn routes each learning to appropriate location (skill reference, CLAUDE.md, or ADR)
 → ap-learn integrates into target documentation with proper structure
-→ ap-progress-guardian confirms knowledge preservation
+→ ap-progress-assessor confirms knowledge preservation
 ```
 
 ## Your Mandate

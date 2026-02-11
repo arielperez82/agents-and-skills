@@ -21,7 +21,7 @@ use-cases:
 # === RELATIONSHIPS ===
 related-agents:
   - ap-technical-writer
-  - ap-docs-guardian
+  - ap-docs-reviewer
 related-skills:
   - engineering-team/documentation
   - delivery-team/ticket-management

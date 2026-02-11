@@ -15,8 +15,8 @@ Good separation:
   - `ap-implementation-planner` – plans *how* to implement it
   - `ap-adr-writer` – documents *why* decisions were made
 - Different abstraction levels:
-  - `ap-tdd-guardian` (methodology)
-  - `ap-tpp-guardian` (test plan strategy)
+  - `ap-tdd-reviewer` (methodology)
+  - `ap-tpp-assessor` (test plan strategy)
 
 Bad separation:
 
@@ -35,9 +35,9 @@ Patterns:
   - Other agents (e.g., `ap-implementation-planner`, `ap-brainstormer`) *consume* them
 - Single source for tactical TDD guidance:
   - Strategic planner delegates to:
-    - `ap-tpp-guardian` – test ordering
-    - `ap-tdd-guardian` – methodology
-    - `ap-progress-guardian` – tracking
+    - `ap-tpp-assessor` – test ordering
+    - `ap-tdd-reviewer` – methodology
+    - `ap-progress-assessor` – tracking
 - Security split:
   - `ap-security-engineer` – security coaching/guardian
   - `ap-devsecops-engineer` – unified DevSecOps owner
@@ -63,10 +63,10 @@ Guardian pattern:
 
 Examples:
 
-- `ap-tdd-guardian` – TDD methodology coaching (does not write code)
-- `ap-docs-guardian` – documentation quality review (does not write docs)
-- `ap-progress-guardian` – progress tracking validation (does not create plans)
-- `ap-refactor-guardian` – refactoring opportunity assessment (does not refactor code)
+- `ap-tdd-reviewer` – TDD methodology coaching (does not write code)
+- `ap-docs-reviewer` – documentation quality review (does not write docs)
+- `ap-progress-assessor` – progress tracking validation (does not create plans)
+- `ap-refactor-assessor` – refactoring opportunity assessment (does not refactor code)
 
 Key insight: Implementers should **ask guardians first** when planning work and **ask guardians again after** work is complete.
 
@@ -96,7 +96,7 @@ Result: agents are **complementary**, not duplicative.
 
 Example:
 
-- `ap-tdd-guardian` (TDD methodology) and `ap-tpp-guardian` (test planning strategy) both relate to TDD but serve different purposes at different abstraction levels.
+- `ap-tdd-reviewer` (TDD methodology) and `ap-tpp-assessor` (test planning strategy) both relate to TDD but serve different purposes at different abstraction levels.
 
 ## Five Refactor Levers
 
@@ -150,7 +150,7 @@ Use this heuristic to decide when to merge agents.
 
 Example:
 
-- `ap-implementation-planner` (strategic implementation planning) remains separate from `ap-tpp-guardian` (tactical TDD planning) because they serve different stages and abstraction levels.
+- `ap-implementation-planner` (strategic implementation planning) remains separate from `ap-tpp-assessor` (tactical TDD planning) because they serve different stages and abstraction levels.
 
 ## Collaboration Contracts > More Agents
 

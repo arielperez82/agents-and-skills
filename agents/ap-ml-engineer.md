@@ -31,7 +31,7 @@ related-agents: []
 related-skills: [engineering-team/avoid-feature-creep, engineering-team/senior-ml-engineer, engineering-team/core-testing-methodology, engineering-team/tinybird]
 related-commands: []
 collaborates-with:
-  - agent: ap-tdd-guardian
+  - agent: ap-tdd-reviewer
     purpose: TDD methodology for ML pipeline development and model validation testing
     required: optional
     without-collaborator: "ML engineering may not follow TDD principles"

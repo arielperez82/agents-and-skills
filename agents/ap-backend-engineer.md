@@ -45,7 +45,7 @@ related-skills:
   - exploring-data
 related-commands: []
 collaborates-with:
-  - agent: ap-tdd-guardian
+  - agent: ap-tdd-reviewer
     purpose: TDD methodology coaching and RED-GREEN-REFACTOR guidance for backend development
     required: recommended
     without-collaborator: "Backend development may not follow strict TDD principles"

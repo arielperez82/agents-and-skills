@@ -26,7 +26,7 @@ classification:
   model: sonnet
 
 # === RELATIONSHIPS ===
-related-agents: [ap-security-guardian, ap-refactor-guardian]
+related-agents: [ap-security-assessor, ap-refactor-assessor]
 related-skills:
   - engineering-team/avoid-feature-creep
   - engineering-team/code-reviewer
@@ -46,7 +46,7 @@ related-skills:
   - engineering-team/functional
 related-commands: []
 collaborates-with:
-  - agent: ap-tdd-guardian
+  - agent: ap-tdd-reviewer
     purpose: TDD compliance verification and test structure review
     required: recommended
     without-collaborator: "Code reviews will lack TDD methodology assessment"
@@ -58,11 +58,11 @@ collaborates-with:
     purpose: Architecture pattern validation and design review
     required: optional
     without-collaborator: "Code reviews will lack architecture-level feedback"
-  - agent: ap-refactor-guardian
+  - agent: ap-refactor-assessor
     purpose: Refactoring opportunity assessment and semantic analysis during code review
     required: recommended
     without-collaborator: "Code reviews will lack specialized refactoring opportunity analysis"
-  - agent: ap-security-guardian
+  - agent: ap-security-assessor
     purpose: Security-focused assessment of changes; produces findings report with criticality for integration into review
     required: optional
     without-collaborator: "Security analysis remains general; no dedicated criticality report"
@@ -189,7 +189,7 @@ When the review does touch frontend or web-facing code (HTML/CSS/JS/React, pages
    python ../skills/engineering-team/code-reviewer/scripts/code_quality_checker.py ./src --language=typescript
    ```
 4. **Manual Review with Checklist** - Follow comprehensive checklist from `references/code_review_checklist.md` covering functionality, security, performance, tests, and documentation
-5. **Refactoring Opportunity Assessment** - Delegate to `ap-refactor-guardian` to assess refactoring opportunities, identify knowledge duplication, and evaluate semantic vs structural similarity
+5. **Refactoring Opportunity Assessment** - Delegate to `ap-refactor-assessor` to assess refactoring opportunities, identify knowledge duplication, and evaluate semantic vs structural similarity
 6. **Generate Review Report** - Create structured feedback with categorized issues
    ```bash
    python ../skills/engineering-team/code-reviewer/scripts/review_report_generator.py 123 --format=markdown
@@ -458,9 +458,9 @@ echo "Security check complete. Safe to deploy."
 
 ## Related Agents
 
-- [ap-security-guardian](ap-security-guardian.md) - Delegates security assessment of changes; produces findings report with criticality for integration into review
-- [ap-refactor-guardian](ap-refactor-guardian.md) - Assesses refactoring opportunities, identifies knowledge duplication, and evaluates semantic vs structural similarity during code reviews
-- [ap-tdd-guardian](ap-tdd-guardian.md) - Verifies TDD compliance and test structure during code reviews
+- [ap-security-assessor](ap-security-assessor.md) - Delegates security assessment of changes; produces findings report with criticality for integration into review
+- [ap-refactor-assessor](ap-refactor-assessor.md) - Assesses refactoring opportunities, identifies knowledge duplication, and evaluates semantic vs structural similarity during code reviews
+- [ap-tdd-reviewer](ap-tdd-reviewer.md) - Verifies TDD compliance and test structure during code reviews
 - [ap-qa-engineer](ap-qa-engineer.md) - Provides test automation and quality metrics assessment during reviews
 - [ap-senior-qa](ap-senior-qa.md) - Complements code review with comprehensive testing strategy and test automation
 - [ap-senior-secops](ap-senior-secops.md) - Extends security review with infrastructure security, compliance, and incident response

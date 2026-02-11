@@ -31,7 +31,7 @@ related-agents: []
 related-skills: [engineering-team/avoid-feature-creep, engineering-team/senior-network-infrastructure, engineering-team/core-testing-methodology, engineering-team/terraform-configuration]
 related-commands: []
 collaborates-with:
-  - agent: ap-tdd-guardian
+  - agent: ap-tdd-reviewer
     purpose: TDD methodology for network configuration and infrastructure code testing
     required: optional
     without-collaborator: "Network infrastructure may not follow testing principles"

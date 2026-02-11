@@ -107,7 +107,7 @@ To manually test an agent:
 
 4. **Verify collaboration**:
    ```
-   When would you collaborate with ap-tdd-guardian?
+   When would you collaborate with ap-tdd-reviewer?
    ```
 
 ## Notes

@@ -27,7 +27,7 @@ classification:
 
 # === RELATIONSHIPS ===
 related-agents:
-  - ap-tdd-guardian
+  - ap-tdd-reviewer
 related-skills:
   - engineering-team/avoid-feature-creep
   - engineering-team/typescript-strict
@@ -35,7 +35,7 @@ related-skills:
   - engineering-team/prettier-configuration
 related-commands: []
 collaborates-with:
-  - agent: ap-tdd-guardian
+  - agent: ap-tdd-reviewer
     purpose: Ensure TypeScript compliance during TDD cycles
     required: recommended
     when: During GREEN phase, before commits, when reviewing TDD compliance

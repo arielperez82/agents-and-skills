@@ -30,7 +30,7 @@ classification:
 # === RELATIONSHIPS ===
 related-agents:
   - ap-agent-author
-  - ap-docs-guardian
+  - ap-docs-reviewer
 related-skills:
   - agent-development-team/refactoring-agents
   - agent-development-team/skill-creator
@@ -43,7 +43,7 @@ collaborates-with:
     purpose: Validate agents produced or modified by the author workflow
     required: recommended
     without-collaborator: "Agents may be authored without automated quality checks"
-  - agent: ap-docs-guardian
+  - agent: ap-docs-reviewer
     purpose: Ensure validated agents have proper documentation in README
     required: optional
     without-collaborator: "README listing check still runs but documentation quality is not assessed"
@@ -194,4 +194,4 @@ python3 skills/agent-development-team/creating-agents/scripts/validate_agent.py 
 ## Related Agents
 
 - [ap-agent-author](ap-agent-author.md) — Creates and maintains agents; validator runs after authoring
-- [ap-docs-guardian](ap-docs-guardian.md) — Ensures documentation quality; validator checks README listing
+- [ap-docs-reviewer](ap-docs-reviewer.md) — Ensures documentation quality; validator checks README listing

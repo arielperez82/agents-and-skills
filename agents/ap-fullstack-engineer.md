@@ -65,7 +65,7 @@ related-skills:
   - engineering-team/nocodb
 related-commands: []
 collaborates-with:
-  - agent: ap-tdd-guardian
+  - agent: ap-tdd-reviewer
     purpose: TDD methodology guidance for full-stack development across all layers
     required: recommended
     without-collaborator: "Full-stack development may not follow consistent TDD principles"

@@ -31,7 +31,7 @@ related-agents: []
 related-skills: [engineering-team/avoid-feature-creep, engineering-team/core-testing-methodology, exploring-data]
 related-commands: []
 collaborates-with:
-  - agent: ap-tdd-guardian
+  - agent: ap-tdd-reviewer
     purpose: TDD methodology for data pipeline and transformation testing
     required: optional
     without-collaborator: "Data engineering may not follow TDD principles"

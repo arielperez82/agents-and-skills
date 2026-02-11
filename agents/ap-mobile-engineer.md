@@ -39,7 +39,7 @@ related-skills:
   - engineering-team/core-testing-methodology
 related-commands: []
 collaborates-with:
-  - agent: ap-tdd-guardian
+  - agent: ap-tdd-reviewer
     purpose: TDD methodology coaching for mobile development across platforms
     required: optional
     without-collaborator: "Mobile development may not follow TDD principles"

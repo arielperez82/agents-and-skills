@@ -26,7 +26,7 @@ classification:
   model: opus
 
 # === RELATIONSHIPS ===
-related-agents: [ap-tdd-guardian]
+related-agents: [ap-tdd-reviewer]
 related-skills:
   - engineering-team/avoid-feature-creep
   - engineering-team/senior-qa
@@ -109,7 +109,7 @@ Load and use these engineering-team skills when relevant. ap-qa-engineer orchest
 | **tpp** | Transformation Priority Premise (TDD) |
 | **coverage-analysis** | Coverage/harness effectiveness (e.g. fuzzing) when relevant |
 
-Collaborate with **ap-tdd-guardian** when TDD methodology or test-first compliance is in scope.
+Collaborate with **ap-tdd-reviewer** when TDD methodology or test-first compliance is in scope.
 
 ## Skill Integration
 

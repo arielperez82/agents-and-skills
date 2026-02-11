@@ -33,8 +33,8 @@ classification:
 
 # === RELATIONSHIPS ===
 related-agents:
-  - ap-docs-guardian
-  - ap-progress-guardian
+  - ap-docs-reviewer
+  - ap-progress-assessor
   - ap-architect
   - ap-cto-advisor
 related-skills:
@@ -46,7 +46,6 @@ related-skills:
   - doc-coauthoring
   - iterating
   - algorithmic-art
-  - engineering-team/subagent-driven-development
   - engineering-team/check-tools
   - agent-development-team/find-skills
   - agent-development-team/versioning-skills
@@ -54,11 +53,11 @@ related-commands: []
 
 # === COLLABORATION ===
 collaborates-with:
-  - agent: ap-docs-guardian
+  - agent: ap-docs-reviewer
     purpose: Ensure all new/updated agents and skills ship with world-class documentation and examples.
     required: recommended
     without-collaborator: "Agents/skills may have weaker documentation quality and navigation."
-  - agent: ap-progress-guardian
+  - agent: ap-progress-assessor
     purpose: Manage multi-session refactors of the agent/skill ecosystem with PLAN/WIP/LEARNINGS discipline.
     required: optional
     without-collaborator: "Large refactors risk losing context and learnings."

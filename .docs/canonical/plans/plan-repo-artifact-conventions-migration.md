@@ -140,7 +140,7 @@ Use the earlier audit. Summary mapping:
 
 | Task | Scope | Notes |
 |------|--------|--------|
-| 2.1 | ap-progress-guardian | Remove PLAN.md / WIP.md / LEARNINGS.md. Describe assessing `.docs/canonical/plans/plan-<endeavor>-*.md`, `.docs/reports/report-<endeavor>-status-*.md`, and learnings in AGENTS.md + canonical "Learnings" sections. |
+| 2.1 | ap-progress-assessor | Remove PLAN.md / WIP.md / LEARNINGS.md. Describe assessing `.docs/canonical/plans/plan-<endeavor>-*.md`, `.docs/reports/report-<endeavor>-status-*.md`, and learnings in AGENTS.md + canonical "Learnings" sections. |
 | 2.2 | ap-adr-writer | Write ADRs to `.docs/canonical/adrs/adr-YYYYMMDD-<subject>.md`. Update examples and "Keep docs/adr/README.md" to optional `.docs/canonical/adrs/index.md`. Remove WIP.md reference; point to plan or report. |
 | 2.3 | ap-implementation-planner | Reference `./docs/development-rules.md` → `.docs/AGENTS.md` or `.docs/canonical/ops/ops-<endeavor>-development-rules.md`. Plan output → `.docs/canonical/plans/plan-<endeavor>-<subject>[-<timeframe>].md`. |
 | 2.4 | ap-qa-engineer | test-plan → section in plan or `.docs/canonical/plans/plan-<endeavor>-test-<timeframe>.md`; user-journeys → section or report. |
@@ -157,7 +157,7 @@ Use the earlier audit. Summary mapping:
 | 2.15 | ap-architect | assessment-summary → `.docs/canonical/assessments/assessment-<endeavor>-<subject>-<date>.md`. Architecture docs → `.docs/canonical/` (charter/ops) or `.docs/reports/` as appropriate. |
 | 2.16 | ap-devsecops-engineer | summary → `.docs/reports/report-<endeavor>-security-audit-<timeframe>.md`. |
 | 2.17 | ap-technical-writer | Audit/release outputs → `.docs/reports/report-<endeavor>-audit-<timeframe>.md`. README/CHANGELOG/API at project root unchanged unless we decide otherwise; no uppercase coordination files. |
-| 2.18 | ap-docs-guardian | Glob ` .docs/**/*.md` (and optionally project root docs); treat `.docs/canonical/**` as authoritative. |
+| 2.18 | ap-docs-reviewer | Glob ` .docs/**/*.md` (and optionally project root docs); treat `.docs/canonical/**` as authoritative. |
 | 2.19 | ap-learn | Route layer 1 → `.docs/AGENTS.md`; layer 2 → assessment or "Learnings" section in charter/roadmap/backlog/plan; layer 3 → skill/command assets. Bridge rule: cross-agent behavior change → short entry in AGENTS.md + pointer. |
 | 2.20 | Remaining agents | ap-dotnet-engineer, ap-network-engineer, ap-incident-responder, ap-java-engineer, ap-data-engineer, ap-agent-author, ap-ui-designer, ap-debugger, ap-agile-coach, ap-prompt-engineer, ap-content-creator, etc.: any .md output that is "status/assessment/plan/roadmap/backlog/review" → apply naming grammar under `.docs/`. Specialist outputs (e.g. security-report, performance-report) → report or assessment under `.docs/reports/` or `.docs/canonical/assessments/`. |
 
@@ -174,8 +174,8 @@ Use the earlier audit. Summary mapping:
 | 3.1 | Add "Learnings (three layers)" and "ADR placement" to `.docs/AGENTS.md` (concise). Include bridge rule and rule that domain learnings that change next actions must land in canonical docs. |
 | 3.2 | ap-learn: document routing rules (layer 1 → AGENTS.md, layer 2 → assessment or Learnings section, layer 3 → skills); bridge rule. |
 | 3.3 | ap-adr-writer: ADR location `.docs/canonical/adrs/`, naming `adr-YYYYMMDD-<subject>.md`, required front matter (type, endeavor, status, date, supersedes, superseded_by). Accepted ADRs that change constraints → update Charter/Plan/Backlog links. |
-| 3.4 | ap-progress-guardian: when assessing "learnings", check AGENTS.md + canonical "Learnings" sections and assessments; no LEARNINGS.md file. |
-| 3.5 | ap-docs-guardian: treat `.docs/canonical/` as canonical; ensure assessments have backlog/charter update implications when learnings change next actions. |
+| 3.4 | ap-progress-assessor: when assessing "learnings", check AGENTS.md + canonical "Learnings" sections and assessments; no LEARNINGS.md file. |
+| 3.5 | ap-docs-reviewer: treat `.docs/canonical/` as canonical; ensure assessments have backlog/charter update implications when learnings change next actions. |
 
 **Exit criteria:** AGENTS.md and relevant agents consistently implement the three-layer learnings model and ADR placement.
 
@@ -209,7 +209,7 @@ Use the earlier audit. Summary mapping:
 
 **Exit criteria:** Grep clean for old names; migration checklist complete; redirects in place if needed.
 
-**Phase 5 status (complete):** Grep run; remaining references to `PLAN.md`/`WIP.md`/`LEARNINGS.md` are in ap-progress-guardian and README as "do not use" or in phase-0-check as legacy fallback. `docs/adr/` links in ap-docs-guardian updated to `.docs/canonical/adrs/`. Bootstrap/docs commands that create `./docs/project-roadmap.md` or `codebase-summary.md` left as-is for backward compatibility; when a project adopts artifact conventions, use `.docs/canonical/roadmaps/` and `.docs/reports/` per charter. Validation section added to `.docs/AGENTS.md`.
+**Phase 5 status (complete):** Grep run; remaining references to `PLAN.md`/`WIP.md`/`LEARNINGS.md` are in ap-progress-assessor and README as "do not use" or in phase-0-check as legacy fallback. `docs/adr/` links in ap-docs-reviewer updated to `.docs/canonical/adrs/`. Bootstrap/docs commands that create `./docs/project-roadmap.md` or `codebase-summary.md` left as-is for backward compatibility; when a project adopts artifact conventions, use `.docs/canonical/roadmaps/` and `.docs/reports/` per charter. Validation section added to `.docs/AGENTS.md`.
 
 ---
 

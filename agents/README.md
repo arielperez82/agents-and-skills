@@ -22,7 +22,7 @@ These agents live directly in the `agents/` root directory:
 
 #### Delivery & Project Management
 - **`ap-agile-coach`** - Agile coaching specialist for ceremonies, team dynamics, communication, and agile manifesto adherence
-- **`ap-progress-guardian`** - Assesses and validates progress tracking through canonical docs under `.docs/` (plans, status reports, learnings in AGENTS.md and canonical docs)
+- **`ap-progress-assessor`** - Assesses and validates progress tracking through canonical docs under `.docs/` (plans, status reports, learnings in AGENTS.md and canonical docs)
 - **`ap-senior-pm`** - Strategic program management for portfolio planning, stakeholder management, and delivery excellence
 
 #### Marketing
@@ -32,7 +32,7 @@ These agents live directly in the `agents/` root directory:
 - **`ap-seo-strategist`** - Strategic SEO planning for site-wide optimization, keyword research, technical audits, and competitive positioning
 
 #### Documentation & Knowledge
-- **`ap-docs-guardian`** - Creates and maintains world-class permanent documentation (README, guides, API docs)
+- **`ap-docs-reviewer`** - Creates and maintains world-class permanent documentation (README, guides, API docs)
 - **`ap-learn`** - Captures learnings, gotchas, and patterns into CLAUDE.md
 
 ### Engineering Agents
@@ -62,13 +62,13 @@ These agents live directly in the `agents/` root directory:
 
 #### Quality & Testing
 - **`ap-agent-validator`** - Validates agent specifications against the frontmatter schema, skill paths, classification rules, and body structure
-- **`ap-tdd-guardian`** - TDD methodology coach ensuring RED-GREEN-REFACTOR cycle adherence
+- **`ap-tdd-reviewer`** - TDD methodology coach ensuring RED-GREEN-REFACTOR cycle adherence
 - **`ap-qa-engineer`** - QA and testing specialist for test automation, coverage analysis, and quality metrics
 - **`ap-code-reviewer`** - Code review specialist for quality assessment, security analysis, and best practices
-- **`ap-refactor-guardian`** - Assesses refactoring opportunities after tests pass (TDD's third step)
-- **`ap-security-guardian`** - Assesses code or diffs for security and produces a findings report with criticality (no implementation)
+- **`ap-refactor-assessor`** - Assesses refactoring opportunities after tests pass (TDD's third step)
+- **`ap-security-assessor`** - Assesses code or diffs for security and produces a findings report with criticality (no implementation)
 - **`ap-ts-enforcer`** - Enforces TypeScript strict mode and best practices
-- **`ap-tpp-guardian`** - Transformation Priority Premise (TPP) guardian for TDD transformations
+- **`ap-tpp-assessor`** - Transformation Priority Premise (TPP) guardian for TDD transformations
 
 #### DevOps & Infrastructure
 - **`ap-devsecops-engineer`** - DevSecOps for CI/CD, infrastructure automation, containerization, and cloud platforms
@@ -108,7 +108,7 @@ These agents live directly in the `agents/` root directory:
 
 ### Development Process Agents
 
-#### `ap-tdd-guardian`
+#### `ap-tdd-reviewer`
 **Purpose**: TDD methodology coach and guardian - ensures TDD principles are followed by ALL developers.
 
 **Use when**:
@@ -151,7 +151,7 @@ These agents live directly in the `agents/` root directory:
 
 ---
 
-#### `ap-refactor-guardian`
+#### `ap-refactor-assessor`
 **Purpose**: Assesses refactoring opportunities after tests pass (TDD's third step).
 
 **Use proactively when**:
@@ -168,7 +168,7 @@ These agents live directly in the `agents/` root directory:
 
 ---
 
-#### `ap-security-guardian`
+#### `ap-security-assessor`
 **Purpose**: Assesses code or diffs for security issues and produces a structured findings report with criticality (Critical/High/Medium/Low). Does not implement fixes—only assesses and reports.
 
 **Use when**:
@@ -201,7 +201,7 @@ These agents live directly in the `agents/` root directory:
 
 ### Documentation & Knowledge Agents
 
-#### `ap-docs-guardian`
+#### `ap-docs-reviewer`
 **Purpose**: Creates and maintains world-class permanent documentation.
 
 **Use proactively when**:
@@ -330,7 +330,7 @@ These agents live directly in the `agents/` root directory:
 
 ### Workflow & Planning Agents
 
-#### `ap-progress-guardian`
+#### `ap-progress-assessor`
 **Purpose**: Manages progress through significant work using a three-document system.
 
 **Use proactively when**:
@@ -373,14 +373,14 @@ These agents live directly in the `agents/` root directory:
 ### Orchestration Flow
 
 ```
-ap-progress-guardian (orchestrates)
+ap-progress-assessor (orchestrates)
     │
     ├─► Uses: .docs/canonical/plans/, .docs/reports/, .docs/AGENTS.md + Learnings sections
     │
     ├─► For each step:
-    │   ├─→ ap-tdd-guardian (RED-GREEN-REFACTOR)
+    │   ├─→ ap-tdd-reviewer (RED-GREEN-REFACTOR)
     │   ├─→ ap-ts-enforcer (before commits)
-    │   └─→ ap-refactor-guardian (after GREEN)
+    │   └─→ ap-refactor-assessor (after GREEN)
     │
     ├─► For database/schema work:
     │   └─→ ap-supabase-database-engineer (schema design, RLS policies, migration management)
@@ -393,7 +393,7 @@ ap-progress-guardian (orchestrates)
     │
     ├─► At end:
     │   ├─→ ap-learn (merge learnings → .docs/AGENTS.md or canonical Learnings sections)
-    │   ├─→ ap-docs-guardian (update permanent docs)
+    │   ├─→ ap-docs-reviewer (update permanent docs)
     │   └─→ Update/archive canonical docs as needed
     │
     └─► Related: `planning` skill (incremental work principles)
@@ -403,19 +403,19 @@ ap-progress-guardian (orchestrates)
 
 1. **Start significant work**
    - Load `planning` skill for principles
-   - Invoke `ap-progress-guardian`: Assesses if canonical plan and status report exist under `.docs/`, recommends creation
+   - Invoke `ap-progress-assessor`: Assesses if canonical plan and status report exist under `.docs/`, recommends creation
    - Get approval for plan (under `.docs/canonical/plans/`)
 
 2. **For each step in plan**
    - RED: Write failing test (TDD non-negotiable)
    - GREEN: Minimal code to pass
-   - REFACTOR: Invoke `ap-refactor-guardian` to assess improvements
+   - REFACTOR: Invoke `ap-refactor-assessor` to assess improvements
    - Update status report in `.docs/reports/` with progress
    - Capture discoveries via ap-learn (`.docs/AGENTS.md` or Learnings section)
    - **WAIT FOR COMMIT APPROVAL**
 
 3. **When plan needs changing**
-   - Invoke `ap-progress-guardian`: Propose changes
+   - Invoke `ap-progress-assessor`: Propose changes
    - **Get approval before modifying plan**
 
 4. **When architectural decision arises**
@@ -423,11 +423,11 @@ ap-progress-guardian (orchestrates)
 
 5. **Before commits**
    - Invoke `ap-ts-enforcer`: Verify TypeScript compliance
-   - Invoke `ap-tdd-guardian`: Verify TDD compliance
+   - Invoke `ap-tdd-reviewer`: Verify TDD compliance
    - **Ask for commit approval**
 
 6. **End of session**
-   - Invoke `ap-progress-guardian`: Validate status report is up to date, report what's missing
+   - Invoke `ap-progress-assessor`: Validate status report is up to date, report what's missing
 
 7. **Before creating PR**
    - Invoke `ap-code-reviewer`: Self-review changes
@@ -435,18 +435,18 @@ ap-progress-guardian (orchestrates)
    - Create PR using `/pr` command
 
 8. **Feature complete**
-   - Invoke `ap-progress-guardian`: Verify all criteria met
+   - Invoke `ap-progress-assessor`: Verify all criteria met
    - Review learnings for merge destinations (`.docs/AGENTS.md` or canonical Learnings sections)
    - Invoke `ap-learn`: Merge gotchas/patterns → `.docs/AGENTS.md` or canonical docs
    - Invoke `ap-adr-writer`: Create ADRs under `.docs/canonical/adrs/`
-   - Invoke `ap-docs-guardian`: Update permanent docs
+   - Invoke `ap-docs-reviewer`: Update permanent docs
    - **Update/archive canonical docs as needed** (no root PLAN.md/WIP.md/LEARNINGS.md to delete)
 
 ## Key Distinctions
 
 ### Documentation Types
 
-| Aspect | ap-progress-guardian | ap-adr-writer | ap-learn | ap-docs-guardian |
+| Aspect | ap-progress-assessor | ap-adr-writer | ap-learn | ap-docs-reviewer |
 |--------|------------------|-----|-------|---------------|
 | **Lifespan** | Plan/status in .docs/ (updated; may archive) | Permanent | Permanent | Permanent |
 | **Audience** | Current developer | Future developers | AI assistant + developers | Users + developers |
@@ -458,7 +458,7 @@ ap-progress-guardian (orchestrates)
 
 ### When to Use Which Documentation Agent
 
-**Use `ap-progress-guardian`** for:
+**Use `ap-progress-assessor`** for:
 - "What am I working on right now?"
 - "What's the next step?"
 - "Where was I when I stopped yesterday?"
@@ -477,7 +477,7 @@ ap-progress-guardian (orchestrates)
 - "How do I avoid this common mistake?"
 - → Answer: Permanent entry in `.docs/AGENTS.md` or canonical Learnings sections
 
-**Use `ap-docs-guardian`** for:
+**Use `ap-docs-reviewer`** for:
 - "How do I install this?"
 - "How do I use this API?"
 - "What features does this have?"
@@ -579,11 +579,11 @@ These agents work together to create a comprehensive development workflow:
 
 - **Analysis**: ap-use-case-data-analyzer maps use cases to implementation patterns
 - **Database**: ap-supabase-database-engineer designs schemas and manages migrations
-- **Quality**: ap-tdd-guardian + ap-ts-enforcer ensure code quality
-- **Improvement**: ap-refactor-guardian optimizes code after tests pass
+- **Quality**: ap-tdd-reviewer + ap-ts-enforcer ensure code quality
+- **Improvement**: ap-refactor-assessor optimizes code after tests pass
 - **Review**: ap-code-reviewer validates code before merge
-- **Knowledge**: ap-learn + ap-adr-writer + ap-docs-guardian preserve knowledge
-- **Progress**: ap-progress-guardian validates progress tracking discipline with three-document model
+- **Knowledge**: ap-learn + ap-adr-writer + ap-docs-reviewer preserve knowledge
+- **Progress**: ap-progress-assessor validates progress tracking discipline with three-document model
 
 **Key workflow principles** (see `planning` skill for details):
 - All work in small, known-good increments

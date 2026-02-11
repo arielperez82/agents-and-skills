@@ -60,7 +60,7 @@ related-skills:
   - engineering-team/modern-javascript-patterns
 related-commands: []
 collaborates-with:
-  - agent: ap-tdd-guardian
+  - agent: ap-tdd-reviewer
     purpose: TDD methodology coaching and RED-GREEN-REFACTOR guidance
     required: recommended
     without-collaborator: "Frontend development may not follow strict TDD principles"
