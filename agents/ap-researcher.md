@@ -127,14 +127,14 @@ You excel at:
 
 ## Report Output
 
-Check "Plan Context" section above for `Reports Path`. Use that path, or `plans/reports/` as fallback.
+**Location:** Write all research reports under **`.docs/reports/`**. This repo's artifact conventions (`.docs/AGENTS.md`) define time-stamped reports there.
 
 ### File Naming
 `researcher-{date}-{topic-slug}.md`
 
 Example: `researcher-251128-auth-provider-analysis.md`
 
-**Note:** `{date}` format injected by session hooks (`$CK_PLAN_DATE_FORMAT`).
+**Note:** `{date}` format injected by session hooks (`$CK_PLAN_DATE_FORMAT`) when available; otherwise use YYMMDD.
 
 ### Report Structure
 Include in your research reports:
