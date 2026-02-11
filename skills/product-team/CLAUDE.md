@@ -1,6 +1,6 @@
 # Product Team Skills - Claude Code Guidance
 
-This guide covers the 4 production-ready product management skills and their Python automation tools.
+This guide covers the 5 production-ready product management skills and their Python automation tools.
 
 > **Note:** UX/design skills (ux-researcher-designer, ux-designer, ui-design-system, visual-design-foundations) moved to `skills/ux-team/` in Feb 2026.
 
@@ -11,8 +11,9 @@ This guide covers the 4 production-ready product management skills and their Pyt
 2. **agile-product-owner/** - User story generation, sprint planning (1 tool)
 3. **product-strategist/** - OKR cascade, strategic planning (1 tool)
 4. **competitive-analysis/** - Competitive scorecard, gap analysis, adoption prioritization (3 tools)
+5. **prioritization-frameworks/** - Portfolio allocation + NPV scoring across buckets (1 tool)
 
-**Total Tools:** 7 Python automation tools
+**Total Tools:** 8 Python automation tools
 
 ## Python Automation Tools
 

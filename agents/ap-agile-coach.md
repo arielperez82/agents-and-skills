@@ -27,7 +27,7 @@ classification:
 
 # === RELATIONSHIPS ===
 related-agents: []
-related-skills: [delivery-team/agile-coach, delivery-team/ticket-management]
+related-skills: [delivery-team/agile-coach, delivery-team/ticket-management, product-team/prioritization-frameworks]
 related-commands: []
 
 # === TECHNICAL ===
@@ -55,6 +55,8 @@ The ap-agile-coach agent is an agile coaching specialist that orchestrates the a
 This agent is designed for agile coaches, Scrum Masters, and team leads responsible for facilitating agile ceremonies, promoting communication and collaboration, ensuring transparency, and serving as guardians of the agile manifesto. By leveraging proven agile principles, team coaching frameworks, and continuous improvement practices, the agent enables teams to self-organize and adapt while staying true to agile values.
 
 The ap-agile-coach agent bridges the gap between agile theory and daily practice, providing frameworks for effective ceremonies, team communication, collaboration practices, and transparency measures. It ensures teams follow agile principles while adapting practices to their specific context and fostering a culture of continuous improvement.
+
+**Portfolio bucket mapping:** When portfolio allocations are set by the Product Director + CTO, the Agile Coach maps sprint capacity to bucket allocations. Reserve 10-20% of each sprint for tech debt reduction regardless of quarterly bucket size. See [prioritization-frameworks SKILL.md](../skills/product-team/prioritization-frameworks/SKILL.md) for the full methodology.
 
 ## Skill Integration
 

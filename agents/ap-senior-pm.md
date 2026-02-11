@@ -27,7 +27,7 @@ classification:
 
 # === RELATIONSHIPS ===
 related-agents: []
-related-skills: [delivery-team/senior-pm, delivery-team/ticket-management]
+related-skills: [delivery-team/senior-pm, delivery-team/ticket-management, product-team/prioritization-frameworks]
 related-commands: []
 
 # === TECHNICAL ===
@@ -55,6 +55,8 @@ The ap-senior-pm agent orchestrates the senior-pm skill package to provide strat
 This agent is designed for senior project managers, program managers, and delivery leaders who need to maintain strategic oversight of multiple initiatives while ensuring risks are identified, quantified, and mitigated through appropriate expertise. By leveraging risk assessment frameworks and dependency mapping, the agent enables leaders to maintain RAG ratings, anticipate issues, and orchestrate the right interventions.
 
 The ap-senior-pm agent bridges the gap between strategic objectives and tactical execution by maintaining constant awareness of project health, sequencing dependencies, and calling in specialized agents when technical, resource, or strategic risks emerge. It provides frameworks for risk register management, dependency sequencing, and expertise orchestration.
+
+**Portfolio allocation context:** The Senior PM monitors portfolio health and reports rebalancing signals (items at risk, cross-bucket contention, drift between planned and actual allocation). The Senior PM does **not** set bucket allocations — that is the Product Director + CTO's decision. See [prioritization-frameworks SKILL.md](../skills/product-team/prioritization-frameworks/SKILL.md) for the full methodology.
 
 ## Skill Integration
 

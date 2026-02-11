@@ -6,7 +6,9 @@ title: Product Manager Specialist
 description: Product management agent for feature prioritization, customer discovery, PRD development, and roadmap planning using RICE framework
 domain: product
 subdomain: product-management
-skills: product-team/product-manager-toolkit
+skills:
+  - product-team/product-manager-toolkit
+  - product-team/prioritization-frameworks
 
 # === USE CASES ===
 difficulty: advanced
@@ -72,6 +74,30 @@ The ap-product-manager agent bridges the gap between customer insights and produ
 **Canonical artifacts:** When creating or writing roadmap, backlog, or plan under `.docs/canonical/`, include YAML front matter with `initiative: I<nn>-<ACRONYM>` and `initiative_name: <long-form>` per `.docs/AGENTS.md` initiative naming. Use ID grammar for backlog items and plan steps.
 
 ## Skill Integration
+
+### Prioritization Frameworks
+
+**Skill Location:** `../skills/product-team/prioritization-frameworks/`
+
+The Product Manager ranks items within each strategic bucket using domain-appropriate frameworks, and uses the portfolio prioritizer tool alongside existing RICE scoring.
+
+**Workflow: Within-Bucket Prioritization**
+1. Receive quarterly bucket allocations from Product Director + CTO
+2. Score growth/revenue items using RICE + NPV + Cost of Delay
+3. Score tech debt items using Debt Severity Matrix (criticality x compound interest x dependency)
+4. Score bugs using CLV-at-Risk (churn cost modeling)
+5. Score polish items using Kano Model (must-have / performance / delighter)
+6. When cross-bucket overflow occurs, use unified priority score for normalization
+
+**Tools:**
+- `../skills/product-team/prioritization-frameworks/scripts/portfolio_prioritizer.py` — portfolio scoring + NPV
+- `../skills/product-team/product-manager-toolkit/scripts/rice_prioritizer.py` — RICE within growth/revenue buckets
+
+**Supplementary framework:** NPV Financial Model — for making the dollar case for specific investments to leadership.
+
+See [prioritization-frameworks SKILL.md](../skills/product-team/prioritization-frameworks/SKILL.md) for complete methodology.
+
+### Product Manager Toolkit
 
 **Skill Location:** `../skills/product-team/product-manager-toolkit/`
 

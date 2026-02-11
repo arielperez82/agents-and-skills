@@ -6,7 +6,9 @@ title: Product Director
 description: Product director agent for OKR cascade generation, strategic planning, roadmap strategy, and multi-year product vision development
 domain: product
 subdomain: product-management
-skills: product-team/product-strategist
+skills:
+  - product-team/product-strategist
+  - product-team/prioritization-frameworks
 
 # === USE CASES ===
 difficulty: advanced
@@ -70,6 +72,29 @@ This agent is designed for product directors, VP of Product, Chief Product Offic
 The ap-product-director agent bridges the gap between executive vision and product execution, providing actionable guidance on strategy decomposition, OKR cascading, and roadmap prioritization. It focuses on the complete strategic planning cycle from vision setting to quarterly execution planning.
 
 ## Skill Integration
+
+### Prioritization Frameworks
+
+**Skill Location:** `../skills/product-team/prioritization-frameworks/`
+
+The Product Director sets quarterly portfolio allocations jointly with the CTO. This is the top-level decision that shapes all downstream prioritization.
+
+**Workflow: Quarterly Portfolio Allocation**
+1. Review current bucket allocations against actuals (drift detection)
+2. Assess system health (velocity trends, incident rate, tech debt drag)
+3. Set capacity split across strategic buckets (growth, revenue, tech debt, polish)
+4. Communicate allocations to Product Manager for within-bucket ranking
+5. Review cross-bucket contention with Senior PM at mid-quarter checkpoints
+
+**Tool:** `../skills/product-team/prioritization-frameworks/scripts/portfolio_prioritizer.py`
+
+**Supplementary frameworks** (reach-for when needed):
+- MuST (Multiple Strategic Tracks) — when the right strategic bet is genuinely unknown
+- POM (Product Operating Model) — when the prioritization process itself feels broken
+
+See [prioritization-frameworks SKILL.md](../skills/product-team/prioritization-frameworks/SKILL.md) for complete methodology.
+
+### Product Strategist
 
 **Skill Location:** `../skills/product-team/product-strategist/`
 
