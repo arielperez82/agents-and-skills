@@ -75,6 +75,14 @@ Route learnings by scope and half-life:
 
 **L10 — Initiative naming pays compound returns** (I02-INNC→I04-SLSE, 2026-02-11): The `I<nn>-<ACRONYM>` naming convention (established in I02-INNC) makes cross-referencing trivial — backlog items are `I04-SLSE-B01`, commit messages use `feat(I04-SLSE):`, and the References section in AGENTS.md links every initiative's full doc set. Worth the upfront effort; compounds across every initiative.
 
+**L11 — Parallel subagent delegation needs reference material** (I04-SLSE, 2026-02-11): When delegating to parallel subagents, each agent needs: (1) the target file path, (2) the schema/template to follow, (3) an existing example to match style/structure, and (4) specific content requirements. In I04-SLSE, the 6 skill agents all received the same frontmatter schema + an existing SKILL.md as reference, producing consistent output across all 6 files.
+
+**L12 — Surgical edits for existing agent enhancement** (I04-SLSE, 2026-02-11): When extending existing agents (ap-product-manager, ap-content-creator), make targeted edits to frontmatter fields (related-skills, related-agents, collaborates-with) and add body sections (new workflow, related agents bullet) rather than rewriting. This preserves existing content and minimizes diff surface. Delegate to subagents with the full current file content + specific edit instructions.
+
+**L13 — Catalog updates as explicit backlog items** (I04-SLSE, 2026-02-11): Make `skills/README.md` and `agents/README.md` updates separate backlog items (B12, B13) rather than bundling with the items they catalog. This ensures catalogs are always explicitly tracked, never forgotten, and can be verified independently.
+
+**L14 — collaborates-with defines agent integration contracts** (I04-SLSE, 2026-02-11): The `collaborates-with` frontmatter block (with `agent`, `purpose`, `required`, `without-collaborator` fields) creates clear handoff contracts between agents. In I04-SLSE: SDR hands qualified leads to AE, AE feeds call insights to product-manager, SDR feeds research to content-creator. These contracts make agent composition discoverable and testable.
+
 ---
 
 ## ADR placement
