@@ -95,6 +95,10 @@ Route learnings by scope and half-life:
 
 **L20 — Three skills per agent is the sweet spot** (I04-SLSE, 2026-02-11): Both new agents (SDR and AE) have exactly 3 core skills. This keeps each agent focused while providing enough capability to handle end-to-end workflows. When an agent would need 5+ core skills, it's a signal to split into two agents at a natural handoff point (see L15).
 
+**L21 — Initiative lifecycle playbook** (I01→I04, 2026-02-11): The proven end-to-end sequence: (1) gather source material, (2) convene expert panel to classify (L3), (3) user confirms architecture decisions, (4) create charter with scope firewall (L18), (5) create roadmap with parallelization notes (L2), (6) create backlog with ranked items (L13), (7) execute in waves (L1, L11), (8) validate (L5, L17), (9) update catalogs (L13), (10) commit, (11) record learnings (L19). This sequence completed I04-SLSE (16 items, 18 files, 5,006 lines) in a single session with zero rework.
+
+**L22 — Reference example drives subagent consistency** (I04-SLSE, 2026-02-11): When launching parallel subagents to create similar artifacts (6 SKILL.md files), include an existing example file in the prompt. All 6 skill agents received the same reference SKILL.md (from I03-PRFR) and produced structurally consistent output: matching frontmatter schema, matching section order, matching Input/Output Contract format. Without a reference, subagents diverge in structure.
+
 ---
 
 ## ADR placement
