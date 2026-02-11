@@ -89,6 +89,12 @@ Route learnings by scope and half-life:
 
 **L17 — Vendor reference sweep as definition of done** (I04-SLSE, 2026-02-11): Run `grep -ri` for vendor names (HubSpot, Salesforce, Gmail, Gong, Slack, etc.) across all new/modified files as a final quality check. Include in the backlog's definition of done. In I04-SLSE, 18 files / 5,006 lines passed with zero vendor hits. Catches leaks that individual subagents might miss.
 
+**L18 — Charter as scope firewall** (I04-SLSE, 2026-02-11): The charter's "Source Material Analysis" table (15 Zapier automations classified as BUILD/EXTEND/REFERENCE/DISCARD) locked scope before execution began. During implementation, zero items were re-scoped or added. The classification table format — with columns for source ID, action, target asset, and rationale — should be a standard charter section when an initiative derives from external source material.
+
+**L19 — Learnings compound across initiatives** (I01→I04, 2026-02-11): Each initiative builds on conventions proven in prior ones. I01-ACM established `.docs/` layout. I02-INNC added naming grammar. I03-PRFR proved the skill template. I04-SLSE proved parallel execution, expert panels, and team expansion. Record learnings immediately after each initiative — they reduce setup time and prevent re-discovery in the next one.
+
+**L20 — Three skills per agent is the sweet spot** (I04-SLSE, 2026-02-11): Both new agents (SDR and AE) have exactly 3 core skills. This keeps each agent focused while providing enough capability to handle end-to-end workflows. When an agent would need 5+ core skills, it's a signal to split into two agents at a natural handoff point (see L15).
+
 ---
 
 ## ADR placement
