@@ -68,6 +68,18 @@ Route learnings by scope and half-life:
 
 **Bridge rule:** Any deep specialist learning that materially changes cross-agent behavior gets a short distilled entry in `.docs/AGENTS.md` pointing to the deeper source.
 
+### Recorded learnings
+
+**L1 — Canonical docs enable parallel execution** (I04-SLSE, 2026-02-11): Create charter → roadmap → backlog *before* any implementation. Agents can then independently pull items from the backlog without coordination overhead. In I04-SLSE this allowed 3 waves of parallel work (6 skills → 4 agents → catalog updates) completing 16 backlog items with zero merge conflicts or rework.
+
+**L2 — Wave-based parallelization pattern** (I04-SLSE, 2026-02-11): Group backlog items by dependency into waves. Within a wave, all items run in parallel; waves execute sequentially. Map backlog items to roadmap outcomes — items within the same outcome are usually parallelizable; items across sequential outcomes are not. Document parallelization strategy in the roadmap.
+
+**L3 — Expert panel for initiative scoping** (I04-SLSE, 2026-02-11): Use `convening-experts` with domain-specific agents to analyze source material *before* creating initiative docs. In I04-SLSE, a 5-agent panel classified 15 Zapier automations into BUILD/EXTEND/REFERENCE/DISCARD, producing a clean architecture (2 agents, 6 skills, 2 enhancements) with zero scope changes during execution.
+
+**L4 — Tool-agnostic skill design** (I04-SLSE, 2026-02-11): Skills that define Input/Output Contracts without vendor-specific references (no HubSpot, Salesforce, Gmail, etc.) are more reusable and composable. Define *what data* the skill needs and *what it produces*; list external actions (CRM update, send email) as recommendations the user wires to their platform.
+
+**L5 — Validation as final backlog gate** (I04-SLSE, 2026-02-11): Run agent validation (`ap-agent-validator --all`) as the last backlog item. This catches issues across all new/modified agents in one pass and confirms the initiative didn't introduce regressions.
+
 ---
 
 ## ADR placement
