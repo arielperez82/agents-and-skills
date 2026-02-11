@@ -83,6 +83,12 @@ Route learnings by scope and half-life:
 
 **L14 — collaborates-with defines agent integration contracts** (I04-SLSE, 2026-02-11): The `collaborates-with` frontmatter block (with `agent`, `purpose`, `required`, `without-collaborator` fields) creates clear handoff contracts between agents. In I04-SLSE: SDR hands qualified leads to AE, AE feeds call insights to product-manager, SDR feeds research to content-creator. These contracts make agent composition discoverable and testable.
 
+**L15 — Funnel stage maps to agent boundaries** (I04-SLSE, 2026-02-11): Splitting agents by funnel stage (SDR = top-of-funnel, AE = mid/bottom-funnel) creates clean boundaries with minimal skill overlap. The handoff point (qualified lead) is a natural seam. Each agent owns 3 skills aligned to their funnel stage. This pattern likely generalizes: find the natural handoff point in any domain workflow and draw the agent boundary there.
+
+**L16 — Extend vs. create agent decision** (I04-SLSE, 2026-02-11): When new capability touches an existing agent's domain, decide: EXTEND (add workflow + related-skills to existing agent) vs. CREATE (new agent). Criteria: if the new capability is a cross-functional workflow adding 1 workflow to an existing agent, extend (e.g. sales call → PRD added to ap-product-manager). If it needs 3+ core skills and a distinct persona, create new (e.g. ap-sales-development-rep). The expert panel (L3) is the right place to make this call.
+
+**L17 — Vendor reference sweep as definition of done** (I04-SLSE, 2026-02-11): Run `grep -ri` for vendor names (HubSpot, Salesforce, Gmail, Gong, Slack, etc.) across all new/modified files as a final quality check. Include in the backlog's definition of done. In I04-SLSE, 18 files / 5,006 lines passed with zero vendor hits. Catches leaks that individual subagents might miss.
+
 ---
 
 ## ADR placement
