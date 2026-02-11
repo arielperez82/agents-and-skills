@@ -26,12 +26,18 @@ classification:
   model: opus
 
 # === RELATIONSHIPS ===
-related-agents: []
+related-agents: [ap-sales-development-rep]
 related-skills:
   - marketing-team/content-creator
   - marketing-team/marketing-psychology
   - marketing-team/page-cro
+  - sales-team/lead-research
 related-commands: []
+collaborates-with:
+  - agent: ap-sales-development-rep
+    purpose: Lead research insights on industry trends and company signals inform trending content topics
+    required: optional
+    without-collaborator: "Trending content based on general industry research without lead-specific signals"
 
 # === TECHNICAL ===
 tools: [Read, Write, Bash, Grep, Glob]
@@ -231,6 +237,62 @@ done
 
 **Time Estimate:** 8-12 hours for full campaign (10-15 content pieces)
 
+### Workflow 5: Trending Content Pipeline
+
+**Goal:** Create timely, relevant content based on industry trends, competitor signals, and market movements to build thought leadership and support sales enablement
+
+**Steps:**
+1. **Monitor Trend Signals** - Identify trending topics from multiple sources:
+   - Industry news and press releases
+   - Competitor content and product announcements
+   - Customer pain points surfaced by sales team (via `ap-sales-development-rep` lead research)
+   - Market analyst reports and research publications
+   - Community discussions and professional forums
+
+2. **Evaluate Content Opportunity** - Assess each trend for content potential:
+   - **Relevance**: Does this connect to our product/service domain?
+   - **Timeliness**: Is there a window of opportunity? (24-72 hours for news, 1-2 weeks for analysis)
+   - **Audience fit**: Will our target personas care?
+   - **Differentiation**: Can we add a unique perspective vs what's already published?
+   - **Sales enablement value**: Will this help the sales team in conversations?
+
+3. **Select Content Format** - Match trend type to content format:
+   - **Breaking news**: Short-form social post or blog (publish within 24-48 hours)
+   - **Emerging trend**: Long-form analysis or thought leadership piece (1-2 week window)
+   - **Competitive shift**: Positioning piece or comparison guide
+   - **Customer pain point**: How-to guide or solution-focused content
+   - Reference content frameworks:
+     ```bash
+     cat ../skills/marketing-team/content-creator/references/content_frameworks.md
+     ```
+
+4. **Draft Content** - Create content using brand voice guidelines:
+   ```bash
+   python ../skills/marketing-team/content-creator/scripts/brand_voice_analyzer.py trending-draft.md
+   ```
+   - Include data points and specific references (not generic commentary)
+   - Add original analysis or perspective
+   - Connect trend to audience pain points
+   - Include actionable takeaways
+
+5. **Optimize and Publish** - Run SEO and platform optimization:
+   ```bash
+   python ../skills/marketing-team/content-creator/scripts/seo_optimizer.py trending-draft.md "trending keyword"
+   ```
+   - Adapt for multiple platforms (blog, social, email)
+   - Schedule for optimal engagement windows
+
+6. **Distribute to Sales** - Share published content with sales team:
+   - Provide talk tracks that connect content to prospect conversations
+   - Highlight specific data points useful for outreach personalization
+   - Flag content that directly addresses common prospect objections
+
+**Expected Output:** Timely content piece published within the trend window, adapted for 2-3 platforms, with sales enablement talk track
+
+**Time Estimate:** 3-5 hours per trending content piece (from signal detection to publication)
+
+**Cross-functional value:** This workflow turns market intelligence into content that serves dual purposes — building brand authority AND arming the sales team with timely conversation starters. Lead research signals from `ap-sales-development-rep` ensure content addresses what prospects actually care about, not just what's trending in the abstract.
+
 ## Integration Examples
 
 ### Example 1: Real-Time Content Feedback Loop
@@ -303,6 +365,7 @@ done
 - [ap-demand-gen-specialist](ap-demand-gen-specialist.md) - Demand generation and acquisition campaigns
 - [ap-product-marketer](ap-product-marketer.md) - Product positioning and messaging (planned)
 - [ap-social-media-manager](ap-social-media-manager.md) - Social media management and scheduling (planned)
+- [ap-sales-development-rep](ap-sales-development-rep.md) - Lead research insights inform trending content topics and sales enablement
 
 ## References
 
@@ -313,7 +376,7 @@ done
 
 ---
 
-**Last Updated:** November 5, 2025
+**Last Updated:** February 11, 2026
 **Sprint:** sprint-11-05-2025 (Day 2)
 **Status:** Production Ready
 **Version:** 1.0

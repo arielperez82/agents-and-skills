@@ -28,17 +28,22 @@ classification:
   model: sonnet
 
 # === RELATIONSHIPS ===
-related-agents: [ap-technical-writer]
+related-agents: [ap-technical-writer, ap-account-executive]
 related-skills:
   - product-team/product-manager-toolkit
   - product-team/competitive-analysis
   - engineering-team/technical-writer
+  - sales-team/sales-call-analysis
 related-commands: []
 collaborates-with:
   - agent: ap-technical-writer
     purpose: Mermaid diagram generation for roadmaps (Gantt), prioritization matrices (quadrant), and feature mindmaps
     required: optional
     without-collaborator: "Roadmaps and prioritization will be text/table format without visual diagrams"
+  - agent: ap-account-executive
+    purpose: Receive sales call analysis scorecards and customer pain points to inform PRD development
+    required: optional
+    without-collaborator: "PRDs created from direct customer interview analysis without sales call pipeline"
 
 # === TECHNICAL ===
 tools: [Read, Write, Bash, Grep, Glob]
@@ -343,6 +348,52 @@ cat roadmap.txt
 
 **Time Estimate:** 1 week for quarterly planning (last week of previous quarter)
 
+### Workflow 5: Sales Call to PRD Pipeline
+
+**Goal:** Transform customer pain points and feature requests from sales call analysis into structured PRDs
+
+**Steps:**
+1. **Receive Call Analysis** - Get sales call scorecard output from `ap-account-executive`:
+   - Pain points identified during discovery calls
+   - Feature requests with severity and frequency
+   - Competitive mentions and gaps
+   - Customer quotes and evidence
+
+2. **Aggregate Across Calls** - Synthesize insights from multiple call analyses:
+   - Group pain points by theme
+   - Rank feature requests by frequency and severity
+   - Identify patterns across segments (enterprise vs mid-market)
+   - Map to existing roadmap items or new opportunities
+
+3. **Validate with Interview Analyzer** - Cross-reference with formal customer interviews
+   ```bash
+   python ../skills/product-team/product-manager-toolkit/scripts/customer_interview_analyzer.py call-notes.txt
+   ```
+
+4. **Prioritize Using RICE** - Score validated opportunities
+   ```bash
+   python ../skills/product-team/product-manager-toolkit/scripts/rice_prioritizer.py call-driven-features.csv --capacity 20
+   ```
+
+5. **Draft PRD** - Use the appropriate PRD template for the highest-priority item:
+   ```bash
+   cat ../skills/product-team/product-manager-toolkit/references/prd_templates.md
+   ```
+   - Include "Voice of Customer" section with direct quotes from calls
+   - Reference call analysis scores as evidence
+   - Connect to competitive intelligence from sales conversations
+
+6. **Close the Loop** - Share PRD back with sales team:
+   - Notify account executives of roadmap decisions
+   - Provide talk tracks for upcoming features
+   - Update competitive positioning based on customer conversations
+
+**Expected Output:** Evidence-backed PRD with customer quotes, pain point analysis, and RICE-justified priority
+
+**Time Estimate:** 2-4 hours per call-to-PRD cycle (assuming 5-10 analyzed calls as input)
+
+**Cross-functional value:** This workflow bridges the gap between sales conversations and product decisions, ensuring the product team builds what customers actually need rather than what internal stakeholders assume.
+
 ## Integration Examples
 
 ### Example 1: Weekly Product Review Dashboard
@@ -472,6 +523,7 @@ echo "Report: $QUARTER-roadmap.txt"
 - [ap-product-analyst](ap-product-analyst.md) - Sprint planning, user story generation, and process analysis
 - [ap-product-director](ap-product-director.md) - OKR cascade and strategic planning (planned)
 - [ap-ux-researcher](ap-ux-researcher.md) - Persona generation and user research (planned)
+- [ap-account-executive](ap-account-executive.md) - Sales call analysis and customer pain points feed PRD development
 
 ## References
 
@@ -481,7 +533,7 @@ echo "Report: $QUARTER-roadmap.txt"
 
 ---
 
-**Last Updated:** November 5, 2025
+**Last Updated:** February 11, 2026
 **Sprint:** sprint-11-05-2025 (Day 4)
 **Status:** Production Ready
 **Version:** 1.0

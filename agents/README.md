@@ -90,6 +90,11 @@ These agents live directly in the `agents/` root directory:
 - **`ap-cognitive-load-assessor`** - Calculates Cognitive Load Index (CLI) for codebases; 8-dimension scored report with recommendations
 - **`ap-cto-advisor`** - Technical leadership guidance for engineering teams, architecture decisions, and tech strategy
 
+### Sales Agents
+
+- **`ap-sales-development-rep`** - Sales development for lead research, enrichment, qualification, and personalized outreach in B2B sales workflows
+- **`ap-account-executive`** - Account executive for meeting intelligence, sales call analysis, and pipeline analytics in B2B sales workflows
+
 ### Product Agents
 
 - **`ap-product-director`** - Strategic product leadership for OKR cascade, portfolio allocation, market analysis, vision setting, and team scaling

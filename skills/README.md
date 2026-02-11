@@ -185,6 +185,17 @@ Role and specialist skills (same folder):
 | **page-cro** | Conversion optimization | Marketing pages, CRO, landing pages |
 | **marketing-psychology** | Marketing + psychology | Mental models, persuasion, consumer behavior |
 
+### Sales Team (`sales-team/`)
+
+| Skill | When to Use | What It Provides |
+|-------|-------------|------------------|
+| **lead-research** | Prospect research | Company profiles, lead enrichment, web intelligence, role classification |
+| **lead-qualification** | Lead scoring | ICP matching, BANT/MEDDIC/CHAMP frameworks, threshold routing |
+| **sales-outreach** | Email outreach | ABM personalization, cold outreach drafting, tone frameworks, anti-patterns |
+| **meeting-intelligence** | Sales meetings | Pre-call briefings, post-call follow-up, proposal detection |
+| **sales-call-analysis** | Call evaluation | SPIN/Challenger/MEDDIC scoring, coaching drills, trend tracking |
+| **pipeline-analytics** | Pipeline health | Deal risk flagging, stage velocity, conversion analysis, coaching insights |
+
 ### UX Team (`ux-team/`)
 
 | Skill | When to Use | What It Provides |
