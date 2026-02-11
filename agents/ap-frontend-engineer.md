@@ -34,6 +34,7 @@ classification:
 # === RELATIONSHIPS ===
 related-agents: []
 related-skills:
+  - engineering-team/software-architecture
   - engineering-team/core-testing-methodology
   - engineering-team/react-best-practices
   - engineering-team/react-vite-expert

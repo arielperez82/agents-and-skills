@@ -29,6 +29,7 @@ classification:
 # === RELATIONSHIPS ===
 related-agents: []
 related-skills:
+  - engineering-team/software-architecture
   - engineering-team/avoid-feature-creep
   - engineering-team/mcp-builder
   - engineering-team/vercel-deploy-claimable
