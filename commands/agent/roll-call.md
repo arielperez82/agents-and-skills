@@ -11,7 +11,7 @@ Dynamically tests that an agent loads correctly in Cursor and can access its ref
 
 ```sh
 # Test agent roll-call
-/agent/roll-call ap-frontend-engineer
+/agent/roll-call frontend-engineer
 ```
 
 ## Agent resolution (search hierarchy)
@@ -24,7 +24,7 @@ When resolving the agent file for roll-call, search in this order:
    - `.gemini/agents/`
    - `.agent/agents/`
    - `.agents/agents/`
-   Look for `{agent-name}.md` (e.g. `ap-frontend-engineer.md`).
+   Look for `{agent-name}.md` (e.g. `frontend-engineer.md`).
 
 2. **User home agents** – In the user’s home directory, under any of:
    - `~/.cursor/agents/`
@@ -34,7 +34,7 @@ When resolving the agent file for roll-call, search in this order:
    - `~/.agents/agents/`
    Look for `{agent-name}.md`.
 
-3. **Project fallback** – If not found above, search the local project for any `.md` file whose base name matches the agent name (e.g. `ap-frontend-engineer` → first match of `**/ap-frontend-engineer.md` under the project root).
+3. **Project fallback** – If not found above, search the local project for any `.md` file whose base name matches the agent name (e.g. `frontend-engineer` → first match of `**/frontend-engineer.md` under the project root).
 
 Use the first path that exists; then load that file for the roll-call test.
 
@@ -93,7 +93,7 @@ Use this command after:
 
 To manually test an agent:
 
-1. **Resolve the agent** using the [Agent resolution](#agent-resolution-search-hierarchy) hierarchy, then **load that file** in Cursor Chat (e.g. `@agents/ap-frontend-engineer.md` if under project `agents/`, or the resolved path).
+1. **Resolve the agent** using the [Agent resolution](#agent-resolution-search-hierarchy) hierarchy, then **load that file** in Cursor Chat (e.g. `@agents/frontend-engineer.md` if under project `agents/`, or the resolved path).
 
 2. **Verify it loads skills automatically**:
    ```
@@ -107,7 +107,7 @@ To manually test an agent:
 
 4. **Verify collaboration**:
    ```
-   When would you collaborate with ap-tdd-reviewer?
+   When would you collaborate with tdd-reviewer?
    ```
 
 ## Notes

@@ -269,8 +269,8 @@ python senior-ml-engineer/scripts/model_deployment_pipeline.py model.pkl
 
 **All engineering skills include TDD support:**
 - `engineering-team/core-testing-methodology` skill for TDD patterns
-- `ap-tdd-reviewer` agent for methodology coaching
-- `ap-qa-engineer` agent for automation infrastructure
+- `tdd-reviewer` agent for methodology coaching
+- `qa-engineer` agent for automation infrastructure
 
 **Quality Gates:**
 - 100% test coverage required (exceptions documented)
@@ -313,8 +313,8 @@ services:
 ## Additional Resources
 
 - **Skill Catalog:** `../README.md` — complete skill inventory with "when to use" guidance
-- **Agent Catalog:** `../../agents/README.md` — all ap-* agents and their skill mappings
-- **Agent Authoring Guide:** `../../agents/ap-agent-author.md`
+- **Agent Catalog:** `../../agents/README.md` — all agents and their skill mappings
+- **Agent Authoring Guide:** `../../agents/agent-author.md`
 - **Engineering Roadmap:** Repo-level roadmaps live under `.docs/canonical/roadmaps/` when artifact conventions are in use (see `.docs/AGENTS.md`)
 
 ---

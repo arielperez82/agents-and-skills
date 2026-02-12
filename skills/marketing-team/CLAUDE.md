@@ -244,7 +244,7 @@ See `marketing_skills_roadmap.md` for detailed expansion plans. Repo-level roadm
 
 - **Marketing Roadmap:** `marketing_skills_roadmap.md`. Repo-level: `.docs/canonical/roadmaps/` per `.docs/AGENTS.md` when conventions apply.
 - **Team Overview:** `README.md`
-- **Agent Authoring Guide:** `../../agents/ap-agent-author.md`
+- **Agent Authoring Guide:** `../../agents/agent-author.md`
 
 ---
 

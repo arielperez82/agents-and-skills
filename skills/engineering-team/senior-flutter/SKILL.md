@@ -20,14 +20,14 @@ use-cases:
 
 # === RELATIONSHIPS ===
 related-agents:
-  - ap-flutter-engineer
-  - ap-mobile-engineer
+  - flutter-engineer
+  - mobile-engineer
 related-skills:
   - senior-mobile
   - senior-ios
 related-commands: []
 orchestrated-by:
-  - ap-flutter-engineer
+  - flutter-engineer
 
 # === TECHNICAL ===
 dependencies:

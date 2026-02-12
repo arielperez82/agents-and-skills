@@ -7,7 +7,7 @@ description: Planning work in small, known-good increments. Use when starting si
 
 **All work must be done in small, known-good increments.** Each increment leaves the codebase in a working state where all tests pass.
 
-**Document management:** When this repo's artifact conventions are in use, all coordination artifacts live under `.docs/`. Use the `ap-progress-assessor` agent to assess and validate progress: it checks `.docs/canonical/plans/plan-<endeavor>-*.md`, `.docs/reports/report-<endeavor>-status-*.md`, and learnings in `.docs/AGENTS.md` plus "Learnings" sections in canonical docs. Implementers create and maintain those documents. **Initiative naming:** Roadmap, backlog, and plan must include `initiative` and `initiative_name` in front matter; use `.docs/AGENTS.md` **References (by initiative)** to resolve the current plan for an initiative. Do not use PLAN.md, WIP.md, or LEARNINGS.md at repo root.
+**Document management:** When this repo's artifact conventions are in use, all coordination artifacts live under `.docs/`. Use the `progress-assessor` agent to assess and validate progress: it checks `.docs/canonical/plans/plan-<endeavor>-*.md`, `.docs/reports/report-<endeavor>-status-*.md`, and learnings in `.docs/AGENTS.md` plus "Learnings" sections in canonical docs. Implementers create and maintain those documents. **Initiative naming:** Roadmap, backlog, and plan must include `initiative` and `initiative_name` in front matter; use `.docs/AGENTS.md` **References (by initiative)** to resolve the current plan for an initiative. Do not use PLAN.md, WIP.md, or LEARNINGS.md at repo root.
 
 ## Canonical layout (when using .docs/)
 
@@ -27,7 +27,7 @@ Route learnings by scope and half-life:
 2. **Layer 2 — Domain (endeavor-level):** `.docs/canonical/assessments/assessment-<endeavor>-<subject>-<date>.md` or a **"Learnings" section** in the relevant plan, charter, roadmap, or backlog. Use for: conclusions that shape prioritization, constraints, architecture direction. Rule: if a learning changes what we do next, it must land in canonical docs.
 3. **Layer 3 — Deep specialist:** With the agent's skills/commands. Use for: checklists, frameworks, implementation patterns. Rule: "how to think/do", not "what this repo has decided."
 
-**ADR:** Architectural decisions → `.docs/canonical/adrs/adr-YYYYMMDD-<subject>.md`. Use the `ap-adr-writer` agent when appropriate.
+**ADR:** Architectural decisions → `.docs/canonical/adrs/adr-YYYYMMDD-<subject>.md`. Use the `adr-writer` agent when appropriate.
 
 ### Document flow
 
@@ -213,10 +213,10 @@ Capture learnings as they occur. Route by type:
 
 | Learning type | Destination |
 |---------------|-------------|
-| Gotchas, patterns (cross-agent) | Layer 1: `.docs/AGENTS.md` (use `ap-learn` or equivalent) |
+| Gotchas, patterns (cross-agent) | Layer 1: `.docs/AGENTS.md` (use `learn` or equivalent) |
 | Domain conclusions, "what we do next" | Layer 2: assessment or "Learnings" section in plan/charter/roadmap/backlog |
 | How-to, checklists, templates | Layer 3: with the relevant skill or command |
-| Architectural decisions | `.docs/canonical/adrs/adr-YYYYMMDD-<subject>.md` (use `ap-adr-writer` when applicable) |
+| Architectural decisions | `.docs/canonical/adrs/adr-YYYYMMDD-<subject>.md` (use `adr-writer` when applicable) |
 
 Don't wait until the end of the feature; add to the appropriate place as you discover.
 

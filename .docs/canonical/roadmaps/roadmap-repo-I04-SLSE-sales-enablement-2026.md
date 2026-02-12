@@ -21,8 +21,8 @@ Outcomes only; no task granularity. Execution is pulled from the backlog and pla
 |-------|---------|------------|
 | 1 | Sales team infrastructure exists | `skills/sales-team/` directory with CLAUDE.md; all 6 skill directories created |
 | 2 | All 6 sales skills are authored with full content | Each SKILL.md has frontmatter, methodology sections, input/output contracts, and framework references |
-| 3 | Two new sales agents are created and pass validation | `ap-sales-development-rep` and `ap-account-executive` agent definitions with frontmatter + body; validation passes |
-| 4 | Existing agents enhanced with cross-functional workflows | `ap-product-manager` has call-to-PRD reference; `ap-content-creator` has trending-content reference |
+| 3 | Two new sales agents are created and pass validation | `sales-development-rep` and `account-executive` agent definitions with frontmatter + body; validation passes |
+| 4 | Existing agents enhanced with cross-functional workflows | `product-manager` has call-to-PRD reference; `content-creator` has trending-content reference |
 | 5 | All catalogs updated and validated | `skills/README.md`, `agents/README.md`, `sales-team/CLAUDE.md` reflect new agents and skills; agent validation passes for all touched agents |
 
 ## Parallelization notes

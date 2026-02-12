@@ -41,13 +41,13 @@ Think harder to plan & start working on these tasks follow the Orchestration Pro
 
 ### Research
 
-* Use multiple `ap-researcher` subagents in parallel to explore the user's request, idea validation, challenges, and find the best possible solutions.
+* Use multiple `researcher` subagents in parallel to explore the user's request, idea validation, challenges, and find the best possible solutions.
 * Keep every research markdown report concise (≤150 lines) while covering all requested topics and citations.
 * Use `/scout` slash command to search the codebase for files needed to complete the task (adaptive: external tools preferred, internal tools fallback)
 
 ### Plan
 
-*. Use `ap-implementation-planner` subagent to analyze reports from `ap-researcher` and `ap-codebase-scout` subagents to create an implementation plan using the progressive disclosure structure:
+*. Use `implementation-planner` subagent to analyze reports from `researcher` and `codebase-scout` subagents to create an implementation plan using the progressive disclosure structure:
   - Create a directory `plans/{date}-plan-name` (date format from `$CK_PLAN_DATE_FORMAT`).
   - Save the overview access point at `plan.md`, keep it generic, under 80 lines, and list each phase with status/progress and links.
   - For each phase, add `phase-XX-phase-name.md` files containing sections (Context links, Overview with date/priority/statuses, Key Insights, Requirements, Architecture, Related code files, Implementation Steps, Todo list, Success Criteria, Risk Assessment, Security Considerations, Next steps).
@@ -65,7 +65,7 @@ Think harder to plan & start working on these tasks follow the Orchestration Pro
 
 * Write the tests for the plan, **make sure you don't use fake data, mocks, cheats, tricks, temporary solutions, just to pass the build or github actions**, tests should be real and cover all possible cases.
 * Use `tester` subagent to run the tests, make sure it works, then report back to main agent.
-* If there are issues or failed tests, use `ap-debugger` subagent to find the root cause of the issues, then ask main agent to fix all of them.
+* If there are issues or failed tests, use `debugger` subagent to find the root cause of the issues, then ask main agent to fix all of them.
 * Repeat the process until all tests pass or no more issues are reported. Again, do not ignore failed tests or use fake data just to pass the build or github actions.
 
 ### Code Review

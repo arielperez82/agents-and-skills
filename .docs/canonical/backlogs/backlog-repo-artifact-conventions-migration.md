@@ -22,16 +22,16 @@ Full ID prefix for this initiative: **I01-ACM**. In-doc shorthand: B1, B2, … C
 | B3 | Document endeavor slug(s) in AGENTS.md or charter | 1 | Consistent naming | Phase 0.3 |
 | B4 | Add optional `.docs/canonical/adrs/index.md` | 1 | Optional ADR index | Phase 0.4 |
 | B5 | Produce agent-artifact migration checklist (current → new path per agent) | 2 | Mapping for Phase 2 | Phase 1 |
-| B6 | Update ap-progress-assessor to `.docs/` and naming grammar | 3 | No PLAN/WIP/LEARNINGS | Phase 2.1 |
-| B7 | Update ap-adr-writer to `.docs/canonical/adrs/` and naming | 3 | ADRs canonical | Phase 2.2 |
-| B8 | Update ap-implementation-planner to `.docs/` and naming | 3 | Plan output canonical | Phase 2.3 |
-| B9 | Update ap-qa-engineer, ap-product-analyst, ap-ux-researcher artifact paths | 3 | Plans/sections | Phase 2.4–2.6 |
-| B10 | Update ap-senior-pm, ap-demand-gen-specialist, ap-cto-advisor artifact paths | 3 | Charter/roadmap/plan/reports | Phase 2.7–2.9 |
-| B11 | Update ap-legacy-codebase-analyzer, ap-seo-strategist, ap-product-director | 3 | Assessments/roadmaps | Phase 2.10–2.12 |
-| B12 | Update ap-code-reviewer, ap-observability-engineer, ap-architect, ap-devsecops-engineer | 3 | Reviews/reports/assessments | Phase 2.13–2.16 |
-| B13 | Update ap-technical-writer, ap-docs-reviewer, ap-learn, remaining agents | 3 | Full coverage | Phase 2.17–2.20 |
+| B6 | Update progress-assessor to `.docs/` and naming grammar | 3 | No PLAN/WIP/LEARNINGS | Phase 2.1 |
+| B7 | Update adr-writer to `.docs/canonical/adrs/` and naming | 3 | ADRs canonical | Phase 2.2 |
+| B8 | Update implementation-planner to `.docs/` and naming | 3 | Plan output canonical | Phase 2.3 |
+| B9 | Update qa-engineer, product-analyst, ux-researcher artifact paths | 3 | Plans/sections | Phase 2.4–2.6 |
+| B10 | Update senior-pm, demand-gen-specialist, cto-advisor artifact paths | 3 | Charter/roadmap/plan/reports | Phase 2.7–2.9 |
+| B11 | Update legacy-codebase-analyzer, seo-strategist, product-director | 3 | Assessments/roadmaps | Phase 2.10–2.12 |
+| B12 | Update code-reviewer, observability-engineer, architect, devsecops-engineer | 3 | Reviews/reports/assessments | Phase 2.13–2.16 |
+| B13 | Update technical-writer, docs-reviewer, learn, remaining agents | 3 | Full coverage | Phase 2.17–2.20 |
 | B14 | Add Learnings (three layers) and ADR placement to `.docs/AGENTS.md` | 4 | Learnings/ADR wiring | Phase 3.1 |
-| B15 | Wire ap-learn, ap-adr-writer, ap-progress-assessor, ap-docs-reviewer for learnings/ADR | 4 | Agent behavior | Phase 3.2–3.5 |
+| B15 | Wire learn, adr-writer, progress-assessor, docs-reviewer for learnings/ADR | 4 | Agent behavior | Phase 3.2–3.5 |
 | B16 | Update commands (e.g. plan.md) and agents/README.md to `.docs/` | 5 | Commands/READMEs | Phase 4 |
 | B17 | Validation: grep for old names; complete checklist; redirects if needed | 6 | Clean state | Phase 5 |
 | B18 | Align planning skill: .docs/ plans, reports, three-layer learnings; remove PLAN.md/WIP.md/LEARNINGS.md | 6 | Skills alignment | Phase 6 |

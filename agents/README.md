@@ -3,7 +3,7 @@
 
 This directory contains specifications for specialized Claude Code agents that work together to maintain code quality, documentation, and development workflow.
 
-> **⚠️ Maintenance Note**: This README must be updated whenever an agent is added, deleted, moved, or renamed. See maintenance instructions in `ap-agent-author.md`, `skills/agent-development-team/creating-agents/SKILL.md`, and `skills/agent-development-team/refactoring-agents/SKILL.md`.
+> **⚠️ Maintenance Note**: This README must be updated whenever an agent is added, deleted, moved, or renamed. See maintenance instructions in `agent-author.md`, `skills/agent-development-team/creating-agents/SKILL.md`, and `skills/agent-development-team/refactoring-agents/SKILL.md`.
 
 ## What this file is (and isn't)
 
@@ -18,100 +18,100 @@ This directory contains specifications for specialized Claude Code agents that w
 These agents live directly in the `agents/` root directory:
 
 #### Meta Development
-- **`ap-agent-author`** - Orchestrates creation and maintenance of ap-* agents and skills, enforcing standards and templates
+- **`agent-author`** - Orchestrates creation and maintenance of agents and skills, enforcing standards and templates
 
 #### Delivery & Project Management
-- **`ap-agile-coach`** - Agile coaching specialist for ceremonies, team dynamics, communication, and agile manifesto adherence
-- **`ap-progress-assessor`** - Assesses and validates progress tracking through canonical docs under `.docs/` (plans, status reports, learnings in AGENTS.md and canonical docs)
-- **`ap-senior-pm`** - Strategic program management for portfolio planning, stakeholder management, and delivery excellence
+- **`agile-coach`** - Agile coaching specialist for ceremonies, team dynamics, communication, and agile manifesto adherence
+- **`progress-assessor`** - Assesses and validates progress tracking through canonical docs under `.docs/` (plans, status reports, learnings in AGENTS.md and canonical docs)
+- **`senior-pm`** - Strategic program management for portfolio planning, stakeholder management, and delivery excellence
 
 #### Marketing
-- **`ap-content-creator`** - AI-powered content creation for brand voice consistency, SEO optimization, and multi-platform strategy
-- **`ap-demand-gen-specialist`** - Demand generation and customer acquisition for lead generation and conversion optimization
-- **`ap-product-marketer`** - Product marketing for positioning strategy, GTM execution, competitive intelligence, and launch planning
-- **`ap-seo-strategist`** - Strategic SEO planning for site-wide optimization, keyword research, technical audits, and competitive positioning
+- **`content-creator`** - AI-powered content creation for brand voice consistency, SEO optimization, and multi-platform strategy
+- **`demand-gen-specialist`** - Demand generation and customer acquisition for lead generation and conversion optimization
+- **`product-marketer`** - Product marketing for positioning strategy, GTM execution, competitive intelligence, and launch planning
+- **`seo-strategist`** - Strategic SEO planning for site-wide optimization, keyword research, technical audits, and competitive positioning
 
 #### Documentation & Knowledge
-- **`ap-docs-reviewer`** - Creates and maintains world-class permanent documentation (README, guides, API docs)
-- **`ap-learn`** - Captures learnings, gotchas, and patterns into CLAUDE.md
+- **`docs-reviewer`** - Creates and maintains world-class permanent documentation (README, guides, API docs)
+- **`learn`** - Captures learnings, gotchas, and patterns into CLAUDE.md
 
 ### Engineering Agents
 
 #### Architecture & Design
-- **`ap-architect`** - System architecture specialist for design patterns, scalability planning, and technology evaluation
-- **`ap-adr-writer`** - Creates Architecture Decision Records (ADRs) documenting significant architectural choices
-- **`ap-graphql-architect`** - GraphQL API design specialist for schema architecture, resolver patterns, and federation
+- **`architect`** - System architecture specialist for design patterns, scalability planning, and technology evaluation
+- **`adr-writer`** - Creates Architecture Decision Records (ADRs) documenting significant architectural choices
+- **`graphql-architect`** - GraphQL API design specialist for schema architecture, resolver patterns, and federation
 
 #### Engineering Leadership
-- **`ap-engineering-lead`** - Coordinates multi-step development initiatives by dispatching specialist engineer subagents per task, managing two-stage review gates, and driving plans to completion
+- **`engineering-lead`** - Coordinates multi-step development initiatives by dispatching specialist engineer subagents per task, managing two-stage review gates, and driving plans to completion
 
 #### Development Specialists
-- **`ap-backend-engineer`** - Backend development for API design, database optimization, and microservices architecture
-- **`ap-frontend-engineer`** - Frontend development for React/Vue components, UI/UX implementation, and performance optimization
-- **`ap-fullstack-engineer`** - Fullstack development for complete web applications with React, Next.js, Node.js, GraphQL
-- **`ap-mobile-engineer`** - Cross-platform mobile development for React Native, Flutter, and Expo
-- **`ap-ios-engineer`** - Native iOS development for Swift, SwiftUI, and Apple ecosystem integration
-- **`ap-flutter-engineer`** - Flutter and Dart development for cross-platform applications
-- **`ap-java-engineer`** - Java and Spring Boot development for enterprise applications and microservices
-- **`ap-dotnet-engineer`** - C# and .NET development for enterprise applications and cloud-native systems
+- **`backend-engineer`** - Backend development for API design, database optimization, and microservices architecture
+- **`frontend-engineer`** - Frontend development for React/Vue components, UI/UX implementation, and performance optimization
+- **`fullstack-engineer`** - Fullstack development for complete web applications with React, Next.js, Node.js, GraphQL
+- **`mobile-engineer`** - Cross-platform mobile development for React Native, Flutter, and Expo
+- **`ios-engineer`** - Native iOS development for Swift, SwiftUI, and Apple ecosystem integration
+- **`flutter-engineer`** - Flutter and Dart development for cross-platform applications
+- **`java-engineer`** - Java and Spring Boot development for enterprise applications and microservices
+- **`dotnet-engineer`** - C# and .NET development for enterprise applications and cloud-native systems
 
 #### Data & ML
-- **`ap-data-engineer`** - Data engineering for scalable pipelines, ETL/ELT systems, and real-time streaming
-- **`ap-data-scientist`** - Data science for statistical modeling, experimentation, causal inference, and analytics
-- **`ap-database-engineer`** - Database specialist for MongoDB and PostgreSQL schema design and optimization
-- **`ap-supabase-database-engineer`** - Supabase specialist for schema design, migration management, and RLS policies
-- **`ap-ml-engineer`** - ML engineering for productionizing models, MLOps, and scalable ML systems
-- **`ap-computer-vision`** - Computer vision for image/video processing, object detection, and visual AI systems
+- **`data-engineer`** - Data engineering for scalable pipelines, ETL/ELT systems, and real-time streaming
+- **`data-scientist`** - Data science for statistical modeling, experimentation, causal inference, and analytics
+- **`database-engineer`** - Database specialist for MongoDB and PostgreSQL schema design and optimization
+- **`supabase-database-engineer`** - Supabase specialist for schema design, migration management, and RLS policies
+- **`ml-engineer`** - ML engineering for productionizing models, MLOps, and scalable ML systems
+- **`computer-vision`** - Computer vision for image/video processing, object detection, and visual AI systems
 
 #### Quality & Testing
-- **`ap-agent-validator`** - Validates agent specifications against the frontmatter schema, skill paths, classification rules, and body structure
-- **`ap-tdd-reviewer`** - TDD methodology coach ensuring RED-GREEN-REFACTOR cycle adherence
-- **`ap-qa-engineer`** - QA and testing specialist for test automation, coverage analysis, and quality metrics
-- **`ap-code-reviewer`** - Code review specialist for quality assessment, security analysis, and best practices
-- **`ap-refactor-assessor`** - Assesses refactoring opportunities after tests pass (TDD's third step)
-- **`ap-security-assessor`** - Assesses code or diffs for security and produces a findings report with criticality (no implementation)
-- **`ap-ts-enforcer`** - Enforces TypeScript strict mode and best practices
-- **`ap-tpp-assessor`** - Transformation Priority Premise (TPP) guardian for TDD transformations
+- **`agent-validator`** - Validates agent specifications against the frontmatter schema, skill paths, classification rules, and body structure
+- **`tdd-reviewer`** - TDD methodology coach ensuring RED-GREEN-REFACTOR cycle adherence
+- **`qa-engineer`** - QA and testing specialist for test automation, coverage analysis, and quality metrics
+- **`code-reviewer`** - Code review specialist for quality assessment, security analysis, and best practices
+- **`refactor-assessor`** - Assesses refactoring opportunities after tests pass (TDD's third step)
+- **`security-assessor`** - Assesses code or diffs for security and produces a findings report with criticality (no implementation)
+- **`ts-enforcer`** - Enforces TypeScript strict mode and best practices
+- **`tpp-assessor`** - Transformation Priority Premise (TPP) guardian for TDD transformations
 
 #### DevOps & Infrastructure
-- **`ap-devsecops-engineer`** - DevSecOps for CI/CD, infrastructure automation, containerization, and cloud platforms
-- **`ap-network-engineer`** - Network infrastructure for VPC/VNet design, VPN configuration, and load balancing
-- **`ap-observability-engineer`** - Observability for monitoring, logging, distributed tracing, and SLI/SLO implementation
-- **`ap-security-engineer`** - Security engineering for application security, penetration testing, and compliance auditing
-- **`ap-incident-responder`** - Incident response for security incident detection, containment, and recovery
+- **`devsecops-engineer`** - DevSecOps for CI/CD, infrastructure automation, containerization, and cloud platforms
+- **`network-engineer`** - Network infrastructure for VPC/VNet design, VPN configuration, and load balancing
+- **`observability-engineer`** - Observability for monitoring, logging, distributed tracing, and SLI/SLO implementation
+- **`security-engineer`** - Security engineering for application security, penetration testing, and compliance auditing
+- **`incident-responder`** - Incident response for security incident detection, containment, and recovery
 
 #### Specialized Engineering
-- **`ap-prompt-engineer`** - Prompt engineering for LLM optimization, prompt patterns, and AI product development
-- **`ap-technical-writer`** - Technical writing for documentation automation, README generation, and API documentation
-- **`ap-debugger`** - Debugging specialist for root cause analysis and error resolution
-- **`ap-researcher`** - Technology researcher for external research, best practices, and technology evaluation
-- **`ap-brainstormer`** - Solution brainstorming for evaluating architectural approaches and exploring solutions
-- **`ap-codebase-scout`** - Codebase exploration specialist for searching and analyzing codebases
-- **`ap-implementation-planner`** - Implementation planning for creating comprehensive step-by-step implementation plans
-- **`ap-use-case-data-analyzer`** - Analyzes how user-facing use cases map to data access patterns and architecture
-- **`ap-legacy-codebase-analyzer`** - Legacy codebase analysis for technical debt assessment and modernization
-- **`ap-cognitive-load-assessor`** - Calculates Cognitive Load Index (CLI) for codebases; 8-dimension scored report with recommendations
-- **`ap-cto-advisor`** - Technical leadership guidance for engineering teams, architecture decisions, and tech strategy
+- **`prompt-engineer`** - Prompt engineering for LLM optimization, prompt patterns, and AI product development
+- **`technical-writer`** - Technical writing for documentation automation, README generation, and API documentation
+- **`debugger`** - Debugging specialist for root cause analysis and error resolution
+- **`researcher`** - Technology researcher for external research, best practices, and technology evaluation
+- **`brainstormer`** - Solution brainstorming for evaluating architectural approaches and exploring solutions
+- **`codebase-scout`** - Codebase exploration specialist for searching and analyzing codebases
+- **`implementation-planner`** - Implementation planning for creating comprehensive step-by-step implementation plans
+- **`use-case-data-analyzer`** - Analyzes how user-facing use cases map to data access patterns and architecture
+- **`legacy-codebase-analyzer`** - Legacy codebase analysis for technical debt assessment and modernization
+- **`cognitive-load-assessor`** - Calculates Cognitive Load Index (CLI) for codebases; 8-dimension scored report with recommendations
+- **`cto-advisor`** - Technical leadership guidance for engineering teams, architecture decisions, and tech strategy
 
 ### Sales Agents
 
-- **`ap-sales-development-rep`** - Sales development for lead research, enrichment, qualification, and personalized outreach in B2B sales workflows
-- **`ap-account-executive`** - Account executive for meeting intelligence, sales call analysis, and pipeline analytics in B2B sales workflows
+- **`sales-development-rep`** - Sales development for lead research, enrichment, qualification, and personalized outreach in B2B sales workflows
+- **`account-executive`** - Account executive for meeting intelligence, sales call analysis, and pipeline analytics in B2B sales workflows
 
 ### Product Agents
 
-- **`ap-product-director`** - Strategic product leadership for OKR cascade, portfolio allocation, market analysis, vision setting, and team scaling
-- **`ap-product-manager`** - Product management for feature prioritization (RICE + NPV within portfolio buckets), customer discovery, PRD development, and roadmap planning
-- **`ap-product-analyst`** - Product analysis for user story structure, sprint readiness, and business process analysis
-- **`ap-ux-researcher`** - UX research and design for data-driven personas, journey mapping, and usability testing
-- **`ap-ux-designer`** - UX design for wireframe creation, user flow design, accessibility compliance, and developer handoff
-- **`ap-ui-designer`** - UI design system for design token generation, component documentation, and responsive design
+- **`product-director`** - Strategic product leadership for OKR cascade, portfolio allocation, market analysis, vision setting, and team scaling
+- **`product-manager`** - Product management for feature prioritization (RICE + NPV within portfolio buckets), customer discovery, PRD development, and roadmap planning
+- **`product-analyst`** - Product analysis for user story structure, sprint readiness, and business process analysis
+- **`ux-researcher`** - UX research and design for data-driven personas, journey mapping, and usability testing
+- **`ux-designer`** - UX design for wireframe creation, user flow design, accessibility compliance, and developer handoff
+- **`ui-designer`** - UI design system for design token generation, component documentation, and responsive design
 
 ## Agent Overview (Detailed)
 
 ### Development Process Agents
 
-#### `ap-tdd-reviewer`
+#### `tdd-reviewer`
 **Purpose**: TDD methodology coach and guardian - ensures TDD principles are followed by ALL developers.
 
 **Use when**:
@@ -124,7 +124,7 @@ These agents live directly in the `agents/` root directory:
 
 ---
 
-#### `ap-qa-engineer`
+#### `qa-engineer`
 **Purpose**: Quality automation specialist and testing infrastructure expert.
 
 **Use when**:
@@ -138,7 +138,7 @@ These agents live directly in the `agents/` root directory:
 
 ---
 
-#### `ap-ts-enforcer`
+#### `ts-enforcer`
 **Purpose**: Enforces TypeScript strict mode and best practices.
 
 **Use proactively when**:
@@ -154,7 +154,7 @@ These agents live directly in the `agents/` root directory:
 
 ---
 
-#### `ap-refactor-assessor`
+#### `refactor-assessor`
 **Purpose**: Assesses refactoring opportunities after tests pass (TDD's third step).
 
 **Use proactively when**:
@@ -171,21 +171,21 @@ These agents live directly in the `agents/` root directory:
 
 ---
 
-#### `ap-security-assessor`
+#### `security-assessor`
 **Purpose**: Assesses code or diffs for security issues and produces a structured findings report with criticality (Critical/High/Medium/Low). Does not implement fixes—only assesses and reports.
 
 **Use when**:
 - Pre-commit or PR: want a security assessment of changed code without full audits
 - Need a structured security findings report for triage or handoff
-- ap-code-reviewer delegates the security slice of a code review
+- code-reviewer delegates the security slice of a code review
 
-**Core responsibility**: Assess and report only; recommend ap-security-engineer (or ap-devsecops-engineer for infra) for remediation.
+**Core responsibility**: Assess and report only; recommend security-engineer (or devsecops-engineer for infra) for remediation.
 
 ---
 
 ### Code Review Agents
 
-#### `ap-code-reviewer`
+#### `code-reviewer`
 **Purpose**: Reviews code for quality, security, and best practices across all tech stacks.
 
 **Use proactively when**:
@@ -204,7 +204,7 @@ These agents live directly in the `agents/` root directory:
 
 ### Documentation & Knowledge Agents
 
-#### `ap-docs-reviewer`
+#### `docs-reviewer`
 **Purpose**: Creates and maintains world-class permanent documentation.
 
 **Use proactively when**:
@@ -222,7 +222,7 @@ These agents live directly in the `agents/` root directory:
 
 ---
 
-#### `ap-adr-writer`
+#### `adr-writer`
 **Purpose**: Creates Architecture Decision Records (ADRs) documenting significant architectural decisions with context, alternatives, and trade-offs.
 
 **Use proactively when**:
@@ -247,7 +247,7 @@ These agents live directly in the `agents/` root directory:
 
 ---
 
-#### `ap-learn`
+#### `learn`
 **Purpose**: Captures learnings, gotchas, and patterns into CLAUDE.md.
 
 **Use proactively when**:
@@ -267,7 +267,7 @@ These agents live directly in the `agents/` root directory:
 
 ### Analysis & Architecture Agents
 
-#### `ap-use-case-data-analyzer`
+#### `use-case-data-analyzer`
 **Purpose**: Analyzes how user-facing use cases map to underlying data access patterns and architectural implementation.
 
 **Use proactively when**:
@@ -286,7 +286,7 @@ These agents live directly in the `agents/` root directory:
 
 ---
 
-#### `ap-cognitive-load-assessor`
+#### `cognitive-load-assessor`
 **Purpose**: Calculates a Cognitive Load Index (CLI) score (0-1000) for a codebase using eight dimensions (structural complexity, nesting, volume, naming, coupling, cohesion, duplication, navigability), producing a scored report with per-dimension breakdown and recommendations.
 
 **Use when**:
@@ -298,7 +298,7 @@ These agents live directly in the `agents/` root directory:
 
 ---
 
-#### `ap-supabase-database-engineer`
+#### `supabase-database-engineer`
 **Purpose**: Supabase database specialist for schema design, migration management, RLS policy architecture, and database optimization.
 
 **Use proactively when**:
@@ -333,7 +333,7 @@ These agents live directly in the `agents/` root directory:
 
 ### Workflow & Planning Agents
 
-#### `ap-progress-assessor`
+#### `progress-assessor`
 **Purpose**: Manages progress through significant work using a three-document system.
 
 **Use proactively when**:
@@ -343,7 +343,7 @@ These agents live directly in the `agents/` root directory:
 
 **Use reactively when**:
 - Completing a step (update status report under `.docs/reports/`)
-- Discovering something (add via ap-learn to `.docs/AGENTS.md` or Learnings section in canonical doc)
+- Discovering something (add via learn to `.docs/AGENTS.md` or Learnings section in canonical doc)
 - Plan needs changing (propose changes, get approval)
 - End of work session (checkpoint)
 - Feature complete (merge learnings, update canonical docs as needed)
@@ -352,7 +352,7 @@ These agents live directly in the `agents/` root directory:
 - Use canonical docs under `.docs/`: plan(s) in `.docs/canonical/plans/`, status in `.docs/reports/`, learnings in `.docs/AGENTS.md` or "Learnings" sections in charter/roadmap/backlog/plan
 - Enforce small increments, TDD, commit approval
 - Never modify the plan without explicit user approval
-- Capture learnings as they occur (via ap-learn)
+- Capture learnings as they occur (via learn)
 - At end: orchestrate learning merge; no root-level PLAN.md/WIP.md/LEARNINGS.md
 
 **Canonical docs model** (see `.docs/AGENTS.md`):
@@ -361,7 +361,7 @@ These agents live directly in the `agents/` root directory:
 |----------|---------|---------|
 | `.docs/canonical/plans/plan-<endeavor>-*.md` | What we're doing (approved steps) | Only with user approval |
 | `.docs/reports/report-<endeavor>-status-*.md` | Where we are now (current state) | Constantly |
-| `.docs/AGENTS.md` + Learnings sections | What we discovered | As discoveries occur; merge via ap-learn |
+| `.docs/AGENTS.md` + Learnings sections | What we discovered | As discoveries occur; merge via learn |
 
 **Initiative naming:** All agents that create or reference roadmap, backlog, or plan under `.docs/canonical/` must follow the initiative naming convention: front matter **MUST** include `initiative: I<nn>-<ACRONYM>` and `initiative_name: <long-form>`. Use **References (by initiative)** in `.docs/AGENTS.md` to resolve the current plan for an initiative. See charter: `.docs/canonical/charters/charter-repo-initiative-naming-convention.md`.
 
@@ -376,27 +376,27 @@ These agents live directly in the `agents/` root directory:
 ### Orchestration Flow
 
 ```
-ap-progress-assessor (orchestrates)
+progress-assessor (orchestrates)
     │
     ├─► Uses: .docs/canonical/plans/, .docs/reports/, .docs/AGENTS.md + Learnings sections
     │
     ├─► For each step:
-    │   ├─→ ap-tdd-reviewer (RED-GREEN-REFACTOR)
-    │   ├─→ ap-ts-enforcer (before commits)
-    │   └─→ ap-refactor-assessor (after GREEN)
+    │   ├─→ tdd-reviewer (RED-GREEN-REFACTOR)
+    │   ├─→ ts-enforcer (before commits)
+    │   └─→ refactor-assessor (after GREEN)
     │
     ├─► For database/schema work:
-    │   └─→ ap-supabase-database-engineer (schema design, RLS policies, migration management)
+    │   └─→ supabase-database-engineer (schema design, RLS policies, migration management)
     │
     ├─► When decisions arise:
-    │   └─→ ap-adr-writer (architectural decisions → .docs/canonical/adrs/)
+    │   └─→ adr-writer (architectural decisions → .docs/canonical/adrs/)
     │
     ├─► Before merge:
-    │   └─→ ap-code-reviewer (comprehensive code review)
+    │   └─→ code-reviewer (comprehensive code review)
     │
     ├─► At end:
-    │   ├─→ ap-learn (merge learnings → .docs/AGENTS.md or canonical Learnings sections)
-    │   ├─→ ap-docs-reviewer (update permanent docs)
+    │   ├─→ learn (merge learnings → .docs/AGENTS.md or canonical Learnings sections)
+    │   ├─→ docs-reviewer (update permanent docs)
     │   └─→ Update/archive canonical docs as needed
     │
     └─► Related: `planning` skill (incremental work principles)
@@ -406,50 +406,50 @@ ap-progress-assessor (orchestrates)
 
 1. **Start significant work**
    - Load `planning` skill for principles
-   - Invoke `ap-progress-assessor`: Assesses if canonical plan and status report exist under `.docs/`, recommends creation
+   - Invoke `progress-assessor`: Assesses if canonical plan and status report exist under `.docs/`, recommends creation
    - Get approval for plan (under `.docs/canonical/plans/`)
 
 2. **For each step in plan**
    - RED: Write failing test (TDD non-negotiable)
    - GREEN: Minimal code to pass
-   - REFACTOR: Invoke `ap-refactor-assessor` to assess improvements
+   - REFACTOR: Invoke `refactor-assessor` to assess improvements
    - Update status report in `.docs/reports/` with progress
-   - Capture discoveries via ap-learn (`.docs/AGENTS.md` or Learnings section)
+   - Capture discoveries via learn (`.docs/AGENTS.md` or Learnings section)
    - **WAIT FOR COMMIT APPROVAL**
 
 3. **When plan needs changing**
-   - Invoke `ap-progress-assessor`: Propose changes
+   - Invoke `progress-assessor`: Propose changes
    - **Get approval before modifying plan**
 
 4. **When architectural decision arises**
-   - Capture learning; invoke `ap-adr-writer` if decision warrants permanent record (`.docs/canonical/adrs/`)
+   - Capture learning; invoke `adr-writer` if decision warrants permanent record (`.docs/canonical/adrs/`)
 
 5. **Before commits**
-   - Invoke `ap-ts-enforcer`: Verify TypeScript compliance
-   - Invoke `ap-tdd-reviewer`: Verify TDD compliance
+   - Invoke `ts-enforcer`: Verify TypeScript compliance
+   - Invoke `tdd-reviewer`: Verify TDD compliance
    - **Ask for commit approval**
 
 6. **End of session**
-   - Invoke `ap-progress-assessor`: Validate status report is up to date, report what's missing
+   - Invoke `progress-assessor`: Validate status report is up to date, report what's missing
 
 7. **Before creating PR**
-   - Invoke `ap-code-reviewer`: Self-review changes
+   - Invoke `code-reviewer`: Self-review changes
    - Fix any issues found
    - Create PR using `/pr` command
 
 8. **Feature complete**
-   - Invoke `ap-progress-assessor`: Verify all criteria met
+   - Invoke `progress-assessor`: Verify all criteria met
    - Review learnings for merge destinations (`.docs/AGENTS.md` or canonical Learnings sections)
-   - Invoke `ap-learn`: Merge gotchas/patterns → `.docs/AGENTS.md` or canonical docs
-   - Invoke `ap-adr-writer`: Create ADRs under `.docs/canonical/adrs/`
-   - Invoke `ap-docs-reviewer`: Update permanent docs
+   - Invoke `learn`: Merge gotchas/patterns → `.docs/AGENTS.md` or canonical docs
+   - Invoke `adr-writer`: Create ADRs under `.docs/canonical/adrs/`
+   - Invoke `docs-reviewer`: Update permanent docs
    - **Update/archive canonical docs as needed** (no root PLAN.md/WIP.md/LEARNINGS.md to delete)
 
 ## Key Distinctions
 
 ### Documentation Types
 
-| Aspect | ap-progress-assessor | ap-adr-writer | ap-learn | ap-docs-reviewer |
+| Aspect | progress-assessor | adr-writer | learn | docs-reviewer |
 |--------|------------------|-----|-------|---------------|
 | **Lifespan** | Plan/status in .docs/ (updated; may archive) | Permanent | Permanent | Permanent |
 | **Audience** | Current developer | Future developers | AI assistant + developers | Users + developers |
@@ -461,38 +461,38 @@ ap-progress-assessor (orchestrates)
 
 ### When to Use Which Documentation Agent
 
-**Use `ap-progress-assessor`** for:
+**Use `progress-assessor`** for:
 - "What am I working on right now?"
 - "What's the next step?"
 - "Where was I when I stopped yesterday?"
 - "What have we discovered so far?"
 - → Answer: Canonical plan and status under `.docs/`; learnings in `.docs/AGENTS.md` or Learnings sections
 
-**Use `ap-adr-writer`** for:
+**Use `adr-writer`** for:
 - "Why did we choose technology X over Y?"
 - "What were the trade-offs in this architectural decision?"
 - "Why is the system designed this way?"
 - → Answer: Permanent ADR in `.docs/canonical/adrs/`
 
-**Use `ap-learn`** for:
+**Use `learn`** for:
 - "What gotchas should I know about?"
 - "What patterns work well here?"
 - "How do I avoid this common mistake?"
 - → Answer: Permanent entry in `.docs/AGENTS.md` or canonical Learnings sections
 
-**Use `ap-docs-reviewer`** for:
+**Use `docs-reviewer`** for:
 - "How do I install this?"
 - "How do I use this API?"
 - "What features does this have?"
 - → Answer: Permanent `README.md`, guides, API docs
 
-**Use `ap-use-case-data-analyzer`** for:
+**Use `use-case-data-analyzer`** for:
 - "How does this feature work end-to-end?"
 - "What data patterns support this use case?"
 - "What's missing to implement this feature?"
 - → Answer: Analytical report mapping use cases to data patterns
 
-**Use `ap-supabase-database-engineer`** for:
+**Use `supabase-database-engineer`** for:
 - "How should I design this Supabase schema?"
 - "What RLS policies do I need?"
 - "How do I optimize this database structure?"
@@ -580,13 +580,13 @@ When creating a new agent specification:
 
 These agents work together to create a comprehensive development workflow:
 
-- **Analysis**: ap-use-case-data-analyzer maps use cases to implementation patterns
-- **Database**: ap-supabase-database-engineer designs schemas and manages migrations
-- **Quality**: ap-tdd-reviewer + ap-ts-enforcer ensure code quality
-- **Improvement**: ap-refactor-assessor optimizes code after tests pass
-- **Review**: ap-code-reviewer validates code before merge
-- **Knowledge**: ap-learn + ap-adr-writer + ap-docs-reviewer preserve knowledge
-- **Progress**: ap-progress-assessor validates progress tracking discipline with three-document model
+- **Analysis**: use-case-data-analyzer maps use cases to implementation patterns
+- **Database**: supabase-database-engineer designs schemas and manages migrations
+- **Quality**: tdd-reviewer + ts-enforcer ensure code quality
+- **Improvement**: refactor-assessor optimizes code after tests pass
+- **Review**: code-reviewer validates code before merge
+- **Knowledge**: learn + adr-writer + docs-reviewer preserve knowledge
+- **Progress**: progress-assessor validates progress tracking discipline with three-document model
 
 **Key workflow principles** (see `planning` skill for details):
 - All work in small, known-good increments

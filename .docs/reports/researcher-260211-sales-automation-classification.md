@@ -1,7 +1,7 @@
 # Research Report: B2B Sales Automation Classification for Agent Architecture
 
 **Date:** 2026-02-11
-**Researcher:** ap-researcher
+**Researcher:** researcher
 **Purpose:** Classify 15 Zapier automations by functional role to inform agent/skill architecture decisions
 
 ## Executive Summary
@@ -190,10 +190,10 @@ Research Nurture Book    Present      Close
 | Agent | Scope | Automations |
 |-------|-------|-------------|
 | `ap-sdr` (or `ap-sales-prospector`) | Prospecting, outreach, qualification, enrichment | #1, #3, #4, #9, #10, #11 |
-| `ap-account-executive` (or `ap-deal-manager`) | Meeting prep, follow-up, deal progression, proposals | #5, #6, #7, #13 |
+| `account-executive` (or `ap-deal-manager`) | Meeting prep, follow-up, deal progression, proposals | #5, #6, #7, #13 |
 | `ap-sales-ops` (or fold into existing ops agent) | Pipeline health, call coaching, analytics | #12, #14 |
-| `ap-content-creator` (or fold into marketing agent) | Content workflows | #15 |
-| `ap-product-analyst` (existing?) | Customer insights → product artifacts | #8 |
+| `content-creator` (or fold into marketing agent) | Content workflows | #15 |
+| `product-analyst` (existing?) | Customer insights → product artifacts | #8 |
 | Generic skill (not agent) | Email reply drafting | #2 |
 
 ### Shared Skills (used by both SDR and AE agents)
@@ -211,7 +211,7 @@ A combined agent would need to handle both volume-based prospecting AND single-d
 - Ambiguous context about which stage a task belongs to
 - Harder to test and validate outputs
 
-The SDR/AE split follows the same principle as having separate `ap-architect` and `ap-implementation-planner` agents -- different phases of the same pipeline need different expertise and patterns.
+The SDR/AE split follows the same principle as having separate `architect` and `implementation-planner` agents -- different phases of the same pipeline need different expertise and patterns.
 
 ### Counterargument Acknowledged
 
@@ -229,7 +229,7 @@ In small startups, one person does both SDR and AE work ("full-cycle AE"). If th
 
 ## Unresolved Questions
 
-1. **Does the repo already have an `ap-product-analyst` or similar agent** that could own automation #8? If so, #8 is just a new skill for that agent.
+1. **Does the repo already have an `product-analyst` or similar agent** that could own automation #8? If so, #8 is just a new skill for that agent.
 2. **How do these automations relate to existing agents in the catalog?** Some of the 56 existing agents may already cover adjacent ground (e.g., research, content creation).
 3. **Should "company research" be one skill or two?** SDR research (surface-level for outreach) differs from AE research (deep for deal strategy). Could be one skill with depth parameter, or two distinct skills.
 4. **What's the intended user persona?** If targeting B2B SaaS sales teams specifically, the SDR/AE split is canonical. If targeting broader "small business automation," a combined agent may be more intuitive.

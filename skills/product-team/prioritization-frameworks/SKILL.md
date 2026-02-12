@@ -20,11 +20,11 @@ use-cases:
 
 # === RELATIONSHIPS ===
 related-agents:
-  - ap-product-director
-  - ap-product-manager
-  - ap-senior-pm
-  - ap-agile-coach
-  - ap-product-analyst
+  - product-director
+  - product-manager
+  - senior-pm
+  - agile-coach
+  - product-analyst
 related-skills:
   - product-team/product-manager-toolkit
   - product-team/product-strategist

@@ -18,15 +18,15 @@ status: draft
 
 **Panel members:**
 
-- **ap-senior-pm** (strategic program / portfolio)
-- **ap-product-manager** (roadmap, backlog, PRD)
-- **ap-product-analyst** (requirements, analysis)
-- **ap-implementation-planner** (execution plans, steps)
+- **senior-pm** (strategic program / portfolio)
+- **product-manager** (roadmap, backlog, PRD)
+- **product-analyst** (requirements, analysis)
+- **implementation-planner** (execution plans, steps)
 - **ticket-management** (workflow, queries, hygiene)
 
 ---
 
-### ap-senior-pm
+### senior-pm
 
 Portfolio-level clarity requires one stable identifier per initiative that survives renames and is easy to communicate. Recommend:
 
@@ -36,7 +36,7 @@ Portfolio-level clarity requires one stable identifier per initiative that survi
 
 ---
 
-### ap-product-manager
+### product-manager
 
 Roadmap owns “what we’re going for”; backlog and plan are downstream. To avoid “which plan is latest” confusion:
 
@@ -46,7 +46,7 @@ Roadmap owns “what we’re going for”; backlog and plan are downstream. To a
 
 ---
 
-### ap-product-analyst
+### product-analyst
 
 Traceability from outcome → change → step is already partly there (roadmap outcome column in backlog, plan steps reference backlog items). The gap is naming at the initiative level:
 
@@ -56,7 +56,7 @@ Traceability from outcome → change → step is already partly there (roadmap o
 
 ---
 
-### ap-implementation-planner
+### implementation-planner
 
 Plans need to point at backlog items and roadmap outcomes without ambiguity. Current plan already references backlog by filename and uses “B5”, “B6” in step tables. That works as long as:
 

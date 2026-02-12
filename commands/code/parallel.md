@@ -33,7 +33,7 @@ Follow the standard implementation workflow:
 
 ### 3. Testing
 - Use `tester` for full suite (NO fake data/mocks)
-- If fail: `ap-debugger` → fix → repeat
+- If fail: `debugger` → fix → repeat
 
 ### 4. Code Review
 - Use `code-reviewer` for all changes

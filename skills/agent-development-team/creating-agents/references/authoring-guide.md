@@ -1,6 +1,6 @@
 # Agent Authoring Guide
 
-This reference consolidates detailed standards and patterns for creating ap-* agents. It pulls the doctrinal content out of `agents/ap-agent-author.md` so agent specs can remain concise.
+This reference consolidates detailed standards and patterns for creating agents in this repo. It pulls the doctrinal content out of `agents/agent-author.md` so agent specs can remain concise.
 
 ## Agent Type Classification System
 
@@ -8,10 +8,10 @@ Agents are classified into four distinct types based on their operational charac
 
 | Type | Color | Tools | Execution | Process Count | Model | Examples |
 |------|-------|-------|-----------|---------------|-------|----------|
-| **Strategic** | 🔵 Blue | Read, Write, Grep | Parallel (4-5) | 15-20 | opus/sonnet | ap-product-director, ap-ceo-advisor, ap-ux-researcher |
-| **Implementation** | 🟢 Green | Full tools | Coordinated (2-3) | 20-30 | sonnet | ap-fullstack-engineer, ap-backend-engineer, ap-frontend-engineer |
-| **Quality** | 🔴 Red | Full + Heavy Bash | Sequential (1) | 12-18 | sonnet | ap-code-reviewer, ap-qa-engineer, ap-security-engineer |
-| **Coordination** | 🟣 Purple | Read, Write, Grep | Lightweight | 10-15 | opus | ap-architect, ap-cto-advisor |
+| **Strategic** | 🔵 Blue | Read, Write, Grep | Parallel (4-5) | 15-20 | opus/sonnet | product-director, cto-advisor, ux-researcher |
+| **Implementation** | 🟢 Green | Full tools | Coordinated (2-3) | 20-30 | sonnet | fullstack-engineer, backend-engineer, frontend-engineer |
+| **Quality** | 🔴 Red | Full + Heavy Bash | Sequential (1) | 12-18 | sonnet | code-reviewer, qa-engineer, security-engineer |
+| **Coordination** | 🟣 Purple | Read, Write, Grep | Lightweight | 10-15 | opus | architect, cto-advisor |
 
 ### Agent Type Details
 
@@ -55,10 +55,10 @@ Agents are classified into four distinct types based on their operational charac
 
 ```bash
 # Safe to run together – low resource usage
-ap-product-director &
-ap-ux-researcher &
-ap-ceo-advisor &
-ap-product-marketer &
+product-director &
+ux-researcher &
+cto-advisor &
+product-marketer &
 wait
 ```
 
@@ -70,12 +70,12 @@ Why it's safe: strategic agents primarily read and analyze, with minimal resourc
 
 ```bash
 # Frontend and backend development with coordination
-ap-frontend-engineer --component user-dashboard &
-ap-backend-engineer --api user-endpoints &
+frontend-engineer --component user-dashboard &
+backend-engineer --api user-endpoints &
 wait
 
 # Ensure no file conflicts before continuing
-ap-fullstack-engineer --integrate
+fullstack-engineer --integrate
 ```
 
 Why it's safe: limited concurrency with explicit coordination prevents file conflicts.
@@ -86,9 +86,9 @@ Why it's safe: limited concurrency with explicit coordination prevents file conf
 
 ```bash
 # DANGEROUS – will cause system overload
-ap-qa-engineer --full-suite &
-ap-code-reviewer --deep-analysis &
-ap-security-engineer --full-scan &
+qa-engineer --full-suite &
+code-reviewer --deep-analysis &
+security-engineer --full-scan &
 # DON'T DO THIS – system will become unresponsive
 ```
 
@@ -152,7 +152,7 @@ Every agent file should use a consistent multi-section frontmatter schema:
 ```yaml
 ---
 # === CORE IDENTITY ===
-name: ap-agent-name                  # Required: ap-* prefix
+name: agent-name                     # Required: no ap- prefix (e.g. tdd-reviewer)
 title: Human Readable Title          # Display name
 description: One-line description    # Under ~300 chars
 domain: engineering                  # engineering, product, marketing, delivery, general
@@ -174,13 +174,13 @@ classification:
   model: opus                        # recommended model
 
 # === RELATIONSHIPS ===
-related-agents: [ap-frontend-engineer, ap-architect]  # Agents it might typically work with or who it might overlap with and pull in
+related-agents: [frontend-engineer, architect]  # Agents it might typically work with or who it might overlap with and pull in
 related-skills: [engineering-team/databases]          # Supplementary skills (consult skill docs)
 related-commands: [/review.code, /generate.tests]     # Commands it might typically invoke
 
 # === COLLABORATION ===
 collaborates-with:                                                                  # Agents it regularly delegates work to and works with extensively
-  - agent: ap-technical-writer
+  - agent: technical-writer
     purpose: Architecture diagram generation using Mermaid                          # Why/when it works with it
     required: optional                                                              # optional, recommended, required
     without-collaborator: "Documentation will be text-only without visual diagrams" # Limitations if it does not collaborate
@@ -264,7 +264,7 @@ Use `collaborates-with` to define optional dependencies between agents:
 
 ```yaml
 collaborates-with:
-  - agent: ap-technical-writer
+  - agent: technical-writer
     purpose: API documentation generation with sequence diagrams
     required: optional
     without-collaborator: "API documentation will be text-only without visual diagrams"
@@ -274,7 +274,7 @@ Field definitions:
 
 | Field | Required | Values | Description |
 |-------|----------|--------|-------------|
-| `agent` | Yes | ap-* name | Collaborating agent identifier |
+| `agent` | Yes | agent name | Collaborating agent identifier |
 | `purpose` | Yes | string | Why this collaboration exists |
 | `required` | No | optional, recommended, required | Dependency strength |
 | `without-collaborator` | No | string | What functionality is lost |
@@ -297,7 +297,7 @@ All skill references use the `../../` pattern from agent files:
    - **Usage:** `python ../../skills/marketing-team/content-creator/scripts/seo_optimizer.py article.md \"keyword\"`
 ```
 
-From `agents/ap-content-creator.md` (root) to `skills/marketing-team/content-creator/`:
+From `agents/content-creator.md` (root) to `skills/marketing-team/content-creator/`:
 
 - `agents/` (root) → `../` → repo root → `skills/marketing-team/content-creator/`
 
@@ -389,7 +389,7 @@ Before committing an agent:
 
 - [ ] YAML frontmatter valid (no parsing errors)
 - [ ] All required fields present (name, description, skills, domain, model, tools)
-- [ ] `ap-*` prefix used for agent naming
+- [ ] Agent naming consistent (no ap- prefix)
 - [ ] Relative paths resolve correctly (`../../` pattern)
 - [ ] Skill location documented and accessible
 - [ ] Python tools referenced with correct paths
@@ -415,7 +415,7 @@ Before committing an agent:
 **Learning:** Agents should be **thin orchestrators** (200-300 lines), not comprehensive documentation repositories.
 
 **What we learned:**
-- Initial `ap-agent-author` was 1188 lines with all doctrine embedded
+- Initial `agent-author` was 1188 lines with all doctrine embedded
 - Refactored to 237 lines as a pure orchestrator
 - Detailed standards moved to skill references (`references/authoring-guide.md`)
 - Templates and checklists moved to skill assets (`assets/`)
@@ -458,7 +458,7 @@ skills/agent-development-team/creating-agents/
 
 **What happened:**
 
-- Attempted to delete ~900 lines of duplicated content from `ap-agent-author.md`
+- Attempted to delete ~900 lines of duplicated content from `agent-author.md`
 - `ApplyPatch` failed with "Failed to find context" errors
 - Multiple attempts with different context windows still failed
 
@@ -479,7 +479,7 @@ skills/agent-development-team/creating-agents/
 - **Agent authoring learnings** → `skills/agent-development-team/creating-agents/references/authoring-guide.md` (this file)
 - **Agent refactoring learnings** → `skills/agent-development-team/refactoring-agents/references/refactor-guide.md`
 - **General codebase learnings** → Project-specific CLAUDE.md (if exists) or appropriate skill references
-- **Architectural decisions** → ADRs via `ap-adr-writer`
+- **Architectural decisions** → ADRs via `adr-writer`
 
-**Note:** The `ap-learn` agent should be updated to route learnings to appropriate skill references based on domain, not just a single CLAUDE.md file.
+**Note:** The `learn` agent should be updated to route learnings to appropriate skill references based on domain, not just a single CLAUDE.md file.
 

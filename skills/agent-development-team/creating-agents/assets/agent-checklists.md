@@ -1,6 +1,6 @@
 # Agent Authoring Checklists
 
-Use these checklists when creating or updating ap-* agents.
+Use these checklists when creating or updating agents.
 
 ## Authoring Checklist
 
@@ -14,7 +14,7 @@ Use these checklists when creating or updating ap-* agents.
 ## Frontmatter Checklist
 
 - [ ] YAML parses without error
-- [ ] `name` starts with `ap-` prefix
+- [ ] `name` follows agent naming (no ap- prefix)
 - [ ] `title` is human-readable
 - [ ] `description` under ~300 chars, concrete, non-marketing fluff
 - [ ] `domain` and `subdomain` set correctly
@@ -43,14 +43,14 @@ Use these checklists when creating or updating ap-* agents.
 ## Validation Checklist
 
 **Automated Validation (Run First):**
-- [ ] **Static validation passed**: `python3 scripts/validate_agent.py agents/ap-agent-name.md` or `/agent/validate ap-agent-name`
+- [ ] **Static validation passed**: `python3 scripts/validate_agent.py agents/agent-name.md` or `/agent/validate agent-name`
   - ✅ YAML frontmatter valid
   - ✅ All required fields present
   - ✅ Skills format correct (array, not string)
   - ✅ All skill paths exist and resolve
   - ✅ Core skills indexed in body
   - ✅ Classification type/color mapping correct
-- [ ] **Roll-call test passed**: `/agent/roll-call ap-agent-name` (verify agent loads in Cursor)
+- [ ] **Roll-call test passed**: `/agent/roll-call agent-name` (verify agent loads in Cursor)
   - ✅ Agent loads successfully
   - ✅ Skills accessible
   - ✅ Agent follows documented patterns

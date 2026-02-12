@@ -31,9 +31,9 @@ timeframe: 2026-02-10
 
 ## Check: Agents reference initiative naming
 
-**Phase 3 core agents (B07-B12):** ap-progress-assessor, ap-implementation-planner, ap-product-manager, ap-product-analyst, ap-product-director, ap-senior-pm, ap-architect, ap-adr-writer, ap-learn, ap-docs-reviewer.
+**Phase 3 core agents (B07-B12):** progress-assessor, implementation-planner, product-manager, product-analyst, product-director, senior-pm, architect, adr-writer, learn, docs-reviewer.
 
-**Phase 3 remaining agents (B13):** ap-qa-engineer, ap-ux-researcher, ap-technical-writer, ap-seo-strategist, ap-legacy-codebase-analyzer, ap-cto-advisor, ap-code-reviewer, ap-observability-engineer, ap-devsecops-engineer, ap-brainstormer.
+**Phase 3 remaining agents (B13):** qa-engineer, ux-researcher, technical-writer, seo-strategist, legacy-codebase-analyzer, cto-advisor, code-reviewer, observability-engineer, devsecops-engineer, brainstormer.
 
 **Total: 20 agents updated.** agents/README.md includes initiative naming.
 

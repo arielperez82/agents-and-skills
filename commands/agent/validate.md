@@ -13,10 +13,10 @@ Comprehensive validation of agent specifications against the authoring standard.
 
 ```bash
 # Validate specific agent
-/agent/validate ap-frontend-engineer
+/agent/validate frontend-engineer
 
 # Validate from file path
-python3 skills/agent-development-team/creating-agents/scripts/validate_agent.py agents/ap-frontend-engineer.md
+python3 skills/agent-development-team/creating-agents/scripts/validate_agent.py agents/frontend-engineer.md
 
 # Validate all agents
 python3 skills/agent-development-team/creating-agents/scripts/validate_agent.py --all
@@ -63,7 +63,7 @@ python3 skills/agent-development-team/creating-agents/scripts/validate_agent.py 
 **Pass:**
 ```
 ============================================================
-  ap-frontend-engineer.md
+  frontend-engineer.md
 ============================================================
 
   All checks passed!
@@ -100,7 +100,7 @@ python3 skills/agent-development-team/creating-agents/scripts/validate_agent.py 
 
 ## When to Run
 
-- After creating a new agent (part of `ap-agent-author` workflow)
+- After creating a new agent (part of `agent-author` workflow)
 - After modifying an agent's frontmatter or body
 - After renaming, moving, or deleting skills (batch validate with `--all`)
 - Before committing agent changes
@@ -108,7 +108,7 @@ python3 skills/agent-development-team/creating-agents/scripts/validate_agent.py 
 
 ## Integration
 
-- **Agent:** `ap-agent-validator` — the agent that orchestrates this validation
+- **Agent:** `agent-validator` — the agent that orchestrates this validation
 - **Script:** `skills/agent-development-team/creating-agents/scripts/validate_agent.py`
 - **Manual checklist:** `skills/agent-development-team/creating-agents/assets/agent-checklists.md`
 - **Authoring guide:** `skills/agent-development-team/creating-agents/references/authoring-guide.md`

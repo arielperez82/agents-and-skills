@@ -22,7 +22,7 @@ updated: 2026-02-10
 
 ## Agent override (product / architect / planning agents)
 
-When invoking **ap-product-director**, **ap-product-manager**, **ap-product-analyst**, **ap-senior-pm**, **ap-architect**, or **ap-implementation-planner** for work on this migration (or any work that touches charter, roadmap, backlog, or plan):
+When invoking **product-director**, **product-manager**, **product-analyst**, **senior-pm**, **architect**, or **implementation-planner** for work on this migration (or any work that touches charter, roadmap, backlog, or plan):
 
 **Tell them to IGNORE their default doc locations.** Instruct them to:
 
@@ -140,26 +140,26 @@ Use the earlier audit. Summary mapping:
 
 | Task | Scope | Notes |
 |------|--------|--------|
-| 2.1 | ap-progress-assessor | Remove PLAN.md / WIP.md / LEARNINGS.md. Describe assessing `.docs/canonical/plans/plan-<endeavor>-*.md`, `.docs/reports/report-<endeavor>-status-*.md`, and learnings in AGENTS.md + canonical "Learnings" sections. |
-| 2.2 | ap-adr-writer | Write ADRs to `.docs/canonical/adrs/adr-YYYYMMDD-<subject>.md`. Update examples and "Keep docs/adr/README.md" to optional `.docs/canonical/adrs/index.md`. Remove WIP.md reference; point to plan or report. |
-| 2.3 | ap-implementation-planner | Reference `./docs/development-rules.md` → `.docs/AGENTS.md` or `.docs/canonical/ops/ops-<endeavor>-development-rules.md`. Plan output → `.docs/canonical/plans/plan-<endeavor>-<subject>[-<timeframe>].md`. |
-| 2.4 | ap-qa-engineer | test-plan → section in plan or `.docs/canonical/plans/plan-<endeavor>-test-<timeframe>.md`; user-journeys → section or report. |
-| 2.5 | ap-product-analyst | improvement-plan, process-charter, sprint-backlog, stakeholder-analysis, etc. → canonical plan/backlog/charter sections or `.docs/canonical/` with naming grammar. Session output naming can stay or become `report-<endeavor>-session-<timestamp>.md` under `.docs/reports/`. |
-| 2.6 | ap-ux-researcher | research/usability plans → `.docs/canonical/plans/plan-<endeavor>-research-<subject>[-<timeframe>].md` or sections in a single plan. |
-| 2.7 | ap-senior-pm | portfolio-roadmap, communication-plan, project-charter, risk-register, etc. → charter/roadmap/backlog/plan under `.docs/canonical/` with naming grammar. Reports → `.docs/reports/report-<endeavor>-<topic>-<timeframe>.md`. |
-| 2.8 | ap-demand-gen-specialist | campaign plan → `.docs/canonical/plans/plan-<endeavor>-campaign-<timeframe>.md` (e.g. plan-repo-campaign-2026-q4.md). |
-| 2.9 | ap-cto-advisor | board_email_template → report or ops doc under `.docs/reports/` or `.docs/canonical/ops/`. ADR output → `.docs/canonical/adrs/adr-YYYYMMDD-<subject>.md`. |
-| 2.10 | ap-legacy-codebase-analyzer | assessment-report, executive-summary, modernization-plan, SUMMARY, ASSESSMENT_SUMMARY → `.docs/canonical/assessments/assessment-<endeavor>-<subject>-<date>.md`. Reports → `.docs/reports/report-<endeavor>-<topic>-<timeframe>.md`. |
-| 2.11 | ap-seo-strategist | roadmap → `.docs/canonical/roadmaps/roadmap-<endeavor>-seo-<timeframe>.md`. |
-| 2.12 | ap-product-director | strategic roadmap → `.docs/canonical/roadmaps/roadmap-<endeavor>-<scope>-<timeframe>.md`. |
-| 2.13 | ap-code-reviewer | pr-review → `.docs/canonical/reviews/review-<endeavor>-commit-<hash>.md` (commit-level; hash from context). |
-| 2.14 | ap-observability-engineer | weekly-review → `.docs/reports/report-<endeavor>-weekly-<timeframe>.md`. Other outputs (slo-definition, error-budget-policy, etc.) → `.docs/canonical/ops/` or sections in plan/assessment. |
-| 2.15 | ap-architect | assessment-summary → `.docs/canonical/assessments/assessment-<endeavor>-<subject>-<date>.md`. Architecture docs → `.docs/canonical/` (charter/ops) or `.docs/reports/` as appropriate. |
-| 2.16 | ap-devsecops-engineer | summary → `.docs/reports/report-<endeavor>-security-audit-<timeframe>.md`. |
-| 2.17 | ap-technical-writer | Audit/release outputs → `.docs/reports/report-<endeavor>-audit-<timeframe>.md`. README/CHANGELOG/API at project root unchanged unless we decide otherwise; no uppercase coordination files. |
-| 2.18 | ap-docs-reviewer | Glob ` .docs/**/*.md` (and optionally project root docs); treat `.docs/canonical/**` as authoritative. |
-| 2.19 | ap-learn | Route layer 1 → `.docs/AGENTS.md`; layer 2 → assessment or "Learnings" section in charter/roadmap/backlog/plan; layer 3 → skill/command assets. Bridge rule: cross-agent behavior change → short entry in AGENTS.md + pointer. |
-| 2.20 | Remaining agents | ap-dotnet-engineer, ap-network-engineer, ap-incident-responder, ap-java-engineer, ap-data-engineer, ap-agent-author, ap-ui-designer, ap-debugger, ap-agile-coach, ap-prompt-engineer, ap-content-creator, etc.: any .md output that is "status/assessment/plan/roadmap/backlog/review" → apply naming grammar under `.docs/`. Specialist outputs (e.g. security-report, performance-report) → report or assessment under `.docs/reports/` or `.docs/canonical/assessments/`. |
+| 2.1 | progress-assessor | Remove PLAN.md / WIP.md / LEARNINGS.md. Describe assessing `.docs/canonical/plans/plan-<endeavor>-*.md`, `.docs/reports/report-<endeavor>-status-*.md`, and learnings in AGENTS.md + canonical "Learnings" sections. |
+| 2.2 | adr-writer | Write ADRs to `.docs/canonical/adrs/adr-YYYYMMDD-<subject>.md`. Update examples and "Keep docs/adr/README.md" to optional `.docs/canonical/adrs/index.md`. Remove WIP.md reference; point to plan or report. |
+| 2.3 | implementation-planner | Reference `./docs/development-rules.md` → `.docs/AGENTS.md` or `.docs/canonical/ops/ops-<endeavor>-development-rules.md`. Plan output → `.docs/canonical/plans/plan-<endeavor>-<subject>[-<timeframe>].md`. |
+| 2.4 | qa-engineer | test-plan → section in plan or `.docs/canonical/plans/plan-<endeavor>-test-<timeframe>.md`; user-journeys → section or report. |
+| 2.5 | product-analyst | improvement-plan, process-charter, sprint-backlog, stakeholder-analysis, etc. → canonical plan/backlog/charter sections or `.docs/canonical/` with naming grammar. Session output naming can stay or become `report-<endeavor>-session-<timestamp>.md` under `.docs/reports/`. |
+| 2.6 | ux-researcher | research/usability plans → `.docs/canonical/plans/plan-<endeavor>-research-<subject>[-<timeframe>].md` or sections in a single plan. |
+| 2.7 | senior-pm | portfolio-roadmap, communication-plan, project-charter, risk-register, etc. → charter/roadmap/backlog/plan under `.docs/canonical/` with naming grammar. Reports → `.docs/reports/report-<endeavor>-<topic>-<timeframe>.md`. |
+| 2.8 | demand-gen-specialist | campaign plan → `.docs/canonical/plans/plan-<endeavor>-campaign-<timeframe>.md` (e.g. plan-repo-campaign-2026-q4.md). |
+| 2.9 | cto-advisor | board_email_template → report or ops doc under `.docs/reports/` or `.docs/canonical/ops/`. ADR output → `.docs/canonical/adrs/adr-YYYYMMDD-<subject>.md`. |
+| 2.10 | legacy-codebase-analyzer | assessment-report, executive-summary, modernization-plan, SUMMARY, ASSESSMENT_SUMMARY → `.docs/canonical/assessments/assessment-<endeavor>-<subject>-<date>.md`. Reports → `.docs/reports/report-<endeavor>-<topic>-<timeframe>.md`. |
+| 2.11 | seo-strategist | roadmap → `.docs/canonical/roadmaps/roadmap-<endeavor>-seo-<timeframe>.md`. |
+| 2.12 | product-director | strategic roadmap → `.docs/canonical/roadmaps/roadmap-<endeavor>-<scope>-<timeframe>.md`. |
+| 2.13 | code-reviewer | pr-review → `.docs/canonical/reviews/review-<endeavor>-commit-<hash>.md` (commit-level; hash from context). |
+| 2.14 | observability-engineer | weekly-review → `.docs/reports/report-<endeavor>-weekly-<timeframe>.md`. Other outputs (slo-definition, error-budget-policy, etc.) → `.docs/canonical/ops/` or sections in plan/assessment. |
+| 2.15 | architect | assessment-summary → `.docs/canonical/assessments/assessment-<endeavor>-<subject>-<date>.md`. Architecture docs → `.docs/canonical/` (charter/ops) or `.docs/reports/` as appropriate. |
+| 2.16 | devsecops-engineer | summary → `.docs/reports/report-<endeavor>-security-audit-<timeframe>.md`. |
+| 2.17 | technical-writer | Audit/release outputs → `.docs/reports/report-<endeavor>-audit-<timeframe>.md`. README/CHANGELOG/API at project root unchanged unless we decide otherwise; no uppercase coordination files. |
+| 2.18 | docs-reviewer | Glob ` .docs/**/*.md` (and optionally project root docs); treat `.docs/canonical/**` as authoritative. |
+| 2.19 | learn | Route layer 1 → `.docs/AGENTS.md`; layer 2 → assessment or "Learnings" section in charter/roadmap/backlog/plan; layer 3 → skill/command assets. Bridge rule: cross-agent behavior change → short entry in AGENTS.md + pointer. |
+| 2.20 | Remaining agents | dotnet-engineer, network-engineer, incident-responder, java-engineer, data-engineer, agent-author, ui-designer, debugger, agile-coach, prompt-engineer, content-creator, etc.: any .md output that is "status/assessment/plan/roadmap/backlog/review" → apply naming grammar under `.docs/`. Specialist outputs (e.g. security-report, performance-report) → report or assessment under `.docs/reports/` or `.docs/canonical/assessments/`. |
 
 **Exit criteria:** All agents that read/write coordination or canonical-style artifacts reference only `.docs/` and use the agreed naming grammar. No references to PLAN.md, WIP.md, LEARNINGS.md, or ad-hoc names like `roadmap.md`, `summary.md`.
 
@@ -172,10 +172,10 @@ Use the earlier audit. Summary mapping:
 | Task | Notes |
 |------|--------|
 | 3.1 | Add "Learnings (three layers)" and "ADR placement" to `.docs/AGENTS.md` (concise). Include bridge rule and rule that domain learnings that change next actions must land in canonical docs. |
-| 3.2 | ap-learn: document routing rules (layer 1 → AGENTS.md, layer 2 → assessment or Learnings section, layer 3 → skills); bridge rule. |
-| 3.3 | ap-adr-writer: ADR location `.docs/canonical/adrs/`, naming `adr-YYYYMMDD-<subject>.md`, required front matter (type, endeavor, status, date, supersedes, superseded_by). Accepted ADRs that change constraints → update Charter/Plan/Backlog links. |
-| 3.4 | ap-progress-assessor: when assessing "learnings", check AGENTS.md + canonical "Learnings" sections and assessments; no LEARNINGS.md file. |
-| 3.5 | ap-docs-reviewer: treat `.docs/canonical/` as canonical; ensure assessments have backlog/charter update implications when learnings change next actions. |
+| 3.2 | learn: document routing rules (layer 1 → AGENTS.md, layer 2 → assessment or Learnings section, layer 3 → skills); bridge rule. |
+| 3.3 | adr-writer: ADR location `.docs/canonical/adrs/`, naming `adr-YYYYMMDD-<subject>.md`, required front matter (type, endeavor, status, date, supersedes, superseded_by). Accepted ADRs that change constraints → update Charter/Plan/Backlog links. |
+| 3.4 | progress-assessor: when assessing "learnings", check AGENTS.md + canonical "Learnings" sections and assessments; no LEARNINGS.md file. |
+| 3.5 | docs-reviewer: treat `.docs/canonical/` as canonical; ensure assessments have backlog/charter update implications when learnings change next actions. |
 
 **Exit criteria:** AGENTS.md and relevant agents consistently implement the three-layer learnings model and ADR placement.
 
@@ -209,7 +209,7 @@ Use the earlier audit. Summary mapping:
 
 **Exit criteria:** Grep clean for old names; migration checklist complete; redirects in place if needed.
 
-**Phase 5 status (complete):** Grep run; remaining references to `PLAN.md`/`WIP.md`/`LEARNINGS.md` are in ap-progress-assessor and README as "do not use" or in phase-0-check as legacy fallback. `docs/adr/` links in ap-docs-reviewer updated to `.docs/canonical/adrs/`. Bootstrap/docs commands that create `./docs/project-roadmap.md` or `codebase-summary.md` left as-is for backward compatibility; when a project adopts artifact conventions, use `.docs/canonical/roadmaps/` and `.docs/reports/` per charter. Validation section added to `.docs/AGENTS.md`.
+**Phase 5 status (complete):** Grep run; remaining references to `PLAN.md`/`WIP.md`/`LEARNINGS.md` are in progress-assessor and README as "do not use" or in phase-0-check as legacy fallback. `docs/adr/` links in docs-reviewer updated to `.docs/canonical/adrs/`. Bootstrap/docs commands that create `./docs/project-roadmap.md` or `codebase-summary.md` left as-is for backward compatibility; when a project adopts artifact conventions, use `.docs/canonical/roadmaps/` and `.docs/reports/` per charter. Validation section added to `.docs/AGENTS.md`.
 
 ---
 

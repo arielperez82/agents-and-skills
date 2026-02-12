@@ -13,7 +13,7 @@ updated: 2026-02-11
 
 - Equip the repo with sales domain coverage via two new agents and six new skills under a `sales-team/` directory.
 - Codify patterns extracted from 15 Zapier automation definitions, abstracting away vendor-specific integrations (HubSpot, Gmail, Slack, Google Sheets) into tool-agnostic input/output contracts.
-- Fill the gap between marketing-side demand generation (ap-demand-gen-specialist) and product-side customer insights (ap-product-manager) with dedicated sales execution agents.
+- Fill the gap between marketing-side demand generation (demand-gen-specialist) and product-side customer insights (product-manager) with dedicated sales execution agents.
 
 ## Problem statement
 
@@ -27,28 +27,28 @@ The current agent catalog covers product management, engineering, delivery, UX, 
 6. **No pipeline analytics** -- daily deal health monitoring, risk flagging, coaching insights.
 
 Existing agents do NOT cover these:
-- `ap-demand-gen-specialist` is marketing demand gen (paid channels, CAC, funnels) -- not 1:1 sales execution.
-- `ap-product-marketer` is positioning and GTM strategy -- not daily meeting prep or call follow-up.
-- `ap-product-manager` has customer interview analysis but not sales-focused call-to-PRD workflows.
+- `demand-gen-specialist` is marketing demand gen (paid channels, CAC, funnels) -- not 1:1 sales execution.
+- `product-marketer` is positioning and GTM strategy -- not daily meeting prep or call follow-up.
+- `product-manager` has customer interview analysis but not sales-focused call-to-PRD workflows.
 
 ## Primary approach
 
 **Two new agents reflecting the B2B sales funnel split:**
 
-### ap-sales-development-rep (SDR)
+### sales-development-rep (SDR)
 Top-of-funnel: lead research, enrichment, qualification, personalized outreach.
 - **Core skills:** lead-research, lead-qualification, sales-outreach
 - **Classification:** implementation / green / sales
 
-### ap-account-executive (AE)
+### account-executive (AE)
 Mid-to-bottom funnel: meeting preparation, call follow-up, call evaluation, pipeline management.
 - **Core skills:** meeting-intelligence, sales-call-analysis, pipeline-analytics
 - **Related skills:** lead-research (for meeting prep research)
 - **Classification:** implementation / green / sales
 
 ### Existing agent enhancements
-- `ap-product-manager` -- add call-to-PRD workflow reference (Zapier #8)
-- `ap-content-creator` -- add trending-content-pipeline reference (Zapier #15)
+- `product-manager` -- add call-to-PRD workflow reference (Zapier #8)
+- `content-creator` -- add trending-content-pipeline reference (Zapier #15)
 
 ### Integration abstraction
 Each skill defines an Input/Output Contract section:
@@ -62,27 +62,27 @@ Agents are the intelligence layer; users or their automation platforms handle in
 
 | # | Automation | Disposition | Target |
 |---|-----------|-------------|--------|
-| 1 | ABM email personalization | BUILD | ap-sales-development-rep / lead-research + sales-outreach |
+| 1 | ABM email personalization | BUILD | sales-development-rep / lead-research + sales-outreach |
 | 2 | Email reply drafts | DISCARD | Generic LLM capability, not domain-specific |
 | 3 | Lead capture and follow-up | DISCARD | Pure integration orchestration, no intelligence to codify |
-| 4 | Sales lead emails | BUILD | ap-sales-development-rep / lead-research + sales-outreach |
-| 5 | Biz dev call briefer | BUILD | ap-account-executive / meeting-intelligence |
-| 6 | Call follow-up email | BUILD | ap-account-executive / meeting-intelligence |
+| 4 | Sales lead emails | BUILD | sales-development-rep / lead-research + sales-outreach |
+| 5 | Biz dev call briefer | BUILD | account-executive / meeting-intelligence |
+| 6 | Call follow-up email | BUILD | account-executive / meeting-intelligence |
 | 7 | Call follow-up CRM proposals | REFERENCE | Proposal detection pattern in meeting-intelligence |
-| 8 | Customer call to PRD | EXTEND | ap-product-manager enhancement |
-| 9 | Enterprise lead qualification | BUILD | ap-sales-development-rep / lead-qualification |
-| 10 | Lead background search | BUILD | ap-sales-development-rep / lead-research |
-| 11 | Lead enrichment | BUILD | ap-sales-development-rep / lead-research |
-| 12 | Sales call analysis | BUILD | ap-account-executive / sales-call-analysis |
-| 13 | Sales prep | BUILD | ap-account-executive / meeting-intelligence |
-| 14 | Pipeline health monitor | BUILD | ap-account-executive / pipeline-analytics |
-| 15 | Viral content creator | EXTEND | ap-content-creator enhancement |
+| 8 | Customer call to PRD | EXTEND | product-manager enhancement |
+| 9 | Enterprise lead qualification | BUILD | sales-development-rep / lead-qualification |
+| 10 | Lead background search | BUILD | sales-development-rep / lead-research |
+| 11 | Lead enrichment | BUILD | sales-development-rep / lead-research |
+| 12 | Sales call analysis | BUILD | account-executive / sales-call-analysis |
+| 13 | Sales prep | BUILD | account-executive / meeting-intelligence |
+| 14 | Pipeline health monitor | BUILD | account-executive / pipeline-analytics |
+| 15 | Viral content creator | EXTEND | content-creator enhancement |
 
 **Summary:** 10 BUILD, 2 EXTEND, 1 REFERENCE, 2 DISCARD.
 
 ## Constraints (non-negotiable)
 
-- **Two new agents maximum.** Pipeline analytics and call analysis are skills on ap-account-executive, not a separate ap-sales-manager.
+- **Two new agents maximum.** Pipeline analytics and call analysis are skills on account-executive, not a separate sales-manager agent.
 - **No vendor-specific integrations.** All skills use tool-agnostic language (CRM, email, messaging, calendar -- never HubSpot, Gmail, Slack, Google Calendar).
 - **Skills are knowledge, not connectors.** Skills teach methodology, frameworks, and templates. They do not execute API calls.
 - **All canonical artifacts under `.docs/`** per I01-ACM conventions.
@@ -91,8 +91,8 @@ Agents are the intelligence layer; users or their automation platforms handle in
 ## Non-goals
 
 - Building CRM/email/calendar integration connectors or automation scripts.
-- Creating a separate ap-sales-manager agent (skills on AE cover this).
-- Replacing ap-demand-gen-specialist's marketing acquisition scope.
+- Creating a separate sales-manager agent (skills on AE cover this).
+- Replacing demand-gen-specialist's marketing acquisition scope.
 - Codifying email reply drafting (#2) or lead capture workflows (#3).
 - Migrating raw Zapier files as references (content is authored fresh, abstracting patterns).
 
@@ -105,9 +105,9 @@ Agents are the intelligence layer; users or their automation platforms handle in
 
 ## Success measures
 
-- Two new agents (`ap-sales-development-rep`, `ap-account-executive`) pass agent validation.
+- Two new agents (`sales-development-rep`, `account-executive`) pass agent validation.
 - Six new skills exist under `skills/sales-team/` with SKILL.md content.
-- `ap-product-manager` and `ap-content-creator` have updated references.
+- `product-manager` and `content-creator` have updated references.
 - All catalog READMEs (agents, skills) are updated.
 - No Zapier-specific or vendor-specific integration references in any created content.
 

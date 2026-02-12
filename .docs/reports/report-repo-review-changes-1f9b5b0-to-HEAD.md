@@ -2,11 +2,11 @@
 
 **Scope:** All commits after `1f9b5b0b8996e70001a8f233520aca65c149d9b4` (artifact conventions migration Phases 2–5).  
 **Diff:** 32 files (agents, commands, .docs, skills). Markdown only; no TypeScript/production code.  
-**Subagents run:** ap-tdd-reviewer, ap-ts-enforcer (skipped), ap-refactor-assessor, ap-code-reviewer, ap-docs-reviewer, ap-progress-assessor.
+**Subagents run:** tdd-reviewer, ts-enforcer (skipped), refactor-assessor, code-reviewer, docs-reviewer, progress-assessor.
 
 ---
 
-## 1. ap-tdd-reviewer
+## 1. tdd-reviewer
 
 **Result:** N/A (pass).
 
@@ -14,7 +14,7 @@ No production code or test files in scope. Changes are agent/command instruction
 
 ---
 
-## 2. ap-ts-enforcer
+## 2. ts-enforcer
 
 **Result:** Skipped.
 
@@ -22,7 +22,7 @@ No TypeScript (or JavaScript) in the diff.
 
 ---
 
-## 3. ap-refactor-assessor
+## 3. refactor-assessor
 
 **Result:** No refactoring needed.
 
@@ -33,13 +33,13 @@ No TypeScript (or JavaScript) in the diff.
 
 ---
 
-## 4. ap-code-reviewer
+## 4. code-reviewer
 
 **Result:** One fix recommended; otherwise merge-ready.
 
 **Issue (fixed):**
 
-- **agents/ap-network-engineer.md (around line 435):** Script writes the audit report to `.docs/reports/report-repo-network-audit-$(date +%Y-%m-%d).md` but the next line grepped `audit-$(date +%Y%m%d).md`. Fixed: grep now uses `.docs/reports/report-repo-network-audit-$(date +%Y-%m-%d).md`.
+- **agents/network-engineer.md (around line 435):** Script writes the audit report to `.docs/reports/report-repo-network-audit-$(date +%Y-%m-%d).md` but the next line grepped `audit-$(date +%Y%m%d).md`. Fixed: grep now uses `.docs/reports/report-repo-network-audit-$(date +%Y-%m-%d).md`.
 
 **Other:**
 
@@ -49,7 +49,7 @@ No TypeScript (or JavaScript) in the diff.
 
 ---
 
-## 5. ap-docs-reviewer
+## 5. docs-reviewer
 
 **Result:** Pass.
 
@@ -58,20 +58,20 @@ No TypeScript (or JavaScript) in the diff.
 - **Root AGENTS.md:** Short pointer to `.docs/AGENTS.md` is correct.
 - **Agent/command edits:** Instructions consistently point to `.docs/` and naming grammar; legacy paths documented as fallback where intended.
 - **Skills (ADR, technical-writer):** Convention note (use `.docs/canonical/adrs/` when using artifact conventions) is correct and discoverable.
-- **ap-docs-reviewer:** Learnings/assessment rule and Glob preference for `.docs/**/*.md` are aligned with charter.
+- **docs-reviewer:** Learnings/assessment rule and Glob preference for `.docs/**/*.md` are aligned with charter.
 
 No missing cross-references or broken links in the diff.
 
 ---
 
-## 6. ap-progress-assessor
+## 6. progress-assessor
 
 **Result:** Pass (plan-aligned).
 
 - **Plan alignment:** Changes implement Phases 2–5 of plan-repo-artifact-conventions-migration. All agents in the migration checklist are updated to `.docs/` paths; commands and root AGENTS.md point to `.docs/`; Phase 5 validation and cleanup is done.
 - **Canonical docs:** Plan and checklist include Phase 2 and Phase 5 status; exit criteria for Phase 5 are documented.
 - **Progress tracking:** No separate status report required for this review; the plan and checklist are the source of truth and are updated.
-- **Learnings:** Three-layer model and ADR placement are in `.docs/AGENTS.md`; ap-docs-reviewer and ap-progress-assessor instructions reference canonical docs under `.docs/`.
+- **Learnings:** Three-layer model and ADR placement are in `.docs/AGENTS.md`; docs-reviewer and progress-assessor instructions reference canonical docs under `.docs/`.
 
 ---
 
@@ -79,11 +79,11 @@ No missing cross-references or broken links in the diff.
 
 | Agent               | Result | Notes |
 |---------------------|--------|--------|
-| ap-tdd-reviewer     | N/A    | No code/tests in diff |
-| ap-ts-enforcer      | Skip   | No TypeScript |
-| ap-refactor-assessor| Pass   | No refactoring needed |
-| ap-code-reviewer    | Pass   | ap-network-engineer grep path fixed |
-| ap-docs-reviewer    | Pass   | Docs and conventions consistent |
-| ap-progress-assessor| Pass   | Aligned with plan Phases 2–5 |
+| tdd-reviewer     | N/A    | No code/tests in diff |
+| ts-enforcer      | Skip   | No TypeScript |
+| refactor-assessor| Pass   | No refactoring needed |
+| code-reviewer    | Pass   | network-engineer grep path fixed |
+| docs-reviewer    | Pass   | Docs and conventions consistent |
+| progress-assessor| Pass   | Aligned with plan Phases 2–5 |
 
 **Recommended action:** None. Fix applied; merge when ready.

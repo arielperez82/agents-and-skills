@@ -19,10 +19,10 @@ use-cases:
   - Calculating SLI/SLO targets and error budgets
 
 # === RELATIONSHIPS ===
-related-agents: [ap-observability-engineer]
+related-agents: [observability-engineer]
 related-skills: [senior-devops, senior-backend, senior-secops]
 related-commands: []
-orchestrated-by: [ap-observability-engineer]
+orchestrated-by: [observability-engineer]
 
 # === TECHNICAL ===
 dependencies:

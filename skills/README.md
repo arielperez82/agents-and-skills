@@ -35,7 +35,7 @@ This directory contains on-demand skill packages that extend agent capabilities 
 | Skill | When to Use | What It Provides |
 |-------|-------------|------------------|
 | **skill-creator** | Creating/updating skills | Skill structure, frontmatter, packaging, init_skill.py, package_skill.py |
-| **creating-agents** | Creating ap-* agents | Agent frontmatter, workflows, collaborations |
+| **creating-agents** | Creating agents | Agent frontmatter, workflows, collaborations |
 | **refactoring-agents** | Agent overlap/merge/split | Ecosystem refactors, collaboration contracts |
 | **crafting-instructions** | Prompts, instructions | Instruction design, project vs skill vs prompt |
 | **agent-md-refactor** | Bloated AGENTS/CLAUDE.md | Progressive disclosure, split monolithic docs |
@@ -151,7 +151,7 @@ Role and specialist skills (same folder):
 | **senior-ml-engineer** | ML systems | MLOps, model deployment, ML infra |
 | **senior-prompt-engineer** | LLM/prompts | Prompt patterns, RAG, agent design |
 | **senior-computer-vision** | Vision AI | Image/video, detection, segmentation |
-| **code-reviewer** | Code review, PRs, completion claims | Quality, security, best practices (multi-language); receiving feedback, ap-code-reviewer, verification gates |
+| **code-reviewer** | Code review, PRs, completion claims | Quality, security, best practices (multi-language); receiving feedback, code-reviewer, verification gates |
 | **cto-advisor** | Tech leadership | Tech debt, scaling, architecture, strategy |
 | **technical-writer** | Documentation | README, CHANGELOG, API docs, diagrams |
 | **incident-response** | Security incidents | Detection, containment, RCA, playbooks |
@@ -319,7 +319,7 @@ Role and specialist skills (same folder):
 
 #### `creating-agents`
 
-**Purpose**: Design and write ap-* agent specifications.
+**Purpose**: Design and write agent specifications.
 
 **Use when**:
 
@@ -335,7 +335,7 @@ Role and specialist skills (same folder):
 
 ### How skills and agents work together
 
-- **Agents** are invoked by name (e.g. `ap-tdd-reviewer`); they orchestrate skills and enforce workflows.
+- **Agents** are invoked by name (e.g. `tdd-reviewer`); they orchestrate skills and enforce workflows.
 - **Skills** are loaded on-demand by reference or trigger; they provide patterns and reference material.
 - AGENTS.md mandates loading specific skills at the start of relevant work (e.g. `tdd` when writing code, `typescript-strict` when writing TypeScript).
 
@@ -352,15 +352,15 @@ Role and specialist skills (same folder):
 
 | When you… | Load skill | Engage agent |
 |-----------|------------|---------------|
-| Start coding | tdd | ap-tdd-reviewer |
-| Write TypeScript | typescript-strict | ap-ts-enforcer |
-| Tests just passed | refactoring | ap-refactor-assessor |
-| Need progress tracking | planning | ap-progress-assessor |
+| Start coding | tdd | tdd-reviewer |
+| Write TypeScript | typescript-strict | ts-enforcer |
+| Tests just passed | refactoring | refactor-assessor |
+| Need progress tracking | planning | progress-assessor |
 | Before claiming done | verification-before-completion | — |
-| Code review | code-reviewer | ap-code-reviewer |
-| Document decisions | architecture-decision-records | ap-adr-writer |
-| Permanent docs | — | ap-docs-reviewer |
-| Capture learnings | — | ap-learn |
+| Code review | code-reviewer | code-reviewer |
+| Document decisions | architecture-decision-records | adr-writer |
+| Permanent docs | — | docs-reviewer |
+| Capture learnings | — | learn |
 
 ## Using These Skills
 

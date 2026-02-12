@@ -63,7 +63,7 @@ Route learnings by scope and half-life:
 
 **L4 — Tool-agnostic skill design** (I04-SLSE, 2026-02-11): Skills that define Input/Output Contracts without vendor-specific references (no HubSpot, Salesforce, Gmail, etc.) are more reusable and composable. Define *what data* the skill needs and *what it produces*; list external actions (CRM update, send email) as recommendations the user wires to their platform.
 
-**L5 — Validation as final backlog gate** (I04-SLSE, 2026-02-11): Run agent validation (`ap-agent-validator --all`) as the last backlog item. This catches issues across all new/modified agents in one pass and confirms the initiative didn't introduce regressions.
+**L5 — Validation as final backlog gate** (I04-SLSE, 2026-02-11): Run agent validation (`agent-validator --all`) as the last backlog item. This catches issues across all new/modified agents in one pass and confirms the initiative didn't introduce regressions.
 
 **L6 — Graduate conventions early** (I01→I04, 2026-02-11): The `.docs/` layout started as a temporary "override" for the artifact-conventions migration (I01-ACM). By I04-SLSE it was proven across 4 initiatives with zero friction. Graduated from "override (migration)" to permanent convention. Lesson: when a convention works across 2+ initiatives, promote it from temporary to permanent — don't let stale framing confuse future agents.
 
@@ -77,7 +77,7 @@ Route learnings by scope and half-life:
 
 **L11 — Parallel subagent delegation needs reference material** (I04-SLSE, 2026-02-11): When delegating to parallel subagents, each agent needs: (1) the target file path, (2) the schema/template to follow, (3) an existing example to match style/structure, and (4) specific content requirements. In I04-SLSE, the 6 skill agents all received the same frontmatter schema + an existing SKILL.md as reference, producing consistent output across all 6 files.
 
-**L12 — Surgical edits for existing agent enhancement** (I04-SLSE, 2026-02-11): When extending existing agents (ap-product-manager, ap-content-creator), make targeted edits to frontmatter fields (related-skills, related-agents, collaborates-with) and add body sections (new workflow, related agents bullet) rather than rewriting. This preserves existing content and minimizes diff surface. Delegate to subagents with the full current file content + specific edit instructions.
+**L12 — Surgical edits for existing agent enhancement** (I04-SLSE, 2026-02-11): When extending existing agents (product-manager, content-creator), make targeted edits to frontmatter fields (related-skills, related-agents, collaborates-with) and add body sections (new workflow, related agents bullet) rather than rewriting. This preserves existing content and minimizes diff surface. Delegate to subagents with the full current file content + specific edit instructions.
 
 **L13 — Catalog updates as explicit backlog items** (I04-SLSE, 2026-02-11): Make `skills/README.md` and `agents/README.md` updates separate backlog items (B12, B13) rather than bundling with the items they catalog. This ensures catalogs are always explicitly tracked, never forgotten, and can be verified independently.
 
@@ -85,7 +85,7 @@ Route learnings by scope and half-life:
 
 **L15 — Funnel stage maps to agent boundaries** (I04-SLSE, 2026-02-11): Splitting agents by funnel stage (SDR = top-of-funnel, AE = mid/bottom-funnel) creates clean boundaries with minimal skill overlap. The handoff point (qualified lead) is a natural seam. Each agent owns 3 skills aligned to their funnel stage. This pattern likely generalizes: find the natural handoff point in any domain workflow and draw the agent boundary there.
 
-**L16 — Extend vs. create agent decision** (I04-SLSE, 2026-02-11): When new capability touches an existing agent's domain, decide: EXTEND (add workflow + related-skills to existing agent) vs. CREATE (new agent). Criteria: if the new capability is a cross-functional workflow adding 1 workflow to an existing agent, extend (e.g. sales call → PRD added to ap-product-manager). If it needs 3+ core skills and a distinct persona, create new (e.g. ap-sales-development-rep). The expert panel (L3) is the right place to make this call.
+**L16 — Extend vs. create agent decision** (I04-SLSE, 2026-02-11): When new capability touches an existing agent's domain, decide: EXTEND (add workflow + related-skills to existing agent) vs. CREATE (new agent). Criteria: if the new capability is a cross-functional workflow adding 1 workflow to an existing agent, extend (e.g. sales call → PRD added to product-manager). If it needs 3+ core skills and a distinct persona, create new (e.g. sales-development-rep). The expert panel (L3) is the right place to make this call.
 
 **L17 — Vendor reference sweep as definition of done** (I04-SLSE, 2026-02-11): Run `grep -ri` for vendor names (HubSpot, Salesforce, Gmail, Gong, Slack, etc.) across all new/modified files as a final quality check. Include in the backlog's definition of done. In I04-SLSE, 18 files / 5,006 lines passed with zero vendor hits. Catches leaks that individual subagents might miss.
 

@@ -18,10 +18,10 @@ use-cases:
   - Generating post-incident reports with root cause analysis
 
 # === RELATIONSHIPS ===
-related-agents: [ap-incident-responder]
+related-agents: [incident-responder]
 related-skills: [senior-secops, senior-security]
 related-commands: [/audit.security]
-orchestrated-by: [ap-incident-responder]
+orchestrated-by: [incident-responder]
 
 # === TECHNICAL ===
 dependencies:

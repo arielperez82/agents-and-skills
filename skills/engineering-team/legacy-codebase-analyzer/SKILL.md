@@ -19,7 +19,7 @@ use-cases:
 
 # === RELATIONSHIPS ===
 related-agents:
-  - ap-legacy-codebase-analyzer
+  - legacy-codebase-analyzer
 related-skills:
   - senior-architect
   - code-reviewer
@@ -30,7 +30,7 @@ related-commands:
   - /audit.security
   - /review.code
 orchestrated-by:
-  - ap-legacy-codebase-analyzer
+  - legacy-codebase-analyzer
 
 # === TECHNICAL ===
 dependencies:
@@ -1326,9 +1326,9 @@ Detailed guides available in the `references/` directory:
 
 ## Integration Points
 
-### Integration with ap-legacy-codebase-analyzer Agent
+### Integration with legacy-codebase-analyzer Agent
 
-This skill is orchestrated by the ap-legacy-codebase-analyzer agent for guided analysis workflows:
+This skill is orchestrated by the legacy-codebase-analyzer agent for guided analysis workflows:
 
 ```bash
 # The agent guides you through:
@@ -1363,7 +1363,7 @@ Complements security audits from secops skill:
 python scripts/security_vulnerability_scanner.py /path/to/legacy-project --detailed
 
 # 2. Deep security analysis (manual)
-# Use ap-devsecops-engineer agent for comprehensive DevSecOps audit
+# Use devsecops-engineer agent for comprehensive DevSecOps audit
 
 # 3. Track remediation progress
 python scripts/security_vulnerability_scanner.py /path/to/legacy-project --compare baseline-security.json
@@ -1378,7 +1378,7 @@ Feeds into architectural decisions via architect skill:
 python scripts/architecture_health_analyzer.py /path/to/legacy-project --detailed
 
 # 2. Design target architecture
-# Use ap-architect agent for target state design
+# Use architect agent for target state design
 
 # 3. Generate migration roadmap
 python scripts/modernization_roadmap_generator.py /path/to/legacy-project --timeline 18
@@ -1438,7 +1438,7 @@ python scripts/modernization_roadmap_generator.py /path/to/project --inventory i
 2. **Analysis methodology:** Review [analysis_framework.md](references/analysis_framework.md)
 3. **Modernization strategy:** Consult [modernization_patterns.md](references/modernization_patterns.md)
 4. **Report templates:** See [deliverable_templates.md](references/deliverable_templates.md)
-5. **Integration questions:** Refer to ap-legacy-codebase-analyzer agent documentation
+5. **Integration questions:** Refer to legacy-codebase-analyzer agent documentation
 
 ## Additional Resources
 
@@ -1446,7 +1446,7 @@ python scripts/modernization_roadmap_generator.py /path/to/project --inventory i
 - **Modernization Patterns:** [references/modernization_patterns.md](references/modernization_patterns.md)
 - **Deliverable Templates:** [references/deliverable_templates.md](references/deliverable_templates.md)
 - **Python Tools:** `scripts/` directory (all tools support `--help`)
-- **Agent Documentation:** See ap-legacy-codebase-analyzer agent
+- **Agent Documentation:** See legacy-codebase-analyzer agent
 - **Related Skills:** senior-architect, code-reviewer, senior-secops, cto-advisor
 
 ---
@@ -1455,4 +1455,4 @@ python scripts/modernization_roadmap_generator.py /path/to/project --inventory i
 **Last Updated:** 2025-12-13
 **Tool Count:** 7 Python analysis tools
 **Documentation:** Progressive disclosure with references/
-**Integration:** Orchestrated by ap-legacy-codebase-analyzer agent
+**Integration:** Orchestrated by legacy-codebase-analyzer agent

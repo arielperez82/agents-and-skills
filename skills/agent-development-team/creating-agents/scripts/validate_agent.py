@@ -4,7 +4,7 @@ Comprehensive agent validator — validates frontmatter, skill paths, structure,
 classification, body sections, and cross-references.
 
 Usage:
-    python3 validate_agent.py agents/ap-backend-engineer.md
+    python3 validate_agent.py agents/backend-engineer.md
     python3 validate_agent.py --all
     python3 validate_agent.py --all --json
     python3 validate_agent.py --all --summary
@@ -112,8 +112,9 @@ def validate_agent(agent_path: Path):
                 critical.append(f"Field '{field}' must be {expected.__name__}, got {type(val).__name__}")
 
     name = fm.get("name", "")
-    if name and not name.startswith("ap-"):
-        critical.append(f"Agent name '{name}' must start with 'ap-' prefix")
+    stem = agent_path.stem
+    if name and name != stem:
+        critical.append(f"Agent name '{name}' in frontmatter must match filename (expected '{stem}')")
 
     skills_val = fm.get("skills", [])
     if isinstance(skills_val, str):
@@ -298,10 +299,10 @@ def run_all(json_output: bool = False, summary_only: bool = False):
         print(f"ERROR: agents/ directory not found at {agents_dir}")
         sys.exit(1)
 
-    agent_files = sorted(agents_dir.glob("ap-*.md"))
+    agent_files = sorted(f for f in agents_dir.glob("*.md") if f.name != "README.md")
 
     if not agent_files:
-        print("No agent files found matching ap-*.md")
+        print("No agent files found in agents/ (expect *.md excluding README.md)")
         sys.exit(1)
 
     all_results = {}
@@ -401,8 +402,6 @@ def main():
 
     if not agent_path.name.endswith(".md"):
         candidates = list(Path.cwd().glob(f"agents/{remaining[0]}.md"))
-        if not candidates:
-            candidates = list(Path.cwd().glob(f"agents/ap-{remaining[0]}.md"))
         if candidates:
             agent_path = candidates[0].resolve()
         else:

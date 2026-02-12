@@ -14,16 +14,16 @@ argument-hint: [user-requirements]
 - Check if Git initialized, if not: use `git-manager` (main branch)
 
 ### 2. Research
-- Use max 2 `ap-researcher` agents in parallel
+- Use max 2 `researcher` agents in parallel
 - Explore requirements, validation, challenges, solutions
 - Keep reports ≤150 lines
 
 ### 3. Tech Stack
-- Use `ap-implementation-planner` + multiple `ap-researcher` agents in parallel for best fit tech stack
+- Use `implementation-planner` + multiple `researcher` agents in parallel for best fit tech stack
 - Write to `./docs` directory (≤150 lines)
 
 ### 4. Wireframe & Design
-- Use `ui-ux-designer` + `ap-researcher` agents in parallel
+- Use `ui-ux-designer` + `researcher` agents in parallel
 - Research: style, trends, fonts, colors, spacing, positions
 - Describe assets for `ai-multimodal` generation
 - Create design guidelines at `./docs/design-guidelines.md`
@@ -43,7 +43,7 @@ argument-hint: [user-requirements]
 ### 6. Testing
 - Write real tests (NO fake data/mocks)
 - Use `tester` subagent
-- If fail: `ap-debugger` → fix → repeat
+- If fail: `debugger` → fix → repeat
 
 ### 7. Code Review
 - Use `code-reviewer`

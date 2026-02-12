@@ -25,7 +25,7 @@
 **Issue:** Entire skill is built around the legacy three-document model (PLAN.md, WIP.md, LEARNINGS.md). No reference to `.docs/` or canonical layout.
 
 **Evidence:**
-- SKILL.md: "Use the `ap-progress-assessor` agent to assess and validate progress tracking documents (PLAN.md, WIP.md, LEARNINGS.md)".
+- SKILL.md: "Use the `progress-assessor` agent to assess and validate progress tracking documents (PLAN.md, WIP.md, LEARNINGS.md)".
 - Tables and diagrams describe PLAN.md, WIP.md, LEARNINGS.md as the three documents; merge learnings to "CLAUDE.md" and "ADR" without `.docs/AGENTS.md` or `.docs/canonical/adrs/`.
 - Instructions: "Create PLAN.md", "Update WIP.md", "Capture any learnings in LEARNINGS.md", "Delete PLAN.md, WIP.md, LEARNINGS.md" at end of feature.
 - Asset `assets/deployment-checklist.md` line 41: "Document issue: Add to LEARNINGS.md or create issue".

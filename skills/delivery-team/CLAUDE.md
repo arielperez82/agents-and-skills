@@ -79,7 +79,7 @@ python ../product-team/agile-product-owner/scripts/user_story_generator.py sprin
 
 ## Additional Resources
 
-- **Agent Authoring Guide:** `../../agents/ap-agent-author.md`
+- **Agent Authoring Guide:** `../../agents/agent-author.md`
 - **Artifact Conventions:** `../../.docs/AGENTS.md`
 
 ---

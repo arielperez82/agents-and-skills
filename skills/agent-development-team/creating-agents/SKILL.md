@@ -1,13 +1,13 @@
 ---
 name: creating-agents
-description: Guide for designing and writing ap-* agent specifications. Use when creating a new agent, drafting agent frontmatter, defining agent workflows, or structuring agent collaborations. For ecosystem-wide refactoring guidance, see refactoring-agents skill.
+description: Guide for designing and writing agent specifications in this repo. Use when creating a new agent, drafting agent frontmatter, defining agent workflows, or structuring agent collaborations. For ecosystem-wide refactoring guidance, see refactoring-agents skill.
 metadata:
-  short-description: Create or update ap-* agent specifications
+  short-description: Create or update agent specifications
 ---
 
 # Creating Agents
 
-This skill guides you through designing and writing effective ap-* agent specifications. Agents are specialized Claude Code agents that orchestrate skills to accomplish specific tasks.
+This skill guides you through designing and writing effective agent specifications. Agents are specialized Claude Code agents that orchestrate skills to accomplish specific tasks.
 
 ## What This Skill Covers
 
@@ -25,8 +25,8 @@ When creating a new agent:
 1. **Read the authoring guide**: See [references/authoring-guide.md](references/authoring-guide.md) for complete doctrinal details
 2. **Use the template**: Start from [assets/agent-template.md](assets/agent-template.md)
 3. **Follow the checklist**: Validate against [assets/agent-checklists.md](assets/agent-checklists.md)
-4. **Run automated validation**: Execute `python3 scripts/validate_agent.py agents/ap-agent-name.md` or `/agent/validate ap-agent-name`
-5. **Test roll-call**: Verify agent loads correctly using `/agent/roll-call ap-agent-name`
+4. **Run automated validation**: Execute `python3 scripts/validate_agent.py agents/agent-name.md` or `/agent/validate agent-name`
+5. **Test roll-call**: Verify agent loads correctly using `/agent/roll-call agent-name`
 6. **Test integration**: Verify skill paths, Python tools, and workflows
 
 ## Core Principles
@@ -106,10 +106,10 @@ Agents are classified into four types based on operational characteristics:
 
 | Type | Color | Tools | Execution | Model | Examples |
 |------|-------|-------|-----------|-------|----------|
-| **Strategic** | 🔵 Blue | Read, Write, Grep | Parallel (4-5) | opus/sonnet | ap-product-director, ap-ceo-advisor |
-| **Implementation** | 🟢 Green | Full tools | Coordinated (2-3) | sonnet | ap-fullstack-engineer, ap-backend-engineer |
-| **Quality** | 🔴 Red | Full + Heavy Bash | Sequential (1) | sonnet | ap-code-reviewer, ap-qa-engineer |
-| **Coordination** | 🟣 Purple | Read, Write, Grep | Lightweight | opus | ap-architect, ap-progress-assessor |
+| **Strategic** | 🔵 Blue | Read, Write, Grep | Parallel (4-5) | opus/sonnet | product-director, cto-advisor |
+| **Implementation** | 🟢 Green | Full tools | Coordinated (2-3) | sonnet | fullstack-engineer, backend-engineer |
+| **Quality** | 🔴 Red | Full + Heavy Bash | Sequential (1) | sonnet | code-reviewer, qa-engineer |
+| **Coordination** | 🟣 Purple | Read, Write, Grep | Lightweight | opus | architect, progress-assessor |
 
 **Classification rules**: See [references/authoring-guide.md](references/authoring-guide.md#agent-type-classification-system) for detailed criteria and execution safety rules.
 
@@ -127,7 +127,7 @@ All agents reference skills using relative paths:
    - **Usage:** `python ../../skills/domain-team/skill-name/scripts/tool.py [args]`
 ```
 
-**Path resolution**: From `agents/domain/ap-agent-name.md` to `skills/domain-team/skill-name/` uses `../../` pattern.
+**Path resolution**: From `agents/agent-name.md` to `skills/domain-team/skill-name/` uses `../../` pattern.
 
 **Always test paths resolve correctly** before committing.
 
@@ -167,7 +167,7 @@ Use `collaborates-with` section to define optional agent dependencies:
 
 ```yaml
 collaborates-with:
-  - agent: ap-technical-writer
+  - agent: technical-writer
     purpose: API documentation generation with sequence diagrams
     required: optional
     without-collaborator: "API documentation will be text-only without visual diagrams"
@@ -179,10 +179,10 @@ collaborates-with:
 
 Before committing an agent, validate against:
 
-- [ ] **Automated validation passed**: Run `python3 scripts/validate_agent.py agents/ap-agent-name.md` or `/agent/validate ap-agent-name`
+- [ ] **Automated validation passed**: Run `python3 scripts/validate_agent.py agents/agent-name.md` or `/agent/validate agent-name`
 - [ ] YAML frontmatter valid (no parsing errors)
 - [ ] All required fields present
-- [ ] ap-* prefix used for agent naming
+- [ ] Agent naming consistent (no ap- prefix)
 - [ ] Relative paths resolve correctly
 - [ ] Skill location documented and accessible
 - [ ] Python tools referenced with correct paths
@@ -190,7 +190,7 @@ Before committing an agent, validate against:
 - [ ] Integration examples provided and tested
 - [ ] Success metrics defined
 - [ ] Related agents cross-referenced
-- [ ] **Roll-call test passed**: Verify agent loads correctly in Cursor using `/agent/roll-call ap-agent-name`
+- [ ] **Roll-call test passed**: Verify agent loads correctly in Cursor using `/agent/roll-call agent-name`
 
 **Complete checklist**: See [assets/agent-checklists.md](assets/agent-checklists.md) for detailed validation criteria.
 
@@ -202,10 +202,10 @@ Run the validation script before manual testing:
 
 ```bash
 # Validate agent structure, paths, and frontmatter
-python3 scripts/validate_agent.py agents/ap-agent-name.md
+python3 scripts/validate_agent.py agents/agent-name.md
 
 # Or use the command
-/agent/validate ap-agent-name
+/agent/validate agent-name
 ```
 
 **Roll-Call Test (Dynamic Validation)**
@@ -214,12 +214,12 @@ Test that the agent loads correctly in Cursor:
 
 ```bash
 # Test agent loading and skill access
-/agent/roll-call ap-agent-name
+/agent/roll-call agent-name
 ```
 
 Or manually in Cursor Chat:
 ```
-@agents/ap-agent-name.md
+@agents/agent-name.md
 What skills are you using?
 ```
 
@@ -261,7 +261,7 @@ Guardian agents assess, guide, and validate but **never implement**:
 - **Reactive**: Validate and review after implementation
 - **Output**: Prioritized findings (🔴 Critical → ⚠️ High Priority → 💡 Nice to Have)
 
-**Examples**: `ap-tdd-reviewer`, `ap-docs-reviewer`, `ap-refactor-assessor`
+**Examples**: `tdd-reviewer`, `docs-reviewer`, `refactor-assessor`
 
 ### Orchestration Pattern
 
@@ -278,8 +278,8 @@ This makes skill ownership clear and discoverable.
 
 Agents should delegate to specialized agents rather than duplicating capabilities:
 
-- **Research**: Delegate to `ap-researcher` for external research
-- **Planning**: Delegate to `ap-implementation-planner` for tactical planning
+- **Research**: Delegate to `researcher` for external research
+- **Planning**: Delegate to `implementation-planner` for tactical planning
 - **Validation**: Delegate to guardian agents for quality checks
 
 **Delegation rules**: See [references/authoring-guide.md](references/authoring-guide.md#delegation-patterns) for detailed guidance.
@@ -311,34 +311,34 @@ These patterns help you understand the conventions for each domain when creating
 - **Reference**: `../skills/marketing-team/`
 - **Focus**: Content creation, SEO, demand generation
 - **Common tools**: `brand_voice_analyzer.py`, `seo_optimizer.py`
-- **Example agents**: `ap-content-creator`, `ap-seo-strategist`, `ap-product-marketer`
+- **Example agents**: `content-creator`, `seo-strategist`, `product-marketer`
 
 ### Product Agents (root `agents/`)
 - **Location**: Root `agents/` directory (no subfolder)
 - **Reference**: `../skills/product-team/`
 - **Focus**: Prioritization, user research, agile workflows
 - **Common tools**: `rice_prioritizer.py`, `user_story_generator.py`
-- **Example agents**: `ap-product-manager`, `ap-product-director`, `ap-ux-researcher`
+- **Example agents**: `product-manager`, `product-director`, `ux-researcher`
 
 ### Engineering Agents (root `agents/`)
 - **Location**: Root `agents/` directory (no subfolder)
 - **Reference**: `../skills/engineering-team/`
 - **Focus**: Code development, quality, architecture
 - **Common tools**: `project_scaffolder.py`, `code_quality_analyzer.py`
-- **Example agents**: `ap-backend-engineer`, `ap-frontend-engineer`, `ap-architect`
+- **Example agents**: `backend-engineer`, `frontend-engineer`, `architect`
 
 ### Delivery Agents (root `agents/`)
 - **Location**: Root `agents/` directory (no subfolder)
 - **Reference**: `../skills/delivery-team/`
 - **Focus**: Project management, agile coaching, progress tracking
 - **Common tools**: Project planning and tracking tools
-- **Example agents**: `ap-agile-coach`, `ap-senior-pm`, `ap-progress-assessor`
+- **Example agents**: `agile-coach`, `senior-pm`, `progress-assessor`
 
 ## When to Use This Skill
 
 Use this skill when:
 
-- Creating a new ap-* agent from scratch
+- Creating a new agent from scratch
 - Updating an existing agent's structure or workflows
 - Adding collaboration relationships to an agent
 - Validating agent quality before committing
@@ -356,7 +356,7 @@ After creating an agent:
 1. **Validate**: Run through [assets/agent-checklists.md](assets/agent-checklists.md)
 2. **Test**: Verify all paths, tools, and workflows
 3. **Update README**: **REQUIRED** - Add the new agent to `agents/README.md` in the "Complete Agent Catalog" section
-4. **Commit**: Use conventional commit: `feat(agents): implement ap-agent-name`
+4. **Commit**: Use conventional commit: `feat(agents): implement agent-name`
 
 > **⚠️ Maintenance Requirement**: You MUST update `agents/README.md` whenever you add, delete, move, or rename an agent. The README serves as the complete catalog and operator's guide. See the maintenance note at the top of `agents/README.md` for details.
 

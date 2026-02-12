@@ -20,8 +20,8 @@ use-cases:
 
 # === RELATIONSHIPS ===
 related-agents:
-  - ap-account-executive
-  - ap-sales-development-rep
+  - account-executive
+  - sales-development-rep
 related-skills:
   - sales-team/lead-research
   - sales-team/sales-call-analysis

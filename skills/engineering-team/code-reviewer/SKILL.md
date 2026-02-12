@@ -3,7 +3,7 @@
 # === CORE IDENTITY ===
 name: code-reviewer
 title: Code Reviewer Skill Package
-description: Comprehensive code review skill for TypeScript, JavaScript, Python, Swift, Kotlin, Go. Includes automated code analysis, best practice checking, security scanning, and review checklist generation. Also covers receiving feedback with technical rigor (no performative agreement), when and how to request ap-code-reviewer, and verification gates (evidence before completion claims). Use when reviewing pull requests, receiving review feedback, providing code feedback, identifying issues, or ensuring code quality standards.
+description: Comprehensive code review skill for TypeScript, JavaScript, Python, Swift, Kotlin, Go. Includes automated code analysis, best practice checking, security scanning, and review checklist generation. Also covers receiving feedback with technical rigor (no performative agreement), when and how to request code-reviewer, and verification gates (evidence before completion claims). Use when reviewing pull requests, receiving review feedback, providing code feedback, identifying issues, or ensuring code quality standards.
 domain: engineering
 subdomain: engineering-general
 
@@ -118,8 +118,8 @@ SITUATION?
 │  ├─ From human partner? → Understand, then implement
 │  └─ From external reviewer? → Verify technically before implementing
 ├─ Completed work
-│  ├─ Major feature/task? → Request ap-code-reviewer subagent review
-│  └─ Before merge? → Request ap-code-reviewer subagent review
+│  ├─ Major feature/task? → Request code-reviewer subagent review
+│  └─ Before merge? → Request code-reviewer subagent review
 └─ About to claim status
    ├─ Have fresh verification? → State claim WITH evidence
    └─ No fresh verification? → RUN verification command first
@@ -134,7 +134,7 @@ SITUATION?
 ### Requesting review
 
 - **When:** After each task in subagent-driven development; after major feature; before merge to main
-- **How:** Get BASE_SHA and HEAD_SHA; dispatch ap-code-reviewer via Task tool with WHAT_WAS_IMPLEMENTED, PLAN_OR_REQUIREMENTS, BASE_SHA, HEAD_SHA, DESCRIPTION; act on feedback (Critical immediately, Important before proceeding, Minor later)
+- **How:** Get BASE_SHA and HEAD_SHA; dispatch code-reviewer via Task tool with WHAT_WAS_IMPLEMENTED, PLAN_OR_REQUIREMENTS, BASE_SHA, HEAD_SHA, DESCRIPTION; act on feedback (Critical immediately, Important before proceeding, Minor later)
 - **Full protocol:** `references/requesting-code-review.md`
 
 ### Verification gates

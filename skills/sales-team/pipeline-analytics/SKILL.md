@@ -21,7 +21,7 @@ use-cases:
 
 # === RELATIONSHIPS ===
 related-agents:
-  - ap-account-executive
+  - account-executive
 related-skills:
   - sales-team/sales-call-analysis
   - sales-team/meeting-intelligence

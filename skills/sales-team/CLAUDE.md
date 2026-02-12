@@ -20,8 +20,8 @@ This guide covers the 6 sales enablement skills for B2B sales execution workflow
 
 | Agent | Core Skills | Role |
 |-------|-------------|------|
-| `ap-sales-development-rep` | lead-research, lead-qualification, sales-outreach | Top-of-funnel: research, qualify, outreach |
-| `ap-account-executive` | meeting-intelligence, sales-call-analysis, pipeline-analytics | Mid/bottom-funnel: meetings, analysis, pipeline |
+| `sales-development-rep` | lead-research, lead-qualification, sales-outreach | Top-of-funnel: research, qualify, outreach |
+| `account-executive` | meeting-intelligence, sales-call-analysis, pipeline-analytics | Mid/bottom-funnel: meetings, analysis, pipeline |
 
 ## Integration Abstraction
 

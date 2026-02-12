@@ -19,7 +19,7 @@ use-cases:
   - Strategic positioning assessment
 
 # === RELATIONSHIPS ===
-related-agents: [ap-product-director, ap-product-manager, ap-product-analyst]
+related-agents: [product-director, product-manager, product-analyst]
 related-skills: []
 related-commands: []
 orchestrated-by: []
@@ -410,7 +410,7 @@ python scripts/scorecard_generator.py --detailed --analysis-file analysis.json
 
 This skill integrates with the following product team agents:
 
-### ap-product-director
+### product-director
 
 Uses competitive analysis for:
 - Market positioning decisions
@@ -419,7 +419,7 @@ Uses competitive analysis for:
 
 **Invocation**: "Analyze competitor X against our product using the competitive-analysis skill"
 
-### ap-product-manager
+### product-manager
 
 Uses competitive analysis for:
 - Roadmap planning
@@ -428,7 +428,7 @@ Uses competitive analysis for:
 
 **Invocation**: "Run a competitive scorecard against this repository"
 
-### ap-product-analyst
+### product-analyst
 
 Uses competitive analysis for:
 - Requirements gathering

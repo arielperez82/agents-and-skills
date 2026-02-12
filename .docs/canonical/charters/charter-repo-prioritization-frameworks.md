@@ -57,13 +57,13 @@ Cross-bucket normalization: `Priority Score = (Risk-Adjusted NPV × 0.7) + (Stra
 
 - **Portfolio allocation is set by Product Director + CTO.** Senior PM manages ongoing risk but does not set allocations.
 - **RICE is not replaced** — it operates within growth/revenue buckets as one input alongside NPV.
-- **Existing OKR cascade (ap-product-director) feeds into Strategic Alignment scoring** — not duplicated.
+- **Existing OKR cascade (product-director) feeds into Strategic Alignment scoring** — not duplicated.
 - **All canonical artifacts under `.docs/`** per I01-ACM conventions.
 - **Continuous flow** — backlog is a single queue; no sprint framing for this initiative.
 
 ## Non-goals
 
-- Replacing the delivery team's sprint-level prioritization (that stays with ap-agile-coach).
+- Replacing the delivery team's sprint-level prioritization (that stays with agile-coach).
 - Building real-time dashboards (reports remain on-demand).
 - Organizational restructuring (Experimental PM and POM are reference material, not mandates).
 - Changing how consumer repos prioritize — this is for our own toolbox.
@@ -79,7 +79,7 @@ Cross-bucket normalization: `Priority Score = (Risk-Adjusted NPV × 0.7) + (Stra
 ## Success measures
 
 - A new skill (`product-team/prioritization-frameworks`) codifies the primary approach with actionable workflows.
-- ap-product-manager and ap-product-director reference the new skill.
+- product-manager and product-director reference the new skill.
 - A Python tool exists for portfolio allocation + NPV scoring.
 - The existing `rice_prioritizer.py` operates within a portfolio context (or is wrapped).
 - Teams can compare tech debt paydown against a growth feature using a unified priority score.
@@ -88,12 +88,12 @@ Cross-bucket normalization: `Priority Score = (Risk-Adjusted NPV × 0.7) + (Stra
 ## Baseline assessment
 
 ### Current strengths (keep)
-- RICE prioritization (ap-product-manager + `rice_prioritizer.py`)
-- OKR cascade + lifecycle (ap-product-director + `okr_cascade_generator.py` + `okr_lifecycle.py`)
-- User story generation with INVEST (ap-product-analyst + `user_story_generator.py`)
-- Sprint-level backlog prioritization (ap-agile-coach + `prioritize_backlog.py`)
-- Risk management and RAG monitoring (ap-senior-pm)
-- Customer interview analysis (ap-product-manager + `customer_interview_analyzer.py`)
+- RICE prioritization (product-manager + `rice_prioritizer.py`)
+- OKR cascade + lifecycle (product-director + `okr_cascade_generator.py` + `okr_lifecycle.py`)
+- User story generation with INVEST (product-analyst + `user_story_generator.py`)
+- Sprint-level backlog prioritization (agile-coach + `prioritize_backlog.py`)
+- Risk management and RAG monitoring (senior-pm)
+- Customer interview analysis (product-manager + `customer_interview_analyzer.py`)
 
 ### Current gaps (fill)
 

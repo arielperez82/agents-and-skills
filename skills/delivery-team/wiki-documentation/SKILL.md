@@ -20,8 +20,8 @@ use-cases:
 
 # === RELATIONSHIPS ===
 related-agents:
-  - ap-technical-writer
-  - ap-docs-reviewer
+  - technical-writer
+  - docs-reviewer
 related-skills:
   - engineering-team/documentation
   - delivery-team/ticket-management
