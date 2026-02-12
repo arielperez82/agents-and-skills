@@ -29,7 +29,7 @@ classification:
 
 # === RELATIONSHIPS ===
 related-agents: [ap-researcher, ap-architect, ap-product-manager, ap-product-analyst, ap-senior-pm, ap-agile-coach]
-related-skills: [engineering-team/avoid-feature-creep, engineering-team/planning, engineering-team/quality-gate-first, sequential-thinking, problem-solving, engineering-team/software-architecture, asking-questions, brainstorming, orchestrating-agents]
+related-skills: [engineering-team/avoid-feature-creep, engineering-team/planning, engineering-team/quality-gate-first, sequential-thinking, problem-solving, engineering-team/software-architecture, asking-questions, brainstorming, orchestrating-agents, engineering-team/subagent-driven-development]
 related-commands: [skill/phase-0-check]
 collaborates-with:
   - agent: ap-researcher
