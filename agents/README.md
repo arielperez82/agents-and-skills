@@ -42,6 +42,9 @@ These agents live directly in the `agents/` root directory:
 - **`ap-adr-writer`** - Creates Architecture Decision Records (ADRs) documenting significant architectural choices
 - **`ap-graphql-architect`** - GraphQL API design specialist for schema architecture, resolver patterns, and federation
 
+#### Engineering Leadership
+- **`ap-engineering-lead`** - Coordinates multi-step development initiatives by dispatching specialist engineer subagents per task, managing two-stage review gates, and driving plans to completion
+
 #### Development Specialists
 - **`ap-backend-engineer`** - Backend development for API design, database optimization, and microservices architecture
 - **`ap-frontend-engineer`** - Frontend development for React/Vue components, UI/UX implementation, and performance optimization
