@@ -2,12 +2,12 @@
 name: orchestrating-agents
 description: Orchestrates parallel API instances, delegated sub-tasks, and multi-agent workflows with streaming and tool-enabled delegation patterns. Use for parallel analysis, multi-perspective reviews, or complex task decomposition.
 metadata:
-  version: 0.1.2
+  version: 0.2.0
 ---
 
 # Orchestrating Agents
 
-This skill enables programmatic invocations for advanced workflows including parallel processing, task delegation, and multi-agent analysis using the **Cursor CLI** (`agent`). No API key; requires `agent` installed and authenticated.
+This skill enables programmatic invocations for advanced workflows including parallel processing, task delegation, and multi-agent analysis. Supports **Claude Code CLI** (`claude`, default) and **Cursor Agent CLI** (`agent`, fallback). Auto-detects which is available.
 
 ## When to Use This Skill
 
@@ -70,7 +70,7 @@ for i, result in enumerate(results):
 
 ### Parallel with Shared Context
 
-For parallel operations with shared base context, pass `shared_system`; it is prepended to each prompt (no prompt caching in Cursor CLI):
+For parallel operations with shared base context, pass `shared_system`; it is prepended to each prompt:
 
 ```python
 from claude_client import invoke_parallel
@@ -216,7 +216,7 @@ invoke_claude(
 
 **Returns:** Response text as string
 
-**Note:** `cache_system`, `cache_prompt` ignored (N/A for Cursor CLI). Optional `timeout` in kwargs (default 300).
+**Note:** `cache_system`, `cache_prompt` ignored (N/A for CLI backends). Optional `timeout` in kwargs (default 300).
 
 ### `invoke_parallel()`
 
@@ -235,10 +235,10 @@ invoke_parallel(
 
 **Parameters:**
 - `prompts`: List of dicts with 'prompt' (required) and optional 'system', etc.
-- `model`, `max_tokens`: Ignored (Cursor uses subscription model)
+- `model`, `max_tokens`: Ignored (CLI backends use their own model selection)
 - `max_workers`: Max concurrent CLI invocations (default: 5, max: 10)
-- `shared_system`: System context prepended to each prompt (no caching in Cursor CLI)
-- `cache_shared_system`: Ignored (N/A for Cursor CLI)
+- `shared_system`: System context prepended to each prompt
+- `cache_shared_system`: Ignored (N/A for CLI backends)
 
 **Returns:** List of response strings in same order as prompts
 
@@ -329,7 +329,7 @@ response = thread.send(
 - `clear()`: Clear conversation history
 - `__len__()`: Get number of turns
 
-**Note:** Multi-turn uses last user message per call (Cursor CLI has no server-side history; local history kept for reference).
+**Note:** Multi-turn uses last user message per call (CLI backends have no server-side history; local history kept for reference).
 
 ## Example Workflows
 
@@ -344,20 +344,28 @@ See [references/workflows.md](references/workflows.md) for detailed examples inc
 
 ## Setup
 
-**Prerequisites:**
+**Prerequisites:** Install at least one supported CLI.
 
-1. Install Cursor CLI and authenticate:
-   ```bash
-   curl https://cursor.com/install -fsS | bash
-   agent login
-   ```
-   Or set `CURSOR_API_KEY` for headless/CI.
+**Option A — Claude Code CLI (default):**
+```bash
+npm install -g @anthropic-ai/claude-code
+claude login
+```
+Or set `ANTHROPIC_API_KEY` for headless/CI.
 
-2. No API key file; Cursor uses its own auth (subscription).
+**Option B — Cursor Agent CLI (fallback):**
+```bash
+curl https://cursor.com/install -fsS | bash
+agent login
+```
+Or set `CURSOR_API_KEY` for headless/CI.
+
+**Auto-detection:** The client tries `claude` first, then `agent`. To force a backend, use `invoke_cli(prompt, backend="claude")` or `backend="cursor"`.
 
 Check:
 ```bash
-agent -p "Reply OK" --output-format text
+claude -p "Reply OK" --output-format text   # Claude Code
+agent -p "Reply OK" --output-format text    # Cursor Agent
 ```
 
 ## Error Handling
@@ -378,20 +386,20 @@ except ValueError as e:
 ```
 
 Common errors:
-- **Cursor CLI not found**: Install with `curl https://cursor.com/install -fsS | bash`
-- **Not authenticated**: Run `agent login` or set `CURSOR_API_KEY`
+- **No CLI found**: Install Claude Code (`npm install -g @anthropic-ai/claude-code`) or Cursor Agent (`curl https://cursor.com/install -fsS | bash`)
+- **Not authenticated**: Run `claude login` / `agent login` or set `ANTHROPIC_API_KEY` / `CURSOR_API_KEY`
 - **Timeout**: Increase `timeout` in kwargs (default 300s)
-- **Non-zero exit**: Check stderr on `ClaudeInvocationError` (alias of `CursorInvocationError`)
+- **Non-zero exit**: Check stderr on `ClaudeInvocationError`
 
 ## Prompt Caching
 
-N/A for Cursor CLI backend. Use `shared_system` to prepend context; no server-side caching.
+N/A for CLI backends. Use `shared_system` to prepend context; no server-side caching.
 
 ## Performance Considerations
 
-- Parallel calls run multiple `agent` subprocesses; default `max_workers=5`.
+- Parallel calls run multiple CLI subprocesses; default `max_workers=5`.
 - Use `timeout` in kwargs for long-running prompts (default 300s).
-- Cursor CLI may hang in some environments; timeouts recommended for automation.
+- CLI backends may hang in some environments; timeouts recommended for automation.
 
 ## Best Practices
 
@@ -422,4 +430,5 @@ This skill uses ~800 tokens when loaded but enables powerful multi-agent pattern
 ## See Also
 
 - [references/api-reference.md](references/api-reference.md) - Detailed API documentation
-- [Cursor CLI — Using Agent](https://cursor.com/docs/cli/using) - Official Cursor CLI docs
+- [Claude Code CLI](https://docs.anthropic.com/en/docs/claude-code) - Official Claude Code docs
+- [Cursor Agent CLI](https://cursor.com/docs/cli/using) - Official Cursor CLI docs

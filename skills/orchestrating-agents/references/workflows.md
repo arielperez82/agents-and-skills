@@ -1,6 +1,6 @@
 # Multi-Agent Coordination Workflows
 
-Examples and patterns for the orchestrating-agents skill (backend: Cursor CLI).
+Examples and patterns for the orchestrating-agents skill. Supports Claude Code CLI (`claude`, default) and Cursor Agent CLI (`agent`, fallback).
 
 ## Example Workflows
 
@@ -84,7 +84,7 @@ final_code = invoke_claude(integration_prompt)
 
 ### When to Use Agent SDK Instances
 
-The functions above use Cursor CLI invocations (stateless, no tools). For sub-agents that need:
+The functions above use CLI invocations (stateless, no tools). For sub-agents that need:
 - **Tool access**: File system operations, bash commands, code execution
 - **Persistent state**: Multi-turn conversations with tool results
 - **Sandboxed environments**: Isolated execution contexts
@@ -164,9 +164,9 @@ For a production WebSocket-based Agent SDK server:
 
 **Rule of thumb**: Use this skill's API functions by default. Only delegate to Agent SDK when tools are essential.
 
-## Shared Context (Cursor CLI)
+## Shared Context
 
-Prompt caching is N/A for Cursor CLI. Use `shared_system` to prepend context to each parallel invocation:
+Prompt caching is N/A for CLI backends. Use `shared_system` to prepend context to each parallel invocation:
 
 ```python
 from claude_client import invoke_parallel
@@ -186,4 +186,4 @@ tasks = [
 results = invoke_parallel(tasks, shared_system=codebase)
 ```
 
-**ConversationThread (Cursor CLI):** Multi-turn uses last user message per call (no server-side history). Use for single-shot or when local history is sufficient.
+**ConversationThread:** Multi-turn uses last user message per call (CLI backends have no server-side history). Use for single-shot or when local history is sufficient.

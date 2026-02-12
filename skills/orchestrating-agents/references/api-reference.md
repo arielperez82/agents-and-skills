@@ -1,37 +1,42 @@
-# Cursor CLI API Reference
+# CLI API Reference
 
-API documentation for the orchestrating-agents skill (backend: Cursor CLI).
+API documentation for the orchestrating-agents skill. Supports Claude Code CLI (`claude`, default) and Cursor Agent CLI (`agent`, fallback).
 
 ## Backend
 
-- **Engine:** Cursor CLI (`agent`). Non-interactive: `agent -p "<prompt>" --output-format text`.
-- **Auth:** No API key in skill; user must have `agent` installed and authenticated (`agent login` or `CURSOR_API_KEY`).
-- **Models:** Cursor uses subscription model; `model` parameter is ignored.
+- **Engine:** Auto-detects CLI: tries `claude` first, falls back to `agent`. Non-interactive: `<cli> -p "<prompt>" --output-format text`.
+- **Auth:** No API key in skill; user must have a CLI installed and authenticated (`claude login` / `agent login`, or `ANTHROPIC_API_KEY` / `CURSOR_API_KEY`).
+- **Models:** CLI backends use their own model selection; `model` parameter is ignored.
+- **Explicit backend:** Use `invoke_cli(prompt, backend="claude")` or `backend="cursor"` to force a backend.
 
 ## Core Functions
 
-### `invoke_cursor()` (cursor_client.py)
+### `invoke_cli()` (cli_client.py)
 
-Single invocation via Cursor CLI:
+Core transport function. Auto-detects or explicitly selects backend:
 
 ```python
-from cursor_client import invoke_cursor, CursorInvocationError
+from cli_client import invoke_cli, CLIInvocationError
 
-result = invoke_cursor(
+result = invoke_cli(
     "Your prompt here",
-    mode=None,           # Optional: "plan", "ask"
+    backend=None,          # None/"auto", "claude", or "cursor"
     output_format="text",  # "text" or "json"
     timeout=300,
     cwd=None,
-    extra_args=None,    # e.g. ["--resume=thread-id"]
+    extra_args=None,       # e.g. ["--verbose"]
 )
 ```
 
-**Raises:** `ValueError` (empty prompt, agent not on PATH), `CursorInvocationError` (non-zero exit, timeout).
+**Raises:** `ValueError` (empty prompt, CLI not on PATH, invalid backend), `CLIInvocationError` (non-zero exit, timeout).
+
+### `invoke_cursor()` (cursor_client.py)
+
+Backward-compatible wrapper; delegates to `invoke_cli(backend="cursor")`. Accepts `mode` parameter for Cursor-specific modes ("plan", "ask").
 
 ### `invoke_claude()` (claude_client.py)
 
-Public alias; delegates to `invoke_cursor`. Same behavior; accepts `prompt`, `system` (prefixed to prompt), `timeout` in kwargs. `model`, `max_tokens`, `temperature`, `cache_system`, `cache_prompt` ignored.
+High-level API; delegates to `invoke_cli`. Accepts `prompt`, `system` (prefixed to prompt), `timeout` in kwargs. `model`, `max_tokens`, `temperature`, `cache_system`, `cache_prompt` ignored (CLI backends use their own settings).
 
 ### `invoke_parallel()`
 
@@ -39,7 +44,7 @@ Multiple invocations in parallel (ThreadPoolExecutor). Each item: `invoke_claude
 
 ### `invoke_claude_streaming()`
 
-For Cursor CLI: returns full response at end; callback, if provided, is called once with the full string (no chunk-by-chunk streaming).
+Returns full response at end; callback, if provided, is called once with the full string (no chunk-by-chunk streaming via CLI backends).
 
 ### `invoke_parallel_streaming()`
 
@@ -51,13 +56,13 @@ Parallel invocations with `InterruptToken`. Interrupt is checked **before** each
 
 ### `ConversationThread`
 
-Multi-turn: each `send()` uses last user message only (Cursor CLI has no server-side history). Local `messages` list kept for reference.
+Multi-turn: each `send()` uses last user message only (CLI backends have no server-side history). Local `messages` list kept for reference.
 
 ## Error Handling
 
-### CursorInvocationError (ClaudeInvocationError)
+### CLIInvocationError (ClaudeInvocationError / CursorInvocationError)
 
-Raised when Cursor CLI exits non-zero or times out.
+Raised when a CLI backend exits non-zero or times out.
 
 - `message`: Error description
 - `returncode`: Process exit code (or None if timeout)
@@ -79,28 +84,29 @@ except ValueError as e:
 
 ### Common Errors
 
-- **Agent not found:** Install Cursor CLI: `curl https://cursor.com/install -fsS | bash`
-- **Not authenticated:** Run `agent login` or set `CURSOR_API_KEY`
+- **No CLI found:** Install Claude Code (`npm install -g @anthropic-ai/claude-code`) or Cursor Agent (`curl https://cursor.com/install -fsS | bash`)
+- **Not authenticated:** Run `claude login` / `agent login` or set `ANTHROPIC_API_KEY` / `CURSOR_API_KEY`
 - **Timeout:** Increase `timeout` in kwargs (default 300s)
 - **Empty prompt:** Ensure prompt is non-empty after strip
 
 ## Parallel Patterns
 
-Same patterns as before (map-reduce, multi-expert, speculative execution); backend is Cursor CLI. Use `shared_system` for common context; no prompt caching.
+Same patterns as before (map-reduce, multi-expert, speculative execution). Use `shared_system` for common context; no prompt caching via CLI backends.
 
 ## Performance
 
 - Use `timeout` in kwargs for long prompts (default 300s).
-- `max_workers` (default 5) limits concurrent `agent` subprocesses.
-- Cursor CLI may hang in some environments; timeouts recommended for automation.
+- `max_workers` (default 5) limits concurrent CLI subprocesses.
+- CLI backends may hang in some environments; timeouts recommended for automation.
 
 ## Security
 
-- No API key in this skill; Cursor uses its own auth.
+- No API key in this skill; CLI backends use their own auth.
 - Validate/sanitize prompts if they include user input.
-- Run from project root (or set `cwd`) so AGENTS.md and .cursor/rules apply.
+- Run from project root (or set `cwd`) so AGENTS.md and project rules apply.
 
 ## Further Reading
 
+- [Claude Code CLI](https://docs.anthropic.com/en/docs/claude-code) - Official Claude Code docs
 - [Cursor CLI — Using Agent](https://cursor.com/docs/cli/using)
 - [Cursor CLI — Overview](https://cursor.com/docs/cli/overview)
