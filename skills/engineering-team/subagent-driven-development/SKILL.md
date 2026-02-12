@@ -228,13 +228,14 @@ Done!
 
 ## Integration
 
-**Required workflow skills:**
-- **superpowers:writing-plans** - Creates the plan this skill executes
-- **superpowers:requesting-code-review** - Code review template for reviewer subagents
-- **superpowers:finishing-a-development-branch** - Complete development after all tasks
+**Required workflow skills/agents:**
+- **`ap-implementation-planner`** agent + **`planning`** skill — Creates the plan this skill executes. Plans live under `.docs/canonical/plans/`.
+- **`ap-code-reviewer`** agent + `code-reviewer/references/requesting-code-review.md` — Code review template for reviewer subagents (see `./code-quality-reviewer-prompt.md`).
+- **`/review/review-changes`** command — Run 6 parallel review agents on uncommitted changes as a final gate.
+- **`/git/cm`** or **`/git/cp`** command — Commit (and optionally push) after all tasks complete.
 
 **Subagents should use:**
-- **superpowers:tdd** (or load the `tdd` skill) - Subagents follow TDD for each task
+- **`tdd`** skill (`skills/engineering-team/tdd/SKILL.md`) + **`ap-tdd-reviewer`** agent — Subagents follow TDD for each task.
 
 **Alternative workflow:**
-- **superpowers:executing-plans** - Use for parallel session instead of same-session execution
+- **`/code/parallel`** command — Use for parallel session execution instead of same-session subagent dispatch.
