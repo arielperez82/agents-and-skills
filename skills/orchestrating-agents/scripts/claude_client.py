@@ -1,8 +1,8 @@
 """
 Orchestrating-Agents Client Module
 
-Invokes Cursor Agent via the `agent` CLI. Public API preserved (invoke_claude, etc.)
-for backward compatibility; backend is Cursor CLI, not Anthropic API.
+High-level API for single and parallel CLI invocations.
+Backend auto-detects: Claude Code CLI (claude) preferred, Cursor Agent CLI (agent) fallback.
 """
 
 import threading
@@ -10,9 +10,9 @@ from concurrent.futures import ThreadPoolExecutor, as_completed
 from copy import deepcopy
 from typing import Any, Union
 
-from cursor_client import invoke_cursor, CursorInvocationError
+from cli_client import invoke_cli, CLIInvocationError
 
-ClaudeInvocationError = CursorInvocationError
+ClaudeInvocationError = CLIInvocationError
 
 
 def _prompt_to_string(prompt: Union[str, list[dict]]) -> str:
@@ -88,7 +88,7 @@ def invoke_claude(
     full_prompt = f"{system_str}\n\n{prompt_str}" if system_str else prompt_str
 
     timeout = kwargs.get("timeout", 300)
-    result = invoke_cursor(full_prompt, timeout=timeout)
+    result = invoke_cli(full_prompt, timeout=timeout)
     if streaming and kwargs.get("callback"):
         try:
             kwargs["callback"](result)
@@ -151,7 +151,7 @@ def invoke_claude_streaming(
     prompt_str = _prompt_to_string(prompt)
     full_prompt = f"{system_str}\n\n{prompt_str}" if system_str else prompt_str
     timeout = kwargs.get("timeout", 300)
-    result = invoke_cursor(full_prompt, timeout=timeout)
+    result = invoke_cli(full_prompt, timeout=timeout)
     if callback:
         try:
             callback(result)

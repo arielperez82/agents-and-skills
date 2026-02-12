@@ -211,5 +211,61 @@ class TestBackwardCompat(unittest.TestCase):
         self.assertTrue(issubclass(CLIInvocationError, Exception))
 
 
+class TestClaudeClientIntegration(unittest.TestCase):
+    """Verify claude_client delegates to cli_client (not cursor_client directly)."""
+
+    @patch("cli_client.subprocess.run")
+    @patch("cli_client.shutil.which")
+    def test_invoke_claude_calls_through_cli_client(self, mock_which, mock_run):
+        from claude_client import invoke_claude
+
+        mock_which.return_value = "/usr/bin/claude"
+        mock_run.return_value = _make_result("response text")
+
+        result = invoke_claude("test prompt")
+
+        self.assertEqual(result, "response text")
+        mock_run.assert_called_once()
+        argv = mock_run.call_args[0][0]
+        self.assertEqual(argv[0], "claude")
+
+    @patch("cli_client.subprocess.run")
+    @patch("cli_client.shutil.which")
+    def test_invoke_claude_with_system_prepends_to_prompt(self, mock_which, mock_run):
+        from claude_client import invoke_claude
+
+        mock_which.return_value = "/usr/bin/claude"
+        mock_run.return_value = _make_result("ok")
+
+        invoke_claude("user msg", system="system msg")
+
+        argv = mock_run.call_args[0][0]
+        prompt_arg = argv[argv.index("-p") + 1]
+        self.assertIn("system msg", prompt_arg)
+        self.assertIn("user msg", prompt_arg)
+
+    @patch("cli_client.subprocess.run")
+    @patch("cli_client.shutil.which")
+    def test_invoke_parallel_uses_cli_client(self, mock_which, mock_run):
+        from claude_client import invoke_parallel
+
+        mock_which.return_value = "/usr/bin/claude"
+        mock_run.return_value = _make_result("ok")
+
+        results = invoke_parallel([
+            {"prompt": "p1"},
+            {"prompt": "p2"},
+        ])
+
+        self.assertEqual(len(results), 2)
+        self.assertEqual(mock_run.call_count, 2)
+
+    def test_claude_invocation_error_is_cli_invocation_error(self):
+        from claude_client import ClaudeInvocationError
+        from cli_client import CLIInvocationError
+
+        self.assertIs(ClaudeInvocationError, CLIInvocationError)
+
+
 if __name__ == "__main__":
     unittest.main()
