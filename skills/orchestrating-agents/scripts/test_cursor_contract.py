@@ -75,7 +75,8 @@ class TestCursorContractValidation(unittest.TestCase):
         from cursor_client import invoke_cursor
         from unittest.mock import patch
 
-        with patch("cursor_client.subprocess.run") as run:
+        with patch("cli_client.subprocess.run") as run, \
+             patch("cli_client.shutil.which", return_value="/usr/bin/agent"):
             run.return_value = type(
                 "Result", (), {"returncode": 0, "stdout": "ok", "stderr": ""}
             )()
