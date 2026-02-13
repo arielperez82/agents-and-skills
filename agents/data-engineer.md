@@ -229,6 +229,8 @@ The skill package includes production-ready templates in the `references/templat
 - `rules/endpoint-files.md` - API endpoint configuration
 - `rules/endpoint-optimization.md` - Query performance tuning
 - `rules/build-deploy.md` - Local vs Cloud deployment workflows
+- `rules/events-api-quarantine.md` - Events API quarantine behavior (successful_rows, quarantined_rows)
+- `rules/integration-testing.md` - Datasource integration tests (SDK vs raw HTTP, queryFinal, quarantine vs dedup tests)
 
 **CLI context:** Use `tb info` to check context. Commands default to Local; use `tb --cloud <command>` for production.
 

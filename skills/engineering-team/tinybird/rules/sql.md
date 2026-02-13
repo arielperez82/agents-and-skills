@@ -15,6 +15,16 @@
 - Do not use system tables (system.tables, system.datasources, information_schema.tables).
 - Do not use CREATE/INSERT/DELETE/TRUNCATE or currentDatabase().
 
+## Tinybird Local SQL API restrictions
+
+Both the Tinybird SQL API (`:7181/v0/sql`) and the ClickHouse HTTP proxy (`:7182`) allow **only SELECT and DESCRIBE**. Any mutation (e.g. `OPTIMIZE TABLE`, `ALTER TABLE`, `INSERT`) returns:
+
+`DB::Exception: Only SELECT or DESCRIBE queries are supported. Got: OptimizeQuery`
+
+- **Dedup reads:** Use `SELECT * FROM table FINAL` to apply ReplacingMergeTree dedup at query time; do not rely on `OPTIMIZE TABLE` in Local.
+- **Truncate:** Use the REST endpoint `POST /v0/datasources/{name}/truncate`, not SQL.
+- The ClickHouse proxy at `:7182` requires `Authorization: Bearer <TB_TOKEN>` (not ClickHouse user/password query params).
+
 ## Parameter and Templating Rules
 
 - If parameters are used, the query must start with `%` on its own line.

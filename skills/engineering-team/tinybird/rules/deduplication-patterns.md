@@ -46,6 +46,20 @@ ENGINE_IS_DELETED "is_deleted"  -- optional, UInt8: 1=deleted, 0=active
 SELECT * FROM posts FINAL WHERE post_id = {{Int64(post_id)}}
 ```
 
+### Testing ReplacingMergeTree dedup in Tinybird Local
+
+Tinybird Local SQL API does not allow `OPTIMIZE TABLE`. Use `SELECT * FROM table FINAL` as the canonical way to assert dedup behavior.
+
+**Constraint:** Rows with the same sorting key must be inserted in **separate** batch calls so they land in different ClickHouse parts. If both rows are in one batch, they may be collapsed in the same part before they are independently queryable.
+
+**Verified 5-step pattern:**
+
+1. Truncate datasource (REST `POST /v0/datasources/{name}/truncate`).
+2. Insert row A → poll until visible (e.g. waitForDataReady).
+3. Insert row B (same sorting key, different ver) → poll until row count = 2.
+4. `SELECT * FROM table` (no FINAL) → both rows visible (pre-merge state).
+5. `SELECT * FROM table FINAL` → only the row with highest ver survives.
+
 ## Snapshot-based Deduplication (Copy Pipes)
 
 Use Copy Pipes when:

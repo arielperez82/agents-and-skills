@@ -32,6 +32,11 @@ Notes:
 
 Use `--volumes-path` to persist data between restarts.
 
+## Local API constraints
+
+- **SQL API (`:7181/v0/sql`) and ClickHouse proxy (`:7182`):** Only SELECT and DESCRIBE are allowed. No OPTIMIZE TABLE, ALTER, INSERT, or other mutations. Use `SELECT ... FINAL` for ReplacingMergeTree dedup; use REST `POST /v0/datasources/{name}/truncate` for truncate.
+- **ClickHouse proxy auth:** `:7182` requires `Authorization: Bearer <TB_TOKEN>`.
+
 ## Troubleshooting
 
 - If status shows unhealthy, run `tb local restart` and re-check.

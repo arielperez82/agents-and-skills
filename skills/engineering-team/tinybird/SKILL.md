@@ -37,6 +37,8 @@ Reusable guidance extracted from Tinybird Code (the Tinybird CLI coding agent). 
 - `rules/data-operations.md`
 - `rules/deduplication-patterns.md`
 - `rules/local-development.md`
+- `rules/events-api-quarantine.md`
+- `rules/integration-testing.md`
 - `rules/typescript-sdk.md`
 
 ## Quick Reference
@@ -44,3 +46,4 @@ Reusable guidance extracted from Tinybird Code (the Tinybird CLI coding agent). 
 - **Classic (datafiles):** Project local files are the source of truth; build for Local, deploy for Cloud. Use `tb info` to check CLI context. CLI commands by default target Local; use `tb --cloud <command>` for Cloud and `tb --branch <branch-name> <command>` for a branch.
 - **TypeScript SDK:** Use `@tinybirdco/sdk` when you want type-safe definitions and a typed client; configure with `tinybird.json`, sync with `npx tinybird dev|build|deploy` (see `rules/typescript-sdk.md`). Can mix SDK and datafiles via `include`.
 - SQL is SELECT-only with Tinybird templating rules and strict parameter handling.
+- **Tinybird Local APIs:** SQL API and ClickHouse proxy allow only SELECT/DESCRIBE; use `SELECT ... FINAL` for ReplacingMergeTree dedup and REST for truncate (see `rules/sql.md`, `rules/local-development.md`). Events API quarantine behavior: see `rules/events-api-quarantine.md`. Datasource integration tests: see `rules/integration-testing.md`.
