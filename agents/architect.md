@@ -29,9 +29,13 @@ classification:
 
 # === RELATIONSHIPS ===
 related-agents: [technical-writer, graphql-architect]
-related-skills: [engineering-team/avoid-feature-creep, engineering-team/senior-architect, engineering-team/technical-writer, engineering-team/core-testing-methodology, engineering-team/docker-compose-basics, engineering-team/terraform-configuration, engineering-team/monorepo-architecture, engineering-team/c4-architecture, engineering-team/multi-cloud-architecture, engineering-team/orthogonality-principle, mermaid-diagrams]
-related-commands: []
+related-skills: [engineering-team/quality-gate-first, engineering-team/avoid-feature-creep, engineering-team/senior-architect, engineering-team/technical-writer, engineering-team/core-testing-methodology, engineering-team/docker-compose-basics, engineering-team/terraform-configuration, engineering-team/monorepo-architecture, engineering-team/c4-architecture, engineering-team/multi-cloud-architecture, engineering-team/orthogonality-principle, mermaid-diagrams]
+related-commands: [skill/phase-0-check]
 collaborates-with:
+  - agent: devsecops-engineer
+    purpose: Phase 0 in architecture plans — collaborate so CI and deploy pipeline (layers 2 and 3) are specified and owned; devsecops-engineer implements pipelines
+    required: recommended
+    without-collaborator: "Architecture plans may omit or underspecify CI and deploy pipeline"
   - agent: tdd-reviewer
     purpose: Ensuring architecture supports TDD practices and testability
     required: optional

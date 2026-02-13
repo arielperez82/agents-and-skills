@@ -28,6 +28,7 @@ classification:
 # === RELATIONSHIPS ===
 related-agents: [security-assessor, refactor-assessor]
 related-skills:
+  - engineering-team/quality-gate-first
   - engineering-team/avoid-feature-creep
   - engineering-team/code-reviewer
   - engineering-team/core-testing-methodology
@@ -44,8 +45,12 @@ related-skills:
   - engineering-team/clean-code
   - engineering-team/code-maturity-assessor
   - engineering-team/functional
-related-commands: []
+related-commands: [skill/phase-0-check]
 collaborates-with:
+  - agent: devsecops-engineer
+    purpose: When reviewing new or scaffolded projects — flag missing CI/deploy pipeline; collaborate with devsecops-engineer to establish Phase 0 layers 2 and 3
+    required: optional
+    without-collaborator: "New projects may ship without operational CI or deploy pipeline"
   - agent: tdd-reviewer
     purpose: TDD compliance verification and test structure review
     required: recommended

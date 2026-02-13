@@ -29,15 +29,17 @@ In the repo root, check for:
 | Element | Look for | Notes |
 |--------|----------|--------|
 | Type-check | `package.json` scripts (`check`, `type-check`, `tsc --noEmit`, `astro check`, etc.) and `tsconfig.json` or stack config | Strict mode when applicable |
-| Pre-commit | `.husky/pre-commit`, `lint-staged` in package.json or config file | Hooks run type-check/lint/format on staged files |
-| Lint | ESLint config (e.g. `eslint.config.js`, `.eslintrc*`), `lint` / `lint:fix` scripts | |
-| Format | Prettier config (`.prettierrc*`, `prettier` in package.json), `format` or `lint:format` scripts | |
+| Pre-commit | `.husky/pre-commit`, `lint-staged` in package.json or config file | Hooks run type-check/lint/format on staged files; unit tests on staged source files |
+| Lint | ESLint config (e.g. `eslint.config.ts`, `.eslintrc*`), `lint` / `lint:fix` scripts | Flat config preferred; typescript-eslint strict; no-explicit-any |
+| Format | Prettier config (`.prettierrc*`, `prettier.config.ts`), `format` / `format:fix` scripts, `.prettierignore` | |
 | Markdown lint | markdownlint config, `lint:md` or similar script | When repo has many `.md` files |
 | Stylelint (CSS) | Stylelint config, `lint:css` / `lint:css:fix` scripts; lint-staged for `*.css` | Frontend/web projects only; Tailwind-aware config, stylelint-config-prettier |
 | A11y lint | eslint-plugin-jsx-a11y or equivalent in ESLint config | For React/JSX/Astro client code |
 | Audit script | Lighthouse or similar script; optional CI | Not required in pre-commit |
+| CI pipeline | `.github/workflows/*.yml` with type-check, lint, format, test jobs | Path-based triggers; pinned action versions; frozen lockfile; separate check/test jobs |
+| Deploy pipeline | `.github/workflows/deploy.yml` or equivalent with `workflow_dispatch` | Manual trigger; dry-run gate; repository secrets for credentials; no local production deploys |
 
-Report: **Present** / **Missing** / **Partial** per element. If partial, state what’s there and what’s missing.
+Report: **Present** / **Missing** / **Partial** per element. If partial, state what's there and what's missing.
 
 ### 4. Plan/backlog/spec review (when scope is document)
 

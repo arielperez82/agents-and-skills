@@ -28,6 +28,7 @@ classification:
 # === RELATIONSHIPS ===
 related-agents: [tdd-reviewer]
 related-skills:
+  - engineering-team/quality-gate-first
   - engineering-team/avoid-feature-creep
   - engineering-team/senior-qa
   - engineering-team/tdd
@@ -48,7 +49,7 @@ related-skills:
   - engineering-team/coverage-analysis
   - engineering-team/bdd-principles
   - engineering-team/playwright-bdd-step-definitions
-related-commands: []
+related-commands: [skill/phase-0-check]
 collaborates-with:
   - agent: code-reviewer
     purpose: Code review with test coverage assessment and quality validation
