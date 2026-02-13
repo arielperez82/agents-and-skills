@@ -78,7 +78,7 @@ Each step MUST:
 
 ## TDD Integration
 
-**Every step follows RED-GREEN-REFACTOR.** See `testing` skill for factory patterns.
+**Every step follows RED-GREEN-REFACTOR.** For behavior-driven test patterns and test factories, use capability discovery (e.g. `/skill/find-local-skill` with "testing patterns" or "test factories") to load the best-matching skill.
 
 ```
 FOR EACH STEP:
@@ -93,7 +93,7 @@ FOR EACH STEP:
     │   - Just make the test pass
     │
     ├─► REFACTOR: Assess improvements
-    │   - See `refactoring` skill
+    │   - For refactoring assessment and patterns after GREEN, use capability discovery to load the matching skill
     │   - Only if it adds value
     │   - All tests still pass
     │
@@ -125,7 +125,7 @@ Only proceed with commit after explicit approval.
 
 ## Phase 0 (Quality Gate) First
 
-When the plan involves a **new project**, the quality gate must be **complete before any feature work**. Two valid patterns: (1) minimal skeleton then add all gates (type-check, pre-commit, lint, format, markdown lint, a11y lint, audit script), or (2) scaffold that includes quality tooling then verify and add missing pieces. Document which pattern in the plan (under `.docs/canonical/plans/`). Load the `quality-gate-first` skill for the full checklist. Feature work starts only after the gate is in place (Phase 1 or Step 2+).
+When the plan involves a **new project**, the quality gate must be **complete before any feature work**. Two valid patterns: (1) minimal skeleton then add all gates (type-check, pre-commit, lint, format, markdown lint, a11y lint, audit script), or (2) scaffold that includes quality tooling then verify and add missing pieces. Document which pattern in the plan (under `.docs/canonical/plans/`). For the full Phase 0 checklist (quality gate before feature work: type-check, pre-commit, lint, format, markdown lint, a11y, audit script), use `/skill/find-local-skill` with "quality gate" or "Phase 0" to load the matching skill. Feature work starts only after the gate is in place (Phase 1 or Step 2+).
 
 ## Plan structure (canonical)
 
@@ -147,7 +147,7 @@ Plans live under `.docs/canonical/plans/` with naming `plan-<endeavor>-<subject>
 ## Steps
 
 ### Step 0 (Phase 0): Quality gate — [when new project]
-[Minimal skeleton or scaffold-with-gates, then full gate (type-check, pre-commit, lint, format, markdown lint, a11y lint, audit script). No feature work until complete. See quality-gate-first skill.]
+[Minimal skeleton or scaffold-with-gates, then full gate (type-check, pre-commit, lint, format, markdown lint, a11y lint, audit script). No feature work until complete. Use capability discovery for "quality gate" or "Phase 0" to get the full checklist.]
 
 ### Step 1: [One sentence description]
 
@@ -320,7 +320,7 @@ END FEATURE
 
 ### Architecture Decision Record (ADR) template
 
-**For significant architectural decisions:** Write under `.docs/canonical/adrs/adr-YYYYMMDD-<subject>.md`. Required front matter: `type: adr`, `endeavor`, `status: proposed|accepted|superseded`, `date`, `supersedes`, `superseded_by`. See `.docs/AGENTS.md` and the `architecture-decision-records` skill.
+**For significant architectural decisions:** Write under `.docs/canonical/adrs/adr-YYYYMMDD-<subject>.md`. Required front matter: `type: adr`, `endeavor`, `status: proposed|accepted|superseded`, `date`, `supersedes`, `superseded_by`. See `.docs/AGENTS.md` for placement. For writing and maintaining Architecture Decision Records (ADRs), use `/skill/find-local-skill` with "ADR" or "architecture decision records" to load the matching skill.
 
 ```markdown
 # ADR-XXX: [Decision Title]

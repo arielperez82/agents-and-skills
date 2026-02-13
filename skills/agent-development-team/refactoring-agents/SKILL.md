@@ -17,7 +17,7 @@ This skill guides systematic refactoring of the agent ecosystem: identifying ove
 - **Collaboration contracts**: Delegation graphs, guardian vs implementer roles
 - **Refactor reporting**: Producing clear, reviewable refactor plans
 
-**What this skill does NOT cover**: Per-agent frontmatter schema, execution safety rules, or authoring a single agent spec. For those topics, use the `creating-agents` skill.
+**What this skill does NOT cover**: Per-agent frontmatter schema, execution safety rules, or authoring a single agent spec. For designing and writing a single agent (frontmatter, workflows, collaborations), use `/skill/find-local-skill` with "creating agents" or "agent authoring".
 
 All detailed doctrinal content lives in:
 
@@ -36,8 +36,8 @@ Use `refactoring-agents` when:
 
 Do **NOT** use this skill when:
 
-- You’re authoring a single new agent from scratch → use `creating-agents`
-- You’re writing or updating a skill → use `skill-creator`
+- You’re authoring a single new agent from scratch → use capability discovery with "creating agents" or "agent authoring"
+- You’re writing or updating a skill → use capability discovery with "creating skills" or "skill authoring"
 - You’re just deciding **which** existing agent to run → see `agents/README.md`
 
 ## Core Principles
@@ -190,9 +190,9 @@ Use this when you need a non-implementing assessor for a cross-cutting concern.
 
 ## Integration with Other Skills
 
-- **creating-agents**: Use for per-agent authoring once refactor decisions are made
-- **skill-creator**: Use when refactor implies new skills or skill splits
-- **subagent-driven-development**: Use to execute multi-step refactor plans with independent tasks
+- **Per-agent authoring**: Use capability discovery with "creating agents" once refactor decisions are made
+- **Skill authoring**: Use capability discovery with "creating skills" when refactor implies new skills or skill splits
+- **Multi-step execution**: For refactor plans with independent tasks, use capability discovery with "subagent" or "parallel implementation" to load the matching skill.
 
 ## Next Steps
 

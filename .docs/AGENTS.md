@@ -99,6 +99,8 @@ Route learnings by scope and half-life:
 
 **L22 — Reference example drives subagent consistency** (I04-SLSE, 2026-02-11): When launching parallel subagents to create similar artifacts (6 SKILL.md files), include an existing example file in the prompt. All 6 skill agents received the same reference SKILL.md (from I03-PRFR) and produced structurally consistent output: matching frontmatter schema, matching section order, matching Input/Output Contract format. Without a reference, subagents diverge in structure.
 
+**L23 — Delivering to production safely is the first feature** (I05-ATEL, 2026-02-12): Phase 0 is not just local linting and formatting — it is the full delivery pipeline. Three layers must be operational before any feature work: (1) **pre-commit** — Husky + lint-staged running type-check (full project), lint, format, and unit tests locally on every commit, (2) **CI pipeline** — GitHub Actions validating format, lint, type-check, build, and tests on every PR (path-triggered, pinned actions, frozen lockfile), (3) **deploy pipeline** — workflow_dispatch for production deploys (manual trigger, dry-run gate, no local deploys to production). If you can't ship safely, nothing else matters. The deploy pipeline is the first feature, not the last. Proven in I05-ATEL where B1→B2→B3 (scaffold→gate→pipelines) are sequential prerequisites for all 33 subsequent backlog items. Exemplar patterns: `~/projects/trival-sales-brain` (Husky + lint-staged + CI) and `~/projects/context/collectors/*` (pre-commit + CI + deploy workflows).
+
 ---
 
 ## ADR placement
@@ -152,3 +154,9 @@ Filenames under `.docs/canonical/` should follow the naming grammar above. To au
 - Backlog: [backlog-repo-I05-ATEL-agent-telemetry.md](canonical/backlogs/backlog-repo-I05-ATEL-agent-telemetry.md)
 
 Root `AGENTS.md` (if present) should point here: "See .docs/AGENTS.md for agent artifact conventions and operating reference."
+
+---
+
+## Skill and agent discovery
+
+When work requires additional capabilities (e.g. testing patterns, refactoring methodology, quality gate checklist): **describe the capability** and use `/skill/find-local-skill [description]` to get the best-matching skill path; do not hardcode skill names. Full guidance: root **AGENTS.md** ("Finding additional capabilities") and **skills/README.md** ("Finding additional capabilities", "Discovery & Installation").

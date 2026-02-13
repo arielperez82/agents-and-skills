@@ -5,7 +5,7 @@ description: DOM Testing Library patterns for behavior-driven UI testing. Framew
 
 # Front-End Testing with DOM Testing Library
 
-This skill focuses on framework-agnostic DOM Testing Library patterns that work across React, Vue, Svelte, and other frameworks. For React-specific patterns (renderHook, context, components), load the `react-testing` skill. For TDD workflow (RED-GREEN-REFACTOR), load the `tdd` skill. For general testing patterns (factories, public API testing), load the `testing` skill.
+This skill focuses on framework-agnostic DOM Testing Library patterns that work across React, Vue, Svelte, and other frameworks. For React-specific patterns (renderHook, context, components), use `/skill/find-local-skill` with "React testing". For TDD workflow (RED-GREEN-REFACTOR), use capability discovery with "TDD". For test factories and public-API testing patterns, use capability discovery with "testing patterns" or "test factories".
 
 ---
 
@@ -751,7 +751,7 @@ it('test 1', () => {
 });
 ```
 
-For factory patterns, see `testing` skill.
+For factory patterns and behavior-driven test structure, use capability discovery with "testing patterns" or "test factories".
 
 ---
 
@@ -886,6 +886,6 @@ Before merging UI tests, verify:
 - [ ] ESLint plugins installed (`eslint-plugin-testing-library`, `eslint-plugin-jest-dom`)
 - [ ] No manual `cleanup()` calls (automatic)
 - [ ] MSW for API mocking (not fetch/axios mocks)
-- [ ] Following TDD workflow (see `tdd` skill)
-- [ ] Using test factories for data (see `testing` skill)
-- [ ] For framework-specific patterns (React hooks, context, components), see `react-testing` skill
+- [ ] Following TDD workflow (use capability discovery for "TDD")
+- [ ] Using test factories for data (use capability discovery for "test factories")
+- [ ] For framework-specific patterns (React hooks, context, components), use capability discovery for "React testing"

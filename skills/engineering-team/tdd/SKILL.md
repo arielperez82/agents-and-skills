@@ -7,7 +7,7 @@ description: Test-Driven Development workflow. Use for ALL code changes - featur
 
 TDD is the fundamental practice. Every line of production code must be written in response to a failing test.
 
-**For how to write good tests**, load the `testing` skill. This skill focuses on the TDD workflow/process.
+**For how to write good tests** (behavior-driven testing patterns, test factories), use `/skill/find-local-skill` with "testing patterns" or "test factories" to load the best-matching skill. This skill focuses on the TDD workflow/process.
 
 **Core principle:** If you didn't watch the test fail, you don't know if it tests the right thing. Violating the letter of the rules is violating the spirit.
 
@@ -154,7 +154,7 @@ Test Evidence:
 
 4. Check that tests are behavior-driven (not testing implementation details)
 
-**For anti-patterns that create fake coverage (coverage theater)**, see the `testing` skill.
+**For anti-patterns that create fake coverage (coverage theater)**, use capability discovery for "testing anti-patterns" or "coverage theater" to load the matching skill.
 
 ### Reading Coverage Output
 
@@ -399,7 +399,7 @@ After green, classify any issues:
 | Nice | Later | Minor naming, single-use helpers |
 | Skip | Don't change | Already clean code |
 
-For detailed refactoring methodology, load the `refactoring` skill.
+For detailed refactoring methodology (assessment and patterns after GREEN), use `/skill/find-local-skill` with "refactoring" to load the matching skill.
 
 ---
 
@@ -420,7 +420,7 @@ For detailed refactoring methodology, load the `refactoring` skill.
 
 **Red flags:** Can't explain why test failed; tests added "later"; "I already manually tested it"; "spirit not ritual." All of these mean: delete code, start over with TDD.
 
-**For detailed testing anti-patterns** (mocks, test-only methods, coverage theater), load the `testing` skill.
+**For detailed testing anti-patterns** (mocks, test-only methods, coverage theater), use capability discovery for "testing anti-patterns" to load the matching skill.
 
 ---
 

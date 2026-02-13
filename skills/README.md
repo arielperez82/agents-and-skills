@@ -327,7 +327,7 @@ Role and specialist skills (same folder):
 - Drafting agent frontmatter or workflows
 - Structuring agent collaborations
 
-**Core responsibility**: Single-agent authoring; for ecosystem refactors see `refactoring-agents`.
+**Core responsibility**: Single-agent authoring; for ecosystem refactors use `/skill/find-local-skill` with "refactoring agents" or "agent ecosystem refactor".
 
 ---
 
@@ -368,6 +368,16 @@ Role and specialist skills (same folder):
 2. **Match task to catalog**: Use the tables above to choose "when to use" and "what it provides."
 3. **Combine with agents**: Per AGENTS.md, load the relevant skill and engage the relevant agent at the start of work.
 4. **Read SKILL.md**: Each skill directory has a `SKILL.md` with full instructions. Engineering-team skills live in `skills/engineering-team/<name>/`; agent-development skills (skill-creator, creating-agents, etc.) in `skills/agent-development-team/<name>/`; others in `skills/<name>/`.
+
+### Finding additional capabilities
+
+When you need a capability that might be provided by another skill (e.g. test factories, refactoring methodology, quality gate checklist):
+
+- **Describe the capability**, not a specific skill name (e.g. "behavior-driven test patterns and factories", "Phase 0 quality gate before feature work").
+- **Run** `/skill/find-local-skill` with that description. The command searches the catalog and returns the best-matching skill(s) and paths.
+- **Load** the returned `SKILL.md` file(s). This keeps skills decoupled so the system can find the best match as the catalog changes.
+
+Skills should not reference other skills by name; they should describe the capability needed and direct the user/agent to use discovery (this command or the catalog) so the right skill is chosen at runtime.
 
 Skills are:
 

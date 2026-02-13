@@ -41,7 +41,7 @@ Start by understanding the current project context, then ask questions one at a 
 
 **Implementation (if continuing):**
 - Ask: "Ready to set up for implementation?"
-- Use `implementation-planner` agent + `planning` skill to create detailed implementation plan
+- Use capability discovery for "implementation planning" or "incremental planning" to create a detailed implementation plan (and the implementation-planner agent when available)
 
 ## Key Principles
 

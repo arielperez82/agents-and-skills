@@ -298,7 +298,7 @@ NocoDB is a database UI tool that connects to external databases (PostgreSQL, My
 - Uses privileged PostgreSQL role (bypasses RLS) - security implications documented
 - Connection mode: Use session mode (port 5432), not transaction mode (port 6543)
 
-**For NocoDB-specific setup, integration patterns, and operational procedures, see the `nocodb` skill:**
+**For NocoDB-specific setup, integration patterns, and operational procedures** (database UI, views, relationships, backups), use `/skill/find-local-skill` with "NocoDB" to load the matching skill:
 
 - Architecture patterns (two-database separation, connection configuration)
 - Setup procedures (Docker Compose, environment variables, health checks)

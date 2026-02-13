@@ -19,7 +19,7 @@ Skills are appropriate when:
 Not appropriate when:
 - Context is project-specific (use Project instructions instead)
 - One-off task (use standalone prompt instead)
-- See **crafting-instructions** skill for detailed decision framework
+- For the detailed decision framework (when to use skills vs project instructions vs standalone prompts), use `/skill/find-local-skill` with "crafting instructions" or "instruction design"
 
 ## About Skills
 

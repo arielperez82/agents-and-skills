@@ -100,7 +100,7 @@ Native iOS development expertise covering Swift 5.9+, SwiftUI, UIKit, and the co
 
 ## Overview
 
-This skill provides comprehensive iOS development expertise for building native applications with Swift and SwiftUI. It covers modern concurrency patterns, architecture best practices, Xcode workflows, and App Store submission processes. Uses Python tools from the senior-mobile skill for platform detection and validation.
+This skill provides comprehensive iOS development expertise for building native applications with Swift and SwiftUI. It covers modern concurrency patterns, architecture best practices, Xcode workflows, and App Store submission processes. Uses shared cross-platform mobile tooling for platform detection and validation (see "Python Tools" below; use capability discovery for "cross-platform mobile" if needed).
 
 ## Quick Start
 
@@ -114,7 +114,7 @@ python3 ../../senior-mobile/scripts/app_store_validator.py --store apple --stric
 
 ## Python Tools
 
-This skill uses Python tools from the `senior-mobile` skill:
+This skill uses shared cross-platform mobile tooling (scaffolding, platform detection, app store validation). For that capability, use `/skill/find-local-skill` with "cross-platform mobile" or "React Native Flutter Expo":
 
 - **platform_detector.py** - Analyze iOS project configuration, provisioning, entitlements
 - **app_store_validator.py** - Validate against App Store requirements
@@ -483,7 +483,7 @@ struct LoadableView<Content: View, T>: View {
 
 ## Tools Integration
 
-This skill uses Python tools from the `senior-mobile` skill:
+This skill uses shared cross-platform mobile tooling (scaffolding, platform detection, app store validation). For that capability, use `/skill/find-local-skill` with "cross-platform mobile" or "React Native Flutter Expo":
 
 ```bash
 # Validate iOS app for App Store (from senior-mobile)

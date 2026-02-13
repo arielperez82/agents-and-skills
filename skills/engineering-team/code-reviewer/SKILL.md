@@ -70,7 +70,7 @@ Expert code review skill with automated analysis tools for modern programming la
 
 This skill delivers production-ready code review capabilities through three Python automation tools and extensive reference documentation. Whether conducting pull request reviews, enforcing coding standards, or identifying common anti-patterns, this skill ensures consistent, high-quality code across your team.
 
-**Reviewing development plans and backlogs:** If the plan or backlog has no "Phase 0 — Quality gate" (or equivalent) and starts with "Scaffold" or "Initialize app," recommend adding Phase 0 before scaffold/features. Load the `quality-gate-first` skill for the seven elements and where to document.
+**Reviewing development plans and backlogs:** If the plan or backlog has no "Phase 0 — Quality gate" (or equivalent) and starts with "Scaffold" or "Initialize app," recommend adding Phase 0 before scaffold/features. For the full checklist (type-check, pre-commit, lint, format, markdown lint, a11y, audit script) and where to document it, use `/skill/find-local-skill` with "quality gate" or "Phase 0".
 
 **Use this skill when:**
 - Reviewing pull requests for quality and security
@@ -80,7 +80,7 @@ This skill delivers production-ready code review capabilities through three Pyth
 - Enforcing language-specific coding standards
 - Identifying common anti-patterns and code smells
 - Generating comprehensive review reports
-- Reviewing development plans or backlogs (recommend Phase 0 — Quality gate before scaffold/features if missing; see `quality-gate-first` skill)
+- Reviewing development plans or backlogs (recommend Phase 0 — Quality gate before scaffold/features if missing; use capability discovery for "quality gate" or "Phase 0" for the checklist)
 - Training team members on best practices
 
 ## Quick Start

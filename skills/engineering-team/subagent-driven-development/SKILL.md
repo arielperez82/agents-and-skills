@@ -228,14 +228,14 @@ Done!
 
 ## Integration
 
-**Required workflow skills/agents:**
-- **`implementation-planner`** agent + **`planning`** skill — Creates the plan this skill executes. Plans live under `.docs/canonical/plans/`.
-- **`code-reviewer`** agent + `code-reviewer/references/requesting-code-review.md` — Code review template for reviewer subagents (see `./code-quality-reviewer-prompt.md`).
+**Required workflow capabilities/agents:**
+- **Implementation planning** — A plan this skill executes (plans under `.docs/canonical/plans/`). Use capability discovery with "planning" or "implementation plan" for the planning skill; use the implementation-planner agent when available.
+- **Code review** — Code review template for reviewer subagents (see `code-reviewer/references/requesting-code-review.md` and `./code-quality-reviewer-prompt.md`). Use the code-reviewer agent when available.
 - **`/review/review-changes`** command — Run 6 parallel review agents on uncommitted changes as a final gate.
 - **`/git/cm`** or **`/git/cp`** command — Commit (and optionally push) after all tasks complete.
 
 **Subagents should use:**
-- **`tdd`** skill (`skills/engineering-team/tdd/SKILL.md`) + **`tdd-reviewer`** agent — Subagents follow TDD for each task.
+- **TDD workflow** — Subagents follow RED-GREEN-REFACTOR for each task. Use `/skill/find-local-skill` with "TDD" or "test-driven development" to load the matching skill; use the tdd-reviewer agent when available.
 
 **Alternative workflow:**
 - **`/code/parallel`** command — Use for parallel session execution instead of same-session subagent dispatch.

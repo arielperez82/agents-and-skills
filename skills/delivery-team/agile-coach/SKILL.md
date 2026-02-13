@@ -387,7 +387,7 @@ In addition to Python tools, Scrum Master operations integrate with the Atlassia
 - Creating ceremony documentation pages in Confluence
 - Tracking retrospective action items
 
-See the jira-expert and confluence-expert skills for detailed MCP integration patterns.
+For detailed MCP integration patterns for issue tracking and wiki/documentation, use `/skill/find-local-skill` with "ticket management" or "wiki documentation" (or "Jira" / "Confluence" if those products are in use) to load the matching skill.
 
 ## Reference Documentation
 

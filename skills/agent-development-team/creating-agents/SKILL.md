@@ -1,6 +1,6 @@
 ---
 name: creating-agents
-description: Guide for designing and writing agent specifications in this repo. Use when creating a new agent, drafting agent frontmatter, defining agent workflows, or structuring agent collaborations. For ecosystem-wide refactoring guidance, see refactoring-agents skill.
+description: Guide for designing and writing agent specifications in this repo. Use when creating a new agent, drafting agent frontmatter, defining agent workflows, or structuring agent collaborations. For ecosystem-wide refactoring (agent overlap, merge/split, collaboration contracts), use `/skill/find-local-skill` with "refactoring agents" or "agent ecosystem".
 metadata:
   short-description: Create or update agent specifications
 ---
@@ -16,7 +16,7 @@ This skill guides you through designing and writing effective agent specificatio
 - **Quality standards**: Checklists, validation rules, testing approaches
 - **Integration patterns**: Skill orchestration, tool execution, collaboration protocols
 
-**What this skill does NOT cover**: Ecosystem-wide refactoring, agent overlap analysis, or multi-agent coordination strategies. For those topics, see the `refactoring-agents` skill.
+**What this skill does NOT cover**: Ecosystem-wide refactoring, agent overlap analysis, or multi-agent coordination strategies. For those capabilities, use capability discovery with "refactoring agents" or "agent ecosystem refactor".
 
 ## Quick Start
 
@@ -346,7 +346,7 @@ Use this skill when:
 
 **Do NOT use this skill for**:
 - Refactoring multiple agents or analyzing ecosystem overlap
-- Creating or modifying skills (use `skill-creator` instead)
+- Creating or modifying skills (use capability discovery with "creating skills" or "skill authoring" to load the matching skill)
 - Understanding when to invoke agents (see `agents/README.md`)
 
 ## Next Steps

@@ -623,7 +623,7 @@ python scripts/analyze_bundle.py
 
 ## When NOT to Use This Skill
 
-- **Non-React frameworks**: Next.js has its own patterns (use Next.js skill)
+- **Non-React frameworks**: Next.js has its own patterns; use capability discovery with "Next.js" for framework-specific guidance
 - **React Native**: Mobile has different patterns
 - **Class components**: Focus is on modern functional components
 - **Non-Vite build tools**: Webpack/Parcel have different configs

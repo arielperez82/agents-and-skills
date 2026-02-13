@@ -1341,7 +1341,7 @@ This skill is orchestrated by the legacy-codebase-analyzer agent for guided anal
 
 ### Integration with Code Review Workflow
 
-Works with code-reviewer skill for ongoing quality maintenance:
+Works with code review and PR analysis for ongoing quality maintenance (use capability discovery for "code review" to load the matching skill):
 
 ```bash
 # 1. Legacy analysis identifies problem areas
@@ -1356,7 +1356,7 @@ python scripts/technical_debt_scorer.py /path/to/legacy-project --compare baseli
 
 ### Integration with Security Workflow
 
-Complements security audits from secops skill:
+Complements security audits (use capability discovery for "SecOps" or "security compliance" to load the matching skill):
 
 ```bash
 # 1. Automated vulnerability scanning

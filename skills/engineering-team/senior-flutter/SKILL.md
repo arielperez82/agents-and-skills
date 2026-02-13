@@ -99,7 +99,7 @@ Flutter and Dart expertise for building production-grade cross-platform applicat
 
 ## Overview
 
-This skill provides comprehensive Flutter and Dart development expertise for building beautiful, performant cross-platform applications. It covers widget architecture, state management (Riverpod, Bloc, Provider), platform channels for native integration, and performance optimization techniques. Uses Python tools from the senior-mobile skill for scaffolding and validation.
+This skill provides comprehensive Flutter and Dart development expertise for building beautiful, performant cross-platform applications. It covers widget architecture, state management (Riverpod, Bloc, Provider), platform channels for native integration, and performance optimization techniques. Uses shared cross-platform mobile tooling for scaffolding and validation (see "Python Tools" below; use capability discovery for "cross-platform mobile" if needed).
 
 ## Quick Start
 
@@ -116,7 +116,7 @@ python3 ../../senior-mobile/scripts/app_store_validator.py --store google --stri
 
 ## Python Tools
 
-This skill uses Python tools from the `senior-mobile` skill:
+This skill uses shared cross-platform mobile tooling (scaffolding, platform detection, app store validation). For that capability, use `/skill/find-local-skill` with "cross-platform mobile" or "React Native Flutter Expo":
 
 - **mobile_scaffolder.py** - Generate Flutter project with clean architecture
 - **platform_detector.py** - Analyze project configuration for iOS/Android
@@ -676,7 +676,7 @@ Stream<List<Message>> watchMessages(String chatId) {
 
 ## Tools Integration
 
-This skill uses Python tools from the `senior-mobile` skill:
+This skill uses shared cross-platform mobile tooling (scaffolding, platform detection, app store validation). For that capability, use `/skill/find-local-skill` with "cross-platform mobile" or "React Native Flutter Expo":
 
 ```bash
 # Generate Flutter project structure

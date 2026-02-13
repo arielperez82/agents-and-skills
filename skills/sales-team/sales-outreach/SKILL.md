@@ -76,9 +76,9 @@ This skill transforms lead research into personalized, high-conversion sales out
 
 **Target audience:** Sales Development Representatives (SDRs) responsible for top-of-funnel outreach, Account Executives writing targeted ABM sequences, and anyone who needs to turn prospect intelligence into compelling first-touch communication.
 
-**What this skill does NOT cover:** Lead research itself (see `lead-research` skill), lead scoring/qualification (see `lead-qualification` skill), or post-meeting follow-up (see `meeting-intelligence` skill). This skill starts where research ends and produces a ready-to-send email draft.
+**What this skill does NOT cover:** Company research and lead enrichment (use capability discovery for "lead research" or "company profiles"); lead scoring and qualification frameworks (use capability discovery for "lead qualification" or "ICP matching"); post-meeting follow-up and briefing (use capability discovery for "meeting intelligence"). This skill starts where research ends and produces a ready-to-send email draft.
 
-**Upstream dependency:** This skill consumes the output of the `lead-research` skill. The quality of outreach is directly proportional to the quality of research. Garbage research produces garbage personalization.
+**Upstream dependency:** This skill consumes output from company research and lead enrichment (company profiles, prospect role, pain points). Use capability discovery for "lead research" or "company research" if you need that capability. The quality of outreach is directly proportional to the quality of research.
 
 ---
 
@@ -88,7 +88,7 @@ The research-to-outreach pipeline is a four-step process. Each step builds on th
 
 ### Step 1: Gather Research
 
-Start with the output of the `lead-research` skill. At minimum, you need:
+Start with research output (company profile, prospect role, pain points, recent events). If you need to produce that input, use capability discovery for "lead research" or "company research." At minimum, you need:
 
 - **Company context:** Industry, size, stage (startup/growth/enterprise), recent news, public challenges
 - **Prospect context:** Role, seniority, responsibilities, tenure at company, public content they have created (blog posts, conference talks, LinkedIn activity)
@@ -485,10 +485,10 @@ These are the outreach behaviors that damage response rates, brand reputation, a
 
 | Input | Source | Required | Description |
 |-------|--------|----------|-------------|
-| Lead research brief | `lead-research` skill output | Yes | Company profile, prospect role, pain points, recent events, tech stack signals |
+| Lead research brief | Company research / lead enrichment output | Yes | Company profile, prospect role, pain points, recent events, tech stack signals |
 | Company website URL | Provided by SDR or enrichment tool | Recommended | For website-based personalization hooks |
 | Product value propositions | Internal sales enablement | Yes | 3-5 core value props with supporting metrics and case studies |
-| Buyer persona | SDR judgment or `lead-qualification` output | Yes | Technical, executive, or operational -- drives tone selection |
+| Buyer persona | SDR judgment or lead qualification output | Yes | Technical, executive, or operational -- drives tone selection |
 | Outreach type | SDR judgment | Yes | Initial cold, ABM, follow-up, or breakup -- drives template selection |
 | Previous outreach history | CRM activity log | For follow-ups | What was sent before, when, and whether it was opened/replied |
 | Sequence position | SDR judgment | For sequences | Which touch number (1st, 2nd, 3rd) to calibrate intensity |

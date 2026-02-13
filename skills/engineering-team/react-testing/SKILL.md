@@ -5,7 +5,7 @@ description: React Testing Library patterns for testing React components, hooks,
 
 # React Testing Library
 
-This skill focuses on React-specific testing patterns. For general DOM testing patterns (queries, userEvent, async, accessibility), load the `front-end-testing` skill. For TDD workflow, load the `tdd` skill.
+This skill focuses on React-specific testing patterns. For framework-agnostic DOM testing (queries, userEvent, async, accessibility), use `/skill/find-local-skill` with "front-end testing" or "DOM Testing Library". For TDD workflow (RED-GREEN-REFACTOR), use capability discovery with "TDD" or "test-driven development".
 
 ---
 
@@ -325,7 +325,7 @@ it('test 1', () => {
 });
 ```
 
-For factory patterns, see `testing` skill.
+For factory patterns and behavior-driven test structure, use capability discovery with "testing patterns" or "test factories".
 
 ---
 
@@ -450,6 +450,6 @@ React-specific checks:
 - [ ] No manual `cleanup()` calls (automatic)
 - [ ] Testing component output, not internal state
 - [ ] Using factory functions, not `beforeEach` render
-- [ ] Following TDD workflow (see `tdd` skill)
-- [ ] Using general DOM testing patterns (see `front-end-testing` skill)
-- [ ] Using test factories for data (see `testing` skill)
+- [ ] Following TDD workflow (use capability discovery for "TDD")
+- [ ] Using general DOM testing patterns (use capability discovery for "front-end testing")
+- [ ] Using test factories for data (use capability discovery for "test factories")

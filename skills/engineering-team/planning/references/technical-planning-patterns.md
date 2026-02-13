@@ -212,7 +212,7 @@ Must be sequential:
 
 ## Phase 0 (Quality Gate) First
 
-For **new projects**, the quality gate must be **complete before any feature work**. Two patterns: (1) minimal skeleton then add all gates, or (2) scaffold that includes quality tooling then verify and add missing pieces. Phase 0 = one of these + type-check (full-project when source staged), pre-commit (Husky + lint-staged), ESLint, Prettier, MarkdownLint (when many `.md`), a11y lint, audit script (e.g. Lighthouse; script + optional CI). Document which pattern in the plan. Load the `quality-gate-first` skill for the full table. Feature work starts in Phase 1.
+For **new projects**, the quality gate must be **complete before any feature work**. Two patterns: (1) minimal skeleton then add all gates, or (2) scaffold that includes quality tooling then verify and add missing pieces. Phase 0 = one of these + type-check (full-project when source staged), pre-commit (Husky + lint-staged), ESLint, Prettier, MarkdownLint (when many `.md`), a11y lint, audit script (e.g. Lighthouse; script + optional CI). Document which pattern in the plan. For the full Phase 0 checklist, use `/skill/find-local-skill` with "quality gate" or "Phase 0". Feature work starts in Phase 1.
 
 ## Plan Document Structure
 
@@ -242,7 +242,7 @@ For **new projects**, the quality gate must be **complete before any feature wor
 ## Tasks
 
 ### Phase 0: Quality gate
-[Minimal skeleton or scaffold-with-gates, then full gate: type-check, pre-commit (Husky/lint-staged), ESLint, Prettier, MarkdownLint, a11y lint, audit script. No feature work until complete. See quality-gate-first skill.]
+[Minimal skeleton or scaffold-with-gates, then full gate: type-check, pre-commit (Husky/lint-staged), ESLint, Prettier, MarkdownLint, a11y lint, audit script. No feature work until complete. Use capability discovery for "quality gate" or "Phase 0" to get the full checklist.]
 
 ### Phase 1: Foundation
 
