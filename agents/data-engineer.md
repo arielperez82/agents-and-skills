@@ -63,7 +63,7 @@ collaborates-with:
     purpose: Database optimization for data pipelines, ETL processes, and data warehouse design
     required: optional
     without-collaborator: "Data pipelines may have unoptimized database operations"
-  - agent: learn
+  - agent: learner
     purpose: Document gotchas, patterns, and learnings discovered during data engineering into CLAUDE.md
     required: optional
     when: After completing significant features, when discovering gotchas or unexpected behaviors, after fixing complex bugs

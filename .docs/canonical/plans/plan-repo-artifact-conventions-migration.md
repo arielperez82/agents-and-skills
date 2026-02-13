@@ -158,7 +158,7 @@ Use the earlier audit. Summary mapping:
 | 2.16 | devsecops-engineer | summary → `.docs/reports/report-<endeavor>-security-audit-<timeframe>.md`. |
 | 2.17 | technical-writer | Audit/release outputs → `.docs/reports/report-<endeavor>-audit-<timeframe>.md`. README/CHANGELOG/API at project root unchanged unless we decide otherwise; no uppercase coordination files. |
 | 2.18 | docs-reviewer | Glob ` .docs/**/*.md` (and optionally project root docs); treat `.docs/canonical/**` as authoritative. |
-| 2.19 | learn | Route layer 1 → `.docs/AGENTS.md`; layer 2 → assessment or "Learnings" section in charter/roadmap/backlog/plan; layer 3 → skill/command assets. Bridge rule: cross-agent behavior change → short entry in AGENTS.md + pointer. |
+| 2.19 | learner | Route layer 1 → `.docs/AGENTS.md`; layer 2 → assessment or "Learnings" section in charter/roadmap/backlog/plan; layer 3 → skill/command assets. Bridge rule: cross-agent behavior change → short entry in AGENTS.md + pointer. |
 | 2.20 | Remaining agents | dotnet-engineer, network-engineer, incident-responder, java-engineer, data-engineer, agent-author, ui-designer, debugger, agile-coach, prompt-engineer, content-creator, etc.: any .md output that is "status/assessment/plan/roadmap/backlog/review" → apply naming grammar under `.docs/`. Specialist outputs (e.g. security-report, performance-report) → report or assessment under `.docs/reports/` or `.docs/canonical/assessments/`. |
 
 **Exit criteria:** All agents that read/write coordination or canonical-style artifacts reference only `.docs/` and use the agreed naming grammar. No references to PLAN.md, WIP.md, LEARNINGS.md, or ad-hoc names like `roadmap.md`, `summary.md`.
@@ -172,7 +172,7 @@ Use the earlier audit. Summary mapping:
 | Task | Notes |
 |------|--------|
 | 3.1 | Add "Learnings (three layers)" and "ADR placement" to `.docs/AGENTS.md` (concise). Include bridge rule and rule that domain learnings that change next actions must land in canonical docs. |
-| 3.2 | learn: document routing rules (layer 1 → AGENTS.md, layer 2 → assessment or Learnings section, layer 3 → skills); bridge rule. |
+| 3.2 | learner: document routing rules (layer 1 → AGENTS.md, layer 2 → assessment or Learnings section, layer 3 → skills); bridge rule. |
 | 3.3 | adr-writer: ADR location `.docs/canonical/adrs/`, naming `adr-YYYYMMDD-<subject>.md`, required front matter (type, endeavor, status, date, supersedes, superseded_by). Accepted ADRs that change constraints → update Charter/Plan/Backlog links. |
 | 3.4 | progress-assessor: when assessing "learnings", check AGENTS.md + canonical "Learnings" sections and assessments; no LEARNINGS.md file. |
 | 3.5 | docs-reviewer: treat `.docs/canonical/` as canonical; ensure assessments have backlog/charter update implications when learnings change next actions. |

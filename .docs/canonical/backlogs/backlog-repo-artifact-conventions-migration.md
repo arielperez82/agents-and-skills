@@ -29,9 +29,9 @@ Full ID prefix for this initiative: **I01-ACM**. In-doc shorthand: B1, B2, … C
 | B10 | Update senior-pm, demand-gen-specialist, cto-advisor artifact paths | 3 | Charter/roadmap/plan/reports | Phase 2.7–2.9 |
 | B11 | Update legacy-codebase-analyzer, seo-strategist, product-director | 3 | Assessments/roadmaps | Phase 2.10–2.12 |
 | B12 | Update code-reviewer, observability-engineer, architect, devsecops-engineer | 3 | Reviews/reports/assessments | Phase 2.13–2.16 |
-| B13 | Update technical-writer, docs-reviewer, learn, remaining agents | 3 | Full coverage | Phase 2.17–2.20 |
+| B13 | Update technical-writer, docs-reviewer, learner, remaining agents | 3 | Full coverage | Phase 2.17–2.20 |
 | B14 | Add Learnings (three layers) and ADR placement to `.docs/AGENTS.md` | 4 | Learnings/ADR wiring | Phase 3.1 |
-| B15 | Wire learn, adr-writer, progress-assessor, docs-reviewer for learnings/ADR | 4 | Agent behavior | Phase 3.2–3.5 |
+| B15 | Wire learner, adr-writer, progress-assessor, docs-reviewer for learnings/ADR | 4 | Agent behavior | Phase 3.2–3.5 |
 | B16 | Update commands (e.g. plan.md) and agents/README.md to `.docs/` | 5 | Commands/READMEs | Phase 4 |
 | B17 | Validation: grep for old names; complete checklist; redirects if needed | 6 | Clean state | Phase 5 |
 | B18 | Align planning skill: .docs/ plans, reports, three-layer learnings; remove PLAN.md/WIP.md/LEARNINGS.md | 6 | Skills alignment | Phase 6 |

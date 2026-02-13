@@ -56,7 +56,7 @@ collaborates-with:
     required: optional
     when-to-use: "When debugging security test failures, investigating vulnerabilities, analyzing security incidents, or when systematic debugging of security code is needed"
     without-collaborator: "Security issues may take longer to resolve without systematic debugging methodology"
-  - agent: learn
+  - agent: learner
     purpose: Document gotchas, patterns, and learnings discovered during security engineering into CLAUDE.md
     required: optional
     when: After completing significant features, when discovering gotchas or unexpected behaviors, after fixing complex bugs

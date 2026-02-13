@@ -55,7 +55,7 @@ collaborates-with:
     purpose: Security policy review and compliance validation
     required: recommended
     without-collaborator: "Security policies may lack comprehensive review"
-  - agent: learn
+  - agent: learner
     purpose: Document gotchas, patterns, and learnings discovered during network engineering into CLAUDE.md
     required: optional
     when: After completing significant features, when discovering gotchas or unexpected behaviors, after fixing complex bugs

@@ -33,7 +33,7 @@ These agents live directly in the `agents/` root directory:
 
 #### Documentation & Knowledge
 - **`docs-reviewer`** - Creates and maintains world-class permanent documentation (README, guides, API docs)
-- **`learn`** - Captures learnings, gotchas, and patterns into CLAUDE.md
+- **`learner`** - Captures learnings, gotchas, and patterns into CLAUDE.md
 
 ### Engineering Agents
 
@@ -247,7 +247,7 @@ These agents live directly in the `agents/` root directory:
 
 ---
 
-#### `learn`
+#### `learner`
 **Purpose**: Captures learnings, gotchas, and patterns into CLAUDE.md.
 
 **Use proactively when**:
@@ -343,7 +343,7 @@ These agents live directly in the `agents/` root directory:
 
 **Use reactively when**:
 - Completing a step (update status report under `.docs/reports/`)
-- Discovering something (add via learn to `.docs/AGENTS.md` or Learnings section in canonical doc)
+- Discovering something (add via learner to `.docs/AGENTS.md` or Learnings section in canonical doc)
 - Plan needs changing (propose changes, get approval)
 - End of work session (checkpoint)
 - Feature complete (merge learnings, update canonical docs as needed)
@@ -352,7 +352,7 @@ These agents live directly in the `agents/` root directory:
 - Use canonical docs under `.docs/`: plan(s) in `.docs/canonical/plans/`, status in `.docs/reports/`, learnings in `.docs/AGENTS.md` or "Learnings" sections in charter/roadmap/backlog/plan
 - Enforce small increments, TDD, commit approval
 - Never modify the plan without explicit user approval
-- Capture learnings as they occur (via learn)
+- Capture learnings as they occur (via learner)
 - At end: orchestrate learning merge; no root-level PLAN.md/WIP.md/LEARNINGS.md
 
 **Canonical docs model** (see `.docs/AGENTS.md`):
@@ -361,7 +361,7 @@ These agents live directly in the `agents/` root directory:
 |----------|---------|---------|
 | `.docs/canonical/plans/plan-<endeavor>-*.md` | What we're doing (approved steps) | Only with user approval |
 | `.docs/reports/report-<endeavor>-status-*.md` | Where we are now (current state) | Constantly |
-| `.docs/AGENTS.md` + Learnings sections | What we discovered | As discoveries occur; merge via learn |
+| `.docs/AGENTS.md` + Learnings sections | What we discovered | As discoveries occur; merge via learner |
 
 **Initiative naming:** All agents that create or reference roadmap, backlog, or plan under `.docs/canonical/` must follow the initiative naming convention: front matter **MUST** include `initiative: I<nn>-<ACRONYM>` and `initiative_name: <long-form>`. Use **References (by initiative)** in `.docs/AGENTS.md` to resolve the current plan for an initiative. See charter: `.docs/canonical/charters/charter-repo-initiative-naming-convention.md`.
 
@@ -395,7 +395,7 @@ progress-assessor (orchestrates)
     │   └─→ code-reviewer (comprehensive code review)
     │
     ├─► At end:
-    │   ├─→ learn (merge learnings → .docs/AGENTS.md or canonical Learnings sections)
+    │   ├─→ learner (merge learnings → .docs/AGENTS.md or canonical Learnings sections)
     │   ├─→ docs-reviewer (update permanent docs)
     │   └─→ Update/archive canonical docs as needed
     │
@@ -414,7 +414,7 @@ progress-assessor (orchestrates)
    - GREEN: Minimal code to pass
    - REFACTOR: Invoke `refactor-assessor` to assess improvements
    - Update status report in `.docs/reports/` with progress
-   - Capture discoveries via learn (`.docs/AGENTS.md` or Learnings section)
+   - Capture discoveries via learner (`.docs/AGENTS.md` or Learnings section)
    - **WAIT FOR COMMIT APPROVAL**
 
 3. **When plan needs changing**
@@ -440,7 +440,7 @@ progress-assessor (orchestrates)
 8. **Feature complete**
    - Invoke `progress-assessor`: Verify all criteria met
    - Review learnings for merge destinations (`.docs/AGENTS.md` or canonical Learnings sections)
-   - Invoke `learn`: Merge gotchas/patterns → `.docs/AGENTS.md` or canonical docs
+   - Invoke `learner`: Merge gotchas/patterns → `.docs/AGENTS.md` or canonical docs
    - Invoke `adr-writer`: Create ADRs under `.docs/canonical/adrs/`
    - Invoke `docs-reviewer`: Update permanent docs
    - **Update/archive canonical docs as needed** (no root PLAN.md/WIP.md/LEARNINGS.md to delete)
@@ -449,7 +449,7 @@ progress-assessor (orchestrates)
 
 ### Documentation Types
 
-| Aspect | progress-assessor | adr-writer | learn | docs-reviewer |
+| Aspect | progress-assessor | adr-writer | learner | docs-reviewer |
 |--------|------------------|-----|-------|---------------|
 | **Lifespan** | Plan/status in .docs/ (updated; may archive) | Permanent | Permanent | Permanent |
 | **Audience** | Current developer | Future developers | AI assistant + developers | Users + developers |
@@ -474,7 +474,7 @@ progress-assessor (orchestrates)
 - "Why is the system designed this way?"
 - → Answer: Permanent ADR in `.docs/canonical/adrs/`
 
-**Use `learn`** for:
+**Use `learner`** for:
 - "What gotchas should I know about?"
 - "What patterns work well here?"
 - "How do I avoid this common mistake?"
@@ -585,7 +585,7 @@ These agents work together to create a comprehensive development workflow:
 - **Quality**: tdd-reviewer + ts-enforcer ensure code quality
 - **Improvement**: refactor-assessor optimizes code after tests pass
 - **Review**: code-reviewer validates code before merge
-- **Knowledge**: learn + adr-writer + docs-reviewer preserve knowledge
+- **Knowledge**: learner + adr-writer + docs-reviewer preserve knowledge
 - **Progress**: progress-assessor validates progress tracking discipline with three-document model
 
 **Key workflow principles** (see `planning` skill for details):

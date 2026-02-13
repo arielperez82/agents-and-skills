@@ -43,7 +43,7 @@ collaborates-with:
     purpose: Backend API development that integrates with Supabase database
     required: optional
     without-collaborator: "Backend integration may not fully utilize Supabase features"
-  - agent: learn
+  - agent: learner
     purpose: Document gotchas, patterns, and learnings discovered during Supabase database engineering into CLAUDE.md
     required: optional
     when: After completing significant features, when discovering gotchas or unexpected behaviors, after fixing complex bugs

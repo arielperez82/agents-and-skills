@@ -50,7 +50,7 @@ collaborates-with:
     purpose: ServiceNow incident creation from observability alerts
     required: optional
     without-collaborator: "ServiceNow incidents must be created manually from alerts"
-  - agent: learn
+  - agent: learner
     purpose: Document gotchas, patterns, and learnings discovered during observability engineering into CLAUDE.md
     required: optional
     when: After completing significant features, when discovering gotchas or unexpected behaviors, after fixing complex bugs

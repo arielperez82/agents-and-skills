@@ -360,7 +360,7 @@ Role and specialist skills (same folder):
 | Code review | code-reviewer | code-reviewer |
 | Document decisions | architecture-decision-records | adr-writer |
 | Permanent docs | — | docs-reviewer |
-| Capture learnings | — | learn |
+| Capture learnings | — | learner |
 
 ## Using These Skills
 

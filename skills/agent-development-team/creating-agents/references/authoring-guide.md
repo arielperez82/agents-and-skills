@@ -481,5 +481,5 @@ skills/agent-development-team/creating-agents/
 - **General codebase learnings** → Project-specific CLAUDE.md (if exists) or appropriate skill references
 - **Architectural decisions** → ADRs via `adr-writer`
 
-**Note:** The `learn` agent should be updated to route learnings to appropriate skill references based on domain, not just a single CLAUDE.md file.
+**Note:** The `learner` agent should be updated to route learnings to appropriate skill references based on domain, not just a single CLAUDE.md file.
 

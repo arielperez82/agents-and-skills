@@ -29,7 +29,7 @@ Per-agent mapping: current read/write paths → canonical or report path. Use th
 | devsecops-engineer | $REPORT_DIR/summary.md | `.docs/reports/report-repo-security-audit-<timeframe>.md`. |
 | technical-writer | README.md, CHANGELOG.md, API.md, audit-report.md, docs/*, SECURITY.md | Project root README/CHANGELOG/API unchanged per charter; audit/release outputs → `.docs/reports/report-repo-audit-<timeframe>.md`. No uppercase coordination files. |
 | docs-reviewer | Glob **/*.md | Glob `.docs/**/*.md`; treat `.docs/canonical/**` as authoritative. |
-| learn | CLAUDE.md, skill refs, ADR | Layer 1 → `.docs/AGENTS.md`; layer 2 → assessment or "Learnings" in charter/roadmap/backlog/plan; layer 3 → skills. Bridge rule: cross-agent change → short entry in AGENTS.md + pointer. |
+| learner | CLAUDE.md, skill refs, ADR | Layer 1 → `.docs/AGENTS.md`; layer 2 → assessment or "Learnings" in charter/roadmap/backlog/plan; layer 3 → skills. Bridge rule: cross-agent change → short entry in AGENTS.md + pointer. |
 | dotnet-engineer | performance-report.md, security-report.md, etc. | `.docs/reports/report-repo-<topic>-<timeframe>.md` or `.docs/canonical/assessments/` as appropriate. |
 | network-engineer | report.md, audit-report.md | `.docs/reports/report-repo-audit-<timeframe>.md` or assessment. |
 | incident-responder | preliminary-report.md, executive-alert.md, regulatory-requirements.md, data-breach-report.md | `.docs/reports/report-repo-incident-<id>-<topic>-<date>.md` or under `.docs/reports/` with naming grammar. |

@@ -86,7 +86,7 @@ Assess whether canonical tracking exists and is properly maintained under `.docs
 |----------|---------|---------|
 | `.docs/canonical/plans/plan-<endeavor>-*.md` | What we're doing (approved steps) | Only with user approval |
 | `.docs/reports/report-<endeavor>-status-*.md` | Where we are now (current state) | Constantly |
-| `.docs/AGENTS.md` + "Learnings" in canonical docs | What we discovered (layer 1 + 2) | As discoveries occur; merge via learn |
+| `.docs/AGENTS.md` + "Learnings" in canonical docs | What we discovered (layer 1 + 2) | As discoveries occur; merge via learner |
 
 ## When to Invoke
 
@@ -108,7 +108,7 @@ User: "Tests are passing now"
 
 User: "I discovered the API returns null not empty array"
 → Invoke progress-assessor to assess: "Is this learning captured (AGENTS.md or Learnings section in canonical doc)?"
-→ progress-assessor reports: "Learning not found. Recommend adding via learn to .docs/AGENTS.md or Learnings section in plan/charter."
+→ progress-assessor reports: "Learning not found. Recommend adding via learner to .docs/AGENTS.md or Learnings section in plan/charter."
 
 User: "We need to change the approach"
 → Invoke progress-assessor to assess: "Does the plan under .docs/canonical/plans/ reflect the change?"
@@ -123,7 +123,7 @@ User: "Feature is complete"
   - All acceptance criteria met?
   - All steps marked complete?
   - Learnings reviewed for merge to .docs/AGENTS.md or canonical Learnings sections?
-→ progress-assessor reports: "Feature complete. Recommend merging learnings via learn, then archiving or updating canonical docs as needed."
+→ progress-assessor reports: "Feature complete. Recommend merging learnings via learner, then archiving or updating canonical docs as needed."
 ```
 
 ## Document Locations and Structure
@@ -143,7 +143,7 @@ Plans and status live under `.docs/`. Use the naming grammar from `.docs/AGENTS.
 
 ### Learnings
 
-- **Layer 1 (operational):** `.docs/AGENTS.md` — cross-agent behavior, conventions, guardrails. Merge via learn.
+- **Layer 1 (operational):** `.docs/AGENTS.md` — cross-agent behavior, conventions, guardrails. Merge via learner.
 - **Layer 2 (domain):** "Learnings" section in the relevant plan/charter/roadmap/backlog, or `.docs/canonical/assessments/assessment-<endeavor>-<subject>-<date>.md`. Rule: if a learning changes what we do next, it lands in canonical docs.
 - Do not create or expect LEARNINGS.md at repo root.
 
@@ -209,11 +209,11 @@ Read .docs/AGENTS.md   # for layer 1 learnings
 
 ❌ Learning not captured:
    - You mentioned discovering "API returns null not empty array"
-   - Recommend adding via learn to .docs/AGENTS.md or Learnings section in plan
+   - Recommend adding via learner to .docs/AGENTS.md or Learnings section in plan
 
 **Priority Actions:**
 1. Update status report to GREEN
-2. Add recent discovery via learn (AGENTS.md or Learnings section)
+2. Add recent discovery via learner (AGENTS.md or Learnings section)
 3. Update status report with commit hash for completed step
 ```
 
@@ -233,12 +233,12 @@ Read .docs/AGENTS.md   # for layer 1 learnings
 ✅ All acceptance criteria met
 ✅ All steps complete
 ✅ Learnings (AGENTS.md and/or canonical Learnings sections) contain:
-   - 2 gotchas → recommend merging to .docs/AGENTS.md via `learn` agent
+   - 2 gotchas → recommend merging to .docs/AGENTS.md via `learner` agent
    - 1 architectural decision → recommend creating ADR via `adr-writer` (under .docs/canonical/adrs/)
    - 3 edge cases → already captured in tests
 
 **Recommendations:**
-1. Invoke `learn` agent to merge gotchas to .docs/AGENTS.md or canonical Learnings section
+1. Invoke `learner` agent to merge gotchas to .docs/AGENTS.md or canonical Learnings section
 2. Invoke `adr-writer` agent for architectural decision (.docs/canonical/adrs/)
 3. Archive or update canonical docs as needed; no PLAN.md/WIP.md/LEARNINGS.md to delete
 ```
@@ -250,7 +250,7 @@ Read .docs/AGENTS.md   # for layer 1 learnings
 | `tdd-reviewer` | Before commits, to verify TDD compliance |
 | `ts-enforcer` | Before commits, to check TypeScript strictness |
 | `refactor-assessor` | After GREEN, to assess refactoring |
-| `learn` | At end of feature, to merge learnings into .docs/AGENTS.md or canonical Learnings sections |
+| `learner` | At end of feature, to merge learnings into .docs/AGENTS.md or canonical Learnings sections |
 | `adr-writer` | When architectural decisions need recording (.docs/canonical/adrs/) |
 | `docs-reviewer` | When permanent docs need updating |
 
@@ -307,7 +307,7 @@ progress-assessor: "I've assessed your progress tracking under .docs/:
    - Progress list
    - Blockers
 
-3. Capture learnings via learn into .docs/AGENTS.md or a Learnings section in the plan.
+3. Capture learnings via learner into .docs/AGENTS.md or a Learnings section in the plan.
 
 Use naming grammar from .docs/AGENTS.md (charter)."
 ```
@@ -345,12 +345,12 @@ progress-assessor: "I've validated completion:
 ✅ All steps in plan marked complete
 ✅ Status report shows all steps complete
 ✅ Learnings (.docs/AGENTS.md and/or Learnings sections) contain:
-   - 2 gotchas → recommend merging to .docs/AGENTS.md via learn
+   - 2 gotchas → recommend merging to .docs/AGENTS.md via learner
    - 1 architectural decision → recommend creating ADR under .docs/canonical/adrs/
    - 3 edge cases → already in tests
 
 **Recommendations:**
-1. Invoke `learn` agent to merge gotchas to .docs/AGENTS.md or canonical Learnings section
+1. Invoke `learner` agent to merge gotchas to .docs/AGENTS.md or canonical Learnings section
 2. Invoke `adr-writer` agent for architectural decision (.docs/canonical/adrs/)
 3. Archive or update canonical docs as needed.
 

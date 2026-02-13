@@ -253,5 +253,5 @@ Use this checklist before creating or refactoring an agent:
 - **General codebase learnings** → Project-specific CLAUDE.md or domain skill references
 - **Architectural decisions** → ADRs via `adr-writer`
 
-**Implication:** `learn` agent needs updating to route learnings to appropriate skill references based on domain, not assume a single CLAUDE.md exists.
+**Implication:** `learner` agent needs updating to route learnings to appropriate skill references based on domain, not assume a single CLAUDE.md exists.
 

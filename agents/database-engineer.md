@@ -56,7 +56,7 @@ collaborates-with:
     purpose: Database security review, access control, and compliance validation
     required: optional
     without-collaborator: "Database security may not be comprehensively reviewed"
-  - agent: learn
+  - agent: learner
     purpose: Document gotchas, patterns, and learnings discovered during database engineering into CLAUDE.md
     required: optional
     when: After completing significant features, when discovering gotchas or unexpected behaviors, after fixing complex bugs

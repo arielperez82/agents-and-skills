@@ -213,7 +213,7 @@ Capture learnings as they occur. Route by type:
 
 | Learning type | Destination |
 |---------------|-------------|
-| Gotchas, patterns (cross-agent) | Layer 1: `.docs/AGENTS.md` (use `learn` or equivalent) |
+| Gotchas, patterns (cross-agent) | Layer 1: `.docs/AGENTS.md` (use `learner` or equivalent) |
 | Domain conclusions, "what we do next" | Layer 2: assessment or "Learnings" section in plan/charter/roadmap/backlog |
 | How-to, checklists, templates | Layer 3: with the relevant skill or command |
 | Architectural decisions | `.docs/canonical/adrs/adr-YYYYMMDD-<subject>.md` (use `adr-writer` when applicable) |

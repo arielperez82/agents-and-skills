@@ -51,7 +51,7 @@ implementation-planner
 incident-responder
 ios-engineer
 java-engineer
-learn
+learner
 legacy-codebase-analyzer
 ml-engineer
 mobile-engineer

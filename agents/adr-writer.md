@@ -993,10 +993,10 @@ The `adr-writer` agent is successful when:
 → docs-reviewer references ADR in architecture documentation
 ```
 
-### With learn agent
+### With learner
 
 ```markdown
-[learn agent capturing significant learning]
+[learner capturing significant learning]
 → If learning reveals architectural decision
 → Suggest invoking adr-writer agent
 → ADR provides structure, CLAUDE.md provides gotchas/patterns
@@ -1026,7 +1026,7 @@ The `adr-writer` agent is successful when:
 
 **Relationship**: Complementary. ADRs provide decision context that complements general documentation. technical-writer may reference ADRs in architecture documentation.
 
-### adr-writer vs learn agent
+### adr-writer vs learner
 
 **adr-writer** (this agent):
 - **Focus**: Architectural decisions and their rationale
@@ -1035,14 +1035,14 @@ The `adr-writer` agent is successful when:
 - **Output**: Structured ADR documents with context, alternatives, consequences
 - **When to use**: Making or discovering architectural decisions
 
-**learn agent**:
+**learner** (Lorekeeper):
 - **Focus**: Operational knowledge and patterns
 - **Purpose**: Document "how to work with this codebase"
 - **Scope**: Gotchas, patterns, anti-patterns, tooling knowledge, workflow insights
 - **Output**: Updates to CLAUDE.md with learnings and patterns
 - **When to use**: Discovering gotchas, fixing bugs, learning patterns
 
-**Relationship**: Complementary. ADRs explain architectural decisions, while CLAUDE.md (via learn agent) captures how to work with those decisions. For example:
+**Relationship**: Complementary. ADRs explain architectural decisions, while CLAUDE.md (via learner) captures how to work with those decisions. For example:
 - **ADR**: "We chose PostgreSQL because of ACID transactions"
 - **CLAUDE.md**: "When working with PostgreSQL, use connection pooling and watch for N+1 queries"
 

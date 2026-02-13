@@ -31,7 +31,7 @@ timeframe: 2026-02-10
 
 ## Check: Agents reference initiative naming
 
-**Phase 3 core agents (B07-B12):** progress-assessor, implementation-planner, product-manager, product-analyst, product-director, senior-pm, architect, adr-writer, learn, docs-reviewer.
+**Phase 3 core agents (B07-B12):** progress-assessor, implementation-planner, product-manager, product-analyst, product-director, senior-pm, architect, adr-writer, learner, docs-reviewer.
 
 **Phase 3 remaining agents (B13):** qa-engineer, ux-researcher, technical-writer, seo-strategist, legacy-codebase-analyzer, cto-advisor, code-reviewer, observability-engineer, devsecops-engineer, brainstormer.
 

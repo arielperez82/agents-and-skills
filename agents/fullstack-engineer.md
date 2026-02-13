@@ -29,6 +29,7 @@ classification:
 # === RELATIONSHIPS ===
 related-agents: []
 related-skills:
+  - engineering-team/quality-gate-first
   - engineering-team/software-architecture
   - engineering-team/avoid-feature-creep
   - engineering-team/mcp-builder
@@ -63,8 +64,12 @@ related-skills:
   - engineering-team/api-design-principles
   - engineering-team/modern-javascript-patterns
   - engineering-team/nocodb
-related-commands: []
+related-commands: [skill/phase-0-check]
 collaborates-with:
+  - agent: devsecops-engineer
+    purpose: Phase 0 setup — collaborate for CI pipeline and deploy pipeline (layers 2 and 3); devsecops-engineer owns pipeline implementation
+    required: recommended
+    without-collaborator: "Phase 0 may lack operational CI and deploy pipelines"
   - agent: tdd-reviewer
     purpose: TDD methodology guidance for full-stack development across all layers
     required: recommended
@@ -98,7 +103,7 @@ collaborates-with:
     required: optional
     when-to-use: "When encountering bugs, test failures, performance issues, or when systematic debugging is needed"
     without-collaborator: "Issues may take longer to resolve without systematic debugging methodology"
-  - agent: learn
+  - agent: learner
     purpose: Document gotchas, patterns, and learnings discovered during full-stack development into CLAUDE.md
     required: optional
     when: After completing significant features, when discovering gotchas or unexpected behaviors, after fixing complex bugs

@@ -51,7 +51,7 @@ collaborates-with:
     purpose: Database optimization for ML feature stores, model serving databases, and vector databases
     required: optional
     without-collaborator: "ML systems may have unoptimized database operations for features and serving"
-  - agent: learn
+  - agent: learner
     purpose: Document gotchas, patterns, and learnings discovered during ML development into CLAUDE.md
     required: optional
     when: After completing significant features, when discovering gotchas or unexpected behaviors, after fixing complex bugs
