@@ -1,0 +1,6 @@
+{
+  "include": ["src/datasources", "src/pipes"],
+  "token": "${TB_TOKEN}",
+  "baseUrl": "${TB_HOST}",
+  "devMode": "local"
+}

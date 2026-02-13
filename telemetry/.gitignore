@@ -1,0 +1,11 @@
+node_modules/
+dist/
+coverage/
+.tinyb
+.DS_Store
+*.tsbuildinfo
+
+# Environment files — never commit credentials
+.env
+.env.local
+.env.*.local

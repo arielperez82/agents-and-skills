@@ -1,0 +1,56 @@
+{
+  "name": "@agents-and-skills/telemetry",
+  "version": "0.1.0",
+  "type": "module",
+  "exports": {
+    ".": "./src/index.ts",
+    "./datasources": "./src/datasources/index.ts",
+    "./pipes": "./src/pipes/index.ts"
+  },
+  "scripts": {
+    "type-check": "tsc --noEmit",
+    "lint": "eslint .",
+    "lint:fix": "eslint . --fix",
+    "format": "NODE_OPTIONS=--experimental-strip-types prettier --check .",
+    "format:fix": "NODE_OPTIONS=--experimental-strip-types prettier --write .",
+    "test": "pnpm run test:unit",
+    "test:watch": "vitest --config vitest.unit.config.ts",
+    "test:unit": "vitest run --config vitest.unit.config.ts",
+    "test:unit:watch": "vitest --config vitest.unit.config.ts",
+    "test:unit:coverage": "vitest run --config vitest.unit.config.ts --coverage",
+    "test:coverage": "pnpm run test:unit:coverage",
+    "test:integration": "vitest run --config vitest.integration.config.ts",
+    "build": "tsc --noEmit",
+    "prepare": "cd .. && husky telemetry/.husky",
+    "tinybird:dev": "npx dotenv-cli -e .env.local -- npx tinybird dev",
+    "tinybird:build": "npx dotenv-cli -e .env.local -- npx tinybird build",
+    "tinybird:build:check": "npx dotenv-cli -e .env.local -- npx tinybird build --dry-run",
+    "tinybird:deploy": "npx dotenv-cli -e .env.local -- npx tinybird deploy",
+    "tinybird:deploy:check": "npx dotenv-cli -e .env.local -- npx tinybird deploy --dry-run"
+  },
+  "devDependencies": {
+    "@eslint/js": "^9.39.0",
+    "@tinybirdco/sdk": "^0.0.36",
+    "@types/node": "^22.15.0",
+    "@typescript-eslint/parser": "^8.48.0",
+    "@vitest/coverage-v8": "^4.0.0",
+    "dotenv-cli": "^7.4.2",
+    "eslint": "^9.39.0",
+    "eslint-config-prettier": "^10.1.0",
+    "eslint-import-resolver-typescript": "^3.10.0",
+    "eslint-plugin-import": "^2.32.0",
+    "eslint-plugin-simple-import-sort": "^12.1.0",
+    "eslint-plugin-sonarjs": "^3.0.0",
+    "husky": "^9.1.0",
+    "jiti": "^2.6.1",
+    "lint-staged": "^16.1.0",
+    "msw": "^2.12.0",
+    "prettier": "^3.7.0",
+    "typescript": "^5.8.0",
+    "typescript-eslint": "^8.48.0",
+    "vitest": "^4.0.0"
+  },
+  "engines": {
+    "node": ">=22"
+  }
+}

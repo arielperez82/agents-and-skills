@@ -1,0 +1,53 @@
+# Telemetry Deploy Pipeline
+#
+# Manual deployment workflow (workflow_dispatch only). Builds the Tinybird
+# project, runs a dry-run deploy for validation, then deploys to production.
+# All GitHub Actions are pinned to commit SHAs for supply chain security.
+# Repository secrets TB_TOKEN and TB_HOST must be configured.
+
+name: Telemetry Deploy
+
+on:
+  workflow_dispatch:
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4
+
+      - name: Setup pnpm
+        uses: pnpm/action-setup@a7487c7e89a18df4991f7f222e4898a00d66ddda # v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@49933ea5288caeca8642d1e84afbd3f7d6820020 # v4
+        with:
+          node-version-file: 'telemetry/.nvmrc'
+          cache: 'pnpm'
+          cache-dependency-path: 'telemetry/pnpm-lock.yaml'
+
+      - name: Install dependencies
+        run: pnpm install --frozen-lockfile
+        working-directory: telemetry
+
+      - name: Tinybird build
+        run: npx tinybird build
+        working-directory: telemetry
+        env:
+          TB_TOKEN: ${{ secrets.TB_TOKEN }}
+          TB_HOST: ${{ secrets.TB_HOST }}
+
+      - name: Tinybird deploy (dry-run)
+        run: npx tinybird deploy --dry-run
+        working-directory: telemetry
+        env:
+          TB_TOKEN: ${{ secrets.TB_TOKEN }}
+          TB_HOST: ${{ secrets.TB_HOST }}
+
+      - name: Tinybird deploy
+        run: npx tinybird deploy
+        working-directory: telemetry
+        env:
+          TB_TOKEN: ${{ secrets.TB_TOKEN }}
+          TB_HOST: ${{ secrets.TB_HOST }}

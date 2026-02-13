@@ -1,0 +1,85 @@
+# Telemetry CI Pipeline
+#
+# Runs format, lint, type-check, tinybird build, and unit tests on every push
+# and pull request that touches the telemetry/ directory. All GitHub Actions are
+# pinned to commit SHAs for supply chain security.
+
+name: Telemetry CI
+
+on:
+  push:
+    paths:
+      - 'telemetry/**'
+      - '.github/workflows/telemetry-ci.yml'
+  pull_request:
+    paths:
+      - 'telemetry/**'
+      - '.github/workflows/telemetry-ci.yml'
+
+concurrency:
+  group: telemetry-ci-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  checks:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4
+
+      - name: Setup pnpm
+        uses: pnpm/action-setup@a7487c7e89a18df4991f7f222e4898a00d66ddda # v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@49933ea5288caeca8642d1e84afbd3f7d6820020 # v4
+        with:
+          node-version-file: 'telemetry/.nvmrc'
+          cache: 'pnpm'
+          cache-dependency-path: 'telemetry/pnpm-lock.yaml'
+
+      - name: Install dependencies
+        run: pnpm install --frozen-lockfile
+        working-directory: telemetry
+
+      - name: Format check
+        run: pnpm format
+        working-directory: telemetry
+
+      - name: Lint
+        run: pnpm lint
+        working-directory: telemetry
+
+      - name: Type check
+        run: pnpm type-check
+        working-directory: telemetry
+
+      - name: Tinybird build
+        run: npx tinybird build
+        working-directory: telemetry
+        env:
+          TB_TOKEN: ${{ secrets.TB_TOKEN }}
+          TB_HOST: ${{ secrets.TB_HOST }}
+
+  unit-tests:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4
+
+      - name: Setup pnpm
+        uses: pnpm/action-setup@a7487c7e89a18df4991f7f222e4898a00d66ddda # v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@49933ea5288caeca8642d1e84afbd3f7d6820020 # v4
+        with:
+          node-version-file: 'telemetry/.nvmrc'
+          cache: 'pnpm'
+          cache-dependency-path: 'telemetry/pnpm-lock.yaml'
+
+      - name: Install dependencies
+        run: pnpm install --frozen-lockfile
+        working-directory: telemetry
+
+      - name: Run unit tests
+        run: pnpm test:unit
+        working-directory: telemetry
