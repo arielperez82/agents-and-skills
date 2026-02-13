@@ -110,7 +110,7 @@ I follow Test-Driven Development (TDD) with a strong emphasis on behavior-driven
 
 **Key Principles:**
 
-- Phase 0 first: quality gate complete before feature work (minimal skeleton or scaffold-with-gates, then full gate)
+- Phase 0 first: delivering to production safely is the first feature (pre-commit + CI pipeline + deploy pipeline before any feature work)
 - Write tests first (TDD)
 - Test behavior, not implementation
 - No `any` types or type assertions
@@ -169,6 +169,7 @@ The following agents and skills provide detailed guidance and can be loaded on-d
 - Reserve `interface` for behavior contracts only
 - Define schemas first, derive types from them (Zod/Standard Schema)
 - Use schemas at trust boundaries, plain types for internal logic
+- Path aliases: use tsconfig `baseUrl` + `paths` (and Vite/Vitest `resolve.alias` when present) for frontend, backend, and fullstack projects
 
 **Schema decision framework (5 questions):**
 
@@ -211,12 +212,14 @@ The following agents and skills provide detailed guidance and can be loaded on-d
 
 ## Phase 0: Quality Gate First
 
-**Rule:** The quality gate must be **complete before any feature work**. Every commit must pass it (via pre-commit). No exceptions. Phase 0 is not "before any files exist" — it is "before building features."
+**Delivering to production safely is the first feature.** The quality gate must be **complete before any feature work**. Phase 0 is not "before any files exist" — it is "before building features." If you can't ship safely, nothing else matters.
 
-- **Two valid sequences:** (1) **Minimal skeleton, then add all gates** — smallest project that can be type-checked/linted (e.g. one source file or `pnpm create …` then stop), then add type-check, Husky + lint-staged, ESLint, Prettier, markdown lint, a11y lint, audit script; or (2) **Scaffold that includes quality tooling, then verify** — run a scaffold that already includes TypeScript strict, ESLint, Prettier, pre-commit, then verify and add any missing pieces. No feature work until the full gate is in place.
-- **Elements (seven, or eight for frontend):** Type-check (full-project when source staged), pre-commit hooks (e.g. Husky + lint-staged), linting (e.g. ESLint), formatting (e.g. Prettier), markdown linting (when repo has many `.md`), Stylelint for CSS/styles when frontend (Tailwind-aware, stylelint-config-prettier; `lint:css` / `lint:css:fix`; pre-commit on staged `*.css`), a11y linting (e.g. jsx-a11y), and an audit script (e.g. Lighthouse; script + optional CI, not pre-commit).
-- **Pre-commit:** Type-check **full-project** when any source file is staged; lint/format on staged files only for speed.
-- **CI:** Recommend type-check and lint (and optionally markdown lint) on push/PR; Lighthouse and audit optional in CI.
+- **Two valid sequences:** (1) **Minimal skeleton, then add all gates** — smallest project that can be type-checked/linted (e.g. one source file or `pnpm create …` then stop), then add all three layers below; or (2) **Scaffold that includes quality tooling, then verify** — run a scaffold that already includes TypeScript strict, ESLint, Prettier, pre-commit, then verify and complete all three layers. No feature work until the full gate is in place.
+- **Three layers (all required):**
+  1. **Pre-commit (local):** Husky + lint-staged. Type-check (full-project when source staged), lint + format on staged files, unit tests on staged source files. Every commit must pass.
+  2. **CI pipeline (remote):** GitHub Actions on every push/PR. Format check, lint, type-check, build, unit tests. Path-based triggers, pinned actions, frozen lockfile, separate check/test jobs.
+  3. **Deploy pipeline (remote):** GitHub Actions workflow_dispatch (manual trigger). Build → dry-run → deploy. Repository secrets for credentials. No local production deploys.
+- **Additional local elements:** Markdown linting (when repo has many `.md`), Stylelint for CSS/styles when frontend, a11y linting (e.g. jsx-a11y), audit script (e.g. Lighthouse; script + optional CI, not pre-commit).
 
 **Document Phase 0** in backlog, development plan, and technical spec (including which pattern above). Load the `quality-gate-first` skill when starting a new project or generating/reviewing plans. Run `/skill/phase-0-check` to audit the repo or a plan document.
 
@@ -259,6 +262,9 @@ When starting work in a domain, IMMEDIATELY load the relevant skill:
 - **Writing functional code** → Load `functional` skill
 - **Starting a new project or generating/reviewing development plans or backlogs** → Load `quality-gate-first` skill (Phase 0 before scaffold/features)
 - **Unsure which local skill fits the task** → Run `/skill/find-local-skill` with a short description of the activity (e.g. "configuring Vitest for React"); load the returned skill(s) from the given paths.
+- **When a skill needs support from another capability** → Describe the *capability* you need (e.g. "refactoring assessment after tests pass", "quality gate checklist", "test factories"), not a specific skill name. Run `/skill/find-local-skill` with that description so the system can return the best-matching skill. This keeps skills decoupled and lets the catalog evolve.
+
+**Finding additional capabilities:** Do not hardcode "load the X skill" in skills or prompts. Instead, describe what capability is needed (testing patterns, Phase 0 checklist, ADR documentation, etc.) and use `/skill/find-local-skill [capability description]` to get the path to the best-matching skill. See [skills/README.md](skills/README.md) "Discovery & Installation" and "Finding local skills."
 
 **How to load**: Explicitly state "Loading [skill-name] skill" and reference patterns from [skills/README.md](skills/README.md). Engineering Team skills (e.g. tdd, typescript-strict, testing, refactoring, backend-development, databases) are in `skills/engineering-team/`; use `.cursor/skills/engineering-team/[skill-name]/SKILL.md`. Agent-development skills (skill-creator, creating-agents, find-skills, etc.) are in `skills/agent-development-team/[skill-name]/`. Other skills are in `skills/[skill-name]/`.
 

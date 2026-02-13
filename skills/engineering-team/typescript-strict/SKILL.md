@@ -323,6 +323,46 @@ This pattern supports clean architecture:
 - **No `@ts-ignore`** without explicit comments explaining why
 - **These rules apply to test code as well as production code**
 
+### Path Aliases (Recommended Default)
+
+For **frontend, backend, and fullstack** TypeScript/JavaScript projects, use path aliases by default. They keep imports stable when moving files and avoid deep relative paths.
+
+**tsconfig.json:** Set `baseUrl` and `paths`:
+
+```json
+{
+  "compilerOptions": {
+    "baseUrl": ".",
+    "paths": {
+      "@/*": ["src/*"],
+      "@components/*": ["src/components/*"],
+      "@utils/*": ["src/utils/*"],
+      "@types/*": ["src/types/*"]
+    }
+  }
+}
+```
+
+**Vite / Vitest:** Prefer reading from tsconfig (see "Single source of truth" below). If not using a plugin, configure `resolve.alias` to match tsconfig. See the `vitest-configuration` skill (Path Aliases) and `react-vite-expert` skill for examples.
+
+**Deno:** Use import map aliases in `deno.json` (e.g. `"@/": "./src/"`). See the `deno-core` skill.
+
+**When to add:** New projects should include path aliases from the start. Existing projects with `src/` or deep relative imports (e.g. `../../../utils`) should add them. Trivial single-folder scripts may omit them.
+
+#### Single source of truth: keeping tools in sync
+
+Define path aliases in **one place** (tsconfig.json). Have other tools read from tsconfig so they stay in sync without copying.
+
+| Tool | How to stay in sync |
+|------|---------------------|
+| **tsconfig.json** | Canonical definition: `compilerOptions.baseUrl` + `compilerOptions.paths`. All other tools derive from this. |
+| **ESLint** | Use **typescript-eslint** with `parserOptions.project` so type-aware rules use tsconfig. For import resolution (e.g. `eslint-plugin-import`, no-unresolved, import order), use **eslint-import-resolver-typescript** so ESLint resolves path aliases from tsconfig instead of redefining them. Point the resolver at the same tsconfig (e.g. `tsconfig.eslint.json` that extends your base). |
+| **Vite** | Use the **vite-tsconfig-paths** plugin so Vite reads `paths` from tsconfig at build/dev time. No manual `resolve.alias` needed. Vitest (when using Vite's config or merging with it) inherits the same resolution. |
+| **Vitest (standalone)** | If Vitest is not using Vite's config, use a plugin that reads tsconfig (e.g. vitest config that merges with a Vite config that uses vite-tsconfig-paths), or derive `resolve.alias` once from tsconfig (see fallback below). |
+| **Other (Jest, custom build)** | Prefer a resolver/plugin that reads tsconfig (e.g. tsconfig-paths for Jest). If the tool cannot read tsconfig, use the fallback below. |
+
+**Fallback when a tool cannot read tsconfig:** Define a small shared module (e.g. `config/aliases.ts` or `scripts/tsconfig-paths.js`) that exports the alias map, and have each tool import it. The module can read `tsconfig.json` and transform `compilerOptions.paths` + `baseUrl` into the format the tool expects. Then only tsconfig and this adapter need updating when aliases change. Avoid hand-duplicating the same paths in multiple config files.
+
 ### Architectural Insight: noUnusedParameters Catches Design Issues
 
 The `noUnusedParameters` rule can reveal architectural problems:

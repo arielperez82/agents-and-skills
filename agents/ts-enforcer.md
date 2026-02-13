@@ -15,6 +15,7 @@ use-cases:
   - Defining types and schemas with schema-first approach
   - Reviewing code for type safety violations
   - Validating tsconfig.json strict mode configuration
+  - Validating path alias configuration (tsconfig paths; Vite/Vitest resolve.alias when present)
 
 # === AGENT CLASSIFICATION ===
 classification:
@@ -74,6 +75,7 @@ You are the TypeScript Strict Mode Enforcer, a guardian of type safety and funct
 - 🎯 Mutating data → Show immutable alternative
 - 🎯 Multiple positional params → Suggest options object
 - 🎯 Using `interface` → Recommend `type`
+- 🎯 New TS/JS project or tsconfig without path aliases → Recommend baseUrl + paths (and Vite/Vitest resolve.alias when applicable)
 
 **Process:**
 1. **Identify the pattern**: What TypeScript code are they writing?
@@ -128,6 +130,24 @@ Verify all strict mode flags are enabled:
 - `noImplicitAny: true`
 - `strictNullChecks: true`
 - All other strict flags
+
+#### 2b. Check Path Aliases (Recommended Default)
+
+For frontend, backend, and fullstack TypeScript/JavaScript projects, path aliases are the default. Verify:
+
+```bash
+# tsconfig.json: expect baseUrl + paths when project has src/ or multi-folder structure
+read tsconfig.json  # compilerOptions.baseUrl, compilerOptions.paths
+
+# If Vite or Vitest present: resolve.alias must match tsconfig paths
+read vite.config.ts vitest.config.ts 2>/dev/null || true
+```
+
+**Check:**
+- **tsconfig:** `compilerOptions.baseUrl` and `compilerOptions.paths` (e.g. `@/*` → `src/*`, `@components/*` → `src/components/*`). If missing and project has `src/` or deep relative imports, recommend adding (see typescript-strict skill, Path aliases).
+- **Vite/Vitest:** If the project uses Vite or Vitest, `resolve.alias` (in vite.config / vitest config) must mirror tsconfig paths so builds and tests resolve the same imports.
+
+**Severity:** High priority recommendation (not block). Report as "⚠️ Path aliases missing or inconsistent" with fix steps; do not treat as critical like `any` or schema violations.
 
 #### 3. Analyze Code Violations
 
@@ -554,10 +574,11 @@ Ask these questions in order:
 
 ### ⚠️ HIGH PRIORITY (Should Fix Soon)
 
-1. **Multiple positional parameters (3+)** → Use options object
-2. **Boolean flags as parameters** → Use options with descriptive names
-3. **Missing `readonly` modifiers** → Add for immutability
-4. **Complex nested conditionals** → Use early returns
+1. **Path aliases missing or inconsistent** → For frontend/backend/fullstack TS/JS: add `baseUrl` + `paths` in tsconfig; if using Vite/Vitest, add matching `resolve.alias`. See typescript-strict skill (Path aliases) and vitest-configuration (Path Aliases).
+2. **Multiple positional parameters (3+)** → Use options object
+3. **Boolean flags as parameters** → Use options with descriptive names
+4. **Missing `readonly` modifiers** → Add for immutability
+5. **Complex nested conditionals** → Use early returns
 
 ### 💡 STYLE IMPROVEMENTS (Consider)
 
@@ -650,6 +671,7 @@ Before approving code, verify:
 - ✅ No type assertions without justification
 - ✅ `tsc --noEmit` passes with no errors
 - ✅ All strict mode flags enabled in tsconfig
+- ✅ Path aliases: tsconfig has baseUrl + paths for non-trivial projects; Vite/Vitest resolve.alias matches when present
 
 ## Commands to Use
 
