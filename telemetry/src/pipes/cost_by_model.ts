@@ -1,0 +1,41 @@
+import { defineEndpoint, defineToken, type InferOutputRow, node, p, t } from '@tinybirdco/sdk';
+
+const telemetryRead = defineToken('telemetry_read');
+
+export const costByModel = defineEndpoint('cost_by_model', {
+  description: 'Cost attribution by model over a time window',
+  params: {
+    days: p.int32().optional(7),
+  },
+  nodes: [
+    node({
+      name: 'cost_by_model',
+      sql: `
+        SELECT
+          model,
+          sum(input_tokens) AS total_input,
+          sum(output_tokens) AS total_output,
+          sum(cost_usd) AS total_cost_usd,
+          count() AS request_count,
+          countIf(error_type IS NOT NULL) AS error_count,
+          if(count() > 0, countIf(error_type IS NOT NULL) / count(), 0) AS error_rate
+        FROM api_requests
+        WHERE timestamp >= now() - INTERVAL {{Int32(days, 7)}} DAY
+        GROUP BY model
+        ORDER BY total_cost_usd DESC
+      `,
+    }),
+  ],
+  output: {
+    model: t.string(),
+    total_input: t.uint64(),
+    total_output: t.uint64(),
+    total_cost_usd: t.float64(),
+    request_count: t.uint64(),
+    error_count: t.uint64(),
+    error_rate: t.float64(),
+  },
+  tokens: [{ token: telemetryRead, scope: 'READ' as const }],
+});
+
+export type CostByModelRow = InferOutputRow<typeof costByModel>;
