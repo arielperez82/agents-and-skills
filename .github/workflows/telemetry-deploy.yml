@@ -2,7 +2,6 @@
 #
 # Manual deployment workflow (workflow_dispatch only). Builds the Tinybird
 # project, runs a dry-run deploy for validation, then deploys to production.
-# All GitHub Actions are pinned to commit SHAs for supply chain security.
 # Repository secrets TB_TOKEN and TB_HOST must be configured.
 
 name: Telemetry Deploy
@@ -15,13 +14,15 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
-        uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4
+        uses: actions/checkout@v4
 
       - name: Setup pnpm
-        uses: pnpm/action-setup@a7487c7e89a18df4991f7f222e4898a00d66ddda # v4
+        uses: pnpm/action-setup@v2
+        with:
+          version: '10.18.2'
 
       - name: Setup Node.js
-        uses: actions/setup-node@49933ea5288caeca8642d1e84afbd3f7d6820020 # v4
+        uses: actions/setup-node@v4
         with:
           node-version-file: 'telemetry/.nvmrc'
           cache: 'pnpm'
