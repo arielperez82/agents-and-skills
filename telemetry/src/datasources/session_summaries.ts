@@ -1,4 +1,4 @@
-import { defineDatasource, defineToken, engine, type InferRow, t } from '@tinybirdco/sdk';
+import { column, defineDatasource, defineToken, engine, type InferRow, t } from '@tinybirdco/sdk';
 
 const telemetryIngest = defineToken('telemetry_ingest');
 
@@ -14,8 +14,8 @@ export const sessionSummaries = defineDatasource('session_summaries', {
     total_output_tokens: t.uint64(),
     total_cache_read_tokens: t.uint64(),
     total_cost_usd: t.float64(),
-    agents_used: t.array(t.string()),
-    skills_used: t.array(t.string()),
+    agents_used: column(t.array(t.string()), { jsonPath: '$.agents_used[:]' }),
+    skills_used: column(t.array(t.string()), { jsonPath: '$.skills_used[:]' }),
     model_primary: t.string().lowCardinality(),
   },
   engine: engine.mergeTree({

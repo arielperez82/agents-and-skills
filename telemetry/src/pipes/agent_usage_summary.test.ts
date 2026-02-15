@@ -41,7 +41,7 @@ describe('agent_usage_summary endpoint', () => {
 
     const [firstNode] = nodes;
     expect(firstNode).toBeDefined();
-    expect(firstNode).toHaveProperty('_name', 'agent_usage_summary');
+    expect(firstNode).toHaveProperty('_name', 'agent_usage_summary_node');
   });
 
   it('SQL references agent_activations with event stop filter', () => {

@@ -40,7 +40,7 @@ describe('optimization_insights endpoint', () => {
   it('has a single node with the correct name', () => {
     const nodes = optimizationInsights.options.nodes;
     expect(nodes).toHaveLength(1);
-    expect(firstNode()._name).toBe('optimization_insights');
+    expect(firstNode()._name).toBe('optimization_insights_node');
   });
 
   it('SQL references agent_activations with event stop filter', () => {

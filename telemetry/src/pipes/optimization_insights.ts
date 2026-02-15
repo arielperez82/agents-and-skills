@@ -9,7 +9,7 @@ export const optimizationInsights = defineEndpoint('optimization_insights', {
   },
   nodes: [
     node({
-      name: 'optimization_insights',
+      name: 'optimization_insights_node',
       sql: `
         SELECT
           agent_type,

@@ -39,7 +39,7 @@ describe('skill_frequency endpoint', () => {
   it('has a single node with the correct name', () => {
     const nodes = skillFrequency.options.nodes;
     expect(nodes).toHaveLength(1);
-    expect(firstNode()._name).toBe('skill_frequency');
+    expect(firstNode()._name).toBe('skill_frequency_node');
   });
 
   it('SQL references skill_activations datasource', () => {

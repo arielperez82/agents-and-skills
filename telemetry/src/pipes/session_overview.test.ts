@@ -51,7 +51,7 @@ describe('session_overview endpoint', () => {
   it('has a single node with the correct name', () => {
     const nodes = sessionOverview.options.nodes;
     expect(nodes).toHaveLength(1);
-    expect(firstNode()._name).toBe('session_overview');
+    expect(firstNode()._name).toBe('session_overview_node');
   });
 
   it('SQL references session_summaries datasource', () => {

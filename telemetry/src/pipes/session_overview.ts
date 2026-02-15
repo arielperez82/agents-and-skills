@@ -10,7 +10,7 @@ export const sessionOverview = defineEndpoint('session_overview', {
   },
   nodes: [
     node({
-      name: 'session_overview',
+      name: 'session_overview_node',
       sql: `
         SELECT
           session_id,

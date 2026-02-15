@@ -39,7 +39,7 @@ describe('telemetry_health_summary endpoint', () => {
     const firstNode = nodes[0];
     expect(firstNode).toBeDefined();
     if (firstNode === undefined) return;
-    expect(firstNode._name).toBe('telemetry_health_summary');
+    expect(firstNode._name).toBe('telemetry_health_summary_node');
   });
 
   it('SQL references telemetry_health with hour-based window', () => {

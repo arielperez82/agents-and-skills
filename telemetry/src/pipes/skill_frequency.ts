@@ -9,7 +9,7 @@ export const skillFrequency = defineEndpoint('skill_frequency', {
   },
   nodes: [
     node({
-      name: 'skill_frequency',
+      name: 'skill_frequency_node',
       sql: `
         SELECT
           skill_name,

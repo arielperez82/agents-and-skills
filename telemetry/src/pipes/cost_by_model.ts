@@ -9,7 +9,7 @@ export const costByModel = defineEndpoint('cost_by_model', {
   },
   nodes: [
     node({
-      name: 'cost_by_model',
+      name: 'cost_by_model_node',
       sql: `
         SELECT
           model,

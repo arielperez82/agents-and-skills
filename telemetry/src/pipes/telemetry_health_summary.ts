@@ -9,7 +9,7 @@ export const telemetryHealthSummary = defineEndpoint('telemetry_health_summary',
   },
   nodes: [
     node({
-      name: 'telemetry_health_summary',
+      name: 'telemetry_health_summary_node',
       sql: `
         SELECT
           hook_name,

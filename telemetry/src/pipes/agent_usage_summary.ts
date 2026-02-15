@@ -9,7 +9,7 @@ export const agentUsageSummary = defineEndpoint('agent_usage_summary', {
   },
   nodes: [
     node({
-      name: 'agent_usage_summary',
+      name: 'agent_usage_summary_node',
       sql: `
         SELECT
           agent_type,

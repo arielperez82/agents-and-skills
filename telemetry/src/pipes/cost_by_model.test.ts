@@ -45,7 +45,7 @@ describe('cost_by_model endpoint', () => {
   it('has a single node with the correct name', () => {
     const nodes = costByModel.options.nodes;
     expect(nodes).toHaveLength(1);
-    expect(firstNode()._name).toBe('cost_by_model');
+    expect(firstNode()._name).toBe('cost_by_model_node');
   });
 
   it('SQL references api_requests', () => {
