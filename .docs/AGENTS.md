@@ -155,6 +155,12 @@ Filenames under `.docs/canonical/` should follow the naming grammar above. To au
 - Roadmap: [roadmap-repo-I05-ATEL-agent-telemetry-2026.md](canonical/roadmaps/roadmap-repo-I05-ATEL-agent-telemetry-2026.md)
 - Backlog: [backlog-repo-I05-ATEL-agent-telemetry.md](canonical/backlogs/backlog-repo-I05-ATEL-agent-telemetry.md)
 
+**I06-AICO** (agent-command-intake-optimize):
+
+- Charter: [charter-repo-agent-command-intake-optimize.md](canonical/charters/charter-repo-agent-command-intake-optimize.md)
+- Roadmap: [roadmap-repo-I06-AICO-agent-command-intake-optimize-2026.md](canonical/roadmaps/roadmap-repo-I06-AICO-agent-command-intake-optimize-2026.md)
+- Backlog: [backlog-repo-I06-AICO-agent-command-intake-optimize.md](canonical/backlogs/backlog-repo-I06-AICO-agent-command-intake-optimize.md)
+
 Root `AGENTS.md` (if present) should point here: "See .docs/AGENTS.md for agent artifact conventions and operating reference."
 
 ---
