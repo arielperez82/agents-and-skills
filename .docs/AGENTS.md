@@ -103,6 +103,10 @@ Route learnings by scope and half-life:
 
 **L24 — Tinybird SDK definitions require build-time validation, not just unit tests** (I05-ATEL, 2026-02-15): The Tinybird TypeScript SDK (`@tinybirdco/sdk`) creates plain JS objects from `defineDatasource`/`defineEndpoint`. Unit tests can verify object shape but **cannot** validate SQL syntax, column references, JSONPath correctness, or naming conflicts. The real validation gate is `tinybird build` against Tinybird Local. Three specific gotchas: (1) `Array(...)` columns need `column(t.array(...), { jsonPath: '$.field[:]' })` — the auto-generated path omits `[:]`, (2) pipe node names must differ from endpoint/pipe resource names (append `_node`), (3) SQL errors only surface at build time. Testing strategy: unit tests as regression guards for structure + `tinybird build` as validation gate. Deep reference: `skills/engineering-team/tinybird/rules/typescript-sdk.md` "SDK gotchas and validation" section.
 
+**L25 — Tinybird SDK config requires env vars at load time even for dry-run** (I05-ATEL, 2026-02-15): `tinybird.json` uses `${TB_TOKEN}` and `${TB_HOST}`; the CLI resolves them when loading config. Even `tinybird build --dry-run` fails with "Environment variable TB_TOKEN is not set" if unset — it never reaches the "no API call" path. For CI that only validates (no push): set placeholder `TB_TOKEN` and `TB_HOST` so the config parses; dry-run does not call the API.
+
+**L26 — pnpm/action-setup requires explicit version in GitHub Actions** (I05-ATEL, 2026-02-15): `pnpm/action-setup` fails with "No pnpm version is specified" unless you set `version` in the step `with:` or have `packageManager` in package.json. Always set e.g. `version: '10.18.2'` (or match the project's lockfile) when using this action.
+
 ---
 
 ## ADR placement

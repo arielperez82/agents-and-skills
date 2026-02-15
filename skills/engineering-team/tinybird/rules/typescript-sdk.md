@@ -31,6 +31,12 @@ Fields:
 
 You can mix TypeScript definitions with existing `.datasource` and `.pipe` files in `include`.
 
+### Config env vars at load time (CI / dry-run)
+
+The CLI resolves `${TB_TOKEN}` and `${TB_HOST}` (or whatever env vars your config references) **when loading config**, before running any command. So even `tinybird build --dry-run` fails with e.g. "Environment variable TB_TOKEN is not set" if those vars are unset — it never reaches the "no API call" path. For CI that only validates (no push): set placeholder `TB_TOKEN` and `TB_HOST` so the config parses; dry-run does not call the API.
+
+If the workflow uses `pnpm/action-setup` in GitHub Actions, set `version` in the step (e.g. `version: '10.18.2'`) or have `packageManager` in package.json; otherwise the action fails with "No pnpm version is specified".
+
 ## SDK CLI (separate from `tb` CLI)
 
 - `npx tinybird init` — initialize project; `--force` overwrite, `--skip-login` skip browser login
@@ -58,38 +64,17 @@ SQL in `node({ sql })` must follow Tinybird SQL rules (SELECT-only, Tinybird tem
 ## Typed client
 
 - Build client with `createTinybirdClient({ datasources: { ... }, pipes: { ... } })` from the same definitions.
-- **Ingest:** `tinybird.ingest.<datasourceName>(row)` — row type comes from `InferRow` (e.g. `Date` for dateTime, `string`, `number`, `bigint`, `null`). Accepts a single row or an array for batch ingestion.
-- **Query:** `tinybird.query.<pipeName>(params)` — params and result rows are fully typed (`InferParams`, `InferOutputRow`).
-- Re-export client and types from `client.ts` and import from `@tinybird/client` (or your alias) in app code.
+- **Ingest:** `tinybird.ingest.<datasourceName>(row)` — row from `InferRow`; single row or array. **Query:** `tinybird.query.<pipeName>(params)` — typed params and `result.data` (`InferParams`, `InferOutputRow`).
+- Re-export from `client.ts` and import from `@tinybird/client` in app code.
 
 ```typescript
-// Single row
-await tinybird.ingest.pageViews({
-  timestamp: new Date(),
-  pathname: "/home",
-  session_id: "abc123",
-  country: "US",
-});
-
-// Batch ingestion
-await tinybird.ingest.pageViews([
-  { timestamp: new Date(), pathname: "/home", session_id: "abc", country: "US" },
-  { timestamp: new Date(), pathname: "/about", session_id: "abc", country: "US" },
-]);
-
-// Typed query with autocomplete
-const result = await tinybird.query.topPages({
-  start_date: new Date("2024-01-01"),
-  end_date: new Date(),
-  limit: 5,
-});
-// result.data is fully typed: { pathname: string, views: bigint }[]
+await tinybird.ingest.pageViews({ timestamp: new Date(), pathname: "/home", session_id: "abc", country: "US" });
+const result = await tinybird.query.topPages({ start_date: new Date("2024-01-01"), end_date: new Date(), limit: 5 });
 ```
 
 ## Type and parameter helpers
 
-- **Column types (`t.*`):** `t.string()`, `t.uuid()`, `t.fixedString(n)`, `t.int32()`, `t.float64()`, `t.uint64()`, `t.decimal(p,s)`, `t.dateTime()`, `t.dateTime64(3)`, `t.date()`, `t.bool()`, `t.array(t.string())`, `t.map(t.string(), t.string())`, plus `.nullable()`, `.lowCardinality()`, `.default(...)`, and aggregate types for MVs.
-- **Parameters (`p.*`):** `p.dateTime()`, `p.string()`, `p.int32().optional(10)`, `.describe("...")` for docs.
+- **Column types (`t.*`):** string, uuid, fixedString(n), int32, float64, uint64, decimal, dateTime, date, bool, array, map; `.nullable()`, `.lowCardinality()`, `.default(...)`. **Params (`p.*`):** same names; `.optional(default)`, `.describe("...")`. See SDK README for full list.
 
 ## Local development (SDK)
 
@@ -102,29 +87,7 @@ const result = await tinybird.query.topPages({
 
 ## Low-level API (`createTinybirdApi`)
 
-For cases requiring a decoupled API wrapper without the typed client (existing projects not using TypeScript definitions, dynamic endpoint names, direct SQL execution, or gradual migration from other HTTP clients):
-
-```typescript
-import { createTinybirdApi } from "@tinybirdco/sdk";
-
-const api = createTinybirdApi({
-  baseUrl: "https://api.tinybird.co",
-  token: process.env.TINYBIRD_TOKEN!,
-});
-
-// Query an endpoint (typed)
-const result = await api.query<MyRow, MyParams>("endpoint_name", { limit: 10 });
-
-// Ingest (single or batch)
-await api.ingest<EventRow>("events", { timestamp: new Date(), event_name: "click", pathname: "/home" });
-await api.ingest<EventRow>("events", [row1, row2, row3]);
-
-// Raw SQL
-const sqlResult = await api.sql<CountResult>("SELECT count() AS total FROM events");
-
-// Per-request token override
-await api.request("/v1/workspace", { token: process.env.TINYBIRD_BRANCH_TOKEN });
-```
+For decoupled API without typed client (dynamic endpoint names, raw SQL, gradual migration): `createTinybirdApi({ baseUrl, token })` then `api.query()`, `api.ingest()`, `api.sql()`, `api.request()`. See [SDK README](https://github.com/tinybirdco/tinybird-sdk-typescript/blob/main/README.md) for usage.
 
 ## SDK gotchas and validation
 
@@ -132,102 +95,29 @@ These gotchas were discovered during I05-ATEL by running `tinybird build` agains
 
 ### Gotcha 1: Array columns need explicit `jsonPath` with `[:]`
 
-**Context:** The SDK auto-generates JSON paths for all columns (via `jsonPaths: true` default). For scalar columns, `$.field_name` works. For `Array(...)` columns, Tinybird requires `$.field_name[:]` -- the `[:]` operator tells the JSON parser to iterate the array elements. Without it, build fails.
+SDK auto-generates paths; for `Array(...)` Tinybird requires `$.field_name[:]`. Without `[:]`, build fails.
 
 **Error:** `Invalid JSONPath: '$.agents_used' is not a valid json array path. Array field should use the operator [:]`
 
-```typescript
-// BAD -- generates $.agents_used which fails for arrays
-import { defineDatasource, t } from '@tinybirdco/sdk';
-
-export const ds = defineDatasource('my_ds', {
-  schema: {
-    agents_used: t.array(t.string()),    // $.agents_used -- FAILS
-    skills_used: t.array(t.string()),    // $.skills_used -- FAILS
-  },
-});
-```
-
-```typescript
-// GOOD -- explicit jsonPath with [:] for array columns
-import { column, defineDatasource, t } from '@tinybirdco/sdk';
-
-export const ds = defineDatasource('my_ds', {
-  schema: {
-    agents_used: column(t.array(t.string()), { jsonPath: '$.agents_used[:]' }),
-    skills_used: column(t.array(t.string()), { jsonPath: '$.skills_used[:]' }),
-  },
-});
-```
-
-**Rule:** Always use `column(t.array(...), { jsonPath: '$.field_name[:]' })` for array columns. Import `column` from `@tinybirdco/sdk`. Scalar columns do not need explicit `jsonPath`.
+- **BAD:** `agents_used: t.array(t.string())` (generates `$.agents_used`).
+- **GOOD:** `agents_used: column(t.array(t.string()), { jsonPath: '$.agents_used[:]' })`. Import `column` from `@tinybirdco/sdk`. Scalar columns need no explicit `jsonPath`.
 
 ### Gotcha 2: Pipe node names must differ from endpoint/pipe names
 
-**Context:** Each `node()` inside a pipe definition has a `name` property. This name cannot be the same as the endpoint or pipe resource name. The same constraint exists for classic `.pipe` files (see `pipe-files.md`).
+`node({ name })` cannot equal the endpoint or pipe resource name (same as classic `.pipe` — see `pipe-files.md`).
 
 **Error:** `Nodes can't have the same name as a resource. Node 'agent_usage_summary' conflicts with: agent_usage_summary.pipe`
 
-```typescript
-// BAD -- node name same as endpoint name
-export const agentUsageSummary = defineEndpoint('agent_usage_summary', {
-  nodes: [
-    node({
-      name: 'agent_usage_summary',  // conflicts with endpoint name
-      sql: `SELECT ...`,
-    }),
-  ],
-});
-```
-
-```typescript
-// GOOD -- append _node suffix
-export const agentUsageSummary = defineEndpoint('agent_usage_summary', {
-  nodes: [
-    node({
-      name: 'agent_usage_summary_node',  // distinct from endpoint name
-      sql: `SELECT ...`,
-    }),
-  ],
-});
-```
-
-**Convention:** Append `_node` to the endpoint/pipe name for single-node definitions. For multi-node pipes, use descriptive names (e.g. `filter_step`, `aggregate_step`).
+- **BAD:** `name: 'agent_usage_summary'` when endpoint is `agent_usage_summary`.
+- **GOOD:** `name: 'agent_usage_summary_node'` (append `_node` for single-node; use descriptive names for multi-node).
 
 ### Gotcha 3: Unit tests cannot validate Tinybird definitions
 
-**Context:** `defineEndpoint` and `defineDatasource` create plain JS objects. Unit tests can verify object structure (field names, types, SQL string content) but **cannot** validate:
+`defineEndpoint`/`defineDatasource` produce plain JS objects. Unit tests can check structure but **not** SQL validity, column refs, JSONPath, or naming conflicts. **Validation gate:** `tinybird build` (pushes to workspace, creates real tables).
 
-- SQL syntax validity (is it valid ClickHouse SQL?)
-- Column reference correctness (does the pipe SQL reference columns that exist in the datasource?)
-- JSONPath correctness (will the JSON parser accept the path?)
-- Node/resource naming conflicts
+**Validation loop:** `tb local start` → `tb local status` (get token + api) → `TB_TOKEN="..." TB_HOST="http://localhost:7181" npx tinybird build`. Then test ingest/query via REST if needed.
 
-**The real validation gate is `tinybird build`**, which pushes definitions to a workspace branch, creating actual ClickHouse tables and materialized views. If build passes, the definitions are valid.
-
-**Validation loop (Tinybird Local):**
-
-```bash
-# Start local instance (Docker required)
-tb local start
-
-# Get credentials
-tb local status
-# -> token: p.eyJ...
-# -> api: http://localhost:7181
-
-# Build against local (validates SQL, schemas, paths, naming)
-TB_TOKEN="p.eyJ..." TB_HOST="http://localhost:7181" npx tinybird build
-
-# Test full data path: ingest -> datasource -> pipe -> query
-curl -X POST "http://localhost:7181/v0/events?name=my_datasource&token=..." \
-  -H "Content-Type: application/json" \
-  -d '{"field": "value"}'
-
-curl "http://localhost:7181/v0/pipes/my_pipe.json?token=...&param=value"
-```
-
-**Testing strategy:** Use unit tests as regression guards for SDK object structure (field names, SQL substrings, parameter defaults). Use `tinybird build` against Tinybird Local as the true validation gate for definition correctness. Both are complementary; neither alone is sufficient.
+**Testing strategy:** Unit tests = regression for object shape (fields, SQL substrings, param defaults). `tinybird build` = validation gate. Both needed.
 
 ## Relation to classic Tinybird (datafiles + `tb` CLI)
 
