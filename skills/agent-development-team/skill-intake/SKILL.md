@@ -16,30 +16,39 @@ The intake pipeline is project-agnostic. It dynamically discovers the current pr
 ## Intake Pipeline (8 Phases)
 
 ### Phase 0: Input & Discovery
+
 Determine whether to acquire externally or build from scratch. If given a URL, proceed to acquisition. If given a capability description, research candidates across registries and assess build-vs-buy.
 
 ### Phase 1: Acquire
+
 Download to `.claude/skills/_sandbox/{skill-name}/`. Use `git clone --depth 1` for repos, `repomix` for summarization, or scaffold from scratch.
 
 ### Phase 2: Sandbox & Security Audit
+
 Dispatch security assessment on sandbox contents. Apply checklist from `references/security-checklist.md`. Critical findings reject immediately; High findings flag for review.
 
 ### Phase 3: Functional Evaluation
+
 Install dependencies in isolated venv. Run skill scripts with test inputs. Verify outputs match expected format. Diagnose failures.
 
 ### Phase 4: Architecture Assessment
+
 Convene expert panel (Systems Architect, Domain Expert, Integration Engineer, Quality Assessor) to evaluate pipeline fit, overlap, and integration approach. Apply decision framework from `references/incorporation-framework.md`.
 
 ### Phase 5: Plan Incorporation
+
 Create small-batch TDD implementation plan with rollback strategy per batch.
 
 ### Phase 6: Implement
+
 Fresh subagent per integration task. TDD cycle with two-stage review (spec compliance, then code quality). Move from sandbox to final location.
 
 ### Phase 7: Validate
+
 Run all existing skill scripts to verify no regressions. Run new skill end-to-end. Verify cross-skill imports.
 
 ### Phase 8: Document & Report
+
 Update SKILL.md files, project MEMORY.md, and analysis docs. Generate intake report from `references/intake-report-template.md`.
 
 ## Sandbox Manager
