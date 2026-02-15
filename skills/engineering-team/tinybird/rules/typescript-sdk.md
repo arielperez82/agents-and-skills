@@ -13,7 +13,16 @@ Use this rule when working with `@tinybirdco/sdk`: defining Tinybird resources i
 - Token: set `TINYBIRD_TOKEN` in `.env.local` (CLI loads `.env.local` and `.env` automatically)
 - Path alias: add `"@tinybird/client": ["./src/tinybird/client.ts"]` to `tsconfig.json` `compilerOptions.paths` for the typed client
 
-## Configuration (`tinybird.json`)
+## Configuration
+
+Supported config file formats (in priority order):
+
+1. `tinybird.config.mjs` — ESM with dynamic logic
+2. `tinybird.config.cjs` — CommonJS with dynamic logic
+3. `tinybird.config.json` — standard JSON (default)
+4. `tinybird.json` — legacy format
+
+Fields:
 
 - **include** (required): array of TypeScript files and/or raw `.datasource` / `.pipe` files to include (supports incremental migration)
 - **token** (required): API token; supports `${ENV_VAR}` interpolation
@@ -30,6 +39,7 @@ You can mix TypeScript definitions with existing `.datasource` and `.pipe` files
 - `npx tinybird deploy` — deploy to main (production); `--dry-run` to preview
 - `npx tinybird login` — authenticate with Tinybird in browser
 - `npx tinybird branch list|status|delete <name>` — manage branches
+- `npx tinybird info` — display workspace, local, and project configuration; `--json` for JSON output
 
 Do not confuse these with `tb` (Tinybird CLI) commands. Use `tb` for project/datafiles in a classic Tinybird repo; use `npx tinybird *` when the project is driven by the TypeScript SDK.
 
@@ -48,9 +58,33 @@ SQL in `node({ sql })` must follow Tinybird SQL rules (SELECT-only, Tinybird tem
 ## Typed client
 
 - Build client with `createTinybirdClient({ datasources: { ... }, pipes: { ... } })` from the same definitions.
-- **Ingest:** `tinybird.ingest.<datasourceName>(row)` — row type comes from `InferRow` (e.g. `Date` for dateTime, `string`, `number`, `bigint`, `null`).
+- **Ingest:** `tinybird.ingest.<datasourceName>(row)` — row type comes from `InferRow` (e.g. `Date` for dateTime, `string`, `number`, `bigint`, `null`). Accepts a single row or an array for batch ingestion.
 - **Query:** `tinybird.query.<pipeName>(params)` — params and result rows are fully typed (`InferParams`, `InferOutputRow`).
 - Re-export client and types from `client.ts` and import from `@tinybird/client` (or your alias) in app code.
+
+```typescript
+// Single row
+await tinybird.ingest.pageViews({
+  timestamp: new Date(),
+  pathname: "/home",
+  session_id: "abc123",
+  country: "US",
+});
+
+// Batch ingestion
+await tinybird.ingest.pageViews([
+  { timestamp: new Date(), pathname: "/home", session_id: "abc", country: "US" },
+  { timestamp: new Date(), pathname: "/about", session_id: "abc", country: "US" },
+]);
+
+// Typed query with autocomplete
+const result = await tinybird.query.topPages({
+  start_date: new Date("2024-01-01"),
+  end_date: new Date(),
+  limit: 5,
+});
+// result.data is fully typed: { pathname: string, views: bigint }[]
+```
 
 ## Type and parameter helpers
 
@@ -65,6 +99,32 @@ SQL in `node({ sql })` must follow Tinybird SQL rules (SELECT-only, Tinybird tem
 ## Next.js
 
 - Run Next and Tinybird sync together: `"dev": "concurrently -n next,tinybird \"next dev\" \"tinybird dev\""` and optionally `"tinybird:build": "tinybird build"`. Keep path alias `@tinybird/client` in `tsconfig.json`.
+
+## Low-level API (`createTinybirdApi`)
+
+For cases requiring a decoupled API wrapper without the typed client (existing projects not using TypeScript definitions, dynamic endpoint names, direct SQL execution, or gradual migration from other HTTP clients):
+
+```typescript
+import { createTinybirdApi } from "@tinybirdco/sdk";
+
+const api = createTinybirdApi({
+  baseUrl: "https://api.tinybird.co",
+  token: process.env.TINYBIRD_TOKEN!,
+});
+
+// Query an endpoint (typed)
+const result = await api.query<MyRow, MyParams>("endpoint_name", { limit: 10 });
+
+// Ingest (single or batch)
+await api.ingest<EventRow>("events", { timestamp: new Date(), event_name: "click", pathname: "/home" });
+await api.ingest<EventRow>("events", [row1, row2, row3]);
+
+// Raw SQL
+const sqlResult = await api.sql<CountResult>("SELECT count() AS total FROM events");
+
+// Per-request token override
+await api.request("/v1/workspace", { token: process.env.TINYBIRD_BRANCH_TOKEN });
+```
 
 ## Relation to classic Tinybird (datafiles + `tb` CLI)
 
