@@ -8,7 +8,7 @@ collaborators:
   - product
   - devops
 status: active
-updated: 2026-02-12
+updated: 2026-02-15
 ---
 
 # Roadmap: Agent Telemetry (2026)
@@ -19,7 +19,7 @@ Outcomes only; no task granularity. Execution is pulled from the backlog and pla
 
 | Order | Outcome | Checkpoint |
 |-------|---------|------------|
-| 1 | Tinybird project scaffolded with quality gate, CI, and deploy pipeline | `telemetry/` directory with: package.json (all scripts + `prepare: "husky"`), tsconfig.json (strict + noUnusedLocals/Params, noImplicitReturns, noFallthroughCasesInSwitch, noUncheckedIndexedAccess, isolatedModules), tsconfig.eslint.json, .nvmrc (Node 22), tinybird.json, vitest configs (unit + integration + shared with path aliases), eslint.config.ts (flat config, typescript-eslint strictTypeChecked, sonarjs, eslint-config-prettier, simple-import-sort), prettier.config.ts, .prettierignore, .env.example, .gitignore, MSW setup. Husky pre-commit runs lint-staged: type-check (full project), lint:fix, format:fix, test:unit on staged TS. CI pipeline (`.github/workflows/ci.yml`) with path triggers and 2 jobs: checks (format, lint, type-check, tinybird build) + unit-tests. Deploy pipeline (`.github/workflows/deploy.yml`) via workflow_dispatch only. **Validation:** `pnpm install && pnpm type-check && pnpm lint && pnpm format && pnpm test:unit && pnpm tinybird:build` all exit 0; pre-commit hook fires on staged .ts commit; CI green on PR; deploy workflow visible in Actions |
+| 1 | Tinybird project scaffolded with quality gate, CI, and deploy pipeline | `telemetry/` directory with: package.json (all scripts + `prepare: "husky"`), tsconfig.json (strict + noUnusedLocals/Params, noImplicitReturns, noFallthroughCasesInSwitch, noUncheckedIndexedAccess, isolatedModules), tsconfig.eslint.json, .nvmrc (Node 22), tinybird.json, vitest configs (unit + integration + shared with path aliases), eslint.config.ts (flat config, typescript-eslint strictTypeChecked, sonarjs, eslint-config-prettier, simple-import-sort), prettier.config.ts, .prettierignore, .env.example, .gitignore, MSW setup. Husky pre-commit runs lint-staged: type-check (full project), lint:fix, format:fix, test:unit on staged TS. CI pipeline (`.github/workflows/telemetry-ci.yml`) with path triggers and 2 jobs: checks (format, lint, type-check, `tinybird build --dry-run` with placeholder env) + unit-tests. Deploy pipeline (`.github/workflows/telemetry-deploy.yml`) via workflow_dispatch only. **Validation:** `pnpm install && pnpm type-check && pnpm lint && pnpm format && pnpm test:unit && pnpm tinybird:build` all exit 0; pre-commit hook fires on staged .ts commit; CI green on PR; deploy workflow visible in Actions |
 | 2 | Datasource definitions with unit tests | agent_activations, skill_activations, api_requests, session_summaries, telemetry_health datasources each have typed definitions with sorting keys and TTLs, and passing unit tests; src/datasources/index.ts barrel export exists |
 | 3 | Pipe/endpoint definitions with unit tests | agent_usage_summary, skill_frequency, cost_by_model, session_overview, optimization_insights, telemetry_health_summary pipes each have typed definitions and passing unit tests; src/pipes/index.ts barrel export exists |
 | 4 | Typed client and integration tests | src/client.ts exports createTinybirdClient factory with separate read/write token configuration, wiring all datasources and pipes; unit tests pass with msw mocks; integration tests pass for all pipes against Tinybird local including cross-endpoint consistency and parameter validation; factory functions in tests/integration/helpers/ cover all datasources |
@@ -47,7 +47,7 @@ Concrete commands to prove each outcome is achieved. Run from `telemetry/` direc
 
 | Outcome | Validation | Pass criteria |
 |---------|-----------|---------------|
-| 1 | `pnpm install && pnpm type-check && pnpm lint && pnpm format && pnpm test:unit && pnpm tinybird:build` + stage a `.ts` file and run `git commit --dry-run` + push PR → CI green | All commands exit 0; pre-commit runs type-check, lint, format, test; CI checks + unit-tests jobs pass; deploy workflow visible in GitHub Actions |
+| 1 | `pnpm install && pnpm type-check && pnpm lint && pnpm format && pnpm test:unit && pnpm tinybird:build` + stage a `.ts` file and run `git commit --dry-run` + push PR → CI green | All commands exit 0; pre-commit runs type-check, lint, format, test; CI (telemetry-ci.yml) checks + unit-tests jobs pass; deploy workflow (telemetry-deploy.yml) visible in GitHub Actions |
 | 2 | `pnpm type-check && pnpm test:unit -- --reporter=verbose` | 5 datasource test suites pass (agent_activations, skill_activations, api_requests, session_summaries, telemetry_health); barrel import compiles |
 | 3 | `pnpm type-check && pnpm test:unit -- --reporter=verbose` | 6 pipe test suites pass (agent_usage_summary, skill_frequency, cost_by_model, session_overview, optimization_insights, telemetry_health_summary); barrel import compiles |
 | 4 | `pnpm test:unit && pnpm test:integration` | Client unit tests pass with msw mocks (401, 429, 500, timeout, malformed, empty); all 6 pipe integration tests pass against Tinybird local; cross-endpoint consistency verified (session totals = cost_by_model totals); parameter edge cases pass |
