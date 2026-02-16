@@ -6,7 +6,7 @@ initiative_name: nwave-methodology-intake
 lead: engineering
 collaborators:
   - product
-status: active
+status: completed
 updated: 2026-02-16
 ---
 

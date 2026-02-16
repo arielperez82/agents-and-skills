@@ -3,7 +3,7 @@ type: charter
 endeavor: repo
 initiative: I08-NWMI
 initiative_name: nwave-methodology-intake
-status: active
+status: completed
 updated: 2026-02-16
 ---
 

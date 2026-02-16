@@ -4,11 +4,13 @@ endeavor: repo
 initiative: I08-NWMI
 initiative_name: nwave-methodology-intake
 lead: engineering
-status: active
+status: completed
 updated: 2026-02-16
 ---
 
-# Backlog: nWave Methodology Intake
+# Backlog: nWave Methodology Intake (completed)
+
+All 35 items (B1–B35) done. Initiative closed 2026-02-16.
 
 ## Changes
 
