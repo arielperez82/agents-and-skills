@@ -36,7 +36,7 @@ In the repo root, check for:
 | Stylelint (CSS) | Stylelint config, `lint:css` / `lint:css:fix` scripts; lint-staged for `*.css` | Frontend/web projects only; Tailwind-aware config, stylelint-config-prettier |
 | A11y lint | eslint-plugin-jsx-a11y or equivalent in ESLint config | For React/JSX/Astro client code |
 | Audit script | Lighthouse or similar script; optional CI | Not required in pre-commit |
-| CI pipeline | `.github/workflows/*.yml` with type-check, lint, format, test jobs | Path-based triggers; pinned action versions; frozen lockfile; separate check/test jobs. When adding/changing CI workflows: validate locally with act before pushing. |
+| CI pipeline | `.github/workflows/*.yml` with type-check, lint, format, test jobs | Path-based triggers; pinned action versions; frozen lockfile; separate check/test jobs. When adding/changing CI workflows: run actionlint on workflow files (static lint), then validate locally with act before pushing. |
 | Deploy pipeline | `.github/workflows/deploy.yml` or equivalent with `workflow_dispatch` | Manual trigger; dry-run gate; repository secrets for credentials; no local production deploys |
 
 Report: **Present** / **Missing** / **Partial** per element. If partial, state what's there and what's missing.

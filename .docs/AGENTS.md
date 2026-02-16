@@ -111,6 +111,19 @@ Route learnings by scope and half-life:
 
 ---
 
+## Development practices — GitHub workflows
+
+Whenever we **add or change** GitHub Actions workflows (e.g. under `.github/workflows/`):
+
+1. **Static lint:** Run [actionlint](https://github.com/rhysd/actionlint) on workflow files to catch syntax, expression, action-input, and security issues. Use pre-commit on `.github/workflows/*.yml` or run manually when developing workflows.
+2. **CI/validation workflows** (lint, type-check, build, tests only; no deploy or external writes): Run the workflow locally with [act](https://github.com/nektos/act) before pushing. Treat a passing local act run as part of the definition of done for the change (or document why act was skipped).
+3. **Effectful workflows** (deploy, publish, write to external systems): Do not run effectful steps locally. Optionally guard effectful steps (e.g. env flag or `if` so they skip under act) so workflow structure can be validated with act without side effects; add that guard when needed.
+4. **Reference:** Full learning and caveats — L27 (Recorded learnings above).
+
+Agents that create or modify workflows (e.g. devsecops-engineer, or any agent adding CI per Phase 0) must follow this practice. Phase 0 and quality-gate-first treat "validate with act" as part of CI pipeline setup and audits (see quality-gate-first skill and `/skill/phase-0-check`).
+
+---
+
 ## ADR placement
 
 - **Location:** `.docs/canonical/adrs/`

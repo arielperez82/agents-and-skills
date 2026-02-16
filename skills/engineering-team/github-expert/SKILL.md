@@ -73,7 +73,9 @@ Comprehensive guide covering:
 - Security best practices
 - Advanced workflow patterns
 
-**Local validation with act:** Before pushing new or changed workflows, run them locally when possible. **CI/validation-only** (lint, type-check, build, tests; no deploy, no external writes): run [act](https://github.com/nektos/act) (e.g. `act push` or `act pull_request`) before pushing. **Effectful** (deploy, release): use `act -n` to dry-run syntax/job order, or add guards (e.g. env var or `if: github.run_id`) so effectful steps skip under act.
+**Static lint with actionlint:** When adding or changing workflow files, run [actionlint](https://github.com/rhysd/actionlint) to catch syntax errors, expression type issues, action input mismatches, and security issues (e.g. script injection, hard-coded secrets). Run `actionlint` in the repo root or add a pre-commit hook for `.github/workflows/*.yml`. Install via `go install github.com/rhysd/actionlint/cmd/actionlint@latest`, Homebrew, or [pre-commit](https://github.com/rhysd/actionlint#pre-commit-hook).
+
+**Local validation with act:** Before pushing new or changed workflows, run them locally when possible. **CI/validation-only** (lint, type-check, build, tests; no deploy, no external writes): run [act](https://github.com/nektos/act) (e.g. `act push` or `act pull_request`) before pushing. **Effectful** (deploy, release): use `act -n` to dry-run syntax/job order, or add guards (e.g. env var or `if: github.run_id`) so effectful steps skip under act. Run actionlint first (static), then act (runtime).
 
 ### 2. Repository Automation
 
