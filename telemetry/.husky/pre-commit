@@ -1,3 +1,6 @@
 cd telemetry && NODE_OPTIONS=--experimental-strip-types pnpx lint-staged --verbose
-# Lint workflow files when staged (lint-staged only sees files under telemetry/)
-cd "$(git rev-parse --show-toplevel)" && if git diff --cached --name-only | grep -qE '^.github/workflows/.*\.(yml|yaml)$'; then sh telemetry/scripts/run-actionlint.sh; fi
+# Lint only staged workflow files (lint-staged only sees files under telemetry/)
+staged=$(cd "$(git rev-parse --show-toplevel)" && git diff --cached --name-only | grep -E '^.github/workflows/.*\.(yml|yaml)$' || true)
+if [ -n "$staged" ]; then
+  cd "$(git rev-parse --show-toplevel)" && sh telemetry/scripts/run-actionlint.sh $staged
+fi

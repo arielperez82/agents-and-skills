@@ -1,4 +1,6 @@
 #!/usr/bin/env sh
+# Usage: run-actionlint.sh [file ...]
+# Lints only the given workflow files (repo-root-relative paths). If no args, exits 0.
 set -e
 cd "$(git rev-parse --show-toplevel)"
 if ! command -v actionlint >/dev/null 2>&1; then
@@ -9,4 +11,7 @@ if ! command -v actionlint >/dev/null 2>&1; then
   echo ""
   exit 1
 fi
-exec actionlint
+if [ $# -eq 0 ]; then
+  exit 0
+fi
+exec actionlint "$@"
