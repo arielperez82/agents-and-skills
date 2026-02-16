@@ -3,8 +3,8 @@ type: charter
 endeavor: repo
 initiative: I06-AICO
 initiative_name: agent-command-intake-optimize
-status: proposed
-updated: 2026-02-15
+status: done
+updated: 2026-02-16
 ---
 
 # Charter: Agent & Command Intake/Optimize

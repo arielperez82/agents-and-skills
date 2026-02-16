@@ -40,6 +40,8 @@ related-agents:
 related-skills:
   - engineering-team/avoid-feature-creep
   - agent-development-team/skill-creator
+  - agent-development-team/skill-intake
+  - agent-development-team/skill-optimizer
   - crafting-instructions
   - engineering-team/cost-optimization
   - docs-seeker
@@ -125,6 +127,8 @@ Use this agent when:
 - `../../skills/agent-development-team/skill-creator/` for general skill packaging
 - `../../skills/engineering-team/subagent-driven-development/` when executing multi-step refactor plans via subagents
 - `../../skills/engineering-team/check-tools/` when you need to validate Python tools used by skills
+
+**Skill lifecycle (in concert):** For **incorporating an external skill**, use the **skill-intake** skill and `/skill/intake` command (sandbox → security audit → architecture assessment → incorporate → report). After intake or after creating a new skill with skill-creator, consider **skill-optimizer** for token efficiency. For **agent** and **command** intake and optimization (agent-intake, agent-optimizer, command validator), see initiative I06-AICO (charter and backlog under `.docs/AGENTS.md` References).
 
 **Document vs. encode:** When a skill or agent encodes a learning from this repo's `.docs/`, write the **actionable practice in full** in the skill/agent. Consumer projects use these artifacts without this repo's learnings; do not reference "L27", ".docs/AGENTS.md", or metarepo learnings from inside the artifact. See `.docs/AGENTS.md` "Document vs. encode (metarepo vs. consumers)".
 

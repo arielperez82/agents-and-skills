@@ -19,6 +19,8 @@ These agents live directly in the `agents/` root directory:
 
 #### Meta Development
 - **`agent-author`** - Orchestrates creation and maintenance of agents and skills, enforcing standards and templates
+- **Agent optimizer** (skill: `agent-development-team/agent-optimizer`, command: `/agent:optimize`) - Analyze and optimize agent definitions using the 5-dimension rubric; single agent or batch
+- **Agent intake** (skill: `agent-development-team/agent-intake`, command: `/agent:intake`) - Evaluate and incorporate external agents via governance audit, ecosystem fit assessment, and validated incorporation
 
 #### Delivery & Project Management
 - **`agile-coach`** - Agile coaching specialist for ceremonies, team dynamics, communication, and agile manifesto adherence

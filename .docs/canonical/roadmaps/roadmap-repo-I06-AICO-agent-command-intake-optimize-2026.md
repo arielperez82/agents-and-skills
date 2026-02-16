@@ -6,8 +6,8 @@ initiative_name: agent-command-intake-optimize
 lead: engineering
 collaborators:
   - product
-status: proposed
-updated: 2026-02-15
+status: done
+updated: 2026-02-16
 ---
 
 # Roadmap: Agent & Command Intake/Optimize (2026)
@@ -15,6 +15,8 @@ updated: 2026-02-15
 ## Outcomes (sequenced)
 
 Outcomes only; no task granularity. Execution is pulled from the backlog and planned in the plan doc.
+
+**Initiative complete (2026-02-16):** All three outcomes delivered. Backlog B1–B16 done. Validation: calibration report, command baseline report, E2E intake test (synthetic agent incorporate → validate → revert). Reports: `.docs/reports/report-repo-I06-AICO-*`.
 
 | Order | Outcome | Checkpoint |
 |-------|---------|------------|

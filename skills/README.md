@@ -37,6 +37,8 @@ This directory contains on-demand skill packages that extend agent capabilities 
 | **skill-creator** | Creating/updating skills | Skill structure, frontmatter, packaging, init_skill.py, package_skill.py |
 | **creating-agents** | Creating agents | Agent frontmatter, workflows, collaborations |
 | **refactoring-agents** | Agent overlap/merge/split | Ecosystem refactors, collaboration contracts |
+| **agent-optimizer** | Optimize agent definitions | 5-dimension rubric, analyze-agent.sh, audit-agents.sh; `/agent:optimize` |
+| **agent-intake** | Incorporate external agents | Governance audit, ecosystem fit, 5-phase pipeline; `/agent:intake` |
 | **crafting-instructions** | Prompts, instructions | Instruction design, project vs skill vs prompt |
 | **agent-md-refactor** | Bloated AGENTS/CLAUDE.md | Progressive disclosure, split monolithic docs |
 | **versioning-skills** | Skill file changes | Version control for skill modifications |

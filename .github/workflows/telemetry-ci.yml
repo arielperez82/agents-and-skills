@@ -86,3 +86,45 @@ jobs:
       - name: Run unit tests
         run: pnpm test:unit
         working-directory: telemetry
+
+  integration-tests:
+    runs-on: ubuntu-latest
+    services:
+      tinybird:
+        image: tinybirdco/tinybird-local:latest
+        ports:
+          - 7181:7181
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup pnpm
+        uses: pnpm/action-setup@v4
+        with:
+          version: '10.18.2'
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version-file: 'telemetry/.nvmrc'
+          cache: 'pnpm'
+          cache-dependency-path: 'telemetry/pnpm-lock.yaml'
+
+      - name: Install dependencies
+        run: pnpm install --frozen-lockfile
+        working-directory: telemetry
+
+      - name: Extract admin token
+        id: tokens
+        run: |
+          ADMIN_TOKEN=$(curl -sf http://localhost:7181/tokens | jq -r '.workspace_admin_token')
+          echo "TB_HOST=http://localhost:7181" >> $GITHUB_ENV
+          echo "TB_TOKEN=$ADMIN_TOKEN" >> $GITHUB_ENV
+
+      - name: Build project (push to Tinybird Local)
+        run: npx tinybird build
+        working-directory: telemetry
+
+      - name: Run integration tests
+        run: pnpm test:integration
+        working-directory: telemetry

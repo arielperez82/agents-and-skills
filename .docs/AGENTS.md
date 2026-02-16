@@ -117,6 +117,8 @@ Agents that capture or encode learnings (learner, docs-reviewer, agent-author) m
 
 **L27 — Validate CI/validation workflows locally with act before pushing** (I05-ATEL, 2026-02-15): For workflows that only run CI or validation (lint, type-check, build, tests) and do not deploy or mutate state, run them locally with [act](https://github.com/nektos/act) before pushing to GitHub to shorten feedback loops. Restrict local act runs to workflows that do not "change" things (no deploy, no writes to external systems). For effectful workflows (e.g. deploy), consider guarding effectful steps (e.g. env flag, `if: github.run_id` or job-level skip when running under act) so they can be validated locally without executing side effects; design that guard as a follow-on when needed.
 
+**L28 — Agent and command intake/optimize pipeline** (I06-AICO, 2026-02-16): Agent optimizer (5-dimension rubric, analyze-agent.sh, audit-agents.sh, `/agent:optimize`), command validator (validate_commands.py, `/command:validate`), and agent intake (5-phase pipeline with governance checklist, `/agent:intake`) are in place. E2E validated with synthetic agent (incorporate → validate_agent.py + analyze-agent.sh pass → revert). Command validator allowlists template/external refs (e.g. skills/{path}, ui-ux-pro-max) so docs-style commands do not fail. See initiative I06-AICO (charter, roadmap, backlog) and reports under `.docs/reports/report-repo-I06-AICO-*`.
+
 ---
 
 ## Development practices — GitHub workflows

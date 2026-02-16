@@ -6,14 +6,13 @@ export default defineConfig(
   mergeConfig(sharedConfig, {
     test: {
       name: 'integration',
+      globalSetup: ['tests/integration/global-setup.ts'],
       include: ['tests/integration/**/*.test.ts'],
       testTimeout: 30_000,
       hookTimeout: 60_000,
       silent: 'passed-only',
       fileParallelism: false,
-      poolOptions: {
-        threads: { singleThread: true },
-      },
+      pool: 'threads',
       coverage: {
         ...coverageConfig,
         thresholds: {
