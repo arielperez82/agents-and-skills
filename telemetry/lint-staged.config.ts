@@ -6,4 +6,9 @@ export default {
   ],
   '**/*.{md,json,yaml,yml}': 'pnpm format:fix',
   '{src,tests}/**/*.ts': () => ['pnpm test:unit'],
+  '.github/workflows/*.{yml,yaml}': () => [
+    'sh',
+    '-c',
+    'cd "$(git rev-parse --show-toplevel)" && actionlint',
+  ],
 };

@@ -125,7 +125,7 @@ Agents that capture or encode learnings (learner, docs-reviewer, agent-author) m
 
 Whenever we **add or change** GitHub Actions workflows (e.g. under `.github/workflows/`):
 
-1. **Static lint:** Run [actionlint](https://github.com/rhysd/actionlint) on workflow files to catch syntax, expression, action-input, and security issues. Use pre-commit on `.github/workflows/*.yml` or run manually when developing workflows.
+1. **Static lint:** Run [actionlint](https://github.com/rhysd/actionlint) on workflow files to catch syntax, expression, action-input, and security issues. Pre-commit runs actionlint via lint-staged when `.github/workflows/*.{yml,yaml}` are staged (telemetry lint-staged config). Install actionlint locally (e.g. `brew install actionlint` or `go install github.com/rhysd/actionlint/cmd/actionlint@latest`) so those commits pass; or run `actionlint` manually from repo root when developing workflows.
 2. **CI/validation workflows** (lint, type-check, build, tests only; no deploy or external writes): Run the workflow locally with [act](https://github.com/nektos/act) before pushing. Treat a passing local act run as part of the definition of done for the change (or document why act was skipped).
 3. **Effectful workflows** (deploy, publish, write to external systems): Do not run effectful steps locally. Optionally guard effectful steps (e.g. env flag or `if` so they skip under act) so workflow structure can be validated with act without side effects; add that guard when needed.
 4. **Reference:** Full learning and caveats — L27 (Recorded learnings above).
