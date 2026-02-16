@@ -190,6 +190,13 @@ Filenames under `.docs/canonical/` should follow the naming grammar above. To au
 - Roadmap: [roadmap-repo-I06-AICO-agent-command-intake-optimize-2026.md](canonical/roadmaps/roadmap-repo-I06-AICO-agent-command-intake-optimize-2026.md)
 - Backlog: [backlog-repo-I06-AICO-agent-command-intake-optimize.md](canonical/backlogs/backlog-repo-I06-AICO-agent-command-intake-optimize.md)
 
+**I07-SDCA** (skills-deploy-claude-api):
+
+- Charter: [charter-repo-skills-deploy-claude-api.md](canonical/charters/charter-repo-skills-deploy-claude-api.md)
+- Roadmap: [roadmap-repo-I07-SDCA-skills-deploy-claude-api-2026.md](canonical/roadmaps/roadmap-repo-I07-SDCA-skills-deploy-claude-api-2026.md)
+- Backlog: [backlog-repo-I07-SDCA-skills-deploy-claude-api.md](canonical/backlogs/backlog-repo-I07-SDCA-skills-deploy-claude-api.md)
+- Plan: [plan-repo-I07-SDCA-skills-deploy-claude-api.md](canonical/plans/plan-repo-I07-SDCA-skills-deploy-claude-api.md)
+
 Root `AGENTS.md` (if present) should point here: "See .docs/AGENTS.md for agent artifact conventions and operating reference."
 
 ---
