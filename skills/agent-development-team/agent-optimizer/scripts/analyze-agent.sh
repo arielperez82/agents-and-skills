@@ -35,7 +35,6 @@ COLLAB_COUNT=${COLLAB_COUNT:-0}
 PURPOSE_COUNT=$(echo "$FRONTMATTER" | grep -c 'purpose:' || true)
 REQUIRED_COUNT=$(echo "$FRONTMATTER" | grep -c 'required:' || true)
 WITHOUT_COUNT=$(echo "$FRONTMATTER" | grep -c 'without-collaborator:' || true)
-COLLAB_COMPLETE=$((COLLAB_COUNT > 0 ? (PURPOSE_COUNT + REQUIRED_COUNT + WITHOUT_COUNT) / 3 : 1))
 COLLAB_SCORE=$((COLLAB_COUNT == 0 ? 100 : (PURPOSE_COUNT >= COLLAB_COUNT && REQUIRED_COUNT >= COLLAB_COUNT && WITHOUT_COUNT >= COLLAB_COUNT ? 100 : 50)))
 
 # Classification type

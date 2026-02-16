@@ -15,11 +15,6 @@ echo "=== Skill Repository Audit ==="
 echo "Directory: $REPO_PATH"
 echo ""
 
-TOTAL_SKILLS=0
-GOOD=0
-REVIEW=0
-OPTIMIZE=0
-
 printf "%-45s %8s %7s %10s %s\n" "Skill" "Lines" "KB" "Efficiency" "Status"
 echo "──────────────────────────────────────────────────────────────────────────────────────"
 
@@ -46,8 +41,6 @@ find "$REPO_PATH" -name "SKILL.md" -not -path "*/_sandbox/*" -not -path "*/node_
   fi
 
   printf "%-45s %8d %6s %9d%% %s\n" "$NAME" "$LINES" "$SIZE_KB" "$EFF" "$STATUS"
-
-  TOTAL_SKILLS=$((TOTAL_SKILLS + 1))
 done
 
 echo ""

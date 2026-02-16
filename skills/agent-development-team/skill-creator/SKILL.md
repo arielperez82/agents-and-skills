@@ -105,6 +105,7 @@ Executable code (Python/Bash/etc.) for tasks that require deterministic reliabil
 - **Example**: `scripts/rotate_pdf.py` for PDF rotation tasks
 - **Benefits**: Token efficient, deterministic, may be executed without loading into context
 - **Note**: Scripts may still need to be read by the agent for patching or environment-specific adjustments
+- **Shell scripts (`.sh`)**: Run ShellCheck before committing (load `shell-scripting` skill). Repo CI runs ShellCheck on all `**/*.sh`; skills must pass. Fix or document exclusions for any reported issues.
 
 ##### References (`references/`)
 

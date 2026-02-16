@@ -13,7 +13,7 @@ NC='\033[0m' # No Color
 # Get tags
 if [ -z "$1" ]; then
     # Get latest two tags
-    PREV_TAG=$(git describe --abbrev=0 --tags $(git rev-list --tags --skip=1 --max-count=1) 2>/dev/null || echo "")
+    PREV_TAG=$(git describe --abbrev=0 --tags "$(git rev-list --tags --skip=1 --max-count=1)" 2>/dev/null || echo "")
     CURRENT_TAG=$(git describe --abbrev=0 --tags 2>/dev/null || echo "HEAD")
 else
     PREV_TAG="$1"
@@ -39,7 +39,7 @@ echo "## What's Changed"
 echo ""
 
 # Features
-FEATURES=$(git log $RANGE --pretty=format:"%s" --grep="^feat" --grep="^feature" -i | sed 's/^/- /')
+FEATURES=$(git log "$RANGE" --pretty=format:"%s" --grep="^feat" --grep="^feature" -i | sed 's/^/- /')
 if [ ! -z "$FEATURES" ]; then
     echo "### ✨ Features"
     echo "$FEATURES"
@@ -47,7 +47,7 @@ if [ ! -z "$FEATURES" ]; then
 fi
 
 # Bug fixes
-FIXES=$(git log $RANGE --pretty=format:"%s" --grep="^fix" --grep="^bugfix" -i | sed 's/^/- /')
+FIXES=$(git log "$RANGE" --pretty=format:"%s" --grep="^fix" --grep="^bugfix" -i | sed 's/^/- /')
 if [ ! -z "$FIXES" ]; then
     echo "### 🐛 Bug Fixes"
     echo "$FIXES"
@@ -55,7 +55,7 @@ if [ ! -z "$FIXES" ]; then
 fi
 
 # Performance improvements
-PERF=$(git log $RANGE --pretty=format:"%s" --grep="^perf" -i | sed 's/^/- /')
+PERF=$(git log "$RANGE" --pretty=format:"%s" --grep="^perf" -i | sed 's/^/- /')
 if [ ! -z "$PERF" ]; then
     echo "### ⚡ Performance"
     echo "$PERF"
@@ -63,7 +63,7 @@ if [ ! -z "$PERF" ]; then
 fi
 
 # Documentation
-DOCS=$(git log $RANGE --pretty=format:"%s" --grep="^docs" -i | sed 's/^/- /')
+DOCS=$(git log "$RANGE" --pretty=format:"%s" --grep="^docs" -i | sed 's/^/- /')
 if [ ! -z "$DOCS" ]; then
     echo "### 📚 Documentation"
     echo "$DOCS"
@@ -71,7 +71,7 @@ if [ ! -z "$DOCS" ]; then
 fi
 
 # Refactoring
-REFACTOR=$(git log $RANGE --pretty=format:"%s" --grep="^refactor" -i | sed 's/^/- /')
+REFACTOR=$(git log "$RANGE" --pretty=format:"%s" --grep="^refactor" -i | sed 's/^/- /')
 if [ ! -z "$REFACTOR" ]; then
     echo "### ♻️ Refactoring"
     echo "$REFACTOR"
@@ -79,7 +79,7 @@ if [ ! -z "$REFACTOR" ]; then
 fi
 
 # Other changes
-OTHER=$(git log $RANGE --pretty=format:"%s" --invert-grep --grep="^feat" --grep="^fix" --grep="^perf" --grep="^docs" --grep="^refactor" -i | sed 's/^/- /')
+OTHER=$(git log "$RANGE" --pretty=format:"%s" --invert-grep --grep="^feat" --grep="^fix" --grep="^perf" --grep="^docs" --grep="^refactor" -i | sed 's/^/- /')
 if [ ! -z "$OTHER" ]; then
     echo "### 🔧 Other Changes"
     echo "$OTHER"
@@ -88,12 +88,12 @@ fi
 
 # Contributors
 echo "### 👥 Contributors"
-git log $RANGE --format='%aN' | sort -u | sed 's/^/- @/'
+git log "$RANGE" --format='%aN' | sort -u | sed 's/^/- @/'
 echo ""
 
 # Stats
-COMMIT_COUNT=$(git rev-list --count $RANGE)
-FILES_CHANGED=$(git diff --shortstat $PREV_TAG $CURRENT_TAG 2>/dev/null | awk '{print $1}' || echo "N/A")
+COMMIT_COUNT=$(git rev-list --count "$RANGE")
+FILES_CHANGED=$(git diff --shortstat "$PREV_TAG" "$CURRENT_TAG" 2>/dev/null | awk '{print $1}' || echo "N/A")
 
 echo "### 📊 Stats"
 echo "- $COMMIT_COUNT commits"

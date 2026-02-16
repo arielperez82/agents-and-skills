@@ -64,6 +64,7 @@ Use these checklists when creating or updating agents.
 - [ ] Example commands run at least once (or clearly marked as pseudo-code)
 - [ ] No references to removed/renamed skills or agents
 - [ ] Collaborating agents list this agent in their `related-agents` when appropriate
+- [ ] **Shell scripts**: If any skill referenced by the agent has `*.sh` in `scripts/` or `assets/`, those scripts pass ShellCheck (load `shell-scripting` skill). Repo CI runs ShellCheck on all `**/*.sh`; failures block merge.
 
 ## Anti-Patterns Checklist
 

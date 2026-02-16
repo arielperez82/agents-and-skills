@@ -17,7 +17,8 @@ detect_framework() {
         return
     fi
 
-    local content=$(cat "$pkg_json")
+    local content
+    content=$(cat "$pkg_json")
 
     # Helper to check if a package exists in dependencies or devDependencies
     has_dep() {

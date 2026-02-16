@@ -47,6 +47,8 @@ Fresh subagent per integration task. TDD cycle with two-stage review (spec compl
 
 Run all existing skill scripts to verify no regressions. Run new skill end-to-end. Verify cross-skill imports.
 
+**Shell scripts:** Run ShellCheck on every `*.sh` in the skill (load `shell-scripting` skill). Fix all reported issues or document exclusions before promote. ShellCheck is part of repo CI; skills with shell scripts must pass before merge.
+
 ### Phase 8: Document & Report
 
 Update SKILL.md files, project MEMORY.md, and analysis docs. Generate intake report from `references/intake-report-template.md`.

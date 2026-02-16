@@ -3,8 +3,6 @@
 
 set -e  # Exit on any error
 
-SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
-PROJECT_ROOT="$(cd "$SCRIPT_DIR/../.." && pwd)"
 DOCKER_COMPOSE_FILE="${DOCKER_COMPOSE_FILE:-docker/nocodb/docker-compose.yml}"
 
 echo "🚀 Setting up NocoDB..."

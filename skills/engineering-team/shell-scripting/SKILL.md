@@ -12,6 +12,7 @@ Static analysis for bash/sh scripts using [ShellCheck](https://github.com/koalam
 - Repo contains `.sh` files, Husky or other hooks that run shell, or a `scripts/` directory with shell.
 - Setting up Phase 0 for a project that ships shell scripts: add ShellCheck to pre-commit and CI (see **quality-gate-first** skill — conditional "when repo has shell scripts").
 - Writing or modifying shell scripts: run ShellCheck locally before committing.
+- **Authoring, intaking, or optimizing agents/skills/commands**: Any skill or agent that bundles shell scripts must pass ShellCheck. Required in **skill-intake** (Phase 7 Validate), **skill-creator** (before commit), and **skill-optimizer** when scripts are present. Repo CI runs ShellCheck on `**/*.sh`; failures block merge.
 
 ## Install
 

@@ -153,6 +153,7 @@ Changes: [summary of what was moved/removed]
 - [ ] Frontmatter description comprehensive (WHAT + WHEN triggers)
 - [ ] No duplicated content between SKILL.md and references
 - [ ] Imperative voice throughout
+- [ ] **Shell scripts**: If the skill has `scripts/*.sh` or `assets/*.sh`, run ShellCheck (load `shell-scripting` skill). Fix or document exclusions; repo CI fails on ShellCheck issues.
 
 ## Cross-Skill References
 

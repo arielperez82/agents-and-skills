@@ -1,0 +1,40 @@
+# Repo CI — checks for repo-wide artifacts (skills, agents, commands, shell scripts).
+# Runs when those paths or this workflow change. Telemetry has its own pipeline (telemetry-ci).
+
+name: Repo CI
+
+on:
+  push:
+    paths:
+      - 'skills/**'
+      - 'agents/**'
+      - 'commands/**'
+      - '.docs/**'
+      - '**/*.sh'
+      - '.github/workflows/repo-ci.yml'
+  pull_request:
+    paths:
+      - 'skills/**'
+      - 'agents/**'
+      - 'commands/**'
+      - '.docs/**'
+      - '**/*.sh'
+      - '.github/workflows/repo-ci.yml'
+
+concurrency:
+  group: repo-ci-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  shellcheck:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Run ShellCheck
+        uses: Azbagheri/shell-linter@v0.8.0
+        with:
+          path: '.'
+          exclude-paths: 'node_modules'
+          severity: 'warning'
