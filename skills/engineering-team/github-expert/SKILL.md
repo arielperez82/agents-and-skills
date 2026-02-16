@@ -73,6 +73,8 @@ Comprehensive guide covering:
 - Security best practices
 - Advanced workflow patterns
 
+**Local validation with act:** Before pushing new or changed workflows, run them locally when possible. **CI/validation-only** (lint, type-check, build, tests; no deploy, no external writes): run [act](https://github.com/nektos/act) (e.g. `act push` or `act pull_request`) before pushing. **Effectful** (deploy, release): use `act -n` to dry-run syntax/job order, or add guards (e.g. env var or `if: github.run_id`) so effectful steps skip under act.
+
 ### 2. Repository Automation
 
 Automate repository management with Dependabot and CodeQL.
