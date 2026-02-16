@@ -107,6 +107,8 @@ Route learnings by scope and half-life:
 
 **L26 — pnpm/action-setup requires explicit version in GitHub Actions** (I05-ATEL, 2026-02-15): `pnpm/action-setup` fails with "No pnpm version is specified" unless you set `version` in the step `with:` or have `packageManager` in package.json. Always set e.g. `version: '10.18.2'` (or match the project's lockfile) when using this action.
 
+**L27 — Validate CI/validation workflows locally with act before pushing** (I05-ATEL, 2026-02-15): For workflows that only run CI or validation (lint, type-check, build, tests) and do not deploy or mutate state, run them locally with [act](https://github.com/nektos/act) before pushing to GitHub to shorten feedback loops. Restrict local act runs to workflows that do not "change" things (no deploy, no writes to external systems). For effectful workflows (e.g. deploy), consider guarding effectful steps (e.g. env flag, `if: github.run_id` or job-level skip when running under act) so they can be validated locally without executing side effects; design that guard as a follow-on when needed.
+
 ---
 
 ## ADR placement
