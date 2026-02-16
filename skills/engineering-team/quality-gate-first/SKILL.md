@@ -48,6 +48,7 @@ If a plan says "Phase 0 — Scaffold" or "Step 1 — Initialize app," treat Phas
 
 ## When generating plans or backlogs
 
+- **When the repo contains shell scripts:** Run ShellCheck on pre-commit (e.g. lint-staged for `*.sh`) and in CI (e.g. [Shell Linter](https://github.com/marketplace/actions/shell-linter) action or shellcheck job). See **shell-scripting** skill.
 - **Include Phase 0** as the first phase: either (1) minimal skeleton + add all elements (ten, or eleven for frontend: add Stylelint), or (2) scaffold that includes quality tooling + verify/complete the gate. Phase 0 must include all three layers: pre-commit hooks, CI pipeline, and deploy pipeline. Then feature work in Phase 1.
 - When the user says "set up a new [stack] project," remind or add: "Phase 0 = full delivery pipeline before feature work: scaffold, then type-check, pre-commit (Husky/lint-staged), ESLint, Prettier, MarkdownLint, Stylelint when frontend, a11y lint, Lighthouse script, CI pipeline (GitHub Actions), deploy pipeline (workflow_dispatch). Delivering to production safely is the first feature."
 - For **TypeScript/JavaScript** projects (frontend, backend, fullstack), Phase 0 scaffold should include **path aliases**: `tsconfig.json` with `compilerOptions.baseUrl` and `compilerOptions.paths` (e.g. `@/*` → `src/*`); if using Vite or Vitest, `resolve.alias` in config must match. See `typescript-strict` skill (Path aliases) and `vitest-configuration` (Path Aliases).
