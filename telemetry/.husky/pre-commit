@@ -4,3 +4,8 @@ staged=$(cd "$(git rev-parse --show-toplevel)" && git diff --cached --name-only 
 if [ -n "$staged" ]; then
   cd "$(git rev-parse --show-toplevel)" && sh telemetry/scripts/run-actionlint.sh $staged
 fi
+# Lint staged shell scripts (repo-wide)
+staged_sh=$(cd "$(git rev-parse --show-toplevel)" && git diff --cached --name-only | grep -E '\.sh$' || true)
+if [ -n "$staged_sh" ]; then
+  cd "$(git rev-parse --show-toplevel)" && sh telemetry/scripts/run-shellcheck.sh $staged_sh
+fi
