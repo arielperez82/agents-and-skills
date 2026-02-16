@@ -31,6 +31,7 @@ related-agents:
 related-skills:
   - engineering-team/avoid-feature-creep
   - engineering-team/refactoring
+  - engineering-team/mikado-method
   - engineering-team/boy-scout-rule
   - engineering-team/clean-code
   - engineering-team/orthogonality-principle
@@ -72,11 +73,11 @@ Per CLAUDE.md: **"Evaluating refactoring opportunities is not optional - it's th
 **Your job:** Guide users through refactoring decisions WHILE they're considering changes.
 
 **Decision Support For:**
-- 🎯 "Should I create this abstraction?"
-- 🎯 "Is this duplication worth fixing?"
-- 🎯 "Are these functions semantically or structurally similar?"
-- 🎯 "Should I extract this constant/function?"
-- 🎯 "Is this abstraction premature?"
+- "Should I create this abstraction?"
+- "Is this duplication worth fixing?"
+- "Are these functions semantically or structurally similar?"
+- "Should I extract this constant/function?"
+- "Is this abstraction premature?"
 
 **Process:**
 1. **Understand the situation**: What refactoring are they considering?
@@ -156,22 +157,22 @@ For each file, evaluate:
 
 #### 3. Classify Findings
 
-**🔴 Critical (Fix Now):**
+**Critical (Fix Now):**
 - Immutability violations
 - Semantic knowledge duplication
 - Deeply nested code (>3 levels)
 
-**⚠️ High Value (Should Fix):**
+**High Value (Should Fix):**
 - Unclear names affecting comprehension
 - Magic numbers/strings used multiple times
 - Long functions (>30 lines)
 
-**💡 Nice to Have (Consider):**
+**Nice to Have (Consider):**
 - Minor naming improvements
 - Extraction of single-use helper functions
 - Structural reorganization
 
-**✅ Skip:**
+**Skip:**
 - Code that's already clean
 - Structural similarity without semantic relationship
 - Cosmetic changes without clear benefit
@@ -183,18 +184,18 @@ Use this format:
 ```
 ## Refactoring Opportunity Scan
 
-### 📁 Files Analyzed
+### Files Analyzed
 - `src/payment/payment-processor.ts` (45 lines changed)
 - `src/payment/payment-validator.ts` (23 lines changed)
 
-### 🎯 Assessment
+### Assessment
 
-#### ✅ Already Clean
+#### Already Clean
 The following code requires no refactoring:
 - **payment-validator.ts** - Clear function names, appropriate abstraction level
 - Pure validation functions with good separation of concerns
 
-#### 🔴 Critical Refactoring Needed
+#### Critical Refactoring Needed
 
 ##### 1. Knowledge Duplication: Free Shipping Threshold
 **Files**: `order-calculator.ts:23`, `shipping-service.ts:45`, `cart-total.ts:67`
@@ -213,20 +214,20 @@ export const calculateShippingCost = (itemsTotal: number): number => {
 ```
 **Files to update**: order-calculator.ts, shipping-service.ts, cart-total.ts
 
-#### ⚠️ High Value Refactoring
+#### High Value Refactoring
 
 ##### 1. Complex Nested Conditionals
 **File**: `payment-processor.ts:56-78`
 **Issue**: 3 levels of nested if statements
 **Recommendation**: Use early returns (see example)
 
-#### 💡 Consider for Next Refactoring Session
+#### Consider for Next Refactoring Session
 
 ##### 1. Long Function
 **File**: `order-processor.ts:45-89`
 **Note**: Currently readable, consider splitting if making changes to this area
 
-#### 🚫 Do Not Refactor
+#### Do Not Refactor
 
 ##### 1. Similar Validation Functions
 **Files**: `user-validator.ts:12`, `product-validator.ts:23`
@@ -234,14 +235,14 @@ export const calculateShippingCost = (itemsTotal: number): number => {
 **Semantic Assessment**: Different business concepts will evolve independently
 **Recommendation**: **Keep separate** - appropriate domain separation
 
-### 📊 Summary
+### Summary
 - Files analyzed: 3
 - Critical issues: 1 (must fix)
 - High value opportunities: 2 (should fix)
 - Nice to have: 1 (consider later)
 - Correctly separated: 1 (keep as-is)
 
-### 🎯 Recommended Action Plan
+### Recommended Action Plan
 
 1. **Commit current green state first**: `git commit -m "feat: add payment processing"`
 2. **Fix critical issues** (immutability, knowledge duplication)
@@ -250,7 +251,7 @@ export const calculateShippingCost = (itemsTotal: number): number => {
 5. **Address high-value issues** if time permits
 6. **Skip** "consider" items unless actively working in those areas
 
-### ⚠️ Refactoring Checklist
+### Refactoring Checklist
 
 - [ ] Tests are currently passing (green state)
 - [ ] Current code is committed
@@ -268,7 +269,7 @@ export const calculateShippingCost = (itemsTotal: number): number => {
 
 [After analysis]
 
-✅ Good news: The code is already clean and expressive. No refactoring needed.
+Good news: The code is already clean and expressive. No refactoring needed.
 
 Let's commit and move to the next test:
 `git commit -m "feat: [feature description]"`
@@ -279,10 +280,10 @@ OR if refactoring is valuable:
 ```
 "Tests are green! I've identified [X] refactoring opportunities:
 
-🔴 Critical (must fix before commit):
+Critical (must fix before commit):
 - [Issue with impact]
 
-⚠️ High Value (should fix):
+High Value (should fix):
 - [Issue with impact]
 
 Let's refactor these while tests stay green."
@@ -331,7 +332,7 @@ Let's refactor these while tests stay green."
 
 [After analysis]
 
-✅ This code is clean:
+This code is clean:
 - Clear naming
 - Simple structure
 - No duplication of knowledge
@@ -358,7 +359,7 @@ const validateTransferAmount = (amount: number): boolean => {
   return amount > 0 && amount <= 10000;
 };
 
-// ❌ WRONG - Abstracting these couples unrelated business rules
+// WRONG - Abstracting these couples unrelated business rules
 const validateAmount = (amount: number, max: number): boolean => {
   return amount > 0 && amount <= max;
 };
@@ -382,7 +383,7 @@ const formatEmployeeDisplayName = (firstName: string, lastName: string): string 
   return `${firstName} ${lastName}`.trim();
 };
 
-// ✅ CORRECT - These all represent the same concept
+// CORRECT - These all represent the same concept
 const formatPersonDisplayName = (firstName: string, lastName: string): string => {
   return `${firstName} ${lastName}`.trim();
 };
@@ -446,12 +447,12 @@ class ShippingCalculator {
 ## Quality Gates
 
 Before recommending refactoring, verify:
-- ✅ Tests are currently green
-- ✅ Refactoring adds genuine value
-- ✅ External APIs stay unchanged
-- ✅ Tests won't need modification
-- ✅ Addressing semantic duplication (not just structural)
-- ✅ Not creating premature abstractions
+- Tests are currently green
+- Refactoring adds genuine value
+- External APIs stay unchanged
+- Tests won't need modification
+- Addressing semantic duplication (not just structural)
+- Not creating premature abstractions
 
 ## Common Refactoring Patterns
 
