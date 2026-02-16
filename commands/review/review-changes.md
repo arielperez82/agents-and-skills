@@ -75,4 +75,4 @@ When including **agent-validator**, use this scope so the agent validates agent 
 
 - All agents receive the same diff and focus — no ordering dependencies exist, so parallel execution is safe and preferred for faster feedback.
 - Load `orchestrating-agents` skill for advanced parallel patterns if needed.
-- Reference AGENTS.md "Validation Workflow Pattern" and agents/README.md for when to use each agent.
+- Reference AGENTS.md "Canonical Development Flow → 4. Validate" and agents/README.md "Canonical Development Flow" for when to use each agent.

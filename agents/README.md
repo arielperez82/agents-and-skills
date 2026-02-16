@@ -374,79 +374,199 @@ These agents live directly in the `agents/` root directory:
 
 ---
 
+## Canonical Development Flow
+
+This is the end-to-end flow for building software in this repo. Every phase references the agents and commands that execute it. The flow applies to feature work, bug fixes, refactoring, and infrastructure changes alike.
+
+### Phase 0 — Quality Gate (before any feature work)
+
+Delivering to production safely is the first feature. No feature work begins until all three layers are in place:
+
+1. **Pre-commit (local):** Husky + lint-staged — type-check (full-project when source staged), lint + format on staged files, unit tests on staged source files.
+2. **CI pipeline (remote):** GitHub Actions on push/PR — format check, lint, type-check, build, unit tests.
+3. **Deploy pipeline (remote):** GitHub Actions workflow_dispatch — build → dry-run → deploy.
+
+**Agents:** `devsecops-engineer` (pipeline setup), `implementation-planner` (includes Phase 0 in all plans).
+**Skill:** `quality-gate-first`. **Command:** `/skill/phase-0-check` to audit.
+
+### Phase 1 — Planning & Requirements
+
+```
+product-director / product-manager
+    │  (OKRs, RICE prioritization, PRDs)
+    ▼
+product-analyst
+    │  (user stories, acceptance criteria, sprint readiness)
+    ▼
+acceptance-designer
+    │  (BDD Given-When-Then scenarios, walking skeleton strategy)
+    ▼
+architect / adr-writer
+    │  (system design, ADRs for significant decisions → .docs/canonical/adrs/)
+    ▼
+implementation-planner
+    │  (step-by-step plan → .docs/canonical/plans/)
+    ▼
+progress-assessor
+    │  (validates plan + status report exist, initializes tracking under .docs/)
+```
+
+**Key outputs:**
+- PRD / user stories with acceptance criteria
+- BDD acceptance scenarios in business language (outer-loop tests)
+- Architecture decisions documented as ADRs
+- Implementation plan in `.docs/canonical/plans/`
+- Status report initialized in `.docs/reports/`
+
+**Canonical artifact hierarchy:** Charter → Roadmap → Backlog → Plan. Disputes resolve upstream. All use initiative IDs (`I<nn>-<ACRONYM>`) consistently.
+
+### Phase 2 — Implementation (per plan step, repeating)
+
+This is the inner loop that repeats for every task in the plan:
+
+```
+┌───────────────────────────────────────────────────────┐
+│                  For each plan step:                   │
+│                                                       │
+│  1. RED   — Write failing test first                  │
+│     (tdd-reviewer coaches, tpp-assessor               │
+│      guides test selection via TPP)                   │
+│                                                       │
+│  2. GREEN — Write MINIMUM code to pass                │
+│     (ts-enforcer verifies TypeScript strict,          │
+│      no `any`, immutable data, schema-first)          │
+│                                                       │
+│  3. REFACTOR — Assess improvement opportunities       │
+│     (refactor-assessor classifies:                    │
+│      Critical / High Value / Nice / Skip)             │
+│                                                       │
+│  4. Update status report (.docs/reports/)             │
+│  5. Capture discoveries via learner                   │
+│                                                       │
+│  For database/schema work:                            │
+│     supabase-database-engineer (schema, RLS,          │
+│      migrations)                                      │
+│                                                       │
+│  When architectural decisions arise:                  │
+│     adr-writer (→ .docs/canonical/adrs/)              │
+│                                                       │
+│  ↺ Repeat for next step                              │
+└───────────────────────────────────────────────────────┘
+```
+
+For multi-task initiatives, `engineering-lead` orchestrates by dispatching specialist subagents (`backend-engineer`, `frontend-engineer`, `fullstack-engineer`, etc.) per task, then running two-stage review gates (spec compliance, then code quality) after each.
+
+### Double-Loop TDD Architecture
+
+The BDD outer loop and TDD inner loop form a double-loop structure, bridged by `acceptance-designer`:
+
+```
+OUTER LOOP (BDD acceptance tests)
+│  acceptance-designer writes Given-When-Then
+│  against driving ports only (business language)
+│
+└─► INNER LOOP (unit-level TDD)
+    │  tdd-reviewer coaches RED-GREEN-REFACTOR
+    │  tpp-assessor guides transformation priority
+    │  ts-enforcer enforces TypeScript strict
+    │  refactor-assessor assesses after GREEN
+    │
+    └─► Tests pass → acceptance scenario satisfied
+        → next acceptance scenario
+```
+
+### Phase 3 — Validation (before commit/PR)
+
+Run `/review/review-changes` — the single validation gate that launches all review agents **in parallel** on uncommitted changes:
+
+**Core (always):**
+1. `tdd-reviewer` — TDD compliance, test quality, behavior-focused tests
+2. `ts-enforcer` — TypeScript strict mode, no `any`, schema usage, immutability (skip if no TS in diff)
+3. `refactor-assessor` — Refactoring opportunities (Critical / High / Nice / Skip)
+4. `security-assessor` — Security findings with criticality (Critical/High/Medium/Low)
+5. `code-reviewer` — Code quality, best practices, merge readiness
+6. `cognitive-load-assessor` — Cognitive Load Index, 8-dimension report
+
+**Optional (when applicable):**
+7. `docs-reviewer` — When diff touches documentation
+8. `progress-assessor` — When work is plan-based (validates plan alignment)
+9. `agent-validator` — When diff touches `agents/`
+
+After `/review/review-changes` passes: **ask for commit approval**, then commit via `/git/cm` or `/git/cp`.
+
+### Phase 4 — PR & Merge
+
+1. Run `/review/review-changes` one final time on all uncommitted changes
+2. Fix any issues found
+3. Create PR using `/pr` command
+
+### Phase 5 — Feature Complete & Knowledge Capture
+
+1. Invoke `progress-assessor`: Verify all criteria met, status report is final
+2. Review learnings for merge destinations (`.docs/AGENTS.md` or canonical Learnings sections)
+3. Invoke `learner`: Merge gotchas/patterns → `.docs/AGENTS.md` or canonical docs
+4. Invoke `adr-writer`: Create ADRs for any significant decisions (`.docs/canonical/adrs/`)
+5. Invoke `docs-reviewer`: Update permanent docs (README, guides, API docs)
+6. Update/archive canonical docs as needed
+
+### Ongoing — Session Management
+
+- **When plan needs changing:** Invoke `progress-assessor`, propose changes, **get approval before modifying plan**
+- **End of session:** Invoke `progress-assessor` to validate status report is up to date, report what's missing
+- **Between sessions:** Status reports in `.docs/reports/` preserve continuity
+
+### Quick Reference: Agent Invocation Sequence
+
+| When | What to do |
+|------|-----------|
+| Starting significant work | Load `planning` skill; invoke `progress-assessor`; get plan approval |
+| Before writing production code | Invoke `tdd-reviewer` (verify test-first) |
+| While writing TypeScript | Invoke `ts-enforcer` (verify strict compliance) |
+| After tests turn GREEN | Invoke `refactor-assessor` (assess improvements) |
+| Before commit/PR | Run `/review/review-changes` (parallel validation gate) |
+| Architectural decision | Invoke `adr-writer` (document in `.docs/canonical/adrs/`) |
+| Feature complete | Invoke `learner` + `docs-reviewer` + `progress-assessor` |
+
 ## Agent Relationships
 
 ### Orchestration Flow
 
 ```
-progress-assessor (orchestrates)
+progress-assessor (orchestrates significant work)
     │
     ├─► Uses: .docs/canonical/plans/, .docs/reports/, .docs/AGENTS.md + Learnings sections
     │
-    ├─► For each step:
-    │   ├─→ tdd-reviewer (RED-GREEN-REFACTOR)
-    │   ├─→ ts-enforcer (before commits)
-    │   └─→ refactor-assessor (after GREEN)
+    ├─► Phase 1 — Planning:
+    │   ├─→ product-analyst (user stories, acceptance criteria)
+    │   ├─→ acceptance-designer (BDD scenarios, walking skeleton)
+    │   ├─→ architect / adr-writer (system design, ADRs)
+    │   └─→ implementation-planner (step-by-step plan)
     │
-    ├─► For database/schema work:
-    │   └─→ supabase-database-engineer (schema design, RLS policies, migration management)
+    ├─► Phase 2 — For each step (double-loop TDD):
+    │   ├─→ tdd-reviewer (RED-GREEN-REFACTOR coaching)
+    │   ├─→ tpp-assessor (test selection via TPP)
+    │   ├─→ ts-enforcer (TypeScript strict enforcement)
+    │   ├─→ refactor-assessor (after GREEN)
+    │   └─→ supabase-database-engineer (when schema work needed)
+    │
+    ├─► Phase 2 — Multi-task orchestration (when applicable):
+    │   └─→ engineering-lead (dispatches specialist subagents, two-stage review gates)
+    │
+    ├─► Phase 3 — Validation (before commit/PR):
+    │   └─→ /review/review-changes (parallel: tdd-reviewer, ts-enforcer,
+    │       refactor-assessor, security-assessor, code-reviewer,
+    │       cognitive-load-assessor + optional docs-reviewer, agent-validator)
     │
     ├─► When decisions arise:
     │   └─→ adr-writer (architectural decisions → .docs/canonical/adrs/)
     │
-    ├─► Before merge:
-    │   └─→ code-reviewer (comprehensive code review)
-    │
-    ├─► At end:
+    ├─► Phase 5 — At end:
     │   ├─→ learner (merge learnings → .docs/AGENTS.md or canonical Learnings sections)
     │   ├─→ docs-reviewer (update permanent docs)
     │   └─→ Update/archive canonical docs as needed
     │
     └─► Related: `planning` skill (incremental work principles)
 ```
-
-### Typical Workflow
-
-1. **Start significant work**
-   - Load `planning` skill for principles
-   - Invoke `progress-assessor`: Assesses if canonical plan and status report exist under `.docs/`, recommends creation
-   - Get approval for plan (under `.docs/canonical/plans/`)
-
-2. **For each step in plan**
-   - RED: Write failing test (TDD non-negotiable)
-   - GREEN: Minimal code to pass
-   - REFACTOR: Invoke `refactor-assessor` to assess improvements
-   - Update status report in `.docs/reports/` with progress
-   - Capture discoveries via learner (`.docs/AGENTS.md` or Learnings section)
-   - **WAIT FOR COMMIT APPROVAL**
-
-3. **When plan needs changing**
-   - Invoke `progress-assessor`: Propose changes
-   - **Get approval before modifying plan**
-
-4. **When architectural decision arises**
-   - Capture learning; invoke `adr-writer` if decision warrants permanent record (`.docs/canonical/adrs/`)
-
-5. **Before commits**
-   - Invoke `ts-enforcer`: Verify TypeScript compliance
-   - Invoke `tdd-reviewer`: Verify TDD compliance
-   - **Ask for commit approval**
-
-6. **End of session**
-   - Invoke `progress-assessor`: Validate status report is up to date, report what's missing
-
-7. **Before creating PR**
-   - Invoke `code-reviewer`: Self-review changes
-   - Fix any issues found
-   - Create PR using `/pr` command
-
-8. **Feature complete**
-   - Invoke `progress-assessor`: Verify all criteria met
-   - Review learnings for merge destinations (`.docs/AGENTS.md` or canonical Learnings sections)
-   - Invoke `learner`: Merge gotchas/patterns → `.docs/AGENTS.md` or canonical docs
-   - Invoke `adr-writer`: Create ADRs under `.docs/canonical/adrs/`
-   - Invoke `docs-reviewer`: Update permanent docs
-   - **Update/archive canonical docs as needed** (no root PLAN.md/WIP.md/LEARNINGS.md to delete)
 
 ## Key Distinctions
 
@@ -581,20 +701,24 @@ When creating a new agent specification:
 
 ## Summary
 
-These agents work together to create a comprehensive development workflow:
+These agents work together through the **Canonical Development Flow** (see above):
 
+- **Planning**: product-analyst + acceptance-designer + implementation-planner design what to build
+- **Architecture**: architect + adr-writer make and document structural decisions
+- **Orchestration**: progress-assessor tracks work; engineering-lead dispatches specialist subagents for multi-task initiatives
+- **Testing**: tdd-reviewer + tpp-assessor coach double-loop TDD (BDD outer loop, unit inner loop)
+- **Type Safety**: ts-enforcer enforces TypeScript strict mode, schema-first, immutability
+- **Refactoring**: refactor-assessor classifies improvement opportunities after GREEN
+- **Database**: supabase-database-engineer designs schemas, RLS policies, and manages migrations
 - **Analysis**: use-case-data-analyzer maps use cases to implementation patterns
-- **Database**: supabase-database-engineer designs schemas and manages migrations
-- **Quality**: tdd-reviewer + ts-enforcer ensure code quality
-- **Improvement**: refactor-assessor optimizes code after tests pass
-- **Review**: code-reviewer validates code before merge
-- **Knowledge**: learner + adr-writer + docs-reviewer preserve knowledge
-- **Progress**: progress-assessor validates progress tracking discipline with three-document model
+- **Validation**: `/review/review-changes` runs tdd-reviewer, ts-enforcer, refactor-assessor, security-assessor, code-reviewer, and cognitive-load-assessor **in parallel** as the single pre-commit/pre-PR gate
+- **Knowledge**: learner + adr-writer + docs-reviewer preserve permanent knowledge
 
 **Key workflow principles** (see `planning` skill for details):
+- Phase 0 quality gate complete before any feature work
 - All work in small, known-good increments
-- TDD non-negotiable (RED-GREEN-REFACTOR)
-- Commit approval required before every commit
+- TDD non-negotiable (RED-GREEN-REFACTOR, double-loop with BDD)
+- `/review/review-changes` before every commit; commit approval required
 - Learnings captured as they occur, merged at end
 
 Each agent is specialized, autonomous, and designed to be invoked at the right time to maintain high standards throughout the development process.

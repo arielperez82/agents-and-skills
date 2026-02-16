@@ -86,7 +86,7 @@ I follow Test-Driven Development (TDD) with a strong emphasis on behavior-driven
 
 ### Economy
 
-- Optimizveloper time and maintainability before machine-time optimizations.
+- Optimize developer time and maintainability before machine-time optimizations.
 
 ### Generation
 
@@ -141,7 +141,7 @@ The following agents and skills provide detailed guidance and can be loaded on-d
 
 **To use:** In Cursor Agent/Chat, reference the agent or skill by name or describe your task. Cursor will automatically load relevant resources.
 
-**MANDATORY USAGE**: You MUST proactively load skills and engage agents at the start of relevant work. See "Working with AI Agents" section below for automatic engagement rules. ALWAYS specify which agent your using and which skills you're leveraging. ALWAYS.
+**MANDATORY USAGE**: You MUST proactively load skills and engage agents at the start of relevant work. See "Working with AI Agents" section below for automatic engagement rules. ALWAYS specify which agent you're using and which skills you're leveraging. ALWAYS.
 
 ## Testing Principles
 
@@ -194,21 +194,122 @@ The following agents and skills provide detailed guidance and can be loaded on-d
 - Prefer options objects over positional parameters
 - Use array methods (`map`, `filter`, `reduce`) over loops
 
-## Development Workflow (TDD)
+## Canonical Development Flow
 
-**Core principle**: RED-GREEN-REFACTOR in small, known-good increments.
+This is the end-to-end lifecycle for all work — features, bug fixes, refactoring, infrastructure. See `agents/README.md` "Canonical Development Flow" for full diagrams and agent relationships.
 
-**Quick reference:**
+```
+ ┌─────────────────────────────────────────────────────────────────┐
+ │                    CANONICAL DEVELOPMENT FLOW                   │
+ └─────────────────────────────────────────────────────────────────┘
 
-- **RED**: Write failing test first (NO production code without failing test)
-- **GREEN**: Write MINIMUM code to pass test
-- **REFACTOR**: Assess improvement opportunities (only refactor if adds value)
-- Wait for commit approval before every commit
-- Each increment leaves codebase in working state
-- Capture learnings as they occur, merge at end
+ 1. QUALITY GATE (Phase 0)
+    Pre-commit ─► CI pipeline ─► Deploy pipeline
+    │  Must be complete before any feature work
+    ▼
+ 2. PLAN
+    product-analyst ─► acceptance-designer ─► architect ─► implementation-planner
+    │  Charter → Roadmap → Backlog → Plan (.docs/canonical/)
+    ▼
+ 3. BUILD  ◄─────────────────────────────────────────────┐
+    │                                                     │
+    │  ┌─── Double-Loop TDD ──────────────────────┐      │
+    │  │                                           │      │
+    │  │  OUTER: acceptance-designer (BDD)         │      │
+    │  │    │                                      │      │
+    │  │    └─► INNER: tdd-reviewer (unit TDD)     │      │
+    │  │        RED ─► GREEN ─► REFACTOR           │      │
+    │  │        │       │         │                 │      │
+    │  │        │    ts-enforcer  refactor-assessor │      │
+    │  │        tpp-assessor                        │      │
+    │  │                                           │      │
+    │  └───────────────────────────────────────────┘      │
+    │                                                     │
+    │  Update .docs/reports/ ─► Capture via learner       │
+    ▼                                                     │
+ 4. VALIDATE                                              │
+    /review/review-changes (parallel)                     │
+    ┌──────────────────┬──────────────────┐               │
+    │ tdd-reviewer     │ security-assessor│               │
+    │ ts-enforcer      │ code-reviewer    │               │
+    │ refactor-assessor│ cognitive-load   │               │
+    └──────────────────┴──────────────────┘               │
+    │                                                     │
+    ├─ Pass? ─► Commit approval ─► /git/cm ──────────────┘
+    │           (next plan step)
+    ▼
+ 5. PR & MERGE
+    /review/review-changes (final) ─► Fix issues ─► /pr
+    ▼
+ 6. CLOSE
+    progress-assessor ─► learner ─► adr-writer ─► docs-reviewer
+    Archive/update canonical docs
+```
 
-**For detailed TDD workflow:** Load the `tdd` skill or use the `tdd-reviewer` agent.  
-**For refactoring methodology:** Load the `refactoring` skill or use the `refactor-assessor` agent.
+### 1. Quality Gate (Phase 0)
+
+Complete before any feature work. See "Phase 0: Quality Gate First" below for details.
+
+### 2. Plan
+
+- `product-analyst` → user stories, acceptance criteria
+- `acceptance-designer` → BDD Given-When-Then scenarios (outer-loop tests)
+- `architect` / `adr-writer` → system design, ADRs (`.docs/canonical/adrs/`)
+- `implementation-planner` → step-by-step plan (`.docs/canonical/plans/`)
+- `progress-assessor` → validates tracking exists (`.docs/reports/`)
+- Artifact hierarchy: **Charter → Roadmap → Backlog → Plan**. Initiative IDs (`I<nn>-<ACRONYM>`) throughout.
+
+### 3. Build (per plan step, repeating)
+
+Double-loop TDD — BDD acceptance tests (outer) drive unit-level TDD (inner):
+
+1. **RED** — Write failing test (`tdd-reviewer` coaches; `tpp-assessor` guides test selection)
+2. **GREEN** — Minimum code to pass (`ts-enforcer` verifies TypeScript strict, no `any`, immutability)
+3. **REFACTOR** — Assess improvements (`refactor-assessor`: Critical / High / Nice / Skip)
+4. Update status report (`.docs/reports/`); capture discoveries via `learner`
+
+For multi-task initiatives: `engineering-lead` dispatches specialist subagents with two-stage review gates.
+
+### 4. Validate (before every commit/PR)
+
+Run `/review/review-changes` — single gate, all agents in parallel:
+
+| Core (always) | Optional (when applicable) |
+|---|---|
+| `tdd-reviewer` — TDD compliance | `docs-reviewer` — when docs changed |
+| `ts-enforcer` — TypeScript strict | `progress-assessor` — when plan-based |
+| `refactor-assessor` — refactoring | `agent-validator` — when agents/ changed |
+| `security-assessor` — security findings | |
+| `code-reviewer` — quality + merge readiness | |
+| `cognitive-load-assessor` — maintainability | |
+
+After pass: **ask for commit approval**, then `/git/cm` or `/git/cp`.
+
+### 5. PR & Merge
+
+Run `/review/review-changes` final time → fix issues → `/pr`.
+
+### 6. Close (feature complete)
+
+1. `progress-assessor` — verify criteria met, finalize status
+2. `learner` — merge gotchas/patterns → `.docs/AGENTS.md` or canonical Learnings
+3. `adr-writer` — ADRs for significant decisions (`.docs/canonical/adrs/`)
+4. `docs-reviewer` — update permanent docs (README, guides, API docs)
+5. Archive/update canonical docs as needed
+
+### Quick Reference
+
+| When | Action |
+|------|--------|
+| Starting work | Load `planning` skill; `progress-assessor`; get plan approval |
+| Before production code | `tdd-reviewer` (test-first) |
+| Writing TypeScript | `ts-enforcer` (strict compliance) |
+| After GREEN | `refactor-assessor` (assess improvements) |
+| Before commit/PR | `/review/review-changes` (parallel validation) |
+| Architecture decision | `adr-writer` (`.docs/canonical/adrs/`) |
+| Feature complete | `learner` + `docs-reviewer` + `progress-assessor` |
+
+**Skills:** `tdd` for TDD workflow, `refactoring` for refactoring methodology, `quality-gate-first` for Phase 0.
 
 ## Phase 0: Quality Gate First
 
@@ -276,9 +377,9 @@ Engage agents proactively, not just reactively:
 - **When writing TypeScript** → Engage `ts-enforcer` to verify strict mode compliance
 - **After tests turn GREEN** → Engage `refactor-assessor` to assess refactoring opportunities
 - **Starting multi-step work** → Engage `implementation-planner` and `product-analyst` to manage plan.
-- **Before committing** → Engage `tdd-reviewer`, `ts-enforcer`, and `refactor-assessor` for verification
+- **Before committing** → Run `/review/review-changes` (launches tdd-reviewer, ts-enforcer, refactor-assessor, security-assessor, code-reviewer, cognitive-load-assessor in parallel)
 
-**How to engage**: Explicitly invoke the agent by name and follow its guidance. Example: "Engaging tdd-reviewer to verify TDD compliance before writing production code."
+**How to engage**: Explicitly invoke the agent by name and follow its guidance. Example: "Engaging tdd-reviewer to verify TDD compliance before writing production code." For pre-commit validation, run `/review/review-changes` as the single gate.
 
 ### Verification Checklist
 
@@ -295,30 +396,12 @@ Before writing any code, verify:
 - ALWAYS load relevant skills at work start
 - When unsure which local skill to load, run `/skill/find-local-skill [activity description]` and load the returned skill(s)
 - ALWAYS engage relevant agents proactively
-- **Before committing**: Engage validation agents (tdd-reviewer, ts-enforcer, refactor-assessor) to verify quality
+- **Before committing**: Run `/review/review-changes` (parallel validation gate)
 - Assess refactoring after every green (but only if adds value)
 - Ask "What do I wish I'd known at the start?" after significant changes
 - Document gotchas, patterns, decisions, edge cases while context is fresh
 
-**Validation Workflow Pattern:**
-Before committing any work, engage these agents in sequence:
-
-1. `tdd-reviewer` - Verify TDD compliance, test quality, coverage
-2. `ts-enforcer` - Verify TypeScript strict mode, no `any` types, schema usage
-3. `refactor-assessor` - Classify refactoring opportunities
-4. `code-reviewer` - Assess code quality and review code
-
-This ensures all work meets quality standards before commit.
-
-## Quality Checks
-
-Before committing, run these checks (use the agents):
-
-1. **TDD Compliance**: Use `tdd-reviewer` agent - Verify tests written first, behavior-focused
-2. **TypeScript Safety**: Use `ts-enforcer` agent - Check any types, missing schemas, mutations
-3. **Refactoring Assessment**: Use `refactor-assessor` agent - Classify opportunities (Critical/High/Nice/Skip)
-
-These agents will provide structured analysis and recommendations.
+**Validation gate:** Run `/review/review-changes` before every commit/PR. See "Canonical Development Flow → 4. Validate" above for the full agent list. Details in `commands/review/review-changes.md`.
 
 ## Setup and Configuration Verification
 
