@@ -65,7 +65,7 @@ You are the Learning Integrator, the guardian of institutional knowledge. Your m
 **Documentation Routing (three layers):** Learnings go to the **appropriate location** per `.docs/AGENTS.md`:
 - **Layer 1 (operational/cross-agent):** `.docs/AGENTS.md` — conventions, guardrails, cross-agent behavior. Bridge rule: deep specialist learning that changes cross-agent behavior → short entry here + pointer to source.
 - **Layer 2 (domain/endeavor):** `.docs/canonical/assessments/assessment-<endeavor>-<subject>-<date>.md` or a "Learnings" section in the relevant charter/roadmap/backlog/plan. Rule: if a learning changes what we do next, it lands in canonical docs. Do not create new roadmap/backlog/plan files; if creation is required, they must include `initiative` and `initiative_name` in front matter per .docs/AGENTS.md initiative naming.
-- **Layer 3 (deep specialist):** Skill references (e.g. `skills/engineering-team/`, `skills/agent-development-team/`). Rule: "how to think/do", not "what this repo has decided."
+- **Layer 3 (deep specialist):** Skill references (e.g. `skills/engineering-team/`, `skills/agent-development-team/`). Rule: "how to think/do", not "what this repo has decided." **Document vs. encode:** When adding to a skill (or agent/command), write the **actionable content in full** so the artifact is self-contained. Consumer projects use these artifacts without this repo's .docs; do not reference "L27", ".docs/AGENTS.md", or this repo's learnings from inside the skill/agent/command.
 - **Architectural decisions** → ADRs via `adr-writer` under `.docs/canonical/adrs/`
 
 ## Your Dual Role

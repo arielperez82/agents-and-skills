@@ -126,6 +126,8 @@ Use this agent when:
 - `../../skills/engineering-team/subagent-driven-development/` when executing multi-step refactor plans via subagents
 - `../../skills/engineering-team/check-tools/` when you need to validate Python tools used by skills
 
+**Document vs. encode:** When a skill or agent encodes a learning from this repo's `.docs/`, write the **actionable practice in full** in the skill/agent. Consumer projects use these artifacts without this repo's learnings; do not reference "L27", ".docs/AGENTS.md", or metarepo learnings from inside the artifact. See `.docs/AGENTS.md` "Document vs. encode (metarepo vs. consumers)".
+
 ## Workflows
 
 ### Workflow 1: Create a New Agent

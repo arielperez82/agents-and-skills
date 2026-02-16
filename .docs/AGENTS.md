@@ -53,6 +53,14 @@ Route learnings by scope and half-life:
 
 **Bridge rule:** Any deep specialist learning that materially changes cross-agent behavior gets a short distilled entry in `.docs/AGENTS.md` pointing to the deeper source.
 
+**Document vs. encode (metarepo vs. consumers):** This repo (agents-and-skills) is the **metarepo** where we author skills, agents, and commands. Those artifacts are then used in **consumer projects** that do not have access to this repo's `.docs/` or learnings. Ensure a clear separation:
+
+- **Document (this project only):** Record the learning in `.docs/AGENTS.md` (Layer 1) or canonical docs (Layer 2). Include initiative ID, rationale, and "what we decided." This is for maintainers and agents working *in this repo*.
+- **Encode (portable artifacts):** Put the **actionable practice** in full inside the skill, agent, or command. The text must be **self-contained** — no "see L27", "see .docs/AGENTS.md", or links to this repo's learnings. Consumer projects use the skill/agent/command without this repo's docs; they must get the full guidance from the artifact itself.
+- **Flow:** Learning is captured in .docs → distilled into operating practice (e.g. Development practices — GitHub workflows) → **same practice** is written in full into the relevant skill/command/agent. AGENTS.md can point to the skill ("see quality-gate-first"); the skill must not point back to AGENTS.md or L-numbers for the rule content.
+
+Agents that capture or encode learnings (learner, docs-reviewer, agent-author) must: (1) document in .docs with context, (2) when updating a skill/agent/command, write the actionable content in full there — no in-artifact references to this repo's learnings.
+
 ### Recorded learnings
 
 **L1 — Canonical docs enable parallel execution** (I04-SLSE, 2026-02-11): Create charter → roadmap → backlog *before* any implementation. Agents can then independently pull items from the backlog without coordination overhead. In I04-SLSE this allowed 3 waves of parallel work (6 skills → 4 agents → catalog updates) completing 16 backlog items with zero merge conflicts or rework.
