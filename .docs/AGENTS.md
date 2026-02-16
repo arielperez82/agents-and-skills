@@ -197,6 +197,12 @@ Filenames under `.docs/canonical/` should follow the naming grammar above. To au
 - Backlog: [backlog-repo-I07-SDCA-skills-deploy-claude-api.md](canonical/backlogs/backlog-repo-I07-SDCA-skills-deploy-claude-api.md)
 - Plan: [plan-repo-I07-SDCA-skills-deploy-claude-api.md](canonical/plans/plan-repo-I07-SDCA-skills-deploy-claude-api.md)
 
+**I08-NWMI** (nwave-methodology-intake):
+
+- Charter: [charter-repo-nwave-methodology-intake.md](canonical/charters/charter-repo-nwave-methodology-intake.md)
+- Roadmap: [roadmap-repo-I08-NWMI-nwave-methodology-intake-2026.md](canonical/roadmaps/roadmap-repo-I08-NWMI-nwave-methodology-intake-2026.md)
+- Backlog: [backlog-repo-I08-NWMI-nwave-methodology-intake.md](canonical/backlogs/backlog-repo-I08-NWMI-nwave-methodology-intake.md)
+
 Root `AGENTS.md` (if present) should point here: "See .docs/AGENTS.md for agent artifact conventions and operating reference."
 
 ---
