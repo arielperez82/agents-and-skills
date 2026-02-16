@@ -31,7 +31,7 @@ describe('pipes integration (Tinybird Local)', () => {
     const match = result.data.find((r) => r.agent_type === 'integration-test-agent');
     expect(match).toBeDefined();
     expect(match?.invocations).toBe(2);
-    expect(Number(match?.total_input)).toBe(10 + 21);
+    expect(Number(match?.total_input)).toBe(10 + 11);
     expect(Number(match?.total_output)).toBe(20 + 21);
   });
 
