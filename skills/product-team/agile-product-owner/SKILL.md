@@ -3,7 +3,7 @@
 # === CORE IDENTITY ===
 name: agile-product-owner
 title: Agile Product Owner Skill Package
-description: Agile product ownership toolkit for Senior Product Owner including INVEST-compliant user story generation, sprint planning, backlog management, and velocity tracking. Use for story writing, sprint planning, stakeholder communication, and agile ceremonies.
+description: Agile product ownership toolkit for Senior Product Owner including INVEST-compliant user story generation, sprint planning, backlog management, velocity tracking, Example Mapping, Three Amigos, and Definition of Ready. Use for story writing, sprint planning, stakeholder communication, requirements discovery, and agile ceremonies.
 domain: product
 subdomain: product-management
 
@@ -14,7 +14,8 @@ frequency: "TODO: Estimate usage frequency"
 use-cases:
   - Defining product roadmaps and feature prioritization
   - Writing user stories and acceptance criteria
-  - Conducting competitive analysis and market research
+  - Running Example Mapping and Three Amigos sessions
+  - Enforcing Definition of Ready as a sprint entry gate
   - Stakeholder communication and alignment
 
 # === RELATIONSHIPS ===
@@ -26,7 +27,13 @@ orchestrated-by: []
 # === TECHNICAL ===
 dependencies:
   scripts: []
-  references: []
+  references:
+    - references/frameworks.md
+    - references/templates.md
+    - references/tools.md
+    - references/example-mapping.md
+    - references/three-amigos.md
+    - references/definition-of-ready.md
   assets: []
 compatibility:
   python-version: 3.8+
@@ -48,15 +55,15 @@ stats:
   reviews: 0
 
 # === VERSIONING ===
-version: v1.0.0
+version: v1.1.0
 author: Claude Skills Team
 contributors: []
 created: 2025-10-19
-updated: 2025-11-08
+updated: 2026-02-16
 license: MIT
 
 # === DISCOVERABILITY ===
-tags: [agile, owner, product]
+tags: [agile, owner, product, example-mapping, three-amigos, definition-of-ready, bdd, requirements-discovery]
 featured: false
 verified: true
 ---
@@ -65,46 +72,62 @@ verified: true
 
 ## Overview
 
-This skill provides [TODO: Add 2-3 sentence overview].
+This skill provides a complete toolkit for agile product ownership -- from backlog refinement to sprint delivery. It combines Python automation tools for story generation with collaborative practices (Example Mapping, Three Amigos, Definition of Ready) that ensure stories are well-understood before development begins.
 
-**Core Value:** [TODO: Add value proposition with metrics]
+**Core Value:** Reduce mid-sprint scope discovery and rework by ensuring every story meets a hard Definition of Ready gate before entering the sprint.
 
-**Target Audience:** [TODO: Define target users]
+**Target Audience:** Product Owners, Business Analysts, Scrum Masters, and cross-functional teams practicing agile delivery.
 
-**Use Cases:** [TODO: List 3-5 primary use cases]
+**Use Cases:**
+- Breaking epics into deliverable, INVEST-compliant user stories
+- Running Example Mapping sessions to discover requirements through concrete examples
+- Facilitating Three Amigos collaboration across business, development, and testing
+- Enforcing Definition of Ready as a non-negotiable sprint entry gate
+- Sprint planning and capacity allocation
 
 
 ## Core Capabilities
 
-- **[Capability 1]** - [Description]
-- **[Capability 2]** - [Description]
-- **[Capability 3]** - [Description]
-- **[Capability 4]** - [Description]
+- **Story Generation** - INVEST-compliant user story generator with acceptance criteria, estimation, and sprint planning
+- **Requirements Discovery** - Example Mapping technique for collaborative specification through concrete examples
+- **Cross-Functional Collaboration** - Three Amigos sessions bridging business, development, and testing perspectives
+- **Quality Gates** - Definition of Ready checklist enforced as a hard gate before sprint entry
+- **Agile Ceremonies** - Complete frameworks for planning, review, retrospective, and daily standup
 
 
 ## Key Workflows
 
-### Workflow 1: [Workflow Name]
+### Workflow 1: Story Discovery and Readiness
 
-**Time:** [Duration estimate]
-
-**Steps:**
-1. [Step 1]
-2. [Step 2]
-3. [Step 3]
-
-**Expected Output:** [What success looks like]
-
-### Workflow 2: [Workflow Name]
-
-**Time:** [Duration estimate]
+**Time:** 25-minute timebox per story
 
 **Steps:**
-1. [Step 1]
-2. [Step 2]
-3. [Step 3]
+1. Select story from backlog (about to enter sprint)
+2. Run Three Amigos session with business, dev, and testing representatives
+3. Use Example Mapping to explore rules, examples, and questions
+4. Resolve all red cards (questions) before development starts
+5. Verify story against Definition of Ready checklist
 
-**Expected Output:** [What success looks like]
+**Expected Output:** Story with complete acceptance criteria, concrete examples, resolved questions, and DoR confirmation
+
+**References:**
+- [Example Mapping](references/example-mapping.md) -- card types, session flow, conversational patterns
+- [Three Amigos](references/three-amigos.md) -- perspectives, anti-patterns, facilitation
+- [Definition of Ready](references/definition-of-ready.md) -- hard gate criteria, enforcement
+
+### Workflow 2: Epic Breakdown and Sprint Planning
+
+**Time:** 2-4 hours for planning; 1 hour weekly for refinement
+
+**Steps:**
+1. Define epic with scope and personas
+2. Generate stories: `python scripts/user_story_generator.py epic.json`
+3. Review INVEST criteria compliance
+4. Run Three Amigos on each story
+5. Estimate with planning poker
+6. Pull stories into sprint until capacity reached
+
+**Expected Output:** Sprint backlog of ready, estimated, well-understood stories
 
 
 Complete toolkit for agile product ownership - from backlog refinement to sprint delivery. This skill provides Python tools for story generation, comprehensive frameworks for agile ceremonies, and battle-tested templates for user stories and epics.
@@ -114,12 +137,14 @@ Complete toolkit for agile product ownership - from backlog refinement to sprint
 - Complete agile ceremony frameworks (planning, review, retro)
 - Velocity tracking and capacity planning methods
 - Story estimation and backlog refinement processes
+- Example Mapping, Three Amigos, and Definition of Ready practices
 
 **Best For:**
 - Breaking epics into deliverable user stories
 - Sprint planning and capacity allocation
 - Running effective agile ceremonies
 - Tracking team velocity and burndown
+- Discovering requirements collaboratively before development
 
 ## Quick Start
 
@@ -182,7 +207,7 @@ See [frameworks.md](references/frameworks.md) for complete INVEST guidelines.
 
 **Part 1: What Will We Build? (2 hours)**
 1. Set sprint goal aligned with quarterly OKRs
-2. Calculate team capacity (velocity × sprint days)
+2. Calculate team capacity (velocity x sprint days)
 3. Pull stories from backlog until capacity reached
 4. Identify dependencies and risks
 
@@ -289,6 +314,16 @@ Python tool documentation:
 - Integration Patterns: Jira, Linear, ProductBoard workflows
 - Troubleshooting: Common issues and solutions
 - Best Practices: DO/DON'T guidelines
+
+### Consolidated References
+
+The following references were consolidated from BDD requirements discovery methodology:
+
+| Reference | Content | When to Load |
+|-----------|---------|--------------|
+| [Example Mapping](references/example-mapping.md) | Four card types, session flow, conversational patterns, output artifacts, anti-patterns | Story about to enter sprint; team uncertain about scope; cross-functional clarification needed |
+| [Three Amigos](references/three-amigos.md) | Three perspectives (business/dev/test), session structure, cadence, confirmation bias defense, anti-patterns | Backlog refinement; before sprint planning; after significant scope change |
+| [Definition of Ready](references/definition-of-ready.md) | Hard gate criteria, requirements completeness (functional/NFR/business rules), quality review dimensions, enforcement without bureaucracy | Verifying story readiness before sprint entry; establishing team standards |
 
 ## Integration Points
 

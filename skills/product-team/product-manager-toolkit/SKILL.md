@@ -3,7 +3,7 @@
 # === CORE IDENTITY ===
 name: product-manager-toolkit
 title: Product Manager Toolkit
-description: Comprehensive toolkit for product managers including RICE prioritization, customer interview analysis, PRD templates, discovery frameworks, and go-to-market strategies. Use for feature prioritization, user research synthesis, requirement documentation, and product strategy development.
+description: Comprehensive toolkit for product managers including RICE prioritization, customer interview analysis, PRD templates, discovery frameworks, opportunity scoring, and go-to-market strategies. Use for feature prioritization, user research synthesis, requirement documentation, continuous discovery, and product strategy development.
 domain: product
 subdomain: product-management
 
@@ -16,6 +16,7 @@ use-cases:
   - Writing user stories and acceptance criteria
   - Conducting competitive analysis and market research
   - Stakeholder communication and alignment
+  - Running continuous discovery with structured interviews and opportunity scoring
 
 # === RELATIONSHIPS ===
 related-agents: []
@@ -26,7 +27,13 @@ orchestrated-by: []
 # === TECHNICAL ===
 dependencies:
   scripts: []
-  references: []
+  references:
+    - references/frameworks.md
+    - references/templates.md
+    - references/tools.md
+    - references/discovery-workflow.md
+    - references/opportunity-scoring.md
+    - references/mom-test.md
   assets: []
 compatibility:
   python-version: 3.8+
@@ -53,15 +60,15 @@ stats:
   reviews: 0
 
 # === VERSIONING ===
-version: v1.0.0
+version: v1.1.0
 author: Claude Skills Team
 contributors: []
 created: 2025-10-19
-updated: 2025-11-08
+updated: 2026-02-16
 license: MIT
 
 # === DISCOVERABILITY ===
-tags: [analysis, development, manager, product, toolkit]
+tags: [analysis, development, manager, product, toolkit, discovery, opportunity-scoring, mom-test, interviews]
 featured: false
 verified: true
 ---
@@ -70,62 +77,85 @@ verified: true
 
 ## Overview
 
-This skill provides [TODO: Add 2-3 sentence overview].
+Essential tools and frameworks for modern product management, from discovery to delivery. This toolkit provides Python automation tools for prioritization and interview analysis, comprehensive frameworks for decision-making, and battle-tested templates for product documentation.
 
-**Core Value:** [TODO: Add value proposition with metrics]
+**Core Value:** Structured product management workflows that reduce decision-making time and increase confidence in product bets through quantitative scoring and validated discovery processes.
 
-**Target Audience:** [TODO: Define target users]
+**Target Audience:** Product managers, product owners, and anyone responsible for deciding what to build and why.
 
-**Use Cases:** [TODO: List 3-5 primary use cases]
+**Use Cases:**
+- Feature prioritization and roadmap planning (RICE scoring)
+- Continuous discovery with 4-phase workflow
+- Customer interview analysis (Mom Test, NLP extraction)
+- Opportunity scoring and prioritization
+- Requirements documentation (PRDs, user stories)
 
 
 ## Core Capabilities
 
-- **[Capability 1]** - [Description]
-- **[Capability 2]** - [Description]
-- **[Capability 3]** - [Description]
-- **[Capability 4]** - [Description]
+- **RICE Prioritization Engine** - Quantitative feature scoring with portfolio analysis and capacity planning
+- **Customer Interview Analyzer** - NLP-based transcript analysis extracting pain points, JTBD, and sentiment
+- **Discovery Workflow** - 4-phase process from problem validation through market viability
+- **Opportunity Scoring** - Algorithm for ranking opportunities by importance and satisfaction gap
+- **Mom Test Interviewing** - Structured approach to extracting honest customer insights
+- **PRD Templates** - Standard, One-Page, Agile Epic, and Feature Brief formats
 
 
 ## Key Workflows
 
-### Workflow 1: [Workflow Name]
+### Workflow 1: Feature Prioritization
 
-**Time:** [Duration estimate]
-
-**Steps:**
-1. [Step 1]
-2. [Step 2]
-3. [Step 3]
-
-**Expected Output:** [What success looks like]
-
-### Workflow 2: [Workflow Name]
-
-**Time:** [Duration estimate]
+**Time:** 1-2 hours per batch
 
 **Steps:**
-1. [Step 1]
-2. [Step 2]
-3. [Step 3]
+1. Gather feature requests (customer feedback, sales, tech debt, strategic)
+2. Score with RICE: `python scripts/rice_prioritizer.py features.csv`
+3. Analyze portfolio (quick wins vs big bets)
+4. Generate roadmap with capacity planning
 
-**Expected Output:** [What success looks like]
+**Expected Output:** Ranked feature list with RICE scores, portfolio balance chart, quarterly roadmap.
 
+**Detailed Methodology:** See [frameworks.md](references/frameworks.md) for RICE, Value vs Effort Matrix, MoSCoW, and Kano Model.
 
-Essential tools and frameworks for modern product management, from discovery to delivery. This toolkit provides Python automation tools for prioritization and interview analysis, comprehensive frameworks for decision-making, and battle-tested templates for product documentation.
+### Workflow 2: Continuous Discovery
 
-**What This Skill Provides:**
-- RICE prioritization engine with portfolio analysis
-- NLP-based customer interview analyzer
-- Complete PRD templates and interview guides
-- Discovery frameworks (JTBD, Opportunity Trees)
-- Metrics frameworks (North Star, Funnels)
+**Time:** 4-8 weeks across all phases
 
-**Best For:**
-- Feature prioritization and roadmap planning
-- User research synthesis and insight extraction
-- Requirements documentation (PRDs, user stories)
-- Discovery planning and stakeholder alignment
+**Steps:**
+1. Phase 1 - Problem Validation: Conduct 5+ Mom Test interviews (see [mom-test.md](references/mom-test.md))
+2. Phase 2 - Opportunity Mapping: Score opportunities using the algorithm (see [opportunity-scoring.md](references/opportunity-scoring.md))
+3. Phase 3 - Solution Testing: Prototype and test with 5+ users per iteration
+4. Phase 4 - Market Viability: Complete Lean Canvas, assess 4 Big Risks
+
+**Expected Output:** Validated opportunity with score >8, tested solution direction, go/no-go recommendation.
+
+**Full Process:** See [discovery-workflow.md](references/discovery-workflow.md) for phase details, decision gates, and success metrics.
+
+### Workflow 3: Customer Interview Analysis
+
+**Time:** 30 minutes per transcript
+
+**Steps:**
+1. Conduct interviews using Mom Test principles (see [mom-test.md](references/mom-test.md))
+2. Analyze: `python scripts/customer_interview_analyzer.py transcript.txt`
+3. Synthesize findings across interviews
+4. Score opportunities from extracted insights (see [opportunity-scoring.md](references/opportunity-scoring.md))
+
+**Expected Output:** Extracted pain points, feature requests, JTBD patterns, sentiment analysis, themes.
+
+### Workflow 4: PRD Development
+
+**Time:** 2-8 hours depending on template
+
+**Steps:**
+1. Choose template based on project size (Standard, One-Page, Feature Brief, Agile Epic)
+2. Structure: Problem (from discovery) to Solution to Success Metrics
+3. Collaborate with engineering, design, sales, support
+
+**Expected Output:** Complete PRD ready for stakeholder review.
+
+**Complete Templates:** See [templates.md](references/templates.md) for all PRD formats with examples.
+
 
 ## Quick Start
 
@@ -146,47 +176,6 @@ python scripts/customer_interview_analyzer.py interview_transcript.txt
 3. Fill sections based on discovery work
 4. Review with stakeholders and version control
 
-## Core Workflows
-
-### 1. Feature Prioritization Process
-
-**Steps:**
-1. Gather feature requests (customer feedback, sales, tech debt, strategic)
-2. Score with RICE: `python scripts/rice_prioritizer.py features.csv`
-   - Reach: Users affected per quarter
-   - Impact: massive/high/medium/low/minimal (3x/2x/1x/0.5x/0.25x)
-   - Confidence: high/medium/low (100%/80%/50%)
-   - Effort: Person-months
-3. Analyze portfolio (quick wins vs big bets)
-4. Generate roadmap with capacity planning
-
-**Detailed Methodology:** See [frameworks.md](references/frameworks.md) for RICE, Value vs Effort Matrix, MoSCoW, and Kano Model.
-
-### 2. Customer Discovery Process
-
-**Steps:**
-1. Conduct interviews using semi-structured format
-2. Analyze insights: `python scripts/customer_interview_analyzer.py transcript.txt`
-   - Extracts pain points, feature requests, JTBD, sentiment, themes
-3. Synthesize findings across interviews
-4. Validate solutions with prototypes
-
-**Interview Scripts:** See [templates.md](references/templates.md) for complete discovery and validation interview guides.
-
-**Discovery Frameworks:** See [frameworks.md](references/frameworks.md) for Customer Interview Guide, Hypothesis Template, and Opportunity Solution Tree.
-
-### 3. PRD Development Process
-
-**Steps:**
-1. Choose template based on project size:
-   - Standard PRD: Complex features (6-8 weeks)
-   - One-Page PRD: Simple features (2-4 weeks)
-   - Feature Brief: Exploration phase (1 week)
-   - Agile Epic: Sprint-based delivery
-2. Structure: Problem → Solution → Success Metrics
-3. Collaborate with engineering, design, sales, support
-
-**Complete Templates:** See [templates.md](references/templates.md) for all PRD formats with examples.
 
 ## Python Tools
 
@@ -241,6 +230,7 @@ python3 scripts/customer_interview_analyzer.py interview.txt --output json -f an
 
 **Complete Documentation:** See [tools.md](references/tools.md) for full capabilities, output formats, and batch analysis workflows.
 
+
 ## Reference Documentation
 
 ### Frameworks ([frameworks.md](references/frameworks.md))
@@ -248,6 +238,32 @@ Detailed frameworks and methodologies:
 - Prioritization: RICE (detailed), Value vs Effort Matrix, MoSCoW, Kano Model
 - Discovery: Customer Interview Guide, Hypothesis Template, Opportunity Solution Tree
 - Metrics: North Star Framework, Funnel Analysis (AARRR), Feature Success Metrics, Cohort Analysis
+
+### Discovery Workflow ([discovery-workflow.md](references/discovery-workflow.md))
+4-phase continuous discovery process:
+- Phase 1: Problem Validation (Mom Test interviews, 5+ interviews, >60% confirmation)
+- Phase 2: Opportunity Mapping (Opportunity Scoring Algorithm, OST, score >8 threshold)
+- Phase 3: Solution Testing (Prototypes, >80% task completion)
+- Phase 4: Market Viability (Lean Canvas, 4 Big Risks, LTV > 3x CAC)
+- Decision gates (G1-G4) with proceed/pivot/kill criteria
+- Success metrics and phase transition requirements
+
+### Opportunity Scoring ([opportunity-scoring.md](references/opportunity-scoring.md))
+Quantitative opportunity prioritization:
+- Formula: `Score = Importance + Max(0, Importance - Satisfaction)`
+- Score interpretation (>8 pursue, 5-8 evaluate, <5 deprioritize)
+- How to gather Importance and Satisfaction ratings from interviews
+- Example calculations with worked scenarios
+- Opportunity Solution Tree integration
+- Job Mapping (JTBD) for systematic opportunity identification
+
+### Mom Test Interviewing ([mom-test.md](references/mom-test.md))
+Customer interview methodology (Rob Fitzpatrick):
+- Three rules: talk about their life, ask about past specifics, listen more
+- Bad questions vs good questions with rationale
+- Signal extraction: strong signals vs weak signals
+- Assumption challenging framework
+- Hypothesis testing with risk scoring
 
 ### Templates ([templates.md](references/templates.md))
 Complete templates and best practices:
@@ -263,6 +279,7 @@ Python tool documentation and integrations:
 - Integration Patterns: Jira, ProductBoard, Amplitude, Figma, Dovetail, Slack
 - Platform Setup: Step-by-step for each tool
 - Troubleshooting: Common issues and solutions
+
 
 ## Integration Points
 
