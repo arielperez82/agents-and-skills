@@ -67,6 +67,7 @@ Engineering skills (path: `skills/engineering-team/<name>/`). Load proactively p
 | **refactoring** | After GREEN tests | Refactoring assessment, priority classification |
 | **planning** | Planning work | Incremental work principles, small increments |
 | **quality-gate-first** | New project, dev plans, backlogs | Phase 0 = quality gate before scaffold/features; type-check, pre-commit, lint, format, etc. |
+| **shell-scripting** | Repos with .sh scripts | ShellCheck static analysis; pre-commit and CI wiring. See quality-gate-first for Phase 0 conditional. |
 | **tpp** | TDD transformations | Transformation Priority Premise reference |
 | **avoid-feature-creep** | Scope/backlog, MVP | MVP focus, "just one more feature", scope discipline |
 | **clean-code** | Code standards | Pragmatic standards, no over-engineering |
