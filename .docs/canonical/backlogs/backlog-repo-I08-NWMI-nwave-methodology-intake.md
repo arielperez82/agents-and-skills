@@ -79,42 +79,42 @@ All items are independently committable. Each commit passes format validation, c
 
 | ID | Change | Roadmap outcome | Value | Status |
 |----|--------|----------------|-------|--------|
-| B20 | Update `agents/ap-tdd-reviewer.md` — add `tdd` enriched references to related-skills or notes. Validate. | 4 | Connects TDD reviewer to enhanced methodology | pending |
-| B21 | Update `agents/ap-refactor-assessor.md` — add `refactoring` (progressive-refactoring reference) and `mikado-method` to related-skills. Validate. | 4 | Connects refactoring assessor to new methodologies | pending |
-| B22 | Update `agents/ap-debugger.md` — add `debugging` enriched references to related-skills or notes. Validate. | 4 | Connects debugger to structured RCA methodology | pending |
-| B23 | Update `agents/ap-researcher.md` — add `research` enriched references to related-skills or notes. Validate. | 4 | Connects researcher to verification tiers | pending |
-| B24 | Update `agents/ap-product-manager.md` — add `product-manager-toolkit` enriched references to related-skills. Validate. | 4 | Connects product manager to discovery workflow | pending |
-| B25 | Update `agents/ap-product-analyst.md` — add `agile-product-owner` enriched references to related-skills. Validate. | 4 | Connects product analyst to requirements ceremonies | pending |
+| B20 | Update `agents/tdd-reviewer.md` — add `tdd` enriched references to related-skills or notes. Validate. | 4 | Connects TDD reviewer to enhanced methodology | done |
+| B21 | Update `agents/refactor-assessor.md` — add `refactoring` (progressive-refactoring reference) and `mikado-method` to related-skills. Validate. | 4 | Connects refactoring assessor to new methodologies | done |
+| B22 | Update `agents/debugger.md` — add `debugging` enriched references to related-skills or notes. Validate. | 4 | Connects debugger to structured RCA methodology | done |
+| B23 | Update `agents/researcher.md` — add `research` enriched references to related-skills or notes. Validate. | 4 | Connects researcher to verification tiers | done |
+| B24 | Update `agents/product-manager.md` — add `product-manager-toolkit` enriched references to related-skills. Validate. | 4 | Connects product manager to discovery workflow | done |
+| B25 | Update `agents/product-analyst.md` — add `agile-product-owner` enriched references to related-skills. Validate. | 4 | Connects product analyst to requirements ceremonies | done |
 
 ### Wave 3A Validation Checkpoint
 
 | ID | Change | Roadmap outcome | Value | Status |
 |----|--------|----------------|-------|--------|
-| B26 | Run `validate_agent.py --all --summary`. Verify zero new validation errors. Verify all 6 updated agents have correct related-skills entries. | 4 | Gate: blocks Wave 3B. Full agent ecosystem valid. | pending |
+| B26 | Run `validate_agent.py --all --summary`. Verify zero new validation errors. Verify all 6 updated agents have correct related-skills entries. | 4 | Gate: blocks Wave 3B. Full agent ecosystem valid. | done |
 
 ### Wave 3B — Commands (3 items, all parallel)
 
 | ID | Change | Roadmap outcome | Value | Status |
 |----|--------|----------------|-------|--------|
-| B27 | Create `commands/debug/root-cause.md` — dispatches to debugging skill (Toyota 5 Whys). Argument-hint for problem statement. | 5 | New command for structured RCA | pending |
-| B28 | Create `commands/refactor/mikado.md` — dispatches to mikado-method skill. Argument-hint for refactoring goal. | 5 | New command for Mikado refactoring | pending |
-| B29 | Create `commands/test/mutation.md` — dispatches to mutation-testing skill. Argument-hint for test target. | 5 | New command for mutation testing | pending |
+| B27 | Create `commands/debug/root-cause.md` — dispatches to debugging skill (Toyota 5 Whys). Argument-hint for problem statement. | 5 | New command for structured RCA | done |
+| B28 | Create `commands/refactor/mikado.md` — dispatches to mikado-method skill. Argument-hint for refactoring goal. | 5 | New command for Mikado refactoring | done |
+| B29 | Create `commands/test/mutation.md` — dispatches to mutation-testing skill. Argument-hint for test target. | 5 | New command for mutation testing | done |
 
 ### Wave 3B Validation Checkpoint
 
 | ID | Change | Roadmap outcome | Value | Status |
 |----|--------|----------------|-------|--------|
-| B30 | Validate Wave 3B commands: `validate_commands.py commands/`. Verify all 3 new commands pass. Verify dispatch targets exist. Verify argument-hints present. | 5 | Gate: blocks Wave 4. All commands valid. | pending |
+| B30 | Validate Wave 3B commands: `validate_commands.py commands/`. Verify all 3 new commands pass. Verify dispatch targets exist. Verify argument-hints present. | 5 | Gate: blocks Wave 4. All commands valid. | done |
 
 ### Wave 4 — Catalogs & Final Validation (5 items, sequential)
 
 | ID | Change | Roadmap outcome | Value | Status |
 |----|--------|----------------|-------|--------|
-| B31 | Update `agents/README.md` — add ap-acceptance-designer entry, update ap-docs-reviewer description. | 6 | Catalog accuracy | pending |
-| B32 | Update `skills/README.md` — add 5 new skills (acceptance-test-design, divio-documentation, mikado-method, mutation-testing, progressive-refactoring reference). | 6 | Catalog accuracy | pending |
-| B33 | Update `skills/engineering-team/CLAUDE.md` — add new engineering-team skills to the skill list. | 6 | Team-level catalog accuracy | pending |
-| B34 | Update `.docs/AGENTS.md` — add I08-NWMI initiative reference block with charter/roadmap/backlog links. | 6 | Operating reference updated | pending |
-| B35 | Final validation: `validate_agent.py --all --summary` + `validate_commands.py commands/`. Verify zero regressions across entire catalog. | 6 | Final gate: all validation green | pending |
+| B31 | Update `agents/README.md` — add acceptance-designer entry, update docs-reviewer description. | 6 | Catalog accuracy | done |
+| B32 | Update `skills/README.md` — add 5 new skills (acceptance-test-design, divio-documentation, mikado-method, mutation-testing, progressive-refactoring reference). | 6 | Catalog accuracy | done |
+| B33 | Update `skills/engineering-team/CLAUDE.md` — add new engineering-team skills to the skill list. | 6 | Team-level catalog accuracy | done |
+| B34 | Update `.docs/AGENTS.md` — add I08-NWMI initiative reference block with charter/roadmap/backlog links. | 6 | Operating reference updated | done |
+| B35 | Final validation: `validate_agent.py --all --summary` + `validate_commands.py commands/`. Verify zero regressions across entire catalog. | 6 | Final gate: all validation green | done |
 
 ## Wave-based parallelization strategy
 
@@ -154,6 +154,10 @@ Each item follows the pattern:
 - Match our format: SKILL.md frontmatter schema, agent frontmatter per creating-agents skill
 - Add as references when >50 lines: Detailed frameworks go in `references/` subdirectory
 - Language-agnostic: Strip language-specific examples; add TypeScript/Vitest examples where relevant
+
+## Naming convention
+
+Agent paths in this repo use **unprefixed** filenames (e.g. `agents/acceptance-designer.md`, `agents/tdd-reviewer.md`). Backlog items that previously referenced `ap-*` have been updated to match.
 
 ## Rollback procedure
 
