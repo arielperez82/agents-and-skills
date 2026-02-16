@@ -132,6 +132,10 @@ Engineering skills (path: `skills/engineering-team/<name>/`). Load proactively p
 | **sre-reliability-engineering** | Reliable systems | Reliable, scalable distributed systems. Refs: monitoring-observability, incident-response |
 | **tailwind-configuration** | Tailwind config | Theme, plugins, tailwind.config.js, content paths. Refs: utility-classes, responsive, components, performance |
 | **terraform-configuration** | Terraform IaC | Writing and organizing Terraform configs for cloud. Refs: modules, state-management |
+| **acceptance-test-design** | BDD acceptance tests | Outer-loop TDD, walking skeleton, driving-port-only testing, Given-When-Then scenarios. Refs: design-mandates, critique-dimensions |
+| **divio-documentation** | Documentation classification | DIVIO/Diataxis quadrants, type purity 80%+ rule, collapse detection. Refs: collapse-detection, quality-validation |
+| **mikado-method** | Complex refactoring | Dependency graph exploration, revert-on-failure, leaf-first execution, 10-min timebox |
+| **mutation-testing** | Test effectiveness | Mutation operators, score thresholds (>80%), Stryker/PIT/cosmic-ray, CI integration |
 
 Role and specialist skills (same folder):
 

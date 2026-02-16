@@ -34,7 +34,7 @@ These agents live directly in the `agents/` root directory:
 - **`seo-strategist`** - Strategic SEO planning for site-wide optimization, keyword research, technical audits, and competitive positioning
 
 #### Documentation & Knowledge
-- **`docs-reviewer`** - Creates and maintains world-class permanent documentation (README, guides, API docs)
+- **`docs-reviewer`** - Creates and maintains world-class permanent documentation (README, guides, API docs) with DIVIO/Diataxis classification
 - **`learner`** - Captures learnings, gotchas, and patterns into CLAUDE.md
 
 ### Engineering Agents
@@ -66,6 +66,7 @@ These agents live directly in the `agents/` root directory:
 - **`computer-vision`** - Computer vision for image/video processing, object detection, and visual AI systems
 
 #### Quality & Testing
+- **`acceptance-designer`** - Acceptance Test Designer: Designs BDD acceptance tests bridging product requirements to the TDD outer loop
 - **`agent-validator`** - Validates agent specifications against the frontmatter schema, skill paths, classification rules, and body structure
 - **`tdd-reviewer`** - TDD methodology coach ensuring RED-GREEN-REFACTOR cycle adherence
 - **`qa-engineer`** - QA and testing specialist for test automation, coverage analysis, and quality metrics
@@ -207,7 +208,7 @@ These agents live directly in the `agents/` root directory:
 ### Documentation & Knowledge Agents
 
 #### `docs-reviewer`
-**Purpose**: Creates and maintains world-class permanent documentation.
+**Purpose**: Creates and maintains world-class permanent documentation with DIVIO/Diataxis classification.
 
 **Use proactively when**:
 - Creating new README, guides, or API docs
@@ -218,7 +219,7 @@ These agents live directly in the `agents/` root directory:
 - Documentation needs improvement
 - Feature complete (update docs)
 
-**Core responsibility**: Permanent, user-facing, professional documentation (README, guides, API docs).
+**Core responsibility**: Permanent, user-facing, professional documentation (README, guides, API docs) with DIVIO/Diataxis classification.
 
 **Key distinction**: Creates PERMANENT docs that live forever in the repository.
 

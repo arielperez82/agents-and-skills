@@ -29,7 +29,7 @@ jobs:
       - name: actionlint
         uses: raven-actions/actionlint@v2
         with:
-          version: "v1.7.11"
+          version: "1.7.11"
 
       - name: Setup pnpm
         uses: pnpm/action-setup@v4
@@ -123,8 +123,8 @@ jobs:
         id: tokens
         run: |
           ADMIN_TOKEN=$(curl -sf http://localhost:7181/tokens | jq -r '.workspace_admin_token')
-          echo "TB_HOST=http://localhost:7181" >> $GITHUB_ENV
-          echo "TB_TOKEN=$ADMIN_TOKEN" >> $GITHUB_ENV
+          echo "TB_HOST=http://localhost:7181" >> "$GITHUB_ENV"
+          echo "TB_TOKEN=$ADMIN_TOKEN" >> "$GITHUB_ENV"
 
       - name: Build project (push to Tinybird Local)
         run: npx tinybird build

@@ -1,6 +1,6 @@
 # Engineering Team Skills - Claude Code Guidance
 
-This guide covers the 26 production-ready engineering role skills and their Python automation tools.
+This guide covers the 30 production-ready engineering role skills and their Python automation tools.
 
 ## Engineering Skills Overview
 
@@ -20,9 +20,16 @@ This guide covers the 26 production-ready engineering role skills and their Pyth
 - senior-ios, senior-mobile, senior-flutter
 - senior-java, senior-dotnet, senior-network-infrastructure
 
-**Specialist (5 skills):**
+**Testing/Quality (2 skills):**
+- acceptance-test-design, mutation-testing
+
+**Refactoring/Engineering (1 skill):**
+- mikado-method
+
+**Specialist (6 skills):**
 - senior-graphql, senior-observability, technical-writer
 - incident-response, legacy-codebase-analyzer
+- divio-documentation
 
 **Total Tools:** 44 Python automation tools
 
@@ -319,6 +326,6 @@ services:
 
 ---
 
-**Last Updated:** February 10, 2026
-**Skills Deployed:** 26/26 engineering role skills production-ready
+**Last Updated:** February 16, 2026
+**Skills Deployed:** 30/30 engineering role skills production-ready
 **Total Tools:** 44 Python automation tools across core + strategic + AI/ML/Data + platform + specialist
