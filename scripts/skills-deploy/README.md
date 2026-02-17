@@ -69,8 +69,17 @@ ANTHROPIC_API_KEY=sk-ant-... DEPLOY_REF=HEAD~5 pnpm deploy
 The workflow at `.github/workflows/skills-deploy.yml` runs automatically on push to `main` when `skills/**` changes. It can also be triggered manually via `workflow_dispatch` with a custom ref.
 
 The workflow has two jobs:
-1. **test** — format, lint, type-check, unit tests
+1. **test** — actionlint on the workflow file, format, lint, type-check, unit tests
 2. **deploy** — runs the deploy script and auto-commits the manifest if new skills were created
+
+### Validating the workflow locally
+
+- **actionlint:** When you stage `.github/workflows/skills-deploy.yml`, the repo pre-commit hook (`telemetry/.husky/pre-commit`) runs `telemetry/scripts/run-actionlint.sh` on it. You can also run manually from repo root: `actionlint .github/workflows/skills-deploy.yml`. Install: `brew install actionlint` or `go install github.com/rhysd/actionlint/cmd/actionlint@latest`.
+- **act:** To run the workflow locally without side effects, run only the **test** job:
+  ```bash
+  act push -W .github/workflows/skills-deploy.yml -j test
+  ```
+  Running `act -j deploy` would execute the deploy script; without `ANTHROPIC_API_KEY` it fails at runtime, and with the key it performs real API calls. Use `-j test` for safe local validation of the pipeline.
 
 ## First-time deploy
 
