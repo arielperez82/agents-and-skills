@@ -1,3 +1,421 @@
 {
-  "skills": {}
+  "skills": {
+    "skills/agent-browser": {
+      "skill_id": "skill_01EK64kJprteYHWFvAML2meQ"
+    },
+    "skills/agent-development-team/agent-md-refactor": {
+      "skill_id": "skill_01XUdFTMHPMxkZhuaoZJWrA6"
+    },
+    "skills/agent-development-team/creating-agents": {
+      "skill_id": "skill_01DUFFzxUVch8h2315n5hNgR"
+    },
+    "skills/agent-development-team/find-skills": {
+      "skill_id": "skill_01H549mQQMy8dsUihBxuzehz"
+    },
+    "skills/agent-development-team/refactoring-agents": {
+      "skill_id": "skill_01QFWHXbGxNFGJEDGmgKdybU"
+    },
+    "skills/agent-development-team/skill-creator": {
+      "skill_id": "skill_01P111RthA3M7Siepyxfemza"
+    },
+    "skills/agent-development-team/skill-intake": {
+      "skill_id": "skill_01Qt8jVrCLVeFz6MGfJRV9us"
+    },
+    "skills/agent-development-team/skill-optimizer": {
+      "skill_id": "skill_011Qkfbj2tiQpPnU6CwCsCHG"
+    },
+    "skills/agent-development-team/versioning-skills": {
+      "skill_id": "skill_01NfUDifCafzaX9xiXuLu7yL"
+    },
+    "skills/algorithmic-art": {
+      "skill_id": "skill_01GtcrS8yfLUckdQ3BMuLq2C"
+    },
+    "skills/artifacts-builder": {
+      "skill_id": "skill_011JEWHTambonFbKrNcAVYzC"
+    },
+    "skills/asking-questions": {
+      "skill_id": "skill_014cittLoBNvf263iCSqg1MM"
+    },
+    "skills/brainstorming": {
+      "skill_id": "skill_01GzCkTaE3cPCFmPoJSeBwSb"
+    },
+    "skills/convening-experts": {
+      "skill_id": "skill_01R3qgXMDparvzuZsGyMjTUh"
+    },
+    "skills/crafting-instructions": {
+      "skill_id": "skill_012kaYmyfoq6ea865468WtVs"
+    },
+    "skills/delivery-team/agile-coach": {
+      "skill_id": "skill_019eGMKnHNP7Tf8bvtsjfMr7"
+    },
+    "skills/delivery-team/senior-pm": {
+      "skill_id": "skill_01Xu3DZK6n7QBvAyD3mu6wqj"
+    },
+    "skills/delivery-team/ticket-management": {
+      "skill_id": "skill_01GNd83UAE6SyL8S4Lx8ZC1a"
+    },
+    "skills/delivery-team/wiki-documentation": {
+      "skill_id": "skill_01PSedEqxr7WZvaz7DY7eFie"
+    },
+    "skills/doc-coauthoring": {
+      "skill_id": "skill_01AACsBdnp8SWtZtHkryK5AM"
+    },
+    "skills/docs-seeker": {
+      "skill_id": "skill_01Mur9UcJa7rhmqmXiipFJq7"
+    },
+    "skills/engineering-team/acceptance-test-design": {
+      "skill_id": "skill_0182vrpJ8mY5Mt9cBU85wN7K"
+    },
+    "skills/engineering-team/accessibility": {
+      "skill_id": "skill_014xxQ48SKpohaXv9mQaFFCu"
+    },
+    "skills/engineering-team/api-design-principles": {
+      "skill_id": "skill_01PEPoX2omfDxnV94AGs4XFz"
+    },
+    "skills/engineering-team/architecture-decision-records": {
+      "skill_id": "skill_01P4hWKJ34PrzXbH3JKbRNg3"
+    },
+    "skills/engineering-team/avoid-feature-creep": {
+      "skill_id": "skill_019gbPUomV6qEsZEZdZK4i5q"
+    },
+    "skills/engineering-team/bdd-principles": {
+      "skill_id": "skill_01U3WpoaXjicXs41otXhts7w"
+    },
+    "skills/engineering-team/best-practices": {
+      "skill_id": "skill_01XqBxkaC4SA66hYcnw13w58"
+    },
+    "skills/engineering-team/boy-scout-rule": {
+      "skill_id": "skill_01XfAFwqfMCngzYFa29vjf94"
+    },
+    "skills/engineering-team/c4-architecture": {
+      "skill_id": "skill_01RWqVntAZ528C2NunUEM2qh"
+    },
+    "skills/engineering-team/check-tools": {
+      "skill_id": "skill_011CRusRS6o2jj1mTpDxV1Gn"
+    },
+    "skills/engineering-team/clean-code": {
+      "skill_id": "skill_01KdtXBCchBUp4GS5jcE8DmR"
+    },
+    "skills/engineering-team/code-maturity-assessor": {
+      "skill_id": "skill_01EmKtCdoUFEdUaGsmJCPYNF"
+    },
+    "skills/engineering-team/code-reviewer": {
+      "skill_id": "skill_01EVAXBSZGXUbudejDbgoVoJ"
+    },
+    "skills/engineering-team/cognitive-load-analysis": {
+      "skill_id": "skill_01Hj6g4nq4B5mBjkQgMZ5MY1"
+    },
+    "skills/engineering-team/core-testing-methodology": {
+      "skill_id": "skill_01W7Ez47h4dkmivtfDNWgD3z"
+    },
+    "skills/engineering-team/core-web-vitals": {
+      "skill_id": "skill_01DHgB2tK6mDwRFs3ES4QGpL"
+    },
+    "skills/engineering-team/cost-optimization": {
+      "skill_id": "skill_018eqteo2waN1WfLNATz7D7G"
+    },
+    "skills/engineering-team/coverage-analysis": {
+      "skill_id": "skill_01N9BaX7xm24QcEWK9XPFgjF"
+    },
+    "skills/engineering-team/cto-advisor": {
+      "skill_id": "skill_01KagB8QF1vBqBveZQLVmbkC"
+    },
+    "skills/engineering-team/database-schema-designer": {
+      "skill_id": "skill_01TaiAuRbK7FZcDRuigURWXR"
+    },
+    "skills/engineering-team/databases": {
+      "skill_id": "skill_019EmdGB4BvQPMMT9qN5qn5s"
+    },
+    "skills/engineering-team/deno-core": {
+      "skill_id": "skill_01HZENG5XfiNHsyTELJaUXqs"
+    },
+    "skills/engineering-team/deployment-pipeline-design": {
+      "skill_id": "skill_013r8D2MdGa7j29C72RjWTTq"
+    },
+    "skills/engineering-team/divio-documentation": {
+      "skill_id": "skill_01KcwnbKFZNq16NgttJHyHSj"
+    },
+    "skills/engineering-team/docker-compose-basics": {
+      "skill_id": "skill_01U5wbSroWEd2zJeLXasaubU"
+    },
+    "skills/engineering-team/documentation": {
+      "skill_id": "skill_01AeQgLDzqn61NfXaATmKpij"
+    },
+    "skills/engineering-team/e2e-testing-patterns": {
+      "skill_id": "skill_014c1MhMty111BrQtkUxAjtG"
+    },
+    "skills/engineering-team/eslint-configuration": {
+      "skill_id": "skill_01QcwxsEvqbYFfwdxCBF5YvV"
+    },
+    "skills/engineering-team/front-end-testing": {
+      "skill_id": "skill_01YDcxvR852KVWk8vScU988N"
+    },
+    "skills/engineering-team/functional": {
+      "skill_id": "skill_01BXYjY87hCqR3k9ZahY4fi7"
+    },
+    "skills/engineering-team/github-expert": {
+      "skill_id": "skill_01Gc7EAW2uYxLXomdrjeWayB"
+    },
+    "skills/engineering-team/incident-response": {
+      "skill_id": "skill_01NKDPHvmWoLbCttW2C2BWPp"
+    },
+    "skills/engineering-team/legacy-codebase-analyzer": {
+      "skill_id": "skill_017wFLzTZWU9wXXZQSJAxEAh"
+    },
+    "skills/engineering-team/mapping-codebases": {
+      "skill_id": "skill_01QHPvsUZTK3unY5q6PwhZM4"
+    },
+    "skills/engineering-team/markdownlint-configuration": {
+      "skill_id": "skill_01VoBSJb6SgBakjatxqYAFpK"
+    },
+    "skills/engineering-team/mcp-builder": {
+      "skill_id": "skill_018MpfvSwdeP3uBSa3xhiAFx"
+    },
+    "skills/engineering-team/mikado-method": {
+      "skill_id": "skill_01CysHKi1ienzsbfQcPwk7LY"
+    },
+    "skills/engineering-team/modern-javascript-patterns": {
+      "skill_id": "skill_01MbsbkaaRFQMLYFaquDf4ua"
+    },
+    "skills/engineering-team/monorepo-architecture": {
+      "skill_id": "skill_017rb3mGFxVMfFGgKZQ5Z85W"
+    },
+    "skills/engineering-team/multi-cloud-architecture": {
+      "skill_id": "skill_019aGqsLUZeFzghe2mEUiqwJ"
+    },
+    "skills/engineering-team/mutation-testing": {
+      "skill_id": "skill_01SEEJLhZe79SsCvyNwu7UF4"
+    },
+    "skills/engineering-team/nocodb": {
+      "skill_id": "skill_01B7FHNmXyfQFwbbtNAKU46B"
+    },
+    "skills/engineering-team/orthogonality-principle": {
+      "skill_id": "skill_01PUCvEfLxT6mBbDEbKkAWyj"
+    },
+    "skills/engineering-team/performance": {
+      "skill_id": "skill_01TFfwBHnvWwwixxFe5UW3jH"
+    },
+    "skills/engineering-team/planning": {
+      "skill_id": "skill_01WsJX8U9gAjBz63nEwTsZGd"
+    },
+    "skills/engineering-team/playwright-bdd-step-definitions": {
+      "skill_id": "skill_01MvTL7C8fwDhCcb2ms2y93D"
+    },
+    "skills/engineering-team/prettier-configuration": {
+      "skill_id": "skill_013d1dw7aq8bgZWVkxba5XMr"
+    },
+    "skills/engineering-team/qa-test-planner": {
+      "skill_id": "skill_0155u6pLuqc1NU32VVix6BYq"
+    },
+    "skills/engineering-team/quality-gate-first": {
+      "skill_id": "skill_01H2bh42j7bYPxkh3CQmNvwg"
+    },
+    "skills/engineering-team/react-vite-expert": {
+      "skill_id": "skill_018pgESjSSwUUG21dunwucjd"
+    },
+    "skills/engineering-team/senior-architect": {
+      "skill_id": "skill_01Fv11tiPTtfNervmETrZTmw"
+    },
+    "skills/engineering-team/senior-computer-vision": {
+      "skill_id": "skill_01LQaadDzHeAksxjqYUyhJLM"
+    },
+    "skills/engineering-team/senior-data-engineer": {
+      "skill_id": "skill_01PGV5rCwNVCier8noDzfvRA"
+    },
+    "skills/engineering-team/senior-data-scientist": {
+      "skill_id": "skill_01JVqLS6TFeigQkw9WYTrm4s"
+    },
+    "skills/engineering-team/senior-devops": {
+      "skill_id": "skill_01DMMWcFaLRLa4aXKkcMZX3j"
+    },
+    "skills/engineering-team/senior-dotnet": {
+      "skill_id": "skill_01E3jAGymyJ254m6ZRR1H8jX"
+    },
+    "skills/engineering-team/senior-flutter": {
+      "skill_id": "skill_01A2b3xpEMa8AHuChXeaTfci"
+    },
+    "skills/engineering-team/senior-frontend": {
+      "skill_id": "skill_01N4zk81YFMMA9GYNbeuKxJs"
+    },
+    "skills/engineering-team/senior-fullstack": {
+      "skill_id": "skill_01JqDCQiLD5X6egdoLja6r4A"
+    },
+    "skills/engineering-team/senior-graphql": {
+      "skill_id": "skill_01QiJ15uKFuWmBDKA96v6U3P"
+    },
+    "skills/engineering-team/senior-ios": {
+      "skill_id": "skill_01M5JfKXNGsBQdjLJExFu9yG"
+    },
+    "skills/engineering-team/senior-java": {
+      "skill_id": "skill_014yrZzxzZA65tSBUqHX4gwT"
+    },
+    "skills/engineering-team/senior-ml-engineer": {
+      "skill_id": "skill_01WW5aXRhzaMSYyZvkvnhEi5"
+    },
+    "skills/engineering-team/senior-mobile": {
+      "skill_id": "skill_01Cy8GvAc5c9Mfpx8JAXrABR"
+    },
+    "skills/engineering-team/senior-network-infrastructure": {
+      "skill_id": "skill_01LAwpjbUV4nTTBqyZpPeQKg"
+    },
+    "skills/engineering-team/senior-observability": {
+      "skill_id": "skill_014KVCcDeK3FVGjkQjWgVBH3"
+    },
+    "skills/engineering-team/senior-prompt-engineer": {
+      "skill_id": "skill_013kyzfECTKX5HeUTwN5WaLS"
+    },
+    "skills/engineering-team/senior-qa": {
+      "skill_id": "skill_01Y2XqmyREDPFt5BLSUpYJcG"
+    },
+    "skills/engineering-team/seo": {
+      "skill_id": "skill_016Sv7uwVRjvzVZGFy9Bd2YU"
+    },
+    "skills/engineering-team/shell-scripting": {
+      "skill_id": "skill_0165LAZK5JqJwyT9cMGkyqLk"
+    },
+    "skills/engineering-team/software-architecture": {
+      "skill_id": "skill_01DRb4fP5xijhu5c88Yx1zQS"
+    },
+    "skills/engineering-team/sql-expert": {
+      "skill_id": "skill_0173s5qpmwoasDHi68QoNGzT"
+    },
+    "skills/engineering-team/sre-reliability-engineering": {
+      "skill_id": "skill_01CPaUpm68dqAFFKYTsiSnth"
+    },
+    "skills/engineering-team/subagent-driven-development": {
+      "skill_id": "skill_01KCWK9Kv8fKcKLDCzGWsGGU"
+    },
+    "skills/engineering-team/supabase-best-practices": {
+      "skill_id": "skill_01M9GmRNRXfgNU6php5FABeP"
+    },
+    "skills/engineering-team/supabase-edge-functions": {
+      "skill_id": "skill_01PDaWio6NtHMTq5vZjWhb1s"
+    },
+    "skills/engineering-team/tailwind-configuration": {
+      "skill_id": "skill_017M6QKWcqXVQoPsG76Fq2L4"
+    },
+    "skills/engineering-team/tdd": {
+      "skill_id": "skill_01Ca9gwwSrM32hCvgG4qdkSz"
+    },
+    "skills/engineering-team/technical-writer": {
+      "skill_id": "skill_01J396ocUnGAKaTE6yQt4EKW"
+    },
+    "skills/engineering-team/terraform-configuration": {
+      "skill_id": "skill_01DjPhvgbmJzr55uKuXByEL9"
+    },
+    "skills/engineering-team/test-design-review": {
+      "skill_id": "skill_01FTi5igsTb3bKKYnq4An6nj"
+    },
+    "skills/engineering-team/testing": {
+      "skill_id": "skill_0173gtowk69kEP8apTsmvygP"
+    },
+    "skills/engineering-team/testing-automation-patterns": {
+      "skill_id": "skill_01JRHHsig2uTcTBzjNjUHyfh"
+    },
+    "skills/engineering-team/tinybird": {
+      "skill_id": "skill_01QcNPjf636GRyZo9Uor1oFn"
+    },
+    "skills/engineering-team/tpp": {
+      "skill_id": "skill_01JRYpdBRYCWPZB6UTeK25yd"
+    },
+    "skills/engineering-team/typescript-strict": {
+      "skill_id": "skill_01GjpfDApQVHaMozCf1QMdqW"
+    },
+    "skills/engineering-team/verification-before-completion": {
+      "skill_id": "skill_015B1qRr7fSpEQbwqcMKqJFQ"
+    },
+    "skills/engineering-team/vitest-configuration": {
+      "skill_id": "skill_016goPRbWAH971KszEWq9FNk"
+    },
+    "skills/engineering-team/vitest-performance": {
+      "skill_id": "skill_011HP1mKGepuF9LzDXzMGjem"
+    },
+    "skills/engineering-team/vitest-testing-patterns": {
+      "skill_id": "skill_017XoS4JumbJSEkU6kapq283"
+    },
+    "skills/engineering-team/web-design-guidelines": {
+      "skill_id": "skill_01NmsSdTXqahAJ6Grmvy3RJg"
+    },
+    "skills/engineering-team/web-quality-audit": {
+      "skill_id": "skill_015oemX9QMBzdRcCobiJCQxH"
+    },
+    "skills/internal-comms": {
+      "skill_id": "skill_01HiYtm7yweroSgEgTb5PJBX"
+    },
+    "skills/iterating": {
+      "skill_id": "skill_016vApMXErqZdixkzGSzVJWU"
+    },
+    "skills/markdown-documentation": {
+      "skill_id": "skill_016Te7AjLmjtkSLGwnecQaaM"
+    },
+    "skills/marketing-team/marketing-strategy-pmm": {
+      "skill_id": "skill_01GGNihkZRF9RA341F8rYhQD"
+    },
+    "skills/marketing-team/page-cro": {
+      "skill_id": "skill_01TgymyTxuR55iT5xpJT8CLV"
+    },
+    "skills/marketing-team/seo-audit": {
+      "skill_id": "skill_01U7S2UMKC5qZm4MzyJSbmNK"
+    },
+    "skills/marketing-team/seo-strategist": {
+      "skill_id": "skill_011bMmzGruVrydc4nW2doitw"
+    },
+    "skills/mermaid-diagrams": {
+      "skill_id": "skill_017ZqBdAoGSgYZEw6Up2SZmP"
+    },
+    "skills/orchestrating-agents": {
+      "skill_id": "skill_01LkvaLLSN95bZAHnKEiiqVx"
+    },
+    "skills/product-team/agile-product-owner": {
+      "skill_id": "skill_01MZ4h7B2ExHMxQ3DoUtRqpq"
+    },
+    "skills/product-team/business-analyst-toolkit": {
+      "skill_id": "skill_017cstgLUPAAyWS5ruJ2izre"
+    },
+    "skills/product-team/competitive-analysis": {
+      "skill_id": "skill_01AZ6Yxo5Jj5rDqCitRD3bQY"
+    },
+    "skills/product-team/continuous-discovery": {
+      "skill_id": "skill_01Rw8c6jKnNSL4fPzAAVH5cF"
+    },
+    "skills/product-team/prioritization-frameworks": {
+      "skill_id": "skill_01Shgf5DdioQ6qrDbqbbqEDJ"
+    },
+    "skills/product-team/product-strategist": {
+      "skill_id": "skill_017fMDWhC2Mpfr77fECYUqEW"
+    },
+    "skills/product-team/saas-finance": {
+      "skill_id": "skill_01MESujwS1jvk38YQ8vMSbci"
+    },
+    "skills/product-team/workshop-facilitation": {
+      "skill_id": "skill_01QhBUmjDpAULPi3DLTy7Mpb"
+    },
+    "skills/research": {
+      "skill_id": "skill_01EHtu3J8cDfCuNYtD8h1mZp"
+    },
+    "skills/sales-team/lead-qualification": {
+      "skill_id": "skill_01DqbjruTMB896NaLiCG4QMV"
+    },
+    "skills/sales-team/lead-research": {
+      "skill_id": "skill_01W2b93e4SbmFDMa1g4ogLd9"
+    },
+    "skills/sales-team/pipeline-analytics": {
+      "skill_id": "skill_01EbLuGKGR1bvWAFzg9v6Z1v"
+    },
+    "skills/sales-team/sales-call-analysis": {
+      "skill_id": "skill_019wc5puVdTtEzL6632gqbUj"
+    },
+    "skills/sales-team/sales-outreach": {
+      "skill_id": "skill_01RmadjsiUjqRFMbafP6eYZw"
+    },
+    "skills/updating-knowledge": {
+      "skill_id": "skill_01PcPsyFwhb9S97uuVLdMXw2"
+    },
+    "skills/ux-team/ux-researcher-designer": {
+      "skill_id": "skill_01FxcY6VKd5xGUxuBEf2Aaho"
+    },
+    "skills/ux-team/visual-design-foundations": {
+      "skill_id": "skill_012uLtiUKXtrGVdUvKgDyjxZ"
+    }
+  }
 }
