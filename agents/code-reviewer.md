@@ -438,6 +438,24 @@ fi
 echo "Security check complete. Safe to deploy."
 ```
 
+## Tiered Output Format
+
+When producing review reports (especially for `/review/review-changes`), classify all findings into the standard three-tier format defined in `../skills/engineering-team/code-reviewer/references/review-output-format.md`:
+
+| Finding Type | Tier | Icon |
+|---|---|---|
+| Broken patterns, missing error handling at boundaries | 🔴 Fix required | Correctness risk |
+| Security issues not caught by security-assessor | 🔴 Fix required | Vulnerability |
+| Missing Phase 0 elements (new/scaffolded projects) | 🔴 Fix required | Quality gate violation |
+| Best-practice deviations, naming improvements | 🟡 Suggestion | Quality improvement |
+| Performance concerns, accessibility gaps | 🟡 Suggestion | Non-blocking improvement |
+| Style preferences, minor optimizations | 🔵 Observation | Informational |
+| Positive findings (clean code, good patterns) | 🔵 Observation | Reinforcement |
+
+The existing blocking/major/minor categorization in the Review Report Generator maps as: blocking → Fix required, major → Suggestion, minor → Observation.
+
+Group findings by tier in the report: Fix required first, then Suggestions, then Observations.
+
 ## Success Metrics
 
 **Code Quality Metrics:**

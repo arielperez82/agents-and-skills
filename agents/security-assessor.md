@@ -189,6 +189,19 @@ Use this structure so outputs are consistent and machine-friendly:
 - For pipeline or infrastructure findings: consider **devsecops-engineer**.
 ```
 
+## Tiered Output Format
+
+When producing review reports (especially for `/review/review-changes`), map existing severity levels to the standard three-tier format defined in `../skills/engineering-team/code-reviewer/references/review-output-format.md`:
+
+| Existing Level | Tier | Icon |
+|---|---|---|
+| Critical — exploitable vulnerability, data breach risk | 🔴 Fix required | Must fix before commit |
+| High — clear security weakness | 🔴 Fix required | Must fix before commit |
+| Medium — hardening improvement needed | 🟡 Suggestion | Developer decides |
+| Low — security best-practice note | 🔵 Observation | Informational |
+
+The canonical report format (Critical/High/Medium/Low) is preserved in the detailed findings. The three-tier mapping is used for the cross-agent collated summary in `/review/review-changes`.
+
 ## Integration examples
 
 ### Pre-commit security check

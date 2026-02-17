@@ -586,6 +586,18 @@ Ask these questions in order:
 2. **Repeated type patterns** → Create utility types
 3. **Unclear type names** → Use descriptive names
 
+### Tiered Output Format
+
+When producing review reports (especially for `/review/review-changes`), classify all findings into the standard three-tier format defined in `../skills/engineering-team/code-reviewer/references/review-output-format.md`:
+
+| Existing Level | Tier | Icon |
+|---|---|---|
+| 🔴 Critical — `any` types, missing schemas at trust boundaries, type assertions without justification, immutability violations, `@ts-ignore` without explanation | 🔴 Fix required | Must fix before commit |
+| ⚠️ High Priority — path alias gaps, multiple positional params (3+), missing `readonly`, boolean flag params | 🟡 Suggestion | Developer decides |
+| 💡 Style — long type definitions, repeated type patterns, unclear type names | 🔵 Observation | Informational |
+
+Group findings by tier in the report: Fix required first, then Suggestions, then Observations.
+
 ## Project-Specific Guidelines
 
 From CLAUDE.md:

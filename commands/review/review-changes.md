@@ -23,12 +23,12 @@ Engage these agents **in parallel**, each with the same context: the uncommitted
 
 ### Core (always)
 
-1. **tdd-reviewer** – TDD compliance, test quality, behavior-focused tests.
-2. **ts-enforcer** – TypeScript strict mode, no `any`, schema usage, immutability. (Skip or make no-op if no TypeScript in diff.)
-3. **refactor-assessor** – Refactoring opportunities (Critical / High / Nice / Skip).
-4. **security-assessor** – Security assessment of the diff; produces a findings report with criticality (Critical/High/Medium/Low). Does not implement fixes.
-5. **code-reviewer** – Code quality, security, best practices, merge readiness.
-6. **cognitive-load-assessor** – Cognitive Load Index (CLI) for changed code; 8-dimension report, top offenders, recommendations (read-only).
+1. **tdd-reviewer** – TDD compliance, test quality, behavior-focused tests. Tiered output: Farley Index thresholds + TDD compliance findings.
+2. **ts-enforcer** – TypeScript strict mode, no `any`, schema usage, immutability. Tiered output: Critical/High/Style mapped to tiers. (Skip or make no-op if no TypeScript in diff.)
+3. **refactor-assessor** – Refactoring opportunities. Tiered output: Critical/High/Nice/Skip mapped to Fix required/Suggestion/Observation/Omit.
+4. **security-assessor** – Security assessment of the diff. Tiered output: Critical+High → Fix required, Medium → Suggestion, Low → Observation. Does not implement fixes.
+5. **code-reviewer** – Code quality, security, best practices, merge readiness. Tiered output: broken patterns/security → Fix required, best-practice deviations → Suggestion, style/positive → Observation.
+6. **cognitive-load-assessor** – Cognitive Load Index (CLI) for changed code; 8-dimension report, top offenders, recommendations (read-only). Tiered output: CLI >600 → Fix required, 400-600 → Suggestion, <400 → Observation.
 
 ### Optional (when applicable)
 
@@ -67,9 +67,54 @@ When including **agent-validator**, use this scope so the agent validates agent 
    - Optional: docs-reviewer (if docs changed), progress-assessor (if plan-based), agent-validator (if agents/ changed).
    - Wait for all agents to complete before proceeding to summarize.
 
-3. **Summarize**
-   - Collate findings from all agents used.
-   - Report: pass/fail or list of issues per agent; suggest fixes only if requested.
+3. **Summarize (collated tier summary)**
+
+   Collate findings from all agents into a single tiered report. Group by tier, showing the most critical findings first. All agents use the standard three-tier format defined in `skills/engineering-team/code-reviewer/references/review-output-format.md`.
+
+   **Output format:**
+
+   ```markdown
+   ## Review Summary
+
+   ### 🔴 Fix Required (total across all agents)
+
+   | Agent | Finding | Location |
+   |-------|---------|----------|
+   | agent-name | Finding title | file:line |
+
+   ### 🟡 Suggestions (total)
+
+   | Agent | Finding | Location |
+   |-------|---------|----------|
+   | agent-name | Finding title | file:line |
+
+   ### 🔵 Observations (total)
+
+   | Agent | Finding |
+   |-------|---------|
+   | agent-name | Finding title or metric |
+
+   ### Per-Agent Pass/Fail
+
+   | Agent | Fix Required | Suggestions | Observations | Status |
+   |-------|-------------|-------------|--------------|--------|
+   | agent-name | N | N | N | ✅ Pass / ❌ Fail |
+   ```
+
+   **Rules:**
+   - An agent's status is **❌ Fail** if it has any Fix Required findings, **✅ Pass** otherwise.
+   - Overall review status is **❌ Fail** if any agent fails.
+   - Show Fix Required findings first — these are blocking issues that must be addressed before commit.
+   - Suggest fixes only if requested by the user.
+
+4. **Override capture (optional)**
+
+   After presenting the collated summary, if the developer disagrees with any finding (particularly Fix Required findings they choose not to address):
+
+   - Prompt: "You're overriding [N] Fix Required finding(s). Would you like to log the override reason for effectiveness tracking?"
+   - If yes: Engage `learner` agent to capture the override in `.docs/reports/review-overrides.md` using the format defined in `skills/engineering-team/planning/references/review-effectiveness-tracking.md`.
+   - Fields captured: date, agent, tier, finding description, location, developer's override rationale.
+   - This step is optional and should not block the developer from proceeding.
 
 ## Notes
 

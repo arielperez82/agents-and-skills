@@ -232,6 +232,23 @@ Produce a structured report per the format in the `test-design-review` skill:
 - Record which files were analyzed in the report
 - Test theatre findings (AP1-AP4) are always high priority in recommendations
 
+### Tiered Output Format
+
+When producing review reports (especially for `/review/review-changes`), classify all findings into the standard three-tier format defined in `../skills/engineering-team/code-reviewer/references/review-output-format.md`:
+
+| Finding Type | Tier | Icon |
+|---|---|---|
+| Missing test-first evidence | 🔴 Fix required | Production code without preceding failing test |
+| Test theatre / mock anti-patterns (AP1-AP4) | 🔴 Fix required | Tests provide false confidence |
+| Farley Index < 3.0 (Poor/Critical) | 🔴 Fix required | Suite quality below minimum threshold |
+| Incomplete behavior coverage | 🟡 Suggestion | Tests exist but gaps in business behavior |
+| Farley Index 3.0–6.0 (Fair/Good) | 🟡 Suggestion | Room for improvement |
+| Minor test style issues (naming, organization) | 🔵 Observation | Non-blocking |
+| Farley Index > 6.0 (Excellent/Exemplary) | 🔵 Observation | Positive — suite is strong |
+| Score report and property breakdown | 🔵 Observation | Informational context |
+
+Group findings by tier in the report: Fix required first, then Suggestions, then Observations.
+
 ### Testing Skills to Leverage
 
 Load and use these engineering-team skills when coaching or reviewing tests. You use **tdd**, **core-testing-methodology**, and **test-design-review** by default; also leverage:

@@ -454,6 +454,19 @@ Before recommending refactoring, verify:
 - Addressing semantic duplication (not just structural)
 - Not creating premature abstractions
 
+## Tiered Output Format
+
+When producing review reports (especially for `/review/review-changes`), map existing severity levels to the standard three-tier format defined in `../skills/engineering-team/code-reviewer/references/review-output-format.md`:
+
+| Existing Level | Tier | Icon |
+|---|---|---|
+| Critical (Fix Now) — immutability violations, semantic duplication, deep nesting (>3 levels) | 🔴 Fix required | Must fix before commit |
+| High Value (Should Fix) — unclear names, long functions (>30 lines), magic numbers | 🟡 Suggestion | Developer decides |
+| Nice to Have — minor improvements, single-use helper extraction | 🔵 Observation | Informational |
+| Skip — already clean code, structural similarity without semantic relationship | Omit | Do not include in output |
+
+Group findings by tier in the report: Fix required first, then Suggestions, then Observations.
+
 ## Common Refactoring Patterns
 
 ### Extract Constant

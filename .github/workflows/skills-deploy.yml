@@ -1,0 +1,108 @@
+# Skills Deploy — deploys changed skills to the Anthropic Claude Skills API.
+# Triggers on push to main when skill content changes, or manually via workflow_dispatch.
+
+name: Skills Deploy
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - 'skills/**'
+      - 'scripts/skills-deploy/**'
+      - '.github/workflows/skills-deploy.yml'
+  workflow_dispatch:
+    inputs:
+      ref:
+        description: 'Git ref for change detection (e.g. HEAD~5 for last 5 commits, or a commit SHA)'
+        required: false
+        default: 'HEAD~1'
+
+concurrency:
+  group: skills-deploy-${{ github.ref }}
+  cancel-in-progress: false
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup pnpm
+        uses: pnpm/action-setup@v4
+        with:
+          version: '10.18.2'
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+          cache: 'pnpm'
+          cache-dependency-path: 'scripts/skills-deploy/pnpm-lock.yaml'
+
+      - name: Install dependencies
+        run: pnpm install --frozen-lockfile
+        working-directory: scripts/skills-deploy
+
+      - name: Format check
+        run: pnpm format
+        working-directory: scripts/skills-deploy
+
+      - name: Lint
+        run: pnpm lint
+        working-directory: scripts/skills-deploy
+
+      - name: Type check
+        run: pnpm type-check
+        working-directory: scripts/skills-deploy
+
+      - name: Unit tests
+        run: pnpm test:unit
+        working-directory: scripts/skills-deploy
+
+  deploy:
+    needs: test
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Setup pnpm
+        uses: pnpm/action-setup@v4
+        with:
+          version: '10.18.2'
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+          cache: 'pnpm'
+          cache-dependency-path: 'scripts/skills-deploy/pnpm-lock.yaml'
+
+      - name: Install dependencies
+        run: pnpm install --frozen-lockfile
+        working-directory: scripts/skills-deploy
+
+      - name: Deploy changed skills
+        run: pnpm deploy
+        working-directory: scripts/skills-deploy
+        env:
+          ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
+          DEPLOY_REF: ${{ github.event.inputs.ref || 'HEAD~1' }}
+
+      - name: Auto-commit manifest
+        run: |
+          cd "$GITHUB_WORKSPACE"
+          if git diff --quiet .docs/canonical/ops/skills-api-manifest.json; then
+            echo "Manifest unchanged, skipping commit."
+          else
+            git config user.name "github-actions[bot]"
+            git config user.email "github-actions[bot]@users.noreply.github.com"
+            git add .docs/canonical/ops/skills-api-manifest.json
+            git commit -m "chore(skills-deploy): update manifest with new skill IDs [skip ci]"
+            git push
+          fi

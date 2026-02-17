@@ -164,6 +164,22 @@ Resolve from workspace root (e.g. `skills/engineering-team/cognitive-load-analys
 4. Cap final CLI at 999 (calculator does this).
 5. For D4 LLM assessment, use the SHA-256 deterministic sampling protocol and record the model in the report.
 
+## Tiered Output Format
+
+When producing review reports (especially for `/review/review-changes`), map CLI scores and dimension results to the standard three-tier format defined in `../skills/engineering-team/code-reviewer/references/review-output-format.md`:
+
+| Finding Type | Tier | Icon |
+|---|---|---|
+| CLI Score > 600 (Poor/Severe) | 🔴 Fix required | Codebase demands excessive mental effort |
+| Individual dimension exceeding critical threshold | 🔴 Fix required | Specific dimension severely impacted |
+| CLI Score 400–600 (Concerning) | 🟡 Suggestion | Maintainability at risk |
+| Individual dimension exceeding warning threshold | 🟡 Suggestion | Targeted improvement opportunity |
+| CLI Score < 400 (Excellent/Good/Moderate) | 🔵 Observation | Acceptable cognitive load |
+| Full score report and dimension breakdown | 🔵 Observation | Informational context |
+| Top offenders list | 🔵 Observation | Reference for future work |
+
+The full CLI report (score, dimensions, offenders, recommendations) is always produced. The three-tier mapping is used for the cross-agent collated summary in `/review/review-changes`.
+
 ## Success Metrics
 
 - CLI score and dimension breakdown match calculator output (deterministic for same inputs).

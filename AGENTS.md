@@ -199,9 +199,9 @@ The following agents and skills provide detailed guidance and can be loaded on-d
 This is the end-to-end lifecycle for all work — features, bug fixes, refactoring, infrastructure. See `agents/README.md` "Canonical Development Flow" for full diagrams and agent relationships.
 
 ```
- ┌─────────────────────────────────────────────────────────────────┐
- │                    CANONICAL DEVELOPMENT FLOW                   │
- └─────────────────────────────────────────────────────────────────┘
+ ┌──────────────────────────────────────────────────┐
+ │                 DEVELOPMENT FLOW                 │
+ └──────────────────────────────────────────────────┘
 
  1. QUALITY GATE (Phase 0)
     Pre-commit ─► CI pipeline ─► Deploy pipeline
@@ -211,31 +211,31 @@ This is the end-to-end lifecycle for all work — features, bug fixes, refactori
     product-analyst ─► acceptance-designer ─► architect ─► implementation-planner
     │  Charter → Roadmap → Backlog → Plan (.docs/canonical/)
     ▼
- 3. BUILD  ◄─────────────────────────────────────────────┐
+ 3. BUILD  ◄──────────────────────────────────────────────┐
     │                                                     │
-    │  ┌─── Double-Loop TDD ──────────────────────┐      │
-    │  │                                           │      │
-    │  │  OUTER: acceptance-designer (BDD)         │      │
-    │  │    │                                      │      │
-    │  │    └─► INNER: tdd-reviewer (unit TDD)     │      │
-    │  │        RED ─► GREEN ─► REFACTOR           │      │
-    │  │        │       │         │                 │      │
-    │  │        │    ts-enforcer  refactor-assessor │      │
-    │  │        tpp-assessor                        │      │
-    │  │                                           │      │
-    │  └───────────────────────────────────────────┘      │
+    │  ┌─── Double-Loop TDD ────────────────────────┐     │
+    │  │                                            │     │
+    │  │  OUTER: acceptance-designer (BDD)          │     │
+    │  │    │                                       │     │
+    │  │    └─► INNER: tdd-reviewer (unit TDD)      │     │
+    │  │        RED ─► GREEN ─► REFACTOR            │     │
+    │  │        │       │         │                 │     │
+    │  │        │    ts-enforcer  refactor-assessor │     │
+    │  │        tpp-assessor                        │     │
+    │  │                                            │     │
+    │  └────────────────────────────────────────────┘     │
     │                                                     │
     │  Update .docs/reports/ ─► Capture via learner       │
     ▼                                                     │
  4. VALIDATE                                              │
     /review/review-changes (parallel)                     │
-    ┌──────────────────┬──────────────────┐               │
-    │ tdd-reviewer     │ security-assessor│               │
-    │ ts-enforcer      │ code-reviewer    │               │
-    │ refactor-assessor│ cognitive-load   │               │
-    └──────────────────┴──────────────────┘               │
+    ┌───────────────────┬───────────────────┐             │
+    │ tdd-reviewer      │ security-assessor │             │
+    │ ts-enforcer       │ code-reviewer     │             │
+    │ refactor-assessor │ cognitive-load    │             │
+    └───────────────────┴───────────────────┘             │
     │                                                     │
-    ├─ Pass? ─► Commit approval ─► /git/cm ──────────────┘
+    ├─ Pass? ─► Commit approval ─► /git/cm ───────────────┘
     │           (next plan step)
     ▼
  5. PR & MERGE

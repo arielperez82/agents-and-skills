@@ -210,6 +210,12 @@ Filenames under `.docs/canonical/` should follow the naming grammar above. To au
 - Backlog: [backlog-repo-I09-SHSL-shell-script-lint.md](canonical/backlogs/backlog-repo-I09-SHSL-shell-script-lint.md)
 - Plan: [plan-repo-I09-SHSL-shell-script-lint.md](canonical/plans/plan-repo-I09-SHSL-shell-script-lint.md)
 
+**I10-ARFE** (agentic-review-feedback-effectiveness):
+
+- Charter: [charter-repo-agentic-review-feedback-effectiveness.md](canonical/charters/charter-repo-agentic-review-feedback-effectiveness.md)
+- Roadmap: [roadmap-repo-I10-ARFE-agentic-review-feedback-effectiveness-2026.md](canonical/roadmaps/roadmap-repo-I10-ARFE-agentic-review-feedback-effectiveness-2026.md)
+- Backlog: [backlog-repo-I10-ARFE-agentic-review-feedback-effectiveness.md](canonical/backlogs/backlog-repo-I10-ARFE-agentic-review-feedback-effectiveness.md)
+
 Root `AGENTS.md` (if present) should point here: "See .docs/AGENTS.md for agent artifact conventions and operating reference."
 
 ---
