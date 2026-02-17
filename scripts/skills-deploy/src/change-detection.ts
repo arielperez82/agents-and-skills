@@ -1,6 +1,7 @@
 import { execFile } from 'node:child_process';
 import { existsSync } from 'node:fs';
-import { join } from 'node:path';
+import { readdir } from 'node:fs/promises';
+import { basename, dirname, join } from 'node:path';
 
 export type ChangeDetectionDeps = {
   execGit: (args: string[]) => Promise<string>;
@@ -76,4 +77,39 @@ export const getChangedSkillDirs = async (
   const deduplicated = [...new Set(skillDirs)];
 
   return deduplicated.sort((a, b) => a.localeCompare(b));
+};
+
+export type AllSkillsDeps = {
+  readDir: (dir: string) => Promise<string[]>;
+};
+
+const defaultReadDir = async (dir: string): Promise<string[]> => {
+  try {
+    const entries = await readdir(dir, { recursive: true });
+    return entries;
+  } catch {
+    return [];
+  }
+};
+
+export const getAllSkillDirs = async (
+  options: { rootDir: string },
+  deps?: Partial<AllSkillsDeps>,
+): Promise<string[]> => {
+  const { rootDir } = options;
+  const readDirFn = deps?.readDir ?? defaultReadDir;
+
+  let entries: string[];
+  try {
+    entries = await readDirFn(join(rootDir, 'skills'));
+  } catch {
+    return [];
+  }
+
+  const skillDirs = entries
+    .filter((entry) => basename(entry) === 'SKILL.md')
+    .map((entry) => join('skills', dirname(entry)))
+    .filter((dir) => dir !== 'skills');
+
+  return [...new Set(skillDirs)].sort((a, b) => a.localeCompare(b));
 };

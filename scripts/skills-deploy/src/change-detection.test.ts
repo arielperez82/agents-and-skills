@@ -1,7 +1,7 @@
 import { describe, expect, it, vi } from 'vitest';
 
-import type { ChangeDetectionDeps } from './change-detection.js';
-import { getChangedSkillDirs } from './change-detection.js';
+import type { AllSkillsDeps, ChangeDetectionDeps } from './change-detection.js';
+import { getAllSkillDirs, getChangedSkillDirs } from './change-detection.js';
 
 const createDeps = (overrides: Partial<ChangeDetectionDeps> = {}): ChangeDetectionDeps => ({
   execGit: overrides.execGit ?? vi.fn<(args: string[]) => Promise<string>>().mockResolvedValue(''),
@@ -155,5 +155,91 @@ describe('getChangedSkillDirs', () => {
     const result = await getChangedSkillDirs({ rootDir: '/repo' }, deps);
 
     expect(result).toEqual(['skills/engineering-team/playwright-skill']);
+  });
+});
+
+const createAllSkillsDeps = (overrides: Partial<AllSkillsDeps> = {}): AllSkillsDeps => ({
+  readDir: overrides.readDir ?? vi.fn<(dir: string) => Promise<string[]>>().mockResolvedValue([]),
+});
+
+describe('getAllSkillDirs', () => {
+  it('returns empty array when no SKILL.md files exist', async () => {
+    const deps = createAllSkillsDeps({
+      readDir: vi.fn<(dir: string) => Promise<string[]>>().mockResolvedValue([]),
+    });
+
+    const result = await getAllSkillDirs({ rootDir: '/repo' }, deps);
+
+    expect(result).toEqual([]);
+  });
+
+  it('finds skill dirs from SKILL.md files', async () => {
+    const deps = createAllSkillsDeps({
+      readDir: vi
+        .fn<(dir: string) => Promise<string[]>>()
+        .mockResolvedValue([
+          'engineering-team/tdd/SKILL.md',
+          'engineering-team/tdd/references/foo.md',
+          'README.md',
+        ]),
+    });
+
+    const result = await getAllSkillDirs({ rootDir: '/repo' }, deps);
+
+    expect(result).toEqual(['skills/engineering-team/tdd']);
+  });
+
+  it('finds multiple skill dirs and sorts them', async () => {
+    const deps = createAllSkillsDeps({
+      readDir: vi
+        .fn<(dir: string) => Promise<string[]>>()
+        .mockResolvedValue([
+          'engineering-team/typescript-strict/SKILL.md',
+          'agent-browser/SKILL.md',
+          'engineering-team/tdd/SKILL.md',
+        ]),
+    });
+
+    const result = await getAllSkillDirs({ rootDir: '/repo' }, deps);
+
+    expect(result).toEqual([
+      'skills/agent-browser',
+      'skills/engineering-team/tdd',
+      'skills/engineering-team/typescript-strict',
+    ]);
+  });
+
+  it('reads from the skills subdirectory of rootDir', async () => {
+    const mockReadDir = vi.fn<(dir: string) => Promise<string[]>>().mockResolvedValue([]);
+
+    const deps = createAllSkillsDeps({ readDir: mockReadDir });
+
+    await getAllSkillDirs({ rootDir: '/repo' }, deps);
+
+    expect(mockReadDir).toHaveBeenCalledWith('/repo/skills');
+  });
+
+  it('returns empty array when skills directory does not exist', async () => {
+    const deps = createAllSkillsDeps({
+      readDir: vi
+        .fn<(dir: string) => Promise<string[]>>()
+        .mockRejectedValue(Object.assign(new Error('ENOENT'), { code: 'ENOENT' })),
+    });
+
+    const result = await getAllSkillDirs({ rootDir: '/repo' }, deps);
+
+    expect(result).toEqual([]);
+  });
+
+  it('deduplicates skill dirs', async () => {
+    const deps = createAllSkillsDeps({
+      readDir: vi
+        .fn<(dir: string) => Promise<string[]>>()
+        .mockResolvedValue(['engineering-team/tdd/SKILL.md', 'engineering-team/tdd/SKILL.md']),
+    });
+
+    const result = await getAllSkillDirs({ rootDir: '/repo' }, deps);
+
+    expect(result).toEqual(['skills/engineering-team/tdd']);
   });
 });
