@@ -20,7 +20,9 @@ use-cases:
 
 # === RELATIONSHIPS ===
 related-agents: []
-related-skills: []
+related-skills:
+  - product-team/workshop-facilitation
+  - product-team/continuous-discovery
 related-commands: []
 orchestrated-by: []
 
@@ -34,6 +36,10 @@ dependencies:
     - references/example-mapping.md
     - references/three-amigos.md
     - references/definition-of-ready.md
+    - references/story-splitting-patterns.md
+    - references/epic-breakdown-patterns.md
+    - references/epic-hypothesis-format.md
+    - references/story-mapping-workshop.md
   assets: []
 compatibility:
   python-version: 3.8+
@@ -324,6 +330,17 @@ The following references were consolidated from BDD requirements discovery metho
 | [Example Mapping](references/example-mapping.md) | Four card types, session flow, conversational patterns, output artifacts, anti-patterns | Story about to enter sprint; team uncertain about scope; cross-functional clarification needed |
 | [Three Amigos](references/three-amigos.md) | Three perspectives (business/dev/test), session structure, cadence, confirmation bias defense, anti-patterns | Backlog refinement; before sprint planning; after significant scope change |
 | [Definition of Ready](references/definition-of-ready.md) | Hard gate criteria, requirements completeness (functional/NFR/business rules), quality review dimensions, enforcement without bureaucracy | Verifying story readiness before sprint entry; establishing team standards |
+
+### PM Skills Intake References
+
+The following references were added in I10-PMSI to extend story decomposition and workshop execution patterns:
+
+| Reference | Content | When to Load |
+|-----------|---------|--------------|
+| [Story Splitting Patterns](references/story-splitting-patterns.md) | SPIDR and practical splitting patterns with before/after examples | Stories are too large or carry hidden coupling |
+| [Epic Breakdown Patterns](references/epic-breakdown-patterns.md) | Epic decomposition, dependency mapping, and vertical slicing heuristics | Planning a delivery sequence from a broad initiative |
+| [Epic Hypothesis Format](references/epic-hypothesis-format.md) | Hypothesis-driven epic framing with measurable outcomes | Defining epics that need testable business outcomes |
+| [Story Mapping Workshop](references/story-mapping-workshop.md) | Story mapping method plus facilitation protocol for release slicing | Running collaborative story mapping sessions with cross-functional teams |
 
 ## Integration Points
 

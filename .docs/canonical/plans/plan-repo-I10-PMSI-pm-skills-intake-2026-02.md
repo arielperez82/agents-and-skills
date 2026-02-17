@@ -25,8 +25,8 @@ Current state reconciled from the terminal run log and repository file checks.
 | B01 | done | `skills/product-team/saas-finance/` created with `SKILL.md` + 7 references | None |
 | B02 | done | `skills/product-team/continuous-discovery/` created with `SKILL.md` + 4 references | None |
 | B03 | done | `skills/product-team/workshop-facilitation/SKILL.md` created | None |
-| B04 | in_progress | 4 reference files created, but `agile-product-owner/SKILL.md` still needs dependency/body alignment for this intake batch | Finish SKILL.md updates and verify links |
-| B05 | in_progress | 3 reference files created, but `product-strategist/SKILL.md` still has placeholder fields and missing intake-specific reference wiring | Finish SKILL.md updates and verify links |
+| B04 | done | `agile-product-owner/SKILL.md` updated with new references, related skills, and intake reference section | None |
+| B05 | done | `product-strategist/SKILL.md` updated with frontmatter cleanup, relationship wiring, dependencies, and consolidated references | None |
 | B06 | not_started | No new PM-toolkit intake references yet | Execute Wave 3 B06 |
 | B07 | not_started | No new competitive-analysis intake references yet | Execute Wave 3 B07 |
 | B08 | not_started | No new prioritization-frameworks intake reference yet | Execute Wave 3 B08 |
@@ -38,16 +38,15 @@ Current state reconciled from the terminal run log and repository file checks.
 | Wave | Scope | Status |
 |---|---|---|
 | Wave 1 | B01-B02 | done |
-| Wave 2 | B03-B05 | in_progress |
+| Wave 2 | B03-B05 | done |
 | Wave 3 | B06-B08 | not_started |
 | Post-Wave | B09-B10 | not_started |
 
 ### Immediate remaining work
 
-1. Close B04 and B05 by updating both target SKILL files to include the new references and required frontmatter/body changes.
-2. Execute Wave 3 (B06-B08).
-3. Run catalog updates (B09-B10).
-4. Complete verification checklist before setting plan status to `done`.
+1. Execute Wave 3 (B06-B08).
+2. Run catalog updates (B09-B10).
+3. Complete verification checklist before setting plan status to `done`.
 
 ---
 
@@ -214,7 +213,7 @@ skills/product-team/workshop-facilitation/
 
 ### B04 — ADAPT `product-team/agile-product-owner/`
 
-**Status:** in_progress
+**Status:** done
 
 **What:** Add 4 reference files from 5 source skills (2 merge into 1). Update SKILL.md frontmatter.
 
@@ -255,7 +254,7 @@ skills/product-team/agile-product-owner/
 
 ### B05 — ADAPT `product-team/product-strategist/`
 
-**Status:** in_progress
+**Status:** done
 
 **What:** Add 3 reference files from 4 source skills (2 merge into 1). Update SKILL.md frontmatter.
 

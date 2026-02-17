@@ -9,24 +9,34 @@ subdomain: product-management
 
 # === WEBSITE DISPLAY ===
 difficulty: intermediate
-time-saved: "TODO: Quantify time savings"
-frequency: "TODO: Estimate usage frequency"
+time-saved: "~3-6 hours per strategy cycle through reusable planning frameworks and OKR scaffolds"
+frequency: "weekly for strategy tracking, monthly/quarterly for planning cycles"
 use-cases:
-  - Defining product roadmaps and feature prioritization
-  - Writing user stories and acceptance criteria
-  - Conducting competitive analysis and market research
-  - Stakeholder communication and alignment
+  - Running strategy sessions and documenting strategic decisions
+  - Building and cascading OKRs across company, product, and teams
+  - Creating now/next/later roadmaps aligned to strategic themes
+  - Defining positioning and differentiation for core markets
 
 # === RELATIONSHIPS ===
-related-agents: []
-related-skills: []
+related-agents:
+  - product-director
+  - product-manager
+related-skills:
+  - product-team/workshop-facilitation
+  - product-team/prioritization-frameworks
 related-commands: []
 orchestrated-by: []
 
 # === TECHNICAL ===
 dependencies:
   scripts: []
-  references: []
+  references:
+    - references/frameworks.md
+    - references/templates.md
+    - references/tools.md
+    - references/strategy-session-workflow.md
+    - references/roadmap-planning-guide.md
+    - references/positioning-framework.md
   assets: []
 compatibility:
   python-version: 3.8+
@@ -36,9 +46,9 @@ tech-stack: [Python 3.8+, CLI, JSON export, Alignment scoring]
 # === EXAMPLES ===
 examples:
   -
-    title: Example Usage
-    input: "TODO: Add example input for product-strategist"
-    output: "TODO: Add expected output"
+    title: Quarterly strategy alignment
+    input: "Need to align annual company priorities to Q2 product roadmap and team-level OKRs."
+    output: "Strategy session agenda, OKR cascade draft, and roadmap themes with ownership."
 
 # === ANALYTICS ===
 stats:
@@ -65,46 +75,50 @@ verified: true
 
 ## Overview
 
-This skill provides [TODO: Add 2-3 sentence overview].
+This skill provides a practical operating model for product strategy execution, from strategy sessions to roadmap alignment and positioning. It combines OKR tooling with reusable strategic frameworks so teams can move from abstract direction to measurable outcomes.
 
-**Core Value:** [TODO: Add value proposition with metrics]
+**Core Value:** Reduce strategy-to-execution drift by standardizing how teams frame priorities, map outcomes, and align roadmap decisions.
 
-**Target Audience:** [TODO: Define target users]
+**Target Audience:** Heads of Product, Group PMs, Product Directors, and PMs leading cross-functional planning.
 
-**Use Cases:** [TODO: List 3-5 primary use cases]
+**Use Cases:**
+- Facilitating strategic planning sessions with clear outputs and owners
+- Turning strategic priorities into OKR trees and quarterly themes
+- Building stakeholder-ready now/next/later roadmaps
+- Producing clear positioning statements and differentiation narratives
 
 
 ## Core Capabilities
 
-- **[Capability 1]** - [Description]
-- **[Capability 2]** - [Description]
-- **[Capability 3]** - [Description]
-- **[Capability 4]** - [Description]
+- **Strategy Session Facilitation** - Structured session flow from pre-work to decision log
+- **OKR Cascade Design** - Company-to-team objective alignment with measurable key results
+- **Roadmap Structuring** - Theme-based roadmap planning with capacity-aware sequencing
+- **Positioning Development** - Positioning template and workshop-driven differentiation
 
 
 ## Key Workflows
 
-### Workflow 1: [Workflow Name]
+### Workflow 1: Strategy Session to Execution Plan
 
-**Time:** [Duration estimate]
-
-**Steps:**
-1. [Step 1]
-2. [Step 2]
-3. [Step 3]
-
-**Expected Output:** [What success looks like]
-
-### Workflow 2: [Workflow Name]
-
-**Time:** [Duration estimate]
+**Time:** 2-4 hours workshop + 1-2 hours synthesis
 
 **Steps:**
-1. [Step 1]
-2. [Step 2]
-3. [Step 3]
+1. Run strategy session using the facilitation workflow
+2. Capture strategic pillars, assumptions, and risks
+3. Translate outputs into OKR themes and roadmap buckets
 
-**Expected Output:** [What success looks like]
+**Expected Output:** Prioritized strategic pillars, documented decisions, and a draft execution plan.
+
+### Workflow 2: Positioning and Roadmap Alignment
+
+**Time:** 1-2 days including stakeholder review
+
+**Steps:**
+1. Draft positioning statement and differentiation map
+2. Align roadmap initiatives to positioning claims
+3. Validate with leadership and revise messaging
+
+**Expected Output:** A coherent positioning narrative supported by roadmap commitments.
 
 
 Strategic toolkit for Head of Product to drive vision, alignment, and organizational excellence. This skill provides Python tools for OKR cascading, comprehensive frameworks for strategy development, and battle-tested templates for vision documents and strategic planning.
@@ -202,7 +216,7 @@ python scripts/okr_cascade_generator.py [growth|retention|revenue|innovation|ope
 
 **Detailed Frameworks:** See [frameworks.md](references/frameworks.md) for each strategy type, market analysis methods, and vision-setting.
 
-**Templates:** See [templates.md](references.md) for annual strategic plan and product vision document templates.
+**Templates:** See [templates.md](references/templates.md) for annual strategic plan and product vision document templates.
 
 ### 3. Team Scaling Process
 
@@ -356,6 +370,16 @@ Python tool documentation:
 - Integration Patterns: Dashboard, spreadsheet, Confluence, Slack
 - Customization Guide: Modifying templates and alignment weights
 - Troubleshooting: Common issues and solutions
+
+### Consolidated References
+
+The following references were added in I10-PMSI to strengthen facilitation, roadmap planning, and positioning execution:
+
+| Reference | Content | When to Load |
+|-----------|---------|--------------|
+| [Strategy Session Workflow](references/strategy-session-workflow.md) | Agenda, pre-work, facilitation sequence, and synthesis flow | Kicking off strategic planning or resetting direction |
+| [Roadmap Planning Guide](references/roadmap-planning-guide.md) | Now/next/later design, theme selection, and stakeholder communication patterns | Building or revising quarterly/annual roadmaps |
+| [Positioning Framework](references/positioning-framework.md) | Positioning statement templates and workshop patterns for differentiation | Clarifying market position before major roadmap or GTM decisions |
 
 ## Integration Points
 
