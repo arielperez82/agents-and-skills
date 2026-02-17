@@ -1,6 +1,6 @@
 import { join } from 'node:path';
 
-import { createSkill, createSkillVersion } from './api-client.js';
+import { createSkill, createSkillVersion, DuplicateTitleError, listSkills } from './api-client.js';
 import {
   getAllSkillDirs as defaultGetAllSkillDirs,
   getChangedSkillDirs as defaultGetChangedSkillDirs,
@@ -70,6 +70,66 @@ const defaultDeps: DeployDeps = {
   validateSkillName: defaultValidateSkillName,
 };
 
+type SkillDeployResult =
+  | { readonly kind: 'created'; readonly skillId: string }
+  | { readonly kind: 'versioned'; readonly skillId: string; readonly version: string };
+
+const recoverFromDuplicateTitle = async (options: {
+  readonly displayTitle: string;
+  readonly skillPath: string;
+  readonly zipBuffer: Buffer;
+  readonly apiKey: string;
+  readonly baseUrl?: string;
+}): Promise<{ readonly skillId: string; readonly version: string }> => {
+  const { displayTitle, skillPath, zipBuffer, apiKey, baseUrl } = options;
+
+  const skills = await listSkills({ apiKey, baseUrl });
+  const existing = skills.find((s) => s.display_title === displayTitle);
+
+  if (existing === undefined) {
+    throw new Error(
+      `Skill with display_title "${displayTitle}" reported as duplicate but not found via API (skill path: ${skillPath})`,
+    );
+  }
+
+  const versionResponse = await createSkillVersion({
+    skillId: existing.id,
+    zipBuffer,
+    apiKey,
+    baseUrl,
+  });
+
+  return { skillId: existing.id, version: versionResponse.version };
+};
+
+const createOrRecoverSkill = async (options: {
+  readonly displayTitle: string;
+  readonly skillPath: string;
+  readonly zipBuffer: Buffer;
+  readonly apiKey: string;
+  readonly baseUrl?: string;
+}): Promise<SkillDeployResult> => {
+  const { displayTitle, skillPath, zipBuffer, apiKey, baseUrl } = options;
+
+  try {
+    const response = await createSkill({ displayTitle, zipBuffer, apiKey, baseUrl });
+    return { kind: 'created', skillId: response.id };
+  } catch (error) {
+    if (!(error instanceof DuplicateTitleError)) {
+      throw error;
+    }
+
+    const recovered = await recoverFromDuplicateTitle({
+      displayTitle,
+      skillPath,
+      zipBuffer,
+      apiKey,
+      baseUrl,
+    });
+    return { kind: 'versioned', skillId: recovered.skillId, version: recovered.version };
+  }
+};
+
 const deployChangedSkills = async (options: DeployOptions): Promise<DeploySummary> => {
   const { rootDir, manifestPath, apiKey, ref, baseUrl, deps: depsOverrides } = options;
   const deps = { ...defaultDeps, ...depsOverrides };
@@ -92,6 +152,7 @@ const deployChangedSkills = async (options: DeployOptions): Promise<DeploySummar
   const created: CreatedEntry[] = [];
   const versioned: VersionedEntry[] = [];
   const skipped: SkippedEntry[] = [];
+  let manifestUpdated = false;
 
   for (const skillPath of dirsToProcess) {
     const skillMdPath = join(rootDir, skillPath, 'SKILL.md');
@@ -125,18 +186,26 @@ const deployChangedSkills = async (options: DeployOptions): Promise<DeploySummar
       });
       versioned.push({ skillPath, version: response.version });
     } else {
-      const response = await createSkill({
+      const result = await createOrRecoverSkill({
         displayTitle,
+        skillPath,
         zipBuffer,
         apiKey,
         baseUrl,
       });
-      created.push({ skillPath, skillId: response.id });
-      manifest = setSkillId(manifest, skillPath, response.id);
+
+      if (result.kind === 'created') {
+        created.push({ skillPath, skillId: result.skillId });
+      } else {
+        versioned.push({ skillPath, version: result.version });
+      }
+
+      manifest = setSkillId(manifest, skillPath, result.skillId);
+      manifestUpdated = true;
     }
   }
 
-  if (created.length > 0) {
+  if (created.length > 0 || manifestUpdated) {
     await deps.writeManifest(manifestPath, manifest);
   }
 
