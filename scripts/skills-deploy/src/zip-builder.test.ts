@@ -201,4 +201,105 @@ describe('buildSkillZip', () => {
 
     expect(extracted).toBe(skillContent);
   });
+
+  it('strips extra frontmatter fields from SKILL.md keeping only name and description', async () => {
+    const skillContent = [
+      '---',
+      'name: my-skill',
+      'description: A test skill',
+      'allowed-tools:',
+      '  - Read',
+      '  - Write',
+      'version: 1.0.0',
+      'license: MIT',
+      '---',
+      '',
+      '# My Skill',
+      '',
+      'Content here.',
+    ].join('\n');
+
+    const { skillDir, rootDir } = await createTempSkillDir([
+      { path: 'SKILL.md', content: skillContent },
+    ]);
+    tempDirs.push(rootDir);
+
+    const result = await buildSkillZip({ skillDir, rootDir });
+
+    const tempZipDir = await mkdtemp(join(tmpdir(), 'zip-extract-'));
+    tempDirs.push(tempZipDir);
+    const tempZip = join(tempZipDir, 'test.zip');
+    await writeFile(tempZip, result);
+
+    await execFileAsync('unzip', ['-o', tempZip, '-d', tempZipDir]);
+
+    const { readFile } = await import('node:fs/promises');
+    const extracted = await readFile(join(tempZipDir, 'tdd', 'SKILL.md'), 'utf-8');
+
+    const expected = [
+      '---',
+      'name: my-skill',
+      'description: A test skill',
+      '---',
+      '',
+      '# My Skill',
+      '',
+      'Content here.',
+    ].join('\n');
+
+    expect(extracted).toBe(expected);
+  });
+
+  it('preserves SKILL.md with only name and description unchanged', async () => {
+    const skillContent = [
+      '---',
+      'name: simple-skill',
+      'description: Just name and description',
+      '---',
+      '',
+      '# Simple',
+    ].join('\n');
+
+    const { skillDir, rootDir } = await createTempSkillDir([
+      { path: 'SKILL.md', content: skillContent },
+    ]);
+    tempDirs.push(rootDir);
+
+    const result = await buildSkillZip({ skillDir, rootDir });
+
+    const tempZipDir = await mkdtemp(join(tmpdir(), 'zip-extract-'));
+    tempDirs.push(tempZipDir);
+    const tempZip = join(tempZipDir, 'test.zip');
+    await writeFile(tempZip, result);
+
+    await execFileAsync('unzip', ['-o', tempZip, '-d', tempZipDir]);
+
+    const { readFile } = await import('node:fs/promises');
+    const extracted = await readFile(join(tempZipDir, 'tdd', 'SKILL.md'), 'utf-8');
+
+    expect(extracted).toBe(skillContent);
+  });
+
+  it('preserves SKILL.md with no frontmatter unchanged', async () => {
+    const skillContent = '# No Frontmatter\n\nJust content.';
+
+    const { skillDir, rootDir } = await createTempSkillDir([
+      { path: 'SKILL.md', content: skillContent },
+    ]);
+    tempDirs.push(rootDir);
+
+    const result = await buildSkillZip({ skillDir, rootDir });
+
+    const tempZipDir = await mkdtemp(join(tmpdir(), 'zip-extract-'));
+    tempDirs.push(tempZipDir);
+    const tempZip = join(tempZipDir, 'test.zip');
+    await writeFile(tempZip, result);
+
+    await execFileAsync('unzip', ['-o', tempZip, '-d', tempZipDir]);
+
+    const { readFile } = await import('node:fs/promises');
+    const extracted = await readFile(join(tempZipDir, 'tdd', 'SKILL.md'), 'utf-8');
+
+    expect(extracted).toBe(skillContent);
+  });
 });
