@@ -22,6 +22,8 @@ afterAll(() => {
 const createMockDeps = (overrides: Partial<DeployDeps> = {}): DeployDeps => ({
   getChangedSkillDirs:
     overrides.getChangedSkillDirs ?? vi.fn<() => Promise<string[]>>().mockResolvedValue([]),
+  getAllSkillDirs:
+    overrides.getAllSkillDirs ?? vi.fn<() => Promise<string[]>>().mockResolvedValue([]),
   buildSkillZip:
     overrides.buildSkillZip ??
     vi.fn<() => Promise<Buffer>>().mockResolvedValue(Buffer.from('fake-zip')),
@@ -248,5 +250,106 @@ describe('deployChangedSkills', () => {
     expect(result.created).toHaveLength(1);
     expect(result.versioned).toHaveLength(1);
     expect(result.skipped).toHaveLength(1);
+  });
+
+  it('deploys undeployed skills even when no files changed in git diff', async () => {
+    server.use(
+      http.post(`${API_BASE}/v1/skills`, () =>
+        HttpResponse.json({
+          id: 'skill_01new',
+          created_at: '2026-02-17T00:00:00Z',
+          display_title: 'tdd',
+          latest_version: '1234567890',
+          source: 'custom',
+          type: 'skill',
+          updated_at: '2026-02-17T00:00:00Z',
+        }),
+      ),
+    );
+
+    const deps = createMockDeps({
+      getChangedSkillDirs: vi.fn<() => Promise<string[]>>().mockResolvedValue([]),
+      getAllSkillDirs: vi
+        .fn<() => Promise<string[]>>()
+        .mockResolvedValue(['skills/engineering-team/tdd']),
+      readManifest: vi.fn<() => Promise<SkillManifest>>().mockResolvedValue({ skills: {} }),
+      parseSkillFrontmatter: vi
+        .fn<() => Promise<{ name: string; description: string } | undefined>>()
+        .mockResolvedValue({ name: 'tdd', description: 'TDD skill' }),
+    });
+
+    const result = await deployChangedSkills({
+      rootDir: '/repo',
+      manifestPath: '/repo/manifest.json',
+      apiKey: 'test-key',
+      deps,
+    });
+
+    expect(result.created).toEqual([
+      { skillPath: 'skills/engineering-team/tdd', skillId: 'skill_01new' },
+    ]);
+  });
+
+  it('does not duplicate skills that are both changed and undeployed', async () => {
+    server.use(
+      http.post(`${API_BASE}/v1/skills`, () =>
+        HttpResponse.json({
+          id: 'skill_01new',
+          created_at: '2026-02-17T00:00:00Z',
+          display_title: 'tdd',
+          latest_version: '1234567890',
+          source: 'custom',
+          type: 'skill',
+          updated_at: '2026-02-17T00:00:00Z',
+        }),
+      ),
+    );
+
+    const deps = createMockDeps({
+      getChangedSkillDirs: vi
+        .fn<() => Promise<string[]>>()
+        .mockResolvedValue(['skills/engineering-team/tdd']),
+      getAllSkillDirs: vi
+        .fn<() => Promise<string[]>>()
+        .mockResolvedValue(['skills/engineering-team/tdd']),
+      readManifest: vi.fn<() => Promise<SkillManifest>>().mockResolvedValue({ skills: {} }),
+      parseSkillFrontmatter: vi
+        .fn<() => Promise<{ name: string; description: string } | undefined>>()
+        .mockResolvedValue({ name: 'tdd', description: 'TDD skill' }),
+    });
+
+    const result = await deployChangedSkills({
+      rootDir: '/repo',
+      manifestPath: '/repo/manifest.json',
+      apiKey: 'test-key',
+      deps,
+    });
+
+    expect(result.created).toHaveLength(1);
+  });
+
+  it('skips already-deployed skills that did not change', async () => {
+    const deps = createMockDeps({
+      getChangedSkillDirs: vi.fn<() => Promise<string[]>>().mockResolvedValue([]),
+      getAllSkillDirs: vi
+        .fn<() => Promise<string[]>>()
+        .mockResolvedValue(['skills/engineering-team/tdd']),
+      readManifest: vi.fn<() => Promise<SkillManifest>>().mockResolvedValue({
+        skills: {
+          'skills/engineering-team/tdd': { skill_id: 'skill_01existing' },
+        },
+      }),
+    });
+
+    const result = await deployChangedSkills({
+      rootDir: '/repo',
+      manifestPath: '/repo/manifest.json',
+      apiKey: 'test-key',
+      deps,
+    });
+
+    expect(result.created).toEqual([]);
+    expect(result.versioned).toEqual([]);
+    expect(result.skipped).toEqual([]);
   });
 });

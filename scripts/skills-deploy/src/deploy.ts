@@ -1,7 +1,10 @@
 import { join } from 'node:path';
 
 import { createSkill, createSkillVersion } from './api-client.js';
-import { getChangedSkillDirs as defaultGetChangedSkillDirs } from './change-detection.js';
+import {
+  getAllSkillDirs as defaultGetAllSkillDirs,
+  getChangedSkillDirs as defaultGetChangedSkillDirs,
+} from './change-detection.js';
 import type { FrontmatterResult } from './frontmatter.js';
 import {
   deriveDisplayTitle,
@@ -19,6 +22,7 @@ import { buildSkillZip as defaultBuildSkillZip } from './zip-builder.js';
 
 type DeployDeps = {
   readonly getChangedSkillDirs: (options: { rootDir: string; ref?: string }) => Promise<string[]>;
+  readonly getAllSkillDirs: (options: { rootDir: string }) => Promise<string[]>;
   readonly buildSkillZip: (options: { skillDir: string; rootDir: string }) => Promise<Buffer>;
   readonly readManifest: (path: string) => Promise<SkillManifest>;
   readonly writeManifest: (path: string, manifest: SkillManifest) => Promise<void>;
@@ -58,6 +62,7 @@ type DeploySummary = {
 
 const defaultDeps: DeployDeps = {
   getChangedSkillDirs: (options) => defaultGetChangedSkillDirs(options),
+  getAllSkillDirs: (options) => defaultGetAllSkillDirs(options),
   buildSkillZip: (options) => defaultBuildSkillZip(options),
   readManifest: defaultReadManifest,
   writeManifest: defaultWriteManifest,
@@ -71,16 +76,24 @@ const deployChangedSkills = async (options: DeployOptions): Promise<DeploySummar
 
   const changedDirs = await deps.getChangedSkillDirs({ rootDir, ref });
 
-  if (changedDirs.length === 0) {
+  let manifest = await deps.readManifest(manifestPath);
+
+  const allDirs = await deps.getAllSkillDirs({ rootDir });
+  const undeployedDirs = allDirs.filter((dir) => getSkillId(manifest, dir) === undefined);
+
+  const dirsToProcess = [...new Set([...changedDirs, ...undeployedDirs])].sort((a, b) =>
+    a.localeCompare(b),
+  );
+
+  if (dirsToProcess.length === 0) {
     return { created: [], versioned: [], skipped: [] };
   }
 
-  let manifest = await deps.readManifest(manifestPath);
   const created: CreatedEntry[] = [];
   const versioned: VersionedEntry[] = [];
   const skipped: SkippedEntry[] = [];
 
-  for (const skillPath of changedDirs) {
+  for (const skillPath of dirsToProcess) {
     const skillMdPath = join(rootDir, skillPath, 'SKILL.md');
     const frontmatter = await deps.parseSkillFrontmatter(skillMdPath);
 

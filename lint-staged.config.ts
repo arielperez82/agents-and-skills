@@ -10,9 +10,9 @@ export default {
       ? [`sh telemetry/scripts/run-actionlint.sh ${stagedFiles.join(' ')}`]
       : [],
   'scripts/skills-deploy/**/*.ts': () => [
-    'cd scripts/skills-deploy && pnpm type-check',
-    'cd scripts/skills-deploy && pnpm lint:fix',
-    'cd scripts/skills-deploy && pnpm format:fix .',
-    'cd scripts/skills-deploy && pnpm test:unit',
+    'bash -c "cd scripts/skills-deploy && pnpm type-check"',
+    'bash -c "cd scripts/skills-deploy && pnpm lint:fix"',
+    'bash -c "cd scripts/skills-deploy && pnpm format:fix ."',
+    'bash -c "cd scripts/skills-deploy && pnpm test:unit"',
   ],
 };
