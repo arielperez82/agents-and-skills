@@ -1,3 +1,8 @@
 packages:
-  - "telemetry"
-  - "scripts/skills-deploy"
+  - telemetry
+  - scripts/skills-deploy
+
+onlyBuiltDependencies:
+  - esbuild
+  - msw
+  - unrs-resolver

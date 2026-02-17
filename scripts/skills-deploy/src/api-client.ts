@@ -3,6 +3,7 @@ const BETA_HEADER = 'skills-2025-10-02';
 const API_VERSION = '2023-06-01';
 
 const DUPLICATE_TITLE_PATTERN = /Skill cannot reuse an existing display_title/;
+const MALFORMED_FRONTMATTER_PATTERN = /malformed YAML frontmatter/;
 
 class DuplicateTitleError extends Error {
   readonly displayTitle: string;
@@ -11,6 +12,13 @@ class DuplicateTitleError extends Error {
     super(`Skill already exists with display_title: ${displayTitle}`);
     this.name = 'DuplicateTitleError';
     this.displayTitle = displayTitle;
+  }
+}
+
+class MalformedFrontmatterError extends Error {
+  constructor() {
+    super('API rejected: malformed YAML frontmatter');
+    this.name = 'MalformedFrontmatterError';
   }
 }
 
@@ -76,6 +84,9 @@ const buildFormData = (zipBuffer: Buffer, displayTitle?: string): FormData => {
 const assertOk = async (response: Response): Promise<void> => {
   if (!response.ok) {
     const body = await response.text().catch(() => '');
+    if (MALFORMED_FRONTMATTER_PATTERN.test(body)) {
+      throw new MalformedFrontmatterError();
+    }
     throw new Error(`API request failed with status ${String(response.status)}: ${body}`);
   }
 };
@@ -94,6 +105,9 @@ const createSkill = async (options: CreateSkillOptions): Promise<CreateSkillResp
     const body = await response.text().catch(() => '');
     if (DUPLICATE_TITLE_PATTERN.test(body)) {
       throw new DuplicateTitleError(displayTitle);
+    }
+    if (MALFORMED_FRONTMATTER_PATTERN.test(body)) {
+      throw new MalformedFrontmatterError();
     }
     throw new Error(`API request failed with status ${String(response.status)}: ${body}`);
   }
@@ -131,7 +145,13 @@ const listSkills = async (options: ListSkillsOptions): Promise<readonly CreateSk
   return body.data;
 };
 
-export { createSkill, createSkillVersion, DuplicateTitleError, listSkills };
+export {
+  createSkill,
+  createSkillVersion,
+  DuplicateTitleError,
+  listSkills,
+  MalformedFrontmatterError,
+};
 export type {
   CreateSkillOptions,
   CreateSkillResponse,

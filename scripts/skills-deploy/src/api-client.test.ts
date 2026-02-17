@@ -2,7 +2,13 @@ import { http, HttpResponse } from 'msw';
 import { setupServer } from 'msw/node';
 import { afterAll, afterEach, beforeAll, describe, expect, it } from 'vitest';
 
-import { createSkill, createSkillVersion, DuplicateTitleError, listSkills } from './api-client.js';
+import {
+  createSkill,
+  createSkillVersion,
+  DuplicateTitleError,
+  listSkills,
+  MalformedFrontmatterError,
+} from './api-client.js';
 
 const API_BASE = 'https://api.anthropic.com';
 
@@ -175,6 +181,31 @@ describe('createSkill', () => {
     }
   });
 
+  it('throws MalformedFrontmatterError when API returns malformed YAML frontmatter error', async () => {
+    server.use(
+      http.post(`${API_BASE}/v1/skills`, () =>
+        HttpResponse.json(
+          {
+            type: 'error',
+            error: {
+              type: 'invalid_request_error',
+              message: 'malformed YAML frontmatter in SKILL.md',
+            },
+          },
+          { status: 400 },
+        ),
+      ),
+    );
+
+    await expect(
+      createSkill({
+        displayTitle: 'bad-skill',
+        zipBuffer: Buffer.from('fake-zip'),
+        apiKey: 'test-key',
+      }),
+    ).rejects.toThrow(MalformedFrontmatterError);
+  });
+
   it('uses custom baseUrl when provided', async () => {
     const customBase = 'https://custom.api.example.com';
     let capturedUrl = '';
@@ -302,6 +333,31 @@ describe('createSkillVersion', () => {
         apiKey: 'test-key',
       }),
     ).rejects.toThrow('404');
+  });
+
+  it('throws MalformedFrontmatterError when API returns malformed YAML frontmatter error', async () => {
+    server.use(
+      http.post(`${API_BASE}/v1/skills/:skillId/versions`, () =>
+        HttpResponse.json(
+          {
+            type: 'error',
+            error: {
+              type: 'invalid_request_error',
+              message: 'malformed YAML frontmatter in SKILL.md',
+            },
+          },
+          { status: 400 },
+        ),
+      ),
+    );
+
+    await expect(
+      createSkillVersion({
+        skillId: 'skill_01abc',
+        zipBuffer: Buffer.from('fake-zip'),
+        apiKey: 'test-key',
+      }),
+    ).rejects.toThrow(MalformedFrontmatterError);
   });
 });
 

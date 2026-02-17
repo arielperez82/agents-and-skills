@@ -1,0 +1,47 @@
+import { createTelemetryClient, type TelemetryClient } from '@/client';
+
+export const readStdin = (): Promise<string> =>
+  new Promise((resolve) => {
+    let data = '';
+    process.stdin.setEncoding('utf-8');
+    process.stdin.on('data', (chunk: string) => {
+      data += chunk;
+    });
+    process.stdin.on('end', () => {
+      resolve(data);
+    });
+  });
+
+export const createClientFromEnv = (): TelemetryClient | null => {
+  const ingestToken = process.env['TB_INGEST_TOKEN'] ?? '';
+  const readToken = process.env['TB_READ_TOKEN'] ?? '';
+  const baseUrl = process.env['TB_HOST'] ?? '';
+
+  if (!ingestToken || !readToken || !baseUrl) {
+    return null;
+  }
+
+  return createTelemetryClient({ baseUrl, ingestToken, readToken });
+};
+
+export const logHealthEvent = async (
+  client: TelemetryClient,
+  hookName: string,
+  exitCode: number,
+  durationMs: number,
+  errorMessage: string | null,
+  tinybirdStatusCode: number | null
+): Promise<void> => {
+  try {
+    await client.ingest.telemetryHealth({
+      timestamp: new Date(),
+      hook_name: hookName,
+      exit_code: exitCode,
+      duration_ms: durationMs,
+      error_message: errorMessage,
+      tinybird_status_code: tinybirdStatusCode,
+    });
+  } catch {
+    // Silent failure — we can't log health errors about health logging
+  }
+};

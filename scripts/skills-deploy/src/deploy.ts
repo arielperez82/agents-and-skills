@@ -1,6 +1,12 @@
 import { join } from 'node:path';
 
-import { createSkill, createSkillVersion, DuplicateTitleError, listSkills } from './api-client.js';
+import {
+  createSkill,
+  createSkillVersion,
+  DuplicateTitleError,
+  listSkills,
+  MalformedFrontmatterError,
+} from './api-client.js';
 import {
   getAllSkillDirs as defaultGetAllSkillDirs,
   getChangedSkillDirs as defaultGetChangedSkillDirs,
@@ -177,31 +183,39 @@ const deployChangedSkills = async (options: DeployOptions): Promise<DeploySummar
     const displayTitle = deriveDisplayTitle(skillPath, frontmatter);
     const existingId = getSkillId(manifest, skillPath);
 
-    if (existingId !== undefined) {
-      const response = await createSkillVersion({
-        skillId: existingId,
-        zipBuffer,
-        apiKey,
-        baseUrl,
-      });
-      versioned.push({ skillPath, version: response.version });
-    } else {
-      const result = await createOrRecoverSkill({
-        displayTitle,
-        skillPath,
-        zipBuffer,
-        apiKey,
-        baseUrl,
-      });
-
-      if (result.kind === 'created') {
-        created.push({ skillPath, skillId: result.skillId });
+    try {
+      if (existingId !== undefined) {
+        const response = await createSkillVersion({
+          skillId: existingId,
+          zipBuffer,
+          apiKey,
+          baseUrl,
+        });
+        versioned.push({ skillPath, version: response.version });
       } else {
-        versioned.push({ skillPath, version: result.version });
-      }
+        const result = await createOrRecoverSkill({
+          displayTitle,
+          skillPath,
+          zipBuffer,
+          apiKey,
+          baseUrl,
+        });
 
-      manifest = setSkillId(manifest, skillPath, result.skillId);
-      manifestUpdated = true;
+        if (result.kind === 'created') {
+          created.push({ skillPath, skillId: result.skillId });
+        } else {
+          versioned.push({ skillPath, version: result.version });
+        }
+
+        manifest = setSkillId(manifest, skillPath, result.skillId);
+        manifestUpdated = true;
+      }
+    } catch (error) {
+      if (error instanceof MalformedFrontmatterError) {
+        skipped.push({ skillPath, reason: 'API rejected: malformed YAML frontmatter' });
+        continue;
+      }
+      throw error;
     }
   }
 

@@ -14,7 +14,6 @@ const RESERVED_NAMES: ReadonlyArray<string> = ['anthropic', 'claude'];
 
 const NAME_PATTERN = /^[a-z0-9-]+$/;
 
-// eslint-disable-next-line sonarjs/slow-regex -- simple tag detection on short user input
 const XML_TAG_PATTERN = /<[^>]+>/;
 
 const parseSkillFrontmatter = async (
