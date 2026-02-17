@@ -2,6 +2,18 @@ const DEFAULT_BASE_URL = 'https://api.anthropic.com';
 const BETA_HEADER = 'skills-2025-10-02';
 const API_VERSION = '2023-06-01';
 
+const DUPLICATE_TITLE_PATTERN = /Skill cannot reuse an existing display_title/;
+
+class DuplicateTitleError extends Error {
+  readonly displayTitle: string;
+
+  constructor(displayTitle: string) {
+    super(`Skill already exists with display_title: ${displayTitle}`);
+    this.name = 'DuplicateTitleError';
+    this.displayTitle = displayTitle;
+  }
+}
+
 type CreateSkillOptions = {
   readonly displayTitle: string;
   readonly zipBuffer: Buffer;
@@ -35,6 +47,11 @@ type CreateSkillVersionResponse = {
   readonly skill_id: string;
   readonly type: string;
   readonly version: string;
+};
+
+type ListSkillsOptions = {
+  readonly apiKey: string;
+  readonly baseUrl?: string;
 };
 
 const buildHeaders = (apiKey: string): Record<string, string> => ({
@@ -73,7 +90,14 @@ const createSkill = async (options: CreateSkillOptions): Promise<CreateSkillResp
     body: buildFormData(zipBuffer, displayTitle),
   });
 
-  await assertOk(response);
+  if (!response.ok) {
+    const body = await response.text().catch(() => '');
+    if (DUPLICATE_TITLE_PATTERN.test(body)) {
+      throw new DuplicateTitleError(displayTitle);
+    }
+    throw new Error(`API request failed with status ${String(response.status)}: ${body}`);
+  }
+
   return (await response.json()) as CreateSkillResponse;
 };
 
@@ -93,10 +117,25 @@ const createSkillVersion = async (
   return (await response.json()) as CreateSkillVersionResponse;
 };
 
-export { createSkill, createSkillVersion };
+const listSkills = async (options: ListSkillsOptions): Promise<readonly CreateSkillResponse[]> => {
+  const { apiKey, baseUrl = DEFAULT_BASE_URL } = options;
+  const url = `${baseUrl}/v1/skills`;
+
+  const response = await fetch(url, {
+    method: 'GET',
+    headers: buildHeaders(apiKey),
+  });
+
+  await assertOk(response);
+  const body = (await response.json()) as { readonly data: readonly CreateSkillResponse[] };
+  return body.data;
+};
+
+export { createSkill, createSkillVersion, DuplicateTitleError, listSkills };
 export type {
   CreateSkillOptions,
   CreateSkillResponse,
   CreateSkillVersionOptions,
   CreateSkillVersionResponse,
+  ListSkillsOptions,
 };

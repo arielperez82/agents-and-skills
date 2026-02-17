@@ -328,6 +328,114 @@ describe('deployChangedSkills', () => {
     expect(result.created).toHaveLength(1);
   });
 
+  it('recovers from duplicate title by listing skills and creating version', async () => {
+    let createCallCount = 0;
+
+    server.use(
+      http.post(`${API_BASE}/v1/skills`, () => {
+        createCallCount++;
+        return HttpResponse.json(
+          {
+            type: 'error',
+            error: {
+              type: 'invalid_request_error',
+              message: 'Skill cannot reuse an existing display_title: agent-browser',
+            },
+          },
+          { status: 400 },
+        );
+      }),
+      http.get(`${API_BASE}/v1/skills`, () =>
+        HttpResponse.json({
+          data: [
+            {
+              id: 'skill_01existing',
+              created_at: '2026-02-17T00:00:00Z',
+              display_title: 'agent-browser',
+              latest_version: '1234567890',
+              source: 'custom',
+              type: 'skill',
+              updated_at: '2026-02-17T00:00:00Z',
+            },
+          ],
+        }),
+      ),
+      http.post(`${API_BASE}/v1/skills/:skillId/versions`, () =>
+        HttpResponse.json({
+          id: 'sv_01abc',
+          created_at: '2026-02-17T00:00:00Z',
+          description: 'Agent browser skill',
+          directory: 'agent-browser',
+          name: 'agent-browser',
+          skill_id: 'skill_01existing',
+          type: 'skill_version',
+          version: '9999999999',
+        }),
+      ),
+    );
+
+    const deps = createMockDeps({
+      getChangedSkillDirs: vi
+        .fn<() => Promise<string[]>>()
+        .mockResolvedValue(['skills/agent-browser']),
+      readManifest: vi.fn<() => Promise<SkillManifest>>().mockResolvedValue({ skills: {} }),
+      parseSkillFrontmatter: vi
+        .fn<() => Promise<{ name: string; description: string } | undefined>>()
+        .mockResolvedValue({ name: 'agent-browser', description: 'Agent browser' }),
+    });
+
+    const result = await deployChangedSkills({
+      rootDir: '/repo',
+      manifestPath: '/repo/manifest.json',
+      apiKey: 'test-key',
+      deps,
+    });
+
+    expect(createCallCount).toBe(1);
+    expect(result.versioned).toEqual([
+      { skillPath: 'skills/agent-browser', version: '9999999999' },
+    ]);
+    expect(result.created).toEqual([]);
+    expect(deps.writeManifest).toHaveBeenCalled();
+  });
+
+  it('throws when duplicate title skill not found in listSkills response', async () => {
+    server.use(
+      http.post(`${API_BASE}/v1/skills`, () =>
+        HttpResponse.json(
+          {
+            type: 'error',
+            error: {
+              type: 'invalid_request_error',
+              message: 'Skill cannot reuse an existing display_title: ghost-skill',
+            },
+          },
+          { status: 400 },
+        ),
+      ),
+      http.get(`${API_BASE}/v1/skills`, () => HttpResponse.json({ data: [] })),
+    );
+
+    const deps = createMockDeps({
+      getChangedSkillDirs: vi
+        .fn<() => Promise<string[]>>()
+        .mockResolvedValue(['skills/ghost-skill']),
+      readManifest: vi.fn<() => Promise<SkillManifest>>().mockResolvedValue({ skills: {} }),
+      parseSkillFrontmatter: vi
+        .fn<() => Promise<{ name: string; description: string } | undefined>>()
+        .mockResolvedValue({ name: 'ghost-skill', description: 'Ghost' }),
+    });
+
+    await expect(
+      deployChangedSkills({
+        rootDir: '/repo',
+        manifestPath: '/repo/manifest.json',
+        apiKey: 'test-key',
+        deps,
+      }),
+    ).rejects.toThrow('ghost-skill');
+  });
+
   it('skips already-deployed skills that did not change', async () => {
     const deps = createMockDeps({
       getChangedSkillDirs: vi.fn<() => Promise<string[]>>().mockResolvedValue([]),
