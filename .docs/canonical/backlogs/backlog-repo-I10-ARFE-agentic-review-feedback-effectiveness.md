@@ -3,7 +3,7 @@ type: backlog
 endeavor: repo
 initiative: I10-ARFE
 initiative_name: agentic-review-feedback-effectiveness
-status: done
+status: in_progress
 updated: 2026-02-17
 ---
 
@@ -25,7 +25,7 @@ Full ID prefix for this initiative: **I10-ARFE**. In-doc shorthand: B1, B2, ... 
 | B6 | Update `agents/code-reviewer.md` — add tiered output format with mapping rules. Quality violations (broken patterns, missing error handling) → Fix required; best-practice deviations, naming improvements → Suggestion; style preferences, minor optimizations → Observation. Reference B1 spec | 1 | Code review feedback classified by urgency, most impactful findings surface first | done |
 | B7 | Update `agents/cognitive-load-assessor.md` — add tiered output format. Map per-dimension scores: dimensions exceeding critical threshold → Fix required, dimensions exceeding warning threshold → Suggestion, overall score report and passing dimensions → Observation. Reference B1 spec | 1 | Cognitive load scores become actionable with tier-based recommendations | done |
 | B8 | Update `commands/review/review-changes.md` — add collated tier summary to the Summarize step. Group findings by tier across all 6 agents, show Fix required first, then Suggestion, then Observation. Include count per tier and per agent | 1 | Developer sees most critical findings first; single view across all agents | done |
-| B9 | Validation run — execute `/review/review-changes` on a sample diff, verify all 6 agents produce tiered output matching B1 spec, verify command produces collated summary with correct grouping. Document any calibration adjustments needed | 1 | End-to-end validation that tiered output works across the full review pipeline | done |
+| B9 | Validation run — execute `/review/review-changes` on a sample diff, verify all 6 agents produce tiered output matching B1 spec, verify command produces collated summary with correct grouping. Document any calibration adjustments needed | 1 | End-to-end validation that tiered output works across the full review pipeline | in_progress |
 | B10 | Create review effectiveness tracking reference doc at `skills/engineering-team/planning/references/review-effectiveness-tracking.md`. Define: override log format (finding ID, agent, tier, override reason, outcome), false positive log format (finding ID, agent, why false positive), effectiveness summary template (per-agent signal-to-noise ratio, override rate, false positive rate), calibration process (quarterly review of override patterns to adjust tier mappings) | 2 | Foundation for tracking whether review agents produce useful signals vs noise | done |
 | B11 | Update `agents/learner.md` — add review-effectiveness as a knowledge domain. Learner captures override reasons when developers disagree with findings, tracks false positive patterns per agent, and produces periodic effectiveness summaries. Reference tracking doc from B10 | 2 | Learner becomes the system of record for review signal quality | done |
 | B12 | Update `commands/review/review-changes.md` — add override capture prompt to the Summarize step. When developer marks a finding as not applicable or disagrees, prompt to log the reason (agent name, finding tier, override rationale) via learner agent. Override data feeds into effectiveness tracking from B10 | 2 | Closes the feedback loop — override reasons flow back to improve future reviews | done |

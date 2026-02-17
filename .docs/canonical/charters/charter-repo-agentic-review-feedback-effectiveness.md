@@ -3,7 +3,7 @@ type: charter
 endeavor: repo
 initiative: I10-ARFE
 initiative_name: agentic-review-feedback-effectiveness
-status: done
+status: in_progress
 updated: 2026-02-17
 ---
 

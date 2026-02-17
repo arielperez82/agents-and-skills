@@ -6,7 +6,7 @@ initiative_name: agentic-review-feedback-effectiveness
 lead: engineering
 collaborators:
   - product
-status: done
+status: in_progress
 updated: 2026-02-17
 ---
 
