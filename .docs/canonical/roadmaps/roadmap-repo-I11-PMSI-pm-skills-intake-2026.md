@@ -6,7 +6,7 @@ initiative_name: pm-skills-intake
 lead: product
 collaborators:
   - engineering
-status: in_progress
+status: complete
 updated: 2026-02-17
 ---
 

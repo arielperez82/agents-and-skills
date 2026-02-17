@@ -3,7 +3,7 @@ type: backlog
 endeavor: repo
 initiative: I11-PMSI
 initiative_name: pm-skills-intake
-status: in_progress
+status: complete
 updated: 2026-02-17
 ---
 
@@ -25,8 +25,8 @@ Full ID prefix: **I11-PMSI**.
 | B06 | Adapt `skills/product-team/product-manager-toolkit/` with new intake references | 2 | Broadens PM execution toolkit depth | done |
 | B07 | Adapt `skills/product-team/competitive-analysis/` with new intake references | 2 | Strengthens strategic market analysis content | done |
 | B08 | Adapt `skills/product-team/prioritization-frameworks/` with selection guide reference | 2 | Improves framework selection guidance | done |
-| B09 | Update `skills/product-team/CLAUDE.md` with new skills and workflow mappings | 3 | Maintains product-team onboarding and navigation | not_started |
-| B10 | Update `skills/README.md` product-team section for added skills | 3 | Maintains global catalog accuracy | not_started |
+| B09 | Update `skills/product-team/CLAUDE.md` with new skills and workflow mappings | 3 | Maintains product-team onboarding and navigation | done |
+| B10 | Update `skills/README.md` product-team section for added skills | 3 | Maintains global catalog accuracy | done |
 
 ## Parallelization strategy
 

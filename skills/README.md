@@ -216,11 +216,14 @@ Role and specialist skills (same folder):
 
 | Skill | When to Use | What It Provides |
 |-------|-------------|------------------|
+| **saas-finance** | SaaS metrics, pricing, business health | Finance metrics quickref, pricing/adoption advisors, business health diagnostic |
+| **continuous-discovery** | Discovery workflow | Problem hypothesis → customer interviews → synthesis → experimentation (6-phase cycle) |
+| **workshop-facilitation** | Facilitating workshops | One-step flow, progress labels, numbered recommendations, quick-select options |
 | **product-strategist** | Product strategy | OKRs, market analysis, vision |
-| **product-manager-toolkit** | Product management | RICE, PRDs, discovery, GTM |
-| **agile-product-owner** | Product ownership | User stories, backlog, agile |
-| **prioritization-frameworks** | Cross-type prioritization | Portfolio allocation, NPV, debt severity, CLV-at-risk, Kano |
-| **competitive-analysis** | Competitive analysis | Skills, agents, features vs competitors |
+| **product-manager-toolkit** | Product management | RICE, PRDs, discovery, GTM, PRD guide (intake refs) |
+| **agile-product-owner** | Product ownership | User stories, backlog, agile, Example Mapping, Three Amigos |
+| **prioritization-frameworks** | Cross-type prioritization | Portfolio allocation, NPV, debt severity, CLV-at-risk, Kano, framework selection guide |
+| **competitive-analysis** | Competitive analysis | Skills, agents, features vs competitors; company research, PESTEL (intake refs) |
 | **business-analyst-toolkit** | Business analysis | Requirements, workflows, optimization |
 
 ### Research, Problem-Solving & Workflow

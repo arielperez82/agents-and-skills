@@ -1,19 +1,22 @@
 # Product Team Skills - Claude Code Guidance
 
-This guide covers the 5 production-ready product management skills and their Python automation tools.
+This guide covers product-team skills: methodology and reference skills (I11-PMSI intake) and Python automation tools.
 
 > **Note:** UX/design skills (ux-researcher-designer, ux-designer, ui-design-system, visual-design-foundations) moved to `skills/ux-team/` in Feb 2026.
 
 ## Product Skills Overview
 
 **Available Skills:**
-1. **product-manager-toolkit/** - RICE prioritization, customer interview analysis (2 tools)
-2. **agile-product-owner/** - User story generation, sprint planning (1 tool)
-3. **product-strategist/** - OKR cascade, strategic planning (1 tool)
-4. **competitive-analysis/** - Competitive scorecard, gap analysis, adoption prioritization (3 tools)
-5. **prioritization-frameworks/** - Portfolio allocation + NPV scoring across buckets (1 tool)
+1. **saas-finance/** - SaaS finance metrics, pricing, acquisition channels, business health (reference)
+2. **continuous-discovery/** - Continuous discovery workflow; problem hypothesis → validated solution (reference)
+3. **workshop-facilitation/** - Facilitation protocol: one-step flow, progress labels, quick-select options (reference)
+4. **product-manager-toolkit/** - RICE prioritization, customer interview analysis, PRD guide, discovery (2 tools + references)
+5. **agile-product-owner/** - User story generation, sprint planning, Example Mapping, Three Amigos (1 tool)
+6. **product-strategist/** - OKR cascade, strategic planning, roadmap, positioning (1 tool)
+7. **competitive-analysis/** - Scorecard, gap analysis, adoption prioritization, company research, PESTEL (3 tools)
+8. **prioritization-frameworks/** - Portfolio allocation + NPV within-bucket, selection guide (1 tool)
 
-**Total Tools:** 8 Python automation tools
+**Total Tools:** 8 Python automation tools (product-manager-toolkit, agile-product-owner, product-strategist, competitive-analysis, prioritization-frameworks)
 
 ## Python Automation Tools
 
@@ -254,7 +257,7 @@ Design tokens and persona tools are now in `skills/ux-team/`. See `ux-team/ui-de
 
 ## Roadmap
 
-**Current (Phase 1):** 4 product skills deployed with 7 tools (UX skills moved to ux-team/)
+**Current (Phase 1):** 8 product-team skills (5 with Python tools; 3 methodology/reference from I11-PMSI intake). UX skills in ux-team/.
 
 **Phase 2 (Q1 2026):** Product analytics
 - A/B test analyzer
@@ -276,6 +279,6 @@ See `product_team_implementation_guide.md` for detailed plans.
 
 ---
 
-**Last Updated:** February 10, 2026
-**Skills Deployed:** 4/4 product skills production-ready (UX skills → ux-team/)
-**Total Tools:** 7 Python automation tools
+**Last Updated:** February 17, 2026
+**Skills Deployed:** 8 product-team skills (I11-PMSI Waves 1–3 complete; UX skills → ux-team/)
+**Total Tools:** 8 Python automation tools

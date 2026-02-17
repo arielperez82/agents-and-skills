@@ -3,7 +3,7 @@ type: plan
 endeavor: repo
 initiative: I11-PMSI
 initiative_name: pm-skills-intake
-status: in_progress
+status: complete
 updated: 2026-02-17
 ---
 
@@ -23,8 +23,8 @@ Incorporate PM skill content into `skills/product-team/` via wave-based add/adap
 | B06 | done | product-manager-toolkit: prd-development-guide reference + related-skills (continuous-discovery, workshop-facilitation) | None |
 | B07 | done | competitive-analysis: company-research, pestel-analysis references | None |
 | B08 | done | prioritization-frameworks: prioritization-selection-guide reference | None |
-| B09 | not_started | `skills/product-team/CLAUDE.md` not updated for new skills | Execute Post-wave |
-| B10 | not_started | `skills/README.md` not updated for new skills | Execute Post-wave |
+| B09 | done | `skills/product-team/CLAUDE.md` updated: 8 skills, workflow mappings, roadmap | None |
+| B10 | done | `skills/README.md` product-team section: all 9 skills with intake refs noted | None |
 
 ## Wave Plan
 
@@ -33,12 +33,12 @@ Incorporate PM skill content into `skills/product-team/` via wave-based add/adap
 | Wave 1 | B01-B02 | done |
 | Wave 2 | B03-B05 | done |
 | Wave 3 | B06-B08 | done |
-| Post-wave | B09-B10 | not_started |
+| Post-wave | B09-B10 | done |
 
 ## Immediate Remaining Work
 
 1. ~~Complete Wave 3 (`B06-B08`) across product-team skills.~~ Done 2026-02-17.
-2. Update catalogs (`B09-B10`) to reflect new PM skills.
+2. ~~Update catalogs (`B09-B10`) to reflect new PM skills.~~ Done 2026-02-17.
 3. Run verification checklist and mark initiative complete.
 
 ## Verification Checklist
@@ -46,8 +46,8 @@ Incorporate PM skill content into `skills/product-team/` via wave-based add/adap
 - [x] New/updated references exist and match backlog definitions (Wave 3).
 - [x] `dependencies.references` entries are correct and complete (B06-B08).
 - [ ] No stale initiative ID mentions (`I10-PMSI`).
-- [ ] `skills/product-team/CLAUDE.md` reflects new PM skills.
-- [ ] `skills/README.md` includes new PM skills.
+- [x] `skills/product-team/CLAUDE.md` reflects new PM skills.
+- [x] `skills/README.md` includes new PM skills.
 
 ## Links
 
