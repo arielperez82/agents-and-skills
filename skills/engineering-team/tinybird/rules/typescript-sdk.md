@@ -91,7 +91,7 @@ For decoupled API without typed client (dynamic endpoint names, raw SQL, gradual
 
 ## SDK gotchas and validation
 
-These gotchas were discovered during I05-ATEL by running `tinybird build` against Tinybird Local. Unit tests alone cannot catch them -- they require the real Tinybird build/deploy pipeline.
+These gotchas were discovered by running `tinybird build` against Tinybird Local. Unit tests alone cannot catch them -- they require the real Tinybird build/deploy pipeline.
 
 ### Gotcha 1: Array columns need explicit `jsonPath` with `[:]`
 

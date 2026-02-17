@@ -1,6 +1,6 @@
 # MuST: Multiple Strategic Tracks
 
-> **Source:** Originally `prioritization/must-multiple-strategic-tracks.md` (Itamar Gilad). Migrated to skill reference as part of I03-PRFR.
+> **Source:** Originally `prioritization/must-multiple-strategic-tracks.md` (Itamar Gilad). Migrated to skill reference when consolidating prioritization content.
 > **When to use:** Annual/multi-year strategy when the "right bet" is genuinely unknown. Run parallel strategic tracks with defined kill criteria.
 > **Who uses it:** Product Director
 

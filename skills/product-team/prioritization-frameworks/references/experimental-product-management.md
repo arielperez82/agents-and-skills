@@ -1,6 +1,6 @@
 # Experimental Product Management: Dynamic Resourcing
 
-> **Source:** Originally `prioritization/experimental-product-management.md`. Migrated to skill reference as part of I03-PRFR.
+> **Source:** Originally `prioritization/experimental-product-management.md`. Migrated to skill reference when consolidating prioritization content.
 > **When to use:** Scaling the team or rethinking how capacity is allocated structurally. Dynamic resourcing model for experiment-driven environments.
 > **Who uses it:** Senior PM + Product Director
 

@@ -1,6 +1,6 @@
 # Portfolio Allocation Framework
 
-> **Source:** Originally `prioritization/perplexity-framework.md`. Migrated to skill reference as part of I03-PRFR.
+> **Source:** Originally `prioritization/perplexity-framework.md`. Migrated to skill reference when consolidating prioritization content.
 > **When to use:** Establishing strategic bucket allocations and within-bucket prioritization methodologies.
 > **Who uses it:** Product Director + CTO (allocations), Product Manager (within-bucket ranking)
 

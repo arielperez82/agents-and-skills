@@ -1,6 +1,6 @@
 # NPV Financial Model for Cross-Type Prioritization
 
-> **Source:** Originally `prioritization/chatgpt-framework.md`. Migrated to skill reference as part of I03-PRFR.
+> **Source:** Originally `prioritization/chatgpt-framework.md`. Migrated to skill reference when consolidating prioritization content.
 > **When to use:** Making the dollar case for a specific tech debt or reliability investment to leadership.
 > **Who uses it:** Product Manager + Engineering leads
 

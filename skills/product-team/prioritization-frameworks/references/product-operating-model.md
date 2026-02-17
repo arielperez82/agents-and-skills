@@ -1,6 +1,6 @@
 # The Product Operating Model (POM)
 
-> **Source:** Originally `prioritization/the-product-operating-model-explained.md` (Itamar Gilad / Marty Cagan). Migrated to skill reference as part of I03-PRFR.
+> **Source:** Originally `prioritization/the-product-operating-model-explained.md` (Itamar Gilad / Marty Cagan). Migrated to skill reference when consolidating prioritization content.
 > **When to use:** Organizational retrospective when the prioritization process itself feels broken. Assess where the org sits on the traditional-to-modern spectrum.
 > **Who uses it:** Product Director + CTO
 

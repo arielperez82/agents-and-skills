@@ -331,9 +331,9 @@ The following references were consolidated from BDD requirements discovery metho
 | [Three Amigos](references/three-amigos.md) | Three perspectives (business/dev/test), session structure, cadence, confirmation bias defense, anti-patterns | Backlog refinement; before sprint planning; after significant scope change |
 | [Definition of Ready](references/definition-of-ready.md) | Hard gate criteria, requirements completeness (functional/NFR/business rules), quality review dimensions, enforcement without bureaucracy | Verifying story readiness before sprint entry; establishing team standards |
 
-### PM Skills Intake References
+### Additional references (story decomposition and workshops)
 
-The following references were added in I11-PMSI to extend story decomposition and workshop execution patterns:
+The following references extend story decomposition and workshop execution patterns:
 
 | Reference | Content | When to Load |
 |-----------|---------|--------------|

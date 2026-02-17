@@ -79,7 +79,7 @@ This skill provides product-agnostic expertise for configuring issue tracking pr
 
 **Core Value:** Reduce project setup time through templates, improve team productivity through optimized workflows and queries, and increase reporting efficiency through custom dashboards.
 
-**Initiative naming (when using .docs/):** Initiative code = epic key (e.g. `I02-INNC`). Backlog item ID format: `I<nn>-<ACRONYM>-B<nn>` (in-doc shorthand `B<nn>`). Front matter **MUST** include `initiative_name: <long-form>` so search works by code or name. Add to data quality / maintenance cadence: initiative code and initiative_name present and consistent across roadmap, backlog, plan. See `.docs/AGENTS.md` initiative naming and References (by initiative).
+**Initiative naming (when using .docs/):** Initiative code = epic key (e.g. `I<nn>-<ACRONYM>`). Backlog item ID format: `I<nn>-<ACRONYM>-B<nn>` (in-doc shorthand `B<nn>`). Front matter **MUST** include `initiative_name: <long-form>` so search works by code or name. Add to data quality / maintenance cadence: initiative code and initiative_name present and consistent across roadmap, backlog, plan. See `.docs/AGENTS.md` initiative naming and References (by initiative).
 
 ## Core Capabilities
 

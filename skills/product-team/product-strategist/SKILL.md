@@ -371,9 +371,9 @@ Python tool documentation:
 - Customization Guide: Modifying templates and alignment weights
 - Troubleshooting: Common issues and solutions
 
-### Consolidated References
+### Additional references (facilitation, roadmap, positioning)
 
-The following references were added in I11-PMSI to strengthen facilitation, roadmap planning, and positioning execution:
+The following references strengthen facilitation, roadmap planning, and positioning execution:
 
 | Reference | Content | When to Load |
 |-----------|---------|--------------|

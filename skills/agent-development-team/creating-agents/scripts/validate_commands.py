@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 """
-Validate command definitions under commands/ directory (I06-AICO B7).
+Validate command definitions under commands/ directory.
 Checks: dispatch target exists, namespace deduplication, argument-hint presence, naming consistency.
 Output: pass/fail per command, summary table.
 
