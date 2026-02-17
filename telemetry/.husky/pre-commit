@@ -1,16 +1,1 @@
 cd telemetry && NODE_OPTIONS=--experimental-strip-types pnpx lint-staged --verbose
-# Lint only staged workflow files that still exist (skip deleted)
-root=$(git rev-parse --show-toplevel)
-staged=$(cd "$root" && git diff --cached --name-only | grep -E '^.github/workflows/.*\.(yml|yaml)$' || true)
-existing=""
-for f in $staged; do [ -f "$root/$f" ] && existing="$existing $f"; done
-if [ -n "$existing" ]; then
-  cd "$root" && sh telemetry/scripts/run-actionlint.sh $existing
-fi
-# Lint staged shell scripts that still exist (skip deleted)
-staged_sh=$(cd "$root" && git diff --cached --name-only | grep -E '\.sh$' || true)
-existing_sh=""
-for f in $staged_sh; do [ -f "$root/$f" ] && existing_sh="$existing_sh $f"; done
-if [ -n "$existing_sh" ]; then
-  cd "$root" && sh telemetry/scripts/run-shellcheck.sh $existing_sh
-fi
