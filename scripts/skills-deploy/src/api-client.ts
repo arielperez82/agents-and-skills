@@ -62,6 +62,12 @@ type ListSkillsOptions = {
   readonly baseUrl?: string;
 };
 
+type ListSkillsPage = {
+  readonly data: readonly CreateSkillResponse[];
+  readonly has_more: boolean;
+  readonly next_page?: string;
+};
+
 const buildHeaders = (apiKey: string): Record<string, string> => ({
   'x-api-key': apiKey,
   'anthropic-version': API_VERSION,
@@ -133,16 +139,34 @@ const createSkillVersion = async (
 
 const listSkills = async (options: ListSkillsOptions): Promise<readonly CreateSkillResponse[]> => {
   const { apiKey, baseUrl = DEFAULT_BASE_URL } = options;
-  const url = `${baseUrl}/v1/skills?limit=100`;
+  const headers = buildHeaders(apiKey);
+  const allSkills: CreateSkillResponse[] = [];
+  let cursor: string | undefined;
 
-  const response = await fetch(url, {
-    method: 'GET',
-    headers: buildHeaders(apiKey),
-  });
+  // eslint-disable-next-line @typescript-eslint/no-unnecessary-condition -- loop until API says no more pages
+  while (true) {
+    const url =
+      cursor === undefined
+        ? `${baseUrl}/v1/skills?limit=100`
+        : `${baseUrl}/v1/skills?limit=100&after_id=${cursor}`;
 
-  await assertOk(response);
-  const body = (await response.json()) as { readonly data: readonly CreateSkillResponse[] };
-  return body.data;
+    const response = await fetch(url, {
+      method: 'GET',
+      headers,
+    });
+
+    await assertOk(response);
+    const body = (await response.json()) as ListSkillsPage;
+    allSkills.push(...body.data);
+
+    if (!body.has_more) {
+      break;
+    }
+
+    cursor = body.next_page;
+  }
+
+  return allSkills;
 };
 
 export {

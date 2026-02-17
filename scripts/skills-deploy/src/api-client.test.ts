@@ -368,7 +368,7 @@ describe('listSkills', () => {
     server.use(
       http.get(`${API_BASE}/v1/skills`, ({ request }) => {
         capturedHeaders = Object.fromEntries(request.headers.entries());
-        return HttpResponse.json({ data: [] });
+        return HttpResponse.json({ data: [], has_more: false });
       }),
     );
 
@@ -403,6 +403,7 @@ describe('listSkills', () => {
               updated_at: '2026-02-17T00:00:00Z',
             },
           ],
+          has_more: false,
         }),
       ),
     );
@@ -425,7 +426,7 @@ describe('listSkills', () => {
     await expect(listSkills({ apiKey: 'bad-key' })).rejects.toThrow('401');
   });
 
-  it('requests limit=100 to avoid pagination', async () => {
+  it('requests limit=100 per page', async () => {
     let capturedUrl = '';
 
     server.use(
@@ -440,6 +441,73 @@ describe('listSkills', () => {
     expect(capturedUrl).toContain('limit=100');
   });
 
+  it('paginates using after_id cursor until has_more is false', async () => {
+    const page1Skills = [
+      {
+        id: 'skill_page1_a',
+        created_at: '2026-02-17T00:00:00Z',
+        display_title: 'skill-alpha',
+        latest_version: '1111111111',
+        source: 'custom',
+        type: 'skill',
+        updated_at: '2026-02-17T00:00:00Z',
+      },
+      {
+        id: 'skill_page1_b',
+        created_at: '2026-02-17T00:00:00Z',
+        display_title: 'skill-beta',
+        latest_version: '2222222222',
+        source: 'custom',
+        type: 'skill',
+        updated_at: '2026-02-17T00:00:00Z',
+      },
+    ];
+
+    const page2Skills = [
+      {
+        id: 'skill_page2_a',
+        created_at: '2026-02-17T00:00:00Z',
+        display_title: 'skill-gamma',
+        latest_version: '3333333333',
+        source: 'custom',
+        type: 'skill',
+        updated_at: '2026-02-17T00:00:00Z',
+      },
+    ];
+
+    const capturedUrls: string[] = [];
+
+    server.use(
+      http.get(`${API_BASE}/v1/skills`, ({ request }) => {
+        capturedUrls.push(request.url);
+        const url = new URL(request.url);
+        const afterId = url.searchParams.get('after_id');
+
+        if (afterId === null) {
+          return HttpResponse.json({
+            data: page1Skills,
+            has_more: true,
+            next_page: 'cursor_page2',
+          });
+        }
+
+        return HttpResponse.json({
+          data: page2Skills,
+          has_more: false,
+        });
+      }),
+    );
+
+    const result = await listSkills({ apiKey: 'test-key' });
+
+    expect(result).toHaveLength(3);
+    expect(result[0]?.id).toBe('skill_page1_a');
+    expect(result[1]?.id).toBe('skill_page1_b');
+    expect(result[2]?.id).toBe('skill_page2_a');
+    expect(capturedUrls).toHaveLength(2);
+    expect(capturedUrls[1]).toContain('after_id=cursor_page2');
+  });
+
   it('uses custom baseUrl when provided', async () => {
     const customBase = 'https://custom.api.example.com';
     let capturedUrl = '';
@@ -447,7 +515,7 @@ describe('listSkills', () => {
     server.use(
       http.get(`${customBase}/v1/skills`, ({ request }) => {
         capturedUrl = request.url;
-        return HttpResponse.json({ data: [] });
+        return HttpResponse.json({ data: [], has_more: false });
       }),
     );
 
