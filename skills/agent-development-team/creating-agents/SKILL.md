@@ -106,10 +106,10 @@ Agents are classified into four types based on operational characteristics:
 
 | Type | Color | Tools | Execution | Model | Examples |
 |------|-------|-------|-----------|-------|----------|
-| **Strategic** | 🔵 Blue | Read, Write, Grep | Parallel (4-5) | opus/sonnet | product-director, cto-advisor |
-| **Implementation** | 🟢 Green | Full tools | Coordinated (2-3) | sonnet | fullstack-engineer, backend-engineer |
-| **Quality** | 🔴 Red | Full + Heavy Bash | Sequential (1) | sonnet | code-reviewer, qa-engineer |
-| **Coordination** | 🟣 Purple | Read, Write, Grep | Lightweight | opus | architect, progress-assessor |
+| **Strategic** | Blue | Read, Write, Grep | Parallel (4-5) | opus/sonnet | product-director, cto-advisor |
+| **Implementation** | Green | Full tools | Coordinated (2-3) | sonnet | fullstack-engineer, backend-engineer |
+| **Quality** | Red | Full + Heavy Bash | Sequential (1) | sonnet | code-reviewer, qa-engineer |
+| **Coordination** | Purple | Read, Write, Grep | Lightweight | opus | architect, progress-assessor |
 
 **Classification rules**: See [references/authoring-guide.md](references/authoring-guide.md#agent-type-classification-system) for detailed criteria and execution safety rules.
 
@@ -130,6 +130,20 @@ All agents reference skills using relative paths:
 **Path resolution**: From `agents/agent-name.md` to `skills/domain-team/skill-name/` uses `../../` pattern.
 
 **Always test paths resolve correctly** before committing.
+
+## Skill Deploy-Readiness Rules
+
+When agents reference skills, those skills must be deploy-compatible. The deploy pipeline uploads skills to an API with strict validation. Apply these rules when creating or reviewing skills referenced by agents:
+
+1. **Name format**: The `name` field in SKILL.md frontmatter must contain only lowercase letters, numbers, and hyphens (regex: `/^[a-z0-9-]+$/`). No uppercase, no spaces, no underscores.
+
+2. **Name-folder match**: The `name` field must exactly match the skill's folder name. If the skill lives at `skills/engineering-team/tdd/SKILL.md`, the name must be `tdd`. The API enforces this: the folder name must match the skill name in SKILL.md.
+
+3. **Description YAML safety**: The `description` field must be quoted (double quotes) if it contains YAML-special characters: colon followed by space (`: `), `#`, `[`, `]`, `{`, `}`. Unquoted descriptions with these characters cause YAML parse errors.
+
+4. **Required fields**: SKILL.md must have at minimum `name` and `description` in frontmatter. The API only accepts these two fields; all other frontmatter fields are stripped before upload but must not break YAML parsing.
+
+The `validate_agent.py` script validates agent structure, not skill deploy-readiness. These deploy rules are enforced by the skills-deploy pipeline at publish time.
 
 ## Workflow Documentation
 
@@ -191,6 +205,7 @@ Before committing an agent, validate against:
 - [ ] Success metrics defined
 - [ ] Related agents cross-referenced
 - [ ] **Roll-call test passed**: Verify agent loads correctly in Cursor using `/agent/roll-call agent-name`
+- [ ] **Referenced skills deploy-ready**: Skills referenced by this agent pass deploy-readiness rules (name format, name-folder match, YAML-safe description, required fields)
 
 **Complete checklist**: See [assets/agent-checklists.md](assets/agent-checklists.md) for detailed validation criteria.
 
@@ -259,7 +274,7 @@ Guardian agents assess, guide, and validate but **never implement**:
 
 - **Proactive**: Provide guidance before implementation
 - **Reactive**: Validate and review after implementation
-- **Output**: Prioritized findings (🔴 Critical → ⚠️ High Priority → 💡 Nice to Have)
+- **Output**: Prioritized findings (Critical → High Priority → Nice to Have)
 
 **Examples**: `tdd-reviewer`, `docs-reviewer`, `refactor-assessor`
 
@@ -286,19 +301,13 @@ Agents should delegate to specialized agents rather than duplicating capabilitie
 
 ## Anti-Patterns to Avoid
 
-❌ **Hardcoding absolute paths** - Always use relative paths (`../../`)
-
-❌ **Skipping YAML validation** - Test frontmatter parsing before committing
-
-❌ **Forgetting path testing** - Verify all relative paths resolve correctly
-
-❌ **Workflows without examples** - Every workflow needs concrete command examples
-
-❌ **Creating agent dependencies** - Keep agents independent; use collaborations instead
-
-❌ **Duplicating skill content** - Reference skills, don't copy their content
-
-❌ **Using LLM calls instead of Python tools** - Agents orchestrate tools, don't replace them
+- **Hardcoding absolute paths** - Always use relative paths (`../../`)
+- **Skipping YAML validation** - Test frontmatter parsing before committing
+- **Forgetting path testing** - Verify all relative paths resolve correctly
+- **Workflows without examples** - Every workflow needs concrete command examples
+- **Creating agent dependencies** - Keep agents independent; use collaborations instead
+- **Duplicating skill content** - Reference skills, don't copy their content
+- **Using LLM calls instead of Python tools** - Agents orchestrate tools, don't replace them
 
 ## Domain-Specific Patterns & Examples
 
@@ -358,7 +367,7 @@ After creating an agent:
 3. **Update README**: **REQUIRED** - Add the new agent to `agents/README.md` in the "Complete Agent Catalog" section
 4. **Commit**: Use conventional commit: `feat(agents): implement agent-name`
 
-> **⚠️ Maintenance Requirement**: You MUST update `agents/README.md` whenever you add, delete, move, or rename an agent. The README serves as the complete catalog and operator's guide. See the maintenance note at the top of `agents/README.md` for details.
+> **Maintenance Requirement**: You MUST update `agents/README.md` whenever you add, delete, move, or rename an agent. The README serves as the complete catalog and operator's guide. See the maintenance note at the top of `agents/README.md` for details.
 
 ## Reference Files
 

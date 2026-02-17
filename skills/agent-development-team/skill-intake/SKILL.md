@@ -13,6 +13,20 @@ Meta-workflow for discovering, evaluating, sandboxing, and incorporating new ski
 
 The intake pipeline is project-agnostic. It dynamically discovers the current project's skill inventory by globbing for `SKILL.md` files under `.claude/skills/`, then uses that inventory as context for all evaluation and integration decisions.
 
+## Deploy-Readiness Rules
+
+Every skill passing through intake must be deploy-compatible before promotion. The deploy pipeline uploads skills to an API with strict validation:
+
+1. **Name format**: The `name` field in SKILL.md frontmatter must contain only lowercase letters, numbers, and hyphens (regex: `/^[a-z0-9-]+$/`). No uppercase, no spaces, no underscores.
+
+2. **Name-folder match**: The `name` field must exactly match the skill's folder name. If the skill lives at `skills/engineering-team/tdd/SKILL.md`, the name must be `tdd`. The API rejects mismatches.
+
+3. **Description YAML safety**: The `description` field must be quoted (double quotes) if it contains YAML-special characters: colon followed by space (`: `), `#`, `[`, `]`, `{`, `}`. Unquoted descriptions with these characters cause YAML parse errors during deploy.
+
+4. **Required fields**: SKILL.md must have at minimum `name` and `description` in frontmatter. The API only accepts these two fields; all other frontmatter fields are stripped before upload but must not break YAML parsing.
+
+Check these rules in Phase 2 (Sandbox & Security Audit) and again in Phase 7 (Validate) before promotion.
+
 ## Intake Pipeline (8 Phases)
 
 ### Phase 0: Input & Discovery
@@ -26,6 +40,8 @@ Download to `.claude/skills/_sandbox/{skill-name}/`. Use `git clone --depth 1` f
 ### Phase 2: Sandbox & Security Audit
 
 Dispatch security assessment on sandbox contents. Apply checklist from `references/security-checklist.md`. Critical findings reject immediately; High findings flag for review.
+
+Also verify deploy-readiness rules (name format, name-folder match, YAML-safe description, required fields) at this stage. Fix any issues before proceeding.
 
 ### Phase 3: Functional Evaluation
 
@@ -45,7 +61,7 @@ Fresh subagent per integration task. TDD cycle with two-stage review (spec compl
 
 ### Phase 7: Validate
 
-Run all existing skill scripts to verify no regressions. Run new skill end-to-end. Verify cross-skill imports.
+Run all existing skill scripts to verify no regressions. Run new skill end-to-end. Verify cross-skill imports. Re-verify deploy-readiness rules before marking complete.
 
 **Shell scripts:** Run ShellCheck on every `*.sh` in the skill (load `shell-scripting` skill). Fix all reported issues or document exclusions before promote. ShellCheck is part of repo CI; skills with shell scripts must pass before merge.
 

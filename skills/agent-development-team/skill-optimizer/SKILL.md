@@ -14,6 +14,20 @@ Reduce token usage 40-70% while preserving full functionality. Works standalone,
 - **Post-intake**: After `skill-intake` incorporates or adapts a skill
 - **Repo audit**: "Audit all skills for optimization opportunities"
 
+## Deploy-Readiness Rules
+
+Before or after optimization, verify the skill meets API deploy requirements. The deploy pipeline enforces these strictly:
+
+1. **Name format**: The `name` field must contain only lowercase letters, numbers, and hyphens (regex: `/^[a-z0-9-]+$/`). No uppercase, no spaces, no underscores.
+
+2. **Name-folder match**: The `name` field must exactly match the skill's folder name. If the skill lives at `skills/engineering-team/tdd/SKILL.md`, the name must be `tdd`. The API rejects mismatches.
+
+3. **Description YAML safety**: The `description` field must be quoted (double quotes) if it contains YAML-special characters: colon followed by space (`: `), `#`, `[`, `]`, `{`, `}`. Unquoted descriptions with these characters cause YAML parse errors during deploy.
+
+4. **Required fields**: SKILL.md must have at minimum `name` and `description` in frontmatter. The API only accepts these two fields; all other frontmatter fields are stripped before upload but must not break YAML parsing.
+
+Optimization must not introduce deploy-breaking changes (e.g., renaming the `name` field, removing `description`, or unquoting a description that needs quotes).
+
 ## Optimization Workflow
 
 ### Step 1: Analyze
@@ -154,6 +168,7 @@ Changes: [summary of what was moved/removed]
 - [ ] No duplicated content between SKILL.md and references
 - [ ] Imperative voice throughout
 - [ ] **Shell scripts**: If the skill has `scripts/*.sh` or `assets/*.sh`, run ShellCheck (load `shell-scripting` skill). Fix or document exclusions; repo CI fails on ShellCheck issues.
+- [ ] **Deploy-ready**: `name` is lowercase/hyphens only, matches folder name, `description` is YAML-safe, both `name` and `description` present
 
 ## Cross-Skill References
 
