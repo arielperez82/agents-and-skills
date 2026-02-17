@@ -425,6 +425,21 @@ describe('listSkills', () => {
     await expect(listSkills({ apiKey: 'bad-key' })).rejects.toThrow('401');
   });
 
+  it('requests limit=100 to avoid pagination', async () => {
+    let capturedUrl = '';
+
+    server.use(
+      http.get(`${API_BASE}/v1/skills`, ({ request }) => {
+        capturedUrl = request.url;
+        return HttpResponse.json({ data: [], has_more: false });
+      }),
+    );
+
+    await listSkills({ apiKey: 'test-key' });
+
+    expect(capturedUrl).toContain('limit=100');
+  });
+
   it('uses custom baseUrl when provided', async () => {
     const customBase = 'https://custom.api.example.com';
     let capturedUrl = '';

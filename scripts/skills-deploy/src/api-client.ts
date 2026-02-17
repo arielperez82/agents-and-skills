@@ -133,7 +133,7 @@ const createSkillVersion = async (
 
 const listSkills = async (options: ListSkillsOptions): Promise<readonly CreateSkillResponse[]> => {
   const { apiKey, baseUrl = DEFAULT_BASE_URL } = options;
-  const url = `${baseUrl}/v1/skills`;
+  const url = `${baseUrl}/v1/skills?limit=100`;
 
   const response = await fetch(url, {
     method: 'GET',
