@@ -1,0 +1,19 @@
+{
+  "name": "agents-and-skills",
+  "version": "0.0.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "prepare": "husky",
+    "lint": "pnpm -r run lint",
+    "test:unit": "pnpm -r run test:unit",
+    "lint-staged": "pnpx lint-staged"
+  },
+  "devDependencies": {
+    "husky": "^9.1.0",
+    "lint-staged": "^16.1.0"
+  },
+  "engines": {
+    "node": ">=22"
+  }
+}

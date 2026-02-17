@@ -1,0 +1,3 @@
+packages:
+  - "telemetry"
+  - "scripts/skills-deploy"
