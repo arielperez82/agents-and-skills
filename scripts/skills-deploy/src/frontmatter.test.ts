@@ -2,14 +2,13 @@ import { describe, it, expect, afterEach } from 'vitest';
 import { writeFile, mkdir, rm } from 'node:fs/promises';
 import { join } from 'node:path';
 import { tmpdir } from 'node:os';
-import {
-  parseSkillFrontmatter,
-  validateSkillName,
-  deriveDisplayTitle,
-} from './frontmatter.js';
+import { parseSkillFrontmatter, validateSkillName, deriveDisplayTitle } from './frontmatter.js';
 
 const createTempDir = async (): Promise<string> => {
-  const dir = join(tmpdir(), `frontmatter-test-${Date.now()}-${Math.random().toString(36).slice(2)}`);
+  const dir = join(
+    tmpdir(),
+    `frontmatter-test-${Date.now()}-${Math.random().toString(36).slice(2)}`,
+  );
   await mkdir(dir, { recursive: true });
   return dir;
 };
@@ -214,10 +213,7 @@ describe('deriveDisplayTitle', () => {
   });
 
   it('falls back to last path segment when no frontmatter', () => {
-    const result = deriveDisplayTitle(
-      '/skills/engineering-team/typescript-strict',
-      undefined,
-    );
+    const result = deriveDisplayTitle('/skills/engineering-team/typescript-strict', undefined);
 
     expect(result).toBe('typescript-strict');
   });

@@ -27,10 +27,7 @@ const createTempSkillDir = async (
 };
 
 const listZipEntries = async (zipBuffer: Buffer): Promise<readonly string[]> => {
-  const tempZip = join(
-    await mkdtemp(join(tmpdir(), 'zip-verify-')),
-    'test.zip',
-  );
+  const tempZip = join(await mkdtemp(join(tmpdir(), 'zip-verify-')), 'test.zip');
   tempDirs.push(tempZip.substring(0, tempZip.lastIndexOf('/')));
   await writeFile(tempZip, zipBuffer);
 
@@ -198,10 +195,7 @@ describe('buildSkillZip', () => {
     await execFileAsync('unzip', ['-o', tempZip, '-d', tempZipDir]);
 
     const { readFile } = await import('node:fs/promises');
-    const extracted = await readFile(
-      join(tempZipDir, 'tdd', 'SKILL.md'),
-      'utf-8',
-    );
+    const extracted = await readFile(join(tempZipDir, 'tdd', 'SKILL.md'), 'utf-8');
 
     expect(extracted).toBe(skillContent);
   });

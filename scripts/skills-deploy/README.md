@@ -58,17 +58,18 @@ ANTHROPIC_API_KEY=sk-ant-... DEPLOY_REF=HEAD~5 pnpm deploy
 
 ## Environment variables
 
-| Variable | Required | Default | Description |
-|----------|----------|---------|-------------|
-| `ANTHROPIC_API_KEY` | Yes | — | Anthropic API key with skills access |
-| `DEPLOY_REF` | No | `HEAD~1` | Git ref for change detection (e.g. `HEAD~5`, commit SHA) |
-| `ANTHROPIC_API_BASE_URL` | No | `https://api.anthropic.com` | Override API base URL |
+| Variable                 | Required | Default                     | Description                                              |
+| ------------------------ | -------- | --------------------------- | -------------------------------------------------------- |
+| `ANTHROPIC_API_KEY`      | Yes      | —                           | Anthropic API key with skills access                     |
+| `DEPLOY_REF`             | No       | `HEAD~1`                    | Git ref for change detection (e.g. `HEAD~5`, commit SHA) |
+| `ANTHROPIC_API_BASE_URL` | No       | `https://api.anthropic.com` | Override API base URL                                    |
 
 ## GitHub Actions workflow
 
 The workflow at `.github/workflows/skills-deploy.yml` runs automatically on push to `main` when `skills/**` changes. It can also be triggered manually via `workflow_dispatch` with a custom ref.
 
 The workflow has two jobs:
+
 1. **test** — actionlint on the workflow file, format, lint, type-check, unit tests
 2. **deploy** — runs the deploy script and auto-commits the manifest if new skills were created
 
@@ -84,6 +85,7 @@ The workflow has two jobs:
 ## First-time deploy
 
 When deploying a skill for the first time:
+
 1. The skill is created via the API and assigned an ID
 2. The manifest is updated with the new ID
 3. The workflow auto-commits the manifest change with `[skip ci]`
@@ -92,6 +94,7 @@ When deploying a skill for the first time:
 ## Skill name rules
 
 The `name` field in SKILL.md frontmatter must:
+
 - Be 64 characters or fewer
 - Contain only lowercase letters, numbers, and hyphens
 - Not start or end with a hyphen

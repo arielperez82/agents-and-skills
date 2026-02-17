@@ -18,9 +18,7 @@ const XML_TAG_PATTERN = /<[^>]+>/;
 const parseSkillFrontmatter = async (
   skillMdPath: string,
 ): Promise<FrontmatterResult | undefined> => {
-  const content = await readFile(skillMdPath, 'utf-8').catch(
-    () => undefined,
-  );
+  const content = await readFile(skillMdPath, 'utf-8').catch(() => undefined);
 
   if (content === undefined) {
     return undefined;

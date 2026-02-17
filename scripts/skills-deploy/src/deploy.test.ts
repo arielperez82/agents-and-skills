@@ -13,19 +13,23 @@ afterEach(() => server.resetHandlers());
 afterAll(() => server.close());
 
 const createMockDeps = (overrides: Partial<DeployDeps> = {}): DeployDeps => ({
-  getChangedSkillDirs: overrides.getChangedSkillDirs ??
-    vi.fn<() => Promise<string[]>>().mockResolvedValue([]),
-  buildSkillZip: overrides.buildSkillZip ??
+  getChangedSkillDirs:
+    overrides.getChangedSkillDirs ?? vi.fn<() => Promise<string[]>>().mockResolvedValue([]),
+  buildSkillZip:
+    overrides.buildSkillZip ??
     vi.fn<() => Promise<Buffer>>().mockResolvedValue(Buffer.from('fake-zip')),
-  readManifest: overrides.readManifest ??
+  readManifest:
+    overrides.readManifest ??
     vi.fn<() => Promise<SkillManifest>>().mockResolvedValue({ skills: {} }),
-  writeManifest: overrides.writeManifest ??
-    vi.fn<() => Promise<void>>().mockResolvedValue(undefined),
-  parseSkillFrontmatter: overrides.parseSkillFrontmatter ??
-    vi.fn<() => Promise<{ name: string; description: string } | undefined>>()
+  writeManifest:
+    overrides.writeManifest ?? vi.fn<() => Promise<void>>().mockResolvedValue(undefined),
+  parseSkillFrontmatter:
+    overrides.parseSkillFrontmatter ??
+    vi
+      .fn<() => Promise<{ name: string; description: string } | undefined>>()
       .mockResolvedValue({ name: 'test-skill', description: 'A test skill' }),
-  validateSkillName: overrides.validateSkillName ??
-    vi.fn<() => string | undefined>().mockReturnValue(undefined),
+  validateSkillName:
+    overrides.validateSkillName ?? vi.fn<() => string | undefined>().mockReturnValue(undefined),
 });
 
 describe('deployChangedSkills', () => {
@@ -60,9 +64,11 @@ describe('deployChangedSkills', () => {
     );
 
     const deps = createMockDeps({
-      getChangedSkillDirs: vi.fn<() => Promise<string[]>>()
+      getChangedSkillDirs: vi
+        .fn<() => Promise<string[]>>()
         .mockResolvedValue(['skills/engineering-team/tdd']),
-      parseSkillFrontmatter: vi.fn<() => Promise<{ name: string; description: string } | undefined>>()
+      parseSkillFrontmatter: vi
+        .fn<() => Promise<{ name: string; description: string } | undefined>>()
         .mockResolvedValue({ name: 'tdd', description: 'TDD skill' }),
     });
 
@@ -96,14 +102,16 @@ describe('deployChangedSkills', () => {
     );
 
     const deps = createMockDeps({
-      getChangedSkillDirs: vi.fn<() => Promise<string[]>>()
+      getChangedSkillDirs: vi
+        .fn<() => Promise<string[]>>()
         .mockResolvedValue(['skills/engineering-team/tdd']),
       readManifest: vi.fn<() => Promise<SkillManifest>>().mockResolvedValue({
         skills: {
           'skills/engineering-team/tdd': { skill_id: 'skill_01existing' },
         },
       }),
-      parseSkillFrontmatter: vi.fn<() => Promise<{ name: string; description: string } | undefined>>()
+      parseSkillFrontmatter: vi
+        .fn<() => Promise<{ name: string; description: string } | undefined>>()
         .mockResolvedValue({ name: 'tdd', description: 'TDD skill' }),
     });
 
@@ -121,11 +129,12 @@ describe('deployChangedSkills', () => {
 
   it('skips skills with invalid names', async () => {
     const deps = createMockDeps({
-      getChangedSkillDirs: vi.fn<() => Promise<string[]>>()
-        .mockResolvedValue(['skills/bad-skill']),
-      parseSkillFrontmatter: vi.fn<() => Promise<{ name: string; description: string } | undefined>>()
+      getChangedSkillDirs: vi.fn<() => Promise<string[]>>().mockResolvedValue(['skills/bad-skill']),
+      parseSkillFrontmatter: vi
+        .fn<() => Promise<{ name: string; description: string } | undefined>>()
         .mockResolvedValue({ name: 'BadName', description: 'Bad' }),
-      validateSkillName: vi.fn<() => string | undefined>()
+      validateSkillName: vi
+        .fn<() => string | undefined>()
         .mockReturnValue('Name must contain only lowercase'),
     });
 
@@ -144,9 +153,11 @@ describe('deployChangedSkills', () => {
 
   it('skips skills with no frontmatter', async () => {
     const deps = createMockDeps({
-      getChangedSkillDirs: vi.fn<() => Promise<string[]>>()
+      getChangedSkillDirs: vi
+        .fn<() => Promise<string[]>>()
         .mockResolvedValue(['skills/no-frontmatter']),
-      parseSkillFrontmatter: vi.fn<() => Promise<{ name: string; description: string } | undefined>>()
+      parseSkillFrontmatter: vi
+        .fn<() => Promise<{ name: string; description: string } | undefined>>()
         .mockResolvedValue(undefined),
     });
 
@@ -158,7 +169,10 @@ describe('deployChangedSkills', () => {
     });
 
     expect(result.skipped).toEqual([
-      { skillPath: 'skills/no-frontmatter', reason: 'No valid frontmatter (missing name or description)' },
+      {
+        skillPath: 'skills/no-frontmatter',
+        reason: 'No valid frontmatter (missing name or description)',
+      },
     ]);
   });
 
@@ -193,18 +207,16 @@ describe('deployChangedSkills', () => {
     );
 
     const deps = createMockDeps({
-      getChangedSkillDirs: vi.fn<() => Promise<string[]>>()
-        .mockResolvedValue([
-          'skills/new-skill',
-          'skills/existing-skill',
-          'skills/bad-skill',
-        ]),
+      getChangedSkillDirs: vi
+        .fn<() => Promise<string[]>>()
+        .mockResolvedValue(['skills/new-skill', 'skills/existing-skill', 'skills/bad-skill']),
       readManifest: vi.fn<() => Promise<SkillManifest>>().mockResolvedValue({
         skills: {
           'skills/existing-skill': { skill_id: 'skill_existing' },
         },
       }),
-      parseSkillFrontmatter: vi.fn<(path: string) => Promise<{ name: string; description: string } | undefined>>()
+      parseSkillFrontmatter: vi
+        .fn<(path: string) => Promise<{ name: string; description: string } | undefined>>()
         .mockImplementation(async (path: string) => {
           if (path.includes('bad-skill')) {
             return { name: 'BadName', description: 'Bad' };
@@ -214,10 +226,9 @@ describe('deployChangedSkills', () => {
           }
           return { name: 'existing-skill', description: 'Existing' };
         }),
-      validateSkillName: vi.fn<(name: string) => string | undefined>()
-        .mockImplementation((name: string) =>
-          name === 'BadName' ? 'Invalid name' : undefined,
-        ),
+      validateSkillName: vi
+        .fn<(name: string) => string | undefined>()
+        .mockImplementation((name: string) => (name === 'BadName' ? 'Invalid name' : undefined)),
     });
 
     const result = await deployChangedSkills({

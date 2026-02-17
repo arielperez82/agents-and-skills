@@ -1,9 +1,18 @@
 import { join } from 'node:path';
 import { getChangedSkillDirs as defaultGetChangedSkillDirs } from './change-detection.js';
 import { buildSkillZip as defaultBuildSkillZip } from './zip-builder.js';
-import { readManifest as defaultReadManifest, writeManifest as defaultWriteManifest, getSkillId, setSkillId } from './manifest.js';
+import {
+  readManifest as defaultReadManifest,
+  writeManifest as defaultWriteManifest,
+  getSkillId,
+  setSkillId,
+} from './manifest.js';
 import type { SkillManifest } from './manifest.js';
-import { parseSkillFrontmatter as defaultParseSkillFrontmatter, validateSkillName as defaultValidateSkillName, deriveDisplayTitle } from './frontmatter.js';
+import {
+  parseSkillFrontmatter as defaultParseSkillFrontmatter,
+  validateSkillName as defaultValidateSkillName,
+  deriveDisplayTitle,
+} from './frontmatter.js';
 import type { FrontmatterResult } from './frontmatter.js';
 import { createSkill, createSkillVersion } from './api-client.js';
 
@@ -121,4 +130,11 @@ const deployChangedSkills = async (options: DeployOptions): Promise<DeploySummar
 };
 
 export { deployChangedSkills };
-export type { DeployDeps, DeployOptions, DeploySummary, CreatedEntry, VersionedEntry, SkippedEntry };
+export type {
+  DeployDeps,
+  DeployOptions,
+  DeploySummary,
+  CreatedEntry,
+  VersionedEntry,
+  SkippedEntry,
+};

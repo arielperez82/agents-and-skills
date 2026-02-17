@@ -12,7 +12,8 @@ type ChangeDetectionOptions = {
   ref?: string;
 };
 
-const defaultExecGit = (rootDir: string) =>
+const defaultExecGit =
+  (rootDir: string) =>
   (args: string[]): Promise<string> =>
     new Promise((resolve, reject) => {
       execFile('git', args, { cwd: rootDir }, (error, stdout) => {

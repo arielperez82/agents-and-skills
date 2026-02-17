@@ -43,10 +43,7 @@ const buildHeaders = (apiKey: string): Record<string, string> => ({
   'anthropic-beta': BETA_HEADER,
 });
 
-const buildFormData = (
-  zipBuffer: Buffer,
-  displayTitle?: string,
-): FormData => {
+const buildFormData = (zipBuffer: Buffer, displayTitle?: string): FormData => {
   const formData = new FormData();
 
   if (displayTitle !== undefined) {
@@ -62,15 +59,11 @@ const buildFormData = (
 const assertOk = async (response: Response): Promise<void> => {
   if (!response.ok) {
     const body = await response.text().catch(() => '');
-    throw new Error(
-      `API request failed with status ${String(response.status)}: ${body}`,
-    );
+    throw new Error(`API request failed with status ${String(response.status)}: ${body}`);
   }
 };
 
-const createSkill = async (
-  options: CreateSkillOptions,
-): Promise<CreateSkillResponse> => {
+const createSkill = async (options: CreateSkillOptions): Promise<CreateSkillResponse> => {
   const { displayTitle, zipBuffer, apiKey, baseUrl = DEFAULT_BASE_URL } = options;
   const url = `${baseUrl}/v1/skills`;
 
