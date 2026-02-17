@@ -333,7 +333,7 @@ The following references were consolidated from BDD requirements discovery metho
 
 ### PM Skills Intake References
 
-The following references were added in I10-PMSI to extend story decomposition and workshop execution patterns:
+The following references were added in I11-PMSI to extend story decomposition and workshop execution patterns:
 
 | Reference | Content | When to Load |
 |-----------|---------|--------------|

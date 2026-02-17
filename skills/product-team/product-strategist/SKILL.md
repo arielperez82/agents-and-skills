@@ -373,7 +373,7 @@ Python tool documentation:
 
 ### Consolidated References
 
-The following references were added in I10-PMSI to strengthen facilitation, roadmap planning, and positioning execution:
+The following references were added in I11-PMSI to strengthen facilitation, roadmap planning, and positioning execution:
 
 | Reference | Content | When to Load |
 |-----------|---------|--------------|

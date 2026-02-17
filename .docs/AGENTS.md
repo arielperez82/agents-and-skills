@@ -216,6 +216,13 @@ Filenames under `.docs/canonical/` should follow the naming grammar above. To au
 - Roadmap: [roadmap-repo-I10-ARFE-agentic-review-feedback-effectiveness-2026.md](canonical/roadmaps/roadmap-repo-I10-ARFE-agentic-review-feedback-effectiveness-2026.md)
 - Backlog: [backlog-repo-I10-ARFE-agentic-review-feedback-effectiveness.md](canonical/backlogs/backlog-repo-I10-ARFE-agentic-review-feedback-effectiveness.md)
 
+**I11-PMSI** (pm-skills-intake):
+
+- Charter: [charter-repo-I11-PMSI-pm-skills-intake.md](canonical/charters/charter-repo-I11-PMSI-pm-skills-intake.md)
+- Roadmap: [roadmap-repo-I11-PMSI-pm-skills-intake-2026.md](canonical/roadmaps/roadmap-repo-I11-PMSI-pm-skills-intake-2026.md)
+- Backlog: [backlog-repo-I11-PMSI-pm-skills-intake.md](canonical/backlogs/backlog-repo-I11-PMSI-pm-skills-intake.md)
+- Plan: [plan-repo-I11-PMSI-pm-skills-intake-2026-02.md](canonical/plans/plan-repo-I11-PMSI-pm-skills-intake-2026-02.md)
+
 Root `AGENTS.md` (if present) should point here: "See .docs/AGENTS.md for agent artifact conventions and operating reference."
 
 ---
