@@ -9,6 +9,7 @@ subdomain: product-management
 skills:
   - product-team/product-strategist
   - product-team/prioritization-frameworks
+  - product-team/saas-finance
 
 # === USE CASES ===
 difficulty: advanced
@@ -32,6 +33,7 @@ related-agents: [technical-writer]
 related-skills:
   - product-team/product-strategist
   - product-team/competitive-analysis
+  - product-team/workshop-facilitation
   - engineering-team/technical-writer
 related-commands: []
 collaborates-with:

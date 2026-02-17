@@ -27,7 +27,7 @@ classification:
 
 # === RELATIONSHIPS ===
 related-agents: []
-related-skills: [delivery-team/senior-pm, delivery-team/ticket-management, product-team/prioritization-frameworks]
+related-skills: [delivery-team/senior-pm, delivery-team/ticket-management, product-team/prioritization-frameworks, product-team/workshop-facilitation]
 related-commands: []
 
 # === TECHNICAL ===

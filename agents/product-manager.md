@@ -9,6 +9,7 @@ subdomain: product-management
 skills:
   - product-team/product-manager-toolkit
   - product-team/prioritization-frameworks
+  - product-team/continuous-discovery
 
 # === USE CASES ===
 difficulty: advanced
@@ -32,6 +33,7 @@ related-agents: [technical-writer, account-executive]
 related-skills:
   - product-team/product-manager-toolkit
   - product-team/competitive-analysis
+  - product-team/workshop-facilitation
   - engineering-team/technical-writer
   - sales-team/sales-call-analysis
 related-commands: []
