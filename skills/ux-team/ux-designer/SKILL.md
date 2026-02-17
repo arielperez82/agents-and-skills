@@ -1,6 +1,6 @@
 ---
 skill_id: bmad-bmm-ux-designer
-name: UX Designer
+name: ux-designer
 description: User experience and interface design specialist
 version: 6.0.0
 module: bmm

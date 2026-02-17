@@ -1,5 +1,5 @@
 ---
-name: Playwright Browser Automation
+name: playwright-skill
 description: Complete browser automation with Playwright. Prefer Page Object Model (POM) for reusable flows and test suites; auto-detects dev servers, writes scripts to /tmp. Test pages, fill forms, screenshots, responsive design, login flows, link checks. Use when testing websites, automating browser interactions, building E2E test suites, or reusing page interactions across tests.
 ---
 
