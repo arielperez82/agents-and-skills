@@ -1,10 +1,12 @@
-import { describe, it, expect, afterEach } from 'vitest';
-import { buildSkillZip } from './zip-builder.js';
-import { mkdir, writeFile, rm, mkdtemp } from 'node:fs/promises';
+import { execFile } from 'node:child_process';
+import { mkdir, mkdtemp, rm, writeFile } from 'node:fs/promises';
 import { tmpdir } from 'node:os';
 import { join } from 'node:path';
-import { execFile } from 'node:child_process';
 import { promisify } from 'node:util';
+
+import { afterEach, describe, expect, it } from 'vitest';
+
+import { buildSkillZip } from './zip-builder.js';
 
 const execFileAsync = promisify(execFile);
 

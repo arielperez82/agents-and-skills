@@ -1,4 +1,5 @@
 import { resolve } from 'node:path';
+
 import { deployChangedSkills } from './deploy.js';
 
 const main = async (): Promise<void> => {

@@ -1,8 +1,10 @@
-import { describe, it, expect, afterEach } from 'vitest';
-import { readManifest, writeManifest, getSkillId, setSkillId } from './manifest.js';
-import { mkdtemp, rm, readFile } from 'node:fs/promises';
-import { join } from 'node:path';
+import { mkdtemp, readFile, rm } from 'node:fs/promises';
 import { tmpdir } from 'node:os';
+import { join } from 'node:path';
+
+import { afterEach, describe, expect, it } from 'vitest';
+
+import { getSkillId, readManifest, setSkillId, writeManifest } from './manifest.js';
 
 const createTempDir = () => mkdtemp(join(tmpdir(), 'manifest-test-'));
 

@@ -1,20 +1,21 @@
 import { join } from 'node:path';
+
+import { createSkill, createSkillVersion } from './api-client.js';
 import { getChangedSkillDirs as defaultGetChangedSkillDirs } from './change-detection.js';
-import { buildSkillZip as defaultBuildSkillZip } from './zip-builder.js';
+import type { FrontmatterResult } from './frontmatter.js';
 import {
-  readManifest as defaultReadManifest,
-  writeManifest as defaultWriteManifest,
-  getSkillId,
-  setSkillId,
-} from './manifest.js';
-import type { SkillManifest } from './manifest.js';
-import {
+  deriveDisplayTitle,
   parseSkillFrontmatter as defaultParseSkillFrontmatter,
   validateSkillName as defaultValidateSkillName,
-  deriveDisplayTitle,
 } from './frontmatter.js';
-import type { FrontmatterResult } from './frontmatter.js';
-import { createSkill, createSkillVersion } from './api-client.js';
+import type { SkillManifest } from './manifest.js';
+import {
+  getSkillId,
+  readManifest as defaultReadManifest,
+  setSkillId,
+  writeManifest as defaultWriteManifest,
+} from './manifest.js';
+import { buildSkillZip as defaultBuildSkillZip } from './zip-builder.js';
 
 type DeployDeps = {
   readonly getChangedSkillDirs: (options: { rootDir: string; ref?: string }) => Promise<string[]>;
@@ -131,10 +132,10 @@ const deployChangedSkills = async (options: DeployOptions): Promise<DeploySummar
 
 export { deployChangedSkills };
 export type {
+  CreatedEntry,
   DeployDeps,
   DeployOptions,
   DeploySummary,
-  CreatedEntry,
-  VersionedEntry,
   SkippedEntry,
+  VersionedEntry,
 };

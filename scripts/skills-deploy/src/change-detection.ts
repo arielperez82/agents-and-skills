@@ -16,9 +16,10 @@ const defaultExecGit =
   (rootDir: string) =>
   (args: string[]): Promise<string> =>
     new Promise((resolve, reject) => {
+      // eslint-disable-next-line sonarjs/no-os-command-from-path
       execFile('git', args, { cwd: rootDir }, (error, stdout) => {
         if (error) {
-          reject(error);
+          reject(error as Error);
           return;
         }
         resolve(stdout);
@@ -74,5 +75,5 @@ export const getChangedSkillDirs = async (
 
   const deduplicated = [...new Set(skillDirs)];
 
-  return deduplicated.sort();
+  return deduplicated.sort((a, b) => a.localeCompare(b));
 };

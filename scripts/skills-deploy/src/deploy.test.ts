@@ -1,16 +1,23 @@
-import { describe, it, expect, vi, beforeAll, afterAll, afterEach } from 'vitest';
 import { http, HttpResponse } from 'msw';
 import { setupServer } from 'msw/node';
-import { deployChangedSkills } from './deploy.js';
+import { afterAll, afterEach, beforeAll, describe, expect, it, vi } from 'vitest';
+
 import type { DeployDeps } from './deploy.js';
+import { deployChangedSkills } from './deploy.js';
 import type { SkillManifest } from './manifest.js';
 
 const API_BASE = 'https://api.anthropic.com';
 const server = setupServer();
 
-beforeAll(() => server.listen({ onUnhandledRequest: 'error' }));
-afterEach(() => server.resetHandlers());
-afterAll(() => server.close());
+beforeAll(() => {
+  server.listen({ onUnhandledRequest: 'error' });
+});
+afterEach(() => {
+  server.resetHandlers();
+});
+afterAll(() => {
+  server.close();
+});
 
 const createMockDeps = (overrides: Partial<DeployDeps> = {}): DeployDeps => ({
   getChangedSkillDirs:
