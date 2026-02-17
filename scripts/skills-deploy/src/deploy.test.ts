@@ -399,7 +399,7 @@ describe('deployChangedSkills', () => {
     expect(deps.writeManifest).toHaveBeenCalled();
   });
 
-  it('throws when duplicate title skill not found in listSkills response', async () => {
+  it('skips when duplicate title skill not found in listSkills response', async () => {
     server.use(
       http.post(`${API_BASE}/v1/skills`, () =>
         HttpResponse.json(
@@ -426,14 +426,16 @@ describe('deployChangedSkills', () => {
         .mockResolvedValue({ name: 'ghost-skill', description: 'Ghost' }),
     });
 
-    await expect(
-      deployChangedSkills({
-        rootDir: '/repo',
-        manifestPath: '/repo/manifest.json',
-        apiKey: 'test-key',
-        deps,
-      }),
-    ).rejects.toThrow('ghost-skill');
+    const result = await deployChangedSkills({
+      rootDir: '/repo',
+      manifestPath: '/repo/manifest.json',
+      apiKey: 'test-key',
+      deps,
+    });
+
+    expect(result.skipped).toHaveLength(1);
+    expect(result.skipped[0]?.reason).toContain('ghost-skill');
+    expect(result.created).toEqual([]);
   });
 
   it('skips skill with malformed frontmatter when creating new skill', async () => {
@@ -572,6 +574,61 @@ describe('deployChangedSkills', () => {
 
     expect(result.skipped).toHaveLength(1);
     expect(result.skipped[0]?.skillPath).toBe('skills/bad-frontmatter');
+    expect(result.created).toHaveLength(1);
+    expect(result.created[0]?.skillPath).toBe('skills/good-skill');
+  });
+
+  it('skips skill and continues when API returns 500', async () => {
+    let createCallCount = 0;
+
+    server.use(
+      http.post(`${API_BASE}/v1/skills`, () => {
+        createCallCount++;
+        if (createCallCount === 1) {
+          return HttpResponse.json(
+            {
+              type: 'error',
+              error: { type: 'api_error', message: 'Internal server error' },
+            },
+            { status: 500 },
+          );
+        }
+        return HttpResponse.json({
+          id: 'skill_01good',
+          created_at: '2026-02-17T00:00:00Z',
+          display_title: 'good-skill',
+          latest_version: '1234567890',
+          source: 'custom',
+          type: 'skill',
+          updated_at: '2026-02-17T00:00:00Z',
+        });
+      }),
+    );
+
+    const deps = createMockDeps({
+      getChangedSkillDirs: vi
+        .fn<() => Promise<string[]>>()
+        .mockResolvedValue(['skills/flaky-skill', 'skills/good-skill']),
+      readManifest: vi.fn<() => Promise<SkillManifest>>().mockResolvedValue({ skills: {} }),
+      parseSkillFrontmatter: vi
+        .fn<(path: string) => Promise<{ name: string; description: string } | undefined>>()
+        .mockImplementation(async (path: string) => {
+          if (path.includes('flaky-skill')) {
+            return { name: 'flaky-skill', description: 'Flaky' };
+          }
+          return { name: 'good-skill', description: 'Good skill' };
+        }),
+    });
+
+    const result = await deployChangedSkills({
+      rootDir: '/repo',
+      manifestPath: '/repo/manifest.json',
+      apiKey: 'test-key',
+      deps,
+    });
+
+    expect(result.skipped).toHaveLength(1);
+    expect(result.skipped[0]?.reason).toContain('500');
     expect(result.created).toHaveLength(1);
     expect(result.created[0]?.skillPath).toBe('skills/good-skill');
   });

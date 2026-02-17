@@ -151,6 +151,8 @@ const deployChangedSkills = async (options: DeployOptions): Promise<DeploySummar
     a.localeCompare(b),
   );
 
+  console.log(`Found ${String(dirsToProcess.length)} skill(s) to process`);
+
   if (dirsToProcess.length === 0) {
     return { created: [], versioned: [], skipped: [] };
   }
@@ -165,12 +167,14 @@ const deployChangedSkills = async (options: DeployOptions): Promise<DeploySummar
     const frontmatter = await deps.parseSkillFrontmatter(skillMdPath);
 
     if (frontmatter === undefined) {
+      console.log(`  ⊘ ${skillPath}: skipped (no valid frontmatter)`);
       skipped.push({ skillPath, reason: 'No valid frontmatter (missing name or description)' });
       continue;
     }
 
     const nameError = deps.validateSkillName(frontmatter.name);
     if (nameError !== undefined) {
+      console.log(`  ⊘ ${skillPath}: skipped (${nameError})`);
       skipped.push({ skillPath, reason: nameError });
       continue;
     }
@@ -183,6 +187,8 @@ const deployChangedSkills = async (options: DeployOptions): Promise<DeploySummar
     const displayTitle = deriveDisplayTitle(skillPath, frontmatter);
     const existingId = getSkillId(manifest, skillPath);
 
+    console.log(`  → ${skillPath} (${existingId !== undefined ? 'update' : 'create'})...`);
+
     try {
       if (existingId !== undefined) {
         const response = await createSkillVersion({
@@ -191,6 +197,7 @@ const deployChangedSkills = async (options: DeployOptions): Promise<DeploySummar
           apiKey,
           baseUrl,
         });
+        console.log(`  ✓ ${skillPath}: versioned (v${response.version})`);
         versioned.push({ skillPath, version: response.version });
       } else {
         const result = await createOrRecoverSkill({
@@ -202,8 +209,10 @@ const deployChangedSkills = async (options: DeployOptions): Promise<DeploySummar
         });
 
         if (result.kind === 'created') {
+          console.log(`  ✓ ${skillPath}: created (${result.skillId})`);
           created.push({ skillPath, skillId: result.skillId });
         } else {
+          console.log(`  ✓ ${skillPath}: versioned via recovery (v${result.version})`);
           versioned.push({ skillPath, version: result.version });
         }
 
@@ -211,11 +220,12 @@ const deployChangedSkills = async (options: DeployOptions): Promise<DeploySummar
         manifestUpdated = true;
       }
     } catch (error) {
-      if (error instanceof MalformedFrontmatterError) {
-        skipped.push({ skillPath, reason: 'API rejected: malformed YAML frontmatter' });
-        continue;
-      }
-      throw error;
+      const reason =
+        error instanceof MalformedFrontmatterError
+          ? 'API rejected: malformed YAML frontmatter'
+          : `API error: ${error instanceof Error ? error.message : String(error)}`;
+      console.log(`  ✗ ${skillPath}: ${reason}`);
+      skipped.push({ skillPath, reason });
     }
   }
 
