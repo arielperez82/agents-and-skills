@@ -22,9 +22,9 @@ Full ID prefix: **I11-PMSI**.
 | B03 | Add `skills/product-team/workshop-facilitation/SKILL.md` | 1 | Adds facilitation protocol used by other PM skills | done |
 | B04 | Adapt `skills/product-team/agile-product-owner/` with intake references and wiring | 1 | Improves decomposition and workshop patterns | done |
 | B05 | Adapt `skills/product-team/product-strategist/` with intake references and wiring | 1 | Improves strategy, roadmap, and positioning workflows | done |
-| B06 | Adapt `skills/product-team/product-manager-toolkit/` with new intake references | 2 | Broadens PM execution toolkit depth | not_started |
-| B07 | Adapt `skills/product-team/competitive-analysis/` with new intake references | 2 | Strengthens strategic market analysis content | not_started |
-| B08 | Adapt `skills/product-team/prioritization-frameworks/` with selection guide reference | 2 | Improves framework selection guidance | not_started |
+| B06 | Adapt `skills/product-team/product-manager-toolkit/` with new intake references | 2 | Broadens PM execution toolkit depth | done |
+| B07 | Adapt `skills/product-team/competitive-analysis/` with new intake references | 2 | Strengthens strategic market analysis content | done |
+| B08 | Adapt `skills/product-team/prioritization-frameworks/` with selection guide reference | 2 | Improves framework selection guidance | done |
 | B09 | Update `skills/product-team/CLAUDE.md` with new skills and workflow mappings | 3 | Maintains product-team onboarding and navigation | not_started |
 | B10 | Update `skills/README.md` product-team section for added skills | 3 | Maintains global catalog accuracy | not_started |
 

@@ -42,6 +42,7 @@ dependencies:
     - references/must-strategic-tracks.md
     - references/product-operating-model.md
     - references/experimental-product-management.md
+    - references/prioritization-selection-guide.md
 compatibility:
   python-version: "3.8+"
   platforms: [macos, linux, windows]
@@ -72,7 +73,7 @@ version: v1.0.0
 author: Claude Skills Team
 contributors: []
 created: 2026-02-11
-updated: 2026-02-11
+updated: 2026-02-17
 license: MIT
 
 # === DISCOVERABILITY ===

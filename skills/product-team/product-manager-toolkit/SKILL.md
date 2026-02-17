@@ -20,7 +20,9 @@ use-cases:
 
 # === RELATIONSHIPS ===
 related-agents: []
-related-skills: []
+related-skills:
+  - product-team/continuous-discovery
+  - product-team/workshop-facilitation
 related-commands: []
 orchestrated-by: []
 
@@ -34,6 +36,7 @@ dependencies:
     - references/discovery-workflow.md
     - references/opportunity-scoring.md
     - references/mom-test.md
+    - references/prd-development-guide.md
   assets: []
 compatibility:
   python-version: 3.8+
@@ -64,7 +67,7 @@ version: v1.1.0
 author: Claude Skills Team
 contributors: []
 created: 2025-10-19
-updated: 2026-02-16
+updated: 2026-02-17
 license: MIT
 
 # === DISCOVERABILITY ===

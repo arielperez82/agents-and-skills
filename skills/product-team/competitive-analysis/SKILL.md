@@ -27,7 +27,9 @@ orchestrated-by: []
 # === TECHNICAL ===
 dependencies:
   scripts: []
-  references: []
+  references:
+    - references/company-research.md
+    - references/pestel-analysis.md
   assets: []
 compatibility:
   python-version: 3.8+
@@ -53,7 +55,7 @@ version: v1.1.0
 author: Claude Skills Library
 contributors: []
 created: 2025-11-27
-updated: 2025-11-27
+updated: 2026-02-17
 license: MIT
 
 # === DISCOVERABILITY ===
