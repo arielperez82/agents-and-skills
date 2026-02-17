@@ -1,6 +1,7 @@
-import { describe, it, expect, vi } from 'vitest';
-import { getChangedSkillDirs } from './change-detection.js';
+import { describe, expect, it, vi } from 'vitest';
+
 import type { ChangeDetectionDeps } from './change-detection.js';
+import { getChangedSkillDirs } from './change-detection.js';
 
 const createDeps = (overrides: Partial<ChangeDetectionDeps> = {}): ChangeDetectionDeps => ({
   execGit: overrides.execGit ?? vi.fn<(args: string[]) => Promise<string>>().mockResolvedValue(''),

@@ -1,6 +1,7 @@
-import archiver from 'archiver';
 import { basename } from 'node:path';
 import { PassThrough } from 'node:stream';
+
+import archiver from 'archiver';
 
 type BuildSkillZipOptions = {
   readonly skillDir: string;
@@ -13,7 +14,9 @@ const collectBuffer = (stream: PassThrough): Promise<Buffer> =>
     stream.on('data', (chunk: Buffer) => {
       chunks.push(chunk);
     });
-    stream.on('end', () => resolve(Buffer.concat(chunks)));
+    stream.on('end', () => {
+      resolve(Buffer.concat(chunks));
+    });
     stream.on('error', reject);
   });
 

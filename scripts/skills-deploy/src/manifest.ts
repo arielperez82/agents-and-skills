@@ -1,4 +1,4 @@
-import { readFile, writeFile, mkdir } from 'node:fs/promises';
+import { mkdir, readFile, writeFile } from 'node:fs/promises';
 import { dirname } from 'node:path';
 
 type SkillEntry = {
@@ -46,5 +46,5 @@ const setSkillId = (
 const isNodeError = (error: unknown): error is NodeJS.ErrnoException =>
   error instanceof Error && 'code' in error;
 
-export { readManifest, writeManifest, getSkillId, setSkillId };
+export { getSkillId, readManifest, setSkillId, writeManifest };
 export type { SkillEntry, SkillManifest };

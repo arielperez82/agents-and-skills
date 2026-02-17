@@ -1,5 +1,6 @@
 import { readFile } from 'node:fs/promises';
 import { basename } from 'node:path';
+
 import { parse as parseYaml } from 'yaml';
 
 type FrontmatterResult = {
@@ -13,6 +14,7 @@ const RESERVED_NAMES: ReadonlyArray<string> = ['anthropic', 'claude'];
 
 const NAME_PATTERN = /^[a-z0-9-]+$/;
 
+// eslint-disable-next-line sonarjs/slow-regex -- simple tag detection on short user input
 const XML_TAG_PATTERN = /<[^>]+>/;
 
 const parseSkillFrontmatter = async (
@@ -81,5 +83,5 @@ const deriveDisplayTitle = (
   return basename(skillDir);
 };
 
-export { parseSkillFrontmatter, validateSkillName, deriveDisplayTitle };
+export { deriveDisplayTitle, parseSkillFrontmatter, validateSkillName };
 export type { FrontmatterResult };
