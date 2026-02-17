@@ -381,6 +381,16 @@ Engage agents proactively, not just reactively:
 
 **How to engage**: Explicitly invoke the agent by name and follow its guidance. Example: "Engaging tdd-reviewer to verify TDD compliance before writing production code." For pre-commit validation, run `/review/review-changes` as the single gate.
 
+### Telemetry-Informed Agent Selection
+
+The `telemetry/` workspace collects agent usage data (start/stop events, skill activations, session summaries) via Claude Code hooks. This data flows to Tinybird for analysis.
+
+**Rules for using telemetry context:**
+
+- **Mandatory agents stay mandatory.** `tdd-reviewer`, `ts-enforcer`, `refactor-assessor`, and the `/review/review-changes` gate are never optional regardless of what telemetry data shows. Cost data does not justify skipping quality gates.
+- **Telemetry informs optional agent engagement.** Use usage data (e.g. from `inject-usage-context` hook) to decide which *optional* agents to engage — for example, if telemetry shows a session heavily uses `architect` and `acceptance-designer`, that context helps select relevant optional reviewers.
+- **Never cite telemetry as a reason to skip quality gates.** Telemetry context is advisory, not prescriptive. It enriches decision-making but does not override the canonical development flow.
+
 ### Verification Checklist
 
 Before writing any code, verify:

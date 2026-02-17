@@ -119,6 +119,10 @@ Agents that capture or encode learnings (learner, docs-reviewer, agent-author) m
 
 **L28 — Agent and command intake/optimize pipeline** (I06-AICO, 2026-02-16): Agent optimizer (5-dimension rubric, analyze-agent.sh, audit-agents.sh, `/agent:optimize`), command validator (validate_commands.py, `/command:validate`), and agent intake (5-phase pipeline with governance checklist, `/agent:intake`) are in place. E2E validated with synthetic agent (incorporate → validate_agent.py + analyze-agent.sh pass → revert). Command validator allowlists template/external refs (e.g. skills/{path}, ui-ux-pro-max) so docs-style commands do not fail. See initiative I06-AICO (charter, roadmap, backlog) and reports under `.docs/reports/report-repo-I06-AICO-*`.
 
+**L29 — Telemetry context is advisory, not prescriptive** (I05-ATEL, 2026-02-17): The `inject-usage-context` hook provides agent usage summaries (top agents, skill activations, session counts) as additional context at session start. This data informs *optional* agent engagement — e.g. suggesting relevant reviewers based on recent usage patterns. Mandatory agents (`tdd-reviewer`, `ts-enforcer`, `refactor-assessor`) and the `/review/review-changes` gate remain mandatory regardless of telemetry data. Never cite cost or usage data as justification for skipping quality gates.
+
+**L30 — Agent name field is a stable telemetry identifier** (I05-ATEL, 2026-02-17): The `name` field in agent frontmatter is used as the telemetry identifier in Tinybird datasources (`agent_name` column). Renaming an agent's `name` field fragments historical telemetry data — queries filtering by agent name will miss pre-rename events. When renaming is necessary, consider the telemetry impact and whether a migration or alias is needed. The `ap-` prefix removal (I03-PRFR era) is a historical example of this fragmentation risk.
+
 ---
 
 ## Development practices — GitHub workflows
