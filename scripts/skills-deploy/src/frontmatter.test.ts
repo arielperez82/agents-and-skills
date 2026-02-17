@@ -114,6 +114,25 @@ version: "1.0"
     expect(result).toBeUndefined();
   });
 
+  it('returns undefined when frontmatter contains invalid YAML (unquoted colons)', async () => {
+    const dir = await trackTempDir();
+    const filePath = await writeSkillMd(
+      dir,
+      `---
+name: agent-intake
+description: Use when evaluating agents. Triggers: "intake agent", "evaluate agent".
+version: 1.0.0
+---
+
+# Agent Intake
+`,
+    );
+
+    const result = await parseSkillFrontmatter(filePath);
+
+    expect(result).toBeUndefined();
+  });
+
   it('extracts only name and description from frontmatter with extra fields', async () => {
     const dir = await trackTempDir();
     const filePath = await writeSkillMd(

@@ -31,7 +31,12 @@ const parseSkillFrontmatter = async (
     return undefined;
   }
 
-  const parsed: unknown = parseYaml(match[1]);
+  let parsed: unknown;
+  try {
+    parsed = parseYaml(match[1]);
+  } catch {
+    return undefined;
+  }
 
   if (typeof parsed !== 'object' || parsed === null) {
     return undefined;
