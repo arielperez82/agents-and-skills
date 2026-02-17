@@ -1,3 +1,4 @@
+// Telemetry-only; repo-wide *.sh and .github/workflows are in root lint-staged.config.ts.
 export default {
   '**/*.ts': (stagedFiles: string[]) => [
     'pnpm type-check',
@@ -6,18 +7,8 @@ export default {
   ],
   '**/*.{md,json,yaml,yml}': 'pnpm format:fix',
   '{src,tests}/**/*.ts': () => ['pnpm test:unit'],
-  '../.github/workflows/*.{yml,yaml}': (stagedFiles: string[]) => {
-    const args = stagedFiles.map((f) => f.replace(/^\.\.\//, '')).join(' ');
-    return stagedFiles.length > 0 ? ['sh scripts/run-actionlint.sh ' + args] : [];
-  },
-  '../**/*.sh': (stagedFiles: string[]) => {
-    const args = stagedFiles.map((f) => f.replace(/^\.\.\//, '')).join(' ');
-    return stagedFiles.length > 0 ? ['sh scripts/run-shellcheck.sh ' + args] : [];
-  },
   '**/*.sh': (stagedFiles: string[]) => {
-    const args = stagedFiles
-      .map((f) => (f.startsWith('/') || f.startsWith('telemetry/') ? f : 'telemetry/' + f))
-      .join(' ');
+    const args = stagedFiles.join(' ');
     return stagedFiles.length > 0 ? ['sh scripts/run-shellcheck.sh ' + args] : [];
   },
 };

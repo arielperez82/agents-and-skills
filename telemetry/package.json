@@ -21,7 +21,7 @@
     "test:coverage": "pnpm run test:unit:coverage",
     "test:integration": "vitest run --config vitest.integration.config.ts",
     "build": "tsc --noEmit",
-    "prepare": "cd .. && husky telemetry/.husky",
+    "prepare": "node -e \"0\"",
     "tinybird:dev": "npx dotenv-cli -e .env.local -- npx tinybird dev",
     "tinybird:build": "npx dotenv-cli -e .env.local -- npx tinybird build",
     "tinybird:build:check": "npx dotenv-cli -e .env.local -- npx tinybird build --dry-run",
