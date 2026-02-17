@@ -50,8 +50,8 @@ const buildFormData = (zipBuffer: Buffer, displayTitle?: string): FormData => {
     formData.append('display_title', displayTitle);
   }
 
-  const blob = new Blob([zipBuffer], { type: 'application/zip' });
-  formData.append('files[]', blob, 'skill.zip');
+  const file = new File([zipBuffer], 'skill.zip', { type: 'application/zip' });
+  formData.append('files[]', file);
 
   return formData;
 };
