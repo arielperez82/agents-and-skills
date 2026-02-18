@@ -59,40 +59,19 @@ jobs:
         run: pnpm type-check
         working-directory: telemetry
 
-      - name: Tinybird build (validate only)
+      - name: Tinybird build (validate build)
         run: npx tinybird build --dry-run
         working-directory: telemetry
         env:
           TB_TOKEN: dry-run-placeholder
-          TB_HOST: https://api.tinybird.co
-
-  unit-tests:
-    runs-on: ubuntu-latest
-    steps:
-      - name: Checkout
-        uses: actions/checkout@v4
-
-      - name: Setup pnpm
-        uses: pnpm/action-setup@v4
-        with:
-          version: '10.18.2'
-
-      - name: Setup Node.js
-        uses: actions/setup-node@v4
-        with:
-          node-version-file: 'telemetry/.nvmrc'
-          cache: 'pnpm'
-          cache-dependency-path: 'telemetry/pnpm-lock.yaml'
-
-      - name: Install dependencies
-        run: pnpm install --frozen-lockfile
-        working-directory: telemetry
+          TB_HOST: http://placeholder:8000
 
       - name: Run unit tests
         run: pnpm test:unit
         working-directory: telemetry
 
   integration-tests:
+    needs: ['checks']
     runs-on: ubuntu-latest
     services:
       tinybird:
