@@ -15,17 +15,7 @@ The intake pipeline is project-agnostic. It dynamically discovers the current pr
 
 ## Deploy-Readiness Rules
 
-Every skill passing through intake must be deploy-compatible before promotion. The deploy pipeline uploads skills to an API with strict validation:
-
-1. **Name format**: The `name` field in SKILL.md frontmatter must contain only lowercase letters, numbers, and hyphens (regex: `/^[a-z0-9-]+$/`). No uppercase, no spaces, no underscores.
-
-2. **Name-folder match**: The `name` field must exactly match the skill's folder name. If the skill lives at `skills/engineering-team/tdd/SKILL.md`, the name must be `tdd`. The API rejects mismatches.
-
-3. **Description YAML safety**: The `description` field must be quoted (double quotes) if it contains YAML-special characters: colon followed by space (`: `), `#`, `[`, `]`, `{`, `}`. Unquoted descriptions with these characters cause YAML parse errors during deploy.
-
-4. **Required fields**: SKILL.md must have at minimum `name` and `description` in frontmatter. The API only accepts these two fields; all other frontmatter fields are stripped before upload but must not break YAML parsing.
-
-Check these rules in Phase 2 (Sandbox & Security Audit) and again in Phase 7 (Validate) before promotion.
+Every skill passing through intake must be deploy-compatible before promotion (name format, name-folder match, YAML-safe description, required fields). See [../creating-agents/references/deploy-readiness-rules.md](../creating-agents/references/deploy-readiness-rules.md) for the full rules. Check in Phase 2 (Sandbox & Security Audit) and again in Phase 7 (Validate) before promotion.
 
 ## Intake Pipeline (8 Phases)
 

@@ -133,17 +133,7 @@ All agents reference skills using relative paths:
 
 ## Skill Deploy-Readiness Rules
 
-When agents reference skills, those skills must be deploy-compatible. The deploy pipeline uploads skills to an API with strict validation. Apply these rules when creating or reviewing skills referenced by agents:
-
-1. **Name format**: The `name` field in SKILL.md frontmatter must contain only lowercase letters, numbers, and hyphens (regex: `/^[a-z0-9-]+$/`). No uppercase, no spaces, no underscores.
-
-2. **Name-folder match**: The `name` field must exactly match the skill's folder name. If the skill lives at `skills/engineering-team/tdd/SKILL.md`, the name must be `tdd`. The API enforces this: the folder name must match the skill name in SKILL.md.
-
-3. **Description YAML safety**: The `description` field must be quoted (double quotes) if it contains YAML-special characters: colon followed by space (`: `), `#`, `[`, `]`, `{`, `}`. Unquoted descriptions with these characters cause YAML parse errors.
-
-4. **Required fields**: SKILL.md must have at minimum `name` and `description` in frontmatter. The API only accepts these two fields; all other frontmatter fields are stripped before upload but must not break YAML parsing.
-
-The `validate_agent.py` script validates agent structure, not skill deploy-readiness. These deploy rules are enforced by the skills-deploy pipeline at publish time.
+When agents reference skills, those skills must be deploy-compatible (name format, name-folder match, YAML-safe description, required fields). See [references/deploy-readiness-rules.md](references/deploy-readiness-rules.md) for the full rules and enforcement details.
 
 ## Workflow Documentation
 

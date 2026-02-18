@@ -16,17 +16,7 @@ Reduce token usage 40-70% while preserving full functionality. Works standalone,
 
 ## Deploy-Readiness Rules
 
-Before or after optimization, verify the skill meets API deploy requirements. The deploy pipeline enforces these strictly:
-
-1. **Name format**: The `name` field must contain only lowercase letters, numbers, and hyphens (regex: `/^[a-z0-9-]+$/`). No uppercase, no spaces, no underscores.
-
-2. **Name-folder match**: The `name` field must exactly match the skill's folder name. If the skill lives at `skills/engineering-team/tdd/SKILL.md`, the name must be `tdd`. The API rejects mismatches.
-
-3. **Description YAML safety**: The `description` field must be quoted (double quotes) if it contains YAML-special characters: colon followed by space (`: `), `#`, `[`, `]`, `{`, `}`. Unquoted descriptions with these characters cause YAML parse errors during deploy.
-
-4. **Required fields**: SKILL.md must have at minimum `name` and `description` in frontmatter. The API only accepts these two fields; all other frontmatter fields are stripped before upload but must not break YAML parsing.
-
-Optimization must not introduce deploy-breaking changes (e.g., renaming the `name` field, removing `description`, or unquoting a description that needs quotes).
+Before or after optimization, verify the skill meets API deploy requirements (name format, name-folder match, YAML-safe description, required fields). See [../creating-agents/references/deploy-readiness-rules.md](../creating-agents/references/deploy-readiness-rules.md) for the full rules. Optimization must not introduce deploy-breaking changes (e.g., renaming the `name` field, removing `description`, or unquoting a description that needs quotes).
 
 ## Optimization Workflow
 
