@@ -508,6 +508,31 @@ describe('listSkills', () => {
     expect(capturedUrls[1]).toContain('after_id=cursor_page2');
   });
 
+  it('throws when has_more is true but next_page is absent', async () => {
+    server.use(
+      http.get(`${API_BASE}/v1/skills`, () =>
+        HttpResponse.json({
+          data: [
+            {
+              id: 'skill_01abc',
+              created_at: '2026-02-17T00:00:00Z',
+              display_title: 'skill-alpha',
+              latest_version: '1111111111',
+              source: 'custom',
+              type: 'skill',
+              updated_at: '2026-02-17T00:00:00Z',
+            },
+          ],
+          has_more: true,
+        }),
+      ),
+    );
+
+    await expect(listSkills({ apiKey: 'test-key' })).rejects.toThrow(
+      'API returned has_more: true but omitted next_page cursor',
+    );
+  });
+
   it('uses custom baseUrl when provided', async () => {
     const customBase = 'https://custom.api.example.com';
     let capturedUrl = '';

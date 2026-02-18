@@ -163,6 +163,10 @@ const listSkills = async (options: ListSkillsOptions): Promise<readonly CreateSk
       break;
     }
 
+    if (body.next_page === undefined) {
+      throw new Error('API returned has_more: true but omitted next_page cursor');
+    }
+
     cursor = body.next_page;
   }
 
