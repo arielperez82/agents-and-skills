@@ -127,6 +127,16 @@ Agents that capture or encode learnings (learner, docs-reviewer, agent-author) m
 
 **L31 — Tinybird Local: single port, no branches; branches are same-base only** (I05-ATEL, 2026-02-18): Tinybird Local is not designed to run multiple instances on one machine from the same port: the container always binds to 7181 internally. (You can run multiple Local containers by mapping each to a different host port, e.g. `-p 7181:7181`, `-p 7182:7181`.) Branches do **not** solve this: (1) **Local has no branch support** — the `tb local` CLI explicitly does not support `--branch`; branch management is Cloud-only. (2) **In Cloud, branches are copies of one Workspace** — creating a branch copies all resources from the Workspace to the new branch; they are for feature work and merge-back (schema iterations, new pipes, etc.), not for running multiple unrelated projects. Pushing wildly different project content to a branch would conflict with the same-base assumption and merge workflow. For multiple projects: use separate Workspaces (Cloud) or multiple Local containers with different host ports. Doc refs: [Branches](https://www.tinybird.co/docs/work-with-data/organize-your-work/branches), [Tinybird Local](https://tinybird.co/docs/forward/install-tinybird/local), [tb local](https://www.tinybird.co/docs/forward/dev-reference/commands/tb-local).
 
+**L32 — Health audit before fixes: let data guide priorities** (I05-ATEL, 2026-02-18): Running a telemetry health audit *before* writing any fix code proved essential. The audit revealed actual failure rates (79.5% for skill activation, 27-43% for agent hooks) that directly shaped the Wave 1 backlog priorities. Without data, we would have guessed at which hooks needed attention. Pattern: instrument observability first, audit the data, then prioritize fixes by measured impact.
+
+**L33 — Fast-path guard pattern for high-volume hook events** (I05-ATEL, 2026-02-18): For hooks that fire on every tool invocation (e.g., `PostToolUse` on `Read`), add a cheap pre-filter *before* any Zod parsing or JSON deserialization. The `isSkillOrCommandPath()` guard in `log-skill-activation` checks the file path with a regex before attempting to parse stdin as JSON. This dropped the failure rate from 79.5% to near-zero because most `Read` calls are for regular files, not skill/command files. Pattern: filter early with the cheapest possible check; parse only what survives the filter.
+
+**L34 — Graceful degradation over strict validation for external payloads** (I05-ATEL, 2026-02-18): Claude Code hook payloads evolve across versions and don't guarantee all fields. Using `.optional()` with zero-value defaults (empty string, 0, `Date.now()`) in Zod schemas is safer than requiring fields and failing. The agent-stop hook failure rate dropped from 27% to near-zero by making `agent_transcript_path` optional. Pattern: at trust boundaries with external systems you don't control, prefer graceful degradation (accept partial data, fill defaults) over strict validation (reject incomplete data).
+
+**L35 — Degraded-mode feedback loops for incomplete analytics** (I05-ATEL, 2026-02-18): When analytics data is known to be incomplete (e.g., `est_cost_usd` always $0), show an honest "data warming up" message rather than displaying zeros that look like real data. The `buildUsageContext` degraded-mode check (`isAllZeroCost()`) detects this condition and adjusts the output format to set correct expectations. Pattern: analytics pipelines should self-diagnose data quality and communicate limitations to consumers rather than presenting incomplete data as authoritative.
+
+**L36 — Empty-string guards complement Zod schema validation** (I05-ATEL, 2026-02-18): Zod's `z.string()` passes empty strings — a field can be "present" but semantically empty. For identifiers like `agent_type`, an empty string creates ghost rows in analytics (22 untyped activations in our audit). Add explicit `if (!value.trim()) throw` guards after Zod parsing for fields that must be non-empty. Pattern: Zod validates *shape*; business rules validate *meaning*. Separate the two concerns.
+
 ---
 
 ## Development practices — GitHub workflows
@@ -238,6 +248,12 @@ Filenames under `.docs/canonical/` should follow the naming grammar above. To au
 - Backlog: [backlog-repo-I12-CRFT-craft-command.md](canonical/backlogs/backlog-repo-I12-CRFT-craft-command.md)
 - Walkthrough: [craft-manual-walkthrough-I12.md](reports/craft-manual-walkthrough-I12.md)
 - Research: [researcher-260218-craft-command-research.md](reports/researcher-260218-craft-command-research.md)
+
+**I13-RCHG** (review-changes-artifact-aware):
+
+- Charter: [charter-repo-I13-RCHG-review-changes-artifact-aware.md](canonical/charters/charter-repo-I13-RCHG-review-changes-artifact-aware.md)
+- Roadmap: [roadmap-repo-I13-RCHG-review-changes-artifact-aware-2026.md](canonical/roadmaps/roadmap-repo-I13-RCHG-review-changes-artifact-aware-2026.md)
+- Backlog: [backlog-repo-I13-RCHG-review-changes-artifact-aware.md](canonical/backlogs/backlog-repo-I13-RCHG-review-changes-artifact-aware.md)
 
 Root `AGENTS.md` (if present) should point here: "See .docs/AGENTS.md for agent artifact conventions and operating reference."
 

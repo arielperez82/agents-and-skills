@@ -485,7 +485,7 @@ Each hook reads a JSON event from stdin (provided by Claude Code), validates it,
 | ---------------------- | -------------------- | ----------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------- |
 | `log-agent-start`      | `SubagentStart`      | Agent spawned           | Records agent activation (start event)                                                                                                                          |
 | `log-agent-stop`       | `SubagentStop`       | Agent completed         | Reads agent transcript from disk, extracts tokens/cost/model via `parseTranscriptTokens()`, records stop event with full metrics                                |
-| `log-skill-activation` | `PostToolUse` (Read) | Skill/command file read | Detects skill and command file reads via regex on file paths, records to `skill_activations`                                                                    |
+| `log-skill-activation` | `PostToolUse` (Read) | Skill/command file read | Fast-path guard filters non-skill reads by path regex before JSON parsing; detects skill and command file reads, records to `skill_activations`                 |
 | `log-session-summary`  | `SessionEnd`         | Session closed          | Reads session transcript, aggregates all API calls, records to `session_summaries`                                                                              |
 | `inject-usage-context` | `SessionStart`       | Session opened          | Queries `agent_usage_summary`, builds markdown report, returns as `additionalContext` for prompt injection. Falls back to local cache on failure. 1.8s timeout. |
 
@@ -571,7 +571,7 @@ export type TelemetryClient = {
 
 ### Unit Tests
 
-224 tests across 27 test files. Coverage threshold: 65%.
+243 tests across 27 test files. Coverage threshold: 65%.
 
 - **MSW** (Mock Service Worker) intercepts Tinybird API calls
 - **Factory functions** generate test data (no `let`/`beforeEach` patterns)
@@ -641,6 +641,7 @@ Any row with a suspicious `agent_type` is silently dropped.
 - Hook failures never block Claude Code sessions
 - `inject-usage-context` has a 1.8s hard timeout with local file cache fallback (`~/.cache/agents-and-skills/usage-context.json`)
 - Health logging itself uses silent failure -- `telemetry_health` ingestion errors are swallowed to prevent recursive failure loops
+- `buildUsageContext` detects degraded data (all-zero costs, empty agent types) and outputs honest "data warming up" messages instead of misleading zeros
 
 ## Design Decisions
 
@@ -667,3 +668,12 @@ The `TelemetryClient` creates two underlying Tinybird SDK clients -- one with th
 ### Zod at trust boundaries
 
 All stdin input from Claude Code is validated with Zod schemas before any processing. Internal function calls between modules use plain TypeScript types. This follows the project convention of schemas at trust boundaries, types for internal logic.
+
+### Data quality guards (Wave 1)
+
+Wave 1 of the data quality plan (I05-ATEL) addressed the highest-impact data loss issues:
+
+- **Fast-path filtering**: `log-skill-activation` uses `isSkillOrCommandPath()` to reject non-skill reads _before_ JSON parsing, dropping the 79.5% failure rate to near-zero
+- **Graceful degradation**: Agent hook schemas use `.optional()` with zero-value defaults for fields Claude Code may not send (e.g., `agent_transcript_path`, `duration_ms`, `timestamp`)
+- **Empty-string guards**: `parseAgentStart` and `parseAgentStop` reject empty `agent_type` values after Zod validation to prevent ghost rows in analytics
+- **Degraded-mode detection**: `buildUsageContext` detects all-zero cost data and adjusts output to show "data warming up" instead of misleading zeros

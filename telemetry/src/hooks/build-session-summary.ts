@@ -6,7 +6,7 @@ import { parseTranscriptTokens } from './parse-transcript-tokens';
 
 const sessionEndEventSchema = z.object({
   session_id: z.string(),
-  transcript_path: z.string(),
+  transcript_path: z.string().optional(),
   cwd: z.string(),
   reason: z.string().optional(),
   permission_mode: z.string().optional(),

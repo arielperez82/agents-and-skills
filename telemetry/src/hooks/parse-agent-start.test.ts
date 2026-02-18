@@ -130,6 +130,20 @@ describe('parseAgentStart', () => {
     });
   });
 
+  describe('empty agent_type guard', () => {
+    it('throws when agent_type is empty string', () => {
+      expect(() => parseAgentStart(makeValidEvent({ agent_type: '' }))).toThrow(
+        'agent_type is empty'
+      );
+    });
+
+    it('throws when agent_type is whitespace only', () => {
+      expect(() => parseAgentStart(makeValidEvent({ agent_type: '   ' }))).toThrow(
+        'agent_type is empty'
+      );
+    });
+  });
+
   describe('forward compatibility', () => {
     it('ignores extra fields in the event payload', () => {
       const result = parseAgentStart(

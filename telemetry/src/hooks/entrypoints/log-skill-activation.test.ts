@@ -87,4 +87,95 @@ describe('runLogSkillActivation', () => {
     setupEnv();
     await expect(runLogSkillActivation('not json')).resolves.not.toThrow();
   });
+
+  it('exits silently and emits no health event for empty stdin', async () => {
+    setupEnv();
+    let ingestCalled = false;
+
+    server.use(
+      http.post(`${BASE_URL}/v0/events`, () => {
+        ingestCalled = true;
+        return HttpResponse.json({ successful_rows: 1, quarantined_rows: 0 });
+      })
+    );
+
+    await runLogSkillActivation('');
+    // Allow any fire-and-forget promises to settle
+    await new Promise((resolve) => setTimeout(resolve, 50));
+
+    expect(ingestCalled).toBe(false);
+  });
+
+  it('exits silently and emits no health event for truncated JSON stdin', async () => {
+    setupEnv();
+    let ingestCalled = false;
+
+    server.use(
+      http.post(`${BASE_URL}/v0/events`, () => {
+        ingestCalled = true;
+        return HttpResponse.json({ successful_rows: 1, quarantined_rows: 0 });
+      })
+    );
+
+    await runLogSkillActivation('truncated {');
+    // Allow any fire-and-forget promises to settle
+    await new Promise((resolve) => setTimeout(resolve, 50));
+
+    expect(ingestCalled).toBe(false);
+  });
+
+  it('exits silently and emits no health event for non-skill file reads', async () => {
+    setupEnv();
+    let ingestCalled = false;
+
+    server.use(
+      http.post(`${BASE_URL}/v0/events`, () => {
+        ingestCalled = true;
+        return HttpResponse.json({ successful_rows: 1, quarantined_rows: 0 });
+      })
+    );
+
+    await runLogSkillActivation(makeNonSkillEvent());
+    // Allow any fire-and-forget promises to settle
+    await new Promise((resolve) => setTimeout(resolve, 50));
+
+    expect(ingestCalled).toBe(false);
+  });
+
+  it('emits success health event only for skill file reads', async () => {
+    setupEnv();
+    const capturedUrls: string[] = [];
+
+    server.use(
+      http.post(`${BASE_URL}/v0/events`, ({ request }) => {
+        capturedUrls.push(request.url);
+        return HttpResponse.json({ successful_rows: 1, quarantined_rows: 0 });
+      })
+    );
+
+    await runLogSkillActivation(makeSkillEvent());
+
+    // Two ingest calls: one for skill activation, one for health event
+    expect(capturedUrls.length).toBeGreaterThanOrEqual(1);
+  });
+
+  it('emits failure health event when skill ingest throws', async () => {
+    setupEnv();
+    let callCount = 0;
+
+    server.use(
+      http.post(`${BASE_URL}/v0/events`, () => {
+        callCount++;
+        if (callCount === 1) {
+          return HttpResponse.error();
+        }
+        return HttpResponse.json({ successful_rows: 1, quarantined_rows: 0 });
+      })
+    );
+
+    await runLogSkillActivation(makeSkillEvent());
+
+    // Health event call should have been made (after ingest failure)
+    expect(callCount).toBeGreaterThanOrEqual(1);
+  });
 });

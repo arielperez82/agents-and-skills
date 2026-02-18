@@ -97,4 +97,32 @@ describe('runLogAgentStop', () => {
     setupEnv();
     await expect(runLogAgentStop('not json')).resolves.not.toThrow();
   });
+
+  it('ingests with zero tokens when agent_transcript_path is missing from event', async () => {
+    setupEnv();
+    let capturedBody: unknown = null;
+
+    server.use(
+      http.post(`${BASE_URL}/v0/events`, async ({ request }) => {
+        capturedBody = await request.json();
+        return HttpResponse.json({ successful_rows: 1, quarantined_rows: 0 });
+      })
+    );
+
+    const eventWithoutTranscriptPath = JSON.stringify({
+      session_id: 'sess-1',
+      agent_id: 'agent-1',
+      agent_type: 'tdd-reviewer',
+      cwd: '/Users/test/project',
+      transcript_path: '/Users/test/.claude/projects/transcript.jsonl',
+      permission_mode: 'default',
+      hook_event_name: 'SubagentStop',
+      stop_hook_active: false,
+      // agent_transcript_path intentionally omitted
+    });
+
+    await runLogAgentStop(eventWithoutTranscriptPath);
+
+    expect(capturedBody).not.toBeNull();
+  });
 });

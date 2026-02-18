@@ -8,7 +8,7 @@ const subagentStopSchema = z.object({
   session_id: z.string(),
   agent_id: z.string(),
   agent_type: z.string(),
-  agent_transcript_path: z.string(),
+  agent_transcript_path: z.string().optional(),
   cwd: z.string(),
   stop_hook_active: z.boolean().optional(),
   transcript_path: z.string().optional(),
@@ -21,6 +21,11 @@ export const parseAgentStop = (
   transcriptContent: string
 ): AgentActivationRow => {
   const event = subagentStopSchema.parse(JSON.parse(eventJson) as unknown);
+
+  if (!event.agent_type.trim()) {
+    throw new Error('agent_type is empty — skipping ingestion');
+  }
+
   const tokens = parseTranscriptTokens(transcriptContent);
 
   return {

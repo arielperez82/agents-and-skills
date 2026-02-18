@@ -16,6 +16,10 @@ export const parseAgentStart = (eventJson: string): AgentActivationRow => {
   const parsed: unknown = JSON.parse(eventJson);
   const event = subagentStartSchema.parse(parsed);
 
+  if (!event.agent_type.trim()) {
+    throw new Error('agent_type is empty — skipping ingestion');
+  }
+
   return {
     timestamp: new Date(),
     session_id: event.session_id,

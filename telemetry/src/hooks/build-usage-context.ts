@@ -25,9 +25,11 @@ const rowSchema = z.object({
 
 const isCleanAgentType = (agentType: string): boolean => !INJECTION_PATTERN.test(agentType);
 
+const isNonEmptyAgentType = (agentType: string): boolean => agentType.trim().length > 0;
+
 const validateRow = (row: AgentUsageSummaryRow): boolean => {
   const result = rowSchema.safeParse(row);
-  return result.success && isCleanAgentType(row.agent_type);
+  return result.success && isCleanAgentType(row.agent_type) && isNonEmptyAgentType(row.agent_type);
 };
 
 const calculateCacheRatio = (row: AgentUsageSummaryRow): number => {
@@ -89,18 +91,27 @@ const generateHints = (rows: readonly AgentUsageSummaryRow[]): readonly string[]
   return hints;
 };
 
+const isAllZeroCost = (rows: readonly AgentUsageSummaryRow[]): boolean =>
+  rows.every((row) => row.est_cost_usd === 0);
+
 export const buildUsageContext = (rows: readonly AgentUsageSummaryRow[]): string => {
   const validRows = rows.filter(validateRow);
 
   if (validRows.length === 0) return '';
 
-  const sortedByCost = [...validRows].sort((a, b) => b.est_cost_usd - a.est_cost_usd);
-  const topAgents = sortedByCost.slice(0, TOP_AGENTS_LIMIT);
+  const degradedMode = isAllZeroCost(validRows);
+
+  const sorted = degradedMode
+    ? [...validRows].sort((a, b) => b.invocations - a.invocations)
+    : [...validRows].sort((a, b) => b.est_cost_usd - a.est_cost_usd);
+
+  const topAgents = sorted.slice(0, TOP_AGENTS_LIMIT);
 
   const agentLines = topAgents.map(formatAgentLine).join('\n');
-  const hints = generateHints(sortedByCost);
+  const hints = generateHints(sorted);
 
-  const sections = ['## Recent Agent Usage (last 7 days)', '', 'Top agents by cost:', agentLines];
+  const heading = degradedMode ? 'Top agents by invocations:' : 'Top agents by cost:';
+  const sections = ['## Recent Agent Usage (last 7 days)', '', heading, agentLines];
 
   if (hints.length > 0) {
     sections.push('', 'Optimization hints:');

@@ -128,4 +128,23 @@ describe('buildSessionSummary', () => {
 
     expect(result.total_duration_ms).toBe(0);
   });
+
+  it('succeeds with zero tokens when transcript_path is absent from event', () => {
+    const eventWithoutTranscriptPath = JSON.stringify({
+      session_id: 'sess-no-transcript',
+      cwd: '/home/user/project',
+      permission_mode: 'default',
+      hook_event_name: 'SessionEnd',
+      reason: 'other',
+      // transcript_path intentionally omitted
+    });
+
+    const result = buildSessionSummary(eventWithoutTranscriptPath, '');
+
+    expect(result.session_id).toBe('sess-no-transcript');
+    expect(result.total_input_tokens).toBe(0);
+    expect(result.total_output_tokens).toBe(0);
+    expect(result.total_cost_usd).toBe(0);
+    expect(result.model_primary).toBe('unknown');
+  });
 });

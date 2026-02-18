@@ -97,4 +97,30 @@ describe('runLogSessionSummary', () => {
     setupEnv();
     await expect(runLogSessionSummary('not json')).resolves.not.toThrow();
   });
+
+  it('ingests session with zero tokens when transcript_path missing from event', async () => {
+    setupEnv();
+    let capturedBody: unknown = null;
+
+    server.use(
+      http.post(`${BASE_URL}/v0/events`, async ({ request }) => {
+        capturedBody = await request.json();
+        return HttpResponse.json({ successful_rows: 1, quarantined_rows: 0 });
+      })
+    );
+
+    const eventWithoutTranscriptPath = JSON.stringify({
+      session_id: 'sess-no-transcript',
+      cwd: '/Users/test/project',
+      permission_mode: 'default',
+      hook_event_name: 'SessionEnd',
+      reason: 'other',
+      // transcript_path intentionally omitted
+    });
+
+    await runLogSessionSummary(eventWithoutTranscriptPath);
+
+    // Ingest should still be called (success health event, not failure)
+    expect(capturedBody).not.toBeNull();
+  });
 });

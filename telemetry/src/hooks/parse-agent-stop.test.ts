@@ -110,12 +110,30 @@ describe('parseAgentStop', () => {
       expect(() => parseAgentStop(JSON.stringify(parsed), '')).toThrow();
     });
 
-    it('throws when agent_transcript_path is missing', () => {
+    it('succeeds with zero tokens when agent_transcript_path is missing', () => {
       const event = makeEvent();
       const parsed = JSON.parse(event) as Record<string, unknown>;
       delete parsed['agent_transcript_path'];
 
-      expect(() => parseAgentStop(JSON.stringify(parsed), '')).toThrow();
+      const result = parseAgentStop(JSON.stringify(parsed), '');
+
+      expect(result.input_tokens).toBe(0);
+      expect(result.output_tokens).toBe(0);
+      expect(result.session_id).toBe('sess-001');
+    });
+  });
+
+  describe('empty agent_type guard', () => {
+    it('throws when agent_type is empty string', () => {
+      expect(() => parseAgentStop(makeEvent({ agent_type: '' }), '')).toThrow(
+        'agent_type is empty'
+      );
+    });
+
+    it('throws when agent_type is whitespace only', () => {
+      expect(() => parseAgentStop(makeEvent({ agent_type: '   ' }), '')).toThrow(
+        'agent_type is empty'
+      );
     });
   });
 

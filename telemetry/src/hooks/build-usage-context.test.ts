@@ -153,6 +153,64 @@ describe('buildUsageContext', () => {
     });
   });
 
+  describe('degraded mode (all est_cost_usd === 0)', () => {
+    it('sorts by invocations descending when all cost data is zero', () => {
+      const rows = [
+        makeRow({ agent_type: 'agent-a', est_cost_usd: 0, invocations: 10 }),
+        makeRow({ agent_type: 'agent-b', est_cost_usd: 0, invocations: 50 }),
+        makeRow({ agent_type: 'agent-c', est_cost_usd: 0, invocations: 30 }),
+      ];
+
+      const result = buildUsageContext(rows);
+
+      expect(result).toContain('1. agent-b:');
+      expect(result).toContain('2. agent-c:');
+      expect(result).toContain('3. agent-a:');
+    });
+
+    it('shows "Top agents by invocations" heading in degraded mode', () => {
+      const rows = [makeRow({ est_cost_usd: 0, invocations: 5 })];
+
+      const result = buildUsageContext(rows);
+
+      expect(result).toContain('Top agents by invocations:');
+      expect(result).not.toContain('Top agents by cost:');
+    });
+
+    it('shows "Top agents by cost" when at least one row has non-zero cost', () => {
+      const rows = [
+        makeRow({ agent_type: 'agent-a', est_cost_usd: 0, invocations: 10 }),
+        makeRow({ agent_type: 'agent-b', est_cost_usd: 0.05, invocations: 5 }),
+      ];
+
+      const result = buildUsageContext(rows);
+
+      expect(result).toContain('Top agents by cost:');
+      expect(result).not.toContain('Top agents by invocations:');
+    });
+  });
+
+  describe('empty agent_type filtering', () => {
+    it('drops rows where agent_type is empty string', () => {
+      const rows = [
+        makeRow({ agent_type: '', est_cost_usd: 0.5 }),
+        makeRow({ agent_type: 'ts-enforcer', est_cost_usd: 0.15 }),
+      ];
+
+      const result = buildUsageContext(rows);
+
+      // The empty agent_type row should not appear (would render as ". : ...")
+      expect(result).not.toMatch(/^\d+\. :/m);
+      expect(result).toContain('ts-enforcer');
+    });
+
+    it('returns empty string when all rows have empty agent_type', () => {
+      const rows = [makeRow({ agent_type: '' }), makeRow({ agent_type: '  ' })];
+
+      expect(buildUsageContext(rows)).toBe('');
+    });
+  });
+
   describe('security validation', () => {
     it('drops rows with injection attempt in agent_type', () => {
       const rows = [
