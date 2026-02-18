@@ -416,6 +416,54 @@
     },
     "skills/ux-team/visual-design-foundations": {
       "skill_id": "skill_012uLtiUKXtrGVdUvKgDyjxZ"
+    },
+    "skills/agent-development-team/agent-intake": {
+      "skill_id": "skill_01UvXftugbz4fVAdf7Eqjc8R"
+    },
+    "skills/engineering-team/clickhouse-best-practices": {
+      "skill_id": "skill_01WB9uw3a5x6dSD2nqysMcpY"
+    },
+    "skills/engineering-team/debugging": {
+      "skill_id": "skill_01BMHZ4fqurAZ6thv4KRnxVe"
+    },
+    "skills/engineering-team/playwright-skill": {
+      "skill_id": "skill_01EdzS5XTNuwSs8FMS32RBMY"
+    },
+    "skills/engineering-team/react-best-practices": {
+      "skill_id": "skill_01Q7vG9jgRMAaSA4S965h2aB"
+    },
+    "skills/engineering-team/react-testing": {
+      "skill_id": "skill_011vB3KY6mxLVMFWtqkfXJSe"
+    },
+    "skills/engineering-team/refactoring": {
+      "skill_id": "skill_01SsEcHmJ4o8ej4btgU9tWCM"
+    },
+    "skills/engineering-team/senior-backend": {
+      "skill_id": "skill_01GJY7nGaRfFfD7Mw9WMVthe"
+    },
+    "skills/engineering-team/senior-secops": {
+      "skill_id": "skill_01RYKKdfxtbCexQKSYC9u5Dc"
+    },
+    "skills/engineering-team/vercel-deploy-claimable": {
+      "skill_id": "skill_01LnRyQkcgd5LB8R1uhT6TAG"
+    },
+    "skills/marketing-team/marketing-demand-acquisition": {
+      "skill_id": "skill_01MKrLLkTEuEPwdnQrv9akgT"
+    },
+    "skills/marketing-team/marketing-psychology": {
+      "skill_id": "skill_01JAAh7mkuAv43zVpReCBn1o"
+    },
+    "skills/problem-solving": {
+      "skill_id": "skill_01TAbVbhLqHsxgDZ8SxVQGdt"
+    },
+    "skills/product-team/product-manager-toolkit": {
+      "skill_id": "skill_01Sp3HJT4p9w2GCWMcirrQ7X"
+    },
+    "skills/sales-team/meeting-intelligence": {
+      "skill_id": "skill_01Gpjqs2Co5BWxktrzgbfYXn"
+    },
+    "skills/ux-team/ux-designer": {
+      "skill_id": "skill_01KThq4YGsaAkupTzJBTss7i"
     }
   }
 }
