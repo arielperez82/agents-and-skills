@@ -124,7 +124,7 @@ phases:
   - name: Validate
     number: 5
     status: pending
-    agents: [review-changes]
+    agents: []  # Uses /review/review-changes command, not a direct agent
     artifact_paths: []
     started_at: null
     completed_at: null

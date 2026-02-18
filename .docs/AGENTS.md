@@ -10,7 +10,7 @@ This file is the **single operating reference** for agent behavior and artifact 
 
 **All agents** must read and write coordination artifacts under `.docs/`. This is not optional — it is the permanent convention for this repo, proven across initiatives I01-ACM through I04-SLSE.
 
-- **Canonical truth:** charter, roadmap, backlog, plan, assessments, reviews, ADRs live under `.docs/canonical/`.
+- **Canonical truth:** charter, roadmap, backlog, plan, assessments, reviews, ADRs, requirements, designs live under `.docs/canonical/`.
 - **Reports:** time-stamped outputs live under `.docs/reports/`.
 - **Operating reference:** this file (`.docs/AGENTS.md`).
 
@@ -26,6 +26,8 @@ Do **not** create or expect PLAN.md, WIP.md, LEARNINGS.md, or ad-hoc names like 
 - **Naming (canonical):** `<type>-<endeavor>[-<scope>]-<subject>[-<timeframe>].md` under `.docs/canonical/<type>/`.
 - **Naming (reports):** `report-<endeavor>-<topic>-<timeframe>.md` under `.docs/reports/`.
 - **ADRs:** `.docs/canonical/adrs/adr-YYYYMMDD-<subject>.md`.
+- **Requirements:** `.docs/canonical/requirements/{initiative-id}-user-stories.md`, `{initiative-id}-bdd-scenarios.md`.
+- **Designs:** `.docs/canonical/designs/{initiative-id}-architecture.md`.
 - **Decision hierarchy:** Charter → Roadmap → Backlog → Plan. Disputes resolve upstream.
 
 ---
@@ -228,6 +230,14 @@ Filenames under `.docs/canonical/` should follow the naming grammar above. To au
 - Roadmap: [roadmap-repo-I11-PMSI-pm-skills-intake-2026.md](canonical/roadmaps/roadmap-repo-I11-PMSI-pm-skills-intake-2026.md)
 - Backlog: [backlog-repo-I11-PMSI-pm-skills-intake.md](canonical/backlogs/backlog-repo-I11-PMSI-pm-skills-intake.md)
 - Plan: [plan-repo-I11-PMSI-pm-skills-intake-2026-02.md](canonical/plans/plan-repo-I11-PMSI-pm-skills-intake-2026-02.md)
+
+**I12-CRFT** (craft-command):
+
+- Charter: [charter-repo-I12-CRFT-craft-command.md](canonical/charters/charter-repo-I12-CRFT-craft-command.md)
+- Roadmap: [roadmap-repo-I12-CRFT-craft-command-2026.md](canonical/roadmaps/roadmap-repo-I12-CRFT-craft-command-2026.md)
+- Backlog: [backlog-repo-I12-CRFT-craft-command.md](canonical/backlogs/backlog-repo-I12-CRFT-craft-command.md)
+- Walkthrough: [craft-manual-walkthrough-I12.md](reports/craft-manual-walkthrough-I12.md)
+- Research: [researcher-260218-craft-command-research.md](reports/researcher-260218-craft-command-research.md)
 
 Root `AGENTS.md` (if present) should point here: "See .docs/AGENTS.md for agent artifact conventions and operating reference."
 
