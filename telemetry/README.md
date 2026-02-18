@@ -133,6 +133,8 @@ pnpm install
 
 ### 2. Set up Tinybird Local
 
+**Option A — Single instance on 7181 (manual):**
+
 ```bash
 # Start Tinybird Local (ClickHouse + Tinybird API)
 docker run -d --name tinybird-local -p 7181:7181 tinybirdco/tinybird-local:latest
@@ -140,6 +142,49 @@ docker run -d --name tinybird-local -p 7181:7181 tinybirdco/tinybird-local:lates
 # Get the admin token
 curl http://localhost:7181/tokens
 ```
+
+**Option B — Multiple workspaces (one instance, preferred for multiple projects):**
+
+Use one Local container and create a workspace per project. Lighter than multiple containers (single port, less memory). After `tb local start`:
+
+```bash
+tb workspace create agents-telemetry    # or any name
+tb workspace use agents-telemetry
+# Get token: curl -s http://localhost:7181/tokens | jq -r .workspace_admin_token (default workspace);
+# after tb workspace use <name>, the CLI stores the current workspace token in .tinyb
+export TB_HOST=http://localhost:7181
+export TB_TOKEN=<workspace token>
+```
+
+Then either put `TB_HOST` and `TB_TOKEN` in `../.env.local` (so `pnpm tinybird:build` picks them up via dotenv-cli) or run the build with env in the shell: `TB_HOST=http://localhost:7181 TB_TOKEN=<token> npx tinybird build` from `telemetry/` so the shell export is used instead of `.env.local`.
+
+```bash
+cd telemetry && pnpm tinybird:build
+```
+
+Switch projects with `tb workspace use <other-workspace>` and update `TB_TOKEN` (or `.env.local`). See `skills/engineering-team/tinybird/rules/local-development.md`.
+
+**Option C — Dynamic port (multiple containers):**
+
+When you need full instance isolation (e.g. different Tinybird versions) or 7181 is in use by another app, use the wrapper. It starts a container on the first free port in 7181–7190 and prints `TB_HOST` and `TB_TOKEN`:
+
+```bash
+# From repo root: export vars for this shell
+eval $(telemetry/scripts/tinybird-local-start.sh)
+
+# Build: pnpm tinybird:build loads ../.env.local (overrides shell). Use env in the shell to use the wrapper's token:
+cd telemetry && TB_HOST="$TB_HOST" TB_TOKEN="$TB_TOKEN" npx tinybird build
+# Or write to a file and use dotenv (see below)
+```
+
+Optional: write env to a file and use dotenv for later commands:
+
+```bash
+TELEMETRY_TINYBIRD_ENV_FILE=telemetry/.env.tb telemetry/scripts/tinybird-local-start.sh
+cd telemetry && pnpm exec dotenv-cli -e .env.tb -- pnpm tinybird:build
+```
+
+Containers are named `tinybird-local-<port>` (e.g. `tinybird-local-7182`). If a container for a port already exists (running or stopped), it is reused. Requires Docker and `curl`; `jq` is optional (used to parse the token).
 
 ### 3. Configure environment
 

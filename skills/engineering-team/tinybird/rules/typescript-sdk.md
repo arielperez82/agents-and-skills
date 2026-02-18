@@ -78,7 +78,7 @@ const result = await tinybird.query.topPages({ start_date: new Date("2024-01-01"
 
 ## Local development (SDK)
 
-- **Local container:** run `docker run -d -p 7181:7181 --name tinybird-local tinybirdco/tinybird-local:latest`; set `devMode: "local"` or use `npx tinybird dev --local`. Tokens are obtained from the local container; workspace per git branch.
+- **Local container:** run `docker run -d -p 7181:7181 --name tinybird-local tinybirdco/tinybird-local:latest`; set `devMode: "local"` or use `npx tinybird dev --local`. Tokens are obtained from the local container. The SDK may use or create a **workspace** per git branch when building against Local (workspace isolation on one Local instance; this is not the Cloud “branch” feature). Confirm current behavior in the [SDK README](https://github.com/tinybirdco/tinybird-sdk-typescript/blob/main/README.md) or `npx tinybird info`.
 - **Branch mode:** default `devMode: "branch"` uses Tinybird Cloud with branches; `dev` and `build` are blocked on main — use a feature branch or `tinybird deploy` for production.
 
 ## Next.js

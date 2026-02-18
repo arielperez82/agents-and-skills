@@ -9,7 +9,7 @@ function getTinybirdEnv(): { host: string; token: string } {
 
 function isLocalHost(host: string): boolean {
   const u = host.replace(/\/$/, '');
-  return u === 'http://localhost:7181' || u === 'http://127.0.0.1:7181';
+  return /^https?:\/\/(localhost|127\.0\.0\.1)(:\d+)?$/.test(u);
 }
 
 /**

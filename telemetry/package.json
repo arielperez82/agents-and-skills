@@ -26,7 +26,8 @@
     "tinybird:build": "npx dotenv-cli -e ../.env.local -- npx tinybird build",
     "tinybird:build:check": "npx dotenv-cli -e ../.env.local -- npx tinybird build --dry-run",
     "tinybird:deploy": "npx dotenv-cli -e ../.env.local -- npx tinybird deploy",
-    "tinybird:deploy:check": "npx dotenv-cli -e ../.env.local -- npx tinybird deploy --dry-run"
+    "tinybird:deploy:check": "npx dotenv-cli -e ../.env.local -- npx tinybird deploy --dry-run",
+    "tinybird:local": "sh scripts/tinybird-local-start.sh"
   },
   "devDependencies": {
     "@eslint/js": "^9.39.0",
