@@ -141,6 +141,7 @@ When producing review reports (especially for `/review/review-changes`), map res
 | Finding Type | Tier | Icon |
 |---|---|---|
 | Any FAIL (missing fields, duplicate descriptions, broken refs) | 🔴 Fix required | Command definition must be fixed before commit |
+| WARNING (naming near-misses, deprecated references, style issues) | 🟡 Suggestion | Non-critical issues worth addressing |
 | All PASS | 🔵 Observation | Commands are valid |
 
 ## Success Metrics

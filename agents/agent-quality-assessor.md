@@ -4,7 +4,7 @@ name: agent-quality-assessor
 title: Agent Quality Assessor
 description: Scores agent specifications on 5 quality dimensions (responsibility precision, retrieval efficiency, collaboration completeness, classification alignment, example quality) using the analyze-agent.sh rubric. Read-only assessment — does not modify agents.
 domain: engineering
-subdomain: quality-assurance
+subdomain: meta-development
 skills:
   - agent-development-team/agent-optimizer
 
@@ -36,7 +36,7 @@ related-skills:
   - agent-development-team/creating-agents
   - agent-development-team/refactoring-agents
 related-commands:
-  - agent/optimize
+  - agent/optimize  # optimize acts on quality scores; assessor only produces them
 collaborates-with:
   - agent: agent-validator
     purpose: Validator checks structural correctness (schema, paths, refs); quality assessor scores subjective quality dimensions. Both run in parallel on the same agent files.
