@@ -278,17 +278,6 @@ Guardian agents assess, guide, and validate but **never implement**:
 
 **Examples**: `tdd-reviewer`, `docs-reviewer`, `refactor-assessor`
 
-### Orchestration Pattern
-
-If an agent "owns" a skill, declare it explicitly:
-
-```yaml
-orchestrates:
-  skill: domain-team/skill-name
-```
-
-This makes skill ownership clear and discoverable.
-
 ### Delegation Pattern
 
 Agents should delegate to specialized agents rather than duplicating capabilities:
