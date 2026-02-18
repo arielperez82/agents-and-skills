@@ -508,6 +508,33 @@ describe('listSkills', () => {
     expect(capturedUrls[1]).toContain('after_id=cursor_page2');
   });
 
+  it('throws when pagination exceeds maximum page limit', async () => {
+    let requestCount = 0;
+
+    server.use(
+      http.get(`${API_BASE}/v1/skills`, () => {
+        requestCount++;
+        return HttpResponse.json({
+          data: [
+            {
+              id: `skill_page${String(requestCount)}`,
+              created_at: '2026-02-17T00:00:00Z',
+              display_title: `skill-${String(requestCount)}`,
+              latest_version: '1111111111',
+              source: 'custom',
+              type: 'skill',
+              updated_at: '2026-02-17T00:00:00Z',
+            },
+          ],
+          has_more: true,
+          next_page: `cursor_${String(requestCount + 1)}`,
+        });
+      }),
+    );
+
+    await expect(listSkills({ apiKey: 'test-key' })).rejects.toThrow('exceeded maximum');
+  });
+
   it('throws when has_more is true but next_page is absent', async () => {
     server.use(
       http.get(`${API_BASE}/v1/skills`, () =>

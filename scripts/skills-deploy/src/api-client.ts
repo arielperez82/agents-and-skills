@@ -137,6 +137,8 @@ const createSkillVersion = async (
   return (await response.json()) as CreateSkillVersionResponse;
 };
 
+const MAX_PAGES = 100;
+
 const fetchSkillsPage = async (
   baseUrl: string,
   headers: Record<string, string>,
@@ -162,7 +164,14 @@ const collectAllSkills = async (
   headers: Record<string, string>,
   accumulated: readonly CreateSkillResponse[],
   cursor: string | undefined,
+  pageCount: number = 0,
 ): Promise<readonly CreateSkillResponse[]> => {
+  if (pageCount >= MAX_PAGES) {
+    throw new Error(
+      `Pagination exceeded maximum of ${String(MAX_PAGES)} pages — possible infinite loop`,
+    );
+  }
+
   const page = await fetchSkillsPage(baseUrl, headers, cursor);
   const combined = [...accumulated, ...page.data];
 
@@ -174,7 +183,7 @@ const collectAllSkills = async (
     throw new Error('API returned has_more: true but omitted next_page cursor');
   }
 
-  return collectAllSkills(baseUrl, headers, combined, page.next_page);
+  return collectAllSkills(baseUrl, headers, combined, page.next_page, pageCount + 1);
 };
 
 const listSkills = async (options: ListSkillsOptions): Promise<readonly CreateSkillResponse[]> => {
