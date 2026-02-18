@@ -403,7 +403,7 @@ describe('listSkills', () => {
     expect(capturedUrl).toContain('limit=100');
   });
 
-  it('paginates using after_id cursor until has_more is false', async () => {
+  it('collects results across multiple pages in order', async () => {
     const page1Skills = [
       makeSkillRecord('skill_page1_a', 'skill-alpha', '1111111111'),
       makeSkillRecord('skill_page1_b', 'skill-beta', '2222222222'),
@@ -411,11 +411,8 @@ describe('listSkills', () => {
 
     const page2Skills = [makeSkillRecord('skill_page2_a', 'skill-gamma', '3333333333')];
 
-    const capturedUrls: string[] = [];
-
     server.use(
       http.get(`${API_BASE}/v1/skills`, ({ request }) => {
-        capturedUrls.push(request.url);
         const url = new URL(request.url);
         const afterId = url.searchParams.get('after_id');
 
@@ -440,6 +437,34 @@ describe('listSkills', () => {
     expect(result[0]?.id).toBe('skill_page1_a');
     expect(result[1]?.id).toBe('skill_page1_b');
     expect(result[2]?.id).toBe('skill_page2_a');
+  });
+
+  it('passes next_page cursor as after_id query parameter', async () => {
+    const capturedUrls: string[] = [];
+
+    server.use(
+      http.get(`${API_BASE}/v1/skills`, ({ request }) => {
+        capturedUrls.push(request.url);
+        const url = new URL(request.url);
+        const afterId = url.searchParams.get('after_id');
+
+        if (afterId === null) {
+          return HttpResponse.json({
+            data: [makeSkillRecord('skill_01', 'skill-alpha')],
+            has_more: true,
+            next_page: 'cursor_page2',
+          });
+        }
+
+        return HttpResponse.json({
+          data: [makeSkillRecord('skill_02', 'skill-beta')],
+          has_more: false,
+        });
+      }),
+    );
+
+    await listSkills({ apiKey: 'test-key' });
+
     expect(capturedUrls).toHaveLength(2);
     expect(capturedUrls[1]).toContain('after_id=cursor_page2');
   });
