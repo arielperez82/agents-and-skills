@@ -38,6 +38,10 @@ UX Design workflows:
 
 - **/create-ux-design** - Create comprehensive UX design with wireframes, flows, and accessibility
 
+## Prerequisites
+
+This skill references `helpers.md` for common operations (config loading, document saving, workflow routing). The `helpers.md` file is part of the BMAD Methodology Manager (BMM) framework. If using this skill outside a BMM project, replace `helpers.md` references with your project's equivalent utilities or perform those steps manually.
+
 ## Workflow Execution
 
 **All workflows follow helpers.md patterns:**
