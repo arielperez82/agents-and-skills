@@ -32,18 +32,23 @@ Engage these agents **in parallel**, each with the same context: the uncommitted
 
 ### Optional (when applicable)
 
-7. **docs-reviewer** – **Add** when the diff touches documentation (e.g. `*.md`, `README*`, `docs/`, or user specifies doc focus). Reviews permanent docs for clarity, structure, and correctness.
+7. **docs-reviewer** – **Add** when the diff touches documentation (`*.md`, `README*`, `docs/`), agent specs (`agents/*.md`), skill definitions (`skills/**/SKILL.md`), or command definitions (`commands/**/*.md`). Reviews markdown structure, frontmatter correctness, progressive disclosure, section ordering, and formatting quality.
 8. **progress-assessor** – **Add** when the review is based on a plan or roadmap (e.g. plan under `.docs/canonical/plans/`, status under `.docs/reports/`, or user says work is plan-based). Validates progress tracking and plan alignment.
 9. **agent-validator** – **Add** when the diff touches `agents/` (agent specs, renames, or README). Validates frontmatter, name-vs-filename consistency, and absence of stale `ap-` references.
+10. **Agent optimization step** – **Add** when the diff touches `agents/` (alongside agent-validator). The orchestrating agent runs `analyze-agent.sh` per changed agent file, scoring on 5 quality dimensions. This is a script-based validation step, not a separate agent invocation.
+11. **Skill validation step** – **Add** when the diff touches `skills/`. The orchestrating agent runs two checks: (1) `validate_agent.py --all --summary` to catch broken agent→skill references, (2) `quick_validate.py <skill-dir>` per changed skill for frontmatter structure. This is a script-based validation step, not a separate agent invocation.
+12. **Command validation step** – **Add** when the diff touches `commands/`. The orchestrating agent runs `validate_commands.py` on the entire commands directory. This is a script-based validation step, not a separate agent invocation.
 
 ## Optional agent prompts
 
-When including **docs-reviewer**, use this scope so the agent focuses on naming and cross-references:
+When including **docs-reviewer**, use this scope so the agent focuses on naming, cross-references, and artifact-specific markdown quality:
 
 - **Scope**: All uncommitted changes (git diff HEAD and untracked/staged). Focus on:
   - Consistency of agent naming (no ap- prefix) across READMEs, AGENTS.md, .docs, and command/skill docs.
   - Clarity of maintenance notes and references (e.g. agent-author.md, agent-name placeholders).
   - Any broken or ambiguous cross-references after renames.
+  - **For agent/skill/command markdown**: frontmatter correctness (valid YAML, required fields present), progressive disclosure structure, section ordering conventions, and markdown formatting quality.
+  - **For skills specifically**: verify SKILL.md follows the lean quick-reference pattern with detailed content in `references/` subdirectory.
 - **Report**: Pass/fail and any doc issues or suggested fixes.
 
 When including **agent-validator**, use this scope so the agent validates agent specs and naming:
@@ -54,17 +59,56 @@ When including **agent-validator**, use this scope so the agent validates agent 
   - No references to ap-<agent> remain in agent files or README.
 - **Report**: Validation pass/fail and any schema or consistency issues.
 
+When including the **agent optimization step**, use this scope:
+
+- **Scope**: Each changed `.md` file under `agents/` (excluding README.md).
+- **Run**: `bash skills/agent-development-team/agent-optimizer/scripts/analyze-agent.sh agents/<name>.md` for each changed agent file.
+- **Parse**: Extract `Grade:` and `Status:` from stdout. Script exits 0 on success, 1 on file-not-found or internal error. If parsing fails, treat as 🔴 Fix Required.
+- **Tier mapping**:
+  - Grade D/F or Status=OPTIMIZE → 🔴 Fix Required
+  - Grade C or Status=REVIEW → 🟡 Suggestion
+  - Grade A/B, Status=OK → 🔵 Observation
+- **Report**: Per-agent grade, status, dimension scores, and tier classification.
+
+When including the **skill validation step**, use this scope:
+
+- **Scope**: All changed files under `skills/`.
+- **Run (1)**: `python3 skills/agent-development-team/creating-agents/scripts/validate_agent.py --all --summary` — catches broken agent→skill cross-references.
+- **Run (2)**: `python3 skills/agent-development-team/skill-creator/scripts/quick_validate.py <skill-dir>` per changed skill — pass the parent directory of SKILL.md, not the file itself.
+- **Tier mapping**:
+  - Script failures or CRITICAL issues → 🔴 Fix Required
+  - HIGH warnings → 🟡 Suggestion
+  - All pass → 🔵 Observation
+- **Report**: Per-skill validation result + agent-validator summary (CRITICAL/HIGH counts).
+
+When including the **command validation step**, use this scope:
+
+- **Scope**: All changed files under `commands/`.
+- **Run**: `python3 skills/agent-development-team/creating-agents/scripts/validate_commands.py` — scans all `commands/` to catch cross-command conflicts like duplicate descriptions.
+- **Tier mapping**:
+  - Any FAIL → 🔴 Fix Required
+  - All PASS → 🔵 Observation
+- **Report**: Per-command PASS/FAIL + summary table.
+
+**Note on embedded scripts:** When the diff includes scripts (`.sh`, `.py`) under `skills/`, `agents/`, or `commands/` directories, the core agents **code-reviewer** and **security-assessor** should treat these scripts as explicitly in-scope for code quality and security review — not just application source code.
+
 ## Workflow
 
 1. **Gather uncommitted changes**
    - Run `git status` and `git diff HEAD` (and if needed `git diff --staged`).
    - If argument provided: filter or annotate which paths to include/exclude or what to focus on.
-   - **Decide optional agents**: If diff includes doc files → include docs-reviewer. If plan/roadmap context (plan files in diff or user indicated) → include progress-assessor. If diff touches `agents/` → include agent-validator.
+   - **Decide optional agents**:
+     - If diff includes doc files → include docs-reviewer.
+     - If plan/roadmap context (plan files in diff or user indicated) → include progress-assessor.
+     - If diff touches `agents/` → include agent-validator **and** agent optimization step.
+     - If diff touches `skills/` → include skill validation step **and** docs-reviewer.
+     - If diff touches `commands/` → include command validation step **and** docs-reviewer.
+     - If diff includes scripts (`.sh`, `.py`) under artifact directories (`skills/`, `agents/`, `commands/`) → note in core agent (code-reviewer, security-assessor) prompts that these scripts are in-scope.
 
 2. **Run all agents in parallel**
-   - Launch all applicable agents concurrently, each with: uncommitted diff + optional scope/focus. Use the prompts in "Optional agent prompts" above for docs-reviewer and agent-validator when included.
+   - Launch all applicable agents concurrently, each with: uncommitted diff + optional scope/focus. Use the prompts in "Optional agent prompts" above for each optional agent when included.
    - Core (always): tdd-reviewer, ts-enforcer (skip if no TS in diff), refactor-assessor, security-assessor, code-reviewer, cognitive-load-assessor.
-   - Optional: docs-reviewer (if docs changed), progress-assessor (if plan-based), agent-validator (if agents/ changed).
+   - Optional: docs-reviewer (if docs, agents, skills, or commands changed), progress-assessor (if plan-based), agent-validator (if `agents/` changed), agent optimization step (if `agents/` changed), skill validation step (if `skills/` changed), command validation step (if `commands/` changed).
    - Wait for all agents to complete before proceeding to summarize.
 
 3. **Summarize (collated tier summary)**
