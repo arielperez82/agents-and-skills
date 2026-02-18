@@ -4,14 +4,13 @@ import type { SessionSummaryRow } from '@/datasources';
 
 import { parseTranscriptTokens } from './parse-transcript-tokens';
 
-const isoDateTimeRegex = /^\d{4}-\d{2}-\d{2}T\d{2}:\d{2}:\d{2}/;
-
 const sessionEndEventSchema = z.object({
   session_id: z.string(),
   transcript_path: z.string(),
-  duration_ms: z.number(),
   cwd: z.string(),
-  timestamp: z.string().regex(isoDateTimeRegex, 'timestamp must be ISO 8601'),
+  reason: z.string().optional(),
+  permission_mode: z.string().optional(),
+  hook_event_name: z.string().optional(),
 });
 
 export const buildSessionSummary = (
@@ -23,9 +22,9 @@ export const buildSessionSummary = (
   const tokens = parseTranscriptTokens(transcriptContent);
 
   return {
-    timestamp: new Date(event.timestamp),
+    timestamp: new Date(),
     session_id: event.session_id,
-    total_duration_ms: event.duration_ms,
+    total_duration_ms: 0,
     agent_count: 0,
     skill_count: 0,
     api_request_count: tokens.api_request_count,

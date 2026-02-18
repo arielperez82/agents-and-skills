@@ -9,12 +9,11 @@ const subagentStopSchema = z.object({
   agent_id: z.string(),
   agent_type: z.string(),
   agent_transcript_path: z.string(),
-  parent_session_id: z.string(),
-  duration_ms: z.number(),
-  success: z.boolean(),
-  error: z.string().nullable(),
   cwd: z.string(),
-  timestamp: z.string(),
+  stop_hook_active: z.boolean().optional(),
+  transcript_path: z.string().optional(),
+  permission_mode: z.string().optional(),
+  hook_event_name: z.string().optional(),
 });
 
 export const parseAgentStop = (
@@ -25,9 +24,9 @@ export const parseAgentStop = (
   const tokens = parseTranscriptTokens(transcriptContent);
 
   return {
-    timestamp: new Date(event.timestamp),
+    timestamp: new Date(),
     session_id: event.session_id,
-    parent_session_id: event.parent_session_id,
+    parent_session_id: null,
     agent_type: event.agent_type,
     agent_id: event.agent_id,
     event: 'stop',
@@ -35,11 +34,11 @@ export const parseAgentStop = (
     output_tokens: tokens.output_tokens,
     cache_read_tokens: tokens.cache_read_tokens,
     cache_creation_tokens: tokens.cache_creation_tokens,
-    duration_ms: event.duration_ms,
+    duration_ms: 0,
     est_cost_usd: tokens.est_cost_usd,
     model: tokens.model,
-    success: event.success ? 1 : 0,
-    error_type: event.error,
+    success: 1,
+    error_type: null,
     tool_calls_count: 0,
   };
 };

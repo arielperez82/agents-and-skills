@@ -42,9 +42,10 @@ const makeSessionEndEvent = (transcriptPath: string) =>
   JSON.stringify({
     session_id: 'sess-1',
     transcript_path: transcriptPath,
-    duration_ms: 60000,
     cwd: '/Users/test/project',
-    timestamp: '2026-02-17T10:00:00.000Z',
+    permission_mode: 'default',
+    hook_event_name: 'SessionEnd',
+    reason: 'other',
   });
 
 afterEach(() => {

@@ -1,4 +1,4 @@
-import { describe, expect, it } from 'vitest';
+import { describe, expect, it, vi } from 'vitest';
 
 import type { AgentActivationRow } from '@/datasources';
 
@@ -25,28 +25,30 @@ const makeEvent = (overrides: Record<string, unknown> = {}) =>
     session_id: 'sess-001',
     agent_id: 'agent-abc',
     agent_type: 'tdd-reviewer',
-    agent_transcript_path: '/home/user/.claude/transcripts/transcript.jsonl',
-    parent_session_id: 'parent-sess-001',
-    duration_ms: 5000,
-    success: true,
-    error: null,
+    agent_transcript_path: '/home/user/.claude/projects/subagents/agent-abc.jsonl',
     cwd: '/home/user/project',
-    timestamp: '2026-02-17T12:00:00.000Z',
+    transcript_path: '/home/user/.claude/projects/transcript.jsonl',
+    permission_mode: 'default',
+    hook_event_name: 'SubagentStop',
+    stop_hook_active: false,
     ...overrides,
   });
 
 describe('parseAgentStop', () => {
   describe('valid event + valid transcript', () => {
     it('returns correct AgentActivationRow with token counts from transcript', () => {
+      const now = new Date('2026-02-18T10:00:00.000Z');
+      vi.setSystemTime(now);
+
       const event = makeEvent();
       const transcript = [makeTranscriptLine(), makeTranscriptLine()].join('\n');
 
       const result = parseAgentStop(event, transcript);
 
       expect(result).toEqual<AgentActivationRow>({
-        timestamp: new Date('2026-02-17T12:00:00.000Z'),
+        timestamp: now,
         session_id: 'sess-001',
-        parent_session_id: 'parent-sess-001',
+        parent_session_id: null,
         agent_type: 'tdd-reviewer',
         agent_id: 'agent-abc',
         event: 'stop',
@@ -54,13 +56,15 @@ describe('parseAgentStop', () => {
         output_tokens: 100,
         cache_read_tokens: 40,
         cache_creation_tokens: 20,
-        duration_ms: 5000,
+        duration_ms: 0,
         est_cost_usd: 0.006,
         model: 'claude-sonnet-4-20250514',
         success: 1,
         error_type: null,
         tool_calls_count: 0,
       });
+
+      vi.useRealTimers();
     });
   });
 
@@ -106,18 +110,10 @@ describe('parseAgentStop', () => {
       expect(() => parseAgentStop(JSON.stringify(parsed), '')).toThrow();
     });
 
-    it('throws when timestamp is missing', () => {
+    it('throws when agent_transcript_path is missing', () => {
       const event = makeEvent();
       const parsed = JSON.parse(event) as Record<string, unknown>;
-      delete parsed['timestamp'];
-
-      expect(() => parseAgentStop(JSON.stringify(parsed), '')).toThrow();
-    });
-
-    it('throws when duration_ms is missing', () => {
-      const event = makeEvent();
-      const parsed = JSON.parse(event) as Record<string, unknown>;
-      delete parsed['duration_ms'];
+      delete parsed['agent_transcript_path'];
 
       expect(() => parseAgentStop(JSON.stringify(parsed), '')).toThrow();
     });
@@ -133,24 +129,34 @@ describe('parseAgentStop', () => {
     });
   });
 
-  describe('failure events', () => {
-    it('returns success=0 and error_type when success is false', () => {
-      const event = makeEvent({
-        success: false,
-        error: 'TimeoutError',
-      });
+  describe('defaults for fields not provided by Claude Code', () => {
+    it('sets parent_session_id to null', () => {
+      const result = parseAgentStop(makeEvent(), '');
 
-      const result = parseAgentStop(event, '');
-
-      expect(result.success).toBe(0);
-      expect(result.error_type).toBe('TimeoutError');
+      expect(result.parent_session_id).toBeNull();
     });
 
-    it('returns success=1 and error_type null on successful event', () => {
+    it('sets duration_ms to 0 since Claude Code does not send it', () => {
+      const result = parseAgentStop(makeEvent(), '');
+
+      expect(result.duration_ms).toBe(0);
+    });
+
+    it('defaults success to 1 and error_type to null', () => {
       const result = parseAgentStop(makeEvent(), '');
 
       expect(result.success).toBe(1);
       expect(result.error_type).toBeNull();
+    });
+
+    it('generates timestamp from current time', () => {
+      const before = Date.now();
+      const result = parseAgentStop(makeEvent(), '');
+      const after = Date.now();
+
+      expect(result.timestamp).toBeInstanceOf(Date);
+      expect(result.timestamp.getTime()).toBeGreaterThanOrEqual(before);
+      expect(result.timestamp.getTime()).toBeLessThanOrEqual(after);
     });
   });
 

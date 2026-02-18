@@ -17,9 +17,12 @@ const makeSkillEvent = () =>
     session_id: 'sess-1',
     tool_name: 'Read',
     tool_input: { file_path: '/Users/test/skills/engineering-team/tdd/SKILL.md' },
-    success: true,
-    duration_ms: 50,
-    timestamp: '2026-02-17T10:00:00.000Z',
+    tool_response: { filePath: '/Users/test/skills/engineering-team/tdd/SKILL.md', success: true },
+    tool_use_id: 'toolu_01ABC',
+    cwd: '/Users/test/project',
+    transcript_path: '/Users/test/.claude/projects/transcript.jsonl',
+    permission_mode: 'default',
+    hook_event_name: 'PostToolUse',
   });
 
 const makeNonSkillEvent = () =>
@@ -27,9 +30,12 @@ const makeNonSkillEvent = () =>
     session_id: 'sess-1',
     tool_name: 'Read',
     tool_input: { file_path: '/Users/test/src/index.ts' },
-    success: true,
-    duration_ms: 50,
-    timestamp: '2026-02-17T10:00:00.000Z',
+    tool_response: { filePath: '/Users/test/src/index.ts', success: true },
+    tool_use_id: 'toolu_01DEF',
+    cwd: '/Users/test/project',
+    transcript_path: '/Users/test/.claude/projects/transcript.jsonl',
+    permission_mode: 'default',
+    hook_event_name: 'PostToolUse',
   });
 
 afterEach(() => {

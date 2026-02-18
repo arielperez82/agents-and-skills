@@ -6,9 +6,12 @@ export const postToolUseSchema = z.object({
   session_id: z.string(),
   tool_name: z.string(),
   tool_input: z.unknown(),
-  success: z.boolean(),
-  duration_ms: z.number(),
-  timestamp: z.iso.datetime(),
+  tool_response: z.unknown().optional(),
+  tool_use_id: z.string().optional(),
+  cwd: z.string().optional(),
+  transcript_path: z.string().optional(),
+  permission_mode: z.string().optional(),
+  hook_event_name: z.string().optional(),
 });
 
 const readToolInputSchema = z.object({
@@ -34,6 +37,18 @@ const extractSkillInfo = (
   return null;
 };
 
+const extractSuccess = (toolResponse: unknown): number => {
+  if (
+    typeof toolResponse === 'object' &&
+    toolResponse !== null &&
+    'success' in toolResponse &&
+    typeof (toolResponse as Record<string, unknown>)['success'] === 'boolean'
+  ) {
+    return (toolResponse as Record<string, unknown>)['success'] ? 1 : 0;
+  }
+  return 1;
+};
+
 export const parseSkillActivation = (eventJson: string): SkillActivationRow | null => {
   const parsed: unknown = JSON.parse(eventJson);
   const event = postToolUseSchema.parse(parsed);
@@ -53,12 +68,12 @@ export const parseSkillActivation = (eventJson: string): SkillActivationRow | nu
   }
 
   return {
-    timestamp: new Date(event.timestamp),
+    timestamp: new Date(),
     session_id: event.session_id,
     skill_name: skillInfo.skill_name,
     entity_type: skillInfo.entity_type,
     agent_type: null,
-    duration_ms: event.duration_ms,
-    success: event.success ? 1 : 0,
+    duration_ms: 0,
+    success: extractSuccess(event.tool_response),
   };
 };

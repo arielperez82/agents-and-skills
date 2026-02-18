@@ -6,10 +6,10 @@ export const subagentStartSchema = z.object({
   session_id: z.string(),
   agent_id: z.string(),
   agent_type: z.string(),
-  agent_transcript_path: z.string(),
-  parent_session_id: z.string(),
   cwd: z.string(),
-  timestamp: z.iso.datetime(),
+  transcript_path: z.string().optional(),
+  permission_mode: z.string().optional(),
+  hook_event_name: z.string().optional(),
 });
 
 export const parseAgentStart = (eventJson: string): AgentActivationRow => {
@@ -17,9 +17,9 @@ export const parseAgentStart = (eventJson: string): AgentActivationRow => {
   const event = subagentStartSchema.parse(parsed);
 
   return {
-    timestamp: new Date(event.timestamp),
+    timestamp: new Date(),
     session_id: event.session_id,
-    parent_session_id: event.parent_session_id,
+    parent_session_id: null,
     agent_type: event.agent_type,
     agent_id: event.agent_id,
     event: 'start',

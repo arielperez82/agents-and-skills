@@ -1,4 +1,4 @@
-import { describe, expect, it } from 'vitest';
+import { describe, expect, it, vi } from 'vitest';
 
 import type { SkillActivationRow } from '@/datasources';
 
@@ -11,11 +11,15 @@ const makeValidEvent = (overrides: Record<string, unknown> = {}) =>
     tool_input: {
       file_path: '/Users/dev/projects/agents-and-skills/skills/engineering-team/tdd/SKILL.md',
     },
-    tool_output: 'file contents here',
-    success: true,
-    duration_ms: 42,
+    tool_response: {
+      filePath: '/Users/dev/projects/agents-and-skills/skills/engineering-team/tdd/SKILL.md',
+      success: true,
+    },
+    tool_use_id: 'toolu_01ABC123',
     cwd: '/Users/dev/my-project',
-    timestamp: '2026-02-17T14:30:00.000Z',
+    transcript_path: '/Users/dev/.claude/projects/transcript.jsonl',
+    permission_mode: 'default',
+    hook_event_name: 'PostToolUse',
     ...overrides,
   });
 
@@ -27,17 +31,22 @@ const expectRow = (result: SkillActivationRow | null): SkillActivationRow => {
 describe('parseSkillActivation', () => {
   describe('skill file reads', () => {
     it('returns SkillActivationRow for engineering-team skill read', () => {
+      const now = new Date('2026-02-18T10:00:00.000Z');
+      vi.setSystemTime(now);
+
       const result = parseSkillActivation(makeValidEvent());
 
       expect(result).toEqual<SkillActivationRow>({
-        timestamp: new Date('2026-02-17T14:30:00.000Z'),
+        timestamp: now,
         session_id: 'sess-abc-123',
         skill_name: 'tdd',
         entity_type: 'skill',
         agent_type: null,
-        duration_ms: 42,
+        duration_ms: 0,
         success: 1,
       });
+
+      vi.useRealTimers();
     });
 
     it('extracts skill name from agent-development-team path', () => {
@@ -74,6 +83,9 @@ describe('parseSkillActivation', () => {
 
   describe('command file reads', () => {
     it('returns SkillActivationRow for command read with entity_type command', () => {
+      const now = new Date('2026-02-18T10:00:00.000Z');
+      vi.setSystemTime(now);
+
       const result = parseSkillActivation(
         makeValidEvent({
           tool_input: {
@@ -83,14 +95,16 @@ describe('parseSkillActivation', () => {
       );
 
       expect(result).toEqual<SkillActivationRow>({
-        timestamp: new Date('2026-02-17T14:30:00.000Z'),
+        timestamp: now,
         session_id: 'sess-abc-123',
         skill_name: 'agent/validate',
         entity_type: 'command',
         agent_type: null,
-        duration_ms: 42,
+        duration_ms: 0,
         success: 1,
       });
+
+      vi.useRealTimers();
     });
 
     it('extracts command path for review/review-changes', () => {
@@ -184,26 +198,56 @@ describe('parseSkillActivation', () => {
     });
   });
 
-  describe('success field mapping', () => {
-    it('maps success=true to 1', () => {
-      const result = expectRow(parseSkillActivation(makeValidEvent({ success: true })));
+  describe('success extraction from tool_response', () => {
+    it('extracts success=true from tool_response', () => {
+      const result = expectRow(
+        parseSkillActivation(
+          makeValidEvent({
+            tool_response: { success: true },
+          })
+        )
+      );
 
       expect(result.success).toBe(1);
     });
 
-    it('maps success=false to 0', () => {
+    it('extracts success=false from tool_response', () => {
       const result = expectRow(
         parseSkillActivation(
           makeValidEvent({
-            success: false,
             tool_input: {
               file_path: '/path/to/skills/team/tdd/SKILL.md',
             },
+            tool_response: { success: false },
           })
         )
       );
 
       expect(result.success).toBe(0);
+    });
+
+    it('defaults to success=1 when tool_response has no success field', () => {
+      const result = expectRow(
+        parseSkillActivation(
+          makeValidEvent({
+            tool_response: { filePath: '/some/path' },
+          })
+        )
+      );
+
+      expect(result.success).toBe(1);
+    });
+
+    it('defaults to success=1 when tool_response is not an object', () => {
+      const result = expectRow(
+        parseSkillActivation(
+          makeValidEvent({
+            tool_response: 'some string response',
+          })
+        )
+      );
+
+      expect(result.success).toBe(1);
     });
   });
 

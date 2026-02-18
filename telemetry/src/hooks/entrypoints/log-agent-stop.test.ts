@@ -41,12 +41,11 @@ const makeStopEvent = (transcriptPath: string) =>
     agent_id: 'agent-1',
     agent_type: 'tdd-reviewer',
     agent_transcript_path: transcriptPath,
-    parent_session_id: 'parent-1',
-    duration_ms: 5000,
-    success: true,
-    error: null,
     cwd: '/Users/test/project',
-    timestamp: '2026-02-17T10:00:00.000Z',
+    transcript_path: '/Users/test/.claude/projects/transcript.jsonl',
+    permission_mode: 'default',
+    hook_event_name: 'SubagentStop',
+    stop_hook_active: false,
   });
 
 afterEach(() => {

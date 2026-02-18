@@ -6,9 +6,10 @@ const makeEvent = (overrides: Record<string, unknown> = {}): string =>
   JSON.stringify({
     session_id: 'sess-abc-123',
     transcript_path: '/home/user/.claude/sessions/transcript.jsonl',
-    duration_ms: 45000,
     cwd: '/home/user/project',
-    timestamp: '2026-02-17T10:30:00.000Z',
+    permission_mode: 'default',
+    hook_event_name: 'SessionEnd',
+    reason: 'other',
     ...overrides,
   });
 
@@ -62,43 +63,38 @@ describe('buildSessionSummary', () => {
       }),
     ].join('\n');
 
+    const before = Date.now();
     const result = buildSessionSummary(makeEvent(), transcript);
+    const after = Date.now();
 
-    expect(result).toStrictEqual({
-      timestamp: new Date('2026-02-17T10:30:00.000Z'),
-      session_id: 'sess-abc-123',
-      total_duration_ms: 45000,
-      agent_count: 0,
-      skill_count: 0,
-      api_request_count: 3,
-      total_input_tokens: 450,
-      total_output_tokens: 190,
-      total_cache_read_tokens: 60,
-      total_cost_usd: 0.023,
-      agents_used: [],
-      skills_used: [],
-      model_primary: 'claude-opus-4-6',
-    });
+    expect(result.timestamp).toBeInstanceOf(Date);
+    expect(result.timestamp.getTime()).toBeGreaterThanOrEqual(before);
+    expect(result.timestamp.getTime()).toBeLessThanOrEqual(after);
+    expect(result.session_id).toBe('sess-abc-123');
+    expect(result.total_duration_ms).toBe(0);
+    expect(result.agent_count).toBe(0);
+    expect(result.skill_count).toBe(0);
+    expect(result.api_request_count).toBe(3);
+    expect(result.total_input_tokens).toBe(450);
+    expect(result.total_output_tokens).toBe(190);
+    expect(result.total_cache_read_tokens).toBe(60);
+    expect(result.total_cost_usd).toBe(0.023);
+    expect(result.agents_used).toEqual([]);
+    expect(result.skills_used).toEqual([]);
+    expect(result.model_primary).toBe('claude-opus-4-6');
   });
 
   it('returns zero tokens and model unknown for empty transcript', () => {
     const result = buildSessionSummary(makeEvent(), '');
 
-    expect(result).toStrictEqual({
-      timestamp: new Date('2026-02-17T10:30:00.000Z'),
-      session_id: 'sess-abc-123',
-      total_duration_ms: 45000,
-      agent_count: 0,
-      skill_count: 0,
-      api_request_count: 0,
-      total_input_tokens: 0,
-      total_output_tokens: 0,
-      total_cache_read_tokens: 0,
-      total_cost_usd: 0,
-      agents_used: [],
-      skills_used: [],
-      model_primary: 'unknown',
-    });
+    expect(result.session_id).toBe('sess-abc-123');
+    expect(result.total_duration_ms).toBe(0);
+    expect(result.api_request_count).toBe(0);
+    expect(result.total_input_tokens).toBe(0);
+    expect(result.total_output_tokens).toBe(0);
+    expect(result.total_cache_read_tokens).toBe(0);
+    expect(result.total_cost_usd).toBe(0);
+    expect(result.model_primary).toBe('unknown');
   });
 
   it('throws on malformed event JSON', () => {
@@ -108,23 +104,28 @@ describe('buildSessionSummary', () => {
   it('throws when required fields are missing from event', () => {
     const missingSessionId = JSON.stringify({
       transcript_path: '/home/user/.claude/sessions/t.jsonl',
-      duration_ms: 1000,
       cwd: '/home',
-      timestamp: '2026-02-17T10:30:00.000Z',
+      permission_mode: 'default',
+      hook_event_name: 'SessionEnd',
+      reason: 'other',
     });
 
     expect(() => buildSessionSummary(missingSessionId, '')).toThrow();
   });
 
-  it('throws when duration_ms is not a number', () => {
-    const badDuration = makeEvent({ duration_ms: 'not-a-number' });
+  it('generates timestamp from current time since Claude Code does not send it', () => {
+    const before = Date.now();
+    const result = buildSessionSummary(makeEvent(), '');
+    const after = Date.now();
 
-    expect(() => buildSessionSummary(badDuration, '')).toThrow();
+    expect(result.timestamp).toBeInstanceOf(Date);
+    expect(result.timestamp.getTime()).toBeGreaterThanOrEqual(before);
+    expect(result.timestamp.getTime()).toBeLessThanOrEqual(after);
   });
 
-  it('throws when timestamp is not a valid ISO string', () => {
-    const badTimestamp = makeEvent({ timestamp: 'not-a-date' });
+  it('sets total_duration_ms to 0 since Claude Code does not send duration', () => {
+    const result = buildSessionSummary(makeEvent(), '');
 
-    expect(() => buildSessionSummary(badTimestamp, '')).toThrow();
+    expect(result.total_duration_ms).toBe(0);
   });
 });

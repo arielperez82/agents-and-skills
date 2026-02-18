@@ -17,10 +17,10 @@ const makeStartEvent = () =>
     session_id: 'sess-1',
     agent_id: 'agent-1',
     agent_type: 'tdd-reviewer',
-    agent_transcript_path: '/Users/test/.claude/agent-transcript.jsonl',
-    parent_session_id: 'parent-1',
     cwd: '/Users/test/project',
-    timestamp: '2026-02-17T10:00:00.000Z',
+    transcript_path: '/Users/test/.claude/projects/transcript.jsonl',
+    permission_mode: 'default',
+    hook_event_name: 'SubagentStart',
   });
 
 afterEach(() => {

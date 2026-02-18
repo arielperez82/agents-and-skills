@@ -1,4 +1,4 @@
-import { describe, expect, it } from 'vitest';
+import { describe, expect, it, vi } from 'vitest';
 
 import type { AgentActivationRow } from '@/datasources';
 
@@ -9,22 +9,25 @@ const makeValidEvent = (overrides: Record<string, unknown> = {}) =>
     session_id: 'sess-abc-123',
     agent_id: 'agent-xyz-789',
     agent_type: 'tdd-reviewer',
-    agent_transcript_path: '/home/user/.claude/transcripts/agent-xyz-789.jsonl',
-    parent_session_id: 'sess-parent-001',
     cwd: '/Users/dev/my-project',
-    timestamp: '2026-02-17T14:30:00.000Z',
+    transcript_path: '/Users/dev/.claude/projects/transcript.jsonl',
+    permission_mode: 'default',
+    hook_event_name: 'SubagentStart',
     ...overrides,
   });
 
 describe('parseAgentStart', () => {
   describe('valid SubagentStart event', () => {
     it('returns correct AgentActivationRow with event=start', () => {
+      const now = new Date('2026-02-18T10:00:00.000Z');
+      vi.setSystemTime(now);
+
       const result = parseAgentStart(makeValidEvent());
 
       expect(result).toEqual<AgentActivationRow>({
-        timestamp: new Date('2026-02-17T14:30:00.000Z'),
+        timestamp: now,
         session_id: 'sess-abc-123',
-        parent_session_id: 'sess-parent-001',
+        parent_session_id: null,
         agent_type: 'tdd-reviewer',
         agent_id: 'agent-xyz-789',
         event: 'start',
@@ -39,13 +42,18 @@ describe('parseAgentStart', () => {
         error_type: null,
         tool_calls_count: 0,
       });
+
+      vi.useRealTimers();
     });
 
-    it('parses the timestamp as a Date object', () => {
+    it('generates timestamp from current time since Claude Code does not send it', () => {
+      const before = Date.now();
       const result = parseAgentStart(makeValidEvent());
+      const after = Date.now();
 
       expect(result.timestamp).toBeInstanceOf(Date);
-      expect(result.timestamp.toISOString()).toBe('2026-02-17T14:30:00.000Z');
+      expect(result.timestamp.getTime()).toBeGreaterThanOrEqual(before);
+      expect(result.timestamp.getTime()).toBeLessThanOrEqual(after);
     });
 
     it('hardcodes event to start', () => {
@@ -78,6 +86,12 @@ describe('parseAgentStart', () => {
       expect(result.success).toBe(1);
       expect(result.error_type).toBe(null);
     });
+
+    it('sets parent_session_id to null', () => {
+      const result = parseAgentStart(makeValidEvent());
+
+      expect(result.parent_session_id).toBeNull();
+    });
   });
 
   describe('missing required fields', () => {
@@ -101,22 +115,6 @@ describe('parseAgentStart', () => {
       const event = makeValidEvent();
       const parsed = JSON.parse(event) as Record<string, unknown>;
       delete parsed['agent_type'];
-
-      expect(() => parseAgentStart(JSON.stringify(parsed))).toThrow();
-    });
-
-    it('throws when timestamp is missing', () => {
-      const event = makeValidEvent();
-      const parsed = JSON.parse(event) as Record<string, unknown>;
-      delete parsed['timestamp'];
-
-      expect(() => parseAgentStart(JSON.stringify(parsed))).toThrow();
-    });
-
-    it('throws when parent_session_id is missing', () => {
-      const event = makeValidEvent();
-      const parsed = JSON.parse(event) as Record<string, unknown>;
-      delete parsed['parent_session_id'];
 
       expect(() => parseAgentStart(JSON.stringify(parsed))).toThrow();
     });
@@ -149,15 +147,15 @@ describe('parseAgentStart', () => {
 });
 
 describe('subagentStartSchema', () => {
-  it('validates a well-formed SubagentStart event', () => {
+  it('validates a real Claude Code SubagentStart event', () => {
     const event = {
       session_id: 'sess-abc',
       agent_id: 'agent-xyz',
       agent_type: 'tdd-reviewer',
-      agent_transcript_path: '/home/user/.claude/transcripts/transcript.jsonl',
-      parent_session_id: 'sess-parent',
       cwd: '/home/dev',
-      timestamp: '2026-02-17T14:30:00.000Z',
+      transcript_path: '/home/dev/.claude/projects/transcript.jsonl',
+      permission_mode: 'default',
+      hook_event_name: 'SubagentStart',
     };
 
     const result = subagentStartSchema.safeParse(event);
