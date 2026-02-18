@@ -137,41 +137,49 @@ const createSkillVersion = async (
   return (await response.json()) as CreateSkillVersionResponse;
 };
 
-const listSkills = async (options: ListSkillsOptions): Promise<readonly CreateSkillResponse[]> => {
-  const { apiKey, baseUrl = DEFAULT_BASE_URL } = options;
-  const headers = buildHeaders(apiKey);
-  const allSkills: CreateSkillResponse[] = [];
-  let cursor: string | undefined;
-
-  // eslint-disable-next-line @typescript-eslint/no-unnecessary-condition -- loop until API says no more pages
-  while (true) {
-    const url = new URL(`${baseUrl}/v1/skills`);
-    url.searchParams.set('limit', '100');
-    if (cursor !== undefined) {
-      url.searchParams.set('after_id', cursor);
-    }
-
-    const response = await fetch(url.toString(), {
-      method: 'GET',
-      headers,
-    });
-
-    await assertOk(response);
-    const body = (await response.json()) as ListSkillsPage;
-    allSkills.push(...body.data);
-
-    if (!body.has_more) {
-      break;
-    }
-
-    if (body.next_page === undefined) {
-      throw new Error('API returned has_more: true but omitted next_page cursor');
-    }
-
-    cursor = body.next_page;
+const fetchSkillsPage = async (
+  baseUrl: string,
+  headers: Record<string, string>,
+  cursor: string | undefined,
+): Promise<ListSkillsPage> => {
+  const url = new URL(`${baseUrl}/v1/skills`);
+  url.searchParams.set('limit', '100');
+  if (cursor !== undefined) {
+    url.searchParams.set('after_id', cursor);
   }
 
-  return allSkills;
+  const response = await fetch(url.toString(), {
+    method: 'GET',
+    headers,
+  });
+
+  await assertOk(response);
+  return (await response.json()) as ListSkillsPage;
+};
+
+const collectAllSkills = async (
+  baseUrl: string,
+  headers: Record<string, string>,
+  accumulated: readonly CreateSkillResponse[],
+  cursor: string | undefined,
+): Promise<readonly CreateSkillResponse[]> => {
+  const page = await fetchSkillsPage(baseUrl, headers, cursor);
+  const combined = [...accumulated, ...page.data];
+
+  if (!page.has_more) {
+    return combined;
+  }
+
+  if (page.next_page === undefined) {
+    throw new Error('API returned has_more: true but omitted next_page cursor');
+  }
+
+  return collectAllSkills(baseUrl, headers, combined, page.next_page);
+};
+
+const listSkills = async (options: ListSkillsOptions): Promise<readonly CreateSkillResponse[]> => {
+  const { apiKey, baseUrl = DEFAULT_BASE_URL } = options;
+  return collectAllSkills(baseUrl, buildHeaders(apiKey), [], undefined);
 };
 
 export {
