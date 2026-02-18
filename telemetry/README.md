@@ -169,7 +169,11 @@ This pushes datasource and pipe definitions to Tinybird (local or cloud).
 
 ### 5. Configure Claude Code hooks
 
-Add to `.claude/settings.local.json` in the repository root:
+There are two options: **project-level** (telemetry only in this project) or **global** (telemetry across all Claude Code sessions on the machine).
+
+#### Option A: Project-level hooks
+
+Add to `.claude/settings.local.json` in the repository root. Hooks use relative paths since they always run from the project directory:
 
 ```json
 {
@@ -179,7 +183,7 @@ Add to `.claude/settings.local.json` in the repository root:
         "hooks": [
           {
             "type": "command",
-            "command": "cd telemetry && npx tsx src/hooks/entrypoints/log-agent-start.ts"
+            "command": "cd telemetry && pnpx dotenv-cli -e ../.env.local -- pnpx tsx src/hooks/entrypoints/log-agent-start.ts"
           }
         ]
       }
@@ -189,7 +193,7 @@ Add to `.claude/settings.local.json` in the repository root:
         "hooks": [
           {
             "type": "command",
-            "command": "cd telemetry && npx tsx src/hooks/entrypoints/log-agent-stop.ts"
+            "command": "cd telemetry && pnpx dotenv-cli -e ../.env.local -- pnpx tsx src/hooks/entrypoints/log-agent-stop.ts"
           }
         ]
       }
@@ -200,7 +204,7 @@ Add to `.claude/settings.local.json` in the repository root:
         "hooks": [
           {
             "type": "command",
-            "command": "cd telemetry && npx tsx src/hooks/entrypoints/log-skill-activation.ts"
+            "command": "cd telemetry && pnpx dotenv-cli -e ../.env.local -- pnpx tsx src/hooks/entrypoints/log-skill-activation.ts"
           }
         ]
       }
@@ -210,7 +214,7 @@ Add to `.claude/settings.local.json` in the repository root:
         "hooks": [
           {
             "type": "command",
-            "command": "cd telemetry && npx tsx src/hooks/entrypoints/log-session-summary.ts"
+            "command": "cd telemetry && pnpx dotenv-cli -e ../.env.local -- pnpx tsx src/hooks/entrypoints/log-session-summary.ts"
           }
         ]
       }
@@ -220,7 +224,7 @@ Add to `.claude/settings.local.json` in the repository root:
         "hooks": [
           {
             "type": "command",
-            "command": "cd telemetry && npx tsx src/hooks/entrypoints/inject-usage-context.ts",
+            "command": "cd telemetry && pnpx dotenv-cli -e ../.env.local -- pnpx tsx src/hooks/entrypoints/inject-usage-context.ts",
             "timeout": 2
           }
         ]
@@ -229,6 +233,85 @@ Add to `.claude/settings.local.json` in the repository root:
   }
 }
 ```
+
+#### Option B: Global hooks (all sessions, all projects)
+
+This approach uses symlinks so `~/.claude/` contains everything the hooks need, with no hardcoded project paths.
+
+**Create symlinks:**
+
+```bash
+# Symlink the telemetry directory (use a distinct name -- ~/.claude/telemetry/ is reserved by Claude Code)
+ln -s /path/to/agents-and-skills/telemetry ~/.claude/telemetry-hooks
+
+# Symlink the env file with production tokens
+ln -s /path/to/agents-and-skills/.env.prod ~/.claude/.env.prod
+```
+
+**Add hooks to `~/.claude/settings.json`:**
+
+```json
+{
+  "hooks": {
+    "SubagentStart": [
+      {
+        "hooks": [
+          {
+            "type": "command",
+            "command": "cd ~/.claude/telemetry-hooks && pnpx dotenv-cli -e ~/.claude/.env.prod -- pnpx tsx src/hooks/entrypoints/log-agent-start.ts"
+          }
+        ]
+      }
+    ],
+    "SubagentStop": [
+      {
+        "hooks": [
+          {
+            "type": "command",
+            "command": "cd ~/.claude/telemetry-hooks && pnpx dotenv-cli -e ~/.claude/.env.prod -- pnpx tsx src/hooks/entrypoints/log-agent-stop.ts"
+          }
+        ]
+      }
+    ],
+    "PostToolUse": [
+      {
+        "matcher": "Read",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "cd ~/.claude/telemetry-hooks && pnpx dotenv-cli -e ~/.claude/.env.prod -- pnpx tsx src/hooks/entrypoints/log-skill-activation.ts"
+          }
+        ]
+      }
+    ],
+    "SessionEnd": [
+      {
+        "hooks": [
+          {
+            "type": "command",
+            "command": "cd ~/.claude/telemetry-hooks && pnpx dotenv-cli -e ~/.claude/.env.prod -- pnpx tsx src/hooks/entrypoints/log-session-summary.ts"
+          }
+        ]
+      }
+    ],
+    "SessionStart": [
+      {
+        "hooks": [
+          {
+            "type": "command",
+            "command": "cd ~/.claude/telemetry-hooks && pnpx dotenv-cli -e ~/.claude/.env.prod -- pnpx tsx src/hooks/entrypoints/inject-usage-context.ts",
+            "timeout": 2
+          }
+        ]
+      }
+    ]
+  }
+}
+```
+
+**Important:** If using global hooks, remove or empty the project-level `hooks` in `.claude/settings.local.json` to avoid duplicate event firing.
+
+**Note:** `~/.claude/telemetry/` is used by Claude Code for its own first-party telemetry data. Use a different name (e.g., `telemetry-hooks`) for the symlink.
 
 ### 6. Start using Claude Code
 
