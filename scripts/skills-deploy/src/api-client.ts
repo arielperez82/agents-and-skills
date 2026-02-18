@@ -145,12 +145,13 @@ const listSkills = async (options: ListSkillsOptions): Promise<readonly CreateSk
 
   // eslint-disable-next-line @typescript-eslint/no-unnecessary-condition -- loop until API says no more pages
   while (true) {
-    const url =
-      cursor === undefined
-        ? `${baseUrl}/v1/skills?limit=100`
-        : `${baseUrl}/v1/skills?limit=100&after_id=${cursor}`;
+    const url = new URL(`${baseUrl}/v1/skills`);
+    url.searchParams.set('limit', '100');
+    if (cursor !== undefined) {
+      url.searchParams.set('after_id', cursor);
+    }
 
-    const response = await fetch(url, {
+    const response = await fetch(url.toString(), {
       method: 'GET',
       headers,
     });
