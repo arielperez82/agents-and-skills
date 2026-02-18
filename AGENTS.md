@@ -279,9 +279,9 @@ Run `/review/review-changes` — single gate, all agents in parallel:
 | `tdd-reviewer` — TDD compliance | `docs-reviewer` — when docs changed |
 | `ts-enforcer` — TypeScript strict | `progress-assessor` — when plan-based |
 | `refactor-assessor` — refactoring | `agent-validator` — when agents/ changed |
-| `security-assessor` — security findings | |
-| `code-reviewer` — quality + merge readiness | |
-| `cognitive-load-assessor` — maintainability | |
+| `security-assessor` — security findings | `agent-quality-assessor` — when agents/ changed |
+| `code-reviewer` — quality + merge readiness | `skill-validator` — when skills/ changed |
+| `cognitive-load-assessor` — maintainability | `command-validator` — when commands/ changed |
 
 After pass: **ask for commit approval**, then `/git/cm` or `/git/cp`.
 

@@ -67,7 +67,10 @@ These agents live directly in the `agents/` root directory:
 
 #### Quality & Testing
 - **`acceptance-designer`** - Acceptance Test Designer: Designs BDD acceptance tests bridging product requirements to the TDD outer loop
+- **`agent-quality-assessor`** - Scores agent specifications on 5 quality dimensions (responsibility precision, retrieval efficiency, collaboration completeness, classification alignment, example quality)
 - **`agent-validator`** - Validates agent specifications against the frontmatter schema, skill paths, classification rules, and body structure
+- **`command-validator`** - Validates command definitions for frontmatter correctness, naming conventions, duplicate descriptions, and unresolved references
+- **`skill-validator`** - Validates skill specifications via cross-reference integrity checks and per-skill frontmatter validation
 - **`tdd-reviewer`** - TDD methodology coach ensuring RED-GREEN-REFACTOR cycle adherence
 - **`qa-engineer`** - QA and testing specialist for test automation, coverage analysis, and quality metrics
 - **`code-reviewer`** - Code review specialist for quality assessment, security analysis, and best practices
@@ -491,6 +494,9 @@ Run `/review/review-changes` — the single validation gate that launches all re
 7. `docs-reviewer` — When diff touches documentation
 8. `progress-assessor` — When work is plan-based (validates plan alignment)
 9. `agent-validator` — When diff touches `agents/`
+10. `agent-quality-assessor` — When diff touches `agents/` (alongside agent-validator)
+11. `skill-validator` — When diff touches `skills/`
+12. `command-validator` — When diff touches `commands/`
 
 After `/review/review-changes` passes: **ask for commit approval**, then commit via `/git/cm` or `/git/cp`.
 
@@ -555,7 +561,8 @@ progress-assessor (orchestrates significant work)
     ├─► Phase 3 — Validation (before commit/PR):
     │   └─→ /review/review-changes (parallel: tdd-reviewer, ts-enforcer,
     │       refactor-assessor, security-assessor, code-reviewer,
-    │       cognitive-load-assessor + optional docs-reviewer, agent-validator)
+    │       cognitive-load-assessor + optional docs-reviewer, agent-validator,
+    │       agent-quality-assessor, skill-validator, command-validator)
     │
     ├─► When decisions arise:
     │   └─→ adr-writer (architectural decisions → .docs/canonical/adrs/)
