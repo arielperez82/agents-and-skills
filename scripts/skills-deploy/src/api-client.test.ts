@@ -12,6 +12,16 @@ import {
 
 const API_BASE = 'https://api.anthropic.com';
 
+const makeSkillRecord = (id: string, displayTitle: string, latestVersion = '1234567890') => ({
+  id,
+  created_at: '2026-02-17T00:00:00Z',
+  display_title: displayTitle,
+  latest_version: latestVersion,
+  source: 'custom',
+  type: 'skill',
+  updated_at: '2026-02-17T00:00:00Z',
+});
+
 const server = setupServer();
 
 beforeAll(() => {
@@ -31,15 +41,7 @@ describe('createSkill', () => {
     server.use(
       http.post(`${API_BASE}/v1/skills`, async ({ request }) => {
         capturedHeaders = Object.fromEntries(request.headers.entries());
-        return HttpResponse.json({
-          id: 'skill_01abc',
-          created_at: '2026-02-17T00:00:00Z',
-          display_title: 'tdd',
-          latest_version: '1234567890',
-          source: 'custom',
-          type: 'skill',
-          updated_at: '2026-02-17T00:00:00Z',
-        });
+        return HttpResponse.json(makeSkillRecord('skill_01abc', 'tdd'));
       }),
     );
 
@@ -65,15 +67,7 @@ describe('createSkill', () => {
         const file = formData.get('files[]') as File;
         capturedFileName = file.name;
 
-        return HttpResponse.json({
-          id: 'skill_01abc',
-          created_at: '2026-02-17T00:00:00Z',
-          display_title: 'tdd',
-          latest_version: '1234567890',
-          source: 'custom',
-          type: 'skill',
-          updated_at: '2026-02-17T00:00:00Z',
-        });
+        return HttpResponse.json(makeSkillRecord('skill_01abc', 'tdd'));
       }),
     );
 
@@ -90,15 +84,7 @@ describe('createSkill', () => {
   it('returns the skill id from the response', async () => {
     server.use(
       http.post(`${API_BASE}/v1/skills`, () =>
-        HttpResponse.json({
-          id: 'skill_01xyz',
-          created_at: '2026-02-17T00:00:00Z',
-          display_title: 'tdd',
-          latest_version: '1234567890',
-          source: 'custom',
-          type: 'skill',
-          updated_at: '2026-02-17T00:00:00Z',
-        }),
+        HttpResponse.json(makeSkillRecord('skill_01xyz', 'tdd')),
       ),
     );
 
@@ -213,15 +199,7 @@ describe('createSkill', () => {
     server.use(
       http.post(`${customBase}/v1/skills`, ({ request }) => {
         capturedUrl = request.url;
-        return HttpResponse.json({
-          id: 'skill_01abc',
-          created_at: '2026-02-17T00:00:00Z',
-          display_title: 'tdd',
-          latest_version: '1234567890',
-          source: 'custom',
-          type: 'skill',
-          updated_at: '2026-02-17T00:00:00Z',
-        });
+        return HttpResponse.json(makeSkillRecord('skill_01abc', 'tdd'));
       }),
     );
 
@@ -384,24 +362,8 @@ describe('listSkills', () => {
       http.get(`${API_BASE}/v1/skills`, () =>
         HttpResponse.json({
           data: [
-            {
-              id: 'skill_01abc',
-              created_at: '2026-02-17T00:00:00Z',
-              display_title: 'agent-browser',
-              latest_version: '1234567890',
-              source: 'custom',
-              type: 'skill',
-              updated_at: '2026-02-17T00:00:00Z',
-            },
-            {
-              id: 'skill_02def',
-              created_at: '2026-02-17T00:00:00Z',
-              display_title: 'tdd',
-              latest_version: '9876543210',
-              source: 'custom',
-              type: 'skill',
-              updated_at: '2026-02-17T00:00:00Z',
-            },
+            makeSkillRecord('skill_01abc', 'agent-browser'),
+            makeSkillRecord('skill_02def', 'tdd', '9876543210'),
           ],
           has_more: false,
         }),
@@ -443,37 +405,11 @@ describe('listSkills', () => {
 
   it('paginates using after_id cursor until has_more is false', async () => {
     const page1Skills = [
-      {
-        id: 'skill_page1_a',
-        created_at: '2026-02-17T00:00:00Z',
-        display_title: 'skill-alpha',
-        latest_version: '1111111111',
-        source: 'custom',
-        type: 'skill',
-        updated_at: '2026-02-17T00:00:00Z',
-      },
-      {
-        id: 'skill_page1_b',
-        created_at: '2026-02-17T00:00:00Z',
-        display_title: 'skill-beta',
-        latest_version: '2222222222',
-        source: 'custom',
-        type: 'skill',
-        updated_at: '2026-02-17T00:00:00Z',
-      },
+      makeSkillRecord('skill_page1_a', 'skill-alpha', '1111111111'),
+      makeSkillRecord('skill_page1_b', 'skill-beta', '2222222222'),
     ];
 
-    const page2Skills = [
-      {
-        id: 'skill_page2_a',
-        created_at: '2026-02-17T00:00:00Z',
-        display_title: 'skill-gamma',
-        latest_version: '3333333333',
-        source: 'custom',
-        type: 'skill',
-        updated_at: '2026-02-17T00:00:00Z',
-      },
-    ];
+    const page2Skills = [makeSkillRecord('skill_page2_a', 'skill-gamma', '3333333333')];
 
     const capturedUrls: string[] = [];
 
@@ -516,15 +452,11 @@ describe('listSkills', () => {
         requestCount++;
         return HttpResponse.json({
           data: [
-            {
-              id: `skill_page${String(requestCount)}`,
-              created_at: '2026-02-17T00:00:00Z',
-              display_title: `skill-${String(requestCount)}`,
-              latest_version: '1111111111',
-              source: 'custom',
-              type: 'skill',
-              updated_at: '2026-02-17T00:00:00Z',
-            },
+            makeSkillRecord(
+              `skill_page${String(requestCount)}`,
+              `skill-${String(requestCount)}`,
+              '1111111111',
+            ),
           ],
           has_more: true,
           next_page: `cursor_${String(requestCount + 1)}`,
@@ -539,17 +471,7 @@ describe('listSkills', () => {
     server.use(
       http.get(`${API_BASE}/v1/skills`, () =>
         HttpResponse.json({
-          data: [
-            {
-              id: 'skill_01abc',
-              created_at: '2026-02-17T00:00:00Z',
-              display_title: 'skill-alpha',
-              latest_version: '1111111111',
-              source: 'custom',
-              type: 'skill',
-              updated_at: '2026-02-17T00:00:00Z',
-            },
-          ],
+          data: [makeSkillRecord('skill_01abc', 'skill-alpha', '1111111111')],
           has_more: true,
         }),
       ),
