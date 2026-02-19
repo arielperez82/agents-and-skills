@@ -62,7 +62,7 @@ python skills/delivery-team/confluence-expert/scripts/space_structure_analyzer.p
 Consider using these skills together:
 
 - **[Scrum Master](../../delivery-team/scrum-master/)**: Complementary expertise for scrum master tasks
-- **[Senior Pm](../../delivery-team/senior-pm/)**: Complementary expertise for senior pm tasks
+- **[Senior Project Manager](../../delivery-team/senior-project-manager/)**: Complementary expertise for senior project manager tasks
 - **[Jira Expert](../../delivery-team/jira-expert/)**: Complementary expertise for jira expert tasks
 
 ---

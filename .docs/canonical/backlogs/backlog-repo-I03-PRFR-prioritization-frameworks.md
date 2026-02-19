@@ -27,7 +27,7 @@ Full ID prefix for this initiative: **I03-PRFR**. In-doc shorthand: B1, B2, ... 
 | B8 | Add Debt Severity Matrix and CLV-at-risk calculations to the tool | 2 | Full cross-type scoring automated | done |
 | B9 | Update product-director: add `prioritization-frameworks` to skills; update body with bucket-allocation workflow | 3 | Director agent wired | done |
 | B10 | Update product-manager: add `prioritization-frameworks` to skills; update body with within-bucket prioritization workflow | 3 | PM agent wired | done |
-| B11 | Update senior-pm: reference portfolio allocation as input context for risk management (not as allocation-setter) | 4 | Senior PM understands portfolio context | done |
+| B11 | Update senior-project-manager: reference portfolio allocation as input context for risk management (not as allocation-setter) | 4 | Senior Project Manager understands portfolio context | done |
 | B12 | Update agile-coach: reference portfolio buckets for sprint-level capacity mapping | 4 | Delivery team maps sprints to buckets | done |
 | B13 | Move `prioritization/chatgpt-framework.md` → skill `references/npv-financial-model.md` | 5 | NPV deep-dive accessible as reference | done |
 | B14 | Move `prioritization/perplexity-framework.md` → skill `references/portfolio-allocation-framework.md` | 5 | Portfolio source material preserved | done |

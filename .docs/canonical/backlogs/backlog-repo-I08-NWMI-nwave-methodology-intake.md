@@ -134,11 +134,11 @@ Wave 1B (B6-B15)  ─┘                                                        
                                            Wave 4 (B31-B35, sequential) ────────────┘
 ```
 
-**Sub-wave rationale (from senior-pm review MF-1):** Wave 1 has 15 items. Rather than launching all 15 in parallel (review bottleneck), we split into Wave 1A (5 new skills) and Wave 1B (10 enrichments in sub-waves of 3-4 by domain). This keeps parallel work manageable for review throughput.
+**Sub-wave rationale (from senior-project-manager review MF-1):** Wave 1 has 15 items. Rather than launching all 15 in parallel (review bottleneck), we split into Wave 1A (5 new skills) and Wave 1B (10 enrichments in sub-waves of 3-4 by domain). This keeps parallel work manageable for review throughput.
 
-**Validation gates (from senior-pm review MF-2):** Each wave boundary has an explicit checkpoint item. No downstream work begins until the checkpoint passes.
+**Validation gates (from senior-project-manager review MF-2):** Each wave boundary has an explicit checkpoint item. No downstream work begins until the checkpoint passes.
 
-**Wave 3 split (from senior-pm review MF-3):** Commands (Wave 3B) dispatch to agents that are wired in Wave 3A. Splitting prevents hidden dependency failures.
+**Wave 3 split (from senior-project-manager review MF-3):** Commands (Wave 3B) dispatch to agents that are wired in Wave 3A. Splitting prevents hidden dependency failures.
 
 ## Backlog item lens
 

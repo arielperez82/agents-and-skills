@@ -18,7 +18,7 @@ status: draft
 
 **Panel members:**
 
-- **senior-pm** (strategic program / portfolio)
+- **senior-project-manager** (strategic program / portfolio)
 - **product-manager** (roadmap, backlog, PRD)
 - **product-analyst** (requirements, analysis)
 - **implementation-planner** (execution plans, steps)
@@ -26,7 +26,7 @@ status: draft
 
 ---
 
-### senior-pm
+### senior-project-manager
 
 Portfolio-level clarity requires one stable identifier per initiative that survives renames and is easy to communicate. Recommend:
 

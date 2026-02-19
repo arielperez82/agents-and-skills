@@ -41,7 +41,7 @@ updated: 2026-02-10
 | B07 | I02-INNC-B07 | progress-assessor |
 | B08 | I02-INNC-B08 | implementation-planner |
 | B09 | I02-INNC-B09 | product-manager, product-analyst, product-director |
-| B10 | I02-INNC-B10 | senior-pm |
+| B10 | I02-INNC-B10 | senior-project-manager |
 | B11 | I02-INNC-B11 | architect |
 | B12 | I02-INNC-B12 | adr-writer, learner, docs-reviewer |
 | B13 | I02-INNC-B13 | Remaining agents (qa, ux, technical-writer, seo, legacy-codebase, cto-advisor, code-reviewer, observability, devsecops, brainstormer, etc.) |

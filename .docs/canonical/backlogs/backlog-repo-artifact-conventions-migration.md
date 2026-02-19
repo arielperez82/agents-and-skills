@@ -26,7 +26,7 @@ Full ID prefix for this initiative: **I01-ACM**. In-doc shorthand: B1, B2, … C
 | B7 | Update adr-writer to `.docs/canonical/adrs/` and naming | 3 | ADRs canonical | Phase 2.2 |
 | B8 | Update implementation-planner to `.docs/` and naming | 3 | Plan output canonical | Phase 2.3 |
 | B9 | Update qa-engineer, product-analyst, ux-researcher artifact paths | 3 | Plans/sections | Phase 2.4–2.6 |
-| B10 | Update senior-pm, demand-gen-specialist, cto-advisor artifact paths | 3 | Charter/roadmap/plan/reports | Phase 2.7–2.9 |
+| B10 | Update senior-project-manager, demand-gen-specialist, cto-advisor artifact paths | 3 | Charter/roadmap/plan/reports | Phase 2.7–2.9 |
 | B11 | Update legacy-codebase-analyzer, seo-strategist, product-director | 3 | Assessments/roadmaps | Phase 2.10–2.12 |
 | B12 | Update code-reviewer, observability-engineer, architect, devsecops-engineer | 3 | Reviews/reports/assessments | Phase 2.13–2.16 |
 | B13 | Update technical-writer, docs-reviewer, learner, remaining agents | 3 | Full coverage | Phase 2.17–2.20 |

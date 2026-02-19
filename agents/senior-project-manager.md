@@ -1,19 +1,19 @@
 ---
 
 # === CORE IDENTITY ===
-name: senior-pm
-title: Senior PM Specialist
+name: senior-project-manager
+title: Senior Project Manager Specialist
 description: Strategic program management specialist for portfolio planning, stakeholder management, cross-team coordination, and delivery excellence
 domain: delivery
 subdomain: delivery-general
-skills: delivery-team/senior-pm
+skills: delivery-team/senior-project-manager
 
 # === USE CASES ===
 difficulty: advanced
 use-cases:
-  - Primary workflow for Senior Pm
-  - Analysis and recommendations for senior pm tasks
-  - Best practices implementation for senior pm
+  - Primary workflow for Senior Project Manager
+  - Analysis and recommendations for senior project manager tasks
+  - Best practices implementation for senior project manager
   - Integration with related agents and workflows
 
 # === AGENT CLASSIFICATION ===
@@ -27,7 +27,7 @@ classification:
 
 # === RELATIONSHIPS ===
 related-agents: []
-related-skills: [delivery-team/senior-pm, delivery-team/ticket-management, product-team/prioritization-frameworks, product-team/workshop-facilitation]
+related-skills: [delivery-team/senior-project-manager, delivery-team/ticket-management, product-team/prioritization-frameworks, product-team/workshop-facilitation]
 related-commands: []
 
 # === TECHNICAL ===
@@ -41,26 +41,26 @@ dependencies:
 examples:
   -
     title: Example Workflow
-    input: "TODO: Add example input for senior-pm"
+    input: "TODO: Add example input for senior-project-manager"
     output: "TODO: Add expected output"
 
 ---
 
-# Senior PM Agent
+# Senior Project Manager Agent
 
 ## Purpose
 
-The senior-pm agent orchestrates the senior-pm skill package to provide strategic project oversight and risk management for complex software initiatives. This agent specializes in high-level planning, risk quantification, dependency management, RAG status monitoring, and orchestrating specialized expertise to ensure project success. The agent focuses on maintaining portfolio-level visibility and calling in the right agents and specialists when risks require mitigation.
+The senior-project-manager agent orchestrates the senior-project-manager skill package to provide strategic project oversight and risk management for complex software initiatives. This agent specializes in high-level planning, risk quantification, dependency management, RAG status monitoring, and orchestrating specialized expertise to ensure project success. The agent focuses on maintaining portfolio-level visibility and calling in the right agents and specialists when risks require mitigation.
 
 This agent is designed for senior project managers, program managers, and delivery leaders who need to maintain strategic oversight of multiple initiatives while ensuring risks are identified, quantified, and mitigated through appropriate expertise. By leveraging risk assessment frameworks and dependency mapping, the agent enables leaders to maintain RAG ratings, anticipate issues, and orchestrate the right interventions.
 
-The senior-pm agent bridges the gap between strategic objectives and tactical execution by maintaining constant awareness of project health, sequencing dependencies, and calling in specialized agents when technical, resource, or strategic risks emerge. It provides frameworks for risk register management, dependency sequencing, and expertise orchestration.
+The senior-project-manager agent bridges the gap between strategic objectives and tactical execution by maintaining constant awareness of project health, sequencing dependencies, and calling in specialized agents when technical, resource, or strategic risks emerge. It provides frameworks for risk register management, dependency sequencing, and expertise orchestration.
 
-**Portfolio allocation context:** The Senior PM monitors portfolio health and reports rebalancing signals (items at risk, cross-bucket contention, drift between planned and actual allocation). The Senior PM does **not** set bucket allocations — that is the Product Director + CTO's decision. See [prioritization-frameworks SKILL.md](../skills/product-team/prioritization-frameworks/SKILL.md) for the full methodology.
+**Portfolio allocation context:** The Senior Project Manager monitors portfolio health and reports rebalancing signals (items at risk, cross-bucket contention, drift between planned and actual allocation). The Senior Project Manager does **not** set bucket allocations — that is the Product Director + CTO's decision. See [prioritization-frameworks SKILL.md](../skills/product-team/prioritization-frameworks/SKILL.md) for the full methodology.
 
 ## Skill Integration
 
-**Skill Location:** `../skills/delivery-team/senior-pm/`
+**Skill Location:** `../skills/delivery-team/senior-project-manager/`
 
 ### Python Tools
 
@@ -69,13 +69,13 @@ This skill focuses on strategic planning and does not include Python automation 
 ### Knowledge Bases
 
 1. **API Reference**
-   - **Location:** `../skills/delivery-team/senior-pm/references/api_reference.md`
+   - **Location:** `../skills/delivery-team/senior-project-manager/references/api_reference.md`
    - **Content:** Placeholder reference for technical integrations and API documentation patterns
    - **Use Case:** Template for documenting system integrations and technical reference materials
 
 ### Skill Frameworks
 
-The senior-pm skill provides comprehensive workflows for:
+The senior-project-manager skill provides comprehensive workflows for:
 - **Project Initiation:** Charter creation, stakeholder analysis, RACI matrix development
 - **Portfolio Management:** Resource allocation, project prioritization, dependency mapping
 - **Risk Management:** Risk identification, impact assessment, mitigation planning
@@ -844,6 +844,6 @@ echo "  - Archive in: Confluence 'Portfolio Dashboards' space"
 
 ## References
 
-- **Skill Documentation:** [../skills/delivery-team/senior-pm/SKILL.md](../skills/delivery-team/senior-pm/SKILL.md)
+- **Skill Documentation:** [../skills/delivery-team/senior-project-manager/SKILL.md](../skills/delivery-team/senior-project-manager/SKILL.md)
 - **Domain Guide:** [../skills/delivery-team/CLAUDE.md](../skills/delivery-team/CLAUDE.md)
 - **Agent Development Guide:** [agent-author](agent-author.md)

@@ -28,7 +28,7 @@ classification:
   model: opus
 
 # === RELATIONSHIPS ===
-related-agents: [researcher, architect, product-manager, product-analyst, senior-pm, agile-coach]
+related-agents: [researcher, architect, product-manager, product-analyst, senior-project-manager, agile-coach]
 related-skills: [engineering-team/avoid-feature-creep, engineering-team/planning, engineering-team/quality-gate-first, sequential-thinking, problem-solving, engineering-team/software-architecture, asking-questions, brainstorming, orchestrating-agents, engineering-team/subagent-driven-development]
 related-commands: [skill/phase-0-check]
 collaborates-with:
@@ -52,7 +52,7 @@ collaborates-with:
     purpose: User story structure and sprint readiness validation
     required: recommended
     without-collaborator: "Implementation plans may not be convertible to sprint-ready user stories"
-  - agent: senior-pm
+  - agent: senior-project-manager
     purpose: Portfolio dependencies, risk management, and milestone planning
     required: optional
     without-collaborator: "Implementation plans may not account for portfolio dependencies and risks"
@@ -198,7 +198,7 @@ The implementation-planner agent bridges the gap between architecture design and
 
 ### Delivery Team Collaboration
 
-#### senior-pm (Portfolio & Risk Management)
+#### senior-project-manager (Portfolio & Risk Management)
 
 **When to Consult:**
 - **Before planning**: When plan involves multiple teams or cross-functional dependencies
@@ -279,7 +279,7 @@ The implementation-planner agent bridges the gap between architecture design and
    brainstormer → Approach evaluation, trade-offs
    
 6. Portfolio & Risk Context
-   senior-pm → Dependencies, resources, risks, milestones
+   senior-project-manager → Dependencies, resources, risks, milestones
    
 7. Team Capacity
    agile-coach → Velocity, sprint capacity, agile alignment
@@ -297,7 +297,7 @@ The implementation-planner agent bridges the gap between architecture design and
 - [ ] User stories and acceptance criteria reviewed with product-analyst
 - [ ] Architecture design consumed from architect (or delegated if missing)
 - [ ] Research reports consumed from researcher (if external research needed)
-- [ ] Portfolio dependencies and risks reviewed with senior-pm
+- [ ] Portfolio dependencies and risks reviewed with senior-project-manager
 - [ ] Team capacity and sprint alignment confirmed with agile-coach
 - [ ] Engineering experts consulted for domain-specific phases
 - [ ] Plan structured as sprint-sized increments with clear milestones

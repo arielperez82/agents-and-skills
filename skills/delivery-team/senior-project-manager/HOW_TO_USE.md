@@ -1,24 +1,24 @@
-# How to Use the Senior Pm Skill
+# How to Use the Senior Project Manager Skill
 
 ## Quick Start
 
-Hey Claude—I just added the "senior-pm" skill. Can you help prioritize features?
+Hey Claude—I just added the "senior-project-manager" skill. Can you help prioritize features?
 
 ## Example Invocations
 
 ### Example 1: Basic Usage
 ```
-Hey Claude—I just added the "senior-pm" skill. Can you help prioritize features?
+Hey Claude—I just added the "senior-project-manager" skill. Can you help prioritize features?
 ```
 
 ### Example 2: Specific Workflow
 ```
-Hey Claude—I just added the "senior-pm" skill. Can you provide a comprehensive analysis?
+Hey Claude—I just added the "senior-project-manager" skill. Can you provide a comprehensive analysis?
 ```
 
 ### Example 3: Integration with Other Skills
 ```
-Hey Claude—I just added the "senior-pm" skill. Can you use it together with related skills to deliver a complete solution?
+Hey Claude—I just added the "senior-project-manager" skill. Can you use it together with related skills to deliver a complete solution?
 ```
 
 ## What to Provide
@@ -47,7 +47,7 @@ This skill includes the following Python tools:
 You can run these tools directly:
 
 ```bash
-python skills/delivery-team/senior-pm/scripts/risk_assessment_tool.py --help
+python skills/delivery-team/senior-project-manager/scripts/risk_assessment_tool.py --help
 ```
 
 ## Tips for Best Results
@@ -67,7 +67,7 @@ Consider using these skills together:
 
 ---
 
-**Skill**: senior-pm
+**Skill**: senior-project-manager
 **Domain**: delivery-team
 **Version**: 1.0.0
 **Last Updated**: 2025-11-23

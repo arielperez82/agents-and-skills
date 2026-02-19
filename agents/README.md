@@ -25,7 +25,7 @@ These agents live directly in the `agents/` root directory:
 #### Delivery & Project Management
 - **`agile-coach`** - Agile coaching specialist for ceremonies, team dynamics, communication, and agile manifesto adherence
 - **`progress-assessor`** - Assesses and validates progress tracking through canonical docs under `.docs/` (plans, status reports, learnings in AGENTS.md and canonical docs)
-- **`senior-pm`** - Strategic program management for portfolio planning, stakeholder management, and delivery excellence
+- **`senior-project-manager`** - Strategic program management for portfolio planning, stakeholder management, and delivery excellence
 
 #### Marketing
 - **`content-creator`** - AI-powered content creation for brand voice consistency, SEO optimization, and multi-platform strategy

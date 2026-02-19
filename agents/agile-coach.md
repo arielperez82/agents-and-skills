@@ -430,7 +430,7 @@ echo "- Monitor throughput trends weekly for continuous improvement"
 
 ## Related Agents
 
-- [senior-pm](senior-pm.md) - Senior PM handles strategic project oversight and risk management; Agile Coach focuses on team dynamics and collaboration
+- [senior-project-manager](senior-project-manager.md) - Senior Project Manager handles strategic project oversight and risk management; Agile Coach focuses on team dynamics and collaboration
 - [product-analyst](product-analyst.md) - Product Analyst prioritizes backlog; Agile Coach facilitates collaborative refinement and planning ceremonies
 
 ## References

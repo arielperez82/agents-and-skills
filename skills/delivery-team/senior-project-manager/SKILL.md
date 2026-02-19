@@ -1,20 +1,20 @@
 ---
 
 # === CORE IDENTITY ===
-name: senior-pm
-title: Senior PM Skill Package
+name: senior-project-manager
+title: Senior Project Manager Skill Package
 description: Senior Project Manager for Software, SaaS, and digital web/mobile applications. Use for strategic planning, portfolio management, stakeholder alignment, risk management, roadmap development, budget oversight, cross-functional team leadership, and executive reporting for software products.
 domain: delivery
-subdomain: senior-pm-general
+subdomain: senior-project-manager-general
 
 # === WEBSITE DISPLAY ===
 difficulty: advanced
 time-saved: "TODO: Quantify time savings"
 frequency: "TODO: Estimate usage frequency"
 use-cases:
-  - Primary workflow for Senior Pm
-  - Analysis and recommendations for senior pm tasks
-  - Best practices implementation for senior pm
+  - Primary workflow for Senior Project Manager
+  - Analysis and recommendations for senior project manager tasks
+  - Best practices implementation for senior project manager
   - Integration with related skills and workflows
 
 # === RELATIONSHIPS ===
@@ -37,7 +37,7 @@ tech-stack: [Python 3.8+]
 examples:
   -
     title: Example Usage
-    input: "TODO: Add example input for senior-pm"
+    input: "TODO: Add example input for senior-project-manager"
     output: "TODO: Add expected output"
 
 # === ANALYTICS ===

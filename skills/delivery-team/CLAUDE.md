@@ -5,14 +5,14 @@ This guide covers the 4 production-ready delivery management skills.
 ## Delivery Skills Overview
 
 **Available Skills:**
-1. **senior-pm/** - Senior project manager workflows and best practices
+1. **senior-project-manager/** - Senior project manager workflows and best practices
 2. **agile-coach/** - Agile ceremonies, coaching, team facilitation
 3. **wiki-documentation/** - Documentation strategy, space architecture, templates, governance
 4. **ticket-management/** - Issue tracking, workflow design, queries, dashboards, automation
 
 ## Skill-Specific Guidance
 
-### Senior PM (`senior-pm/`)
+### Senior Project Manager (`senior-project-manager/`)
 
 **Focus:** Project planning, stakeholder management, risk mitigation
 

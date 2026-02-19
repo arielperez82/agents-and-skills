@@ -92,7 +92,7 @@ Cross-bucket normalization: `Priority Score = (Risk-Adjusted NPV × 0.7) + (Stra
 - OKR cascade + lifecycle (product-director + `okr_cascade_generator.py` + `okr_lifecycle.py`)
 - User story generation with INVEST (product-analyst + `user_story_generator.py`)
 - Sprint-level backlog prioritization (agile-coach + `prioritize_backlog.py`)
-- Risk management and RAG monitoring (senior-pm)
+- Risk management and RAG monitoring (senior-project-manager)
 - Customer interview analysis (product-manager + `customer_interview_analyzer.py`)
 
 ### Current gaps (fill)

@@ -29,7 +29,7 @@ classification:
 related-agents:
   - implementation-planner
   - agile-coach
-  - senior-pm
+  - senior-project-manager
   - tdd-reviewer
   - ts-enforcer
   - docs-reviewer
@@ -44,7 +44,7 @@ collaborates-with:
     purpose: Reference flow metrics for progress assessment and blocker identification
     required: optional
     without-collaborator: "Progress tracking may lack team flow context"
-  - agent: senior-pm
+  - agent: senior-project-manager
     purpose: Provide progress updates for RAG monitoring and risk assessment
     required: optional
     without-collaborator: "Progress updates may not reach portfolio oversight"

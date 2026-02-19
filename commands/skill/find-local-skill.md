@@ -50,7 +50,7 @@ Behavior when inputs are missing:
 | **Creating & Authoring** | skill-creator, creating-agents, refactoring-agents, crafting-instructions, agent-md-refactor, versioning-skills | `skills/agent-development-team/` |
 | **Architecture & Documentation** | mermaid-diagrams, doc-coauthoring, docs-seeker, markdown-* | `skills/` (root) or as listed |
 | **Engineering Team** (and **Engineering Team – Roles**) | All engineering tables | `skills/engineering-team/` |
-| **Delivery Team** | jira, confluence, scrum, senior-pm | `skills/delivery-team/` |
+| **Delivery Team** | jira, confluence, scrum, senior-project-manager | `skills/delivery-team/` |
 | **Marketing Team** | content, SEO, CRO, GTM, marketing-* | `skills/marketing-team/` |
 | **Product Team** | product, UX, design system, agile, PRD | `skills/product-team/` |
 | **Research, Problem-Solving & Workflow** | brainstorming, iterating, orchestrating-agents, problem-solving, research, etc. | `skills/` (root) |

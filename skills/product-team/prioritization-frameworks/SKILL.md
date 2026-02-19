@@ -22,7 +22,7 @@ use-cases:
 related-agents:
   - product-director
   - product-manager
-  - senior-pm
+  - senior-project-manager
   - agile-coach
   - product-analyst
 related-skills:

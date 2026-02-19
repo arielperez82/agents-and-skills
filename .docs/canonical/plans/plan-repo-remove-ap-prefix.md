@@ -69,7 +69,7 @@ researcher
 sales-development-rep
 security-assessor
 security-engineer
-senior-pm
+senior-project-manager
 seo-strategist
 supabase-database-engineer
 tdd-reviewer

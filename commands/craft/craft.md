@@ -224,7 +224,7 @@ User stories: <path to user stories from product-analyst>
 Requirements:
 - Cover all must-have and should-have user stories
 - Target 40%+ error/edge-case scenarios (not just happy paths)
-- Focus on driving ports only (no implementation details in scenarios)
+- Assume clean architecture: focus on driving ports only (no implementation details in scenarios)
 - Use concrete examples with realistic data
 - Group scenarios by feature/story
 
@@ -262,6 +262,8 @@ Cover:
 6. Interface contracts — public APIs, data shapes, schemas
 
 Follow codebase conventions. Prefer the simplest design that satisfies requirements.
+
+Aim for evolutionary architecture and always start with a walking skeleton.
 
 Save to: .docs/canonical/designs/{initiative-id}-architecture.md
 ```
@@ -316,7 +318,7 @@ Requirements:
    - Dependencies on prior steps
 3. Follow TDD: every step writes tests before production code.
 4. Steps should be small enough to complete and verify independently.
-5. Include a Phase 0 quality gate step if the project lacks pre-commit hooks, CI, or deploy pipeline.
+5. Include a Phase 0 quality gate step if the project is new or lacks pre-commit hooks, CI, or deploy pipeline.
 
 Save to: .docs/canonical/plans/{initiative-id}-implementation-plan.md
 ```
@@ -350,6 +352,7 @@ For each step, engage:
 - tdd-reviewer to verify test-first approach
 - ts-enforcer to verify TypeScript strict compliance (if TypeScript)
 - refactor-assessor after tests pass
+
 
 Report progress after each plan step completes. If a step fails or is blocked, report the issue and wait for guidance rather than skipping.
 

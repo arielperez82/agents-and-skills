@@ -20,7 +20,7 @@ use-cases:
 
 # === RELATIONSHIPS ===
 related-agents:
-  - senior-pm
+  - senior-project-manager
   - agile-coach
 related-skills:
   - delivery-team/agile-coach

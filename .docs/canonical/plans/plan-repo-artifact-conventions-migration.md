@@ -22,7 +22,7 @@ updated: 2026-02-10
 
 ## Agent override (product / architect / planning agents)
 
-When invoking **product-director**, **product-manager**, **product-analyst**, **senior-pm**, **architect**, or **implementation-planner** for work on this migration (or any work that touches charter, roadmap, backlog, or plan):
+When invoking **product-director**, **product-manager**, **product-analyst**, **senior-project-manager**, **architect**, or **implementation-planner** for work on this migration (or any work that touches charter, roadmap, backlog, or plan):
 
 **Tell them to IGNORE their default doc locations.** Instruct them to:
 
@@ -146,7 +146,7 @@ Use the earlier audit. Summary mapping:
 | 2.4 | qa-engineer | test-plan → section in plan or `.docs/canonical/plans/plan-<endeavor>-test-<timeframe>.md`; user-journeys → section or report. |
 | 2.5 | product-analyst | improvement-plan, process-charter, sprint-backlog, stakeholder-analysis, etc. → canonical plan/backlog/charter sections or `.docs/canonical/` with naming grammar. Session output naming can stay or become `report-<endeavor>-session-<timestamp>.md` under `.docs/reports/`. |
 | 2.6 | ux-researcher | research/usability plans → `.docs/canonical/plans/plan-<endeavor>-research-<subject>[-<timeframe>].md` or sections in a single plan. |
-| 2.7 | senior-pm | portfolio-roadmap, communication-plan, project-charter, risk-register, etc. → charter/roadmap/backlog/plan under `.docs/canonical/` with naming grammar. Reports → `.docs/reports/report-<endeavor>-<topic>-<timeframe>.md`. |
+| 2.7 | senior-project-manager | portfolio-roadmap, communication-plan, project-charter, risk-register, etc. → charter/roadmap/backlog/plan under `.docs/canonical/` with naming grammar. Reports → `.docs/reports/report-<endeavor>-<topic>-<timeframe>.md`. |
 | 2.8 | demand-gen-specialist | campaign plan → `.docs/canonical/plans/plan-<endeavor>-campaign-<timeframe>.md` (e.g. plan-repo-campaign-2026-q4.md). |
 | 2.9 | cto-advisor | board_email_template → report or ops doc under `.docs/reports/` or `.docs/canonical/ops/`. ADR output → `.docs/canonical/adrs/adr-YYYYMMDD-<subject>.md`. |
 | 2.10 | legacy-codebase-analyzer | assessment-report, executive-summary, modernization-plan, SUMMARY, ASSESSMENT_SUMMARY → `.docs/canonical/assessments/assessment-<endeavor>-<subject>-<date>.md`. Reports → `.docs/reports/report-<endeavor>-<topic>-<timeframe>.md`. |

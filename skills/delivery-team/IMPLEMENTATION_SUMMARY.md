@@ -11,7 +11,7 @@
 
 ## 📦 SKILLS DELIVERED
 
-### 1️⃣ **Senior Project Management Expert** (`senior-pm.zip`)
+### 1️⃣ **Senior Project Management Expert** (`senior-project-manager.zip`)
 ```
 Role: Strategic PM for Software/SaaS/Mobile/Web Products
 Size: 2.7 KB

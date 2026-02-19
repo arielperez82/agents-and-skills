@@ -20,7 +20,7 @@ Implementation plan for a GitHub workflow that detects changed skills, packages 
 
 ---
 
-## Scope (senior-pm lens)
+## Scope (senior-project-manager lens)
 
 - **In scope:** One new GitHub Actions workflow; a small deploy package (scripts + tests) that (1) identifies skills changed since last deploy, (2) builds zip per skill with flat root name = last path segment, (3) calls Anthropic Skills API (create or new version). Unit + integration tests (MSW for API). Local workflow validation with act.
 - **Out of scope:** Syncing to claude.ai or Claude Code (different surfaces; no API). Managing skill content or authoring (agent-author/skill-creator remain source of truth).

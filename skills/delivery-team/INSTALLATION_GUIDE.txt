@@ -21,7 +21,7 @@ Unzip `PM-Skills-Suite-Complete.zip` to your computer
 You'll see:
 ```
 packaged-skills/
-├── senior-pm.zip
+├── senior-project-manager.zip
 ├── scrum-master.zip
 ├── jira-expert.zip
 ├── confluence-expert.zip
@@ -35,7 +35,7 @@ packaged-skills/
 2. Go to Settings → Skills
 3. Click "Add Skill" or "Upload Skill"
 4. Upload each .zip file one by one:
-   - senior-pm.zip
+   - senior-project-manager.zip
    - scrum-master.zip
    - jira-expert.zip
    - confluence-expert.zip
@@ -58,7 +58,7 @@ For best results, install in this order:
 2. **jira-expert.zip** (Project infrastructure)
 3. **confluence-expert.zip** (Documentation)
 4. **atlassian-templates.zip** (Standardization)
-5. **senior-pm.zip** (Strategic planning)
+5. **senior-project-manager.zip** (Strategic planning)
 6. **scrum-master.zip** (Sprint execution)
 
 ---

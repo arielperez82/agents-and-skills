@@ -320,7 +320,7 @@ These patterns help you understand the conventions for each domain when creating
 - **Reference**: `../skills/delivery-team/`
 - **Focus**: Project management, agile coaching, progress tracking
 - **Common tools**: Project planning and tracking tools
-- **Example agents**: `agile-coach`, `senior-pm`, `progress-assessor`
+- **Example agents**: `agile-coach`, `senior-project-manager`, `progress-assessor`
 
 ## When to Use This Skill
 

@@ -62,7 +62,7 @@ python skills/delivery-team/jira-expert/scripts/jql_query_builder.py --help
 Consider using these skills together:
 
 - **[Scrum Master](../../delivery-team/scrum-master/)**: Complementary expertise for scrum master tasks
-- **[Senior Pm](../../delivery-team/senior-pm/)**: Complementary expertise for senior pm tasks
+- **[Senior Project Manager](../../delivery-team/senior-project-manager/)**: Complementary expertise for senior project manager tasks
 - **[Confluence Expert](../../delivery-team/confluence-expert/)**: Complementary expertise for confluence expert tasks
 
 ---
