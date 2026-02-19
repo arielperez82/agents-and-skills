@@ -26,18 +26,20 @@ Do **not** create or expect PLAN.md, WIP.md, LEARNINGS.md, or ad-hoc names like 
 - **Naming (canonical):** `<type>-<endeavor>[-<scope>]-<subject>[-<timeframe>].md` under `.docs/canonical/<type>/`.
 - **Naming (reports):** `report-<endeavor>-<topic>-<timeframe>.md` under `.docs/reports/`.
 - **ADRs:** `.docs/canonical/adrs/adr-YYYYMMDD-<subject>.md`.
-- **Decision hierarchy:** Charter → Roadmap → Backlog → Plan. Disputes resolve upstream.
+- **Decision hierarchy:** Roadmap (evergreen, project-level — Now / Next / Later) sequences initiatives; Charter scopes each initiative and includes outcome sequences; Backlog ranks execution order; Plan details how to build. Disputes resolve upstream: Roadmap for inter-initiative sequencing, Charter for intra-initiative scope.
 
 ---
 
-## Initiative naming (required for roadmap, backlog, plan)
+## Initiative naming (required for backlog, plan)
 
-Every roadmap, backlog, and plan that belongs to an initiative **MUST** have in front matter:
+The project roadmap (`roadmap-repo.md`) is evergreen and project-level — it does not belong to any single initiative and has no `initiative` field in front matter.
+
+Every backlog and plan that belongs to an initiative **MUST** have in front matter:
 
 - `initiative: I<nn>-<ACRONYM>` (e.g. `I01-ACM`, `I02-INNC`)
 - `initiative_name: <long-form>` (slug or human-readable; same across roadmap, backlog, plan)
 
-**ID grammar:** Initiative `I<nn>-<ACRONYM>`; backlog item `I<nn>-<ACRONYM>-B<nn>` (in-doc shorthand `B<nn>`); plan step `B<nn>` or `B<nn>-P<p>.<s>` for sub-steps. Backlog table MUST have a Phase or Roadmap outcome column. Phases live in roadmap outcomes, backlog column, and plan structure—not in the backlog item ID.
+**ID grammar:** Initiative `I<nn>-<ACRONYM>`; backlog item `I<nn>-<ACRONYM>-B<nn>` (in-doc shorthand `B<nn>`); plan step `B<nn>` or `B<nn>-P<p>.<s>` for sub-steps. Backlog table MUST have a Phase or Charter outcome column. Phases live in charter outcomes, backlog column, and plan structure—not in the backlog item ID.
 
 **Charter:** [charter-repo-initiative-naming-convention.md](canonical/charters/charter-repo-initiative-naming-convention.md). Agents and skills that create or reference roadmap/backlog/plan must follow this convention.
 
@@ -145,6 +147,14 @@ Agents that capture or encode learnings (learner, docs-reviewer, agent-author) m
 
 **L41 — Pipe SQL must query the correct source table; mismatches silently return wrong data** (I05-ATEL, 2026-02-19): `cost_by_model` originally queried `api_requests`, but token and cost fields now live in `agent_activations`. The pipe built and deployed without error — Tinybird validated SQL syntax but not semantic correctness — and returned zeros for cost columns. The symptom was invisible: no error, just wrong numbers. Pattern: after any schema migration that moves columns to a new table, audit all pipes that aggregate those columns and verify both the `FROM` clause and output field names. Always validate pipe output against known test data, not just successful build status.
 
+**L42 — Session context via temp files enables cross-hook data enrichment** (I05-ATEL, 2026-02-19): Session→agent_type mapping in `agent-timing.ts` uses a write-on-start / read-on-stop / clean-on-stop pattern with temp files. Key design choice: the lookup is non-destructive (unlike `consumeAgentStart` which deletes on read), allowing multiple reads per session lifetime. General pattern: write on event A, read on event B, clean up on event C. This enables any hook to enrich its payload with data captured by an earlier hook in the same session.
+
+**L43 — Pipe field renames require auditing all consumers** (I05-ATEL, 2026-02-19): Renaming a pipe output field (e.g. `cache_ratio` → `cache_hit_rate`) requires checking every consumer of that pipe. In this case, `build-usage-context.ts` had independently computed the correct bounded formula — the pipe was the only place with the unbounded version — so the rename was clean. But if a consumer had referenced the old field name, it would silently receive `undefined`. Pattern: before renaming any pipe output field, grep for the old name across the full codebase (TypeScript consumers, other pipes, tests, documentation). Never rely on build errors to catch consumers — SQL column references are strings, not typed symbols.
+
+**L44 — `countIf(x)` inside `WHERE x` is always redundant** (I05-ATEL, 2026-02-19): When a `WHERE` clause already filters on condition `x`, using `countIf(x)` in the `SELECT` is redundant — every surviving row satisfies `x`, so `countIf` and `count` are equivalent. Use `count()` when the `WHERE` clause already filters the condition. This applies to all Tinybird SQL pipes and general SQL: filter once (in `WHERE`), aggregate simply (in `SELECT`).
+
+**L45 — Session context cleanup must happen before async operations** (I05-ATEL, 2026-02-19): Temp file cleanup for session context should occur before async calls (e.g. Tinybird ingest), not after. If the ingest call throws or rejects, cleanup code placed after it is never reached, leaving orphaned temp files. General principle: local state cleanup before remote calls. Sequence: (1) read needed data from temp file, (2) delete temp file, (3) perform async operation using the read data.
+
 ---
 
 ## Development practices — GitHub workflows
@@ -178,81 +188,71 @@ Filenames under `.docs/canonical/` should follow the naming grammar above. To au
 
 ## References (by initiative)
 
+**Evergreen roadmap:** [roadmap-repo.md](canonical/roadmaps/roadmap-repo.md) — project-level Now / Next / Later / Done view of all initiatives.
+
 **I01-ACM** (artifact-conventions-migration):
 
 - Charter: [charter-repo-artifact-conventions.md](canonical/charters/charter-repo-artifact-conventions.md)
-- Roadmap: [roadmap-repo-artifact-conventions-migration-2026.md](canonical/roadmaps/roadmap-repo-artifact-conventions-migration-2026.md)
 - Backlog: [backlog-repo-artifact-conventions-migration.md](canonical/backlogs/backlog-repo-artifact-conventions-migration.md)
 - Plan: [plan-repo-artifact-conventions-migration.md](canonical/plans/plan-repo-artifact-conventions-migration.md)
 
 **I02-INNC** (initiative-naming-convention):
 
 - Charter: [charter-repo-initiative-naming-convention.md](canonical/charters/charter-repo-initiative-naming-convention.md)
-- Roadmap: [roadmap-repo-I02-INNC-initiative-naming-convention-2026.md](canonical/roadmaps/roadmap-repo-I02-INNC-initiative-naming-convention-2026.md)
 - Backlog: [backlog-repo-I02-INNC-initiative-naming-convention.md](canonical/backlogs/backlog-repo-I02-INNC-initiative-naming-convention.md)
 - Plan: [plan-repo-I02-INNC-initiative-naming-convention.md](canonical/plans/plan-repo-I02-INNC-initiative-naming-convention.md)
 
 **I03-PRFR** (prioritization-frameworks):
 
 - Charter: [charter-repo-prioritization-frameworks.md](canonical/charters/charter-repo-prioritization-frameworks.md)
-- Roadmap: [roadmap-repo-I03-PRFR-prioritization-frameworks-2026.md](canonical/roadmaps/roadmap-repo-I03-PRFR-prioritization-frameworks-2026.md)
 - Backlog: [backlog-repo-I03-PRFR-prioritization-frameworks.md](canonical/backlogs/backlog-repo-I03-PRFR-prioritization-frameworks.md)
 
 **I04-SLSE** (sales-enablement):
 
 - Charter: [charter-repo-sales-enablement.md](canonical/charters/charter-repo-sales-enablement.md)
-- Roadmap: [roadmap-repo-I04-SLSE-sales-enablement-2026.md](canonical/roadmaps/roadmap-repo-I04-SLSE-sales-enablement-2026.md)
 - Backlog: [backlog-repo-I04-SLSE-sales-enablement.md](canonical/backlogs/backlog-repo-I04-SLSE-sales-enablement.md)
 
 **I05-ATEL** (agent-telemetry):
 
 - Charter: [charter-repo-agent-telemetry.md](canonical/charters/charter-repo-agent-telemetry.md)
-- Roadmap: [roadmap-repo-I05-ATEL-agent-telemetry-2026.md](canonical/roadmaps/roadmap-repo-I05-ATEL-agent-telemetry-2026.md)
 - Backlog: [backlog-repo-I05-ATEL-agent-telemetry.md](canonical/backlogs/backlog-repo-I05-ATEL-agent-telemetry.md)
 
 **I06-AICO** (agent-command-intake-optimize):
 
 - Charter: [charter-repo-agent-command-intake-optimize.md](canonical/charters/charter-repo-agent-command-intake-optimize.md)
-- Roadmap: [roadmap-repo-I06-AICO-agent-command-intake-optimize-2026.md](canonical/roadmaps/roadmap-repo-I06-AICO-agent-command-intake-optimize-2026.md)
 - Backlog: [backlog-repo-I06-AICO-agent-command-intake-optimize.md](canonical/backlogs/backlog-repo-I06-AICO-agent-command-intake-optimize.md)
 
 **I07-SDCA** (skills-deploy-claude-api):
 
 - Charter: [charter-repo-skills-deploy-claude-api.md](canonical/charters/charter-repo-skills-deploy-claude-api.md)
-- Roadmap: [roadmap-repo-I07-SDCA-skills-deploy-claude-api-2026.md](canonical/roadmaps/roadmap-repo-I07-SDCA-skills-deploy-claude-api-2026.md)
 - Backlog: [backlog-repo-I07-SDCA-skills-deploy-claude-api.md](canonical/backlogs/backlog-repo-I07-SDCA-skills-deploy-claude-api.md)
 - Plan: [plan-repo-I07-SDCA-skills-deploy-claude-api.md](canonical/plans/plan-repo-I07-SDCA-skills-deploy-claude-api.md)
 
 **I08-NWMI** (nwave-methodology-intake):
 
 - Charter: [charter-repo-nwave-methodology-intake.md](canonical/charters/charter-repo-nwave-methodology-intake.md)
-- Roadmap: [roadmap-repo-I08-NWMI-nwave-methodology-intake-2026.md](canonical/roadmaps/roadmap-repo-I08-NWMI-nwave-methodology-intake-2026.md)
 - Backlog: [backlog-repo-I08-NWMI-nwave-methodology-intake.md](canonical/backlogs/backlog-repo-I08-NWMI-nwave-methodology-intake.md)
 
 **I09-SHSL** (shell-script-lint):
 
 - Charter: [charter-repo-I09-SHSL-shell-script-lint.md](canonical/charters/charter-repo-I09-SHSL-shell-script-lint.md)
-- Roadmap: [roadmap-repo-I09-SHSL-shell-script-lint-2026.md](canonical/roadmaps/roadmap-repo-I09-SHSL-shell-script-lint-2026.md)
 - Backlog: [backlog-repo-I09-SHSL-shell-script-lint.md](canonical/backlogs/backlog-repo-I09-SHSL-shell-script-lint.md)
 - Plan: [plan-repo-I09-SHSL-shell-script-lint.md](canonical/plans/plan-repo-I09-SHSL-shell-script-lint.md)
 
 **I10-ARFE** (agentic-review-feedback-effectiveness):
 
 - Charter: [charter-repo-agentic-review-feedback-effectiveness.md](canonical/charters/charter-repo-agentic-review-feedback-effectiveness.md)
-- Roadmap: [roadmap-repo-I10-ARFE-agentic-review-feedback-effectiveness-2026.md](canonical/roadmaps/roadmap-repo-I10-ARFE-agentic-review-feedback-effectiveness-2026.md)
 - Backlog: [backlog-repo-I10-ARFE-agentic-review-feedback-effectiveness.md](canonical/backlogs/backlog-repo-I10-ARFE-agentic-review-feedback-effectiveness.md)
 
 **I11-PMSI** (pm-skills-intake):
 
 - Charter: [charter-repo-I11-PMSI-pm-skills-intake.md](canonical/charters/charter-repo-I11-PMSI-pm-skills-intake.md)
-- Roadmap: [roadmap-repo-I11-PMSI-pm-skills-intake-2026.md](canonical/roadmaps/roadmap-repo-I11-PMSI-pm-skills-intake-2026.md)
 - Backlog: [backlog-repo-I11-PMSI-pm-skills-intake.md](canonical/backlogs/backlog-repo-I11-PMSI-pm-skills-intake.md)
 - Plan: [plan-repo-I11-PMSI-pm-skills-intake-2026-02.md](canonical/plans/plan-repo-I11-PMSI-pm-skills-intake-2026-02.md)
 
 **I12-CRFT** (craft-command):
 
 - Charter: [charter-repo-I12-CRFT-craft-command.md](canonical/charters/charter-repo-I12-CRFT-craft-command.md)
-- Roadmap: [roadmap-repo-I12-CRFT-craft-command-2026.md](canonical/roadmaps/roadmap-repo-I12-CRFT-craft-command-2026.md)
 - Backlog: [backlog-repo-I12-CRFT-craft-command.md](canonical/backlogs/backlog-repo-I12-CRFT-craft-command.md)
 - Walkthrough: [craft-manual-walkthrough-I12.md](reports/craft-manual-walkthrough-I12.md)
 - Research: [researcher-260218-craft-command-research.md](reports/researcher-260218-craft-command-research.md)
@@ -260,7 +260,6 @@ Filenames under `.docs/canonical/` should follow the naming grammar above. To au
 **I13-RCHG** (review-changes-artifact-aware):
 
 - Charter: [charter-repo-I13-RCHG-review-changes-artifact-aware.md](canonical/charters/charter-repo-I13-RCHG-review-changes-artifact-aware.md)
-- Roadmap: [roadmap-repo-I13-RCHG-review-changes-artifact-aware-2026.md](canonical/roadmaps/roadmap-repo-I13-RCHG-review-changes-artifact-aware-2026.md)
 - Backlog: [backlog-repo-I13-RCHG-review-changes-artifact-aware.md](canonical/backlogs/backlog-repo-I13-RCHG-review-changes-artifact-aware.md)
 
 Root `AGENTS.md` (if present) should point here: "See .docs/AGENTS.md for agent artifact conventions and operating reference."

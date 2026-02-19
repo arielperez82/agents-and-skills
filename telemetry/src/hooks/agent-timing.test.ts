@@ -4,13 +4,19 @@ import * as path from 'node:path';
 
 import { afterEach, describe, expect, it } from 'vitest';
 
-import { consumeAgentStart, recordAgentStart } from './agent-timing';
+import {
+  consumeAgentStart,
+  lookupSessionAgent,
+  recordAgentStart,
+  recordSessionAgent,
+  removeSessionAgent,
+} from './agent-timing';
 
 const TIMING_DIR = path.join(os.tmpdir(), 'telemetry-agent-timing');
 
-const cleanup = (agentId: string): void => {
+const cleanup = (filename: string): void => {
   try {
-    fs.unlinkSync(path.join(TIMING_DIR, `${agentId}.json`));
+    fs.unlinkSync(path.join(TIMING_DIR, filename));
   } catch {
     /* ignore */
   }
@@ -18,8 +24,8 @@ const cleanup = (agentId: string): void => {
 
 describe('agent-timing', () => {
   afterEach(() => {
-    cleanup('test-agent-1');
-    cleanup('test-agent-2');
+    cleanup('test-agent-1.json');
+    cleanup('test-agent-2.json');
   });
 
   it('records start time and returns it on consume', () => {
@@ -80,5 +86,61 @@ describe('agent-timing', () => {
 
       expect(result).toBeNull();
     });
+  });
+});
+
+describe('session-context', () => {
+  afterEach(() => {
+    cleanup('session-test-sess-1.json');
+    cleanup('session-test-sess-2.json');
+  });
+
+  it('records and retrieves session agent type', () => {
+    recordSessionAgent('test-sess-1', 'tdd-reviewer');
+
+    const result = lookupSessionAgent('test-sess-1');
+
+    expect(result).toBe('tdd-reviewer');
+  });
+
+  it('returns null for unknown session', () => {
+    const result = lookupSessionAgent('nonexistent-session');
+
+    expect(result).toBeNull();
+  });
+
+  it('does not delete record on lookup', () => {
+    recordSessionAgent('test-sess-1', 'ts-enforcer');
+
+    const first = lookupSessionAgent('test-sess-1');
+    const second = lookupSessionAgent('test-sess-1');
+
+    expect(first).toBe('ts-enforcer');
+    expect(second).toBe('ts-enforcer');
+  });
+
+  it('cleans up on explicit removeSessionAgent call', () => {
+    recordSessionAgent('test-sess-1', 'architect');
+
+    removeSessionAgent('test-sess-1');
+    const result = lookupSessionAgent('test-sess-1');
+
+    expect(result).toBeNull();
+  });
+
+  it('handles concurrent sessions independently', () => {
+    recordSessionAgent('test-sess-1', 'tdd-reviewer');
+    recordSessionAgent('test-sess-2', 'code-reviewer');
+
+    expect(lookupSessionAgent('test-sess-1')).toBe('tdd-reviewer');
+    expect(lookupSessionAgent('test-sess-2')).toBe('code-reviewer');
+  });
+
+  it('rejects path traversal in sessionId', () => {
+    recordSessionAgent('../../etc/malicious', 'evil-agent');
+
+    const result = lookupSessionAgent('../../etc/malicious');
+
+    expect(result).toBeNull();
   });
 });

@@ -49,7 +49,10 @@ const extractSuccess = (toolResponse: unknown): number => {
   return 1;
 };
 
-export const parseSkillActivation = (eventJson: string): SkillActivationRow | null => {
+export const parseSkillActivation = (
+  eventJson: string,
+  agentType: string | null = null
+): SkillActivationRow | null => {
   const parsed: unknown = JSON.parse(eventJson);
   const event = postToolUseSchema.parse(parsed);
 
@@ -72,7 +75,7 @@ export const parseSkillActivation = (eventJson: string): SkillActivationRow | nu
     session_id: event.session_id,
     skill_name: skillInfo.skill_name,
     entity_type: skillInfo.entity_type,
-    agent_type: null,
+    agent_type: agentType,
     duration_ms: 0,
     success: extractSuccess(event.tool_response),
   };

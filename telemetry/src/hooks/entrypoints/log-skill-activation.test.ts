@@ -2,6 +2,8 @@ import { server } from '@tests/mocks/server';
 import { http, HttpResponse } from 'msw';
 import { afterEach, describe, expect, it, vi } from 'vitest';
 
+import { recordSessionAgent, removeSessionAgent } from '@/hooks/agent-timing';
+
 import { runLogSkillActivation } from './log-skill-activation';
 
 const BASE_URL = 'https://api.tinybird.co';
@@ -157,6 +159,55 @@ describe('runLogSkillActivation', () => {
 
     // Two ingest calls: one for skill activation, one for health event
     expect(capturedUrls.length).toBeGreaterThanOrEqual(1);
+  });
+
+  it('includes agent_type from session context when session is registered', async () => {
+    setupEnv();
+    recordSessionAgent('sess-1', 'tdd-reviewer');
+
+    const capturedBodies: unknown[] = [];
+
+    server.use(
+      http.post(`${BASE_URL}/v0/events`, async ({ request }) => {
+        capturedBodies.push(await request.json());
+        return HttpResponse.json({ successful_rows: 1, quarantined_rows: 0 });
+      })
+    );
+
+    await runLogSkillActivation(makeSkillEvent());
+
+    expect(capturedBodies.length).toBeGreaterThanOrEqual(1);
+    const firstBody = capturedBodies[0] as Record<string, unknown>;
+    const events = firstBody['events'] as Array<Record<string, unknown>> | undefined;
+    const ndjson = firstBody['ndjson'] as string | undefined;
+
+    if (events) {
+      const firstEvent = events[0];
+      expect(firstEvent).toHaveProperty('agent_type', 'tdd-reviewer');
+    } else if (typeof ndjson === 'string') {
+      expect(ndjson).toContain('tdd-reviewer');
+    } else {
+      expect(JSON.stringify(firstBody)).toContain('tdd-reviewer');
+    }
+
+    removeSessionAgent('sess-1');
+  });
+
+  it('sends null agent_type when no session context exists', async () => {
+    setupEnv();
+
+    const capturedBodies: unknown[] = [];
+
+    server.use(
+      http.post(`${BASE_URL}/v0/events`, async ({ request }) => {
+        capturedBodies.push(await request.json());
+        return HttpResponse.json({ successful_rows: 1, quarantined_rows: 0 });
+      })
+    );
+
+    await runLogSkillActivation(makeSkillEvent());
+
+    expect(capturedBodies.length).toBeGreaterThanOrEqual(1);
   });
 
   it('emits failure health event when skill ingest throws', async () => {

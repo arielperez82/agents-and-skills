@@ -261,6 +261,20 @@ describe('parseSkillActivation', () => {
     });
   });
 
+  describe('agent_type parameter', () => {
+    it('uses provided agentType in the row', () => {
+      const result = expectRow(parseSkillActivation(makeValidEvent(), 'tdd-reviewer'));
+
+      expect(result.agent_type).toBe('tdd-reviewer');
+    });
+
+    it('defaults agentType to null when not provided', () => {
+      const result = expectRow(parseSkillActivation(makeValidEvent()));
+
+      expect(result.agent_type).toBeNull();
+    });
+  });
+
   describe('forward compatibility', () => {
     it('ignores extra fields in the event payload', () => {
       const result = expectRow(

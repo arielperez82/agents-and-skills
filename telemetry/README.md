@@ -78,7 +78,7 @@ The agents-and-skills workspace uses 59+ specialized AI agents — each with dis
 
 ## How Agents and Skills Leverage Telemetry
 
-The telemetry system creates a self-improving feedback loop. Here is how it works in practice:
+The telemetry system creates a self-improving feedback loop. Here is how it works in practice.
 
 ### The Problem
 
@@ -378,6 +378,7 @@ telemetry/
       index.ts                         #   Barrel export
     pipes/                             # Tinybird query endpoints
       agent_usage_summary.ts           #   Agent invocations, cost, error rates
+      agent_usage_daily.ts             #   Daily agent usage trends for adoption tracking
       skill_frequency.ts               #   Skill activation counts
       session_overview.ts              #   Per-session drill-down
       cost_by_model.ts                 #   Token/cost by model
@@ -452,14 +453,15 @@ Datasources are Tinybird table definitions backed by ClickHouse MergeTree engine
 
 Pipes are parameterized SQL endpoints that aggregate datasource rows for analysis.
 
-| Pipe                       | Description                                                                            | Parameters            |
-| -------------------------- | -------------------------------------------------------------------------------------- | --------------------- |
-| `agent_usage_summary`      | Agent invocations, total tokens, estimated cost, and error rates grouped by agent type | `days` (default: 7)   |
-| `skill_frequency`          | Skill activation counts and success rates                                              | `days` (default: 7)   |
-| `session_overview`         | Per-session drill-down with agent/skill breakdowns                                     | `session_id`, `days`  |
-| `cost_by_model`            | Token consumption and cost attribution grouped by model                                | `days` (default: 7)   |
-| `optimization_insights`    | Efficiency scoring with cache ratio and per-invocation cost analysis                   | `days` (default: 7)   |
-| `telemetry_health_summary` | Hook failure rates and recent error messages                                           | `hours` (default: 24) |
+| Pipe                       | Description                                                                                                                              | Parameters                         |
+| -------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------- | ---------------------------------- |
+| `agent_usage_summary`      | Agent invocations, total tokens, estimated cost, and error rates grouped by agent type                                                   | `days` (default: 7)                |
+| `agent_usage_daily`        | Daily agent usage trends for adoption tracking. Supports optional `agent_type` filter and configurable day range                         | `days` (default: 30), `agent_type` |
+| `skill_frequency`          | Skill activation counts and success rates                                                                                                | `days` (default: 7)                |
+| `session_overview`         | Per-session drill-down with agent/skill breakdowns                                                                                       | `session_id`, `days`               |
+| `cost_by_model`            | Token consumption and cost attribution grouped by model                                                                                  | `days` (default: 7)                |
+| `optimization_insights`    | Efficiency scoring with `cache_hit_rate` (bounded [0,1]) and per-invocation cost analysis; rows with empty `agent_type` are filtered out | `days` (default: 7)                |
+| `telemetry_health_summary` | Hook failure rates and recent error messages                                                                                             | `hours` (default: 24)              |
 
 ### Example: querying agent usage
 
@@ -483,13 +485,13 @@ for (const row of response.data) {
 
 Each hook reads a JSON event from stdin (provided by Claude Code), validates it, transforms it, and ingests the result into the appropriate Tinybird datasource. All hooks log their own execution health to `telemetry_health`.
 
-| Hook                   | Claude Code Event    | Trigger                 | What It Does                                                                                                                                                                                 |
-| ---------------------- | -------------------- | ----------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| `log-agent-start`      | `SubagentStart`      | Agent spawned           | Records agent activation (start event); writes start timestamp to temp file via `recordAgentStart()` for duration tracking                                                                   |
-| `log-agent-stop`       | `SubagentStop`       | Agent completed         | Reads agent transcript from disk, extracts tokens/cost/model via `parseTranscriptTokens()`, computes duration via `consumeAgentStart()` from temp file, records stop event with full metrics |
-| `log-skill-activation` | `PostToolUse` (Read) | Skill/command file read | Fast-path guard filters non-skill reads by path regex before JSON parsing; detects skill and command file reads, records to `skill_activations`                                              |
-| `log-session-summary`  | `SessionEnd`         | Session closed          | Reads session transcript, aggregates all API calls via `parseTranscriptTokens()`, extracts agents/skills used via `parseTranscriptAgents()`, records to `session_summaries`                  |
-| `inject-usage-context` | `SessionStart`       | Session opened          | Queries `agent_usage_summary`, builds markdown report, returns as `additionalContext` for prompt injection. Falls back to local cache on failure. 1.8s timeout.                              |
+| Hook                   | Claude Code Event    | Trigger                 | What It Does                                                                                                                                                                                                                                                        |
+| ---------------------- | -------------------- | ----------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `log-agent-start`      | `SubagentStart`      | Agent spawned           | Records agent activation (start event); writes start timestamp to temp file via `recordAgentStart()` for duration tracking; records the session→agent_type mapping for skill context tracking                                                                       |
+| `log-agent-stop`       | `SubagentStop`       | Agent completed         | Reads agent transcript from disk, extracts tokens/cost/model via `parseTranscriptTokens()`, computes duration via `consumeAgentStart()` from temp file, records stop event with full metrics; cleans up the session→agent_type mapping                              |
+| `log-skill-activation` | `PostToolUse` (Read) | Skill/command file read | Fast-path guard filters non-skill reads by path regex before JSON parsing; detects skill and command file reads; looks up the active agent_type from the session→agent_type mapping to populate `skill_activations.agent_type`, then records to `skill_activations` |
+| `log-session-summary`  | `SessionEnd`         | Session closed          | Reads session transcript, aggregates all API calls via `parseTranscriptTokens()`, extracts agents/skills used via `parseTranscriptAgents()`, records to `session_summaries`                                                                                         |
+| `inject-usage-context` | `SessionStart`       | Session opened          | Queries `agent_usage_summary`, builds markdown report, returns as `additionalContext` for prompt injection. Falls back to local cache on failure. 1.8s timeout.                                                                                                     |
 
 ### Hook execution model
 
@@ -503,6 +505,16 @@ stdin (JSON) --> Hook Entrypoint --> Zod Validation --> Transform --> client.ing
 ```
 
 All hooks are fire-and-forget from Claude Code's perspective. Failures are logged to `telemetry_health` but never block the user session. The `inject-usage-context` hook is the exception: it returns data to Claude Code (as `additionalContext`), but is constrained by a 1.8s timeout with a local file cache fallback.
+
+### Session context tracking
+
+Skill activations fire asynchronously from the agent that triggered them, so there is no direct link between a `PostToolUse` event and the active subagent. Wave 3 introduced an in-process session map to bridge this gap:
+
+- `log-agent-start` writes `session_id → agent_type` to a shared in-memory map (persisted to a temp file) when an agent is spawned
+- `log-skill-activation` reads that map to look up the current agent_type for the session, then populates `skill_activations.agent_type` before ingesting
+- `log-agent-stop` removes the session entry from the map when the agent completes
+
+This ensures skill activation records carry the correct `agent_type` even though skill reads happen outside the subagent lifecycle boundaries.
 
 ## Environment Variables
 
@@ -573,7 +585,7 @@ export type TelemetryClient = {
 
 ### Unit Tests
 
-224 tests across 31 test files (22 passing, 9 with pre-existing module resolution failures). Coverage threshold: 65%.
+293 tests across 31 test files. Coverage threshold: 65%.
 
 - **MSW** (Mock Service Worker) intercepts Tinybird API calls
 - **Factory functions** generate test data (no `let`/`beforeEach` patterns)
@@ -688,3 +700,11 @@ Wave 2 populated the fields that Wave 1 left at zero or empty:
 - **Transcript agent/skill extraction**: `parseTranscriptAgents()` scans JSONL transcript lines for `Task` tool calls (agent invocations) and `Read` tool calls matching skill/command path patterns, populating `agents_used` and `skills_used` on session summaries
 - **Agent timing via temp files**: `agent-timing.ts` records start timestamps to `$TMPDIR/telemetry-agent-timing/<agent_id>.json` on `SubagentStart` and consumes (reads + deletes) the file on `SubagentStop` to compute `duration_ms`. Path traversal is prevented by resolving the path and asserting it starts with `TIMING_DIR`
 - **`cost_by_model` pipe rewired to `agent_activations`**: The pipe previously queried `api_requests`; it now queries `agent_activations` where `event = 'stop'`, which is where per-model cost data actually lands after Wave 2
+
+### Data quality improvements (Wave 3)
+
+Wave 3 enriched cross-cutting fields and added adoption-tracking analytics:
+
+- **Session context tracking for skill activations**: `log-agent-start` records a session→agent_type mapping so that `log-skill-activation` can look up and populate `skill_activations.agent_type`; `log-agent-stop` cleans up the mapping. This links skill reads to the agent that triggered them, enabling per-agent skill adoption queries
+- **`cache_hit_rate` replaces `cache_ratio` in `optimization_insights`**: The field is now bounded to [0,1] and computed consistently across all rows; rows with an empty `agent_type` are filtered out to prevent ghost entries from skewing efficiency scores
+- **`agent_usage_daily` pipe**: New endpoint aggregating daily invocation counts, cost, and token totals per agent. Supports an optional `agent_type` filter and a configurable day range (default 30 days), enabling trend charts and adoption dashboards

@@ -1,6 +1,7 @@
+import { lookupSessionAgent } from '@/hooks/agent-timing';
 import { parseSkillActivation } from '@/hooks/parse-skill-activation';
 
-import { createClientFromEnv, logHealthEvent, readStdin } from './shared';
+import { createClientFromEnv, extractStringField, logHealthEvent, readStdin } from './shared';
 
 const HOOK_NAME = 'log-skill-activation';
 
@@ -38,7 +39,9 @@ export const runLogSkillActivation = async (eventJson: string): Promise<void> =>
   }
 
   try {
-    const row = parseSkillActivation(eventJson);
+    const sessionId = extractStringField(eventJson, 'session_id');
+    const agentType = sessionId ? lookupSessionAgent(sessionId) : null;
+    const row = parseSkillActivation(eventJson, agentType);
 
     if (!row) {
       return;

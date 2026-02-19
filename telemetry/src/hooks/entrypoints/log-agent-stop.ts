@@ -1,6 +1,6 @@
 import * as fs from 'node:fs';
 
-import { consumeAgentStart } from '@/hooks/agent-timing';
+import { consumeAgentStart, removeSessionAgent } from '@/hooks/agent-timing';
 import { parseAgentStop } from '@/hooks/parse-agent-stop';
 
 import { createClientFromEnv, extractStringField, logHealthEvent, readStdin } from './shared';
@@ -31,6 +31,8 @@ export const runLogAgentStop = async (eventJson: string): Promise<void> => {
     const agentStartMs = agentId ? consumeAgentStart(agentId) : null;
     const durationMs = agentStartMs !== null ? startTime - agentStartMs : 0;
     const row = parseAgentStop(eventJson, transcriptContent, durationMs);
+    const sessionId = extractStringField(eventJson, 'session_id');
+    if (sessionId) removeSessionAgent(sessionId);
     await client.ingest.agentActivations(row);
 
     const hookDurationMs = Date.now() - startTime;
