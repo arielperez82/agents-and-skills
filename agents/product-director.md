@@ -35,6 +35,8 @@ related-skills:
   - product-team/competitive-analysis
   - product-team/workshop-facilitation
   - engineering-team/technical-writer
+  - agent-development-team/agent-cost-optimization
+  - engineering-team/telemetry-analysis
 related-commands: []
 collaborates-with:
   - agent: technical-writer

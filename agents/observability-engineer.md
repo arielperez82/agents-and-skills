@@ -27,7 +27,7 @@ classification:
 
 # === RELATIONSHIPS ===
 related-agents: []
-related-skills: [engineering-team/avoid-feature-creep, engineering-team/senior-observability, engineering-team/sre-reliability-engineering]
+related-skills: [engineering-team/avoid-feature-creep, engineering-team/senior-observability, engineering-team/sre-reliability-engineering, engineering-team/telemetry-analysis]
 related-commands: []
 collaborates-with:
   - agent: devsecops-engineer
