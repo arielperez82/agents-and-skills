@@ -27,6 +27,15 @@ Agents should pull in domain specialists when their expertise is needed. The orc
 
 All artifacts follow the existing canonical hierarchy and naming conventions from `.docs/AGENTS.md`. No new document types — everything maps to: research reports, charters, roadmaps, backlogs, ADRs, plans, assessments, and reviews.
 
+### Orchestrator Responsibilities
+
+The /craft orchestrator (the agent executing this command) is responsible for infrastructure that subagents cannot handle:
+
+1. **Directory creation** — Before dispatching any agent that writes artifacts, ensure the target directory exists (e.g., `.docs/canonical/charters/`, `.docs/reports/`). Subagents dispatched via the Task tool may lack Bash/Write permissions to create directories.
+2. **File writing on behalf of subagents** — If a subagent returns artifact content but cannot write it to disk (permission denied), the orchestrator must write the file itself using the subagent's output.
+3. **Status file updates** — The orchestrator owns the status file. Subagents report results; the orchestrator records them.
+4. **Context management** — Do not dispatch a single agent for an entire multi-step phase. Break large phases into per-step or per-wave agent dispatches to stay within context limits. See Phase 4 for the specific pattern.
+
 ---
 
 ## Phase Gate Protocol
@@ -456,27 +465,38 @@ Save to: .docs/canonical/plans/plan-{endeavor}-{initiative-id}-{subject}.md
 
 **Purpose:** Execute the plan. Build working, tested code with fast feedback loops at every step.
 
-**Agent:** `engineering-lead`
+**Agent:** `engineering-lead` (dispatched per step or per wave — NOT as a single monolithic invocation)
 
-**Prompt:**
+**Dispatch pattern:** The orchestrator reads the implementation plan and dispatches the engineering-lead **once per plan step** (or once per wave of parallel steps). This prevents context overflow on large plans. For each dispatch:
+
+1. Read the next plan step (or wave of parallel steps) from the plan.
+2. Provide the engineering-lead with: the step details, the charter (for acceptance criteria), any output from prior steps, and the execution mode (solo/mob/parallel).
+3. The engineering-lead executes the step and returns results.
+4. The orchestrator records progress in the status file, then dispatches the next step.
+
+**If the orchestrator must write files on behalf of a subagent** (due to permission constraints), it should do so immediately after the subagent returns content, before dispatching the next step.
+
+**Prompt per step (template):**
 ```
-Execute the implementation plan using subagent-driven development.
+Execute plan step [N] using subagent-driven development.
 
 Goal: <goal>
 Charter: <path to Phase 1 charter>
-Implementation plan: <path to Phase 3 plan>
+Plan step: <full text of the current step from the implementation plan>
+Execution mode: <solo | mob | parallel>
+Prior step output: <summary of what was built in previous steps, if any>
 {If rejected with feedback: "Previous attempt feedback: <feedback>"}
 
-Follow the /code workflow for each plan step:
-1. Read the plan step (note its execution mode: solo, mob, or parallel)
+Follow the /code workflow:
+1. Read the step requirements and execution mode
 2. Write failing tests first (TDD — non-negotiable)
 3. Write minimum production code to pass tests
 4. Refactor if warranted
 5. Run fast feedback loop BEFORE marking step complete (see below)
-6. Verify all tests pass before moving to next step
+6. Verify all tests pass
 
-FAST FEEDBACK LOOPS (mandatory for every step):
-After achieving GREEN (tests passing), immediately run these checks before moving on:
+FAST FEEDBACK LOOPS (mandatory):
+After achieving GREEN (tests passing), immediately run these checks:
 - All unit tests pass
 - Linting clean (no warnings or errors)
 - Formatting clean
@@ -487,23 +507,21 @@ After achieving GREEN (tests passing), immediately run these checks before movin
 - refactor-assessor evaluates whether refactoring adds value
 - code-reviewer checks for obvious issues, patterns, security
 
-Fix any issues found in the fast feedback loop before proceeding to the next step. These checks catch problems while context is fresh — don't defer them to Phase 5.
+Fix any issues found before reporting step complete.
 
-EXECUTION MODES (from the plan):
-- solo steps: dispatch a single specialist subagent
-- mob steps: dispatch multiple expert agents collaborating on the same task
-- parallel steps: dispatch independent subagents concurrently
+EXECUTION MODES:
+- solo: you handle this step with a single specialist subagent
+- mob: dispatch multiple expert agents collaborating on this one task
+- parallel: this step runs concurrently with other steps in the same wave — focus only on your assigned scope
 
-LOOK-BACK: The charter's acceptance criteria and the backlog's work items are the source of truth for "done." Reference them for each step. If a step's requirements are unclear, consult the plan, backlog, charter, or ADRs — in that order.
-
-Report progress after each plan step completes. If a step fails or is blocked, report the issue and wait for guidance rather than skipping.
+LOOK-BACK: The charter's acceptance criteria and the backlog's work items are the source of truth for "done." If requirements are unclear, consult the plan, backlog, charter, or ADRs.
 
 Do not commit — changes will be reviewed in Phase 5.
 ```
 
-**Output artifacts:** Working code and tests (uncommitted). Record changed file paths in the status file.
+**Output artifacts:** Working code and tests (uncommitted). Record changed file paths in the status file after each step.
 
-**Note:** This is typically the longest phase. The engineering-lead dispatches specialist subagents as needed. Progress is incremental — each plan step produces testable output.
+**Note:** This is typically the longest phase. The orchestrator drives progress step-by-step, dispatching the engineering-lead (who in turn dispatches specialist subagents) for each plan step. Each step produces testable output. If a step fails or is blocked, the orchestrator reports to the human and waits for guidance.
 
 ---
 
