@@ -1,5 +1,6 @@
 export { agentUsageDaily, type AgentUsageDailyRow } from './agent_usage_daily';
 export { agentUsageSummary, type AgentUsageSummaryRow } from './agent_usage_summary';
+export { costByAgent, type CostByAgentRow } from './cost_by_agent';
 export { costByModel, type CostByModelRow } from './cost_by_model';
 export { optimizationInsights, type OptimizationInsightsRow } from './optimization_insights';
 export { sessionOverview, type SessionOverviewRow } from './session_overview';
