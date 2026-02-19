@@ -129,6 +129,42 @@ describe('buildSessionSummary', () => {
     expect(result.total_duration_ms).toBe(0);
   });
 
+  it('extracts agents_used and skills_used from transcript tool_use blocks', () => {
+    const transcriptWithToolUse = [
+      JSON.stringify({
+        type: 'assistant',
+        message: {
+          model: 'claude-opus-4-6',
+          content: [
+            {
+              type: 'tool_use',
+              id: 'toolu_1',
+              name: 'Task',
+              input: { subagent_type: 'researcher', prompt: 'research' },
+            },
+            {
+              type: 'tool_use',
+              id: 'toolu_2',
+              name: 'Read',
+              input: { file_path: '/skills/engineering-team/tdd/SKILL.md' },
+            },
+          ],
+          usage: { input_tokens: 100, output_tokens: 50 },
+        },
+        costUSD: 0.005,
+      }),
+      makeTranscriptLine({ input_tokens: 200, output_tokens: 80, costUSD: 0.01 }),
+    ].join('\n');
+
+    const result = buildSessionSummary(makeEvent(), transcriptWithToolUse);
+
+    expect(result.agents_used).toEqual(['researcher']);
+    expect(result.agent_count).toBe(1);
+    expect(result.skills_used).toEqual(['tdd']);
+    expect(result.skill_count).toBe(1);
+    expect(result.api_request_count).toBe(2);
+  });
+
   it('succeeds with zero tokens when transcript_path is absent from event', () => {
     const eventWithoutTranscriptPath = JSON.stringify({
       session_id: 'sess-no-transcript',

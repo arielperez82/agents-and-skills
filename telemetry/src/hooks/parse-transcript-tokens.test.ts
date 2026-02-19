@@ -209,6 +209,146 @@ describe('parseTranscriptTokens', () => {
       expect(result.input_tokens).toBe(apiRows * 10);
     });
   });
+
+  describe('cost computation fallback', () => {
+    it('uses costUSD from transcript when non-zero', () => {
+      const line = makeApiResponseLine({ costUSD: 0.003 });
+      const result = parseTranscriptTokens(line);
+
+      expect(result.est_cost_usd).toBeCloseTo(0.003);
+    });
+
+    it('computes cost from tokens when costUSD is 0', () => {
+      const line = makeApiResponseLine({
+        costUSD: 0,
+        message: {
+          model: 'claude-sonnet-4-20250514',
+          usage: {
+            input_tokens: 1000,
+            output_tokens: 500,
+            cache_read_input_tokens: 0,
+            cache_creation_input_tokens: 0,
+          },
+        },
+      });
+      const result = parseTranscriptTokens(line);
+
+      // Sonnet: (1000 * 3 + 500 * 15) / 1_000_000 = 0.0105
+      expect(result.est_cost_usd).toBeCloseTo(0.0105);
+    });
+
+    it('computes cost from tokens when costUSD is absent', () => {
+      const line = JSON.stringify({
+        type: 'assistant',
+        message: {
+          model: 'claude-sonnet-4-20250514',
+          usage: {
+            input_tokens: 1000,
+            output_tokens: 500,
+            cache_read_input_tokens: 0,
+            cache_creation_input_tokens: 0,
+          },
+        },
+      });
+      const result = parseTranscriptTokens(line);
+
+      expect(result.est_cost_usd).toBeCloseTo(0.0105);
+    });
+
+    it('uses opus pricing for claude-opus model', () => {
+      const line = makeApiResponseLine({
+        costUSD: 0,
+        message: {
+          model: 'claude-opus-4-6',
+          usage: {
+            input_tokens: 1000,
+            output_tokens: 500,
+            cache_read_input_tokens: 0,
+            cache_creation_input_tokens: 0,
+          },
+        },
+      });
+      const result = parseTranscriptTokens(line);
+
+      // Opus: (1000 * 15 + 500 * 75) / 1_000_000 = 0.0525
+      expect(result.est_cost_usd).toBeCloseTo(0.0525);
+    });
+
+    it('uses haiku pricing for claude-haiku model', () => {
+      const line = makeApiResponseLine({
+        costUSD: 0,
+        message: {
+          model: 'claude-haiku-4-5-20251001',
+          usage: {
+            input_tokens: 1000,
+            output_tokens: 500,
+            cache_read_input_tokens: 0,
+            cache_creation_input_tokens: 0,
+          },
+        },
+      });
+      const result = parseTranscriptTokens(line);
+
+      // Haiku: (1000 * 0.8 + 500 * 4) / 1_000_000 = 0.0028
+      expect(result.est_cost_usd).toBeCloseTo(0.0028);
+    });
+
+    it('falls back to sonnet pricing for unknown model', () => {
+      const line = makeApiResponseLine({
+        costUSD: 0,
+        message: {
+          model: 'some-unknown-model',
+          usage: {
+            input_tokens: 1000,
+            output_tokens: 500,
+            cache_read_input_tokens: 0,
+            cache_creation_input_tokens: 0,
+          },
+        },
+      });
+      const result = parseTranscriptTokens(line);
+
+      // Sonnet default: (1000 * 3 + 500 * 15) / 1_000_000 = 0.0105
+      expect(result.est_cost_usd).toBeCloseTo(0.0105);
+    });
+
+    it('includes cache tokens in cost computation', () => {
+      const line = makeApiResponseLine({
+        costUSD: 0,
+        message: {
+          model: 'claude-sonnet-4-20250514',
+          usage: {
+            input_tokens: 0,
+            output_tokens: 0,
+            cache_read_input_tokens: 1_000_000,
+            cache_creation_input_tokens: 100_000,
+          },
+        },
+      });
+      const result = parseTranscriptTokens(line);
+
+      // Sonnet: (1M * 0.3 + 100K * 3.75) / 1_000_000 = 0.3 + 0.375 = 0.675
+      expect(result.est_cost_usd).toBeCloseTo(0.675);
+    });
+
+    it('returns 0 cost when all token counts are 0 and costUSD is 0', () => {
+      const line = makeApiResponseLine({
+        costUSD: 0,
+        message: {
+          model: 'claude-sonnet-4-20250514',
+          usage: {
+            input_tokens: 0,
+            output_tokens: 0,
+            cache_read_input_tokens: 0,
+            cache_creation_input_tokens: 0,
+          },
+        },
+      });
+      const result = parseTranscriptTokens(line);
+
+      expect(result.est_cost_usd).toBe(0);
+    });
+  });
 });
 
 describe('transcriptApiResponseSchema', () => {

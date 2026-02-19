@@ -391,11 +391,13 @@ telemetry/
         log-skill-activation.ts        #   PostToolUse (Read matcher)
         log-session-summary.ts         #   SessionEnd event
         inject-usage-context.ts        #   SessionStart event (feedback loop)
-        shared.ts                      #   Stdin reader, client factory, health logging
+        shared.ts                      #   Stdin reader, client factory, health logging, extractStringField
       parse-agent-start.ts             # Event parsing and validation
       parse-agent-stop.ts
       parse-skill-activation.ts
       parse-transcript-tokens.ts       # JSONL transcript token extraction
+      parse-transcript-agents.ts       # Transcript agent/skill extraction
+      agent-timing.ts                  # Agent duration via temp files (path-traversal-safe)
       build-session-summary.ts         # Session-level aggregation
       build-usage-context.ts           # Markdown context builder
     otel/                              # OTel endpoint validation
@@ -481,13 +483,13 @@ for (const row of response.data) {
 
 Each hook reads a JSON event from stdin (provided by Claude Code), validates it, transforms it, and ingests the result into the appropriate Tinybird datasource. All hooks log their own execution health to `telemetry_health`.
 
-| Hook                   | Claude Code Event    | Trigger                 | What It Does                                                                                                                                                    |
-| ---------------------- | -------------------- | ----------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| `log-agent-start`      | `SubagentStart`      | Agent spawned           | Records agent activation (start event)                                                                                                                          |
-| `log-agent-stop`       | `SubagentStop`       | Agent completed         | Reads agent transcript from disk, extracts tokens/cost/model via `parseTranscriptTokens()`, records stop event with full metrics                                |
-| `log-skill-activation` | `PostToolUse` (Read) | Skill/command file read | Fast-path guard filters non-skill reads by path regex before JSON parsing; detects skill and command file reads, records to `skill_activations`                 |
-| `log-session-summary`  | `SessionEnd`         | Session closed          | Reads session transcript, aggregates all API calls, records to `session_summaries`                                                                              |
-| `inject-usage-context` | `SessionStart`       | Session opened          | Queries `agent_usage_summary`, builds markdown report, returns as `additionalContext` for prompt injection. Falls back to local cache on failure. 1.8s timeout. |
+| Hook                   | Claude Code Event    | Trigger                 | What It Does                                                                                                                                                                                 |
+| ---------------------- | -------------------- | ----------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `log-agent-start`      | `SubagentStart`      | Agent spawned           | Records agent activation (start event); writes start timestamp to temp file via `recordAgentStart()` for duration tracking                                                                   |
+| `log-agent-stop`       | `SubagentStop`       | Agent completed         | Reads agent transcript from disk, extracts tokens/cost/model via `parseTranscriptTokens()`, computes duration via `consumeAgentStart()` from temp file, records stop event with full metrics |
+| `log-skill-activation` | `PostToolUse` (Read) | Skill/command file read | Fast-path guard filters non-skill reads by path regex before JSON parsing; detects skill and command file reads, records to `skill_activations`                                              |
+| `log-session-summary`  | `SessionEnd`         | Session closed          | Reads session transcript, aggregates all API calls via `parseTranscriptTokens()`, extracts agents/skills used via `parseTranscriptAgents()`, records to `session_summaries`                  |
+| `inject-usage-context` | `SessionStart`       | Session opened          | Queries `agent_usage_summary`, builds markdown report, returns as `additionalContext` for prompt injection. Falls back to local cache on failure. 1.8s timeout.                              |
 
 ### Hook execution model
 
@@ -571,7 +573,7 @@ export type TelemetryClient = {
 
 ### Unit Tests
 
-243 tests across 27 test files. Coverage threshold: 65%.
+224 tests across 31 test files (22 passing, 9 with pre-existing module resolution failures). Coverage threshold: 65%.
 
 - **MSW** (Mock Service Worker) intercepts Tinybird API calls
 - **Factory functions** generate test data (no `let`/`beforeEach` patterns)
@@ -677,3 +679,12 @@ Wave 1 of the data quality plan (I05-ATEL) addressed the highest-impact data los
 - **Graceful degradation**: Agent hook schemas use `.optional()` with zero-value defaults for fields Claude Code may not send (e.g., `agent_transcript_path`, `duration_ms`, `timestamp`)
 - **Empty-string guards**: `parseAgentStart` and `parseAgentStop` reject empty `agent_type` values after Zod validation to prevent ghost rows in analytics
 - **Degraded-mode detection**: `buildUsageContext` detects all-zero cost data and adjusts output to show "data warming up" instead of misleading zeros
+
+### Data quality improvements (Wave 2)
+
+Wave 2 populated the fields that Wave 1 left at zero or empty:
+
+- **Per-model pricing fallback**: `parseTranscriptTokens()` calculates `est_cost_usd` using a hardcoded model price table when the transcript does not include cost data, ensuring `est_cost_usd` is populated for all stop events
+- **Transcript agent/skill extraction**: `parseTranscriptAgents()` scans JSONL transcript lines for `Task` tool calls (agent invocations) and `Read` tool calls matching skill/command path patterns, populating `agents_used` and `skills_used` on session summaries
+- **Agent timing via temp files**: `agent-timing.ts` records start timestamps to `$TMPDIR/telemetry-agent-timing/<agent_id>.json` on `SubagentStart` and consumes (reads + deletes) the file on `SubagentStop` to compute `duration_ms`. Path traversal is prevented by resolving the path and asserting it starts with `TIMING_DIR`
+- **`cost_by_model` pipe rewired to `agent_activations`**: The pipe previously queried `api_requests`; it now queries `agent_activations` where `event = 'stop'`, which is where per-model cost data actually lands after Wave 2

@@ -1,21 +1,11 @@
 import * as fs from 'node:fs';
 
+import { consumeAgentStart } from '@/hooks/agent-timing';
 import { parseAgentStop } from '@/hooks/parse-agent-stop';
 
-import { createClientFromEnv, logHealthEvent, readStdin } from './shared';
+import { createClientFromEnv, extractStringField, logHealthEvent, readStdin } from './shared';
 
 const HOOK_NAME = 'log-agent-stop';
-
-const readTranscriptPath = (eventJson: string): string | null => {
-  try {
-    const parsed: unknown = JSON.parse(eventJson);
-    if (typeof parsed !== 'object' || parsed === null) return null;
-    const transcriptPath = (parsed as Record<string, unknown>)['agent_transcript_path'];
-    return typeof transcriptPath === 'string' ? transcriptPath : null;
-  } catch {
-    return null;
-  }
-};
 
 const readTranscriptContent = (transcriptPath: string | null): string => {
   if (!transcriptPath) return '';
@@ -35,17 +25,20 @@ export const runLogAgentStop = async (eventJson: string): Promise<void> => {
   }
 
   try {
-    const transcriptPath = readTranscriptPath(eventJson);
+    const transcriptPath = extractStringField(eventJson, 'agent_transcript_path');
     const transcriptContent = readTranscriptContent(transcriptPath);
-    const row = parseAgentStop(eventJson, transcriptContent);
+    const agentId = extractStringField(eventJson, 'agent_id');
+    const agentStartMs = agentId ? consumeAgentStart(agentId) : null;
+    const durationMs = agentStartMs !== null ? startTime - agentStartMs : 0;
+    const row = parseAgentStop(eventJson, transcriptContent, durationMs);
     await client.ingest.agentActivations(row);
 
-    const durationMs = Date.now() - startTime;
-    void logHealthEvent(client, HOOK_NAME, 0, durationMs, null, null);
+    const hookDurationMs = Date.now() - startTime;
+    void logHealthEvent(client, HOOK_NAME, 0, hookDurationMs, null, null);
   } catch (error) {
-    const durationMs = Date.now() - startTime;
+    const hookDurationMs = Date.now() - startTime;
     const errorMessage = error instanceof Error ? error.message : 'Unknown error';
-    void logHealthEvent(client, HOOK_NAME, 1, durationMs, errorMessage, null);
+    void logHealthEvent(client, HOOK_NAME, 1, hookDurationMs, errorMessage, null);
   }
 };
 

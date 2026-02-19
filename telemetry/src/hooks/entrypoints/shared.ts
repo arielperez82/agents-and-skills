@@ -24,6 +24,17 @@ export const createClientFromEnv = (): TelemetryClient | null => {
   return createTelemetryClient({ baseUrl, ingestToken, readToken });
 };
 
+export const extractStringField = (eventJson: string, field: string): string | null => {
+  try {
+    const parsed: unknown = JSON.parse(eventJson);
+    if (typeof parsed !== 'object' || parsed === null) return null;
+    const value = (parsed as Record<string, unknown>)[field];
+    return typeof value === 'string' ? value : null;
+  } catch {
+    return null;
+  }
+};
+
 export const logHealthEvent = async (
   client: TelemetryClient,
   hookName: string,

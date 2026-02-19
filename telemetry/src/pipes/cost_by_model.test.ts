@@ -28,13 +28,14 @@ describe('cost_by_model endpoint', () => {
     expect(params.days._default).toBe(7);
   });
 
-  it('defines all 7 expected output fields', () => {
+  it('defines all 8 expected output fields', () => {
     const fieldNames = Object.keys(getOutput());
-    expect(fieldNames).toHaveLength(7);
+    expect(fieldNames).toHaveLength(8);
     expect(fieldNames).toEqual([
       'model',
       'total_input',
       'total_output',
+      'total_cache_read',
       'total_cost_usd',
       'request_count',
       'error_count',
@@ -48,9 +49,10 @@ describe('cost_by_model endpoint', () => {
     expect(firstNode()._name).toBe('cost_by_model_node');
   });
 
-  it('SQL references api_requests', () => {
+  it('SQL queries agent_activations with event=stop filter', () => {
     const sql = firstNode().sql;
-    expect(sql).toContain('api_requests');
+    expect(sql).toContain('FROM agent_activations');
+    expect(sql).toContain("event = 'stop'");
   });
 
   it('SQL groups by model and orders by total_cost_usd DESC', () => {
@@ -81,12 +83,14 @@ describe('cost_by_model endpoint', () => {
       model: 'claude-opus-4-6',
       total_input: 500000,
       total_output: 250000,
+      total_cache_read: 100000,
       total_cost_usd: 15.75,
       request_count: 100,
       error_count: 2,
       error_rate: 0.02,
     };
     expect(row.model).toBe('claude-opus-4-6');
+    expect(row.total_cache_read).toBe(100000);
     expect(row.total_cost_usd).toBe(15.75);
     expect(row.request_count).toBe(100);
     expect(row.error_count).toBe(2);

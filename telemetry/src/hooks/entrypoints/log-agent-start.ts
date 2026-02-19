@@ -1,6 +1,7 @@
+import { recordAgentStart } from '@/hooks/agent-timing';
 import { parseAgentStart } from '@/hooks/parse-agent-start';
 
-import { createClientFromEnv, logHealthEvent, readStdin } from './shared';
+import { createClientFromEnv, extractStringField, logHealthEvent, readStdin } from './shared';
 
 const HOOK_NAME = 'log-agent-start';
 
@@ -14,6 +15,8 @@ export const runLogAgentStart = async (eventJson: string): Promise<void> => {
 
   try {
     const row = parseAgentStart(eventJson);
+    const agentId = extractStringField(eventJson, 'agent_id');
+    if (agentId) recordAgentStart(agentId, startTime);
     await client.ingest.agentActivations(row);
 
     const durationMs = Date.now() - startTime;

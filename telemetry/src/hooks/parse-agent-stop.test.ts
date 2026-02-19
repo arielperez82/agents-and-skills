@@ -154,10 +154,16 @@ describe('parseAgentStop', () => {
       expect(result.parent_session_id).toBeNull();
     });
 
-    it('sets duration_ms to 0 since Claude Code does not send it', () => {
+    it('defaults duration_ms to 0 when not provided', () => {
       const result = parseAgentStop(makeEvent(), '');
 
       expect(result.duration_ms).toBe(0);
+    });
+
+    it('uses provided durationMs in the row', () => {
+      const result = parseAgentStop(makeEvent(), '', 1500);
+
+      expect(result.duration_ms).toBe(1500);
     });
 
     it('defaults success to 1 and error_type to null', () => {

@@ -16,6 +16,72 @@ export const transcriptApiResponseSchema = z.object({
   costUSD: z.number().optional(),
 });
 
+type ModelPricing = {
+  readonly inputPerMillion: number;
+  readonly outputPerMillion: number;
+  readonly cacheReadPerMillion: number;
+  readonly cacheWritePerMillion: number;
+};
+
+const MODEL_PRICING: ReadonlyArray<readonly [string, ModelPricing]> = [
+  [
+    'claude-opus',
+    {
+      inputPerMillion: 15,
+      outputPerMillion: 75,
+      cacheReadPerMillion: 1.5,
+      cacheWritePerMillion: 18.75,
+    },
+  ],
+  [
+    'claude-sonnet',
+    {
+      inputPerMillion: 3,
+      outputPerMillion: 15,
+      cacheReadPerMillion: 0.3,
+      cacheWritePerMillion: 3.75,
+    },
+  ],
+  [
+    'claude-haiku',
+    {
+      inputPerMillion: 0.8,
+      outputPerMillion: 4,
+      cacheReadPerMillion: 0.08,
+      cacheWritePerMillion: 1,
+    },
+  ],
+];
+
+const SONNET_PRICING: ModelPricing = {
+  inputPerMillion: 3,
+  outputPerMillion: 15,
+  cacheReadPerMillion: 0.3,
+  cacheWritePerMillion: 3.75,
+};
+
+const getPricing = (model: string): ModelPricing => {
+  const entry = MODEL_PRICING.find(([prefix]) => model.includes(prefix));
+  return entry?.[1] ?? SONNET_PRICING;
+};
+
+const computeCostFromTokens = (
+  model: string,
+  inputTokens: number,
+  outputTokens: number,
+  cacheReadTokens: number,
+  cacheCreationTokens: number
+): number => {
+  const pricing = getPricing(model);
+  return (
+    (inputTokens * pricing.inputPerMillion +
+      outputTokens * pricing.outputPerMillion +
+      cacheReadTokens * pricing.cacheReadPerMillion +
+      cacheCreationTokens * pricing.cacheWritePerMillion) /
+    1_000_000
+  );
+};
+
 export type TranscriptTokenSummary = {
   readonly input_tokens: number;
   readonly output_tokens: number;
@@ -70,16 +136,22 @@ export const parseTranscriptTokens = (content: string): TranscriptTokenSummary =
     apiRequestCount += 1;
 
     const usage = row.message.usage;
-    if (usage) {
-      inputTokens += usage.input_tokens ?? 0;
-      outputTokens += usage.output_tokens ?? 0;
-      cacheReadTokens += usage.cache_read_input_tokens ?? 0;
-      cacheCreationTokens += usage.cache_creation_input_tokens ?? 0;
-    }
+    const rowInput = usage?.input_tokens ?? 0;
+    const rowOutput = usage?.output_tokens ?? 0;
+    const rowCacheRead = usage?.cache_read_input_tokens ?? 0;
+    const rowCacheCreation = usage?.cache_creation_input_tokens ?? 0;
+    const rowModel = row.message.model ?? model;
 
-    if (row.costUSD !== undefined) {
-      costUsd += row.costUSD;
-    }
+    inputTokens += rowInput;
+    outputTokens += rowOutput;
+    cacheReadTokens += rowCacheRead;
+    cacheCreationTokens += rowCacheCreation;
+
+    const rowCost =
+      row.costUSD !== undefined && row.costUSD > 0
+        ? row.costUSD
+        : computeCostFromTokens(rowModel, rowInput, rowOutput, rowCacheRead, rowCacheCreation);
+    costUsd += rowCost;
 
     if (row.message.model) {
       model = row.message.model;

@@ -18,7 +18,8 @@ const subagentStopSchema = z.object({
 
 export const parseAgentStop = (
   eventJson: string,
-  transcriptContent: string
+  transcriptContent: string,
+  durationMs: number = 0
 ): AgentActivationRow => {
   const event = subagentStopSchema.parse(JSON.parse(eventJson) as unknown);
 
@@ -39,7 +40,7 @@ export const parseAgentStop = (
     output_tokens: tokens.output_tokens,
     cache_read_tokens: tokens.cache_read_tokens,
     cache_creation_tokens: tokens.cache_creation_tokens,
-    duration_ms: 0,
+    duration_ms: durationMs,
     est_cost_usd: tokens.est_cost_usd,
     model: tokens.model,
     success: 1,
