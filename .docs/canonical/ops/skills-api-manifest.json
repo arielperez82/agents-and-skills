@@ -470,6 +470,15 @@
     },
     "skills/marketing-team/content-creator": {
       "skill_id": "skill_01Ek3dkoTxQB8MLR6mRS9Rvw"
+    },
+    "skills/agent-development-team/agent-cost-optimization": {
+      "skill_id": "skill_01LiDsc2oXkdC3A3mGqK9kcs"
+    },
+    "skills/engineering-team/remotion-best-practices": {
+      "skill_id": "skill_015d8SGrKAz7tPou57BD2r3M"
+    },
+    "skills/engineering-team/telemetry-analysis": {
+      "skill_id": "skill_01Vib4e8fErSCZTJ3W7p5bzu"
     }
   }
 }
