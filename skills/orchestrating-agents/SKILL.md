@@ -1,37 +1,206 @@
 ---
 name: orchestrating-agents
-description: Orchestrates parallel API instances, delegated sub-tasks, and multi-agent workflows with streaming and tool-enabled delegation patterns. Use for parallel analysis, multi-perspective reviews, or complex task decomposition.
+description: Orchestrates parallel API instances, delegated sub-tasks, and multi-agent workflows across four CLI backends (Claude Code, Cursor Agent, Gemini, Codex). Supports cost-optimized tier routing, streaming, and tool-enabled delegation patterns. Use for parallel analysis, multi-perspective reviews, cross-vendor delegation, or complex task decomposition.
 metadata:
-  version: 0.2.0
+  version: 0.3.0
 ---
 
 # Orchestrating Agents
 
-This skill enables programmatic invocations for advanced workflows including parallel processing, task delegation, and multi-agent analysis. Supports **Claude Code CLI** (`claude`, default) and **Cursor Agent CLI** (`agent`, fallback). Auto-detects which is available.
+This skill enables programmatic invocations for advanced workflows including parallel processing, task delegation, multi-agent analysis, and **cost-optimized cross-vendor routing**. Supports four CLI backends:
+
+| CLI | Command | Cost Model | Ecosystem Access | Notes |
+|-----|---------|-----------|-----------------|-------|
+| **Claude Code** | `claude` | Per-token (Anthropic API) | Native | Default orchestrator |
+| **Cursor Agent** | `agent` | Flat subscription | 29 models (GPT-5.x, Claude 4.x, Gemini 3, Grok) | Skill discovery buggy — use as leaf executor |
+| **Gemini CLI** | `gemini` | Subscription | Full (loads from `~/.agents/skills/`) | Full ecosystem access |
+| **Codex CLI** | `codex` | Subscription | Full (scans repo + `~/.codex/skills/`) | Built-in `review` command |
 
 ## When to Use This Skill
 
 **Primary use cases:**
 - **Parallel sub-tasks**: Break complex analysis into simultaneous independent streams
 - **Multi-perspective analysis**: Get 3-5 different expert viewpoints concurrently
-- **Delegation**: Offload specific subtasks to specialized API instances
+- **Cost-optimized delegation**: Route tasks to the cheapest capable backend
+- **Cross-vendor workflows**: Use Gemini/Codex for T2 tasks, Claude for T3 validation
 - **Recursive workflows**: Orchestrator coordinating multiple API instances
 - **High-volume processing**: Batch process multiple items concurrently
 
 **Trigger patterns:**
 - "Parallel analysis", "multi-perspective review", "concurrent processing"
 - "Delegate subtasks", "coordinate multiple agents"
+- "Optimize token cost", "use cheaper model for this"
 - "Run analyses from different perspectives"
-- "Get expert opinions from multiple angles"
 
-## Quick Start
+## Cost-Optimized Tier Routing
+
+Route tasks to the cheapest backend that can handle them. See I14-MATO charter for full tier classification.
+
+### Tier Model
+
+| Tier | Label | Route To | Use When |
+|------|-------|----------|----------|
+| **T1** | Mechanical | Local scripts, linters, `tsc` | Deterministic: formatting, validation, file search |
+| **T2** | Analytical | `gemini`, `codex`, `agent`, `claude --model haiku` | Pattern-following: docs review, style checks, boilerplate, summarization |
+| **T3** | Strategic | `claude --model sonnet` or `claude --model opus` | Novel judgment: architecture, TDD coaching, security analysis |
+
+### Delegation Decision
+
+```
+Is this deterministic? ──yes──► T1 (local script)
+        │ no
+Does it follow established patterns? ──yes──► T2 (gemini/codex/agent/haiku)
+        │ no
+Requires novel judgment? ──yes──► T3 (claude sonnet/opus)
+```
+
+### Validation Sandwich Pattern
+
+Cheap agents generate, expensive agents validate. This preserves quality while reducing cost.
+
+```
+T2 Agent (cheap)         T3 Agent (expensive)
+    │                         │
+    │  Produce work           │
+    │────────────────────────►│
+    │                         │  Validate work
+    │                         │  (cheaper than
+    │                         │   produce + validate)
+    │  Accept / Reject        │
+    │◄────────────────────────│
+```
+
+Works because validation processes only the diff/findings, not the full reasoning chain.
+
+## CLI Quick Reference
+
+### Claude Code (`claude`)
+
+```bash
+# Non-interactive with model selection
+claude -p "analyze this code" --model sonnet
+claude -p "quick summary" --model haiku
+claude -p "complex architecture review" --model opus
+
+# With budget cap
+claude -p "task" --model haiku --max-budget-usd 0.05
+
+# JSON output for programmatic consumption
+claude -p "list issues" --model sonnet --output-format json
+```
+
+Key flags: `-p` (print/non-interactive), `--model` (haiku/sonnet/opus), `--max-budget-usd`, `--output-format` (text/json/stream-json).
+
+### Cursor Agent (`agent`)
+
+```bash
+# Non-interactive with model selection (29 models available)
+agent -p "review this diff for style" --model gpt-5.3-codex
+agent -p "generate test data" --model gemini-3-flash
+agent -p "summarize changes" --model sonnet-4.6
+
+# List available models
+agent --list-models
+
+# Read-only modes
+agent -p "explain this function" --mode ask
+agent -p "propose a refactoring plan" --mode plan
+```
+
+Key flags: `-p` (print/non-interactive), `--model`, `--mode` (plan/ask), `--output-format` (text/json/stream-json), `--force`/`--yolo` (auto-approve).
+
+**Known limitations (as of 2026-02):** Cannot consistently find user skills. Missing Task tool for subagent dispatch. Use as **leaf executor only** — embed all context in prompt.
+
+### Gemini CLI (`gemini`)
+
+```bash
+# Non-interactive
+gemini -p "summarize this file" < file.ts
+gemini -p "generate REST endpoint boilerplate" -m gemini-2.5-pro
+
+# With output format
+gemini -p "list code issues" -o json
+
+# Auto-approve mode (for trusted operations)
+gemini -p "format this code" --approval-mode yolo
+```
+
+Key flags: `-p`/`--prompt` (non-interactive), `-m`/`--model`, `-o`/`--output-format` (text/json/stream-json), `--approval-mode` (default/auto_edit/yolo/plan).
+
+**Ecosystem access:** Loads skills from `~/.agents/skills/` and `~/.gemini/skills/`. Reads AGENTS.md. Full agent/skill/command discovery confirmed.
+
+### Codex CLI (`codex`)
+
+```bash
+# Non-interactive execution
+codex exec "summarize this code" < file.ts
+
+# Built-in code review
+codex exec review
+
+# With model and sandbox control
+codex exec -m o3 "generate test data" --sandbox read-only
+
+# Full auto (sandboxed, no approval needed)
+codex exec --full-auto "format and lint this file"
+```
+
+Key flags: `exec` (non-interactive), `review` (built-in code review), `-m`/`--model`, `--sandbox` (read-only/workspace-write/danger-full-access), `--full-auto`.
+
+**Ecosystem access:** Scans repo for agents/skills/commands. Loads skills from `~/.codex/skills/`. Full discovery confirmed.
+
+## Cross-Vendor Delegation Examples
+
+### Example 1: Docs Review — T2 First Pass + T3 Validation
+
+```bash
+# T2: Gemini does structural/grammar check (subscription cost)
+gemini -p "Review this document for spelling, grammar, broken links, and structural completeness. Output a findings list." < README.md > /tmp/docs-t2-findings.txt
+
+# T3: Claude validates content accuracy (per-token cost, but smaller input)
+claude -p "Review this document for content accuracy, API correctness, and conceptual clarity. Also review these T2 findings and filter out false positives: $(cat /tmp/docs-t2-findings.txt)" --model sonnet < README.md
+```
+
+### Example 2: Code Review — Style Pass + Architecture Pass
+
+```bash
+# T2: Codex does style/lint review (subscription cost, has built-in review)
+codex exec review > /tmp/codex-review.txt
+
+# T3: Claude does architectural review with Codex findings as context
+git diff HEAD~1 | claude -p "Review this diff for architectural concerns, subtle bugs, and design pattern issues. Codex already found these style issues (ignore duplicates): $(cat /tmp/codex-review.txt)" --model sonnet
+```
+
+### Example 3: Research Delegation
+
+```bash
+# T2: Gemini gathers raw research (subscription cost)
+gemini -p "Research the latest best practices for TypeScript monorepo tooling in 2026. List tools, trade-offs, and recommendations with links." -o text > /tmp/research-raw.txt
+
+# T3: Claude synthesizes and evaluates (per-token, but smaller focused input)
+claude -p "Evaluate this research for our project. Given our constraints (TypeScript strict, Vitest, pnpm), which recommendation fits best and why? Research: $(cat /tmp/research-raw.txt)" --model sonnet
+```
+
+### Example 4: Cursor Agent as Multi-Model Proxy
+
+```bash
+# Use Cursor's flat subscription to access GPT-5.3 for free
+agent -p "Generate 20 realistic test user records as JSON with name, email, role, created_at" --model gpt-5.3-codex
+
+# Use Cursor to access Gemini 3 Flash for summarization
+agent -p "Summarize the key changes in this diff" --model gemini-3-flash < diff.txt
+
+# Use Cursor to access Grok for a different perspective
+agent -p "What are the security implications of this code?" --model grok < auth.ts
+```
+
+## Programmatic Invocation (Python)
 
 ### Single Invocation
 
 ```python
 import sys
 from pathlib import Path
-# Add scripts dir to path (e.g. from repo root: skills/orchestrating-agents/scripts)
 sys.path.insert(0, str(Path(__file__).resolve().parent / "skills" / "orchestrating-agents" / "scripts"))
 from claude_client import invoke_claude
 
@@ -70,8 +239,6 @@ for i, result in enumerate(results):
 
 ### Parallel with Shared Context
 
-For parallel operations with shared base context, pass `shared_system`; it is prepended to each prompt:
-
 ```python
 from claude_client import invoke_parallel
 
@@ -90,102 +257,41 @@ prompts = [
 results = invoke_parallel(prompts, shared_system=base_context)
 ```
 
-### Multi-Turn Conversation with Auto-Caching
-
-For sub-agents that need multiple rounds of conversation:
+### Multi-Turn Conversation
 
 ```python
 from claude_client import ConversationThread
 
-# Create a conversation thread (auto-caches history)
 agent = ConversationThread(
     system="You are a code refactoring expert with access to the codebase",
     cache_system=True
 )
 
-# Turn 1: Initial analysis
 response1 = agent.send("Analyze the UserAuth class for issues")
-print(response1)
-
-# Turn 2: Follow-up (reuses cached system + turn 1)
 response2 = agent.send("How would you refactor the login method?")
-print(response2)
-
-# Turn 3: Implementation (reuses all previous context)
 response3 = agent.send("Show me the refactored code")
-print(response3)
 ```
 
-### Streaming Responses
-
-For real-time feedback from sub-agents:
+### Streaming and Interruptible Operations
 
 ```python
-from claude_client import invoke_claude_streaming
+from claude_client import invoke_claude_streaming, invoke_parallel_interruptible, InterruptToken
 
-def show_progress(chunk):
-    print(chunk, end='', flush=True)
-
+# Streaming
 response = invoke_claude_streaming(
     "Write a comprehensive security analysis...",
-    callback=show_progress
+    callback=lambda chunk: print(chunk, end='', flush=True)
 )
-```
 
-### Parallel Streaming
-
-Monitor multiple sub-agents simultaneously:
-
-```python
-from claude_client import invoke_parallel_streaming
-
-def agent1_callback(chunk):
-    print(f"[Security] {chunk}", end='', flush=True)
-
-def agent2_callback(chunk):
-    print(f"[Performance] {chunk}", end='', flush=True)
-
-results = invoke_parallel_streaming(
-    [
-        {"prompt": "Security review: ..."},
-        {"prompt": "Performance review: ..."}
-    ],
-    callbacks=[agent1_callback, agent2_callback]
-)
-```
-
-### Interruptible Operations
-
-Cancel long-running parallel operations:
-
-```python
-from claude_client import invoke_parallel_interruptible, InterruptToken
-import threading
-import time
-
+# Interruptible parallel
 token = InterruptToken()
-
-# Run in background
-def run_analysis():
-    results = invoke_parallel_interruptible(
-        prompts=[...],
-        interrupt_token=token
-    )
-    return results
-
-thread = threading.Thread(target=run_analysis)
-thread.start()
-
-# Interrupt after 5 seconds
-time.sleep(5)
-token.interrupt()
+results = invoke_parallel_interruptible(prompts=[...], interrupt_token=token)
+# Call token.interrupt() to cancel
 ```
 
 ## Core Functions
 
 ### `invoke_claude()`
-
-Single synchronous invocation with full control:
 
 ```python
 invoke_claude(
@@ -202,175 +308,60 @@ invoke_claude(
 ) -> str
 ```
 
-**Parameters:**
-- `prompt`: The user message (string or list of content blocks)
-- `model`: Claude model to use (default: claude-sonnet-4-5-20250929)
-- `system`: Optional system prompt (string or list of content blocks)
-- `max_tokens`: Maximum tokens in response (default: 4096)
-- `temperature`: Randomness 0-1 (default: 1.0)
-- `streaming`: Enable streaming response (default: False)
-- `cache_system`: Add cache_control to system prompt (requires 1024+ tokens, default: False)
-- `cache_prompt`: Add cache_control to user prompt (requires 1024+ tokens, default: False)
-- `messages`: Pre-built messages list for multi-turn (overrides prompt)
-- `**kwargs`: Additional API parameters (top_p, top_k, etc.)
-
-**Returns:** Response text as string
-
-**Note:** `cache_system`, `cache_prompt` ignored (N/A for CLI backends). Optional `timeout` in kwargs (default 300).
+**Note:** `cache_system`, `cache_prompt` ignored for CLI backends. Optional `timeout` in kwargs (default 300).
 
 ### `invoke_parallel()`
-
-Concurrent invocations using lightweight workflow pattern:
 
 ```python
 invoke_parallel(
     prompts: list[dict],
-    model: str = "claude-sonnet-4-5-20250929",
-    max_tokens: int = 4096,
     max_workers: int = 5,
     shared_system: str | list[dict] | None = None,
-    cache_shared_system: bool = False
 ) -> list[str]
 ```
-
-**Parameters:**
-- `prompts`: List of dicts with 'prompt' (required) and optional 'system', etc.
-- `model`, `max_tokens`: Ignored (CLI backends use their own model selection)
-- `max_workers`: Max concurrent CLI invocations (default: 5, max: 10)
-- `shared_system`: System context prepended to each prompt
-- `cache_shared_system`: Ignored (N/A for CLI backends)
-
-**Returns:** List of response strings in same order as prompts
-
-### `invoke_claude_streaming()`
-
-Stream responses in real-time with optional callbacks:
-
-```python
-invoke_claude_streaming(
-    prompt: str | list[dict],
-    callback: callable = None,
-    model: str = "claude-sonnet-4-5-20250929",
-    system: str | list[dict] | None = None,
-    max_tokens: int = 4096,
-    temperature: float = 1.0,
-    cache_system: bool = False,
-    cache_prompt: bool = False,
-    **kwargs
-) -> str
-```
-
-**Parameters:**
-- `callback`: Optional function called with each text chunk (str) as it arrives
-- (other parameters same as invoke_claude)
-
-**Returns:** Complete accumulated response text
-
-### `invoke_parallel_streaming()`
-
-Parallel invocations with per-agent streaming callbacks:
-
-```python
-invoke_parallel_streaming(
-    prompts: list[dict],
-    callbacks: list[callable] = None,
-    model: str = "claude-sonnet-4-5-20250929",
-    max_tokens: int = 4096,
-    max_workers: int = 5,
-    shared_system: str | list[dict] | None = None,
-    cache_shared_system: bool = False
-) -> list[str]
-```
-
-**Parameters:**
-- `callbacks`: Optional list of callback functions, one per prompt
-- (other parameters same as invoke_parallel)
-
-### `invoke_parallel_interruptible()`
-
-Parallel invocations with cancellation support:
-
-```python
-invoke_parallel_interruptible(
-    prompts: list[dict],
-    interrupt_token: InterruptToken = None,
-    # ... same other parameters as invoke_parallel
-) -> list[str]
-```
-
-**Parameters:**
-- `interrupt_token`: Optional InterruptToken to signal cancellation
-- (other parameters same as invoke_parallel)
-
-**Returns:** List of response strings (None for interrupted tasks)
 
 ### `ConversationThread`
 
-Manages multi-turn conversations with automatic caching:
-
 ```python
-thread = ConversationThread(
-    system: str | list[dict] | None = None,
-    model: str = "claude-sonnet-4-5-20250929",
-    max_tokens: int = 4096,
-    temperature: float = 1.0,
-    cache_system: bool = True
-)
-
-response = thread.send(
-    user_message: str | list[dict],
-    cache_history: bool = True
-) -> str
+thread = ConversationThread(system="...", cache_system=True)
+response = thread.send("message")
 ```
 
-**Methods:**
-- `send(message, cache_history=True)`: Send message and get response
-- `get_messages()`: Get conversation history
-- `clear()`: Clear conversation history
-- `__len__()`: Get number of turns
-
-**Note:** Multi-turn uses last user message per call (CLI backends have no server-side history; local history kept for reference).
-
-## Example Workflows
-
-See [references/workflows.md](references/workflows.md) for detailed examples including:
-- Multi-expert code review
-- Parallel document analysis
-- Recursive task delegation
-- Advanced Agent SDK delegation patterns
-- Prompt caching workflows
-
-
+Methods: `send()`, `get_messages()`, `clear()`, `__len__()`.
 
 ## Setup
 
-**Prerequisites:** Install at least one supported CLI.
+**Prerequisites:** Install at least one supported CLI. All four are recommended for cost optimization.
 
-**Option A — Claude Code CLI (default):**
 ```bash
+# Claude Code (default orchestrator)
 npm install -g @anthropic-ai/claude-code
 claude login
-```
-Or set `ANTHROPIC_API_KEY` for headless/CI.
 
-**Option B — Cursor Agent CLI (fallback):**
-```bash
+# Cursor Agent (flat-rate multi-model proxy)
 curl https://cursor.com/install -fsS | bash
 agent login
+
+# Gemini CLI
+npm install -g @anthropic-ai/gemini-cli  # or via Google's install method
+gemini  # auth via browser on first run
+
+# Codex CLI
+npm install -g @openai/codex
+codex login
 ```
-Or set `CURSOR_API_KEY` for headless/CI.
 
-**Auto-detection:** The client tries `claude` first, then `agent`. To force a backend, use `invoke_cli(prompt, backend="claude")` or `backend="cursor"`.
-
-Check:
+**Verify all backends:**
 ```bash
-claude -p "Reply OK" --output-format text   # Claude Code
-agent -p "Reply OK" --output-format text    # Cursor Agent
+claude -p "Reply OK" --output-format text
+agent -p "Reply OK" --output-format text
+gemini -p "Reply OK" -o text
+codex exec "Reply OK"
 ```
+
+**Auto-detection:** The Python client tries `claude` first, then `agent`. To force a backend, use `invoke_cli(prompt, backend="claude")` or `backend="cursor"`.
 
 ## Error Handling
-
-The module provides comprehensive error handling:
 
 ```python
 from claude_client import invoke_claude, ClaudeInvocationError
@@ -386,49 +377,25 @@ except ValueError as e:
 ```
 
 Common errors:
-- **No CLI found**: Install Claude Code (`npm install -g @anthropic-ai/claude-code`) or Cursor Agent (`curl https://cursor.com/install -fsS | bash`)
-- **Not authenticated**: Run `claude login` / `agent login` or set `ANTHROPIC_API_KEY` / `CURSOR_API_KEY`
+- **No CLI found**: Install the relevant CLI (see Setup)
+- **Not authenticated**: Run login for the relevant CLI
 - **Timeout**: Increase `timeout` in kwargs (default 300s)
 - **Non-zero exit**: Check stderr on `ClaudeInvocationError`
 
-## Prompt Caching
-
-N/A for CLI backends. Use `shared_system` to prepend context; no server-side caching.
-
-## Performance Considerations
-
-- Parallel calls run multiple CLI subprocesses; default `max_workers=5`.
-- Use `timeout` in kwargs for long-running prompts (default 300s).
-- CLI backends may hang in some environments; timeouts recommended for automation.
-
 ## Best Practices
 
-1. **Use parallel invocations for independent tasks only**
-   - Don't parallelize sequential dependencies
-   - Each parallel task should be self-contained
-
-2. **Set appropriate system prompts**
-   - Define clear roles/expertise for each instance
-   - Keeps responses focused and relevant
-
-3. **Handle errors gracefully**
-   - Always wrap invocations in try-except
-   - Provide fallback behavior for failures
-
-4. **Test with small batches first**
-   - Verify prompts work before scaling
-   - Check token usage and costs
-
-5. **Consider alternatives**
-   - Not all tasks benefit from multiple instances
-   - Sometimes sequential with context is better
-
-## Token Efficiency
-
-This skill uses ~800 tokens when loaded but enables powerful multi-agent patterns that can dramatically improve complex analysis quality and speed.
+1. **Route by tier** — Use the cheapest backend that can handle the task
+2. **Validate with T3** — Cheap agents generate, Claude validates (validation sandwich)
+3. **Use parallel invocations for independent tasks only** — Don't parallelize sequential dependencies
+4. **Set appropriate system prompts** — Define clear roles/expertise for each instance
+5. **Embed context for Cursor** — Cursor can't reliably discover skills; pass full context in prompt
+6. **Test with small batches first** — Verify prompts work before scaling
+7. **Prefer `codex exec review`** — Built-in code review is free with subscription
 
 ## See Also
 
-- [references/api-reference.md](references/api-reference.md) - Detailed API documentation
-- [Claude Code CLI](https://docs.anthropic.com/en/docs/claude-code) - Official Claude Code docs
-- [Cursor Agent CLI](https://cursor.com/docs/cli/using) - Official Cursor CLI docs
+- [references/api-reference.md](references/api-reference.md) — Detailed Python API documentation
+- [references/workflows.md](references/workflows.md) — Multi-expert review, parallel analysis, recursive delegation
+- [I14-MATO Charter](/.docs/canonical/charters/charter-repo-I14-MATO-multi-agent-token-optimization.md) — Full tier classification and roadmap
+- [Claude Code CLI](https://docs.anthropic.com/en/docs/claude-code) — Official Claude Code docs
+- [Cursor Agent CLI](https://cursor.com/docs/cli/using) — Official Cursor CLI docs
