@@ -9,13 +9,13 @@ updated: 2026-02-17
 
 # Backlog: Agent Telemetry
 
-Single continuous queue of **changes** (smallest independently valuable increments). Ordered by roadmap outcome and dependency. Implementers pull from here; execution is planned in the plan doc.
+Single continuous queue of **changes** (smallest independently valuable increments). Ordered by charter outcome and dependency. Implementers pull from here; execution is planned in the plan doc.
 
 ## Changes (ranked)
 
 Full ID prefix for this initiative: **I05-ATEL**. In-doc shorthand: B1, B2, ... Cross-doc or reports: use I05-ATEL-B01, I05-ATEL-B02, etc.
 
-| ID | Change | Roadmap outcome | Value | Status |
+| ID | Change | Charter outcome | Value | Status |
 |----|--------|-----------------|-------|--------|
 | B1 | Scaffold Tinybird TS project at `telemetry/` in repo root. **Config:** package.json (scripts: test, test:unit, test:unit:watch, test:integration, test:coverage, type-check, lint, lint:fix, format, format:fix, build, prepare: "husky", tinybird:dev, tinybird:build, tinybird:deploy), tsconfig.json (strict: true, target/module ES2022, moduleResolution bundler, noUnusedLocals, noUnusedParameters, noImplicitReturns, noFallthroughCasesInSwitch, noUncheckedIndexedAccess, isolatedModules, skipLibCheck, forceConsistentCasingInFileNames; exclude node_modules/dist/coverage), tsconfig.eslint.json (extends tsconfig, includes src + tests + *.config.ts), .nvmrc (Node 22), tinybird.json. **Test infra:** vitest.shared.config.ts (path aliases from tsconfig, v8 coverage provider, globals: true, env: node), vitest.unit.config.ts (include src/**/*.test.ts), vitest.integration.config.ts (include tests/integration/**/*.test.ts, dotenv for .env.test), tests/mocks/server.ts + tests/setup-msw.ts (MSW v2). **Lint/format:** eslint.config.ts (flat config: @eslint/js + typescript-eslint strictTypeChecked + sonarjs + eslint-config-prettier + simple-import-sort; rules: no-explicit-any error, no-unsafe-* error, no-floating-promises error, no-unused-vars error with _prefix ignore; test file relaxations for no-unsafe-* and no-unnecessary-condition; ignores: dist, node_modules, coverage), prettier.config.ts (singleQuote: true, trailingComma: 'es5', semi: true, printWidth: 100, tabWidth: 2), .prettierignore (node_modules, dist, coverage, pnpm-lock.yaml, .tinyb). **Env:** .env.example (TB_INGEST_TOKEN, TB_READ_TOKEN, TB_HOST placeholders), .gitignore (.env*, node_modules/, coverage/, dist/, .tinyb, .DS_Store, *.tsbuildinfo). **Seed:** src/index.ts (empty barrel export). **Validation:** `pnpm install && pnpm type-check && pnpm lint && pnpm format && pnpm test:unit` all exit 0 on empty scaffold | 1 | Unblocks all datasource, pipe, client, and hook work | done |
 | B2 | Add Phase 0 quality gate (must pass before any feature work). **Husky:** `.husky/pre-commit` runs `pnpx lint-staged --verbose`. **lint-staged:** lint-staged.config.ts with: `'**/*.ts'` → [() => 'pnpm type-check' (full project, no file args), 'pnpm lint:fix', 'pnpm format:fix'], `'**/*.{md,json,yaml,yml}'` → 'pnpm format:fix', `'{src,tests}/**/*.ts'` → () => ['pnpm test:unit']. **Audit:** `pnpm tinybird:build` validates datasource/pipe definitions (manual, not pre-commit). **Validation:** (1) Stage a .ts file with `const x: any = 1` → pre-commit rejects (type-check fails), (2) stage a .ts file with `var x = 1` → pre-commit rejects (lint fails), (3) stage a valid .ts file → pre-commit passes with type-check + lint + format + test output, (4) `pnpm tinybird:build` exits 0 | 1 | No feature work until gate passes; enforces TDD | done |
@@ -69,17 +69,17 @@ Full ID prefix for this initiative: **I05-ATEL**. In-doc shorthand: B1, B2, ... 
 
 ## Backlog item lens (per charter)
 
-- **Roadmap outcome:** Listed in table.
+- **Charter outcome:** Listed in table.
 - **Value/impact:** Enables next outcome or unblocks other changes.
 - **Design/UX:** N/A (internal tooling).
 - **Engineering:** Tinybird TS SDK datasource/pipe definitions, hook TypeScript core logic modules with co-located tests, pre-compiled JS entry-point wrappers, OTel configuration. TDD with co-located tests. TypeScript strict mode.
 - **Security/privacy:** Separate read/write Tinybird tokens; transcript field allowlist (never read content); response validation on SessionStart hook; .env files never committed; HTTPS enforced for all data transmission; hook scripts fail explicitly on missing credentials.
 - **Observability:** telemetry_health datasource and telemetry_health_summary pipe provide self-observability. Hooks log failures. Informal SLIs: ingestion completeness >95%, hook reliability >99%, feedback latency <2s.
 - **Rollback:** Remove hook entries from .claude/settings.local.json; unset CLAUDE_CODE_ENABLE_TELEMETRY. Immediate and reversible.
-- **Acceptance criteria:** Per roadmap outcome checkpoints; individual item descriptions include specific schemas, sorting keys, TTLs, and test scenarios.
+- **Acceptance criteria:** Per charter outcome checkpoints; individual item descriptions include specific schemas, sorting keys, TTLs, and test scenarios.
 - **Definition of done:** Tests pass (unit + integration where applicable), type-check clean, lint clean, format clean, Tinybird build succeeds, CI green, pre-commit hook passes. See roadmap "Outcome validation" section for per-outcome verification commands.
 
 ## Links
 
 - Charter: [charter-repo-agent-telemetry.md](../charters/charter-repo-agent-telemetry.md)
-- Roadmap: [roadmap-repo-I05-ATEL-agent-telemetry-2026.md](../roadmaps/roadmap-repo-I05-ATEL-agent-telemetry-2026.md)
+- Roadmap: [roadmap-repo.md](../roadmaps/roadmap-repo.md)

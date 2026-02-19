@@ -9,13 +9,13 @@ updated: 2026-02-17
 
 # Backlog: Agentic Review Feedback & Effectiveness
 
-Single continuous queue of **changes** (smallest independently valuable increments). Ordered by roadmap outcome and dependency. Implementers pull from here; execution is planned in the plan doc.
+Single continuous queue of **changes** (smallest independently valuable increments). Ordered by charter outcome and dependency. Implementers pull from here; execution is planned in the plan doc.
 
 ## Changes (ranked)
 
 Full ID prefix for this initiative: **I10-ARFE**. In-doc shorthand: B1, B2, ... Cross-doc or reports: use I10-ARFE-B01, I10-ARFE-B02, etc.
 
-| ID | Change | Roadmap outcome | Value | Status |
+| ID | Change | Charter outcome | Value | Status |
 |----|--------|-----------------|-------|--------|
 | B1 | Define review output format specification at `skills/engineering-team/code-reviewer/references/review-output-format.md`. Three tiers (Fix required / Suggestion / Observation) with decision criteria, examples per tier, and mapping rules for agents with existing severity levels (security-assessor Critical/High/Medium/Low, refactor-assessor Critical/High/Nice/Skip, cognitive-load-assessor score dimensions). Shared reference consumed by all 6 core review agents | 1 | Foundation for all agent tier mappings; single source of truth prevents drift between agents | done |
 | B2 | Update `agents/tdd-reviewer.md` — add tiered output format to report structure section. Map Farley Index thresholds to tiers (e.g. index < 0.3 Fix required, 0.3-0.6 Suggestion, > 0.6 Observation) and map TDD compliance findings (missing test-first evidence → Fix required, incomplete coverage → Suggestion, minor style → Observation). Reference B1 spec | 1 | TDD feedback becomes actionable with clear severity | done |
@@ -43,7 +43,7 @@ Full ID prefix for this initiative: **I10-ARFE**. In-doc shorthand: B1, B2, ... 
 
 ## Backlog item lens (per charter)
 
-- **Roadmap outcome:** Listed in table. Outcome 1 (B1-B9) delivers tiered output. Outcome 2 (B10-B12) delivers effectiveness tracking.
+- **Charter outcome:** Listed in table. Outcome 1 (B1-B9) delivers tiered output. Outcome 2 (B10-B12) delivers effectiveness tracking.
 - **Value/impact:** Tiered output reduces cognitive load on reviewers by surfacing critical findings first. Effectiveness tracking creates a feedback loop that improves agent calibration over time.
 - **Engineering:** All items are markdown spec changes (agent definitions, command definitions, reference docs). No scripts, no code, no new dependencies.
 - **Rollback:** All items are additive (new reference docs) or modify existing markdown specs. Rollback = revert file changes. No breaking changes to existing behavior.
@@ -53,5 +53,5 @@ Full ID prefix for this initiative: **I10-ARFE**. In-doc shorthand: B1, B2, ... 
 ## Links
 
 - Charter: [charter-repo-agentic-review-feedback-effectiveness.md](../charters/charter-repo-agentic-review-feedback-effectiveness.md)
-- Roadmap: [roadmap-repo-I10-ARFE-agentic-review-feedback-effectiveness-2026.md](../roadmaps/roadmap-repo-I10-ARFE-agentic-review-feedback-effectiveness-2026.md)
+- Roadmap: [roadmap-repo.md](../roadmaps/roadmap-repo.md)
 - Source: [bdfinst/ai-patterns — Agentic Code Review](https://github.com/bdfinst/ai-patterns/blob/master/docs/agentic-code-review.md)

@@ -9,10 +9,10 @@ updated: 2026-02-16
 
 # Plan: Shell Script Linting (I09-SHSL)
 
-Short implementation plan: shell-scripting skill, Phase 0 conditional, pre-commit and CI wiring in this repo. **Governed by:** Charter → Roadmap → Backlog → Plan.
+Short implementation plan: shell-scripting skill, Phase 0 conditional, pre-commit and CI wiring in this repo. **Governed by:** Roadmap (evergreen) → Charter → Backlog → Plan.
 
 - **Charter:** [charter-repo-I09-SHSL-shell-script-lint.md](../charters/charter-repo-I09-SHSL-shell-script-lint.md)
-- **Roadmap:** [roadmap-repo-I09-SHSL-shell-script-lint-2026.md](../roadmaps/roadmap-repo-I09-SHSL-shell-script-lint-2026.md)
+- **Roadmap:** [roadmap-repo.md](../roadmaps/roadmap-repo.md)
 - **Backlog:** [backlog-repo-I09-SHSL-shell-script-lint.md](../backlogs/backlog-repo-I09-SHSL-shell-script-lint.md)
 - **Operating reference:** [.docs/AGENTS.md](../../AGENTS.md)
 
@@ -56,7 +56,7 @@ Short implementation plan: shell-scripting skill, Phase 0 conditional, pre-commi
 ## Links
 
 - Charter: [charter-repo-I09-SHSL-shell-script-lint.md](../charters/charter-repo-I09-SHSL-shell-script-lint.md)
-- Roadmap: [roadmap-repo-I09-SHSL-shell-script-lint-2026.md](../roadmaps/roadmap-repo-I09-SHSL-shell-script-lint-2026.md)
+- Roadmap: [roadmap-repo.md](../roadmaps/roadmap-repo.md)
 - Backlog: [backlog-repo-I09-SHSL-shell-script-lint.md](../backlogs/backlog-repo-I09-SHSL-shell-script-lint.md)
 - ShellCheck: [koalaman/shellcheck](https://github.com/koalaman/shellcheck)
 - Shell Linter action: [Azbagheri/shell-linter](https://github.com/marketplace/actions/shell-linter)

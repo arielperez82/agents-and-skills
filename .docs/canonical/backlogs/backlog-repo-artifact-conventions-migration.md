@@ -9,13 +9,13 @@ updated: 2026-02-10
 
 # Backlog: Agent Artifact Conventions Migration
 
-Single continuous queue of **changes** (smallest independently valuable increments). Ordered by roadmap outcome and dependency. Implementers pull from here; execution is planned in the plan doc.
+Single continuous queue of **changes** (smallest independently valuable increments). Ordered by charter outcome and dependency. Implementers pull from here; execution is planned in the plan doc.
 
 ## Changes (ranked)
 
 Full ID prefix for this initiative: **I01-ACM**. In-doc shorthand: B1, B2, … Cross-doc or reports: use I01-ACM-B01, I01-ACM-B02, etc.
 
-| ID | Change | Roadmap outcome | Value | Notes |
+| ID | Change | Charter outcome | Value | Notes |
 |----|--------|-----------------|-------|--------|
 | B1 | Create `.docs/` directory structure (canonical + reports) | 1 | Unblocks all | Phase 0.1 |
 | B2 | Introduce `.docs/AGENTS.md` (merge or stub from root AGENTS.md) | 1 | Single operating reference | Phase 0.2 |
@@ -49,7 +49,7 @@ Full ID prefix for this initiative: **I01-ACM**. In-doc shorthand: B1, B2, … C
 
 ## Backlog item lens (per charter)
 
-- **Roadmap outcome:** Listed in table.
+- **Charter outcome:** Listed in table.
 - **Value/impact:** Enables next phase or unblocks other changes.
 - **Design/UX:** N/A (internal tooling).
 - **Engineering:** Agent file edits; no new runtime deps.
@@ -62,6 +62,6 @@ Full ID prefix for this initiative: **I01-ACM**. In-doc shorthand: B1, B2, … C
 ## Links
 
 - Charter: [charter-repo-artifact-conventions.md](../charters/charter-repo-artifact-conventions.md)
-- Roadmap: [roadmap-repo-artifact-conventions-migration-2026.md](../roadmaps/roadmap-repo-artifact-conventions-migration-2026.md)
+- Roadmap: [roadmap-repo.md](../roadmaps/roadmap-repo.md)
 - Plan: [plan-repo-artifact-conventions-migration.md](../plans/plan-repo-artifact-conventions-migration.md)
 - Skills audit: [report-repo-skills-artifact-conventions-audit-2026-02-06.md](../../reports/report-repo-skills-artifact-conventions-audit-2026-02-06.md)

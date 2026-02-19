@@ -18,7 +18,7 @@ All items are independently committable. Each commit passes format validation, c
 
 ### Wave 1A — New Skills (5 items, all parallel)
 
-| ID | Change | Roadmap outcome | Value | Status |
+| ID | Change | Charter outcome | Value | Status |
 |----|--------|----------------|-------|--------|
 | B1 | Create `engineering-team/acceptance-test-design/SKILL.md` — BDD outer-loop, walking skeleton strategy, driving-port-only testing, business language purity. Source: S1 (~430 lines → SKILL.md <300 lines + references/) | 1 | Fills capability gap: no acceptance test design skill | done |
 | B2 | Create `engineering-team/divio-documentation/SKILL.md` — DIVIO/Diataxis quadrants, type purity 80%+ rule, collapse detection. Source: S2 (~180 lines) | 1 | Fills capability gap: no documentation classification framework | done |
@@ -30,7 +30,7 @@ All items are independently committable. Each commit passes format validation, c
 
 **Sub-wave 1B-i: Testing & TDD domain (3 items)**
 
-| ID | Change | Roadmap outcome | Value | Status |
+| ID | Change | Charter outcome | Value | Status |
 |----|--------|----------------|-------|--------|
 | B6 | Enrich `engineering-team/tdd/` with references: Outside-In double-loop TDD, 5-phase cycle (PREPARE→RED_ACCEPTANCE→RED_UNIT→GREEN→COMMIT) with gate criteria. Source: S8 (~1,300 lines → references/) | 2 | Adds structured TDD workflow phases and gates | done |
 | B7 | Enrich `engineering-team/core-testing-methodology/` with references: test budget formula (`max_unit_tests = 2 × distinct_behaviors`), Testing Theater anti-patterns catalog. Source: S8 | 2 | Adds quantitative test budgeting and anti-pattern detection | done |
@@ -38,14 +38,14 @@ All items are independently committable. Each commit passes format validation, c
 
 **Sub-wave 1B-ii: Product & Discovery domain (3 items)**
 
-| ID | Change | Roadmap outcome | Value | Status |
+| ID | Change | Charter outcome | Value | Status |
 |----|--------|----------------|-------|--------|
 | B9 | Enrich `product-team/agile-product-owner/` with references: Example Mapping, Three Amigos, Definition of Ready hard gate. Source: S9 (~1,100 lines → references/) | 2 | Adds structured requirements ceremonies | done |
 | B10 | Enrich `product-team/product-manager-toolkit/` with references: 4-phase discovery workflow, Mom Test, opportunity scoring formula (`Importance + Max(0, Importance - Satisfaction)`, >8 threshold). Source: S10 (~250 lines → references/) | 2 | Adds discovery methodology with quantitative scoring | done |
 
 **Sub-wave 1B-iii: Engineering & Operations domain (4 items)**
 
-| ID | Change | Roadmap outcome | Value | Status |
+| ID | Change | Charter outcome | Value | Status |
 |----|--------|----------------|-------|--------|
 | B11 | Enrich `engineering-team/debugging/` with references: Toyota 5 Whys multi-causal, backwards chain validation, evidence classification (logs, metrics, reproduction steps, configuration state) with P0-P3 prioritization matrix. Source: S11 (~150 lines → references/) | 2 | Adds structured RCA methodology with evidence framework | done |
 | B12 | Enrich `research/` (root-level) with references: source verification tiers, 3+ independent sources, confidence ratings, bias detection. Source: S12 (~350 lines → references/) | 2 | Adds verification rigor to research skill | done |
@@ -54,32 +54,32 @@ All items are independently committable. Each commit passes format validation, c
 
 **Sub-wave 1B-iv: Data domain (1 item)**
 
-| ID | Change | Roadmap outcome | Value | Status |
+| ID | Change | Charter outcome | Value | Status |
 |----|--------|----------------|-------|--------|
 | B15 | Enrich `engineering-team/senior-data-engineer/` with references: architecture selection tree, Medallion pattern. Source: S15 (~280 lines → references/) | 2 | Adds data architecture decision framework | done |
 
 ### Wave 1 Validation Checkpoint
 
-| ID | Change | Roadmap outcome | Value | Status |
+| ID | Change | Charter outcome | Value | Status |
 |----|--------|----------------|-------|--------|
 | B16 | Validate all Wave 1A skills: verify 5 SKILL.md files exist with valid frontmatter, `wc -l` < 300, references/ populated where expected. Validate all Wave 1B enrichments: verify references/ files in 10 skill directories. Run methodology fidelity spot-checks: (1) B6 has 5-phase cycle with gates, (2) B10 has scoring formula with >8 threshold, (3) B11 has evidence classification with P0-P3 matrix. | 1, 2 | Gate: blocks Wave 2. All 15 skills valid, 3/3 fidelity checks pass. | done |
 
 ### Wave 2 — Agents (2 items, parallel)
 
-| ID | Change | Roadmap outcome | Value | Status |
+| ID | Change | Charter outcome | Value | Status |
 |----|--------|----------------|-------|--------|
 | B17 | Create `agents/acceptance-designer.md` — acceptance test design agent with `acceptance-test-design` skill. Classification: type=implementation, color=green, field=testing. Validate with `validate_agent.py`. | 3 | Fills agent gap: BDD outer-loop to TDD bridge | done |
 | B18 | Extend `agents/docs-reviewer.md` — add DIVIO classification workflow and `divio-documentation` skill to skills list. Validate with `validate_agent.py`. | 3 | Extends existing agent with documentation classification | done |
 
 ### Wave 2 Validation Checkpoint
 
-| ID | Change | Roadmap outcome | Value | Status |
+| ID | Change | Charter outcome | Value | Status |
 |----|--------|----------------|-------|--------|
 | B19 | Validate Wave 2 agents: `validate_agent.py agents/acceptance-designer.md` + `validate_agent.py agents/docs-reviewer.md`. Verify skill references resolve. Verify classification fields correct. | 3 | Gate: blocks Wave 3A. Both agents pass validation. | done |
 
 ### Wave 3A — Agent Wiring (6 items, all parallel)
 
-| ID | Change | Roadmap outcome | Value | Status |
+| ID | Change | Charter outcome | Value | Status |
 |----|--------|----------------|-------|--------|
 | B20 | Update `agents/tdd-reviewer.md` — add `tdd` enriched references to related-skills or notes. Validate. | 4 | Connects TDD reviewer to enhanced methodology | done |
 | B21 | Update `agents/refactor-assessor.md` — add `refactoring` (progressive-refactoring reference) and `mikado-method` to related-skills. Validate. | 4 | Connects refactoring assessor to new methodologies | done |
@@ -90,13 +90,13 @@ All items are independently committable. Each commit passes format validation, c
 
 ### Wave 3A Validation Checkpoint
 
-| ID | Change | Roadmap outcome | Value | Status |
+| ID | Change | Charter outcome | Value | Status |
 |----|--------|----------------|-------|--------|
 | B26 | Run `validate_agent.py --all --summary`. Verify zero new validation errors. Verify all 6 updated agents have correct related-skills entries. | 4 | Gate: blocks Wave 3B. Full agent ecosystem valid. | done |
 
 ### Wave 3B — Commands (3 items, all parallel)
 
-| ID | Change | Roadmap outcome | Value | Status |
+| ID | Change | Charter outcome | Value | Status |
 |----|--------|----------------|-------|--------|
 | B27 | Create `commands/debug/root-cause.md` — dispatches to debugging skill (Toyota 5 Whys). Argument-hint for problem statement. | 5 | New command for structured RCA | done |
 | B28 | Create `commands/refactor/mikado.md` — dispatches to mikado-method skill. Argument-hint for refactoring goal. | 5 | New command for Mikado refactoring | done |
@@ -104,13 +104,13 @@ All items are independently committable. Each commit passes format validation, c
 
 ### Wave 3B Validation Checkpoint
 
-| ID | Change | Roadmap outcome | Value | Status |
+| ID | Change | Charter outcome | Value | Status |
 |----|--------|----------------|-------|--------|
 | B30 | Validate Wave 3B commands: `validate_commands.py commands/`. Verify all 3 new commands pass. Verify dispatch targets exist. Verify argument-hints present. | 5 | Gate: blocks Wave 4. All commands valid. | done |
 
 ### Wave 4 — Catalogs & Final Validation (5 items, sequential)
 
-| ID | Change | Roadmap outcome | Value | Status |
+| ID | Change | Charter outcome | Value | Status |
 |----|--------|----------------|-------|--------|
 | B31 | Update `agents/README.md` — add acceptance-designer entry, update docs-reviewer description. | 6 | Catalog accuracy | done |
 | B32 | Update `skills/README.md` — add 5 new skills (acceptance-test-design, divio-documentation, mikado-method, mutation-testing, progressive-refactoring reference). | 6 | Catalog accuracy | done |
@@ -172,4 +172,4 @@ If a wave introduces regressions detected by validation:
 ## Links
 
 - Charter: [charter-repo-nwave-methodology-intake.md](../charters/charter-repo-nwave-methodology-intake.md)
-- Roadmap: [roadmap-repo-I08-NWMI-nwave-methodology-intake-2026.md](../roadmaps/roadmap-repo-I08-NWMI-nwave-methodology-intake-2026.md)
+- Roadmap (archived): [roadmap-repo-I08-NWMI-nwave-methodology-intake-2026.md](../../archive/roadmaps/roadmap-repo-I08-NWMI-nwave-methodology-intake-2026.md)

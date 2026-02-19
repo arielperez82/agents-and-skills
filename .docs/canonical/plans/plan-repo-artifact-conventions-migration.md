@@ -9,12 +9,12 @@ updated: 2026-02-10
 
 # Plan: Agent Artifact Conventions Migration
 
-**Endeavor:** repo (agents-and-skills)  
-**Purpose:** Achieve the Agent Artifact Conventions charter and three-layer learnings model across all agents.  
-**Governed by:** Charter → Roadmap → Backlog → Plan.
+**Endeavor:** repo (agents-and-skills)
+**Purpose:** Achieve the Agent Artifact Conventions charter and three-layer learnings model across all agents.
+**Governed by:** Roadmap (evergreen) → Charter → Backlog → Plan.
 
 - **Charter:** [charter-repo-artifact-conventions.md](../charters/charter-repo-artifact-conventions.md)
-- **Roadmap:** [roadmap-repo-artifact-conventions-migration-2026.md](../roadmaps/roadmap-repo-artifact-conventions-migration-2026.md)
+- **Roadmap:** [roadmap-repo.md](../roadmaps/roadmap-repo.md)
 - **Backlog:** [backlog-repo-artifact-conventions-migration.md](../backlogs/backlog-repo-artifact-conventions-migration.md)
 - **Operating reference:** [.docs/AGENTS.md](../../AGENTS.md)
 
@@ -29,7 +29,7 @@ When invoking **product-director**, **product-manager**, **product-analyst**, **
 - Read and write **only under `.docs/`**.
 - Use **canonical docs** for this endeavor:
   - Charter: `.docs/canonical/charters/charter-repo-artifact-conventions.md`
-  - Roadmap: `.docs/canonical/roadmaps/roadmap-repo-artifact-conventions-migration-2026.md`
+  - Roadmap: `.docs/canonical/roadmaps/roadmap-repo.md`
   - Backlog: `.docs/canonical/backlogs/backlog-repo-artifact-conventions-migration.md`
   - Plan: this file (`.docs/canonical/plans/plan-repo-artifact-conventions-migration.md`)
 - Use **`.docs/AGENTS.md`** as the operating reference (including the "Canonical docs override" section).
@@ -86,10 +86,10 @@ Alignment: the convention is the single source of truth for artifact layout and 
 ### Learnings (three layers)
 1. **Operational:** `.docs/AGENTS.md` — cross-agent behavior, global conventions, guardrails. Bridge rule: any deep specialist learning that changes cross-agent behavior gets a short entry here pointing to the deeper source.
 2. **Domain:** `.docs/canonical/assessments/assessment-<endeavor>-<subject>-<date>.md` and/or a "Learnings" section inside the canonical doc (charter/roadmap/backlog/plan). Rule: if a learning changes what we do next, it lands in canonical docs.
-3. **Deep specialist:** With the agent’s skills/commands — checklists, frameworks, templates, prompt patterns. Rule: "how to think/do", not "what this repo/endeavor has decided".
+3. **Deep specialist:** With the agent's skills/commands — checklists, frameworks, templates, prompt patterns. Rule: "how to think/do", not "what this repo/endeavor has decided".
 
 ### Decision hierarchy
-Charter → Roadmap → Backlog → Plan. Disputes resolve upstream.
+Roadmap (evergreen) → Charter → Backlog → Plan. Disputes resolve upstream.
 
 ---
 
@@ -130,7 +130,7 @@ Use the earlier audit. Summary mapping:
 
 **Deliverable:** One checklist file (e.g. `.docs/canonical/plans/agent-artifact-migration-checklist.md`) listing each agent, each artifact it reads/writes, and the new path/name or "remove."
 
-**Exit criteria:** Every agent’s current .md read/write is mapped to a charter-compliant path or to "report" with naming grammar.
+**Exit criteria:** Every agent's current .md read/write is mapped to a charter-compliant path or to "report" with naming grammar.
 
 ---
 

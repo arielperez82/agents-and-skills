@@ -28,6 +28,6 @@ Single queue of changes for the skills-deploy-claude-api capability. Ordered by 
 ## Links
 
 - Charter: [charter-repo-skills-deploy-claude-api.md](../charters/charter-repo-skills-deploy-claude-api.md)
-- Roadmap: [roadmap-repo-I07-SDCA-skills-deploy-claude-api-2026.md](../roadmaps/roadmap-repo-I07-SDCA-skills-deploy-claude-api-2026.md)
+- Roadmap: [roadmap-repo.md](../roadmaps/roadmap-repo.md)
 - Plan: [plan-repo-I07-SDCA-skills-deploy-claude-api.md](../plans/plan-repo-I07-SDCA-skills-deploy-claude-api.md)
 - Operating reference: [.docs/AGENTS.md](../../AGENTS.md)

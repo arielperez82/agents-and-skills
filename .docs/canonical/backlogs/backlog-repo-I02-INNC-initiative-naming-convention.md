@@ -9,7 +9,7 @@ updated: 2026-02-10
 
 # Backlog: Initiative Naming and Traceability Convention
 
-Single continuous queue of **changes** to adopt the initiative-naming charter so all agents and skills follow the convention to the "T". Ordered by roadmap outcome and dependency.
+Single continuous queue of **changes** to adopt the initiative-naming charter so all agents and skills follow the convention to the "T". Ordered by charter outcome and dependency.
 
 ## Changes (ranked)
 
@@ -34,12 +34,12 @@ Single continuous queue of **changes** to adopt the initiative-naming charter so
 | I02-INNC-B17 | Update seo-strategist skill: roadmap output → .docs/canonical/roadmaps/ with initiative + initiative_name in front matter and filename pattern | 4 | Skill compliance | Outcome 4 |
 | I02-INNC-B18 | Update technical-writer, architecture-decision-records, refactoring-agents skills: .docs/canonical paths and any plan/backlog/roadmap references use initiative naming | 4 | Skill compliance | Outcome 4 |
 | I02-INNC-B19 | Update brainstorming, subagent-driven-development, quality-gate-first, creating-agents/skill-creator: plan/roadmap/backlog paths and examples use .docs/canonical and initiative naming | 4 | Skill compliance | Outcome 4 |
-| I02-INNC-B20 | Update agents/README.md and skills/README.md: document initiative naming; point to charter and AGENTS.md References (by initiative) | 4 | Discoverability | Outcome 4 |
+| I02-INNC-B20 | Update agents/README.md and skills/README.md: document initiative naming; point to charter and AGENTS.md References (by initiative). Update references to roadmap-repo.md | 4 | Discoverability | Outcome 4 |
 | I02-INNC-B21 | Validation: grep for roadmap/backlog/plan creation without initiative or initiative_name; spot-check agents and skills; produce validation summary | 5 | Done | Outcome 5 |
 
 ## Backlog item lens (per charter)
 
-- **Roadmap outcome / Phase:** In table.
+- **Charter outcome / Phase:** In table.
 - **Value:** Unblocks next phase or delivers outcome.
 - **Acceptance:** Changes merged; instructions and examples follow charter; no creation of roadmap/backlog/plan without initiative + initiative_name.
 - **Definition of done:** Convention followed to the "T" in scope of that change.
@@ -47,6 +47,6 @@ Single continuous queue of **changes** to adopt the initiative-naming charter so
 ## Links
 
 - Charter: [charter-repo-initiative-naming-convention.md](../charters/charter-repo-initiative-naming-convention.md)
-- Roadmap: [roadmap-repo-I02-INNC-initiative-naming-convention-2026.md](../roadmaps/roadmap-repo-I02-INNC-initiative-naming-convention-2026.md)
+- Roadmap: [roadmap-repo.md](../roadmaps/roadmap-repo.md)
 - Plan: (to be created)
 - Assessment (source): [assessment-repo-initiative-naming-2026-02-10.md](../assessments/assessment-repo-initiative-naming-2026-02-10.md)

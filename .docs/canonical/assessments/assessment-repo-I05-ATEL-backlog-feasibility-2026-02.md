@@ -252,6 +252,6 @@ Maximum theoretical parallelism: 5 items in Wave 3 (B7-B11) and Wave 5 (B16-B20)
 ## Links
 
 - Charter: [charter-repo-agent-telemetry.md](../charters/charter-repo-agent-telemetry.md)
-- Roadmap: [roadmap-repo-I05-ATEL-agent-telemetry-2026.md](../roadmaps/roadmap-repo-I05-ATEL-agent-telemetry-2026.md)
+- Roadmap: [roadmap-repo.md](../roadmaps/roadmap-repo.md)
 - Backlog: [backlog-repo-I05-ATEL-agent-telemetry.md](../backlogs/backlog-repo-I05-ATEL-agent-telemetry.md)
 - Exemplar: `~/projects/context/tinybird`

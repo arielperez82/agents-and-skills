@@ -9,10 +9,10 @@ updated: 2026-02-10
 
 # Plan: Initiative Naming and Traceability Convention
 
-**Governed by:** Charter → Roadmap → Backlog → Plan.
+**Governed by:** Roadmap (evergreen) → Charter → Backlog → Plan.
 
 - **Charter:** [charter-repo-initiative-naming-convention.md](../charters/charter-repo-initiative-naming-convention.md)
-- **Roadmap:** [roadmap-repo-I02-INNC-initiative-naming-convention-2026.md](../roadmaps/roadmap-repo-I02-INNC-initiative-naming-convention-2026.md)
+- **Roadmap:** [roadmap-repo.md](../roadmaps/roadmap-repo.md)
 - **Backlog:** [backlog-repo-I02-INNC-initiative-naming-convention.md](../backlogs/backlog-repo-I02-INNC-initiative-naming-convention.md)
 - **Operating reference:** [.docs/AGENTS.md](../../AGENTS.md)
 

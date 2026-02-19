@@ -11,10 +11,10 @@ updated: 2026-02-16
 
 Implementation plan for a GitHub workflow that detects changed skills, packages them with a flat top-level directory (e.g. `tdd` not `engineering-team/tdd`), and deploys them to the Anthropic Skills API. TDD throughout; deployment scripts validated with unit tests and integration tests using MSW locally; workflow validated with act.
 
-**Governed by:** Charter → Roadmap → Backlog → Plan.
+**Governed by:** Roadmap (evergreen) → Charter → Backlog → Plan.
 
 - **Charter:** [charter-repo-skills-deploy-claude-api.md](../charters/charter-repo-skills-deploy-claude-api.md)
-- **Roadmap:** [roadmap-repo-I07-SDCA-skills-deploy-claude-api-2026.md](../roadmaps/roadmap-repo-I07-SDCA-skills-deploy-claude-api-2026.md)
+- **Roadmap:** [roadmap-repo.md](../roadmaps/roadmap-repo.md)
 - **Backlog:** [backlog-repo-I07-SDCA-skills-deploy-claude-api.md](../backlogs/backlog-repo-I07-SDCA-skills-deploy-claude-api.md)
 - **Operating reference:** [.docs/AGENTS.md](../../AGENTS.md)
 
@@ -114,7 +114,7 @@ Stories below are sized for one sprint; order respects TDD and dependencies. Acc
 ## Links
 
 - Charter: [charter-repo-skills-deploy-claude-api.md](../charters/charter-repo-skills-deploy-claude-api.md)
-- Roadmap: [roadmap-repo-I07-SDCA-skills-deploy-claude-api-2026.md](../roadmaps/roadmap-repo-I07-SDCA-skills-deploy-claude-api-2026.md)
+- Roadmap: [roadmap-repo.md](../roadmaps/roadmap-repo.md)
 - Backlog: [backlog-repo-I07-SDCA-skills-deploy-claude-api.md](../backlogs/backlog-repo-I07-SDCA-skills-deploy-claude-api.md)
 - Anthropic Skills API: [Using Agent Skills with the API](https://docs.anthropic.com/en/docs/build-with-claude/skills-guide), [Create Skill](https://docs.anthropic.com/docs/en/api/skills/create-skill), [Create Skill Version](https://docs.anthropic.com/docs/en/api/skills/create-skill-version)
 - act: [nektos/act](https://github.com/nektos/act) for local workflow runs

@@ -35,6 +35,20 @@ Introduce ShellCheck-based static analysis for shell scripts in the repo and in 
 | CI: ShellCheck job or Shell Linter action (path filter) | devsecops-engineer |
 | skills/README.md and .docs/AGENTS.md references | Implementation |
 
+## Outcomes (sequenced)
+
+Single outcome: shell-scripting skill + Phase 0 conditional + this repo wired for ShellCheck (pre-commit + CI).
+
+### Outcome 1: Skill, Phase 0 conditional, and repo gate
+
+**Goal:** Agents and teams know when/how to run ShellCheck; Phase 0 checklist includes conditional shell lint; this repo runs ShellCheck on commit and in CI.
+
+**Backlog items:** B1 (skill), B2 (quality-gate-first update), B3 (pre-commit), B4 (CI), B5 (catalog/references).
+
+## Parallelization notes
+
+B1 and B2 can run in parallel. B3 and B4 (devsecops) depend on B1 (skill documents the pattern). B5 after B1-B4.
+
 ## Links
 
 - Backlog: [backlog-repo-I09-SHSL-shell-script-lint.md](../backlogs/backlog-repo-I09-SHSL-shell-script-lint.md)

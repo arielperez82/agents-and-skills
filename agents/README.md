@@ -369,7 +369,7 @@ These agents live directly in the `agents/` root directory:
 | `.docs/reports/report-<endeavor>-status-*.md` | Where we are now (current state) | Constantly |
 | `.docs/AGENTS.md` + Learnings sections | What we discovered | As discoveries occur; merge via learner |
 
-**Initiative naming:** All agents that create or reference roadmap, backlog, or plan under `.docs/canonical/` must follow the initiative naming convention: front matter **MUST** include `initiative: I<nn>-<ACRONYM>` and `initiative_name: <long-form>`. Use **References (by initiative)** in `.docs/AGENTS.md` to resolve the current plan for an initiative. See charter: `.docs/canonical/charters/charter-repo-initiative-naming-convention.md`.
+**Initiative naming:** All agents that create or reference backlog or plan under `.docs/canonical/` must follow the initiative naming convention: front matter **MUST** include `initiative: I<nn>-<ACRONYM>` and `initiative_name: <long-form>`. The project roadmap (`roadmap-repo.md`) is evergreen and project-level — it has no `initiative` field. Use **References (by initiative)** in `.docs/AGENTS.md` to resolve the current plan for an initiative. See charter: `.docs/canonical/charters/charter-repo-initiative-naming-convention.md`.
 
 **Key distinction**: Progress tracking uses `.docs/` only. Learnings merged into `.docs/AGENTS.md` or canonical Learnings sections; ADRs under `.docs/canonical/adrs/`.
 
@@ -395,7 +395,10 @@ Delivering to production safely is the first feature. No feature work begins unt
 ### Phase 1 — Planning & Requirements
 
 ```
-product-director / product-manager
+product-director
+    │  (evaluates charter against evergreen roadmap, slots into Now/Next/Later)
+    ▼
+product-manager
     │  (OKRs, RICE prioritization, PRDs)
     ▼
 product-analyst
@@ -421,7 +424,7 @@ progress-assessor
 - Implementation plan in `.docs/canonical/plans/`
 - Status report initialized in `.docs/reports/`
 
-**Canonical artifact hierarchy:** Charter → Roadmap → Backlog → Plan. Disputes resolve upstream. All use initiative IDs (`I<nn>-<ACRONYM>`) consistently.
+**Canonical artifact hierarchy:** Roadmap (evergreen, project-level Now/Next/Later) sequences initiatives; Charter scopes each initiative (includes outcome sequences); Backlog → Plan drive execution. Disputes resolve upstream: Roadmap for inter-initiative sequencing, Charter for intra-initiative scope. All use initiative IDs (`I<nn>-<ACRONYM>`) consistently.
 
 ### Phase 2 — Implementation (per plan step, repeating)
 

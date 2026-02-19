@@ -9,13 +9,13 @@ updated: 2026-02-11
 
 # Backlog: Prioritization Frameworks
 
-Single continuous queue of **changes** (smallest independently valuable increments). Ordered by roadmap outcome and dependency. Implementers pull from here; execution is planned in the plan doc.
+Single continuous queue of **changes** (smallest independently valuable increments). Ordered by charter outcome and dependency. Implementers pull from here; execution is planned in the plan doc.
 
 ## Changes (ranked)
 
 Full ID prefix for this initiative: **I03-PRFR**. In-doc shorthand: B1, B2, ... Cross-doc or reports: use I03-PRFR-B01, I03-PRFR-B02, etc.
 
-| ID | Change | Roadmap outcome | Value | Status |
+| ID | Change | Charter outcome | Value | Status |
 |----|--------|-----------------|-------|--------|
 | B1 | Create `skills/product-team/prioritization-frameworks/` directory and SKILL.md skeleton | 1 | Unblocks all skill work | done |
 | B2 | Write primary approach section in SKILL.md: portfolio allocation workflow (bucket-setting by Product Director + CTO, within-bucket ranking by PM) | 1 | Core methodology documented | done |
@@ -40,17 +40,17 @@ Full ID prefix for this initiative: **I03-PRFR**. In-doc shorthand: B1, B2, ... 
 
 ## Backlog item lens (per charter)
 
-- **Roadmap outcome:** Listed in table.
+- **Charter outcome:** Listed in table.
 - **Value/impact:** Enables next outcome or unblocks other changes.
 - **Design/UX:** N/A (internal tooling).
 - **Engineering:** Skill SKILL.md authoring, Python tool development, agent frontmatter + body edits.
 - **Security/privacy:** N/A.
 - **Observability:** N/A.
 - **Rollout/comms:** Update AGENTS.md references when complete.
-- **Acceptance criteria:** Per roadmap outcome checkpoints.
+- **Acceptance criteria:** Per charter outcome checkpoints.
 - **Definition of done:** Changes merged; no references to old paths in scope of that change.
 
 ## Links
 
 - Charter: [charter-repo-prioritization-frameworks.md](../charters/charter-repo-prioritization-frameworks.md)
-- Roadmap: [roadmap-repo-I03-PRFR-prioritization-frameworks-2026.md](../roadmaps/roadmap-repo-I03-PRFR-prioritization-frameworks-2026.md)
+- Roadmap: [roadmap-repo.md](../roadmaps/roadmap-repo.md)

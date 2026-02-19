@@ -125,5 +125,5 @@ Commands are trivially small dispatch files. Risk surface doesn't justify a full
 
 ## Links
 
-- Roadmap: [roadmap-repo-I06-AICO-agent-command-intake-optimize-2026.md](../roadmaps/roadmap-repo-I06-AICO-agent-command-intake-optimize-2026.md)
+- Roadmap (archived): [roadmap-repo-I06-AICO-agent-command-intake-optimize-2026.md](../../archive/roadmaps/roadmap-repo-I06-AICO-agent-command-intake-optimize-2026.md)
 - Backlog: [backlog-repo-I06-AICO-agent-command-intake-optimize.md](../backlogs/backlog-repo-I06-AICO-agent-command-intake-optimize.md)

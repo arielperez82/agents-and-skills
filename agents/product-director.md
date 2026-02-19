@@ -54,9 +54,9 @@ examples:
   - title: "Generate OKR Cascade"
     input: "Create OKRs for Q1 aligned with company goal of 50% revenue growth"
     output: "OKR cascade with company, team, and individual objectives (mindmap via technical-writer)"
-  - title: "Build Product Roadmap"
-    input: "Create 2025 product roadmap with quarterly milestones"
-    output: "Strategic roadmap with timeline visualization (via technical-writer)"
+  - title: "Maintain Evergreen Roadmap"
+    input: "Evaluate new charter and update the evergreen roadmap with initiative sequencing"
+    output: "Updated roadmap-repo.md with initiative slotted into Now/Next/Later horizons"
   - title: "Strategic Prioritization"
     input: "Prioritize strategic initiatives by impact and effort"
     output: "Initiative list with quadrant chart for stakeholder presentation"
@@ -220,69 +220,47 @@ python ../skills/product-team/product-strategist/scripts/okr_cascade_generator.p
 # Review cascaded OKRs for product and teams
 ```
 
-### Workflow 2: Annual Strategic Roadmap Development
+### Workflow 2: Maintain Evergreen Roadmap
 
-**Goal:** Create multi-year strategic roadmap with themes, initiatives, and success metrics
+**Goal:** Maintain the single, persistent project-level roadmap that sequences all initiatives by horizon (Now / Next / Later / Done)
+
+The roadmap is **evergreen** — it is not created per-initiative or per-quarter. It is continuously maintained as the strategic view of what's happening across all initiatives.
 
 **Steps:**
-1. **Define Product Vision** - Establish 3-5 year vision:
-   - Market positioning (who we serve, why we win)
-   - Competitive differentiation (unique value proposition)
-   - Success metrics (market share, revenue, users)
-   - Strategic bets (major investments)
+1. **Receive Charter** - When a new initiative charter arrives:
+   - Read the charter's intent, constraints, and scope
+   - Understand the outcomes and effort required
 
-2. **Identify Strategic Themes** - Group initiatives by themes:
-   - **Theme 1: User Experience** (Simplify onboarding, improve usability)
-   - **Theme 2: Enterprise Features** (SSO, admin controls, compliance)
-   - **Theme 3: Platform Scalability** (Performance, reliability, security)
-   - **Theme 4: Market Expansion** (Internationalization, integrations)
+2. **Evaluate Against Current Roadmap** - Assess the new initiative relative to everything else:
+   - Read the current roadmap at `.docs/canonical/roadmaps/roadmap-repo.md`
+   - Consider dependencies between initiatives
+   - Assess capacity and resource constraints
+   - Evaluate strategic alignment with current priorities
 
-3. **Map Themes to Timeline** - Assign themes to time horizons:
-   ```bash
-   cat ../skills/product-team/product-strategist/references/roadmap_frameworks.md
-   ```
-   - **Now (0-3 months)**: Current sprint commitments
-   - **Next (3-6 months)**: Next quarter priorities
-   - **Later (6-12 months)**: Strategic bets, exploration
-   - **Future (12+ months)**: Vision items, research
+3. **Prioritize Using Now/Next/Later** - Slot the initiative:
+   - **Now**: Active work, team is executing
+   - **Next**: Chartered and ready, starts when capacity allows
+   - **Later**: Identified but not yet chartered or deferred
+   - **Done**: Completed initiatives
 
-4. **Define Initiatives** - Break themes into concrete initiatives:
-   - Initiative name and description
-   - Business value and target metrics
-   - Resource requirements (team, timeline, budget)
-   - Dependencies and risks
-   - Success criteria
+4. **Update Roadmap** - Edit the evergreen roadmap:
+   - Add or move the initiative to the appropriate horizon
+   - Update status descriptions
+   - Adjust other initiatives if priorities shifted
+   - The roadmap file is `.docs/canonical/roadmaps/roadmap-repo.md`
 
-5. **Prioritize Initiatives** - Use strategic criteria:
-   - **Strategic Alignment**: How well does this support company OKRs?
-   - **Impact**: What's the expected business value?
-   - **Confidence**: How certain are we about the approach?
-   - **Effort**: What resources are required?
+5. **Communicate Changes** - Share updates with stakeholders:
+   - Explain why the initiative was slotted where it was
+   - Note any initiatives that moved horizons as a result
 
-6. **Create Roadmap Visualization** - Document roadmap:
-   ```bash
-   cp ../skills/product-team/product-strategist/assets/strategic-roadmap-template.md .docs/canonical/roadmaps/roadmap-repo-strategic-2025.md
-   ```
-   - **Initiative naming (required):** Add YAML front matter with `initiative: I<nn>-<ACRONYM>` and `initiative_name: <long-form>` per `.docs/AGENTS.md`. Same for any backlog or plan created under `.docs/canonical/`. Use ID grammar for backlog items (I<nn>-<ACRONYM>-B<nn>) and plan steps (B<nn>, B<nn>-P<p>.<s>).
-   - Now/Next/Later format
-   - Theme-based grouping
-   - Quarterly milestones
-   - Success metrics per initiative
+6. **Periodic Review** - Review cadence for the roadmap:
+   - Monthly: Review progress on "Now" items, promote from "Next" if capacity opens
+   - Quarterly: Reassess "Next" and "Later" priorities based on learnings
+   - On initiative completion: Move to "Done", promote from "Next" to "Now"
 
-7. **Stakeholder Review** - Present roadmap for alignment:
-   - Executive team: Validate strategic direction
-   - Engineering: Confirm technical feasibility
-   - Sales/Marketing: Ensure market alignment
-   - Customers: Validate problem-solution fit
+**Authority:** The roadmap is authority for **sequencing between initiatives**. Charters are authority for **scope within an initiative**. Backlogs are authority for **execution order**. Plans are authority for **how to build**.
 
-8. **Establish Review Cadence** - Set roadmap update schedule:
-   - Monthly: Review progress on "Now" items
-   - Quarterly: Adjust "Next" priorities based on learnings
-   - Annually: Revisit vision and strategic themes
-
-**Expected Output:** Multi-year strategic roadmap with themes, initiatives, timelines, and success metrics
-
-**Time Estimate:** 2-3 weeks for annual roadmap development (including stakeholder review)
+**Expected Output:** Updated evergreen roadmap with initiative properly sequenced
 
 ### Workflow 3: OKR-Driven Feature Prioritization
 
@@ -335,11 +313,11 @@ python ../skills/product-team/product-strategist/scripts/okr_cascade_generator.p
    - **Could-Do (Score 1-3)**: Nice-to-have improvements
    - **Won't-Do (Score <1)**: Defer or reject
 
-7. **Create Execution Roadmap** - Map to quarterly timeline:
-   - Q1: Must-Do features that unblock Q2 work
-   - Q2: Should-Do features supporting mid-year OKRs
-   - Q3: Could-Do features filling capacity
-   - Q4: Planning for next year's OKRs
+7. **Slot Into Evergreen Roadmap** - Update initiative sequencing:
+   - **Now**: Must-Do features critical for current OKRs
+   - **Next**: Should-Do features supporting upcoming OKRs
+   - **Later**: Could-Do features for future consideration
+   - Update `.docs/canonical/roadmaps/roadmap-repo.md` with priority decisions
 
 **Expected Output:** Prioritized feature backlog with OKR contribution scores and strategic rationale
 
@@ -406,14 +384,12 @@ python ../skills/product-team/product-strategist/scripts/okr_cascade_generator.p
    - **Initiatives**: Continue, pause, or cancel?
    - **Resource Allocation**: Rebalance team focus?
 
-7. **Update Roadmap** - Revise next quarter priorities:
-   ```bash
-   cp ../skills/product-team/product-strategist/assets/strategic-roadmap-template.md .docs/canonical/roadmaps/roadmap-repo-strategic-2025-q4.md
-   ```
+7. **Update Roadmap** - Revise initiative sequencing in the evergreen roadmap:
+   - Edit `.docs/canonical/roadmaps/roadmap-repo.md`
    - Move "Next" items to "Now"
    - Promote "Later" items to "Next"
    - Add new "Later" items from learnings
-   - Archive completed or cancelled items
+   - Move completed or cancelled items to "Done"
 
 8. **Communicate Changes** - Share updates with stakeholders:
    - Executive team: Strategy adjustments and rationale
@@ -487,41 +463,22 @@ echo "3. Distribute team-level OKRs to product teams"
 echo "4. Schedule weekly check-ins and monthly reviews"
 ```
 
-### Example 2: Annual Roadmap Development
+### Example 2: Evaluate New Charter Against Roadmap
 
 ```bash
-# Annual strategic roadmap development workflow
+# Evaluate a new initiative charter against the evergreen roadmap
 
-YEAR=$1  # e.g., 2025
+echo "Evaluating new charter against roadmap..."
 
-echo "🗺️  Annual Strategic Roadmap Development - $YEAR"
-echo "=========================================="
-echo ""
+# Read the evergreen roadmap
+cat .docs/canonical/roadmaps/roadmap-repo.md
 
-# Review strategic planning framework
-echo "1. Strategic Planning Framework:"
-cat ../skills/product-team/product-strategist/references/strategic_planning_framework.md | head -40
-echo ""
+# Read the new charter
+cat .docs/canonical/charters/charter-repo-<initiative>.md
 
-# Review roadmap frameworks
-echo "2. Roadmap Framework Options:"
-cat ../skills/product-team/product-strategist/references/roadmap_frameworks.md | grep "^## " | head -10
-echo ""
-
-# Create roadmap from template
-echo "3. Creating Roadmap Template..."
-cp ../skills/product-team/product-strategist/assets/strategic-roadmap-template.md ".docs/canonical/roadmaps/roadmap-repo-strategic-$YEAR.md"
-
-echo "   ✅ Roadmap template created: .docs/canonical/roadmaps/roadmap-repo-strategic-$YEAR.md"
-echo ""
-
-echo "Next steps:"
-echo "1. Define product vision (3-5 year horizon)"
-echo "2. Identify 3-5 strategic themes"
-echo "3. Map themes to Now/Next/Later timeline"
-echo "4. Define initiatives with metrics and owners"
-echo "5. Review with stakeholders for alignment"
-echo "6. Establish quarterly review cadence"
+# Decision: Where does this initiative slot in Now/Next/Later?
+# Consider: dependencies, capacity, strategic alignment, urgency
+# Update roadmap-repo.md with the initiative in the appropriate horizon
 ```
 
 ### Example 3: OKR Progress Tracking
@@ -573,7 +530,7 @@ echo "📊 Update KR progress values in: $OKR_FILE"
 
 **Planning Efficiency:**
 - **OKR Planning Time:** <1 week to complete quarterly OKR cascade
-- **Roadmap Planning Time:** <3 weeks to complete annual roadmap
+- **Roadmap Review Time:** <1 day per quarterly roadmap review cycle
 - **Strategy Review Time:** <1 week per quarterly review
 - **Alignment Meeting Time:** 50% reduction in time spent on alignment meetings
 

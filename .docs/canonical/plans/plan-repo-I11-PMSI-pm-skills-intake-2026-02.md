@@ -52,5 +52,5 @@ Incorporate PM skill content into `skills/product-team/` via wave-based add/adap
 ## Links
 
 - Charter: [charter-repo-I11-PMSI-pm-skills-intake.md](../charters/charter-repo-I11-PMSI-pm-skills-intake.md)
-- Roadmap: [roadmap-repo-I11-PMSI-pm-skills-intake-2026.md](../roadmaps/roadmap-repo-I11-PMSI-pm-skills-intake-2026.md)
+- Roadmap (archived): [roadmap-repo-I11-PMSI-pm-skills-intake-2026.md](../../archive/roadmaps/roadmap-repo-I11-PMSI-pm-skills-intake-2026.md)
 - Backlog: [backlog-repo-I11-PMSI-pm-skills-intake.md](../backlogs/backlog-repo-I11-PMSI-pm-skills-intake.md)

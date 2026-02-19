@@ -9,13 +9,13 @@ updated: 2026-02-11
 
 # Backlog: Sales Enablement
 
-Single continuous queue of **changes** (smallest independently valuable increments). Ordered by roadmap outcome and dependency. Implementers pull from here; execution is planned in the plan doc.
+Single continuous queue of **changes** (smallest independently valuable increments). Ordered by charter outcome and dependency. Implementers pull from here; execution is planned in the plan doc.
 
 ## Changes (ranked)
 
 Full ID prefix for this initiative: **I04-SLSE**. In-doc shorthand: B1, B2, ... Cross-doc or reports: use I04-SLSE-B01, I04-SLSE-B02, etc.
 
-| ID | Change | Roadmap outcome | Value | Status |
+| ID | Change | Charter outcome | Value | Status |
 |----|--------|-----------------|-------|--------|
 | B1 | Create `skills/sales-team/` directory and CLAUDE.md with team overview | 1 | Unblocks all skill work | done |
 | B2 | Write `lead-research/SKILL.md` — company research, lead enrichment, web intelligence synthesis, ABM research patterns | 2 | Core SDR skill; covers Zapier #1, #10, #11 | done |
@@ -36,17 +36,17 @@ Full ID prefix for this initiative: **I04-SLSE**. In-doc shorthand: B1, B2, ... 
 
 ## Backlog item lens (per charter)
 
-- **Roadmap outcome:** Listed in table.
+- **Charter outcome:** Listed in table.
 - **Value/impact:** Enables next outcome or unblocks other changes.
 - **Design/UX:** N/A (internal tooling).
 - **Engineering:** Skill SKILL.md authoring, agent frontmatter + body definition.
 - **Security/privacy:** N/A.
 - **Observability:** N/A.
 - **Rollout/comms:** Update AGENTS.md references when complete.
-- **Acceptance criteria:** Per roadmap outcome checkpoints.
+- **Acceptance criteria:** Per charter outcome checkpoints.
 - **Definition of done:** Changes merged; no Zapier-specific or vendor-specific integration references; agent validation passes.
 
 ## Links
 
 - Charter: [charter-repo-sales-enablement.md](../charters/charter-repo-sales-enablement.md)
-- Roadmap: [roadmap-repo-I04-SLSE-sales-enablement-2026.md](../roadmaps/roadmap-repo-I04-SLSE-sales-enablement-2026.md)
+- Roadmap: [roadmap-repo.md](../roadmaps/roadmap-repo.md)

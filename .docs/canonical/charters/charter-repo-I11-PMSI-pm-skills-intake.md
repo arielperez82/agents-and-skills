@@ -49,6 +49,6 @@ The PM skill intake work was initiated under an incorrect initiative number (`I1
 
 ## Links
 
-- Roadmap: [roadmap-repo-I11-PMSI-pm-skills-intake-2026.md](../roadmaps/roadmap-repo-I11-PMSI-pm-skills-intake-2026.md)
+- Roadmap (archived): [roadmap-repo-I11-PMSI-pm-skills-intake-2026.md](../../archive/roadmaps/roadmap-repo-I11-PMSI-pm-skills-intake-2026.md)
 - Backlog: [backlog-repo-I11-PMSI-pm-skills-intake.md](../backlogs/backlog-repo-I11-PMSI-pm-skills-intake.md)
 - Plan: [plan-repo-I11-PMSI-pm-skills-intake-2026-02.md](../plans/plan-repo-I11-PMSI-pm-skills-intake-2026-02.md)

@@ -120,6 +120,6 @@ Spot-check these specific items after enrichment to verify methodology survived 
 
 ## Links
 
-- Roadmap: [roadmap-repo-I08-NWMI-nwave-methodology-intake-2026.md](../roadmaps/roadmap-repo-I08-NWMI-nwave-methodology-intake-2026.md)
+- Roadmap (archived): [roadmap-repo-I08-NWMI-nwave-methodology-intake-2026.md](../../archive/roadmaps/roadmap-repo-I08-NWMI-nwave-methodology-intake-2026.md)
 - Backlog: [backlog-repo-I08-NWMI-nwave-methodology-intake.md](../backlogs/backlog-repo-I08-NWMI-nwave-methodology-intake.md)
 - Source: `/Users/Ariel/projects/nWave/` (nWave framework repository)

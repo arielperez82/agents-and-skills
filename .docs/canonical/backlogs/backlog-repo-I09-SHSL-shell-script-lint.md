@@ -42,5 +42,5 @@ Full ID prefix: **I09-SHSL**. In-doc shorthand: B1, B2, … Cross-doc: I09-SHSL-
 ## Links
 
 - Charter: [charter-repo-I09-SHSL-shell-script-lint.md](../charters/charter-repo-I09-SHSL-shell-script-lint.md)
-- Roadmap: [roadmap-repo-I09-SHSL-shell-script-lint-2026.md](../roadmaps/roadmap-repo-I09-SHSL-shell-script-lint-2026.md)
+- Roadmap: [roadmap-repo.md](../roadmaps/roadmap-repo.md)
 - Plan: [plan-repo-I09-SHSL-shell-script-lint.md](../plans/plan-repo-I09-SHSL-shell-script-lint.md)

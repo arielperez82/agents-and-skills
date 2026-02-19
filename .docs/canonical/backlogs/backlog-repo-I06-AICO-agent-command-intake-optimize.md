@@ -9,13 +9,13 @@ updated: 2026-02-16
 
 # Backlog: Agent & Command Intake/Optimize
 
-Single continuous queue of **changes** (smallest independently valuable increments). Ordered by roadmap outcome and dependency. Implementers pull from here; execution is planned in the plan doc.
+Single continuous queue of **changes** (smallest independently valuable increments). Ordered by charter outcome and dependency. Implementers pull from here; execution is planned in the plan doc.
 
 ## Changes (ranked)
 
 Full ID prefix for this initiative: **I06-AICO**. In-doc shorthand: B1, B2, ... Cross-doc or reports: use I06-AICO-B01, I06-AICO-B02, etc.
 
-| ID | Change | Roadmap outcome | Value | Status |
+| ID | Change | Charter outcome | Value | Status |
 |----|--------|-----------------|-------|--------|
 | B1 | Define agent optimization rubric (`references/optimization-rubric.md`). Five dimensions with scoring criteria: (1) **Responsibility precision** — % of body content that is actionable (workflow steps, concrete instructions) vs decorative (preambles, motivation, restated principles); threshold >70% actionable. (2) **Retrieval efficiency** — ratio of index pointers to duplicated skill content; agent body should not reproduce content from referenced SKILL.md files; threshold: 0 duplicated paragraphs. (3) **Collaboration completeness** — all `collaborates-with` entries have `purpose`, `required`, `without-collaborator`; all delegation paths declared; threshold: 100% complete. (4) **Classification alignment** — `classification.type` matches actual `tools` and workflow patterns (strategic agents should not declare Bash; quality agents should not produce artifacts); threshold: 0 mismatches. (5) **Example quality** — all 3+ workflows have concrete inputs, expected output format, and integration examples; threshold: 100% concrete. Include scoring formula and overall grade (A/B/C/D/F) | 1 | Foundation for agent optimizer and agent intake Phase 3 | done |
 | B2 | Create `analyze-agent.sh` script. Input: path to agent `.md` file. Output: per-dimension scores from rubric (B1), overall grade, line count, section count, skill reference count, collaboration count, classification summary. Uses grep/awk for structural analysis, flags potential issues | 1 | Single-agent analysis tool | done |
@@ -46,15 +46,15 @@ Full ID prefix for this initiative: **I06-AICO**. In-doc shorthand: B1, B2, ... 
 
 ## Backlog item lens (per charter)
 
-- **Roadmap outcome:** Listed in table.
+- **Charter outcome:** Listed in table.
 - **Value/impact:** Each item enables the next wave or directly serves the three usage patterns (create-then-optimize, intake-then-optimize, standalone review).
 - **Engineering:** Markdown skills, bash scripts, Python validation script. No new frameworks or dependencies.
 - **Security/privacy:** Agent governance checklist defines the security model for agent intake. Tool permission escalation, delegation chain safety, and skill reference integrity are first-class concerns.
 - **Rollback:** All items are additive (new files). Rollback = delete files. No existing files modified except README updates (B15, B16).
-- **Acceptance criteria:** Per roadmap outcome validation commands. Individual items include specific deliverables and thresholds.
+- **Acceptance criteria:** Per charter outcome validation commands. Individual items include specific deliverables and thresholds.
 - **Definition of done:** Scripts execute without error, skills validate against `validate_agent.py` pattern, commands dispatch correctly, calibration produces actionable findings.
 
 ## Links
 
 - Charter: [charter-repo-agent-command-intake-optimize.md](../charters/charter-repo-agent-command-intake-optimize.md)
-- Roadmap: [roadmap-repo-I06-AICO-agent-command-intake-optimize-2026.md](../roadmaps/roadmap-repo-I06-AICO-agent-command-intake-optimize-2026.md)
+- Roadmap (archived): [roadmap-repo-I06-AICO-agent-command-intake-optimize-2026.md](../../archive/roadmaps/roadmap-repo-I06-AICO-agent-command-intake-optimize-2026.md)

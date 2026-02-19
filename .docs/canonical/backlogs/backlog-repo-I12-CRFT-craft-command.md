@@ -9,13 +9,13 @@ updated: 2026-02-18
 
 # Backlog: Craft Command
 
-Single continuous queue of **changes** (smallest independently valuable increments). Ordered by roadmap outcome and dependency. Implementers pull from here; execution is planned in the plan doc.
+Single continuous queue of **changes** (smallest independently valuable increments). Ordered by charter outcome and dependency. Implementers pull from here; execution is planned in the plan doc.
 
 ## Changes (ranked)
 
 Full ID prefix for this initiative: **I12-CRFT**. In-doc shorthand: B1, B2, ... Cross-doc or reports: use I12-CRFT-B01, I12-CRFT-B02, etc.
 
-| ID | Change | Roadmap outcome | Value | Status |
+| ID | Change | Charter outcome | Value | Status |
 |----|--------|-----------------|-------|--------|
 | B1 | **Manual walkthrough: Phase 0 — Understand.** Pick a real goal. Invoke `researcher` manually with the goal as input. Document: exact prompt given, artifacts produced (research report path), what the human reviewed, what decision was made (proceed/redirect/stop), and what information needs to be handed to the next phase. Write to `.docs/reports/craft-manual-walkthrough-I12.md` | 1 | Captures the real input/output contract for Phase 0; reveals what the researcher actually needs and produces | todo |
 | B2 | **Manual walkthrough: Phase 1 — Define.** Feed the research output to `product-analyst` and `acceptance-designer` manually. Document: how the research was referenced (file path? inline?), prompts given, artifacts produced (user stories, BDD scenarios), human review and decision, handoff artifacts for next phase | 1 | Captures requirements phase contract; reveals whether these agents need the full research report or a summary | todo |
@@ -44,4 +44,4 @@ Full ID prefix for this initiative: **I12-CRFT**. In-doc shorthand: B1, B2, ... 
 ## Links
 
 - Charter: [charter-repo-I12-CRFT-craft-command.md](../charters/charter-repo-I12-CRFT-craft-command.md)
-- Roadmap: [roadmap-repo-I12-CRFT-craft-command-2026.md](../roadmaps/roadmap-repo-I12-CRFT-craft-command-2026.md)
+- Roadmap: [roadmap-repo.md](../roadmaps/roadmap-repo.md)

@@ -209,7 +209,7 @@ This is the end-to-end lifecycle for all work — features, bug fixes, refactori
     ▼
  2. PLAN
     product-analyst ─► acceptance-designer ─► architect ─► implementation-planner
-    │  Charter → Roadmap → Backlog → Plan (.docs/canonical/)
+    │  Charter evaluated against evergreen Roadmap; Backlog → Plan (.docs/canonical/)
     ▼
  3. BUILD  ◄──────────────────────────────────────────────┐
     │                                                     │
@@ -252,12 +252,13 @@ Complete before any feature work. See "Phase 0: Quality Gate First" below for de
 
 ### 2. Plan
 
+- `product-director` → evaluates charter against evergreen roadmap, slots initiative into Now/Next/Later
 - `product-analyst` → user stories, acceptance criteria
 - `acceptance-designer` → BDD Given-When-Then scenarios (outer-loop tests)
 - `architect` / `adr-writer` → system design, ADRs (`.docs/canonical/adrs/`)
 - `implementation-planner` → step-by-step plan (`.docs/canonical/plans/`)
 - `progress-assessor` → validates tracking exists (`.docs/reports/`)
-- Artifact hierarchy: **Charter → Roadmap → Backlog → Plan**. Initiative IDs (`I<nn>-<ACRONYM>`) throughout.
+- Artifact hierarchy: **Roadmap** (evergreen, project-level Now/Next/Later) sequences initiatives; **Charter** scopes each initiative (includes outcome sequences); **Backlog** → **Plan** drive execution. Initiative IDs (`I<nn>-<ACRONYM>`) throughout.
 
 ### 3. Build (per plan step, repeating)
 

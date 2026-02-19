@@ -37,7 +37,7 @@ The project roadmap (`roadmap-repo.md`) is evergreen and project-level — it do
 Every backlog and plan that belongs to an initiative **MUST** have in front matter:
 
 - `initiative: I<nn>-<ACRONYM>` (e.g. `I01-ACM`, `I02-INNC`)
-- `initiative_name: <long-form>` (slug or human-readable; same across roadmap, backlog, plan)
+- `initiative_name: <long-form>` (slug or human-readable; same across charter, backlog, plan)
 
 **ID grammar:** Initiative `I<nn>-<ACRONYM>`; backlog item `I<nn>-<ACRONYM>-B<nn>` (in-doc shorthand `B<nn>`); plan step `B<nn>` or `B<nn>-P<p>.<s>` for sub-steps. Backlog table MUST have a Phase or Charter outcome column. Phases live in charter outcomes, backlog column, and plan structure—not in the backlog item ID.
 
@@ -65,9 +65,9 @@ Agents that capture or encode learnings (learner, docs-reviewer, agent-author) m
 
 ### Recorded learnings
 
-**L1 — Canonical docs enable parallel execution** (I04-SLSE, 2026-02-11): Create charter → roadmap → backlog *before* any implementation. Agents can then independently pull items from the backlog without coordination overhead. In I04-SLSE this allowed 3 waves of parallel work (6 skills → 4 agents → catalog updates) completing 16 backlog items with zero merge conflicts or rework.
+**L1 — Canonical docs enable parallel execution** (I04-SLSE, 2026-02-11): Create charter → backlog *before* any implementation (product-director evaluates charter against evergreen roadmap). Agents can then independently pull items from the backlog without coordination overhead. In I04-SLSE this allowed 3 waves of parallel work (6 skills → 4 agents → catalog updates) completing 16 backlog items with zero merge conflicts or rework.
 
-**L2 — Wave-based parallelization pattern** (I04-SLSE, 2026-02-11): Group backlog items by dependency into waves. Within a wave, all items run in parallel; waves execute sequentially. Map backlog items to roadmap outcomes — items within the same outcome are usually parallelizable; items across sequential outcomes are not. Document parallelization strategy in the roadmap.
+**L2 — Wave-based parallelization pattern** (I04-SLSE, 2026-02-11): Group backlog items by dependency into waves. Within a wave, all items run in parallel; waves execute sequentially. Map backlog items to charter outcomes — items within the same outcome are usually parallelizable; items across sequential outcomes are not. Document parallelization strategy in the charter.
 
 **L3 — Expert panel for initiative scoping** (I04-SLSE, 2026-02-11): Use `convening-experts` with domain-specific agents to analyze source material *before* creating initiative docs. In I04-SLSE, a 5-agent panel classified 15 Zapier automations into BUILD/EXTEND/REFERENCE/DISCARD, producing a clean architecture (2 agents, 6 skills, 2 enhancements) with zero scope changes during execution.
 

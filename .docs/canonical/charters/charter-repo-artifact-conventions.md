@@ -42,7 +42,7 @@ updated: 2026-02-06
 - Every agent that touches coordination/canonical artifacts references only `.docs/` and the agreed naming grammar.
 - No references to PLAN.md, WIP.md, LEARNINGS.md, or ad-hoc names (e.g. `roadmap.md`, `summary.md`) in agent definitions for coordination.
 - Consumer repos using these agents are directed to use `.docs/` and the same conventions.
-- Disputes about what to do next resolve via Charter → Roadmap → Backlog → Plan.
+- Disputes about what to do next resolve upstream: Roadmap (evergreen) for inter-initiative sequencing, Charter for intra-initiative scope, Backlog for execution order.
 
 ## Canonical layout (authoritative)
 
@@ -77,9 +77,22 @@ ADRs: `adr-YYYYMMDD-<subject>.md` under `.docs/canonical/adrs/`.
 2. **Domain (endeavor-level):** `.docs/canonical/assessments/` or "Learnings" section in charter/roadmap/backlog/plan. Rule: if a learning changes what we do next, it lands in canonical docs.
 3. **Deep specialist:** With the agent's skills/commands. Rule: "how to think/do", not "what this repo has decided."
 
+## Outcomes (sequenced)
+
+Outcomes only; no task granularity. Execution is pulled from the backlog and planned in the plan doc.
+
+| Order | Outcome | Checkpoint |
+|-------|---------|------------|
+| 1 | `.docs/` is the single source of truth for this repo; no coordination artifacts outside `.docs/` | Phase 0 complete: structure exists, `.docs/AGENTS.md` is operating reference |
+| 2 | Every agent's .md read/write is mapped to canonical or report paths | Phase 1 complete: migration checklist done |
+| 3 | All agent definitions use only `.docs/` and naming grammar for coordination artifacts | Phase 2 complete |
+| 4 | Learnings (three layers) and ADR placement encoded in AGENTS.md and agents | Phase 3 complete |
+| 5 | Commands and READMEs point to `.docs/` and new naming | Phase 4 complete |
+| 6 | No obsolete names or paths; validation clean | Phase 5 complete; migration done |
+
 ## References
 
 - [Agent Artifact Conventions](https://github.com/.../agent-artifact-conventions) (source charter).
 - Plan for this endeavor: [plan-repo-artifact-conventions-migration.md](../plans/plan-repo-artifact-conventions-migration.md).
-- Roadmap: [roadmap-repo-artifact-conventions-migration-2026.md](../roadmaps/roadmap-repo-artifact-conventions-migration-2026.md).
+- Roadmap: [roadmap-repo.md](../roadmaps/roadmap-repo.md).
 - Backlog: [backlog-repo-artifact-conventions-migration.md](../backlogs/backlog-repo-artifact-conventions-migration.md).
