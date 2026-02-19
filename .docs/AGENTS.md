@@ -10,7 +10,7 @@ This file is the **single operating reference** for agent behavior and artifact 
 
 **All agents** must read and write coordination artifacts under `.docs/`. This is not optional — it is the permanent convention for this repo, proven across initiatives I01-ACM through I04-SLSE.
 
-- **Canonical truth:** charter, roadmap, backlog, plan, assessments, reviews, ADRs, requirements, designs live under `.docs/canonical/`.
+- **Canonical truth:** charter, roadmap, backlog, plan, assessments, reviews, ADRs live under `.docs/canonical/`.
 - **Reports:** time-stamped outputs live under `.docs/reports/`.
 - **Operating reference:** this file (`.docs/AGENTS.md`).
 
@@ -26,8 +26,6 @@ Do **not** create or expect PLAN.md, WIP.md, LEARNINGS.md, or ad-hoc names like 
 - **Naming (canonical):** `<type>-<endeavor>[-<scope>]-<subject>[-<timeframe>].md` under `.docs/canonical/<type>/`.
 - **Naming (reports):** `report-<endeavor>-<topic>-<timeframe>.md` under `.docs/reports/`.
 - **ADRs:** `.docs/canonical/adrs/adr-YYYYMMDD-<subject>.md`.
-- **Requirements:** `.docs/canonical/requirements/{initiative-id}-user-stories.md`, `{initiative-id}-bdd-scenarios.md`.
-- **Designs:** `.docs/canonical/designs/{initiative-id}-architecture.md`.
 - **Decision hierarchy:** Charter → Roadmap → Backlog → Plan. Disputes resolve upstream.
 
 ---

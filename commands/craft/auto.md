@@ -18,10 +18,13 @@ Prepend the following to ALL agent prompts dispatched during execution:
 
 Auto-approve all phase gates. Do not pause for human approval between phases.
 
+**Auto-Clarify:** When an agent flags uncertainty or ambiguity, automatically trigger the Clarify protocol (see `craft.md`) — dispatch the relevant prior-phase agent, incorporate the answer, and continue. Only pause for human input if the Clarify loop cannot resolve the issue agent-to-agent.
+
 **Pause only when:**
 - An agent reports an error (non-zero exit, missing required output)
-- An agent explicitly requests clarification (ambiguous requirements)
+- A Clarify loop cannot be resolved agent-to-agent (ambiguity persists after one round)
 - Required precondition artifacts are missing
+- Phase 0 product-director recommends "don't pursue" or "refine" (always pause for this)
 
 ## 3. Phase-Specific Overrides
 

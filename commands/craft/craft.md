@@ -11,12 +11,31 @@ Accept a natural-language goal and drive it through 7 sequential phases, each wi
 
 ---
 
+## Cross-Phase Principles
+
+These principles apply to every phase and every agent dispatched by /craft:
+
+### Look-Back Loops
+
+At any phase, agents should freely reach back to prior phase artifacts for clarity. If the architect has questions about acceptance criteria, they ask the product-analyst. If the implementation-planner is unclear on a design decision, they consult the ADRs and architecture in the backlog. No phase is a silo — the canonical artifact chain (charter → roadmap → backlog → plan) is always available and agents should reference it when uncertain.
+
+### Proactive Collaboration
+
+Agents should pull in domain specialists when their expertise is needed. The orchestrator should not be the bottleneck — agents are encouraged to engage other agents within their phase to produce better output.
+
+### Artifact Alignment
+
+All artifacts follow the existing canonical hierarchy and naming conventions from `.docs/AGENTS.md`. No new document types — everything maps to: research reports, charters, roadmaps, backlogs, ADRs, plans, assessments, and reviews.
+
+---
+
 ## Phase Gate Protocol
 
 After every phase, present the results to the human and ask for a decision using one of these options:
 
 - **Approve** — Mark phase complete, advance to next phase.
-- **Reject** — Accept feedback, re-run the phase with feedback appended to agent prompts.
+- **Clarify** — Pause the current phase. Reach back to a prior-phase agent with a targeted question, incorporate the answer, update the current phase output, and re-present at gate. This is a soft look-back — cheaper than Reject because it doesn't re-run the entire phase. See "Clarify Protocol" below.
+- **Reject** — Accept feedback, re-run the phase with feedback appended to agent prompts. Use when clarification alone can't fix the issue — the phase output is fundamentally wrong and needs a full redo.
 - **Skip** — Mark phase "skipped", advance without producing artifacts.
 - **Restart** — Re-run the phase from scratch (discard prior output, no feedback). Resets status to `in_progress`, clears `artifact_paths`. The `human_decision` field records `restart`.
 
@@ -28,10 +47,27 @@ Phase [N]: [Name] complete.
 Artifacts produced:
 - [list of files created/updated]
 
-[Approve / Reject (with feedback) / Skip / Restart]?
+[Approve / Clarify / Reject (with feedback) / Skip / Restart]?
 ```
 
 Wait for an explicit response. Do not proceed without one.
+
+### Clarify Protocol
+
+When the human (or orchestrator in auto mode) chooses **Clarify**:
+
+1. **Specify the question** and which prior phase/agent to ask (e.g., "Ask Phase 1 product-analyst: what did you mean by 'real-time' in story US-3 — WebSockets or polling?").
+2. **Dispatch the prior-phase agent** with:
+   - The specific question
+   - Current phase context (what the current-phase agent produced and where the confusion arose)
+   - The prior-phase agent's original artifact (so they have full context)
+3. **Prior-phase agent responds** with the clarification. If the answer changes their artifact, they update it.
+4. **Current-phase agent receives the clarification**, incorporates it into their output, and updates their artifact.
+5. **Re-present at gate** with the updated output. The human sees what changed.
+
+**Escalation:** If the clarification reveals the phase output is fundamentally wrong (not just a detail to adjust), escalate to **Reject** with the clarification as feedback for the full re-run.
+
+**In auto mode:** When an agent flags uncertainty or ambiguity during a phase, the orchestrator automatically triggers a Clarify loop with the relevant prior-phase agent. If resolved, auto-approve continues. If the clarification cannot be resolved agent-to-agent, pause for human input.
 
 ---
 
@@ -56,14 +92,14 @@ Derive an initiative ID in `I<nn>-<ACRONYM>` format from the goal:
 
 ### 3. Detect or Create Status File
 
-**Check for existing status:** Search `.docs/reports/craft-status-*.md` for a file whose `goal` field is semantically similar to the current goal.
+**Check for existing status:** Search `.docs/reports/report-*-craft-status-*.md` for a file whose `goal` field is semantically similar to the current goal.
 
 - **If found:** Present it and ask: "Found existing craft session for a similar goal. Resume this session, or start fresh?"
   - Resume: Load status, jump to first incomplete phase.
   - Fresh: Archive old file (append `-archived-{date}`), create new.
 - **If not found:** Create new status file.
 
-**Status file path:** `.docs/reports/craft-status-{initiative-id}.md`
+**Status file path:** `.docs/reports/report-{endeavor}-craft-status-{initiative-id}.md`
 
 **Status file schema:**
 
@@ -76,14 +112,14 @@ overall_status: in_progress  # in_progress | completed | abandoned
 created_at: "<ISO 8601>"
 updated_at: "<ISO 8601>"
 phases:
-  - name: Understand
+  - name: Discover
     number: 0
     status: pending  # pending | in_progress | approved | skipped | rejected | error
-    agents: [researcher]
+    agents: [researcher, product-director]
     artifact_paths: []
     started_at: null
     completed_at: null
-    human_decision: null  # approve | reject | skip | restart
+    human_decision: null  # approve | clarify | reject | skip | restart
     feedback: null
   - name: Define
     number: 1
@@ -162,13 +198,15 @@ For each phase: update status to `in_progress` and record `started_at`, run prec
 
 ---
 
-### Phase 0: Understand
+### Phase 0: Discover
 
 **Preconditions:** Goal is non-empty.
 
-**Agent:** `researcher`
+**Purpose:** Determine whether this goal is worth pursuing, how it might be approached, and what the strategic landscape looks like. This phase has the authority to recommend "don't pursue this," "refine the goal," or "proceed."
 
-**Prompt:**
+**Agents:** `researcher` and `product-director` (run in parallel — independent concerns). Optionally pull in `ux-researcher` (if goal involves user-facing changes), `cto-advisor` (if goal has significant technical strategy implications), or `architect` (if feasibility depends on technical architecture).
+
+**Prompt for researcher:**
 ```
 Research the following goal thoroughly:
 
@@ -185,9 +223,40 @@ Produce a research report. Keep it concise (150 lines max) but cover all topics 
 Save the report to: .docs/reports/researcher-{date}-{subject}.md
 ```
 
-**Output artifact:** `.docs/reports/researcher-{date}-{subject}.md`
+**Prompt for product-director:**
+```
+Evaluate the following goal from a strategic value and prioritization perspective:
 
-Record the artifact path in the status file. Present a summary of key findings at the gate.
+Goal: <goal>
+Research report: <path to researcher artifact, if completed>
+
+Assess:
+1. Strategic alignment — Does this goal advance key objectives? Is it the right thing to build now?
+2. Value vs. effort — What is the expected impact relative to the investment?
+3. Alternative approaches — Are there simpler ways to achieve the same outcome? Should the goal be narrowed, expanded, or reframed?
+4. Opportunity cost — What are we NOT doing if we pursue this?
+5. Go/no-go recommendation — Should we proceed, refine the goal, or abandon?
+
+If you recommend proceeding, provide initial prioritization guidance for the Define phase.
+If you recommend refining, suggest specific changes to the goal.
+If you recommend abandoning, explain why clearly.
+
+Include your assessment in the research report or save separately to:
+.docs/reports/researcher-{date}-{subject}-strategic-assessment.md
+```
+
+**Optional agents (engage when the goal warrants it):**
+- `ux-researcher` — When the goal involves user-facing changes, research user needs and validate assumptions.
+- `cto-advisor` — When the goal has broad technical strategy implications (new platforms, major architectural shifts, build vs. buy).
+- `architect` — When feasibility depends on technical architecture and you need early "art of the possible" input.
+
+**Output artifacts:** `.docs/reports/researcher-{date}-{subject}.md` (and any additional assessment reports)
+
+**Gate behavior:** This phase's gate is special — it includes a go/no-go recommendation. Present the research findings and strategic assessment, then offer the standard gate options plus:
+- **Refine** — Accept the recommendation to change the goal. The human provides a refined goal, and the session restarts with the new goal (status file updated).
+- **Override** — Proceed despite a "don't pursue" recommendation. Record the override rationale in the status file.
+
+Record artifact paths in the status file. Present a summary of key findings and the strategic recommendation at the gate.
 
 ---
 
@@ -195,65 +264,88 @@ Record the artifact path in the status file. Present a summary of key findings a
 
 **Preconditions:** Phase 0 approved or skipped. If approved, research report must exist on disk.
 
-**Agents:** `product-analyst` (first), then `acceptance-designer` (sequential — second agent needs output from first).
+**Purpose:** Produce the initiative's charter and roadmap — what we're building, why, for whom, with what acceptance criteria, and in what sequence. The charter contains the user stories and BDD scenarios as its requirements and acceptance criteria sections. The roadmap sequences the outcomes with walking skeleton first.
+
+**Agents:** `product-analyst` (first), then `acceptance-designer` (sequential — second agent needs output from first). The `product-director` is available for escalation if the product-analyst is uncertain about prioritization.
 
 **Prompt for product-analyst:**
 ```
-Analyze the research report and goal to produce user stories with acceptance criteria.
+Analyze the research report and goal to produce a charter for this initiative.
 
 Goal: <goal>
+Initiative ID: <initiative-id>
 Research report: <path to Phase 0 artifact>
+Strategic assessment: <path to Phase 0 strategic assessment, if available>
 {If Phase 0 was skipped: "No research report available. Work from the goal directly."}
 {If rejected with feedback: "Previous attempt feedback: <feedback>"}
 
-Produce:
-- User stories in standard format (As a..., I want..., So that...)
-- Each story with numbered acceptance criteria
-- Priority ranking (must-have, should-have, nice-to-have)
+The charter must include:
+1. Goal and scope — What we're building and what's explicitly out of scope
+2. Success criteria — How we know this is done (measurable)
+3. User stories in standard format (As a..., I want..., So that...)
+   - Each story with numbered acceptance criteria
+   - Priority ranking using the prioritization framework from the strategic assessment (default: MoSCoW — must-have, should-have, could-have, won't-have)
+4. Constraints and assumptions
+5. Risks identified during Phase 0
 
-Save to: .docs/canonical/requirements/{initiative-id}-user-stories.md
+IMPORTANT — Walking skeleton priority: The thinnest end-to-end vertical slice must be identifiable from the user stories. Mark which stories form the walking skeleton — these are always highest priority regardless of other ranking, because they prove the architecture works before we invest in breadth.
+
+If you are uncertain about prioritization or strategic direction, escalate to product-director for guidance before finalizing. Do not guess — ask.
+
+Save to: .docs/canonical/charters/charter-{endeavor}-{initiative-id}-{subject}.md
 ```
 
 **Prompt for acceptance-designer:**
 ```
-Design BDD Given-When-Then scenarios from the user stories.
+Design BDD Given-When-Then scenarios from the charter's user stories.
 
 Goal: <goal>
-User stories: <path to user stories from product-analyst>
+Charter: <path to charter from product-analyst>
 
 Requirements:
 - Cover all must-have and should-have user stories
 - Target 40%+ error/edge-case scenarios (not just happy paths)
-- Assume clean architecture: focus on driving ports only (no implementation details in scenarios)
+- Focus on driving ports only (no implementation details in scenarios)
 - Use concrete examples with realistic data
 - Group scenarios by feature/story
+- Identify which scenarios validate the walking skeleton
 
-Save to: .docs/canonical/requirements/{initiative-id}-bdd-scenarios.md
+Append the BDD scenarios to the charter as an "Acceptance Scenarios" section, or if the charter is already large, save as a companion document:
+.docs/canonical/charters/charter-{endeavor}-{initiative-id}-{subject}-scenarios.md
+
+Also produce a roadmap that sequences the outcomes:
+- Walking skeleton outcomes first
+- Then breadth/depth expansion grouped by priority
+- Each outcome with validation criteria
+
+Save roadmap to: .docs/canonical/roadmaps/roadmap-{endeavor}-{initiative-id}-{subject}-{year}.md
 ```
 
 **Output artifacts:**
-- `.docs/canonical/requirements/{initiative-id}-user-stories.md`
-- `.docs/canonical/requirements/{initiative-id}-bdd-scenarios.md`
+- `.docs/canonical/charters/charter-{endeavor}-{initiative-id}-{subject}.md` (with user stories, acceptance criteria, BDD scenarios)
+- `.docs/canonical/roadmaps/roadmap-{endeavor}-{initiative-id}-{subject}-{year}.md`
 
 ---
 
 ### Phase 2: Design
 
-**Preconditions:** Phase 1 approved or skipped. If approved, user stories and BDD scenarios must exist on disk.
+**Preconditions:** Phase 1 approved or skipped. If approved, charter and roadmap must exist on disk.
 
-**Agents:** `architect` (first), then `adr-writer` (sequential — ADRs reference the architecture).
+**Purpose:** Produce the initiative's backlog — architectural components mapped to roadmap outcomes, with dependencies and work breakdown. Also produce ADRs for significant design decisions.
+
+**Agents:** `architect` (first), then `adr-writer` (sequential — ADRs reference the architecture). The architect should proactively pull in domain specialists as needed.
 
 **Prompt for architect:**
 ```
-Produce an architecture design for the following goal.
+Produce an architecture design and backlog for the following initiative.
 
 Goal: <goal>
+Charter: <path to Phase 1 charter>
+Roadmap: <path to Phase 1 roadmap>
 Research report: <path to Phase 0 artifact, if available>
-User stories: <path to Phase 1 user stories, if available>
-BDD scenarios: <path to Phase 1 BDD scenarios, if available>
 {If rejected with feedback: "Previous attempt feedback: <feedback>"}
 
-Cover:
+DESIGN — Cover:
 1. Component structure — what modules/services/layers are needed
 2. Technology decisions — frameworks, libraries, patterns with rationale
 3. Integration patterns — how components communicate, data flow
@@ -261,18 +353,35 @@ Cover:
 5. File/directory structure — where new code lives in this codebase
 6. Interface contracts — public APIs, data shapes, schemas
 
-Follow codebase conventions. Prefer the simplest design that satisfies requirements.
+Follow codebase conventions. Prefer the simplest design that satisfies requirements. Design for a walking skeleton first — the thinnest vertical slice that proves the architecture works end-to-end.
 
-Aim for evolutionary architecture and always start with a walking skeleton.
+PROACTIVE COLLABORATION: If the design involves areas requiring specialist expertise, pull in the relevant domain experts:
+- database-engineer or data-engineer for data modeling, schema design, query patterns
+- security-engineer for authentication, authorization, data protection
+- frontend-engineer for UI architecture, component patterns, state management
+- mobile-engineer for cross-platform considerations
+- backend-engineer for API design, service architecture
+- network-engineer for infrastructure, networking concerns
+Do not design in isolation when specialist input would improve the architecture.
 
-Save to: .docs/canonical/designs/{initiative-id}-architecture.md
+LOOK-BACK: If any charter requirement or acceptance criterion is unclear, push back to the product-analyst or acceptance-designer for clarification before making assumptions.
+
+BACKLOG — Produce a backlog from the architecture:
+- Each backlog item maps to a roadmap outcome
+- Include dependencies between items
+- Walking skeleton items are first wave
+- Mark which items can be parallelized vs. must be sequential
+- Each item specifies: what to build, acceptance criteria, estimated complexity
+
+Save the backlog to: .docs/canonical/backlogs/backlog-{endeavor}-{initiative-id}-{subject}.md
 ```
 
 **Prompt for adr-writer:**
 ```
-Review the architecture design and create ADRs for each significant decision.
+Review the backlog and architecture design, then create ADRs for each significant decision.
 
-Architecture design: <path to architecture artifact>
+Backlog: <path to backlog artifact>
+Charter: <path to Phase 1 charter>
 Goal: <goal>
 
 For each decision that involves a meaningful trade-off (technology choice, pattern selection, structural decision), create an ADR covering:
@@ -286,26 +395,28 @@ Use sequential numbering (001, 002, ...).
 ```
 
 **Output artifacts:**
-- `.docs/canonical/designs/{initiative-id}-architecture.md`
+- `.docs/canonical/backlogs/backlog-{endeavor}-{initiative-id}-{subject}.md`
 - `.docs/canonical/adrs/{initiative-id}-*.md`
 
 ---
 
 ### Phase 3: Plan
 
-**Preconditions:** Phase 2 approved or skipped. If approved, architecture design must exist on disk.
+**Preconditions:** Phase 2 approved or skipped. If approved, backlog must exist on disk.
 
-**Agent:** `implementation-planner`
+**Purpose:** Produce a step-by-step implementation plan from the backlog. Sequence steps for maximum efficiency — identify what can be parallelized, what should be mobbed/swarmed, and what runs sequentially.
+
+**Agent:** `implementation-planner`. Should consult `senior-project-manager` for sequencing and phasing expertise.
 
 **Prompt:**
 ```
-Produce a step-by-step implementation plan.
+Produce a step-by-step implementation plan from the backlog.
 
 Goal: <goal>
-Architecture design: <path to Phase 2 architecture, if available>
+Charter: <path to Phase 1 charter>
+Roadmap: <path to Phase 1 roadmap>
+Backlog: <path to Phase 2 backlog>
 ADRs: <paths to Phase 2 ADRs, if available>
-User stories: <path to Phase 1 user stories, if available>
-BDD scenarios: <path to Phase 1 BDD scenarios, if available>
 {If rejected with feedback: "Previous attempt feedback: <feedback>"}
 
 Requirements:
@@ -316,20 +427,34 @@ Requirements:
    - Files to create or modify
    - Acceptance criteria for the step (when is it done?)
    - Dependencies on prior steps
+   - Execution mode: one of:
+     - **solo** — single specialist agent
+     - **mob** — multiple expert agents collaborating on one task (use for complex, high-risk, or cross-cutting steps)
+     - **parallel** — independent steps that can run concurrently
+   - Which specialist agent(s) are best suited for the step
 3. Follow TDD: every step writes tests before production code.
 4. Steps should be small enough to complete and verify independently.
 5. Include a Phase 0 quality gate step if the project is new or lacks pre-commit hooks, CI, or deploy pipeline.
 
-Save to: .docs/canonical/plans/{initiative-id}-implementation-plan.md
+SEQUENCING: Consult senior-project-manager for phasing and dependency management. Group steps into waves:
+- Within a wave: all steps are independent and can run in parallel
+- Across waves: sequential dependency
+- Mark critical path steps explicitly
+
+LOOK-BACK: Reference the charter for acceptance criteria, the roadmap for outcome sequencing, the backlog for dependencies, and ADRs for technical constraints. If anything is unclear, push back to prior phase agents for clarification rather than making assumptions.
+
+Save to: .docs/canonical/plans/plan-{endeavor}-{initiative-id}-{subject}.md
 ```
 
-**Output artifact:** `.docs/canonical/plans/{initiative-id}-implementation-plan.md`
+**Output artifact:** `.docs/canonical/plans/plan-{endeavor}-{initiative-id}-{subject}.md`
 
 ---
 
 ### Phase 4: Build
 
 **Preconditions:** Phase 3 approved or skipped. If approved, implementation plan must exist on disk.
+
+**Purpose:** Execute the plan. Build working, tested code with fast feedback loops at every step.
 
 **Agent:** `engineering-lead`
 
@@ -338,21 +463,38 @@ Save to: .docs/canonical/plans/{initiative-id}-implementation-plan.md
 Execute the implementation plan using subagent-driven development.
 
 Goal: <goal>
+Charter: <path to Phase 1 charter>
 Implementation plan: <path to Phase 3 plan>
 {If rejected with feedback: "Previous attempt feedback: <feedback>"}
 
 Follow the /code workflow for each plan step:
-1. Read the plan step
+1. Read the plan step (note its execution mode: solo, mob, or parallel)
 2. Write failing tests first (TDD — non-negotiable)
 3. Write minimum production code to pass tests
 4. Refactor if warranted
-5. Verify all tests pass before moving to next step
+5. Run fast feedback loop BEFORE marking step complete (see below)
+6. Verify all tests pass before moving to next step
 
-For each step, engage:
-- tdd-reviewer to verify test-first approach
-- ts-enforcer to verify TypeScript strict compliance (if TypeScript)
-- refactor-assessor after tests pass
+FAST FEEDBACK LOOPS (mandatory for every step):
+After achieving GREEN (tests passing), immediately run these checks before moving on:
+- All unit tests pass
+- Linting clean (no warnings or errors)
+- Formatting clean
+- Type checking passes (zero errors)
+- tdd-reviewer verifies test-first approach and test quality
+- ts-enforcer verifies TypeScript strict compliance (if TypeScript)
+- tpp-assessor guides test selection and transformation choices
+- refactor-assessor evaluates whether refactoring adds value
+- code-reviewer checks for obvious issues, patterns, security
 
+Fix any issues found in the fast feedback loop before proceeding to the next step. These checks catch problems while context is fresh — don't defer them to Phase 5.
+
+EXECUTION MODES (from the plan):
+- solo steps: dispatch a single specialist subagent
+- mob steps: dispatch multiple expert agents collaborating on the same task
+- parallel steps: dispatch independent subagents concurrently
+
+LOOK-BACK: The charter's acceptance criteria and the backlog's work items are the source of truth for "done." Reference them for each step. If a step's requirements are unclear, consult the plan, backlog, charter, or ADRs — in that order.
 
 Report progress after each plan step completes. If a step fails or is blocked, report the issue and wait for guidance rather than skipping.
 
@@ -421,12 +563,13 @@ Verify completion of the craft session.
 
 Goal: <goal>
 Initiative: <initiative-id>
+Charter: <path to Phase 1 charter>
 Implementation plan: <path to Phase 3 plan, if available>
 Status file: <path to status file>
 
 Verify:
 - All plan steps are complete (or explicitly skipped with justification)
-- Acceptance criteria from user stories are met
+- Acceptance criteria from the charter are met
 - No orphaned TODOs or incomplete work
 - Status file accurately reflects final state
 
@@ -531,13 +674,13 @@ Craft session complete: <goal>
 Initiative: <initiative-id>
 
 Phase Summary:
-  0. Understand  — [Approved/Skipped]
-  1. Define      — [Approved/Skipped]
-  2. Design      — [Approved/Skipped]
-  3. Plan        — [Approved/Skipped]
-  4. Build       — [Approved/Skipped]
-  5. Validate    — [Approved/Skipped]
-  6. Close       — [Approved/Skipped]
+  0. Discover   — [Approved/Skipped]
+  1. Define     — [Approved/Skipped]
+  2. Design     — [Approved/Skipped]
+  3. Plan       — [Approved/Skipped]
+  4. Build      — [Approved/Skipped]
+  5. Validate   — [Approved/Skipped]
+  6. Close      — [Approved/Skipped]
 
 Artifacts:
   - [list all artifact paths from all phases]

@@ -8,7 +8,7 @@ Follow the **`/craft` workflow** (see `commands/craft/craft.md`) with these modi
 ## 1. Find Status File
 
 - If `$ARGUMENTS` provided: use that path directly
-- If no argument: find most recent `.docs/reports/craft-status-*.md`
+- If no argument: find most recent `.docs/reports/report-*-craft-status-*.md`
 - If multiple found: list them and ask user to select
 - If none found: report "No active /craft session found" and suggest `/craft <goal>`
 
