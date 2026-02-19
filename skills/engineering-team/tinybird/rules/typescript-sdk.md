@@ -111,13 +111,20 @@ SDK auto-generates paths; for `Array(...)` Tinybird requires `$.field_name[:]`. 
 - **BAD:** `name: 'agent_usage_summary'` when endpoint is `agent_usage_summary`.
 - **GOOD:** `name: 'agent_usage_summary_node'` (append `_node` for single-node; use descriptive names for multi-node).
 
-### Gotcha 3: Unit tests cannot validate Tinybird definitions
+### Gotcha 3: Unit tests cannot validate Tinybird definitions -- and SQL assertions cement bugs
 
 `defineEndpoint`/`defineDatasource` produce plain JS objects. Unit tests can check structure but **not** SQL validity, column refs, JSONPath, or naming conflicts. **Validation gate:** `tinybird build` (pushes to workspace, creates real tables).
 
+**Critical anti-pattern: Do NOT assert SQL content in unit tests.** Tests like `expect(sql).toContain('FROM some_table')` or `expect(sql).toContain('column_name')` mirror the implementation verbatim and provide zero independent verification. If the SQL is wrong, the test passes green and cements the bug as "correct." This happened in practice: a pipe queried the wrong datasource, and a unit test asserted that wrong table name, giving false confidence for weeks until integration tests caught it.
+
 **Validation loop:** `tb local start` → `tb local status` (get token + api) → `TB_TOKEN="..." TB_HOST="http://localhost:7181" npx tinybird build`. Then test ingest/query via REST if needed.
 
-**Testing strategy:** Unit tests = regression for object shape (fields, SQL substrings, param defaults). `tinybird build` = validation gate. Both needed.
+**Three-layer testing strategy for pipes:**
+1. **Unit tests** -- SDK object structure only: field names, param types/defaults, node count, token config. Do NOT assert SQL table names, column names, or query fragments.
+2. **`tinybird build`** -- Validates SQL syntax, column references, JSONPath, and naming conflicts against Tinybird Local. Catches structural SQL errors.
+3. **Integration tests** -- Ingest known data into the source table, query the pipe, assert output matches expectations. This is the only layer that catches semantic bugs (wrong table, wrong column, wrong filter logic).
+
+All three layers are needed. Layers 2 and 3 catch bugs that layer 1 cannot.
 
 ## Relation to classic Tinybird (datafiles + `tb` CLI)
 
