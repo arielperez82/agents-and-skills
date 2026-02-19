@@ -16,14 +16,13 @@ export const costByModel = defineEndpoint('cost_by_model', {
           sum(input_tokens) AS total_input,
           sum(output_tokens) AS total_output,
           sum(cache_read_tokens) AS total_cache_read,
-          sum(est_cost_usd) AS total_cost_usd,
-          countIf(event = 'stop') AS request_count,
-          countIf(success = 0) AS error_count,
-          if(countIf(event = 'stop') > 0,
-            countIf(success = 0) / countIf(event = 'stop'), 0) AS error_rate
-        FROM agent_activations
-        WHERE event = 'stop'
-          AND timestamp >= now() - INTERVAL {{Int32(days, 7)}} DAY
+          sum(cost_usd) AS total_cost_usd,
+          count() AS request_count,
+          countIf(error_type IS NOT NULL) AS error_count,
+          if(count() > 0,
+            countIf(error_type IS NOT NULL) / count(), 0) AS error_rate
+        FROM api_requests
+        WHERE timestamp >= now() - INTERVAL {{Int32(days, 7)}} DAY
         GROUP BY model
         ORDER BY total_cost_usd DESC
       `,

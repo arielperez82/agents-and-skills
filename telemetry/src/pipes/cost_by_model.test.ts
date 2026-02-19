@@ -49,10 +49,9 @@ describe('cost_by_model endpoint', () => {
     expect(firstNode()._name).toBe('cost_by_model_node');
   });
 
-  it('SQL queries agent_activations with event=stop filter', () => {
+  it('SQL queries api_requests table', () => {
     const sql = firstNode().sql;
-    expect(sql).toContain('FROM agent_activations');
-    expect(sql).toContain("event = 'stop'");
+    expect(sql).toContain('FROM api_requests');
   });
 
   it('SQL groups by model and orders by total_cost_usd DESC', () => {
