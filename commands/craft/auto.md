@@ -5,6 +5,21 @@ argument-hint: <goal>
 
 Follow the **`/craft` workflow** (see `commands/craft/craft.md`) with these modifications:
 
+## 0. Auto-Mode Safety Confirmation
+
+Before any agents are dispatched, display the goal to the user in an escaped code block and require explicit confirmation:
+
+```
+You are about to run /craft:auto with the following goal:
+
+  `<goal text displayed verbatim>`
+
+This will run all 7 phases autonomously, auto-approving gates and committing code.
+Type YES to confirm, or provide a revised goal.
+```
+
+Do NOT proceed until the user confirms with "YES" (exact match, case-insensitive). Any other response is treated as a revised goal or cancellation. Log the confirmation timestamp in the status file under `auto_mode_confirmed_at`.
+
 ## 1. Auto-Mode Prompt Preamble
 
 Prepend the following to ALL agent prompts dispatched during execution:
@@ -18,7 +33,18 @@ Prepend the following to ALL agent prompts dispatched during execution:
 
 Auto-approve all phase gates. Do not pause for human approval between phases.
 
-**Auto-Clarify:** When an agent flags uncertainty or ambiguity, automatically trigger the Clarify protocol (see `craft.md`) — dispatch the relevant prior-phase agent, incorporate the answer, and continue. Only pause for human input if the Clarify loop cannot resolve the issue agent-to-agent.
+**Audit logging is mandatory in auto-mode.** Every gate decision must produce an audit log entry (see `craft.md § Audit Log`). Log `AUTO_APPROVE` for every auto-approved phase, `CLARIFY` for every auto-clarify loop, and `REJECT` if a red flag triggers a pause. These entries feed the `learner` agent in Phase 6 for process improvement.
+
+### Red Flags — Mandatory Pause Points
+
+Even in auto-mode, the following conditions MUST pause for human review:
+
+- **Security warnings:** Any agent reports a security concern, vulnerability, or unsafe pattern
+- **Large change scope:** More than 50 files created or modified in a single phase
+- **Agent errors:** Non-zero exit, missing required output, or repeated failures
+- **External side effects:** Any action that would affect systems outside the local repo (API calls, deployments, external service configuration)
+
+**Auto-Clarify:** When an agent flags uncertainty or ambiguity, automatically trigger the Clarify protocol (see `craft.md`) — dispatch the relevant prior-phase agent, incorporate the answer, and continue. Only pause for human input if the Clarify loop cannot resolve the issue agent-to-agent. Log every Auto-Clarify as a `CLARIFY` audit entry regardless of outcome.
 
 **Pause only when:**
 - An agent reports an error (non-zero exit, missing required output)

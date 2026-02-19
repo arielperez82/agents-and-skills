@@ -1,10 +1,11 @@
 # /craft Command Security Assessment — Complete Index
 
 **Assessment Date:** 2026-02-18
-**Status:** Ready for review and remediation
+**Remediation Date:** 2026-02-19
+**Status:** Remediated — all CRITICAL and HIGH findings addressed; testing pending
 **Total Findings:** 5 (2 CRITICAL, 2 HIGH, 1 MEDIUM, 1 LOW)
-**Remediation Effort:** 6.5 hours
-**Deployment Recommendation:** Address Critical + High findings before production use
+**Remediation Effort:** 6.5 hours estimated / actual: ~1 hour
+**Deployment Recommendation:** Core fixes applied. Manual testing of prompt-based commands recommended before heavy production use
 
 ---
 
@@ -262,45 +263,45 @@ Token cost explodes; agents timeout; service degradation
 
 ## Implementation Checklist
 
-### Before Production (Phase 1 + 2)
+### Before Production (Phase 1 + 2) — REMEDIATED 2026-02-19
 
-- [ ] **craft.md updates:**
-  - [ ] Wrap all `<goal>` in markdown code blocks with escaped delimiters
-  - [ ] Add "IMPORTANT INSTRUCTION FOR AGENT" preamble to ALL phase prompts
-  - [ ] Add "2a. Validate Goal (Security)" section after line 50
-  - [ ] Expand "Generate Initiative ID" section with validation rules
-  - [ ] Add "2b. Artifact Path Safety Check (Security)" section
-  - [ ] Add "3a. Validate Status File (Security)" after line 65
-  - [ ] Modify feedback prompts to quote feedback verbatim
-  - [ ] Add "Artifact Reading Protocol (Security)" section
-  - [ ] Add goal length validation (20–500 chars)
-  - [ ] Add feedback truncation (max 200 chars)
+- [x] **craft.md updates:**
+  - [x] Wrap all `<goal>` in markdown code blocks with escaped delimiters — Added "Security Protocols" section with data-not-instructions preamble
+  - [x] Add "IMPORTANT INSTRUCTION FOR AGENT" preamble to ALL phase prompts — Added as top-level Security Protocols section applied to all agents
+  - [x] Add "2a. Validate Goal (Security)" section after line 50 — Added as "Goal Validation" (length 20-500 chars, suspicious pattern rejection)
+  - [x] Expand "Generate Initiative ID" section with validation rules — Added "Initiative ID Validation" (regex `^I\d{2}-[A-Z]{3,5}$`, sanitization)
+  - [x] Add "2b. Artifact Path Safety Check (Security)" section — Added "Artifact Path Safety" (.docs/ prefix, no .., no absolute paths)
+  - [x] Add "3a. Validate Status File (Security)" after line 65 — Added "Status File Integrity" (schema validation, allowed values)
+  - [x] Modify feedback prompts to quote feedback verbatim — All 6 feedback embedding patterns updated with truncation + code block wrapping
+  - [x] Add "Artifact Reading Protocol (Security)" — Covered by Artifact Path Safety + Status File Integrity sections
+  - [x] Add goal length validation (20–500 chars) — In Goal Validation section
+  - [x] Add feedback truncation (max 200 chars) — In Status File Integrity section
 
-- [ ] **auto.md updates:**
-  - [ ] Add "⚠️ SAFETY REQUIREMENT: Auto-Mode Confirmation" section at top
-  - [ ] Require explicit "YES" confirmation before auto-mode enabled
-  - [ ] Display goal in escaped code block before confirmation
-  - [ ] Log confirmation in status file
+- [x] **auto.md updates:**
+  - [x] Add "⚠️ SAFETY REQUIREMENT: Auto-Mode Confirmation" section at top — Added as "Section 0. Auto-Mode Safety Confirmation"
+  - [x] Require explicit "YES" confirmation before auto-mode enabled — YES exact match required
+  - [x] Display goal in escaped code block before confirmation — Goal shown in backtick-escaped block
+  - [x] Log confirmation in status file — `auto_mode_confirmed_at` field added
 
-- [ ] **resume.md updates:**
-  - [ ] Add artifact path validation before reading
-  - [ ] Add file existence checks
-  - [ ] Add file size limits (100 KB)
+- [x] **resume.md updates:**
+  - [x] Add artifact path validation before reading — Path safety checks added (`.docs/` prefix, no `..`, pattern match)
+  - [x] Add file existence checks — Already existed, now enhanced with Status File Integrity pre-check
+  - [x] Add file size limits (100 KB) — Added in Validate Artifacts section
 
 - [ ] **Testing:**
-  - [ ] Run all 18 security tests (craft-security-tests.md)
+  - [ ] Run all 18 security tests (craft-security-tests.md) — Manual testing pending (these are prompt-based commands, not executable code)
   - [ ] Verify injection payloads are rejected (Tests 1.1–1.5)
   - [ ] Verify path traversal is sanitized (Tests 2.1–2.5)
   - [ ] Verify status file is validated (Tests 3.1–3.5)
   - [ ] All tests PASS before moving to Phase 2
 
-### Before Auto-Mode Release (Phase 3)
+### Before Auto-Mode Release (Phase 3) — REMEDIATED 2026-02-19
 
-- [ ] **auto.md updates:**
-  - [ ] Add "2a. Red Flags — Pause Points in Auto-Mode" section
-  - [ ] Define red flags (agent errors, ambiguity, large changes, security warnings)
-  - [ ] Add audit logging for all auto-approvals
-  - [ ] Document auto-mode safety guarantees
+- [x] **auto.md updates:**
+  - [x] Add "2a. Red Flags — Pause Points in Auto-Mode" section — Added as "Red Flags — Mandatory Pause Points"
+  - [x] Define red flags (agent errors, ambiguity, large changes, security warnings) — Security warnings, >50 files, agent errors, external side effects
+  - [x] Add audit logging for all auto-approvals — Implemented as Audit Log section in craft.md (REJECT, CLARIFY, AUTO_APPROVE events); auto.md references it as mandatory
+  - [x] Document auto-mode safety guarantees — Covered by confirmation + red flags sections
 
 - [ ] **Testing:**
   - [ ] Verify auto-mode confirmation works (Test 4.1)
@@ -352,9 +353,9 @@ Token cost explodes; agents timeout; service degradation
 
 ## Document Maintenance
 
-**Last Updated:** 2026-02-18
-**Status:** Ready for review and remediation
-**Next Update:** After Phase 1 fixes are implemented and tested
+**Last Updated:** 2026-02-19
+**Status:** Remediated — testing pending
+**Next Update:** After manual testing confirms all prompt-based security checks work correctly
 
 ---
 
