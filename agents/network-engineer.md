@@ -24,7 +24,7 @@ classification:
   field: infrastructure
   expertise: expert
   execution: coordinated
-  model: opus
+  model: sonnet
 
 # === RELATIONSHIPS ===
 related-agents: []

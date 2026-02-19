@@ -24,7 +24,7 @@ classification:
   field: security
   expertise: expert
   execution: coordinated
-  model: opus
+  model: sonnet
 
 # === RELATIONSHIPS ===
 related-agents: [security-assessor, code-reviewer]

@@ -23,7 +23,7 @@ classification:
   field: product
   expertise: expert
   execution: coordinated
-  model: opus
+  model: sonnet
 
 # === RELATIONSHIPS ===
 related-agents: []

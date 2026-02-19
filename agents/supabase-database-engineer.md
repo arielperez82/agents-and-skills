@@ -24,7 +24,7 @@ classification:
   field: database
   expertise: expert
   execution: coordinated
-  model: opus
+  model: sonnet
 
 # === RELATIONSHIPS ===
 related-agents: [database-engineer, architect, backend-engineer]

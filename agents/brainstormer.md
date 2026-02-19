@@ -25,7 +25,7 @@ classification:
   field: engineering
   expertise: advanced
   execution: autonomous
-  model: opus
+  model: sonnet
 
 # === RELATIONSHIPS ===
 related-agents: [researcher, architect, implementation-planner]

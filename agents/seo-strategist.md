@@ -25,7 +25,7 @@ classification:
   field: marketing
   expertise: advanced
   execution: coordinated
-  model: sonnet
+  model: haiku
 
 # === RELATIONSHIPS ===
 related-agents:

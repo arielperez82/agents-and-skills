@@ -24,7 +24,7 @@ classification:
   field: security
   expertise: expert
   execution: autonomous
-  model: opus
+  model: sonnet
 
 # === RELATIONSHIPS ===
 related-agents: [devsecops-engineer, technical-writer]

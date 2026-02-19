@@ -25,7 +25,7 @@ classification:
   field: engineering
   expertise: advanced
   execution: autonomous
-  model: sonnet
+  model: haiku
 
 # === RELATIONSHIPS ===
 related-agents:

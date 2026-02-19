@@ -24,7 +24,7 @@ classification:
   field: ios
   expertise: expert
   execution: coordinated
-  model: opus
+  model: sonnet
 
 # === RELATIONSHIPS ===
 related-agents:

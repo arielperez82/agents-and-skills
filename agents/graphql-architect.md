@@ -24,7 +24,7 @@ classification:
   field: api
   expertise: expert
   execution: coordinated
-  model: opus
+  model: sonnet
 
 # === RELATIONSHIPS ===
 related-agents: [backend-engineer, frontend-engineer, architect, adr-writer]

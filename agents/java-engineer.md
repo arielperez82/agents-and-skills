@@ -24,7 +24,7 @@ classification:
   field: java
   expertise: expert
   execution: coordinated
-  model: opus
+  model: sonnet
 
 # === RELATIONSHIPS ===
 related-agents: [backend-engineer, architect, devsecops-engineer]

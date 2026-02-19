@@ -24,7 +24,7 @@ classification:
   field: design
   expertise: expert
   execution: coordinated
-  model: opus
+  model: sonnet
 
 # === RELATIONSHIPS ===
 related-agents:

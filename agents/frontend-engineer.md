@@ -29,7 +29,7 @@ classification:
   field: frontend
   expertise: expert
   execution: coordinated
-  model: opus
+  model: sonnet
 
 # === RELATIONSHIPS ===
 related-agents: []

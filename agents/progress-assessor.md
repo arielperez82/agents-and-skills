@@ -23,7 +23,7 @@ classification:
   field: delivery
   expertise: intermediate
   execution: autonomous
-  model: sonnet
+  model: haiku
 
 # === RELATIONSHIPS ===
 related-agents:
