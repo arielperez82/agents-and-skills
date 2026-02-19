@@ -97,27 +97,31 @@ As a developer, I want unified cost tracking across Claude, Cursor, Gemini, and 
 
 **Constraints:**
 - Cursor Agent CLI has known bugs: cannot consistently find user skills, missing Task tool for subagent dispatch. Must use "hand-held harness" pattern — embed all context in prompt before delegating via `agent -p`. Leaf executor only, not an orchestrator.
+- Cursor Agent subject to monthly usage limits per billing cycle (Pro tier). When quota exhausted, all models return rate-limit error until cycle reset. Plan for fallback to Codex or Claude Haiku.
 - All four CLIs are subscription-based (lowest tier): Claude Code, Cursor, Gemini, Codex
 - Cheaper models may produce subtly wrong outputs — validation sandwich required
 - 13 mandatory T3 agents (quality gates) can never be downgraded or delegated
 - Gemini and Codex CLIs successfully discover and load agents/skills/commands from symlinked directories (`~/.agents/skills/`, `~/.gemini/skills/`, `~/.codex/skills/`). Full ecosystem access confirmed — no hand-holding needed for these two.
-- Minor: Codex has one broken symlink (`find-skills`) and one YAML parse error (`agent-optimizer`) in skill loading — non-blocking
+- Gemini CLI requires interactive terminal for OAuth consent — cannot be invoked non-interactively from another agent (e.g., Claude Code subprocess). Workaround: pre-authenticate in interactive terminal before delegation, or use API key approach.
+- Minor: Codex has one YAML parse error (`agent-optimizer`) in skill loading — non-blocking
 
 **Assumptions:**
 - All four CLIs verified working: `claude` v2.1.47, `agent` v2026.02.13, `gemini` v0.29.2, `codex` v0.104.0
-- Cursor Agent provides 29 models (GPT-5.x, Claude 4.x, Gemini 3, Grok) through flat subscription
+- Cursor Agent provides 37 models (GPT-5.x variants, Claude 4.x with thinking, Gemini 3.x, Grok) through flat subscription
 - Gemini and Codex subscriptions provide sufficient quota for T2 delegation volume
 - Telemetry infrastructure (Tinybird) can absorb additional per-agent tracking fields
+- Codex confirmed as most reliable T2 delegate: full ecosystem access, no auth issues in non-interactive mode, no usage limits encountered
 
 ## Risks
 
 | Risk | Severity | Likelihood | Mitigation |
 |------|----------|-----------|-----------|
 | Model downgrade causes quality regression | High | Low | Validation sandwich; mandatory T3 quality gates unchanged |
-| Cursor Agent CLI not truly scriptable | Medium | Medium | Verify before building workflows (US-3 precondition) |
+| Cursor Agent monthly quota exhausted | Medium | **High** | **Confirmed.** Fallback chain: Codex → Claude Haiku. Monitor quota mid-cycle. |
+| Gemini OAuth blocks non-interactive use | Medium | **High** | **Confirmed.** Pre-auth in interactive terminal; consider API key env var. |
 | Over-engineering routing layer eats cost savings | Medium | Medium | Phase 1 uses only existing tools; incremental complexity |
 | Cheaper models make subtle logic errors | Medium | Medium | T3 validation catches errors; feedback loop refines routing |
-| Gemini free tier discontinued or rate-limited further | Low | Low | Tier classification is agent-agnostic; swap providers |
+| Codex model manager timeout warnings | Low | Medium | Non-blocking; does not affect task execution. Monitor for regressions. |
 
 ## Phase Summary
 

@@ -12,7 +12,7 @@ This skill enables programmatic invocations for advanced workflows including par
 | CLI | Command | Cost Model | Ecosystem Access | Notes |
 |-----|---------|-----------|-----------------|-------|
 | **Claude Code** | `claude` | Per-token (Anthropic API) | Native | Default orchestrator |
-| **Cursor Agent** | `agent` | Flat subscription | 29 models (GPT-5.x, Claude 4.x, Gemini 3, Grok) | Skill discovery buggy — use as leaf executor |
+| **Cursor Agent** | `agent` | Flat subscription | 37 models (GPT-5.x, Claude 4.x, Gemini 3.x, Grok) | Skill discovery buggy — use as leaf executor |
 | **Gemini CLI** | `gemini` | Subscription | Full (loads from `~/.agents/skills/`) | Full ecosystem access |
 | **Codex CLI** | `codex` | Subscription | Full (scans repo + `~/.codex/skills/`) | Built-in `review` command |
 
@@ -94,7 +94,7 @@ Key flags: `-p` (print/non-interactive), `--model` (haiku/sonnet/opus), `--max-b
 ### Cursor Agent (`agent`)
 
 ```bash
-# Non-interactive with model selection (29 models available)
+# Non-interactive with model selection (37 models available)
 agent -p "review this diff for style" --model gpt-5.3-codex
 agent -p "generate test data" --model gemini-3-flash
 agent -p "summarize changes" --model sonnet-4.6
@@ -109,7 +109,7 @@ agent -p "propose a refactoring plan" --mode plan
 
 Key flags: `-p` (print/non-interactive), `--model`, `--mode` (plan/ask), `--output-format` (text/json/stream-json), `--force`/`--yolo` (auto-approve).
 
-**Known limitations (as of 2026-02):** Cannot consistently find user skills. Missing Task tool for subagent dispatch. Use as **leaf executor only** — embed all context in prompt.
+**Known limitations (as of 2026-02):** Cannot consistently find user skills. Missing Task tool for subagent dispatch. Use as **leaf executor only** — embed all context in prompt. Requires `--trust` flag for non-interactive use. Subject to monthly Pro usage limits — all models rate-limited when quota exhausted.
 
 ### Gemini CLI (`gemini`)
 
@@ -128,6 +128,8 @@ gemini -p "format this code" --approval-mode yolo
 Key flags: `-p`/`--prompt` (non-interactive), `-m`/`--model`, `-o`/`--output-format` (text/json/stream-json), `--approval-mode` (default/auto_edit/yolo/plan).
 
 **Ecosystem access:** Loads skills from `~/.agents/skills/` and `~/.gemini/skills/`. Reads AGENTS.md. Full agent/skill/command discovery confirmed.
+
+**Auth note:** Requires interactive terminal for OAuth consent on first use. Pre-authenticate by running `gemini` interactively before using in non-interactive delegation. Cannot be invoked non-interactively from another agent subprocess without prior auth.
 
 ### Codex CLI (`codex`)
 
