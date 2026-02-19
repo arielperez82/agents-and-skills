@@ -10,7 +10,7 @@ Data-driven framework for tuning agent and skill configurations based on product
 ## When to Use
 
 - Selecting model tier (haiku vs sonnet vs opus) for an agent
-- Reviewing agent cost-per-activation or cost-per-1K-tokens
+- Reviewing agent cost-per-invocation or token usage
 - Diagnosing high input ratios (prompt bloat)
 - Optimizing cache hit rates
 - Setting token budgets for agent prompts
