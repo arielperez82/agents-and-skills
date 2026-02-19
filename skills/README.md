@@ -40,6 +40,7 @@ This directory contains on-demand skill packages that extend agent capabilities 
 | **agent-optimizer** | Optimize agent definitions | 5-dimension rubric, analyze-agent.sh, audit-agents.sh; `/agent:optimize` |
 | **agent-intake** | Incorporate external agents | Governance audit, ecosystem fit, 5-phase pipeline; `/agent:intake` |
 | **crafting-instructions** | Prompts, instructions | Instruction design, project vs skill vs prompt |
+| **agent-cost-optimization** | Agent cost tuning | Model tier selection, token budgets, cache optimization, telemetry-driven tuning |
 | **agent-md-refactor** | Bloated AGENTS/CLAUDE.md | Progressive disclosure, split monolithic docs |
 | **versioning-skills** | Skill file changes | Version control for skill modifications |
 | *(skill template)* | New skill scaffold | Use **skill-creator** `scripts/init_skill.py`; standalone template-skill was intentionally removed |
@@ -76,6 +77,7 @@ Engineering skills (path: `skills/engineering-team/<name>/`). Load proactively p
 | **mapping-codebases** | New codebase | Code maps, _MAP.md, exports/imports |
 | **subagent-driven-development** | Implementation plans | Independent tasks, spec/implement/review |
 | **nocodb** | NocoDB | Setup, external DBs, views, backups |
+| **telemetry-analysis** | I05-ATEL pipe interpretation | Metric baselines, alerting thresholds, trend analysis, efficiency scoring |
 | **tinybird** | Tinybird projects | Datafiles, queries, endpoints, deployments, tests |
 | **clickhouse-best-practices** | ClickHouse (or Tinybird) schemas, queries, configs | 28 rules for schema, query, insert, materialized views; check before recommendations |
 | **check-tools** | Environment validation | Tool installs (Python, Node, Java, Go, Rust, Git) |
