@@ -464,6 +464,12 @@
     },
     "skills/ux-team/ux-designer": {
       "skill_id": "skill_01KThq4YGsaAkupTzJBTss7i"
+    },
+    "skills/engineering-team/senior-security": {
+      "skill_id": "skill_01F65uTMw8M5h9pgX1kN864k"
+    },
+    "skills/marketing-team/content-creator": {
+      "skill_id": "skill_01Ek3dkoTxQB8MLR6mRS9Rvw"
     }
   }
 }
