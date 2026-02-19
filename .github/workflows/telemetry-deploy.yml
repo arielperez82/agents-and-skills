@@ -32,6 +32,13 @@ jobs:
         run: pnpm install --frozen-lockfile
         working-directory: telemetry
 
+      - name: Tinybird build
+        run: npx tinybird build
+        working-directory: telemetry
+        env:
+          TB_TOKEN: ${{ secrets.TB_TOKEN }}
+          TB_HOST: ${{ vars.TB_HOST }}
+
       - name: Tinybird deploy (dry-run)
         run: npx tinybird deploy --dry-run
         working-directory: telemetry
