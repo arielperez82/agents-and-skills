@@ -2,7 +2,7 @@
 
 **Initiative:** I14-MATO
 **Date:** 2026-02-19
-**Status:** In Progress
+**Status:** Phase 1 Complete
 
 ## Goal and Scope
 
@@ -118,7 +118,7 @@ As a developer, I want unified cost tracking across Claude, Cursor, Gemini, and 
 |------|----------|-----------|-----------|
 | Model downgrade causes quality regression | High | Low | Validation sandwich; mandatory T3 quality gates unchanged |
 | Cursor Agent monthly quota exhausted | Medium | **High** | **Confirmed.** Fallback chain: Codex → Claude Haiku. Monitor quota mid-cycle. |
-| Gemini OAuth blocks non-interactive use | Medium | **High** | **Confirmed.** Pre-auth in interactive terminal; consider API key env var. |
+| Gemini OAuth blocks non-interactive use | Medium | **High** | **Confirmed.** Pre-auth in interactive terminal, use `GEMINI_API_KEY` env var, or ask user to auth interactively when needed in a session. |
 | Over-engineering routing layer eats cost savings | Medium | Medium | Phase 1 uses only existing tools; incremental complexity |
 | Cheaper models make subtle logic errors | Medium | Medium | T3 validation catches errors; feedback loop refines routing |
 | Codex model manager timeout warnings | Low | Medium | Non-blocking; does not affect task execution. Monitor for regressions. |
@@ -127,8 +127,8 @@ As a developer, I want unified cost tracking across Claude, Cursor, Gemini, and 
 
 | Phase | Theme | Expected Savings | Key Deliverables |
 |-------|-------|-----------------|------------------|
-| 1 (Now) | Quick wins | 10-16% | US-1 (model right-sizing), US-2 (telemetry baseline) |
-| 2 (Next) | Smart routing | 20-32% cumulative | US-3 (Cursor), US-4 (Gemini), US-5 (split-tier) |
+| 1 (**Done**) | Quick wins | 10-16% | US-1 (model right-sizing) ✅, US-2 (telemetry baseline) ✅ |
+| 2 (Next) | Smart routing | 20-32% cumulative | US-3 (Cursor — blocked until 3/13 quota reset), US-4 (Gemini/Codex — Codex ready, Gemini pending API key or pre-auth), US-5 (split-tier) |
 | 3 (Later) | Adaptive optimization | 40-60% cumulative | US-6 (classifier), quality feedback loop, dynamic model selection |
 
 ## References
@@ -136,5 +136,17 @@ As a developer, I want unified cost tracking across Claude, Cursor, Gemini, and 
 - Research report: `.docs/reports/researcher-260219-multi-agent-token-cost-orchestration.md`
 - Strategic assessment: `.docs/reports/researcher-260219-multi-agent-token-optimization-strategic-assessment.md`
 - Existing orchestration skill: `skills/orchestrating-agents/SKILL.md`
-- Cost telemetry: `telemetry/src/pipes/cost_by_model.ts`
+- Cost telemetry: `telemetry/src/pipes/cost_by_model.ts`, `telemetry/src/pipes/cost_by_agent.ts`
 - Agent catalog: `agents/README.md`
+
+## Phase 1 Completion Summary (2026-02-19)
+
+**US-1 delivered:** Agent model right-sizing — 36 agents updated. Distribution shifted from 36 opus / 27 sonnet / 1 haiku to 9 opus / 45 sonnet / 10 haiku. 13 mandatory T3 quality-gate agents preserved at opus.
+
+**US-2 delivered:** `cost_by_agent` Tinybird pipe deployed — per-agent cost attribution with `agent_type`, `model`, invocations, avg cost/tokens per invocation. Filterable by `days` and `agent_type`.
+
+**Additional deliverables:**
+- `orchestrating-agents` skill updated to v0.3.0 with four CLI backends, tier routing model, validation sandwich pattern
+- All four CLIs verified: claude, agent (Cursor), gemini, codex
+- Codex confirmed as most reliable T2 delegate for non-interactive use
+- Pilot results documented: Cursor quota-limited, Gemini needs pre-auth, Codex fully operational
