@@ -133,13 +133,9 @@ cat > resource-capacity.md << 'EOF'
 | QA | 4 FTE | 3.5 FTE | 87% | Good capacity |
 EOF
 
-# Document portfolio priorities (include initiative + initiative_name in front matter per .docs/AGENTS.md)
-cat > .docs/canonical/roadmaps/roadmap-repo-portfolio-2026.md << 'EOF'
----
-initiative: I<nn>-<ACRONYM>
-initiative_name: <long-form>
----
-# Q4 2025 Portfolio Roadmap
+# Document portfolio priorities as a report (the evergreen roadmap is roadmap-repo.md; see .docs/AGENTS.md)
+cat > .docs/reports/report-repo-portfolio-status-$(date +%Y-%m-%d).md << 'EOF'
+# Q4 2025 Portfolio Status
 
 ## Strategic Priorities
 1. Complete Mobile App Redesign (business-critical)

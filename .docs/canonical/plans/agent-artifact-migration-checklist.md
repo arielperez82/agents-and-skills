@@ -21,7 +21,7 @@ Per-agent mapping: current read/write paths → canonical or report path. Use th
 | demand-gen-specialist | q4-demand-gen-campaign.md (from campaign-plan) | `.docs/canonical/plans/plan-repo-campaign-<timeframe>.md` (e.g. plan-repo-campaign-2026-q4.md). |
 | cto-advisor | board_email_template.md, ADR output | Report/ops under `.docs/reports/` or `.docs/canonical/ops/`. ADRs → `.docs/canonical/adrs/adr-YYYYMMDD-<subject>.md`. |
 | legacy-codebase-analyzer | assessment-report.md, executive-summary.md, modernization-plan.md, SUMMARY.md, ASSESSMENT_SUMMARY.md | Assessments → `.docs/canonical/assessments/assessment-repo-<subject>-<date>.md`; reports → `.docs/reports/report-repo-<topic>-<timeframe>.md`. |
-| seo-strategist | roadmap.md, $OUTPUT_DIR/roadmap.md | `.docs/canonical/roadmaps/roadmap-repo-seo-<timeframe>.md`. |
+| seo-strategist | roadmap.md, $OUTPUT_DIR/roadmap.md | `.docs/canonical/plans/plan-repo-seo-quarterly-<timeframe>.md` (SEO quarterly plans, not roadmaps — the evergreen roadmap is `roadmap-repo.md`). |
 | product-director | 2025-roadmap.md, q4-2025-roadmap.md, $YEAR-strategic-roadmap.md | `.docs/canonical/roadmaps/roadmap-repo-<scope>-<timeframe>.md`. |
 | code-reviewer | pr-123-review.md, pr-$PR-review.md | Commit-level: `.docs/canonical/reviews/review-repo-commit-<hash>.md`. |
 | observability-engineer | weekly-review.md, slo-definition.md, error-budget-policy.md, etc. | Weekly → `.docs/reports/report-repo-weekly-<timeframe>.md`; ops/sections → `.docs/canonical/ops/` or plan/assessment sections. |

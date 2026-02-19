@@ -286,8 +286,8 @@ python scripts/seo_roadmap_generator.py audit.json --quarters 4
 # Focus on quick wins
 python scripts/seo_roadmap_generator.py audit.json --quick-wins
 
-# Markdown report (when using artifact conventions, write to .docs/canonical/roadmaps/ with naming roadmap-<endeavor>-seo-<timeframe>.md, e.g. roadmap-repo-seo-2026-q1.md)
-python scripts/seo_roadmap_generator.py audit.json --output md > .docs/canonical/roadmaps/roadmap-repo-seo-2026-q1.md
+# Markdown report (when using artifact conventions, write to .docs/canonical/plans/ — SEO quarterly plans are plans, not roadmaps; the evergreen roadmap is roadmap-repo.md)
+python scripts/seo_roadmap_generator.py audit.json --output md > .docs/canonical/plans/plan-repo-seo-quarterly-2026-q1.md
 
 # Help
 python scripts/seo_roadmap_generator.py --help
