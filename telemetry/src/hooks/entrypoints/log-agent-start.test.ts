@@ -1,18 +1,19 @@
-import { server } from '@tests/mocks/server';
-import { http, HttpResponse } from 'msw';
-import { afterEach, describe, expect, it, vi } from 'vitest';
+import { createStubClient } from '@tests/helpers/stub-client';
+import { describe, expect, it, vi } from 'vitest';
+
+import type { TelemetryClient } from '@/client';
+import type { Clock, HealthLogger, TimingStore } from '@/hooks/entrypoints/ports';
 
 import { runLogAgentStart } from './log-agent-start';
 
-const BASE_URL = 'https://api.tinybird.co';
-
-const setupEnv = () => {
-  vi.stubEnv('TB_INGEST_TOKEN', 'test-ingest');
-  vi.stubEnv('TB_READ_TOKEN', 'test-read');
-  vi.stubEnv('TB_HOST', BASE_URL);
+type LogAgentStartDeps = {
+  readonly client: TelemetryClient;
+  readonly clock: Clock;
+  readonly timing: Pick<TimingStore, 'recordAgentStart' | 'recordSessionAgent'>;
+  readonly health: HealthLogger;
 };
 
-const makeStartEvent = () =>
+const makeStartEvent = (overrides?: Record<string, unknown>) =>
   JSON.stringify({
     session_id: 'sess-1',
     agent_id: 'agent-1',
@@ -21,52 +22,98 @@ const makeStartEvent = () =>
     transcript_path: '/Users/test/.claude/projects/transcript.jsonl',
     permission_mode: 'default',
     hook_event_name: 'SubagentStart',
+    ...overrides,
   });
 
-afterEach(() => {
-  vi.unstubAllEnvs();
+const makeDeps = (overrides?: Partial<LogAgentStartDeps>): LogAgentStartDeps => ({
+  client: createStubClient(),
+  clock: { now: vi.fn().mockReturnValue(1000) },
+  timing: {
+    recordAgentStart: vi.fn(),
+    recordSessionAgent: vi.fn(),
+  },
+  health: vi.fn(),
+  ...overrides,
 });
 
 describe('runLogAgentStart', () => {
-  it('exits silently when env vars are missing', async () => {
-    vi.stubEnv('TB_INGEST_TOKEN', '');
-    vi.stubEnv('TB_READ_TOKEN', '');
-    vi.stubEnv('TB_HOST', '');
-
-    await expect(runLogAgentStart(makeStartEvent())).resolves.not.toThrow();
-  });
-
   it('ingests agent activation row on valid event', async () => {
-    setupEnv();
-    let capturedBody: unknown = null;
+    const deps = makeDeps();
 
-    server.use(
-      http.post(`${BASE_URL}/v0/events`, async ({ request }) => {
-        capturedBody = await request.json();
-        return HttpResponse.json({ successful_rows: 1, quarantined_rows: 0 });
-      })
-    );
+    await runLogAgentStart(makeStartEvent(), deps);
 
-    await runLogAgentStart(makeStartEvent());
-
-    expect(capturedBody).not.toBeNull();
+    expect(deps.client.ingest.agentActivations).toHaveBeenCalledOnce();
   });
 
-  it('does not throw on ingest failure', async () => {
-    setupEnv();
+  it('records agent start timing for valid agent_id', async () => {
+    const deps = makeDeps();
 
-    server.use(
-      http.post(`${BASE_URL}/v0/events`, () =>
-        HttpResponse.json({ error: 'Server error' }, { status: 500 })
-      )
+    await runLogAgentStart(makeStartEvent(), deps);
+
+    expect(deps.timing.recordAgentStart).toHaveBeenCalledWith('agent-1', 1000);
+  });
+
+  it('records session agent for valid session_id and agent_type', async () => {
+    const deps = makeDeps();
+
+    await runLogAgentStart(makeStartEvent(), deps);
+
+    expect(deps.timing.recordSessionAgent).toHaveBeenCalledWith('sess-1', 'tdd-reviewer');
+  });
+
+  it('logs success health event after ingest', async () => {
+    const now = vi.fn().mockReturnValueOnce(1000).mockReturnValueOnce(1050);
+    const deps = makeDeps({ clock: { now } });
+
+    await runLogAgentStart(makeStartEvent(), deps);
+
+    expect(deps.health).toHaveBeenCalledWith('log-agent-start', 0, 50, null, null);
+  });
+
+  it('logs failure health event on ingest error', async () => {
+    const client = createStubClient({
+      ingest: { agentActivations: vi.fn().mockRejectedValue(new Error('network')) },
+    });
+    const deps = makeDeps({ client });
+
+    await runLogAgentStart(makeStartEvent(), deps);
+
+    expect(deps.health).toHaveBeenCalledWith(
+      'log-agent-start',
+      1,
+      expect.any(Number) as number,
+      'network',
+      null
     );
-
-    await expect(runLogAgentStart(makeStartEvent())).resolves.not.toThrow();
   });
 
   it('does not throw on invalid event JSON', async () => {
-    setupEnv();
+    const deps = makeDeps();
 
-    await expect(runLogAgentStart('not valid json')).resolves.not.toThrow();
+    await expect(runLogAgentStart('not valid json', deps)).resolves.not.toThrow();
+  });
+
+  it('does not record timing when agent_id is missing', async () => {
+    const deps = makeDeps();
+
+    await runLogAgentStart(makeStartEvent({ agent_id: undefined }), deps);
+
+    expect(deps.timing.recordAgentStart).not.toHaveBeenCalled();
+  });
+
+  it('does not record session agent when session_id is missing', async () => {
+    const deps = makeDeps();
+
+    await runLogAgentStart(makeStartEvent({ session_id: undefined }), deps);
+
+    expect(deps.timing.recordSessionAgent).not.toHaveBeenCalled();
+  });
+
+  it('does not record session agent when agent_type is missing', async () => {
+    const deps = makeDeps();
+
+    await runLogAgentStart(makeStartEvent({ agent_type: undefined }), deps);
+
+    expect(deps.timing.recordSessionAgent).not.toHaveBeenCalled();
   });
 });

@@ -4,11 +4,14 @@ import * as path from 'node:path';
 
 import { beforeAll, describe, expect, it, vi } from 'vitest';
 
+import { recordAgentStart, recordSessionAgent } from '@/hooks/agent-timing';
 import { runInjectUsageContext } from '@/hooks/entrypoints/inject-usage-context';
+import type { LogAgentStartDeps } from '@/hooks/entrypoints/log-agent-start';
 import { runLogAgentStart } from '@/hooks/entrypoints/log-agent-start';
 import { runLogAgentStop } from '@/hooks/entrypoints/log-agent-stop';
 import { runLogSessionSummary } from '@/hooks/entrypoints/log-session-summary';
 import { runLogSkillActivation } from '@/hooks/entrypoints/log-skill-activation';
+import { createClientFromEnv, logHealthEvent } from '@/hooks/entrypoints/shared';
 
 import { integrationClient } from './helpers/client';
 
@@ -54,6 +57,19 @@ const writeTranscriptFile = (): string => {
   return transcriptPath;
 };
 
+const makeRealAgentStartDeps = (): LogAgentStartDeps | null => {
+  const client = createClientFromEnv();
+  if (!client) return null;
+  return {
+    client,
+    clock: { now: Date.now },
+    timing: { recordAgentStart, recordSessionAgent },
+    health: (hookName, exitCode, durationMs, errorMessage, statusCode) => {
+      void logHealthEvent(client, hookName, exitCode, durationMs, errorMessage, statusCode);
+    },
+  };
+};
+
 beforeAll(() => {
   const token = process.env['TB_TOKEN'] ?? '';
   const host = process.env['TB_HOST'] ?? 'http://localhost:7181';
@@ -68,6 +84,9 @@ describe('hooks E2E (Tinybird Local)', () => {
       const agentType = `e2e-start-agent-${String(Date.now())}`;
       const transcriptPath = writeTranscriptFile();
 
+      const deps = makeRealAgentStartDeps();
+      if (!deps) throw new Error('TB env vars not configured');
+
       await runLogAgentStart(
         JSON.stringify({
           session_id: SESSION_ID,
@@ -77,7 +96,8 @@ describe('hooks E2E (Tinybird Local)', () => {
           parent_session_id: SESSION_ID,
           cwd: '/Users/test/project',
           timestamp: new Date().toISOString(),
-        })
+        }),
+        deps
       );
 
       await runLogAgentStop(

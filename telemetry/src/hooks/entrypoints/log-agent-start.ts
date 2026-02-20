@@ -1,35 +1,40 @@
 import { recordAgentStart, recordSessionAgent } from '@/hooks/agent-timing';
 import { parseAgentStart } from '@/hooks/parse-agent-start';
 
+import type { Clock, HealthLogger, TimingStore } from './ports';
 import { createClientFromEnv, extractStringField, logHealthEvent, readStdin } from './shared';
 
 const HOOK_NAME = 'log-agent-start';
 
-export const runLogAgentStart = async (eventJson: string): Promise<void> => {
-  const startTime = Date.now();
-  const client = createClientFromEnv();
+export type LogAgentStartDeps = {
+  readonly client: import('@/client').TelemetryClient;
+  readonly clock: Clock;
+  readonly timing: Pick<TimingStore, 'recordAgentStart' | 'recordSessionAgent'>;
+  readonly health: HealthLogger;
+};
 
-  if (!client) {
-    return;
-  }
+export const runLogAgentStart = async (
+  eventJson: string,
+  deps: LogAgentStartDeps
+): Promise<void> => {
+  const startTime = deps.clock.now();
 
   try {
     const row = parseAgentStart(eventJson);
     const agentId = extractStringField(eventJson, 'agent_id');
     const sessionId = extractStringField(eventJson, 'session_id');
     const agentType = extractStringField(eventJson, 'agent_type');
-    if (agentId) recordAgentStart(agentId, startTime);
-    if (sessionId && agentType) recordSessionAgent(sessionId, agentType);
-    /* TelemetryClient.ingest types from SDK can be unresolved at this boundary. */
+    if (agentId) deps.timing.recordAgentStart(agentId, startTime);
+    if (sessionId && agentType) deps.timing.recordSessionAgent(sessionId, agentType);
 
-    await client.ingest.agentActivations(row);
+    await deps.client.ingest.agentActivations(row);
 
-    const durationMs = Date.now() - startTime;
-    void logHealthEvent(client, HOOK_NAME, 0, durationMs, null, null);
+    const durationMs = deps.clock.now() - startTime;
+    deps.health(HOOK_NAME, 0, durationMs, null, null);
   } catch (error) {
-    const durationMs = Date.now() - startTime;
+    const durationMs = deps.clock.now() - startTime;
     const errorMessage = error instanceof Error ? error.message : 'Unknown error';
-    void logHealthEvent(client, HOOK_NAME, 1, durationMs, errorMessage, null);
+    deps.health(HOOK_NAME, 1, durationMs, errorMessage, null);
   }
 };
 
@@ -43,5 +48,17 @@ const isMainModule = (): boolean => {
 };
 
 if (isMainModule()) {
-  void readStdin().then(runLogAgentStart);
+  void readStdin().then((eventJson) => {
+    const client = createClientFromEnv();
+    if (!client) return;
+
+    return runLogAgentStart(eventJson, {
+      client,
+      clock: { now: Date.now },
+      timing: { recordAgentStart, recordSessionAgent },
+      health: (hookName, exitCode, durationMs, errorMessage, statusCode) => {
+        void logHealthEvent(client, hookName, exitCode, durationMs, errorMessage, statusCode);
+      },
+    });
+  });
 }
