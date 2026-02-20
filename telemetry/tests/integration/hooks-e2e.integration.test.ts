@@ -4,12 +4,13 @@ import * as path from 'node:path';
 
 import { beforeAll, describe, expect, it, vi } from 'vitest';
 
-import { recordAgentStart, recordSessionAgent } from '@/hooks/agent-timing';
+import { lookupSessionAgent, recordAgentStart, recordSessionAgent } from '@/hooks/agent-timing';
 import { runInjectUsageContext } from '@/hooks/entrypoints/inject-usage-context';
 import type { LogAgentStartDeps } from '@/hooks/entrypoints/log-agent-start';
 import { runLogAgentStart } from '@/hooks/entrypoints/log-agent-start';
 import { runLogAgentStop } from '@/hooks/entrypoints/log-agent-stop';
 import { runLogSessionSummary } from '@/hooks/entrypoints/log-session-summary';
+import type { LogSkillActivationDeps } from '@/hooks/entrypoints/log-skill-activation';
 import { runLogSkillActivation } from '@/hooks/entrypoints/log-skill-activation';
 import { createClientFromEnv, logHealthEvent } from '@/hooks/entrypoints/shared';
 
@@ -55,6 +56,19 @@ const writeTranscriptFile = (): string => {
   const transcriptPath = path.join(os.tmpdir(), `e2e-transcript-${String(Date.now())}.jsonl`);
   fs.writeFileSync(transcriptPath, makeTranscriptContent());
   return transcriptPath;
+};
+
+const makeRealSkillActivationDeps = (): LogSkillActivationDeps | null => {
+  const client = createClientFromEnv();
+  if (!client) return null;
+  return {
+    client,
+    clock: { now: Date.now },
+    timing: { lookupSessionAgent },
+    health: (hookName, exitCode, durationMs, errorMessage, statusCode) => {
+      void logHealthEvent(client, hookName, exitCode, durationMs, errorMessage, statusCode);
+    },
+  };
 };
 
 const makeRealAgentStartDeps = (): LogAgentStartDeps | null => {
@@ -159,6 +173,9 @@ describe('hooks E2E (Tinybird Local)', () => {
     it('ingests a skill activation for a SKILL.md read', async () => {
       const skillName = `e2e-skill-${String(Date.now())}`;
 
+      const skillDeps = makeRealSkillActivationDeps();
+      if (!skillDeps) throw new Error('TB env vars not configured');
+
       await runLogSkillActivation(
         JSON.stringify({
           session_id: SESSION_ID,
@@ -169,7 +186,8 @@ describe('hooks E2E (Tinybird Local)', () => {
           success: true,
           duration_ms: 50,
           timestamp: new Date().toISOString(),
-        })
+        }),
+        skillDeps
       );
 
       const result = await integrationClient.skillFrequency.query({ days: 1 });
@@ -183,6 +201,9 @@ describe('hooks E2E (Tinybird Local)', () => {
       const beforeResult = await integrationClient.skillFrequency.query({ days: 1 });
       const beforeCount = beforeResult.rows;
 
+      const nonSkillDeps = makeRealSkillActivationDeps();
+      if (!nonSkillDeps) throw new Error('TB env vars not configured');
+
       await runLogSkillActivation(
         JSON.stringify({
           session_id: SESSION_ID,
@@ -191,7 +212,8 @@ describe('hooks E2E (Tinybird Local)', () => {
           success: true,
           duration_ms: 10,
           timestamp: new Date().toISOString(),
-        })
+        }),
+        nonSkillDeps
       );
 
       const afterResult = await integrationClient.skillFrequency.query({ days: 1 });

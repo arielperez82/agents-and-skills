@@ -1,6 +1,7 @@
 import { lookupSessionAgent } from '@/hooks/agent-timing';
 import { parseSkillActivation } from '@/hooks/parse-skill-activation';
 
+import type { Clock, HealthLogger, TimingStore } from './ports';
 import { createClientFromEnv, extractStringField, logHealthEvent, readStdin } from './shared';
 
 const HOOK_NAME = 'log-skill-activation';
@@ -24,13 +25,18 @@ const isSkillOrCommandPath = (eventJson: string): boolean => {
   }
 };
 
-export const runLogSkillActivation = async (eventJson: string): Promise<void> => {
-  const startTime = Date.now();
-  const client = createClientFromEnv();
+export type LogSkillActivationDeps = {
+  readonly client: import('@/client').TelemetryClient;
+  readonly clock: Clock;
+  readonly timing: Pick<TimingStore, 'lookupSessionAgent'>;
+  readonly health: HealthLogger;
+};
 
-  if (!client) {
-    return;
-  }
+export const runLogSkillActivation = async (
+  eventJson: string,
+  deps: LogSkillActivationDeps
+): Promise<void> => {
+  const startTime = deps.clock.now();
 
   // Fast path: skip non-skill/command reads and malformed stdin without any health event.
   // Empty/truncated stdin from Claude Code is not a hook failure — exit silently.
@@ -40,23 +46,21 @@ export const runLogSkillActivation = async (eventJson: string): Promise<void> =>
 
   try {
     const sessionId = extractStringField(eventJson, 'session_id');
-    const agentType = sessionId ? lookupSessionAgent(sessionId) : null;
+    const agentType = sessionId ? deps.timing.lookupSessionAgent(sessionId) : null;
     const row = parseSkillActivation(eventJson, agentType);
 
     if (!row) {
       return;
     }
 
-    /* TelemetryClient.ingest types from SDK can be unresolved at this boundary. */
+    await deps.client.ingest.skillActivations(row);
 
-    await client.ingest.skillActivations(row);
-
-    const durationMs = Date.now() - startTime;
-    void logHealthEvent(client, HOOK_NAME, 0, durationMs, null, null);
+    const durationMs = deps.clock.now() - startTime;
+    deps.health(HOOK_NAME, 0, durationMs, null, null);
   } catch (error) {
-    const durationMs = Date.now() - startTime;
+    const durationMs = deps.clock.now() - startTime;
     const errorMessage = error instanceof Error ? error.message : 'Unknown error';
-    void logHealthEvent(client, HOOK_NAME, 1, durationMs, errorMessage, null);
+    deps.health(HOOK_NAME, 1, durationMs, errorMessage, null);
   }
 };
 
@@ -70,5 +74,17 @@ const isMainModule = (): boolean => {
 };
 
 if (isMainModule()) {
-  void readStdin().then(runLogSkillActivation);
+  void readStdin().then((eventJson) => {
+    const client = createClientFromEnv();
+    if (!client) return;
+
+    return runLogSkillActivation(eventJson, {
+      client,
+      clock: { now: Date.now },
+      timing: { lookupSessionAgent },
+      health: (hookName, exitCode, durationMs, errorMessage, statusCode) => {
+        void logHealthEvent(client, hookName, exitCode, durationMs, errorMessage, statusCode);
+      },
+    });
+  });
 }

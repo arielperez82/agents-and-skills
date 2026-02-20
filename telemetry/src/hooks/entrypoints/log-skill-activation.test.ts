@@ -1,20 +1,19 @@
-import { server } from '@tests/mocks/server';
-import { http, HttpResponse } from 'msw';
-import { afterEach, describe, expect, it, vi } from 'vitest';
+import { createStubClient } from '@tests/helpers/stub-client';
+import { describe, expect, it, vi } from 'vitest';
 
-import { recordSessionAgent, removeSessionAgent } from '@/hooks/agent-timing';
+import type { TelemetryClient } from '@/client';
+import type { Clock, HealthLogger, TimingStore } from '@/hooks/entrypoints/ports';
 
 import { runLogSkillActivation } from './log-skill-activation';
 
-const BASE_URL = 'https://api.tinybird.co';
-
-const setupEnv = () => {
-  vi.stubEnv('TB_INGEST_TOKEN', 'test-ingest');
-  vi.stubEnv('TB_READ_TOKEN', 'test-read');
-  vi.stubEnv('TB_HOST', BASE_URL);
+type LogSkillActivationDeps = {
+  readonly client: TelemetryClient;
+  readonly clock: Clock;
+  readonly timing: Pick<TimingStore, 'lookupSessionAgent'>;
+  readonly health: HealthLogger;
 };
 
-const makeSkillEvent = () =>
+const makeSkillEvent = (overrides?: Record<string, unknown>) =>
   JSON.stringify({
     session_id: 'sess-1',
     tool_name: 'Read',
@@ -25,6 +24,7 @@ const makeSkillEvent = () =>
     transcript_path: '/Users/test/.claude/projects/transcript.jsonl',
     permission_mode: 'default',
     hook_event_name: 'PostToolUse',
+    ...overrides,
   });
 
 const makeNonSkillEvent = () =>
@@ -40,193 +40,106 @@ const makeNonSkillEvent = () =>
     hook_event_name: 'PostToolUse',
   });
 
-afterEach(() => {
-  vi.unstubAllEnvs();
+const makeDeps = (overrides?: Partial<LogSkillActivationDeps>): LogSkillActivationDeps => ({
+  client: createStubClient(),
+  clock: { now: vi.fn().mockReturnValue(1000) },
+  timing: { lookupSessionAgent: vi.fn().mockReturnValue(null) },
+  health: vi.fn(),
+  ...overrides,
 });
 
 describe('runLogSkillActivation', () => {
-  it('exits silently when env vars are missing', async () => {
-    vi.stubEnv('TB_INGEST_TOKEN', '');
-    vi.stubEnv('TB_READ_TOKEN', '');
-    vi.stubEnv('TB_HOST', '');
-
-    await expect(runLogSkillActivation(makeSkillEvent())).resolves.not.toThrow();
-  });
-
   it('ingests skill activation for skill file reads', async () => {
-    setupEnv();
-    let capturedBody: unknown = null;
+    const deps = makeDeps();
 
-    server.use(
-      http.post(`${BASE_URL}/v0/events`, async ({ request }) => {
-        capturedBody = await request.json();
-        return HttpResponse.json({ successful_rows: 1, quarantined_rows: 0 });
-      })
-    );
+    await runLogSkillActivation(makeSkillEvent(), deps);
 
-    await runLogSkillActivation(makeSkillEvent());
-
-    expect(capturedBody).not.toBeNull();
+    expect(deps.client.ingest.skillActivations).toHaveBeenCalledOnce();
   });
 
   it('skips ingest for non-skill file reads', async () => {
-    setupEnv();
-    let ingestCalled = false;
+    const deps = makeDeps();
 
-    server.use(
-      http.post(`${BASE_URL}/v0/events`, () => {
-        ingestCalled = true;
-        return HttpResponse.json({ successful_rows: 1, quarantined_rows: 0 });
-      })
-    );
+    await runLogSkillActivation(makeNonSkillEvent(), deps);
 
-    await runLogSkillActivation(makeNonSkillEvent());
-
-    expect(ingestCalled).toBe(false);
+    expect(deps.client.ingest.skillActivations).not.toHaveBeenCalled();
   });
 
   it('does not throw on invalid event JSON', async () => {
-    setupEnv();
-    await expect(runLogSkillActivation('not json')).resolves.not.toThrow();
+    const deps = makeDeps();
+
+    await expect(runLogSkillActivation('not json', deps)).resolves.not.toThrow();
   });
 
-  it('exits silently and emits no health event for empty stdin', async () => {
-    setupEnv();
-    let ingestCalled = false;
+  it('exits silently for empty stdin with no health event', async () => {
+    const deps = makeDeps();
 
-    server.use(
-      http.post(`${BASE_URL}/v0/events`, () => {
-        ingestCalled = true;
-        return HttpResponse.json({ successful_rows: 1, quarantined_rows: 0 });
-      })
-    );
+    await runLogSkillActivation('', deps);
 
-    await runLogSkillActivation('');
-    // Allow any fire-and-forget promises to settle
-    await new Promise((resolve) => setTimeout(resolve, 50));
-
-    expect(ingestCalled).toBe(false);
+    expect(deps.client.ingest.skillActivations).not.toHaveBeenCalled();
+    expect(deps.health).not.toHaveBeenCalled();
   });
 
-  it('exits silently and emits no health event for truncated JSON stdin', async () => {
-    setupEnv();
-    let ingestCalled = false;
+  it('exits silently for truncated JSON with no health event', async () => {
+    const deps = makeDeps();
 
-    server.use(
-      http.post(`${BASE_URL}/v0/events`, () => {
-        ingestCalled = true;
-        return HttpResponse.json({ successful_rows: 1, quarantined_rows: 0 });
-      })
-    );
+    await runLogSkillActivation('truncated {', deps);
 
-    await runLogSkillActivation('truncated {');
-    // Allow any fire-and-forget promises to settle
-    await new Promise((resolve) => setTimeout(resolve, 50));
-
-    expect(ingestCalled).toBe(false);
+    expect(deps.client.ingest.skillActivations).not.toHaveBeenCalled();
+    expect(deps.health).not.toHaveBeenCalled();
   });
 
-  it('exits silently and emits no health event for non-skill file reads', async () => {
-    setupEnv();
-    let ingestCalled = false;
+  it('exits silently for non-skill file reads with no health event', async () => {
+    const deps = makeDeps();
 
-    server.use(
-      http.post(`${BASE_URL}/v0/events`, () => {
-        ingestCalled = true;
-        return HttpResponse.json({ successful_rows: 1, quarantined_rows: 0 });
-      })
-    );
+    await runLogSkillActivation(makeNonSkillEvent(), deps);
 
-    await runLogSkillActivation(makeNonSkillEvent());
-    // Allow any fire-and-forget promises to settle
-    await new Promise((resolve) => setTimeout(resolve, 50));
-
-    expect(ingestCalled).toBe(false);
+    expect(deps.health).not.toHaveBeenCalled();
   });
 
-  it('emits success health event only for skill file reads', async () => {
-    setupEnv();
-    const capturedUrls: string[] = [];
+  it('logs success health event for skill file reads', async () => {
+    const now = vi.fn().mockReturnValueOnce(1000).mockReturnValueOnce(1080);
+    const deps = makeDeps({ clock: { now } });
 
-    server.use(
-      http.post(`${BASE_URL}/v0/events`, ({ request }) => {
-        capturedUrls.push(request.url);
-        return HttpResponse.json({ successful_rows: 1, quarantined_rows: 0 });
-      })
-    );
+    await runLogSkillActivation(makeSkillEvent(), deps);
 
-    await runLogSkillActivation(makeSkillEvent());
-
-    // Two ingest calls: one for skill activation, one for health event
-    expect(capturedUrls.length).toBeGreaterThanOrEqual(1);
+    expect(deps.health).toHaveBeenCalledWith('log-skill-activation', 0, 80, null, null);
   });
 
-  it('includes agent_type from session context when session is registered', async () => {
-    setupEnv();
-    recordSessionAgent('sess-1', 'tdd-reviewer');
+  it('includes agent_type from session context lookup', async () => {
+    const deps = makeDeps({
+      timing: { lookupSessionAgent: vi.fn().mockReturnValue('tdd-reviewer') },
+    });
 
-    const capturedBodies: unknown[] = [];
+    await runLogSkillActivation(makeSkillEvent(), deps);
 
-    server.use(
-      http.post(`${BASE_URL}/v0/events`, async ({ request }) => {
-        capturedBodies.push(await request.json());
-        return HttpResponse.json({ successful_rows: 1, quarantined_rows: 0 });
-      })
-    );
-
-    await runLogSkillActivation(makeSkillEvent());
-
-    expect(capturedBodies.length).toBeGreaterThanOrEqual(1);
-    const firstBody = capturedBodies[0] as Record<string, unknown>;
-    const events = firstBody['events'] as Array<Record<string, unknown>> | undefined;
-    const ndjson = firstBody['ndjson'] as string | undefined;
-
-    if (events) {
-      const firstEvent = events[0];
-      expect(firstEvent).toHaveProperty('agent_type', 'tdd-reviewer');
-    } else if (typeof ndjson === 'string') {
-      expect(ndjson).toContain('tdd-reviewer');
-    } else {
-      expect(JSON.stringify(firstBody)).toContain('tdd-reviewer');
-    }
-
-    removeSessionAgent('sess-1');
+    expect(deps.timing.lookupSessionAgent).toHaveBeenCalledWith('sess-1');
+    expect(deps.client.ingest.skillActivations).toHaveBeenCalledOnce();
   });
 
   it('sends null agent_type when no session context exists', async () => {
-    setupEnv();
+    const deps = makeDeps();
 
-    const capturedBodies: unknown[] = [];
+    await runLogSkillActivation(makeSkillEvent(), deps);
 
-    server.use(
-      http.post(`${BASE_URL}/v0/events`, async ({ request }) => {
-        capturedBodies.push(await request.json());
-        return HttpResponse.json({ successful_rows: 1, quarantined_rows: 0 });
-      })
-    );
-
-    await runLogSkillActivation(makeSkillEvent());
-
-    expect(capturedBodies.length).toBeGreaterThanOrEqual(1);
+    expect(deps.timing.lookupSessionAgent).toHaveBeenCalledWith('sess-1');
+    expect(deps.client.ingest.skillActivations).toHaveBeenCalledOnce();
   });
 
-  it('emits failure health event when skill ingest throws', async () => {
-    setupEnv();
-    let callCount = 0;
+  it('logs failure health event when ingest throws', async () => {
+    const client = createStubClient({
+      ingest: { skillActivations: vi.fn().mockRejectedValue(new Error('ingest failed')) },
+    });
+    const deps = makeDeps({ client });
 
-    server.use(
-      http.post(`${BASE_URL}/v0/events`, () => {
-        callCount++;
-        if (callCount === 1) {
-          return HttpResponse.error();
-        }
-        return HttpResponse.json({ successful_rows: 1, quarantined_rows: 0 });
-      })
+    await runLogSkillActivation(makeSkillEvent(), deps);
+
+    expect(deps.health).toHaveBeenCalledWith(
+      'log-skill-activation',
+      1,
+      expect.any(Number) as number,
+      'ingest failed',
+      null
     );
-
-    await runLogSkillActivation(makeSkillEvent());
-
-    // Health event call should have been made (after ingest failure)
-    expect(callCount).toBeGreaterThanOrEqual(1);
   });
 });
