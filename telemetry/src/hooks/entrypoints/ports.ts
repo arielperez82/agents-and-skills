@@ -2,7 +2,7 @@ import type { TelemetryClient } from '@/client';
 
 export type Clock = { readonly now: () => number };
 
-export type FileReader = (filePath: string) => string;
+export type FileReader = (filePath: string | null) => string;
 
 export type TimingStore = {
   readonly recordAgentStart: (agentId: string, startMs: number) => void;

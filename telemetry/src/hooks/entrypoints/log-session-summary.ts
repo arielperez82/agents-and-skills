@@ -1,53 +1,42 @@
-import * as fs from 'node:fs';
-
 import { buildSessionSummary } from '@/hooks/build-session-summary';
 
-import { createClientFromEnv, logHealthEvent, readStdin } from './shared';
+import type { Clock, FileReader, HealthLogger } from './ports';
+import {
+  createClientFromEnv,
+  createFileReader,
+  extractStringField,
+  logHealthEvent,
+  readStdin,
+} from './shared';
 
 const HOOK_NAME = 'log-session-summary';
 
-const readTranscriptPath = (eventJson: string): string | null => {
-  try {
-    const parsed: unknown = JSON.parse(eventJson);
-    if (typeof parsed !== 'object' || parsed === null) return null;
-    const transcriptPath = (parsed as Record<string, unknown>)['transcript_path'];
-    return typeof transcriptPath === 'string' ? transcriptPath : null;
-  } catch {
-    return null;
-  }
+export type LogSessionSummaryDeps = {
+  readonly client: import('@/client').TelemetryClient;
+  readonly clock: Clock;
+  readonly readFile: FileReader;
+  readonly health: HealthLogger;
 };
 
-const readTranscriptContent = (transcriptPath: string | null): string => {
-  if (!transcriptPath) return '';
-  try {
-    return fs.readFileSync(transcriptPath, 'utf-8');
-  } catch {
-    return '';
-  }
-};
-
-export const runLogSessionSummary = async (eventJson: string): Promise<void> => {
-  const startTime = Date.now();
-  const client = createClientFromEnv();
-
-  if (!client) {
-    return;
-  }
+export const runLogSessionSummary = async (
+  eventJson: string,
+  deps: LogSessionSummaryDeps
+): Promise<void> => {
+  const startTime = deps.clock.now();
 
   try {
-    const transcriptPath = readTranscriptPath(eventJson);
-    const transcriptContent = readTranscriptContent(transcriptPath);
+    const transcriptPath = extractStringField(eventJson, 'transcript_path');
+    const transcriptContent = deps.readFile(transcriptPath);
     const row = buildSessionSummary(eventJson, transcriptContent);
-    /* TelemetryClient.ingest types from SDK can be unresolved at this boundary. */
 
-    await client.ingest.sessionSummaries(row);
+    await deps.client.ingest.sessionSummaries(row);
 
-    const durationMs = Date.now() - startTime;
-    void logHealthEvent(client, HOOK_NAME, 0, durationMs, null, null);
+    const durationMs = deps.clock.now() - startTime;
+    deps.health(HOOK_NAME, 0, durationMs, null, null);
   } catch (error) {
-    const durationMs = Date.now() - startTime;
+    const durationMs = deps.clock.now() - startTime;
     const errorMessage = error instanceof Error ? error.message : 'Unknown error';
-    void logHealthEvent(client, HOOK_NAME, 1, durationMs, errorMessage, null);
+    deps.health(HOOK_NAME, 1, durationMs, errorMessage, null);
   }
 };
 
@@ -61,5 +50,17 @@ const isMainModule = (): boolean => {
 };
 
 if (isMainModule()) {
-  void readStdin().then(runLogSessionSummary);
+  void readStdin().then((eventJson) => {
+    const client = createClientFromEnv();
+    if (!client) return;
+
+    return runLogSessionSummary(eventJson, {
+      client,
+      clock: { now: Date.now },
+      readFile: createFileReader(),
+      health: (hookName, exitCode, durationMs, errorMessage, statusCode) => {
+        void logHealthEvent(client, hookName, exitCode, durationMs, errorMessage, statusCode);
+      },
+    });
+  });
 }

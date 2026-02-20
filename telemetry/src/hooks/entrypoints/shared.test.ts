@@ -1,10 +1,20 @@
+import * as fs from 'node:fs';
+import * as os from 'node:os';
+import * as path from 'node:path';
+
 import { server } from '@tests/mocks/server';
 import { http, HttpResponse } from 'msw';
 import { describe, expect, it, vi } from 'vitest';
 
 import { createTelemetryClient } from '@/client';
 
-import { createClientFromEnv, extractStringField, logHealthEvent, readStdin } from './shared';
+import {
+  createClientFromEnv,
+  createFileReader,
+  extractStringField,
+  logHealthEvent,
+  readStdin,
+} from './shared';
 
 describe('createClientFromEnv', () => {
   it('returns null when TB_INGEST_TOKEN is missing', () => {
@@ -89,6 +99,35 @@ describe('extractStringField', () => {
     expect(extractStringField('"just a string"', 'field')).toBeNull();
     expect(extractStringField('42', 'field')).toBeNull();
     expect(extractStringField('null', 'field')).toBeNull();
+  });
+});
+
+describe('createFileReader', () => {
+  it('reads file content successfully', () => {
+    const readFile = createFileReader();
+    const tmpPath = path.join(os.tmpdir(), `test-reader-${String(Date.now())}.txt`);
+    fs.writeFileSync(tmpPath, 'hello world');
+
+    const content = readFile(tmpPath);
+
+    expect(content).toBe('hello world');
+    fs.unlinkSync(tmpPath);
+  });
+
+  it('returns empty string for non-existent file', () => {
+    const readFile = createFileReader();
+
+    const content = readFile('/nonexistent/path/file.txt');
+
+    expect(content).toBe('');
+  });
+
+  it('returns empty string for null path', () => {
+    const readFile = createFileReader();
+
+    const content = readFile(null);
+
+    expect(content).toBe('');
   });
 });
 

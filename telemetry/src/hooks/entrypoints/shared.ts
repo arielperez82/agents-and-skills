@@ -1,4 +1,7 @@
+import * as fs from 'node:fs';
+
 import { createTelemetryClient, type TelemetryClient } from '@/client';
+import type { FileReader } from '@/hooks/entrypoints/ports';
 
 export const readStdin = (): Promise<string> =>
   new Promise((resolve) => {
@@ -32,6 +35,15 @@ export const extractStringField = (eventJson: string, field: string): string | n
     return typeof value === 'string' ? value : null;
   } catch {
     return null;
+  }
+};
+
+export const createFileReader = (): FileReader => (filePath) => {
+  if (!filePath) return '';
+  try {
+    return fs.readFileSync(filePath, 'utf-8');
+  } catch {
+    return '';
   }
 };
 

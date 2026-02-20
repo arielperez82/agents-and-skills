@@ -1,20 +1,16 @@
-import * as fs from 'node:fs';
-import * as path from 'node:path';
+import { createStubClient } from '@tests/helpers/stub-client';
+import { describe, expect, it, vi } from 'vitest';
 
-import { server } from '@tests/mocks/server';
-import { http, HttpResponse } from 'msw';
-import { afterEach, describe, expect, it, vi } from 'vitest';
+import type { TelemetryClient } from '@/client';
+import type { CacheStore, Clock, HealthLogger } from '@/hooks/entrypoints/ports';
 
 import { runInjectUsageContext } from './inject-usage-context';
 
-const BASE_URL = 'https://api.tinybird.co';
-const CACHE_DIR = path.join(process.env['HOME'] ?? '/tmp', '.cache', 'agents-and-skills');
-const CACHE_FILE = path.join(CACHE_DIR, 'usage-context.json');
-
-const setupEnv = () => {
-  vi.stubEnv('TB_INGEST_TOKEN', 'test-ingest');
-  vi.stubEnv('TB_READ_TOKEN', 'test-read');
-  vi.stubEnv('TB_HOST', BASE_URL);
+type InjectUsageContextDeps = {
+  readonly client: TelemetryClient;
+  readonly clock: Clock;
+  readonly cache: CacheStore;
+  readonly health: HealthLogger;
 };
 
 const makeMockAgentData = () => [
@@ -31,99 +27,136 @@ const makeMockAgentData = () => [
   },
 ];
 
-const mockAgentUsageSummaryEndpoint = (
-  data: readonly Record<string, unknown>[] = makeMockAgentData()
-) => {
-  server.use(
-    http.get(`${BASE_URL}/v0/pipes/agent_usage_summary.json`, () =>
-      HttpResponse.json({
-        data,
+const makeDeps = (overrides?: Partial<InjectUsageContextDeps>): InjectUsageContextDeps => ({
+  client: createStubClient({
+    query: {
+      agentUsageSummary: vi.fn().mockResolvedValue({
+        data: makeMockAgentData(),
         meta: [],
-        rows: data.length,
-        statistics: { elapsed: 0.001, rows_read: 10, bytes_read: 100 },
-      })
-    )
-  );
-};
-
-afterEach(() => {
-  vi.unstubAllEnvs();
-  try {
-    fs.unlinkSync(CACHE_FILE);
-  } catch {
-    // ignore
-  }
+        rows: 1,
+        statistics: {},
+      }),
+    },
+  }),
+  clock: { now: vi.fn().mockReturnValue(1000) },
+  cache: {
+    read: vi.fn().mockReturnValue({}),
+    write: vi.fn(),
+  },
+  health: vi.fn(),
+  ...overrides,
 });
 
 describe('runInjectUsageContext', () => {
-  it('returns empty object when env vars are missing', async () => {
-    vi.stubEnv('TB_INGEST_TOKEN', '');
-    vi.stubEnv('TB_READ_TOKEN', '');
-    vi.stubEnv('TB_HOST', '');
-
-    const result = await runInjectUsageContext();
-
-    expect(result).toEqual({});
-  });
-
   it('returns additionalContext from successful query', async () => {
-    setupEnv();
-    mockAgentUsageSummaryEndpoint();
+    const deps = makeDeps();
 
-    const result = await runInjectUsageContext();
+    const result = await runInjectUsageContext(deps);
 
     expect(result).toHaveProperty('additionalContext');
     expect(typeof result.additionalContext).toBe('string');
     expect(result.additionalContext).toContain('tdd-reviewer');
   });
 
-  it('caches result to disk on success', async () => {
-    setupEnv();
-    mockAgentUsageSummaryEndpoint();
+  it('queries agent usage summary', async () => {
+    const deps = makeDeps();
 
-    await runInjectUsageContext();
+    await runInjectUsageContext(deps);
 
-    expect(fs.existsSync(CACHE_FILE)).toBe(true);
-    const cached = JSON.parse(fs.readFileSync(CACHE_FILE, 'utf-8')) as Record<string, unknown>;
-    expect(cached).toHaveProperty('additionalContext');
+    expect(deps.client.query.agentUsageSummary).toHaveBeenCalledWith({ days: 7 });
+  });
+
+  it('caches result on success', async () => {
+    const deps = makeDeps();
+
+    await runInjectUsageContext(deps);
+
+    expect(deps.cache.write).toHaveBeenCalledOnce();
+    expect(deps.cache.write).toHaveBeenCalledWith(
+      expect.objectContaining({ additionalContext: expect.any(String) as string })
+    );
   });
 
   it('falls back to cache when query fails', async () => {
-    setupEnv();
+    const deps = makeDeps({
+      client: createStubClient({
+        query: {
+          agentUsageSummary: vi.fn().mockRejectedValue(new Error('network')),
+        },
+      }),
+      cache: {
+        read: vi.fn().mockReturnValue({ additionalContext: 'cached data' }),
+        write: vi.fn(),
+      },
+    });
 
-    fs.mkdirSync(CACHE_DIR, { recursive: true });
-    fs.writeFileSync(CACHE_FILE, JSON.stringify({ additionalContext: 'cached data' }));
-
-    server.use(
-      http.get(`${BASE_URL}/v0/pipes/agent_usage_summary.json`, () =>
-        HttpResponse.json({ error: 'Server error' }, { status: 500 })
-      )
-    );
-
-    const result = await runInjectUsageContext();
+    const result = await runInjectUsageContext(deps);
 
     expect(result).toEqual({ additionalContext: 'cached data' });
   });
 
-  it('returns empty object when query fails and no cache exists', async () => {
-    setupEnv();
+  it('returns empty object when query returns no data', async () => {
+    const deps = makeDeps({
+      client: createStubClient({
+        query: {
+          agentUsageSummary: vi.fn().mockResolvedValue({
+            data: [],
+            meta: [],
+            rows: 0,
+            statistics: {},
+          }),
+        },
+      }),
+    });
 
-    server.use(
-      http.get(`${BASE_URL}/v0/pipes/agent_usage_summary.json`, () =>
-        HttpResponse.json({ error: 'Server error' }, { status: 500 })
-      )
-    );
-
-    const result = await runInjectUsageContext();
+    const result = await runInjectUsageContext(deps);
 
     expect(result).toEqual({});
   });
 
-  it('returns empty object when query returns no data', async () => {
-    setupEnv();
-    mockAgentUsageSummaryEndpoint([]);
+  it('logs success health event after query', async () => {
+    const now = vi.fn().mockReturnValueOnce(1000).mockReturnValueOnce(1200);
+    const deps = makeDeps({ clock: { now } });
 
-    const result = await runInjectUsageContext();
+    await runInjectUsageContext(deps);
+
+    expect(deps.health).toHaveBeenCalledWith('inject-usage-context', 0, 200, null, null);
+  });
+
+  it('logs failure health event on query error', async () => {
+    const deps = makeDeps({
+      client: createStubClient({
+        query: {
+          agentUsageSummary: vi.fn().mockRejectedValue(new Error('timeout')),
+        },
+      }),
+    });
+
+    await runInjectUsageContext(deps);
+
+    expect(deps.health).toHaveBeenCalledWith(
+      'inject-usage-context',
+      1,
+      expect.any(Number) as number,
+      'timeout',
+      null
+    );
+  });
+
+  it('returns empty object when query fails and no cache exists', async () => {
+    const deps = makeDeps({
+      client: createStubClient({
+        query: {
+          agentUsageSummary: vi.fn().mockRejectedValue(new Error('network')),
+        },
+      }),
+      cache: {
+        read: vi.fn().mockReturnValue({}),
+        write: vi.fn(),
+      },
+    });
+
+    const result = await runInjectUsageContext(deps);
 
     expect(result).toEqual({});
   });

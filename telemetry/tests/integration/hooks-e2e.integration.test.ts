@@ -4,15 +4,24 @@ import * as path from 'node:path';
 
 import { beforeAll, describe, expect, it, vi } from 'vitest';
 
-import { lookupSessionAgent, recordAgentStart, recordSessionAgent } from '@/hooks/agent-timing';
+import {
+  consumeAgentStart,
+  lookupSessionAgent,
+  recordAgentStart,
+  recordSessionAgent,
+  removeSessionAgent,
+} from '@/hooks/agent-timing';
+import type { InjectUsageContextDeps } from '@/hooks/entrypoints/inject-usage-context';
 import { runInjectUsageContext } from '@/hooks/entrypoints/inject-usage-context';
 import type { LogAgentStartDeps } from '@/hooks/entrypoints/log-agent-start';
 import { runLogAgentStart } from '@/hooks/entrypoints/log-agent-start';
+import type { LogAgentStopDeps } from '@/hooks/entrypoints/log-agent-stop';
 import { runLogAgentStop } from '@/hooks/entrypoints/log-agent-stop';
+import type { LogSessionSummaryDeps } from '@/hooks/entrypoints/log-session-summary';
 import { runLogSessionSummary } from '@/hooks/entrypoints/log-session-summary';
 import type { LogSkillActivationDeps } from '@/hooks/entrypoints/log-skill-activation';
 import { runLogSkillActivation } from '@/hooks/entrypoints/log-skill-activation';
-import { createClientFromEnv, logHealthEvent } from '@/hooks/entrypoints/shared';
+import { createClientFromEnv, createFileReader, logHealthEvent } from '@/hooks/entrypoints/shared';
 
 import { integrationClient } from './helpers/client';
 
@@ -71,6 +80,49 @@ const makeRealSkillActivationDeps = (): LogSkillActivationDeps | null => {
   };
 };
 
+const makeRealInjectUsageContextDeps = (): InjectUsageContextDeps | null => {
+  const client = createClientFromEnv();
+  if (!client) return null;
+  return {
+    client,
+    clock: { now: Date.now },
+    cache: {
+      read: () => ({}),
+      write: () => {},
+    },
+    health: (hookName, exitCode, durationMs, errorMessage, statusCode) => {
+      void logHealthEvent(client, hookName, exitCode, durationMs, errorMessage, statusCode);
+    },
+  };
+};
+
+const makeRealSessionSummaryDeps = (): LogSessionSummaryDeps | null => {
+  const client = createClientFromEnv();
+  if (!client) return null;
+  return {
+    client,
+    clock: { now: Date.now },
+    readFile: createFileReader(),
+    health: (hookName, exitCode, durationMs, errorMessage, statusCode) => {
+      void logHealthEvent(client, hookName, exitCode, durationMs, errorMessage, statusCode);
+    },
+  };
+};
+
+const makeRealAgentStopDeps = (): LogAgentStopDeps | null => {
+  const client = createClientFromEnv();
+  if (!client) return null;
+  return {
+    client,
+    clock: { now: Date.now },
+    timing: { consumeAgentStart, removeSessionAgent },
+    readFile: createFileReader(),
+    health: (hookName, exitCode, durationMs, errorMessage, statusCode) => {
+      void logHealthEvent(client, hookName, exitCode, durationMs, errorMessage, statusCode);
+    },
+  };
+};
+
 const makeRealAgentStartDeps = (): LogAgentStartDeps | null => {
   const client = createClientFromEnv();
   if (!client) return null;
@@ -114,6 +166,9 @@ describe('hooks E2E (Tinybird Local)', () => {
         deps
       );
 
+      const stopDeps = makeRealAgentStopDeps();
+      if (!stopDeps) throw new Error('TB env vars not configured');
+
       await runLogAgentStop(
         JSON.stringify({
           session_id: SESSION_ID,
@@ -126,7 +181,8 @@ describe('hooks E2E (Tinybird Local)', () => {
           error: null,
           cwd: '/Users/test/project',
           timestamp: new Date().toISOString(),
-        })
+        }),
+        stopDeps
       );
 
       const result = await integrationClient.agentUsageSummary.query({ days: 1 });
@@ -143,6 +199,9 @@ describe('hooks E2E (Tinybird Local)', () => {
       const agentType = `e2e-stop-agent-${String(Date.now())}`;
       const transcriptPath = writeTranscriptFile();
 
+      const stopDeps2 = makeRealAgentStopDeps();
+      if (!stopDeps2) throw new Error('TB env vars not configured');
+
       await runLogAgentStop(
         JSON.stringify({
           session_id: SESSION_ID,
@@ -155,7 +214,8 @@ describe('hooks E2E (Tinybird Local)', () => {
           error: null,
           cwd: '/Users/test/project',
           timestamp: new Date().toISOString(),
-        })
+        }),
+        stopDeps2
       );
 
       const result = await integrationClient.agentUsageSummary.query({ days: 1 });
@@ -226,6 +286,9 @@ describe('hooks E2E (Tinybird Local)', () => {
       const sessionId = `e2e-session-end-${String(Date.now())}`;
       const transcriptPath = writeTranscriptFile();
 
+      const summaryDeps = makeRealSessionSummaryDeps();
+      if (!summaryDeps) throw new Error('TB env vars not configured');
+
       await runLogSessionSummary(
         JSON.stringify({
           session_id: sessionId,
@@ -233,7 +296,8 @@ describe('hooks E2E (Tinybird Local)', () => {
           duration_ms: 60000,
           cwd: '/Users/test/project',
           timestamp: new Date().toISOString(),
-        })
+        }),
+        summaryDeps
       );
 
       const result = await integrationClient.sessionOverview.query({
@@ -252,7 +316,10 @@ describe('hooks E2E (Tinybird Local)', () => {
 
   describe('SessionStart → inject-usage-context', () => {
     it('returns additionalContext with agent usage data', async () => {
-      const result = await runInjectUsageContext();
+      const contextDeps = makeRealInjectUsageContextDeps();
+      if (!contextDeps) throw new Error('TB env vars not configured');
+
+      const result = await runInjectUsageContext(contextDeps);
 
       if (Object.keys(result).length > 0) {
         expect(result).toHaveProperty('additionalContext');

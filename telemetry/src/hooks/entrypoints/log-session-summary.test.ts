@@ -1,126 +1,107 @@
-import * as fs from 'node:fs';
-import * as os from 'node:os';
-import * as path from 'node:path';
+import { createStubClient } from '@tests/helpers/stub-client';
+import { describe, expect, it, vi } from 'vitest';
 
-import { server } from '@tests/mocks/server';
-import { http, HttpResponse } from 'msw';
-import { afterEach, describe, expect, it, vi } from 'vitest';
+import type { TelemetryClient } from '@/client';
+import type { Clock, FileReader, HealthLogger } from '@/hooks/entrypoints/ports';
 
 import { runLogSessionSummary } from './log-session-summary';
 
-const BASE_URL = 'https://api.tinybird.co';
-
-const setupEnv = () => {
-  vi.stubEnv('TB_INGEST_TOKEN', 'test-ingest');
-  vi.stubEnv('TB_READ_TOKEN', 'test-read');
-  vi.stubEnv('TB_HOST', BASE_URL);
+type LogSessionSummaryDeps = {
+  readonly client: TelemetryClient;
+  readonly clock: Clock;
+  readonly readFile: FileReader;
+  readonly health: HealthLogger;
 };
 
-const makeTranscriptFile = (): string => {
-  const transcriptPath = path.join(
-    os.tmpdir(),
-    `test-session-transcript-${String(Date.now())}.jsonl`
-  );
-  const line = JSON.stringify({
-    type: 'assistant',
-    message: {
-      model: 'claude-sonnet-4-20250514',
-      usage: {
-        input_tokens: 500,
-        output_tokens: 200,
-        cache_read_input_tokens: 100,
-        cache_creation_input_tokens: 50,
-      },
+const TRANSCRIPT_CONTENT = JSON.stringify({
+  type: 'assistant',
+  message: {
+    model: 'claude-sonnet-4-20250514',
+    usage: {
+      input_tokens: 500,
+      output_tokens: 200,
+      cache_read_input_tokens: 100,
+      cache_creation_input_tokens: 50,
     },
-    costUSD: 0.01,
-  });
-  fs.writeFileSync(transcriptPath, line);
-  return transcriptPath;
-};
+  },
+  costUSD: 0.01,
+});
 
-const makeSessionEndEvent = (transcriptPath: string) =>
+const makeSessionEndEvent = (overrides?: Record<string, unknown>) =>
   JSON.stringify({
     session_id: 'sess-1',
-    transcript_path: transcriptPath,
+    transcript_path: '/Users/test/transcript.jsonl',
     cwd: '/Users/test/project',
     permission_mode: 'default',
     hook_event_name: 'SessionEnd',
     reason: 'other',
+    ...overrides,
   });
 
-afterEach(() => {
-  vi.unstubAllEnvs();
+const makeDeps = (overrides?: Partial<LogSessionSummaryDeps>): LogSessionSummaryDeps => ({
+  client: createStubClient(),
+  clock: { now: vi.fn().mockReturnValue(1000) },
+  readFile: vi.fn().mockReturnValue(TRANSCRIPT_CONTENT),
+  health: vi.fn(),
+  ...overrides,
 });
 
 describe('runLogSessionSummary', () => {
-  it('exits silently when env vars are missing', async () => {
-    vi.stubEnv('TB_INGEST_TOKEN', '');
-    vi.stubEnv('TB_READ_TOKEN', '');
-    vi.stubEnv('TB_HOST', '');
+  it('ingests session summary row on valid event', async () => {
+    const deps = makeDeps();
 
-    const transcriptPath = makeTranscriptFile();
-    await expect(runLogSessionSummary(makeSessionEndEvent(transcriptPath))).resolves.not.toThrow();
+    await runLogSessionSummary(makeSessionEndEvent(), deps);
+
+    expect(deps.client.ingest.sessionSummaries).toHaveBeenCalledOnce();
   });
 
-  it('ingests session summary row with transcript data', async () => {
-    setupEnv();
-    let capturedBody: unknown = null;
-    const transcriptPath = makeTranscriptFile();
+  it('reads transcript via injected readFile', async () => {
+    const readFile = vi.fn().mockReturnValue(TRANSCRIPT_CONTENT);
+    const deps = makeDeps({ readFile });
 
-    server.use(
-      http.post(`${BASE_URL}/v0/events`, async ({ request }) => {
-        capturedBody = await request.json();
-        return HttpResponse.json({ successful_rows: 1, quarantined_rows: 0 });
-      })
-    );
+    await runLogSessionSummary(makeSessionEndEvent(), deps);
 
-    await runLogSessionSummary(makeSessionEndEvent(transcriptPath));
-
-    expect(capturedBody).not.toBeNull();
+    expect(readFile).toHaveBeenCalledWith('/Users/test/transcript.jsonl');
   });
 
-  it('does not throw on missing transcript file', async () => {
-    setupEnv();
+  it('logs success health event after ingest', async () => {
+    const now = vi.fn().mockReturnValueOnce(1000).mockReturnValueOnce(1060);
+    const deps = makeDeps({ clock: { now } });
 
-    server.use(
-      http.post(`${BASE_URL}/v0/events`, () =>
-        HttpResponse.json({ successful_rows: 1, quarantined_rows: 0 })
-      )
+    await runLogSessionSummary(makeSessionEndEvent(), deps);
+
+    expect(deps.health).toHaveBeenCalledWith('log-session-summary', 0, 60, null, null);
+  });
+
+  it('logs failure health event on ingest error', async () => {
+    const client = createStubClient({
+      ingest: { sessionSummaries: vi.fn().mockRejectedValue(new Error('timeout')) },
+    });
+    const deps = makeDeps({ client });
+
+    await runLogSessionSummary(makeSessionEndEvent(), deps);
+
+    expect(deps.health).toHaveBeenCalledWith(
+      'log-session-summary',
+      1,
+      expect.any(Number) as number,
+      'timeout',
+      null
     );
-
-    await expect(
-      runLogSessionSummary(makeSessionEndEvent('/nonexistent/transcript.jsonl'))
-    ).resolves.not.toThrow();
   });
 
   it('does not throw on invalid event JSON', async () => {
-    setupEnv();
-    await expect(runLogSessionSummary('not json')).resolves.not.toThrow();
+    const deps = makeDeps();
+
+    await expect(runLogSessionSummary('not json', deps)).resolves.not.toThrow();
   });
 
-  it('ingests session with zero tokens when transcript_path missing from event', async () => {
-    setupEnv();
-    let capturedBody: unknown = null;
+  it('passes null to readFile when transcript_path missing', async () => {
+    const readFile = vi.fn().mockReturnValue('');
+    const deps = makeDeps({ readFile });
 
-    server.use(
-      http.post(`${BASE_URL}/v0/events`, async ({ request }) => {
-        capturedBody = await request.json();
-        return HttpResponse.json({ successful_rows: 1, quarantined_rows: 0 });
-      })
-    );
+    await runLogSessionSummary(makeSessionEndEvent({ transcript_path: undefined }), deps);
 
-    const eventWithoutTranscriptPath = JSON.stringify({
-      session_id: 'sess-no-transcript',
-      cwd: '/Users/test/project',
-      permission_mode: 'default',
-      hook_event_name: 'SessionEnd',
-      reason: 'other',
-      // transcript_path intentionally omitted
-    });
-
-    await runLogSessionSummary(eventWithoutTranscriptPath);
-
-    // Ingest should still be called (success health event, not failure)
-    expect(capturedBody).not.toBeNull();
+    expect(readFile).toHaveBeenCalledWith(null);
   });
 });

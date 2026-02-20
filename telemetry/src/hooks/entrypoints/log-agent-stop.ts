@@ -1,48 +1,46 @@
-import * as fs from 'node:fs';
-
 import { consumeAgentStart, removeSessionAgent } from '@/hooks/agent-timing';
 import { parseAgentStop } from '@/hooks/parse-agent-stop';
 
-import { createClientFromEnv, extractStringField, logHealthEvent, readStdin } from './shared';
+import type { Clock, FileReader, HealthLogger, TimingStore } from './ports';
+import {
+  createClientFromEnv,
+  createFileReader,
+  extractStringField,
+  logHealthEvent,
+  readStdin,
+} from './shared';
 
 const HOOK_NAME = 'log-agent-stop';
 
-const readTranscriptContent = (transcriptPath: string | null): string => {
-  if (!transcriptPath) return '';
-  try {
-    return fs.readFileSync(transcriptPath, 'utf-8');
-  } catch {
-    return '';
-  }
+export type LogAgentStopDeps = {
+  readonly client: import('@/client').TelemetryClient;
+  readonly clock: Clock;
+  readonly timing: Pick<TimingStore, 'consumeAgentStart' | 'removeSessionAgent'>;
+  readonly readFile: FileReader;
+  readonly health: HealthLogger;
 };
 
-export const runLogAgentStop = async (eventJson: string): Promise<void> => {
-  const startTime = Date.now();
-  const client = createClientFromEnv();
-
-  if (!client) {
-    return;
-  }
+export const runLogAgentStop = async (eventJson: string, deps: LogAgentStopDeps): Promise<void> => {
+  const startTime = deps.clock.now();
 
   try {
     const transcriptPath = extractStringField(eventJson, 'agent_transcript_path');
-    const transcriptContent = readTranscriptContent(transcriptPath);
+    const transcriptContent = deps.readFile(transcriptPath);
     const agentId = extractStringField(eventJson, 'agent_id');
-    const agentStartMs = agentId ? consumeAgentStart(agentId) : null;
+    const agentStartMs = agentId ? deps.timing.consumeAgentStart(agentId) : null;
     const durationMs = agentStartMs !== null ? startTime - agentStartMs : 0;
     const row = parseAgentStop(eventJson, transcriptContent, durationMs);
     const sessionId = extractStringField(eventJson, 'session_id');
-    if (sessionId) removeSessionAgent(sessionId);
-    /* TelemetryClient.ingest types from SDK can be unresolved at this boundary. */
+    if (sessionId) deps.timing.removeSessionAgent(sessionId);
 
-    await client.ingest.agentActivations(row);
+    await deps.client.ingest.agentActivations(row);
 
-    const hookDurationMs = Date.now() - startTime;
-    void logHealthEvent(client, HOOK_NAME, 0, hookDurationMs, null, null);
+    const hookDurationMs = deps.clock.now() - startTime;
+    deps.health(HOOK_NAME, 0, hookDurationMs, null, null);
   } catch (error) {
-    const hookDurationMs = Date.now() - startTime;
+    const hookDurationMs = deps.clock.now() - startTime;
     const errorMessage = error instanceof Error ? error.message : 'Unknown error';
-    void logHealthEvent(client, HOOK_NAME, 1, hookDurationMs, errorMessage, null);
+    deps.health(HOOK_NAME, 1, hookDurationMs, errorMessage, null);
   }
 };
 
@@ -56,5 +54,18 @@ const isMainModule = (): boolean => {
 };
 
 if (isMainModule()) {
-  void readStdin().then(runLogAgentStop);
+  void readStdin().then((eventJson) => {
+    const client = createClientFromEnv();
+    if (!client) return;
+
+    return runLogAgentStop(eventJson, {
+      client,
+      clock: { now: Date.now },
+      timing: { consumeAgentStart, removeSessionAgent },
+      readFile: createFileReader(),
+      health: (hookName, exitCode, durationMs, errorMessage, statusCode) => {
+        void logHealthEvent(client, hookName, exitCode, durationMs, errorMessage, statusCode);
+      },
+    });
+  });
 }

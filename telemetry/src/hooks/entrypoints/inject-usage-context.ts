@@ -4,6 +4,7 @@ import * as path from 'node:path';
 import { buildUsageContext } from '@/hooks/build-usage-context';
 import type { AgentUsageSummaryRow } from '@/pipes';
 
+import type { CacheStore, Clock, HealthLogger } from './ports';
 import { createClientFromEnv, logHealthEvent } from './shared';
 
 const CACHE_DIR = path.join(process.env['HOME'] ?? '/tmp', '.cache', 'agents-and-skills');
@@ -38,19 +39,18 @@ const writeCache = (result: HookResult): void => {
   }
 };
 
-export const runInjectUsageContext = async (): Promise<HookResult> => {
-  const startTime = Date.now();
-  const client = createClientFromEnv();
+export type InjectUsageContextDeps = {
+  readonly client: import('@/client').TelemetryClient;
+  readonly clock: Clock;
+  readonly cache: CacheStore;
+  readonly health: HealthLogger;
+};
 
-  if (!client) {
-    return {};
-  }
+export const runInjectUsageContext = async (deps: InjectUsageContextDeps): Promise<HookResult> => {
+  const startTime = deps.clock.now();
 
   try {
-    /* TelemetryClient.query types from SDK can be unresolved at this boundary. */
-
-    const response = await client.query.agentUsageSummary({ days: QUERY_DAYS });
-    // SDK query result type can be unresolved; buildUsageContext validates rows.
+    const response = await deps.client.query.agentUsageSummary({ days: QUERY_DAYS });
     const rows: readonly AgentUsageSummaryRow[] = response.data as readonly AgentUsageSummaryRow[];
 
     const context = buildUsageContext(rows);
@@ -60,18 +60,18 @@ export const runInjectUsageContext = async (): Promise<HookResult> => {
     }
 
     const result: HookResult = { additionalContext: context };
-    writeCache(result);
+    deps.cache.write(result);
 
-    const durationMs = Date.now() - startTime;
-    void logHealthEvent(client, HOOK_NAME, 0, durationMs, null, null);
+    const durationMs = deps.clock.now() - startTime;
+    deps.health(HOOK_NAME, 0, durationMs, null, null);
 
     return result;
   } catch (error) {
-    const durationMs = Date.now() - startTime;
+    const durationMs = deps.clock.now() - startTime;
     const errorMessage = error instanceof Error ? error.message : 'Unknown error';
-    void logHealthEvent(client, HOOK_NAME, 1, durationMs, errorMessage, null);
+    deps.health(HOOK_NAME, 1, durationMs, errorMessage, null);
 
-    return readCache();
+    return deps.cache.read();
   }
 };
 
@@ -86,14 +86,28 @@ const isMainModule = (): boolean => {
 
 if (isMainModule()) {
   const TIMEOUT_MS = 1800;
+  const client = createClientFromEnv();
+
+  if (!client) {
+    process.exit(0);
+  }
+
+  const deps: InjectUsageContextDeps = {
+    client,
+    clock: { now: Date.now },
+    cache: { read: readCache, write: writeCache },
+    health: (hookName, exitCode, durationMs, errorMessage, statusCode) => {
+      void logHealthEvent(client, hookName, exitCode, durationMs, errorMessage, statusCode);
+    },
+  };
 
   const timeout = new Promise<HookResult>((resolve) => {
     setTimeout(() => {
-      resolve(readCache());
+      resolve(deps.cache.read());
     }, TIMEOUT_MS);
   });
 
-  void Promise.race([runInjectUsageContext(), timeout]).then((result) => {
+  void Promise.race([runInjectUsageContext(deps), timeout]).then((result) => {
     if (Object.keys(result).length > 0) {
       process.stdout.write(JSON.stringify(result));
     }
