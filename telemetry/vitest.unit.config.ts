@@ -6,7 +6,11 @@ export default defineConfig(
   mergeConfig(sharedConfig, {
     test: {
       name: 'unit',
-      include: ['src/**/*.test.ts', 'tests/integration/helpers/factories.test.ts'],
+      include: [
+        'src/**/*.test.ts',
+        'tests/helpers/**/*.test.ts',
+        'tests/integration/helpers/factories.test.ts',
+      ],
       setupFiles: ['tests/setup-msw.ts'],
       testTimeout: 3000,
       coverage: {
