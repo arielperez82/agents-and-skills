@@ -421,6 +421,16 @@ Before providing the skill to the user:
 
 **Testing:** Tested on 3+ real scenarios. Activates on expected triggers. Bundled resources accessible. Package structure verified.
 
+## Consolidated References (Trail of Bits)
+
+Workflow-specific skill design patterns incorporated from Trail of Bits (CC BY-SA 4.0):
+
+- [references/workflow-skill-design.md](references/workflow-skill-design.md) — Overview of workflow-based skill patterns
+- [references/workflow-patterns.md](references/workflow-patterns.md) — 5 patterns: Routing, Sequential Pipeline, Linear Progression, Safety Gate, Task-Driven
+- [references/anti-patterns.md](references/anti-patterns.md) — 20 anti-patterns to avoid when designing workflow skills
+- [references/tool-assignment-guide.md](references/tool-assignment-guide.md) — Tool selection and assignment for skill steps
+- [references/progressive-disclosure-guide.md](references/progressive-disclosure-guide.md) — Progressive content disclosure patterns
+
 ## Advanced Topics
 
 - **crafting-instructions** – Comprehensive prompting principles

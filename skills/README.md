@@ -138,6 +138,12 @@ Engineering skills (path: `skills/engineering-team/<name>/`). Load proactively p
 | **divio-documentation** | Documentation classification | DIVIO/Diataxis quadrants, type purity 80%+ rule, collapse detection. Refs: collapse-detection, quality-validation |
 | **mikado-method** | Complex refactoring | Dependency graph exploration, revert-on-failure, leaf-first execution, 10-min timebox |
 | **mutation-testing** | Test effectiveness | Mutation operators, score thresholds (>80%), Stryker/PIT/cosmic-ray, CI integration |
+| **property-based-testing** | PBT / roundtrip / idempotence tests | Property strategies (roundtrip, commutativity, invariant), generators, Hypothesis/fast-check/proptest. *Source: Trail of Bits (CC BY-SA 4.0)* |
+| **sharp-edges** | API misuse review, footgun detection | 6-category taxonomy (algorithm footguns, dangerous defaults, config cliffs, silent failures), 11 language guides. *Source: Trail of Bits (CC BY-SA 4.0)* |
+| **variant-analysis** | Found a bug, find similar ones | 5-step variant hunting (root cause → exact match → abstract → generalize → triage), CodeQL/Semgrep templates. *Source: Trail of Bits (CC BY-SA 4.0)* |
+| **semgrep-rule-creator** | Writing custom Semgrep rules | Rule authoring, taint mode, test-first workflow, quick reference. *Source: Trail of Bits (CC BY-SA 4.0)* |
+| **modern-python** | Python project setup | uv + ruff + ty stack, pyproject.toml, migration guides from pip/Poetry/mypy. *Source: Trail of Bits (CC BY-SA 4.0)* |
+| **semgrep-scanning** | Running Semgrep security scans | Parallel scan orchestration, language detection, ruleset selection, SARIF triage. *Source: Trail of Bits (CC BY-SA 4.0)* |
 
 Role and specialist skills (same folder):
 

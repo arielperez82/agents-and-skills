@@ -418,6 +418,21 @@ Check the comprehensive troubleshooting section in `references/cryptography_impl
 - Consult tech stack documentation
 - Review error logs
 
+## Consolidated References (Trail of Bits)
+
+The following references were incorporated from Trail of Bits' security skills (CC BY-SA 4.0):
+
+### Insecure Defaults Detection
+- `references/insecure-defaults.md` — Detect fail-open defaults, hardcoded secrets, weak auth, permissive CORS, weak crypto
+- `references/insecure-defaults-examples.md` — Language-specific examples of insecure defaults
+
+### Differential Security Review
+- `references/differential-review.md` — Security-focused diff review with blast radius calculation and git history analysis
+- `references/differential-review-methodology.md` — SMALL/MEDIUM/LARGE strategy and risk-level triggers
+- `references/differential-review-adversarial.md` — Adversarial modeling for code review
+- `references/differential-review-patterns.md` — Common vulnerability patterns in diffs
+- `references/differential-review-reporting.md` — Structured security review reporting
+
 ## Resources
 
 - Pattern Reference: `references/security_architecture_patterns.md`

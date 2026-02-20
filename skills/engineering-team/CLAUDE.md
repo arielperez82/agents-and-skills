@@ -326,6 +326,21 @@ services:
 
 ---
 
-**Last Updated:** February 16, 2026
-**Skills Deployed:** 30/30 engineering role skills production-ready
+### Trail of Bits Security & Testing Skills (CC BY-SA 4.0)
+
+Incorporated from [trailofbits/skills](https://github.com/trailofbits/skills):
+
+| Skill | Purpose |
+|-------|---------|
+| **property-based-testing** | PBT patterns (roundtrip, idempotence, commutativity), generators, Hypothesis/fast-check/proptest |
+| **sharp-edges** | API misuse-resistance analysis, footgun detection, 11 language guides |
+| **variant-analysis** | Bug variant hunting, CodeQL/Semgrep templates |
+| **semgrep-rule-creator** | Custom Semgrep rule authoring with test-first workflow |
+| **modern-python** | Modern Python tooling (uv, ruff, ty), pyproject.toml, migration guides |
+| **semgrep-scanning** | Semgrep scan orchestration, ruleset selection, SARIF triage |
+
+Additionally, `senior-security` gained references for insecure-defaults detection and differential security review.
+
+**Last Updated:** February 20, 2026
+**Skills Deployed:** 36/36 engineering skills production-ready (30 role + 6 Trail of Bits)
 **Total Tools:** 44 Python automation tools across core + strategic + AI/ML/Data + platform + specialist
