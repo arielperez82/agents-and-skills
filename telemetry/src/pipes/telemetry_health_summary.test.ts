@@ -18,7 +18,10 @@ describe('telemetry_health_summary endpoint', () => {
   });
 
   it('defines all 6 expected output fields', () => {
-    const output = telemetryHealthSummary.options.output;
+    const output =
+      'output' in telemetryHealthSummary.options
+        ? telemetryHealthSummary.options.output
+        : undefined;
     expect(output).toBeDefined();
 
     const fieldNames = objectKeysFromUnknown(output);

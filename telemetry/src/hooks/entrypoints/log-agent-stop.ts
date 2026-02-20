@@ -34,7 +34,7 @@ export const runLogAgentStop = async (eventJson: string): Promise<void> => {
     const sessionId = extractStringField(eventJson, 'session_id');
     if (sessionId) removeSessionAgent(sessionId);
     /* TelemetryClient.ingest types from SDK can be unresolved at this boundary. */
-    /* eslint-disable-next-line @typescript-eslint/no-unsafe-call, @typescript-eslint/no-unsafe-member-access */
+
     await client.ingest.agentActivations(row);
 
     const hookDurationMs = Date.now() - startTime;

@@ -13,6 +13,11 @@ import {
 
 const uid = (): string => crypto.randomUUID();
 
+const ingestAll = <T>(
+  ingestFn: (row: T) => Promise<unknown>,
+  rows: readonly T[]
+): Promise<unknown[]> => Promise.all(rows.map((row) => ingestFn(row)));
+
 describe('pipes integration (Tinybird Local)', () => {
   it('agent_usage_summary: returns aggregated agent stats after ingest', async () => {
     const agentType = `integ-agent-${uid()}`;
@@ -27,9 +32,9 @@ describe('pipes integration (Tinybird Local)', () => {
         est_cost_usd: 0.01 * (i + 1),
       })
     );
-    await integrationClient.ingest.agentActivationsBatch(rows);
+    await ingestAll((row) => integrationClient.agentActivations.ingest(row), rows);
 
-    const result = await integrationClient.query.agentUsageSummary({ days: 7 });
+    const result = await integrationClient.agentUsageSummary.query({ days: 7 });
     expect(result.data).toBeDefined();
     const match = result.data.find((r) => r.agent_type === agentType);
     expect(match).toBeDefined();
@@ -40,15 +45,14 @@ describe('pipes integration (Tinybird Local)', () => {
 
   it('skill_frequency: returns skill counts after ingest', async () => {
     const skillName = `integ-skill-${uid()}`;
-    await integrationClient.ingest.skillActivationsBatch(
-      makeSkillActivationRows(3).map((r) => ({
-        ...r,
-        skill_name: skillName,
-        entity_type: 'skill',
-      }))
-    );
+    const rows = makeSkillActivationRows(3).map((r) => ({
+      ...r,
+      skill_name: skillName,
+      entity_type: 'skill' as const,
+    }));
+    await ingestAll((row) => integrationClient.skillActivations.ingest(row), rows);
 
-    const result = await integrationClient.query.skillFrequency({ days: 7 });
+    const result = await integrationClient.skillFrequency.query({ days: 7 });
     const match = result.data.find((r) => r.skill_name === skillName);
     expect(match).toBeDefined();
     expect(match?.activations).toBe(3);
@@ -57,18 +61,17 @@ describe('pipes integration (Tinybird Local)', () => {
 
   it('cost_by_model: returns cost attribution after ingest', async () => {
     const model = `integ-model-${uid()}`;
-    await integrationClient.ingest.apiRequestsBatch(
-      makeApiRequestRows(2).map((r, i) =>
-        makeApiRequestRow({
-          ...r,
-          session_id: `session-cost-${uid()}`,
-          model,
-          cost_usd: 0.5 + i * 0.25,
-        })
-      )
+    const rows = makeApiRequestRows(2).map((r, i) =>
+      makeApiRequestRow({
+        ...r,
+        session_id: `session-cost-${uid()}`,
+        model,
+        cost_usd: 0.5 + i * 0.25,
+      })
     );
+    await ingestAll((row) => integrationClient.apiRequests.ingest(row), rows);
 
-    const result = await integrationClient.query.costByModel({ days: 7 });
+    const result = await integrationClient.costByModel.query({ days: 7 });
     const match = result.data.find((r) => r.model === model);
     expect(match).toBeDefined();
     expect(Number(match?.total_cost_usd)).toBeCloseTo(0.5 + 0.75, 5);
@@ -77,7 +80,7 @@ describe('pipes integration (Tinybird Local)', () => {
 
   it('session_overview: returns session aggregates after ingest', async () => {
     const sessionId = `session-overview-${uid()}`;
-    await integrationClient.ingest.sessionSummariesBatch([
+    await integrationClient.sessionSummaries.ingest(
       makeSessionSummaryRow({
         session_id: sessionId,
         total_duration_ms: 1000,
@@ -86,10 +89,10 @@ describe('pipes integration (Tinybird Local)', () => {
         total_cost_usd: 1.5,
         total_input_tokens: 100,
         total_output_tokens: 200,
-      }),
-    ]);
+      })
+    );
 
-    const result = await integrationClient.query.sessionOverview({
+    const result = await integrationClient.sessionOverview.query({
       session_id: sessionId,
       days: 7,
     });
@@ -102,17 +105,17 @@ describe('pipes integration (Tinybird Local)', () => {
 
   it('optimization_insights: returns efficiency metrics after ingest', async () => {
     const agentType = `insights-agent-${uid()}`;
-    await integrationClient.ingest.agentActivationsBatch([
+    await integrationClient.agentActivations.ingest(
       makeAgentActivationRow({
         event: 'stop',
         agent_type: agentType,
         input_tokens: 100,
         output_tokens: 200,
         cache_read_tokens: 50,
-      }),
-    ]);
+      })
+    );
 
-    const result = await integrationClient.query.optimizationInsights({ days: 7 });
+    const result = await integrationClient.optimizationInsights.query({ days: 7 });
     const match = result.data.find((r) => r.agent_type === agentType);
     expect(match).toBeDefined();
     expect(Number(match?.frequency)).toBe(1);
@@ -121,11 +124,14 @@ describe('pipes integration (Tinybird Local)', () => {
 
   it('telemetry_health_summary: returns hook health after ingest', async () => {
     const hookName = `integ-hook-${uid()}`;
-    await integrationClient.ingest.telemetryHealthBatch(
-      makeTelemetryHealthRows(2).map((r) => ({ ...r, hook_name: hookName, exit_code: 0 }))
-    );
+    const rows = makeTelemetryHealthRows(2).map((r) => ({
+      ...r,
+      hook_name: hookName,
+      exit_code: 0,
+    }));
+    await ingestAll((row) => integrationClient.telemetryHealth.ingest(row), rows);
 
-    const result = await integrationClient.query.telemetryHealthSummary({ hours: 24 });
+    const result = await integrationClient.telemetryHealthSummary.query({ hours: 24 });
     const match = result.data.find((r) => r.hook_name === hookName);
     expect(match).toBeDefined();
     expect(Number(match?.total_invocations)).toBe(2);
@@ -136,15 +142,15 @@ describe('pipes integration (Tinybird Local)', () => {
     const sessionId = `session-consistency-${uid()}`;
     const model = `consistency-model-${uid()}`;
     const costUsd = 2.25;
-    await integrationClient.ingest.apiRequestsBatch([
-      makeApiRequestRow({ session_id: sessionId, model, cost_usd: costUsd }),
-    ]);
-    await integrationClient.ingest.sessionSummariesBatch([
-      makeSessionSummaryRow({ session_id: sessionId, total_cost_usd: costUsd }),
-    ]);
+    await integrationClient.apiRequests.ingest(
+      makeApiRequestRow({ session_id: sessionId, model, cost_usd: costUsd })
+    );
+    await integrationClient.sessionSummaries.ingest(
+      makeSessionSummaryRow({ session_id: sessionId, total_cost_usd: costUsd })
+    );
 
-    const costResult = await integrationClient.query.costByModel({ days: 7 });
-    const sessionResult = await integrationClient.query.sessionOverview({
+    const costResult = await integrationClient.costByModel.query({ days: 7 });
+    const sessionResult = await integrationClient.sessionOverview.query({
       session_id: sessionId,
       days: 7,
     });
@@ -158,31 +164,31 @@ describe('pipes integration (Tinybird Local)', () => {
   });
 
   it('parameter validation: accepts days=1 and returns data within window', async () => {
-    const result = await integrationClient.query.agentUsageSummary({ days: 1 });
+    const result = await integrationClient.agentUsageSummary.query({ days: 1 });
     expect(result.data).toBeDefined();
     expect(Array.isArray(result.data)).toBe(true);
   });
 
   it('parameter validation: accepts days=0 (same-day window)', async () => {
-    const result = await integrationClient.query.skillFrequency({ days: 0 });
+    const result = await integrationClient.skillFrequency.query({ days: 0 });
     expect(result.data).toBeDefined();
     expect(Array.isArray(result.data)).toBe(true);
   });
 
   it('parameter validation: accepts large days value', async () => {
-    const result = await integrationClient.query.costByModel({ days: 365 });
+    const result = await integrationClient.costByModel.query({ days: 365 });
     expect(result.data).toBeDefined();
     expect(Array.isArray(result.data)).toBe(true);
   });
 
   it('parameter validation: session_overview without session_id returns all sessions in window', async () => {
-    const result = await integrationClient.query.sessionOverview({ days: 7 });
+    const result = await integrationClient.sessionOverview.query({ days: 7 });
     expect(result.data).toBeDefined();
     expect(Array.isArray(result.data)).toBe(true);
   });
 
   it('parameter validation: telemetry_health_summary accepts hours param', async () => {
-    const result = await integrationClient.query.telemetryHealthSummary({ hours: 1 });
+    const result = await integrationClient.telemetryHealthSummary.query({ hours: 1 });
     expect(result.data).toBeDefined();
     expect(Array.isArray(result.data)).toBe(true);
   });

@@ -39,7 +39,7 @@ export const runLogSessionSummary = async (eventJson: string): Promise<void> => 
     const transcriptContent = readTranscriptContent(transcriptPath);
     const row = buildSessionSummary(eventJson, transcriptContent);
     /* TelemetryClient.ingest types from SDK can be unresolved at this boundary. */
-    /* eslint-disable-next-line @typescript-eslint/no-unsafe-call, @typescript-eslint/no-unsafe-member-access */
+
     await client.ingest.sessionSummaries(row);
 
     const durationMs = Date.now() - startTime;

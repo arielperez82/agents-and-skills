@@ -11,7 +11,7 @@ const firstNode = () => {
 };
 
 const getOutput = () => {
-  const output = costByModel.options.output;
+  const output = 'output' in costByModel.options ? costByModel.options.output : undefined;
   if (!output) throw new Error('Expected output to be defined');
   return output;
 };

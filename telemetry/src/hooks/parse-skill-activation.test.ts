@@ -37,7 +37,7 @@ describe('parseSkillActivation', () => {
       const result = parseSkillActivation(makeValidEvent());
 
       expect(result).toEqual<SkillActivationRow>({
-        timestamp: now,
+        timestamp: now.toISOString(),
         session_id: 'sess-abc-123',
         skill_name: 'tdd',
         entity_type: 'skill',
@@ -95,7 +95,7 @@ describe('parseSkillActivation', () => {
       );
 
       expect(result).toEqual<SkillActivationRow>({
-        timestamp: now,
+        timestamp: now.toISOString(),
         session_id: 'sess-abc-123',
         skill_name: 'agent/validate',
         entity_type: 'command',

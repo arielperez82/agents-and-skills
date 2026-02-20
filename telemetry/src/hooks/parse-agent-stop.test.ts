@@ -46,7 +46,7 @@ describe('parseAgentStop', () => {
       const result = parseAgentStop(event, transcript);
 
       expect(result).toEqual<AgentActivationRow>({
-        timestamp: now,
+        timestamp: now.toISOString(),
         session_id: 'sess-001',
         parent_session_id: null,
         agent_type: 'tdd-reviewer',
@@ -178,9 +178,10 @@ describe('parseAgentStop', () => {
       const result = parseAgentStop(makeEvent(), '');
       const after = Date.now();
 
-      expect(result.timestamp).toBeInstanceOf(Date);
-      expect(result.timestamp.getTime()).toBeGreaterThanOrEqual(before);
-      expect(result.timestamp.getTime()).toBeLessThanOrEqual(after);
+      expect(typeof result.timestamp).toBe('string');
+      const ts = new Date(result.timestamp).getTime();
+      expect(ts).toBeGreaterThanOrEqual(before);
+      expect(ts).toBeLessThanOrEqual(after);
     });
   });
 

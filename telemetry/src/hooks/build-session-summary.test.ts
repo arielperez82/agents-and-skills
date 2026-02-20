@@ -67,9 +67,10 @@ describe('buildSessionSummary', () => {
     const result = buildSessionSummary(makeEvent(), transcript);
     const after = Date.now();
 
-    expect(result.timestamp).toBeInstanceOf(Date);
-    expect(result.timestamp.getTime()).toBeGreaterThanOrEqual(before);
-    expect(result.timestamp.getTime()).toBeLessThanOrEqual(after);
+    expect(typeof result.timestamp).toBe('string');
+    const ts = new Date(result.timestamp).getTime();
+    expect(ts).toBeGreaterThanOrEqual(before);
+    expect(ts).toBeLessThanOrEqual(after);
     expect(result.session_id).toBe('sess-abc-123');
     expect(result.total_duration_ms).toBe(0);
     expect(result.agent_count).toBe(0);
@@ -118,9 +119,10 @@ describe('buildSessionSummary', () => {
     const result = buildSessionSummary(makeEvent(), '');
     const after = Date.now();
 
-    expect(result.timestamp).toBeInstanceOf(Date);
-    expect(result.timestamp.getTime()).toBeGreaterThanOrEqual(before);
-    expect(result.timestamp.getTime()).toBeLessThanOrEqual(after);
+    expect(typeof result.timestamp).toBe('string');
+    const ts = new Date(result.timestamp).getTime();
+    expect(ts).toBeGreaterThanOrEqual(before);
+    expect(ts).toBeLessThanOrEqual(after);
   });
 
   it('sets total_duration_ms to 0 since Claude Code does not send duration', () => {

@@ -23,7 +23,7 @@ describe('integration test factories', () => {
   it('makeAgentActivationRow returns row assignable to AgentActivationRow with all required keys', () => {
     const row: AgentActivationRow = makeAgentActivationRow();
     expect(row).toMatchObject({
-      timestamp: expect.any(Date),
+      timestamp: expect.any(String),
       session_id: expect.any(String),
       agent_type: expect.any(String),
       agent_id: expect.any(String),
@@ -42,7 +42,7 @@ describe('integration test factories', () => {
   it('makeSkillActivationRow returns row assignable to SkillActivationRow with all required keys', () => {
     const row: SkillActivationRow = makeSkillActivationRow();
     expect(row).toMatchObject({
-      timestamp: expect.any(Date),
+      timestamp: expect.any(String),
       session_id: expect.any(String),
       skill_name: expect.any(String),
       entity_type: expect.any(String),
@@ -55,7 +55,7 @@ describe('integration test factories', () => {
   it('makeApiRequestRow returns row assignable to ApiRequestRow with all required keys', () => {
     const row: ApiRequestRow = makeApiRequestRow();
     expect(row).toMatchObject({
-      timestamp: expect.any(Date),
+      timestamp: expect.any(String),
       session_id: expect.any(String),
       model: expect.any(String),
       input_tokens: expect.any(Number),
@@ -71,7 +71,7 @@ describe('integration test factories', () => {
   it('makeSessionSummaryRow returns row assignable to SessionSummaryRow with all required keys', () => {
     const row: SessionSummaryRow = makeSessionSummaryRow();
     expect(row).toMatchObject({
-      timestamp: expect.any(Date),
+      timestamp: expect.any(String),
       session_id: expect.any(String),
       total_duration_ms: expect.any(Number),
       agent_count: expect.any(Number),
@@ -90,7 +90,7 @@ describe('integration test factories', () => {
   it('makeTelemetryHealthRow returns row assignable to TelemetryHealthRow with all required keys', () => {
     const row: TelemetryHealthRow = makeTelemetryHealthRow();
     expect(row).toMatchObject({
-      timestamp: expect.any(Date),
+      timestamp: expect.any(String),
       hook_name: expect.any(String),
       exit_code: expect.any(Number),
       duration_ms: expect.any(Number),
@@ -147,6 +147,6 @@ describe('integration test factories', () => {
     const row = makeAgentActivationRow({ session_id: 'custom-session', event: 'stop' });
     expect(row.session_id).toBe('custom-session');
     expect(row.event).toBe('stop');
-    expect(row.timestamp).toBeInstanceOf(Date);
+    expect(typeof row.timestamp).toBe('string');
   });
 });

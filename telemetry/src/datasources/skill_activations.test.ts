@@ -51,7 +51,7 @@ describe('skill_activations datasource', () => {
 
   it('exports SkillActivationRow type that matches the schema', () => {
     const row: SkillActivationRow = {
-      timestamp: new Date(),
+      timestamp: new Date().toISOString(),
       session_id: 'sess-abc-123',
       skill_name: 'tdd',
       entity_type: 'skill',
@@ -68,7 +68,7 @@ describe('skill_activations datasource', () => {
 
   it('allows non-null values for nullable agent_type field', () => {
     const row: SkillActivationRow = {
-      timestamp: new Date(),
+      timestamp: new Date().toISOString(),
       session_id: 'sess-def-456',
       skill_name: 'typescript-strict',
       entity_type: 'command',

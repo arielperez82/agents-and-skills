@@ -25,7 +25,7 @@ describe('parseAgentStart', () => {
       const result = parseAgentStart(makeValidEvent());
 
       expect(result).toEqual<AgentActivationRow>({
-        timestamp: now,
+        timestamp: now.toISOString(),
         session_id: 'sess-abc-123',
         parent_session_id: null,
         agent_type: 'tdd-reviewer',
@@ -46,14 +46,15 @@ describe('parseAgentStart', () => {
       vi.useRealTimers();
     });
 
-    it('generates timestamp from current time since Claude Code does not send it', () => {
+    it('generates timestamp from current time as ISO string', () => {
       const before = Date.now();
       const result = parseAgentStart(makeValidEvent());
       const after = Date.now();
 
-      expect(result.timestamp).toBeInstanceOf(Date);
-      expect(result.timestamp.getTime()).toBeGreaterThanOrEqual(before);
-      expect(result.timestamp.getTime()).toBeLessThanOrEqual(after);
+      expect(typeof result.timestamp).toBe('string');
+      const ts = new Date(result.timestamp).getTime();
+      expect(ts).toBeGreaterThanOrEqual(before);
+      expect(ts).toBeLessThanOrEqual(after);
     });
 
     it('hardcodes event to start', () => {

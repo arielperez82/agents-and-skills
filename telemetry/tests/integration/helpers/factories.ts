@@ -7,7 +7,7 @@ import type { TelemetryHealthRow } from '@/datasources/telemetry_health';
 let idCounter = 0;
 const nextId = (): string => `id-${String(++idCounter)}`;
 
-const defaultTimestamp = (): Date => new Date();
+const defaultTimestamp = (): string => new Date().toISOString();
 
 export function makeAgentActivationRow(
   overrides: Partial<AgentActivationRow> = {}

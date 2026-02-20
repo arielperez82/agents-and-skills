@@ -11,7 +11,7 @@ const firstNode = () => {
 };
 
 const getOutput = () => {
-  const output = costByAgent.options.output;
+  const output = 'output' in costByAgent.options ? costByAgent.options.output : undefined;
   if (!output) throw new Error('Expected output to be defined');
   return output;
 };

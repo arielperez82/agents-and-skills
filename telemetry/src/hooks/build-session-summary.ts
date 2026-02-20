@@ -24,7 +24,7 @@ export const buildSessionSummary = (
   const agents = parseTranscriptAgents(transcriptContent);
 
   return {
-    timestamp: new Date(),
+    timestamp: new Date().toISOString(),
     session_id: event.session_id,
     total_duration_ms: 0,
     agent_count: agents.agent_count,

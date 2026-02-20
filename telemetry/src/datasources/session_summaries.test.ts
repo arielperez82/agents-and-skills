@@ -53,7 +53,7 @@ describe('session_summaries datasource', () => {
 
   it('exports SessionSummaryRow type that matches the schema', () => {
     const row: SessionSummaryRow = {
-      timestamp: new Date(),
+      timestamp: new Date().toISOString(),
       session_id: 'sess-abc-123',
       total_duration_ms: 45000,
       agent_count: 3,

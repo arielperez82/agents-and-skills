@@ -11,7 +11,7 @@ const firstNode = () => {
 };
 
 const getOutput = () => {
-  const output = sessionOverview.options.output;
+  const output = 'output' in sessionOverview.options ? sessionOverview.options.output : undefined;
   if (!output) throw new Error('Expected output to be defined');
   return output;
 };

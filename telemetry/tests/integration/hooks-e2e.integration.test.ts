@@ -95,7 +95,7 @@ describe('hooks E2E (Tinybird Local)', () => {
         })
       );
 
-      const result = await integrationClient.query.agentUsageSummary({ days: 1 });
+      const result = await integrationClient.agentUsageSummary.query({ days: 1 });
       const match = result.data.find((r) => r.agent_type === agentType);
       expect(match).toBeDefined();
       expect(Number(match?.invocations)).toBe(1);
@@ -124,7 +124,7 @@ describe('hooks E2E (Tinybird Local)', () => {
         })
       );
 
-      const result = await integrationClient.query.agentUsageSummary({ days: 1 });
+      const result = await integrationClient.agentUsageSummary.query({ days: 1 });
       const match = result.data.find((r) => r.agent_type === agentType);
       expect(match).toBeDefined();
       expect(Number(match?.total_input)).toBe(500);
@@ -152,7 +152,7 @@ describe('hooks E2E (Tinybird Local)', () => {
         })
       );
 
-      const result = await integrationClient.query.skillFrequency({ days: 1 });
+      const result = await integrationClient.skillFrequency.query({ days: 1 });
       const match = result.data.find((r) => r.skill_name === skillName);
       expect(match).toBeDefined();
       expect(match?.entity_type).toBe('skill');
@@ -160,7 +160,7 @@ describe('hooks E2E (Tinybird Local)', () => {
     });
 
     it('does not ingest for non-skill file reads', async () => {
-      const beforeResult = await integrationClient.query.skillFrequency({ days: 1 });
+      const beforeResult = await integrationClient.skillFrequency.query({ days: 1 });
       const beforeCount = beforeResult.rows;
 
       await runLogSkillActivation(
@@ -174,7 +174,7 @@ describe('hooks E2E (Tinybird Local)', () => {
         })
       );
 
-      const afterResult = await integrationClient.query.skillFrequency({ days: 1 });
+      const afterResult = await integrationClient.skillFrequency.query({ days: 1 });
       expect(afterResult.rows).toBe(beforeCount);
     });
   });
@@ -194,7 +194,7 @@ describe('hooks E2E (Tinybird Local)', () => {
         })
       );
 
-      const result = await integrationClient.query.sessionOverview({
+      const result = await integrationClient.sessionOverview.query({
         session_id: sessionId,
         days: 1,
       });
@@ -223,7 +223,7 @@ describe('hooks E2E (Tinybird Local)', () => {
     it('records health events from successful hook executions', async () => {
       await new Promise((r) => setTimeout(r, 500));
 
-      const result = await integrationClient.query.telemetryHealthSummary({ hours: 1 });
+      const result = await integrationClient.telemetryHealthSummary.query({ hours: 1 });
       const hookNames = result.data.map((r) => r.hook_name);
       expect(hookNames.length).toBeGreaterThan(0);
     });

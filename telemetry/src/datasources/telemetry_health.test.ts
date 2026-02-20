@@ -46,7 +46,7 @@ describe('telemetry_health datasource', () => {
 
   it('exports TelemetryHealthRow type that matches the schema', () => {
     const row: TelemetryHealthRow = {
-      timestamp: new Date(),
+      timestamp: new Date().toISOString(),
       hook_name: 'pre-push',
       exit_code: 0,
       duration_ms: 1234,
@@ -63,7 +63,7 @@ describe('telemetry_health datasource', () => {
 
   it('allows non-null values for nullable fields', () => {
     const row: TelemetryHealthRow = {
-      timestamp: new Date(),
+      timestamp: new Date().toISOString(),
       hook_name: 'pre-commit',
       exit_code: 1,
       duration_ms: 5678,

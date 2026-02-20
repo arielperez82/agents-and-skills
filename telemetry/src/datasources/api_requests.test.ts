@@ -52,7 +52,7 @@ describe('api_requests datasource', () => {
 
   it('exports ApiRequestRow type that matches the schema', () => {
     const row: ApiRequestRow = {
-      timestamp: new Date(),
+      timestamp: new Date().toISOString(),
       session_id: 'sess-abc-123',
       model: 'claude-opus-4-6',
       input_tokens: 15000,
@@ -74,7 +74,7 @@ describe('api_requests datasource', () => {
 
   it('allows non-null values for nullable error_type field', () => {
     const row: ApiRequestRow = {
-      timestamp: new Date(),
+      timestamp: new Date().toISOString(),
       session_id: 'sess-err-456',
       model: 'claude-opus-4-6',
       input_tokens: 1000,

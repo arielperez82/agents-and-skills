@@ -61,7 +61,7 @@ describe('agent_activations datasource', () => {
 
   it('exports AgentActivationRow type that matches the schema', () => {
     const row: AgentActivationRow = {
-      timestamp: new Date(),
+      timestamp: new Date().toISOString(),
       session_id: 'sess-123',
       parent_session_id: null,
       agent_type: 'data-engineer',

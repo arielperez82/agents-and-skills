@@ -18,7 +18,8 @@ describe('agent_usage_summary endpoint', () => {
   });
 
   it('defines all 9 expected output fields', () => {
-    const output = agentUsageSummary.options.output;
+    const output =
+      'output' in agentUsageSummary.options ? agentUsageSummary.options.output : undefined;
     expect(output).toBeDefined();
 
     const fieldNames = objectKeysFromUnknown(output);

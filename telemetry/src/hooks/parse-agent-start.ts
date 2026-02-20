@@ -21,7 +21,7 @@ export const parseAgentStart = (eventJson: string): AgentActivationRow => {
   }
 
   return {
-    timestamp: new Date(),
+    timestamp: new Date().toISOString(),
     session_id: event.session_id,
     parent_session_id: null,
     agent_type: event.agent_type,

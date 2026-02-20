@@ -24,7 +24,8 @@ describe('optimization_insights endpoint', () => {
   });
 
   it('defines all 6 expected output fields with cache_hit_rate instead of cache_ratio', () => {
-    const output = optimizationInsights.options.output;
+    const output =
+      'output' in optimizationInsights.options ? optimizationInsights.options.output : undefined;
     expect(output).toBeDefined();
     const fieldNames = objectKeysFromUnknown(output);
     expect(fieldNames).toHaveLength(6);

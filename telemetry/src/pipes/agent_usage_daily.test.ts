@@ -32,7 +32,7 @@ describe('agent_usage_daily endpoint', () => {
   });
 
   it('defines all 6 expected output fields', () => {
-    const output = agentUsageDaily.options.output;
+    const output = 'output' in agentUsageDaily.options ? agentUsageDaily.options.output : undefined;
     expect(output).toBeDefined();
     const fieldNames = objectKeysFromUnknown(output);
     expect(fieldNames).toHaveLength(6);
@@ -91,7 +91,7 @@ describe('agent_usage_daily endpoint', () => {
 
   it('exports AgentUsageDailyRow type matching the output', () => {
     const row: AgentUsageDailyRow = {
-      day: new Date('2026-02-19'),
+      day: '2026-02-19',
       agent_type: 'tdd-reviewer',
       invocations: 15,
       total_direct_tokens: 50000,

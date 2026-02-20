@@ -24,7 +24,7 @@ describe('skill_frequency endpoint', () => {
   });
 
   it('defines all 5 expected output fields', () => {
-    const output = skillFrequency.options.output;
+    const output = 'output' in skillFrequency.options ? skillFrequency.options.output : undefined;
     expect(output).toBeDefined();
     const fieldNames = objectKeysFromUnknown(output);
     expect(fieldNames).toHaveLength(5);

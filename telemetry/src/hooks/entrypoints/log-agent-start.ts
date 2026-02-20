@@ -21,7 +21,7 @@ export const runLogAgentStart = async (eventJson: string): Promise<void> => {
     if (agentId) recordAgentStart(agentId, startTime);
     if (sessionId && agentType) recordSessionAgent(sessionId, agentType);
     /* TelemetryClient.ingest types from SDK can be unresolved at this boundary. */
-    /* eslint-disable-next-line @typescript-eslint/no-unsafe-call, @typescript-eslint/no-unsafe-member-access */
+
     await client.ingest.agentActivations(row);
 
     const durationMs = Date.now() - startTime;

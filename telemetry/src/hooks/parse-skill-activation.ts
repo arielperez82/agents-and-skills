@@ -71,7 +71,7 @@ export const parseSkillActivation = (
   }
 
   return {
-    timestamp: new Date(),
+    timestamp: new Date().toISOString(),
     session_id: event.session_id,
     skill_name: skillInfo.skill_name,
     entity_type: skillInfo.entity_type,

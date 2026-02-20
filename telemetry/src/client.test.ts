@@ -24,14 +24,14 @@ describe('createTelemetryClient', () => {
       expect(client.query).toBeDefined();
     });
 
-    it('exposes batch ingest methods for all datasources', () => {
+    it('exposes ingest methods for all datasources', () => {
       const client = createClient();
 
-      expect(typeof client.ingest.agentActivationsBatch).toBe('function');
-      expect(typeof client.ingest.apiRequestsBatch).toBe('function');
-      expect(typeof client.ingest.sessionSummariesBatch).toBe('function');
-      expect(typeof client.ingest.skillActivationsBatch).toBe('function');
-      expect(typeof client.ingest.telemetryHealthBatch).toBe('function');
+      expect(typeof client.ingest.agentActivations).toBe('function');
+      expect(typeof client.ingest.apiRequests).toBe('function');
+      expect(typeof client.ingest.sessionSummaries).toBe('function');
+      expect(typeof client.ingest.skillActivations).toBe('function');
+      expect(typeof client.ingest.telemetryHealth).toBe('function');
     });
 
     it('exposes query methods for all pipes', () => {
@@ -102,7 +102,7 @@ describe('createTelemetryClient', () => {
 
       const client = createClient();
       await client.ingest.telemetryHealth({
-        timestamp: new Date(),
+        timestamp: new Date().toISOString(),
         hook_name: 'test-hook',
         exit_code: 0,
         duration_ms: 100,
@@ -183,7 +183,7 @@ describe('createTelemetryClient', () => {
       const client = createClient();
       await expect(
         client.ingest.telemetryHealth({
-          timestamp: new Date(),
+          timestamp: new Date().toISOString(),
           hook_name: 'test',
           exit_code: 0,
           duration_ms: 0,

@@ -1,4 +1,4 @@
-import { createTinybirdClient } from '@tinybirdco/sdk';
+import { Tinybird } from '@tinybirdco/sdk';
 
 import * as datasources from '@/datasources';
 import * as pipes from '@/pipes';
@@ -6,7 +6,7 @@ import * as pipes from '@/pipes';
 const baseUrl = process.env.TB_HOST ?? 'http://localhost:7181';
 const token = process.env.TB_TOKEN ?? '';
 
-export const integrationClient = createTinybirdClient({
+export const integrationClient = new Tinybird({
   datasources: {
     agentActivations: datasources.agentActivations,
     apiRequests: datasources.apiRequests,
