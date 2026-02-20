@@ -2,6 +2,7 @@ import { describe, expect, it } from 'vitest';
 
 import type { CostByAgentRow } from './cost_by_agent';
 import { costByAgent } from './cost_by_agent';
+import { objectKeysFromUnknown } from './test-utils';
 
 const firstNode = () => {
   const n = costByAgent.options.nodes[0];
@@ -37,7 +38,7 @@ describe('cost_by_agent endpoint', () => {
   });
 
   it('defines all 9 expected output fields', () => {
-    const fieldNames = Object.keys(getOutput());
+    const fieldNames = objectKeysFromUnknown(getOutput());
     expect(fieldNames).toHaveLength(9);
     expect(fieldNames).toEqual([
       'agent_type',

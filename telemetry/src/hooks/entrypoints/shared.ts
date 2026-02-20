@@ -44,6 +44,8 @@ export const logHealthEvent = async (
   tinybirdStatusCode: number | null
 ): Promise<void> => {
   try {
+    /* TelemetryClient.ingest types from SDK can be unresolved at this boundary. */
+    /* eslint-disable-next-line @typescript-eslint/no-unsafe-call, @typescript-eslint/no-unsafe-member-access */
     await client.ingest.telemetryHealth({
       timestamp: new Date(),
       hook_name: hookName,

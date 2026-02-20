@@ -47,6 +47,8 @@ export const runLogSkillActivation = async (eventJson: string): Promise<void> =>
       return;
     }
 
+    /* TelemetryClient.ingest types from SDK can be unresolved at this boundary. */
+    /* eslint-disable-next-line @typescript-eslint/no-unsafe-call, @typescript-eslint/no-unsafe-member-access */
     await client.ingest.skillActivations(row);
 
     const durationMs = Date.now() - startTime;

@@ -2,6 +2,7 @@ import { describe, expect, it } from 'vitest';
 
 import type { AgentUsageDailyRow } from './agent_usage_daily';
 import { agentUsageDaily } from './agent_usage_daily';
+import { objectKeysFromUnknown } from './test-utils';
 
 const firstNode = () => {
   const n = agentUsageDaily.options.nodes[0];
@@ -33,7 +34,7 @@ describe('agent_usage_daily endpoint', () => {
   it('defines all 6 expected output fields', () => {
     const output = agentUsageDaily.options.output;
     expect(output).toBeDefined();
-    const fieldNames = Object.keys(output ?? {});
+    const fieldNames = objectKeysFromUnknown(output);
     expect(fieldNames).toHaveLength(6);
     expect(fieldNames).toEqual([
       'day',

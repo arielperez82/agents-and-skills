@@ -2,6 +2,7 @@ import { describe, expect, it } from 'vitest';
 
 import type { SkillFrequencyRow } from './skill_frequency';
 import { skillFrequency } from './skill_frequency';
+import { objectKeysFromUnknown } from './test-utils';
 
 const firstNode = () => {
   const n = skillFrequency.options.nodes[0];
@@ -25,7 +26,7 @@ describe('skill_frequency endpoint', () => {
   it('defines all 5 expected output fields', () => {
     const output = skillFrequency.options.output;
     expect(output).toBeDefined();
-    const fieldNames = Object.keys(output as NonNullable<typeof output>);
+    const fieldNames = objectKeysFromUnknown(output);
     expect(fieldNames).toHaveLength(5);
     expect(fieldNames).toEqual([
       'skill_name',

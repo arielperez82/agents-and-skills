@@ -2,6 +2,7 @@ import { describe, expect, it } from 'vitest';
 
 import type { CostByModelRow } from './cost_by_model';
 import { costByModel } from './cost_by_model';
+import { objectKeysFromUnknown } from './test-utils';
 
 const firstNode = () => {
   const n = costByModel.options.nodes[0];
@@ -29,7 +30,7 @@ describe('cost_by_model endpoint', () => {
   });
 
   it('defines all 8 expected output fields', () => {
-    const fieldNames = Object.keys(getOutput());
+    const fieldNames = objectKeysFromUnknown(getOutput());
     expect(fieldNames).toHaveLength(8);
     expect(fieldNames).toEqual([
       'model',

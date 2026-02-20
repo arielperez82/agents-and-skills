@@ -2,6 +2,7 @@ import { describe, expect, it } from 'vitest';
 
 import type { OptimizationInsightsRow } from './optimization_insights';
 import { optimizationInsights } from './optimization_insights';
+import { objectKeysFromUnknown } from './test-utils';
 
 const firstNode = () => {
   const n = optimizationInsights.options.nodes[0];
@@ -25,7 +26,7 @@ describe('optimization_insights endpoint', () => {
   it('defines all 6 expected output fields with cache_hit_rate instead of cache_ratio', () => {
     const output = optimizationInsights.options.output;
     expect(output).toBeDefined();
-    const fieldNames = Object.keys(output ?? {});
+    const fieldNames = objectKeysFromUnknown(output);
     expect(fieldNames).toHaveLength(6);
     expect(fieldNames).toEqual([
       'agent_type',

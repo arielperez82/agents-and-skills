@@ -2,6 +2,7 @@ import { describe, expect, it } from 'vitest';
 
 import type { TelemetryHealthSummaryRow } from './telemetry_health_summary';
 import { telemetryHealthSummary } from './telemetry_health_summary';
+import { objectKeysFromUnknown } from './test-utils';
 
 describe('telemetry_health_summary endpoint', () => {
   it('has the correct endpoint name', () => {
@@ -20,7 +21,7 @@ describe('telemetry_health_summary endpoint', () => {
     const output = telemetryHealthSummary.options.output;
     expect(output).toBeDefined();
 
-    const fieldNames = Object.keys(output ?? {});
+    const fieldNames = objectKeysFromUnknown(output);
     expect(fieldNames).toHaveLength(6);
     expect(fieldNames).toEqual([
       'hook_name',

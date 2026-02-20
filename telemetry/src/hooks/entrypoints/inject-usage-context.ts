@@ -2,6 +2,7 @@ import * as fs from 'node:fs';
 import * as path from 'node:path';
 
 import { buildUsageContext } from '@/hooks/build-usage-context';
+import type { AgentUsageSummaryRow } from '@/pipes';
 
 import { createClientFromEnv, logHealthEvent } from './shared';
 
@@ -46,8 +47,13 @@ export const runInjectUsageContext = async (): Promise<HookResult> => {
   }
 
   try {
+    /* TelemetryClient.query types from SDK can be unresolved at this boundary. */
+    /* eslint-disable-next-line @typescript-eslint/no-unsafe-assignment, @typescript-eslint/no-unsafe-call, @typescript-eslint/no-unsafe-member-access */
     const response = await client.query.agentUsageSummary({ days: QUERY_DAYS });
-    const rows = response.data;
+    // SDK query result type can be unresolved; buildUsageContext validates rows.
+    const rows: readonly AgentUsageSummaryRow[] =
+      /* eslint-disable-next-line @typescript-eslint/no-unsafe-member-access */
+      response.data as readonly AgentUsageSummaryRow[];
 
     const context = buildUsageContext(rows);
 

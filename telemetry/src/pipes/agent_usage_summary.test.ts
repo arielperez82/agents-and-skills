@@ -2,6 +2,7 @@ import { describe, expect, it } from 'vitest';
 
 import type { AgentUsageSummaryRow } from './agent_usage_summary';
 import { agentUsageSummary } from './agent_usage_summary';
+import { objectKeysFromUnknown } from './test-utils';
 
 describe('agent_usage_summary endpoint', () => {
   it('has the correct endpoint name', () => {
@@ -20,7 +21,7 @@ describe('agent_usage_summary endpoint', () => {
     const output = agentUsageSummary.options.output;
     expect(output).toBeDefined();
 
-    const fieldNames = Object.keys(output as Record<string, unknown>);
+    const fieldNames = objectKeysFromUnknown(output);
     expect(fieldNames).toHaveLength(9);
     expect(fieldNames).toEqual([
       'agent_type',

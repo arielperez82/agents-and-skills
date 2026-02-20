@@ -51,22 +51,25 @@ export type TelemetryClient = {
 };
 
 export const createTelemetryClient = (config: TelemetryClientConfig): TelemetryClient => {
-  const ingestClient = createTinybirdClient({
+  /* SDK createTinybirdClient return type does not resolve in our tooling; we enforce TelemetryClient contract. */
+  /* eslint-disable @typescript-eslint/no-unsafe-assignment, @typescript-eslint/no-unsafe-call, @typescript-eslint/no-unsafe-member-access */
+  const fullClient = createTinybirdClient({
     datasources: datasourcesConfig,
     pipes: pipesConfig,
     baseUrl: config.baseUrl,
     token: config.ingestToken,
-  });
+  }) as ProjectClient<Datasources, Pipes>;
 
   const readClient = createTinybirdClient({
     datasources: datasourcesConfig,
     pipes: pipesConfig,
     baseUrl: config.baseUrl,
     token: config.readToken,
-  });
+  }) as ProjectClient<Datasources, Pipes>;
 
   return {
-    ingest: ingestClient.ingest,
+    ingest: fullClient.ingest,
     query: readClient.query,
   };
+  /* eslint-enable @typescript-eslint/no-unsafe-assignment, @typescript-eslint/no-unsafe-call, @typescript-eslint/no-unsafe-member-access */
 };
