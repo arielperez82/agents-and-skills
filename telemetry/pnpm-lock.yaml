@@ -16,8 +16,8 @@ importers:
         specifier: ^9.39.0
         version: 9.39.2
       '@tinybirdco/sdk':
-        specifier: ^0.0.36
-        version: 0.0.36
+        specifier: ^0.0.53
+        version: 0.0.53
       '@types/node':
         specifier: ^22.15.0
         version: 22.19.11
@@ -675,8 +675,8 @@ packages:
   '@standard-schema/spec@1.1.0':
     resolution: {integrity: sha512-l2aFy5jALhniG5HgqrD6jXLi/rUWrKvqN/qJx6yoJsgKhblVd+iqqU4RCXavm/jPityDo5TCvKMnpjKnOriy0w==}
 
-  '@tinybirdco/sdk@0.0.36':
-    resolution: {integrity: sha512-YJkJzJ+NIh9tUlFCnIz7200ot1T6XznCmVytvgy9cjcmtjrH9YydCSVdsU5YC2hY6W3uM+NXSLPABxxxXuM64g==}
+  '@tinybirdco/sdk@0.0.53':
+    resolution: {integrity: sha512-E0kz8EGlvyEwXr40OI6S83iSNV5HA48qUTIvCZNBbxVGaXue2jHfCR77o8BKoEIYyl9ExxMVT2tZA3i8o6llhg==}
     engines: {node: '>=20.0.0'}
     hasBin: true
 
@@ -2678,7 +2678,7 @@ snapshots:
 
   '@standard-schema/spec@1.1.0': {}
 
-  '@tinybirdco/sdk@0.0.36':
+  '@tinybirdco/sdk@0.0.53':
     dependencies:
       '@clack/prompts': 1.0.1
       chokidar: 4.0.3

@@ -31,7 +31,7 @@
   },
   "devDependencies": {
     "@eslint/js": "^9.39.0",
-    "@tinybirdco/sdk": "^0.0.36",
+    "@tinybirdco/sdk": "^0.0.53",
     "@types/node": "^22.15.0",
     "@typescript-eslint/parser": "^8.48.0",
     "@vitest/coverage-v8": "^4.0.0",
