@@ -14,9 +14,13 @@ frequency: "Quarterly (allocation), continuous (within-bucket ranking)"
 use-cases:
   - Setting quarterly capacity allocations across strategic buckets
   - Ranking items within buckets using RICE + NPV + Cost of Delay
+  - Ranking items within buckets using WSJF when time sensitivity matters
   - Comparing tech debt paydown against growth features using unified priority score
   - Modeling financial impact of bugs via CLV-at-risk
   - Classifying polish work using Kano Model
+  - Monte Carlo forecasting for probabilistic delivery dates
+  - Extracting throughput data from git commit history
+  - Calibrating effort estimates for AI-assisted development
 
 # === RELATIONSHIPS ===
 related-agents:
@@ -36,6 +40,8 @@ orchestrated-by: []
 dependencies:
   scripts:
     - scripts/portfolio_prioritizer.py
+    - scripts/monte_carlo_forecast.py
+    - scripts/git_throughput_extractor.py
   references:
     - references/npv-financial-model.md
     - references/portfolio-allocation-framework.md
@@ -43,6 +49,9 @@ dependencies:
     - references/product-operating-model.md
     - references/experimental-product-management.md
     - references/prioritization-selection-guide.md
+    - references/wsjf-framework.md
+    - references/ai-pace-calibration.md
+    - references/confidence-driven-prioritization.md
 compatibility:
   python-version: "3.8+"
   platforms: [macos, linux, windows]
@@ -73,11 +82,11 @@ version: v1.0.0
 author: Claude Skills Team
 contributors: []
 created: 2026-02-11
-updated: 2026-02-17
+updated: 2026-02-20
 license: MIT
 
 # === DISCOVERABILITY ===
-tags: [prioritization, portfolio, npv, rice, tech-debt, product, strategy, kano, cost-of-delay]
+tags: [prioritization, portfolio, npv, rice, tech-debt, product, strategy, kano, cost-of-delay, monte-carlo, forecasting, wsjf]
 featured: false
 verified: true
 ---
@@ -296,6 +305,11 @@ These frameworks address specific strategic situations beyond day-to-day priorit
 **Who uses it:** Senior PM + Product Director
 **Reference:** [experimental-product-management.md](references/experimental-product-management.md)
 
+### Confidence-Driven Prioritization
+**When to use:** Translating Monte Carlo forecast percentiles into WSJF adjustments, stakeholder commitments, and portfolio rebalancing triggers.
+**Who uses it:** Product Director, Senior Project Manager, Product Manager
+**Reference:** [confidence-driven-prioritization.md](references/confidence-driven-prioritization.md)
+
 ## Python Tools
 
 ### portfolio_prioritizer.py
@@ -315,10 +329,7 @@ Portfolio allocation + NPV scoring tool. Operates alongside and wraps the existi
 python3 scripts/portfolio_prioritizer.py items.csv --allocation growth:60,revenue:20,debt:15,polish:5
 
 # Cross-bucket comparison
-python3 scripts/portfolio_prioritizer.py items.csv --cross-bucket --okr-alignment okrs.json
-
-# Wrap existing RICE scores
-python3 scripts/portfolio_prioritizer.py items.csv --rice-input rice_scores.csv
+python3 scripts/portfolio_prioritizer.py items.csv --cross-bucket
 ```
 
 **CSV Format:**
@@ -329,7 +340,80 @@ Auth Refactor,debt,,,,,598000,0.9,,9
 Payment Bug,bug,,,,,233000,0.9,high,7
 ```
 
+**WSJF Mode:**
+```bash
+# WSJF scoring for growth/revenue buckets
+python3 scripts/portfolio_prioritizer.py items.csv --wsjf
+
+# WSJF + JSON output
+python3 scripts/portfolio_prioritizer.py items.csv --wsjf --output json
+```
+
+**WSJF CSV Columns (required when --wsjf):**
+```csv
+name,bucket,business_value,time_criticality,risk_reduction,job_size
+Feature A,growth,8,6,4,3
+```
+
+WSJF = (Business Value + Time Criticality + Risk Reduction) / Job Size. See [wsjf-framework.md](references/wsjf-framework.md) for scoring rubrics and decision guide.
+
 **Complete Documentation:** See tool source for full options and integration patterns.
+
+### monte_carlo_forecast.py
+
+Probabilistic delivery date estimator. Runs Monte Carlo simulations using historical throughput data to produce confidence-level completion estimates.
+
+**Key Features:**
+- 10,000 simulation iterations (configurable)
+- Percentile output: 50th, 85th, 95th confidence levels
+- Calendar date projection with `--start-date`
+- JSON and text output formats
+- Accepts throughput as comma-separated values or JSON file (pipeline-compatible with git_throughput_extractor.py)
+
+**Usage:**
+```bash
+# Basic forecast
+python3 scripts/monte_carlo_forecast.py --throughput 3,5,2,4,6 --remaining 20
+
+# With date projection
+python3 scripts/monte_carlo_forecast.py --throughput 3,5,2,4,6 --remaining 20 --start-date 2026-03-01
+
+# From extractor output (pipeline)
+python3 scripts/git_throughput_extractor.py --output json --file throughput.json
+python3 scripts/monte_carlo_forecast.py --throughput throughput.json --remaining 15
+
+# JSON output
+python3 scripts/monte_carlo_forecast.py --throughput 3,5,2,4,6 --remaining 20 --output json
+```
+
+**When to invoke:** Before committing to delivery dates. Use 85th percentile for internal planning, 95th for external commitments. See [confidence-driven-prioritization.md](references/confidence-driven-prioritization.md).
+
+### git_throughput_extractor.py
+
+Extracts delivery throughput from git commit history by matching initiative markers (`I<nn>-<ACRONYM>`) and backlog markers (`B-<nn>`) in commit messages.
+
+**Key Features:**
+- Counts unique items completed per period (day or week)
+- Configurable date range (default: last 6 months)
+- Includes zero-throughput periods for accurate variance modeling
+- JSON output directly compatible as Monte Carlo forecaster input
+
+**Usage:**
+```bash
+# Default: current repo, weekly, last 6 months
+python3 scripts/git_throughput_extractor.py
+
+# Custom range
+python3 scripts/git_throughput_extractor.py --since 2026-01-01 --until 2026-02-20
+
+# Daily granularity
+python3 scripts/git_throughput_extractor.py --period day
+
+# JSON for pipeline
+python3 scripts/git_throughput_extractor.py --output json --file throughput.json
+```
+
+**When to invoke:** When calibrating forecasts with real data. See [ai-pace-calibration.md](references/ai-pace-calibration.md) for calibration methodology.
 
 ## Integration Points
 
@@ -349,7 +433,7 @@ This skill integrates with existing product team tools:
 **Bucket allocation:** Product Director + CTO set quarterly. Typical starting split: 60/20/15/5.
 
 **Within-bucket ranking:**
-- Growth/Revenue → RICE + NPV + Cost of Delay
+- Growth/Revenue → RICE + NPV + Cost of Delay (default) or WSJF `--wsjf` (when time sensitivity matters)
 - Tech Debt → Debt Severity Matrix (criticality x compound interest x dependency)
 - Bugs → CLV-at-Risk (churn cost modeling)
 - Polish → Kano Model (must-have / performance / delighter)
@@ -362,6 +446,13 @@ This skill integrates with existing product team tools:
 - Bugs: Fix if CLV-at-Risk > 3x fix cost
 - Features: Approve if Risk-Adj NPV > WACC + 5% hurdle rate
 - P0/P1 incidents: Bypass all frameworks — fix immediately
+
+**WSJF formula:** `(Business Value + Time Criticality + Risk Reduction) / Job Size` — opt-in via `--wsjf` flag.
+
+**Monte Carlo forecasting:**
+- Extract throughput: `python git_throughput_extractor.py --repo-path . --period week`
+- Forecast delivery: `python monte_carlo_forecast.py --throughput data.json --remaining 12`
+- Confidence levels: P50 (planning), P85 (commitment), P95 (worst-case)
 
 **Rebalancing triggers:**
 - Tech debt velocity tax > 20% of engineering capacity

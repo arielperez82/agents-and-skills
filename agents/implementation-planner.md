@@ -29,7 +29,7 @@ classification:
 
 # === RELATIONSHIPS ===
 related-agents: [researcher, architect, product-manager, product-analyst, senior-project-manager, agile-coach]
-related-skills: [engineering-team/avoid-feature-creep, engineering-team/planning, engineering-team/quality-gate-first, sequential-thinking, problem-solving, engineering-team/software-architecture, asking-questions, brainstorming, orchestrating-agents, engineering-team/subagent-driven-development]
+related-skills: [engineering-team/avoid-feature-creep, engineering-team/planning, engineering-team/quality-gate-first, sequential-thinking, problem-solving, engineering-team/software-architecture, asking-questions, brainstorming, orchestrating-agents, engineering-team/subagent-driven-development, product-team/prioritization-frameworks]
 related-commands: [skill/phase-0-check]
 collaborates-with:
   - agent: researcher
@@ -101,6 +101,7 @@ The implementation-planner agent bridges the gap between architecture design and
 - `engineering-team/software-architecture` - Architecture planning considerations
 - `asking-questions` - Clarifying ambiguous requirements before planning
 - `brainstorming` - Exploring alternative approaches before planning (when needed)
+- `product-team/prioritization-frameworks` - Throughput-based effort estimation via Monte Carlo forecasting
 
 ## Role Responsibilities
 
@@ -302,6 +303,27 @@ The implementation-planner agent bridges the gap between architecture design and
 - [ ] Engineering experts consulted for domain-specific phases
 - [ ] Plan structured as sprint-sized increments with clear milestones
 - [ ] Success criteria align with product requirements and strategic objectives
+
+## Throughput-Based Effort Estimation
+
+When creating implementation plans, use historical throughput data and Monte Carlo simulation to produce probabilistic effort estimates instead of single-point guesses:
+
+1. Extract throughput from the project's git history:
+   ```bash
+   python ../skills/product-team/prioritization-frameworks/scripts/git_throughput_extractor.py --repo-path . --period week --output json --file throughput.json
+   ```
+2. Count remaining items in the plan (backlog items or decomposed tasks)
+3. Run Monte Carlo forecast:
+   ```bash
+   python ../skills/product-team/prioritization-frameworks/scripts/monte_carlo_forecast.py --throughput throughput.json --remaining <N> --start-date <YYYY-MM-DD>
+   ```
+4. Include confidence levels in plan output:
+   - **P50**: 50% chance of completion by this date (use for internal planning)
+   - **P85**: 85% chance (use for stakeholder commitments)
+   - **P95**: 95% chance (use for worst-case contingency)
+5. Calibrate to AI-assisted pace — see [ai-pace-calibration reference](../skills/product-team/prioritization-frameworks/references/ai-pace-calibration.md)
+
+**When to use:** Include throughput-based estimates whenever the plan has 5+ items and the repo has 4+ weeks of commit history. For newer repos, fall back to size-label heuristics (Trivial/Small/Medium/Large/Unknown) from the calibration reference.
 
 ## Handling Large Files (>25K tokens)
 

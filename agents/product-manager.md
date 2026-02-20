@@ -100,6 +100,18 @@ The Product Manager ranks items within each strategic bucket using domain-approp
 - `../skills/product-team/prioritization-frameworks/scripts/portfolio_prioritizer.py` — portfolio scoring + NPV
 - `../skills/product-team/product-manager-toolkit/scripts/rice_prioritizer.py` — RICE within growth/revenue buckets
 
+**Workflow: WSJF Within-Bucket Ranking**
+
+When time sensitivity matters more than reach (e.g., market windows, regulatory deadlines, dependency chains):
+
+1. Use `--wsjf` flag: `python ../skills/product-team/prioritization-frameworks/scripts/portfolio_prioritizer.py portfolio.csv --wsjf`
+2. CSV must include: `business_value`, `time_criticality`, `risk_reduction`, `job_size` (all 1-10 scale)
+3. Formula: `(Business Value + Time Criticality + Risk Reduction) / Job Size`
+4. Compare WSJF ranking against RICE ranking — convergence = high-confidence picks; divergence reveals hidden assumptions about time criticality vs reach
+5. Use RICE as default; switch to WSJF when the question is "what should we do *first*?" rather than "what's the best bang for buck?"
+
+See [WSJF reference](../skills/product-team/prioritization-frameworks/references/wsjf-framework.md) for scoring rubrics and worked examples.
+
 **Supplementary framework:** NPV Financial Model — for making the dollar case for specific investments to leadership.
 
 See [prioritization-frameworks SKILL.md](../skills/product-team/prioritization-frameworks/SKILL.md) for complete methodology.

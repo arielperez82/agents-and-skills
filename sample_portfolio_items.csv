@@ -1,0 +1,9 @@
+name,bucket,reach,impact,confidence,effort,npv,probability,cost_of_delay,strategic_alignment,rice_score,criticality,compound_interest,dependency_impact,fix_cost,recovered_productivity,ongoing_maintenance,churn_rate_increase,affected_customers,arpu,gross_margin,kano_category,conversion_lift,nps_impact
+SSO Feature,growth,5000,high,0.8,5,2000000,0.6,high,8,480,,,,,,,,,,,,,
+AI Search,growth,12000,massive,0.5,8,5000000,0.4,medium,9,900,,,,,,,,,,,,,
+Sales Dashboard,revenue,2000,high,0.9,3,950000,0.7,high,6,360,,,,,,,,,,,,,
+Auth Refactor,tech_debt,,,,4,,0.9,,9,,high,50000,yes,50000,200000,30000,,,,,,,
+Legacy DB Migration,tech_debt,,,,8,,0.8,,7,,medium,30000,no,80000,150000,20000,,,,,,,
+Payment Processing Bug,bug,,,,2,,0.9,,7,,,,,15000,,,0.05,1000,100,0.7,,,
+Onboarding UX,polish,,,,3,200000,0.7,,5,,,,,,,,,,,,performance,0.03,5
+Dark Mode,polish,,,,2,80000,0.8,,3,,,,,,,,,,,,delighter,0.01,2

@@ -142,9 +142,50 @@ def score_polish(item: Dict) -> Dict:
     return item
 
 
+WSJF_REQUIRED_COLUMNS = {"business_value", "time_criticality", "risk_reduction", "job_size"}
+
+
+def score_wsjf(item: Dict) -> Dict:
+    """Score an item using WSJF: (Business Value + Time Criticality + Risk Reduction) / Job Size."""
+    def _to_float(val, field_name, item_name):
+        if val is None or val == "":
+            return 0.0
+        try:
+            return float(val)
+        except (ValueError, TypeError):
+            print(f"Error: {field_name} must be numeric for item '{item_name}' (got '{val}').", file=sys.stderr)
+            sys.exit(1)
+
+    name = item.get("name", "Unnamed")
+    bv = _to_float(item.get("business_value", 0), "business_value", name)
+    tc = _to_float(item.get("time_criticality", 0), "time_criticality", name)
+    rr = _to_float(item.get("risk_reduction", 0), "risk_reduction", name)
+    js = _to_float(item.get("job_size", 0), "job_size", name)
+    if js <= 0:
+        print(
+            f"Error: job_size must be > 0 for item '{item.get('name', 'Unnamed')}' "
+            f"(got {js}). WSJF requires a positive job size.",
+            file=sys.stderr,
+        )
+        sys.exit(1)
+    wsjf = (bv + tc + rr) / js
+    item["wsjf_score"] = round(wsjf, 4)
+    item["bucket_score"] = round(wsjf, 4)
+    return item
+
+
 BUCKET_SCORERS = {
     "growth": score_growth_revenue,
     "revenue": score_growth_revenue,
+    "tech_debt": score_tech_debt,
+    "debt": score_tech_debt,
+    "bug": score_bug,
+    "polish": score_polish,
+}
+
+WSJF_BUCKET_SCORERS = {
+    "growth": score_wsjf,
+    "revenue": score_wsjf,
     "tech_debt": score_tech_debt,
     "debt": score_tech_debt,
     "bug": score_bug,
@@ -402,6 +443,10 @@ Examples:
     parser.add_argument("--output", "-o", choices=["text", "json", "csv"], default="text", help="Output format")
     parser.add_argument("--file", "-f", help="Write output to file")
     parser.add_argument("--discount-rate", type=float, default=0.10, help="Discount rate for NPV (default: 0.10)")
+    parser.add_argument(
+        "--wsjf", action="store_true",
+        help="Use WSJF scoring for growth/revenue buckets instead of RICE+NPV",
+    )
     parser.add_argument("--version", action="version", version="%(prog)s 1.0.0")
 
     args = parser.parse_args()
@@ -423,10 +468,26 @@ Examples:
 
     allocation = parse_allocation(args.allocation)
 
+    # Validate WSJF columns if --wsjf is active
+    if args.wsjf:
+        for item in items:
+            bucket = item.get("bucket", "growth").lower().replace("-", "_")
+            if bucket in ("growth", "revenue"):
+                missing = WSJF_REQUIRED_COLUMNS - set(item.keys())
+                if missing:
+                    print(
+                        f"Error: WSJF mode requires columns {sorted(WSJF_REQUIRED_COLUMNS)} "
+                        f"for growth/revenue items. Item '{item.get('name', 'Unnamed')}' "
+                        f"is missing: {sorted(missing)}",
+                        file=sys.stderr,
+                    )
+                    sys.exit(1)
+
     # Score each item using its bucket's scorer
+    scorers = WSJF_BUCKET_SCORERS if args.wsjf else BUCKET_SCORERS
     for item in items:
         bucket = item.get("bucket", "growth").lower().replace("-", "_")
-        scorer = BUCKET_SCORERS.get(bucket, score_growth_revenue)
+        scorer = scorers.get(bucket, score_growth_revenue)
         scorer(item)
 
     # Cross-bucket normalization
@@ -468,11 +529,13 @@ Examples:
     elif args.output == "csv":
         if items:
             import io
+            import csv as csv_mod
             buf = io.StringIO()
             keys = list(items[0].keys())
-            buf.write(",".join(keys) + "\n")
+            writer = csv_mod.writer(buf)
+            writer.writerow(keys)
             for item in sorted(items, key=lambda x: x.get("bucket_score", 0), reverse=True):
-                buf.write(",".join(str(item.get(k, "")) for k in keys) + "\n")
+                writer.writerow([item.get(k, "") for k in keys])
             output = buf.getvalue()
         else:
             output = "No items\n"

@@ -14,9 +14,9 @@ This guide covers product-team skills: methodology and reference skills (I11-PMS
 5. **agile-product-owner/** - User story generation, sprint planning, Example Mapping, Three Amigos (1 tool)
 6. **product-strategist/** - OKR cascade, strategic planning, roadmap, positioning (1 tool)
 7. **competitive-analysis/** - Scorecard, gap analysis, adoption prioritization, company research, PESTEL (3 tools)
-8. **prioritization-frameworks/** - Portfolio allocation + NPV within-bucket, selection guide (1 tool)
+8. **prioritization-frameworks/** - Portfolio allocation + NPV within-bucket, WSJF, Monte Carlo forecasting, git throughput extraction, selection guide (3 tools)
 
-**Total Tools:** 8 Python automation tools (product-manager-toolkit, agile-product-owner, product-strategist, competitive-analysis, prioritization-frameworks)
+**Total Tools:** 10 Python automation tools (product-manager-toolkit, agile-product-owner, product-strategist, competitive-analysis, prioritization-frameworks)
 
 ## Python Automation Tools
 
@@ -281,4 +281,4 @@ See `product_team_implementation_guide.md` for detailed plans.
 
 **Last Updated:** February 17, 2026
 **Skills Deployed:** 8 product-team skills (I11-PMSI Waves 1–3 complete; UX skills → ux-team/)
-**Total Tools:** 8 Python automation tools
+**Total Tools:** 10 Python automation tools

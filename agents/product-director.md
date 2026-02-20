@@ -92,6 +92,19 @@ The Product Director sets quarterly portfolio allocations jointly with the CTO. 
 
 **Tool:** `../skills/product-team/prioritization-frameworks/scripts/portfolio_prioritizer.py`
 
+**Workflow: Monte Carlo Forecasting for Initiative Timelines**
+
+Before committing to delivery dates for any initiative, use throughput-based Monte Carlo forecasting:
+
+1. Extract historical throughput: `python ../skills/product-team/prioritization-frameworks/scripts/git_throughput_extractor.py --repo-path . --period week --output json --file throughput.json`
+2. Estimate remaining items (backlog count or decomposed tasks)
+3. Run forecast: `python ../skills/product-team/prioritization-frameworks/scripts/monte_carlo_forecast.py --throughput throughput.json --remaining <N> --start-date <YYYY-MM-DD> --output json`
+4. Use **P85 (85th percentile)** as the "high confidence" date for stakeholder commitments
+5. Use P50 for internal planning targets; P95 for worst-case contingency planning
+6. Re-forecast when scope changes or throughput shifts significantly
+
+See [ai-pace-calibration reference](../skills/product-team/prioritization-frameworks/references/ai-pace-calibration.md) for calibrating estimates to AI-assisted delivery pace.
+
 **Supplementary frameworks** (reach-for when needed):
 - MuST (Multiple Strategic Tracks) — when the right strategic bet is genuinely unknown
 - POM (Product Operating Model) — when the prioritization process itself feels broken

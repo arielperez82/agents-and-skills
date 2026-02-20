@@ -62,6 +62,16 @@ The agent specializes in: RAG status monitoring, risk quantification, dependency
 
 **Portfolio allocation context:** The Senior Project Manager monitors portfolio health and reports rebalancing signals (items at risk, cross-bucket contention, drift between planned and actual allocation). The Senior Project Manager does **not** set bucket allocations — that is the Product Director + CTO's decision. See [prioritization-frameworks SKILL.md](../skills/product-team/prioritization-frameworks/SKILL.md) for the full methodology.
 
+**Forecast confidence in portfolio reporting:** When reporting delivery timelines, use Monte Carlo forecasting to provide probabilistic dates instead of single-point estimates:
+
+1. Extract throughput: `python ../skills/product-team/prioritization-frameworks/scripts/git_throughput_extractor.py --repo-path . --period week --output json --file throughput.json`
+2. Forecast each active initiative: `python ../skills/product-team/prioritization-frameworks/scripts/monte_carlo_forecast.py --throughput throughput.json --remaining <N> --start-date <YYYY-MM-DD> --output json`
+3. Report confidence levels in RAG status: P50 (optimistic), P85 (likely), P95 (worst-case)
+4. Map to RAG: GREEN = on track vs P85 date; AMBER = on track vs P95 but not P85; RED = behind P95
+5. Re-forecast at each portfolio review or when scope/throughput changes
+
+See [confidence-driven prioritization reference](../skills/product-team/prioritization-frameworks/references/confidence-driven-prioritization.md) for stakeholder communication templates and re-forecasting triggers.
+
 ## Skill Integration
 
 **Skill Location:** `../skills/delivery-team/senior-project-manager/`
