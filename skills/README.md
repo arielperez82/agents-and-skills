@@ -224,7 +224,7 @@ Role and specialist skills (same folder):
 | **product-strategist** | Product strategy | OKRs, market analysis, vision |
 | **product-manager-toolkit** | Product management | RICE, PRDs, discovery, GTM, PRD guide (intake refs) |
 | **agile-product-owner** | Product ownership | User stories, backlog, agile, Example Mapping, Three Amigos |
-| **prioritization-frameworks** | Cross-type prioritization | Portfolio allocation, NPV, debt severity, CLV-at-risk, Kano, framework selection guide |
+| **prioritization-frameworks** | Cross-type prioritization | Portfolio allocation, NPV, WSJF, Monte Carlo forecasting, git throughput extraction, AI-pace calibration, debt severity, CLV-at-risk, Kano, framework selection guide |
 | **competitive-analysis** | Competitive analysis | Skills, agents, features vs competitors; company research, PESTEL (intake refs) |
 | **business-analyst-toolkit** | Business analysis | Requirements, workflows, optimization |
 

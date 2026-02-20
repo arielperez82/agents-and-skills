@@ -2,7 +2,7 @@
 type: roadmap
 endeavor: repo
 status: active
-updated: 2026-02-19
+updated: 2026-02-20
 ---
 
 # Roadmap: agents-and-skills
@@ -51,3 +51,4 @@ Completed initiatives.
 | I06-AICO | Agent & Command Intake/Optimize | Agent optimizer, command validator, and agent intake pipeline | [charter](../charters/charter-repo-agent-command-intake-optimize.md) |
 | I08-NWMI | nWave Methodology Intake | Methodology skills from nWave (TDD, refactoring, debugging, etc.) | [charter](../charters/charter-repo-nwave-methodology-intake.md) |
 | I11-PMSI | PM Skills Intake | Product management skills intake (8 skills, 8 Python tools) | [charter](../charters/charter-repo-I11-PMSI-pm-skills-intake.md) |
+| I16-MCEF | Monte Carlo Estimation & Forecasting | Monte Carlo forecasting, WSJF scoring, git throughput extraction, AI-pace calibration for prioritization-frameworks skill | [charter](../charters/charter-repo-I16-MCEF-monte-carlo-estimation.md) |
