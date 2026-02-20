@@ -452,6 +452,76 @@ Instead:
 
 **Correct pattern**: Extract `toRequestUrl()`, `toRequestBody()`, `parseResponse()` as pure functions. Unit test those. Test the adapter's HTTP round-trip with MSW in integration tests.
 
+### Logger as a Domain Port
+
+**Every project must have a logger port.** Never call `console.log`, `console.warn`, `console.error`, or `console.info` directly in production code. Instead, define a `Logger` interface in the domain and inject it like any other dependency.
+
+```typescript
+// Domain port — what the domain needs
+type Logger = {
+  debug: (message: string, context?: Record<string, unknown>) => void;
+  info: (message: string, context?: Record<string, unknown>) => void;
+  warn: (message: string, context?: Record<string, unknown>) => void;
+  error: (message: string, context?: Record<string, unknown>) => void;
+};
+```
+
+**Production implementation** defaults to `console` under the hood — no external library needed unless the project outgrows it:
+
+```typescript
+// Infrastructure adapter — calls console directly
+const createConsoleLogger = (): Logger => ({
+  debug: (msg, ctx) => console.debug(msg, ctx),
+  info: (msg, ctx) => console.info(msg, ctx),
+  warn: (msg, ctx) => console.warn(msg, ctx),
+  error: (msg, ctx) => console.error(msg, ctx),
+});
+```
+
+**Test implementation** is an in-memory queue — assertable and silent:
+
+```typescript
+type LogEntry = { level: string; message: string; context?: Record<string, unknown> };
+
+const createTestLogger = () => {
+  const entries: LogEntry[] = [];
+  return {
+    debug: (msg: string, ctx?: Record<string, unknown>) => entries.push({ level: 'debug', message: msg, context: ctx }),
+    info: (msg: string, ctx?: Record<string, unknown>) => entries.push({ level: 'info', message: msg, context: ctx }),
+    warn: (msg: string, ctx?: Record<string, unknown>) => entries.push({ level: 'warn', message: msg, context: ctx }),
+    error: (msg: string, ctx?: Record<string, unknown>) => entries.push({ level: 'error', message: msg, context: ctx }),
+    entries,
+  };
+};
+```
+
+**Three wins from this pattern:**
+
+1. **Assertable output.** When logging is part of the business logic (e.g., audit trails, error reporting), assert on `logger.entries` in unit tests instead of spying on `console`.
+2. **Silent test suites.** Test logger writes to memory, not stdout. No log noise polluting test output.
+3. **Configurable log levels per environment.** Production shows everything; tests show nothing (or only what you assert on).
+
+**Silencing console in test suites:**
+
+For unit and integration tests, suppress all output below `.error` in the Vitest/Jest setup file. This catches any stray `console` calls from third-party libraries or code that hasn't been migrated to the logger port yet:
+
+```typescript
+// tests/setup.ts (referenced in vitest config setupFiles)
+beforeAll(() => {
+  vi.spyOn(console, 'log').mockImplementation(() => {});
+  vi.spyOn(console, 'debug').mockImplementation(() => {});
+  vi.spyOn(console, 'info').mockImplementation(() => {});
+  vi.spyOn(console, 'warn').mockImplementation(() => {});
+  // console.error left unmocked — errors should be visible
+});
+```
+
+**Anti-patterns:**
+
+- Calling `console.log` in production code — use the logger port
+- Using `vi.spyOn(console, 'log')` to assert on logging behavior — use the test logger queue
+- Leaving test suites noisy with log output — silence console in setup, use test logger for assertions
+
 ### Summary: Stubbing Strategy by Test Type
 
 | Test type | What you test | How you stub the boundary | Examples |
