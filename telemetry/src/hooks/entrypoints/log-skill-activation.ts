@@ -2,7 +2,13 @@ import { lookupSessionAgent } from '@/hooks/agent-timing';
 import { parseSkillActivation } from '@/hooks/parse-skill-activation';
 
 import type { Clock, HealthLogger, TimingStore } from './ports';
-import { createClientFromEnv, extractStringField, logHealthEvent, readStdin } from './shared';
+import {
+  createClientFromEnv,
+  createHealthLogger,
+  extractStringField,
+  isMainModule,
+  readStdin,
+} from './shared';
 
 const HOOK_NAME = 'log-skill-activation';
 
@@ -64,16 +70,7 @@ export const runLogSkillActivation = async (
   }
 };
 
-const isMainModule = (): boolean => {
-  try {
-    const entryPath = process.argv[1] ?? '';
-    return import.meta.url === `file://${entryPath}`;
-  } catch {
-    return false;
-  }
-};
-
-if (isMainModule()) {
+if (isMainModule(import.meta.url)) {
   void readStdin().then((eventJson) => {
     const client = createClientFromEnv();
     if (!client) return;
@@ -82,9 +79,7 @@ if (isMainModule()) {
       client,
       clock: { now: Date.now },
       timing: { lookupSessionAgent },
-      health: (hookName, exitCode, durationMs, errorMessage, statusCode) => {
-        void logHealthEvent(client, hookName, exitCode, durationMs, errorMessage, statusCode);
-      },
+      health: createHealthLogger(client),
     });
   });
 }

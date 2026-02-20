@@ -4,8 +4,9 @@ import type { Clock, FileReader, HealthLogger } from './ports';
 import {
   createClientFromEnv,
   createFileReader,
+  createHealthLogger,
   extractStringField,
-  logHealthEvent,
+  isMainModule,
   readStdin,
 } from './shared';
 
@@ -40,16 +41,7 @@ export const runLogSessionSummary = async (
   }
 };
 
-const isMainModule = (): boolean => {
-  try {
-    const entryPath = process.argv[1] ?? '';
-    return import.meta.url === `file://${entryPath}`;
-  } catch {
-    return false;
-  }
-};
-
-if (isMainModule()) {
+if (isMainModule(import.meta.url)) {
   void readStdin().then((eventJson) => {
     const client = createClientFromEnv();
     if (!client) return;
@@ -58,9 +50,7 @@ if (isMainModule()) {
       client,
       clock: { now: Date.now },
       readFile: createFileReader(),
-      health: (hookName, exitCode, durationMs, errorMessage, statusCode) => {
-        void logHealthEvent(client, hookName, exitCode, durationMs, errorMessage, statusCode);
-      },
+      health: createHealthLogger(client),
     });
   });
 }

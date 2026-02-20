@@ -1,17 +1,8 @@
 import { createStubClient } from '@tests/helpers/stub-client';
 import { describe, expect, it, vi } from 'vitest';
 
-import type { TelemetryClient } from '@/client';
-import type { Clock, HealthLogger, TimingStore } from '@/hooks/entrypoints/ports';
-
+import type { LogSkillActivationDeps } from './log-skill-activation';
 import { runLogSkillActivation } from './log-skill-activation';
-
-type LogSkillActivationDeps = {
-  readonly client: TelemetryClient;
-  readonly clock: Clock;
-  readonly timing: Pick<TimingStore, 'lookupSessionAgent'>;
-  readonly health: HealthLogger;
-};
 
 const makeSkillEvent = (overrides?: Record<string, unknown>) =>
   JSON.stringify({
@@ -124,6 +115,14 @@ describe('runLogSkillActivation', () => {
 
     expect(deps.timing.lookupSessionAgent).toHaveBeenCalledWith('sess-1');
     expect(deps.client.ingest.skillActivations).toHaveBeenCalledOnce();
+  });
+
+  it('exits without ingest when parseSkillActivation returns null', async () => {
+    const deps = makeDeps();
+
+    await runLogSkillActivation(makeSkillEvent({ tool_name: 'Write' }), deps);
+
+    expect(deps.client.ingest.skillActivations).not.toHaveBeenCalled();
   });
 
   it('logs failure health event when ingest throws', async () => {

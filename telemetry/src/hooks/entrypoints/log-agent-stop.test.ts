@@ -1,18 +1,8 @@
 import { createStubClient } from '@tests/helpers/stub-client';
 import { describe, expect, it, vi } from 'vitest';
 
-import type { TelemetryClient } from '@/client';
-import type { Clock, FileReader, HealthLogger, TimingStore } from '@/hooks/entrypoints/ports';
-
+import type { LogAgentStopDeps } from './log-agent-stop';
 import { runLogAgentStop } from './log-agent-stop';
-
-type LogAgentStopDeps = {
-  readonly client: TelemetryClient;
-  readonly clock: Clock;
-  readonly timing: Pick<TimingStore, 'consumeAgentStart' | 'removeSessionAgent'>;
-  readonly readFile: FileReader;
-  readonly health: HealthLogger;
-};
 
 const makeStopEvent = (overrides?: Record<string, unknown>) =>
   JSON.stringify({
@@ -140,5 +130,13 @@ describe('runLogAgentStop', () => {
     await runLogAgentStop(makeStopEvent({ session_id: undefined }), deps);
 
     expect(deps.timing.removeSessionAgent).not.toHaveBeenCalled();
+  });
+
+  it('does not consume agent start timing when agent_id missing', async () => {
+    const deps = makeDeps();
+
+    await runLogAgentStop(makeStopEvent({ agent_id: undefined }), deps);
+
+    expect(deps.timing.consumeAgentStart).not.toHaveBeenCalled();
   });
 });

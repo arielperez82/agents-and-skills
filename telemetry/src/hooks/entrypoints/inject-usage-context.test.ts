@@ -1,17 +1,8 @@
 import { createStubClient } from '@tests/helpers/stub-client';
 import { describe, expect, it, vi } from 'vitest';
 
-import type { TelemetryClient } from '@/client';
-import type { CacheStore, Clock, HealthLogger } from '@/hooks/entrypoints/ports';
-
+import type { InjectUsageContextDeps } from './inject-usage-context';
 import { runInjectUsageContext } from './inject-usage-context';
-
-type InjectUsageContextDeps = {
-  readonly client: TelemetryClient;
-  readonly clock: Clock;
-  readonly cache: CacheStore;
-  readonly health: HealthLogger;
-};
 
 const makeMockAgentData = () => [
   {

@@ -1,17 +1,8 @@
 import { createStubClient } from '@tests/helpers/stub-client';
 import { describe, expect, it, vi } from 'vitest';
 
-import type { TelemetryClient } from '@/client';
-import type { Clock, FileReader, HealthLogger } from '@/hooks/entrypoints/ports';
-
+import type { LogSessionSummaryDeps } from './log-session-summary';
 import { runLogSessionSummary } from './log-session-summary';
-
-type LogSessionSummaryDeps = {
-  readonly client: TelemetryClient;
-  readonly clock: Clock;
-  readonly readFile: FileReader;
-  readonly health: HealthLogger;
-};
 
 const TRANSCRIPT_CONTENT = JSON.stringify({
   type: 'assistant',

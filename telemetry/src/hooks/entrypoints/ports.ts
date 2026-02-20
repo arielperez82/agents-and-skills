@@ -1,5 +1,3 @@
-import type { TelemetryClient } from '@/client';
-
 export type Clock = { readonly now: () => number };
 
 export type FileReader = (filePath: string | null) => string;
@@ -24,9 +22,3 @@ export type HealthLogger = (
   errorMessage: string | null,
   tinybirdStatusCode: number | null
 ) => void;
-
-export type HookDeps<T extends Record<string, unknown> = Record<string, unknown>> = {
-  readonly client: TelemetryClient;
-  readonly clock: Clock;
-  readonly health: HealthLogger;
-} & T;

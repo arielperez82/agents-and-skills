@@ -7,13 +7,16 @@ import { http, HttpResponse } from 'msw';
 import { describe, expect, it, vi } from 'vitest';
 
 import { createTelemetryClient } from '@/client';
+import type { CacheStore, HealthLogger } from '@/hooks/entrypoints/ports';
 
 import {
+  createCacheStore,
   createClientFromEnv,
   createFileReader,
+  createHealthLogger,
   extractStringField,
+  isMainModule,
   logHealthEvent,
-  readStdin,
 } from './shared';
 
 describe('createClientFromEnv', () => {
@@ -64,9 +67,32 @@ describe('createClientFromEnv', () => {
   });
 });
 
-describe('readStdin', () => {
-  it('is exported as a function', () => {
-    expect(typeof readStdin).toBe('function');
+describe('isMainModule', () => {
+  it('returns true when import.meta.url matches process.argv[1]', () => {
+    const entryPath = process.argv[1] ?? '';
+    const result = isMainModule(`file://${entryPath}`);
+
+    expect(result).toBe(true);
+  });
+
+  it('returns false when import.meta.url does not match', () => {
+    const result = isMainModule('file:///some/other/module.ts');
+
+    expect(result).toBe(false);
+  });
+});
+
+describe('createHealthLogger', () => {
+  it('returns a function matching HealthLogger type', () => {
+    const client = createTelemetryClient({
+      baseUrl: 'https://api.tinybird.co',
+      ingestToken: 'test',
+      readToken: 'test',
+    });
+
+    const logger: HealthLogger = createHealthLogger(client);
+
+    expect(typeof logger).toBe('function');
   });
 });
 
@@ -99,6 +125,56 @@ describe('extractStringField', () => {
     expect(extractStringField('"just a string"', 'field')).toBeNull();
     expect(extractStringField('42', 'field')).toBeNull();
     expect(extractStringField('null', 'field')).toBeNull();
+  });
+});
+
+describe('createCacheStore', () => {
+  it('returns empty object when cache file does not exist', () => {
+    const tmpDir = path.join(os.tmpdir(), `test-cache-${String(Date.now())}`);
+    const cacheFile = path.join(tmpDir, 'cache.json');
+    const cache: CacheStore = createCacheStore(tmpDir, cacheFile);
+
+    const result = cache.read();
+
+    expect(result).toEqual({});
+  });
+
+  it('writes and reads cache successfully', () => {
+    const tmpDir = path.join(os.tmpdir(), `test-cache-${String(Date.now())}`);
+    const cacheFile = path.join(tmpDir, 'cache.json');
+    const cache: CacheStore = createCacheStore(tmpDir, cacheFile);
+
+    cache.write({ additionalContext: 'test context' });
+    const result = cache.read();
+
+    expect(result).toEqual({ additionalContext: 'test context' });
+    fs.rmSync(tmpDir, { recursive: true });
+  });
+
+  it('returns empty object for invalid cache content', () => {
+    const tmpDir = path.join(os.tmpdir(), `test-cache-${String(Date.now())}`);
+    const cacheFile = path.join(tmpDir, 'cache.json');
+    fs.mkdirSync(tmpDir, { recursive: true });
+    fs.writeFileSync(cacheFile, 'not json');
+    const cache: CacheStore = createCacheStore(tmpDir, cacheFile);
+
+    const result = cache.read();
+
+    expect(result).toEqual({});
+    fs.rmSync(tmpDir, { recursive: true });
+  });
+
+  it('returns empty object when additionalContext is not a string', () => {
+    const tmpDir = path.join(os.tmpdir(), `test-cache-${String(Date.now())}`);
+    const cacheFile = path.join(tmpDir, 'cache.json');
+    fs.mkdirSync(tmpDir, { recursive: true });
+    fs.writeFileSync(cacheFile, JSON.stringify({ additionalContext: 42 }));
+    const cache: CacheStore = createCacheStore(tmpDir, cacheFile);
+
+    const result = cache.read();
+
+    expect(result).toEqual({});
+    fs.rmSync(tmpDir, { recursive: true });
   });
 });
 

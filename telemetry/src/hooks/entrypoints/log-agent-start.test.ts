@@ -1,17 +1,8 @@
 import { createStubClient } from '@tests/helpers/stub-client';
 import { describe, expect, it, vi } from 'vitest';
 
-import type { TelemetryClient } from '@/client';
-import type { Clock, HealthLogger, TimingStore } from '@/hooks/entrypoints/ports';
-
+import type { LogAgentStartDeps } from './log-agent-start';
 import { runLogAgentStart } from './log-agent-start';
-
-type LogAgentStartDeps = {
-  readonly client: TelemetryClient;
-  readonly clock: Clock;
-  readonly timing: Pick<TimingStore, 'recordAgentStart' | 'recordSessionAgent'>;
-  readonly health: HealthLogger;
-};
 
 const makeStartEvent = (overrides?: Record<string, unknown>) =>
   JSON.stringify({

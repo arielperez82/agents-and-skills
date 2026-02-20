@@ -2,7 +2,13 @@ import { recordAgentStart, recordSessionAgent } from '@/hooks/agent-timing';
 import { parseAgentStart } from '@/hooks/parse-agent-start';
 
 import type { Clock, HealthLogger, TimingStore } from './ports';
-import { createClientFromEnv, extractStringField, logHealthEvent, readStdin } from './shared';
+import {
+  createClientFromEnv,
+  createHealthLogger,
+  extractStringField,
+  isMainModule,
+  readStdin,
+} from './shared';
 
 const HOOK_NAME = 'log-agent-start';
 
@@ -38,16 +44,7 @@ export const runLogAgentStart = async (
   }
 };
 
-const isMainModule = (): boolean => {
-  try {
-    const entryPath = process.argv[1] ?? '';
-    return import.meta.url === `file://${entryPath}`;
-  } catch {
-    return false;
-  }
-};
-
-if (isMainModule()) {
+if (isMainModule(import.meta.url)) {
   void readStdin().then((eventJson) => {
     const client = createClientFromEnv();
     if (!client) return;
@@ -56,9 +53,7 @@ if (isMainModule()) {
       client,
       clock: { now: Date.now },
       timing: { recordAgentStart, recordSessionAgent },
-      health: (hookName, exitCode, durationMs, errorMessage, statusCode) => {
-        void logHealthEvent(client, hookName, exitCode, durationMs, errorMessage, statusCode);
-      },
+      health: createHealthLogger(client),
     });
   });
 }
