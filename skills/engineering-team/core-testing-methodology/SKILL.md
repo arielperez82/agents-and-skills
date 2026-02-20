@@ -257,49 +257,124 @@ Use three distinct test types, each with a clear scope. The decision rubric belo
 
 **Location**: Co-located with source files (`src/**/*.test.ts`)
 
-**Purpose**: Test individual components in complete isolation — all dependencies use test doubles.
+**Purpose**: Test domain logic and pure transformations in complete isolation. All external dependencies are replaced with test doubles that implement port interfaces.
 
 **What belongs here**:
 - Domain services and business logic
-- Pure functions and utilities
-- Adapters with no external dependencies (e.g., loggers, formatters)
-- Transformations, data mapping, validation rules
+- Pure functions and utilities (transformations, data mapping, validation rules)
+- Composition root wiring logic tested as pure functions (e.g., env parsing)
+- Any code where you can replace all I/O with in-memory fakes
 
 **What does NOT belong here**:
-- Adapters that call external services (use integration tests)
-- Real infrastructure (databases, HTTP clients)
-- Mocking `global.fetch` or `vi.fn()` for HTTP (use MSW in integration tests)
-- Full application entry points (use e2e tests)
 
-**Characteristics**: Fast (milliseconds), no setup/teardown, complete isolation.
+- Adapters that make HTTP calls, database queries, or file I/O (use integration tests)
+- Mocking `global.fetch`, `vi.spyOn(global, 'fetch')`, or `vi.fn()` for HTTP (use MSW in integration tests)
+- MSW setup (MSW is an integration testing tool)
+- Full application entry points that wire real adapters (use e2e tests)
+
+**How to stub the boundary — test doubles**:
+
+Define port interfaces (e.g., `DataSource`, `DataStore`, `Logger`) in your domain. Create fakes — simple working implementations that live in `tests/test-doubles/`. Fakes are configurable via constructor, inspectable via getters, and self-documenting. No `jest.fn()` or `vi.mock()` for domain tests.
+
+```typescript
+// Port interface (domain defines this)
+type DataSource = {
+  fetchByAsset: (request: AssetRequest) => Promise<AssetQuote>;
+};
+
+// Test double (tests provide this)
+const createFakeDataSource = (quotes: AssetQuote[]): DataSource => ({
+  fetchByAsset: async ({ asset }) =>
+    quotes.find(q => q.asset === asset) ?? Promise.reject(new Error('not found')),
+});
+
+// Unit test — no network, no MSW, no fetch
+it('transforms quotes into rows', async () => {
+  const source = createFakeDataSource([mockQuote]);
+  const result = await processQuotes(source, 'BTC');
+  expect(result).toEqual([expectedRow]);
+});
+```
+
+**Characteristics**: Fast (milliseconds), no setup/teardown, complete isolation, zero network.
 
 ### Integration Tests
 
 **Location**: `tests/integration/**/*.test.ts`
 
-**Purpose**: Test adapters against real infrastructure you control. Validate the contract between your code and external services.
+**Purpose**: Test adapters against real-but-local infrastructure. Validate that your code correctly talks to the actual service API shape — request format, response parsing, error handling, retry logic.
 
 **What belongs here**:
-- Adapters that interact with infrastructure you control (databases, queues, caches) — use real local instances (Docker, LocalStack, etc.)
-- HTTP adapters for external APIs — use MSW (Mock Service Worker), never `global.fetch` mocks
+
+- HTTP adapters for external APIs — use **MSW** (Mock Service Worker) to intercept at the network layer
+- Database adapters — use **real local instances** (Supabase Local, Tinybird Local, Docker Postgres, LocalStack)
+- Queue/cache adapters — use real local instances (Redis via Docker, SQS via LocalStack)
 - Infrastructure contract validation (schemas, request/response formats)
 - Error handling and retry logic with realistic service behavior
 
 **What does NOT belong here**:
+
 - Domain logic (use unit tests)
 - Full application flow (use e2e tests)
-- Multiple adapters orchestrated together
-- Test doubles for infrastructure dependencies (use real instances)
+- `vi.spyOn(global, 'fetch')` or `vi.fn()` replacing fetch (use MSW instead — it intercepts at the network layer)
+- Test doubles for infrastructure (use real local instances or MSW)
 
-**Characteristics**: Seconds per test, requires container setup, per-suite isolation.
+**How to stub the boundary — local infrastructure + MSW**:
+
+For HTTP adapters (external APIs you don't control): MSW intercepts `fetch` at the network layer. The adapter calls real `fetch` — MSW responds. This validates your actual request construction, headers, URL formatting, and response parsing.
+
+```typescript
+// Integration test — adapter uses real fetch, MSW intercepts
+const server = setupServer(
+  http.get('https://api.example.com/v1/quotes', ({ request }) => {
+    expect(request.headers.get('Authorization')).toBe('Bearer test-key');
+    return HttpResponse.json({ data: [mockQuote] });
+  }),
+);
+
+beforeAll(() => server.listen());
+afterAll(() => server.close());
+
+it('fetches quotes with correct auth header', async () => {
+  const adapter = createApiAdapter({ apiKey: 'test-key' });
+  const result = await adapter.fetchByAsset({ asset: 'BTC' });
+  expect(result).toEqual(expectedQuote);
+});
+```
+
+For infrastructure you control: Use the real service running locally. The adapter connects to the local instance exactly as it would in production, just with local connection strings.
+
+```typescript
+// Integration test — real local Supabase / Tinybird / Postgres
+const client = createSupabaseClient(LOCAL_SUPABASE_URL, LOCAL_ANON_KEY);
+const adapter = createSupabaseAdapter(client);
+
+it('persists and retrieves a row', async () => {
+  await adapter.insert(testRow);
+  const result = await adapter.findById(testRow.id);
+  expect(result).toEqual(testRow);
+});
+```
+
+| Infrastructure | Local tool | Connection |
+| --- | --- | --- |
+| Supabase (Postgres + Auth) | `supabase start` | `localhost:54321` |
+| Tinybird | `tb local start` | `localhost:7181` |
+| PostgreSQL | Docker / `pg_tmp` | `localhost:5432` |
+| AWS services (S3, SQS, DynamoDB) | LocalStack | `localhost:4566` |
+| Redis | Docker | `localhost:6379` |
+| External HTTP APIs | MSW | Network-level intercept |
+
+**Characteristics**: Seconds per test, may require container/service setup, per-suite isolation.
 
 ### E2E Tests
 
 **Location**: `tests/e2e/**/*.test.ts`
 
-**Purpose**: Test the complete flow from entry point through all layers to final output or persistence.
+**Purpose**: Test the complete flow from entry point through all layers to final output or persistence. Exercises the real composition root, real adapters, real (local) infrastructure.
 
 **What belongs here**:
+
 - Full application entry point execution (handler, controller, CLI)
 - Complete data flow: trigger → processing → storage
 - Integration between all components (domain + adapters + config)
@@ -307,32 +382,108 @@ Use three distinct test types, each with a clear scope. The decision rubric belo
 - End-to-end error scenarios and graceful degradation
 
 **What does NOT belong here**:
+
 - Individual components in isolation (use unit tests)
 - Adapters independently (use integration tests)
-- Mocked infrastructure you control (use real local instances)
 - Business logic details (use unit tests)
 
-**Characteristics**: Slowest, highest confidence, single-threaded to avoid resource contention.
+**How to stub the boundary — full local instances (no mocks)**:
+
+E2E tests use the same local infrastructure as integration tests but configured as a complete system. The composition root wires real adapters pointing at local services. No MSW, no test doubles — real code, real (local) services, real data flow.
+
+```typescript
+// E2E test — real handler, real adapters, local infrastructure
+// Environment configured to point at local services
+process.env.SUPABASE_URL = 'http://localhost:54321';
+process.env.TINYBIRD_HOST = 'http://localhost:7181';
+process.env.API_KEY = 'test-key-for-local';
+
+it('processes an event end-to-end', async () => {
+  const handler = createLambdaHandler(); // real composition root
+  const result = await handler(testEvent, testContext);
+  expect(result.statusCode).toBe(200);
+
+  // Verify side effects in real local infrastructure
+  const stored = await localSupabase.from('events').select().eq('id', testEvent.id);
+  expect(stored.data).toHaveLength(1);
+});
+```
+
+The difference from integration tests: integration tests exercise **one adapter** against **one service**. E2E tests exercise the **entire application** against **all services together**.
+
+**Characteristics**: Slowest, highest confidence, single-threaded to avoid resource contention, requires all local services running.
+
+### Dependency Boundaries & Injection Rules
+
+**The cardinal rule: inject domain dependencies, never infrastructure primitives.**
+
+Adapters call infrastructure directly (`fetch`, `fs`, database clients). They are **not** made testable by injecting `fetch` — that creates a seam that only exists for testing and leaks test concerns into the production API surface.
+
+Instead:
+
+1. **Extract pure logic** from adapters (URL construction, request body formatting, response parsing, data transformation). Unit test these as pure functions.
+2. **Define domain port interfaces** (`DataSource`, `DataStore`, `Logger`) that describe *what* the domain needs, not *how* it's fetched.
+3. **Implement adapters** that satisfy port interfaces by calling infrastructure directly.
+4. **Test adapters** with real infrastructure (MSW for HTTP, local instances for databases) in integration tests.
+
+```text
+┌─────────────────────────────────────────────────────────┐
+│ What to inject (domain ports)                           │
+│                                                         │
+│   DataSource, DataStore, Logger, EventPublisher,        │
+│   RateLimiter, Cache, NotificationSender                │
+│                                                         │
+│   → These represent real behavioral seams               │
+│   → Unit tests replace with fakes/test doubles          │
+│   → Production wires real adapter implementations       │
+├─────────────────────────────────────────────────────────┤
+│ What NOT to inject (infrastructure primitives)          │
+│                                                         │
+│   fetch, fs, crypto, database client, HTTP client,      │
+│   SDK instances, WebSocket                              │
+│                                                         │
+│   → These are internal to adapters                      │
+│   → Adding fetchFn parameter = test concern in prod API │
+│   → Test via MSW / local infra in integration tests     │
+└─────────────────────────────────────────────────────────┘
+```
+
+**Anti-pattern**: Injecting `fetchFn` into an adapter constructor to avoid MSW. If adding a single parameter makes the adapter "testable without network interception," the adapter was one parameter away from being properly designed — but in the wrong direction. The adapter's contract is "give me a pool ID, get back a result." How it fetches is internal.
+
+**Correct pattern**: Extract `toRequestUrl()`, `toRequestBody()`, `parseResponse()` as pure functions. Unit test those. Test the adapter's HTTP round-trip with MSW in integration tests.
+
+### Summary: Stubbing Strategy by Test Type
+
+| Test type | What you test | How you stub the boundary | Examples |
+| --- | --- | --- | --- |
+| **Unit** | Domain logic, pure transformations, business rules | Test doubles (fakes implementing port interfaces) | `FakeDataSource`, `InMemoryStore`, `TestLogger` |
+| **Integration** | One adapter against one real service | Real local infrastructure or MSW | MSW for HTTP APIs; Supabase Local, Tinybird Local, Docker Postgres, LocalStack |
+| **E2E** | Full application flow, all layers wired | All local services running, no mocks at all | Real handler → real adapters → local Supabase + Tinybird + etc. |
 
 ### Decision Rubric: Where Does This Test Belong?
 
-1. **Is it testing a single component with all dependencies mocked?** → Unit test
-2. **Is it testing an adapter against real infrastructure?** → Integration test
+1. **Is it testing pure logic with all dependencies replaced by fakes?** → Unit test
+2. **Is it testing one adapter against real (local) infrastructure?** → Integration test
 3. **Is it testing the full application flow end-to-end?** → E2E test
 
 **Quick checks**:
+
 - Test sits next to the source file → Unit test
-- Test needs Docker containers → Integration or E2E test
-- Test invokes the real entry point → E2E test
-- Test uses MSW for external HTTP → Integration test (or E2E if full flow)
+- Test uses fakes implementing port interfaces → Unit test
+- Test uses MSW for external HTTP → Integration test
+- Test needs Docker/local services → Integration or E2E test
+- Test invokes the real composition root with all services → E2E test
 
 ### Principles
 
-1. **Mock what you don't control, use real instances of what you do control.** External APIs → MSW mocks. Infrastructure you own (databases, queues) → real local instances.
-2. **Test at the right level of abstraction.** Unit: logic in isolation. Integration: contracts with infrastructure. E2E: complete user-facing flows.
-3. **Speed vs confidence trade-off.** Unit tests: fast, frequent feedback. Integration: moderate speed, validate contracts. E2E: slower, highest confidence.
-4. **File location determines test type.** `src/**/*.test.ts` → unit. `tests/integration/` → integration. `tests/e2e/` → e2e.
-5. **Coverage expectations increase with scope.** Unit tests cover core logic. Integration tests validate contracts comprehensively. E2E tests cover all critical paths. Combined coverage should exceed any single type.
+1. **Inject domain ports, not infrastructure primitives.** Adapters call `fetch`/`fs`/`crypto` directly. Domain code depends on port interfaces (`DataSource`, `DataStore`). Unit tests provide fakes; integration tests use real infrastructure.
+2. **Mock what you don't control, use real instances of what you do.** External APIs → MSW mocks. Infrastructure you own (databases, queues) → real local instances.
+3. **Test at the right level of abstraction.** Unit: logic in isolation with fakes. Integration: one adapter against one real service. E2E: complete flow through all services.
+4. **Speed vs confidence trade-off.** Unit tests: fast, frequent feedback. Integration: moderate speed, validate contracts. E2E: slower, highest confidence.
+5. **File location determines test type.** `src/**/*.test.ts` → unit. `tests/integration/` → integration. `tests/e2e/` → e2e.
+6. **Never use MSW in unit tests.** MSW is a network-level interception tool — it belongs in integration tests where you're validating real HTTP behavior. Unit tests should have zero network interaction.
+7. **Never mock `global.fetch` with `vi.fn()` or `vi.spyOn`.** This creates brittle tests coupled to fetch internals. Use MSW in integration tests to intercept at the network layer instead.
+8. **Extract pure logic from adapters.** URL construction, request formatting, response parsing, data transformations — these are unit-testable as pure functions without touching infrastructure.
 
 ## Development Workflow
 
