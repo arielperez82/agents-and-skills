@@ -69,6 +69,125 @@ describe('createTelemetryClient', () => {
       expect(result.rows).toBe(1);
     });
 
+    it('queries agentUsageDaily endpoint', async () => {
+      server.use(
+        http.get(`${BASE_URL}/v0/pipes/agent_usage_daily.json`, () =>
+          HttpResponse.json({
+            data: [{ day: '2026-02-19', agent_type: 'tdd-reviewer', invocations: 5 }],
+            meta: [],
+            rows: 1,
+            statistics: { elapsed: 0.001, rows_read: 10, bytes_read: 100 },
+          })
+        )
+      );
+
+      const client = createClient();
+      const result = await client.query.agentUsageDaily({ days: 7 });
+      expect(result.data).toHaveLength(1);
+    });
+
+    it('queries costByAgent endpoint', async () => {
+      server.use(
+        http.get(`${BASE_URL}/v0/pipes/cost_by_agent.json`, () =>
+          HttpResponse.json({
+            data: [{ agent_type: 'researcher', total_cost_usd: 1.5 }],
+            meta: [],
+            rows: 1,
+            statistics: { elapsed: 0.001, rows_read: 5, bytes_read: 50 },
+          })
+        )
+      );
+
+      const client = createClient();
+      const result = await client.query.costByAgent({ days: 7 });
+      expect(result.data).toHaveLength(1);
+    });
+
+    it('queries costByModel endpoint', async () => {
+      server.use(
+        http.get(`${BASE_URL}/v0/pipes/cost_by_model.json`, () =>
+          HttpResponse.json({
+            data: [{ model: 'claude-opus-4-6', total_cost_usd: 2.0 }],
+            meta: [],
+            rows: 1,
+            statistics: { elapsed: 0.001, rows_read: 5, bytes_read: 50 },
+          })
+        )
+      );
+
+      const client = createClient();
+      const result = await client.query.costByModel({ days: 7 });
+      expect(result.data).toHaveLength(1);
+    });
+
+    it('queries optimizationInsights endpoint', async () => {
+      server.use(
+        http.get(`${BASE_URL}/v0/pipes/optimization_insights.json`, () =>
+          HttpResponse.json({
+            data: [{ agent_type: 'researcher', avg_tokens: 300 }],
+            meta: [],
+            rows: 1,
+            statistics: { elapsed: 0.001, rows_read: 5, bytes_read: 50 },
+          })
+        )
+      );
+
+      const client = createClient();
+      const result = await client.query.optimizationInsights({ days: 7 });
+      expect(result.data).toHaveLength(1);
+    });
+
+    it('queries sessionOverview endpoint', async () => {
+      server.use(
+        http.get(`${BASE_URL}/v0/pipes/session_overview.json`, () =>
+          HttpResponse.json({
+            data: [{ session_id: 'sess-1', total_cost_usd: 0.5 }],
+            meta: [],
+            rows: 1,
+            statistics: { elapsed: 0.001, rows_read: 5, bytes_read: 50 },
+          })
+        )
+      );
+
+      const client = createClient();
+      const result = await client.query.sessionOverview({ days: 7 });
+      expect(result.data).toHaveLength(1);
+    });
+
+    it('queries skillFrequency endpoint', async () => {
+      server.use(
+        http.get(`${BASE_URL}/v0/pipes/skill_frequency.json`, () =>
+          HttpResponse.json({
+            data: [{ skill_name: 'tdd', activations: 10 }],
+            meta: [],
+            rows: 1,
+            statistics: { elapsed: 0.001, rows_read: 5, bytes_read: 50 },
+          })
+        )
+      );
+
+      const client = createClient();
+      const result = await client.query.skillFrequency({ days: 7 });
+      expect(result.data).toHaveLength(1);
+    });
+
+    it('queries telemetryHealthSummary endpoint', async () => {
+      server.use(
+        http.get(`${BASE_URL}/v0/pipes/telemetry_health_summary.json`, () =>
+          HttpResponse.json({
+            data: [{ hook_name: 'log-agent-start', total_invocations: 100 }],
+            meta: [],
+            rows: 1,
+            statistics: { elapsed: 0.001, rows_read: 5, bytes_read: 50 },
+          })
+        )
+      );
+
+      const client = createClient();
+      const result = await client.query.telemetryHealthSummary({ days: 7 });
+      expect(result.data).toHaveLength(1);
+    });
+
     it('returns empty data array when no results match', async () => {
       server.use(
         http.get(`${BASE_URL}/v0/pipes/agent_usage_summary.json`, () =>
@@ -111,6 +230,80 @@ describe('createTelemetryClient', () => {
       });
 
       expect(capturedAuth).toBe(`Bearer ${INGEST_TOKEN}`);
+    });
+
+    it('ingests apiRequests row successfully', async () => {
+      server.use(
+        http.post(`${BASE_URL}/v0/events`, () =>
+          HttpResponse.json({ successful_rows: 1, quarantined_rows: 0 })
+        )
+      );
+
+      const client = createClient();
+      await expect(
+        client.ingest.apiRequests({
+          timestamp: new Date().toISOString(),
+          session_id: 'sess-1',
+          model: 'claude-opus-4-6',
+          input_tokens: 100,
+          output_tokens: 50,
+          cache_read_tokens: 0,
+          cache_creation_tokens: 0,
+          cost_usd: 0.01,
+          duration_ms: 500,
+          status_code: 200,
+          error_type: null,
+          source: 'test',
+        })
+      ).resolves.toBeDefined();
+    });
+
+    it('ingests sessionSummaries row successfully', async () => {
+      server.use(
+        http.post(`${BASE_URL}/v0/events`, () =>
+          HttpResponse.json({ successful_rows: 1, quarantined_rows: 0 })
+        )
+      );
+
+      const client = createClient();
+      await expect(
+        client.ingest.sessionSummaries({
+          timestamp: new Date().toISOString(),
+          session_id: 'sess-1',
+          total_duration_ms: 1000,
+          agent_count: 1,
+          skill_count: 2,
+          api_request_count: 3,
+          total_input_tokens: 100,
+          total_output_tokens: 50,
+          total_cache_read_tokens: 0,
+          total_cost_usd: 0.01,
+          agents_used: [],
+          skills_used: [],
+          model_primary: 'claude-opus-4-6',
+        })
+      ).resolves.toBeDefined();
+    });
+
+    it('ingests skillActivations row successfully', async () => {
+      server.use(
+        http.post(`${BASE_URL}/v0/events`, () =>
+          HttpResponse.json({ successful_rows: 1, quarantined_rows: 0 })
+        )
+      );
+
+      const client = createClient();
+      await expect(
+        client.ingest.skillActivations({
+          timestamp: new Date().toISOString(),
+          session_id: 'sess-1',
+          skill_name: 'tdd',
+          entity_type: 'skill',
+          agent_type: null,
+          duration_ms: 50,
+          success: 1,
+        })
+      ).resolves.toBeDefined();
     });
   });
 

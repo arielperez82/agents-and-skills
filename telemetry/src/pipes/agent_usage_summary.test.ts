@@ -1,8 +1,8 @@
+import { objectKeysFromUnknown } from '@tests/helpers/object-keys';
 import { describe, expect, it } from 'vitest';
 
 import type { AgentUsageSummaryRow } from './agent_usage_summary';
 import { agentUsageSummary } from './agent_usage_summary';
-import { objectKeysFromUnknown } from './test-utils';
 
 describe('agent_usage_summary endpoint', () => {
   it('has the correct endpoint name', () => {

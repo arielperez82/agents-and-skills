@@ -1,8 +1,8 @@
+import { objectKeysFromUnknown } from '@tests/helpers/object-keys';
 import { describe, expect, it } from 'vitest';
 
 import type { SkillFrequencyRow } from './skill_frequency';
 import { skillFrequency } from './skill_frequency';
-import { objectKeysFromUnknown } from './test-utils';
 
 const firstNode = () => {
   const n = skillFrequency.options.nodes[0];

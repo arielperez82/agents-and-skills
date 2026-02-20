@@ -1,8 +1,8 @@
+import { objectKeysFromUnknown } from '@tests/helpers/object-keys';
 import { describe, expect, it } from 'vitest';
 
 import type { SessionOverviewRow } from './session_overview';
 import { sessionOverview } from './session_overview';
-import { objectKeysFromUnknown } from './test-utils';
 
 const firstNode = () => {
   const n = sessionOverview.options.nodes[0];

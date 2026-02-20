@@ -1,6 +1,10 @@
+import { server } from '@tests/mocks/server';
+import { http, HttpResponse } from 'msw';
 import { describe, expect, it, vi } from 'vitest';
 
-import { createClientFromEnv, readStdin } from './shared';
+import { createTelemetryClient } from '@/client';
+
+import { createClientFromEnv, extractStringField, logHealthEvent, readStdin } from './shared';
 
 describe('createClientFromEnv', () => {
   it('returns null when TB_INGEST_TOKEN is missing', () => {
@@ -53,5 +57,80 @@ describe('createClientFromEnv', () => {
 describe('readStdin', () => {
   it('is exported as a function', () => {
     expect(typeof readStdin).toBe('function');
+  });
+});
+
+describe('extractStringField', () => {
+  it('extracts a string field from valid JSON', () => {
+    const json = JSON.stringify({ session_id: 'sess-1', agent_type: 'tdd-reviewer' });
+
+    expect(extractStringField(json, 'session_id')).toBe('sess-1');
+    expect(extractStringField(json, 'agent_type')).toBe('tdd-reviewer');
+  });
+
+  it('returns null for non-string field values', () => {
+    const json = JSON.stringify({ count: 42, nested: { key: 'value' } });
+
+    expect(extractStringField(json, 'count')).toBeNull();
+    expect(extractStringField(json, 'nested')).toBeNull();
+  });
+
+  it('returns null for missing fields', () => {
+    const json = JSON.stringify({ session_id: 'sess-1' });
+
+    expect(extractStringField(json, 'nonexistent')).toBeNull();
+  });
+
+  it('returns null for invalid JSON', () => {
+    expect(extractStringField('not json {{{', 'field')).toBeNull();
+  });
+
+  it('returns null for non-object JSON values', () => {
+    expect(extractStringField('"just a string"', 'field')).toBeNull();
+    expect(extractStringField('42', 'field')).toBeNull();
+    expect(extractStringField('null', 'field')).toBeNull();
+  });
+});
+
+describe('logHealthEvent', () => {
+  const BASE_URL = 'https://api.tinybird.co';
+
+  it('ingests a health event successfully', async () => {
+    let capturedBody: unknown = null;
+
+    server.use(
+      http.post(`${BASE_URL}/v0/events`, async ({ request }) => {
+        capturedBody = await request.json();
+        return HttpResponse.json({ successful_rows: 1, quarantined_rows: 0 });
+      })
+    );
+
+    const client = createTelemetryClient({
+      baseUrl: BASE_URL,
+      ingestToken: 'test-ingest',
+      readToken: 'test-read',
+    });
+
+    await logHealthEvent(client, 'test-hook', 0, 100, null, null);
+
+    expect(capturedBody).not.toBeNull();
+  });
+
+  it('does not throw when ingest fails', async () => {
+    server.use(
+      http.post(`${BASE_URL}/v0/events`, () =>
+        HttpResponse.json({ error: 'Server error' }, { status: 500 })
+      )
+    );
+
+    const client = createTelemetryClient({
+      baseUrl: BASE_URL,
+      ingestToken: 'test-ingest',
+      readToken: 'test-read',
+    });
+
+    await expect(
+      logHealthEvent(client, 'test-hook', 1, 50, 'some error', 500)
+    ).resolves.not.toThrow();
   });
 });

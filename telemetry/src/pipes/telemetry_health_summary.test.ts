@@ -1,8 +1,8 @@
+import { objectKeysFromUnknown } from '@tests/helpers/object-keys';
 import { describe, expect, it } from 'vitest';
 
 import type { TelemetryHealthSummaryRow } from './telemetry_health_summary';
 import { telemetryHealthSummary } from './telemetry_health_summary';
-import { objectKeysFromUnknown } from './test-utils';
 
 describe('telemetry_health_summary endpoint', () => {
   it('has the correct endpoint name', () => {

@@ -72,6 +72,36 @@ describe('agent-timing', () => {
     expect(result).toBe(3000);
   });
 
+  it('returns null when timing file contains invalid JSON', () => {
+    const filePath = path.join(TIMING_DIR, 'test-agent-1.json');
+    fs.mkdirSync(TIMING_DIR, { recursive: true });
+    fs.writeFileSync(filePath, 'not valid json');
+
+    const result = consumeAgentStart('test-agent-1');
+
+    expect(result).toBeNull();
+  });
+
+  it('returns null when timing file has non-number startMs', () => {
+    const filePath = path.join(TIMING_DIR, 'test-agent-1.json');
+    fs.mkdirSync(TIMING_DIR, { recursive: true });
+    fs.writeFileSync(filePath, JSON.stringify({ startMs: 'not-a-number' }));
+
+    const result = consumeAgentStart('test-agent-1');
+
+    expect(result).toBeNull();
+  });
+
+  it('returns null when timing file has no startMs key', () => {
+    const filePath = path.join(TIMING_DIR, 'test-agent-1.json');
+    fs.mkdirSync(TIMING_DIR, { recursive: true });
+    fs.writeFileSync(filePath, JSON.stringify({ other: 123 }));
+
+    const result = consumeAgentStart('test-agent-1');
+
+    expect(result).toBeNull();
+  });
+
   describe('path traversal protection', () => {
     it('does not write files outside timing directory for traversal agentId', () => {
       const traversalId = '../../etc/malicious';
@@ -134,6 +164,36 @@ describe('session-context', () => {
 
     expect(lookupSessionAgent('test-sess-1')).toBe('tdd-reviewer');
     expect(lookupSessionAgent('test-sess-2')).toBe('code-reviewer');
+  });
+
+  it('returns null when session file contains invalid JSON', () => {
+    const filePath = path.join(TIMING_DIR, 'session-test-sess-1.json');
+    fs.mkdirSync(TIMING_DIR, { recursive: true });
+    fs.writeFileSync(filePath, 'corrupt data');
+
+    const result = lookupSessionAgent('test-sess-1');
+
+    expect(result).toBeNull();
+  });
+
+  it('returns null when session file has non-string agentType', () => {
+    const filePath = path.join(TIMING_DIR, 'session-test-sess-1.json');
+    fs.mkdirSync(TIMING_DIR, { recursive: true });
+    fs.writeFileSync(filePath, JSON.stringify({ agentType: 42 }));
+
+    const result = lookupSessionAgent('test-sess-1');
+
+    expect(result).toBeNull();
+  });
+
+  it('returns null when session file has no agentType key', () => {
+    const filePath = path.join(TIMING_DIR, 'session-test-sess-1.json');
+    fs.mkdirSync(TIMING_DIR, { recursive: true });
+    fs.writeFileSync(filePath, JSON.stringify({ other: 'data' }));
+
+    const result = lookupSessionAgent('test-sess-1');
+
+    expect(result).toBeNull();
   });
 
   it('rejects path traversal in sessionId', () => {

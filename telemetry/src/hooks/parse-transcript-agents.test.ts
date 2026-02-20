@@ -142,6 +142,78 @@ describe('parseTranscriptAgents', () => {
     expect(result.skill_count).toBe(2);
   });
 
+  it('ignores tool_use blocks that are not Task or Read', () => {
+    const line = makeAssistantLine([
+      {
+        type: 'tool_use',
+        id: 'toolu_789',
+        name: 'Write',
+        input: { file_path: '/Users/me/test.ts' },
+      },
+      { type: 'tool_use', id: 'toolu_790', name: 'Bash', input: { command: 'ls' } },
+    ]);
+
+    const result = parseTranscriptAgents(line);
+
+    expect(result.agents_used).toEqual([]);
+    expect(result.skills_used).toEqual([]);
+  });
+
+  it('ignores Task tool_use with missing input object', () => {
+    const line = makeAssistantLine([{ type: 'tool_use', id: 'toolu_1', name: 'Task' }]);
+
+    const result = parseTranscriptAgents(line);
+
+    expect(result.agents_used).toEqual([]);
+  });
+
+  it('ignores Task tool_use with non-string subagent_type', () => {
+    const line = makeAssistantLine([
+      { type: 'tool_use', id: 'toolu_1', name: 'Task', input: { subagent_type: 42 } },
+    ]);
+
+    const result = parseTranscriptAgents(line);
+
+    expect(result.agents_used).toEqual([]);
+  });
+
+  it('ignores Task tool_use with empty subagent_type', () => {
+    const line = makeAssistantLine([
+      { type: 'tool_use', id: 'toolu_1', name: 'Task', input: { subagent_type: '  ' } },
+    ]);
+
+    const result = parseTranscriptAgents(line);
+
+    expect(result.agents_used).toEqual([]);
+  });
+
+  it('ignores Read tool_use with missing input', () => {
+    const line = makeAssistantLine([{ type: 'tool_use', id: 'toolu_1', name: 'Read' }]);
+
+    const result = parseTranscriptAgents(line);
+
+    expect(result.skills_used).toEqual([]);
+  });
+
+  it('ignores Read tool_use with non-string file_path', () => {
+    const line = makeAssistantLine([
+      { type: 'tool_use', id: 'toolu_1', name: 'Read', input: { file_path: 42 } },
+    ]);
+
+    const result = parseTranscriptAgents(line);
+
+    expect(result.skills_used).toEqual([]);
+  });
+
+  it('ignores non-object content blocks', () => {
+    const line = makeAssistantLine([null, 42, 'string-block', true]);
+
+    const result = parseTranscriptAgents(line);
+
+    expect(result.agents_used).toEqual([]);
+    expect(result.skills_used).toEqual([]);
+  });
+
   it('handles assistant rows without content array gracefully', () => {
     const line = JSON.stringify({
       type: 'assistant',
