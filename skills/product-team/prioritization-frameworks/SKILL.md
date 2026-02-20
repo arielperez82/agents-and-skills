@@ -29,6 +29,7 @@ related-agents:
   - senior-project-manager
   - agile-coach
   - product-analyst
+  - implementation-planner
 related-skills:
   - product-team/product-manager-toolkit
   - product-team/product-strategist
@@ -450,8 +451,8 @@ This skill integrates with existing product team tools:
 **WSJF formula:** `(Business Value + Time Criticality + Risk Reduction) / Job Size` — opt-in via `--wsjf` flag.
 
 **Monte Carlo forecasting:**
-- Extract throughput: `python git_throughput_extractor.py --repo-path . --period week`
-- Forecast delivery: `python monte_carlo_forecast.py --throughput data.json --remaining 12`
+- Extract throughput: `python3 scripts/git_throughput_extractor.py --repo-path . --period week`
+- Forecast delivery: `python3 scripts/monte_carlo_forecast.py --throughput data.json --remaining 12`
 - Confidence levels: P50 (planning), P85 (commitment), P95 (worst-case)
 
 **Rebalancing triggers:**
