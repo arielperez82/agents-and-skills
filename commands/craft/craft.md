@@ -497,6 +497,11 @@ Save ADRs to: .docs/canonical/adrs/{initiative-id}-{NNN}-{decision-slug}.md
 Use sequential numbering (001, 002, ...).
 ```
 
+**ADR writer resilience:** The `adr-writer` is a secondary agent in this phase — the backlog is the critical artifact. If the `adr-writer` fails (rate limits, dispatch errors, context overflow):
+1. Check for existing ADRs in `.docs/canonical/adrs/` that already cover the initiative's decisions. Scope narrowings, deferrals, and refinements of existing decisions do not need new ADRs.
+2. If existing ADRs are sufficient, proceed without re-running the `adr-writer`. Note this in the Phase Log.
+3. If new ADRs are genuinely needed, retry once. If the retry fails, proceed with the backlog and flag "ADRs pending" in the status file — they can be written in Phase 6 (Close) or as a follow-up.
+
 **Output artifacts:**
 - `.docs/canonical/backlogs/backlog-{endeavor}-{initiative-id}-{subject}.md`
 - `.docs/canonical/adrs/{initiative-id}-*.md`
@@ -538,6 +543,7 @@ Requirements:
 3. Follow TDD: every step writes tests before production code.
 4. Steps should be small enough to complete and verify independently.
 5. Include a Phase 0 quality gate step if the project is new or lacks pre-commit hooks, CI, or deploy pipeline.
+6. Keep the plan to a manageable number of steps — roughly 10-15 is a good target. Plans with 20+ steps tend to exceed agent context limits and produce worse results. If the scope naturally requires more, break the initiative into sub-phases or split into multiple initiatives rather than producing one sprawling plan. Use your judgment — a plan with 18 tightly-scoped steps may be fine, while 12 broad steps may be too much.
 
 SEQUENCING: Consult senior-project-manager for phasing and dependency management. Group steps into waves:
 - Within a wave: all steps are independent and can run in parallel
