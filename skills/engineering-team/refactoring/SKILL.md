@@ -69,6 +69,8 @@ When an adapter class mixes pure transformation logic with HTTP orchestration, t
 
 **Classification:** High Value (fix this session) — improves testability and separation of concerns without changing behavior.
 
+After extraction, the unit vs integration test boundary becomes clear: extracted pure functions get unit tests (no mocks), while the remaining HTTP orchestration gets integration tests with mock servers. If coverage thresholds need adjusting, look for guidance on structural function coverage gaps in adapter-heavy packages.
+
 ---
 
 ## Example Assessment
