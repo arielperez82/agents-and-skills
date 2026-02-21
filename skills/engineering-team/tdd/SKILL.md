@@ -201,6 +201,12 @@ NOT "What line am I missing?"
 
 Add tests for behavior, and coverage follows naturally.
 
+### Structural Function Coverage Gap in Adapter-Heavy Packages
+
+When a package contains adapter classes that mix HTTP orchestration with pure transformation logic, function coverage will structurally lag behind statement/line/branch coverage by ~5%. This is because adapter class methods (fetch, ingest, constructor) and retry callbacks count as functions but belong in integration tests, not unit tests.
+
+**Prescription:** Set `functions` threshold 5% below other thresholds in vitest config (e.g., `functions: 60` when others are `65`). This gap is expected, not a defect. For the extraction pattern that improves this, use `/skill/find-local-skill` with "adapter testing boundaries" or "refactoring adapter extraction".
+
 ---
 
 ## 100% Coverage Exception Process
