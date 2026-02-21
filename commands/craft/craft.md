@@ -95,11 +95,11 @@ Commit early and often. Review incrementally. Never wait until the end.
 
 ### Review Tiers
 
-| Tier | Agents | When | Purpose |
-|------|--------|------|---------|
-| **Step Review** (lightweight) | code-reviewer, refactor-assessor, security-assessor | After each GREEN in Phase 4 | Catch issues while context is fresh |
-| **Story Review** (moderate) | Step Review agents + cognitive-load-assessor | After completing each story/ticket in Phase 4 | Assess accumulated complexity |
-| **Final Sweep** | Full `/review/review-changes` | Phase 5 | Catch cross-cutting issues across all work |
+| Tier | Agents | Mode | When | Purpose |
+|------|--------|------|------|---------|
+| **Step Review** (lightweight) | code-reviewer, refactor-assessor, security-assessor, ts-enforcer, tdd-reviewer | **Diff-mode** | After each GREEN in Phase 4 | Fast feedback on changed code only |
+| **Story Review** (moderate) | code-reviewer, refactor-assessor, security-assessor, cognitive-load-assessor | **Full-mode** | After completing each story/ticket in Phase 4 | Cross-file analysis, accumulated complexity |
+| **Final Sweep** | Full `/review/review-changes` | **Full-mode** | Phase 5 | Holistic quality across all work; includes docs-reviewer, progress-assessor, tdd-reviewer (Farley Index) |
 
 ### Commit Cadence
 
@@ -624,7 +624,9 @@ INCREMENTAL COMMIT: After achieving GREEN, the orchestrator will run a Step Revi
 
 **After each GREEN (tests passing) — Step Review:**
 
-1. Run **Step Review** agents in parallel: `code-reviewer`, `refactor-assessor`, `security-assessor`
+1. Run **Step Review** agents in **diff-mode** (parallel): `code-reviewer`, `refactor-assessor`, `security-assessor`, `ts-enforcer`, `tdd-reviewer`
+   - Diff-mode: agents analyze only the changed lines and immediate context (see review-changes § Review Modes)
+   - Skip: cognitive-load-assessor, docs-reviewer, progress-assessor (these require full-mode)
 2. If any "Fix Required" findings: fix the issue, re-run tests, re-run Step Review
 3. If only Suggestions/Observations: note for later, proceed to commit
 4. Commit via `/git/cm` with message: `feat(<initiative-id>): step <N> — <brief description>`
@@ -632,7 +634,9 @@ INCREMENTAL COMMIT: After achieving GREEN, the orchestrator will run a Step Revi
 
 **After completing each story/ticket — Story Review:**
 
-1. Run **Story Review** agents in parallel: `code-reviewer`, `refactor-assessor`, `security-assessor`, `cognitive-load-assessor`
+1. Run **Story Review** agents in **full-mode** (parallel): `code-reviewer`, `refactor-assessor`, `security-assessor`, `cognitive-load-assessor`
+   - Full-mode: agents perform complete analysis including cross-file duplication, codebase metrics, and accumulated complexity
+   - cognitive-load-assessor runs here (not in Step Review) because it needs the full picture to be meaningful
 2. If any "Fix Required" findings: fix, re-run tests, commit fixes separately
 3. Log story completion in the Phase Log
 
@@ -662,6 +666,13 @@ Use `git diff <pre-phase-4-sha>..HEAD` to identify the full scope of Phase 4 cha
 then run the standard validation gate on that diff (all agents in parallel):
 - Core: tdd-reviewer, ts-enforcer, refactor-assessor, security-assessor, code-reviewer, cognitive-load-assessor
 - Optional: docs-reviewer (if docs changed), progress-assessor (plan-based work), agent-validator (if agents/ changed)
+
+All agents run in full-mode. This is the only review tier that includes:
+- tdd-reviewer in analysis mode (Farley Index scoring on full test suite)
+- docs-reviewer (full document structure review)
+- progress-assessor (plan completeness validation)
+These agents are excluded from Step and Story Reviews because they require
+holistic context that isn't available when reviewing individual changes.
 
 The pre-Phase-4 SHA is determined by walking backwards from Phase 3:
 - Use the last SHA in commit_shas from the most recent non-skipped phase before Phase 4

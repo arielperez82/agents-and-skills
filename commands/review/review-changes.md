@@ -17,6 +17,47 @@ Run the pre-commit validation agents on **uncommitted changes only** (working tr
 
 Apply the argument when gathering the diff and when instructing each subagent (e.g. "Review only the following files" or "Focus on: ...").
 
+## Review Modes
+
+Review-changes supports two modes that control agent scope and depth. The caller specifies the mode; the default is `full`.
+
+### Diff-mode (lightweight)
+
+Agents analyze **only the changed lines and their immediate context**. Optimized for fast feedback during incremental development. Agents skip holistic analysis that requires reading the full codebase.
+
+**Per-agent diff-mode behavior:**
+
+| Agent | Diff-mode scope | What's skipped |
+|-------|----------------|----------------|
+| code-reviewer | Anti-pattern scan + security patterns on changed lines only | Architecture review, breaking-change assessment |
+| refactor-assessor | Naming, nesting, immutability on changed files | Cross-file semantic duplication scan |
+| security-assessor | Full analysis (already diff-native) | Nothing — this agent is designed for diffs |
+| ts-enforcer | Pattern scan on changed files + `tsc --noEmit` | Nothing significant — already mostly line-level |
+| tdd-reviewer | TDD coaching on current step (did test come first?) | Farley Index scoring, full test-suite analysis |
+| cognitive-load-assessor | **Not run in diff-mode** | Entire analysis (requires full codebase metrics) |
+| docs-reviewer | **Not run in diff-mode** | Entire analysis (requires full document structure) |
+| progress-assessor | **Not run in diff-mode** | Entire analysis (requires full plan/status context) |
+
+### Full-mode (comprehensive)
+
+Agents perform their complete analysis including holistic, cross-file, and codebase-wide assessments. Use for story-level reviews and final sweeps.
+
+**All agents run their standard analysis as currently documented.** No changes to existing agent behavior.
+
+### Specifying the mode
+
+The orchestrator (e.g., `/craft`) passes the mode when invoking review-changes:
+
+- **Step Review**: `/review/review-changes --mode diff` (or equivalent prompt instruction)
+- **Story Review / Final Sweep**: `/review/review-changes` (default full mode)
+
+When diff-mode is specified, include this preamble in each agent's prompt:
+
+> DIFF-MODE: You are reviewing only the changes in this diff, not the full codebase.
+> Focus on: issues visible in the changed lines and their immediate context.
+> Skip: holistic analysis, cross-file pattern scanning, codebase-wide metrics.
+> This is a fast feedback pass — a comprehensive review will follow at story or sweep level.
+
 ## Subagents (run in parallel)
 
 Engage these agents **in parallel**, each with the same context: the uncommitted diff (and optional scope/focus). All agents operate independently on the same input, so there are no ordering dependencies.
@@ -107,8 +148,8 @@ When including **command-validator**, use this scope:
 
 2. **Run all agents in parallel**
    - Launch all applicable agents concurrently, each with: uncommitted diff + optional scope/focus. Use the prompts in "Optional agent prompts" above for each optional agent when included.
-   - Core (always): tdd-reviewer, ts-enforcer (skip if no TS in diff), refactor-assessor, security-assessor, code-reviewer, cognitive-load-assessor.
-   - Optional: docs-reviewer (if docs, agents, skills, or commands changed), progress-assessor (if plan-based), agent-validator (if `agents/` changed), agent-quality-assessor (if `agents/` changed), skill-validator (if `skills/` changed), command-validator (if `commands/` changed).
+   - **In diff-mode:** Prepend the DIFF-MODE preamble (see § Review Modes) to each agent's prompt. Skip agents marked "Not run in diff-mode" (cognitive-load-assessor, docs-reviewer, progress-assessor). All other core agents run with their diff-mode scope.
+   - **In full-mode (default):** Core (always): tdd-reviewer, ts-enforcer (skip if no TS in diff), refactor-assessor, security-assessor, code-reviewer, cognitive-load-assessor. Optional: docs-reviewer (if docs, agents, skills, or commands changed), progress-assessor (if plan-based), agent-validator (if `agents/` changed), agent-quality-assessor (if `agents/` changed), skill-validator (if `skills/` changed), command-validator (if `commands/` changed).
    - Wait for all agents to complete before proceeding to summarize.
 
 3. **Summarize (collated tier summary)**
