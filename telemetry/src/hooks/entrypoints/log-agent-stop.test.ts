@@ -109,6 +109,28 @@ describe('runLogAgentStop', () => {
     );
   });
 
+  it('extracts project_name from cwd and includes in ingested row', async () => {
+    const deps = makeDeps();
+    const event = makeStopEvent({ cwd: '/Users/test/projects/my-project' });
+
+    await runLogAgentStop(event, deps);
+
+    expect(deps.client.ingest.agentActivations).toHaveBeenCalledWith(
+      expect.objectContaining({ project_name: 'my-project' }) as Record<string, unknown>
+    );
+  });
+
+  it('defaults project_name to empty string when cwd is root', async () => {
+    const deps = makeDeps();
+    const event = makeStopEvent({ cwd: '/' });
+
+    await runLogAgentStop(event, deps);
+
+    expect(deps.client.ingest.agentActivations).toHaveBeenCalledWith(
+      expect.objectContaining({ project_name: '' }) as Record<string, unknown>
+    );
+  });
+
   it('does not throw on invalid event JSON', async () => {
     const deps = makeDeps();
 

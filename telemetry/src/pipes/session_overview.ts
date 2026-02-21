@@ -7,6 +7,7 @@ export const sessionOverview = defineEndpoint('session_overview', {
   params: {
     session_id: p.string().optional(),
     days: p.int32().optional(7),
+    project_name: p.string().optional(),
   },
   nodes: [
     node({
@@ -14,6 +15,7 @@ export const sessionOverview = defineEndpoint('session_overview', {
       sql: `
         SELECT
           session_id,
+          project_name,
           max(agent_count) AS agents_used,
           max(skill_count) AS skills_used,
           sum(total_input_tokens + total_output_tokens) AS total_tokens,
@@ -24,13 +26,17 @@ export const sessionOverview = defineEndpoint('session_overview', {
           {% if defined(session_id) %}
             AND session_id = {{String(session_id)}}
           {% end %}
-        GROUP BY session_id
+          {% if defined(project_name) %}
+            AND project_name = {{String(project_name)}}
+          {% end %}
+        GROUP BY session_id, project_name
         ORDER BY total_cost_usd DESC
       `,
     }),
   ],
   output: {
     session_id: t.string(),
+    project_name: t.string(),
     agents_used: t.uint64(),
     skills_used: t.uint64(),
     total_tokens: t.uint64(),

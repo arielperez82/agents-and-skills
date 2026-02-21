@@ -23,14 +23,23 @@ describe('skill_frequency endpoint', () => {
     expect(params.days._default).toBe(7);
   });
 
-  it('defines all 5 expected output fields', () => {
+  it('defines project_name param as optional string', () => {
+    const params = skillFrequency._params;
+    expect(params).toHaveProperty('project_name');
+    expect(params.project_name._tinybirdType).toBe('String');
+    expect(params.project_name._required).toBe(false);
+  });
+
+  it('defines all 7 expected output fields', () => {
     const output = 'output' in skillFrequency.options ? skillFrequency.options.output : undefined;
     expect(output).toBeDefined();
     const fieldNames = objectKeysFromUnknown(output);
-    expect(fieldNames).toHaveLength(5);
+    expect(fieldNames).toHaveLength(7);
     expect(fieldNames).toEqual([
       'skill_name',
       'entity_type',
+      'parent_skill',
+      'project_name',
       'activations',
       'successes',
       'avg_duration_ms',
@@ -47,8 +56,16 @@ describe('skill_frequency endpoint', () => {
     expect(firstNode().sql).toContain('skill_activations');
   });
 
-  it('SQL groups by skill_name and entity_type', () => {
-    expect(firstNode().sql).toContain('GROUP BY skill_name, entity_type');
+  it('SQL groups by skill_name, entity_type, parent_skill, and project_name', () => {
+    expect(firstNode().sql).toContain(
+      'GROUP BY skill_name, entity_type, parent_skill, project_name'
+    );
+  });
+
+  it('SQL includes optional project_name filter with Tinybird template', () => {
+    const sql = firstNode().sql;
+    expect(sql).toContain('defined(project_name)');
+    expect(sql).toContain('{{String(project_name)}}');
   });
 
   it('SQL filters by days parameter with INTERVAL', () => {
@@ -71,12 +88,16 @@ describe('skill_frequency endpoint', () => {
     const row: SkillFrequencyRow = {
       skill_name: 'tdd',
       entity_type: 'skill',
+      parent_skill: 'typescript-strict',
+      project_name: 'my-project',
       activations: 15,
       successes: 14,
       avg_duration_ms: 250.5,
     };
     expect(row.skill_name).toBe('tdd');
     expect(row.entity_type).toBe('skill');
+    expect(row.parent_skill).toBe('typescript-strict');
+    expect(row.project_name).toBe('my-project');
     expect(row.activations).toBe(15);
     expect(row.successes).toBe(14);
     expect(row.avg_duration_ms).toBe(250.5);

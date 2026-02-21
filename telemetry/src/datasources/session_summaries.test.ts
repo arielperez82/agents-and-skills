@@ -8,10 +8,10 @@ describe('session_summaries datasource', () => {
     expect(sessionSummaries._name).toBe('session_summaries');
   });
 
-  it('defines all 13 expected schema fields', () => {
+  it('defines all 14 expected schema fields', () => {
     const fieldNames = Object.keys(sessionSummaries.options.schema);
 
-    expect(fieldNames).toHaveLength(13);
+    expect(fieldNames).toHaveLength(14);
     expect(fieldNames).toEqual([
       'timestamp',
       'session_id',
@@ -26,6 +26,7 @@ describe('session_summaries datasource', () => {
       'agents_used',
       'skills_used',
       'model_primary',
+      'project_name',
     ]);
   });
 
@@ -66,6 +67,7 @@ describe('session_summaries datasource', () => {
       agents_used: ['data-engineer', 'tdd-reviewer'],
       skills_used: ['tdd', 'typescript-strict', 'testing'],
       model_primary: 'claude-opus-4-6',
+      project_name: '',
     };
 
     expect(row.session_id).toBe('sess-abc-123');

@@ -36,7 +36,7 @@ describe('integration test factories', () => {
       success: expect.any(Number),
       tool_calls_count: expect.any(Number),
     });
-    expect(Object.keys(row)).toHaveLength(16);
+    expect(Object.keys(row)).toHaveLength(17);
   });
 
   it('makeSkillActivationRow returns row assignable to SkillActivationRow with all required keys', () => {
@@ -49,7 +49,7 @@ describe('integration test factories', () => {
       duration_ms: expect.any(Number),
       success: expect.any(Number),
     });
-    expect(Object.keys(row)).toHaveLength(7);
+    expect(Object.keys(row)).toHaveLength(10);
   });
 
   it('makeApiRequestRow returns row assignable to ApiRequestRow with all required keys', () => {
@@ -84,7 +84,7 @@ describe('integration test factories', () => {
     });
     expect(Array.isArray(row.agents_used)).toBe(true);
     expect(Array.isArray(row.skills_used)).toBe(true);
-    expect(Object.keys(row)).toHaveLength(13);
+    expect(Object.keys(row)).toHaveLength(14);
   });
 
   it('makeTelemetryHealthRow returns row assignable to TelemetryHealthRow with all required keys', () => {

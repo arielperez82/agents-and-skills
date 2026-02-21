@@ -1,4 +1,11 @@
-import { COMMAND_PATH_PATTERN, SKILL_PATH_PATTERN } from '@/hooks/skill-path-patterns';
+import * as path from 'node:path';
+
+import {
+  COMMAND_PATH_PATTERN,
+  REFERENCE_PATH_PATTERN,
+  SCRIPT_PATH_PATTERN,
+  SKILL_PATH_PATTERN,
+} from '@/hooks/skill-path-patterns';
 
 export type TranscriptAgentSummary = {
   readonly agents_used: readonly string[];
@@ -48,6 +55,23 @@ const extractSkillName = (block: unknown): string | null => {
   const cmdMatch = COMMAND_PATH_PATTERN.exec(filePath);
   if (cmdMatch?.[1]) return cmdMatch[1];
 
+  const refMatch = REFERENCE_PATH_PATTERN.exec(filePath);
+  if (refMatch?.[2]) return path.parse(refMatch[2]).name;
+
+  return null;
+};
+
+const extractScriptName = (block: unknown): string | null => {
+  if (!isRecord(block)) return null;
+  if (block['type'] !== 'tool_use' || block['name'] !== 'Bash') return null;
+  const input = block['input'];
+  if (!isRecord(input)) return null;
+  const command = input['command'];
+  if (typeof command !== 'string') return null;
+
+  const scriptMatch = SCRIPT_PATH_PATTERN.exec(command);
+  if (scriptMatch?.[2]) return path.parse(scriptMatch[2]).name;
+
   return null;
 };
 
@@ -78,6 +102,12 @@ const collectFromBlocks = (
     const skillName = extractSkillName(block);
     if (skillName) {
       skillSet.add(skillName);
+      continue;
+    }
+
+    const scriptName = extractScriptName(block);
+    if (scriptName) {
+      skillSet.add(scriptName);
     }
   }
 };

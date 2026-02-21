@@ -18,6 +18,7 @@ export const integrationClient = new Tinybird({
     agentUsageSummary: pipes.agentUsageSummary,
     costByModel: pipes.costByModel,
     optimizationInsights: pipes.optimizationInsights,
+    scriptPerformance: pipes.scriptPerformance,
     sessionOverview: pipes.sessionOverview,
     skillFrequency: pipes.skillFrequency,
     telemetryHealthSummary: pipes.telemetryHealthSummary,

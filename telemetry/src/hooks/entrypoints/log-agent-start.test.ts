@@ -78,6 +78,28 @@ describe('runLogAgentStart', () => {
     );
   });
 
+  it('extracts project_name from cwd and includes in ingested row', async () => {
+    const deps = makeDeps();
+    const event = makeStartEvent({ cwd: '/Users/test/projects/trival-sales-brain' });
+
+    await runLogAgentStart(event, deps);
+
+    expect(deps.client.ingest.agentActivations).toHaveBeenCalledWith(
+      expect.objectContaining({ project_name: 'trival-sales-brain' }) as Record<string, unknown>
+    );
+  });
+
+  it('defaults project_name to empty string when cwd is root path', async () => {
+    const deps = makeDeps();
+    const event = makeStartEvent({ cwd: '/' });
+
+    await runLogAgentStart(event, deps);
+
+    expect(deps.client.ingest.agentActivations).toHaveBeenCalledWith(
+      expect.objectContaining({ project_name: '' }) as Record<string, unknown>
+    );
+  });
+
   it('does not throw on invalid event JSON', async () => {
     const deps = makeDeps();
 

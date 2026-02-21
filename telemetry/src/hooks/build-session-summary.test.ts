@@ -131,6 +131,21 @@ describe('buildSessionSummary', () => {
     expect(result.total_duration_ms).toBe(0);
   });
 
+  it('extracts project_name from cwd using extractProjectName', () => {
+    const result = buildSessionSummary(
+      makeEvent({ cwd: '/Users/Ariel/projects/agents-and-skills' }),
+      ''
+    );
+
+    expect(result.project_name).toBe('agents-and-skills');
+  });
+
+  it('defaults project_name to empty string when cwd is root', () => {
+    const result = buildSessionSummary(makeEvent({ cwd: '/' }), '');
+
+    expect(result.project_name).toBe('');
+  });
+
   it('extracts agents_used and skills_used from transcript tool_use blocks', () => {
     const transcriptWithToolUse = [
       JSON.stringify({

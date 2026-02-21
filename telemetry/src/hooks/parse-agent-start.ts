@@ -12,7 +12,10 @@ export const subagentStartSchema = z.object({
   hook_event_name: z.string().optional(),
 });
 
-export const parseAgentStart = (eventJson: string): AgentActivationRow => {
+export const parseAgentStart = (
+  eventJson: string,
+  projectName: string = ''
+): AgentActivationRow => {
   const parsed: unknown = JSON.parse(eventJson);
   const event = subagentStartSchema.parse(parsed);
 
@@ -37,5 +40,6 @@ export const parseAgentStart = (eventJson: string): AgentActivationRow => {
     success: 1,
     error_type: null,
     tool_calls_count: 0,
+    project_name: projectName,
   };
 };

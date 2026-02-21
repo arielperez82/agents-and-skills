@@ -102,6 +102,36 @@ describe('parseTranscriptAgents', () => {
     expect(result.agent_count).toBe(1);
   });
 
+  it('extracts reference names from Read tool_use matching references/ pattern', () => {
+    const line = makeAssistantLine([
+      makeReadToolUse(
+        '/Users/me/project/skills/engineering-team/typescript-strict/references/async-patterns.md'
+      ),
+    ]);
+    const result = parseTranscriptAgents(line);
+
+    expect(result.skills_used).toEqual(['async-patterns']);
+    expect(result.skill_count).toBe(1);
+  });
+
+  it('extracts script names from Bash tool_use matching scripts/ pattern', () => {
+    const line = makeAssistantLine([
+      {
+        type: 'tool_use',
+        id: 'toolu_789',
+        name: 'Bash',
+        input: {
+          command:
+            'python /Users/me/project/skills/delivery-team/agile-coach/scripts/sprint_metrics_calculator.py --velocity 23',
+        },
+      },
+    ]);
+    const result = parseTranscriptAgents(line);
+
+    expect(result.skills_used).toEqual(['sprint_metrics_calculator']);
+    expect(result.skill_count).toBe(1);
+  });
+
   it('ignores Read tool_use for non-skill/command paths', () => {
     const line = makeAssistantLine([
       makeReadToolUse('/Users/me/project/src/index.ts'),

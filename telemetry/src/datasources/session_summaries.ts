@@ -17,6 +17,7 @@ export const sessionSummaries = defineDatasource('session_summaries', {
     agents_used: column(t.array(t.string()), { jsonPath: '$.agents_used[:]' }),
     skills_used: column(t.array(t.string()), { jsonPath: '$.skills_used[:]' }),
     model_primary: t.string().lowCardinality(),
+    project_name: t.string().lowCardinality(),
   },
   engine: engine.mergeTree({
     sortingKey: ['toStartOfDay(timestamp)', 'session_id'],

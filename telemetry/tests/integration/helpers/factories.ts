@@ -29,6 +29,7 @@ export function makeAgentActivationRow(
     success: 1,
     error_type: null,
     tool_calls_count: 0,
+    project_name: '',
     ...overrides,
   };
 }
@@ -46,8 +47,11 @@ export function makeSkillActivationRow(
     skill_name: 'test-skill',
     entity_type: 'skill',
     agent_type: null,
+    parent_skill: null,
+    resource_path: '',
     duration_ms: 0,
     success: 1,
+    project_name: '',
     ...overrides,
   };
 }
@@ -95,6 +99,7 @@ export function makeSessionSummaryRow(
     agents_used: [],
     skills_used: [],
     model_primary: 'test-model',
+    project_name: '',
     ...overrides,
   };
 }

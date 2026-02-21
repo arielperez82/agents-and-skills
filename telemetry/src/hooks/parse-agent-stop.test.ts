@@ -62,6 +62,7 @@ describe('parseAgentStop', () => {
         success: 1,
         error_type: null,
         tool_calls_count: 0,
+        project_name: '',
       });
 
       vi.useRealTimers();
@@ -182,6 +183,20 @@ describe('parseAgentStop', () => {
       const ts = new Date(result.timestamp).getTime();
       expect(ts).toBeGreaterThanOrEqual(before);
       expect(ts).toBeLessThanOrEqual(after);
+    });
+  });
+
+  describe('projectName parameter', () => {
+    it('uses provided projectName in the row', () => {
+      const result = parseAgentStop(makeEvent(), '', 0, 'my-project');
+
+      expect(result.project_name).toBe('my-project');
+    });
+
+    it('defaults projectName to empty string when not provided', () => {
+      const result = parseAgentStop(makeEvent(), '');
+
+      expect(result.project_name).toBe('');
     });
   });
 

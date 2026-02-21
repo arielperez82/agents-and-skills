@@ -19,6 +19,7 @@ describe('createStubClient', () => {
     expect(client.query.costByAgent).toBeTypeOf('function');
     expect(client.query.costByModel).toBeTypeOf('function');
     expect(client.query.optimizationInsights).toBeTypeOf('function');
+    expect(client.query.scriptPerformance).toBeTypeOf('function');
     expect(client.query.sessionOverview).toBeTypeOf('function');
     expect(client.query.skillFrequency).toBeTypeOf('function');
     expect(client.query.telemetryHealthSummary).toBeTypeOf('function');

@@ -8,18 +8,21 @@ describe('skill_activations datasource', () => {
     expect(skillActivations._name).toBe('skill_activations');
   });
 
-  it('defines all 7 expected schema fields', () => {
+  it('defines all 10 expected schema fields', () => {
     const fieldNames = Object.keys(skillActivations.options.schema);
 
-    expect(fieldNames).toHaveLength(7);
+    expect(fieldNames).toHaveLength(10);
     expect(fieldNames).toEqual([
       'timestamp',
       'session_id',
       'skill_name',
       'entity_type',
       'agent_type',
+      'parent_skill',
+      'resource_path',
       'duration_ms',
       'success',
+      'project_name',
     ]);
   });
 
@@ -56,14 +59,20 @@ describe('skill_activations datasource', () => {
       skill_name: 'tdd',
       entity_type: 'skill',
       agent_type: null,
+      parent_skill: null,
+      resource_path: '',
       duration_ms: 12000,
       success: 1,
+      project_name: '',
     };
 
     expect(row.session_id).toBe('sess-abc-123');
     expect(row.skill_name).toBe('tdd');
     expect(row.entity_type).toBe('skill');
     expect(row.agent_type).toBeNull();
+    expect(row.parent_skill).toBeNull();
+    expect(row.resource_path).toBe('');
+    expect(row.project_name).toBe('');
   });
 
   it('allows non-null values for nullable agent_type field', () => {
@@ -73,8 +82,11 @@ describe('skill_activations datasource', () => {
       skill_name: 'typescript-strict',
       entity_type: 'command',
       agent_type: 'data-engineer',
+      parent_skill: null,
+      resource_path: '',
       duration_ms: 8500,
       success: 1,
+      project_name: 'my-project',
     };
 
     expect(row.agent_type).toBe('data-engineer');

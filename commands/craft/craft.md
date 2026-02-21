@@ -51,6 +51,7 @@ When reading a status file (for resume or precondition checks):
    - Each phase `status` must be one of: `pending`, `in_progress`, `approved`, `skipped`, `rejected`, `error`
    - Each `human_decision` must be one of: `null`, `approve`, `clarify`, `reject`, `skip`, `restart`
    - `artifact_paths` must all pass Artifact Path Safety checks above
+   - `commit_shas` must be an array of strings (Git SHA hashes)
 2. **Feedback sanitization:** When embedding feedback from a previous rejection into agent prompts:
    - Truncate to 200 characters maximum
    - Wrap in a markdown code block: `` ```feedback\n<text>\n``` ``
@@ -83,6 +84,29 @@ The /craft orchestrator (the agent executing this command) is responsible for in
 2. **File writing on behalf of subagents** — If a subagent returns artifact content but cannot write it to disk (permission denied), the orchestrator must write the file itself using the subagent's output.
 3. **Status file updates** — The orchestrator owns the status file. Subagents report results; the orchestrator records them.
 4. **Context management** — Do not dispatch a single agent for an entire multi-step phase. Break large phases into per-step or per-wave agent dispatches to stay within context limits. See Phase 4 for the specific pattern.
+
+---
+
+## Incremental Commit & Review Protocol
+
+Commit early and often. Review incrementally. Never wait until the end.
+
+### Review Tiers
+
+| Tier | Agents | When | Purpose |
+|------|--------|------|---------|
+| **Step Review** (lightweight) | code-reviewer, refactor-assessor, security-assessor | After each GREEN in Phase 4 | Catch issues while context is fresh |
+| **Story Review** (moderate) | Step Review agents + cognitive-load-assessor | After completing each story/ticket in Phase 4 | Assess accumulated complexity |
+| **Final Sweep** | Full `/review/review-changes` | Phase 5 | Catch cross-cutting issues across all work |
+
+### Commit Cadence
+
+| When | What to commit | Review before commit |
+|------|---------------|---------------------|
+| After Phase 0-3 approval | Phase artifacts (docs only) | docs-reviewer + progress-assessor (if plan-based) |
+| After each GREEN in Phase 4 | Code + tests from that step | Step Review |
+| Phase 5 Final Sweep fixes | Any fixes from final review | None (already reviewed) |
+| Phase 6 Close | Learnings, docs updates | None (close artifacts) |
 
 ---
 
@@ -125,6 +149,17 @@ When the human (or orchestrator in auto mode) chooses **Clarify**:
 **Escalation:** If the clarification reveals the phase output is fundamentally wrong (not just a detail to adjust), escalate to **Reject** with the clarification as feedback for the full re-run.
 
 **In auto mode:** When an agent flags uncertainty or ambiguity during a phase, the orchestrator automatically triggers a Clarify loop with the relevant prior-phase agent. If resolved, auto-approve continues. If the clarification cannot be resolved agent-to-agent, pause for human input.
+
+### Commit on Approve (Phases 0-3)
+
+When a doc phase (Phases 0-3) is approved, commit the phase artifacts before advancing:
+
+1. Run `docs-reviewer` on the new artifacts (quick pass — structure, cross-refs, formatting only)
+2. If this is plan-based work (Phase 1+), also run `progress-assessor` to verify tracking
+3. Commit via `/git/cm` with message: `docs(<initiative-id>): phase <N> <name> artifacts`
+4. Record the commit SHA in the status file phase entry under `commit_shas`
+
+This keeps each doc phase as its own atomic commit. If a phase is skipped, no commit is created and `commit_shas` remains empty for that phase.
 
 ---
 
@@ -174,6 +209,7 @@ phases:
     status: pending  # pending | in_progress | approved | skipped | rejected | error
     agents: [researcher, product-director]
     artifact_paths: []
+    commit_shas: []
     started_at: null
     completed_at: null
     human_decision: null  # approve | clarify | reject | skip | restart
@@ -183,6 +219,7 @@ phases:
     status: pending
     agents: [product-analyst, acceptance-designer]
     artifact_paths: []
+    commit_shas: []
     started_at: null
     completed_at: null
     human_decision: null
@@ -192,6 +229,7 @@ phases:
     status: pending
     agents: [architect, adr-writer]
     artifact_paths: []
+    commit_shas: []
     started_at: null
     completed_at: null
     human_decision: null
@@ -201,6 +239,7 @@ phases:
     status: pending
     agents: [implementation-planner]
     artifact_paths: []
+    commit_shas: []
     started_at: null
     completed_at: null
     human_decision: null
@@ -210,6 +249,7 @@ phases:
     status: pending
     agents: [engineering-lead]
     artifact_paths: []
+    commit_shas: []
     started_at: null
     completed_at: null
     human_decision: null
@@ -219,6 +259,7 @@ phases:
     status: pending
     agents: []  # Uses /review/review-changes command, not a direct agent
     artifact_paths: []
+    commit_shas: []
     started_at: null
     completed_at: null
     human_decision: null
@@ -228,6 +269,7 @@ phases:
     status: pending
     agents: [learner, progress-assessor, docs-reviewer]
     artifact_paths: []
+    commit_shas: []
     started_at: null
     completed_at: null
     human_decision: null
@@ -564,28 +606,54 @@ EXECUTION MODES:
 
 LOOK-BACK: The charter's acceptance criteria and the backlog's work items are the source of truth for "done." If requirements are unclear, consult the plan, backlog, charter, or ADRs.
 
-Do not commit — changes will be reviewed in Phase 5.
+INCREMENTAL COMMIT: After achieving GREEN, the orchestrator will run a Step Review and commit. Do not accumulate uncommitted changes across steps. Note: code-reviewer and refactor-assessor run in both the fast feedback loop (your internal check) and the orchestrator's Step Review (external gate). This overlap is intentional — defense in depth.
 ```
 
-**Output artifacts:** Working code and tests (uncommitted). Record changed file paths in the status file after each step.
+**After each GREEN (tests passing) — Step Review:**
 
-**Note:** This is typically the longest phase. The orchestrator drives progress step-by-step, dispatching the engineering-lead (who in turn dispatches specialist subagents) for each plan step. Each step produces testable output. If a step fails or is blocked, the orchestrator reports to the human and waits for guidance.
+1. Run **Step Review** agents in parallel: `code-reviewer`, `refactor-assessor`, `security-assessor`
+2. If any "Fix Required" findings: fix the issue, re-run tests, re-run Step Review
+3. If only Suggestions/Observations: note for later, proceed to commit
+4. Commit via `/git/cm` with message: `feat(<initiative-id>): step <N> — <brief description>`
+5. Record the commit SHA in the status file phase entry under `commit_shas`
+
+**After completing each story/ticket — Story Review:**
+
+1. Run **Story Review** agents in parallel: `code-reviewer`, `refactor-assessor`, `security-assessor`, `cognitive-load-assessor`
+2. If any "Fix Required" findings: fix, re-run tests, commit fixes separately
+3. Log story completion in the Phase Log
+
+Story Reviews do not produce separate commits — code is already committed per-step. Story Reviews only produce fix commits if "Fix Required" findings are discovered.
+
+**Output artifacts:** Working code and tests (committed incrementally). Record changed file paths and commit SHAs in the status file after each step.
+
+**Gate rejection/restart behavior:** If Phase 4 is rejected or restarted at the gate, incremental commits from this run are preserved in git history (they are not reverted). The re-run produces new commits on top. If the user wants a clean history, they can squash commits during PR creation. The status file's `commit_shas` for Phase 4 is cleared on restart and repopulated during the new run.
+
+**Note:** This is typically the longest phase. The orchestrator drives progress step-by-step, dispatching the engineering-lead (who in turn dispatches specialist subagents) for each plan step. Each step produces testable, committed output. If a step fails or is blocked, the orchestrator reports to the human and waits for guidance.
 
 ---
 
-### Phase 5: Validate
+### Phase 5: Validate (Final Sweep)
 
-**Preconditions:** Phase 4 approved or skipped. Uncommitted changes exist in the working tree.
+**Preconditions:** Phase 4 approved or skipped.
+
+**Purpose:** Final cross-cutting review across all committed work. Most issues should already be caught by incremental Step and Story Reviews in Phase 4. This phase catches systemic patterns, cross-file issues, and anything that only becomes visible when viewing the complete change set.
 
 **Command:** `/review/review-changes`
 
 **Execution:**
 ```
-Run /review/review-changes on all uncommitted changes from Phase 4.
+Run /review/review-changes on the diff between the pre-Phase-4 commit and HEAD.
 
-This launches the standard validation gate (all agents in parallel):
+Use `git diff <pre-phase-4-sha>..HEAD` to identify the full scope of Phase 4 changes,
+then run the standard validation gate on that diff (all agents in parallel):
 - Core: tdd-reviewer, ts-enforcer, refactor-assessor, security-assessor, code-reviewer, cognitive-load-assessor
 - Optional: docs-reviewer (if docs changed), progress-assessor (plan-based work), agent-validator (if agents/ changed)
+
+The pre-Phase-4 SHA is determined by walking backwards from Phase 3:
+- Use the last SHA in commit_shas from the most recent non-skipped phase before Phase 4
+- If all prior phases were skipped (no doc commits), use HEAD at the time Phase 4 started
+- Record this base SHA in the Phase 5 status entry for auditability
 
 Present the collated tier summary to the human.
 ```
@@ -593,7 +661,7 @@ Present the collated tier summary to the human.
 **Output artifact:** Review summary (presented inline, not saved to file unless the user requests it).
 
 **Gate behavior:** The gate for this phase operates on the review results:
-- If there are Fix Required findings, recommend **Reject** (go back to Phase 4 to address them).
+- If there are Fix Required findings: fix the issues, commit the fixes via `/git/cm`, then re-run the Final Sweep.
 - If only Suggestions/Observations, recommend **Approve**.
 - The human makes the final decision regardless of recommendation.
 
@@ -675,9 +743,7 @@ Make updates or report what needs updating.
 
 1. Present combined results from all three agents.
 2. Run the gate protocol (Approve/Reject/Skip/Restart).
-3. **On Approve:** Update the status file to `overall_status: completed`. Then ask: "Ready to commit. Proceed with /git/cm?"
-   - If yes: Run `/git/cm` to create the commit.
-   - If no: Leave changes uncommitted for the user to handle.
+3. **On Approve:** Update the status file to `overall_status: completed`. Commit close artifacts (learnings, doc updates) via `/git/cm` with message: `docs(<initiative-id>): close — learnings and doc updates`. Record the commit SHA in the status file.
 
 ---
 
@@ -713,6 +779,7 @@ Update the status file at every state transition:
 - Phase start: `status: in_progress`, `started_at: <now>`
 - Phase complete: `status: <decision>`, `completed_at: <now>`, `human_decision: <decision>`, `feedback: <if rejected>`
 - Artifact produced: Append path to `artifact_paths`
+- Commit created: Append SHA to `commit_shas`
 - Overall completion: `overall_status: completed`, `updated_at: <now>`
 
 Append to the Phase Log in the markdown body:
@@ -723,6 +790,7 @@ Append to the Phase Log in the markdown body:
 - Completed: [timestamp]
 - Agents: [list]
 - Artifacts: [list of paths]
+- Commits: [list of SHAs, or "none" for skipped phases]
 - Decision: [Approved / Skipped / etc.]
 - Notes: [any feedback or remarks]
 ```

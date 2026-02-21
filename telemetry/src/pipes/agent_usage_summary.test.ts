@@ -17,6 +17,13 @@ describe('agent_usage_summary endpoint', () => {
     expect(params.days._default).toBe(7);
   });
 
+  it('defines project_name param as optional string', () => {
+    const params = agentUsageSummary._params;
+    expect(params).toHaveProperty('project_name');
+    expect(params.project_name._tinybirdType).toBe('String');
+    expect(params.project_name._required).toBe(false);
+  });
+
   it('defines all 9 expected output fields', () => {
     const output =
       'output' in agentUsageSummary.options ? agentUsageSummary.options.output : undefined;
@@ -71,6 +78,15 @@ describe('agent_usage_summary endpoint', () => {
     const sql = (firstNode as { sql: string }).sql;
     expect(sql).toContain('{{Int32(days, 7)}}');
     expect(sql).toContain('INTERVAL');
+  });
+
+  it('SQL includes optional project_name filter with Tinybird template', () => {
+    const [firstNode] = agentUsageSummary.options.nodes;
+    expect(firstNode).toBeDefined();
+
+    const sql = (firstNode as { sql: string }).sql;
+    expect(sql).toContain('defined(project_name)');
+    expect(sql).toContain('{{String(project_name)}}');
   });
 
   it('configures telemetry_read token with READ scope', () => {

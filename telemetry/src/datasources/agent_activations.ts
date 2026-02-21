@@ -20,6 +20,7 @@ export const agentActivations = defineDatasource('agent_activations', {
     success: t.uint8(),
     error_type: t.string().lowCardinality().nullable(),
     tool_calls_count: t.uint32(),
+    project_name: t.string().lowCardinality(),
   },
   engine: engine.mergeTree({
     sortingKey: ['agent_type', 'model', 'toStartOfHour(timestamp)', 'session_id'],

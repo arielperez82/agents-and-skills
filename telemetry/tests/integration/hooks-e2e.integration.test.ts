@@ -74,6 +74,7 @@ const makeRealSkillActivationDeps = (): LogSkillActivationDeps | null => {
     client,
     clock: { now: Date.now },
     timing: { lookupSessionAgent },
+    scriptTiming: { consumeScriptStart: () => null },
     health: (hookName, exitCode, durationMs, errorMessage, statusCode) => {
       void logHealthEvent(client, hookName, exitCode, durationMs, errorMessage, statusCode);
     },

@@ -6,6 +6,7 @@ export const agentUsageSummary = defineEndpoint('agent_usage_summary', {
   description: 'Agent usage analytics aggregated over a time window',
   params: {
     days: p.int32().optional(7),
+    project_name: p.string().optional(),
   },
   nodes: [
     node({
@@ -24,6 +25,9 @@ export const agentUsageSummary = defineEndpoint('agent_usage_summary', {
         FROM agent_activations
         WHERE event = 'stop'
           AND timestamp >= now() - INTERVAL {{Int32(days, 7)}} DAY
+          {% if defined(project_name) %}
+            AND project_name = {{String(project_name)}}
+          {% end %}
         GROUP BY agent_type
         ORDER BY est_cost_usd DESC
       `,

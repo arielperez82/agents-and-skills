@@ -15,6 +15,11 @@ export type CacheStore = {
   readonly write: (result: { readonly additionalContext?: string }) => void;
 };
 
+export type ScriptTimingStore = {
+  readonly recordScriptStart: (toolUseId: string, startMs: number) => void;
+  readonly consumeScriptStart: (toolUseId: string, nowMs: number) => number | null;
+};
+
 export type HealthLogger = (
   hookName: string,
   exitCode: number,

@@ -1,4 +1,5 @@
 import { consumeAgentStart, removeSessionAgent } from '@/hooks/agent-timing';
+import { extractProjectName } from '@/hooks/extract-project-name';
 import { parseAgentStop } from '@/hooks/parse-agent-stop';
 
 import type { Clock, FileReader, HealthLogger, TimingStore } from './ports';
@@ -30,7 +31,9 @@ export const runLogAgentStop = async (eventJson: string, deps: LogAgentStopDeps)
     const agentId = extractStringField(eventJson, 'agent_id');
     const agentStartMs = agentId ? deps.timing.consumeAgentStart(agentId) : null;
     const durationMs = agentStartMs !== null ? startTime - agentStartMs : 0;
-    const row = parseAgentStop(eventJson, transcriptContent, durationMs);
+    const cwd = extractStringField(eventJson, 'cwd');
+    const projectName = extractProjectName(cwd ?? undefined);
+    const row = parseAgentStop(eventJson, transcriptContent, durationMs, projectName);
     const sessionId = extractStringField(eventJson, 'session_id');
     if (sessionId) deps.timing.removeSessionAgent(sessionId);
 

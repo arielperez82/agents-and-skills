@@ -2,6 +2,7 @@ import { z } from 'zod';
 
 import type { SessionSummaryRow } from '@/datasources';
 
+import { extractProjectName } from './extract-project-name';
 import { parseTranscriptAgents } from './parse-transcript-agents';
 import { parseTranscriptTokens } from './parse-transcript-tokens';
 
@@ -37,5 +38,6 @@ export const buildSessionSummary = (
     agents_used: [...agents.agents_used],
     skills_used: [...agents.skills_used],
     model_primary: tokens.model,
+    project_name: extractProjectName(event.cwd),
   };
 };

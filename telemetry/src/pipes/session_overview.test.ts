@@ -36,11 +36,19 @@ describe('session_overview endpoint', () => {
     expect(params.days._default).toBe(7);
   });
 
-  it('defines all 6 expected output fields', () => {
+  it('defines project_name param as optional string', () => {
+    const params = sessionOverview._params;
+    expect(params).toHaveProperty('project_name');
+    expect(params.project_name._tinybirdType).toBe('String');
+    expect(params.project_name._required).toBe(false);
+  });
+
+  it('defines all 7 expected output fields', () => {
     const fieldNames = objectKeysFromUnknown(getOutput());
-    expect(fieldNames).toHaveLength(6);
+    expect(fieldNames).toHaveLength(7);
     expect(fieldNames).toEqual([
       'session_id',
+      'project_name',
       'agents_used',
       'skills_used',
       'total_tokens',
@@ -71,10 +79,16 @@ describe('session_overview endpoint', () => {
     expect(sql).toContain('INTERVAL');
   });
 
-  it('SQL groups by session_id and orders by total_cost_usd DESC', () => {
+  it('SQL groups by session_id and project_name, orders by total_cost_usd DESC', () => {
     const sql = firstNode().sql;
-    expect(sql).toContain('GROUP BY session_id');
+    expect(sql).toContain('GROUP BY session_id, project_name');
     expect(sql).toContain('ORDER BY total_cost_usd DESC');
+  });
+
+  it('SQL includes optional project_name filter with Tinybird template', () => {
+    const sql = firstNode().sql;
+    expect(sql).toContain('defined(project_name)');
+    expect(sql).toContain('{{String(project_name)}}');
   });
 
   it('configures telemetry_read token with READ scope', () => {
@@ -92,6 +106,7 @@ describe('session_overview endpoint', () => {
   it('exports SessionOverviewRow type matching the output', () => {
     const row: SessionOverviewRow = {
       session_id: 'sess-abc-123',
+      project_name: 'my-project',
       agents_used: 3,
       skills_used: 5,
       total_tokens: 250000,
@@ -99,6 +114,7 @@ describe('session_overview endpoint', () => {
       total_duration_ms: 120000,
     };
     expect(row.session_id).toBe('sess-abc-123');
+    expect(row.project_name).toBe('my-project');
     expect(row.agents_used).toBe(3);
     expect(row.skills_used).toBe(5);
     expect(row.total_tokens).toBe(250000);

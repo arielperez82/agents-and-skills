@@ -41,6 +41,7 @@ describe('parseAgentStart', () => {
         success: 1,
         error_type: null,
         tool_calls_count: 0,
+        project_name: '',
       });
 
       vi.useRealTimers();
@@ -142,6 +143,20 @@ describe('parseAgentStart', () => {
       expect(() => parseAgentStart(makeValidEvent({ agent_type: '   ' }))).toThrow(
         'agent_type is empty'
       );
+    });
+  });
+
+  describe('projectName parameter', () => {
+    it('uses provided projectName in the row', () => {
+      const result = parseAgentStart(makeValidEvent(), 'trival-sales-brain');
+
+      expect(result.project_name).toBe('trival-sales-brain');
+    });
+
+    it('defaults projectName to empty string when not provided', () => {
+      const result = parseAgentStart(makeValidEvent());
+
+      expect(result.project_name).toBe('');
     });
   });
 

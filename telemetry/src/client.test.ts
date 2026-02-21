@@ -40,6 +40,7 @@ describe('createTelemetryClient', () => {
       expect(typeof client.query.agentUsageSummary).toBe('function');
       expect(typeof client.query.costByModel).toBe('function');
       expect(typeof client.query.optimizationInsights).toBe('function');
+      expect(typeof client.query.scriptPerformance).toBe('function');
       expect(typeof client.query.sessionOverview).toBe('function');
       expect(typeof client.query.skillFrequency).toBe('function');
       expect(typeof client.query.telemetryHealthSummary).toBe('function');
@@ -134,6 +135,23 @@ describe('createTelemetryClient', () => {
 
       const client = createClient();
       const result = await client.query.optimizationInsights({ days: 7 });
+      expect(result.data).toHaveLength(1);
+    });
+
+    it('queries scriptPerformance endpoint', async () => {
+      server.use(
+        http.get(`${BASE_URL}/v0/pipes/script_performance.json`, () =>
+          HttpResponse.json({
+            data: [{ skill_name: 'validate-agent', executions: 10 }],
+            meta: [],
+            rows: 1,
+            statistics: { elapsed: 0.001, rows_read: 5, bytes_read: 50 },
+          })
+        )
+      );
+
+      const client = createClient();
+      const result = await client.query.scriptPerformance({ days: 30 });
       expect(result.data).toHaveLength(1);
     });
 
@@ -281,6 +299,7 @@ describe('createTelemetryClient', () => {
           agents_used: [],
           skills_used: [],
           model_primary: 'claude-opus-4-6',
+          project_name: '',
         })
       ).resolves.toBeDefined();
     });
@@ -300,8 +319,11 @@ describe('createTelemetryClient', () => {
           skill_name: 'tdd',
           entity_type: 'skill',
           agent_type: null,
+          parent_skill: null,
+          resource_path: '',
           duration_ms: 50,
           success: 1,
+          project_name: '',
         })
       ).resolves.toBeDefined();
     });

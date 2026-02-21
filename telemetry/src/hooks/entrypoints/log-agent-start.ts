@@ -1,4 +1,5 @@
 import { recordAgentStart, recordSessionAgent } from '@/hooks/agent-timing';
+import { extractProjectName } from '@/hooks/extract-project-name';
 import { parseAgentStart } from '@/hooks/parse-agent-start';
 
 import type { Clock, HealthLogger, TimingStore } from './ports';
@@ -26,7 +27,9 @@ export const runLogAgentStart = async (
   const startTime = deps.clock.now();
 
   try {
-    const row = parseAgentStart(eventJson);
+    const cwd = extractStringField(eventJson, 'cwd');
+    const projectName = extractProjectName(cwd ?? undefined);
+    const row = parseAgentStart(eventJson, projectName);
     const agentId = extractStringField(eventJson, 'agent_id');
     const sessionId = extractStringField(eventJson, 'session_id');
     const agentType = extractStringField(eventJson, 'agent_type');

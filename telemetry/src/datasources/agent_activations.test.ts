@@ -8,10 +8,10 @@ describe('agent_activations datasource', () => {
     expect(agentActivations._name).toBe('agent_activations');
   });
 
-  it('defines all 16 expected schema fields', () => {
+  it('defines all 17 expected schema fields', () => {
     const fieldNames = Object.keys(agentActivations.options.schema);
 
-    expect(fieldNames).toHaveLength(16);
+    expect(fieldNames).toHaveLength(17);
     expect(fieldNames).toEqual([
       'timestamp',
       'session_id',
@@ -29,6 +29,7 @@ describe('agent_activations datasource', () => {
       'success',
       'error_type',
       'tool_calls_count',
+      'project_name',
     ]);
   });
 
@@ -77,6 +78,7 @@ describe('agent_activations datasource', () => {
       success: 1,
       error_type: null,
       tool_calls_count: 12,
+      project_name: '',
     };
 
     expect(row.session_id).toBe('sess-123');

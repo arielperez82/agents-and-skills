@@ -25,6 +25,7 @@ export const createStubClient = (overrides?: StubOverrides): TelemetryClient => 
     costByAgent: vi.fn().mockResolvedValue(defaultQueryResult),
     costByModel: vi.fn().mockResolvedValue(defaultQueryResult),
     optimizationInsights: vi.fn().mockResolvedValue(defaultQueryResult),
+    scriptPerformance: vi.fn().mockResolvedValue(defaultQueryResult),
     sessionOverview: vi.fn().mockResolvedValue(defaultQueryResult),
     skillFrequency: vi.fn().mockResolvedValue(defaultQueryResult),
     telemetryHealthSummary: vi.fn().mockResolvedValue(defaultQueryResult),

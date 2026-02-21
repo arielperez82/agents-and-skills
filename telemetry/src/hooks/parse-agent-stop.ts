@@ -19,7 +19,8 @@ const subagentStopSchema = z.object({
 export const parseAgentStop = (
   eventJson: string,
   transcriptContent: string,
-  durationMs: number = 0
+  durationMs: number = 0,
+  projectName: string = ''
 ): AgentActivationRow => {
   const event = subagentStopSchema.parse(JSON.parse(eventJson) as unknown);
 
@@ -46,5 +47,6 @@ export const parseAgentStop = (
     success: 1,
     error_type: null,
     tool_calls_count: 0,
+    project_name: projectName,
   };
 };
