@@ -49,9 +49,9 @@ collaborates-with:
     required: optional
     without-collaborator: "Architecture documentation will be text-only without visual diagrams"
   - agent: observability-engineer
-    purpose: Observability architecture and service health monitoring design
-    required: optional
-    without-collaborator: "Architecture documentation without observability considerations"
+    purpose: Observability architecture, service health monitoring, alerting strategy, and SLI/SLO design
+    required: recommended
+    without-collaborator: "Architecture may omit observability, monitoring, and alerting — leading to blind spots in production"
   - agent: graphql-architect
     purpose: GraphQL API architecture design, schema-first patterns, and federation planning when GraphQL is selected as API technology
     required: optional
@@ -181,6 +181,9 @@ The architect agent bridges the gap between business requirements and technical 
    - Backend services (Node.js/Express, Go, Python)
    - Data layer (PostgreSQL, Redis, message queues) - when Supabase is selected, invoke supabase-database-engineer for schema design, RLS policies, and migration management
    - Infrastructure (Docker, Kubernetes, cloud services)
+   - **Deployment strategy** — How code gets to production: CI/CD pipeline, deployment targets, rollback procedures, blue-green/canary strategy. Collaborate with devsecops-engineer.
+   - **Observability & monitoring** — How we know it's working: logging strategy, metrics collection, distributed tracing, alerting, SLIs/SLOs, dashboards. Collaborate with observability-engineer.
+   - **Operational readiness** — How we run it: health checks, graceful shutdown, configuration management, secrets handling, scaling triggers
 
 4. **Generate Architecture Diagrams** - Create visual documentation:
    ```bash
@@ -242,6 +245,8 @@ The architect agent bridges the gap between business requirements and technical 
    - Security assessment (threat modeling)
    - Cost estimation (infrastructure, operations)
    - Team capability alignment (can we build/maintain this?)
+   - **Operational readiness** (can we deploy, monitor, and debug this in production?)
+   - **Deployment completeness** (is the CI/CD pipeline specified? Are rollback procedures defined?)
 
 **Expected Output:** Complete architecture documentation with diagrams, ADRs, and implementation roadmap
 

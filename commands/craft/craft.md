@@ -455,6 +455,9 @@ DESIGN — Cover:
 4. Key design decisions — trade-offs made and why
 5. File/directory structure — where new code lives in this codebase
 6. Interface contracts — public APIs, data shapes, schemas
+7. Deployment strategy — how code gets to production (CI/CD pipeline, deploy targets, rollback, blue-green/canary). Collaborate with devsecops-engineer.
+8. Observability & monitoring — how we know it's working (logging, metrics, tracing, alerting, SLIs/SLOs, dashboards). Collaborate with observability-engineer.
+9. Operational readiness — how we run it (health checks, graceful shutdown, config management, secrets, scaling triggers)
 
 Follow codebase conventions. Prefer the simplest design that satisfies requirements. Design for a walking skeleton first — the thinnest vertical slice that proves the architecture works end-to-end.
 
@@ -544,6 +547,12 @@ Requirements:
 4. Steps should be small enough to complete and verify independently.
 5. Include a Phase 0 quality gate step if the project is new or lacks pre-commit hooks, CI, or deploy pipeline.
 6. Keep the plan to a manageable number of steps — roughly 10-15 is a good target. Plans with 20+ steps tend to exceed agent context limits and produce worse results. If the scope naturally requires more, break the initiative into sub-phases or split into multiple initiatives rather than producing one sprawling plan. Use your judgment — a plan with 18 tightly-scoped steps may be fine, while 12 broad steps may be too much.
+7. **Convention discovery (Nth-of-kind):** If the task adds a new instance of an existing pattern (new service, collector, module, endpoint), the FIRST plan step must be convention discovery — grep the repo for the nearest analog, catalog every file that references it, and produce an integration checklist. Use that checklist to verify completeness at the end.
+8. **Separate Build, Integrate, and Deploy:** Do not stop at "code works and tests pass." The plan must include explicit steps for:
+   - **Integration** — wiring new code into all systems that need to know about it (workflows, configs, scripts, IaC, workspace files)
+   - **Deployment** — CI/CD pipeline updates, deploy verification, rollback testing
+   - **Monitoring** — observability setup (logging, metrics, alerting, health checks) per the architect's design
+   Plans that stop after Build are incomplete.
 
 SEQUENCING: Consult senior-project-manager for phasing and dependency management. Group steps into waves:
 - Within a wave: all steps are independent and can run in parallel

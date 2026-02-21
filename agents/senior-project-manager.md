@@ -330,13 +330,19 @@ echo "✅ Executive summary and stakeholder log created"
 
 **Steps:**
 1. **Review Charter** - Read the charter for completeness: scope, success criteria, constraints, assumptions
-2. **Conduct Risk Assessment** - Identify potential technical, resource, and business risks from the charter/plan
-3. **Map Expertise Dependencies** - Determine which specialized agents may be needed based on identified risks
-4. **Establish Risk Triggers** - Define quantitative thresholds that will trigger expertise intervention
-5. **Create Risk Mitigation Plan** - Pre-plan responses for identified high-probability risks
-6. **Set RAG Monitoring Baseline** - Establish initial RAG status and monitoring frequency
-7. **Define Escalation Protocols** - Document when and how to call in expertise for different risk categories
-8. **Write Risk Assessment Report** - Document findings in `.docs/reports/report-repo-risk-assessment-<subject>-<date>.md`
+2. **Review Operational Readiness** - Ask these questions of every charter and plan:
+   - **Deployment**: How will this be deployed? Is there a CI/CD pipeline? Is the deploy pipeline automated, secure, and repeatable? Are rollback procedures defined?
+   - **Monitoring**: How will we know it's working? Are SLIs/SLOs defined? Is alerting configured? Are dashboards planned?
+   - **Integration**: Does the plan cover wiring new code into all existing systems that need to know about it (workflows, configs, IaC, scripts)?
+   - **Updates**: How will we ship updates safely after initial deployment? Is there a continuous delivery path?
+   If any of these are missing from the charter or plan, flag it as a risk.
+3. **Conduct Risk Assessment** - Identify potential technical, resource, and business risks from the charter/plan
+4. **Map Expertise Dependencies** - Determine which specialized agents may be needed based on identified risks
+5. **Establish Risk Triggers** - Define quantitative thresholds that will trigger expertise intervention
+6. **Create Risk Mitigation Plan** - Pre-plan responses for identified high-probability risks
+7. **Set RAG Monitoring Baseline** - Establish initial RAG status and monitoring frequency
+8. **Define Escalation Protocols** - Document when and how to call in expertise for different risk categories
+9. **Write Risk Assessment Report** - Document findings in `.docs/reports/report-repo-risk-assessment-<subject>-<date>.md`
 
 **Expected Output:** Risk assessment report with identified risks, mitigation plans, and escalation protocols
 
@@ -356,6 +362,8 @@ cat > .docs/reports/report-repo-risk-assessment-customer-portal-$(date +%Y-%m-%d
 - ✅ Success criteria are measurable
 - ⚠️ Missing: explicit dependency on API Platform v2 (cross-initiative)
 - ⚠️ Timeline assumes design system ready — verify with frontend lead
+- ⚠️ Missing: deployment strategy (how does portal get to production?)
+- ⚠️ Missing: monitoring/alerting plan (how do we know it's healthy?)
 
 ## Identified Risks
 

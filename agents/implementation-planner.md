@@ -113,6 +113,12 @@ The implementation-planner agent bridges the gap between architecture design and
 - **IMPORTANT:** You do NOT do external research - delegate to `researcher` for all research needs.
 - **IMPORTANT:** You do NOT design system architecture - consume architecture designs from `architect` or delegate architecture design to `architect`.
 - **Phase 0 (Quality gate) first:** The quality gate must be complete before any feature work. Before creating or executing a phase plan, verify Phase 0 is the quality gate. Two valid patterns: (1) minimal skeleton then add all gates, or (2) scaffold that includes quality tooling then verify and add missing pieces. If the plan starts feature work before the gate is complete, insert or renumber so Phase 0 = one of these patterns + full gate; feature work is Phase 1. When implementing Phase 0: use full-project type-check in lint-staged when source files are staged; add CI recommendation for check + lint on push/PR. Load the `quality-gate-first` skill. Run `/skill/phase-0-check` to audit repo or plan.
+- **Convention discovery (Nth-of-kind detection):** When the task adds a new instance of an existing pattern (new service, new collector, new module, new API endpoint), ALWAYS discover existing conventions first. Find all instances of the nearest analog (grep across the entire repo), catalog every file that references it (workflows, configs, scripts, IaC, workspace files, bundler configs), and use that catalog as the integration checklist. This is mechanical pattern-matching, not creative work — completeness matters more than creativity.
+- **Build vs Integrate vs Deploy:** Every plan must separate these three concerns with distinct exit criteria:
+  1. **Build**: Write application code, tests, configs within the package boundary. Exit: tests pass, lint passes, coverage meets thresholds within the package.
+  2. **Integrate**: Wire the new code into every system that needs to know about it. Exit: every file that references a sibling package/module also references the new one (or has an explicit documented reason not to). Use the "analog diff" from convention discovery to verify completeness.
+  3. **Deploy & Monitor**: Get it to production and verify it runs. Exit: CI passes, deploy pipeline works, monitoring/alerting is configured, health checks respond, logs are flowing. If the architect specified observability requirements, the plan must include steps to implement them.
+  Plans that stop after "Build" are incomplete.
 
 ## Collaboration Protocol
 
@@ -303,6 +309,10 @@ The implementation-planner agent bridges the gap between architecture design and
 - [ ] Engineering experts consulted for domain-specific phases
 - [ ] Plan structured as sprint-sized increments with clear milestones
 - [ ] Success criteria align with product requirements and strategic objectives
+- [ ] **Convention discovery done** (if Nth-of-kind: analog diff produced, integration checklist created)
+- [ ] **Integration steps included** (not just build — how does new code wire into existing systems?)
+- [ ] **Deployment steps included** (CI/CD, deploy pipeline, rollback, environment config)
+- [ ] **Monitoring/observability steps included** (logging, metrics, alerting, health checks, SLIs/SLOs)
 
 ## Throughput-Based Effort Estimation
 
