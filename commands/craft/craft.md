@@ -597,11 +597,13 @@ Follow the /code workflow:
 6. Verify all tests pass
 
 FAST FEEDBACK LOOPS (mandatory):
-After achieving GREEN (tests passing), immediately run these checks:
-- All unit tests pass
-- Linting clean (no warnings or errors)
-- Formatting clean
+After achieving GREEN (tests passing), run the project's local validation suite using its
+configured scripts (check package.json scripts, Makefile, etc. — never guess the commands).
+Always run fix variants first (lint:fix, format:fix), then verify with diagnostic variants:
+- Fix first: lint:fix, format:fix (auto-fix mechanical issues)
+- Verify: lint, format:check (confirm zero remaining issues)
 - Type checking passes (zero errors)
+- All unit tests pass
 - tdd-reviewer verifies test-first approach and test quality
 - ts-enforcer verifies TypeScript strict compliance (if TypeScript)
 - tpp-assessor guides test selection and transformation choices
