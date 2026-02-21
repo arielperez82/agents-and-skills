@@ -166,6 +166,7 @@ For each file, evaluate:
 - Unclear names affecting comprehension
 - Magic numbers/strings used multiple times
 - Long functions (>30 lines)
+- Adapter classes mixing pure transformations with HTTP orchestration (extract co-located pure functions: `parseXxxResponse`, `resolveXxxAssetId`, `mapToStorageFormat`, `toXxxError` — keep in same file, above the class)
 
 **Nice to Have (Consider):**
 - Minor naming improvements
