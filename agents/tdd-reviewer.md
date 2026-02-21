@@ -145,6 +145,24 @@ Recommendation: Remove implementation, write test first, then implement."
 Can you show me the failing test that demanded this implementation?"
 ```
 
+#### Adapter Class With Low Unit Coverage
+```
+User: "Unit coverage on this adapter is only 5%"
+
+TDD Reviewer: "That's a sign that pure transformation logic is trapped inside HTTP orchestration
+methods. Look for these inside the class:
+
+- Response parsing (JSON → domain type)
+- ID resolution (domain → provider-specific)
+- Format mapping (domain → storage row)
+- Error normalization
+
+Extract each as a co-located pure function in the same file, above the class.
+Then write unit tests for the pure functions and integration tests (MSW) for the HTTP methods.
+
+Which transformation logic should we extract first?"
+```
+
 #### Tests Are Passing
 ```
 "Tests are green! Let's assess if refactoring would add value:
