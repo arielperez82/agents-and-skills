@@ -349,6 +349,51 @@ describe('processPayment', () => {
 
 ---
 
+## Unit vs Integration Boundaries for Adapters
+
+When adapter classes mix pure transformation logic with HTTP orchestration (fetch, retry, URL construction), unit coverage structurally sits at ~5-7% per file because unit tests correctly avoid exercising HTTP code. The solution is **not** to mock HTTP in unit tests — it is to extract pure functions so each test type covers the right code.
+
+### The Boundary Rule
+
+| Code type | Test type | Tools |
+|---|---|---|
+| Pure transformations (parsing, mapping, validation, ID resolution) | Unit tests | Vitest, no mocks needed |
+| HTTP orchestration (fetch, retry, URL construction, headers) | Integration tests | MSW (Mock Service Worker) |
+
+### Extraction Recipe
+
+Extract these pure functions from adapter classes. Co-locate them in the same file, exported as standalone functions above the class:
+
+| Function shape | Purpose | Example |
+|---|---|---|
+| `parseXxxResponse(data, ...)` | API JSON to domain type | Validation, dynamic key extraction, field mapping |
+| `resolveXxxAssetId(asset)` | Domain asset to provider-specific ID | `'sBTC'` to `'sbtc-2'` (CoinGecko) or `38906` (CMC) |
+| `mapToStorageFormat(record)` | Domain model to storage row | camelCase to snake_case, field renames, JSON.stringify |
+| `toXxxError(err: unknown)` | Error normalization | Status extraction from message regex, fallback codes |
+
+**What stays in the class:** HTTP orchestration (URL construction, fetch, retry wrapping, header assembly). These are tested in integration tests with MSW.
+
+### Why Co-locate, Not Split
+
+Keep extracted functions in the same adapter file. Do **not** create separate `xxx.helpers.ts` files. Co-location keeps related logic together. The functions are exported and independently testable. Splitting adds indirection without benefit.
+
+### Structural Function Coverage Gap
+
+When pure functions and HTTP methods share a file, **function coverage will structurally lag behind statement/line/branch coverage by ~5%**. This happens because adapter class methods (fetch, ingest, constructor) and retry callbacks all count as functions but should not be exercised in unit tests.
+
+**Prescription:** Set the `functions` threshold 5% below other thresholds in vitest config (e.g., `functions: 60` when others are `65`). This gap is expected, not a defect.
+
+### Example: Before and After
+
+```
+# Before extraction: 5% unit coverage (all logic inside class methods)
+# After extraction: 69% unit coverage (pure functions testable independently)
+
+# 6 pure functions extracted, 30 new unit tests, zero changes to integration tests
+```
+
+---
+
 ## Test Factory Pattern
 
 For test data, use factory functions with optional overrides.
