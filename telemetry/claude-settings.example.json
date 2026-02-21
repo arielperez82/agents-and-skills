@@ -1,0 +1,76 @@
+{
+  "hooks": {
+    "SubagentStart": [
+      {
+        "hooks": [
+          {
+            "type": "command",
+            "command": "cd ~/.claude/telemetry-hooks && pnpx dotenv-cli -e ~/.claude/.env.prod -- pnpx tsx src/hooks/entrypoints/log-agent-start.ts"
+          }
+        ]
+      }
+    ],
+    "SubagentStop": [
+      {
+        "hooks": [
+          {
+            "type": "command",
+            "command": "cd ~/.claude/telemetry-hooks && pnpx dotenv-cli -e ~/.claude/.env.prod -- pnpx tsx src/hooks/entrypoints/log-agent-stop.ts"
+          }
+        ]
+      }
+    ],
+    "PreToolUse": [
+      {
+        "matcher": "Bash",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "cd ~/.claude/telemetry-hooks && pnpx dotenv-cli -e ~/.claude/.env.prod -- pnpx tsx src/hooks/entrypoints/log-script-start.ts"
+          }
+        ]
+      }
+    ],
+    "PostToolUse": [
+      {
+        "hooks": [
+          {
+            "type": "command",
+            "command": "cd ~/.claude/telemetry-hooks && pnpx dotenv-cli -e ~/.claude/.env.prod -- pnpx tsx src/hooks/entrypoints/log-skill-activation.ts"
+          }
+        ]
+      }
+    ],
+    "PostToolUseFailure": [
+      {
+        "hooks": [
+          {
+            "type": "command",
+            "command": "cd ~/.claude/telemetry-hooks && pnpx dotenv-cli -e ~/.claude/.env.prod -- pnpx tsx src/hooks/entrypoints/log-skill-activation.ts"
+          }
+        ]
+      }
+    ],
+    "SessionEnd": [
+      {
+        "hooks": [
+          {
+            "type": "command",
+            "command": "cd ~/.claude/telemetry-hooks && pnpx dotenv-cli -e ~/.claude/.env.prod -- pnpx tsx src/hooks/entrypoints/log-session-summary.ts"
+          }
+        ]
+      }
+    ],
+    "SessionStart": [
+      {
+        "hooks": [
+          {
+            "type": "command",
+            "command": "cd ~/.claude/telemetry-hooks && pnpx dotenv-cli -e ~/.claude/.env.prod -- pnpx tsx src/hooks/entrypoints/inject-usage-context.ts",
+            "timeout": 2
+          }
+        ]
+      }
+    ]
+  }
+}
