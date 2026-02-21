@@ -42,8 +42,11 @@ describe('parseSkillActivation', () => {
         skill_name: 'tdd',
         entity_type: 'skill',
         agent_type: null,
+        parent_skill: null,
+        resource_path: '',
         duration_ms: 0,
         success: 1,
+        project_name: '',
       });
 
       vi.useRealTimers();
@@ -62,6 +65,21 @@ describe('parseSkillActivation', () => {
       );
 
       expect(result.skill_name).toBe('creating-agents');
+      expect(result.entity_type).toBe('skill');
+    });
+
+    it('extracts skill name from root-level skill path (no team directory)', () => {
+      const result = expectRow(
+        parseSkillActivation(
+          makeValidEvent({
+            tool_input: {
+              file_path: '/Users/dev/projects/agents-and-skills/skills/mermaid-diagrams/SKILL.md',
+            },
+          })
+        )
+      );
+
+      expect(result.skill_name).toBe('mermaid-diagrams');
       expect(result.entity_type).toBe('skill');
     });
 
@@ -100,8 +118,11 @@ describe('parseSkillActivation', () => {
         skill_name: 'agent/validate',
         entity_type: 'command',
         agent_type: null,
+        parent_skill: null,
+        resource_path: '',
         duration_ms: 0,
         success: 1,
+        project_name: '',
       });
 
       vi.useRealTimers();
@@ -149,6 +170,208 @@ describe('parseSkillActivation', () => {
     });
   });
 
+  describe('reference file reads', () => {
+    it('S-1.1: detects reference read with parent_skill and resource_path', () => {
+      const now = new Date('2026-02-18T10:00:00.000Z');
+      vi.setSystemTime(now);
+
+      const result = parseSkillActivation(
+        makeValidEvent({
+          tool_input: {
+            file_path:
+              '/Users/dev/projects/agents-and-skills/skills/mermaid-diagrams/references/class-diagrams.md',
+          },
+        })
+      );
+
+      expect(result).toEqual<SkillActivationRow>({
+        timestamp: now.toISOString(),
+        session_id: 'sess-abc-123',
+        skill_name: 'class-diagrams',
+        entity_type: 'reference',
+        agent_type: null,
+        parent_skill: 'mermaid-diagrams',
+        resource_path: 'references/class-diagrams.md',
+        duration_ms: 0,
+        success: 1,
+        project_name: '',
+      });
+
+      vi.useRealTimers();
+    });
+
+    it('S-1.2: detects reference in nested team directory', () => {
+      const result = expectRow(
+        parseSkillActivation(
+          makeValidEvent({
+            tool_input: {
+              file_path:
+                '/Users/dev/projects/agents-and-skills/skills/engineering-team/typescript-strict/references/async-patterns.md',
+            },
+          })
+        )
+      );
+
+      expect(result.entity_type).toBe('reference');
+      expect(result.parent_skill).toBe('typescript-strict');
+      expect(result.skill_name).toBe('async-patterns');
+      expect(result.resource_path).toBe('references/async-patterns.md');
+    });
+
+    it('S-1.3: ignores non-.md files in references/', () => {
+      const result = parseSkillActivation(
+        makeValidEvent({
+          tool_input: {
+            file_path:
+              '/Users/dev/projects/agents-and-skills/skills/mermaid-diagrams/references/diagram.png',
+          },
+        })
+      );
+
+      expect(result).toBeNull();
+    });
+
+    it('S-1.4: ignores files in non-references directories', () => {
+      const result = parseSkillActivation(
+        makeValidEvent({
+          tool_input: {
+            file_path: '/Users/dev/projects/agents-and-skills/skills/tdd/assets/example.md',
+          },
+        })
+      );
+
+      expect(result).toBeNull();
+    });
+
+    it('S-1.5: SKILL.md still detected as skill (regression guard)', () => {
+      const result = expectRow(parseSkillActivation(makeValidEvent()));
+
+      expect(result.entity_type).toBe('skill');
+      expect(result.parent_skill).toBeNull();
+      expect(result.resource_path).toBe('');
+    });
+
+    it('S-1.6: commands still detected as command (regression guard)', () => {
+      const result = expectRow(
+        parseSkillActivation(
+          makeValidEvent({
+            tool_input: {
+              file_path: '/Users/dev/projects/agents-and-skills/commands/agent/validate.md',
+            },
+          })
+        )
+      );
+
+      expect(result.entity_type).toBe('command');
+      expect(result.parent_skill).toBeNull();
+      expect(result.resource_path).toBe('');
+    });
+
+    it('S-1.7: ignores references not under skills/', () => {
+      const result = parseSkillActivation(
+        makeValidEvent({
+          tool_input: {
+            file_path: '/Users/dev/projects/agents-and-skills/docs/references/overview.md',
+          },
+        })
+      );
+
+      expect(result).toBeNull();
+    });
+  });
+
+  describe('script executions in Bash tool calls', () => {
+    it('detects Python script execution', () => {
+      const now = new Date('2026-02-18T10:00:00.000Z');
+      vi.setSystemTime(now);
+
+      const result = parseSkillActivation(
+        makeValidEvent({
+          tool_name: 'Bash',
+          tool_input: {
+            command:
+              'python /Users/dev/skills/delivery-team/agile-coach/scripts/sprint_metrics_calculator.py --velocity 23',
+          },
+        })
+      );
+
+      expect(result).toEqual<SkillActivationRow>({
+        timestamp: now.toISOString(),
+        session_id: 'sess-abc-123',
+        skill_name: 'sprint_metrics_calculator',
+        entity_type: 'script',
+        agent_type: null,
+        parent_skill: 'agile-coach',
+        resource_path: 'scripts/sprint_metrics_calculator.py',
+        duration_ms: 0,
+        success: 1,
+        project_name: '',
+      });
+
+      vi.useRealTimers();
+    });
+
+    it('detects shell script execution via absolute path', () => {
+      const result = expectRow(
+        parseSkillActivation(
+          makeValidEvent({
+            tool_name: 'Bash',
+            tool_input: {
+              command: 'bash /Users/dev/skills/exploring-data/scripts/analyze.sh /data.csv',
+            },
+          })
+        )
+      );
+
+      expect(result.entity_type).toBe('script');
+      expect(result.parent_skill).toBe('exploring-data');
+      expect(result.skill_name).toBe('analyze');
+      expect(result.resource_path).toBe('scripts/analyze.sh');
+    });
+
+    it('S-2.4: returns null for non-script Bash commands', () => {
+      const result = parseSkillActivation(
+        makeValidEvent({
+          tool_name: 'Bash',
+          tool_input: { command: 'npm test' },
+        })
+      );
+
+      expect(result).toBeNull();
+    });
+
+    it('S-2.5: returns null when command contains skills but not script path', () => {
+      const result = parseSkillActivation(
+        makeValidEvent({
+          tool_name: 'Bash',
+          tool_input: { command: "grep -r 'skills' README.md" },
+        })
+      );
+
+      expect(result).toBeNull();
+    });
+
+    it('S-2.6: ignores .ts extension scripts', () => {
+      const result = parseSkillActivation(
+        makeValidEvent({
+          tool_name: 'Bash',
+          tool_input: {
+            command: 'npx tsx /Users/dev/skills/tdd/scripts/helper.ts',
+          },
+        })
+      );
+
+      expect(result).toBeNull();
+    });
+
+    it('Read events still work after adding Bash support (regression guard)', () => {
+      const result = expectRow(parseSkillActivation(makeValidEvent()));
+
+      expect(result.entity_type).toBe('skill');
+      expect(result.skill_name).toBe('tdd');
+    });
+  });
+
   describe('non-Read tool usage', () => {
     it('returns null when tool_name is Write', () => {
       const result = parseSkillActivation(
@@ -164,7 +387,7 @@ describe('parseSkillActivation', () => {
       expect(result).toBeNull();
     });
 
-    it('returns null when tool_name is Bash', () => {
+    it('returns null for non-script Bash commands', () => {
       const result = parseSkillActivation(
         makeValidEvent({
           tool_name: 'Bash',
@@ -272,6 +495,20 @@ describe('parseSkillActivation', () => {
       const result = expectRow(parseSkillActivation(makeValidEvent()));
 
       expect(result.agent_type).toBeNull();
+    });
+  });
+
+  describe('projectName parameter', () => {
+    it('uses provided projectName in the row', () => {
+      const result = expectRow(parseSkillActivation(makeValidEvent(), null, 'agents-and-skills'));
+
+      expect(result.project_name).toBe('agents-and-skills');
+    });
+
+    it('defaults projectName to empty string when not provided', () => {
+      const result = expectRow(parseSkillActivation(makeValidEvent()));
+
+      expect(result.project_name).toBe('');
     });
   });
 

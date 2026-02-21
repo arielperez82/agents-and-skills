@@ -1,5 +1,4 @@
-const SKILL_PATH_PATTERN = /\/skills\/[^/]+\/([^/]+)\/SKILL\.md$/;
-const COMMAND_PATH_PATTERN = /\/commands\/([^/]+\/[^/]+)\.md$/;
+import { COMMAND_PATH_PATTERN, SKILL_PATH_PATTERN } from '@/hooks/skill-path-patterns';
 
 export type TranscriptAgentSummary = {
   readonly agents_used: readonly string[];
