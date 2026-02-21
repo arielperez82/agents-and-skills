@@ -475,12 +475,19 @@ describe('parseSkillActivation', () => {
   });
 
   describe('malformed JSON', () => {
-    it('throws on invalid JSON string', () => {
-      expect(() => parseSkillActivation('not valid json {{')).toThrow();
+    it('returns null for invalid JSON string', () => {
+      const result = parseSkillActivation('not valid json {{');
+      expect(result).toBeNull();
     });
 
-    it('throws on empty string', () => {
-      expect(() => parseSkillActivation('')).toThrow();
+    it('returns null for empty string', () => {
+      const result = parseSkillActivation('');
+      expect(result).toBeNull();
+    });
+
+    it('returns null when required fields are missing', () => {
+      const result = parseSkillActivation(JSON.stringify({ unexpected: 'shape' }));
+      expect(result).toBeNull();
     });
   });
 

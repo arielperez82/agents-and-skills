@@ -1,6 +1,11 @@
 import { lookupSessionAgent } from '@/hooks/agent-timing';
 import { extractProjectName } from '@/hooks/extract-project-name';
-import { parseSkillActivation } from '@/hooks/parse-skill-activation';
+import {
+  bashToolInputSchema,
+  parseSkillActivation,
+  postToolUseSchema,
+  readToolInputSchema,
+} from '@/hooks/parse-skill-activation';
 import { consumeScriptStart } from '@/hooks/script-timing';
 import { isScriptCommand, isSkillRelatedPath } from '@/hooks/skill-path-patterns';
 
@@ -19,22 +24,20 @@ const isRelevantSkillPath = (eventJson: string): boolean => {
   if (!eventJson.trim()) return false;
   try {
     const parsed: unknown = JSON.parse(eventJson);
-    if (typeof parsed !== 'object' || parsed === null) return false;
+    const result = postToolUseSchema.safeParse(parsed);
+    if (!result.success) return false;
+    const event = result.data;
 
-    const toolName = (parsed as Record<string, unknown>)['tool_name'];
-    const toolInput = (parsed as Record<string, unknown>)['tool_input'];
-    if (typeof toolInput !== 'object' || toolInput === null) return false;
-
-    if (toolName === 'Read') {
-      const filePath = (toolInput as Record<string, unknown>)['file_path'];
-      if (typeof filePath !== 'string') return false;
-      return isSkillRelatedPath(filePath);
+    if (event.tool_name === 'Read') {
+      const inputResult = readToolInputSchema.safeParse(event.tool_input);
+      if (!inputResult.success) return false;
+      return isSkillRelatedPath(inputResult.data.file_path);
     }
 
-    if (toolName === 'Bash') {
-      const command = (toolInput as Record<string, unknown>)['command'];
-      if (typeof command !== 'string') return false;
-      return isScriptCommand(command);
+    if (event.tool_name === 'Bash') {
+      const inputResult = bashToolInputSchema.safeParse(event.tool_input);
+      if (!inputResult.success) return false;
+      return isScriptCommand(inputResult.data.command);
     }
 
     return false;

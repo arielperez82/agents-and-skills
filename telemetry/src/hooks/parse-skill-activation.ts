@@ -130,8 +130,16 @@ export const parseSkillActivation = (
   agentType: string | null = null,
   projectName: string = ''
 ): SkillActivationRow | null => {
-  const parsed: unknown = JSON.parse(eventJson);
-  const event = postToolUseSchema.parse(parsed);
+  let parsed: unknown;
+  try {
+    parsed = JSON.parse(eventJson);
+  } catch {
+    return null;
+  }
+
+  const result = postToolUseSchema.safeParse(parsed);
+  if (!result.success) return null;
+  const event = result.data;
 
   const skillInfo = resolveSkillInfo(event);
   if (!skillInfo) {
