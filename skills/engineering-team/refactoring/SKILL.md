@@ -48,6 +48,29 @@ Having a working baseline before refactoring:
 - Would evolve independently
 - Coupling would be confusing
 
+## Pattern: Extract Co-located Pure Functions from Adapters
+
+When an adapter class mixes pure transformation logic with HTTP orchestration, the pure logic becomes untestable in unit tests (correctly — unit tests should not exercise fetch/retry/URL construction). This is a **High Value** extraction opportunity.
+
+**Recognition signal:** Adapter class with low unit coverage (~5-7%) where response parsing, ID resolution, format mapping, or error normalization logic lives inside class methods alongside fetch calls.
+
+**Extraction recipe** — co-locate these as exported standalone functions in the same adapter file, above the class:
+
+| Extract | When you see |
+|---|---|
+| `parseXxxResponse(data, ...)` | JSON-to-domain-type conversion inside a fetch handler |
+| `resolveXxxAssetId(asset)` | Domain-to-provider ID mapping inside a method |
+| `mapToStorageFormat(record)` | Domain-to-storage row transformation (camelCase to snake_case, field renames) |
+| `toXxxError(err: unknown)` | Error normalization (status extraction, regex parsing, fallback codes) |
+
+**What stays in the class:** HTTP orchestration (URL construction, fetch, retry wrapping, header assembly).
+
+**Do not split into separate files.** Co-location keeps related logic together. The functions are exported and independently testable without indirection.
+
+**Classification:** High Value (fix this session) — improves testability and separation of concerns without changing behavior.
+
+---
+
 ## Example Assessment
 
 ```typescript
