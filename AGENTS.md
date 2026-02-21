@@ -441,6 +441,43 @@ Before writing any code, verify:
 
 **For DevOps/tooling work:** Always test the complete workflow after setup, not just individual components.
 
+## Validate Early, Fix Cheaply
+
+**FINDING BUGS EARLIER IS ALWAYS CHEAPER.** A bug caught by a local script costs seconds. A bug caught in CI costs minutes and blocks the pipeline. A bug caught in production costs brand trust, user frustration, and revenue. CI and CD are strong safety nets — but they are **last resorts**, not your primary validation strategy. You must catch as much as possible locally, before committing, and definitely before pushing.
+
+**Automate over inspect.** A script that fixes 50 lint issues in 2 seconds is infinitely better than an agent reading 50 warnings and fixing them one by one. Always prefer automated fix scripts over manual or agent-driven inspection.
+
+### Discover Project Scripts First (MANDATORY)
+
+**Never guess how a project runs its tools.** Before running any validation command, discover how the project has configured them:
+
+1. **Node projects:** Read `package.json` `scripts` section first. Use the project's script names (e.g., `pnpm lint:fix`, not `npx eslint --fix .`).
+2. **Other projects:** Check for `Makefile`, `justfile`, `Taskfile`, `scripts/` directory, or similar.
+3. **Monorepos:** Check both root and workspace-level `package.json` — scripts may differ per workspace.
+
+### Prefer Fix Variants Over Diagnostic Variants
+
+When both exist, **always run the fix variant first**:
+
+| Prefer (fix) | Over (diagnose) | Why |
+|---|---|---|
+| `lint:fix` | `lint` | Auto-fixes the easy stuff, leaves only real issues |
+| `format:fix` / `format:write` | `format` / `format:check` | Formatting is mechanical — just fix it |
+| `stylelint --fix` | `stylelint` | Same principle |
+
+Run the diagnostic variant only **after** the fix variant, to verify zero remaining issues. This is dramatically cheaper than reading a wall of warnings and fixing them manually.
+
+### Run the Full Local Validation Suite
+
+After every GREEN (tests passing) and before every commit, run the project's full local validation suite. The typical sequence:
+
+1. **Fix first:** `lint:fix`, `format:fix` (auto-fix the mechanical stuff)
+2. **Verify:** `lint`, `format:check` (confirm zero remaining issues)
+3. **Type-check:** `type-check` (full project)
+4. **Test:** `test` (all unit tests)
+
+Do not skip steps. Do not run only the ones you think are relevant. The whole suite exists for a reason — run it all. If a project has pre-commit hooks (Husky + lint-staged), those will catch staged-file issues, but you should still run the full suite before staging to avoid surprise failures at commit time.
+
 ## Setup Commands
 
 ```bash
@@ -491,7 +528,9 @@ object.property = value
 
 **Before every commit:**
 
-- [ ] All tests pass
+- [ ] Project scripts discovered (`package.json` scripts, Makefile, etc.)
+- [ ] Fix variants run first (`lint:fix`, `format:fix`)
+- [ ] Full local validation suite passes (lint, format, type-check, test)
 - [ ] TDD compliance verified
 - [ ] TypeScript strict mode satisfied
 - [ ] No `any` types or unjustified assertions
