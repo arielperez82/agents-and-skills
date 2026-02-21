@@ -479,6 +479,21 @@
     },
     "skills/engineering-team/telemetry-analysis": {
       "skill_id": "skill_01Vib4e8fErSCZTJ3W7p5bzu"
+    },
+    "skills/engineering-team/modern-python": {
+      "skill_id": "skill_01WQAhVbnP6F4BvHkuFtpCTb"
+    },
+    "skills/engineering-team/property-based-testing": {
+      "skill_id": "skill_01FdJmuhvyz2MyFkxxv1Kjv9"
+    },
+    "skills/engineering-team/semgrep-rule-creator": {
+      "skill_id": "skill_01NDiMF57rqbsnnG62Tph2d7"
+    },
+    "skills/engineering-team/sharp-edges": {
+      "skill_id": "skill_01FdiX1LqvUQC9jYMxCiKhgh"
+    },
+    "skills/engineering-team/variant-analysis": {
+      "skill_id": "skill_01KfhbezrbtU7W8E8vX6vQB2"
     }
   }
 }
