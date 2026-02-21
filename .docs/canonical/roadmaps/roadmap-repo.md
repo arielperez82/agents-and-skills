@@ -21,6 +21,7 @@ Initiatives actively in progress.
 | I12-CRFT | Craft Command | Full SDLC orchestration command (`/craft`) with phase gates, resume, and auto variants | active | [charter](../charters/charter-repo-I12-CRFT-craft-command.md) |
 | I13-RCHG | Review Changes Artifact-Aware | Extend `/review/review-changes` to treat agent/skill/command artifacts as first-class review targets | active | [charter](../charters/charter-repo-I13-RCHG-review-changes-artifact-aware.md) |
 | I10-ARFE | Agentic Review Feedback Effectiveness | Confidence-tiered review output and effectiveness tracking for review agents | in-progress | [charter](../charters/charter-repo-agentic-review-feedback-effectiveness.md) |
+| I17-STSR | Skill Telemetry Sub-Resources | Track skill sub-resources (references, scripts), script execution duration, and project context in telemetry | in-progress | [charter](../charters/charter-repo-I17-STSR-skill-telemetry-sub-resources.md) |
 
 ## Next
 

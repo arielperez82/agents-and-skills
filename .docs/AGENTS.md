@@ -187,7 +187,7 @@ Agents that create or modify workflows (e.g. devsecops-engineer, or any agent ad
 ## ADR placement
 
 - **Location:** `.docs/canonical/adrs/`
-- **Naming:** `adr-YYYYMMDD-<subject>.md` (e.g. `adr-20260206-event-ingestion-format.md`)
+- **Naming:** `adr-YYYYMMDD-<subject>.md` (e.g. `adr-20260206-event-ingestion-format.md`) or `I<nn>-<ACRONYM>-<nnn>-<subject>.md` for initiative-scoped ADRs
 - **Optional index:** `.docs/canonical/adrs/index.md` (links + statuses)
 - **Required front matter (minimal):** `type: adr`, `endeavor`, `status: proposed|accepted|superseded`, `date`, `supersedes`, `superseded_by`
 - **Hierarchy:** ADRs sit alongside charter, roadmap, backlog, plan as decision artifacts. Any **accepted** ADR that changes constraints must update the Charter and/or Plan/Backlog (ADR is the rationale; those docs are the operating truth).
@@ -275,6 +275,14 @@ Filenames under `.docs/canonical/` should follow the naming grammar above. To au
 
 - Charter: [charter-repo-I13-RCHG-review-changes-artifact-aware.md](canonical/charters/charter-repo-I13-RCHG-review-changes-artifact-aware.md)
 - Backlog: [backlog-repo-I13-RCHG-review-changes-artifact-aware.md](canonical/backlogs/backlog-repo-I13-RCHG-review-changes-artifact-aware.md)
+
+**I17-STSR** (skill-telemetry-sub-resources):
+
+- Charter: [charter-repo-I17-STSR-skill-telemetry-sub-resources.md](canonical/charters/charter-repo-I17-STSR-skill-telemetry-sub-resources.md)
+- Roadmap: [roadmap-repo-I17-STSR-skill-telemetry-sub-resources-2026.md](canonical/roadmaps/roadmap-repo-I17-STSR-skill-telemetry-sub-resources-2026.md)
+- Backlog: [backlog-repo-I17-STSR-skill-telemetry-sub-resources.md](canonical/backlogs/backlog-repo-I17-STSR-skill-telemetry-sub-resources.md)
+- Plan: [plan-repo-I17-STSR-skill-telemetry-sub-resources.md](canonical/plans/plan-repo-I17-STSR-skill-telemetry-sub-resources.md)
+- ADRs: I17-STSR-001 through I17-STSR-004
 
 Root `AGENTS.md` (if present) should point here: "See .docs/AGENTS.md for agent artifact conventions and operating reference."
 
