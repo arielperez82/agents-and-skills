@@ -206,5 +206,6 @@ This skill consolidates the following sub-topics as reference documents:
 
 - **Modules** — `references/modules.md` — Reusable modules for infrastructure sharing and composition
 - **State Management** — `references/state-management.md` — State files, remote backends, and locking strategies
+- **Native Testing** — `references/native-testing.md` — `terraform test` with `mock_provider`, override patterns, IAM policy assertions, and CI/pre-commit integration (requires Terraform >= 1.7)
 
 Load these references on-demand when working in the specific sub-topic area.
