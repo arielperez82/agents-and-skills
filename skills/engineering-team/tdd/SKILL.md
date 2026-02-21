@@ -53,6 +53,8 @@ pnpm test path/to/test.test.ts
 
 Confirm test passes, other tests still pass, output pristine (no errors, warnings). Test fails? Fix code, not test. Other tests fail? Fix now.
 
+**Run the full local validation suite** after every GREEN — not just the test that passed. Discover the project's scripts first (`package.json` scripts, Makefile, etc.) and use them. Run fix variants before diagnostic variants (`lint:fix` before `lint`, `format:fix` before `format:check`). Automated scripts fixing 50 issues in 2 seconds beats an agent fixing them one by one. The earlier you catch issues, the cheaper they are to fix.
+
 ### REFACTOR: Assess Improvements
 - Assess AFTER every green (but only refactor if it adds value)
 - Remove duplication, improve names, extract helpers—keep tests green, don't add behavior

@@ -41,6 +41,45 @@ When a package contains adapter classes (HTTP clients wrapping external APIs), s
 
 **Deploy pipeline (required):** Production deploys happen only through the pipeline — never locally. Use workflow_dispatch (manual trigger) until confidence is high enough for automatic deploys. Include a dry-run gate before actual deploy. Require repository secrets for production credentials (never commit tokens).
 
+## Using the gate (MANDATORY)
+
+Setting up the gate is useless if you don't run it. The gate exists to catch problems **before they escape** — the earlier you catch an issue, the cheaper it is. A bug caught by a local script costs seconds. A bug caught in CI costs minutes and blocks the pipeline. A bug caught in production costs brand trust, users, and revenue.
+
+### Discover, don't guess
+
+**Never assume how a project runs its tools.** Before running any validation command:
+
+1. **Node projects:** Read `package.json` `scripts` first. Use the project's script names (`pnpm lint:fix`, not `npx eslint --fix .`).
+2. **Other projects:** Check `Makefile`, `justfile`, `Taskfile`, `scripts/` directory.
+3. **Monorepos:** Check both root and workspace-level scripts — they may differ.
+
+### Fix first, verify second
+
+Always run fix variants before diagnostic variants:
+
+- `lint:fix` → then `lint` (confirm zero remaining)
+- `format:fix` / `format:write` → then `format:check`
+- `stylelint --fix` → then `stylelint`
+
+Automated fix scripts are dramatically cheaper than reading a wall of warnings and fixing them manually — or worse, having an agent fix them one by one.
+
+### Run the full suite, every time
+
+After every GREEN and before every commit: fix → verify → type-check → test. Don't skip steps. Don't run only the ones you think are relevant. Pre-commit hooks are a backstop, not your primary validation — run the full suite before staging to avoid surprise failures at commit time.
+
+### The cost escalation ladder
+
+| Caught by | Cost | Impact |
+|-----------|------|--------|
+| Local fix script | Seconds | None — auto-fixed |
+| Local diagnostic | Seconds | You fix one issue |
+| Pre-commit hook | Seconds | Blocked commit, you fix and retry |
+| CI pipeline | Minutes | Blocked PR, context switch, pipeline queue |
+| Code review | Hours | Back-and-forth, delayed merge |
+| Production | Days–weeks | Brand damage, user frustration, revenue loss |
+
+**CI and CD are strong safety nets — but they are last resorts.** Your job is to catch as much as possible before code ever leaves your machine.
+
 ## Where to document in a project
 
 | Document | What to add |
