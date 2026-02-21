@@ -52,6 +52,8 @@ When reading a status file (for resume or precondition checks):
    - Each `human_decision` must be one of: `null`, `approve`, `clarify`, `reject`, `skip`, `restart`
    - `artifact_paths` must all pass Artifact Path Safety checks above
    - `commit_shas` must be an array of strings (Git SHA hashes)
+   - `current_step` must be null or a positive integer (Phase 4 only)
+   - `steps_completed` must be an array of positive integers (Phase 4 only)
 2. **Feedback sanitization:** When embedding feedback from a previous rejection into agent prompts:
    - Truncate to 200 characters maximum
    - Wrap in a markdown code block: `` ```feedback\n<text>\n``` ``
@@ -250,6 +252,8 @@ phases:
     agents: [engineering-lead]
     artifact_paths: []
     commit_shas: []
+    current_step: null       # step number currently executing (null if not started)
+    steps_completed: []      # list of step numbers that finished successfully
     started_at: null
     completed_at: null
     human_decision: null
@@ -560,9 +564,10 @@ Save to: .docs/canonical/plans/plan-{endeavor}-{initiative-id}-{subject}.md
 **Dispatch pattern:** The orchestrator reads the implementation plan and dispatches the engineering-lead **once per plan step** (or once per wave of parallel steps). This prevents context overflow on large plans. For each dispatch:
 
 1. Read the next plan step (or wave of parallel steps) from the plan.
-2. Provide the engineering-lead with: the step details, the charter (for acceptance criteria), any output from prior steps, and the execution mode (solo/mob/parallel).
-3. The engineering-lead executes the step and returns results.
-4. The orchestrator records progress in the status file, then dispatches the next step.
+2. Update the status file: set `current_step` to the step number about to execute.
+3. Provide the engineering-lead with: the step details, the charter (for acceptance criteria), any output from prior steps, and the execution mode (solo/mob/parallel).
+4. The engineering-lead executes the step and returns results.
+5. After successful commit, append the step number to `steps_completed` and record progress in the status file, then dispatch the next step.
 
 **If the orchestrator must write files on behalf of a subagent** (due to permission constraints), it should do so immediately after the subagent returns content, before dispatching the next step.
 
@@ -627,7 +632,7 @@ Story Reviews do not produce separate commits — code is already committed per-
 
 **Output artifacts:** Working code and tests (committed incrementally). Record changed file paths and commit SHAs in the status file after each step.
 
-**Gate rejection/restart behavior:** If Phase 4 is rejected or restarted at the gate, incremental commits from this run are preserved in git history (they are not reverted). The re-run produces new commits on top. If the user wants a clean history, they can squash commits during PR creation. The status file's `commit_shas` for Phase 4 is cleared on restart and repopulated during the new run.
+**Gate rejection/restart behavior:** If Phase 4 is rejected or restarted at the gate, incremental commits from this run are preserved in git history (they are not reverted). The re-run produces new commits on top. If the user wants a clean history, they can squash commits during PR creation. The status file's `commit_shas`, `steps_completed`, and `current_step` for Phase 4 are cleared on restart and repopulated during the new run.
 
 **Note:** This is typically the longest phase. The orchestrator drives progress step-by-step, dispatching the engineering-lead (who in turn dispatches specialist subagents) for each plan step. Each step produces testable, committed output. If a step fails or is blocked, the orchestrator reports to the human and waits for guidance.
 
