@@ -78,6 +78,10 @@ Agents should pull in domain specialists when their expertise is needed. The orc
 
 All artifacts follow the existing canonical hierarchy and naming conventions from `.docs/AGENTS.md`. No new document types — everything maps to: research reports, charters, roadmaps, backlogs, ADRs, plans, assessments, and reviews.
 
+### Symlink Awareness
+
+When editing files, be aware that some files may be symlinks (e.g., `CLAUDE.md` → `.docs/AGENTS.md`). Edits via symlink work correctly, but agents should reference the canonical path in artifact listings and cross-references.
+
 ### Orchestrator Responsibilities
 
 The /craft orchestrator (the agent executing this command) is responsible for infrastructure that subagents cannot handle:
@@ -568,6 +572,38 @@ Save to: .docs/canonical/plans/plan-{endeavor}-{initiative-id}-{subject}.md
 
 ---
 
+### Scope Detection (between Phase 3 approval and Phase 4 dispatch)
+
+After the Phase 3 plan is approved, classify the initiative scope before dispatching Phase 4. This classification drives Phase 4 orchestration and Phase 5 validation behavior.
+
+**Classification heuristic:**
+
+1. Read the approved plan steps. For each step, identify the file types it creates or modifies.
+2. Classify as:
+   - **`docs-only`** — ALL plan steps modify only `.md`, `.yaml`, `.yml`, `.json` files AND no steps mention writing tests, creating source files, or building features.
+   - **`code`** — Any plan step creates or modifies source code files (`.ts`, `.tsx`, `.js`, `.jsx`, `.py`, `.sh`, `.bash`) with associated test requirements.
+   - **`mixed`** — Combination of docs and code, OR docs-only steps that include scripts (`.py`, `.sh`, `.ts`).
+
+3. **Exception:** If plan steps include scripts (`.py`, `.sh`, `.ts`) even in an otherwise docs-only initiative, classify as `mixed` (not `docs-only`). Scripts have code semantics that warrant code-focused validation.
+
+4. Record `scope_type: docs-only | code | mixed` in the status file as a top-level YAML field (alongside `goal`, `initiative_id`, etc.).
+
+**Phase 4 behavior when `docs-only`:**
+
+- **Skip `engineering-lead` orchestration.** The craft orchestrator directly executes plan steps (edit files, no TDD loop).
+- **Orchestration evaluation:** Before executing steps, the orchestrator evaluates whether parallel dispatch adds value:
+  - **Parallelization:** If the plan has waves with independent steps (e.g., "update 5 agent files" in parallel), dispatch parallel subagents for the wave. Same quality, lower wall-clock time and often lower total cost (parallel haiku agents vs sequential opus).
+  - **Cost-tier routing:** Evaluate each step's complexity. Mechanical edits (add a frontmatter field, rename a reference) → T2 (haiku). Judgment-dependent edits (rewrite a skill's guidance, design new agent classification) → T3 (sonnet/opus). Never default everything to T3 when T2 suffices.
+  - **Direct execution fallback:** If the plan is linear (no parallelizable steps) and all steps are simple, the orchestrator executes directly without subagent dispatch overhead.
+- **Still commit per-step** via `/git/cm`.
+- **Still run validation**, but use the docs-only agent exclusion rules (see `/review/review-changes` § Docs-Only Scope).
+
+**Phase 0-3 early optimization (optional):**
+
+If the goal text clearly indicates docs-only work (contains "update", "document", "add agent", "edit skill", etc.), the orchestrator MAY suggest collapsing Phases 0-2 at the Phase 0 gate. This is a suggestion, not automatic — the user decides via the gate protocol.
+
+---
+
 ### Phase 4: Build
 
 **Preconditions:** Phase 3 approved or skipped. If approved, implementation plan must exist on disk.
@@ -639,7 +675,7 @@ INCREMENTAL COMMIT: After achieving GREEN, the orchestrator will run a Step Revi
 2. If any "Fix Required" findings: fix the issue, re-run tests, re-run Step Review
 3. If only Suggestions/Observations: note for later, proceed to commit
 4. Commit via `/git/cm` with message: `feat(<initiative-id>): step <N> — <brief description>`
-5. Record the commit SHA in the status file phase entry under `commit_shas`
+5. Record the commit SHA in the status file phase entry under `commit_shas`. Also append the SHA as a sub-entry in the Phase Log with step number and description (e.g., `` `abc1234` — step 1: add scope detection ``). The YAML `commit_shas` array stays flat for machine parsing; the Phase Log sub-entries add human-readable context.
 
 **After completing each story/ticket — Story Review:**
 
@@ -908,7 +944,9 @@ Append to the Phase Log in the markdown body:
 - Completed: [timestamp]
 - Agents: [list]
 - Artifacts: [list of paths]
-- Commits: [list of SHAs, or "none" for skipped phases]
+- Commits: [or "none" for skipped phases]
+  - `<sha>` — step N: brief description
+  - `<sha>` — step N: brief description
 - Decision: [Approved / Skipped / etc.]
 - Notes: [any feedback or remarks]
 ```

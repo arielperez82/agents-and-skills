@@ -62,23 +62,41 @@ When diff-mode is specified, include this preamble in each agent's prompt:
 
 Engage these agents **in parallel**, each with the same context: the uncommitted diff (and optional scope/focus). All agents operate independently on the same input, so there are no ordering dependencies.
 
-### Core (always)
+All 12 agents default to **included**. Each agent has documented exclusion criteria — exclude an agent only when its criteria are met. This replaces the previous "Core (always) / Optional (when applicable)" split with a unified model.
+
+### Agent Inclusion & Exclusion Rules
+
+| # | Agent | Exclude when | Rationale |
+|---|-------|-------------|-----------|
+| 1 | **tdd-reviewer** | Diff contains zero test files AND zero source code files | No code to verify TDD compliance on |
+| 2 | **ts-enforcer** | Diff contains zero TypeScript files (`.ts`, `.tsx`) | TypeScript-specific; irrelevant for Python/shell/markdown |
+| 3 | **refactor-assessor** | Diff contains zero source code files | No code to assess refactoring on |
+| 4 | **security-assessor** | Diff contains zero source code files AND zero config files (`.json`, `.yaml`, `.yml`, `.env*`) | No attack surface to review |
+| 5 | **code-reviewer** | Diff contains zero source code files | No code to review |
+| 6 | **cognitive-load-assessor** | Diff contains zero source code files | No code metrics to compute |
+| 7 | **docs-reviewer** | **Never excluded** — always runs | Primary reviewer for docs-only; valuable for any diff |
+| 8 | **progress-assessor** | No plan context (no plan files in diff, no status under `.docs/reports/`, user didn't indicate plan-based work) | Requires plan/status context to be meaningful |
+| 9 | **agent-validator** | Diff does NOT touch `agents/` | Agent-specific validation |
+| 10 | **agent-quality-assessor** | Diff does NOT touch `agents/` | Agent-specific quality scoring |
+| 11 | **skill-validator** | Diff does NOT touch `skills/` | Skill-specific validation |
+| 12 | **command-validator** | Diff does NOT touch `commands/` | Command-specific validation |
+
+**Source code files** = `.ts`, `.tsx`, `.js`, `.jsx`, `.py`, `.sh`, `.bash`. If ANY source code file appears in the diff, ALL code-focused agents run (they assess the full diff, not just the code portion). The only per-agent exception is **ts-enforcer**, which is excluded when zero TypeScript files are in the diff even if other code files are present.
+
+### Agent Details
 
 1. **tdd-reviewer** – TDD compliance, test quality, behavior-focused tests. Tiered output: Farley Index thresholds + TDD compliance findings.
-2. **ts-enforcer** – TypeScript strict mode, no `any`, schema usage, immutability. Tiered output: Critical/High/Style mapped to tiers. (Skip or make no-op if no TypeScript in diff.)
+2. **ts-enforcer** – TypeScript strict mode, no `any`, schema usage, immutability. Tiered output: Critical/High/Style mapped to tiers.
 3. **refactor-assessor** – Refactoring opportunities. Tiered output: Critical/High/Nice/Skip mapped to Fix required/Suggestion/Observation/Omit.
 4. **security-assessor** – Security assessment of the diff. Tiered output: Critical+High → Fix required, Medium → Suggestion, Low → Observation. Does not implement fixes.
 5. **code-reviewer** – Code quality, security, best practices, merge readiness. Tiered output: broken patterns/security → Fix required, best-practice deviations → Suggestion, style/positive → Observation.
 6. **cognitive-load-assessor** – Cognitive Load Index (CLI) for changed code; 8-dimension report, top offenders, recommendations (read-only). Tiered output: CLI >600 → Fix required, 400-600 → Suggestion, <400 → Observation.
-
-### Optional (when applicable)
-
-7. **docs-reviewer** – **Add** when the diff touches documentation (`*.md`, `README*`, `docs/`), agent specs (`agents/*.md`), skill definitions (`skills/**/SKILL.md`), or command definitions (`commands/**/*.md`). Reviews markdown structure, frontmatter correctness, progressive disclosure, section ordering, and formatting quality.
-8. **progress-assessor** – **Add** when the review is based on a plan or roadmap (e.g. plan under `.docs/canonical/plans/`, status under `.docs/reports/`, or user says work is plan-based). Validates progress tracking and plan alignment.
-9. **agent-validator** – **Add** when the diff touches `agents/` (agent specs, renames, or README). Validates frontmatter, name-vs-filename consistency, and absence of stale `ap-` references.
-10. **agent-quality-assessor** – **Add** when the diff touches `agents/` (alongside agent-validator). Runs `analyze-agent.sh` per changed agent file, scoring on 5 quality dimensions. Tiered output: Grade D/F or Status=OPTIMIZE → Fix Required; Grade C or Status=REVIEW → Suggestion; Grade A/B, Status=OK → Observation.
-11. **skill-validator** – **Add** when the diff touches `skills/`. Runs two checks: (1) `validate_agent.py --all --summary` to catch broken agent→skill references, (2) `quick_validate.py <skill-dir>` per changed skill for frontmatter structure. Tiered output: script failures or CRITICAL → Fix Required; HIGH → Suggestion; all pass → Observation.
-12. **command-validator** – **Add** when the diff touches `commands/`. Runs `validate_commands.py` on the entire commands directory. Tiered output: any FAIL → Fix Required; all PASS → Observation.
+7. **docs-reviewer** – Reviews markdown structure, frontmatter correctness, progressive disclosure, section ordering, and formatting quality. Runs on any diff containing documentation (`*.md`, `README*`, `docs/`), agent specs (`agents/*.md`), skill definitions (`skills/**/SKILL.md`), or command definitions (`commands/**/*.md`).
+8. **progress-assessor** – Validates progress tracking and plan alignment. Include when the review is based on a plan or roadmap (e.g. plan under `.docs/canonical/plans/`, status under `.docs/reports/`, or user says work is plan-based).
+9. **agent-validator** – Validates frontmatter, name-vs-filename consistency, and absence of stale `ap-` references. Include when the diff touches `agents/` (agent specs, renames, or README).
+10. **agent-quality-assessor** – Runs `analyze-agent.sh` per changed agent file, scoring on 5 quality dimensions. Tiered output: Grade D/F or Status=OPTIMIZE → Fix Required; Grade C or Status=REVIEW → Suggestion; Grade A/B, Status=OK → Observation. Include alongside agent-validator when diff touches `agents/`.
+11. **skill-validator** – Runs two checks: (1) `validate_agent.py --all --summary` to catch broken agent→skill references, (2) `quick_validate.py <skill-dir>` per changed skill for frontmatter structure. Tiered output: script failures or CRITICAL → Fix Required; HIGH → Suggestion; all pass → Observation. Include when diff touches `skills/`.
+12. **command-validator** – Runs `validate_commands.py` on the entire commands directory. Tiered output: any FAIL → Fix Required; all PASS → Observation. Include when diff touches `commands/`.
 
 ## Optional agent prompts
 
@@ -138,18 +156,15 @@ When including **command-validator**, use this scope:
 1. **Gather uncommitted changes**
    - Run `git status` and `git diff HEAD` (and if needed `git diff --staged`).
    - If argument provided: filter or annotate which paths to include/exclude or what to focus on.
-   - **Decide optional agents**:
-     - If diff includes doc files → include docs-reviewer.
-     - If plan/roadmap context (plan files in diff or user indicated) → include progress-assessor.
-     - If diff touches `agents/` → include agent-validator **and** agent-quality-assessor.
-     - If diff touches `skills/` → include skill-validator **and** docs-reviewer.
-     - If diff touches `commands/` → include command-validator **and** docs-reviewer.
-     - If diff includes scripts (`.sh`, `.py`) under artifact directories (`skills/`, `agents/`, `commands/`) → note in core agent (code-reviewer, security-assessor) prompts that these scripts are in-scope.
+   - **Apply exclusion rules** (see § Agent Inclusion & Exclusion Rules):
+     - Classify diff files by type: source code, TypeScript, config, docs, agent specs, skill definitions, command definitions.
+     - Exclude each agent whose exclusion criteria are met.
+     - If diff includes scripts (`.sh`, `.py`) under artifact directories (`skills/`, `agents/`, `commands/`) → note in code-reviewer and security-assessor prompts that these scripts are in-scope.
 
 2. **Run all agents in parallel**
    - Launch all applicable agents concurrently, each with: uncommitted diff + optional scope/focus. Use the prompts in "Optional agent prompts" above for each optional agent when included.
    - **In diff-mode:** Prepend the DIFF-MODE preamble (see § Review Modes) to each agent's prompt. Skip agents marked "Not run in diff-mode" (cognitive-load-assessor, docs-reviewer, progress-assessor). All other core agents run with their diff-mode scope.
-   - **In full-mode (default):** Core (always): tdd-reviewer, ts-enforcer (skip if no TS in diff), refactor-assessor, security-assessor, code-reviewer, cognitive-load-assessor. Optional: docs-reviewer (if docs, agents, skills, or commands changed), progress-assessor (if plan-based), agent-validator (if `agents/` changed), agent-quality-assessor (if `agents/` changed), skill-validator (if `skills/` changed), command-validator (if `commands/` changed).
+   - **In full-mode (default):** All 12 agents included by default. Apply exclusion rules from § Agent Inclusion & Exclusion Rules to determine which agents to skip based on diff content. If zero source code files in diff, code-focused agents (tdd-reviewer, refactor-assessor, code-reviewer, cognitive-load-assessor) are excluded. ts-enforcer excluded when zero TypeScript files. security-assessor excluded when zero source code AND zero config files. docs-reviewer never excluded. Artifact-specific agents (agent-validator, skill-validator, command-validator) excluded when their directories are untouched.
    - Wait for all agents to complete before proceeding to summarize.
 
 3. **Summarize (collated tier summary)**
