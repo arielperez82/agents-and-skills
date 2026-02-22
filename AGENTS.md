@@ -20,6 +20,7 @@
 - Integrate continuously.
 - Trust, but verify.
 - Leverage tools.
+- Route work to the cheapest capable model (T1 local scripts → T2 haiku/subscription CLIs → T3 sonnet/opus for novel judgment).
 
 **TEST-DRIVEN DEVELOPMENT IS NON-NEGOTIABLE.** Every single line of production code must be written in response to a failing test. No exceptions. This is not a suggestion or a preference - it is the fundamental practice that enables all other principles in this document.
 
@@ -118,6 +119,7 @@ I follow Test-Driven Development (TDD) with a strong emphasis on behavior-driven
 - Small, pure functions
 - TypeScript strict mode always
 - Use real schemas/types in tests, never redefine them
+- Route subagent work by cost tier (T1 mechanical → T2 analytical → T3 strategic)
 
 **Preferred Tools:**
 
@@ -242,8 +244,8 @@ This is the end-to-end lifecycle for all work — features, bug fixes, refactori
     /review/review-changes (final) ─► Fix issues ─► /pr
     ▼
  6. CLOSE
-    progress-assessor ─► learner ─► adr-writer ─► docs-reviewer
-    Archive/update canonical docs
+    product-director + senior-project-manager + progress-assessor + learner + docs-reviewer
+    Charter acceptance, deviation audit, archive/update canonical docs
 ```
 
 ### 1. Quality Gate (Phase 0)
@@ -292,11 +294,13 @@ Run `/review/review-changes` final time → fix issues → `/pr`.
 
 ### 6. Close (feature complete)
 
-1. `progress-assessor` — verify criteria met, finalize status
-2. `learner` — merge gotchas/patterns → `.docs/AGENTS.md` or canonical Learnings
-3. `adr-writer` — ADRs for significant decisions (`.docs/canonical/adrs/`)
-4. `docs-reviewer` — update permanent docs (README, guides, API docs)
-5. Archive/update canonical docs as needed
+1. `product-director` — charter delivery acceptance (reconciliation table + verdict)
+2. `senior-project-manager` — deviation audit (process health verdict)
+3. `progress-assessor` — document tracking, finalize status
+4. `learner` — merge gotchas/patterns → `.docs/AGENTS.md` or canonical Learnings
+5. `adr-writer` — ADRs for significant decisions (`.docs/canonical/adrs/`)
+6. `docs-reviewer` — update permanent docs (README, guides, API docs)
+7. Archive/update canonical docs as needed
 
 ### Quick Reference
 
@@ -364,6 +368,9 @@ When starting work in a domain, IMMEDIATELY load the relevant skill:
 - **Writing functional code** → Load `functional` skill
 - **Starting a new project or generating/reviewing development plans or backlogs** → Load `quality-gate-first` skill (Phase 0 before scaffold/features)
 - **Unsure which local skill fits the task** → Run `/skill/find-local-skill` with a short description of the activity (e.g. "configuring Vitest for React"); load the returned skill(s) from the given paths.
+- **Executing a plan with 3+ tasks** → Load `subagent-driven-development` skill; engage `engineering-lead` agent
+- **Dispatching parallel work or multi-agent workflows** → Load `orchestrating-agents` skill
+- **Before dispatching any subagent** → Evaluate cost tier (T1/T2/T3 from `orchestrating-agents` skill): T1 for deterministic work (local scripts, linters), T2 for pattern-following (haiku/gemini/codex), T3 for novel judgment (sonnet/opus)
 - **When a skill needs support from another capability** → Describe the *capability* you need (e.g. "refactoring assessment after tests pass", "quality gate checklist", "test factories"), not a specific skill name. Run `/skill/find-local-skill` with that description so the system can return the best-matching skill. This keeps skills decoupled and lets the catalog evolve.
 
 **Finding additional capabilities:** Do not hardcode "load the X skill" in skills or prompts. Instead, describe what capability is needed (testing patterns, Phase 0 checklist, ADR documentation, etc.) and use `/skill/find-local-skill [capability description]` to get the path to the best-matching skill. See [skills/README.md](skills/README.md) "Discovery & Installation" and "Finding local skills."
