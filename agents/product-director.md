@@ -416,6 +416,32 @@ python ../skills/product-team/product-strategist/scripts/okr_cascade_generator.p
 
 **Time Estimate:** 1 week for quarterly strategy review (includes stakeholder meetings)
 
+### Workflow 5: Charter Delivery Acceptance
+
+**Goal:** Verify initiative delivery against the charter at Close (Phase 6 of /craft).
+
+**When:** Invoked by the /craft orchestrator during Phase 6 (Close), running in parallel with other close agents.
+
+**Steps:**
+1. **Read the Phase 1 charter** — focus on the Success Criteria / Acceptance Criteria section. If the charter is missing, report REJECT with "Cannot perform acceptance — charter not found." If the charter has no Success Criteria section, report REJECT with "Cannot reconcile — charter has no defined success criteria."
+2. **Read Phase 4 deliverables** — changed files, commit history, artifact paths from the status file. If zero deliverables (no changed files, no commits), mark all criteria as NOT MET.
+3. **Reconcile criterion by criterion** — for each charter criterion, find evidence in the deliverables. Produce a reconciliation table:
+
+   | # | Charter Criterion | Status | Evidence |
+   |---|-------------------|--------|----------|
+   | 1 | _criterion text_ | MET / NOT MET / PARTIALLY MET | _file:line, commit, or artifact_ |
+
+4. **Detect scope additions** — identify deliverables not traceable to any charter criterion. For each, note what was added, when it was introduced (commit SHA or phase), and whether it was documented in the Audit Log as an approved change.
+5. **Issue verdict:**
+   - **ACCEPT** — all criteria MET, no unapproved scope additions
+   - **ACCEPT WITH CONDITIONS** — all criteria MET but unapproved scope additions exist, or some criteria PARTIALLY MET with acceptable justification
+   - **REJECT** — any criterion NOT MET without justification
+6. **Roadmap recommendation** — on ACCEPT or ACCEPT WITH CONDITIONS, recommend moving the initiative to Done on the evergreen roadmap (`.docs/canonical/roadmaps/roadmap-repo.md`).
+
+**Expected Output:** Reconciliation table + verdict + scope additions (if any) + roadmap recommendation.
+
+**Time Estimate:** 5-10 minutes per initiative.
+
 ## Integration Examples
 
 ### Example 1: Quarterly OKR Planning Workflow

@@ -271,7 +271,7 @@ phases:
   - name: Close
     number: 6
     status: pending
-    agents: [learner, progress-assessor, docs-reviewer]
+    agents: [product-director, senior-project-manager, learner, progress-assessor, docs-reviewer]
     artifact_paths: []
     commit_shas: []
     started_at: null
@@ -704,7 +704,90 @@ Present the collated tier summary to the human.
 
 **Preconditions:** Phase 5 approved or skipped.
 
-**Agents:** `learner`, `progress-assessor`, `docs-reviewer` (run in parallel — no dependencies between them).
+**Agents:** `product-director`, `senior-project-manager`, `learner`, `progress-assessor`, `docs-reviewer` (run in parallel — no dependencies between them).
+
+**Prompt for product-director:**
+```
+Perform Charter Delivery Acceptance for this initiative.
+
+Goal: <goal>
+Initiative: <initiative-id>
+Charter: <path to Phase 1 charter>
+Status file: <path to status file>
+All artifact paths: <list from status file>
+Changed files: <list of files modified during Phase 4>
+
+Instructions:
+1. Read the Phase 1 charter. Locate the Success Criteria / Acceptance Criteria section.
+   - If the charter is missing: REJECT with "Cannot perform acceptance — charter not found."
+   - If the charter has no Success Criteria section: REJECT with "Cannot reconcile — charter has no defined success criteria."
+
+2. Read Phase 4 deliverables: changed files, commit history, artifact paths from the status file.
+   - If zero deliverables (no changed files, no commits): mark ALL criteria as NOT MET.
+
+3. For each charter criterion, find evidence in the deliverables. Produce a reconciliation table:
+
+   | # | Charter Criterion | Status | Evidence |
+   |---|-------------------|--------|----------|
+   | 1 | <criterion text>  | MET / NOT MET / PARTIALLY MET | <file:line, commit, or artifact> |
+   | 2 | ...               | ...    | ...      |
+
+4. Detect scope additions: identify any deliverables NOT traceable to a charter criterion.
+   For each scope addition, note:
+   - What was added
+   - When it was introduced (commit SHA or phase)
+   - Whether it was documented in the Audit Log as an approved change
+
+5. Issue a verdict:
+   - ACCEPT — all criteria MET, no unapproved scope additions
+   - ACCEPT WITH CONDITIONS — all criteria MET but unapproved scope additions exist,
+     OR some criteria PARTIALLY MET with acceptable justification
+   - REJECT — any criterion NOT MET without justification
+
+6. On ACCEPT or ACCEPT WITH CONDITIONS: recommend moving the initiative to Done
+   on the evergreen roadmap (.docs/canonical/roadmaps/roadmap-repo.md).
+
+Report: reconciliation table + verdict + scope additions (if any) + roadmap recommendation.
+```
+
+**Prompt for senior-project-manager:**
+```
+Perform Project Closure & Deviation Audit for this initiative.
+
+Goal: <goal>
+Initiative: <initiative-id>
+Status file: <path to status file>
+Charter: <path to Phase 1 charter>
+
+Instructions:
+1. Read the Audit Log and Phase Log sections from the status file.
+   - If the status file has no Audit Log section: report SIGNIFICANT ISSUES with
+     "Governance gap — Audit Log section missing from status file."
+   - If the Audit Log is empty (no entries): report CLEAN with note
+     "Audit log empty — either no deviations occurred or logging was not maintained."
+
+2. From the Audit Log, identify every:
+   - REJECT event (scope or quality rejection)
+   - CLARIFY event (ambiguity resolution)
+   - Scope change or deviation from the original charter
+
+3. For each deviation or scope change:
+   - Was it documented in the Audit Log at the time it occurred?
+   - Was it approved through a gate (human approval or auto-approve with conditions)?
+   - If unapproved or undocumented: flag as a governance gap.
+
+4. Assess overall process health. Issue a verdict:
+   - CLEAN — all deviations documented and approved, audit trail complete
+   - MINOR ISSUES — small gaps in documentation but no unapproved scope changes
+   - SIGNIFICANT ISSUES — unapproved deviations, missing audit entries, or governance gaps
+
+5. List process improvement candidates:
+   - Recurring patterns from REJECT/CLARIFY events
+   - Suggestions for tightening gates or improving phase handoffs
+   - Any observations about the craft workflow that could prevent future issues
+
+Report: deviation list (with documented/approved status) + process health verdict + improvement candidates.
+```
 
 **Prompt for learner:**
 ```
@@ -738,19 +821,21 @@ as "Process improvement candidates" for the craft command maintainer.
 
 **Prompt for progress-assessor:**
 ```
-Verify completion of the craft session.
+Verify document tracking completeness for the craft session.
 
 Goal: <goal>
 Initiative: <initiative-id>
-Charter: <path to Phase 1 charter>
 Implementation plan: <path to Phase 3 plan, if available>
 Status file: <path to status file>
 
 Verify:
 - All plan steps are complete (or explicitly skipped with justification)
-- Acceptance criteria from the charter are met
 - No orphaned TODOs or incomplete work
 - Status file accurately reflects final state
+- Canonical docs exist and are up to date (charter, plan, status file, learnings)
+
+Note: Charter acceptance criteria verification is handled by product-director.
+This assessment focuses on document tracking discipline only.
 
 Report: pass/fail with details.
 ```
@@ -774,7 +859,7 @@ Make updates or report what needs updating.
 
 **After parallel agents complete:**
 
-1. Present combined results from all three agents.
+1. Present combined results from all five agents.
 2. Run the gate protocol (Approve/Reject/Skip/Restart).
 3. **On Approve:** Update the status file to `overall_status: completed`. Commit close artifacts (learnings, doc updates) via `/git/cm` with message: `docs(<initiative-id>): close — learnings and doc updates`. Record the commit SHA in the status file.
 

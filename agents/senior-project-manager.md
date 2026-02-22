@@ -391,6 +391,29 @@ EOF
 echo "✅ Risk assessment report written"
 ```
 
+### Workflow 5: Project Closure & Deviation Audit
+
+**Goal:** Audit process compliance and deviations at initiative close (Phase 6 of /craft).
+
+**When:** Invoked by the /craft orchestrator during Phase 6 (Close), running in parallel with other close agents.
+
+**Steps:**
+1. **Read the Audit Log and Phase Log** from the status file. If the status file has no Audit Log section, report SIGNIFICANT ISSUES with "Governance gap — Audit Log section missing from status file." If the Audit Log is empty (no entries), report CLEAN with note "Audit log empty — either no deviations occurred or logging was not maintained."
+2. **Identify deviation events** — every REJECT, CLARIFY, scope change, or deviation from the original charter.
+3. **Verify documentation and approval** — for each deviation or scope change:
+   - Was it documented in the Audit Log at the time it occurred?
+   - Was it approved through a gate (human approval or auto-approve with conditions)?
+   - If unapproved or undocumented, flag as a governance gap.
+4. **Assess process health** — issue a verdict:
+   - **CLEAN** — all deviations documented and approved, audit trail complete
+   - **MINOR ISSUES** — small gaps in documentation but no unapproved scope changes
+   - **SIGNIFICANT ISSUES** — unapproved deviations, missing audit entries, or governance gaps
+5. **List process improvement candidates** — recurring REJECT/CLARIFY patterns, suggestions for tightening gates or improving phase handoffs, observations about the craft workflow.
+
+**Expected Output:** Deviation list (with documented/approved status) + process health verdict + process improvement candidates.
+
+**Time Estimate:** 5-10 minutes per initiative.
+
 ## Integration Examples
 
 ### Example 1: Monthly Portfolio Health Report
