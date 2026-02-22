@@ -204,5 +204,5 @@ When including **command-validator**, use this scope:
 ## Notes
 
 - All agents receive the same diff and focus — no ordering dependencies exist, so parallel execution is safe and preferred for faster feedback.
-- Load `orchestrating-agents` skill for advanced parallel patterns if needed.
+- **Cost-tier routing (default for large diffs):** Load `orchestrating-agents` skill for cost-optimized dispatch. When the diff is large (>500 lines or 10+ files), use the validation sandwich pattern: dispatch T2 agents (haiku/gemini) for mechanical checks (style, anti-patterns, naming) in parallel, then T3 agents (sonnet) for judgment-dependent analysis (architecture, security, subtle bugs). For small diffs, all agents run at their classified model tier as normal.
 - Reference AGENTS.md "Canonical Development Flow → 4. Validate" and agents/README.md "Canonical Development Flow" for when to use each agent.

@@ -10,6 +10,7 @@ skills:
   - engineering-team/subagent-driven-development
   - engineering-team/code-reviewer
   - engineering-team/planning
+  - orchestrating-agents
 
 # === USE CASES ===
 difficulty: advanced
@@ -50,7 +51,6 @@ related-skills:
   - engineering-team/senior-frontend
   - engineering-team/avoid-feature-creep
   - engineering-team/verification-before-completion
-  - orchestrating-agents
   - sequential-thinking
 related-commands: [review/review-changes, git/cm, git/cp, plan/parallel]
 
@@ -155,6 +155,29 @@ Used to understand plan structure:
 - How tasks are decomposed and ordered
 - What context each task needs
 - When plans live under `.docs/canonical/plans/` (artifact conventions)
+
+### Core: Orchestrating Agents
+
+**Path:** `skills/orchestrating-agents/SKILL.md`
+
+Used for cost-tier routing and parallel dispatch:
+- **Before every dispatch**, evaluate the task's cost tier:
+  - T1 (deterministic): local script, linter, `tsc` — free
+  - T2 (pattern-following): `claude --model haiku`, `gemini`, `codex`, `agent` — cheap
+  - T3 (novel judgment): `claude --model sonnet` or `claude --model opus` — expensive
+- **Validation sandwich**: dispatch T2 agents to generate, T3 agents to validate (cheaper than T3 for both)
+- **Parallel dispatch**: when tasks are independent, run T2 sub-tasks concurrently
+- **Cross-vendor delegation**: use Cursor Agent, Gemini CLI, or Codex CLI for subscription-rate T2 work
+
+**Decision before every subagent dispatch:**
+
+```text
+Is this deterministic? ──yes──► T1 (local script, linter, tsc)
+        │ no
+Does it follow established patterns? ──yes──► T2 (haiku / gemini / codex / agent)
+        │ no
+Requires novel judgment? ──yes──► T3 (claude sonnet/opus)
+```
 
 ## Workflows
 

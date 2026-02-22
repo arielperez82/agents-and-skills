@@ -313,6 +313,31 @@ The implementation-planner agent bridges the gap between architecture design and
 - [ ] **Integration steps included** (not just build — how does new code wire into existing systems?)
 - [ ] **Deployment steps included** (CI/CD, deploy pipeline, rollback, environment config)
 - [ ] **Monitoring/observability steps included** (logging, metrics, alerting, health checks, SLIs/SLOs)
+- [ ] **Execution recommendation included** (subagent-driven / parallel / manual + cost tier notes)
+
+### Execution Recommendation (MANDATORY)
+
+Every plan MUST end with an **Execution Recommendation** section that tells the executor HOW to run the plan. Evaluate the task list and recommend one of:
+
+| Condition | Recommendation | Agent/Command |
+|-----------|---------------|---------------|
+| 3+ independent tasks, same session | Subagent-driven development | `engineering-lead` with `subagent-driven-development` skill |
+| Parallel-safe tasks, multiple sessions OK | Parallel execution | `/code/parallel` |
+| Tightly coupled tasks, sequential dependencies | Manual step-by-step | Direct execution or `/code/auto` |
+| Single task | Direct dispatch | Appropriate engineer agent directly |
+
+**Template for plan footer:**
+
+```markdown
+## Execution Recommendation
+
+- **Method:** Subagent-driven development / Parallel execution / Manual step-by-step
+- **Agent:** engineering-lead / direct / [specific engineer]
+- **Rationale:** [why this method fits the task structure]
+- **Cost tier notes:** [which tasks are T1/T2/T3, any that can use cheaper models]
+```
+
+This bridges the gap between "plan created" and "how to execute it." The executor (human or agent) reads this section to know which workflow to invoke.
 
 ## Throughput-Based Effort Estimation
 

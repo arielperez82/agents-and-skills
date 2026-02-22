@@ -6,7 +6,7 @@ title: Code Reviewer Specialist
 description: Code review specialist for quality assessment, security analysis, and best practices enforcement across all tech stacks
 domain: engineering
 subdomain: quality-assurance
-skills: engineering-team/code-reviewer
+skills: [engineering-team/code-reviewer, orchestrating-agents]
 
 # === USE CASES ===
 difficulty: advanced
@@ -32,7 +32,6 @@ related-skills:
   - engineering-team/avoid-feature-creep
   - engineering-team/code-reviewer
   - engineering-team/core-testing-methodology
-  - orchestrating-agents
   - engineering-team/accessibility
   - engineering-team/best-practices
   - engineering-team/core-web-vitals
@@ -335,6 +334,50 @@ EOF
 **Expected Output:** Automated code quality enforcement system with pre-commit hooks blocking problematic commits, CI/CD pipeline failing PRs below quality threshold, and documented team standards
 
 **Time Estimate:** 3-4 hours for initial setup, 1 hour for team training
+
+### Workflow 5: Cost-Optimized Large Review (Validation Sandwich)
+
+**Goal:** For large reviews (>500 lines changed, end-of-initiative sweeps, or post-`/craft` final review), use cheaper models for first-pass analysis and reserve expensive models for judgment calls.
+
+**When to use:** Large diffs, codebase-wide reviews, final `/craft` review, or any review touching 10+ files.
+
+**Steps:**
+
+1. **T1 — Automated checks first** (free, deterministic)
+   Run local tools before any LLM review:
+   ```bash
+   pnpm lint
+   pnpm type-check
+   pnpm test
+   ```
+
+2. **T2 — First-pass review with cheaper models** (pattern-following)
+   Dispatch cheap agents in parallel for mechanical review dimensions:
+   ```bash
+   # Style, naming, formatting issues
+   claude -p "Review this diff for naming conventions, formatting issues, and style violations. List findings as: file:line — issue." --model haiku < diff.txt > /tmp/review-style.txt
+
+   # Anti-pattern detection
+   gemini -p "Scan this diff for common anti-patterns: magic numbers, deep nesting (>3 levels), any type usage, mutable state, missing error handling at boundaries. List findings." < diff.txt > /tmp/review-antipatterns.txt
+
+   # Test coverage gaps
+   claude -p "Compare test files with source files in this diff. List any source functions/methods that lack corresponding test coverage." --model haiku < diff.txt > /tmp/review-coverage.txt
+   ```
+
+3. **T3 — Expert review with expensive model** (novel judgment)
+   Review for dimensions that require judgment:
+   - Architectural concerns and design pattern issues
+   - Subtle bugs and edge cases
+   - Security vulnerabilities requiring contextual understanding
+   - Cross-cutting integration concerns
+   - Validate T2 findings: filter false positives, confirm real issues
+
+4. **Merge and report**
+   Combine T2 findings (after T3 validation) with T3 findings into the standard tiered output format.
+
+**Cost savings:** T2 first-pass catches ~60-70% of mechanical issues at ~10% of the T3 cost. T3 review input is smaller (focused on judgment calls + T2 validation) rather than full cold review.
+
+**Load `orchestrating-agents` skill** for CLI invocation patterns and tier routing.
 
 ## Integration Examples
 
