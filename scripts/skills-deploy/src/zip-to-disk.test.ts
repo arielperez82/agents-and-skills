@@ -1,28 +1,77 @@
-import { describe, expect, it, vi } from 'vitest';
+import { describe, expect, it } from 'vitest';
 
+import type { FrontmatterResult } from './frontmatter.js';
 import type { ZipToDiskDeps } from './zip-to-disk.js';
 import { writeSkillZips } from './zip-to-disk.js';
 
-const createMockDeps = (overrides: Partial<ZipToDiskDeps> = {}): ZipToDiskDeps => ({
-  getAllSkillDirs:
-    overrides.getAllSkillDirs ?? vi.fn<() => Promise<string[]>>().mockResolvedValue([]),
-  buildSkillZip:
-    overrides.buildSkillZip ??
-    vi.fn<() => Promise<Buffer>>().mockResolvedValue(Buffer.from('fake-zip')),
-  parseSkillFrontmatter:
-    overrides.parseSkillFrontmatter ??
-    vi
-      .fn<() => Promise<{ name: string; description: string } | undefined>>()
-      .mockResolvedValue({ name: 'test-skill', description: 'A test skill' }),
-  validateSkillName:
-    overrides.validateSkillName ?? vi.fn<() => string | undefined>().mockReturnValue(undefined),
-  writeFile: overrides.writeFile ?? vi.fn<() => Promise<void>>().mockResolvedValue(undefined),
-  mkdirp: overrides.mkdirp ?? vi.fn<() => Promise<void>>().mockResolvedValue(undefined),
-});
+type WrittenFile = {
+  readonly path: string;
+  readonly data: Buffer | string;
+};
+
+type BuiltZip = {
+  readonly skillDir: string;
+  readonly rootDir: string;
+};
+
+type TestDepsConfig = {
+  readonly skillDirs?: readonly string[];
+  readonly frontmatters?: Readonly<Record<string, FrontmatterResult | undefined>>;
+  readonly nameErrors?: Readonly<Record<string, string>>;
+  readonly zipContent?: Buffer;
+};
+
+type TestDepsResult = {
+  readonly deps: ZipToDiskDeps;
+  readonly writtenFiles: WrittenFile[];
+  readonly createdDirs: string[];
+  readonly builtZips: BuiltZip[];
+};
+
+const createTestDeps = (config: TestDepsConfig = {}): TestDepsResult => {
+  const writtenFiles: WrittenFile[] = [];
+  const createdDirs: string[] = [];
+  const builtZips: BuiltZip[] = [];
+  const zipContent = config.zipContent ?? Buffer.from('fake-zip');
+
+  const deps: ZipToDiskDeps = {
+    getAllSkillDirs: async () => [...(config.skillDirs ?? [])],
+
+    parseSkillFrontmatter: async (path: string): Promise<FrontmatterResult | undefined> => {
+      if (config.frontmatters === undefined) {
+        return { name: 'test-skill', description: 'A test skill' };
+      }
+      const match = Object.entries(config.frontmatters).find(([key]) => path.includes(key));
+      return match?.[1];
+    },
+
+    validateSkillName: (name: string): string | undefined => {
+      if (config.nameErrors === undefined) {
+        return undefined;
+      }
+      return config.nameErrors[name];
+    },
+
+    buildSkillZip: async (options: { skillDir: string; rootDir: string }): Promise<Buffer> => {
+      builtZips.push({ skillDir: options.skillDir, rootDir: options.rootDir });
+      return zipContent;
+    },
+
+    writeFile: async (path: string, data: Buffer | string): Promise<void> => {
+      writtenFiles.push({ path, data });
+    },
+
+    mkdirp: async (path: string): Promise<void> => {
+      createdDirs.push(path);
+    },
+  };
+
+  return { deps, writtenFiles, createdDirs, builtZips };
+};
 
 describe('writeSkillZips', () => {
   it('returns empty summary when no skill dirs exist', async () => {
-    const deps = createMockDeps();
+    const { deps } = createTestDeps();
 
     const result = await writeSkillZips({
       rootDir: '/repo',
@@ -35,15 +84,9 @@ describe('writeSkillZips', () => {
   });
 
   it('writes zip file for a valid skill', async () => {
-    const writeFile = vi.fn<() => Promise<void>>().mockResolvedValue(undefined);
-    const deps = createMockDeps({
-      getAllSkillDirs: vi
-        .fn<() => Promise<string[]>>()
-        .mockResolvedValue(['skills/engineering-team/tdd']),
-      parseSkillFrontmatter: vi
-        .fn<() => Promise<{ name: string; description: string } | undefined>>()
-        .mockResolvedValue({ name: 'tdd', description: 'TDD skill' }),
-      writeFile,
+    const { deps, writtenFiles } = createTestDeps({
+      skillDirs: ['skills/engineering-team/tdd'],
+      frontmatters: { tdd: { name: 'tdd', description: 'TDD skill' } },
     });
 
     const result = await writeSkillZips({
@@ -55,16 +98,15 @@ describe('writeSkillZips', () => {
     expect(result.written).toEqual([
       { skillPath: 'skills/engineering-team/tdd', zipFileName: 'tdd.zip', name: 'tdd' },
     ]);
-    expect(writeFile).toHaveBeenCalledWith('/output/tdd.zip', Buffer.from('fake-zip'));
+
+    const zipFile = writtenFiles.find((f) => f.path === '/output/tdd.zip');
+    expect(zipFile).toBeDefined();
+    expect(zipFile?.data).toEqual(Buffer.from('fake-zip'));
   });
 
   it('creates the output directory before writing', async () => {
-    const mkdirp = vi.fn<() => Promise<void>>().mockResolvedValue(undefined);
-    const deps = createMockDeps({
-      getAllSkillDirs: vi
-        .fn<() => Promise<string[]>>()
-        .mockResolvedValue(['skills/engineering-team/tdd']),
-      mkdirp,
+    const { deps, createdDirs } = createTestDeps({
+      skillDirs: ['skills/engineering-team/tdd'],
     });
 
     await writeSkillZips({
@@ -73,17 +115,13 @@ describe('writeSkillZips', () => {
       deps,
     });
 
-    expect(mkdirp).toHaveBeenCalledWith('/output');
+    expect(createdDirs).toContain('/output');
   });
 
   it('skips skills with no valid frontmatter', async () => {
-    const deps = createMockDeps({
-      getAllSkillDirs: vi
-        .fn<() => Promise<string[]>>()
-        .mockResolvedValue(['skills/no-frontmatter']),
-      parseSkillFrontmatter: vi
-        .fn<() => Promise<{ name: string; description: string } | undefined>>()
-        .mockResolvedValue(undefined),
+    const { deps, writtenFiles } = createTestDeps({
+      skillDirs: ['skills/no-frontmatter'],
+      frontmatters: { 'no-frontmatter': undefined },
     });
 
     const result = await writeSkillZips({
@@ -99,17 +137,14 @@ describe('writeSkillZips', () => {
       },
     ]);
     expect(result.written).toEqual([]);
+    expect(writtenFiles.filter((f) => f.path.endsWith('.zip'))).toEqual([]);
   });
 
   it('skips skills with invalid names', async () => {
-    const deps = createMockDeps({
-      getAllSkillDirs: vi.fn<() => Promise<string[]>>().mockResolvedValue(['skills/bad-skill']),
-      parseSkillFrontmatter: vi
-        .fn<() => Promise<{ name: string; description: string } | undefined>>()
-        .mockResolvedValue({ name: 'BadName', description: 'Bad' }),
-      validateSkillName: vi
-        .fn<() => string | undefined>()
-        .mockReturnValue('Name must contain only lowercase'),
+    const { deps } = createTestDeps({
+      skillDirs: ['skills/bad-skill'],
+      frontmatters: { 'bad-skill': { name: 'BadName', description: 'Bad' } },
+      nameErrors: { BadName: 'Name must contain only lowercase' },
     });
 
     const result = await writeSkillZips({
@@ -125,27 +160,17 @@ describe('writeSkillZips', () => {
   });
 
   it('processes multiple skills and handles mixed outcomes', async () => {
-    const writeFile = vi.fn<() => Promise<void>>().mockResolvedValue(undefined);
-    const deps = createMockDeps({
-      getAllSkillDirs: vi
-        .fn<() => Promise<string[]>>()
-        .mockResolvedValue([
-          'skills/engineering-team/tdd',
-          'skills/no-frontmatter',
-          'skills/engineering-team/testing',
-        ]),
-      parseSkillFrontmatter: vi
-        .fn<(path: string) => Promise<{ name: string; description: string } | undefined>>()
-        .mockImplementation(async (path: string) => {
-          if (path.includes('no-frontmatter')) {
-            return undefined;
-          }
-          if (path.includes('tdd')) {
-            return { name: 'tdd', description: 'TDD skill' };
-          }
-          return { name: 'testing', description: 'Testing skill' };
-        }),
-      writeFile,
+    const { deps, writtenFiles } = createTestDeps({
+      skillDirs: [
+        'skills/engineering-team/tdd',
+        'skills/no-frontmatter',
+        'skills/engineering-team/testing',
+      ],
+      frontmatters: {
+        tdd: { name: 'tdd', description: 'TDD skill' },
+        'no-frontmatter': undefined,
+        testing: { name: 'testing', description: 'Testing skill' },
+      },
     });
 
     const result = await writeSkillZips({
@@ -156,29 +181,18 @@ describe('writeSkillZips', () => {
 
     expect(result.written).toHaveLength(2);
     expect(result.skipped).toHaveLength(1);
-    expect(writeFile).toHaveBeenCalledTimes(3);
+
+    const zipFiles = writtenFiles.filter((f) => f.path.endsWith('.zip'));
+    expect(zipFiles).toHaveLength(2);
   });
 
   it('writes manifest.json alongside zips', async () => {
-    const writtenFiles: Array<{ path: string; data: string | Buffer }> = [];
-    const writeFile = vi
-      .fn<(path: string, data: Buffer | string) => Promise<void>>()
-      .mockImplementation(async (path: string, data: Buffer | string) => {
-        writtenFiles.push({ path, data });
-      });
-    const deps = createMockDeps({
-      getAllSkillDirs: vi
-        .fn<() => Promise<string[]>>()
-        .mockResolvedValue(['skills/engineering-team/tdd', 'skills/agent-browser']),
-      parseSkillFrontmatter: vi
-        .fn<(path: string) => Promise<{ name: string; description: string } | undefined>>()
-        .mockImplementation(async (path: string) => {
-          if (path.includes('tdd')) {
-            return { name: 'tdd', description: 'TDD skill' };
-          }
-          return { name: 'agent-browser', description: 'Agent browser' };
-        }),
-      writeFile,
+    const { deps, writtenFiles } = createTestDeps({
+      skillDirs: ['skills/engineering-team/tdd', 'skills/agent-browser'],
+      frontmatters: {
+        tdd: { name: 'tdd', description: 'TDD skill' },
+        'agent-browser': { name: 'agent-browser', description: 'Agent browser' },
+      },
     });
 
     await writeSkillZips({
@@ -204,10 +218,7 @@ describe('writeSkillZips', () => {
   });
 
   it('does not write manifest when no skills are written', async () => {
-    const writeFile = vi.fn<() => Promise<void>>().mockResolvedValue(undefined);
-    const deps = createMockDeps({
-      writeFile,
-    });
+    const { deps, writtenFiles } = createTestDeps();
 
     await writeSkillZips({
       rootDir: '/repo',
@@ -215,16 +226,12 @@ describe('writeSkillZips', () => {
       deps,
     });
 
-    expect(writeFile).not.toHaveBeenCalled();
+    expect(writtenFiles).toEqual([]);
   });
 
   it('passes correct skillDir to buildSkillZip', async () => {
-    const buildSkillZip = vi.fn<() => Promise<Buffer>>().mockResolvedValue(Buffer.from('fake-zip'));
-    const deps = createMockDeps({
-      getAllSkillDirs: vi
-        .fn<() => Promise<string[]>>()
-        .mockResolvedValue(['skills/engineering-team/tdd']),
-      buildSkillZip,
+    const { deps, builtZips } = createTestDeps({
+      skillDirs: ['skills/engineering-team/tdd'],
     });
 
     await writeSkillZips({
@@ -233,9 +240,8 @@ describe('writeSkillZips', () => {
       deps,
     });
 
-    expect(buildSkillZip).toHaveBeenCalledWith({
-      skillDir: '/repo/skills/engineering-team/tdd',
-      rootDir: '/repo',
-    });
+    expect(builtZips).toEqual([
+      { skillDir: '/repo/skills/engineering-team/tdd', rootDir: '/repo' },
+    ]);
   });
 });
