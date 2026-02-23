@@ -16,7 +16,8 @@
     "lint:fix": "eslint --fix .",
     "format": "prettier --check .",
     "format:fix": "prettier --write .",
-    "deploy": "tsx src/cli.ts"
+    "deploy": "tsx src/cli.ts",
+    "zip": "tsx src/cli-zip.ts"
   },
   "devDependencies": {
     "@eslint/js": "^9.39.0",
