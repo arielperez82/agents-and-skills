@@ -1,8 +1,8 @@
 import { objectKeysFromUnknown } from '@tests/helpers/object-keys';
 import { describe, expect, it } from 'vitest';
 
-import type { CostByModelRow } from './cost_by_model';
-import { costByModel } from './cost_by_model';
+import type { CostByModelRow } from './cost-by-model';
+import { costByModel } from './cost-by-model';
 
 const firstNode = () => {
   const n = costByModel.options.nodes[0];

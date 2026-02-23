@@ -1,7 +1,7 @@
 import { describe, expect, it } from 'vitest';
 
-import type { TelemetryHealthRow } from './telemetry_health';
-import { telemetryHealth } from './telemetry_health';
+import type { TelemetryHealthRow } from './telemetry-health';
+import { telemetryHealth } from './telemetry-health';
 
 describe('telemetry_health datasource', () => {
   it('has the correct datasource name', () => {

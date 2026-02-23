@@ -1,7 +1,7 @@
 import { describe, expect, it } from 'vitest';
 
-import type { SessionSummaryRow } from './session_summaries';
-import { sessionSummaries } from './session_summaries';
+import type { SessionSummaryRow } from './session-summaries';
+import { sessionSummaries } from './session-summaries';
 
 describe('session_summaries datasource', () => {
   it('has the correct datasource name', () => {

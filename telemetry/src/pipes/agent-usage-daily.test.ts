@@ -1,8 +1,8 @@
 import { objectKeysFromUnknown } from '@tests/helpers/object-keys';
 import { describe, expect, it } from 'vitest';
 
-import type { AgentUsageDailyRow } from './agent_usage_daily';
-import { agentUsageDaily } from './agent_usage_daily';
+import type { AgentUsageDailyRow } from './agent-usage-daily';
+import { agentUsageDaily } from './agent-usage-daily';
 
 const firstNode = () => {
   const n = agentUsageDaily.options.nodes[0];

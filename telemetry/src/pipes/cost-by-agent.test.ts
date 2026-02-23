@@ -1,8 +1,8 @@
 import { objectKeysFromUnknown } from '@tests/helpers/object-keys';
 import { describe, expect, it } from 'vitest';
 
-import type { CostByAgentRow } from './cost_by_agent';
-import { costByAgent } from './cost_by_agent';
+import type { CostByAgentRow } from './cost-by-agent';
+import { costByAgent } from './cost-by-agent';
 
 const firstNode = () => {
   const n = costByAgent.options.nodes[0];

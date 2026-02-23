@@ -1,8 +1,8 @@
-import type { AgentActivationRow } from '@/datasources/agent_activations';
-import type { ApiRequestRow } from '@/datasources/api_requests';
-import type { SessionSummaryRow } from '@/datasources/session_summaries';
-import type { SkillActivationRow } from '@/datasources/skill_activations';
-import type { TelemetryHealthRow } from '@/datasources/telemetry_health';
+import type { AgentActivationRow } from '@/datasources/agent-activations';
+import type { ApiRequestRow } from '@/datasources/api-requests';
+import type { SessionSummaryRow } from '@/datasources/session-summaries';
+import type { SkillActivationRow } from '@/datasources/skill-activations';
+import type { TelemetryHealthRow } from '@/datasources/telemetry-health';
 
 let idCounter = 0;
 const nextId = (): string => `id-${String(++idCounter)}`;

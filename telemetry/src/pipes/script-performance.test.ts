@@ -1,8 +1,8 @@
 import { objectKeysFromUnknown } from '@tests/helpers/object-keys';
 import { describe, expect, it } from 'vitest';
 
-import type { ScriptPerformanceRow } from './script_performance';
-import { scriptPerformance } from './script_performance';
+import type { ScriptPerformanceRow } from './script-performance';
+import { scriptPerformance } from './script-performance';
 
 const firstNode = () => {
   const n = scriptPerformance.options.nodes[0];

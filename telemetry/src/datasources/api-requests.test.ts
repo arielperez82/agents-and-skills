@@ -1,7 +1,7 @@
 import { describe, expect, it } from 'vitest';
 
-import type { ApiRequestRow } from './api_requests';
-import { apiRequests } from './api_requests';
+import type { ApiRequestRow } from './api-requests';
+import { apiRequests } from './api-requests';
 
 describe('api_requests datasource', () => {
   it('has the correct datasource name', () => {

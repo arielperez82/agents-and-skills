@@ -1,8 +1,8 @@
 import { objectKeysFromUnknown } from '@tests/helpers/object-keys';
 import { describe, expect, it } from 'vitest';
 
-import type { OptimizationInsightsRow } from './optimization_insights';
-import { optimizationInsights } from './optimization_insights';
+import type { OptimizationInsightsRow } from './optimization-insights';
+import { optimizationInsights } from './optimization-insights';
 
 const firstNode = () => {
   const n = optimizationInsights.options.nodes[0];

@@ -1,7 +1,7 @@
 import { describe, expect, it } from 'vitest';
 
-import type { SkillActivationRow } from './skill_activations';
-import { skillActivations } from './skill_activations';
+import type { SkillActivationRow } from './skill-activations';
+import { skillActivations } from './skill-activations';
 
 describe('skill_activations datasource', () => {
   it('has the correct datasource name', () => {

@@ -1,7 +1,7 @@
 import { describe, expect, it } from 'vitest';
 
-import type { AgentActivationRow } from './agent_activations';
-import { agentActivations } from './agent_activations';
+import type { AgentActivationRow } from './agent-activations';
+import { agentActivations } from './agent-activations';
 
 describe('agent_activations datasource', () => {
   it('has the correct datasource name', () => {
