@@ -1,4 +1,5 @@
 #!/usr/bin/env sh
+
 # Start Tinybird Local in a Docker container on the first free port in 7181..7190.
 # If a container named tinybird-local-<port> already exists (running or stopped), it is (re)used.
 # Requires: docker, curl. Optional: jq (for parsing token); falls back to grep/sed.
