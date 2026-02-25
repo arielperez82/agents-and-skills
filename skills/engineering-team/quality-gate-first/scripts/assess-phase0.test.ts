@@ -1,34 +1,28 @@
 #!/usr/bin/env npx tsx
-import { mkdirSync, mkdtempSync, rmSync, writeFileSync } from 'node:fs';
+import { chmodSync, mkdirSync, mkdtempSync, rmSync, symlinkSync, writeFileSync } from 'node:fs';
 import { join } from 'node:path';
 import { tmpdir } from 'node:os';
-import { describe, it, afterEach } from 'node:test';
-import { deepStrictEqual, strictEqual } from 'node:assert';
+import { describe, it } from 'node:test';
+import { strictEqual } from 'node:assert';
 
 import { type AssessmentReport, assessPhase0 } from './assess-phase0.js';
+import { ensureWithinScope } from './detect-project.js';
 
-let tempDirs: string[] = [];
+type TestContext = { after: (fn: () => void) => void };
 
-const withTempProject = (): string => {
+const withTempProject = (t: TestContext): string => {
   const dir = mkdtempSync(join(tmpdir(), 'assess-phase0-test-'));
-  tempDirs.push(dir);
+  t.after(() => rmSync(dir, { recursive: true, force: true }));
   return dir;
 };
-
-afterEach(() => {
-  for (const dir of tempDirs) {
-    rmSync(dir, { recursive: true, force: true });
-  }
-  tempDirs = [];
-});
 
 const findCheck = (report: AssessmentReport, id: string) =>
   [...report.coreChecks, ...report.conditionalChecks].find((c) => c.id === id);
 
 describe('assessPhase0', () => {
-  it('reports all core checks missing for an empty project', () => {
-    const dir = withTempProject();
-    const report = assessPhase0(dir);
+  it('reports all core checks missing for an empty project', (t) => {
+    const dir = withTempProject(t);
+    const report = assessPhase0(dir, { scopeRoot: dir });
 
     strictEqual(findCheck(report, 'type-check')?.status, 'missing');
     strictEqual(findCheck(report, 'eslint')?.status, 'missing');
@@ -40,8 +34,8 @@ describe('assessPhase0', () => {
     strictEqual(report.conditionalChecks.length, 0);
   });
 
-  it('reports present checks for a well-configured TypeScript project', () => {
-    const dir = withTempProject();
+  it('reports present checks for a well-configured TypeScript project', (t) => {
+    const dir = withTempProject(t);
 
     writeFileSync(
       join(dir, 'package.json'),
@@ -76,7 +70,7 @@ describe('assessPhase0', () => {
     mkdirSync(join(dir, 'src'), { recursive: true });
     writeFileSync(join(dir, 'src/index.ts'), 'export const main = () => {};');
 
-    const report = assessPhase0(dir);
+    const report = assessPhase0(dir, { scopeRoot: dir });
 
     strictEqual(findCheck(report, 'type-check')?.status, 'present');
     strictEqual(findCheck(report, 'eslint')?.status, 'present');
@@ -86,49 +80,49 @@ describe('assessPhase0', () => {
     strictEqual(report.layers.ciPipeline.status, 'present');
   });
 
-  it('reports partial type-check when tsconfig exists but no script', () => {
-    const dir = withTempProject();
+  it('reports partial type-check when tsconfig exists but no script', (t) => {
+    const dir = withTempProject(t);
     writeFileSync(join(dir, 'tsconfig.json'), '{}');
     writeFileSync(join(dir, 'package.json'), JSON.stringify({ scripts: {} }));
     mkdirSync(join(dir, 'src'), { recursive: true });
     writeFileSync(join(dir, 'src/index.ts'), '');
 
-    strictEqual(assessPhase0(dir).coreChecks.find((c) => c.id === 'type-check')?.status, 'partial');
+    strictEqual(findCheck(assessPhase0(dir, { scopeRoot: dir }), 'type-check')?.status, 'partial');
   });
 
-  it('reports partial prettier when config exists but no .prettierignore', () => {
-    const dir = withTempProject();
+  it('reports partial prettier when config exists but no .prettierignore', (t) => {
+    const dir = withTempProject(t);
     writeFileSync(join(dir, 'package.json'), JSON.stringify({ scripts: {} }));
     writeFileSync(join(dir, '.prettierrc'), '{}');
 
-    strictEqual(findCheck(assessPhase0(dir), 'prettier')?.status, 'partial');
+    strictEqual(findCheck(assessPhase0(dir, { scopeRoot: dir }), 'prettier')?.status, 'partial');
   });
 
-  it('triggers markdownlint when >3 markdown files', () => {
-    const dir = withTempProject();
+  it('triggers markdownlint when >3 markdown files', (t) => {
+    const dir = withTempProject(t);
     writeFileSync(join(dir, 'package.json'), '{}');
     writeFileSync(join(dir, 'README.md'), '# Readme');
     writeFileSync(join(dir, 'CHANGELOG.md'), '# Changelog');
     writeFileSync(join(dir, 'CONTRIBUTING.md'), '# Contributing');
     writeFileSync(join(dir, 'LICENSE.md'), '# License');
 
-    const report = assessPhase0(dir);
+    const report = assessPhase0(dir, { scopeRoot: dir });
     const mdCheck = findCheck(report, 'markdownlint');
     strictEqual(mdCheck !== undefined, true);
     strictEqual(mdCheck?.status, 'missing');
   });
 
-  it('does not trigger markdownlint when <=3 markdown files', () => {
-    const dir = withTempProject();
+  it('does not trigger markdownlint when <=3 markdown files', (t) => {
+    const dir = withTempProject(t);
     writeFileSync(join(dir, 'package.json'), '{}');
     writeFileSync(join(dir, 'README.md'), '# Readme');
     writeFileSync(join(dir, 'CHANGELOG.md'), '# Changelog');
 
-    strictEqual(findCheck(assessPhase0(dir), 'markdownlint'), undefined);
+    strictEqual(findCheck(assessPhase0(dir, { scopeRoot: dir }), 'markdownlint'), undefined);
   });
 
-  it('triggers jsx-a11y and react-hooks for React projects', () => {
-    const dir = withTempProject();
+  it('triggers jsx-a11y and react-hooks for React projects', (t) => {
+    const dir = withTempProject(t);
     writeFileSync(
       join(dir, 'package.json'),
       JSON.stringify({ dependencies: { react: '^18.0.0' } }),
@@ -136,15 +130,15 @@ describe('assessPhase0', () => {
     mkdirSync(join(dir, 'src'), { recursive: true });
     writeFileSync(join(dir, 'src/App.tsx'), '');
 
-    const report = assessPhase0(dir);
+    const report = assessPhase0(dir, { scopeRoot: dir });
     strictEqual(findCheck(report, 'jsx-a11y') !== undefined, true);
     strictEqual(findCheck(report, 'react-hooks') !== undefined, true);
     strictEqual(findCheck(report, 'jsx-a11y')?.status, 'missing');
     strictEqual(findCheck(report, 'react-hooks')?.status, 'missing');
   });
 
-  it('reports present jsx-a11y and react-hooks when plugins installed', () => {
-    const dir = withTempProject();
+  it('reports present jsx-a11y and react-hooks when plugins installed', (t) => {
+    const dir = withTempProject(t);
     writeFileSync(
       join(dir, 'package.json'),
       JSON.stringify({
@@ -155,31 +149,31 @@ describe('assessPhase0', () => {
     mkdirSync(join(dir, 'src'), { recursive: true });
     writeFileSync(join(dir, 'src/App.tsx'), '');
 
-    const report = assessPhase0(dir);
+    const report = assessPhase0(dir, { scopeRoot: dir });
     strictEqual(findCheck(report, 'jsx-a11y')?.status, 'present');
     strictEqual(findCheck(report, 'react-hooks')?.status, 'present');
   });
 
-  it('triggers shellcheck for shell scripts', () => {
-    const dir = withTempProject();
+  it('triggers shellcheck for shell scripts', (t) => {
+    const dir = withTempProject(t);
     writeFileSync(join(dir, 'package.json'), '{}');
     mkdirSync(join(dir, 'scripts'), { recursive: true });
     writeFileSync(join(dir, 'scripts/build.sh'), '#!/bin/bash\necho "build"');
 
-    strictEqual(findCheck(assessPhase0(dir), 'shellcheck') !== undefined, true);
+    strictEqual(findCheck(assessPhase0(dir, { scopeRoot: dir }), 'shellcheck') !== undefined, true);
   });
 
-  it('triggers actionlint for GitHub Actions', () => {
-    const dir = withTempProject();
+  it('triggers actionlint for GitHub Actions', (t) => {
+    const dir = withTempProject(t);
     writeFileSync(join(dir, 'package.json'), '{}');
     mkdirSync(join(dir, '.github/workflows'), { recursive: true });
     writeFileSync(join(dir, '.github/workflows/ci.yml'), 'name: CI');
 
-    strictEqual(findCheck(assessPhase0(dir), 'actionlint') !== undefined, true);
+    strictEqual(findCheck(assessPhase0(dir, { scopeRoot: dir }), 'actionlint') !== undefined, true);
   });
 
-  it('produces correct summary counts', () => {
-    const dir = withTempProject();
+  it('produces correct summary counts', (t) => {
+    const dir = withTempProject(t);
     writeFileSync(
       join(dir, 'package.json'),
       JSON.stringify({
@@ -192,12 +186,67 @@ describe('assessPhase0', () => {
     mkdirSync(join(dir, 'src'), { recursive: true });
     writeFileSync(join(dir, 'src/index.ts'), '');
 
-    const report = assessPhase0(dir);
+    const report = assessPhase0(dir, { scopeRoot: dir });
     const corePresent = report.coreChecks.filter((c) => c.status === 'present').length;
     const coreMissing = report.coreChecks.filter((c) => c.status === 'missing').length;
     const corePartial = report.coreChecks.filter((c) => c.status === 'partial').length;
 
     strictEqual(corePresent + coreMissing + corePartial, report.coreChecks.length);
     strictEqual(report.summary.total, report.coreChecks.length + report.conditionalChecks.length);
+  });
+
+  it('reports deploy pipeline present when deploy workflow exists', (t) => {
+    const dir = withTempProject(t);
+    writeFileSync(join(dir, 'package.json'), '{}');
+    mkdirSync(join(dir, '.github/workflows'), { recursive: true });
+    writeFileSync(join(dir, '.github/workflows/deploy.yml'), 'name: Deploy\non: workflow_dispatch');
+
+    strictEqual(assessPhase0(dir, { scopeRoot: dir }).layers.deployPipeline.status, 'present');
+  });
+
+  it('does not leak filesystem error details in CI pipeline assessment', (t) => {
+    const dir = withTempProject(t);
+    writeFileSync(join(dir, 'package.json'), '{}');
+    mkdirSync(join(dir, '.github/workflows'), { recursive: true });
+    writeFileSync(join(dir, '.github/workflows/ci.yml'), 'name: CI');
+    chmodSync(join(dir, '.github/workflows'), 0o000);
+
+    const report = assessPhase0(dir, { scopeRoot: dir });
+    chmodSync(join(dir, '.github/workflows'), 0o755);
+
+    strictEqual(report.layers.ciPipeline.details.includes('EPERM'), false);
+    strictEqual(report.layers.ciPipeline.details.includes('EACCES'), false);
+    strictEqual(report.layers.ciPipeline.status, 'partial');
+  });
+
+  it('handles unreadable workflows dir gracefully in deploy pipeline', (t) => {
+    const dir = withTempProject(t);
+    writeFileSync(join(dir, 'package.json'), '{}');
+    mkdirSync(join(dir, '.github/workflows'), { recursive: true });
+    writeFileSync(join(dir, '.github/workflows/deploy.yml'), 'name: Deploy');
+    chmodSync(join(dir, '.github/workflows'), 0o000);
+
+    const report = assessPhase0(dir, { scopeRoot: dir });
+    chmodSync(join(dir, '.github/workflows'), 0o755);
+
+    strictEqual(report.layers.deployPipeline.status !== undefined, true);
+    strictEqual(report.layers.deployPipeline.details.includes('EPERM'), false);
+    strictEqual(report.layers.deployPipeline.details.includes('EACCES'), false);
+  });
+});
+
+describe('ensureWithinScope symlink resolution', () => {
+  it('rejects symlinks that point outside scope', (t) => {
+    const scopeDir = withTempProject(t);
+    const outsideDir = withTempProject(t);
+    symlinkSync(outsideDir, join(scopeDir, 'escape-link'));
+
+    let threw = false;
+    try {
+      ensureWithinScope(join(scopeDir, 'escape-link'), scopeDir);
+    } catch {
+      threw = true;
+    }
+    strictEqual(threw, true);
   });
 });

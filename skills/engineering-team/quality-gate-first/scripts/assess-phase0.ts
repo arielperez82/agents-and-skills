@@ -1,22 +1,9 @@
 #!/usr/bin/env npx tsx
-/**
- * Phase 0 Assessment Script
- *
- * Takes a project directory, runs detect-project, cross-references the
- * check registry, and reports present/missing/partial status for each
- * applicable check.
- *
- * Usage: npx tsx assess-phase0.ts [project-path]
- * Default: current working directory
- *
- * Output: JSON report + human-readable summary
- */
-
 import { existsSync, readdirSync } from 'node:fs';
 import { join, resolve } from 'node:path';
 import { fileURLToPath } from 'node:url';
 
-import { type PackageJson, type ProjectProfile, detectProject, readPackageJson } from './detect-project.js';
+import { type DetectOptions, type PackageJson, type ProjectProfile, detectProject, ensureWithinScope, readPackageJson } from './detect-project.js';
 
 export type CheckStatus = 'present' | 'missing' | 'partial';
 
@@ -78,12 +65,21 @@ const assessTypeCheck = (projectPath: string, pkg: PackageJson | null): CheckRes
     hasScript(pkg, 'typecheck');
 
   if (hasTsConfig && hasTypeCheckScript) {
-    return { id: 'type-check', name: 'TypeScript type checking', tier: 'core', status: 'present', details: 'tsconfig.json + type-check script found' };
+    return {
+      id: 'type-check', name: 'TypeScript type checking', tier: 'core',
+      status: 'present', details: 'tsconfig.json + type-check script found',
+    };
   }
   if (hasTsConfig) {
-    return { id: 'type-check', name: 'TypeScript type checking', tier: 'core', status: 'partial', details: 'tsconfig.json found but no type-check script in package.json' };
+    return {
+      id: 'type-check', name: 'TypeScript type checking', tier: 'core',
+      status: 'partial', details: 'tsconfig.json found but no type-check script in package.json',
+    };
   }
-  return { id: 'type-check', name: 'TypeScript type checking', tier: 'core', status: 'missing', details: 'No tsconfig.json found' };
+  return {
+    id: 'type-check', name: 'TypeScript type checking', tier: 'core',
+    status: 'missing', details: 'No tsconfig.json found',
+  };
 };
 
 const assessEslint = (projectPath: string, pkg: PackageJson | null): CheckResult => {
@@ -103,12 +99,21 @@ const assessEslint = (projectPath: string, pkg: PackageJson | null): CheckResult
 
   if (hasConfig && hasLintScript) {
     const configType = hasFlatConfig ? 'flat config' : 'legacy config (recommend migrating to flat config)';
-    return { id: 'eslint', name: 'ESLint code quality', tier: 'core', status: 'present', details: `ESLint config (${configType}) + lint script found` };
+    return {
+      id: 'eslint', name: 'ESLint code quality', tier: 'core',
+      status: 'present', details: `ESLint config (${configType}) + lint script found`,
+    };
   }
   if (hasConfig) {
-    return { id: 'eslint', name: 'ESLint code quality', tier: 'core', status: 'partial', details: 'ESLint config found but no lint script in package.json' };
+    return {
+      id: 'eslint', name: 'ESLint code quality', tier: 'core',
+      status: 'partial', details: 'ESLint config found but no lint script in package.json',
+    };
   }
-  return { id: 'eslint', name: 'ESLint code quality', tier: 'core', status: 'missing', details: 'No ESLint config found' };
+  return {
+    id: 'eslint', name: 'ESLint code quality', tier: 'core',
+    status: 'missing', details: 'No ESLint config found',
+  };
 };
 
 const assessPrettier = (projectPath: string, pkg: PackageJson | null): CheckResult => {
@@ -164,38 +169,50 @@ const assessPreCommit = (projectPath: string, pkg: PackageJson | null): { readon
 
 const CI_WORKFLOW_PATTERN = /^(ci|test|checks|build|lint)\.(yml|yaml)$/;
 
-const assessCiPipeline = (projectPath: string): { readonly status: CheckStatus; readonly details: string } => {
+const readWorkflowEntries = (projectPath: string): { readonly exists: boolean; readonly entries: readonly string[] | null } => {
   const workflowsDir = join(projectPath, '.github/workflows');
-  if (!existsSync(workflowsDir)) {
+  if (!existsSync(workflowsDir)) return { exists: false, entries: null };
+  try {
+    return { exists: true, entries: readdirSync(workflowsDir) };
+  } catch {
+    return { exists: true, entries: null };
+  }
+};
+
+const assessCiPipeline = (projectPath: string): { readonly status: CheckStatus; readonly details: string } => {
+  const { exists, entries } = readWorkflowEntries(projectPath);
+  if (!exists) {
     return { status: 'missing', details: 'No .github/workflows/ directory found' };
   }
+  if (entries === null) {
+    return { status: 'partial', details: '.github/workflows/ exists but could not be read' };
+  }
 
-  try {
-    const entries = readdirSync(workflowsDir);
-    const ymlFiles = entries.filter((f) => f.endsWith('.yml') || f.endsWith('.yaml'));
-    const ciFiles = ymlFiles.filter((f) => CI_WORKFLOW_PATTERN.test(f));
+  const ymlFiles = entries.filter((f) => f.endsWith('.yml') || f.endsWith('.yaml'));
+  const ciFiles = ymlFiles.filter((f) => CI_WORKFLOW_PATTERN.test(f));
 
-    if (ciFiles.length > 0) {
-      return { status: 'present', details: `CI workflow files found: ${ciFiles.join(', ')}` };
-    }
-    if (ymlFiles.length > 0) {
-      return { status: 'partial', details: `Workflow files found (${ymlFiles.join(', ')}) but none match CI naming conventions (ci, test, checks, build, lint)` };
-    }
-  } catch {
-    // Ignore read errors
+  if (ciFiles.length > 0) {
+    return { status: 'present', details: `CI workflow files found: ${ciFiles.join(', ')}` };
+  }
+  if (ymlFiles.length > 0) {
+    return { status: 'partial', details: `Workflow files found (${ymlFiles.join(', ')}) but none match CI naming conventions (ci, test, checks, build, lint)` };
   }
 
   return { status: 'partial', details: '.github/workflows/ exists but no workflow files found' };
 };
 
+const DEPLOY_FILE_PATTERN = /^(deploy|release|publish)\.(yml|yaml)$/;
+
 const assessDeployPipeline = (projectPath: string): { readonly status: CheckStatus; readonly details: string } => {
-  const workflowsDir = join(projectPath, '.github/workflows');
-  if (!existsSync(workflowsDir)) {
+  const { exists, entries } = readWorkflowEntries(projectPath);
+  if (!exists) {
     return { status: 'missing', details: 'No .github/workflows/ directory found' };
   }
+  if (entries === null) {
+    return { status: 'partial', details: '.github/workflows/ exists but could not be read' };
+  }
 
-  const deployFiles = ['deploy.yml', 'deploy.yaml', 'release.yml', 'release.yaml', 'publish.yml', 'publish.yaml'];
-  const hasDeployWorkflow = hasAnyFile(workflowsDir, deployFiles);
+  const hasDeployWorkflow = entries.some((f) => DEPLOY_FILE_PATTERN.test(f));
 
   if (hasDeployWorkflow) {
     return { status: 'present', details: 'Deploy workflow found in .github/workflows/' };
@@ -218,13 +235,24 @@ const assessMarkdownlint = (projectPath: string, profile: ProjectProfile, pkg: P
   ]);
   const hasLintMdScript = hasScript(pkg, 'lint:md');
 
-  if (hasConfig) {
-    return { id: 'markdownlint', name: 'Markdown linting', tier: 'conditional', status: hasLintMdScript ? 'present' : 'partial', details: hasLintMdScript ? `markdownlint config found (${profile.markdownFileCount} .md files)` : `markdownlint config found but no lint:md script (${profile.markdownFileCount} .md files)` };
+  if (!hasConfig) {
+    return {
+      id: 'markdownlint', name: 'Markdown linting', tier: 'conditional',
+      status: 'missing', details: `${profile.markdownFileCount} .md files but no markdownlint config`,
+    };
   }
-  return { id: 'markdownlint', name: 'Markdown linting', tier: 'conditional', status: 'missing', details: `${profile.markdownFileCount} .md files but no markdownlint config` };
+
+  const fileCountNote = `(${profile.markdownFileCount} .md files)`;
+  return {
+    id: 'markdownlint', name: 'Markdown linting', tier: 'conditional',
+    status: hasLintMdScript ? 'present' : 'partial',
+    details: hasLintMdScript
+      ? `markdownlint config found ${fileCountNote}`
+      : `markdownlint config found but no lint:md script ${fileCountNote}`,
+  };
 };
 
-const assessStylelint = (projectPath: string, profile: ProjectProfile, pkg: PackageJson | null): CheckResult | null => {
+const assessStylelint = (projectPath: string, profile: ProjectProfile, _pkg: PackageJson | null): CheckResult | null => {
   if (!profile.hasCss && !profile.hasFrontend) return null;
 
   const hasConfig = hasAnyFile(projectPath, [
@@ -254,8 +282,10 @@ const assessJsxA11y = (profile: ProjectProfile, pkg: PackageJson | null): CheckR
   return { id: 'jsx-a11y', name: 'JSX accessibility', tier: 'conditional', status: 'missing', details: 'React/JSX detected but eslint-plugin-jsx-a11y not installed' };
 };
 
+const REACT_HOOK_FRAMEWORKS = ['react', 'next', 'remix'] as const;
+
 const assessReactHooks = (profile: ProjectProfile, pkg: PackageJson | null): CheckResult | null => {
-  if (!profile.frameworks.includes('react') && !profile.frameworks.includes('next') && !profile.frameworks.includes('remix')) return null;
+  if (!profile.frameworks.some((f) => (REACT_HOOK_FRAMEWORKS as readonly string[]).includes(f))) return null;
 
   if (hasDep(pkg, 'eslint-plugin-react-hooks')) {
     return { id: 'react-hooks', name: 'React hooks rules', tier: 'conditional', status: 'present', details: 'eslint-plugin-react-hooks installed' };
@@ -319,9 +349,9 @@ const summarizeChecks = (checks: readonly CheckResult[]): AssessmentReport['summ
   partial: checks.filter((c) => c.status === 'partial').length,
 });
 
-export const assessPhase0 = (projectPath: string): AssessmentReport => {
+export const assessPhase0 = (projectPath: string, options?: DetectOptions): AssessmentReport => {
   const resolved = resolve(projectPath);
-  const profile = detectProject(resolved);
+  const profile = detectProject(resolved, options);
   const pkg = readPackageJson(resolved);
 
   const preCommitResult = assessPreCommit(resolved, pkg);
@@ -387,6 +417,7 @@ const formatReport = (report: AssessmentReport): string => {
 
 if (process.argv[1] === fileURLToPath(import.meta.url)) {
   const projectPath = process.argv[2] || process.cwd();
+  ensureWithinScope(projectPath);
   const report = assessPhase0(projectPath);
 
   if (process.argv.includes('--json')) {

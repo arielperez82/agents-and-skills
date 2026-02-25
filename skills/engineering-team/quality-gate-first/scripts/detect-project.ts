@@ -1,18 +1,22 @@
 #!/usr/bin/env npx tsx
-/**
- * Phase 0 Project Detection Script
- *
- * Scans a project directory and returns a structured ProjectProfile.
- * Used by assess-phase0.ts and the phase0-assessor agent to determine
- * which checks from the check registry apply to a given project.
- *
- * Usage: npx tsx detect-project.ts [project-path]
- * Default: current working directory
- */
-
-import { readdirSync, readFileSync, existsSync, statSync } from 'node:fs';
+import { readdirSync, readFileSync, existsSync, realpathSync, statSync } from 'node:fs';
 import { join, resolve } from 'node:path';
 import { fileURLToPath } from 'node:url';
+
+export const ensureWithinScope = (projectPath: string, scopeRoot?: string): string => {
+  const resolved = resolve(projectPath);
+  const real = existsSync(resolved) ? realpathSync(resolved) : resolved;
+  const rootResolved = resolve(scopeRoot ?? process.cwd());
+  const root = existsSync(rootResolved) ? realpathSync(rootResolved) : rootResolved;
+  if (real !== root && !real.startsWith(`${root}/`)) {
+    throw new Error(`Project path ${real} is outside scope ${root}`);
+  }
+  return real;
+};
+
+export type DetectOptions = {
+  readonly scopeRoot?: string;
+};
 
 export type ProjectProfile = {
   readonly languages: readonly string[];
@@ -37,7 +41,7 @@ export type PackageJson = {
   readonly 'lint-staged'?: unknown;
 };
 
-const FRAMEWORK_DETECTION: Record<string, string> = {
+const FRAMEWORK_DETECTION = {
   react: 'react',
   'react-dom': 'react',
   next: 'next',
@@ -54,7 +58,7 @@ const FRAMEWORK_DETECTION: Record<string, string> = {
   'solid-js': 'solid',
   remix: 'remix',
   '@remix-run/node': 'remix',
-};
+} as const satisfies Record<string, string>;
 
 const FRONTEND_FRAMEWORKS = new Set([
   'react',
@@ -69,11 +73,35 @@ const FRONTEND_FRAMEWORKS = new Set([
   'remix',
 ]);
 
+const isRecord = (value: unknown): value is Record<string, unknown> =>
+  typeof value === 'object' && value !== null && !Array.isArray(value);
+
+const isStringRecord = (value: unknown): value is Record<string, string> =>
+  isRecord(value) && Object.values(value).every((v) => typeof v === 'string');
+
+const parseWorkspaces = (value: unknown): PackageJson['workspaces'] => {
+  if (Array.isArray(value) && value.every((v: unknown) => typeof v === 'string')) {
+    return value as readonly string[];
+  }
+  if (isRecord(value) && Array.isArray(value.packages) && (value.packages as unknown[]).every((v: unknown) => typeof v === 'string')) {
+    return value as { readonly packages: readonly string[] };
+  }
+  return undefined;
+};
+
 export const readPackageJson = (projectPath: string): PackageJson | null => {
   const pkgPath = join(projectPath, 'package.json');
   if (!existsSync(pkgPath)) return null;
   try {
-    return JSON.parse(readFileSync(pkgPath, 'utf-8')) as PackageJson;
+    const parsed: unknown = JSON.parse(readFileSync(pkgPath, 'utf-8'));
+    if (!isRecord(parsed)) return null;
+    return {
+      dependencies: isStringRecord(parsed.dependencies) ? parsed.dependencies : undefined,
+      devDependencies: isStringRecord(parsed.devDependencies) ? parsed.devDependencies : undefined,
+      scripts: isStringRecord(parsed.scripts) ? parsed.scripts : undefined,
+      workspaces: parseWorkspaces(parsed.workspaces),
+      'lint-staged': parsed['lint-staged'],
+    };
   } catch {
     return null;
   }
@@ -91,23 +119,36 @@ const LANGUAGE_MARKERS: readonly (readonly [string, readonly string[]])[] = [
   ['rust', ['.rs']],
 ];
 
+const MAX_SCAN_DEPTH = 4;
+const MAX_SCAN_ENTRIES = 10_000;
+
+type ScanBudget = { remaining: number };
+
+const filterEligible = (dir: string, budget: ScanBudget) => {
+  const entries = readdirSync(dir, { withFileTypes: true })
+    .filter((entry) => !entry.name.startsWith('.') && !SKIP_DIRS.has(entry.name) && !entry.isSymbolicLink());
+  const capped = entries.slice(0, budget.remaining);
+  budget.remaining -= capped.length;
+  return capped;
+};
+
 const countFilesWithExtension = (
   dir: string,
   extensions: readonly string[],
-  maxDepth = 4,
+  maxDepth = MAX_SCAN_DEPTH,
   currentDepth = 0,
+  budget: ScanBudget = { remaining: MAX_SCAN_ENTRIES },
 ): number => {
-  if (currentDepth > maxDepth) return 0;
+  if (currentDepth > maxDepth || budget.remaining <= 0) return 0;
   if (!existsSync(dir)) return 0;
 
   try {
-    const entries = readdirSync(dir, { withFileTypes: true });
-    return entries
-      .filter((entry) => !entry.name.startsWith('.') && !SKIP_DIRS.has(entry.name) && !entry.isSymbolicLink())
+    return filterEligible(dir, budget)
       .reduce((count, entry) => {
+        if (budget.remaining <= 0) return count;
         const fullPath = join(dir, entry.name);
         if (entry.isDirectory()) {
-          return count + countFilesWithExtension(fullPath, extensions, maxDepth, currentDepth + 1);
+          return count + countFilesWithExtension(fullPath, extensions, maxDepth, currentDepth + 1, budget);
         }
         return extensions.some((ext) => entry.name.endsWith(ext)) ? count + 1 : count;
       }, 0);
@@ -116,12 +157,35 @@ const countFilesWithExtension = (
   }
 };
 
-const hasFilesWithExtension = (dir: string, extensions: readonly string[]): boolean =>
-  countFilesWithExtension(dir, extensions) > 0;
+const hasFilesWithExtension = (
+  dir: string,
+  extensions: readonly string[],
+  maxDepth = MAX_SCAN_DEPTH,
+  currentDepth = 0,
+  budget: ScanBudget = { remaining: MAX_SCAN_ENTRIES },
+): boolean => {
+  if (currentDepth > maxDepth || budget.remaining <= 0) return false;
+  if (!existsSync(dir)) return false;
+
+  try {
+    return filterEligible(dir, budget)
+      .some((entry) => {
+        if (entry.isDirectory()) {
+          return hasFilesWithExtension(join(dir, entry.name), extensions, maxDepth, currentDepth + 1, budget);
+        }
+        return extensions.some((ext) => entry.name.endsWith(ext));
+      });
+  } catch {
+    return false;
+  }
+};
 
 const hasDirectory = (projectPath: string, dirName: string): boolean => {
-  const dirPath = join(projectPath, dirName);
-  return existsSync(dirPath) && statSync(dirPath).isDirectory();
+  try {
+    return statSync(join(projectPath, dirName)).isDirectory();
+  } catch {
+    return false;
+  }
 };
 
 const detectPackageManager = (projectPath: string): string | null => {
@@ -141,8 +205,8 @@ const detectIsMonorepo = (pkg: PackageJson | null, projectPath: string): boolean
   return false;
 };
 
-export const detectProject = (projectPath: string): ProjectProfile => {
-  const resolved = resolve(projectPath);
+export const detectProject = (projectPath: string, options?: DetectOptions): ProjectProfile => {
+  const resolved = ensureWithinScope(projectPath, options?.scopeRoot);
   const pkg = readPackageJson(resolved);
   const allDeps = {
     ...pkg?.dependencies,

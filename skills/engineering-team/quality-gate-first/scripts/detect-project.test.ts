@@ -1,34 +1,24 @@
 #!/usr/bin/env npx tsx
-import { mkdirSync, mkdtempSync, rmSync, symlinkSync, writeFileSync } from 'node:fs';
+import { mkdirSync, mkdtempSync, realpathSync, rmSync, symlinkSync, writeFileSync } from 'node:fs';
 import { join } from 'node:path';
 import { tmpdir } from 'node:os';
-import { describe, it, afterEach } from 'node:test';
+import { describe, it } from 'node:test';
 import { deepStrictEqual, strictEqual } from 'node:assert';
 
-import { detectProject } from './detect-project.js';
+import { detectProject, ensureWithinScope, readPackageJson } from './detect-project.js';
 
-const createTempProject = (): string =>
-  mkdtempSync(join(tmpdir(), 'detect-project-test-'));
+type TestContext = { after: (fn: () => void) => void };
 
-let tempDirs: string[] = [];
-
-const withTempProject = (): string => {
-  const dir = createTempProject();
-  tempDirs.push(dir);
+const withTempProject = (t: TestContext): string => {
+  const dir = mkdtempSync(join(tmpdir(), 'detect-project-test-'));
+  t.after(() => rmSync(dir, { recursive: true, force: true }));
   return dir;
 };
 
-afterEach(() => {
-  for (const dir of tempDirs) {
-    rmSync(dir, { recursive: true, force: true });
-  }
-  tempDirs = [];
-});
-
 describe('detectProject', () => {
-  it('returns sensible defaults for an empty directory', () => {
-    const dir = withTempProject();
-    const profile = detectProject(dir);
+  it('returns sensible defaults for an empty directory', (t) => {
+    const dir = withTempProject(t);
+    const profile = detectProject(dir, { scopeRoot: dir });
 
     deepStrictEqual(profile.languages, []);
     deepStrictEqual(profile.frameworks, []);
@@ -43,8 +33,8 @@ describe('detectProject', () => {
     strictEqual(profile.isMonorepo, false);
   });
 
-  it('detects TypeScript + React project', () => {
-    const dir = withTempProject();
+  it('detects TypeScript + React project', (t) => {
+    const dir = withTempProject(t);
     mkdirSync(join(dir, 'src'), { recursive: true });
     writeFileSync(join(dir, 'src/App.tsx'), 'export const App = () => <div />;');
     writeFileSync(
@@ -56,7 +46,7 @@ describe('detectProject', () => {
     );
     writeFileSync(join(dir, 'pnpm-lock.yaml'), '');
 
-    const profile = detectProject(dir);
+    const profile = detectProject(dir, { scopeRoot: dir });
 
     strictEqual(profile.languages.includes('typescript'), true);
     strictEqual(profile.frameworks.includes('react'), true);
@@ -65,32 +55,32 @@ describe('detectProject', () => {
     strictEqual(profile.isMonorepo, false);
   });
 
-  it('detects monorepo via workspaces', () => {
-    const dir = withTempProject();
+  it('detects monorepo via workspaces', (t) => {
+    const dir = withTempProject(t);
     writeFileSync(
       join(dir, 'package.json'),
       JSON.stringify({ workspaces: ['packages/*'] }),
     );
 
-    strictEqual(detectProject(dir).isMonorepo, true);
+    strictEqual(detectProject(dir, { scopeRoot: dir }).isMonorepo, true);
   });
 
-  it('detects monorepo via pnpm-workspace.yaml', () => {
-    const dir = withTempProject();
+  it('detects monorepo via pnpm-workspace.yaml', (t) => {
+    const dir = withTempProject(t);
     writeFileSync(join(dir, 'package.json'), '{}');
     writeFileSync(join(dir, 'pnpm-workspace.yaml'), 'packages:\n  - packages/*\n');
 
-    strictEqual(detectProject(dir).isMonorepo, true);
+    strictEqual(detectProject(dir, { scopeRoot: dir }).isMonorepo, true);
   });
 
-  it('detects shell scripts and Terraform', () => {
-    const dir = withTempProject();
+  it('detects shell scripts and Terraform', (t) => {
+    const dir = withTempProject(t);
     mkdirSync(join(dir, 'scripts'), { recursive: true });
     mkdirSync(join(dir, 'infra'), { recursive: true });
     writeFileSync(join(dir, 'scripts/deploy.sh'), '#!/bin/bash\necho "deploy"');
     writeFileSync(join(dir, 'infra/main.tf'), 'resource "aws_instance" "web" {}');
 
-    const profile = detectProject(dir);
+    const profile = detectProject(dir, { scopeRoot: dir });
 
     strictEqual(profile.hasShellScripts, true);
     strictEqual(profile.hasTerraform, true);
@@ -98,42 +88,42 @@ describe('detectProject', () => {
     strictEqual(profile.languages.includes('terraform'), true);
   });
 
-  it('detects GitHub Actions', () => {
-    const dir = withTempProject();
+  it('detects GitHub Actions', (t) => {
+    const dir = withTempProject(t);
     mkdirSync(join(dir, '.github/workflows'), { recursive: true });
     writeFileSync(join(dir, '.github/workflows/ci.yml'), 'name: CI\non: push');
 
-    strictEqual(detectProject(dir).hasGithubActions, true);
+    strictEqual(detectProject(dir, { scopeRoot: dir }).hasGithubActions, true);
   });
 
-  it('detects Docker', () => {
-    const dir = withTempProject();
+  it('detects Docker', (t) => {
+    const dir = withTempProject(t);
     writeFileSync(join(dir, 'Dockerfile'), 'FROM node:22');
 
-    strictEqual(detectProject(dir).hasDocker, true);
+    strictEqual(detectProject(dir, { scopeRoot: dir }).hasDocker, true);
   });
 
-  it('counts markdown files', () => {
-    const dir = withTempProject();
+  it('counts markdown files', (t) => {
+    const dir = withTempProject(t);
     mkdirSync(join(dir, 'docs'), { recursive: true });
     writeFileSync(join(dir, 'README.md'), '# Readme');
     writeFileSync(join(dir, 'CHANGELOG.md'), '# Changelog');
     writeFileSync(join(dir, 'docs/guide.md'), '# Guide');
     writeFileSync(join(dir, 'docs/api.md'), '# API');
 
-    strictEqual(detectProject(dir).markdownFileCount, 4);
+    strictEqual(detectProject(dir, { scopeRoot: dir }).markdownFileCount, 4);
   });
 
-  it('detects CSS files', () => {
-    const dir = withTempProject();
+  it('detects CSS files', (t) => {
+    const dir = withTempProject(t);
     mkdirSync(join(dir, 'src'), { recursive: true });
     writeFileSync(join(dir, 'src/styles.css'), 'body { margin: 0; }');
 
-    strictEqual(detectProject(dir).hasCss, true);
+    strictEqual(detectProject(dir, { scopeRoot: dir }).hasCss, true);
   });
 
-  it('detects Next.js project', () => {
-    const dir = withTempProject();
+  it('detects Next.js project', (t) => {
+    const dir = withTempProject(t);
     writeFileSync(
       join(dir, 'package.json'),
       JSON.stringify({ dependencies: { next: '^14.0.0', react: '^18.0.0' } }),
@@ -141,55 +131,169 @@ describe('detectProject', () => {
     mkdirSync(join(dir, 'src'), { recursive: true });
     writeFileSync(join(dir, 'src/page.tsx'), 'export default function Page() {}');
 
-    const profile = detectProject(dir);
+    const profile = detectProject(dir, { scopeRoot: dir });
 
     strictEqual(profile.frameworks.includes('next'), true);
     strictEqual(profile.frameworks.includes('react'), true);
     strictEqual(profile.hasFrontend, true);
   });
 
-  it('detects package managers', () => {
-    const dir1 = withTempProject();
+  it('detects package managers', (t) => {
+    const dir1 = withTempProject(t);
     writeFileSync(join(dir1, 'yarn.lock'), '');
-    strictEqual(detectProject(dir1).packageManager, 'yarn');
+    strictEqual(detectProject(dir1, { scopeRoot: dir1 }).packageManager, 'yarn');
 
-    const dir2 = withTempProject();
+    const dir2 = withTempProject(t);
     writeFileSync(join(dir2, 'package-lock.json'), '{}');
-    strictEqual(detectProject(dir2).packageManager, 'npm');
+    strictEqual(detectProject(dir2, { scopeRoot: dir2 }).packageManager, 'npm');
 
-    const dir3 = withTempProject();
+    const dir3 = withTempProject(t);
     writeFileSync(join(dir3, 'bun.lockb'), '');
-    strictEqual(detectProject(dir3).packageManager, 'bun');
+    strictEqual(detectProject(dir3, { scopeRoot: dir3 }).packageManager, 'bun');
   });
 
-  it('skips symlinked directories during file counting', () => {
-    const dir = withTempProject();
+  it('skips symlinked directories during file counting', (t) => {
+    const dir = withTempProject(t);
     mkdirSync(join(dir, 'src'), { recursive: true });
     writeFileSync(join(dir, 'src/index.ts'), 'export const main = () => {};');
 
-    const target = withTempProject();
+    const target = withTempProject(t);
     mkdirSync(join(target, 'lib'), { recursive: true });
     writeFileSync(join(target, 'lib/extra.ts'), 'export const extra = () => {};');
 
     symlinkSync(join(target, 'lib'), join(dir, 'linked-lib'));
 
-    const profile = detectProject(dir);
+    const profile = detectProject(dir, { scopeRoot: dir });
 
     strictEqual(profile.languages.includes('typescript'), true);
     strictEqual(profile.markdownFileCount, 0);
   });
 
-  it('skips symlinked files during file counting', () => {
-    const dir = withTempProject();
+  it('skips symlinked files during file counting', (t) => {
+    const dir = withTempProject(t);
     mkdirSync(join(dir, 'src'), { recursive: true });
     writeFileSync(join(dir, 'src/real.ts'), 'export const real = 1;');
 
-    const target = withTempProject();
+    const target = withTempProject(t);
     writeFileSync(join(target, 'external.ts'), 'export const ext = 1;');
 
     symlinkSync(join(target, 'external.ts'), join(dir, 'src/link.ts'));
 
-    const profile = detectProject(dir);
+    const profile = detectProject(dir, { scopeRoot: dir });
     strictEqual(profile.languages.includes('typescript'), true);
+  });
+
+  it('returns null for invalid JSON in package.json', (t) => {
+    const dir = withTempProject(t);
+    writeFileSync(join(dir, 'package.json'), '{ invalid json !!!');
+
+    strictEqual(readPackageJson(dir), null);
+  });
+
+  it('returns null for non-object package.json', (t) => {
+    const dir = withTempProject(t);
+    writeFileSync(join(dir, 'package.json'), '"just a string"');
+
+    strictEqual(readPackageJson(dir), null);
+  });
+
+  it('sanitizes malformed dependency fields in package.json', (t) => {
+    const dir = withTempProject(t);
+    writeFileSync(
+      join(dir, 'package.json'),
+      JSON.stringify({
+        dependencies: [1, 2, 3],
+        devDependencies: 'not-an-object',
+        scripts: { build: 123 },
+        workspaces: { notPackages: true },
+      }),
+    );
+
+    const pkg = readPackageJson(dir);
+    strictEqual(pkg !== null, true);
+    strictEqual(pkg?.dependencies, undefined);
+    strictEqual(pkg?.devDependencies, undefined);
+    strictEqual(pkg?.scripts, undefined);
+    strictEqual(pkg?.workspaces, undefined);
+  });
+
+  it('preserves valid workspaces array', (t) => {
+    const dir = withTempProject(t);
+    writeFileSync(
+      join(dir, 'package.json'),
+      JSON.stringify({ workspaces: ['packages/*'] }),
+    );
+
+    const pkg = readPackageJson(dir);
+    deepStrictEqual(pkg?.workspaces, ['packages/*']);
+  });
+
+  it('preserves valid workspaces object with packages', (t) => {
+    const dir = withTempProject(t);
+    writeFileSync(
+      join(dir, 'package.json'),
+      JSON.stringify({ workspaces: { packages: ['packages/*'] } }),
+    );
+
+    const pkg = readPackageJson(dir);
+    deepStrictEqual(pkg?.workspaces, { packages: ['packages/*'] });
+  });
+});
+
+describe('ensureWithinScope', () => {
+  it('accepts a custom scope root', (t) => {
+    const dir = withTempProject(t);
+    const result = ensureWithinScope(dir, dir);
+    strictEqual(result, realpathSync(dir));
+  });
+
+  it('accepts a subdirectory of the scope root', (t) => {
+    const dir = withTempProject(t);
+    mkdirSync(join(dir, 'sub'));
+    const result = ensureWithinScope(join(dir, 'sub'), dir);
+    strictEqual(result, join(realpathSync(dir), 'sub'));
+  });
+
+  it('rejects paths outside the scope root', (t) => {
+    const dir = withTempProject(t);
+    const outside = withTempProject(t);
+    let threw = false;
+    try {
+      ensureWithinScope(outside, dir);
+    } catch {
+      threw = true;
+    }
+    strictEqual(threw, true);
+  });
+
+  it('rejects prefix-collision paths', (t) => {
+    const dir = withTempProject(t);
+    let threw = false;
+    try {
+      ensureWithinScope(`${dir}-evil`, dir);
+    } catch {
+      threw = true;
+    }
+    strictEqual(threw, true);
+  });
+});
+
+describe('detectProject scope enforcement', () => {
+  it('rejects paths outside scope root', (t) => {
+    const dir = withTempProject(t);
+    const outside = withTempProject(t);
+    let threw = false;
+    try {
+      detectProject(outside, { scopeRoot: dir });
+    } catch {
+      threw = true;
+    }
+    strictEqual(threw, true);
+  });
+
+  it('works with explicit scope root matching project path', (t) => {
+    const dir = withTempProject(t);
+    const profile = detectProject(dir, { scopeRoot: dir });
+    deepStrictEqual(profile.languages, []);
   });
 });
