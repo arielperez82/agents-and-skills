@@ -26,6 +26,9 @@ This guide covers the 30 production-ready engineering role skills and their Pyth
 **Refactoring/Engineering (1 skill):**
 - mikado-method
 
+**Review Optimization (1 skill):**
+- tiered-review
+
 **Specialist (6 skills):**
 - senior-graphql, senior-observability, technical-writer
 - incident-response, legacy-codebase-analyzer
