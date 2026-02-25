@@ -3,7 +3,7 @@ type: roadmap
 endeavor: repo
 initiative: I18-RLMP
 initiative_name: rlm-context-efficiency
-status: proposed
+status: accepted
 updated: 2026-02-25
 ---
 
