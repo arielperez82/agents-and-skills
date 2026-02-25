@@ -494,6 +494,9 @@
     },
     "skills/engineering-team/variant-analysis": {
       "skill_id": "skill_01KfhbezrbtU7W8E8vX6vQB2"
+    },
+    "skills/ux-team/ui-design-system": {
+      "skill_id": "skill_01LPviaxyUnenmwQa8Vzet3w"
     }
   }
 }
