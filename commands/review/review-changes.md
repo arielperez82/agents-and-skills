@@ -241,7 +241,7 @@ When including **phase0-assessor**, use this scope:
    - Show Fix Required findings first — these are blocking issues that must be addressed before commit.
    - Suggest fixes only if requested by the user.
 
-4. **Override capture (optional)**
+5. **Override capture (optional)**
 
    After presenting the collated summary, if the developer disagrees with any finding (particularly Fix Required findings they choose not to address):
 

@@ -34,7 +34,7 @@ type InitiativeEntry = {
   readonly missingFiles: ReadonlyArray<string>;
 };
 
-type ProgressPrefilterOutput = {
+export type ProgressPrefilterOutput = {
   readonly files: ReadonlyArray<FileEntry>;
   readonly initiatives: ReadonlyArray<InitiativeEntry>;
   readonly summary: {
@@ -232,7 +232,7 @@ const buildSummary = (
   needsLlmReview: files.filter((f) => f.needsLlmReview).length,
 });
 
-const prefilterProgress = (docsPath: string): ProgressPrefilterOutput => {
+export const prefilterProgress = (docsPath: string): ProgressPrefilterOutput => {
   const filePaths = discoverMarkdownFiles(docsPath);
   const files = filePaths.map((fp) => processFile(fp, docsPath));
   const initiatives = groupInitiatives(files);
