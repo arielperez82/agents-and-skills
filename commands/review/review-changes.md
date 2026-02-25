@@ -175,13 +175,33 @@ When including **phase0-assessor**, use this scope:
      - Exclude each agent whose exclusion criteria are met.
      - If diff includes scripts (`.sh`, `.py`) under artifact directories (`skills/`, `agents/`, `commands/`) → note in code-reviewer and security-assessor prompts that these scripts are in-scope.
 
-2. **Run all agents in parallel**
+2. **Run T1 pre-filters** (sequential, sub-second — before agent dispatch)
+   - Classify files from the diff by type:
+     - Markdown files (`*.md`) → `prefilter-markdown` candidate
+     - Source code files (`.ts`, `.tsx`, `.js`, `.jsx`, `.py`, `.sh`) → `prefilter-diff` candidate
+     - `.docs/` files → `prefilter-progress` candidate
+   - Run applicable pre-filters:
+     - If markdown files present AND docs-reviewer not excluded:
+       `npx tsx skills/engineering-team/tiered-review/scripts/prefilter-markdown.ts <md-paths>`
+     - If source code files present AND code-reviewer not excluded:
+       `echo "<diff>" | npx tsx skills/engineering-team/tiered-review/scripts/prefilter-diff.ts`
+     - If `.docs/` files present AND progress-assessor not excluded:
+       `npx tsx skills/engineering-team/tiered-review/scripts/prefilter-progress.ts .docs/`
+   - Capture each script's JSON stdout.
+   - If any pre-filter fails (non-zero exit): log warning, proceed without that pre-filter's data (agents fall back to full-context behavior).
+
+3. **Run all agents in parallel**
    - Launch all applicable agents concurrently, each with: uncommitted diff + optional scope/focus. Use the prompts in "Optional agent prompts" above for each optional agent when included.
+   - **When T1 pre-filter data is available**, prepend it as structured context:
+     - docs-reviewer prompt: prepend T1 markdown JSON as `T1 PRE-FILTER RESULTS:` block
+     - code-reviewer prompt: prepend T1 diff JSON as `T1 PRE-FILTER RESULTS:` block
+     - progress-assessor prompt: prepend T1 progress JSON as `T1 PRE-FILTER RESULTS:` block
+     - Other agents: unchanged (receive diff as today)
    - **In diff-mode:** Prepend the DIFF-MODE preamble (see § Review Modes) to each agent's prompt. Skip agents marked "Not run in diff-mode" (cognitive-load-assessor, docs-reviewer, progress-assessor). All other core agents run with their diff-mode scope.
    - **In full-mode (default):** All 13 agents included by default. Apply exclusion rules from § Agent Inclusion & Exclusion Rules to determine which agents to skip based on diff content. If zero source code files in diff, code-focused agents (tdd-reviewer, refactor-assessor, code-reviewer, cognitive-load-assessor) are excluded. ts-enforcer excluded when zero TypeScript files. security-assessor excluded when zero source code AND zero config files. docs-reviewer never excluded. Artifact-specific agents (agent-validator, skill-validator, command-validator, phase0-assessor) excluded when their directories or configs are untouched.
    - Wait for all agents to complete before proceeding to summarize.
 
-3. **Summarize (collated tier summary)**
+4. **Summarize (collated tier summary)**
 
    Collate findings from all agents into a single tiered report. Group by tier, showing the most critical findings first. All agents use the standard three-tier format defined in `skills/engineering-team/code-reviewer/references/review-output-format.md`.
 
