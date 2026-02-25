@@ -15,16 +15,30 @@ Load the **quality-gate-first** skill and run the Phase 0 checklist: verify that
 
 ### 1. Load the quality-gate-first skill
 
-- Read `skills/engineering-team/quality-gate-first/SKILL.md` and apply its rule and universal requirements (seven elements: type-check, pre-commit, lint, format, markdown lint, a11y lint, audit script).
+- Read `skills/engineering-team/quality-gate-first/SKILL.md` and apply its rule and universal requirements.
+- Read `skills/engineering-team/quality-gate-first/references/check-registry.md` for the canonical list of core and conditional checks.
 
 ### 2. Determine scope
 
 - If TARGET looks like a file path to a plan/backlog/spec (e.g. ends in `.md` and name suggests plan/backlog/spec), focus on **document review**: does the doc describe Phase 0 as the first phase? Is the quality gate complete before feature work? Which pattern (minimal skeleton + gates, or scaffold-with-gates + verify)?
-- Otherwise treat TARGET as repo root (or use workspace root). Focus on **repo audit**: does the project have the seven elements in place (scripts, configs, pre-commit)?
+- Otherwise treat TARGET as repo root (or use workspace root). Focus on **repo audit**.
 
 ### 3. Repo audit (when scope is repo)
 
-In the repo root, check for:
+**Preferred method:** Run the automated assessment script:
+
+```bash
+npx tsx skills/engineering-team/quality-gate-first/scripts/assess-phase0.ts [project-path]
+```
+
+This script:
+1. Runs `detect-project.ts` to build a project profile (languages, frameworks, package manager, etc.)
+2. Cross-references the check registry for applicable checks
+3. Reports **Present** / **Missing** / **Partial** per check with specific details
+
+Add `--json` for structured JSON output.
+
+**Manual method** (when scripts are not available): Check for the following in the repo root:
 
 | Element | Look for | Notes |
 |--------|----------|--------|
@@ -50,11 +64,15 @@ Report: **Present** / **Missing** / **Partial** per element. If partial, state w
 ### 5. Output
 
 - **Summary:** Phase 0 status (e.g. "Gate complete," "Gate partial — missing X, Y," "Plan has Phase 0," "Plan missing Phase 0").
-- **Checklist:** Per-element result (repo audit) or per-doc result (plan review).
-- **Recommendations:** Next steps (add missing elements, update plan to include Phase 0, document pattern in development plan).
+- **Checklist:** Per-check result (repo audit) or per-doc result (plan review).
+- **Recommendations:** Next steps (add missing checks, update plan to include Phase 0, document pattern in development plan).
 
 ## Relationship to other commands and skills
 
-- **quality-gate-first skill:** This command loads and applies that skill; the skill defines the rule, the seven to eight elements (eight for frontend: add Stylelint), and where to document.
+- **quality-gate-first skill:** This command loads and applies that skill; the skill defines the rule, the check registry, and where to document.
+- **check-registry.md:** Canonical list of all Phase 0 checks with detection criteria, tools, and lint-staged patterns.
+- **detect-project.ts:** Automated project type detection script.
+- **assess-phase0.ts:** Automated assessment script that cross-references detection with the check registry.
+- **phase0-assessor agent:** Agent that performs this assessment within the review-changes workflow.
 - **find-local-skill:** Use `/skill/find-local-skill phase 0 quality gate` to discover the skill; this command runs the checklist.
 - **AGENTS.md:** Phase 0 is mandatory before feature work; this command helps verify compliance.

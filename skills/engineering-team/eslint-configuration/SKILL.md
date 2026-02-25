@@ -1,503 +1,361 @@
 ---
 name: eslint-configuration
-description: Use when eSLint configuration including config files, extends, plugins, and environment setup.
+description: Use when configuring ESLint with flat config, typescript-eslint strict, plugins, and lint-staged integration.
 allowed-tools: [Read, Write, Edit, Bash, Glob, Grep]
 ---
 
-# eslint configuration
+# ESLint Configuration
 
-Master ESLint configuration including config files, extends, plugins, and environment setup. This skill provides comprehensive coverage of essential concepts, patterns, and best practices for professional ESLint development.
+Flat config (`eslint.config.ts`) with `typescript-eslint/strictTypeChecked`, plugin recipes, and CI/lint-staged integration. No legacy `.eslintrc` patterns.
 
-## Overview
-
-ESLint is a powerful tool for javascript development, providing robust capabilities for maintaining code quality and ensuring reliable software delivery. This skill covers the fundamental through advanced aspects of working with ESLint.
-
-## Installation and Setup
-
-### Basic Installation
-
-Setting up ESLint requires proper installation and configuration in your development environment.
+## Prerequisites
 
 ```bash
-# Installation command specific to ESLint
-# Follow official documentation for latest version
+pnpm add -D eslint @eslint/js typescript-eslint jiti
 ```
 
-### Project Configuration
+`jiti` is required as a devDependency. ESLint uses jiti internally to transpile `.ts` config files. Without it, `eslint.config.ts` will fail to load. This is an ESLint-specific mechanism -- you do NOT need `NODE_OPTIONS=--experimental-strip-types` for ESLint (that is needed for tools like Prettier and lint-staged that lack built-in TypeScript config support).
 
-Create appropriate configuration files and setup for your project structure:
+## Complete eslint.config.ts
 
-- Configuration file setup
-- Project structure organization
-- Team collaboration setup
-- CI/CD integration preparation
+This is the centerpiece. A working config with strict type-checked rules, SonarJS, import sorting, and Prettier compatibility.
 
-## Core Concepts
+```typescript
+import eslint from '@eslint/js';
+import prettierConfig from 'eslint-config-prettier';
+import simpleImportSort from 'eslint-plugin-simple-import-sort';
+import sonarjsPlugin from 'eslint-plugin-sonarjs';
+import tseslint from 'typescript-eslint';
 
-### Fundamental Principles
+export default tseslint.config(
+  { ignores: ['coverage/**', 'dist/**', 'build/**', 'node_modules/**'] },
+  eslint.configs.recommended,
+  ...tseslint.configs.strictTypeChecked,
+  ...(sonarjsPlugin.configs?.recommended
+    ? [sonarjsPlugin.configs.recommended]
+    : []),
+  prettierConfig,
+  {
+    languageOptions: {
+      parserOptions: {
+        projectService: true,
+        tsconfigRootDir: import.meta.dirname,
+        allowDefaultProject: ['*.config.ts'],
+        defaultProject: 'tsconfig.eslint.json',
+      },
+    },
+    plugins: {
+      'simple-import-sort': simpleImportSort,
+    },
+    rules: {
+      'simple-import-sort/imports': 'error',
+      'simple-import-sort/exports': 'error',
+    },
+  },
+);
+```
 
-Understanding the core principles of ESLint is essential for effective usage:
+Install all dependencies:
 
-1. **Architecture** - How ESLint is structured and operates
-2. **Configuration** - Setting up and customizing behavior
-3. **Integration** - Working with other tools and frameworks
-4. **Best Practices** - Industry-standard approaches
+```bash
+pnpm add -D eslint @eslint/js typescript-eslint jiti \
+  eslint-plugin-simple-import-sort \
+  eslint-plugin-sonarjs \
+  eslint-config-prettier
+```
 
-### Key Features
+## tsconfig.eslint.json
 
-ESLint provides several key features that make it valuable:
+Config files (`*.config.ts`) live outside `src/` and are not typically included in the main `tsconfig.json`. Test files should be included in the main `tsconfig.json` (it uses `noEmit` anyway). The `tsconfig.eslint.json` extends the base and adds config file globs so `projectService` can find them.
 
-- Feature 1: Core functionality
-- Feature 2: Advanced capabilities  
-- Feature 3: Integration options
-- Feature 4: Performance optimization
-- Feature 5: Extensibility
-
-### Configuration Strategy
-
-Proper configuration ensures ESLint works optimally:
-
-- Environment-specific setup
-- Team standards enforcement
-- Performance tuning
-- Error handling configuration
-
-### Advanced Usage
-
-For complex scenarios, ESLint offers advanced capabilities:
-
-- Custom extensions
-- Advanced patterns
-- Performance optimization
-- Scalability considerations
-
-## Code Examples
-
-### Example 1: Basic Setup
-
-```javascript
-// Basic ESLint setup
-// Demonstrates fundamental usage patterns
-// Shows proper initialization and configuration
-
-// Core setup code
-function basicSetup() {
-  // Initialize framework
-  // Configure basic options
-  // Return configured instance
+```json
+{
+  "extends": "./tsconfig.json",
+  "include": [
+    "*.config.ts",
+    "src/**/*.ts",
+    "src/**/*.tsx",
+    "tests/**/*.ts",
+    "tests/**/*.tsx"
+  ]
 }
-
-// Usage example
-const instance = basicSetup();
 ```
 
-### Example 2: Configuration
+Why this is needed: `projectService` with `allowDefaultProject` tells typescript-eslint "for files matching `*.config.ts` that are not in any tsconfig, use `defaultProject` as a fallback." The `tsconfig.eslint.json` is that fallback. Without it, ESLint cannot type-check config files and will error.
 
-```javascript
-// Configuration example for ESLint
-// Shows how to properly configure
-// Includes common options and patterns
+## projectService Configuration
 
-// Configuration object
-const config = {
-  option1: 'value1',
-  option2: 'value2',
-  advanced: {
-    setting1: true,
-    setting2: false
+The `parserOptions` block controls how typescript-eslint finds type information:
+
+| Option | Purpose |
+|--------|---------|
+| `projectService: true` | Use TypeScript's project service (faster than legacy `project` option) |
+| `tsconfigRootDir: import.meta.dirname` | Root for resolving tsconfig paths |
+| `allowDefaultProject: ['*.config.ts']` | Glob patterns for files allowed to fall back to `defaultProject` |
+| `defaultProject: 'tsconfig.eslint.json'` | Fallback tsconfig for files not in any project |
+
+Keep `allowDefaultProject` minimal. Only add patterns for files that genuinely live outside your main tsconfig's `include` (config files at project root). Do NOT add `'**/*.ts'` -- that defeats the purpose.
+
+## Ignore Patterns
+
+The first config object should always be the ignores block:
+
+```typescript
+{ ignores: ['coverage/**', 'dist/**', 'build/**', 'node_modules/**'] }
+```
+
+These are the standard exclusions. Add project-specific patterns as needed (e.g., `'.next/**'` for Next.js, `'.turbo/**'` for Turborepo).
+
+In flat config, `ignores` as a standalone object (without `files`) acts as a global ignore -- equivalent to the old `.eslintignore`.
+
+## Plugin Recipes
+
+### eslint-plugin-simple-import-sort
+
+```bash
+pnpm add -D eslint-plugin-simple-import-sort
+```
+
+```typescript
+import simpleImportSort from 'eslint-plugin-simple-import-sort';
+
+// In your config array:
+{
+  plugins: {
+    'simple-import-sort': simpleImportSort,
+  },
+  rules: {
+    'simple-import-sort/imports': 'error',
+    'simple-import-sort/exports': 'error',
+  },
+}
+```
+
+Auto-fixable with `eslint --fix`. Sorts imports by: builtin modules, external packages, internal aliases, relative paths, side-effect imports.
+
+### eslint-plugin-sonarjs
+
+```bash
+pnpm add -D eslint-plugin-sonarjs
+```
+
+```typescript
+import sonarjsPlugin from 'eslint-plugin-sonarjs';
+
+// In your config array:
+...(sonarjsPlugin.configs?.recommended
+  ? [sonarjsPlugin.configs.recommended]
+  : []),
+```
+
+The optional chaining (`?.recommended`) is required. The SonarJS plugin types declare `configs.recommended` as possibly undefined. Without the `?.`, TypeScript will error under strict type checking. The spread with conditional array ensures the config is only applied if defined.
+
+Catches: cognitive complexity, duplicate branches, identical expressions, collapsible if-statements, unused collection operations.
+
+### eslint-config-prettier
+
+```bash
+pnpm add -D eslint-config-prettier
+```
+
+```typescript
+import prettierConfig from 'eslint-config-prettier';
+
+// MUST be last in the config array to override formatting rules:
+export default tseslint.config(
+  // ... other configs ...
+  prettierConfig,  // Last
+  {
+    // Your custom rules block (after prettierConfig is fine)
+  },
+);
+```
+
+This disables all ESLint rules that would conflict with Prettier formatting. It does NOT run Prettier -- it only turns off conflicting rules. Always place it after any config that enables formatting rules.
+
+### eslint-plugin-jsx-a11y (React projects)
+
+```bash
+pnpm add -D eslint-plugin-jsx-a11y
+```
+
+```typescript
+import jsxA11y from 'eslint-plugin-jsx-a11y';
+
+// In your config array:
+jsxA11y.flatConfigs.recommended,
+```
+
+Only add to React/JSX projects. Catches: missing alt text, invalid ARIA attributes, non-interactive element handlers, missing form labels.
+
+### eslint-plugin-react-hooks (React projects)
+
+```bash
+pnpm add -D eslint-plugin-react-hooks
+```
+
+```typescript
+import reactHooks from 'eslint-plugin-react-hooks';
+
+// In your config array:
+{
+  plugins: {
+    'react-hooks': reactHooks,
+  },
+  rules: {
+    'react-hooks/rules-of-hooks': 'error',
+    'react-hooks/exhaustive-deps': 'warn',
+  },
+}
+```
+
+Only add to React projects. Enforces Rules of Hooks (no conditional hooks, no hooks in loops) and exhaustive dependency arrays for `useEffect`/`useMemo`/`useCallback`.
+
+## lint-staged Integration
+
+In `package.json`:
+
+```json
+{
+  "lint-staged": {
+    "*.{ts,tsx}": ["eslint --fix"]
   }
+}
+```
+
+Or in `lint-staged.config.ts` (requires `NODE_OPTIONS=--experimental-strip-types` in the Husky hook, since lint-staged does NOT use jiti):
+
+```typescript
+export default {
+  '*.{ts,tsx}': ['eslint --fix'],
 };
-
-// Apply configuration
-function applyConfig(config) {
-  // Validation logic
-  // Application logic
-  // Return result
-}
 ```
 
-### Example 3: Advanced Pattern
+Husky pre-commit hook (`.husky/pre-commit`):
 
-```javascript
-// Advanced usage pattern
-// Demonstrates sophisticated techniques
-// Shows best practices in action
-
-function advancedPattern() {
-  // Setup phase
-  // Execution phase
-  // Cleanup phase
-}
+```bash
+cd your-package-dir && NODE_OPTIONS=--experimental-strip-types pnpx lint-staged --verbose
 ```
 
-### Example 4: Integration
+Note: `NODE_OPTIONS=--experimental-strip-types` is needed for lint-staged (it has no built-in `.ts` config support), but NOT for ESLint itself (ESLint uses jiti).
 
-```javascript
-// Integration with other tools
-// Shows real-world usage
-// Demonstrates interoperability
+## CI Integration
 
-function integrationExample() {
-  // Setup integration
-  // Execute workflow
-  // Handle results
-}
+GitHub Actions job:
+
+```yaml
+lint:
+  runs-on: ubuntu-latest
+  steps:
+    - uses: actions/checkout@v4
+    - uses: pnpm/action-setup@v4
+    - uses: actions/setup-node@v4
+      with:
+        node-version: 22
+        cache: pnpm
+    - run: pnpm install --frozen-lockfile
+    - run: pnpm lint
 ```
 
-### Example 5: Error Handling
+The `pnpm lint` script in `package.json`:
 
-```javascript
-// Proper error handling approach
-// Defensive programming patterns
-// Graceful degradation
-
-function withErrorHandling() {
-  try {
-    // Main logic
-  } catch (error) {
-    // Error recovery
-  } finally {
-    // Cleanup
+```json
+{
+  "scripts": {
+    "lint": "eslint .",
+    "lint:fix": "eslint --fix ."
   }
 }
 ```
 
-### Example 6: Performance Optimization
+Always run `lint:fix` locally before committing. CI runs `lint` (no fix) to catch anything that was not auto-fixable.
 
-```javascript
-// Performance-optimized implementation
-// Shows efficiency techniques
-// Demonstrates best practices
+## Monorepo Patterns
 
-function optimizedApproach() {
-  // Efficient implementation
-  // Resource management
-  // Performance monitoring
-}
+Root `eslint.config.ts` shared across workspaces. Each workspace can extend or override.
+
+```typescript
+// packages/api/eslint.config.ts
+import rootConfig from '../../eslint.config.ts';
+import tseslint from 'typescript-eslint';
+
+export default tseslint.config(
+  ...rootConfig,
+  {
+    languageOptions: {
+      parserOptions: {
+        tsconfigRootDir: import.meta.dirname,  // Points to this workspace
+      },
+    },
+  },
+);
 ```
 
-### Example 7: Testing
+Key: `tsconfigRootDir` must be set per workspace to resolve that workspace's tsconfig. The root config provides shared rules; workspace configs set the correct TypeScript project root.
 
-```javascript
-// Testing approach for ESLint
-// Unit test examples
-// Integration test patterns
+See `references/monorepo-config.md` for detailed patterns.
 
-function testExample() {
-  // Test setup
-  // Execution
-  // Assertions
-  // Teardown
-}
+## Common Gotchas
+
+### SonarJS typing with optional chaining
+
+`sonarjsPlugin.configs.recommended` is typed as possibly undefined. Direct spread (`...sonarjsPlugin.configs.recommended`) will fail type checking. Always use the conditional pattern:
+
+```typescript
+...(sonarjsPlugin.configs?.recommended
+  ? [sonarjsPlugin.configs.recommended]
+  : [])
 ```
 
-### Example 8: Production Usage
+### projectService and config files
 
-```javascript
-// Production-ready implementation
-// Includes monitoring and logging
-// Error recovery and resilience
+Config files at the project root (`eslint.config.ts`, `vitest.config.ts`, etc.) are typically outside any tsconfig's `include`. Without `allowDefaultProject` + `defaultProject`, ESLint will fail with "file not found in any project" errors. The `tsconfig.eslint.json` pattern solves this.
 
-function productionExample() {
-  // Production configuration
-  // Monitoring setup
-  // Error handling
-  // Logging
-}
+### jiti must be a devDependency
+
+ESLint will silently fail or throw confusing errors if `jiti` is not installed. It is NOT bundled with ESLint. Always verify it is in `devDependencies`:
+
+```bash
+pnpm add -D jiti
 ```
 
-## Best Practices
+### NODE_OPTIONS=--experimental-strip-types is NOT needed for ESLint
 
-1. **Follow conventions** - Adhere to established naming and structural patterns for consistency
-2. **Configure appropriately** - Set up framework configuration that matches project requirements
-3. **Validate inputs** - Always validate and sanitize inputs before processing
-4. **Handle errors gracefully** - Implement comprehensive error handling and recovery
-5. **Document decisions** - Comment configuration choices and non-obvious implementations
-6. **Test thoroughly** - Write comprehensive tests for all functionality
-7. **Optimize performance** - Profile and optimize critical paths
-8. **Maintain security** - Follow security best practices and guidelines
-9. **Keep updated** - Regularly update framework and dependencies
-10. **Monitor production** - Implement logging and monitoring for production systems
+ESLint uses jiti to load `.ts` config files. The `--experimental-strip-types` flag is for tools that lack built-in TypeScript support (Prettier, lint-staged, Husky hooks). Do not add it to your ESLint scripts.
 
-## Common Pitfalls
+### Flat config ignores vs. legacy .eslintignore
 
-1. **Incorrect configuration** - Misconfiguration leads to unexpected behavior and bugs
-2. **Missing error handling** - Not handling edge cases causes production issues
-3. **Poor performance** - Not optimizing leads to scalability problems
-4. **Inadequate testing** - Insufficient test coverage misses bugs
-5. **Security vulnerabilities** - Not following security best practices exposes risks
-6. **Tight coupling** - Poor architecture makes maintenance difficult
-7. **Ignoring warnings** - Dismissing framework warnings leads to future problems
-8. **Outdated dependencies** - Using old versions exposes security risks
-9. **No monitoring** - Lack of observability makes debugging difficult
-10. **Inconsistent standards** - Team inconsistency reduces code quality
+In flat config, there is no `.eslintignore` file. Use the `ignores` property in a standalone config object (without `files`). Placing `ignores` inside a config object that also has `files` or `rules` scopes those ignores to that config only -- it does NOT create a global ignore.
 
-## Advanced Topics
+```typescript
+// Global ignore (correct):
+{ ignores: ['dist/**'] }
 
-### Customization
+// Scoped ignore (only applies to this config object):
+{ files: ['src/**'], ignores: ['src/generated/**'], rules: { ... } }
+```
 
-ESLint allows extensive customization for specific needs:
+### strictTypeChecked requires type information
 
-- Custom plugins and extensions
-- Behavior modification
-- Integration adapters
-- Domain-specific adaptations
-
-### Performance Tuning
-
-Optimize ESLint performance for production:
-
-- Profiling and benchmarking
-- Resource optimization
-- Caching strategies
-- Parallel execution
-
-### CI/CD Integration
-
-Integrate ESLint into continuous integration pipelines:
-
-- Automated execution
-- Result reporting
-- Quality gates
-- Deployment integration
-
-### Troubleshooting
-
-Common issues and their solutions:
-
-- Configuration errors
-- Integration problems
-- Performance issues
-- Unexpected behavior
+Every `.ts`/`.tsx` file linted must be part of a TypeScript project. If ESLint reports "file is not part of any tsconfig project," either add the file to a tsconfig's `include` or add its pattern to `allowDefaultProject`.
 
 ## When to Use This Skill
 
-- Setting up ESLint in new projects
-- Configuring ESLint for specific requirements
-- Migrating to ESLint from alternatives
-- Optimizing ESLint performance
-- Implementing advanced patterns
-- Troubleshooting ESLint issues
-- Integrating ESLint with CI/CD
-- Training team members on ESLint
-- Establishing team standards
-- Maintaining existing ESLint implementations
-
-## Additional Resources
-
-### Documentation
-
-- Official ESLint documentation
-- Community guides and tutorials
-- API reference materials
-- Migration guides
-
-### Tools and Utilities
-
-- Development tools
-- Testing utilities
-- Monitoring solutions
-- Helper libraries
-
-### Community
-
-- Online forums and communities
-- Open source contributions
-- Best practice repositories
-- Example implementations
-
-## Conclusion
-
-Mastering ESLint requires understanding both fundamentals and advanced concepts. This skill provides the foundation for professional-grade usage, from initial setup through production deployment. Apply these principles consistently for best results.
-
-## Detailed Configuration Examples
-
-### Configuration Option 1
-
-Comprehensive configuration example demonstrating best practices and common patterns used in production environments.
-
-```bash
-# Detailed configuration setup
-# Includes all necessary options
-# Optimized for production use
-```
-
-### Configuration Option 2
-
-Alternative configuration approach for different use cases, showing flexibility and adaptability of the framework.
-
-```bash
-# Alternative configuration
-# Different optimization strategy
-# Suitable for specific scenarios
-```
-
-### Configuration Option 3
-
-Advanced configuration for complex environments with multiple requirements and constraints.
-
-```bash
-# Advanced configuration
-# Handles complex scenarios
-# Production-ready setup
-```
-
-## Advanced Usage Patterns
-
-### Pattern 1: Modular Organization
-
-Organize your setup in a modular way to improve maintainability and scalability across large projects.
-
-Implementation details:
-
-- Separate concerns appropriately
-- Use composition over inheritance
-- Follow single responsibility principle
-- Maintain clear interfaces
-
-### Pattern 2: Performance Optimization
-
-Optimize for performance in production environments with proven strategies and techniques.
-
-Key considerations:
-
-- Profile before optimizing
-- Focus on bottlenecks
-- Cache appropriately
-- Monitor in production
-
-### Pattern 3: Error Recovery
-
-Implement robust error recovery mechanisms to handle failures gracefully.
-
-Recovery strategies:
-
-- Graceful degradation
-- Retry with backoff
-- Circuit breaker pattern
-- Comprehensive logging
-
-### Pattern 4: Testing Strategy
-
-Comprehensive testing approach ensuring code quality and reliability.
-
-Testing layers:
-
-- Unit tests for components
-- Integration tests for workflows
-- End-to-end tests for user scenarios
-- Performance tests for scalability
-
-## Integration Strategies
-
-### Integration with CI/CD
-
-Seamless integration into continuous integration and deployment pipelines.
-
-Steps:
-
-1. Configure pipeline
-2. Set up automation
-3. Define quality gates
-4. Monitor execution
-
-### Integration with Development Tools
-
-Connect with popular development tools and IDEs for improved workflow.
-
-Tools:
-
-- IDE plugins and extensions
-- CLI tools and utilities
-- Build system integration
-- Version control hooks
-
-### Integration with Monitoring
-
-Implement monitoring and observability for production systems.
-
-Monitoring aspects:
-
-- Performance metrics
-- Error tracking
-- Usage analytics
-- Health checks
-
-## Team Practices
-
-### Establishing Standards
-
-Create and maintain consistent standards across the team.
-
-Standards to define:
-
-- Naming conventions
-- Code organization
-- Documentation requirements
-- Review processes
-
-### Onboarding Process
-
-Streamline onboarding for new team members.
-
-Onboarding steps:
-
-- Initial setup guide
-- Training materials
-- Practice exercises
-- Mentorship program
-
-### Code Review Guidelines
-
-Effective code review practices for quality assurance.
-
-Review checklist:
-
-- Correctness
-- Performance
-- Security
-- Maintainability
+- Setting up ESLint in a new TypeScript project
+- Migrating from legacy `.eslintrc` to flat config
+- Adding plugins (SonarJS, import sorting, a11y, React hooks)
+- Configuring ESLint for monorepos
+- Integrating ESLint with lint-staged and CI
+- Debugging projectService / tsconfig resolution errors
 
 ## Consolidated References
 
-This skill consolidates the following sub-topics as reference documents:
+This skill includes the following reference documents for deeper topics:
 
-- **Rules** — `references/rules.md` — Built-in rules, severity levels, and disabling strategies
-- **Custom Rules** — `references/custom-rules.md` — Custom rule development, AST traversal, and publishing
+- **Plugin Recipes** -- `references/plugin-recipes.md` -- Detailed per-plugin setup, what each catches, and gotchas
+- **Flat Config Migration** -- `references/flat-config-migration.md` -- Migrating from legacy `.eslintrc` to `eslint.config.ts`
+- **Monorepo Config** -- `references/monorepo-config.md` -- Multi-workspace ESLint with shared configs
+- **Rules** -- `references/rules.md` -- Built-in rules, severity levels, and disabling strategies
+- **Custom Rules** -- `references/custom-rules.md` -- Custom rule development, AST traversal, and publishing
 
 Load these references on-demand when working in the specific sub-topic area.
-
-## Troubleshooting Guide
-
-### Common Issue 1
-
-Detailed troubleshooting steps for frequently encountered problem.
-
-Resolution steps:
-
-1. Identify symptoms
-2. Check configuration
-3. Verify dependencies
-4. Test solution
-
-### Common Issue 2
-
-Another common issue with comprehensive resolution approach.
-
-Diagnostic steps:
-
-1. Reproduce issue
-2. Gather logs
-3. Analyze data
-4. Apply fix
-
-### Common Issue 3
-
-Third common scenario with clear resolution path.
-
-Investigation process:
-
-1. Understand context
-2. Review recent changes
-3. Test hypotheses
-4. Implement solution

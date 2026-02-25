@@ -62,7 +62,7 @@ When diff-mode is specified, include this preamble in each agent's prompt:
 
 Engage these agents **in parallel**, each with the same context: the uncommitted diff (and optional scope/focus). All agents operate independently on the same input, so there are no ordering dependencies.
 
-All 12 agents default to **included**. Each agent has documented exclusion criteria — exclude an agent only when its criteria are met. This replaces the previous "Core (always) / Optional (when applicable)" split with a unified model.
+All 13 agents default to **included**. Each agent has documented exclusion criteria — exclude an agent only when its criteria are met. This replaces the previous "Core (always) / Optional (when applicable)" split with a unified model.
 
 ### Agent Inclusion & Exclusion Rules
 
@@ -80,6 +80,7 @@ All 12 agents default to **included**. Each agent has documented exclusion crite
 | 10 | **agent-quality-assessor** | Diff does NOT touch `agents/` | Agent-specific quality scoring |
 | 11 | **skill-validator** | Diff does NOT touch `skills/` | Skill-specific validation |
 | 12 | **command-validator** | Diff does NOT touch `commands/` | Command-specific validation |
+| 13 | **phase0-assessor** | Diff does NOT create new project scaffolding (no new `package.json` or `tsconfig.json`) AND does NOT modify Phase 0 configs (`.husky/`, `lint-staged.config.*`, `eslint.config.*`, `prettier.config.*`, `.prettierrc*`, `.prettierignore`, `.github/workflows/*`) | Phase 0-specific quality gate assessment |
 
 **Source code files** = `.ts`, `.tsx`, `.js`, `.jsx`, `.py`, `.sh`, `.bash`. If ANY source code file appears in the diff, ALL code-focused agents run (they assess the full diff, not just the code portion). The only per-agent exception is **ts-enforcer**, which is excluded when zero TypeScript files are in the diff even if other code files are present.
 
@@ -97,6 +98,7 @@ All 12 agents default to **included**. Each agent has documented exclusion crite
 10. **agent-quality-assessor** – Runs `analyze-agent.sh` per changed agent file, scoring on 5 quality dimensions. Tiered output: Grade D/F or Status=OPTIMIZE → Fix Required; Grade C or Status=REVIEW → Suggestion; Grade A/B, Status=OK → Observation. Include alongside agent-validator when diff touches `agents/`.
 11. **skill-validator** – Runs two checks: (1) `validate_agent.py --all --summary` to catch broken agent→skill references, (2) `quick_validate.py <skill-dir>` per changed skill for frontmatter structure. Tiered output: script failures or CRITICAL → Fix Required; HIGH → Suggestion; all pass → Observation. Include when diff touches `skills/`.
 12. **command-validator** – Runs `validate_commands.py` on the entire commands directory. Tiered output: any FAIL → Fix Required; all PASS → Observation. Include when diff touches `commands/`.
+13. **phase0-assessor** – Phase 0 quality gate assessment. Detects project type, cross-references check registry, reports present/missing/partial Phase 0 checks. Tiered output: Missing core check → Fix required; Partial core or missing conditional → Suggestion; All present → Observation. Include when diff creates new project scaffolding (new `package.json`, new `tsconfig.json`) or modifies Phase 0 configs (`.husky/`, `lint-staged.config.*`, `eslint.config.*`, `prettier.config.*`, `.prettierrc*`, `.prettierignore`, `.github/workflows/*`).
 
 ## Optional agent prompts
 
@@ -149,6 +151,18 @@ When including **command-validator**, use this scope:
   - All PASS → 🔵 Observation
 - **Report**: Per-command PASS/FAIL + summary table.
 
+When including **phase0-assessor**, use this scope:
+
+- **Scope**: All Phase 0-relevant changes in the diff: `.husky/*`, `lint-staged.config.*`, `eslint.config.*`, `prettier.config.*`, `.prettierrc*`, `.prettierignore`, `.github/workflows/*`, `tsconfig.json`, `package.json`.
+- **Run**: If `assess-phase0.ts` is available, run `npx tsx skills/engineering-team/quality-gate-first/scripts/assess-phase0.ts [project-path]`. Otherwise, manually cross-reference the check registry at `skills/engineering-team/quality-gate-first/references/check-registry.md`.
+- **For new scaffolding** (new `package.json` + `tsconfig.json`): Run full assessment.
+- **For config changes**: Verify changes follow check registry patterns (correct globs, correct commands, correct ignore patterns).
+- **Tier mapping**:
+  - Missing core check → 🔴 Fix Required
+  - Partial core check or missing applicable conditional check → 🟡 Suggestion
+  - All checks present → 🔵 Observation
+- **Report**: Per-check status (Present/Missing/Partial) + remediation guidance for gaps.
+
 **Note on embedded scripts:** When the diff includes scripts (`.sh`, `.py`) under `skills/`, `agents/`, or `commands/` directories, the core agents **code-reviewer** and **security-assessor** should treat these scripts as explicitly in-scope for code quality and security review — not just application source code.
 
 ## Workflow
@@ -164,7 +178,7 @@ When including **command-validator**, use this scope:
 2. **Run all agents in parallel**
    - Launch all applicable agents concurrently, each with: uncommitted diff + optional scope/focus. Use the prompts in "Optional agent prompts" above for each optional agent when included.
    - **In diff-mode:** Prepend the DIFF-MODE preamble (see § Review Modes) to each agent's prompt. Skip agents marked "Not run in diff-mode" (cognitive-load-assessor, docs-reviewer, progress-assessor). All other core agents run with their diff-mode scope.
-   - **In full-mode (default):** All 12 agents included by default. Apply exclusion rules from § Agent Inclusion & Exclusion Rules to determine which agents to skip based on diff content. If zero source code files in diff, code-focused agents (tdd-reviewer, refactor-assessor, code-reviewer, cognitive-load-assessor) are excluded. ts-enforcer excluded when zero TypeScript files. security-assessor excluded when zero source code AND zero config files. docs-reviewer never excluded. Artifact-specific agents (agent-validator, skill-validator, command-validator) excluded when their directories are untouched.
+   - **In full-mode (default):** All 13 agents included by default. Apply exclusion rules from § Agent Inclusion & Exclusion Rules to determine which agents to skip based on diff content. If zero source code files in diff, code-focused agents (tdd-reviewer, refactor-assessor, code-reviewer, cognitive-load-assessor) are excluded. ts-enforcer excluded when zero TypeScript files. security-assessor excluded when zero source code AND zero config files. docs-reviewer never excluded. Artifact-specific agents (agent-validator, skill-validator, command-validator, phase0-assessor) excluded when their directories or configs are untouched.
    - Wait for all agents to complete before proceeding to summarize.
 
 3. **Summarize (collated tier summary)**

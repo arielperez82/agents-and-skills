@@ -78,6 +78,7 @@ These agents live directly in the `agents/` root directory:
 - **`security-assessor`** - Assesses code or diffs for security and produces a findings report with criticality (no implementation)
 - **`ts-enforcer`** - Enforces TypeScript strict mode and best practices
 - **`tpp-assessor`** - Transformation Priority Premise (TPP) guardian for TDD transformations
+- **`phase0-assessor`** - Phase 0 quality gate assessor: detects project type, cross-references check registry, reports present/missing/partial checks with remediation
 
 #### DevOps & Infrastructure
 - **`devsecops-engineer`** - DevSecOps for CI/CD, infrastructure automation, containerization, and cloud platforms
@@ -500,6 +501,7 @@ Run `/review/review-changes` — the single validation gate that launches all re
 10. `agent-quality-assessor` — When diff touches `agents/` (alongside agent-validator)
 11. `skill-validator` — When diff touches `skills/`
 12. `command-validator` — When diff touches `commands/`
+13. `phase0-assessor` — When diff creates new project scaffolding or modifies Phase 0 configs
 
 After `/review/review-changes` passes: **ask for commit approval**, then commit via `/git/cm` or `/git/cp`.
 
