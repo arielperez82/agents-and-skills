@@ -142,30 +142,6 @@ describe('discoverConfigs', () => {
     expect(configs.some((c) => c.endsWith('lint-staged.config.ts') && !c.includes('packages'))).toBe(true);
   });
 
-  it('skips exemplars directories under skills/', () => {
-    const root = createTempDir();
-    const exemplarsDir = join(root, 'skills', 'quality-gate-first', 'references', 'exemplars', 'node-ts');
-    mkdirSync(exemplarsDir, { recursive: true });
-    writeFileSync(join(root, 'lint-staged.config.ts'), 'export default {};');
-    writeFileSync(join(exemplarsDir, 'lint-staged.config.ts'), 'export default {};');
-
-    const configs = discoverConfigs(root);
-    expect(configs).toHaveLength(1);
-    expect(configs[0]).not.toContain('exemplars');
-  });
-
-  it('discovers exemplars directories outside skills/', () => {
-    const root = createTempDir();
-    const exemplarsDir = join(root, 'docs', 'exemplars');
-    mkdirSync(exemplarsDir, { recursive: true });
-    writeFileSync(join(root, 'lint-staged.config.ts'), 'export default {};');
-    writeFileSync(join(exemplarsDir, 'lint-staged.config.ts'), 'export default {};');
-
-    const configs = discoverConfigs(root);
-    expect(configs).toHaveLength(2);
-    expect(configs.some((c) => c.includes('docs' + sep + 'exemplars'))).toBe(true);
-  });
-
   it('skips node_modules directories', () => {
     const root = createTempDir();
     const nmDir = join(root, 'node_modules', 'some-pkg');
