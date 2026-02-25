@@ -11,13 +11,12 @@
     "format:fix": "pnpm -r run format:fix",
     "test:unit": "pnpm -r run test:unit",
     "lint-staged": "pnpx lint-staged",
-    "check:uncommitted": "node --experimental-strip-types scripts/check-uncommitted.ts"
+    "lint:uncommitted": "lint-uncommitted"
   },
   "devDependencies": {
-    "@types/micromatch": "^4.0.10",
     "husky": "^9.1.0",
     "lint-staged": "^16.1.0",
-    "micromatch": "^4.0.8"
+    "lint-uncommitted": "workspace:*"
   },
   "engines": {
     "node": ">=22"

@@ -1,6 +1,7 @@
 packages:
   - telemetry
   - scripts/skills-deploy
+  - packages/lint-uncommitted
 
 onlyBuiltDependencies:
   - esbuild
