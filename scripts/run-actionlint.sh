@@ -2,7 +2,6 @@
 # Usage: run-actionlint.sh [file ...]
 # Lints only the given workflow files (repo-root-relative paths). If no args, exits 0.
 set -e
-cd "$(git rev-parse --show-toplevel)"
 if ! command -v actionlint >/dev/null 2>&1; then
   echo ""
   echo "actionlint is not installed. Pre-commit lints workflow files with actionlint."
