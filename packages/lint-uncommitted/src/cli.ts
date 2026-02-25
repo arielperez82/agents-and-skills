@@ -16,7 +16,7 @@
 import { execFileSync } from 'node:child_process';
 import * as path from 'node:path';
 import * as fs from 'node:fs';
-import { pathToFileURL } from 'node:url';
+import { fileURLToPath, pathToFileURL } from 'node:url';
 import micromatch from 'micromatch';
 import concurrently from 'concurrently';
 
@@ -34,6 +34,9 @@ const IGNORE_DIRS = new Set([
   'coverage',
   'build',
   '.next',
+  '.yarn',
+  '.pnpm-store',
+  'vendor',
 ]);
 
 type CommandEntry =
@@ -109,11 +112,12 @@ const readDirSafe = (dir: string): readonly fs.Dirent[] => {
   }
 };
 
-const walk = (dir: string): readonly string[] => {
+const walk = (dir: string, root: string): readonly string[] => {
   const entries = readDirSafe(dir);
   return entries.flatMap((entry) => {
+    if (entry.isSymbolicLink()) return [];
     if (entry.isDirectory() && !IGNORE_DIRS.has(entry.name)) {
-      return walk(path.join(dir, entry.name));
+      return walk(path.join(dir, entry.name), root);
     }
     if (entry.isFile() && CONFIG_NAMES.has(entry.name)) {
       return [path.join(dir, entry.name)];
@@ -123,7 +127,7 @@ const walk = (dir: string): readonly string[] => {
 };
 
 export const discoverConfigs = (root: string): readonly string[] => {
-  const found = walk(root);
+  const found = walk(root, root);
   const depth = (p: string) => path.relative(root, p).split(path.sep).length;
   return [...found].sort((a, b) => depth(b) - depth(a));
 };
@@ -164,9 +168,10 @@ export const matchGlob = (
   micromatch([...files], pattern, {
     dot: true,
     matchBase: !pattern.includes('/'),
+    // @ts-expect-error micromatch supports posixSlashes but types don't include it
     posixSlashes: true,
     strictBrackets: true,
-  } as micromatch.Options & { posixSlashes: boolean });
+  });
 
 // ---------------------------------------------------------------------------
 // Command resolution
@@ -225,7 +230,12 @@ const resolveGroupTasks = async (opts: {
 
   console.error(`── ${configRelPath} (${groupFiles.length} files) ──`);
 
-  const patternEntries = Object.entries(config as LintStagedConfig);
+  const patternEntries = Object.entries(config as Record<string, unknown>).filter(
+    (entry): entry is [string, CommandEntry] => {
+      const val = entry[1];
+      return typeof val === 'string' || typeof val === 'function' || Array.isArray(val);
+    },
+  );
 
   const results = await Promise.all(
     patternEntries.map(async ([pattern, entry]) => {
@@ -297,7 +307,8 @@ const runTasksConcurrently = async (
           e !== null &&
           typeof e === 'object' &&
           'exitCode' in e &&
-          (e as { exitCode: number }).exitCode !== 0,
+          typeof (e as Record<string, unknown>).exitCode === 'number' &&
+          (e as Record<string, unknown>).exitCode !== 0,
       );
       for (const event of failed) {
         console.error(`  ✗ ${event.command.name} exited with ${event.exitCode}`);
@@ -317,7 +328,15 @@ export const filesFromArgs = (root: string): readonly string[] | null => {
 
   return rawArgs
     .map((f) => path.relative(root, path.resolve(f)))
-    .filter((f) => !f.startsWith('..') && fs.existsSync(path.join(root, f)));
+    .filter((f) => {
+      if (f.startsWith('..')) return false;
+      const abs = path.join(root, f);
+      try {
+        return !fs.lstatSync(abs).isSymbolicLink();
+      } catch {
+        return false;
+      }
+    });
 };
 
 // ---------------------------------------------------------------------------
@@ -357,7 +376,7 @@ const main = async (): Promise<void> => {
   console.log('\nAll checks passed.');
 };
 
-const isDirectExecution = process.argv[1]?.endsWith('cli.ts') === true;
+const isDirectExecution = process.argv[1] === fileURLToPath(import.meta.url);
 if (isDirectExecution) {
   main().catch((err: unknown) => {
     console.error(err);

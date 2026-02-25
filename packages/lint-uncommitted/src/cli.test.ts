@@ -1,9 +1,13 @@
-import { describe, it, expect } from 'vitest';
+import { describe, it, expect, onTestFinished } from 'vitest';
+import { mkdirSync, mkdtempSync, rmSync, writeFileSync } from 'node:fs';
+import { join, sep } from 'node:path';
+import { tmpdir } from 'node:os';
 import {
   shellQuote,
   groupByConfig,
   matchGlob,
   resolveCommands,
+  discoverConfigs,
 } from './cli.js';
 
 describe('shellQuote', () => {
@@ -115,6 +119,63 @@ describe('matchGlob', () => {
 
   it('returns empty for no matches', () => {
     expect(matchGlob('*.py', ['a.ts', 'b.js'])).toEqual([]);
+  });
+});
+
+describe('discoverConfigs', () => {
+  const createTempDir = (): string => {
+    const dir = mkdtempSync(join(tmpdir(), 'lint-uncommitted-test-'));
+    onTestFinished(() => rmSync(dir, { recursive: true, force: true }));
+    return dir;
+  };
+
+  it('finds lint-staged configs in regular directories', () => {
+    const root = createTempDir();
+    const subDir = join(root, 'packages', 'api');
+    mkdirSync(subDir, { recursive: true });
+    writeFileSync(join(root, 'lint-staged.config.ts'), 'export default {};');
+    writeFileSync(join(subDir, 'lint-staged.config.ts'), 'export default {};');
+
+    const configs = discoverConfigs(root);
+    expect(configs).toHaveLength(2);
+    expect(configs.some((c) => c.endsWith('packages/api/lint-staged.config.ts'))).toBe(true);
+    expect(configs.some((c) => c.endsWith('lint-staged.config.ts') && !c.includes('packages'))).toBe(true);
+  });
+
+  it('skips exemplars directories under skills/', () => {
+    const root = createTempDir();
+    const exemplarsDir = join(root, 'skills', 'quality-gate-first', 'references', 'exemplars', 'node-ts');
+    mkdirSync(exemplarsDir, { recursive: true });
+    writeFileSync(join(root, 'lint-staged.config.ts'), 'export default {};');
+    writeFileSync(join(exemplarsDir, 'lint-staged.config.ts'), 'export default {};');
+
+    const configs = discoverConfigs(root);
+    expect(configs).toHaveLength(1);
+    expect(configs[0]).not.toContain('exemplars');
+  });
+
+  it('discovers exemplars directories outside skills/', () => {
+    const root = createTempDir();
+    const exemplarsDir = join(root, 'docs', 'exemplars');
+    mkdirSync(exemplarsDir, { recursive: true });
+    writeFileSync(join(root, 'lint-staged.config.ts'), 'export default {};');
+    writeFileSync(join(exemplarsDir, 'lint-staged.config.ts'), 'export default {};');
+
+    const configs = discoverConfigs(root);
+    expect(configs).toHaveLength(2);
+    expect(configs.some((c) => c.includes('docs' + sep + 'exemplars'))).toBe(true);
+  });
+
+  it('skips node_modules directories', () => {
+    const root = createTempDir();
+    const nmDir = join(root, 'node_modules', 'some-pkg');
+    mkdirSync(nmDir, { recursive: true });
+    writeFileSync(join(root, 'lint-staged.config.ts'), 'export default {};');
+    writeFileSync(join(nmDir, 'lint-staged.config.ts'), 'export default {};');
+
+    const configs = discoverConfigs(root);
+    expect(configs).toHaveLength(1);
+    expect(configs[0]).not.toContain('node_modules');
   });
 });
 
