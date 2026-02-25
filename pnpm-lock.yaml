@@ -21,6 +21,51 @@ importers:
         specifier: ^4.0.8
         version: 4.0.8
 
+  scripts/claude-ui-upload:
+    devDependencies:
+      '@eslint/js':
+        specifier: ^9.39.0
+        version: 9.39.2
+      '@types/archiver':
+        specifier: ^6.0.0
+        version: 6.0.4
+      '@types/node':
+        specifier: ^22.0.0
+        version: 22.19.11
+      '@typescript-eslint/eslint-plugin':
+        specifier: ^8.48.0
+        version: 8.56.0(@typescript-eslint/parser@8.56.0(eslint@9.39.2(jiti@2.6.1))(typescript@5.9.3))(eslint@9.39.2(jiti@2.6.1))(typescript@5.9.3)
+      '@typescript-eslint/parser':
+        specifier: ^8.48.0
+        version: 8.56.0(eslint@9.39.2(jiti@2.6.1))(typescript@5.9.3)
+      archiver:
+        specifier: ^7.0.0
+        version: 7.0.1
+      eslint:
+        specifier: ^9.39.0
+        version: 9.39.2(jiti@2.6.1)
+      eslint-config-prettier:
+        specifier: ^10.1.0
+        version: 10.1.8(eslint@9.39.2(jiti@2.6.1))
+      jiti:
+        specifier: ^2.6.1
+        version: 2.6.1
+      prettier:
+        specifier: ^3.7.0
+        version: 3.8.1
+      tsx:
+        specifier: ^4.8.0
+        version: 4.21.0
+      typescript:
+        specifier: ^5.8.0
+        version: 5.9.3
+      typescript-eslint:
+        specifier: ^8.56.0
+        version: 8.56.0(eslint@9.39.2(jiti@2.6.1))(typescript@5.9.3)
+      vitest:
+        specifier: ^4.0.0
+        version: 4.0.18(@types/node@22.19.11)(jiti@2.6.1)(msw@2.12.10(@types/node@22.19.11)(typescript@5.9.3))(tsx@4.21.0)(yaml@2.8.2)
+
   scripts/skills-deploy:
     devDependencies:
       '@eslint/js':

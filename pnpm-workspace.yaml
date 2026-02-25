@@ -1,6 +1,7 @@
 packages:
   - telemetry
   - scripts/skills-deploy
+  - scripts/claude-ui-upload
 
 onlyBuiltDependencies:
   - esbuild
