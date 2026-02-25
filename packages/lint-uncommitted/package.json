@@ -1,0 +1,26 @@
+{
+  "name": "lint-uncommitted",
+  "version": "0.1.0",
+  "type": "module",
+  "bin": {
+    "lint-uncommitted": "./bin/lint-uncommitted.mjs"
+  },
+  "engines": {
+    "node": ">=22"
+  },
+  "dependencies": {
+    "concurrently": "^9.2.1",
+    "micromatch": "^4.0.8",
+    "tsx": "^4.21.0"
+  },
+  "devDependencies": {
+    "@types/micromatch": "^4.0.10",
+    "@types/node": "^25.3.0",
+    "typescript": "^5.8.3",
+    "vitest": "^3.2.1"
+  },
+  "scripts": {
+    "type-check": "tsc --noEmit",
+    "test:unit": "vitest run"
+  }
+}

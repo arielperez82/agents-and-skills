@@ -1,3 +1,4 @@
+/// <reference types="node" />
 import { dirname } from 'node:path';
 import { fileURLToPath } from 'node:url';
 
