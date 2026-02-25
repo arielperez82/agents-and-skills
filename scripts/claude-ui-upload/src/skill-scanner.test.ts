@@ -77,10 +77,7 @@ describe('scanAllSkillDirs', () => {
   });
 
   it('handles standalone top-level skill dirs', async () => {
-    const reader = new FakeFileTreeReader([
-      'mermaid-diagrams/SKILL.md',
-      'research/SKILL.md',
-    ]);
+    const reader = new FakeFileTreeReader(['mermaid-diagrams/SKILL.md', 'research/SKILL.md']);
 
     const result = await scanAllSkillDirs('/repo', { fileTreeReader: reader });
 

@@ -64,9 +64,7 @@ afterEach(async () => {
 
 describe('buildSkillZip', () => {
   it('produces a valid non-empty zip buffer', async () => {
-    const { skillDir } = await createTempSkillDir([
-      { path: 'SKILL.md', content: '# TDD Skill' },
-    ]);
+    const { skillDir } = await createTempSkillDir([{ path: 'SKILL.md', content: '# TDD Skill' }]);
 
     const result = await buildSkillZip(skillDir);
 
@@ -75,9 +73,7 @@ describe('buildSkillZip', () => {
   });
 
   it('places SKILL.md at {skillName}/SKILL.md', async () => {
-    const { skillDir } = await createTempSkillDir([
-      { path: 'SKILL.md', content: '# TDD Skill' },
-    ]);
+    const { skillDir } = await createTempSkillDir([{ path: 'SKILL.md', content: '# TDD Skill' }]);
 
     const result = await buildSkillZip(skillDir);
     const entries = await listZipEntries(result);
@@ -123,9 +119,7 @@ describe('buildSkillZip', () => {
   });
 
   it('does not include parent directory paths in the zip', async () => {
-    const { skillDir } = await createTempSkillDir([
-      { path: 'SKILL.md', content: '# TDD' },
-    ]);
+    const { skillDir } = await createTempSkillDir([{ path: 'SKILL.md', content: '# TDD' }]);
 
     const result = await buildSkillZip(skillDir);
     const entries = await listZipEntries(result);
@@ -152,9 +146,7 @@ describe('buildSkillZip', () => {
       'Content here.',
     ].join('\n');
 
-    const { skillDir } = await createTempSkillDir([
-      { path: 'SKILL.md', content: skillContent },
-    ]);
+    const { skillDir } = await createTempSkillDir([{ path: 'SKILL.md', content: skillContent }]);
 
     const result = await buildSkillZip(skillDir);
     const extractDir = await extractZip(result);
@@ -167,9 +159,7 @@ describe('buildSkillZip', () => {
 
   it('preserves SKILL.md with no frontmatter unchanged', async () => {
     const skillContent = '# No Frontmatter\n\nJust content.';
-    const { skillDir } = await createTempSkillDir([
-      { path: 'SKILL.md', content: skillContent },
-    ]);
+    const { skillDir } = await createTempSkillDir([{ path: 'SKILL.md', content: skillContent }]);
 
     const result = await buildSkillZip(skillDir);
     const extractDir = await extractZip(result);

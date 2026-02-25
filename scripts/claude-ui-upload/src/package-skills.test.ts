@@ -158,10 +158,7 @@ describe('packageAllSkills', () => {
     const result = await packageAllSkills(
       { rootDir: '/repo', outputDir: '/repo/dist' },
       {
-        scanSkillDirs: makeScanner([
-          'skills/engineering-team/tdd',
-          'skills/agent-browser',
-        ]),
+        scanSkillDirs: makeScanner(['skills/engineering-team/tdd', 'skills/agent-browser']),
         buildZip: {
           build: (skillDir: string): Promise<Buffer> => {
             if (skillDir.includes('tdd')) {

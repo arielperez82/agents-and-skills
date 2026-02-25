@@ -13,8 +13,8 @@
     "type-check": "tsc --noEmit",
     "lint": "eslint .",
     "lint:fix": "eslint --fix .",
-    "format": "prettier --check .",
-    "format:fix": "prettier --write .",
+    "format": "NODE_OPTIONS=--experimental-strip-types prettier --check .",
+    "format:fix": "NODE_OPTIONS=--experimental-strip-types prettier --write",
     "package-skills": "tsx src/cli.ts"
   },
   "devDependencies": {

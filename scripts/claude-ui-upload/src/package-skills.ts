@@ -82,4 +82,10 @@ const packageAllSkills = async (
 };
 
 export { packageAllSkills, nodeOutputWriter, skillPathToZipFileName };
-export type { PackageSummary, PackagedSkill, SkippedSkill, PackageSkillsDeps, PackageSkillsOptions };
+export type {
+  PackageSummary,
+  PackagedSkill,
+  SkippedSkill,
+  PackageSkillsDeps,
+  PackageSkillsOptions,
+};
