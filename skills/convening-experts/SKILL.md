@@ -53,6 +53,22 @@ Agent selects 3-5 experts based on problem characteristics:
 ### Single-Round Format
 
 ```
+---
+type: assessment
+endeavor: <endeavor>
+subject: <subject>
+date: <YYYY-MM-DD>
+status: draft
+initiative: <ID> (optional, when part of an initiative)
+---
+
+# Assessment: [Topic]
+
+**Purpose:** [Why this panel was convened]
+**Context:** [Background and constraints]
+
+---
+
 ## Expert Panel: [Topic]
 
 **Panel Members:**
@@ -75,11 +91,30 @@ Agent selects 3-5 experts based on problem characteristics:
 
 ## Synthesis
 [Integrated recommendations with decision framework]
+
+## Recommendations
+[Actionable next steps]
 ```
 
 ### Multi-Round Format
 
 ```
+---
+type: assessment
+endeavor: <endeavor>
+subject: <subject>
+date: <YYYY-MM-DD>
+status: draft
+initiative: <ID> (optional, when part of an initiative)
+---
+
+# Assessment: [Topic]
+
+**Purpose:** [Why this panel was convened]
+**Context:** [Background and constraints]
+
+---
+
 ## Expert Panel: [Topic]
 
 **Panel Members:**
@@ -123,7 +158,55 @@ Agent selects 3-5 experts based on problem characteristics:
 
 ## Final Synthesis
 [Integrated recommendations, highlighting consensus and productive disagreements]
+
+## Recommendations
+[Actionable next steps]
 ```
+
+## Persistent Report (Mandatory)
+
+Every expert panel session MUST be written to `.docs/canonical/assessments/` as a persistent artifact. The file is the primary deliverable; screen output is a summary.
+
+### File Naming Convention
+
+```
+assessment-<endeavor>-<subject>-<YYYY-MM-DD>.md
+```
+
+Follow the canonical naming grammar. Examples:
+- `assessment-repo-initiative-naming-2026-02-10.md`
+- `assessment-product-pricing-strategy-2026-02-25.md`
+
+### Required Frontmatter
+
+```yaml
+---
+type: assessment
+endeavor: <endeavor>
+subject: <subject>
+date: <YYYY-MM-DD>
+status: draft
+initiative: <ID>  # optional, when panel is part of an initiative
+---
+```
+
+### Required Content Sections
+
+The written file must include ALL of:
+
+1. **Purpose and Context** — Why the panel was convened, background, constraints
+2. **Panel metadata** — Topic, date, format used, panel members with roles
+3. **Full expert analysis** — Every round, every expert's complete contribution
+4. **Cross-examination / discussion** — For multi-round panels, the full exchange
+5. **Final synthesis** — Integrated findings with decision framework
+6. **Actionable recommendations** — Concrete next steps
+
+### Workflow
+
+1. **Write the file first** to `.docs/canonical/assessments/` with all sections above
+2. **Then summarize to screen** — concise summary with key findings and a reference to the file path
+
+The persistent file is the canonical record. Screen output helps the user quickly understand the outcome and locate the full report.
 
 ## Expert Behavior Guidelines
 
@@ -247,6 +330,7 @@ Format: Multi-round (root cause needs collaborative analysis)
 - Make experts repeat information (each should contribute uniquely)
 
 **Always:**
+- Write the complete panel session to `.docs/canonical/assessments/` as a persistent assessment document
 - Select experts genuinely relevant to problem
 - Show framework structure when applying consulting methods
 - Make cross-expert references specific and substantive
