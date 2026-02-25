@@ -11,9 +11,11 @@
     "format:fix": "pnpm -r run format:fix",
     "test:unit": "pnpm -r run test:unit",
     "lint-staged": "pnpx lint-staged",
-    "lint:uncommitted": "lint-uncommitted"
+    "lint:uncommitted": "lint-uncommitted",
+    "hooks:install": "pnpm --filter lint-uncommitted run install-hook"
   },
   "devDependencies": {
+    "@types/node": "^25.3.0",
     "@types/unist": "^3.0.3",
     "gray-matter": "^4.0.3",
     "husky": "^9.1.0",

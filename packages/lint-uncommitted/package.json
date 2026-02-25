@@ -21,6 +21,7 @@
   },
   "scripts": {
     "type-check": "tsc --noEmit",
-    "test:unit": "vitest run"
+    "test:unit": "vitest run",
+    "install-hook": "bash hooks/install.sh"
   }
 }
