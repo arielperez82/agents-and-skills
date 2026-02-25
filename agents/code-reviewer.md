@@ -352,6 +352,15 @@ echo "<diff>" | npx tsx skills/engineering-team/tiered-review/scripts/prefilter-
 
 **Existing T1 tools** (also run in the T1 step): `pr_analyzer.py`, `code_quality_checker.py`, `review_report_generator.py` — these complement `prefilter-diff.ts`.
 
+**Consuming T1 PRE-FILTER RESULTS:** When `review-changes` provides a `T1 PRE-FILTER RESULTS:` block at the top of your prompt, parse the JSON to drive your review:
+1. Parse the JSON object — it follows the `DiffPrefilterOutput` schema with `files[]` and `summary`.
+2. For each file in `files[]`, read its `significance` field:
+   - `"trivial"` — Skip full review. Only report if `changedFunctions` is non-empty (structural issue despite low line count).
+   - `"moderate"` — Review for style, naming, and anti-patterns. Escalate to full review only if you find logic bugs or security concerns.
+   - `"significant"` — Full review. Use the `rawHunks` field (when present) for line-level analysis. Check `changedFunctions` for function signature changes that may break callers.
+3. Use `summary.trivialFiles` / `moderateFiles` / `significantFiles` counts to calibrate your report — a diff with 50 trivial files and 2 significant files should focus on the 2.
+4. When no `T1 PRE-FILTER RESULTS:` block is present, treat all files as significant (existing behavior).
+
 **Fallback:** If `prefilter-diff.ts` is unavailable, fall back to the size-based classification (existing behavior).
 
 **Steps:**

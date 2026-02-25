@@ -1,11 +1,11 @@
 #!/usr/bin/env npx tsx
 
-import { readFileSync, existsSync } from 'node:fs';
+import { readFileSync, existsSync, realpathSync } from 'node:fs';
 import { dirname, resolve, isAbsolute } from 'node:path';
 import { unified } from 'unified';
 import remarkParse from 'remark-parse';
 import { visit } from 'unist-util-visit';
-import type { Node } from 'unist';
+import type { Node, Parent, Literal } from 'unist';
 
 type HeadingEntry = {
   readonly depth: number;
@@ -56,16 +56,13 @@ export type MarkdownPrefilterOutput = {
   };
 };
 
-type MdastNode = Node & {
-  readonly children?: ReadonlyArray<MdastNode>;
-  readonly depth?: number;
-  readonly value?: string;
-  readonly url?: string;
-  readonly position?: {
-    readonly start: { readonly line: number };
-    readonly end: { readonly line: number };
-  };
-};
+type NodeWithDepth = Node & { readonly depth: number };
+type NodeWithUrl = Node & { readonly url: string };
+
+const isParent = (node: Node): node is Parent => 'children' in node;
+const isLiteral = (node: Node): node is Literal => 'value' in node;
+const hasDepth = (node: Node): node is NodeWithDepth => 'depth' in node;
+const hasUrl = (node: Node): node is NodeWithUrl => 'url' in node;
 
 type RawHeading = {
   readonly depth: number;
@@ -88,9 +85,9 @@ const COMMON_SECTIONS = ['Purpose', 'When to Use'] as const;
 const MIN_SECTION_WORDS = 10;
 const MAX_EXCERPT_LENGTH = 200;
 
-const extractTextFromNode = (node: MdastNode): string => {
-  if (node.value) return node.value;
-  if (!node.children) return '';
+const extractTextFromNode = (node: Node): string => {
+  if (isLiteral(node) && typeof node.value === 'string') return node.value;
+  if (!isParent(node)) return '';
   return node.children.map(extractTextFromNode).join('');
 };
 
@@ -147,32 +144,30 @@ const computeLineEnd = (
     ? headingStarts[index + 1] - 1
     : totalLines;
 
-const extractAstData = (tree: MdastNode, fileDir: string): AstExtraction => {
+const extractAstData = (tree: Node, fileDir: string): AstExtraction => {
   const headings: Array<RawHeading> = [];
   const links: Array<LinkEntry> = [];
   let codeBlocks = 0;
 
-  visit(tree as Node, (node: Node) => {
-    const mdNode = node as MdastNode;
-
-    if (mdNode.type === 'heading' && mdNode.position) {
+  visit(tree, (node: Node) => {
+    if (node.type === 'heading' && node.position && hasDepth(node)) {
       headings.push({
-        depth: mdNode.depth ?? 1,
-        text: extractTextFromNode(mdNode),
-        lineStart: mdNode.position.start.line,
+        depth: node.depth,
+        text: extractTextFromNode(node),
+        lineStart: node.position.start.line,
       });
     }
 
-    if (mdNode.type === 'link' && mdNode.position && mdNode.url) {
+    if (node.type === 'link' && node.position && hasUrl(node)) {
       links.push({
-        url: mdNode.url,
-        text: extractTextFromNode(mdNode),
-        line: mdNode.position.start.line,
-        status: getLinkStatus(mdNode.url, fileDir),
+        url: node.url,
+        text: extractTextFromNode(node),
+        line: node.position.start.line,
+        status: getLinkStatus(node.url, fileDir),
       });
     }
 
-    if (mdNode.type === 'code') {
+    if (node.type === 'code') {
       codeBlocks += 1;
     }
   });
@@ -290,7 +285,7 @@ const analyzeFile = (filePath: string): FileResult => {
 
   const fileDir = dirname(filePath);
   const lines = content.split('\n');
-  const tree = unified().use(remarkParse).parse(content) as MdastNode;
+  const tree = unified().use(remarkParse).parse(content);
 
   const { headings, links, codeBlocks } = extractAstData(tree, fileDir);
   const headingTree = buildHeadingTree(headings, lines, lines.length);
@@ -343,20 +338,40 @@ export const prefilterMarkdown = (
 const main = (): void => {
   const args = process.argv.slice(2);
 
-  if (args.length === 0) {
+  const baseDirIndex = args.indexOf('--base-dir');
+  const baseDir = baseDirIndex >= 0 ? args[baseDirIndex + 1] : undefined;
+  const excludeIndices = baseDirIndex >= 0
+    ? new Set([baseDirIndex, baseDirIndex + 1])
+    : new Set<number>();
+  const filePaths = args.filter((_, i) => !excludeIndices.has(i));
+
+  if (filePaths.length === 0) {
     process.stderr.write('Error: No file paths provided\n');
-    process.stderr.write('Usage: npx tsx prefilter-markdown.ts file1.md file2.md ...\n');
+    process.stderr.write('Usage: npx tsx prefilter-markdown.ts [--base-dir <dir>] file1.md file2.md ...\n');
     process.exit(1);
   }
 
-  const missingFiles = args.filter((f) => !existsSync(f));
+  const missingFiles = filePaths.filter((f) => !existsSync(f));
   if (missingFiles.length > 0) {
     process.stderr.write(`Error: Files not found: ${missingFiles.join(', ')}\n`);
     process.exit(1);
   }
 
+  const resolvedPaths = filePaths.map((f) => realpathSync(resolve(f)));
+
+  if (baseDir !== undefined) {
+    const basePath = realpathSync(resolve(baseDir));
+    const outsidePaths = resolvedPaths.filter(
+      (p) => !p.startsWith(basePath + '/') && p !== basePath,
+    );
+    if (outsidePaths.length > 0) {
+      process.stderr.write(`Error: Paths outside base directory: ${outsidePaths.join(', ')}\n`);
+      process.exit(1);
+    }
+  }
+
   try {
-    const result = prefilterMarkdown(args);
+    const result = prefilterMarkdown(resolvedPaths);
     process.stdout.write(JSON.stringify(result, null, 2));
   } catch (error: unknown) {
     const message = error instanceof Error ? error.message : String(error);
