@@ -285,6 +285,7 @@ Run `/review/review-changes` — single gate, all agents in parallel:
 | `security-assessor` — security findings | `agent-quality-assessor` — when agents/ changed |
 | `code-reviewer` — quality + merge readiness | `skill-validator` — when skills/ changed |
 | `cognitive-load-assessor` — maintainability | `command-validator` — when commands/ changed |
+| | `phase0-assessor` — when Phase 0 configs changed |
 
 After pass: **ask for commit approval**, then `/git/cm` or `/git/cp`.
 
