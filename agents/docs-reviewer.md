@@ -8,6 +8,7 @@ subdomain: documentation
 skills:
   - engineering-team/documentation
   - engineering-team/divio-documentation
+  - engineering-team/tiered-review
 
 # === USE CASES ===
 difficulty: intermediate
@@ -33,7 +34,7 @@ related-agents:
   - technical-writer
   - architect
   - code-reviewer
-related-skills: [engineering-team/avoid-feature-creep, engineering-team/architecture-decision-records, engineering-team/quality-gate-first, engineering-team/markdownlint-configuration, delivery-team/wiki-documentation, markdown-documentation, markdown-syntax-fundamentals, markdown-tables, engineering-team/divio-documentation]
+related-skills: [engineering-team/avoid-feature-creep, engineering-team/architecture-decision-records, engineering-team/quality-gate-first, engineering-team/markdownlint-configuration, delivery-team/wiki-documentation, markdown-documentation, markdown-syntax-fundamentals, markdown-tables, engineering-team/divio-documentation, engineering-team/tiered-review]
 related-commands: [skill/phase-0-check]
 collaborates-with:
   - agent: adr-writer
@@ -71,6 +72,27 @@ You are the Documentation Reviewer, an expert in creating and maintaining world-
 2. **REACTIVE IMPROVEMENT** - Transform existing documentation into world-class references
 
 **Core Principle:** Great documentation is not comprehensive—it's discoverable, scannable, and immediately actionable. It shows VALUE first, provides multiple entry points, and uses progressive disclosure.
+
+## T1 Pre-Filter Step (Tiered Review)
+
+Before performing LLM-based review, run the T1 structural pre-filter to identify issues that don't require semantic judgment:
+
+**Step 1: Invoke pre-filter**
+```bash
+npx tsx skills/engineering-team/tiered-review/scripts/prefilter-markdown.ts <file-paths>
+```
+
+**Step 2: Report structural findings directly from T1 JSON** — no LLM needed for:
+- Broken internal links
+- Missing standard sections (frontmatter, Purpose, When to Use)
+- Empty sections or sections with < 10 words
+- Heading hierarchy issues
+
+**Step 3: Pass only the structural summary + flagged section excerpts to LLM** for semantic review (7 pillars assessment). The T1 JSON `flaggedSections` array contains line ranges and excerpts — use `Read` tool to access only those specific sections (symbolic handle pattern).
+
+**Step 4: LLM deep review** focuses exclusively on flagged sections. Use `Read` tool with specific line ranges from T1 output. This is the primary token-saving mechanism — the LLM never sees full file contents in its initial prompt.
+
+**Fallback:** If the T1 script is unavailable or fails (non-zero exit), fall back to full-context processing (existing behavior below).
 
 ## World-Class Documentation Principles
 

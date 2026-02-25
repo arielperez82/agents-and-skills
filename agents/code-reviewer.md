@@ -6,7 +6,7 @@ title: Code Reviewer Specialist
 description: Code review specialist for quality assessment, security analysis, and best practices enforcement across all tech stacks
 domain: engineering
 subdomain: quality-assurance
-skills: [engineering-team/code-reviewer, orchestrating-agents]
+skills: [engineering-team/code-reviewer, orchestrating-agents, engineering-team/tiered-review]
 
 # === USE CASES ===
 difficulty: advanced
@@ -44,6 +44,7 @@ related-skills:
   - engineering-team/clean-code
   - engineering-team/code-maturity-assessor
   - engineering-team/functional
+  - engineering-team/tiered-review
 related-commands: [skill/phase-0-check]
 collaborates-with:
   - agent: devsecops-engineer
@@ -335,11 +336,23 @@ EOF
 
 **Time Estimate:** 3-4 hours for initial setup, 1 hour for team training
 
-### Workflow 5: Cost-Optimized Large Review (Validation Sandwich)
+### Workflow 5: Tiered Review (Validation Sandwich) [DEFAULT]
 
-**Goal:** For large reviews (>500 lines changed, end-of-initiative sweeps, or post-`/craft` final review), use cheaper models for first-pass analysis and reserve expensive models for judgment calls.
+**Goal:** Use T1 pre-filtering and cheaper models for first-pass analysis, reserving expensive models only for significant files and judgment calls. This is the **default processing path** for all reviews.
 
-**When to use:** Large diffs, codebase-wide reviews, final `/craft` review, or any review touching 10+ files.
+**When to use:** All reviews. Previously gated behind ">500 lines" — now the default path because T1 pre-filtering is fast (sub-second) and always beneficial.
+
+**T1 Pre-Filter Step:** When T1 pre-filter data is available (provided by `review-changes` or invoked directly), consume it first:
+```bash
+echo "<diff>" | npx tsx skills/engineering-team/tiered-review/scripts/prefilter-diff.ts
+```
+- Files classified **trivial** (whitespace/imports only, ≤5 lines): Skip T3. Report only if T1 found structural issues.
+- Files classified **moderate** (logic changes <50 lines, no signature changes): T2 haiku for style/patterns, T3 only if T2 flags issues.
+- Files classified **significant** (≥50 lines or function signature changes): Full T3 review with raw hunks from T1 output.
+
+**Existing T1 tools** (also run in the T1 step): `pr_analyzer.py`, `code_quality_checker.py`, `review_report_generator.py` — these complement `prefilter-diff.ts`.
+
+**Fallback:** If `prefilter-diff.ts` is unavailable, fall back to the size-based classification (existing behavior).
 
 **Steps:**
 
