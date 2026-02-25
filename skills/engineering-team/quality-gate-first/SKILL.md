@@ -31,10 +31,6 @@ If a plan says "Phase 0 — Scaffold" or "Step 1 — Initialize app," treat Phas
 | 9 | **CI pipeline** | Validate on every PR | — | GitHub Actions (or equivalent). Runs format check, lint, type-check, build, and unit tests. Path-based triggers, concurrency groups, pinned action versions, frozen lockfile. All jobs must pass for PR to merge. When adding or changing CI workflows: lint workflow files with [actionlint](https://github.com/rhysd/actionlint) (static), then validate locally with [act](https://github.com/nektos/act) before pushing. |
 | 10 | **Deploy pipeline** | Ship to production safely | — | GitHub Actions workflow_dispatch (manual trigger). Runs build → deploy --dry-run → deploy. No local deploys to production. Requires repository secrets for credentials. |
 
-### Coverage thresholds in adapter-heavy packages
-
-When a package contains adapter classes (HTTP clients wrapping external APIs), set the `functions` coverage threshold 5% below other thresholds (e.g., `functions: 60` when statements/branches/lines are `65`). Adapter class methods and retry callbacks count as functions but belong in integration tests, not unit tests, creating a structural gap. This is expected and should be configured in vitest coverage thresholds, not worked around. When adapter coverage is low, look for opportunities to extract pure transformation logic (response parsing, ID resolution, format mapping) — this is a refactoring concern that also improves test boundary clarity.
-
 **Pre-commit behavior:** When any source file is staged, run **full-project** type-check (not per-file) so the whole codebase stays type-clean. Run lint/format only on staged files for speed. Run unit tests when source/test files staged.
 
 **CI pipeline (required):** Run format check, lint, type-check, build, and unit tests on every push/PR. Use path-based triggers to avoid unnecessary runs. Pin action versions with commit SHAs. Use frozen lockfile installs. Separate jobs for checks and tests (enables parallel execution). Add integration test job when infrastructure is ready (e.g. Tinybird local, Supabase local).
@@ -43,42 +39,7 @@ When a package contains adapter classes (HTTP clients wrapping external APIs), s
 
 ## Using the gate (MANDATORY)
 
-Setting up the gate is useless if you don't run it. The gate exists to catch problems **before they escape** — the earlier you catch an issue, the cheaper it is. A bug caught by a local script costs seconds. A bug caught in CI costs minutes and blocks the pipeline. A bug caught in production costs brand trust, users, and revenue.
-
-### Discover, don't guess
-
-**Never assume how a project runs its tools.** Before running any validation command:
-
-1. **Node projects:** Read `package.json` `scripts` first. Use the project's script names (`pnpm lint:fix`, not `npx eslint --fix .`).
-2. **Other projects:** Check `Makefile`, `justfile`, `Taskfile`, `scripts/` directory.
-3. **Monorepos:** Check both root and workspace-level scripts — they may differ.
-
-### Fix first, verify second
-
-Always run fix variants before diagnostic variants:
-
-- `lint:fix` → then `lint` (confirm zero remaining)
-- `format:fix` / `format:write` → then `format:check`
-- `stylelint --fix` → then `stylelint`
-
-Automated fix scripts are dramatically cheaper than reading a wall of warnings and fixing them manually — or worse, having an agent fix them one by one.
-
-### Run the full suite, every time
-
-After every GREEN and before every commit: fix → verify → type-check → test. Don't skip steps. Don't run only the ones you think are relevant. Pre-commit hooks are a backstop, not your primary validation — run the full suite before staging to avoid surprise failures at commit time.
-
-### The cost escalation ladder
-
-| Caught by | Cost | Impact |
-|-----------|------|--------|
-| Local fix script | Seconds | None — auto-fixed |
-| Local diagnostic | Seconds | You fix one issue |
-| Pre-commit hook | Seconds | Blocked commit, you fix and retry |
-| CI pipeline | Minutes | Blocked PR, context switch, pipeline queue |
-| Code review | Hours | Back-and-forth, delayed merge |
-| Production | Days–weeks | Brand damage, user frustration, revenue loss |
-
-**CI and CD are strong safety nets — but they are last resorts.** Your job is to catch as much as possible before code ever leaves your machine.
+Setting up the gate is useless if you don't run it. For gate usage discipline — discover project scripts first, prefer fix variants, run the full local validation suite, and the cost escalation ladder — see CLAUDE.md § "Validate Early, Fix Cheaply" (always loaded).
 
 ## Where to document in a project
 
@@ -89,19 +50,16 @@ After every GREEN and before every commit: fix → verify → type-check → tes
 | **Technical spec** | "§1.1 Quality gate (first priority)" table with pre-commit, CI, and deploy pipeline specifications. |
 | **README** | Scripts: `pnpm check`, `pnpm lint`, `pnpm lint:md`, `pnpm lint:css` / `pnpm lint:css:fix` (when frontend), `pnpm lighthouse`; note that pre-commit runs on every commit; CI runs on every PR; production deploys via pipeline only. |
 
-## When generating plans or backlogs
+## Planning & review checklist
 
-- **When the repo contains shell scripts:** Run ShellCheck on pre-commit (e.g. lint-staged for `*.sh`) and in CI (e.g. [Shell Linter](https://github.com/marketplace/actions/shell-linter) action or shellcheck job). See **shell-scripting** skill.
-- **When the repo contains Terraform (`.tf`) files:** Add `terraform fmt`, `terraform init -backend=false`, `terraform validate`, and `terraform test` (per-module) to pre-commit via lint-staged. In CI, run the same per-module init+test loop. Requires Terraform >= 1.7 for `mock_provider`. See **terraform-configuration** skill (`references/native-testing`).
-- **Include Phase 0** as the first phase: either (1) minimal skeleton + add all elements (ten, or eleven for frontend: add Stylelint), or (2) scaffold that includes quality tooling + verify/complete the gate. Phase 0 must include all three layers: pre-commit hooks, CI pipeline, and deploy pipeline. Then feature work in Phase 1.
-- When the user says "set up a new [stack] project," remind or add: "Phase 0 = full delivery pipeline before feature work: scaffold, then type-check, pre-commit (Husky/lint-staged), ESLint, Prettier, MarkdownLint, Stylelint when frontend, a11y lint, Lighthouse script, CI pipeline (GitHub Actions), deploy pipeline (workflow_dispatch). Delivering to production safely is the first feature."
-- For **TypeScript/JavaScript** projects (frontend, backend, fullstack), Phase 0 scaffold should include **path aliases**: `tsconfig.json` with `compilerOptions.baseUrl` and `compilerOptions.paths` (e.g. `@/*` → `src/*`); if using Vite or Vitest, `resolve.alias` in config must match. See `typescript-strict` skill (Path aliases) and `vitest-configuration` (Path Aliases).
-- When plans or backlogs live under `.docs/canonical/` and belong to an initiative, include `initiative` and `initiative_name` in front matter (see `.docs/AGENTS.md` initiative naming).
+When generating or reviewing plans/backlogs:
 
-## When reviewing plans
-
-- If a plan has no "Phase 0 — Quality gate" or equivalent, or starts feature work before the gate is complete, recommend adding Phase 0 (and document which pattern: minimal skeleton + gates, or scaffold-with-gates + verify).
-- Ensure backlog, development plan, and technical spec all describe the quality gate as Phase 0 and are aligned.
+- Phase 0 is the **first phase** with all three layers (pre-commit, CI, deploy). Feature work starts in Phase 1.
+- Document which pattern: (1) minimal skeleton + gates, or (2) scaffold-with-gates + verify.
+- If a plan lacks Phase 0 or starts features before the gate is complete, flag it.
+- **Conditional checks to include:** ShellCheck when `*.sh` present (see shell-scripting skill), Terraform fmt/validate/test when `*.tf` present (see terraform-configuration skill), Stylelint when frontend, jsx-a11y when React/JSX.
+- **TS/JS projects:** Include path aliases (`tsconfig.json` paths + bundler `resolve.alias`). See typescript-strict and vitest-configuration skills.
+- **Initiative context:** When plans live under `.docs/canonical/`, include `initiative` and `initiative_name` in front matter.
 
 ## Three layers of Phase 0
 
@@ -113,17 +71,55 @@ After every GREEN and before every commit: fix → verify → type-check → tes
 
 All three layers must be operational before Phase 1 (feature work) begins. The deploy pipeline is the first feature, not the last.
 
-## Exemplar patterns
-
-Proven configurations from production projects:
-
-- **Pre-commit:** `~/projects/trival-sales-brain` — Husky runs `pnpx lint-staged --verbose`; lint-staged.config.ts routes TS files to type-check + lint:fix + format:fix (type-check uses function form to avoid per-file args); non-TS files to format:fix.
-- **CI:** `~/projects/context/collectors/*` — separate `checks` and `test` jobs; path-based triggers; pinned action versions with SHA; `pnpm install --frozen-lockfile`; matrix strategy for multiple packages.
-- **Deploy:** `~/projects/context/.github/workflows/tinybird-ci.yml` — Tinybird local service container for integration tests; `tinybird deploy --dry-run` gate before actual deploy.
-
 ## Agent collaboration
 
 When setting up Phase 0 (especially **CI pipeline** and **deploy pipeline** — layers 2 and 3), **collaborate with the devsecops-engineer agent**. The devsecops-engineer owns CI/CD and deploy pipeline implementation. fullstack-engineer, backend-engineer, frontend-engineer, and architect should involve devsecops-engineer when scaffolding new projects or when plans require operational CI and deploy pipelines. code-reviewer should flag missing CI/deploy on new projects and recommend involving devsecops-engineer. Run `/skill/phase-0-check` to audit a repo or plan.
+
+## Check Registry
+
+The canonical list of all Phase 0 checks is in `references/check-registry.md`. Each check has:
+- **ID**, name, description, tier (`core` | `conditional`)
+- **Detection criteria** (what signals trigger this check)
+- **Tools + devDependencies** to install
+- **Config files** needed (with paths)
+- **lint-staged glob + command**
+- **CI job** equivalent
+- **Skill reference** for detailed guidance
+
+Core checks (12): `trailing-whitespace`, `mixed-line-ending`, `large-files`, `merge-conflicts`, `private-keys`, `no-commit-to-branch`, `case-conflict`, `check-json`, `check-yaml`, `type-check`, `eslint`, `prettier`.
+
+Conditional checks (11): `markdownlint`, `stylelint`, `jsx-a11y`, `react-hooks`, `shellcheck`, `actionlint`, `tflint`, `hadolint`, `vitest-typecheck`, `toml-lint`, `detect-secrets`.
+
+## Automated Detection
+
+`scripts/detect-project.ts` scans a project directory and returns a structured `ProjectProfile`:
+
+```bash
+npx tsx scripts/detect-project.ts [project-path]
+```
+
+Detects: languages, frameworks, shell scripts, GitHub Actions, Terraform, Docker, TOML files, markdown count, frontend presence, CSS, package manager, monorepo.
+
+## Automated Assessment
+
+`scripts/assess-phase0.ts` runs detection, cross-references the check registry, and produces a gap report:
+
+```bash
+npx tsx scripts/assess-phase0.ts [project-path]        # human-readable
+npx tsx scripts/assess-phase0.ts [project-path] --json  # structured JSON
+```
+
+Reports per-check status (Present / Missing / Partial) with details and remediation guidance. Also reports the three Phase 0 layers (pre-commit, CI, deploy).
+
+## Config Exemplars
+
+Proven config patterns for common project types in `references/`:
+
+- `references/exemplar-node-ts.md` — Layer 1: ESLint, Prettier, TypeScript, lint-staged, Husky (Node.js backend/CLI/library)
+- `references/exemplar-react-ts.md` — Layer 1: Above + jsx-a11y, react-hooks, Stylelint (React frontend)
+- `references/exemplar-ci-deploy.md` — Layers 2+3: GitHub Actions CI workflow + deploy workflow (workflow_dispatch)
+
+Each exemplar includes a directory tree, complete file contents with inline code blocks, and key pattern callouts.
 
 ## One-line summary
 
