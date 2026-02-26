@@ -37,6 +37,8 @@ related-skills:
   - engineering-team/senior-ios
   - engineering-team/senior-flutter
   - engineering-team/core-testing-methodology
+  - engineering-team/react-native-skills
+  - engineering-team/composition-patterns
 related-commands: []
 collaborates-with:
   - agent: tdd-reviewer

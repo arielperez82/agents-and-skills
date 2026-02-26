@@ -44,6 +44,7 @@ related-skills:
   - engineering-team/performance
   - engineering-team/web-quality-audit
   - engineering-team/vitest-testing-patterns
+  - engineering-team/composition-patterns
   - engineering-team/e2e-testing-patterns
   - engineering-team/playwright-skill
   - engineering-team/verification-before-completion

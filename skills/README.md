@@ -102,7 +102,9 @@ Engineering skills (path: `skills/engineering-team/<name>/`). Load proactively p
 | **coverage-analysis** | Fuzzing, harness effectiveness | Code exercised during fuzzing, fuzzing blockers |
 | **playwright-skill** | Browser automation | Playwright testing, forms, screenshots. Refs: test-architecture, POM, fixtures, bdd-config, gherkin |
 | **test-design-review** | Reviewing tests | Test quality (e.g. Dave Farley's 8 properties) |
-| **react-best-practices** | React/Next.js | Performance, patterns from Vercel Engineering |
+| **react-best-practices** | React/Next.js | 57 performance rules from Vercel Engineering across 8 priority categories |
+| **composition-patterns** | React architecture | 8 composition rules: compound components, state lifting, context interfaces, React 19 APIs |
+| **react-native-skills** | React Native/Expo | 36 mobile best-practice rules: list perf, animation, navigation, UI patterns |
 | **react-vite-expert** | React + Vite | Project structure, performance, TypeScript |
 | **modern-javascript-patterns** | Modern JS | ES6+ patterns, async, functional patterns |
 | **web-design-guidelines** | UI review | Web interface guidelines, accessibility |
