@@ -61,12 +61,18 @@ type NodeWithDepth = Node & { readonly depth: number };
 type NodeWithUrl = Node & { readonly url: string };
 
 const isParent = (node: Node): node is Parent => 'children' in node;
-const isStringLiteral = (node: Node): node is StringLiteral =>
-  'value' in node && typeof node.value === 'string';
-const hasDepth = (node: Node): node is NodeWithDepth =>
-  'depth' in node && typeof node.depth === 'number';
-const hasUrl = (node: Node): node is NodeWithUrl =>
-  'url' in node && typeof node.url === 'string';
+const isStringLiteral = (node: Node): node is StringLiteral => {
+  const n = node as Record<string, unknown>;
+  return 'value' in n && typeof n.value === 'string';
+};
+const hasDepth = (node: Node): node is NodeWithDepth => {
+  const n = node as Record<string, unknown>;
+  return 'depth' in n && typeof n.depth === 'number';
+};
+const hasUrl = (node: Node): node is NodeWithUrl => {
+  const n = node as Record<string, unknown>;
+  return 'url' in n && typeof n.url === 'string';
+};
 
 type RawHeading = {
   readonly depth: number;

@@ -1,6 +1,6 @@
 import { describe, it } from 'node:test';
 import assert from 'node:assert/strict';
-import { mkdtempSync, mkdirSync, writeFileSync, utimesSync } from 'node:fs';
+import { mkdtempSync, mkdirSync, writeFileSync, utimesSync, rmSync } from 'node:fs';
 import { join } from 'node:path';
 import { tmpdir } from 'node:os';
 import { execSync } from 'node:child_process';
@@ -373,13 +373,17 @@ describe('prefilter-progress', () => {
 
   it('ignores directories with .md suffix', () => {
     const dir = createTempDir();
-    mkdirSync(join(dir, 'fake.md'), { recursive: true });
-    writeFile(dir, 'real-file.md', '---\ntype: report\n---\n# Real\n');
+    try {
+      mkdirSync(join(dir, 'fake.md'), { recursive: true });
+      writeFile(dir, 'real-file.md', '---\ntype: report\n---\n# Real\n');
 
-    const result = runScript(dir);
-    assert.equal(result.exitCode, 0);
-    const output = parseOutput(result.stdout);
-    assert.equal(output.summary.totalFiles, 1);
-    assert.ok(output.files.every((f) => !f.path.includes('fake.md')));
+      const result = runScript(dir);
+      assert.equal(result.exitCode, 0);
+      const output = parseOutput(result.stdout);
+      assert.equal(output.summary.totalFiles, 1);
+      assert.ok(output.files.every((f) => !f.path.includes('fake.md')));
+    } finally {
+      rmSync(dir, { recursive: true });
+    }
   });
 });
