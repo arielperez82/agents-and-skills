@@ -612,6 +612,8 @@ SEQUENCING: Consult senior-project-manager for phasing and dependency management
 - Across waves: sequential dependency
 - Mark critical path steps explicitly
 
+DEFERRED ITEMS: Every deferred item (D01, D02, etc.) in the plan MUST have a corresponding tracking entry in the backlog — even if just a placeholder with "Complexity: tracking only." Deferred items that exist only in prose are forgotten between initiative boundaries.
+
 LOOK-BACK: Reference the charter for acceptance criteria, the roadmap for outcome sequencing, the backlog for dependencies, and ADRs for technical constraints. If anything is unclear, push back to prior phase agents for clarification rather than making assumptions.
 
 Save to: .docs/canonical/plans/plan-{endeavor}-{initiative-id}-{subject}.md
@@ -776,8 +778,14 @@ Present the collated tier summary to the human.
 
 **Output artifact:** Review summary (presented inline, not saved to file unless the user requests it).
 
+**Operational completeness check:** After the code-quality Final Sweep, run an operational completeness check:
+- If MEMORY.md or project docs contain a "Definition of Done" checklist for the artifact type being built, validate the deliverables against that checklist.
+- Common items: CI workflow includes new packages, CD workflow includes new deployables, infrastructure modules exist or are tracked as deferred, token/secret sync scripts updated.
+- This is separate from the code-reviewer's quality analysis — it covers deployment readiness, not code quality.
+
 **Gate behavior:** The gate for this phase operates on the review results:
 - If there are Fix Required findings: fix the issues, commit the fixes via `/git/cm`, then re-run the Final Sweep.
+- When Fix Required findings specify exact values (coverage thresholds, config settings, etc.), the fix must implement the reviewer's EXACT recommended values. After applying fixes, verify: diff the applied fix against the reviewer's recommendation to confirm they match. A fix that "makes tests pass" but diverges from the reviewer's specific guidance is not resolved.
 - If only Suggestions/Observations, recommend **Approve**.
 - The human makes the final decision regardless of recommendation.
 
@@ -943,8 +951,14 @@ Make updates or report what needs updating.
 **After parallel agents complete:**
 
 1. Present combined results from all five agents.
-2. Run the gate protocol (Approve/Reject/Skip/Restart).
-3. **On Approve:** Update the status file to `overall_status: completed`. Commit close artifacts (learnings, doc updates) via `/git/cm` with message: `docs(<initiative-id>): close — learnings and doc updates`. Record the commit SHA in the status file.
+2. **Artifact metadata sweep**: Update all artifact frontmatter to post-delivery status:
+   - Architecture designs: `status: approved`
+   - Implementation plans: `status: completed`
+   - ADRs with `status: proposed`: update to `accepted`
+   - BDD scenarios: `status: built`
+   - Verify all artifacts listed in the status file have current metadata
+3. Run the gate protocol (Approve/Reject/Skip/Restart).
+4. **On Approve:** Update the status file to `overall_status: completed`. Commit close artifacts (learnings, doc updates, artifact metadata) via `/git/cm` with message: `docs(<initiative-id>): close — learnings and doc updates`. Record the commit SHA in the status file.
 
 ---
 

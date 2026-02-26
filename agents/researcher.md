@@ -223,3 +223,57 @@ Include a **Source Analysis Table** (using the template from `skills/research/re
 - Medium-high reputation: {count} ({percentage}%)
 - Average reputation score: {0.0-1.0}
 ```
+
+## Workflows
+
+### Workflow 1: Focused Research (single topic)
+
+**Goal:** Produce a research report for a specific technology, library, or practice.
+
+**Steps:**
+
+1. Clarify research scope — identify key terms, recency requirements, evaluation criteria.
+2. Search using Query Fan-Out: run parallel searches across official docs, GitHub repos, industry sources.
+3. Cross-reference findings across 3+ independent sources per major claim.
+4. Synthesize into a research report following the Report Structure above.
+5. Save to `.docs/reports/researcher-{date}-{topic-slug}.md`.
+
+### Workflow 2: Comparative Research (alternatives evaluation)
+
+**Goal:** Compare 2+ technology alternatives with trade-off analysis and a recommendation.
+
+**Steps:**
+
+1. Identify alternatives and evaluation criteria from the research question.
+2. Research each alternative in parallel (delegate T2 sub-tasks for raw gathering when 3+ alternatives).
+3. Build a comparison matrix with consistent criteria across all alternatives.
+4. Assess trade-offs, risks, and fit for the specific context.
+5. Produce a research report with comparison table, trade-off analysis, and a recommendation.
+6. Save to `.docs/reports/researcher-{date}-{topic-slug}.md`.
+
+### Workflow 3: Fan-Out Research (broad scope)
+
+**Goal:** Research a broad topic with 3+ independent sub-questions using cost-tiered delegation.
+
+**Steps:**
+
+1. Decompose the research question into independent sub-questions.
+2. Dispatch T2 agents in parallel to gather raw findings per sub-question.
+3. Collect all T2 outputs.
+4. Synthesize at T3: cross-reference, evaluate trade-offs, produce final report with recommendations.
+5. Save to `.docs/reports/researcher-{date}-{topic-slug}.md`.
+
+## Success Metrics
+
+- **Source quality:** Average reputation score >= 0.7; majority of sources are High or Medium-High tier.
+- **Claim coverage:** Every external claim includes a numbered citation with URL.
+- **Cross-referencing:** Major claims backed by 3+ independent sources.
+- **Actionability:** Report includes clear trade-offs, risks, and a recommendation (not just a list of facts).
+- **Concision:** Reports stay within 150 lines while covering all required sections.
+
+## Related Agents
+
+- [implementation-planner](implementation-planner.md) — Consumes research reports to create step-by-step implementation plans.
+- [brainstormer](brainstormer.md) — Consumes research reports for solution brainstorming with external evidence.
+- [architect](architect.md) — Delegates technology evaluation research; uses findings for architecture decisions.
+- [claims-verifier](claims-verifier.md) — Independently verifies external claims in research output. Sends verification failures back via Clarify loop for re-sourcing.
