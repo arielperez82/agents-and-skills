@@ -1,9 +1,9 @@
 import { describe, it } from 'node:test';
 import assert from 'node:assert/strict';
-import { mkdtempSync, mkdirSync, writeFileSync, utimesSync, rmSync } from 'node:fs';
+import { mkdtempSync, mkdirSync, writeFileSync, utimesSync, rmSync, symlinkSync } from 'node:fs';
 import { join } from 'node:path';
 import { tmpdir } from 'node:os';
-import { execSync } from 'node:child_process';
+import { execFileSync } from 'node:child_process';
 import type { ProgressPrefilterOutput } from './prefilter-progress.ts';
 
 const SCRIPT_PATH = join(import.meta.dirname, 'prefilter-progress.ts');
@@ -26,9 +26,9 @@ const setFileAge = (dir: string, relativePath: string, daysAgo: number): void =>
 
 const runScript = (
   docsPath: string,
-): { stdout: string; exitCode: number } => {
+): { readonly stdout: string; readonly exitCode: number } => {
   try {
-    const stdout = execSync(`npx tsx ${SCRIPT_PATH} ${docsPath}`, {
+    const stdout = execFileSync('npx', ['tsx', SCRIPT_PATH, docsPath], {
       encoding: 'utf-8',
       timeout: 15_000,
     });
@@ -369,6 +369,22 @@ describe('prefilter-progress', () => {
   it('exits with code 1 for non-existent directory', () => {
     const result = runScript('/tmp/this-path-definitely-does-not-exist-xyz');
     assert.equal(result.exitCode, 1);
+  });
+
+  it('excludes symlinks to markdown files via lstatSync', () => {
+    const dir = createTempDir();
+    try {
+      writeFile(dir, 'real.md', '---\ntype: report\n---\n# Real\n');
+      symlinkSync(join(dir, 'real.md'), join(dir, 'linked.md'));
+
+      const result = runScript(dir);
+      assert.equal(result.exitCode, 0);
+      const output = parseOutput(result.stdout);
+      assert.equal(output.summary.totalFiles, 1);
+      assert.ok(output.files.every((f) => !f.path.includes('linked.md')));
+    } finally {
+      rmSync(dir, { recursive: true });
+    }
   });
 
   it('ignores directories with .md suffix', () => {

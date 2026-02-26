@@ -115,7 +115,12 @@ Scripts in this skill follow established patterns from `quality-gate-first/scrip
 | `prefilter-diff.ts` | Git diff (stdin) | `DiffPrefilterOutput` JSON | code-reviewer |
 | `prefilter-progress.ts` | Directory path (CLI arg) | `ProgressPrefilterOutput` JSON | progress-assessor |
 
-Type definitions (`MarkdownPrefilterOutput`, `DiffPrefilterOutput`, `ProgressPrefilterOutput`) are exported from each script's source file.
+Type definitions are exported from each script's source file and can be imported directly:
+
+```typescript
+import type { MarkdownPrefilterOutput } from './prefilter-markdown.ts';
+import type { ProgressPrefilterOutput } from './prefilter-progress.ts';
+```
 
 ### Adding a New Pre-Filter
 
