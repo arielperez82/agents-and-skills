@@ -99,7 +99,12 @@ Mutation operators define the types of faults injected.
 
 ## Mutation Score
 
-**Mutation Score = (Killed Mutants / Total Mutants) x 100**
+**Mutation Score = (Detected Mutants / Valid Mutants) x 100**
+
+Where:
+- **Detected** = Killed + Timeout (mutants caught by tests)
+- **Valid** = Total - CompileError - Ignored (mutants that could have been caught)
+- **NoCoverage** mutants (no test covers the mutated code) remain in the Valid denominator -- they represent real test gaps, not noise
 
 | Score | Interpretation |
 |-------|---------------|
@@ -137,12 +142,12 @@ if (x >= 0) { ... }               if (x > -1) { ... }
 
 ## Key Tools
 
-### Stryker (TypeScript / JavaScript)
+### Stryker (TypeScript / JavaScript) (v9.5+)
 
 The standard mutation testing framework for the JS/TS ecosystem.
 
 ```bash
-npm install --save-dev @stryker-mutator/core
+npm install --save-dev @stryker-mutator/core @stryker-mutator/vitest-runner @stryker-mutator/typescript-checker
 npx stryker init
 npx stryker run
 ```
@@ -150,14 +155,36 @@ npx stryker run
 Configuration example (`stryker.config.mjs`):
 
 ```javascript
+/** @type {import('@stryker-mutator/api/core').PartialStrykerOptions} */
 export default {
   mutate: ["src/**/*.ts", "!src/**/*.test.ts"],
   testRunner: "vitest",
+  checkers: ["typescript"],
   reporters: ["html", "clear-text", "progress"],
-  coverageAnalysis: "perTest",
+  // coverageAnalysis is forced to "perTest" by the Vitest runner (not configurable)
   thresholds: { high: 80, low: 60, break: 50 },
 };
 ```
+
+#### Mutation Levels
+
+Stryker v9+ supports **mutation levels** that trade mutation operator breadth for speed:
+
+- **Level 1** (fastest): Core operators only (arithmetic, conditional, logical negation)
+- **Level 2**: Level 1 + boundary mutations + return value mutations
+- **Level 3** (default): All standard operators
+- **Level 4+**: Extended operators for thorough analysis
+
+Configure in `stryker.config.mjs`:
+
+```javascript
+export default {
+  mutationLevel: 1, // Fast feedback during development
+  // omit for default (level 3) in CI
+};
+```
+
+Use level 1 for local development feedback; default (level 3) for CI scheduled runs.
 
 ### PIT (Java)
 
@@ -194,6 +221,25 @@ Mutation testing is slow (runs the full test suite once per mutant). Do not run 
 - **Nightly or weekly scheduled CI job** for full codebase analysis
 - **PR-scoped runs** targeting only changed files (incremental mutation testing)
 - **Pre-release gate** as a quality checkpoint before major releases
+
+### Incremental Mode (CI optimization)
+
+Stryker's incremental mode persists mutation results and only re-tests mutants in changed code:
+
+```bash
+npx stryker run --incremental
+```
+
+Configure the results file location:
+
+```javascript
+export default {
+  incremental: true,
+  incrementalFile: "reports/stryker-incremental.json",
+};
+```
+
+Commit the incremental file to the repository so CI builds benefit from cached results. Combined with PR-scoped `mutate` globs, this reduces CI mutation testing time by 70-90%.
 
 ### GitHub Actions Example
 

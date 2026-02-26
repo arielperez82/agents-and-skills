@@ -39,6 +39,7 @@ related-skills:
   - engineering-team/eslint-configuration
   - engineering-team/prettier-configuration
   - engineering-team/markdownlint-configuration
+  - engineering-team/mutation-testing
 related-commands:
   - skill/phase-0-check
 collaborates-with:
@@ -118,8 +119,9 @@ Load and reference these resources:
 2. Load check registry from `skills/engineering-team/quality-gate-first/references/check-registry.md`.
 3. For each **core check**: verify presence (config file exists, devDependency installed, lint-staged glob covered, CI job present).
 4. For each **conditional check**: evaluate detection criteria against project profile; if applicable, verify presence.
-5. Assess three layers: pre-commit hooks (`.husky/pre-commit` + lint-staged config), CI pipeline (`.github/workflows/`), deploy pipeline (workflow_dispatch workflow).
-6. Produce the assessment report.
+5. For projects with established coverage (70%+): check whether mutation testing is configured (look for `stryker.config.mjs` or `stryker.config.js`). If applicable but not present, report as conditional check gap with detection criteria note.
+6. Assess three layers: pre-commit hooks (`.husky/pre-commit` + lint-staged config), CI pipeline (`.github/workflows/`), deploy pipeline (workflow_dispatch workflow).
+7. Produce the assessment report.
 
 **Expected output:** Phase 0 Assessment Report with per-check status and remediation.
 
@@ -166,6 +168,7 @@ Load and reference these resources:
 |-------|---------|--------|---------|
 | markdownlint | 12 .md files | [PRESENT] | .markdownlint.json found |
 | stylelint | has *.css files | [MISSING] | no stylelint config |
+| mutation-testing | 70%+ coverage | [MISSING] | no stryker.config.mjs found |
 | ... | ... | ... | ... |
 
 ## Summary

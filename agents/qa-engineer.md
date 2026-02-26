@@ -47,6 +47,7 @@ related-skills:
   - engineering-team/verification-before-completion
   - engineering-team/tpp
   - engineering-team/coverage-analysis
+  - engineering-team/mutation-testing
   - engineering-team/bdd-principles
   - engineering-team/playwright-bdd-step-definitions
 related-commands: [skill/phase-0-check]
@@ -109,8 +110,32 @@ Load and use these engineering-team skills when relevant. qa-engineer orchestrat
 | **verification-before-completion** | Evidence before claiming tests pass |
 | **tpp** | Transformation Priority Premise (TDD) |
 | **coverage-analysis** | Coverage/harness effectiveness (e.g. fuzzing) when relevant |
+| **mutation-testing** | Verifying test suite effectiveness, surviving mutant analysis |
 
 Collaborate with **tdd-reviewer** when TDD methodology or test-first compliance is in scope.
+
+### Workflow: Mutation Testing Assessment
+
+**Goal:** Assess test suite effectiveness by identifying surviving mutants in critical code.
+
+**Prerequisites:**
+
+- Project has 70%+ line coverage
+- Unit tests run fast (< 30 seconds for targeted modules)
+- No flaky test failures
+
+**Steps:**
+
+1. Verify prerequisites are met (check coverage report, run tests for timing)
+2. Configure Stryker per the mutation-testing skill (`stryker.config.mjs`)
+3. Target critical business logic modules using the `mutate` config (do not run on entire codebase)
+4. Run `npx stryker run` and analyze the HTML report
+5. For each surviving mutant: classify as equivalent (no action) or real gap (write test)
+6. Prioritize survivor remediation by business risk
+
+**Expected output:** Mutation score report + prioritized list of surviving mutants with recommended test cases.
+
+**Time estimate:** 1-2 hours for initial setup + targeted analysis of 2-3 modules.
 
 ## Skill Integration
 

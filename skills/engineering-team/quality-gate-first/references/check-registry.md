@@ -22,7 +22,7 @@ Structured reference of every Phase 0 check: what it does, when it applies, and 
 | `eslint` | Code quality + style | ESLint flat config | `*.{ts,tsx}` → `eslint --fix` | `pnpm lint` |
 | `prettier` | Consistent formatting | Prettier | `*` → `prettier --write` | `pnpm format:check` |
 
-## Summary: Conditional Checks (13)
+## Summary: Conditional Checks (14)
 
 | ID | Detection criteria | Tool | lint-staged glob | CI command |
 |----|-------------------|------|------------------|------------|
@@ -39,6 +39,7 @@ Structured reference of every Phase 0 check: what it does, when it applies, and 
 | `vitest-typecheck` | Uses Vitest | Vitest --typecheck | Via test run | `vitest run --typecheck` |
 | `toml-lint` | Has `*.toml` | taplo | `*.toml` → `taplo fmt` | `taplo fmt --check` |
 | `detect-secrets` | Enhanced security posture | detect-secrets (Yelp) | All staged → `detect-secrets-hook --baseline .secrets.baseline` | `detect-secrets scan` |
+| `mutation-testing` | 70%+ line coverage + critical business logic | Stryker (@stryker-mutator/core) | N/A (too slow for pre-commit) | `npx stryker run` (scheduled CI) |
 
 ## Core Check Details
 
@@ -150,3 +151,14 @@ Structured reference of every Phase 0 check: what it does, when it applies, and 
 ### `detect-secrets`
 - **Deps:** `pip install detect-secrets`
 - **Config:** `.secrets.baseline`
+
+### `mutation-testing`
+- **Tier:** conditional
+- **Detection criteria:** Project has 70%+ line coverage (check coverage reports or CI history) AND has modules identified as critical business logic
+- **Deps:** `@stryker-mutator/core`, `@stryker-mutator/vitest-runner`, `@stryker-mutator/typescript-checker`
+- **Config:** `stryker.config.mjs` (see mutation-testing skill for example)
+- **lint-staged:** N/A -- mutation testing is too slow for pre-commit (~1 min+ per module)
+- **CI:** Scheduled job (weekly or nightly): `npx stryker run`; PR-scoped with `--incremental` for changed files
+- **Thresholds:** `break: 50` (fail build below 50%), `low: 60`, `high: 80`
+- **Skill:** `engineering-team/mutation-testing`
+- **Note:** This is an advanced quality check. Do not add to projects with < 70% coverage or without stable test suites. Start with targeted modules, not full codebase.

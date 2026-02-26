@@ -57,7 +57,7 @@ When generating or reviewing plans/backlogs:
 - Phase 0 is the **first phase** with all three layers (pre-commit, CI, deploy). Feature work starts in Phase 1.
 - Document which pattern: (1) minimal skeleton + gates, or (2) scaffold-with-gates + verify.
 - If a plan lacks Phase 0 or starts features before the gate is complete, flag it.
-- **Conditional checks to include:** `eslint-plugin-security` + `no-restricted-properties` when TS/JS present (see eslint-configuration skill), Semgrep with `.semgrep.yml` when TS/JS present (see semgrep-scanning skill), ShellCheck when `*.sh` present (see shell-scripting skill), Terraform fmt/validate/test when `*.tf` present (see terraform-configuration skill), Stylelint when frontend, jsx-a11y when React/JSX.
+- **Conditional checks to include:** `eslint-plugin-security` + `no-restricted-properties` when TS/JS present (see eslint-configuration skill), Semgrep with `.semgrep.yml` when TS/JS present (see semgrep-scanning skill), ShellCheck when `*.sh` present (see shell-scripting skill), Terraform fmt/validate/test when `*.tf` present (see terraform-configuration skill), Stylelint when frontend, jsx-a11y when React/JSX, mutation testing (Stryker) when project has 70%+ line coverage and critical business logic modules -- scheduled CI job only, NOT pre-commit (see mutation-testing skill).
 - **TS/JS projects:** Include path aliases (`tsconfig.json` paths + bundler `resolve.alias`). See typescript-strict and vitest-configuration skills.
 - **Initiative context:** When plans live under `.docs/canonical/`, include `initiative` and `initiative_name` in front matter.
 
@@ -88,7 +88,7 @@ The canonical list of all Phase 0 checks is in `references/check-registry.md`. E
 
 Core checks (12): `trailing-whitespace`, `mixed-line-ending`, `large-files`, `merge-conflicts`, `private-keys`, `no-commit-to-branch`, `case-conflict`, `check-json`, `check-yaml`, `type-check`, `eslint`, `prettier`.
 
-Conditional checks (13): `eslint-security`, `semgrep`, `markdownlint`, `stylelint`, `jsx-a11y`, `react-hooks`, `shellcheck`, `actionlint`, `tflint`, `hadolint`, `vitest-typecheck`, `toml-lint`, `detect-secrets`.
+Conditional checks (14): `eslint-security`, `semgrep`, `markdownlint`, `stylelint`, `jsx-a11y`, `react-hooks`, `shellcheck`, `actionlint`, `tflint`, `hadolint`, `vitest-typecheck`, `toml-lint`, `detect-secrets`.
 
 ## Automated Detection
 
