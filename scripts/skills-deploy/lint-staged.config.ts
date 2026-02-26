@@ -7,6 +7,9 @@ const semgrepScript = resolve(
 );
 
 export default {
+  '**/*.{md,json,yaml,yml}': (stagedFiles: string[]) => [
+    `pnpm format:fix ${stagedFiles.join(' ')}`,
+  ],
   '**/*.ts': (stagedFiles: string[]) => [
     'pnpm type-check',
     'pnpm lint:fix',
