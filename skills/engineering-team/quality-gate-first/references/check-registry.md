@@ -120,9 +120,14 @@ Structured reference of every Phase 0 check: what it does, when it applies, and 
 ### `shellcheck`
 - **Deps:** System install: `brew install shellcheck` (macOS) or `apt install shellcheck`
 - **Config:** `.shellcheckrc` (optional)
+- **Skill:** `engineering-team/shell-scripting`
+- **Note:** Runner script template at `engineering-team/shell-scripting/scripts/run-shellcheck.sh` — checks tool installed, exits 0 if no args, execs `shellcheck --severity=warning`. Copy to project `scripts/` and wire into lint-staged or Husky hook.
 
 ### `actionlint`
-- **Deps:** System install: `brew install actionlint` or `go install`
+- **Deps:** System install: `brew install actionlint` or `go install github.com/rhysd/actionlint/cmd/actionlint@latest`
+- **Config:** `.github/actionlint.yml` (optional — self-hosted runner labels, ShellCheck ignore codes)
+- **Skill:** `engineering-team/actionlint`
+- **Note:** Runner script template at `engineering-team/actionlint/scripts/run-actionlint.sh` — checks tool installed, exits 0 if no args, execs `actionlint`. Copy to project `scripts/` and wire into lint-staged or Husky hook. Actionlint also runs ShellCheck on `run:` steps when ShellCheck is installed.
 
 ### `tflint`
 - **Deps:** System install: `brew install tflint terraform`

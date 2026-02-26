@@ -32,6 +32,8 @@ semgrep --version
 
 If not installed, see [Semgrep installation docs](https://semgrep.dev/docs/getting-started/).
 
+**Runner script template:** A reusable pre-commit runner script is provided at `scripts/run-semgrep.sh`. It checks tool installation, exits 0 if no args, locates `.semgrep.yml` at repo root, and execs Semgrep on the given files. Copy to your project's `scripts/` directory for lint-staged or Husky integration.
+
 **Optional:** Semgrep Pro (for cross-file analysis and Pro languages)
 
 ```bash

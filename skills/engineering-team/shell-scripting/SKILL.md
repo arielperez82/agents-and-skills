@@ -42,14 +42,25 @@ shellcheck scripts/*.sh telemetry/scripts/*.sh
 
 Exit code is non-zero when there are issues. Use `--severity=warning` to fail only on warning and above; default includes style.
 
+## Runner script template
+
+A reusable runner script is provided at `scripts/run-shellcheck.sh`. It follows the pattern: check tool installed (exit 1 with install hint if missing), exit 0 if no args, exec tool on args.
+
+Copy to your project's `scripts/` directory and wire into lint-staged or a Husky hook:
+
+```bash
+cp skills/engineering-team/shell-scripting/scripts/run-shellcheck.sh scripts/run-shellcheck.sh
+chmod +x scripts/run-shellcheck.sh
+```
+
 ## Pre-commit
 
 Run ShellCheck only on **staged** shell files. Two patterns:
 
-1. **Separate hook leg (recommended when lint-staged is scoped):** In `.husky/pre-commit`, after lint-staged, add: if any staged file matches `*.sh`, run a script that runs `shellcheck` on those files from repo root. Mirror the pattern used for actionlint (workflow files).
-2. **Lint-staged:** If lint-staged sees repo-wide files, add an entry: `'**/*.sh': 'shellcheck'` (or a wrapper that passes only the staged list). Commands run from repo root so paths resolve.
+1. **Separate hook leg (recommended when lint-staged is scoped):** In `.husky/pre-commit`, after lint-staged, add: if any staged file matches `*.sh`, run a script that passes those files to `scripts/run-shellcheck.sh` from repo root. Mirror the pattern used for actionlint (workflow files).
+2. **Lint-staged:** If lint-staged sees repo-wide files, add an entry: `'**/*.sh': 'shellcheck'` (or point to `scripts/run-shellcheck.sh`). Commands run from repo root so paths resolve.
 
-Require `shellcheck` on PATH; if missing, the hook should exit 1 with an install message (e.g. `brew install shellcheck`).
+Require `shellcheck` on PATH; if missing, the runner script exits 1 with an install message.
 
 ## CI
 
