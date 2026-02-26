@@ -186,14 +186,41 @@ import security from 'eslint-plugin-security';
 ...(security.configs?.recommended ? [security.configs.recommended] : []),
 ```
 
-Same optional-chaining pattern as SonarJS. Unlike SonarJS, `eslint-plugin-security` ships no types, so you need an eslint-disable comment:
+Same optional-chaining pattern as SonarJS. Unlike SonarJS, `eslint-plugin-security` ships no types. Create a `.d.ts` declaration file in the workspace root:
 
 ```typescript
-// eslint-disable-next-line @typescript-eslint/no-unsafe-member-access, @typescript-eslint/no-unsafe-argument -- eslint-plugin-security ships no types
-...(security.configs?.recommended ? [security.configs.recommended] : []),
+// eslint-plugin-security.d.ts
+declare module 'eslint-plugin-security' {
+  import type { Linter } from 'eslint';
+  const plugin: {
+    configs?: {
+      recommended?: Linter.Config;
+    };
+  };
+  export default plugin;
+}
 ```
 
-Catches: `child_process` usage, non-literal `fs` filenames (path traversal), `eval` with expressions, object injection via bracket notation, non-literal `require`.
+This eliminates the need for `eslint-disable` comments on the import/spread. If using `projectService`, the `.d.ts` file is usually auto-discovered. If not (e.g. telemetry workspace), add `'*.d.ts'` to `parserOptions.projectService.allowDefaultProject`.
+
+**Catches:** `eval` with expressions, object injection via bracket notation, non-literal `require`, unsafe regex, `child_process` usage.
+
+**CLI/build-tool projects:** Disable `detect-non-literal-fs-filename` — it flags every `fs` call with a variable path, producing false positives in CLI tools where all paths come from trusted internal sources:
+
+```typescript
+{
+  rules: {
+    'security/detect-non-literal-fs-filename': 'off',
+  },
+}
+```
+
+**Inline disables for false positives:** Some rules flag safe patterns. Use inline disables with justification:
+
+- `detect-object-injection` — safe when indexing by known keys or computed array indices:
+  `// eslint-disable-next-line security/detect-object-injection -- index computed from array length`
+- `detect-unsafe-regex` — safe for anchored patterns with bounded input (e.g. file paths):
+  `// eslint-disable-next-line security/detect-unsafe-regex -- anchored path pattern, bounded input`
 
 Pair with `no-restricted-properties` to enforce `execFileSync` over `execSync` and `lstatSync` over `statSync`:
 
@@ -227,7 +254,7 @@ Pair with `no-restricted-properties` to enforce `execFileSync` over `execSync` a
 }
 ```
 
-Recommended for all TS/JS projects. See Phase 0 check-registry `eslint-security` for full integration details.
+Both `eslint-plugin-security` and `no-restricted-properties` are recommended for all TS/JS projects. The `no-restricted-properties` rules MUST be `'error'` level (not `'warn'`).
 
 ### eslint-plugin-jsx-a11y (React projects)
 
