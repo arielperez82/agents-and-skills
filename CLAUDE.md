@@ -210,6 +210,7 @@ This is the end-to-end lifecycle for all work — features, bug fixes, refactori
     │  Must be complete before any feature work
     ▼
  2. PLAN
+    researcher + product-director (parallel) ─► claims-verifier (sequential)
     product-analyst ─► acceptance-designer ─► architect ─► implementation-planner
     │  Charter evaluated against evergreen Roadmap; Backlog → Plan (.docs/canonical/)
     ▼
@@ -254,7 +255,9 @@ Complete before any feature work. See "Phase 0: Quality Gate First" below for de
 
 ### 2. Plan
 
+- `researcher` → external research, best practices, risks (parallel with product-director)
 - `product-director` → evaluates charter against evergreen roadmap, slots initiative into Now/Next/Later
+- `claims-verifier` → independently validates external claims in all Phase 0 artifacts (sequential after agents complete; Clarify loop back to originating agent if FAIL)
 - `product-analyst` → user stories, acceptance criteria
 - `acceptance-designer` → BDD Given-When-Then scenarios (outer-loop tests)
 - `architect` / `adr-writer` → system design, ADRs (`.docs/canonical/adrs/`)
@@ -286,6 +289,7 @@ Run `/review/review-changes` — single gate, all agents in parallel:
 | `code-reviewer` — quality + merge readiness | `skill-validator` — when skills/ changed |
 | `cognitive-load-assessor` — maintainability | `command-validator` — when commands/ changed |
 | | `phase0-assessor` — when Phase 0 configs changed |
+| | `claims-verifier` — when /craft Phase 0 or claim-heavy work |
 
 After pass: **ask for commit approval**, then `/git/cm` or `/git/cp`.
 

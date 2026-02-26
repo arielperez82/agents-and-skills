@@ -213,7 +213,7 @@ phases:
   - name: Discover
     number: 0
     status: pending  # pending | in_progress | approved | skipped | rejected | error
-    agents: [researcher, product-director]
+    agents: [researcher, product-director, claims-verifier]
     artifact_paths: []
     commit_shas: []
     started_at: null
@@ -311,7 +311,13 @@ For each phase: update status to `in_progress` and record `started_at`, run prec
 
 **Purpose:** Determine whether this goal is worth pursuing, how it might be approached, and what the strategic landscape looks like. This phase has the authority to recommend "don't pursue this," "refine the goal," or "proceed."
 
-**Agents:** `researcher` and `product-director` (run in parallel — independent concerns). Optionally pull in `ux-researcher` (if goal involves user-facing changes), `cto-advisor` (if goal has significant technical strategy implications), or `architect` (if feasibility depends on technical architecture).
+**Agents (staged execution):**
+
+1. **Parallel:** `researcher` and `product-director` (independent concerns — run simultaneously)
+2. **Sequential:** After all Phase 0 agents complete, `claims-verifier` runs on all Phase 0 artifacts (research report, strategic assessment, UX findings, etc.)
+3. **Clarify loop (if needed):** If verifier verdict is FAIL, send verification failures back to the **originating agent(s)** for re-sourcing. After agents update their artifacts, verifier re-checks (max 1 Clarify round). If still FAIL after Clarify, mandatory pause for human review (even in auto-mode).
+
+Optionally pull in `ux-researcher` (if goal involves user-facing changes), `cto-advisor` (if goal has significant technical strategy implications), or `architect` (if feasibility depends on technical architecture).
 
 **Prompt for researcher:**
 ```
@@ -352,18 +358,61 @@ Include your assessment in the research report or save separately to:
 .docs/reports/researcher-{date}-{subject}-strategic-assessment.md
 ```
 
+**Prompt for claims-verifier (runs after all Phase 0 agents complete):**
+```
+Verify the external claims in all Phase 0 artifacts:
+
+Artifacts:
+- Research report: <path to researcher artifact>
+- Strategic assessment: <path to product-director artifact, if available>
+- UX research: <path to ux-researcher artifact, if available>
+- Other: <any additional Phase 0 artifacts>
+
+Goal: <goal>
+
+For every claim about external APIs, libraries, services, contracts, capabilities,
+statistics, market data, user behavior, or regulatory requirements:
+1. Independently fetch the official documentation or authoritative source
+2. Compare the claimed fact against what the source actually says
+3. Classify each claim: Verified / Contradicted / Unverifiable / Stale
+4. Tag each claim with its originating agent
+
+Produce a verification report. Any Contradicted or Unverifiable claim on the critical path is a blocker.
+Save to: .docs/reports/claims-verifier-{date}-{subject}.md
+```
+
+**If verifier verdict is FAIL:** Trigger Clarify loop — send the Verification Failure blocks back to each **originating agent** with:
+```
+Your Phase 0 artifact has unverified claims that block the gate.
+
+Verification failures:
+<verification failure blocks from claims-verifier report, filtered to this agent>
+
+Please update your artifact to either:
+1. Provide valid source URLs that confirm each claim
+2. Correct claims that contradict authoritative sources
+3. Remove claims that cannot be substantiated
+
+Save the updated artifact to the same path.
+```
+
+After originating agent(s) update, dispatch `claims-verifier` again (Workflow 2: re-verify). Max 1 Clarify round. If still FAIL, mandatory human pause.
+
 **Optional agents (engage when the goal warrants it):**
 - `ux-researcher` — When the goal involves user-facing changes, research user needs and validate assumptions.
 - `cto-advisor` — When the goal has broad technical strategy implications (new platforms, major architectural shifts, build vs. buy).
 - `architect` — When feasibility depends on technical architecture and you need early "art of the possible" input.
 
-**Output artifacts:** `.docs/reports/researcher-{date}-{subject}.md` (and any additional assessment reports)
+**Output artifacts:**
+- `.docs/reports/researcher-{date}-{subject}.md` (research report)
+- `.docs/reports/claims-verifier-{date}-{subject}.md` (verification report)
+- Any additional assessment reports (strategic, UX, architecture)
 
-**Gate behavior:** This phase's gate is special — it includes a go/no-go recommendation. Present the research findings and strategic assessment, then offer the standard gate options plus:
+**Gate behavior:** This phase's gate is special — it includes a go/no-go recommendation and a research verification verdict. Present the research findings, strategic assessment, **and verification verdict**, then offer the standard gate options plus:
 - **Refine** — Accept the recommendation to change the goal. The human provides a refined goal, and the session restarts with the new goal (status file updated).
 - **Override** — Proceed despite a "don't pursue" recommendation. Record the override rationale in the status file.
 
-Record artifact paths in the status file. Present a summary of key findings and the strategic recommendation at the gate.
+Record artifact paths in the status file. Present a summary of key findings, the strategic recommendation, and the **claims-verifier verdict** at the gate. If the verifier verdict is FAIL (after Clarify loop exhausted), this is a mandatory pause — even in auto-mode.
 
 ---
 

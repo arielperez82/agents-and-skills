@@ -100,6 +100,17 @@ The finding is **informational** — context, metrics, or patterns worth noting 
 | Style preferences, minor optimizations | Observation | Informational |
 | Positive findings (clean code, good patterns) | Observation | Reinforcement |
 
+### claims-verifier (existing: Contradicted / Unverifiable / Stale / Single-source / Low reputation / Verified)
+
+| Finding Type | Standard Tier | Rationale |
+|---|---|---|
+| Contradicted claim (critical path) | Fix required | Building on false premises wastes entire build cycles |
+| Unverifiable claim (critical path) | Fix required | Cannot confirm the foundation the implementation depends on |
+| Stale source (exceeds freshness threshold) | Fix required | Source may describe deprecated or changed behavior |
+| Single-source claim | Suggestion | Plausible but unconfirmed; could be correct |
+| Low reputation average (<0.6) | Suggestion | Source quality concern across the report |
+| Verified claims, passing checks | Observation | Confirmation that the research is sound |
+
 ### cognitive-load-assessor
 
 | Finding Type | Standard Tier | Rationale |

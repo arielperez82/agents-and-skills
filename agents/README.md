@@ -75,6 +75,7 @@ These agents live directly in the `agents/` root directory:
 - **`qa-engineer`** - QA and testing specialist for test automation, coverage analysis, and quality metrics
 - **`code-reviewer`** - Code review specialist for quality assessment, security analysis, and best practices
 - **`refactor-assessor`** - Assesses refactoring opportunities after tests pass (TDD's third step)
+- **`claims-verifier`** - Adversarial verification agent that independently validates external claims in any agent's output — research, UX findings, strategic assessments, product analyses (no rewriting — only verifies and reports)
 - **`security-assessor`** - Assesses code or diffs for security and produces a findings report with criticality (no implementation)
 - **`ts-enforcer`** - Enforces TypeScript strict mode and best practices
 - **`tpp-assessor`** - Transformation Priority Premise (TPP) guardian for TDD transformations
@@ -92,6 +93,7 @@ These agents live directly in the `agents/` root directory:
 - **`technical-writer`** - Technical writing for documentation automation, README generation, and API documentation
 - **`debugger`** - Debugging specialist for root cause analysis and error resolution
 - **`researcher`** - Technology researcher for external research, best practices, and technology evaluation
+- **`claims-verifier`** - Adversarial verification of external claims in any agent output (see Quality & Testing)
 - **`brainstormer`** - Solution brainstorming for evaluating architectural approaches and exploring solutions
 - **`codebase-scout`** - Codebase exploration specialist for searching and analyzing codebases
 - **`implementation-planner`** - Implementation planning for creating comprehensive step-by-step implementation plans
@@ -187,6 +189,18 @@ These agents live directly in the `agents/` root directory:
 - code-reviewer delegates the security slice of a code review
 
 **Core responsibility**: Assess and report only; recommend security-engineer (or devsecops-engineer for infra) for remediation.
+
+---
+
+#### `claims-verifier`
+**Purpose**: Adversarial verification agent that independently validates external claims (API contracts, library capabilities, user statistics, market data, regulatory requirements) in any agent's output before those claims influence decisions or implementation.
+
+**Use when**:
+- `/craft` Phase 0 completes (automatic — runs sequentially after all Phase 0 agents)
+- Any agent artifact contains external factual claims that decisions depend on
+- Need to verify statistical claims from UX research, market claims from product-director, or technical claims from researcher
+
+**Core responsibility**: Independently fetch sources and verify every external claim regardless of which agent made it. Produce a verification report with per-claim status (Verified/Contradicted/Unverifiable/Stale) and an overall verdict (PASS/PASS WITH WARNINGS/FAIL). Push back unverified critical-path claims to the originating agent via Clarify loop. Never rewrite source artifacts.
 
 ---
 

@@ -43,6 +43,7 @@ Even in auto-mode, the following conditions MUST pause for human review:
 - **Large change scope:** More than 50 files created or modified in a single phase
 - **Agent errors:** Non-zero exit, missing required output, or repeated failures
 - **External side effects:** Any action that would affect systems outside the local repo (API calls, deployments, external service configuration)
+- **Unverified claims:** `claims-verifier` reports FAIL verdict (Contradicted or Unverifiable claims on critical path from any agent persist after Clarify loop)
 
 **Auto-Clarify:** When an agent flags uncertainty or ambiguity, automatically trigger the Clarify protocol (see `craft.md`) — dispatch the relevant prior-phase agent, incorporate the answer, and continue. Only pause for human input if the Clarify loop cannot resolve the issue agent-to-agent. Log every Auto-Clarify as a `CLARIFY` audit entry regardless of outcome.
 
@@ -51,6 +52,7 @@ Even in auto-mode, the following conditions MUST pause for human review:
 - A Clarify loop cannot be resolved agent-to-agent (ambiguity persists after one round)
 - Required precondition artifacts are missing
 - Phase 0 product-director recommends "don't pursue" or "refine" (always pause for this)
+- Phase 0 claims-verifier verdict is FAIL after Clarify loop exhausted (unverified critical-path claims)
 
 ## 3. Phase-Specific Overrides
 

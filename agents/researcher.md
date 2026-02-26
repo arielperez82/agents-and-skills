@@ -171,4 +171,55 @@ Include in your research reports:
 - Risk assessment and feasibility considerations
 - System-wide implications
 - Trade-off analysis
+- Claims Registry (see below)
+- Source Analysis Table (see below)
 - Unresolved questions (if any)
+
+### Mandatory Source Citations
+
+**Every external claim must include a numbered citation with URL.** An external claim is any assertion about:
+- API shapes, endpoints, request/response contracts
+- Library capabilities, features, or limitations
+- Service contracts, pricing, rate limits, quotas
+- Dependency versions, compatibility, or deprecation status
+- Third-party behavior, performance characteristics, or guarantees
+
+Use numbered citations in the report body (e.g., `[1]`, `[2]`) and list full references at the end:
+
+```
+[1] {Author/Organization}. "{Title}". {Publication/Website}. {Date}. {Full URL}. Accessed {YYYY-MM-DD}.
+```
+
+Claims without citations are flagged as unverifiable by the `claims-verifier` agent and block the Phase 0 gate.
+
+### Claims Registry
+
+Include a **Claims Registry** table listing all external/technical claims with their citation numbers. This makes the report machine-checkable by the `claims-verifier` agent.
+
+```markdown
+## Claims Registry
+
+| # | Claim | Citation | Critical Path |
+|---|-------|----------|---------------|
+| 1 | {specific assertion about external API/library/service} | [N] | Yes/No |
+| 2 | ... | [N] | Yes/No |
+```
+
+Mark a claim as "Critical Path: Yes" if the implementation would depend on it being true.
+
+### Source Analysis Table
+
+Include a **Source Analysis Table** (using the template from `skills/research/references/source-verification-tiers.md`) to track source quality:
+
+```markdown
+## Source Analysis
+
+| Source | Domain | Reputation | Type | Access Date | Verification |
+|--------|--------|------------|------|-------------|--------------|
+| {name} | {domain} | {High/Medium-High/Medium} | {academic/official/industry/technical} | {YYYY-MM-DD} | {Cross-verified/Partially verified/Single-source} |
+
+**Reputation Summary**:
+- High reputation sources: {count} ({percentage}%)
+- Medium-high reputation: {count} ({percentage}%)
+- Average reputation score: {0.0-1.0}
+```
