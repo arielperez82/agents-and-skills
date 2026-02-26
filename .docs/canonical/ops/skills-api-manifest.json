@@ -500,6 +500,15 @@
     },
     "skills/engineering-team/tiered-review": {
       "skill_id": "skill_01HJdeEwxyp6XjrdXoHkMLsa"
+    },
+    "skills/engineering-team/actionlint": {
+      "skill_id": "skill_01Anr1kafXyux3e9gDGaLbCD"
+    },
+    "skills/engineering-team/composition-patterns": {
+      "skill_id": "skill_01NU6vi5TwcmkjaS2ocKbytW"
+    },
+    "skills/engineering-team/react-native-skills": {
+      "skill_id": "skill_01LoshoMc2tUtj6tdgR1tGxw"
     }
   }
 }
