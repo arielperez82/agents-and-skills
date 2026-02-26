@@ -90,6 +90,23 @@ describe('assessPhase0', () => {
     strictEqual(findCheck(assessPhase0(dir, { scopeRoot: dir }), 'type-check')?.status, 'partial');
   });
 
+  it('detects eslint.config.cjs as flat config', (t) => {
+    const dir = withTempProject(t);
+    writeFileSync(
+      join(dir, 'package.json'),
+      JSON.stringify({
+        scripts: { lint: 'eslint .' },
+        devDependencies: { eslint: '^9.0.0' },
+      }),
+    );
+    writeFileSync(join(dir, 'eslint.config.cjs'), 'module.exports = [];');
+
+    const report = assessPhase0(dir, { scopeRoot: dir });
+    const eslintCheck = findCheck(report, 'eslint');
+    strictEqual(eslintCheck?.status, 'present');
+    strictEqual(eslintCheck?.details.includes('(flat config)'), true);
+  });
+
   it('reports partial prettier when config exists but no .prettierignore', (t) => {
     const dir = withTempProject(t);
     writeFileSync(join(dir, 'package.json'), JSON.stringify({ scripts: {} }));

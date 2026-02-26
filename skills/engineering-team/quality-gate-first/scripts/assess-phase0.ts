@@ -48,7 +48,7 @@ const ESLINT_CONFIGS = [
 ] as const;
 
 const ESLINT_FLAT_CONFIGS = [
-  'eslint.config.ts', 'eslint.config.js', 'eslint.config.mjs',
+  'eslint.config.ts', 'eslint.config.js', 'eslint.config.mjs', 'eslint.config.cjs',
 ] as const;
 
 const PRETTIER_CONFIGS = [
@@ -144,7 +144,7 @@ const assessPrettier = (projectPath: string, pkg: PackageJson | null): CheckResu
   const missing = [
     !hasIgnore ? '.prettierignore' : null,
     !hasFormatScript ? 'format script' : null,
-  ].filter(Boolean);
+  ].filter((item): item is string => item !== null);
   return checkResult('prettier', 'Prettier formatting', 'core', 'partial', `Prettier config found but missing: ${missing.join(', ')}`);
 };
 
