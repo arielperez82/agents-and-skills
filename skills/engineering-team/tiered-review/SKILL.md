@@ -119,6 +119,7 @@ Type definitions are exported from each script's source file and can be imported
 
 ```typescript
 import type { MarkdownPrefilterOutput } from './prefilter-markdown.ts';
+import type { DiffPrefilterOutput } from './prefilter-diff.ts';
 import type { ProgressPrefilterOutput } from './prefilter-progress.ts';
 ```
 

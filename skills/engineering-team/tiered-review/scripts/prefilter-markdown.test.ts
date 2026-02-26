@@ -34,6 +34,9 @@ const run = (
 ): { readonly stdout: string; readonly exitCode: number } =>
   runWithArgs(filePaths);
 
+const parseOutput = (stdout: string): MarkdownPrefilterOutput =>
+  JSON.parse(stdout) as MarkdownPrefilterOutput;
+
 const createTempDir = (): string => mkdtempSync(join(tmpdir(), 'md-prefilter-'));
 
 const createTempFile = (dir: string, name: string, content: string): string => {
@@ -69,7 +72,7 @@ describe('prefilter-markdown', () => {
 
         assert.equal(exitCode, 0);
 
-        const result = JSON.parse(stdout) as MarkdownPrefilterOutput;
+        const result = parseOutput(stdout);
         const file = result.files[0];
 
         assert.equal(file.headingTree.length, 4);
@@ -110,7 +113,7 @@ describe('prefilter-markdown', () => {
 
         assert.equal(exitCode, 0);
 
-        const result = JSON.parse(stdout) as MarkdownPrefilterOutput;
+        const result = parseOutput(stdout);
         const file = result.files[0];
 
         assert.equal(file.links.length, 2);
@@ -153,7 +156,7 @@ describe('prefilter-markdown', () => {
 
         assert.equal(exitCode, 0);
 
-        const result = JSON.parse(stdout) as MarkdownPrefilterOutput;
+        const result = parseOutput(stdout);
         assert.equal(result.files[0].codeBlocks, 2);
       } finally {
         rmSync(dir, { recursive: true });
@@ -177,7 +180,7 @@ describe('prefilter-markdown', () => {
 
         assert.equal(exitCode, 0);
 
-        const result = JSON.parse(stdout) as MarkdownPrefilterOutput;
+        const result = parseOutput(stdout);
         assert.ok(result.files[0].totalWordCount >= 8);
       } finally {
         rmSync(dir, { recursive: true });
@@ -201,7 +204,7 @@ describe('prefilter-markdown', () => {
 
         assert.equal(exitCode, 0);
 
-        const result = JSON.parse(stdout) as MarkdownPrefilterOutput;
+        const result = parseOutput(stdout);
         const file = result.files[0];
 
         assert.equal(file.links.length, 2);
@@ -220,7 +223,7 @@ describe('prefilter-markdown', () => {
         const filePath = createTempFile(dir, 'test.md', content);
         const { stdout, exitCode } = run(filePath);
         assert.equal(exitCode, 0);
-        const result = JSON.parse(stdout) as MarkdownPrefilterOutput;
+        const result = parseOutput(stdout);
         const link = result.files[0].links[0];
         assert.equal(link.status, 'valid');
       } finally {
@@ -235,7 +238,7 @@ describe('prefilter-markdown', () => {
         const filePath = createTempFile(dir, 'test.md', content);
         const { stdout, exitCode } = run(filePath);
         assert.equal(exitCode, 0);
-        const result = JSON.parse(stdout) as MarkdownPrefilterOutput;
+        const result = parseOutput(stdout);
         const link = result.files[0].links[0];
         assert.equal(link.url, '#heading');
         assert.equal(link.status, 'valid');
@@ -252,7 +255,7 @@ describe('prefilter-markdown', () => {
         const filePath = createTempFile(dir, 'test.md', content);
         const { stdout, exitCode } = run(filePath);
         assert.equal(exitCode, 0);
-        const result = JSON.parse(stdout) as MarkdownPrefilterOutput;
+        const result = parseOutput(stdout);
         const link = result.files[0].links[0];
         assert.equal(link.url, 'other.md#section');
         assert.equal(link.status, 'valid');
@@ -268,7 +271,7 @@ describe('prefilter-markdown', () => {
         const filePath = createTempFile(dir, 'test.md', content);
         const { stdout, exitCode } = run(filePath);
         assert.equal(exitCode, 0);
-        const result = JSON.parse(stdout) as MarkdownPrefilterOutput;
+        const result = parseOutput(stdout);
         const link = result.files[0].links[0];
         assert.equal(link.url, 'missing.md#section');
         assert.equal(link.status, 'broken');
@@ -284,7 +287,7 @@ describe('prefilter-markdown', () => {
         const filePath = createTempFile(dir, 'test.md', content);
         const { stdout, exitCode } = run(filePath);
         assert.equal(exitCode, 0);
-        const result = JSON.parse(stdout) as MarkdownPrefilterOutput;
+        const result = parseOutput(stdout);
         const link = result.files[0].links[0];
         assert.equal(link.status, 'external');
       } finally {
@@ -309,7 +312,7 @@ describe('prefilter-markdown', () => {
 
         assert.equal(exitCode, 0);
 
-        const result = JSON.parse(stdout) as MarkdownPrefilterOutput;
+        const result = parseOutput(stdout);
         const file = result.files[0];
 
         assert.ok(
@@ -340,7 +343,7 @@ describe('prefilter-markdown', () => {
 
         assert.equal(exitCode, 0);
 
-        const result = JSON.parse(stdout) as MarkdownPrefilterOutput;
+        const result = parseOutput(stdout);
         const file = result.files[0];
 
         assert.ok(
@@ -368,7 +371,7 @@ describe('prefilter-markdown', () => {
 
         assert.equal(exitCode, 0);
 
-        const result = JSON.parse(stdout) as MarkdownPrefilterOutput;
+        const result = parseOutput(stdout);
         const file = result.files[0];
 
         assert.ok(file.missingSections.length > 0);
@@ -387,7 +390,7 @@ describe('prefilter-markdown', () => {
 
         assert.equal(exitCode, 0);
 
-        const result = JSON.parse(stdout) as MarkdownPrefilterOutput;
+        const result = parseOutput(stdout);
         const file = result.files[0];
 
         assert.deepEqual(file.headingTree, []);
@@ -440,7 +443,7 @@ describe('prefilter-markdown', () => {
 
         assert.equal(exitCode, 0);
 
-        const result = JSON.parse(stdout) as MarkdownPrefilterOutput;
+        const result = parseOutput(stdout);
         const headings = result.files[0].headingTree;
 
         assert.equal(headings.length, 6);
@@ -477,7 +480,7 @@ describe('prefilter-markdown', () => {
 
         assert.equal(exitCode, 0);
 
-        const result = JSON.parse(stdout) as MarkdownPrefilterOutput;
+        const result = parseOutput(stdout);
         const file = result.files[0];
 
         assert.equal(file.codeBlocks, 2);
@@ -504,7 +507,7 @@ describe('prefilter-markdown', () => {
 
         assert.equal(exitCode, 0);
 
-        const result = JSON.parse(stdout) as MarkdownPrefilterOutput;
+        const result = parseOutput(stdout);
 
         assert.equal(result.files.length, 3);
         assert.equal(result.summary.totalFiles, 3);
@@ -534,7 +537,7 @@ describe('prefilter-markdown', () => {
 
         assert.equal(exitCode, 0);
 
-        const result = JSON.parse(stdout) as MarkdownPrefilterOutput;
+        const result = parseOutput(stdout);
         const file = result.files[0];
 
         const flagged = file.flaggedSections.find(
@@ -571,7 +574,7 @@ describe('prefilter-markdown', () => {
 
         assert.equal(exitCode, 0);
 
-        const result = JSON.parse(stdout) as MarkdownPrefilterOutput;
+        const result = parseOutput(stdout);
         const file = result.files[0];
 
         const flagged = file.flaggedSections.find(
@@ -603,7 +606,7 @@ describe('prefilter-markdown', () => {
 
         assert.equal(exitCode, 0);
 
-        const result = JSON.parse(stdout) as MarkdownPrefilterOutput;
+        const result = parseOutput(stdout);
         const file = result.files[0];
 
         const flagged = file.flaggedSections.find(
@@ -638,7 +641,7 @@ describe('prefilter-markdown', () => {
 
         assert.equal(exitCode, 0);
 
-        const result = JSON.parse(stdout) as MarkdownPrefilterOutput;
+        const result = parseOutput(stdout);
         const file = result.files[0];
 
         const nextFlagged = file.flaggedSections.find(
@@ -691,7 +694,7 @@ describe('prefilter-markdown', () => {
 
         assert.equal(exitCode, 0);
 
-        const result = JSON.parse(stdout) as MarkdownPrefilterOutput;
+        const result = parseOutput(stdout);
         assert.equal(result.summary.totalFiles, 2);
         assert.ok(result.summary.totalIssues > 0);
         assert.ok(result.summary.filesNeedingLlmReview >= 1);
@@ -710,7 +713,7 @@ describe('prefilter-markdown', () => {
 
         assert.equal(exitCode, 0);
 
-        const result = JSON.parse(stdout) as MarkdownPrefilterOutput;
+        const result = parseOutput(stdout);
         assert.equal(result.summary.totalFiles, 1);
       } finally {
         rmSync(dir, { recursive: true });
