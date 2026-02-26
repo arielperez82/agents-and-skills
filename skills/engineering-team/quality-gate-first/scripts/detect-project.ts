@@ -1,13 +1,27 @@
 #!/usr/bin/env npx tsx
-import { type Dirent, readdirSync, readFileSync, existsSync, realpathSync, statSync } from 'node:fs';
+import { type Dirent, readdirSync, readFileSync, existsSync, lstatSync, realpathSync, statSync } from 'node:fs';
 import { join, resolve } from 'node:path';
 import { fileURLToPath } from 'node:url';
 
+const resolveRealPath = (p: string): string => {
+  const resolved = resolve(p);
+  try {
+    return realpathSync(resolved);
+  } catch {
+    try {
+      if (lstatSync(resolved).isSymbolicLink()) {
+        throw new Error(`Cannot resolve symlink at ${resolved}`);
+      }
+    } catch (e: unknown) {
+      if (e instanceof Error && e.message.includes('Cannot resolve')) throw e;
+    }
+    return resolved;
+  }
+};
+
 export const ensureWithinScope = (projectPath: string, scopeRoot?: string): string => {
-  const resolved = resolve(projectPath);
-  const real = existsSync(resolved) ? realpathSync(resolved) : resolved;
-  const rootResolved = resolve(scopeRoot ?? process.cwd());
-  const root = existsSync(rootResolved) ? realpathSync(rootResolved) : rootResolved;
+  const real = resolveRealPath(projectPath);
+  const root = resolveRealPath(scopeRoot ?? process.cwd());
   if (real !== root && !real.startsWith(`${root}/`)) {
     throw new Error(`Project path ${real} is outside scope ${root}`);
   }

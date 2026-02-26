@@ -264,6 +264,15 @@ describe('ensureWithinScope', () => {
     const dir = withTempProject(t);
     throws(() => ensureWithinScope(`${dir}-evil`, dir), /outside scope/);
   });
+
+  it('handles broken symlinks gracefully', (t) => {
+    const dir = withTempProject(t);
+    const target = join(dir, 'nonexistent-target');
+    const link = join(dir, 'broken-link');
+    symlinkSync(target, link);
+
+    throws(() => ensureWithinScope(link, dir), /Cannot resolve symlink/);
+  });
 });
 
 describe('detectProject scope enforcement', () => {
