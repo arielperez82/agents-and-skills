@@ -29,6 +29,17 @@ Write code before the test? Delete it. Start over.
 - Test should fail for the right reason
 - One behavior, clear name, real code (no mocks unless unavoidable)
 
+### Security Checklist for File/Process Scripts
+
+Before writing the GREEN implementation for any script that processes files or spawns processes, check these four questions during RED. Write failing tests for each applicable concern:
+
+1. **Does this use shell interpolation?** Use `execFileSync` (array args), not `execSync` (string interpolation). Shell injection via template literals is a common vulnerability in CLI scripts.
+2. **Does this resolve paths?** Add a containment check — verify the resolved path starts with the expected directory. Prevents path traversal attacks (e.g., `../../etc/passwd` via user-supplied input).
+3. **Does this stat files?** Use `lstatSync`, not `statSync`, to avoid following symlinks to unexpected locations. Symlinks can escape containment boundaries.
+4. **Does this accept external input?** Validate and sanitize before use. For file paths: resolve and containment-check. For strings used in commands: never interpolate into shell strings.
+
+This checklist derives from L68 (I18-RLMP) where all four categories were caught by reviewers, not by TDD. Writing failing tests for these concerns during RED prevents post-hoc security fix cascades.
+
 ### Verify RED (MANDATORY)
 
 Never skip. Run the test and confirm:

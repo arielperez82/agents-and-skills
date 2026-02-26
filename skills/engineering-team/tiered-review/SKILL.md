@@ -129,7 +129,11 @@ import type { ProgressPrefilterOutput } from './prefilter-progress.ts';
 2. Define and export the output type (extend the symbolic handle pattern)
 3. Add co-located `.test.ts` using `node:test` + `node:assert/strict`
 4. Update the "Available Pre-Filter Scripts" table above
-5. Wire the consuming agent's prompt to receive `T1 PRE-FILTER RESULTS:` JSON block
+5. **Security: shell execution** — Use `execFileSync` (array args), never `execSync` with template literals. See TDD skill § "Security Checklist for File/Process Scripts" for full rationale.
+6. **Security: path containment** — If the script resolves file paths (e.g., following relative links), verify the resolved path stays within the expected directory. Reject paths containing `..` that escape the boundary.
+7. **Security: symlink handling** — Use `lstatSync` instead of `statSync` to avoid following symlinks to unexpected locations outside the containment boundary.
+8. **Security: input validation** — Validate all CLI args and stdin data before processing. For file paths: resolve and containment-check. For strings used in regex or commands: sanitize.
+9. Wire the consuming agent's prompt to receive `T1 PRE-FILTER RESULTS:` JSON block
 
 ## References
 

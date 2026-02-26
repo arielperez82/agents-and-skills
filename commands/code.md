@@ -88,15 +88,25 @@ Mark Step 3 complete in TodoWrite, mark Step 4 in_progress.
 
 ---
 
-## Step 4: Code Review
+## Step 4: Step Review (diff-mode)
 
-Call `code-reviewer` subagent: "Review changes for plan phase [phase-name]. Check security, performance, architecture, YAGNI/KISS/DRY". If critical issues found: STOP, fix all, re-run `tester` to verify, re-run `code-reviewer`. Repeat until no critical issues.
+Run `/review/review-changes --mode diff` to validate changes from this plan step. This runs 5 agents in parallel on the changed lines and their immediate context:
 
-**Critical issues:** Security vulnerabilities (XSS, SQL injection, OWASP), performance bottlenecks, architectural violations, principle violations.
+- `code-reviewer` — anti-pattern scan, security patterns on changed lines
+- `refactor-assessor` — naming, nesting, immutability on changed files
+- `security-assessor` — full security analysis (already diff-native)
+- `ts-enforcer` — TypeScript strict compliance on changed files
+- `tdd-reviewer` — TDD coaching on current step (did test come first?)
 
-**Output:** `✓ Step 4: Code reviewed - [0] critical issues`
+The review-changes command's inclusion/exclusion rules decide which agents actually run based on diff content (e.g., ts-enforcer is excluded when zero TypeScript files are in the diff).
 
-**Validation:** If critical issues > 0, Step 4 INCOMPLETE - do not proceed.
+**If any Fix Required findings:** STOP, fix all issues, re-run tests to verify fixes, re-run `/review/review-changes --mode diff`. Repeat until zero Fix Required findings.
+
+**If only Suggestions/Observations:** Note for later, proceed to Step 5.
+
+**Output:** `✓ Step 4: Code reviewed - [0] Fix Required findings`
+
+**Validation:** If Fix Required findings > 0, Step 4 INCOMPLETE - do not proceed.
 
 Mark Step 4 complete in TodoWrite, mark Step 5 in_progress.
 
@@ -159,12 +169,12 @@ Mark Step 6 complete in TodoWrite.
 
 **Mandatory subagent calls:**
 - Step 3: `tester`
-- Step 4: `code-reviewer`
+- Step 4: `/review/review-changes --mode diff` (parallel: code-reviewer, refactor-assessor, security-assessor, ts-enforcer, tdd-reviewer)
 - Step 6: `project-manager` AND `docs-manager` (when user approves)
 
 **Blocking gates:**
 - Step 3: Tests must be 100% passing
-- Step 4: Critical issues must be 0
+- Step 4: Fix Required findings must be 0
 - Step 5: User must explicitly approve
 - Step 6: Both `project-manager` and `docs-manager` must complete successfully
 

@@ -311,7 +311,9 @@ Run `/review/review-changes` final time → fix issues → `/pr`.
 | Before production code | `tdd-reviewer` (test-first) |
 | Writing TypeScript | `ts-enforcer` (strict compliance) |
 | After GREEN | `refactor-assessor` (assess improvements) |
-| Before commit/PR | `/review/review-changes` (parallel validation) |
+| `/code` Step 4 | `/review/review-changes --mode diff` (full Step Review) |
+| Before commit (`/git/cm`) | Built-in diff-mode review gate (unconditional, Fix Required blocks) |
+| Before PR | `/review/review-changes` full-mode (parallel validation) |
 | Architecture decision | `adr-writer` (`.docs/canonical/adrs/`) |
 | Feature complete | `learner` + `docs-reviewer` + `progress-assessor` |
 

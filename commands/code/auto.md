@@ -10,8 +10,9 @@ Follow the **`/code` workflow** (see `commands/code.md`) with these modification
 
 ## Modifications from `/code`
 
-1. **Skip Step 5 (User Approval)** — Do not wait for user approval. Proceed directly from Step 4 (Code Review) to finalize.
-2. **Step 5 (Finalize) replaces Steps 5+6** — Combine into a single finalize step:
+1. **Step 4 (Step Review) auto-approval** — Run `/review/review-changes --mode diff` as in `/code` Step 4. Auto-approve if zero Fix Required findings. Fix Required findings still block even in auto mode — fix, re-run tests, re-run Step Review until clear.
+2. **Skip Step 5 (User Approval)** — Do not wait for user approval. Proceed directly from Step 4 (Step Review) to finalize.
+3. **Step 5 (Finalize) replaces Steps 5+6** — Combine into a single finalize step:
    - STATUS UPDATE: Call `project-manager` AND `docs-manager` in parallel
    - ONBOARDING CHECK: Detect requirements (API keys, env vars, config)
    - AUTO-COMMIT: Call `git-manager` to auto-stage, commit with message [phase - plan], and push
@@ -24,6 +25,6 @@ Follow the **`/code` workflow** (see `commands/code.md`) with these modification
 ## Enforcement
 
 - All other rules from `/code` apply (step outputs, TodoWrite tracking, blocking gates for tests and code review)
-- Mandatory subagent calls: `tester` (Step 3), `code-reviewer` (Step 4), `project-manager` + `docs-manager` + `git-manager` (Step 5)
+- Mandatory subagent calls: `tester` (Step 3), `/review/review-changes --mode diff` (Step 4), `project-manager` + `docs-manager` + `git-manager` (Step 5)
 - Do not skip steps. Do not proceed if validation fails.
 - One plan phase per command run.

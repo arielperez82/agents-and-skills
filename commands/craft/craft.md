@@ -101,7 +101,7 @@ Commit early and often. Review incrementally. Never wait until the end.
 
 | Tier | Agents | Mode | When | Purpose |
 |------|--------|------|------|---------|
-| **Step Review** (lightweight) | code-reviewer, refactor-assessor, security-assessor, ts-enforcer, tdd-reviewer | **Diff-mode** | After each GREEN in Phase 4 | Fast feedback on changed code only |
+| **Step Review** (lightweight) | `/review/review-changes --mode diff` (see `/code` Step 4) | **Diff-mode** | After each GREEN in Phase 4 | Fast feedback on changed code only |
 | **Story Review** (moderate) | code-reviewer, refactor-assessor, security-assessor, cognitive-load-assessor | **Full-mode** | After completing each story/ticket in Phase 4 | Cross-file analysis, accumulated complexity |
 | **Final Sweep** | Full `/review/review-changes` | **Full-mode** | Phase 5 | Holistic quality across all work; includes docs-reviewer, progress-assessor, tdd-reviewer (Farley Index) |
 
@@ -669,9 +669,7 @@ INCREMENTAL COMMIT: After achieving GREEN, the orchestrator will run a Step Revi
 
 **After each GREEN (tests passing) — Step Review:**
 
-1. Run **Step Review** agents in **diff-mode** (parallel): `code-reviewer`, `refactor-assessor`, `security-assessor`, `ts-enforcer`, `tdd-reviewer`
-   - Diff-mode: agents analyze only the changed lines and immediate context (see review-changes § Review Modes)
-   - Skip: cognitive-load-assessor, docs-reviewer, progress-assessor (these require full-mode)
+1. Run `/code` Step 4 (Step Review in diff-mode). This executes `/review/review-changes --mode diff` — the review-changes command's inclusion/exclusion rules determine which agents run based on diff content. See `commands/code.md` § Step 4 for the full protocol.
 2. If any "Fix Required" findings: fix the issue, re-run tests, re-run Step Review
 3. If only Suggestions/Observations: note for later, proceed to commit
 4. Commit via `/git/cm` with message: `feat(<initiative-id>): step <N> — <brief description>`
