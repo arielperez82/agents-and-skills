@@ -4,6 +4,7 @@ import { execFileSync } from 'node:child_process';
 import { mkdtempSync, writeFileSync, rmSync } from 'node:fs';
 import { join } from 'node:path';
 import { tmpdir } from 'node:os';
+import type { MarkdownPrefilterOutput } from './prefilter-markdown.ts';
 
 const SCRIPT_PATH = join(
   import.meta.dirname,
@@ -20,13 +21,10 @@ const runWithArgs = (
     });
     return { stdout, exitCode: 0 };
   } catch (error: unknown) {
-    const execError = error as {
-      readonly stdout: string;
-      readonly status: number | null;
-    };
+    const errorObj = error as Record<string, unknown>;
     return {
-      stdout: execError.stdout ?? '',
-      exitCode: execError.status ?? 1,
+      stdout: typeof errorObj.stdout === 'string' ? errorObj.stdout : '',
+      exitCode: typeof errorObj.status === 'number' ? errorObj.status : 1,
     };
   }
 };
@@ -42,29 +40,6 @@ const createTempFile = (dir: string, name: string, content: string): string => {
   const filePath = join(dir, name);
   writeFileSync(filePath, content, 'utf-8');
   return filePath;
-};
-
-type FlaggedEntry = {
-  readonly heading: string;
-  readonly lineStart: number;
-  readonly lineEnd: number;
-  readonly reason: string;
-  readonly excerpt: string;
-};
-
-type LinkEntry = {
-  readonly url: string;
-  readonly text: string;
-  readonly line: number;
-  readonly status: string;
-};
-
-type HeadingEntry = {
-  readonly depth: number;
-  readonly text: string;
-  readonly lineStart: number;
-  readonly lineEnd: number;
-  readonly wordCount: number;
 };
 
 describe('prefilter-markdown', () => {
@@ -94,7 +69,7 @@ describe('prefilter-markdown', () => {
 
         assert.equal(exitCode, 0);
 
-        const result = JSON.parse(stdout);
+        const result: MarkdownPrefilterOutput = JSON.parse(stdout);
         const file = result.files[0];
 
         assert.equal(file.headingTree.length, 4);
@@ -135,20 +110,20 @@ describe('prefilter-markdown', () => {
 
         assert.equal(exitCode, 0);
 
-        const result = JSON.parse(stdout);
+        const result: MarkdownPrefilterOutput = JSON.parse(stdout);
         const file = result.files[0];
 
         assert.equal(file.links.length, 2);
 
         const validLink = file.links.find(
-          (l: LinkEntry) => l.url === 'other.md',
+          (l) => l.url === 'other.md',
         );
         assert.ok(validLink);
         assert.equal(validLink.text, 'valid link');
         assert.equal(validLink.status, 'valid');
 
         const externalLink = file.links.find(
-          (l: LinkEntry) => l.url === 'https://example.com',
+          (l) => l.url === 'https://example.com',
         );
         assert.ok(externalLink);
         assert.equal(externalLink.status, 'external');
@@ -178,7 +153,7 @@ describe('prefilter-markdown', () => {
 
         assert.equal(exitCode, 0);
 
-        const result = JSON.parse(stdout);
+        const result: MarkdownPrefilterOutput = JSON.parse(stdout);
         assert.equal(result.files[0].codeBlocks, 2);
       } finally {
         rmSync(dir, { recursive: true });
@@ -202,7 +177,7 @@ describe('prefilter-markdown', () => {
 
         assert.equal(exitCode, 0);
 
-        const result = JSON.parse(stdout);
+        const result: MarkdownPrefilterOutput = JSON.parse(stdout);
         assert.ok(result.files[0].totalWordCount >= 8);
       } finally {
         rmSync(dir, { recursive: true });
@@ -226,11 +201,43 @@ describe('prefilter-markdown', () => {
 
         assert.equal(exitCode, 0);
 
-        const result = JSON.parse(stdout);
+        const result: MarkdownPrefilterOutput = JSON.parse(stdout);
         const file = result.files[0];
 
         assert.equal(file.links.length, 2);
-        assert.ok(file.links.every((l: LinkEntry) => l.status === 'broken'));
+        assert.ok(file.links.every((l) => l.status === 'broken'));
+      } finally {
+        rmSync(dir, { recursive: true });
+      }
+    });
+  });
+
+  describe('link validation', () => {
+    it('treats links that traverse above the file directory as non-checkable', () => {
+      const dir = createTempDir();
+      try {
+        const content = '# Test\n\n[escape](../../etc/passwd)\n';
+        const filePath = createTempFile(dir, 'test.md', content);
+        const { stdout, exitCode } = run(filePath);
+        assert.equal(exitCode, 0);
+        const result: MarkdownPrefilterOutput = JSON.parse(stdout);
+        const link = result.files[0].links[0];
+        assert.equal(link.status, 'valid');
+      } finally {
+        rmSync(dir, { recursive: true });
+      }
+    });
+
+    it('treats absolute-path links as external', () => {
+      const dir = createTempDir();
+      try {
+        const content = '# Test\n\n[link](/etc/passwd)\n';
+        const filePath = createTempFile(dir, 'test.md', content);
+        const { stdout, exitCode } = run(filePath);
+        assert.equal(exitCode, 0);
+        const result: MarkdownPrefilterOutput = JSON.parse(stdout);
+        const link = result.files[0].links[0];
+        assert.equal(link.status, 'external');
       } finally {
         rmSync(dir, { recursive: true });
       }
@@ -253,11 +260,11 @@ describe('prefilter-markdown', () => {
 
         assert.equal(exitCode, 0);
 
-        const result = JSON.parse(stdout);
+        const result: MarkdownPrefilterOutput = JSON.parse(stdout);
         const file = result.files[0];
 
         assert.ok(
-          file.missingSections.some((s: string) => s.toLowerCase().includes('frontmatter')),
+          file.missingSections.some((s) => s.toLowerCase().includes('frontmatter')),
         );
       } finally {
         rmSync(dir, { recursive: true });
@@ -284,11 +291,11 @@ describe('prefilter-markdown', () => {
 
         assert.equal(exitCode, 0);
 
-        const result = JSON.parse(stdout);
+        const result: MarkdownPrefilterOutput = JSON.parse(stdout);
         const file = result.files[0];
 
         assert.ok(
-          !file.missingSections.some((s: string) => s.toLowerCase().includes('frontmatter')),
+          !file.missingSections.some((s) => s.toLowerCase().includes('frontmatter')),
         );
       } finally {
         rmSync(dir, { recursive: true });
@@ -312,7 +319,7 @@ describe('prefilter-markdown', () => {
 
         assert.equal(exitCode, 0);
 
-        const result = JSON.parse(stdout);
+        const result: MarkdownPrefilterOutput = JSON.parse(stdout);
         const file = result.files[0];
 
         assert.ok(file.missingSections.length > 0);
@@ -331,7 +338,7 @@ describe('prefilter-markdown', () => {
 
         assert.equal(exitCode, 0);
 
-        const result = JSON.parse(stdout);
+        const result: MarkdownPrefilterOutput = JSON.parse(stdout);
         const file = result.files[0];
 
         assert.deepEqual(file.headingTree, []);
@@ -384,16 +391,16 @@ describe('prefilter-markdown', () => {
 
         assert.equal(exitCode, 0);
 
-        const result = JSON.parse(stdout);
+        const result: MarkdownPrefilterOutput = JSON.parse(stdout);
         const headings = result.files[0].headingTree;
 
         assert.equal(headings.length, 6);
         assert.deepEqual(
-          headings.map((h: HeadingEntry) => h.depth),
+          headings.map((h) => h.depth),
           [1, 2, 3, 4, 5, 6],
         );
         assert.deepEqual(
-          headings.map((h: HeadingEntry) => h.text),
+          headings.map((h) => h.text),
           ['H1', 'H2', 'H3', 'H4', 'H5', 'H6'],
         );
       } finally {
@@ -421,7 +428,7 @@ describe('prefilter-markdown', () => {
 
         assert.equal(exitCode, 0);
 
-        const result = JSON.parse(stdout);
+        const result: MarkdownPrefilterOutput = JSON.parse(stdout);
         const file = result.files[0];
 
         assert.equal(file.codeBlocks, 2);
@@ -448,7 +455,7 @@ describe('prefilter-markdown', () => {
 
         assert.equal(exitCode, 0);
 
-        const result = JSON.parse(stdout);
+        const result: MarkdownPrefilterOutput = JSON.parse(stdout);
 
         assert.equal(result.files.length, 3);
         assert.equal(result.summary.totalFiles, 3);
@@ -478,11 +485,11 @@ describe('prefilter-markdown', () => {
 
         assert.equal(exitCode, 0);
 
-        const result = JSON.parse(stdout);
+        const result: MarkdownPrefilterOutput = JSON.parse(stdout);
         const file = result.files[0];
 
         const flagged = file.flaggedSections.find(
-          (s: FlaggedEntry) => s.heading === 'Empty Section',
+          (s) => s.heading === 'Empty Section',
         );
         assert.ok(flagged, 'Empty Section should be flagged');
         assert.ok(flagged.reason.length > 0);
@@ -515,11 +522,11 @@ describe('prefilter-markdown', () => {
 
         assert.equal(exitCode, 0);
 
-        const result = JSON.parse(stdout);
+        const result: MarkdownPrefilterOutput = JSON.parse(stdout);
         const file = result.files[0];
 
         const flagged = file.flaggedSections.find(
-          (s: FlaggedEntry) => s.heading === 'Short Section',
+          (s) => s.heading === 'Short Section',
         );
         assert.ok(flagged, 'Short Section should be flagged');
         assert.ok(flagged.reason.toLowerCase().includes('short'));
@@ -547,11 +554,11 @@ describe('prefilter-markdown', () => {
 
         assert.equal(exitCode, 0);
 
-        const result = JSON.parse(stdout);
+        const result: MarkdownPrefilterOutput = JSON.parse(stdout);
         const file = result.files[0];
 
         const flagged = file.flaggedSections.find(
-          (s: FlaggedEntry) =>
+          (s) =>
             s.heading === 'Section With Broken Link' &&
             s.reason.toLowerCase().includes('broken'),
         );
@@ -582,11 +589,11 @@ describe('prefilter-markdown', () => {
 
         assert.equal(exitCode, 0);
 
-        const result = JSON.parse(stdout);
+        const result: MarkdownPrefilterOutput = JSON.parse(stdout);
         const file = result.files[0];
 
         const nextFlagged = file.flaggedSections.find(
-          (s: FlaggedEntry) => s.heading === 'Next',
+          (s) => s.heading === 'Next',
         );
         if (nextFlagged) {
           assert.ok(nextFlagged.excerpt.length <= 200);
@@ -635,7 +642,7 @@ describe('prefilter-markdown', () => {
 
         assert.equal(exitCode, 0);
 
-        const result = JSON.parse(stdout);
+        const result: MarkdownPrefilterOutput = JSON.parse(stdout);
         assert.equal(result.summary.totalFiles, 2);
         assert.ok(result.summary.totalIssues > 0);
         assert.ok(result.summary.filesNeedingLlmReview >= 1);
@@ -654,7 +661,7 @@ describe('prefilter-markdown', () => {
 
         assert.equal(exitCode, 0);
 
-        const result = JSON.parse(stdout);
+        const result: MarkdownPrefilterOutput = JSON.parse(stdout);
         assert.equal(result.summary.totalFiles, 1);
       } finally {
         rmSync(dir, { recursive: true });

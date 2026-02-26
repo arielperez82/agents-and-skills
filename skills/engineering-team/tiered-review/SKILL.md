@@ -10,6 +10,7 @@ metadata:
   version: 1.0.0
   updated: 2026-02-25
   initiative: I18-RLMP
+  initiative_name: Review-Led Model Processing
 ---
 
 # Tiered Review Processing
@@ -79,7 +80,7 @@ AFTER (symbolic handles):
 
 ## Existing Exemplars
 
-### cognitive-load-assessor (T1-first pattern)
+### cognitive-load-assessor (T1-first pattern, Python)
 
 The best existing example of tiered execution. Uses `cli_calculator.py` (T1 Python script) for D1-D8 dimension scoring. The LLM handles only D4 (naming assessment) — the one dimension requiring semantic judgment.
 
@@ -114,9 +115,18 @@ Scripts in this skill follow established patterns from `quality-gate-first/scrip
 | `prefilter-diff.ts` | Git diff (stdin) | `DiffPrefilterOutput` JSON | code-reviewer |
 | `prefilter-progress.ts` | Directory path (CLI arg) | `ProgressPrefilterOutput` JSON | progress-assessor |
 
+Type definitions (`MarkdownPrefilterOutput`, `DiffPrefilterOutput`, `ProgressPrefilterOutput`) are exported from each script's source file.
+
+### Adding a New Pre-Filter
+
+1. Create `prefilter-<domain>.ts` under `scripts/` with the shebang and conventions above
+2. Define and export the output type (extend the symbolic handle pattern)
+3. Add co-located `.test.ts` using `node:test` + `node:assert/strict`
+4. Update the "Available Pre-Filter Scripts" table above
+5. Wire the consuming agent's prompt to receive `T1 PRE-FILTER RESULTS:` JSON block
+
 ## References
 
-- ADR I18-RLMP-001: Scripts co-located under this skill
-- ADR I18-RLMP-002: Symbolic handle pattern
-- ADR I18-RLMP-003: Sequential pre-filters before parallel dispatch
-- `references/context-compaction.md` — T2-to-T3 context condensation guidelines (when available)
+- ADR `I18-RLMP-001-scripts-colocated-under-tiered-review-skill.md`: Scripts co-located under this skill
+- ADR `I18-RLMP-002-symbolic-handle-pattern.md`: Symbolic handle pattern
+- ADR `I18-RLMP-003-sequential-prefilters-before-parallel-dispatch.md`: Sequential pre-filters before parallel dispatch

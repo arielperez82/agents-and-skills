@@ -4,6 +4,7 @@ import { mkdtempSync, mkdirSync, writeFileSync, utimesSync } from 'node:fs';
 import { join } from 'node:path';
 import { tmpdir } from 'node:os';
 import { execSync } from 'node:child_process';
+import type { ProgressPrefilterOutput } from './prefilter-progress.ts';
 
 const SCRIPT_PATH = join(import.meta.dirname, 'prefilter-progress.ts');
 
@@ -33,54 +34,16 @@ const runScript = (
     });
     return { stdout, exitCode: 0 };
   } catch (error: unknown) {
-    const execError = error as { stdout?: string; status?: number };
+    const errorObj = error as Record<string, unknown>;
     return {
-      stdout: execError.stdout ?? '',
-      exitCode: execError.status ?? 1,
+      stdout: typeof errorObj.stdout === 'string' ? errorObj.stdout : '',
+      exitCode: typeof errorObj.status === 'number' ? errorObj.status : 1,
     };
   }
 };
 
-type FileEntry = {
-  readonly path: string;
-  readonly type: string;
-  readonly frontmatter: {
-    readonly valid: boolean;
-    readonly initiative?: string;
-    readonly initiativeName?: string;
-    readonly status?: string;
-    readonly missingFields: ReadonlyArray<string>;
-  };
-  readonly lastModified: string;
-  readonly stale: boolean;
-  readonly needsLlmReview: boolean;
-  readonly staleDays?: number;
-};
-
-type InitiativeEntry = {
-  readonly id: string;
-  readonly hasCharter: boolean;
-  readonly hasRoadmap: boolean;
-  readonly hasBacklog: boolean;
-  readonly hasPlan: boolean;
-  readonly hasReport: boolean;
-  readonly missingFiles: ReadonlyArray<string>;
-};
-
-type PrefilterOutput = {
-  readonly files: ReadonlyArray<FileEntry>;
-  readonly initiatives: ReadonlyArray<InitiativeEntry>;
-  readonly summary: {
-    readonly totalFiles: number;
-    readonly validFrontmatter: number;
-    readonly invalidFrontmatter: number;
-    readonly staleFiles: number;
-    readonly needsLlmReview: number;
-  };
-};
-
-const parseOutput = (stdout: string): PrefilterOutput =>
-  JSON.parse(stdout) as PrefilterOutput;
+const parseOutput = (stdout: string): ProgressPrefilterOutput =>
+  JSON.parse(stdout) as ProgressPrefilterOutput;
 
 describe('prefilter-progress', () => {
   it('produces full inventory for a complete .docs/ structure', () => {
@@ -406,5 +369,17 @@ describe('prefilter-progress', () => {
   it('exits with code 1 for non-existent directory', () => {
     const result = runScript('/tmp/this-path-definitely-does-not-exist-xyz');
     assert.equal(result.exitCode, 1);
+  });
+
+  it('ignores directories with .md suffix', () => {
+    const dir = createTempDir();
+    mkdirSync(join(dir, 'fake.md'), { recursive: true });
+    writeFile(dir, 'real-file.md', '---\ntype: report\n---\n# Real\n');
+
+    const result = runScript(dir);
+    assert.equal(result.exitCode, 0);
+    const output = parseOutput(result.stdout);
+    assert.equal(output.summary.totalFiles, 1);
+    assert.ok(output.files.every((f) => !f.path.includes('fake.md')));
   });
 });

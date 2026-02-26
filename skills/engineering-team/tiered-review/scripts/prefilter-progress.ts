@@ -1,6 +1,6 @@
 #!/usr/bin/env npx tsx
 
-import { readdirSync, readFileSync, statSync } from 'node:fs';
+import { readdirSync, readFileSync, statSync, lstatSync } from 'node:fs';
 import { join, basename, relative } from 'node:path';
 import matter from 'gray-matter';
 
@@ -69,7 +69,7 @@ const discoverMarkdownFiles = (dirPath: string): ReadonlyArray<string> => {
     return entries
       .filter((entry) => entry.endsWith('.md'))
       .map((entry) => join(dirPath, entry))
-      .filter((fullPath) => statSync(fullPath).isFile());
+      .filter((fullPath) => lstatSync(fullPath).isFile());
   } catch {
     return [];
   }

@@ -62,11 +62,11 @@ type NodeWithUrl = Node & { readonly url: string };
 
 const isParent = (node: Node): node is Parent => 'children' in node;
 const isStringLiteral = (node: Node): node is StringLiteral =>
-  'value' in node && typeof (node as { value: unknown }).value === 'string';
+  'value' in node && typeof node.value === 'string';
 const hasDepth = (node: Node): node is NodeWithDepth =>
-  'depth' in node && typeof (node as { depth: unknown }).depth === 'number';
+  'depth' in node && typeof node.depth === 'number';
 const hasUrl = (node: Node): node is NodeWithUrl =>
-  'url' in node && typeof (node as { url: unknown }).url === 'string';
+  'url' in node && typeof node.url === 'string';
 
 type RawHeading = {
   readonly depth: number;
@@ -287,10 +287,11 @@ const EMPTY_FILE_RESULT = (filePath: string): FileResult => ({
 });
 
 const analyzeFile = (filePath: string): FileResult => {
-  const content = readFileSync(filePath, 'utf-8');
-  if (content.trim().length === 0) return EMPTY_FILE_RESULT(filePath);
+  const absolutePath = resolve(filePath);
+  const content = readFileSync(absolutePath, 'utf-8');
+  if (content.trim().length === 0) return EMPTY_FILE_RESULT(absolutePath);
 
-  const fileDir = dirname(filePath);
+  const fileDir = dirname(absolutePath);
   const lines = content.split('\n');
   const tree = unified().use(remarkParse).parse(content);
 
@@ -308,7 +309,7 @@ const analyzeFile = (filePath: string): FileResult => {
   const { structuralIssues, flaggedSections } = analyzeSections(headingTree, links, lines);
 
   return {
-    path: filePath,
+    path: absolutePath,
     headingTree,
     links,
     codeBlocks,
