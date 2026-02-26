@@ -248,8 +248,11 @@ const assessStylelint = (projectPath: string, profile: ProjectProfile, _pkg: Pac
   return checkResult('stylelint', 'CSS/SCSS linting', 'conditional', 'missing', 'Has CSS/frontend but no Stylelint config');
 };
 
+const JSX_A11Y_FRAMEWORKS = new Set(['react', 'next', 'astro', 'remix']);
+const REACT_HOOK_FRAMEWORKS = new Set(['react', 'next', 'remix']);
+
 const assessJsxA11y = (profile: ProjectProfile, pkg: PackageJson | null): CheckResult | null => {
-  if (!profile.frameworks.some((f) => ['react', 'next', 'astro', 'remix'].includes(f))) return null;
+  if (!profile.frameworks.some((f) => JSX_A11Y_FRAMEWORKS.has(f))) return null;
 
   if (hasDep(pkg, 'eslint-plugin-jsx-a11y')) {
     return checkResult('jsx-a11y', 'JSX accessibility', 'conditional', 'present', 'eslint-plugin-jsx-a11y installed');
@@ -257,10 +260,8 @@ const assessJsxA11y = (profile: ProjectProfile, pkg: PackageJson | null): CheckR
   return checkResult('jsx-a11y', 'JSX accessibility', 'conditional', 'missing', 'React/JSX detected but eslint-plugin-jsx-a11y not installed');
 };
 
-const REACT_HOOK_FRAMEWORKS = ['react', 'next', 'remix'] as const;
-
 const assessReactHooks = (profile: ProjectProfile, pkg: PackageJson | null): CheckResult | null => {
-  if (!profile.frameworks.some((f) => (REACT_HOOK_FRAMEWORKS as readonly string[]).includes(f))) return null;
+  if (!profile.frameworks.some((f) => REACT_HOOK_FRAMEWORKS.has(f))) return null;
 
   if (hasDep(pkg, 'eslint-plugin-react-hooks')) {
     return checkResult('react-hooks', 'React hooks rules', 'conditional', 'present', 'eslint-plugin-react-hooks installed');
