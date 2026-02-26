@@ -3,7 +3,7 @@ import { mkdirSync, mkdtempSync, realpathSync, rmSync, symlinkSync, writeFileSyn
 import { join } from 'node:path';
 import { tmpdir } from 'node:os';
 import { describe, it } from 'node:test';
-import { deepStrictEqual, strictEqual } from 'node:assert';
+import { deepStrictEqual, strictEqual, throws } from 'node:assert';
 
 import { detectProject, ensureWithinScope, readPackageJson } from './detect-project.js';
 
@@ -257,24 +257,12 @@ describe('ensureWithinScope', () => {
   it('rejects paths outside the scope root', (t) => {
     const dir = withTempProject(t);
     const outside = withTempProject(t);
-    let threw = false;
-    try {
-      ensureWithinScope(outside, dir);
-    } catch {
-      threw = true;
-    }
-    strictEqual(threw, true);
+    throws(() => ensureWithinScope(outside, dir), /outside scope/);
   });
 
   it('rejects prefix-collision paths', (t) => {
     const dir = withTempProject(t);
-    let threw = false;
-    try {
-      ensureWithinScope(`${dir}-evil`, dir);
-    } catch {
-      threw = true;
-    }
-    strictEqual(threw, true);
+    throws(() => ensureWithinScope(`${dir}-evil`, dir), /outside scope/);
   });
 });
 
@@ -282,13 +270,7 @@ describe('detectProject scope enforcement', () => {
   it('rejects paths outside scope root', (t) => {
     const dir = withTempProject(t);
     const outside = withTempProject(t);
-    let threw = false;
-    try {
-      detectProject(outside, { scopeRoot: dir });
-    } catch {
-      threw = true;
-    }
-    strictEqual(threw, true);
+    throws(() => detectProject(outside, { scopeRoot: dir }), /outside scope/);
   });
 
   it('works with explicit scope root matching project path', (t) => {

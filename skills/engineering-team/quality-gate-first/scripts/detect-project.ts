@@ -1,5 +1,5 @@
 #!/usr/bin/env npx tsx
-import { readdirSync, readFileSync, existsSync, realpathSync, statSync } from 'node:fs';
+import { type Dirent, readdirSync, readFileSync, existsSync, realpathSync, statSync } from 'node:fs';
 import { join, resolve } from 'node:path';
 import { fileURLToPath } from 'node:url';
 
@@ -79,12 +79,13 @@ const isRecord = (value: unknown): value is Record<string, unknown> =>
 const isStringRecord = (value: unknown): value is Record<string, string> =>
   isRecord(value) && Object.values(value).every((v) => typeof v === 'string');
 
+const isStringArray = (value: unknown): value is readonly string[] =>
+  Array.isArray(value) && value.every((v: unknown) => typeof v === 'string');
+
 const parseWorkspaces = (value: unknown): PackageJson['workspaces'] => {
-  if (Array.isArray(value) && value.every((v: unknown) => typeof v === 'string')) {
-    return value as readonly string[];
-  }
-  if (isRecord(value) && Array.isArray(value.packages) && (value.packages as unknown[]).every((v: unknown) => typeof v === 'string')) {
-    return value as { readonly packages: readonly string[] };
+  if (isStringArray(value)) return value;
+  if (isRecord(value) && isStringArray(value.packages)) {
+    return { packages: value.packages };
   }
   return undefined;
 };
@@ -122,14 +123,13 @@ const LANGUAGE_MARKERS: readonly (readonly [string, readonly string[]])[] = [
 const MAX_SCAN_DEPTH = 4;
 const MAX_SCAN_ENTRIES = 10_000;
 
-type ScanBudget = { remaining: number };
+type ScanResult<T> = { readonly value: T; readonly remaining: number };
 
-const filterEligible = (dir: string, budget: ScanBudget) => {
+const filterEligible = (dir: string, remaining: number): ScanResult<readonly Dirent[]> => {
   const entries = readdirSync(dir, { withFileTypes: true })
     .filter((entry) => !entry.name.startsWith('.') && !SKIP_DIRS.has(entry.name) && !entry.isSymbolicLink());
-  const capped = entries.slice(0, budget.remaining);
-  budget.remaining -= capped.length;
-  return capped;
+  const capped = entries.slice(0, remaining);
+  return { value: capped, remaining: remaining - capped.length };
 };
 
 const countFilesWithExtension = (
@@ -137,23 +137,28 @@ const countFilesWithExtension = (
   extensions: readonly string[],
   maxDepth = MAX_SCAN_DEPTH,
   currentDepth = 0,
-  budget: ScanBudget = { remaining: MAX_SCAN_ENTRIES },
-): number => {
-  if (currentDepth > maxDepth || budget.remaining <= 0) return 0;
-  if (!existsSync(dir)) return 0;
+  remaining = MAX_SCAN_ENTRIES,
+): ScanResult<number> => {
+  if (currentDepth > maxDepth || remaining <= 0) return { value: 0, remaining };
+  if (!existsSync(dir)) return { value: 0, remaining };
 
   try {
-    return filterEligible(dir, budget)
-      .reduce((count, entry) => {
-        if (budget.remaining <= 0) return count;
-        const fullPath = join(dir, entry.name);
+    const filtered = filterEligible(dir, remaining);
+    return filtered.value.reduce<ScanResult<number>>(
+      (acc, entry) => {
+        if (acc.remaining <= 0) return acc;
         if (entry.isDirectory()) {
-          return count + countFilesWithExtension(fullPath, extensions, maxDepth, currentDepth + 1, budget);
+          const sub = countFilesWithExtension(join(dir, entry.name), extensions, maxDepth, currentDepth + 1, acc.remaining);
+          return { value: acc.value + sub.value, remaining: sub.remaining };
         }
-        return extensions.some((ext) => entry.name.endsWith(ext)) ? count + 1 : count;
-      }, 0);
+        return extensions.some((ext) => entry.name.endsWith(ext))
+          ? { value: acc.value + 1, remaining: acc.remaining }
+          : acc;
+      },
+      { value: 0, remaining: filtered.remaining },
+    );
   } catch {
-    return 0;
+    return { value: 0, remaining };
   }
 };
 
@@ -162,21 +167,27 @@ const hasFilesWithExtension = (
   extensions: readonly string[],
   maxDepth = MAX_SCAN_DEPTH,
   currentDepth = 0,
-  budget: ScanBudget = { remaining: MAX_SCAN_ENTRIES },
-): boolean => {
-  if (currentDepth > maxDepth || budget.remaining <= 0) return false;
-  if (!existsSync(dir)) return false;
+  remaining = MAX_SCAN_ENTRIES,
+): ScanResult<boolean> => {
+  if (currentDepth > maxDepth || remaining <= 0) return { value: false, remaining };
+  if (!existsSync(dir)) return { value: false, remaining };
 
   try {
-    return filterEligible(dir, budget)
-      .some((entry) => {
+    const filtered = filterEligible(dir, remaining);
+    return filtered.value.reduce<ScanResult<boolean>>(
+      (acc, entry) => {
+        if (acc.value || acc.remaining <= 0) return acc;
         if (entry.isDirectory()) {
-          return hasFilesWithExtension(join(dir, entry.name), extensions, maxDepth, currentDepth + 1, budget);
+          return hasFilesWithExtension(join(dir, entry.name), extensions, maxDepth, currentDepth + 1, acc.remaining);
         }
-        return extensions.some((ext) => entry.name.endsWith(ext));
-      });
+        return extensions.some((ext) => entry.name.endsWith(ext))
+          ? { value: true, remaining: acc.remaining }
+          : acc;
+      },
+      { value: false, remaining: filtered.remaining },
+    );
   } catch {
-    return false;
+    return { value: false, remaining };
   }
 };
 
@@ -205,6 +216,13 @@ const detectIsMonorepo = (pkg: PackageJson | null, projectPath: string): boolean
   return false;
 };
 
+const hasDockerFiles = (projectPath: string): boolean =>
+  existsSync(join(projectPath, 'Dockerfile')) ||
+  existsSync(join(projectPath, 'docker-compose.yml')) ||
+  existsSync(join(projectPath, 'docker-compose.yaml')) ||
+  existsSync(join(projectPath, 'compose.yml')) ||
+  existsSync(join(projectPath, 'compose.yaml'));
+
 export const detectProject = (projectPath: string, options?: DetectOptions): ProjectProfile => {
   const resolved = ensureWithinScope(projectPath, options?.scopeRoot);
   const pkg = readPackageJson(resolved);
@@ -214,7 +232,7 @@ export const detectProject = (projectPath: string, options?: DetectOptions): Pro
   };
 
   const languages = LANGUAGE_MARKERS
-    .filter(([, exts]) => hasFilesWithExtension(resolved, exts))
+    .filter(([, exts]) => hasFilesWithExtension(resolved, exts).value)
     .map(([lang]) => lang);
 
   const frameworks = [...new Set(
@@ -223,13 +241,13 @@ export const detectProject = (projectPath: string, options?: DetectOptions): Pro
       .map(([, framework]) => framework),
   )];
 
-  const hasShellScripts = hasFilesWithExtension(resolved, ['.sh', '.bash']);
+  const hasShellScripts = languages.includes('shell');
   const hasGithubActions = hasDirectory(resolved, '.github/workflows');
-  const hasTerraform = hasFilesWithExtension(resolved, ['.tf']);
-  const hasDocker = existsSync(join(resolved, 'Dockerfile'));
-  const hasToml = hasFilesWithExtension(resolved, ['.toml']);
-  const markdownFileCount = countFilesWithExtension(resolved, ['.md']);
-  const hasCss = hasFilesWithExtension(resolved, ['.css', '.scss', '.sass', '.less']);
+  const hasTerraform = languages.includes('terraform');
+  const hasDocker = hasDockerFiles(resolved);
+  const hasToml = hasFilesWithExtension(resolved, ['.toml']).value;
+  const markdownFileCount = countFilesWithExtension(resolved, ['.md']).value;
+  const hasCss = hasFilesWithExtension(resolved, ['.css', '.scss', '.sass', '.less']).value;
   const hasFrontend =
     frameworks.some((f) => FRONTEND_FRAMEWORKS.has(f)) || hasCss;
   const packageManager = detectPackageManager(resolved);

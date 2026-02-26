@@ -3,7 +3,7 @@ import { chmodSync, mkdirSync, mkdtempSync, rmSync, symlinkSync, writeFileSync }
 import { join } from 'node:path';
 import { tmpdir } from 'node:os';
 import { describe, it } from 'node:test';
-import { strictEqual } from 'node:assert';
+import { strictEqual, throws } from 'node:assert';
 
 import { type AssessmentReport, assessPhase0 } from './assess-phase0.js';
 import { ensureWithinScope } from './detect-project.js';
@@ -241,12 +241,6 @@ describe('ensureWithinScope symlink resolution', () => {
     const outsideDir = withTempProject(t);
     symlinkSync(outsideDir, join(scopeDir, 'escape-link'));
 
-    let threw = false;
-    try {
-      ensureWithinScope(join(scopeDir, 'escape-link'), scopeDir);
-    } catch {
-      threw = true;
-    }
-    strictEqual(threw, true);
+    throws(() => ensureWithinScope(join(scopeDir, 'escape-link'), scopeDir), /outside scope/);
   });
 });
