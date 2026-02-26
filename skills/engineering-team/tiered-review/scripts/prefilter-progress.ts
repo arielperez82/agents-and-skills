@@ -65,10 +65,11 @@ const PREFIX_MAP: ReadonlyArray<readonly [string, FileType]> = [
 
 const discoverMarkdownFiles = (dirPath: string): ReadonlyArray<string> => {
   try {
-    const entries = readdirSync(dirPath, { recursive: true });
-    return (entries as ReadonlyArray<string>)
+    const entries = readdirSync(dirPath, { recursive: true, encoding: 'utf-8' });
+    return entries
       .filter((entry) => entry.endsWith('.md'))
-      .map((entry) => join(dirPath, entry));
+      .map((entry) => join(dirPath, entry))
+      .filter((fullPath) => statSync(fullPath).isFile());
   } catch {
     return [];
   }

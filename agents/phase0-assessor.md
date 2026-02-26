@@ -16,6 +16,11 @@ use-cases:
   - Validating that new project scaffolding includes all required quality gates
   - Reviewing Phase 0 config changes (lint-staged, ESLint, Prettier, Husky, CI workflows)
 
+examples:
+  - prompt: "Audit this project for Phase 0 compliance"
+    context: "Project has package.json, tsconfig.json, .husky/, .github/workflows/"
+    outcome: "Phase 0 Assessment Report with per-check status and remediation steps"
+
 # === AGENT CLASSIFICATION ===
 classification:
   type: quality
@@ -171,7 +176,7 @@ N/M checks present, X missing, Y partial
 
 ### Missing: prettier
 - Install: `pnpm add -D prettier`
-- Create: `prettier.config.ts` (see eslint-configuration skill)
+- Create: `prettier.config.ts` (see prettier-configuration skill)
 - Create: `.prettierignore` (see prettier-configuration skill)
 - Add lint-staged glob: `'*': ['prettier --write']`
 - Add CI job: `prettier --check .`

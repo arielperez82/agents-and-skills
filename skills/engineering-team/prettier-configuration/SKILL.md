@@ -8,6 +8,16 @@ allowed-tools: [Read, Write, Edit, Bash, Glob, Grep]
 
 Configure Prettier for TypeScript projects using `.ts` config files, ESLint integration, lint-staged, Husky hooks, and CI pipelines.
 
+## When to Use This Skill
+
+- Setting up Prettier in a new TypeScript project
+- Adding or modifying `.prettierignore` patterns
+- Integrating Prettier with ESLint via `eslint-config-prettier`
+- Configuring lint-staged and Husky hooks for format-on-commit
+- Adding Prettier format checks to CI pipelines
+- Troubleshooting `.ts` config file loading (`ERR_UNKNOWN_FILE_EXTENSION`)
+- Adding file-type overrides (markdown, JSON, YAML, HTML, CSS)
+
 ## Installation
 
 ```bash
@@ -112,7 +122,7 @@ export default config;
 
 Without `.prettierignore`, Prettier will attempt to format build output, coverage reports, lock files, and other generated content. Always create this file.
 
-```
+```text
 coverage/
 dist/
 build/
@@ -155,12 +165,13 @@ pnpm add -D eslint-config-prettier
 In `eslint.config.ts`:
 
 ```typescript
-import eslintConfigPrettier from 'eslint-config-prettier';
+import tseslint from 'typescript-eslint';
+import prettierConfig from 'eslint-config-prettier';
 
-export default [
-  // ... your other configs (tseslint, etc.)
-  eslintConfigPrettier,
-];
+export default tseslint.config(
+  // ... your other configs
+  prettierConfig,
+);
 ```
 
 This setup means: ESLint handles code quality rules (no-unused-vars, no-implicit-coercion, etc.), Prettier handles all formatting. No overlap, no conflicts.

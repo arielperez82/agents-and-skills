@@ -5,7 +5,7 @@ import { dirname, resolve, isAbsolute } from 'node:path';
 import { unified } from 'unified';
 import remarkParse from 'remark-parse';
 import { visit } from 'unist-util-visit';
-import type { Node, Parent, Literal } from 'unist';
+import type { Node, Parent } from 'unist';
 
 type HeadingEntry = {
   readonly depth: number;
@@ -56,13 +56,17 @@ export type MarkdownPrefilterOutput = {
   };
 };
 
+type StringLiteral = Node & { readonly value: string };
 type NodeWithDepth = Node & { readonly depth: number };
 type NodeWithUrl = Node & { readonly url: string };
 
 const isParent = (node: Node): node is Parent => 'children' in node;
-const isLiteral = (node: Node): node is Literal => 'value' in node;
-const hasDepth = (node: Node): node is NodeWithDepth => 'depth' in node;
-const hasUrl = (node: Node): node is NodeWithUrl => 'url' in node;
+const isStringLiteral = (node: Node): node is StringLiteral =>
+  'value' in node && typeof (node as { value: unknown }).value === 'string';
+const hasDepth = (node: Node): node is NodeWithDepth =>
+  'depth' in node && typeof (node as { depth: unknown }).depth === 'number';
+const hasUrl = (node: Node): node is NodeWithUrl =>
+  'url' in node && typeof (node as { url: unknown }).url === 'string';
 
 type RawHeading = {
   readonly depth: number;
@@ -86,7 +90,7 @@ const MIN_SECTION_WORDS = 10;
 const MAX_EXCERPT_LENGTH = 200;
 
 const extractTextFromNode = (node: Node): string => {
-  if (isLiteral(node) && typeof node.value === 'string') return node.value;
+  if (isStringLiteral(node)) return node.value;
   if (!isParent(node)) return '';
   return node.children.map(extractTextFromNode).join('');
 };
@@ -113,12 +117,15 @@ const hasFrontmatter = (content: string): boolean => {
 const resolveInternalLink = (url: string, fileDir: string): string => {
   const urlWithoutFragment = url.split('#')[0];
   if (urlWithoutFragment.length === 0) return '';
-  if (isAbsolute(urlWithoutFragment)) return urlWithoutFragment;
-  return resolve(fileDir, urlWithoutFragment);
+  if (isAbsolute(urlWithoutFragment)) return '';
+  const resolved = resolve(fileDir, urlWithoutFragment);
+  if (!resolved.startsWith(fileDir + '/') && resolved !== fileDir) return '';
+  return resolved;
 };
 
 const getLinkStatus = (url: string, fileDir: string): 'valid' | 'broken' | 'external' => {
   if (isExternalUrl(url)) return 'external';
+  if (isAbsolute(url.split('#')[0])) return 'external';
   const resolved = resolveInternalLink(url, fileDir);
   if (resolved.length === 0) return 'valid';
   return existsSync(resolved) ? 'valid' : 'broken';
@@ -339,6 +346,10 @@ const main = (): void => {
   const args = process.argv.slice(2);
 
   const baseDirIndex = args.indexOf('--base-dir');
+  if (baseDirIndex >= 0 && (baseDirIndex + 1 >= args.length || args[baseDirIndex + 1].startsWith('--'))) {
+    process.stderr.write('Error: --base-dir requires a directory argument\n');
+    process.exit(1);
+  }
   const baseDir = baseDirIndex >= 0 ? args[baseDirIndex + 1] : undefined;
   const excludeIndices = baseDirIndex >= 0
     ? new Set([baseDirIndex, baseDirIndex + 1])

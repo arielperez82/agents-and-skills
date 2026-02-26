@@ -10,11 +10,11 @@ const SCRIPT_PATH = join(
   'prefilter-markdown.ts',
 );
 
-const run = (
-  ...filePaths: ReadonlyArray<string>
+const runWithArgs = (
+  args: ReadonlyArray<string>,
 ): { readonly stdout: string; readonly exitCode: number } => {
   try {
-    const stdout = execFileSync('npx', ['tsx', SCRIPT_PATH, ...filePaths], {
+    const stdout = execFileSync('npx', ['tsx', SCRIPT_PATH, ...args], {
       encoding: 'utf-8',
       timeout: 30_000,
     });
@@ -30,6 +30,11 @@ const run = (
     };
   }
 };
+
+const run = (
+  ...filePaths: ReadonlyArray<string>
+): { readonly stdout: string; readonly exitCode: number } =>
+  runWithArgs(filePaths);
 
 const createTempDir = (): string => mkdtempSync(join(tmpdir(), 'md-prefilter-'));
 
@@ -637,6 +642,43 @@ describe('prefilter-markdown', () => {
       } finally {
         rmSync(dir, { recursive: true });
       }
+    });
+  });
+
+  describe('--base-dir containment', () => {
+    it('accepts files that reside inside the base directory', () => {
+      const dir = createTempDir();
+      try {
+        const filePath = createTempFile(dir, 'inside.md', '# Inside\n\nContent here.');
+        const { exitCode, stdout } = runWithArgs(['--base-dir', dir, filePath]);
+
+        assert.equal(exitCode, 0);
+
+        const result = JSON.parse(stdout);
+        assert.equal(result.summary.totalFiles, 1);
+      } finally {
+        rmSync(dir, { recursive: true });
+      }
+    });
+
+    it('exits with code 1 when a file resolves outside the base directory', () => {
+      const baseDir = createTempDir();
+      const otherDir = createTempDir();
+      try {
+        const outsideFile = createTempFile(otherDir, 'outside.md', '# Outside');
+        const { exitCode } = runWithArgs(['--base-dir', baseDir, outsideFile]);
+
+        assert.equal(exitCode, 1);
+      } finally {
+        rmSync(baseDir, { recursive: true });
+        rmSync(otherDir, { recursive: true });
+      }
+    });
+
+    it('exits with code 1 when --base-dir has no value', () => {
+      const { exitCode } = runWithArgs(['--base-dir']);
+
+      assert.equal(exitCode, 1);
     });
   });
 });
