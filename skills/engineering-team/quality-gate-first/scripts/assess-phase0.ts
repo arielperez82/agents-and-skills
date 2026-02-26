@@ -68,9 +68,9 @@ const STYLELINT_CONFIGS = [
   'stylelint.config.mjs', 'stylelint.config.cjs',
 ] as const;
 
-const CI_WORKFLOW_PATTERN = /^(ci|test|checks?|build|lint|validate|pr|pull[_-]?request)/i;
+const CI_WORKFLOW_PATTERN = /^(ci|test|checks?|build|lint|validate|pr|pull[_-]?request)\b/i;
 
-const DEPLOY_FILE_PATTERN = /^(deploy|release|publish)\.(yml|yaml)$/;
+const DEPLOY_FILE_PATTERN = /^(deploy|release|publish|cd)\b.*\.(yml|yaml)$/i;
 
 const hasDep = (pkg: PackageJson | null, name: string): boolean =>
   Boolean(pkg?.dependencies?.[name] || pkg?.devDependencies?.[name]);
@@ -237,13 +237,20 @@ const assessMarkdownlint = (projectPath: string, profile: ProjectProfile, pkg: P
   );
 };
 
-const assessStylelint = (projectPath: string, profile: ProjectProfile, _pkg: PackageJson | null): CheckResult | null => {
+const assessStylelint = (projectPath: string, profile: ProjectProfile, pkg: PackageJson | null): CheckResult | null => {
   if (!profile.hasCss && !profile.hasFrontend) return null;
 
   const hasConfig = hasAnyFile(projectPath, STYLELINT_CONFIGS);
+  const hasPkg = hasDep(pkg, 'stylelint');
 
+  if (hasConfig && hasPkg) {
+    return checkResult('stylelint', 'CSS/SCSS linting', 'conditional', 'present', 'Stylelint config and package found');
+  }
   if (hasConfig) {
-    return checkResult('stylelint', 'CSS/SCSS linting', 'conditional', 'present', 'Stylelint config found');
+    return checkResult('stylelint', 'CSS/SCSS linting', 'conditional', 'partial', 'Stylelint config found but stylelint not in devDependencies');
+  }
+  if (hasPkg) {
+    return checkResult('stylelint', 'CSS/SCSS linting', 'conditional', 'partial', 'stylelint installed but no config file found');
   }
   return checkResult('stylelint', 'CSS/SCSS linting', 'conditional', 'missing', 'Has CSS/frontend but no Stylelint config');
 };

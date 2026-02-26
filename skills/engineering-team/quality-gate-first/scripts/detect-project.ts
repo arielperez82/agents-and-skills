@@ -25,7 +25,6 @@ export type ProjectProfile = {
   readonly hasGithubActions: boolean;
   readonly hasTerraform: boolean;
   readonly hasDocker: boolean;
-  readonly hasToml: boolean;
   readonly markdownFileCount: number;
   readonly hasFrontend: boolean;
   readonly hasCss: boolean;
@@ -245,7 +244,6 @@ export const detectProject = (projectPath: string, options?: DetectOptions): Pro
   const hasGithubActions = hasDirectory(resolved, '.github/workflows');
   const hasTerraform = languages.includes('terraform');
   const hasDocker = hasDockerFiles(resolved);
-  const hasToml = hasFilesWithExtension(resolved, ['.toml']).value;
   const markdownFileCount = countFilesWithExtension(resolved, ['.md']).value;
   const hasCss = hasFilesWithExtension(resolved, ['.css', '.scss', '.sass', '.less']).value;
   const hasFrontend =
@@ -260,7 +258,6 @@ export const detectProject = (projectPath: string, options?: DetectOptions): Pro
     hasGithubActions,
     hasTerraform,
     hasDocker,
-    hasToml,
     markdownFileCount,
     hasFrontend,
     hasCss,
