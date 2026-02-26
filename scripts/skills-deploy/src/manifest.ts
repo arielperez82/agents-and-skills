@@ -30,7 +30,7 @@ const writeManifest = async (path: string, manifest: SkillManifest): Promise<voi
 };
 
 const getSkillId = (manifest: SkillManifest, skillPath: string): string | undefined =>
-  manifest.skills[skillPath]?.skill_id;
+  manifest.skills[skillPath]?.skill_id; // eslint-disable-line security/detect-object-injection -- keyed lookup by known skill path
 
 const setSkillId = (
   manifest: SkillManifest,

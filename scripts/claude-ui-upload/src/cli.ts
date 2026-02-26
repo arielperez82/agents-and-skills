@@ -9,9 +9,11 @@ const parseArgs = (): { rootDir: string; outputDir: string } => {
 
   for (let i = 0; i < args.length; i++) {
     const next = args[i + 1];
+    // eslint-disable-next-line security/detect-object-injection -- sequential array index
     if (args[i] === '--output' && next !== undefined) {
       outputDir = resolve(process.cwd(), next);
       i++;
+      // eslint-disable-next-line security/detect-object-injection -- sequential array index
     } else if (args[i] === '--root' && next !== undefined) {
       return {
         rootDir: resolve(process.cwd(), next),

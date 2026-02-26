@@ -31,6 +31,7 @@ export const extractStringField = (eventJson: string, field: string): string | n
   try {
     const parsed: unknown = JSON.parse(eventJson);
     if (typeof parsed !== 'object' || parsed === null) return null;
+    // eslint-disable-next-line security/detect-object-injection -- field is caller-controlled string key
     const value = (parsed as Record<string, unknown>)[field];
     return typeof value === 'string' ? value : null;
   } catch {

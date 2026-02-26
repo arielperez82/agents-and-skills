@@ -40,6 +40,7 @@ export default defineConfig(
       '@typescript-eslint/no-deprecated': 'off',
       '@typescript-eslint/prefer-promise-reject-errors': 'off',
       '@typescript-eslint/restrict-template-expressions': ['error', { allowNumber: true }],
+      'security/detect-non-literal-fs-filename': 'off',
       'no-restricted-properties': [
         'error',
         {

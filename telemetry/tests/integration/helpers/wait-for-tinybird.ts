@@ -9,6 +9,7 @@ function getTinybirdEnv(): { host: string; token: string } {
 
 function isLocalHost(host: string): boolean {
   const u = host.replace(/\/$/, '');
+  // eslint-disable-next-line security/detect-unsafe-regex -- short URL input, no backtracking risk
   return /^https?:\/\/(localhost|127\.0\.0\.1)(:\d+)?$/.test(u);
 }
 

@@ -102,6 +102,7 @@ export default defineConfig(
   {
     rules: {
       'sonarjs/todo-tag': 'warn',
+      'security/detect-non-literal-fs-filename': 'off',
     },
   },
   {

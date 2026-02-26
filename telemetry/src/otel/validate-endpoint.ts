@@ -35,6 +35,7 @@ export const validateOtelConfig = (
   const errors: string[] = [];
 
   for (const varName of REQUIRED_ENV_VARS) {
+    // eslint-disable-next-line security/detect-object-injection -- iterating const array
     if (!env[varName]) {
       errors.push(`Missing required environment variable: ${varName}`);
     }

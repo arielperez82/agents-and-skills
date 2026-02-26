@@ -49,6 +49,7 @@ const formatAgentLine = (row: AgentUsageSummaryRow, index: number): string => {
 const calculateMedianCost = (rows: readonly AgentUsageSummaryRow[]): number => {
   const sorted = [...rows].sort((a, b) => a.est_cost_usd - b.est_cost_usd);
   const mid = Math.floor(sorted.length / 2);
+  // eslint-disable-next-line security/detect-object-injection -- index computed from array length
   const midRow = sorted[mid];
   if (midRow === undefined) return 0;
   if (sorted.length % 2 === 0) {
