@@ -88,7 +88,7 @@ The canonical list of all Phase 0 checks is in `references/check-registry.md`. E
 
 Core checks (12): `trailing-whitespace`, `mixed-line-ending`, `large-files`, `merge-conflicts`, `private-keys`, `no-commit-to-branch`, `case-conflict`, `check-json`, `check-yaml`, `type-check`, `eslint`, `prettier`.
 
-Conditional checks (14): `eslint-security`, `semgrep`, `markdownlint`, `stylelint`, `jsx-a11y`, `react-hooks`, `shellcheck`, `actionlint`, `tflint`, `hadolint`, `vitest-typecheck`, `toml-lint`, `detect-secrets`.
+Conditional checks (14): `eslint-security`, `semgrep`, `markdownlint`, `stylelint`, `jsx-a11y`, `react-hooks`, `shellcheck`, `actionlint`, `tflint`, `hadolint`, `vitest-typecheck`, `toml-lint`, `detect-secrets`, `mutation-testing`.
 
 ## Automated Detection
 
