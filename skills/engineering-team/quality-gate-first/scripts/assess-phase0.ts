@@ -276,6 +276,37 @@ const assessReactHooks = (profile: ProjectProfile, pkg: PackageJson | null): Che
   return checkResult('react-hooks', 'React hooks rules', 'conditional', 'missing', 'React detected but eslint-plugin-react-hooks not installed');
 };
 
+const TS_JS_LANGUAGES = new Set(['typescript', 'javascript']);
+
+const hasTypeScriptOrJavaScript = (profile: ProjectProfile): boolean =>
+  profile.languages.some((l) => TS_JS_LANGUAGES.has(l));
+
+const assessEslintSecurity = (profile: ProjectProfile, pkg: PackageJson | null): CheckResult | null => {
+  if (!hasTypeScriptOrJavaScript(profile)) return null;
+
+  if (hasDep(pkg, 'eslint-plugin-security')) {
+    return checkResult('eslint-security', 'ESLint security plugin', 'conditional', 'present', 'eslint-plugin-security installed');
+  }
+  return checkResult('eslint-security', 'ESLint security plugin', 'conditional', 'missing', 'Has TS/JS source but eslint-plugin-security not installed');
+};
+
+const SEMGREP_CONFIGS = ['.semgrep.yml', '.semgrep.yaml', '.semgrep'] as const;
+
+const assessSemgrep = (projectPath: string, profile: ProjectProfile): CheckResult | null => {
+  if (!hasTypeScriptOrJavaScript(profile)) return null;
+
+  const hasConfig = hasAnyFile(projectPath, SEMGREP_CONFIGS);
+  const hasIgnore = existsSync(join(projectPath, '.semgrepignore'));
+
+  if (hasConfig && hasIgnore) {
+    return checkResult('semgrep', 'Semgrep security scanning', 'conditional', 'present', '.semgrep.yml + .semgrepignore found');
+  }
+  if (hasConfig) {
+    return checkResult('semgrep', 'Semgrep security scanning', 'conditional', 'partial', '.semgrep.yml found but no .semgrepignore (recommended for excluding IaC, generated code)');
+  }
+  return checkResult('semgrep', 'Semgrep security scanning', 'conditional', 'missing', 'Has TS/JS source but no .semgrep.yml — verify Semgrep is installed and configured');
+};
+
 const assessShellcheck = (projectPath: string, profile: ProjectProfile): CheckResult | null => {
   if (!profile.hasShellScripts) return null;
   const hasConfig = existsSync(join(projectPath, '.shellcheckrc'));
@@ -315,6 +346,8 @@ const assessConditionalChecks = (
   pkg: PackageJson | null,
 ): readonly CheckResult[] =>
   [
+    assessEslintSecurity(profile, pkg),
+    assessSemgrep(projectPath, profile),
     assessMarkdownlint(projectPath, profile, pkg),
     assessStylelint(projectPath, profile, pkg),
     assessJsxA11y(profile, pkg),

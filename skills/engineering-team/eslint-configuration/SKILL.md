@@ -173,6 +173,62 @@ export default tseslint.config(
 
 This disables all ESLint rules that would conflict with Prettier formatting. It does NOT run Prettier -- it only turns off conflicting rules. Always place it after any config that enables formatting rules.
 
+### eslint-plugin-security (Node.js security)
+
+```bash
+pnpm add -D eslint-plugin-security
+```
+
+```typescript
+import security from 'eslint-plugin-security';
+
+// In your config array:
+...(security.configs?.recommended ? [security.configs.recommended] : []),
+```
+
+Same optional-chaining pattern as SonarJS. Unlike SonarJS, `eslint-plugin-security` ships no types, so you need an eslint-disable comment:
+
+```typescript
+// eslint-disable-next-line @typescript-eslint/no-unsafe-member-access, @typescript-eslint/no-unsafe-argument -- eslint-plugin-security ships no types
+...(security.configs?.recommended ? [security.configs.recommended] : []),
+```
+
+Catches: `child_process` usage, non-literal `fs` filenames (path traversal), `eval` with expressions, object injection via bracket notation, non-literal `require`.
+
+Pair with `no-restricted-properties` to enforce `execFileSync` over `execSync` and `lstatSync` over `statSync`:
+
+```typescript
+{
+  rules: {
+    'no-restricted-properties': [
+      'error',
+      {
+        object: 'child_process',
+        property: 'execSync',
+        message: 'Use execFileSync with array args to prevent shell injection.',
+      },
+      {
+        object: 'child_process',
+        property: 'exec',
+        message: 'Use execFile with callback and array args to prevent shell injection.',
+      },
+      {
+        object: 'fs',
+        property: 'statSync',
+        message: 'Use lstatSync to avoid following symlinks outside containment boundary.',
+      },
+      {
+        object: 'fs',
+        property: 'stat',
+        message: 'Use lstat to avoid following symlinks outside containment boundary.',
+      },
+    ],
+  },
+}
+```
+
+Recommended for all TS/JS projects. See Phase 0 check-registry `eslint-security` for full integration details.
+
 ### eslint-plugin-jsx-a11y (React projects)
 
 ```bash

@@ -1,0 +1,49 @@
+# Semgrep rules for security enforcement.
+# Community edition only — no account required.
+#
+# Usage:
+#   semgrep scan --config .semgrep.yml           # local rules only
+#   semgrep scan --config .semgrep.yml --config p/typescript.security  # + community rules
+#
+# To disable a rule inline: add `// nosemgrep: <rule-id>` on the line.
+# To exclude paths: edit .semgrepignore.
+
+rules:
+  # ── Shell injection ────────────────────────────────────────────────
+  - id: no-exec-sync
+    pattern: execSync(...)
+    message: >-
+      Shell injection risk: execSync passes the command through a shell.
+      Use execFileSync(file, args) with an array of arguments instead.
+    languages: [typescript, javascript]
+    severity: ERROR
+    metadata:
+      category: security
+      cwe: "CWE-78: OS Command Injection"
+      references:
+        - https://owasp.org/Top10/A03_2021-Injection/
+
+  - id: no-spawn-shell-true
+    pattern: "spawn($CMD, $ARGS, {..., shell: true, ...})"
+    message: >-
+      Setting shell:true in spawn() re-enables shell interpolation, defeating
+      the safety of array arguments. Remove the shell option or set it to false.
+    languages: [typescript, javascript]
+    severity: WARNING
+    metadata:
+      category: security
+      cwe: "CWE-78: OS Command Injection"
+
+  # ── Symlink following ──────────────────────────────────────────────
+  - id: no-stat-sync-follow
+    patterns:
+      - pattern: statSync(...)
+      - pattern-not: lstatSync(...)
+    message: >-
+      statSync follows symlinks, which can escape containment boundaries.
+      Use lstatSync to inspect the link itself without following it.
+    languages: [typescript, javascript]
+    severity: WARNING
+    metadata:
+      category: security
+      cwe: "CWE-59: Improper Link Resolution"

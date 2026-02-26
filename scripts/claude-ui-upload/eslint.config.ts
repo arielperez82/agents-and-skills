@@ -4,6 +4,7 @@ import { fileURLToPath } from 'node:url';
 import js from '@eslint/js';
 import { defineConfig } from 'eslint/config';
 import prettier from 'eslint-config-prettier/flat';
+import security from 'eslint-plugin-security';
 import { configs as tsConfigs } from 'typescript-eslint';
 
 const __dirname = dirname(fileURLToPath(import.meta.url));
@@ -14,6 +15,8 @@ export default defineConfig(
   },
   js.configs.recommended,
   tsConfigs.strictTypeChecked,
+
+  ...(security.configs?.recommended ? [security.configs.recommended] : []),
   {
     files: ['**/*.ts'],
     languageOptions: {
@@ -37,6 +40,29 @@ export default defineConfig(
       '@typescript-eslint/no-deprecated': 'off',
       '@typescript-eslint/prefer-promise-reject-errors': 'off',
       '@typescript-eslint/restrict-template-expressions': ['error', { allowNumber: true }],
+      'no-restricted-properties': [
+        'error',
+        {
+          object: 'child_process',
+          property: 'execSync',
+          message: 'Use execFileSync with array args to prevent shell injection.',
+        },
+        {
+          object: 'child_process',
+          property: 'exec',
+          message: 'Use execFile with callback and array args to prevent shell injection.',
+        },
+        {
+          object: 'fs',
+          property: 'statSync',
+          message: 'Use lstatSync to avoid following symlinks outside containment boundary.',
+        },
+        {
+          object: 'fs',
+          property: 'stat',
+          message: 'Use lstat to avoid following symlinks outside containment boundary.',
+        },
+      ],
     },
   },
   {

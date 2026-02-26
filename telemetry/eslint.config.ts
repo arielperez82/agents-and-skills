@@ -7,6 +7,7 @@ import tsParser from '@typescript-eslint/parser';
 import { defineConfig } from 'eslint/config';
 import prettier from 'eslint-config-prettier/flat';
 import importPlugin from 'eslint-plugin-import';
+import security from 'eslint-plugin-security';
 import simpleImportSort from 'eslint-plugin-simple-import-sort';
 import sonarjsPlugin from 'eslint-plugin-sonarjs';
 import { configs as tsConfigs } from 'typescript-eslint';
@@ -25,7 +26,7 @@ export default defineConfig(
     languageOptions: {
       parserOptions: {
         projectService: {
-          allowDefaultProject: ['*.config.ts'],
+          allowDefaultProject: ['*.config.ts', '*.d.ts'],
           defaultProject: 'tsconfig.eslint.json',
         },
         tsconfigRootDir: __dirname,
@@ -42,6 +43,29 @@ export default defineConfig(
       '@typescript-eslint/no-unsafe-member-access': 'error',
       '@typescript-eslint/no-unsafe-return': 'error',
       '@typescript-eslint/no-floating-promises': 'error',
+      'no-restricted-properties': [
+        'error',
+        {
+          object: 'child_process',
+          property: 'execSync',
+          message: 'Use execFileSync with array args to prevent shell injection.',
+        },
+        {
+          object: 'child_process',
+          property: 'exec',
+          message: 'Use execFile with callback and array args to prevent shell injection.',
+        },
+        {
+          object: 'fs',
+          property: 'statSync',
+          message: 'Use lstatSync to avoid following symlinks outside containment boundary.',
+        },
+        {
+          object: 'fs',
+          property: 'stat',
+          message: 'Use lstat to avoid following symlinks outside containment boundary.',
+        },
+      ],
     },
   },
   {
@@ -51,7 +75,7 @@ export default defineConfig(
       parser: tsParser,
       parserOptions: {
         projectService: {
-          allowDefaultProject: ['*.config.ts'],
+          allowDefaultProject: ['*.config.ts', '*.d.ts'],
           defaultProject: 'tsconfig.eslint.json',
         },
         tsconfigRootDir: __dirname,
@@ -73,6 +97,8 @@ export default defineConfig(
     },
   },
   ...(sonarjsPlugin.configs?.recommended ? [sonarjsPlugin.configs.recommended] : []),
+
+  ...(security.configs?.recommended ? [security.configs.recommended] : []),
   {
     rules: {
       'sonarjs/todo-tag': 'warn',

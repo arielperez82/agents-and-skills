@@ -1,0 +1,40 @@
+# Semgrep ignore patterns.
+# One pattern per line. Supports globs.
+
+# ── Build & dependency artifacts ─────────────────────────────────────
+node_modules/
+dist/
+build/
+coverage/
+.next/
+.vercel/
+
+# ── Infrastructure-as-Code (separate linters: tflint, checkov) ───────
+*.tf
+*.tfvars
+**/.terraform/
+
+# ── Lock files & generated code ─────────────────────────────────────
+pnpm-lock.yaml
+package-lock.json
+yarn.lock
+*.min.js
+*.min.css
+
+# ── Test fixtures & snapshots ────────────────────────────────────────
+**/__snapshots__/
+**/fixtures/
+
+# ── Documentation & non-code assets ─────────────────────────────────
+*.md
+*.mdx
+*.txt
+*.pdf
+*.png
+*.jpg
+*.svg
+
+# ── Git and editor ──────────────────────────────────────────────────
+.git/
+.vscode/
+.idea/

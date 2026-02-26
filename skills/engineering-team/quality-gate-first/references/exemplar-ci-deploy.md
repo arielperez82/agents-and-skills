@@ -72,6 +72,13 @@ jobs:
           cache: 'pnpm'
       - run: pnpm install --frozen-lockfile
       - run: pnpm test
+
+  semgrep:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4
+      - run: pip install semgrep
+      - run: semgrep scan --config .semgrep.yml --error
 ```
 
 **Key patterns:**
@@ -80,7 +87,8 @@ jobs:
 - **Concurrency groups** — cancels in-progress runs on the same branch (saves CI minutes)
 - **Pinned action versions by SHA** — prevents supply-chain attacks via tag mutation (comment shows version for readability)
 - **Frozen lockfile** — `--frozen-lockfile` ensures CI uses exact versions from lockfile, fails on drift
-- **Separate jobs** — `checks` (fast: format, lint, type-check) and `test` (slower: unit tests) run as separate jobs; `test` depends on `checks` to fail fast
+- **Separate jobs** — `checks` (fast: format, lint, type-check), `test` (slower: unit tests), and `semgrep` (security) run as separate jobs; `test` depends on `checks` to fail fast; `semgrep` runs independently
+- **Semgrep (community edition)** — uses local `.semgrep.yml` rules only, no account required. `pip install semgrep` in CI. Catches shell injection, symlink following, and other security patterns that ESLint rules cannot express
 - **`.node-version` file** — single source of truth for Node version (also used by nvm/fnm locally)
 
 ### Monorepo variant

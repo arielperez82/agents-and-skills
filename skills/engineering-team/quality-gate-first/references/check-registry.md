@@ -22,10 +22,12 @@ Structured reference of every Phase 0 check: what it does, when it applies, and 
 | `eslint` | Code quality + style | ESLint flat config | `*.{ts,tsx}` → `eslint --fix` | `pnpm lint` |
 | `prettier` | Consistent formatting | Prettier | `*` → `prettier --write` | `pnpm format:check` |
 
-## Summary: Conditional Checks (11)
+## Summary: Conditional Checks (13)
 
 | ID | Detection criteria | Tool | lint-staged glob | CI command |
 |----|-------------------|------|------------------|------------|
+| `eslint-security` | Has TS/JS source | eslint-plugin-security | Via ESLint on `*.{ts,tsx}` | Via ESLint CI |
+| `semgrep` | Has TS/JS source | Semgrep (community) | `*.{ts,js}` → `semgrep scan --config .semgrep.yml` | `semgrep scan --config .semgrep.yml --error` |
 | `markdownlint` | `*.md` count > 3 | markdownlint-cli2 | `*.md` → `markdownlint-cli2 --fix` | `pnpm lint:md` |
 | `stylelint` | Has CSS/SCSS or frontend | Stylelint | `*.{css,scss}` → `stylelint --fix` | `pnpm lint:css` |
 | `jsx-a11y` | Has React/JSX/Astro | eslint-plugin-jsx-a11y | Via ESLint on `*.{ts,tsx,jsx}` | Via ESLint CI |
@@ -77,12 +79,24 @@ Structured reference of every Phase 0 check: what it does, when it applies, and 
 - **Note:** lint-staged uses function form `() => 'tsc --noEmit'` for full-project check (not per-file).
 
 ### `eslint`
-- **Deps:** `eslint`, `jiti`, `typescript-eslint`, `eslint-plugin-simple-import-sort`, `eslint-plugin-sonarjs`, `eslint-config-prettier`
+- **Deps:** `eslint`, `jiti`, `typescript-eslint`, `eslint-plugin-simple-import-sort`, `eslint-plugin-sonarjs`, `eslint-plugin-security`, `eslint-config-prettier`
 - **Config:** `eslint.config.ts`
 - **Skill:** `engineering-team/eslint-configuration`
-- **Note:** Requires `jiti` devDependency for ESLint to load `.ts` config files.
+- **Note:** Requires `jiti` devDependency for ESLint to load `.ts` config files. Include `eslint-plugin-security` recommended config and `no-restricted-properties` rules for shell injection / symlink safety (see conditional `eslint-security` check).
 
 ## Conditional Check Details
+
+### `eslint-security`
+- **Deps:** `eslint-plugin-security`
+- **Config:** Part of `eslint.config.ts` — add `security.configs.recommended` and `no-restricted-properties` rules banning `execSync`, `exec`, `statSync`, `stat`
+- **Skill:** `engineering-team/eslint-configuration` (security plugin recipe)
+- **Note:** Detects child_process usage, non-literal fs filenames, eval with expressions, object injection, and other Node.js security anti-patterns. The `no-restricted-properties` rules enforce `execFileSync` over `execSync` (shell injection) and `lstatSync` over `statSync` (symlink following). Recommended for all TS/JS projects.
+
+### `semgrep`
+- **Deps:** System install: `pip install semgrep` or `brew install semgrep`
+- **Config:** `.semgrep.yml` (local rules), `.semgrepignore` (exclusion patterns)
+- **Skill:** `engineering-team/semgrep-scanning`, `engineering-team/semgrep-rule-creator`
+- **Note:** Community edition only — no account required. Ships local rules in `.semgrep.yml` targeting shell injection (`execSync`), symlink following (`statSync`), and `spawn` with `shell: true`. Optionally extend with community rulesets (`--config p/typescript.security`). Use `.semgrepignore` to exclude Terraform, IaC, and generated code. Runner script: `scripts/run-semgrep.sh`. In CI: `pip install semgrep && semgrep scan --config .semgrep.yml --error`.
 
 ### `markdownlint`
 - **Deps:** `markdownlint-cli2`

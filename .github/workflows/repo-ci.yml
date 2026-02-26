@@ -11,6 +11,8 @@ on:
       - 'commands/**'
       - '.docs/**'
       - '**/*.sh'
+      - '**/*.ts'
+      - '.semgrep.yml'
       - '.github/workflows/repo-ci.yml'
   pull_request:
     paths:
@@ -19,6 +21,8 @@ on:
       - 'commands/**'
       - '.docs/**'
       - '**/*.sh'
+      - '**/*.ts'
+      - '.semgrep.yml'
       - '.github/workflows/repo-ci.yml'
 
 concurrency:
@@ -38,3 +42,15 @@ jobs:
           path: '.'
           exclude-paths: 'node_modules'
           severity: 'warning'
+
+  semgrep:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Install Semgrep
+        run: pip install semgrep
+
+      - name: Run Semgrep (local rules)
+        run: semgrep scan --config .semgrep.yml --error

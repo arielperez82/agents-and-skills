@@ -1,3 +1,17 @@
+import { dirname, resolve } from 'node:path';
+import { fileURLToPath } from 'node:url';
+
+const semgrepScript = resolve(
+  dirname(fileURLToPath(import.meta.url)),
+  '../../scripts/run-semgrep.sh',
+);
+
 export default {
-  '**/*.ts': () => ['pnpm type-check', 'pnpm lint:fix', 'pnpm format:fix .', 'pnpm test:unit'],
+  '**/*.ts': (stagedFiles: string[]) => [
+    'pnpm type-check',
+    'pnpm lint:fix',
+    `pnpm format:fix ${stagedFiles.join(' ')}`,
+    'pnpm test:unit',
+    `sh ${semgrepScript} ${stagedFiles.join(' ')}`,
+  ],
 };

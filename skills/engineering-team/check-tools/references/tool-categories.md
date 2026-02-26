@@ -647,4 +647,19 @@ if [[ -s "$HOME/.sdkman/bin/sdkman-init.sh" ]]; then
 fi
 ```
 
+## Static Analysis & Security
+
+### semgrep
+**Purpose**: Pattern-based static analysis for security and code quality
+**Check**: `semgrep --version`
+**Installation**:
+```bash
+# Via pip (recommended)
+pip install semgrep
+
+# macOS
+brew install semgrep
+```
+**Note**: Community edition only — no account required. Uses local `.semgrep.yml` rules. Catches shell injection (`execSync`), symlink following (`statSync`), and other patterns that ESLint cannot express. Exclude Terraform and IaC via `.semgrepignore`. In CI: `pip install semgrep && semgrep scan --config .semgrep.yml --error`.
+
 This reference provides comprehensive coverage of all major development tools, their purposes, installation methods, and validation patterns.

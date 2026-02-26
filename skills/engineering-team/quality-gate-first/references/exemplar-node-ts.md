@@ -29,6 +29,7 @@ NODE_OPTIONS=--experimental-strip-types pnpx lint-staged --verbose
 ```ts
 import eslint from '@eslint/js';
 import prettierConfig from 'eslint-config-prettier';
+import security from 'eslint-plugin-security';
 import simpleImportSort from 'eslint-plugin-simple-import-sort';
 import sonarjsPlugin from 'eslint-plugin-sonarjs';
 import tseslint from 'typescript-eslint';
@@ -38,6 +39,7 @@ export default tseslint.config(
   eslint.configs.recommended,
   ...tseslint.configs.strictTypeChecked,
   ...(sonarjsPlugin.configs?.recommended ? [sonarjsPlugin.configs.recommended] : []),
+  ...(security.configs?.recommended ? [security.configs.recommended] : []),
   prettierConfig,
   {
     languageOptions: {
@@ -54,6 +56,29 @@ export default tseslint.config(
     rules: {
       'simple-import-sort/imports': 'error',
       'simple-import-sort/exports': 'error',
+      'no-restricted-properties': [
+        'error',
+        {
+          object: 'child_process',
+          property: 'execSync',
+          message: 'Use execFileSync with array args to prevent shell injection.',
+        },
+        {
+          object: 'child_process',
+          property: 'exec',
+          message: 'Use execFile with callback and array args to prevent shell injection.',
+        },
+        {
+          object: 'fs',
+          property: 'statSync',
+          message: 'Use lstatSync to avoid following symlinks outside containment boundary.',
+        },
+        {
+          object: 'fs',
+          property: 'stat',
+          message: 'Use lstat to avoid following symlinks outside containment boundary.',
+        },
+      ],
     },
   },
 );
@@ -63,8 +88,10 @@ export default tseslint.config(
 
 - `strictTypeChecked` requires `projectService` + `tsconfigRootDir`
 - `allowDefaultProject: ['*.config.ts']` + `defaultProject: 'tsconfig.eslint.json'` lets ESLint type-check config files
-- SonarJS `configs.recommended` may be `undefined` — use optional chaining with spread
+- SonarJS and security plugin `configs.recommended` may be `undefined` — use optional chaining with spread
 - `jiti` must be installed as devDependency for ESLint to load `.ts` config
+- `no-restricted-properties` enforces `execFileSync` over `execSync` (shell injection) and `lstatSync` over `statSync` (symlink safety)
+- `eslint-plugin-security` detects non-literal fs filenames, eval, object injection, and other Node.js security anti-patterns
 
 ## `prettier.config.ts`
 

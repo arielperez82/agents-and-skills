@@ -32,6 +32,7 @@ import eslint from '@eslint/js';
 import prettierConfig from 'eslint-config-prettier';
 import jsxA11y from 'eslint-plugin-jsx-a11y';
 import reactHooks from 'eslint-plugin-react-hooks';
+import security from 'eslint-plugin-security';
 import simpleImportSort from 'eslint-plugin-simple-import-sort';
 import sonarjsPlugin from 'eslint-plugin-sonarjs';
 import tseslint from 'typescript-eslint';
@@ -41,6 +42,7 @@ export default tseslint.config(
   eslint.configs.recommended,
   ...tseslint.configs.strictTypeChecked,
   ...(sonarjsPlugin.configs?.recommended ? [sonarjsPlugin.configs.recommended] : []),
+  ...(security.configs?.recommended ? [security.configs.recommended] : []),
   jsxA11y.flatConfigs.recommended,
   prettierConfig,
   {
@@ -61,6 +63,29 @@ export default tseslint.config(
       'simple-import-sort/exports': 'error',
       'react-hooks/rules-of-hooks': 'error',
       'react-hooks/exhaustive-deps': 'warn',
+      'no-restricted-properties': [
+        'error',
+        {
+          object: 'child_process',
+          property: 'execSync',
+          message: 'Use execFileSync with array args to prevent shell injection.',
+        },
+        {
+          object: 'child_process',
+          property: 'exec',
+          message: 'Use execFile with callback and array args to prevent shell injection.',
+        },
+        {
+          object: 'fs',
+          property: 'statSync',
+          message: 'Use lstatSync to avoid following symlinks outside containment boundary.',
+        },
+        {
+          object: 'fs',
+          property: 'stat',
+          message: 'Use lstat to avoid following symlinks outside containment boundary.',
+        },
+      ],
     },
   },
 );
@@ -71,6 +96,7 @@ export default tseslint.config(
 - Adds `.next/**` to ignores
 - Adds `eslint-plugin-jsx-a11y` (flat config: `jsxA11y.flatConfigs.recommended`)
 - Adds `eslint-plugin-react-hooks` with rules-of-hooks and exhaustive-deps
+- Security plugin and `no-restricted-properties` rules are inherited from Node.js exemplar
 
 ## `prettier.config.ts`
 
