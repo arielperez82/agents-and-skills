@@ -58,7 +58,7 @@ Even in auto-mode, the following conditions MUST pause for human review:
 
 | Phase | Override |
 |-------|----------|
-| Phase 4 (Build) | Modify the Phase 4 prompt to instruct `engineering-lead` to use `/code:auto` instead of `/code` for each plan step. Step Reviews (diff-mode) auto-approve if zero "Fix Required" findings. Story Reviews (full-mode) auto-approve if cognitive-load-assessor reports no Critical or High findings. |
+| Phase 4 (Build) | Modify the Phase 4 prompt to instruct `engineering-lead` to use `/code:auto` instead of `/code` for each plan step. Step Reviews use `/code:auto` Step 4 (runs `/review/review-changes --mode diff`, auto-approves if zero Fix Required findings, blocks on Fix Required). Story Reviews (full-mode) auto-approve if cognitive-load-assessor reports no Critical or High findings. |
 | Phase 5 (Validate) | Auto-approve if zero "Fix Required" findings; pause if any Fix Required. When Fix Required findings specify exact values (coverage thresholds, config settings), the fix must implement the reviewer's EXACT recommended values — verify by diffing the fix against the recommendation before re-running. |
 | Phase 6 (Close) | Auto-commit close artifacts (learnings, doc updates) via `/git/cm` after close agents complete. Record commit SHA in status file. Code is already committed incrementally in Phase 4. |
 
