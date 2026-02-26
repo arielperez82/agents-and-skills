@@ -6,7 +6,9 @@ title: Mobile Engineer
 description: Cross-platform mobile development specialist for React Native, Flutter, and Expo. Handles framework selection, project scaffolding, platform detection, and app store validation.
 domain: engineering
 subdomain: mobile-development
-skills: engineering-team/senior-mobile
+skills:
+  - engineering-team/senior-mobile
+  - engineering-team/react-native-skills
 
 # === USE CASES ===
 difficulty: advanced
@@ -37,7 +39,6 @@ related-skills:
   - engineering-team/senior-ios
   - engineering-team/senior-flutter
   - engineering-team/core-testing-methodology
-  - engineering-team/react-native-skills
   - engineering-team/composition-patterns
 related-commands: []
 collaborates-with:
@@ -99,13 +100,14 @@ The mobile-engineer agent bridges the gap between framework selection and produc
 
 ## Skill Integration
 
-This agent orchestrates the following skill package:
+### Core Skills
 
-- **senior-mobile** (`../skills/engineering-team/senior-mobile/SKILL.md`)
-  - Project scaffolding for React Native, Flutter, and Expo
-  - Platform capability detection and analysis
-  - App Store and Play Store validation
-  - Framework comparison and selection guidance
+| Skill | Location | What It Provides |
+|-------|----------|------------------|
+| **senior-mobile** | `senior-mobile/` | Project scaffolding for React Native, Flutter, and Expo; platform detection; App Store validation |
+| **react-native-skills** | `react-native-skills/` | 36 React Native/Expo rules: list perf, animation, navigation, UI patterns, state management |
+
+**Base Path:** All skill paths are relative to `../skills/engineering-team/`.
 
 ### Python Tools
 

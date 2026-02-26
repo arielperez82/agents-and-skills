@@ -12,6 +12,8 @@ skills:
   - engineering-team/typescript-strict
   - engineering-team/testing
   - engineering-team/react-testing
+  - engineering-team/react-best-practices
+  - engineering-team/composition-patterns
 
 # === USE CASES ===
 difficulty: advanced
@@ -37,14 +39,12 @@ related-skills:
   - engineering-team/quality-gate-first
   - engineering-team/software-architecture
   - engineering-team/core-testing-methodology
-  - engineering-team/react-best-practices
   - engineering-team/react-vite-expert
   - engineering-team/accessibility
   - engineering-team/core-web-vitals
   - engineering-team/performance
   - engineering-team/web-quality-audit
   - engineering-team/vitest-testing-patterns
-  - engineering-team/composition-patterns
   - engineering-team/e2e-testing-patterns
   - engineering-team/playwright-skill
   - engineering-team/verification-before-completion
@@ -142,6 +142,8 @@ This agent orchestrates multiple core skills. Each skill provides detailed docum
 | **typescript-strict** | `typescript-strict/` | TypeScript strict mode patterns, schema-first development, no `any` types |
 | **testing** | `testing/` | Testing patterns, behavior-driven testing, test factories, public API testing |
 | **react-testing** | `react-testing/` | React Testing Library patterns, component testing, hooks testing, context testing |
+| **react-best-practices** | `react-best-practices/` | 57 React/Next.js performance rules from Vercel: waterfalls, bundle size, SSR, re-renders |
+| **composition-patterns** | `composition-patterns/` | 8 React architecture rules: compound components, state lifting, context interfaces |
 
 **Usage:** Load these skills automatically when starting frontend development work. The agent provides an index to these skills; consult each skill's SKILL.md for detailed documentation, tools, and examples.
 

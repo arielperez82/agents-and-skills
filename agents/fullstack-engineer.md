@@ -6,7 +6,9 @@ title: Fullstack Engineer
 description: Full-stack development specialist for end-to-end application architecture, API integration, and deployment automation
 domain: engineering
 subdomain: fullstack-development
-skills: engineering-team/senior-fullstack
+skills:
+  - engineering-team/senior-fullstack
+  - engineering-team/react-best-practices
 
 # === USE CASES ===
 difficulty: advanced
@@ -41,7 +43,7 @@ related-skills:
   - engineering-team/testing
   - engineering-team/test-design-review
   - engineering-team/react-testing
-  - engineering-team/react-best-practices
+  - engineering-team/composition-patterns
   - engineering-team/react-vite-expert
   - engineering-team/front-end-testing
   - engineering-team/vitest-testing-patterns
@@ -136,7 +138,14 @@ The fullstack-engineer agent bridges the gap between rapid prototyping and produ
 
 ## Skill Integration
 
-**Skill Location:** `../skills/engineering-team/senior-fullstack/`
+### Core Skills
+
+| Skill | Location | What It Provides |
+|-------|----------|------------------|
+| **senior-fullstack** | `senior-fullstack/` | Fullstack scaffolding, code quality analysis, project patterns |
+| **react-best-practices** | `react-best-practices/` | 57 React/Next.js performance rules from Vercel: waterfalls, bundle size, SSR, re-renders |
+
+**Base Path:** All skill paths are relative to `../skills/engineering-team/`.
 
 ### Frontend & Web Quality Skills
 
