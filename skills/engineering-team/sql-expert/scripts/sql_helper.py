@@ -26,6 +26,14 @@ _SAFE_IDENTIFIER_RE = re.compile(r'^[A-Za-z_][A-Za-z0-9_]*$')
 
 
 def _validate_identifier(name: str) -> str:
+    """Validate a SQL identifier (table/column name) against an ASCII-only allowlist.
+
+    Intentionally restricts to ASCII letters, digits, and underscores to prevent
+    SQL injection via Unicode homoglyphs or confusable characters. Database engines
+    that support Unicode identifiers (e.g. PostgreSQL quoted identifiers) could
+    accept broader character sets, but ASCII-only is the safe default for
+    unquoted identifiers interpolated into SQL strings.
+    """
     if not _SAFE_IDENTIFIER_RE.match(name):
         raise ValueError(f"Unsafe SQL identifier: {name!r}")
     return name
