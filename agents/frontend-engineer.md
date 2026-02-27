@@ -34,7 +34,8 @@ classification:
   model: sonnet
 
 # === RELATIONSHIPS ===
-related-agents: []
+related-agents:
+  - web-developer
 related-skills:
   - engineering-team/quality-gate-first
   - engineering-team/software-architecture

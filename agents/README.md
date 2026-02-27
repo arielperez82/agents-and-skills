@@ -50,6 +50,7 @@ These agents live directly in the `agents/` root directory:
 #### Development Specialists
 - **`backend-engineer`** - Backend development for API design, database optimization, and microservices architecture
 - **`frontend-engineer`** - Frontend development for React/Vue components, UI/UX implementation, and performance optimization
+- **`web-developer`** - Marketing site and brochure site specialist for SEO, performance, visual design, accessibility, and conversion
 - **`fullstack-engineer`** - Fullstack development for complete web applications with React, Next.js, Node.js, GraphQL
 - **`mobile-engineer`** - Cross-platform mobile development for React Native, Flutter, and Expo
 - **`ios-engineer`** - Native iOS development for Swift, SwiftUI, and Apple ecosystem integration
