@@ -509,6 +509,9 @@
     },
     "skills/engineering-team/react-native-skills": {
       "skill_id": "skill_01LoshoMc2tUtj6tdgR1tGxw"
+    },
+    "skills/engineering-team/stryker-configuration": {
+      "skill_id": "skill_01DDXu1naaHHfTsaCkeMmVZ4"
     }
   }
 }
