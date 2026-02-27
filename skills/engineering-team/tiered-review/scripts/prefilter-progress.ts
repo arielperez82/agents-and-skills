@@ -1,6 +1,6 @@
 #!/usr/bin/env npx tsx
 
-import { readdirSync, readFileSync, statSync, lstatSync } from 'node:fs';
+import { readdirSync, readFileSync, lstatSync } from 'node:fs';
 import { join, basename, relative } from 'node:path';
 import matter from 'gray-matter';
 
@@ -180,7 +180,7 @@ const processFile = (filePath: string, rootDir: string): FileEntry => {
   const frontmatterType = stringFieldOrUndefined(data, 'type');
   const fileType = detectFileType(filePath, rootDir, frontmatterType);
   const frontmatter = validateFrontmatter(data, fileType, yamlValid);
-  const stat = statSync(filePath);
+  const stat = lstatSync(filePath);
   const lastModified = stat.mtime;
   const { stale, staleDays } = computeStaleness(lastModified, frontmatter.status);
   const needsLlmReview = computeNeedsLlmReview(frontmatter.valid, stale, fileType);
@@ -250,7 +250,7 @@ const main = (): void => {
   }
 
   try {
-    const stat = statSync(docsPath);
+    const stat = lstatSync(docsPath);
     if (!stat.isDirectory()) {
       process.stderr.write(`Error: ${docsPath} is not a directory\n`);
       process.exit(1);
