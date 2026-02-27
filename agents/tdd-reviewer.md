@@ -18,6 +18,11 @@ use-cases:
   - Scoring test suite quality using the Farley Index
   - Detecting mock anti-patterns (test theatre)
   - Analyzing test design across Java, Python, JS/TS, Go, C#
+examples:
+  - "Review this code for TDD compliance"
+  - "Score the test quality of src/services/"
+  - "Help me write tests for user authentication"
+  - "Are my tests actually catching bugs? Run a mutation analysis"
 
 # === AGENT CLASSIFICATION ===
 classification:
