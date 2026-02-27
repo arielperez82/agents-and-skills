@@ -1,5 +1,5 @@
 #!/usr/bin/env npx tsx
-import { existsSync, readdirSync } from 'node:fs';
+import { existsSync, readdirSync, readFileSync } from 'node:fs';
 import { join, resolve } from 'node:path';
 import { fileURLToPath } from 'node:url';
 
@@ -340,6 +340,42 @@ const assessHadolint = (projectPath: string, profile: ProjectProfile): CheckResu
   return checkResult('hadolint', 'Dockerfile linting', 'conditional', 'missing', 'Has Dockerfiles but no .hadolint.yaml — verify hadolint is installed and configured');
 };
 
+const readWorkflowContents = (projectPath: string): readonly string[] => {
+  const workflowsDir = join(projectPath, '.github/workflows');
+  if (!existsSync(workflowsDir)) return [];
+  try {
+    return readdirSync(workflowsDir)
+      .filter((f) => f.endsWith('.yml') || f.endsWith('.yaml'))
+      .map((f) => {
+        try {
+          return readFileSync(join(workflowsDir, f), 'utf-8');
+        } catch {
+          return '';
+        }
+      });
+  } catch {
+    return [];
+  }
+};
+
+const AUDIT_PATTERN = /\baudit\b/i;
+
+const assessDependencyAudit = (projectPath: string, pkg: PackageJson | null): CheckResult | null => {
+  if (!pkg) return null;
+
+  const workflowContents = readWorkflowContents(projectPath);
+  const hasAuditInCi = workflowContents.some((content) => AUDIT_PATTERN.test(content));
+
+  if (hasAuditInCi) {
+    return checkResult('dependency-audit', 'Dependency security audit', 'conditional', 'present', 'CI workflow contains dependency audit step');
+  }
+
+  return checkResult(
+    'dependency-audit', 'Dependency security audit', 'conditional', 'missing',
+    'Has package.json but no dependency audit in CI — add `pnpm audit --prod --audit-level high` (or npm equivalent) to CI workflow',
+  );
+};
+
 const assessConditionalChecks = (
   projectPath: string,
   profile: ProjectProfile,
@@ -356,6 +392,7 @@ const assessConditionalChecks = (
     assessActionlint(projectPath, profile),
     assessTflint(projectPath, profile),
     assessHadolint(projectPath, profile),
+    assessDependencyAudit(projectPath, pkg),
   ].filter((r): r is CheckResult => r !== null);
 
 const summarizeChecks = (checks: readonly CheckResult[]): AssessmentReport['summary'] => ({

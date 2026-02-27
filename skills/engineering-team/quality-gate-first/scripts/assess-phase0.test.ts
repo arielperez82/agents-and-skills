@@ -252,6 +252,66 @@ describe('assessPhase0', () => {
   });
 });
 
+describe('dependency-audit conditional check', () => {
+  it('triggers dependency-audit when project has package.json', (t) => {
+    const dir = withTempProject(t);
+    writeFileSync(
+      join(dir, 'package.json'),
+      JSON.stringify({ dependencies: { express: '^4.0.0' } }),
+    );
+    mkdirSync(join(dir, 'src'), { recursive: true });
+    writeFileSync(join(dir, 'src/index.ts'), '');
+
+    const report = assessPhase0(dir, { scopeRoot: dir });
+    const auditCheck = findCheck(report, 'dependency-audit');
+    strictEqual(auditCheck !== undefined, true);
+    strictEqual(auditCheck?.tier, 'conditional');
+  });
+
+  it('does not trigger dependency-audit when no package.json', (t) => {
+    const dir = withTempProject(t);
+
+    const report = assessPhase0(dir, { scopeRoot: dir });
+    strictEqual(findCheck(report, 'dependency-audit'), undefined);
+  });
+
+  it('reports present when CI workflow contains audit command', (t) => {
+    const dir = withTempProject(t);
+    writeFileSync(
+      join(dir, 'package.json'),
+      JSON.stringify({ dependencies: { express: '^4.0.0' } }),
+    );
+    mkdirSync(join(dir, '.github/workflows'), { recursive: true });
+    writeFileSync(
+      join(dir, '.github/workflows/ci.yml'),
+      'name: CI\non: push\njobs:\n  checks:\n    steps:\n      - run: pnpm audit --prod --audit-level high\n',
+    );
+    mkdirSync(join(dir, 'src'), { recursive: true });
+    writeFileSync(join(dir, 'src/index.ts'), '');
+
+    const report = assessPhase0(dir, { scopeRoot: dir });
+    strictEqual(findCheck(report, 'dependency-audit')?.status, 'present');
+  });
+
+  it('reports missing when package.json exists but no audit in CI', (t) => {
+    const dir = withTempProject(t);
+    writeFileSync(
+      join(dir, 'package.json'),
+      JSON.stringify({ dependencies: { express: '^4.0.0' } }),
+    );
+    mkdirSync(join(dir, '.github/workflows'), { recursive: true });
+    writeFileSync(
+      join(dir, '.github/workflows/ci.yml'),
+      'name: CI\non: push\njobs:\n  checks:\n    steps:\n      - run: pnpm lint\n',
+    );
+    mkdirSync(join(dir, 'src'), { recursive: true });
+    writeFileSync(join(dir, 'src/index.ts'), '');
+
+    const report = assessPhase0(dir, { scopeRoot: dir });
+    strictEqual(findCheck(report, 'dependency-audit')?.status, 'missing');
+  });
+});
+
 describe('ensureWithinScope symlink resolution', () => {
   it('rejects symlinks that point outside scope', (t) => {
     const scopeDir = withTempProject(t);

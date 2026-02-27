@@ -22,7 +22,7 @@ Structured reference of every Phase 0 check: what it does, when it applies, and 
 | `eslint` | Code quality + style | ESLint flat config | `*.{ts,tsx}` → `eslint --fix` | `pnpm lint` |
 | `prettier` | Consistent formatting | Prettier | `*` → `prettier --write` | `pnpm format:check` |
 
-## Summary: Conditional Checks (14)
+## Summary: Conditional Checks (15)
 
 | ID | Detection criteria | Tool | lint-staged glob | CI command |
 |----|-------------------|------|------------------|------------|
@@ -39,6 +39,7 @@ Structured reference of every Phase 0 check: what it does, when it applies, and 
 | `vitest-typecheck` | Uses Vitest | Vitest --typecheck | Via test run | `vitest run --typecheck` |
 | `toml-lint` | Has `*.toml` | taplo | `*.toml` → `taplo fmt` | `taplo fmt --check` |
 | `detect-secrets` | Enhanced security posture | detect-secrets (Yelp) | All staged → `detect-secrets-hook --baseline .secrets.baseline` | `detect-secrets scan` |
+| `dependency-audit` | Has `package.json` (Node.js project) | pnpm/npm built-in | N/A (requires network, too slow for pre-commit) | `pnpm audit --prod --audit-level high` |
 | `mutation-testing` | 70%+ line coverage + critical business logic | Stryker (@stryker-mutator/core) | N/A (too slow for pre-commit) | `npx stryker run` (scheduled CI) |
 
 ## Core Check Details
@@ -151,6 +152,15 @@ Structured reference of every Phase 0 check: what it does, when it applies, and 
 ### `detect-secrets`
 - **Deps:** `pip install detect-secrets`
 - **Config:** `.secrets.baseline`
+
+### `dependency-audit`
+- **Tier:** conditional
+- **Detection criteria:** Project has `package.json` (Node.js project with pnpm/npm/yarn)
+- **Deps:** None (built into pnpm/npm/yarn)
+- **Config:** None
+- **lint-staged:** N/A — requires network access, too slow for pre-commit
+- **CI:** `pnpm audit --prod --audit-level high` (or `npm audit --production --audit-level high`). Adapt command to detected package manager.
+- **Note:** `--prod` skips devDependency advisories (less noise in CI). `--audit-level high` fails only on high/critical severity. Run after `pnpm install --frozen-lockfile` in CI. No additional devDependencies or config files needed.
 
 ### `mutation-testing`
 - **Tier:** conditional

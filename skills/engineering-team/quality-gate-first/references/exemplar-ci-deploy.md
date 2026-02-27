@@ -56,6 +56,7 @@ jobs:
           node-version-file: '.node-version'
           cache: 'pnpm'
       - run: pnpm install --frozen-lockfile
+      - run: pnpm audit --prod --audit-level high
       - run: pnpm format:check
       - run: pnpm lint
       - run: pnpm type-check
@@ -86,6 +87,7 @@ jobs:
 - **Path-based triggers** — CI only runs when relevant files change, not on docs-only PRs
 - **Concurrency groups** — cancels in-progress runs on the same branch (saves CI minutes)
 - **Pinned action versions by SHA** — prevents supply-chain attacks via tag mutation (comment shows version for readability)
+- **Dependency audit** — `pnpm audit --prod --audit-level high` runs after install; `--prod` skips devDependency advisories (less noise), `--audit-level high` fails only on high/critical severity
 - **Frozen lockfile** — `--frozen-lockfile` ensures CI uses exact versions from lockfile, fails on drift
 - **Separate jobs** — `checks` (fast: format, lint, type-check), `test` (slower: unit tests), and `semgrep` (security) run as separate jobs; `test` depends on `checks` to fail fast; `semgrep` runs independently
 - **Semgrep (community edition)** — uses local `.semgrep.yml` rules only, no account required. `pip install semgrep` in CI. Catches shell injection, symlink following, and other security patterns that ESLint rules cannot express
