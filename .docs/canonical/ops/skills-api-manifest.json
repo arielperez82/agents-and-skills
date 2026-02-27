@@ -512,6 +512,9 @@
     },
     "skills/engineering-team/stryker-configuration": {
       "skill_id": "skill_01DDXu1naaHHfTsaCkeMmVZ4"
+    },
+    "skills/ux-team/frontend-design": {
+      "skill_id": "skill_01JrEVbTC9JXGdkdAbzC9oaN"
     }
   }
 }
