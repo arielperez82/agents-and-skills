@@ -93,9 +93,37 @@ Checklist for evaluating sandboxed skills before incorporation into a project's 
 - [ ] **Path traversal**: Can user input influence file paths?
   - `../` in file paths from user input → **High**
 
-## Automated Scan Patterns
+## Semgrep Scan (Required)
 
-Use these grep patterns during automated scanning:
+Run Semgrep on all skill scripts before incorporation. This catches vulnerability classes that grep patterns miss (XXE, SQL injection, path traversal, insecure transport, hardcoded secrets, unsafe deserialization, ReDoS, etc.).
+
+```bash
+# Run Semgrep with auto-config on sandbox directory
+semgrep scan --config auto .claude/skills/_sandbox/{skill-name}/
+
+# For specific languages
+semgrep scan --config auto --lang python .claude/skills/_sandbox/{skill-name}/scripts/
+semgrep scan --config auto --lang javascript .claude/skills/_sandbox/{skill-name}/scripts/
+```
+
+**Triage rules:**
+- `Blocking` findings with no `nosemgrep` justification → **High** (must fix or suppress with rationale)
+- Findings in test/example code that are intentional (e.g., pentest payloads) → Suppress with `nosemgrep: rule-id -- justification`
+- False positives (e.g., localhost HTTP in dev tools, RegExp from hardcoded patterns) → Suppress with `nosemgrep: rule-id -- justification`
+
+**Common findings and fixes:**
+| Finding | Fix |
+|---------|-----|
+| `use-defused-xml-parse` | `import defusedxml.ElementTree as ET` with stdlib fallback |
+| `dynamic-urllib-use-detected` | Validate URL scheme (`http`/`https` only) before `urlopen` |
+| `missing-integrity` | Add `integrity="sha384-..."` and `crossorigin="anonymous"` to CDN script tags |
+| `path-join-resolve-traversal` | Use `path.basename()` to strip traversal from user-influenced path segments |
+| `avoid-sqlalchemy-text` | Validate identifiers with allowlist regex before interpolating into SQL |
+| `detected-jwt-token` / `detected-generic-secret` | If intentional test data, suppress with `nosemgrep` + justification |
+
+## Automated Grep Patterns
+
+Use these grep patterns as a supplementary scan (Semgrep is primary):
 
 ```bash
 # Network calls

@@ -18,7 +18,10 @@ import json
 import logging
 import re
 import sys
-import xml.etree.ElementTree as ET
+try:
+    import defusedxml.ElementTree as ET
+except ImportError:
+    import xml.etree.ElementTree as ET  # nosemgrep: use-defused-xml-parse
 from pathlib import Path
 from typing import Any, Dict, List, Optional, Tuple
 

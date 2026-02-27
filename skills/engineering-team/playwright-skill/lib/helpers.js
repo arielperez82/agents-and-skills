@@ -201,9 +201,11 @@ async function authenticate(page, credentials, selectors = {}) {
 async function scrollPage(page, direction = 'down', distance = 500) {
   switch (direction) {
     case 'down':
+      // nosemgrep: playwright-evaluate-arg-injection -- distance is a numeric function param, not user input
       await page.evaluate(d => window.scrollBy(0, d), distance);
       break;
     case 'up':
+      // nosemgrep: playwright-evaluate-arg-injection -- distance is a numeric function param, not user input
       await page.evaluate(d => window.scrollBy(0, -d), distance);
       break;
     case 'top':
@@ -224,6 +226,7 @@ async function scrollPage(page, direction = 'down', distance = 500) {
 async function extractTableData(page, tableSelector) {
   await page.waitForSelector(tableSelector);
   
+  // nosemgrep: playwright-evaluate-arg-injection -- selector is serialized via Playwright args, not string-interpolated
   return await page.evaluate((selector) => {
     const table = document.querySelector(selector);
     if (!table) return null;
@@ -346,7 +349,7 @@ async function detectDevServers(customPorts = []) {
   for (const port of allPorts) {
     try {
       await new Promise((resolve, reject) => {
-        const req = http.request({
+        const req = http.request({ // nosemgrep: http-request, using-http-server -- localhost-only dev server detection
           hostname: 'localhost',
           port: port,
           path: '/',

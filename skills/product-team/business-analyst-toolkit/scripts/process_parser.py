@@ -26,6 +26,7 @@ from datetime import datetime
 from html.parser import HTMLParser
 from typing import Dict, List, Optional, Tuple
 from urllib.error import URLError, HTTPError
+from urllib.parse import urlparse
 from urllib.request import urlopen, Request
 
 # Configure logging
@@ -154,7 +155,9 @@ class ProcessParser:
     def _parse_url(self) -> str:
         """Fetch and parse URL content"""
         try:
-            # Add user agent to avoid 403 errors
+            parsed = urlparse(self.source)
+            if parsed.scheme not in ('http', 'https'):
+                raise ValueError(f"Unsupported URL scheme '{parsed.scheme}': only http and https are allowed")
             headers = {'User-Agent': 'Mozilla/5.0 (process-parser/1.0)'}
             req = Request(self.source, headers=headers)
 

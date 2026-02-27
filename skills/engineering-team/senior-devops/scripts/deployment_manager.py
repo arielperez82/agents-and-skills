@@ -479,6 +479,7 @@ class DeploymentManager:
                 self._log(f"HTTP health check attempt {attempt + 1}/{hc.retries}: {url}")
 
                 req = urllib.request.Request(url, method="GET")
+                # nosemgrep: dynamic-urllib-use-detected -- URL constructed from internal HealthCheck config, not user input
                 with urllib.request.urlopen(req, timeout=hc.timeout) as response:
                     status_code = response.getcode()
 

@@ -417,7 +417,7 @@ Before providing the skill to the user:
 
 **Content:** Imperative voice throughout. Positive directives. Strategic goals over procedural steps where possible. Context for non-obvious requirements. Consistent terminology.
 
-**Resources:** Scripts solve actual problems with error handling and clear outputs. References focused and topic-specific. Assets are templates/files for output.
+**Resources:** Scripts solve actual problems with error handling and clear outputs. References focused and topic-specific. Assets are templates/files for output. Shell scripts pass ShellCheck. Scripts with security-sensitive patterns (network calls, file I/O, XML parsing, SQL, user input handling) pass `semgrep scan --config auto` with zero unaddressed blocking findings (fix or suppress with `nosemgrep` + justification).
 
 **Testing:** Tested on 3+ real scenarios. Activates on expected triggers. Bundled resources accessible. Package structure verified.
 

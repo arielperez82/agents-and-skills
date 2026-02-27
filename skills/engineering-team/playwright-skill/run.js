@@ -90,7 +90,7 @@ function cleanupOldTempFiles() {
 
     if (tempFiles.length > 0) {
       tempFiles.forEach(file => {
-        const filePath = path.join(__dirname, file);
+        const filePath = path.join(__dirname, path.basename(file));
         try {
           fs.unlinkSync(filePath);
         } catch (e) {

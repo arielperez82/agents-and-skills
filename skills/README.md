@@ -223,6 +223,7 @@ Role and specialist skills (same folder):
 | **ux-designer** | UX/UI design | User experience, wireframes, user flows, accessibility |
 | **ui-design-system** | Design systems | Tokens, components, handoff |
 | **visual-design-foundations** | Visual design | Typography, color, spacing, iconography, design tokens |
+| **frontend-design** | Frontend aesthetics | Creative design direction, anti-AI-slop methodology, bold aesthetic choices |
 
 ### Product Team (`product-team/`)
 

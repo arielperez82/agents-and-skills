@@ -78,6 +78,7 @@ const FUNCTION_BASE_PATTERNS = [
   /(?:export\s+)?const\s+(\w+)\s*=\s*(?:async\s+)?\([^)]*\)\s*(?::\s*\S+\s*)?=>/,
 ];
 
+// nosemgrep: detect-non-literal-regexp -- patterns built from hardcoded FUNCTION_BASE_PATTERNS, not user input
 const FUNCTION_PATTERNS = FUNCTION_BASE_PATTERNS.flatMap((base) => [
   new RegExp(`^\\+\\s*${base.source}`),
   new RegExp(`^-\\s*${base.source}`),

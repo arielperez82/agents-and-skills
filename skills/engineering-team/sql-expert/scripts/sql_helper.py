@@ -17,9 +17,18 @@ Usage Examples:
 from typing import Dict, List, Optional, Tuple, Any, Union
 from dataclasses import dataclass
 from datetime import datetime
+import re
 import time
 import json
 from contextlib import contextmanager
+
+_SAFE_IDENTIFIER_RE = re.compile(r'^[A-Za-z_][A-Za-z0-9_]*$')
+
+
+def _validate_identifier(name: str) -> str:
+    if not _SAFE_IDENTIFIER_RE.match(name):
+        raise ValueError(f"Unsafe SQL identifier: {name!r}")
+    return name
 
 try:
     from sqlalchemy import (
@@ -396,18 +405,17 @@ class DatabaseHelper:
             for i in range(0, len(records), batch_size):
                 batch = records[i:i + batch_size]
 
-                # Build bulk insert query
                 columns = list(batch[0].keys())
-                placeholders = ', '.join([
-                    f":{col}" for col in columns
-                ])
+                safe_table = _validate_identifier(table_name)
+                safe_columns = [_validate_identifier(col) for col in columns]
+                placeholders = ', '.join([f":{col}" for col in safe_columns])
 
                 query = f"""
-                    INSERT INTO {table_name} ({', '.join(columns)})
+                    INSERT INTO {safe_table} ({', '.join(safe_columns)})
                     VALUES ({placeholders})
                 """
 
-                conn.execute(text(query), batch)
+                conn.execute(text(query), batch)  # nosemgrep: avoid-sqlalchemy-text -- identifiers validated above
                 total_inserted += len(batch)
 
         return total_inserted

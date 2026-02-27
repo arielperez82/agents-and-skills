@@ -1,8 +1,6 @@
 ---
 name: skill-intake
 description: This skill should be used when evaluating, sandboxing, or incorporating new skills into a project's skill pipeline. Trigger when the user mentions "intake skill", "add new skill", "evaluate skill", "incorporate skill", "skill pipeline gap", or discusses discovering and integrating external or from-scratch skills.
-version: 1.0.0
-capabilities: ["skill discovery", "security assessment", "functional evaluation", "architecture assessment", "incorporation planning", "pipeline integration"]
 ---
 
 # Skill Intake
@@ -30,6 +28,8 @@ Download to `.claude/skills/_sandbox/{skill-name}/`. Use `git clone --depth 1` f
 ### Phase 2: Sandbox & Security Audit
 
 Dispatch security assessment on sandbox contents. Apply checklist from `references/security-checklist.md`. Critical findings reject immediately; High findings flag for review.
+
+**Semgrep scan (required for skills with scripts):** Run `semgrep scan --config auto` on the sandbox directory. Any `Blocking` findings must be fixed or explicitly suppressed with `nosemgrep` + justification before proceeding. This catches XXE, SQL injection, path traversal, insecure transport, hardcoded secrets, and other OWASP issues that grep patterns miss.
 
 Also verify deploy-readiness rules (name format, name-folder match, YAML-safe description, required fields) at this stage. Fix any issues before proceeding.
 

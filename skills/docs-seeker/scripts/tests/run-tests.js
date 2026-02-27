@@ -22,7 +22,7 @@ function runTest(testFile) {
     console.log(`Running: ${testFile}`);
     console.log('='.repeat(60));
 
-    const testPath = path.join(__dirname, testFile);
+    const testPath = path.join(__dirname, path.basename(testFile));
     const proc = spawn('node', [testPath], {
       stdio: 'inherit',
     });

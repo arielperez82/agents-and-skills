@@ -34,6 +34,7 @@ related-skills:
   - ux-team/ux-designer
   - ux-team/ux-researcher-designer
   - ux-team/ui-design-system
+  - ux-team/frontend-design
 related-commands: []
 
 # === TECHNICAL ===

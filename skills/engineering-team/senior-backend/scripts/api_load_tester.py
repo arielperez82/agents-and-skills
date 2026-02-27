@@ -22,6 +22,7 @@ import statistics
 import sys
 import time
 import urllib.error
+import urllib.parse
 import urllib.request
 from concurrent.futures import ThreadPoolExecutor, as_completed
 from dataclasses import dataclass, field
@@ -76,6 +77,9 @@ class APILoadTester:
             logging.getLogger().setLevel(logging.DEBUG)
         logger.debug("APILoadTester initialized")
 
+        parsed = urllib.parse.urlparse(url)
+        if parsed.scheme not in ('http', 'https'):
+            raise ValueError(f"Unsupported URL scheme '{parsed.scheme}': only http and https are allowed")
         self.url = url
         self.concurrent_users = concurrent_users
         self.total_requests = total_requests

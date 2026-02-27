@@ -162,7 +162,7 @@ async function fetchDocs(query) {
       }
     } catch (error) {
       if (DEBUG) {
-        console.error(`[DEBUG] Failed to fetch ${url}:`, error.message);
+        console.error('[DEBUG] Failed to fetch %s: %s', url, error.message);
       }
     }
   }
