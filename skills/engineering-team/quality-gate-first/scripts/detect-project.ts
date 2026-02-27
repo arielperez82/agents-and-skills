@@ -1,5 +1,5 @@
 #!/usr/bin/env npx tsx
-import { type Dirent, readdirSync, readFileSync, existsSync, lstatSync, realpathSync, statSync } from 'node:fs';
+import { type Dirent, readdirSync, readFileSync, existsSync, lstatSync, realpathSync } from 'node:fs';
 import { join, resolve } from 'node:path';
 import { fileURLToPath } from 'node:url';
 
@@ -206,7 +206,7 @@ const hasFilesWithExtension = (
 
 const hasDirectory = (projectPath: string, dirName: string): boolean => {
   try {
-    return statSync(join(projectPath, dirName)).isDirectory();
+    return lstatSync(join(projectPath, dirName)).isDirectory();
   } catch {
     return false;
   }
