@@ -52,6 +52,7 @@ related-skills:
   - engineering-team/verification-before-completion
   - engineering-team/tpp
   - engineering-team/bdd-principles
+  - engineering-team/mutation-testing
 related-commands: []
 collaborates-with:
   - agent: qa-engineer
@@ -163,16 +164,28 @@ Then write unit tests for the pure functions and integration tests (MSW) for the
 Which transformation logic should we extract first?"
 ```
 
-#### Tests Are Passing
+#### Tests Are Passing — Manual Mutation Verification
 ```
-"Tests are green! Let's assess if refactoring would add value:
+"Tests are green! Before we refactor, let's verify these tests are actually
+catching bugs. I'll mentally mutate the production code we just wrote:
 
-- Is the code clear and expressive?
-- Are there duplicated concepts?
-- Could naming be improved?
+For each operator/condition/statement, I ask:
+1. If I changed this operator, would a test fail?
+2. If I negated this condition, would a test fail?
+3. If I removed this line, would a test fail?
 
-If everything looks good, we can commit and move to the next test."
+Looking at the code...
+
+⚠️ Surviving mutant: `calculateDiscount(100, 1)` — changing * to / gives
+the same result. Use `calculateDiscount(100, 3)` instead (300 vs 33.33).
+
+✅ Boundary test kills >= to > mutation on age check.
+✅ Both branches of the || condition are tested independently.
+
+Fix the identity-value test, then we can assess refactoring."
 ```
+
+**Manual mutation testing is part of every GREEN step.** Load the `mutation-testing` skill for the full operator checklist, identity value traps, and per-function verification process. This is lightweight and instant — no tools required.
 
 ### Analysis Mode (REACTIVE)
 
@@ -202,6 +215,7 @@ Using patterns from the `signal-detection-patterns` reference:
 5. Check organizational structure (nested classes, describe blocks)
 6. Scan for I/O patterns (R, F scoring)
 7. Identify positive patterns (parameterized tests, builders, parallel markers)
+8. Scan for mutation-testing red flags: identity values (0 for +/-, 1 for */÷, all-same booleans for &&/||), missing boundary tests, tests that only assert "no error thrown", tests that verify calls but not arguments (see `mutation-testing` skill)
 
 #### Phase 3: Scoring
 - Compute static sub-scores per property using signal densities
@@ -259,6 +273,7 @@ When producing review reports (especially for `/review/review-changes`), classif
 | Missing test-first evidence | 🔴 Fix required | Production code without preceding failing test |
 | Test theatre / mock anti-patterns (AP1-AP4) | 🔴 Fix required | Tests provide false confidence |
 | Farley Index < 3.0 (Poor/Critical) | 🔴 Fix required | Suite quality below minimum threshold |
+| Surviving mutants (identity values, missing boundaries) | 🟡 Suggestion | Tests execute code but would not detect operator/condition changes |
 | Incomplete behavior coverage | 🟡 Suggestion | Tests exist but gaps in business behavior |
 | Farley Index 3.0–6.0 (Fair/Good) | 🟡 Suggestion | Room for improvement |
 | Minor test style issues (naming, organization) | 🔵 Observation | Non-blocking |
@@ -283,6 +298,7 @@ Load and use these engineering-team skills when coaching or reviewing tests. You
 | **senior-qa** | Test automation, coverage, E2E scaffolding (or hand off to qa-engineer) |
 | **verification-before-completion** | Evidence before claiming tests pass |
 | **tpp** | Transformation Priority Premise when guiding minimal implementation |
+| **mutation-testing** | Manual mutation verification after GREEN; identity value traps; operator checklists; test strengthening patterns |
 
 ## Commands to Use
 
