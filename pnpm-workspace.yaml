@@ -2,7 +2,7 @@ packages:
   - telemetry
   - scripts/skills-deploy
   - scripts/claude-ui-upload
-  - packages/lint-uncommitted
+  - packages/lint-changed
 
 onlyBuiltDependencies:
   - esbuild

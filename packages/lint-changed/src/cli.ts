@@ -44,8 +44,6 @@ type CommandEntry =
   | string[]
   | ((files: string[]) => string | string[] | Promise<string | string[]>);
 
-type LintStagedConfig = Record<string, CommandEntry>;
-
 type PatternTask = {
   readonly pattern: string;
   readonly commands: readonly string[];
@@ -56,11 +54,9 @@ type PatternTask = {
 // Shell quoting
 // ---------------------------------------------------------------------------
 
-export const shellQuote = (s: string): string =>
-  `'${s.replace(/'/g, "'\\''")}'`;
+export const shellQuote = (s: string): string => `'${s.replace(/'/g, "'\\''")}'`;
 
-const quoteFiles = (files: readonly string[]): string =>
-  files.map(shellQuote).join(' ');
+const quoteFiles = (files: readonly string[]): string => files.map(shellQuote).join(' ');
 
 // ---------------------------------------------------------------------------
 // Git helpers (execFileSync avoids shell interpretation)
@@ -69,11 +65,14 @@ const quoteFiles = (files: readonly string[]): string =>
 export const gitRoot = (): string =>
   execFileSync('git', ['rev-parse', '--show-toplevel'], { encoding: 'utf-8' }).trim();
 
-const gitLines = (argv: readonly string[], cwd: string): readonly string[] =>
-  execFileSync(argv[0]!, argv.slice(1), { encoding: 'utf-8', cwd })
+const gitLines = (argv: readonly string[], cwd: string): readonly string[] => {
+  const cmd = argv[0];
+  if (!cmd) throw new Error('argv must not be empty');
+  return execFileSync(cmd, argv.slice(1), { encoding: 'utf-8', cwd })
     .trim()
     .split('\n')
     .filter(Boolean);
+};
 
 const safeGitLines = (argv: readonly string[], cwd: string): readonly string[] => {
   try {
@@ -88,14 +87,8 @@ export const uncommittedFiles = (root: string): readonly string[] => {
     ['git', 'diff', '--name-only', '--diff-filter=ACMRT', '--cached'],
     root,
   );
-  const unstaged = gitLines(
-    ['git', 'diff', '--name-only', '--diff-filter=ACMRT'],
-    root,
-  );
-  const untracked = gitLines(
-    ['git', 'ls-files', '--others', '--exclude-standard'],
-    root,
-  );
+  const unstaged = gitLines(['git', 'diff', '--name-only', '--diff-filter=ACMRT'], root);
+  const untracked = gitLines(['git', 'ls-files', '--others', '--exclude-standard'], root);
 
   return [...new Set([...staged, ...unstaged, ...untracked])];
 };
@@ -161,10 +154,7 @@ export const groupByConfig = (
 // Glob matching (mirrors lint-staged generateTasks — same micromatch opts)
 // ---------------------------------------------------------------------------
 
-export const matchGlob = (
-  pattern: string,
-  files: readonly string[],
-): readonly string[] =>
+export const matchGlob = (pattern: string, files: readonly string[]): readonly string[] =>
   micromatch([...files], pattern, {
     dot: true,
     matchBase: !pattern.includes('/'),
@@ -215,7 +205,7 @@ const resolveGroupTasks = async (opts: {
 
   let mod: { default?: unknown };
   try {
-    mod = await import(pathToFileURL(configPath).href);
+    mod = (await import(pathToFileURL(configPath).href)) as { default?: unknown };
   } catch (err: unknown) {
     const msg = err instanceof Error ? err.message : String(err);
     console.error(`Failed to load config ${configRelPath}: ${msg}`);
@@ -240,9 +230,7 @@ const resolveGroupTasks = async (opts: {
   const results = await Promise.all(
     patternEntries.map(async ([pattern, entry]) => {
       const relFiles =
-        configDirRel === ''
-          ? groupFiles
-          : groupFiles.map((f) => f.slice(configDirRel.length + 1));
+        configDirRel === '' ? groupFiles : groupFiles.map((f) => f.slice(configDirRel.length + 1));
 
       const matched = matchGlob(pattern, relFiles);
       if (matched.length === 0) return null;
@@ -250,7 +238,7 @@ const resolveGroupTasks = async (opts: {
       console.error(`  ${pattern} — ${matched.length} file(s)`);
 
       const commands = await resolveCommands(entry, matched);
-      const nonEmpty = commands.filter((cmd) => cmd?.trim());
+      const nonEmpty = commands.filter((cmd) => cmd.trim());
       if (nonEmpty.length === 0) return null;
 
       const task: PatternTask = { pattern, commands: nonEmpty, cwd: configDir };
@@ -282,9 +270,7 @@ const resolveConfigTasks = async (
 // each pattern are chained serially via &&
 // ---------------------------------------------------------------------------
 
-const runTasksConcurrently = async (
-  tasks: readonly PatternTask[],
-): Promise<boolean> => {
+const runTasksConcurrently = async (tasks: readonly PatternTask[]): Promise<boolean> => {
   if (tasks.length === 0) return true;
 
   const commandObjects = tasks.map((task) => ({

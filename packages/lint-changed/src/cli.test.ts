@@ -1,14 +1,8 @@
 import { describe, it, expect, onTestFinished } from 'vitest';
 import { mkdirSync, mkdtempSync, rmSync, writeFileSync } from 'node:fs';
-import { join, sep } from 'node:path';
+import { join } from 'node:path';
 import { tmpdir } from 'node:os';
-import {
-  shellQuote,
-  groupByConfig,
-  matchGlob,
-  resolveCommands,
-  discoverConfigs,
-} from './cli.js';
+import { shellQuote, groupByConfig, matchGlob, resolveCommands, discoverConfigs } from './cli.js';
 
 describe('shellQuote', () => {
   it('wraps a simple string in single quotes', () => {
@@ -56,10 +50,7 @@ describe('groupByConfig', () => {
 
     const result = groupByConfig(files, configs, root);
 
-    expect(result.get(nestedConfig)).toEqual([
-      'packages/ui/Button.tsx',
-      'packages/ui/Input.tsx',
-    ]);
+    expect(result.get(nestedConfig)).toEqual(['packages/ui/Button.tsx', 'packages/ui/Input.tsx']);
     expect(result.get(rootConfig)).toEqual(['src/app.ts']);
   });
 
@@ -139,7 +130,9 @@ describe('discoverConfigs', () => {
     const configs = discoverConfigs(root);
     expect(configs).toHaveLength(2);
     expect(configs.some((c) => c.endsWith('packages/api/lint-staged.config.ts'))).toBe(true);
-    expect(configs.some((c) => c.endsWith('lint-staged.config.ts') && !c.includes('packages'))).toBe(true);
+    expect(
+      configs.some((c) => c.endsWith('lint-staged.config.ts') && !c.includes('packages')),
+    ).toBe(true);
   });
 
   it('skips node_modules directories', () => {

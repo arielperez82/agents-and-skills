@@ -2,9 +2,9 @@
 set -euo pipefail
 
 SCRIPT_DIR="$(cd "$(dirname "$0")" && pwd)"
-SOURCE="$SCRIPT_DIR/lint-uncommitted.sh"
+SOURCE="$SCRIPT_DIR/lint-changed.sh"
 
-echo "Install lint-uncommitted hook:"
+echo "Install lint-changed hook:"
 echo "  1) local  — .claude/hooks/ (this project only)"
 echo "  2) global — ~/.claude/hooks/ (all projects)"
 read -rp "Choose [1/2]: " choice
@@ -23,6 +23,6 @@ case "$choice" in
 esac
 
 mkdir -p "$DEST"
-cp "$SOURCE" "$DEST/lint-uncommitted.sh"
-chmod +x "$DEST/lint-uncommitted.sh"
-echo "Installed → $DEST/lint-uncommitted.sh"
+cp "$SOURCE" "$DEST/lint-changed.sh"
+chmod +x "$DEST/lint-changed.sh"
+echo "Installed → $DEST/lint-changed.sh"

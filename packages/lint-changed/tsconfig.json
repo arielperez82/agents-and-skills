@@ -17,6 +17,6 @@
     "isolatedModules": true,
     "noEmit": true
   },
-  "include": ["src/**/*.ts"],
+  "include": ["src/**/*.ts", "*.config.ts", "eslint-plugin-security.d.ts"],
   "exclude": ["node_modules", "dist"]
 }

@@ -1,7 +1,7 @@
 #!/bin/bash
 STDIN=$(cat)
 
-if ! command -v lint-uncommitted &>/dev/null; then
+if ! command -v lint-changed &>/dev/null; then
   printf '{"suppressOutput": true}'
   exit 0
 fi
@@ -14,9 +14,9 @@ FILE_PATH=$(printf '%s' "$STDIN" | node -e "
 " 2>/dev/null)
 
 if [[ -n "$FILE_PATH" && "$FILE_PATH" != -* && "$FILE_PATH" =~ ^[[:print:]]+$ ]]; then
-  OUTPUT=$(lint-uncommitted -- "$FILE_PATH" 2>&1)
+  OUTPUT=$(lint-changed -- "$FILE_PATH" 2>&1)
 else
-  OUTPUT=$(lint-uncommitted 2>&1)
+  OUTPUT=$(lint-changed 2>&1)
 fi
 EXIT_CODE=$?
 
