@@ -23,4 +23,4 @@ if [ ! -f "$CONFIG" ]; then
   exit 0
 fi
 
-exec semgrep scan --config "$CONFIG" --error --no-git-ignore "$@"
+exec semgrep scan --config "$CONFIG" --error --quiet --no-git-ignore "$@"
