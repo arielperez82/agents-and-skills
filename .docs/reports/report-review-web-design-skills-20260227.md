@@ -1,0 +1,3 @@
+│ code-reviewer   │ S1: lstatSync behavioral change for symlinked dirs (silent skip)  │ detect-project.ts:209, prefilter-progress.ts:183,253 │ ├─────────────────┼───────────────────────────────────────────────────────────────────┼──────────────────────────────────────────────────────┤
+│ code-reviewer   │ S2: lstatSync returns symlink mtime, not target file mtime        │ prefilter-progress.ts:183                            │ ├─────────────────┼───────────────────────────────────────────────────────────────────┼──────────────────────────────────────────────────────┤
+│ ts-enforcer     │ Pre-existing type assertion (as Record<string, unknown>)          │ prefilter-progress.ts:110                                 
