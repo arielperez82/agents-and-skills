@@ -156,7 +156,7 @@ Structured reference of every Phase 0 check: what it does, when it applies, and 
 - **Tier:** conditional
 - **Detection criteria:** Project has 70%+ line coverage (check coverage reports or CI history) AND has modules identified as critical business logic
 - **Deps:** `@stryker-mutator/core`, `@stryker-mutator/vitest-runner`, `@stryker-mutator/typescript-checker`
-- **Config:** `stryker.config.mjs` (see mutation-testing skill for example)
+- **Config:** `stryker.config.mjs` (see stryker-configuration skill for full setup)
 - **lint-staged:** N/A -- mutation testing is too slow for pre-commit (~1 min+ per module)
 - **CI:** Scheduled job (weekly or nightly): `npx stryker run`; PR-scoped with `--incremental` for changed files
 - **Thresholds:** `break: 50` (fail build below 50%), `low: 60`, `high: 80`

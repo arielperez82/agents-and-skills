@@ -20,8 +20,8 @@ This guide covers the 31 production-ready engineering role skills and their Pyth
 - senior-ios, senior-mobile, senior-flutter
 - senior-java, senior-dotnet, senior-network-infrastructure
 
-**Testing/Quality (2 skills):**
-- acceptance-test-design, mutation-testing
+**Testing/Quality (3 skills):**
+- acceptance-test-design, mutation-testing, stryker-configuration
 
 **Refactoring/Engineering (1 skill):**
 - mikado-method

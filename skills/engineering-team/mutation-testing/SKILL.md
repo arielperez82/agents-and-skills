@@ -142,75 +142,13 @@ if (x >= 0) { ... }               if (x > -1) { ... }
 
 ## Key Tools
 
-### Stryker (TypeScript / JavaScript) (v9.5+)
+| Language | Tool | Config Skill |
+|----------|------|--------------|
+| TypeScript / JavaScript | **Stryker.js** (v9.5+) | See `stryker-configuration` skill for install, config, Vitest runner, TS checker, mutation levels, incremental mode, CI integration |
+| Java | **PIT** (pitest-maven) | `mutationThreshold` in Maven plugin config |
+| Python | **cosmic-ray** | `cosmic-ray init` + `cosmic-ray exec` |
 
-The standard mutation testing framework for the JS/TS ecosystem.
-
-```bash
-npm install --save-dev @stryker-mutator/core @stryker-mutator/vitest-runner @stryker-mutator/typescript-checker
-npx stryker init
-npx stryker run
-```
-
-Configuration example (`stryker.config.mjs`):
-
-```javascript
-/** @type {import('@stryker-mutator/api/core').PartialStrykerOptions} */
-export default {
-  mutate: ["src/**/*.ts", "!src/**/*.test.ts"],
-  testRunner: "vitest",
-  checkers: ["typescript"],
-  reporters: ["html", "clear-text", "progress"],
-  // coverageAnalysis is forced to "perTest" by the Vitest runner (not configurable)
-  thresholds: { high: 80, low: 60, break: 50 },
-};
-```
-
-#### Mutation Levels
-
-Stryker v9+ supports **mutation levels** that trade mutation operator breadth for speed:
-
-- **Level 1** (fastest): Core operators only (arithmetic, conditional, logical negation)
-- **Level 2**: Level 1 + boundary mutations + return value mutations
-- **Level 3** (default): All standard operators
-- **Level 4+**: Extended operators for thorough analysis
-
-Configure in `stryker.config.mjs`:
-
-```javascript
-export default {
-  mutationLevel: 1, // Fast feedback during development
-  // omit for default (level 3) in CI
-};
-```
-
-Use level 1 for local development feedback; default (level 3) for CI scheduled runs.
-
-### PIT (Java)
-
-The dominant mutation testing tool for JVM projects.
-
-```xml
-<plugin>
-  <groupId>org.pitest</groupId>
-  <artifactId>pitest-maven</artifactId>
-  <version>1.15.0</version>
-  <configuration>
-    <targetClasses>com.example.*</targetClasses>
-    <targetTests>com.example.*Test</targetTests>
-    <mutationThreshold>80</mutationThreshold>
-  </configuration>
-</plugin>
-```
-
-### cosmic-ray (Python)
-
-```bash
-pip install cosmic-ray
-cosmic-ray init config.toml session.sqlite
-cosmic-ray exec session.sqlite
-cr-report session.sqlite
-```
+For TypeScript/JavaScript projects, load the `stryker-configuration` skill for complete setup guidance.
 
 ## CI Pipeline Integration
 
@@ -222,51 +160,7 @@ Mutation testing is slow (runs the full test suite once per mutant). Do not run 
 - **PR-scoped runs** targeting only changed files (incremental mutation testing)
 - **Pre-release gate** as a quality checkpoint before major releases
 
-### Incremental Mode (CI optimization)
-
-Stryker's incremental mode persists mutation results and only re-tests mutants in changed code:
-
-```bash
-npx stryker run --incremental
-```
-
-Configure the results file location:
-
-```javascript
-export default {
-  incremental: true,
-  incrementalFile: "reports/stryker-incremental.json",
-};
-```
-
-Commit the incremental file to the repository so CI builds benefit from cached results. Combined with PR-scoped `mutate` globs, this reduces CI mutation testing time by 70-90%.
-
-### GitHub Actions Example
-
-```yaml
-name: Mutation Testing
-on:
-  schedule:
-    - cron: "0 2 * * 1"
-  workflow_dispatch:
-
-jobs:
-  mutation-test:
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v4
-      - uses: actions/setup-node@v4
-        with:
-          node-version: 22
-      - run: npm ci
-      - run: npx stryker run
-      - uses: actions/upload-artifact@v4
-        with:
-          name: mutation-report
-          path: reports/mutation/
-```
-
-Use `thresholds.break` (Stryker) or `mutationThreshold` (PIT) to fail the build when the mutation score drops below a minimum. Start with a low break threshold (50%) and raise it as the team improves.
+Use `thresholds.break` (Stryker) or `mutationThreshold` (PIT) to fail the build when the mutation score drops below a minimum. Start with a low break threshold (50%) and raise it as the team improves. See the `stryker-configuration` skill for CI examples and incremental mode setup.
 
 ## When to Use Mutation Testing
 

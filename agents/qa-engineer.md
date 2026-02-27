@@ -48,6 +48,7 @@ related-skills:
   - engineering-team/tpp
   - engineering-team/coverage-analysis
   - engineering-team/mutation-testing
+  - engineering-team/stryker-configuration
   - engineering-team/bdd-principles
   - engineering-team/playwright-bdd-step-definitions
 related-commands: [skill/phase-0-check]
@@ -111,6 +112,7 @@ Load and use these engineering-team skills when relevant. qa-engineer orchestrat
 | **tpp** | Transformation Priority Premise (TDD) |
 | **coverage-analysis** | Coverage/harness effectiveness (e.g. fuzzing) when relevant |
 | **mutation-testing** | Verifying test suite effectiveness, surviving mutant analysis |
+| **stryker-configuration** | Stryker.js setup, config, incremental mode, CI integration |
 
 Collaborate with **tdd-reviewer** when TDD methodology or test-first compliance is in scope.
 
@@ -127,7 +129,7 @@ Collaborate with **tdd-reviewer** when TDD methodology or test-first compliance 
 **Steps:**
 
 1. Verify prerequisites are met (check coverage report, run tests for timing)
-2. Configure Stryker per the mutation-testing skill (`stryker.config.mjs`)
+2. Configure Stryker per the stryker-configuration skill (`stryker.config.mjs`)
 3. Target critical business logic modules using the `mutate` config (do not run on entire codebase)
 4. Run `npx stryker run` and analyze the HTML report
 5. For each surviving mutant: classify as equivalent (no action) or real gap (write test)
