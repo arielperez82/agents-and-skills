@@ -1,6 +1,6 @@
 #!/usr/bin/env npx tsx
 
-import { readdirSync, readFileSync, lstatSync } from 'node:fs';
+import { readdirSync, readFileSync, lstatSync, realpathSync } from 'node:fs';
 import { join, basename, relative } from 'node:path';
 import matter from 'gray-matter';
 
@@ -55,6 +55,9 @@ const CANONICAL_FILE_TYPES: ReadonlyArray<string> = ['charter', 'roadmap', 'back
 
 const FILE_TYPE_VALUES: ReadonlyArray<string> = ['charter', 'roadmap', 'backlog', 'plan', 'report', 'adr', 'other'];
 
+const isRecord = (value: unknown): value is Record<string, unknown> =>
+  typeof value === 'object' && value !== null && !Array.isArray(value);
+
 const PREFIX_MAP: ReadonlyArray<readonly [string, FileType]> = [
   ['charter-', 'charter'],
   ['roadmap-', 'roadmap'],
@@ -107,7 +110,11 @@ const parseFrontmatter = (
 ): { readonly data: Record<string, unknown>; readonly valid: boolean } => {
   try {
     const result = matter(content);
-    return { data: result.data as Record<string, unknown>, valid: true };
+    const data: unknown = result.data;
+    if (!isRecord(data)) {
+      return { data: {}, valid: false };
+    }
+    return { data, valid: true };
   } catch {
     return { data: {}, valid: false };
   }
@@ -250,8 +257,8 @@ const main = (): void => {
   }
 
   try {
-    const stat = lstatSync(docsPath);
-    if (!stat.isDirectory()) {
+    const resolved = realpathSync(docsPath);
+    if (!lstatSync(resolved).isDirectory()) {
       process.stderr.write(`Error: ${docsPath} is not a directory\n`);
       process.exit(1);
     }

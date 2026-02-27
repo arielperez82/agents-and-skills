@@ -96,6 +96,17 @@ describe('detectProject', () => {
     strictEqual(detectProject(dir, { scopeRoot: dir }).hasGithubActions, true);
   });
 
+  it('detects GitHub Actions when workflows is a symlinked directory', (t) => {
+    const dir = withTempProject(t);
+    const target = withTempProject(t);
+    mkdirSync(join(dir, '.github'), { recursive: true });
+    mkdirSync(join(target, 'workflows'), { recursive: true });
+    writeFileSync(join(target, 'workflows/ci.yml'), 'name: CI\non: push');
+    symlinkSync(join(target, 'workflows'), join(dir, '.github/workflows'));
+
+    strictEqual(detectProject(dir, { scopeRoot: dir }).hasGithubActions, true);
+  });
+
   it('detects Docker', (t) => {
     const dir = withTempProject(t);
     writeFileSync(join(dir, 'Dockerfile'), 'FROM node:22');

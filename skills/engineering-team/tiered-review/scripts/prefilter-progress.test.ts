@@ -387,6 +387,23 @@ describe('prefilter-progress', () => {
     }
   });
 
+  it('accepts a symlinked docs directory', () => {
+    const dir = createTempDir();
+    const target = createTempDir();
+    try {
+      writeFile(target, 'report-I08-SYM.md', '---\ntype: report\n---\n# Report\n');
+      symlinkSync(target, join(dir, 'docs-link'));
+
+      const result = runScript(join(dir, 'docs-link'));
+      assert.equal(result.exitCode, 0);
+      const output = parseOutput(result.stdout);
+      assert.equal(output.summary.totalFiles, 1);
+    } finally {
+      rmSync(dir, { recursive: true });
+      rmSync(target, { recursive: true });
+    }
+  });
+
   it('ignores directories with .md suffix', () => {
     const dir = createTempDir();
     try {

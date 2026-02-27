@@ -206,7 +206,13 @@ const hasFilesWithExtension = (
 
 const hasDirectory = (projectPath: string, dirName: string): boolean => {
   try {
-    return lstatSync(join(projectPath, dirName)).isDirectory();
+    const target = join(projectPath, dirName);
+    const stat = lstatSync(target);
+    if (stat.isDirectory()) return true;
+    if (stat.isSymbolicLink()) {
+      return lstatSync(realpathSync(target)).isDirectory();
+    }
+    return false;
   } catch {
     return false;
   }
