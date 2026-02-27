@@ -1,6 +1,6 @@
 ---
 name: mutation-testing
-description: Mutation testing methodology for verifying test suite effectiveness. Covers manual mutation testing (mentally applying operators during TDD and code review), mutation operators, identity value traps, test strengthening patterns, scoring thresholds, equivalent mutants, CI integration, and tool selection.
+description: Mutation testing methodology for verifying test suite effectiveness. Covers manual mutation testing (mentally applying operators during TDD and code review), mutation operators for TypeScript/JavaScript and SQL (including ClickHouse/Tinybird), identity value traps, test strengthening patterns, scoring thresholds, equivalent mutants, CI integration, and tool selection.
 ---
 
 # Mutation Testing
@@ -225,6 +225,183 @@ Mutation operators define the types of faults injected.
 | `foo?.[i]` | `foo[i]` | Null/undefined handling |
 | `foo?.()` | `foo()` | Null/undefined handling |
 
+### SQL Mutation Operators
+
+SQL mutation testing applies the same principles -- inject faults, check if tests catch them -- but with operators specific to relational and analytical queries. These operators apply to any SQL dialect (PostgreSQL, MySQL, SQLite) and are especially relevant for ClickHouse/Tinybird pipe architectures where TypeScript wrappers call SQL that contains the core business logic.
+
+#### WHERE Clause Mutations
+
+| Original | Mutant | Test Should Verify |
+|----------|--------|-------------------|
+| `WHERE status = 'active'` | `WHERE true` | Filtering is necessary |
+| `WHERE amount > 100` | `WHERE amount >= 100` | Boundary correctness |
+| `WHERE amount > 100` | `WHERE amount < 100` | Condition direction |
+| `WHERE a AND b` | `WHERE a OR b` | Both conditions required |
+| `WHERE a AND b` | `WHERE a` | Second condition matters |
+| `WHERE x IS NOT NULL` | `WHERE x IS NULL` | NULL handling direction |
+| `WHERE x IN (1, 2, 3)` | `WHERE x NOT IN (1, 2, 3)` | Set membership direction |
+| `WHERE x LIKE '%foo%'` | `WHERE x LIKE 'foo%'` | Pattern match scope |
+| Entire `WHERE` clause | *(removed)* | Filtering exists for a reason |
+
+#### JOIN Mutations
+
+| Original | Mutant | Test Should Verify |
+|----------|--------|-------------------|
+| `LEFT JOIN` | `INNER JOIN` | Rows without matches are preserved |
+| `INNER JOIN` | `LEFT JOIN` | Only matched rows returned |
+| `LEFT JOIN` | `CROSS JOIN` | Join condition matters |
+| `JOIN ... ON a.id = b.id` | `JOIN ... ON a.id = b.other_id` | Correct join key |
+| `JOIN` | *(removed)* | Joined data is used |
+
+#### Aggregate Function Mutations
+
+| Original | Mutant | Test Should Verify |
+|----------|--------|-------------------|
+| `SUM(amount)` | `COUNT(amount)` | Aggregation type matters |
+| `SUM(amount)` | `AVG(amount)` | Sum vs average semantics |
+| `COUNT(*)` | `COUNT(column)` | NULL counting behavior |
+| `COUNT(DISTINCT x)` | `COUNT(x)` | Distinctness matters |
+| `MIN(x)` | `MAX(x)` | Correct extremum |
+| `AVG(x)` | `SUM(x)` | Average vs total |
+| `GROUP BY a, b` | `GROUP BY a` | Grouping granularity |
+| `HAVING COUNT(*) > 1` | *(removed)* | Post-aggregation filter matters |
+
+#### NULL Handling Mutations
+
+| Original | Mutant | Test Should Verify |
+|----------|--------|-------------------|
+| `COALESCE(x, 0)` | `x` | NULL fallback is necessary |
+| `COALESCE(x, 0)` | `COALESCE(x, 1)` | Correct default value |
+| `IFNULL(x, default)` | `x` | NULL substitution matters |
+| `NULLIF(x, 0)` | `x` | Zero-to-NULL conversion matters |
+| `IS NULL` | `IS NOT NULL` | NULL check direction |
+
+#### Result Shape Mutations
+
+| Original | Mutant | Test Should Verify |
+|----------|--------|-------------------|
+| `DISTINCT` | *(removed)* | Deduplication is necessary |
+| `ORDER BY x ASC` | `ORDER BY x DESC` | Sort direction matters |
+| `LIMIT 10` | `LIMIT 1` | Correct row count |
+| `LIMIT 10` | *(removed)* | Limit exists for a reason |
+| `UNION ALL` | `UNION` | Duplicate preservation matters |
+| `UNION` | `UNION ALL` | Deduplication matters |
+| `SELECT a, b, c` | `SELECT a, b` | All columns needed |
+
+#### CASE/Conditional Mutations
+
+| Original | Mutant | Test Should Verify |
+|----------|--------|-------------------|
+| `CASE WHEN x THEN a ELSE b END` | `CASE WHEN x THEN b ELSE a END` | Branch results differ |
+| `CASE WHEN x THEN a ELSE b END` | `a` | Branching is necessary |
+| `IF(cond, a, b)` | `IF(cond, b, a)` | Correct branch assignment |
+| `CASE` with N `WHEN` branches | Remove one `WHEN` | All branches needed |
+
+#### Window Function Mutations
+
+| Original | Mutant | Test Should Verify |
+|----------|--------|-------------------|
+| `ROW_NUMBER()` | `RANK()` | Ranking semantics (ties) |
+| `PARTITION BY a` | `PARTITION BY b` | Correct partition key |
+| `PARTITION BY a` | *(removed)* | Partitioning is necessary |
+| `ORDER BY x` in window | `ORDER BY x DESC` | Window sort direction |
+| `ROWS BETWEEN ...` | `RANGE BETWEEN ...` | Frame type semantics |
+
+### ClickHouse / Tinybird Mutations
+
+ClickHouse has engine-level and function-level semantics that standard SQL mutation operators do not cover. These are critical for Tinybird pipe architectures where TypeScript SDK code (`defineEndpoint`, `defineDataSource`) wraps SQL nodes.
+
+#### Merge Tree & Materialized View Mutations
+
+| Original | Mutant | Test Should Verify |
+|----------|--------|-------------------|
+| `sumState(x)` | `countState(x)` | Correct aggregation in MV |
+| `sumMerge(x)` | `countMerge(x)` | Merge matches state function |
+| `argMaxState(val, ts)` | `argMinState(val, ts)` | Correct latest-value semantics |
+| `ReplacingMergeTree(version)` | `MergeTree()` | Deduplication engine matters |
+| `AggregatingMergeTree` | `MergeTree()` | Pre-aggregation matters |
+| `FINAL` keyword | *(removed)* | Deduplication at query time |
+| `ORDER BY (tenant_id, ts)` | `ORDER BY (ts, tenant_id)` | Sort key order affects merge |
+
+#### ClickHouse Function Mutations
+
+| Original | Mutant | Test Should Verify |
+|----------|--------|-------------------|
+| `JSONExtractString(json, 'key')` | `JSONExtractInt(json, 'key')` | Correct type extraction |
+| `JSONExtractString(json, 'key')` | `JSONExtractRaw(json, 'key')` | Parsed vs raw value |
+| `arrayJoin(arr)` | *(removed)* | Array expansion is necessary |
+| `arrayFilter(x -> cond, arr)` | `arr` | Array filtering matters |
+| `arrayMap(x -> expr, arr)` | `arr` | Array transformation matters |
+| `toDateTime(x)` | `toDate(x)` | Time precision matters |
+| `toStartOfHour(ts)` | `toStartOfDay(ts)` | Truncation granularity |
+| `toStartOfMinute(ts)` | `toStartOfHour(ts)` | Truncation granularity |
+| `multiIf(c1,v1,c2,v2,def)` | `multiIf(c1,v1,def)` | All branches needed |
+| `dictGet('dict', 'attr', key)` | `''` (empty default) | Dictionary lookup matters |
+
+#### Tinybird Pipe Node Mutations
+
+Tinybird pipes are multi-node DAGs where each node's SQL output feeds the next. Mutations in upstream nodes propagate through the chain.
+
+| Original | Mutant | Test Should Verify |
+|----------|--------|-------------------|
+| Node A filters → Node B aggregates | Remove filter in Node A | Downstream aggregation changes |
+| `TYPE endpoint` node | Change parameter default | API behavior with missing params |
+| `WHERE param = {{String(param, '')}}` | `WHERE param = {{String(param, 'all')}}` | Correct default value |
+| `{% if defined(param) %}` conditional | *(removed)* | Optional parameter handling |
+| Node chain A → B → C | Skip node B | Intermediate transformation matters |
+
+**Per-node checklist for Tinybird pipes:**
+
+- [ ] **Parameter defaults**: Would changing a `{{Type(param, default)}}` default go undetected?
+- [ ] **Conditional SQL blocks**: Would removing a `{% if defined(x) %}` block go undetected?
+- [ ] **Node dependencies**: Would skipping an intermediate node change the endpoint result?
+- [ ] **Column aliasing**: Would renaming or removing an alias break downstream nodes?
+- [ ] **Type coercions**: Would changing `JSONExtractString` to `JSONExtractInt` go undetected?
+
+### SQL Identity Value Traps
+
+SQL has its own identity values that mask mutations:
+
+| Trap | Why It Fails | Fix |
+|------|-------------|-----|
+| Test data has no NULLs | `LEFT JOIN` → `INNER JOIN` produces identical results | Include rows that only exist in the left table |
+| Single-row test data | `SUM(x)` → `AVG(x)` → `MIN(x)` → `MAX(x)` all return the same value | Use multi-row data with different values |
+| All rows match `WHERE` | `WHERE true` mutant produces same results as original | Include rows that should be excluded |
+| `COUNT(*)` on non-null column | `COUNT(*)` → `COUNT(column)` identical when no NULLs | Include NULL values in test column |
+| Single group in `GROUP BY` | Removing `GROUP BY` produces same result | Use data with multiple groups |
+| Unique values only | `DISTINCT` removal produces same results | Include duplicate rows |
+| Sorted input data | `ORDER BY` removal or direction swap produces same results | Use unsorted data with distinguishable order |
+| Single `WHEN` branch hit | `CASE` branch removal or swap undetectable | Test data must exercise every branch |
+
+**Rule: Test data must include NULLs, duplicates, multiple groups, unsorted values, and rows that fail filter conditions. Single-row or homogeneous test data makes most SQL mutations invisible.**
+
+### SQL Manual Mutation Checklist
+
+When reviewing a SQL query (or Tinybird pipe node), verify tests would catch mutations to:
+
+- [ ] **WHERE clauses**: Removal, boundary shifts, `AND`/`OR` swaps, `IN`/`NOT IN` swaps
+- [ ] **JOINs**: Type swaps (`LEFT`↔`INNER`), key changes, removal
+- [ ] **Aggregates**: Function swaps (`SUM`↔`COUNT`↔`AVG`), `DISTINCT` removal
+- [ ] **GROUP BY**: Column removal, reordering
+- [ ] **HAVING**: Removal, condition mutations
+- [ ] **NULL handling**: `COALESCE` removal, `IS NULL`↔`IS NOT NULL`
+- [ ] **Result shape**: `DISTINCT` removal, `ORDER BY` direction, `LIMIT` changes
+- [ ] **CASE/IF branches**: Swap results, remove branches
+- [ ] **Window functions**: Partition key, sort direction, frame type
+- [ ] **ClickHouse-specific**: State/Merge function mismatches, `FINAL` removal, time truncation granularity, `arrayJoin` removal, `JSONExtract` type changes
+- [ ] **Tinybird parameters**: Default values, conditional SQL blocks, node chain dependencies
+
+### SQL Red Flags (Likely Surviving Mutants)
+
+- Tests use single-row datasets (aggregate mutations invisible)
+- Tests have no NULL values (JOIN type and NULL-handling mutations invisible)
+- Tests have no rows excluded by WHERE (filter removal invisible)
+- All test values fall in a single GROUP BY bucket (grouping mutations invisible)
+- Test data is pre-sorted (ORDER BY mutations invisible)
+- Tinybird endpoint tests only check HTTP 200, not response body
+- Tests hit the endpoint with all parameters, never testing defaults
+- Materialized view tests only verify row count, not aggregated values
+
 ## Mutation Score
 
 **Mutation Score = (Detected Mutants / Valid Mutants) x 100**
@@ -304,13 +481,16 @@ Use `thresholds.break` (Stryker) or `mutationThreshold` (PIT) to fail the build 
 - Pure functions and utility libraries
 - Code with complex conditional logic
 - Modules where bugs would have high impact
+- SQL queries with business logic (aggregations, filtering, JOIN semantics)
+- Tinybird pipes / ClickHouse materialized views with transformation logic
 
 ### Poor Candidates
 
 - UI rendering code (high mutant count, low signal)
-- Infrastructure/configuration code
+- Infrastructure/configuration code (Terraform, Docker, CI YAML)
 - Generated code or third-party wrappers
 - Code with heavy external dependencies (I/O, network)
+- Trivial pass-through SQL (`SELECT * FROM table`)
 
 ## Anti-patterns
 
