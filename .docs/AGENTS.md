@@ -209,6 +209,10 @@ Agents that capture or encode learnings (learner, docs-reviewer, agent-author) m
 
 **L70 — Documentation completeness is verifiable at authoring time** (I18-RLMP, 2026-02-26): Round 5 caught that the SKILL.md type import snippet listed only 2 of 3 types (missing `DiffPrefilterOutput`). Round 2 caught missing frontmatter fields. Both are mechanical errors that a simple cross-reference check would catch. Pattern: after writing a SKILL.md "Available Scripts" table, verify that every script in the table has its type in the import snippet. After writing frontmatter, verify against the schema. These are T1-level checks — consider adding them to `skill-validator` or a pre-commit check for SKILL.md files.
 
+**L72 — Scanner-as-pre-commit-hook catches real issues immediately** (I21-PIPS, 2026-02-28): Adding the prompt injection scanner to lint-staged caught 3 categories of issues during the first commit attempt: (1) Base64 false positives on slash-separated words like "Critical/High/Medium/Low" — fixed by adding `looksLikeSlashSeparatedWords` filter. (2) Educational attack pattern documentation (security checklists, skill docs) triggering real detections — fixed with `pips-allow-file` suppressions. (3) Legitimate security content (pentest docs, sharp-edges examples) — fixed with targeted suppressions. Pattern: when building a linter/scanner, deploy it to pre-commit *immediately* and iterate on false positive reduction using the real corpus — don't wait until the end.
+
+**L73 — Parallel subagent steps that share files need careful orchestration** (I21-PIPS, 2026-02-28): Steps 6, 7, 8 were dispatched as parallel agents modifying shared files (types.ts, scanner.ts). All three converged on the same working tree state because later agents read files already modified by earlier ones. This worked by luck — the agents happened to integrate cleanly. For future parallelization of steps that modify shared files: either (a) use git worktrees for isolation then merge, or (b) sequence steps that share files and only parallelize truly independent work (different file sets).
+
 ---
 
 ## Development practices — GitHub workflows
