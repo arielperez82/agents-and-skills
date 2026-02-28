@@ -97,7 +97,7 @@ Use this agent when:
 - **`../../skills/agent-development-team/creating-agents/`** — Provides the cross-reference validation script
   - **Script:** `scripts/validate_agent.py` — validates agent specs and catches broken skill references when run with `--all --summary`
 - **`../../skills/agent-development-team/skill-creator/`** — Provides the skill frontmatter validation script
-  - **Script:** `scripts/quick_validate.py` — validates SKILL.md frontmatter (name, description, allowed keys, naming conventions)
+  - **Script:** `scripts/quick_validate.py` — three-tier validation: errors on missing required fields or non-standard top-level keys (exit 1), warns on incomplete metadata (exit 0 with WARNING), passes on fully compliant (exit 0)
 
 ## Workflows
 
@@ -120,7 +120,7 @@ Use this agent when:
 
 **Exit codes:**
 - `validate_agent.py`: 0 = all pass, 1 = critical issues found
-- `quick_validate.py`: 0 = valid, 1 = invalid
+- `quick_validate.py`: 0 = valid (may include metadata warnings), 1 = invalid (missing required fields or non-standard top-level keys)
 
 **Expected output:** Per-skill validation result + cross-reference summary (CRITICAL/HIGH counts).
 
@@ -159,9 +159,9 @@ When producing review reports (especially for `/review/review-changes`), map res
 
 | Finding Type | Tier | Icon |
 |---|---|---|
-| Script failures or CRITICAL issues | 🔴 Fix required | Broken references or invalid frontmatter must be fixed |
-| HIGH warnings | 🟡 Suggestion | Non-critical issues worth addressing |
-| All checks pass | 🔵 Observation | Skills are valid |
+| Script failures or CRITICAL issues (missing name/description, non-standard top-level keys) | 🔴 Fix required | Broken references or invalid frontmatter must be fixed |
+| Metadata warnings (incomplete recommended fields) | 🟡 Suggestion | Skill is valid but metadata could be enriched |
+| All checks pass, no warnings | 🔵 Observation | Skills are fully compliant |
 
 ## Success Metrics
 
