@@ -1100,3 +1100,5 @@ Artifacts:
 
 Status file: <path>
 ```
+
+<!-- pips-allow-file: instruction-override -- Security protocol documenting prompt injection patterns to defend against; not an attack -->

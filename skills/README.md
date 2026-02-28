@@ -142,6 +142,7 @@ Engineering skills (path: `skills/engineering-team/<name>/`). Load proactively p
 | **divio-documentation** | Documentation classification | DIVIO/Diataxis quadrants, type purity 80%+ rule, collapse detection. Refs: collapse-detection, quality-validation |
 | **mikado-method** | Complex refactoring | Dependency graph exploration, revert-on-failure, leaf-first execution, 10-min timebox |
 | **mutation-testing** | Test effectiveness | Mutation operators, score thresholds (>80%), Stryker/PIT/cosmic-ray, CI integration |
+| **prompt-injection-security** | Prompt injection detection, agent/skill intake | 8 pattern categories, context-severity matrix, suppression mechanism, scanner CLI, intake Phase 2.5 workflow |
 | **property-based-testing** | PBT / roundtrip / idempotence tests | Property strategies (roundtrip, commutativity, invariant), generators, Hypothesis/fast-check/proptest. *Source: Trail of Bits (CC BY-SA 4.0)* |
 | **sharp-edges** | API misuse review, footgun detection | 6-category taxonomy (algorithm footguns, dangerous defaults, config cliffs, silent failures), 11 language guides. *Source: Trail of Bits (CC BY-SA 4.0)* |
 | **variant-analysis** | Found a bug, find similar ones | 5-step variant hunting (root cause → exact match → abstract → generalize → triage), CodeQL/Semgrep templates. *Source: Trail of Bits (CC BY-SA 4.0)* |
@@ -151,7 +152,7 @@ Engineering skills (path: `skills/engineering-team/<name>/`). Load proactively p
 
 Role and specialist skills (same folder):
 
-### Engineering Team – Roles (`engineering-team/`)
+### Engineering Team -- Roles (`engineering-team/`)
 
 | Skill | When to Use | What It Provides |
 |-------|-------------|------------------|
@@ -354,7 +355,7 @@ Role and specialist skills (same folder):
 
 ---
 
-## Skill–Agent Relationships
+## Skill--Agent Relationships
 
 ### How skills and agents work together
 
@@ -373,17 +374,17 @@ Role and specialist skills (same folder):
 
 ### Skill ↔ agent mapping (examples)
 
-| When you… | Load skill | Engage agent |
+| When you... | Load skill | Engage agent |
 |-----------|------------|---------------|
 | Start coding | tdd | tdd-reviewer |
 | Write TypeScript | typescript-strict | ts-enforcer |
 | Tests just passed | refactoring | refactor-assessor |
 | Need progress tracking | planning | progress-assessor |
-| Before claiming done | verification-before-completion | — |
+| Before claiming done | verification-before-completion | -- |
 | Code review | code-reviewer | code-reviewer |
 | Document decisions | architecture-decision-records | adr-writer |
-| Permanent docs | — | docs-reviewer |
-| Capture learnings | — | learner |
+| Permanent docs | -- | docs-reviewer |
+| Capture learnings | -- | learner |
 
 ## Using These Skills
 
@@ -425,12 +426,12 @@ When adding a skill:
 1. **Follow structure**: `skill-name/SKILL.md` plus optional `references/`, `scripts/`, `assets/` (see `agent-development-team/skill-creator/SKILL.md`).
 2. **Set frontmatter**: `name`, `description` (with trigger patterns).
 3. **Distinguish from existing skills**: Avoid overlap; link related skills.
-4. **Update this README**: Add the skill to the appropriate catalog table and, if it’s core or authoring, consider a detailed overview entry.
+4. **Update this README**: Add the skill to the appropriate catalog table and, if it's core or authoring, consider a detailed overview entry.
 5. **Version if required**: Follow `agent-development-team/versioning-skills/SKILL.md` when modifying skill files.
 
 ## Summary
 
 - **Catalog**: This README lists all skills in `skills/`, grouped by domain (core development, creating & authoring, code quality, architecture, backend/frontend, engineering/delivery/marketing/product teams, research/workflow, domain-specific).
 - **Core skills** (tdd, typescript-strict, testing, refactoring, planning, functional) are in `engineering-team/` and loaded proactively per AGENTS.md when writing or reviewing code.
-- **Agents** orchestrate workflows; **skills** supply patterns and references. Use the catalog to pick the right skill and the "Skill–Agent Relationships" section to pair skills with agents.
+- **Agents** orchestrate workflows; **skills** supply patterns and references. Use the catalog to pick the right skill and the "Skill--Agent Relationships" section to pair skills with agents.
 - **Authoring**: New skills follow `agent-development-team/skill-creator/SKILL.md`; new agents follow `agent-development-team/creating-agents/SKILL.md`. Keep this README in sync when adding, removing, or renaming skills.

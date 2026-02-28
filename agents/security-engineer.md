@@ -6,7 +6,7 @@ title: Security Engineer
 description: Security specialist for threat modeling, vulnerability assessment, secure coding practices, and security automation
 domain: engineering
 subdomain: security-engineering
-skills: engineering-team/senior-security
+skills: [engineering-team/senior-security, engineering-team/prompt-injection-security]
 
 # === USE CASES ===
 difficulty: advanced
@@ -77,6 +77,8 @@ examples:
 
 ---
 
+<!-- pips-allow-file: privilege-escalation -- Security engineer agent documents penetration testing, authorization bypass testing, and security assessment workflows as core domain expertise -->
+
 # Security Engineer Agent
 
 ## Purpose
@@ -90,6 +92,10 @@ The security-engineer agent bridges the gap between security theory and practica
 ## Skill Integration
 
 **Skill Location:** `../skills/engineering-team/senior-security/`
+
+**Prompt Injection Security Skill:** `../skills/engineering-team/prompt-injection-security/`
+
+The prompt-injection-security skill provides detection patterns and prevention guidance for prompt injection attacks in AI agent/skill/command systems. Use this skill when implementing content safety controls for markdown artifacts loaded as LLM context.
 
 ### Python Tools
 
@@ -817,6 +823,7 @@ rm pentest-config.json
 ## References
 
 - **Skill Documentation:** [../skills/engineering-team/senior-security/SKILL.md](../skills/engineering-team/senior-security/SKILL.md)
+- **Prompt Injection Security Skill:** [../skills/engineering-team/prompt-injection-security/SKILL.md](../skills/engineering-team/prompt-injection-security/SKILL.md)
 - **Domain Guide:** [../skills/engineering-team/CLAUDE.md](../skills/engineering-team/CLAUDE.md)
 - **Agent Development Guide:** [agent-author](agent-author.md)
 

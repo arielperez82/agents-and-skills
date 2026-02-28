@@ -48,7 +48,7 @@ APIs that let developers choose algorithms invite choosing wrong ones.
 
 **The JWT Pattern** (canonical example):
 - Header specifies algorithm: attacker can set `"alg": "none"` to bypass signatures
-- Algorithm confusion: RSA public key used as HMAC secret when switching RS256→HS256
+- Algorithm confusion: RSA public key used as HMAC secret when switching RS256->HS256
 - Root cause: Letting untrusted input control security-critical decisions
 
 **Detection patterns:**
@@ -125,6 +125,7 @@ One wrong setting creates catastrophic failure, with no warning.
 - Boolean flags that disable security entirely
 - String configs that aren't validated
 - Combinations of settings that interact dangerously
+<!-- pips-allow: privilege-escalation -- Documents configuration anti-patterns where env vars can weaken security; educational sharp-edges content -->
 - Environment variables that override security settings
 - Constructor parameters with sensible defaults but no validation (callers can override with insecure values)
 

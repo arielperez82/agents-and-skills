@@ -1,6 +1,6 @@
 # Engineering Team Skills - Claude Code Guidance
 
-This guide covers the 31 production-ready engineering role skills and their Python automation tools.
+This guide covers the 32 production-ready engineering role skills and their Python automation tools.
 
 ## Engineering Skills Overview
 
@@ -28,6 +28,9 @@ This guide covers the 31 production-ready engineering role skills and their Pyth
 
 **Review Optimization (1 skill):**
 - tiered-review
+
+**Security (1 skill):**
+- prompt-injection-security
 
 **Specialist (6 skills):**
 - senior-graphql, senior-observability, technical-writer
@@ -344,6 +347,6 @@ Incorporated from [trailofbits/skills](https://github.com/trailofbits/skills):
 
 Additionally, `senior-security` gained references for insecure-defaults detection and differential security review.
 
-**Last Updated:** February 20, 2026
-**Skills Deployed:** 37/37 engineering skills production-ready (31 role + 6 Trail of Bits)
+**Last Updated:** February 28, 2026
+**Skills Deployed:** 38/38 engineering skills production-ready (32 role + 6 Trail of Bits)
 **Total Tools:** 44 Python automation tools across core + strategic + AI/ML/Data + platform + specialist

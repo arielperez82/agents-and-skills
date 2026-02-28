@@ -175,7 +175,7 @@ const BASE64_PATTERN =
   /(?<![a-zA-Z0-9+/])[A-Za-z0-9+/]{21,}={0,2}(?![a-zA-Z0-9+/=])/g;
 
 const looksLikeSlashSeparatedWords = (str: string): boolean =>
-  /^[A-Za-z]+(?:\/[A-Za-z]+)+$/.test(str);
+  /^[A-Za-z0-9]+(?:\/[A-Za-z0-9]+)+$/.test(str);
 
 const looksLikeBase64 = (str: string): boolean => {
   if (str.length <= 20) return false;
