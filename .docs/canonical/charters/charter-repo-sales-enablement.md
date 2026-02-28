@@ -3,7 +3,7 @@ type: charter
 endeavor: repo
 initiative: I04-SLSE
 initiative_name: sales-enablement
-status: active
+status: done
 updated: 2026-02-11
 ---
 

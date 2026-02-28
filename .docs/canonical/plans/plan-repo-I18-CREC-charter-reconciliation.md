@@ -1,7 +1,7 @@
 ---
 initiative: I18-CREC
 initiative_name: Charter Reconciliation in Craft Close
-status: draft
+status: done
 created: 2026-02-21
 ---
 

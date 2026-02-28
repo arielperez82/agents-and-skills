@@ -3,7 +3,7 @@ type: charter
 endeavor: repo
 initiative: I20-MUTT
 initiative_name: mutation-testing-ecosystem
-status: draft
+status: done
 scope_type: docs-only
 created: 2026-02-26
 updated: 2026-02-26

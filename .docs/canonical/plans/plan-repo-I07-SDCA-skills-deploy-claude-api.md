@@ -3,7 +3,7 @@ type: plan
 endeavor: repo
 initiative: I07-SDCA
 initiative_name: skills-deploy-claude-api
-status: draft
+status: done
 updated: 2026-02-16
 ---
 

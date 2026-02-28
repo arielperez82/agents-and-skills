@@ -3,7 +3,7 @@ type: charter
 endeavor: repo
 initiative: I19-IREV
 initiative_name: Incremental Review Enforcement
-status: active
+status: done
 created: 2026-02-26
 updated: 2026-02-26
 ---

@@ -3,7 +3,7 @@ type: charter
 endeavor: repo
 initiative: I13-RCHG
 initiative_name: review-changes-artifact-aware
-status: active
+status: done
 updated: 2026-02-18
 ---
 

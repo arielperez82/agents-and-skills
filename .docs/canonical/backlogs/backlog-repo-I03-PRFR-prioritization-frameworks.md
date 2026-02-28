@@ -3,7 +3,7 @@ type: backlog
 endeavor: repo
 initiative: I03-PRFR
 initiative_name: prioritization-frameworks
-status: active
+status: done
 updated: 2026-02-11
 ---
 

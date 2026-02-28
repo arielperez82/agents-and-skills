@@ -3,7 +3,7 @@ type: backlog
 endeavor: repo
 initiative: I18-RLMP
 initiative_name: rlm-context-efficiency
-status: in-progress
+status: done
 updated: 2026-02-25
 ---
 

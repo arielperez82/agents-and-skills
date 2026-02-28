@@ -3,7 +3,7 @@ type: charter
 endeavor: repo
 initiative: I05-ATEL
 initiative_name: agent-telemetry
-status: active
+status: done
 updated: 2026-02-12
 ---
 

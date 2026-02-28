@@ -3,7 +3,7 @@ type: backlog
 endeavor: repo
 initiative: I02-INNC
 initiative_name: initiative-naming-convention
-status: active
+status: done
 updated: 2026-02-10
 ---
 

@@ -3,7 +3,7 @@ type: plan
 endeavor: repo
 initiative: I09-SHSL
 initiative_name: shell-script-lint
-status: draft
+status: done
 updated: 2026-02-16
 ---
 

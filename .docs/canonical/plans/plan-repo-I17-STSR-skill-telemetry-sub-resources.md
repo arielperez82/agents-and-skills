@@ -3,7 +3,7 @@ type: plan
 endeavor: repo
 initiative: I17-STSR
 initiative_name: skill-telemetry-sub-resources
-status: proposed
+status: done
 created: 2026-02-21
 updated: 2026-02-21
 ---

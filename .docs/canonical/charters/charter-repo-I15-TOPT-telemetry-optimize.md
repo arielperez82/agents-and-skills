@@ -3,7 +3,7 @@ type: charter
 endeavor: repo
 initiative: I15-TOPT
 initiative_name: telemetry-optimize-command
-status: proposed
+status: done
 updated: 2026-02-19
 ---
 

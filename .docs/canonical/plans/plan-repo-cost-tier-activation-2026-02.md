@@ -5,7 +5,7 @@ type: plan
 endeavor: repo
 subject: cost-tier-activation
 date: 2026-02-22
-status: draft
+status: done
 ---
 
 # Plan: Activate Cost-Tier Routing and Subagent Delegation Skills

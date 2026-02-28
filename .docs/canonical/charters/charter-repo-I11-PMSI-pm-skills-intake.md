@@ -3,7 +3,7 @@ type: charter
 endeavor: repo
 initiative: I11-PMSI
 initiative_name: pm-skills-intake
-status: in_progress
+status: done
 updated: 2026-02-17
 ---
 

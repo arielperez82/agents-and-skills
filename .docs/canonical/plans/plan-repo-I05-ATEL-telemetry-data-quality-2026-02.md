@@ -4,7 +4,7 @@ endeavor: repo
 initiative: I05-ATEL
 initiative_name: agent-telemetry
 subject: telemetry-data-quality
-status: ready
+status: done
 created: 2026-02-18
 ---
 

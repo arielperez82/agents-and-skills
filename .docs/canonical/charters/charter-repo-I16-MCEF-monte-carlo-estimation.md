@@ -3,7 +3,7 @@ type: charter
 endeavor: repo
 initiative: I16-MCEF
 initiative_name: monte-carlo-estimation-forecasting
-status: draft
+status: done
 created: 2026-02-20
 updated: 2026-02-20
 ---

@@ -23,13 +23,9 @@ Initiatives actively in progress.
 
 Initiatives chartered and ready to start when capacity allows.
 
-| Initiative | Name | Description | Charter |
-|------------|------|-------------|---------|
-| I07-SDCA | Skills Deploy Claude API | GitHub workflow to detect changed skills, zip, and deploy to Claude Skills API | [charter](../charters/charter-repo-skills-deploy-claude-api.md) |
-| I09-SHSL | Shell Script Lint | Shell-scripting skill + Phase 0 conditional + ShellCheck wired in pre-commit and CI | [charter](../charters/charter-repo-I09-SHSL-shell-script-lint.md) |
-| I04-SLSE | Sales Enablement | Sales team skills (6) and agents (SDR, AE) with methodology frameworks | [charter](../charters/charter-repo-sales-enablement.md) |
-| I03-PRFR | Prioritization Frameworks | Portfolio allocation skill with NPV scoring, supplementary frameworks | [charter](../charters/charter-repo-prioritization-frameworks.md) |
-| I14-MATO | Multi-Agent Token Optimization | Token cost optimization for multi-agent orchestration | [charter](../charters/charter-repo-I14-MATO-multi-agent-token-optimization.md) |
+| Initiative | Name | Description | Status | Charter |
+|------------|------|-------------|--------|---------|
+| I22-SFMC | Skill Frontmatter API Compliance | Migrate 62 non-compliant skills to API-valid frontmatter by moving extended keys under `metadata`; update validator to error on non-standard keys, warn on incomplete metadata | draft | [charter](../charters/charter-repo-I22-SFMC-skill-frontmatter-compliance.md) |
 
 ## Later
 
@@ -45,14 +41,22 @@ Completed initiatives.
 |------------|------|-------------|---------|
 | I01-ACM | Artifact Conventions Migration | Established `.docs/` as single source of truth with naming grammar | [charter](../charters/charter-repo-artifact-conventions.md) |
 | I02-INNC | Initiative Naming Convention | `I<nn>-<ACRONYM>` naming grammar for cross-initiative traceability | [charter](../charters/charter-repo-initiative-naming-convention.md) |
+| I03-PRFR | Prioritization Frameworks | Portfolio allocation skill with NPV scoring, supplementary frameworks | [charter](../charters/charter-repo-prioritization-frameworks.md) |
+| I04-SLSE | Sales Enablement | Sales team skills (6) and agents (SDR, AE) with methodology frameworks | [charter](../charters/charter-repo-sales-enablement.md) |
 | I05-ATEL | Agent Telemetry | Telemetry and analytics system tracking agent activations, skill usage, and token consumption via Tinybird | [charter](../charters/charter-repo-agent-telemetry.md) |
 | I06-AICO | Agent & Command Intake/Optimize | Agent optimizer, command validator, and agent intake pipeline | [charter](../charters/charter-repo-agent-command-intake-optimize.md) |
+| I07-SDCA | Skills Deploy Claude API | GitHub workflow to detect changed skills, zip, and deploy to Claude Skills API | [charter](../charters/charter-repo-skills-deploy-claude-api.md) |
 | I08-NWMI | nWave Methodology Intake | Methodology skills from nWave (TDD, refactoring, debugging, etc.) | [charter](../charters/charter-repo-nwave-methodology-intake.md) |
+| I09-SHSL | Shell Script Lint | Shell-scripting skill + Phase 0 conditional + ShellCheck wired in pre-commit and CI | [charter](../charters/charter-repo-I09-SHSL-shell-script-lint.md) |
 | I10-ARFE | Agentic Review Feedback Effectiveness | Confidence-tiered review output and effectiveness tracking for review agents | [charter](../charters/charter-repo-agentic-review-feedback-effectiveness.md) |
 | I11-PMSI | PM Skills Intake | Product management skills intake (8 skills, 8 Python tools) | [charter](../charters/charter-repo-I11-PMSI-pm-skills-intake.md) |
 | I12-CRFT | Craft Command | Full SDLC orchestration command (`/craft`) with phase gates, resume, and auto variants | [charter](../charters/charter-repo-I12-CRFT-craft-command.md) |
 | I13-RCHG | Review Changes Artifact-Aware | Extend `/review/review-changes` to treat agent/skill/command artifacts as first-class review targets | [charter](../charters/charter-repo-I13-RCHG-review-changes-artifact-aware.md) |
+| I14-MATO | Multi-Agent Token Optimization | Token cost optimization for multi-agent orchestration (Phase 1: model right-sizing + cost pipe) | [charter](../charters/charter-repo-I14-MATO-multi-agent-token-optimization.md) |
+| I15-TOPT | Telemetry Optimize Command | `/telemetry/optimize` command for agent cost optimization reporting | [charter](../charters/charter-repo-I15-TOPT-telemetry-optimize.md) |
 | I16-MCEF | Monte Carlo Estimation & Forecasting | Monte Carlo forecasting, WSJF scoring, git throughput extraction, AI-pace calibration for prioritization-frameworks skill | [charter](../charters/charter-repo-I16-MCEF-monte-carlo-estimation.md) |
 | I17-STSR | Skill Telemetry Sub-Resources | Track skill sub-resources (references, scripts), script execution duration, and project context in telemetry | [charter](../charters/charter-repo-I17-STSR-skill-telemetry-sub-resources.md) |
+| I18-CREC | Charter Reconciliation in Craft Close | Product-director and senior-project-manager close workflows in `/craft` Phase 6 | [charter](../charters/charter-repo-I18-CREC-charter-reconciliation.md) |
+| I18-RLMP | RLM-Inspired Context Efficiency | Tiered review skill with prefilter scripts for context-efficient agent reviews | [charter](../charters/charter-repo-I18-RLMP-rlm-context-efficiency.md) |
 | I19-IREV | Incremental Review Enforcement | Enforce full review gate in `/code` Step 4 and `/git/cm`; eliminate review duplication in `/craft` Phase 4 | [charter](../charters/charter-repo-I19-IREV-incremental-review-enforcement.md) |
 | I20-MUTT | Mutation Testing | Mutation testing methodology skill, Stryker configuration skill, and Phase 0 conditional check | [charter](../charters/charter-repo-I20-MUTT-mutation-testing.md) |

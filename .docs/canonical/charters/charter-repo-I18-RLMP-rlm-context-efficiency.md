@@ -3,7 +3,7 @@ type: charter
 endeavor: repo
 initiative: I18-RLMP
 initiative_name: rlm-context-efficiency
-status: accepted
+status: done
 updated: 2026-02-25
 ---
 

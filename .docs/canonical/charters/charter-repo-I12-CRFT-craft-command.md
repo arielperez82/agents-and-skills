@@ -3,7 +3,7 @@ type: charter
 endeavor: repo
 initiative: I12-CRFT
 initiative_name: craft-command
-status: active
+status: done
 updated: 2026-02-18
 ---
 

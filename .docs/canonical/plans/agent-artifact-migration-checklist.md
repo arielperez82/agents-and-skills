@@ -1,7 +1,7 @@
 ---
 type: plan
 endeavor: repo
-status: active
+status: done
 updated: 2026-02-06
 ---
 

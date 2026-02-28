@@ -3,7 +3,7 @@ type: backlog
 endeavor: repo
 initiative: I01-ACM
 initiative_name: artifact-conventions-migration
-status: active
+status: done
 updated: 2026-02-10
 ---
 

@@ -1,7 +1,7 @@
 ---
 initiative: I20-MUTT
 initiative_name: mutation-testing-ecosystem
-status: draft
+status: done
 created: 2026-02-26
 ---
 
