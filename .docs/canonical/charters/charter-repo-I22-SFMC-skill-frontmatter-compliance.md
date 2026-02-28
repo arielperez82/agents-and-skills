@@ -231,3 +231,259 @@ Wave 4:  B8 (full catalog validation)      -- final gate, depends on all above
 | B6 | Update skill-validator agent docs | 3 | B3 | S |
 | B7 | Audit and update frontmatter consumers (`package_skill.py`, telemetry hooks) | 3 | B4 | S |
 | B8 | Full catalog validation: 179/179 pass | 4 | B4-B7 | S |
+
+## Acceptance Scenarios
+
+Scenarios are grouped by user story. Driving port for migration is the `migrate_frontmatter.py` CLI. Driving port for validation is the `quick_validate.py` CLI. Driving port for skill creation is the `skill-creator` skill template output. All scenarios use business language and interact only through these entry points.
+
+**Scenario budget:** 26 scenarios total. 11 error/edge-case (42%). 12 happy path. 3 integration.
+
+### US-1: API-Compliant Frontmatter via Migration
+
+#### Feature: Migrate non-standard frontmatter keys to metadata block
+
+**[Walking Skeleton]**
+
+```gherkin
+Scenario: Migrate a single non-compliant skill to API-compliant format
+  Given a skill "senior-backend" with top-level keys "title", "domain", "subdomain", "difficulty"
+  When I run the migration script on "senior-backend/SKILL.md"
+  Then the skill has only allowed top-level keys: name, description, license, metadata
+  And the metadata block contains "title", "domain", "subdomain", "difficulty" with their original values
+  And the skill body content below the frontmatter closing delimiter is unchanged
+```
+
+```gherkin
+Scenario: Preserve all extended field values during migration
+  Given a skill "senior-backend" with 22 non-standard top-level keys including nested structures
+  When I run the migration script on "senior-backend/SKILL.md"
+  Then every original key-value pair appears under metadata with identical values
+  And nested structures like "dependencies.scripts" and "compatibility.platforms" are preserved exactly
+```
+
+```gherkin
+Scenario: Keep allowed top-level keys in place during migration
+  Given a skill with top-level keys "name", "description", "license", "domain", "tags"
+  When I run the migration script
+  Then "name", "description", and "license" remain as top-level keys
+  And only "domain" and "tags" move under metadata
+```
+
+```gherkin
+Scenario: Preserve allowed-tools key when present
+  Given a skill with top-level keys "name", "description", "allowed-tools", "domain"
+  When I run the migration script
+  Then "allowed-tools" remains a top-level key
+  And "domain" moves under metadata
+```
+
+```gherkin
+Scenario: Strip YAML comments from frontmatter during migration
+  Given a skill with YAML comments like "# === CORE IDENTITY ===" between frontmatter keys
+  When I run the migration script
+  Then the output frontmatter contains no YAML comments
+  And all key-value pairs are preserved without the comment lines
+```
+
+```gherkin
+Scenario: Enforce canonical key ordering after migration
+  Given a skill with keys in arbitrary order: "domain", "name", "license", "description", "tags"
+  When I run the migration script
+  Then the top-level keys appear in order: name, description, license, metadata
+```
+
+#### Feature: Migration idempotency
+
+```gherkin
+Scenario: Running migration on an already-compliant skill is a no-op
+  Given a skill with only allowed top-level keys: name, description, license, metadata
+  When I run the migration script
+  Then the file content is identical to the original
+```
+
+```gherkin
+Scenario: Running migration twice produces the same result as running it once
+  Given a skill "senior-backend" with non-standard top-level keys
+  When I run the migration script twice consecutively
+  Then the file content after the second run is identical to the content after the first run
+```
+
+#### Feature: Migration error handling (error path)
+
+```gherkin
+Scenario: Migration fails gracefully on a file without frontmatter
+  Given a SKILL.md file with no YAML frontmatter delimiters
+  When I run the migration script
+  Then the script reports an error indicating missing frontmatter
+  And the original file is not modified
+```
+
+```gherkin
+Scenario: Migration fails gracefully on malformed YAML
+  Given a SKILL.md file with invalid YAML syntax in the frontmatter (e.g., unclosed quotes)
+  When I run the migration script
+  Then the script reports a YAML parsing error with the file path
+  And the original file is not modified
+```
+
+```gherkin
+Scenario: Migration preserves body content even when frontmatter has edge-case formatting
+  Given a SKILL.md where the body content starts immediately after the closing "---" with no blank line
+  When I run the migration script
+  Then the body content is byte-for-byte identical to the original
+```
+
+### US-2: Clear Error Messages from Validator
+
+#### Feature: Reject skills missing required fields
+
+```gherkin
+Scenario: Validator errors when name is missing
+  Given a skill with frontmatter containing "description" but no "name" key
+  When I run quick_validate.py on the skill directory
+  Then the output contains an error message mentioning the missing "name" field
+  And the exit code is 1
+```
+
+```gherkin
+Scenario: Validator errors when description is missing
+  Given a skill with frontmatter containing "name: my-skill" but no "description" key
+  When I run quick_validate.py on the skill directory
+  Then the output contains an error message mentioning the missing "description" field
+  And the exit code is 1
+```
+
+```gherkin
+Scenario: Validator errors when both name and description are missing
+  Given a skill with frontmatter containing only "license: MIT"
+  When I run quick_validate.py on the skill directory
+  Then the output contains an error message mentioning the missing required field
+  And the exit code is 1
+```
+
+#### Feature: Reject skills with non-standard top-level keys
+
+```gherkin
+Scenario: Validator errors on a single non-standard top-level key
+  Given a skill with top-level keys "name", "description", and "domain"
+  When I run quick_validate.py on the skill directory
+  Then the output contains an error listing "domain" as an unexpected key
+  And the output lists the 5 allowed properties
+  And the exit code is 1
+```
+
+```gherkin
+Scenario: Validator errors on multiple non-standard top-level keys
+  Given a skill with top-level keys "name", "description", "domain", "tags", "version", "author"
+  When I run quick_validate.py on the skill directory
+  Then the output contains an error listing all 4 unexpected keys: "author", "domain", "tags", "version"
+  And the exit code is 1
+```
+
+#### Feature: Validator accepts fully compliant skills
+
+```gherkin
+Scenario: Validator passes a skill with all 5 allowed top-level keys
+  Given a skill with top-level keys "name", "description", "license", "allowed-tools", and "metadata"
+  When I run quick_validate.py on the skill directory
+  Then the output confirms the skill is valid
+  And the exit code is 0
+```
+
+```gherkin
+Scenario: Validator passes a minimal skill with only name and description
+  Given a skill with only "name: my-skill" and "description: A useful skill"
+  When I run quick_validate.py on the skill directory
+  Then the output confirms the skill is valid
+  And the exit code is 0
+```
+
+### US-3: Warnings for Incomplete Metadata
+
+#### Feature: Warn on missing recommended metadata fields
+
+```gherkin
+Scenario: Validator warns but passes when metadata block is empty
+  Given a skill with "name", "description", and an empty "metadata" block
+  When I run quick_validate.py on the skill directory
+  Then the output contains a warning listing recommended metadata fields that are absent
+  And the exit code is 0
+```
+
+```gherkin
+Scenario: Validator warns but passes when metadata is missing some recommended fields
+  Given a skill with metadata containing "domain" and "tags" but missing "difficulty", "use-cases", and "related-agents"
+  When I run quick_validate.py on the skill directory
+  Then the output contains warnings for each missing recommended field
+  And the exit code is 0
+```
+
+```gherkin
+Scenario: Validator shows no warnings when metadata has all recommended fields
+  Given a skill with a complete metadata block containing domain, subdomain, difficulty, tags, use-cases, and related-agents
+  When I run quick_validate.py on the skill directory
+  Then the output confirms the skill is valid with no warnings
+  And the exit code is 0
+```
+
+```gherkin
+Scenario: Validator does not warn when no metadata block is present
+  Given a skill with only "name" and "description" (no metadata key at all)
+  When I run quick_validate.py on the skill directory
+  Then the output confirms the skill is valid
+  And the exit code is 0
+```
+
+### US-4: Skill Creator Generates Compliant Schema
+
+#### Feature: New skills use compliant frontmatter from the start
+
+```gherkin
+Scenario: Newly created skill has only allowed top-level keys
+  Given I am creating a new skill named "api-gateway" using the skill-creator template
+  When the skill-creator generates the SKILL.md file
+  Then the generated frontmatter contains only keys from the allowed set: name, description, license, metadata
+  And extended fields like domain, tags, and difficulty are nested under metadata
+```
+
+```gherkin
+Scenario: Newly created skill passes validation without migration
+  Given I have created a new skill "api-gateway" using the skill-creator template
+  When I run quick_validate.py on the new skill directory
+  Then the output confirms the skill is valid
+  And the exit code is 0
+```
+
+### Integration: Full Catalog Validation
+
+```gherkin
+Scenario: All 179 skills pass validation after migration
+  Given all 62 non-compliant skills have been migrated using migrate_frontmatter.py
+  And the remaining 117 skills were already compliant
+  When I run quick_validate.py against every skill directory in the catalog
+  Then all 179 skills report as valid
+  And the total exit code is 0
+```
+
+```gherkin
+Scenario: No information loss across the full catalog migration
+  Given I have captured the frontmatter key-value pairs for all 62 non-compliant skills before migration
+  When I run the migration script on all 62 skills
+  Then every original key-value pair is present under the top-level or metadata block of each migrated skill
+  And no values have been altered, truncated, or reordered within their structures
+```
+
+### Scenario Summary
+
+| Category | Count | Percentage |
+|----------|-------|------------|
+| Happy path | 12 | 46% |
+| Error path | 8 | 31% |
+| Edge case | 3 | 12% |
+| Integration | 3 | 12% |
+| **Error + Edge** | **11** | **42%** |
+| **Total** | **26** | **100%** |
+
+### Walking Skeleton Identification
+
+The first scenario ("Migrate a single non-compliant skill to API-compliant format") is the walking skeleton. It proves the thinnest vertical slice: one skill migrates end-to-end and produces valid output. This scenario should be implemented first and drives the initial TDD inner loop for `migrate_frontmatter.py`.
