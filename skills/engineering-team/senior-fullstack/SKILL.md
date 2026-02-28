@@ -1,62 +1,44 @@
 ---
-
-# === CORE IDENTITY ===
 name: senior-fullstack
-title: Senior Fullstack Skill Package
-description: Comprehensive fullstack development skill for building complete web applications with React, Next.js, Node.js, GraphQL, and PostgreSQL. Includes project scaffolding, code quality analysis, architecture patterns, and complete tech stack guidance. Use when building new projects, analyzing code quality, implementing design patterns, or setting up development workflows.
-domain: engineering
-subdomain: fullstack-development
-
-# === WEBSITE DISPLAY ===
-difficulty: advanced
-time-saved: "TODO: Quantify time savings"
-frequency: "TODO: Estimate usage frequency"
-use-cases:
-  - Primary workflow for Senior Fullstack
-  - Analysis and recommendations for senior fullstack tasks
-  - Best practices implementation for senior fullstack
-  - Integration with related skills and workflows
-
-# === RELATIONSHIPS ===
-related-agents: []
-related-skills: []
-related-commands: []
-orchestrated-by: []
-
-# === TECHNICAL ===
-dependencies:
-  scripts: []
-  references: []
-  assets: []
-compatibility:
-  python-version: 3.8+
-  platforms: [macos, linux, windows]
-tech-stack: [Python 3.8+, Markdown]
-
-# === EXAMPLES ===
-examples:
-  -
-    title: Example Usage
-    input: "TODO: Add example input for senior-fullstack"
-    output: "TODO: Add expected output"
-
-# === ANALYTICS ===
-stats:
-  downloads: 0
-  stars: 0
-  rating: 0.0
-  reviews: 0
-
-# === VERSIONING ===
-version: v1.0.0
-author: Claude Skills Team
-contributors: []
-created: 2025-10-19
-updated: 2025-11-23
+description: Comprehensive fullstack development skill for building complete web applications
+  with React, Next.js, Node.js, GraphQL, and PostgreSQL. Includes project scaffolding,
+  code quality analysis, architecture patterns, and complete tech stack guidance.
+  Use when building new projects, analyzing code quality, implementing design patterns,
+  or setting up development workflows.
 license: MIT
-
-# === DISCOVERABILITY ===
-tags:
+metadata:
+  author: Claude Skills Team
+  compatibility:
+    python-version: 3.8+
+    platforms:
+    - macos
+    - linux
+    - windows
+  contributors: []
+  created: 2025-10-19
+  dependencies:
+    scripts: []
+    references: []
+    assets: []
+  difficulty: advanced
+  domain: engineering
+  examples:
+  - title: Example Usage
+    input: 'TODO: Add example input for senior-fullstack'
+    output: 'TODO: Add expected output'
+  featured: false
+  frequency: 'TODO: Estimate usage frequency'
+  orchestrated-by: []
+  related-agents: []
+  related-commands: []
+  related-skills: []
+  stats:
+    downloads: 0
+    stars: 0
+    rating: 0.0
+    reviews: 0
+  subdomain: fullstack-development
+  tags:
   - analysis
   - architecture
   - design
@@ -64,8 +46,19 @@ tags:
   - engineering
   - fullstack
   - senior
-featured: false
-verified: true
+  tech-stack:
+  - Python 3.8+
+  - Markdown
+  time-saved: 'TODO: Quantify time savings'
+  title: Senior Fullstack Skill Package
+  updated: 2025-11-23
+  use-cases:
+  - Primary workflow for Senior Fullstack
+  - Analysis and recommendations for senior fullstack tasks
+  - Best practices implementation for senior fullstack
+  - Integration with related skills and workflows
+  verified: true
+  version: v1.0.0
 ---
 
 # Senior Fullstack Developer

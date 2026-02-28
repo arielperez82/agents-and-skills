@@ -1,8 +1,14 @@
 ---
 name: debugging
-description: Systematic debugging framework ensuring root cause investigation before fixes. Includes four-phase debugging process, backward call stack tracing, multi-layer validation, verification protocols, Toyota 5 Whys methodology, and evidence classification. Use when encountering bugs, test failures, unexpected behavior, performance issues, or before claiming work complete. Prevents random fixes, masks over symptoms, and false completion claims.
-version: 4.0.0
-languages: all
+description: Systematic debugging framework ensuring root cause investigation before
+  fixes. Includes four-phase debugging process, backward call stack tracing, multi-layer
+  validation, verification protocols, Toyota 5 Whys methodology, and evidence classification.
+  Use when encountering bugs, test failures, unexpected behavior, performance issues,
+  or before claiming work complete. Prevents random fixes, masks over symptoms, and
+  false completion claims.
+metadata:
+  languages: all
+  version: 4.0.0
 ---
 
 # Debugging

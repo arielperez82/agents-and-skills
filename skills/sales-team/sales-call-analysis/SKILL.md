@@ -1,69 +1,74 @@
 ---
-
-# === CORE IDENTITY ===
 name: sales-call-analysis
-title: Sales Call Analysis
-description: Sales call evaluation frameworks, scoring methodology, and coaching insights for B2B sales. Enables systematic assessment of sales conversations against proven methodologies (SPIN, Challenger, MEDDIC) with quantified scorecards and improvement recommendations.
-domain: sales
-subdomain: sales-operations
-
-# === WEBSITE DISPLAY ===
-difficulty: advanced
-time-saved: "Reduces call review from 45 minutes to 10 minutes per call"
-frequency: "Per-call, daily for sales managers; weekly self-review for reps"
-use-cases:
+description: Sales call evaluation frameworks, scoring methodology, and coaching insights
+  for B2B sales. Enables systematic assessment of sales conversations against proven
+  methodologies (SPIN, Challenger, MEDDIC) with quantified scorecards and improvement
+  recommendations.
+license: MIT
+metadata:
+  author: Claude Skills Team
+  compatibility:
+    platforms:
+    - macos
+    - linux
+    - windows
+  contributors: []
+  created: 2026-02-11
+  dependencies:
+    scripts: []
+    references: []
+  difficulty: advanced
+  domain: sales
+  examples:
+  - title: Discovery Call Evaluation
+    input: Evaluate this discovery call transcript against SPIN framework
+    output: 'Overall: 72/100 (Good). Situation: 85 (thorough context gathering). Problem:
+      78 (identified 2 of 3 pain points). Implication: 55 (missed cost quantification).
+      Need-Payoff: 70 (connected to value but weak on urgency). Coaching: Focus on
+      implication questions — quantify the cost of inaction.'
+  - title: Demo Call Scoring
+    input: 'Score this demo call: did the rep handle objections and close effectively?'
+    output: 'Overall: 65/100 (Needs improvement). Engagement: 80, Discovery recap:
+      90, Demo relevance: 70, Objection handling: 45 (deflected rather than addressed),
+      Close: 50 (no clear next step agreed). Coaching: Practice objection reframing
+      — acknowledge, question, position.'
+  featured: false
+  frequency: Per-call, daily for sales managers; weekly self-review for reps
+  orchestrated-by: []
+  related-agents:
+  - account-executive
+  - sales-development-rep
+  related-commands: []
+  related-skills:
+  - sales-team/meeting-intelligence
+  - sales-team/pipeline-analytics
+  - sales-team/lead-qualification
+  stats:
+    downloads: 0
+    stars: 0
+    rating: 0.0
+    reviews: 0
+  subdomain: sales-operations
+  tags:
+  - sales
+  - call-analysis
+  - coaching
+  - SPIN
+  - challenger
+  - MEDDIC
+  - scoring
+  - sales-methodology
+  time-saved: Reduces call review from 45 minutes to 10 minutes per call
+  title: Sales Call Analysis
+  updated: 2026-02-11
+  use-cases:
   - Evaluating sales calls against methodology frameworks
   - Generating quantified call scorecards with dimension breakdowns
   - Identifying coaching opportunities and patterns across multiple calls
   - Self-review for reps to improve call performance
   - Comparing call quality trends over time
-
-# === RELATIONSHIPS ===
-related-agents:
-  - account-executive
-  - sales-development-rep
-related-skills:
-  - sales-team/meeting-intelligence
-  - sales-team/pipeline-analytics
-  - sales-team/lead-qualification
-related-commands: []
-orchestrated-by: []
-
-# === TECHNICAL ===
-dependencies:
-  scripts: []
-  references: []
-compatibility:
-  platforms: [macos, linux, windows]
-
-# === EXAMPLES ===
-examples:
-  - title: Discovery Call Evaluation
-    input: "Evaluate this discovery call transcript against SPIN framework"
-    output: "Overall: 72/100 (Good). Situation: 85 (thorough context gathering). Problem: 78 (identified 2 of 3 pain points). Implication: 55 (missed cost quantification). Need-Payoff: 70 (connected to value but weak on urgency). Coaching: Focus on implication questions — quantify the cost of inaction."
-  - title: Demo Call Scoring
-    input: "Score this demo call: did the rep handle objections and close effectively?"
-    output: "Overall: 65/100 (Needs improvement). Engagement: 80, Discovery recap: 90, Demo relevance: 70, Objection handling: 45 (deflected rather than addressed), Close: 50 (no clear next step agreed). Coaching: Practice objection reframing — acknowledge, question, position."
-
-# === ANALYTICS ===
-stats:
-  downloads: 0
-  stars: 0
-  rating: 0.0
-  reviews: 0
-
-# === VERSIONING ===
-version: v1.0.0
-author: Claude Skills Team
-contributors: []
-created: 2026-02-11
-updated: 2026-02-11
-license: MIT
-
-# === DISCOVERABILITY ===
-tags: [sales, call-analysis, coaching, SPIN, challenger, MEDDIC, scoring, sales-methodology]
-featured: false
-verified: true
+  verified: true
+  version: v1.0.0
 ---
 
 # Sales Call Analysis

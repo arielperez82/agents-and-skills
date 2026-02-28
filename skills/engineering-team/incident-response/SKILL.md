@@ -1,67 +1,70 @@
 ---
-
-# === CORE IDENTITY ===
 name: incident-response
-title: Incident Response Skill Package
-description: Comprehensive incident response skill for security incident detection, containment, investigation, and recovery. Includes alert triage, severity classification, evidence collection, root cause analysis, and post-incident documentation with automated playbook execution.
-domain: engineering
-subdomain: security-operations
-
-# === WEBSITE DISPLAY ===
-difficulty: advanced
-time-saved: "4-8 hours per incident"
-frequency: "As needed (during security incidents)"
-use-cases:
-  - Detecting and triaging security alerts with severity classification
-  - Executing incident containment playbooks for rapid response
-  - Conducting forensic investigations with evidence collection
-  - Generating post-incident reports with root cause analysis
-
-# === RELATIONSHIPS ===
-related-agents: [incident-responder]
-related-skills: [senior-secops, senior-security]
-related-commands: [/audit.security]
-orchestrated-by: [incident-responder]
-
-# === TECHNICAL ===
-dependencies:
-  scripts: [incident_detector.py, incident_responder.py, incident_analyzer.py, servicenow_incident_manager.py, servicenow_status_sync.py]
-  references: [incident-response-playbooks.md, forensics-evidence-guide.md, communication-templates.md, servicenow-patterns.md]
-  assets: [incident-runbook-template.md, incident-report-template.md, communication-plan-template.md, servicenow-incident-template.json, servicenow-severity-mapping.yaml, servicenow-config.yaml]
-compatibility:
-  python-version: 3.8+
-  platforms: [macos, linux, windows]
-tech-stack: [Python 3.8+, Markdown]
-
-# === EXAMPLES ===
-examples:
-  - title: Alert Detection and Triage
-    input: "python incident_detector.py --input /var/log/auth.log --severity P1"
-    output: "Triage report with severity classification, IOC matches, and recommended actions"
-  - title: Incident Containment
-    input: "python incident_responder.py --incident INC-001 --playbook ransomware"
-    output: "Containment actions executed with timeline and evidence collected"
-  - title: Post-Incident Analysis
-    input: "python incident_analyzer.py --incident INC-001 --report --output report.md"
-    output: "Full incident report with RCA, impact assessment, and remediation plan"
-
-# === ANALYTICS ===
-stats:
-  downloads: 0
-  stars: 0
-  rating: 0.0
-  reviews: 0
-
-# === VERSIONING ===
-version: v1.0.0
-author: Claude Skills Team
-contributors: []
-created: 2025-12-16
-updated: 2025-12-16
+description: Comprehensive incident response skill for security incident detection,
+  containment, investigation, and recovery. Includes alert triage, severity classification,
+  evidence collection, root cause analysis, and post-incident documentation with automated
+  playbook execution.
 license: MIT
-
-# === DISCOVERABILITY ===
-tags:
+metadata:
+  author: Claude Skills Team
+  compatibility:
+    python-version: 3.8+
+    platforms:
+    - macos
+    - linux
+    - windows
+  contributors: []
+  created: 2025-12-16
+  dependencies:
+    scripts:
+    - incident_detector.py
+    - incident_responder.py
+    - incident_analyzer.py
+    - servicenow_incident_manager.py
+    - servicenow_status_sync.py
+    references:
+    - incident-response-playbooks.md
+    - forensics-evidence-guide.md
+    - communication-templates.md
+    - servicenow-patterns.md
+    assets:
+    - incident-runbook-template.md
+    - incident-report-template.md
+    - communication-plan-template.md
+    - servicenow-incident-template.json
+    - servicenow-severity-mapping.yaml
+    - servicenow-config.yaml
+  difficulty: advanced
+  domain: engineering
+  examples:
+  - title: Alert Detection and Triage
+    input: python incident_detector.py --input /var/log/auth.log --severity P1
+    output: Triage report with severity classification, IOC matches, and recommended
+      actions
+  - title: Incident Containment
+    input: python incident_responder.py --incident INC-001 --playbook ransomware
+    output: Containment actions executed with timeline and evidence collected
+  - title: Post-Incident Analysis
+    input: python incident_analyzer.py --incident INC-001 --report --output report.md
+    output: Full incident report with RCA, impact assessment, and remediation plan
+  featured: false
+  frequency: As needed (during security incidents)
+  orchestrated-by:
+  - incident-responder
+  related-agents:
+  - incident-responder
+  related-commands:
+  - /audit.security
+  related-skills:
+  - senior-secops
+  - senior-security
+  stats:
+    downloads: 0
+    stars: 0
+    rating: 0.0
+    reviews: 0
+  subdomain: security-operations
+  tags:
   - incident-response
   - security
   - forensics
@@ -74,8 +77,19 @@ tags:
   - engineering
   - servicenow
   - itsm
-featured: false
-verified: true
+  tech-stack:
+  - Python 3.8+
+  - Markdown
+  time-saved: 4-8 hours per incident
+  title: Incident Response Skill Package
+  updated: 2025-12-16
+  use-cases:
+  - Detecting and triaging security alerts with severity classification
+  - Executing incident containment playbooks for rapid response
+  - Conducting forensic investigations with evidence collection
+  - Generating post-incident reports with root cause analysis
+  verified: true
+  version: v1.0.0
 ---
 
 

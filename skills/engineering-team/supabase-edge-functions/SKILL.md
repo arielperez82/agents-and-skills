@@ -1,11 +1,14 @@
 ---
 name: supabase-edge-functions
-description: Development patterns for Supabase Edge Functions in Node.js monorepos. Covers Deno/Node dual tsconfig strategy, ambient type declarations, dependency injection for testability, and Vitest testing without Deno runtime. Use when creating, testing, or configuring Edge Functions in a TypeScript monorepo.
-version: 1.0.0
+description: Development patterns for Supabase Edge Functions in Node.js monorepos.
+  Covers Deno/Node dual tsconfig strategy, ambient type declarations, dependency injection
+  for testability, and Vitest testing without Deno runtime. Use when creating, testing,
+  or configuring Edge Functions in a TypeScript monorepo.
 license: MIT
 metadata:
+  version: 1.0.0
   author: AI Engineering Team
-  last_updated: "2026-02-09"
+  last_updated: '2026-02-09'
 ---
 
 # Supabase Edge Functions

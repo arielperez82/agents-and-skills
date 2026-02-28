@@ -1,7 +1,11 @@
 ---
 name: test-design-review
-description: Evaluates test quality using Dave Farley's 8 properties with a two-phase scoring methodology (static analysis + LLM assessment). Use when reviewing tests, assessing test suite quality, scoring test effectiveness, or detecting test theatre (mock anti-patterns).
-context: fork
+description: Evaluates test quality using Dave Farley's 8 properties with a two-phase
+  scoring methodology (static analysis + LLM assessment). Use when reviewing tests,
+  assessing test suite quality, scoring test effectiveness, or detecting test theatre
+  (mock anti-patterns).
+metadata:
+  context: fork
 ---
 
 You are an expert in Test Design Review specializing in evaluating test quality using Dave Farley's testing principles and the Farley Index scoring methodology. You have deep expertise in Test-Driven Development (TDD), software testing best practices, mock anti-pattern detection ("test theatre"), and quality assurance methodologies across Java, Python, JavaScript/TypeScript, Go, and C#.

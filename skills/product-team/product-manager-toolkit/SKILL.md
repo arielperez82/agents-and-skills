@@ -1,35 +1,23 @@
 ---
-
-# === CORE IDENTITY ===
 name: product-manager-toolkit
-title: Product Manager Toolkit
-description: Comprehensive toolkit for product managers including RICE prioritization, customer interview analysis, PRD templates, discovery frameworks, opportunity scoring, and go-to-market strategies. Use for feature prioritization, user research synthesis, requirement documentation, continuous discovery, and product strategy development.
-domain: product
-subdomain: product-management
-
-# === WEBSITE DISPLAY ===
-difficulty: intermediate
-time-saved: "TODO: Quantify time savings"
-frequency: "TODO: Estimate usage frequency"
-use-cases:
-  - Defining product roadmaps and feature prioritization
-  - Writing user stories and acceptance criteria
-  - Conducting competitive analysis and market research
-  - Stakeholder communication and alignment
-  - Running continuous discovery with structured interviews and opportunity scoring
-
-# === RELATIONSHIPS ===
-related-agents: []
-related-skills:
-  - product-team/continuous-discovery
-  - product-team/workshop-facilitation
-related-commands: []
-orchestrated-by: []
-
-# === TECHNICAL ===
-dependencies:
-  scripts: []
-  references:
+description: Comprehensive toolkit for product managers including RICE prioritization,
+  customer interview analysis, PRD templates, discovery frameworks, opportunity scoring,
+  and go-to-market strategies. Use for feature prioritization, user research synthesis,
+  requirement documentation, continuous discovery, and product strategy development.
+license: MIT
+metadata:
+  author: Claude Skills Team
+  compatibility:
+    python-version: 3.8+
+    platforms:
+    - macos
+    - linux
+    - windows
+  contributors: []
+  created: 2025-10-19
+  dependencies:
+    scripts: []
+    references:
     - references/frameworks.md
     - references/templates.md
     - references/tools.md
@@ -37,43 +25,54 @@ dependencies:
     - references/opportunity-scoring.md
     - references/mom-test.md
     - references/prd-development-guide.md
-  assets: []
-compatibility:
-  python-version: 3.8+
-  platforms: [macos, linux, windows]
-tech-stack:
+    assets: []
+  difficulty: intermediate
+  domain: product
+  examples:
+  - title: Example Usage
+    input: 'TODO: Add example input for product-manager-toolkit'
+    output: 'TODO: Add expected output'
+  featured: false
+  frequency: 'TODO: Estimate usage frequency'
+  orchestrated-by: []
+  related-agents: []
+  related-commands: []
+  related-skills:
+  - product-team/continuous-discovery
+  - product-team/workshop-facilitation
+  stats:
+    downloads: 0
+    stars: 0
+    rating: 0.0
+    reviews: 0
+  subdomain: product-management
+  tags:
+  - analysis
+  - development
+  - manager
+  - product
+  - toolkit
+  - discovery
+  - opportunity-scoring
+  - mom-test
+  - interviews
+  tech-stack:
   - Python 3.8+
   - CLI
   - CSV processing
   - JSON export
   - NLP sentiment analysis
-
-# === EXAMPLES ===
-examples:
-  -
-    title: Example Usage
-    input: "TODO: Add example input for product-manager-toolkit"
-    output: "TODO: Add expected output"
-
-# === ANALYTICS ===
-stats:
-  downloads: 0
-  stars: 0
-  rating: 0.0
-  reviews: 0
-
-# === VERSIONING ===
-version: v1.1.0
-author: Claude Skills Team
-contributors: []
-created: 2025-10-19
-updated: 2026-02-17
-license: MIT
-
-# === DISCOVERABILITY ===
-tags: [analysis, development, manager, product, toolkit, discovery, opportunity-scoring, mom-test, interviews]
-featured: false
-verified: true
+  time-saved: 'TODO: Quantify time savings'
+  title: Product Manager Toolkit
+  updated: 2026-02-17
+  use-cases:
+  - Defining product roadmaps and feature prioritization
+  - Writing user stories and acceptance criteria
+  - Conducting competitive analysis and market research
+  - Stakeholder communication and alignment
+  - Running continuous discovery with structured interviews and opportunity scoring
+  verified: true
+  version: v1.1.0
 ---
 
 # Product Manager Toolkit

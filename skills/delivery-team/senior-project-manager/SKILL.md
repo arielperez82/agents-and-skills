@@ -1,64 +1,59 @@
 ---
-
-# === CORE IDENTITY ===
 name: senior-project-manager
-title: Senior Project Manager Skill Package
-description: Senior Project Manager for Software, SaaS, and digital web/mobile applications. Use for strategic planning, portfolio management, stakeholder alignment, risk management, roadmap development, budget oversight, cross-functional team leadership, and executive reporting for software products.
-domain: delivery
-subdomain: senior-project-manager-general
-
-# === WEBSITE DISPLAY ===
-difficulty: advanced
-time-saved: "TODO: Quantify time savings"
-frequency: "TODO: Estimate usage frequency"
-use-cases:
+description: Senior Project Manager for Software, SaaS, and digital web/mobile applications.
+  Use for strategic planning, portfolio management, stakeholder alignment, risk management,
+  roadmap development, budget oversight, cross-functional team leadership, and executive
+  reporting for software products.
+license: MIT
+metadata:
+  author: Claude Skills Team
+  compatibility:
+    python-version: 3.8+
+    platforms:
+    - macos
+    - linux
+    - windows
+  contributors: []
+  created: 2025-10-21
+  dependencies:
+    scripts: []
+    references: []
+    assets: []
+  difficulty: advanced
+  domain: delivery
+  examples:
+  - title: Example Usage
+    input: 'TODO: Add example input for senior-project-manager'
+    output: 'TODO: Add expected output'
+  featured: false
+  frequency: 'TODO: Estimate usage frequency'
+  orchestrated-by: []
+  related-agents: []
+  related-commands: []
+  related-skills: []
+  stats:
+    downloads: 0
+    stars: 0
+    rating: 0.0
+    reviews: 0
+  subdomain: senior-project-manager-general
+  tags:
+  - delivery
+  - development
+  - product
+  - senior
+  tech-stack:
+  - Python 3.8+
+  time-saved: 'TODO: Quantify time savings'
+  title: Senior Project Manager Skill Package
+  updated: 2025-11-23
+  use-cases:
   - Primary workflow for Senior Project Manager
   - Analysis and recommendations for senior project manager tasks
   - Best practices implementation for senior project manager
   - Integration with related skills and workflows
-
-# === RELATIONSHIPS ===
-related-agents: []
-related-skills: []
-related-commands: []
-orchestrated-by: []
-
-# === TECHNICAL ===
-dependencies:
-  scripts: []
-  references: []
-  assets: []
-compatibility:
-  python-version: 3.8+
-  platforms: [macos, linux, windows]
-tech-stack: [Python 3.8+]
-
-# === EXAMPLES ===
-examples:
-  -
-    title: Example Usage
-    input: "TODO: Add example input for senior-project-manager"
-    output: "TODO: Add expected output"
-
-# === ANALYTICS ===
-stats:
-  downloads: 0
-  stars: 0
-  rating: 0.0
-  reviews: 0
-
-# === VERSIONING ===
-version: v1.0.0
-author: Claude Skills Team
-contributors: []
-created: 2025-10-21
-updated: 2025-11-23
-license: MIT
-
-# === DISCOVERABILITY ===
-tags: [delivery, development, product, senior]
-featured: false
-verified: true
+  verified: true
+  version: v1.0.0
 ---
 
 

@@ -1,85 +1,52 @@
 ---
-
-# === CORE IDENTITY ===
 name: senior-ios
-title: Senior iOS Skill Package
-description: Native iOS development expertise for Swift 5.9+, SwiftUI, UIKit, and Apple ecosystem integration. Covers modern concurrency, architecture patterns, App Store submission, and Xcode workflows. Use when building iOS-specific features, migrating to SwiftUI, optimizing performance, or submitting to App Store.
-domain: engineering
-subdomain: ios-development
-
-# === WEBSITE DISPLAY ===
-difficulty: advanced
-time-saved: "50% faster SwiftUI development, 70% fewer App Store rejections"
-frequency: "Daily for iOS development teams"
-use-cases:
-  - Building native iOS applications with SwiftUI
-  - Migrating UIKit apps to SwiftUI
-  - Implementing modern Swift concurrency patterns
-  - Preparing apps for App Store submission
-  - Performance profiling with Instruments
-
-# === RELATIONSHIPS ===
-related-agents:
-  - ios-engineer
-  - mobile-engineer
-related-skills:
-  - senior-mobile
-  - senior-flutter
-related-commands: []
-orchestrated-by:
-  - ios-engineer
-
-# === TECHNICAL ===
-dependencies:
-  scripts: []
-  references:
+description: Native iOS development expertise for Swift 5.9+, SwiftUI, UIKit, and
+  Apple ecosystem integration. Covers modern concurrency, architecture patterns, App
+  Store submission, and Xcode workflows. Use when building iOS-specific features,
+  migrating to SwiftUI, optimizing performance, or submitting to App Store.
+license: MIT
+metadata:
+  author: Claude Skills Team
+  compatibility:
+    python-version: 3.8+
+    platforms:
+    - macos
+  contributors: []
+  created: 2025-12-13
+  dependencies:
+    scripts: []
+    references:
     - swift-patterns.md
     - swiftui-guide.md
     - xcode-workflows.md
-  assets: []
-compatibility:
-  python-version: 3.8+
-  platforms: [macos]
-tech-stack:
-  - Swift 5.9+
-  - SwiftUI
-  - UIKit
-  - Xcode 15+
-  - Swift Concurrency
-  - Combine
-  - Core Data
-  - SwiftData
-  - TestFlight
-  - Instruments
-
-# === EXAMPLES ===
-examples:
-  -
-    title: SwiftUI View with Async Data Loading
-    input: "Create a list view that loads data asynchronously"
-    output: "SwiftUI view with @State, Task, async/await, and error handling"
-  -
-    title: UIKit to SwiftUI Migration
-    input: "Migrate UITableViewController to SwiftUI List"
-    output: "Step-by-step migration with UIViewControllerRepresentable bridge"
-
-# === ANALYTICS ===
-stats:
-  downloads: 0
-  stars: 0
-  rating: 0.0
-  reviews: 0
-
-# === VERSIONING ===
-version: v1.0.0
-author: Claude Skills Team
-contributors: []
-created: 2025-12-13
-updated: 2025-12-13
-license: MIT
-
-# === DISCOVERABILITY ===
-tags:
+    assets: []
+  difficulty: advanced
+  domain: engineering
+  examples:
+  - title: SwiftUI View with Async Data Loading
+    input: Create a list view that loads data asynchronously
+    output: SwiftUI view with @State, Task, async/await, and error handling
+  - title: UIKit to SwiftUI Migration
+    input: Migrate UITableViewController to SwiftUI List
+    output: Step-by-step migration with UIViewControllerRepresentable bridge
+  featured: true
+  frequency: Daily for iOS development teams
+  orchestrated-by:
+  - ios-engineer
+  related-agents:
+  - ios-engineer
+  - mobile-engineer
+  related-commands: []
+  related-skills:
+  - senior-mobile
+  - senior-flutter
+  stats:
+    downloads: 0
+    stars: 0
+    rating: 0.0
+    reviews: 0
+  subdomain: ios-development
+  tags:
   - ios
   - swift
   - swiftui
@@ -90,8 +57,28 @@ tags:
   - native
   - app-store
   - engineering
-featured: true
-verified: true
+  tech-stack:
+  - Swift 5.9+
+  - SwiftUI
+  - UIKit
+  - Xcode 15+
+  - Swift Concurrency
+  - Combine
+  - Core Data
+  - SwiftData
+  - TestFlight
+  - Instruments
+  time-saved: 50% faster SwiftUI development, 70% fewer App Store rejections
+  title: Senior iOS Skill Package
+  updated: 2025-12-13
+  use-cases:
+  - Building native iOS applications with SwiftUI
+  - Migrating UIKit apps to SwiftUI
+  - Implementing modern Swift concurrency patterns
+  - Preparing apps for App Store submission
+  - Performance profiling with Instruments
+  verified: true
+  version: v1.0.0
 ---
 
 # Senior iOS

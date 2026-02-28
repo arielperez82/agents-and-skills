@@ -1,62 +1,44 @@
 ---
-
-# === CORE IDENTITY ===
 name: senior-security
-title: Senior Security Skill Package
-description: Comprehensive security engineering skill for application security, penetration testing, security architecture, and compliance auditing. Includes security assessment tools, threat modeling, crypto implementation, and security automation. Use when designing security architecture, conducting penetration tests, implementing cryptography, or performing security audits.
-domain: engineering
-subdomain: security-engineering
-
-# === WEBSITE DISPLAY ===
-difficulty: advanced
-time-saved: "TODO: Quantify time savings"
-frequency: "TODO: Estimate usage frequency"
-use-cases:
-  - Conducting security audits and vulnerability assessments
-  - Implementing authentication and authorization patterns
-  - Setting up security monitoring and incident response
-  - Reviewing code for OWASP Top 10 vulnerabilities
-
-# === RELATIONSHIPS ===
-related-agents: []
-related-skills: []
-related-commands: []
-orchestrated-by: []
-
-# === TECHNICAL ===
-dependencies:
-  scripts: []
-  references: []
-  assets: []
-compatibility:
-  python-version: 3.8+
-  platforms: [macos, linux, windows]
-tech-stack: [Python 3.8+, Markdown]
-
-# === EXAMPLES ===
-examples:
-  -
-    title: Example Usage
-    input: "TODO: Add example input for senior-security"
-    output: "TODO: Add expected output"
-
-# === ANALYTICS ===
-stats:
-  downloads: 0
-  stars: 0
-  rating: 0.0
-  reviews: 0
-
-# === VERSIONING ===
-version: v1.0.0
-author: Claude Skills Team
-contributors: []
-created: 2025-10-19
-updated: 2025-11-23
+description: Comprehensive security engineering skill for application security, penetration
+  testing, security architecture, and compliance auditing. Includes security assessment
+  tools, threat modeling, crypto implementation, and security automation. Use when
+  designing security architecture, conducting penetration tests, implementing cryptography,
+  or performing security audits.
 license: MIT
-
-# === DISCOVERABILITY ===
-tags:
+metadata:
+  author: Claude Skills Team
+  compatibility:
+    python-version: 3.8+
+    platforms:
+    - macos
+    - linux
+    - windows
+  contributors: []
+  created: 2025-10-19
+  dependencies:
+    scripts: []
+    references: []
+    assets: []
+  difficulty: advanced
+  domain: engineering
+  examples:
+  - title: Example Usage
+    input: 'TODO: Add example input for senior-security'
+    output: 'TODO: Add expected output'
+  featured: false
+  frequency: 'TODO: Estimate usage frequency'
+  orchestrated-by: []
+  related-agents: []
+  related-commands: []
+  related-skills: []
+  stats:
+    downloads: 0
+    stars: 0
+    rating: 0.0
+    reviews: 0
+  subdomain: security-engineering
+  tags:
   - architecture
   - automation
   - design
@@ -64,8 +46,19 @@ tags:
   - security
   - senior
   - testing
-featured: false
-verified: true
+  tech-stack:
+  - Python 3.8+
+  - Markdown
+  time-saved: 'TODO: Quantify time savings'
+  title: Senior Security Skill Package
+  updated: 2025-11-23
+  use-cases:
+  - Conducting security audits and vulnerability assessments
+  - Implementing authentication and authorization patterns
+  - Setting up security monitoring and incident response
+  - Reviewing code for OWASP Top 10 vulnerabilities
+  verified: true
+  version: v1.0.0
 ---
 
 

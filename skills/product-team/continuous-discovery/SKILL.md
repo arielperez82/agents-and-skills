@@ -1,72 +1,72 @@
 ---
-
-# === CORE IDENTITY ===
 name: continuous-discovery
-title: Continuous Discovery
-description: "Continuous discovery workflow — from problem hypothesis to validated solution. Orchestrates problem framing, customer interviews, opportunity mapping, and experimentation into a structured 6-phase cycle."
-domain: product
-subdomain: product-discovery
-
-# === WEBSITE DISPLAY ===
-difficulty: intermediate
-time-saved: "Reduces discovery cycles from months of ad-hoc research to structured 3-4 week sprints"
-frequency: "1-2 discovery cycles per quarter, continuous weekly customer touchpoints"
-use-cases:
+description: Continuous discovery workflow — from problem hypothesis to validated
+  solution. Orchestrates problem framing, customer interviews, opportunity mapping,
+  and experimentation into a structured 6-phase cycle.
+license: MIT
+metadata:
+  author: Claude Skills Team
+  compatibility:
+    platforms:
+    - macos
+    - linux
+    - windows
+  contributors: []
+  created: 2026-02-17
+  dependencies:
+    references:
+    - references/problem-framing-canvas.md
+    - references/opportunity-solution-tree.md
+    - references/interview-prep-guide.md
+    - references/problem-statement-template.md
+  difficulty: intermediate
+  domain: product
+  examples:
+  - title: SaaS Retention Discovery
+    input: 'We have 15% monthly churn. Hypothesis: onboarding problem.'
+    output: 6/10 users quit at step 3. Validated guided checklist solution via prototype
+      test. GO decision — moved to roadmap.
+  - title: New Feature Area Exploration
+    input: Stakeholders want a mobile app.
+    output: 'Reframed: mobile-first users need 2-3 core workflows on the go. Responsive
+      web solves 80% in 2 weeks vs. 6-month native app.'
+  featured: false
+  frequency: 1-2 discovery cycles per quarter, continuous weekly customer touchpoints
+  orchestrated-by: []
+  related-agents:
+  - product-manager
+  - product-analyst
+  related-commands: []
+  related-skills:
+  - product-team/workshop-facilitation
+  - product-team/product-manager-toolkit
+  - product-team/agile-product-owner
+  stats:
+    downloads: 0
+    stars: 0
+    rating: 0.0
+    reviews: 0
+  subdomain: product-discovery
+  tags:
+  - discovery
+  - continuous-discovery
+  - customer-research
+  - problem-framing
+  - opportunity-mapping
+  - interviews
+  - teresa-torres
+  time-saved: Reduces discovery cycles from months of ad-hoc research to structured
+    3-4 week sprints
+  title: Continuous Discovery
+  updated: 2026-02-17
+  use-cases:
   - Exploring new product or feature areas with structured problem framing
   - Investigating retention or churn problems through customer interviews
   - Validating strategic initiatives before roadmap commitment
   - Running continuous discovery with weekly customer touchpoints
   - Moving from vague stakeholder requests to validated opportunity-solution pairs
-
-# === RELATIONSHIPS ===
-related-agents:
-  - product-manager
-  - product-analyst
-related-skills:
-  - product-team/workshop-facilitation
-  - product-team/product-manager-toolkit
-  - product-team/agile-product-owner
-related-commands: []
-orchestrated-by: []
-
-# === TECHNICAL ===
-dependencies:
-  references:
-    - references/problem-framing-canvas.md
-    - references/opportunity-solution-tree.md
-    - references/interview-prep-guide.md
-    - references/problem-statement-template.md
-compatibility:
-  platforms: [macos, linux, windows]
-
-# === EXAMPLES ===
-examples:
-  - title: SaaS Retention Discovery
-    input: "We have 15% monthly churn. Hypothesis: onboarding problem."
-    output: "6/10 users quit at step 3. Validated guided checklist solution via prototype test. GO decision — moved to roadmap."
-  - title: New Feature Area Exploration
-    input: "Stakeholders want a mobile app."
-    output: "Reframed: mobile-first users need 2-3 core workflows on the go. Responsive web solves 80% in 2 weeks vs. 6-month native app."
-
-# === ANALYTICS ===
-stats:
-  downloads: 0
-  stars: 0
-  rating: 0.0
-  reviews: 0
-
-# === VERSIONING ===
-version: v1.0.0
-author: Claude Skills Team
-contributors: []
-created: 2026-02-17
-updated: 2026-02-17
-license: MIT
-
-# === DISCOVERABILITY ===
-tags: [discovery, continuous-discovery, customer-research, problem-framing, opportunity-mapping, interviews, teresa-torres]
-featured: false
-verified: true
+  verified: true
+  version: v1.0.0
 ---
 
 # Continuous Discovery

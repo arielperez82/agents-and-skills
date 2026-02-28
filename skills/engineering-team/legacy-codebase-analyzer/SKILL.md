@@ -1,58 +1,80 @@
 ---
-# === CORE IDENTITY ===
 name: legacy-codebase-analyzer
-title: Legacy Codebase Analyzer
-description: Comprehensive legacy codebase analysis skill for technical debt assessment, security vulnerability scanning, performance bottleneck detection, and modernization roadmap generation. Includes 7 Python tools for automated codebase inventory, architecture health analysis, and strategic modernization planning.
-domain: engineering
-subdomain: legacy-modernization
-
-# === WEBSITE DISPLAY ===
-difficulty: advanced
-time-saved: "60%+ reduction in analysis time"
-frequency: "Per-project or quarterly assessment"
-use-cases:
+description: Comprehensive legacy codebase analysis skill for technical debt assessment,
+  security vulnerability scanning, performance bottleneck detection, and modernization
+  roadmap generation. Includes 7 Python tools for automated codebase inventory, architecture
+  health analysis, and strategic modernization planning.
+license: MIT
+metadata:
+  author: Claude Skills Team
+  compatibility:
+    python-version: 3.8+
+    platforms:
+    - macos
+    - linux
+    - windows
+  created: 2025-12-13
+  dependencies:
+    scripts:
+    - codebase_inventory.py
+    - security_vulnerability_scanner.py
+    - performance_bottleneck_detector.py
+    - code_quality_analyzer.py
+    - architecture_health_analyzer.py
+    - technical_debt_scorer.py
+    - modernization_roadmap_generator.py
+    references:
+    - analysis_framework.md
+    - modernization_patterns.md
+    - deliverable_templates.md
+    assets:
+    - executive_summary_template.md
+    - technical_debt_report_template.md
+    - roadmap_template.md
+  difficulty: advanced
+  domain: engineering
+  featured: false
+  frequency: Per-project or quarterly assessment
+  orchestrated-by:
+  - legacy-codebase-analyzer
+  related-agents:
+  - legacy-codebase-analyzer
+  related-commands:
+  - /plan.refactor
+  - /audit.security
+  - /review.code
+  related-skills:
+  - senior-architect
+  - code-reviewer
+  - senior-secops
+  - cto-advisor
+  subdomain: legacy-modernization
+  tags:
+  - legacy
+  - technical-debt
+  - modernization
+  - refactoring
+  - architecture
+  - security
+  - performance
+  - codebase-analysis
+  tech-stack:
+  - Python 3.8+
+  - AST analysis
+  - Regex pattern matching
+  - Git integration
+  - JSON/CSV output
+  time-saved: 60%+ reduction in analysis time
+  title: Legacy Codebase Analyzer
+  updated: 2025-12-13
+  use-cases:
   - Comprehensive technical debt assessment for legacy systems
   - Security vulnerability scanning and risk prioritization
   - Performance bottleneck identification and optimization planning
   - Architecture pattern detection and anti-pattern remediation
   - Modernization roadmap generation with phased migration strategies
-
-# === RELATIONSHIPS ===
-related-agents:
-  - legacy-codebase-analyzer
-related-skills:
-  - senior-architect
-  - code-reviewer
-  - senior-secops
-  - cto-advisor
-related-commands:
-  - /plan.refactor
-  - /audit.security
-  - /review.code
-orchestrated-by:
-  - legacy-codebase-analyzer
-
-# === TECHNICAL ===
-dependencies:
-  scripts: [codebase_inventory.py, security_vulnerability_scanner.py, performance_bottleneck_detector.py, code_quality_analyzer.py, architecture_health_analyzer.py, technical_debt_scorer.py, modernization_roadmap_generator.py]
-  references: [analysis_framework.md, modernization_patterns.md, deliverable_templates.md]
-  assets: [executive_summary_template.md, technical_debt_report_template.md, roadmap_template.md]
-compatibility:
-  python-version: 3.8+
-  platforms: [macos, linux, windows]
-tech-stack: [Python 3.8+, AST analysis, Regex pattern matching, Git integration, JSON/CSV output]
-
-# === VERSIONING ===
-version: v1.0.0
-author: Claude Skills Team
-created: 2025-12-13
-updated: 2025-12-13
-license: MIT
-
-# === DISCOVERABILITY ===
-tags: [legacy, technical-debt, modernization, refactoring, architecture, security, performance, codebase-analysis]
-featured: false
-verified: true
+  verified: true
+  version: v1.0.0
 ---
 
 # Legacy Codebase Analyzer

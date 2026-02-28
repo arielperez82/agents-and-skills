@@ -1,87 +1,119 @@
 ---
-
-# === CORE IDENTITY ===
 name: senior-observability
-title: Senior Observability Skill Package
-description: Comprehensive observability skill for monitoring, logging, distributed tracing, alerting, and SLI/SLO implementation across distributed systems. Includes dashboard generation, alert rule creation, error budget calculation, and metrics analysis. Use when implementing monitoring stacks, designing alerting strategies, setting up distributed tracing, or defining SLO frameworks.
-domain: engineering
-subdomain: observability-operations
-
-# === WEBSITE DISPLAY ===
-difficulty: advanced
-time-saved: "4-8 hours per observability implementation"
-frequency: "Weekly"
-use-cases:
+description: Comprehensive observability skill for monitoring, logging, distributed
+  tracing, alerting, and SLI/SLO implementation across distributed systems. Includes
+  dashboard generation, alert rule creation, error budget calculation, and metrics
+  analysis. Use when implementing monitoring stacks, designing alerting strategies,
+  setting up distributed tracing, or defining SLO frameworks.
+license: MIT
+metadata:
+  author: Claude Skills Team
+  compatibility:
+    python-version: 3.8+
+    platforms:
+    - macos
+    - linux
+    - windows
+  contributors: []
+  created: 2025-12-16
+  dependencies:
+    scripts:
+    - dashboard_generator.py
+    - alert_rule_generator.py
+    - slo_calculator.py
+    - metrics_analyzer.py
+    references:
+    - monitoring_patterns.md
+    - logging_architecture.md
+    - distributed_tracing.md
+    - alerting_runbooks.md
+    assets:
+    - dashboard_templates/
+    - alert_templates/
+    - runbook_template.md
+  difficulty: advanced
+  domain: engineering
+  examples:
+  - title: Generate Grafana Dashboard
+    input: python3 scripts/dashboard_generator.py --service payment-api --type api
+      --platform grafana --output json
+    output: Complete Grafana dashboard JSON with RED method panels, resource metrics,
+      and variable templating
+  - title: Generate SLO-Based Alerts
+    input: python3 scripts/alert_rule_generator.py --service payment-api --slo-target
+      99.9 --platform prometheus --output yaml
+    output: Prometheus AlertManager rules with multi-burn-rate alerting and runbook
+      links
+  - title: Calculate Error Budget
+    input: python3 scripts/slo_calculator.py --input metrics.csv --slo-type availability
+      --target 99.9 --window 30d --output json
+    output: SLO status report with error budget remaining, burn rate, and recommendations
+  - title: Generate NewRelic Dashboard
+    input: python3 scripts/dashboard_generator.py --service payment-api --type api
+      --platform newrelic --output json
+    output: NewRelic dashboard JSON with NRQL queries for RED method panels and SLO
+      tracking
+  - title: Generate NewRelic Alerts
+    input: python3 scripts/alert_rule_generator.py --service payment-api --slo-target
+      99.9 --platform newrelic --output json
+    output: NewRelic alert policy with multi-burn-rate NRQL conditions and notification
+      channels
+  featured: false
+  frequency: Weekly
+  orchestrated-by:
+  - observability-engineer
+  related-agents:
+  - observability-engineer
+  related-commands: []
+  related-skills:
+  - senior-devops
+  - senior-backend
+  - senior-secops
+  stats:
+    downloads: 0
+    stars: 0
+    rating: 0.0
+    reviews: 0
+  subdomain: observability-operations
+  tags:
+  - observability
+  - monitoring
+  - logging
+  - tracing
+  - alerting
+  - slo
+  - sli
+  - prometheus
+  - grafana
+  - opentelemetry
+  - jaeger
+  - datadog
+  - cloudwatch
+  - newrelic
+  - nrql
+  - engineering
+  - senior
+  tech-stack:
+  - Python 3.8+
+  - Prometheus
+  - Grafana
+  - OpenTelemetry
+  - Jaeger
+  - ELK Stack
+  - DataDog
+  - CloudWatch
+  - NewRelic
+  time-saved: 4-8 hours per observability implementation
+  title: Senior Observability Skill Package
+  updated: 2025-12-16
+  use-cases:
   - Implementing comprehensive monitoring with Prometheus and Grafana
   - Setting up distributed tracing with OpenTelemetry and Jaeger
   - Designing alerting strategies with multi-burn-rate SLO alerting
   - Creating dashboards for service health visibility using RED/USE methods
   - Calculating SLI/SLO targets and error budgets
-
-# === RELATIONSHIPS ===
-related-agents: [observability-engineer]
-related-skills: [senior-devops, senior-backend, senior-secops]
-related-commands: []
-orchestrated-by: [observability-engineer]
-
-# === TECHNICAL ===
-dependencies:
-  scripts:
-    - dashboard_generator.py
-    - alert_rule_generator.py
-    - slo_calculator.py
-    - metrics_analyzer.py
-  references:
-    - monitoring_patterns.md
-    - logging_architecture.md
-    - distributed_tracing.md
-    - alerting_runbooks.md
-  assets:
-    - dashboard_templates/
-    - alert_templates/
-    - runbook_template.md
-compatibility:
-  python-version: 3.8+
-  platforms: [macos, linux, windows]
-tech-stack: [Python 3.8+, Prometheus, Grafana, OpenTelemetry, Jaeger, ELK Stack, DataDog, CloudWatch, NewRelic]
-
-# === EXAMPLES ===
-examples:
-  - title: Generate Grafana Dashboard
-    input: "python3 scripts/dashboard_generator.py --service payment-api --type api --platform grafana --output json"
-    output: "Complete Grafana dashboard JSON with RED method panels, resource metrics, and variable templating"
-  - title: Generate SLO-Based Alerts
-    input: "python3 scripts/alert_rule_generator.py --service payment-api --slo-target 99.9 --platform prometheus --output yaml"
-    output: "Prometheus AlertManager rules with multi-burn-rate alerting and runbook links"
-  - title: Calculate Error Budget
-    input: "python3 scripts/slo_calculator.py --input metrics.csv --slo-type availability --target 99.9 --window 30d --output json"
-    output: "SLO status report with error budget remaining, burn rate, and recommendations"
-  - title: Generate NewRelic Dashboard
-    input: "python3 scripts/dashboard_generator.py --service payment-api --type api --platform newrelic --output json"
-    output: "NewRelic dashboard JSON with NRQL queries for RED method panels and SLO tracking"
-  - title: Generate NewRelic Alerts
-    input: "python3 scripts/alert_rule_generator.py --service payment-api --slo-target 99.9 --platform newrelic --output json"
-    output: "NewRelic alert policy with multi-burn-rate NRQL conditions and notification channels"
-
-# === ANALYTICS ===
-stats:
-  downloads: 0
-  stars: 0
-  rating: 0.0
-  reviews: 0
-
-# === VERSIONING ===
-version: v1.0.0
-author: Claude Skills Team
-contributors: []
-created: 2025-12-16
-updated: 2025-12-16
-license: MIT
-
-# === DISCOVERABILITY ===
-tags: [observability, monitoring, logging, tracing, alerting, slo, sli, prometheus, grafana, opentelemetry, jaeger, datadog, cloudwatch, newrelic, nrql, engineering, senior]
-featured: false
-verified: true
+  verified: true
+  version: v1.0.0
 ---
 
 

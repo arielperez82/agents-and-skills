@@ -1,37 +1,51 @@
 ---
-
-# === CORE IDENTITY ===
 name: cto-advisor
-title: CTO Advisor Skill Package
-description: Technical leadership guidance for engineering teams, architecture decisions, and technology strategy. Includes tech debt analyzer, team scaling calculator, engineering metrics frameworks, technology evaluation tools, and ADR templates. Use when assessing technical debt, scaling engineering teams, evaluating technologies, making architecture decisions, establishing engineering metrics, or when user mentions CTO, tech debt, technical debt, team scaling, architecture decisions, technology evaluation, engineering metrics, DORA metrics, or technology strategy.
-domain: engineering
-subdomain: cto-general
-
-# === WEBSITE DISPLAY ===
-difficulty: advanced
-time-saved: "TODO: Quantify time savings"
-frequency: "TODO: Estimate usage frequency"
-use-cases:
-  - Primary workflow for Cto Advisor
-  - Analysis and recommendations for cto advisor tasks
-  - Best practices implementation for cto advisor
-  - Integration with related skills and workflows
-
-# === RELATIONSHIPS ===
-related-agents: []
-related-skills: []
-related-commands: []
-orchestrated-by: []
-
-# === TECHNICAL ===
-dependencies:
-  scripts: []
-  references: []
-  assets: []
-compatibility:
-  python-version: 3.8+
-  platforms: [macos, linux, windows]
-tech-stack:
+description: Technical leadership guidance for engineering teams, architecture decisions,
+  and technology strategy. Includes tech debt analyzer, team scaling calculator, engineering
+  metrics frameworks, technology evaluation tools, and ADR templates. Use when assessing
+  technical debt, scaling engineering teams, evaluating technologies, making architecture
+  decisions, establishing engineering metrics, or when user mentions CTO, tech debt,
+  technical debt, team scaling, architecture decisions, technology evaluation, engineering
+  metrics, DORA metrics, or technology strategy.
+license: MIT
+metadata:
+  author: Claude Skills Team
+  compatibility:
+    python-version: 3.8+
+    platforms:
+    - macos
+    - linux
+    - windows
+  contributors: []
+  created: 2025-10-19
+  dependencies:
+    scripts: []
+    references: []
+    assets: []
+  difficulty: advanced
+  domain: engineering
+  examples:
+  - title: Example Usage
+    input: 'TODO: Add example input for cto-advisor'
+    output: 'TODO: Add expected output'
+  featured: false
+  frequency: 'TODO: Estimate usage frequency'
+  orchestrated-by: []
+  related-agents: []
+  related-commands: []
+  related-skills: []
+  stats:
+    downloads: 0
+    stars: 0
+    rating: 0.0
+    reviews: 0
+  subdomain: cto-general
+  tags:
+  - advisor
+  - architecture
+  - cto
+  - engineering
+  tech-stack:
   - architecture tools
   - metrics platforms
   - monitoring systems
@@ -39,33 +53,16 @@ tech-stack:
   - project management tools
   - development platforms
   - engineering dashboards
-
-# === EXAMPLES ===
-examples:
-  -
-    title: Example Usage
-    input: "TODO: Add example input for cto-advisor"
-    output: "TODO: Add expected output"
-
-# === ANALYTICS ===
-stats:
-  downloads: 0
-  stars: 0
-  rating: 0.0
-  reviews: 0
-
-# === VERSIONING ===
-version: v1.0.0
-author: Claude Skills Team
-contributors: []
-created: 2025-10-19
-updated: 2025-11-08
-license: MIT
-
-# === DISCOVERABILITY ===
-tags: [advisor, architecture, cto, engineering]
-featured: false
-verified: true
+  time-saved: 'TODO: Quantify time savings'
+  title: CTO Advisor Skill Package
+  updated: 2025-11-08
+  use-cases:
+  - Primary workflow for Cto Advisor
+  - Analysis and recommendations for cto advisor tasks
+  - Best practices implementation for cto advisor
+  - Integration with related skills and workflows
+  verified: true
+  version: v1.0.0
 ---
 
 # CTO Advisor

@@ -1,35 +1,23 @@
 ---
-
-# === CORE IDENTITY ===
 name: agile-product-owner
-title: Agile Product Owner Skill Package
-description: Agile product ownership toolkit for Senior Product Owner including INVEST-compliant user story generation, sprint planning, backlog management, velocity tracking, Example Mapping, Three Amigos, and Definition of Ready. Use for story writing, sprint planning, stakeholder communication, requirements discovery, and agile ceremonies.
-domain: product
-subdomain: product-management
-
-# === WEBSITE DISPLAY ===
-difficulty: intermediate
-time-saved: "TODO: Quantify time savings"
-frequency: "TODO: Estimate usage frequency"
-use-cases:
-  - Defining product roadmaps and feature prioritization
-  - Writing user stories and acceptance criteria
-  - Running Example Mapping and Three Amigos sessions
-  - Enforcing Definition of Ready as a sprint entry gate
-  - Stakeholder communication and alignment
-
-# === RELATIONSHIPS ===
-related-agents: []
-related-skills:
-  - product-team/workshop-facilitation
-  - product-team/continuous-discovery
-related-commands: []
-orchestrated-by: []
-
-# === TECHNICAL ===
-dependencies:
-  scripts: []
-  references:
+description: Agile product ownership toolkit for Senior Product Owner including INVEST-compliant
+  user story generation, sprint planning, backlog management, velocity tracking, Example
+  Mapping, Three Amigos, and Definition of Ready. Use for story writing, sprint planning,
+  stakeholder communication, requirements discovery, and agile ceremonies.
+license: MIT
+metadata:
+  author: Claude Skills Team
+  compatibility:
+    python-version: 3.8+
+    platforms:
+    - macos
+    - linux
+    - windows
+  contributors: []
+  created: 2025-10-19
+  dependencies:
+    scripts: []
+    references:
     - references/frameworks.md
     - references/templates.md
     - references/tools.md
@@ -40,38 +28,52 @@ dependencies:
     - references/epic-breakdown-patterns.md
     - references/epic-hypothesis-format.md
     - references/story-mapping-workshop.md
-  assets: []
-compatibility:
-  python-version: 3.8+
-  platforms: [macos, linux, windows]
-tech-stack: [Python 3.8+, CLI, CSV processing, JSON export]
-
-# === EXAMPLES ===
-examples:
-  -
-    title: Example Usage
-    input: "TODO: Add example input for agile-product-owner"
-    output: "TODO: Add expected output"
-
-# === ANALYTICS ===
-stats:
-  downloads: 0
-  stars: 0
-  rating: 0.0
-  reviews: 0
-
-# === VERSIONING ===
-version: v1.1.0
-author: Claude Skills Team
-contributors: []
-created: 2025-10-19
-updated: 2026-02-16
-license: MIT
-
-# === DISCOVERABILITY ===
-tags: [agile, owner, product, example-mapping, three-amigos, definition-of-ready, bdd, requirements-discovery]
-featured: false
-verified: true
+    assets: []
+  difficulty: intermediate
+  domain: product
+  examples:
+  - title: Example Usage
+    input: 'TODO: Add example input for agile-product-owner'
+    output: 'TODO: Add expected output'
+  featured: false
+  frequency: 'TODO: Estimate usage frequency'
+  orchestrated-by: []
+  related-agents: []
+  related-commands: []
+  related-skills:
+  - product-team/workshop-facilitation
+  - product-team/continuous-discovery
+  stats:
+    downloads: 0
+    stars: 0
+    rating: 0.0
+    reviews: 0
+  subdomain: product-management
+  tags:
+  - agile
+  - owner
+  - product
+  - example-mapping
+  - three-amigos
+  - definition-of-ready
+  - bdd
+  - requirements-discovery
+  tech-stack:
+  - Python 3.8+
+  - CLI
+  - CSV processing
+  - JSON export
+  time-saved: 'TODO: Quantify time savings'
+  title: Agile Product Owner Skill Package
+  updated: 2026-02-16
+  use-cases:
+  - Defining product roadmaps and feature prioritization
+  - Writing user stories and acceptance criteria
+  - Running Example Mapping and Three Amigos sessions
+  - Enforcing Definition of Ready as a sprint entry gate
+  - Stakeholder communication and alignment
+  verified: true
+  version: v1.1.0
 ---
 
 # Agile Product Owner

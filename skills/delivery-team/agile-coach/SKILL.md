@@ -1,45 +1,45 @@
 ---
-
-# === CORE IDENTITY ===
 name: agile-coach
-title: Agile Coach Skill Package
-description: Agile Coach for agile software development teams. Use for iteration planning, daily standups, retrospectives, backlog refinement, velocity tracking, removing impediments, facilitating ceremonies, coaching teams on agile practices, and managing execution for R&D and development teams.
-domain: delivery
-subdomain: agile-methodology
-
-# ===  DISPLAY ===
-difficulty: intermediate
-use-cases:
+description: Agile Coach for agile software development teams. Use for iteration planning,
+  daily standups, retrospectives, backlog refinement, velocity tracking, removing
+  impediments, facilitating ceremonies, coaching teams on agile practices, and managing
+  execution for R&D and development teams.
+metadata:
+  compatibility:
+    python-version: 3.8+
+    platforms:
+    - macos
+    - linux
+    - windows
+  dependencies:
+    scripts: []
+    references: []
+    assets: []
+  difficulty: intermediate
+  domain: delivery
+  examples:
+  - title: Example Usage
+    input: 'TODO: Add example input for scrum-master'
+    output: 'TODO: Add expected output'
+  orchestrated-by: []
+  related-agents: []
+  related-commands: []
+  related-skills: []
+  subdomain: agile-methodology
+  tags:
+  - agile
+  - delivery
+  - development
+  - master
+  - scrum
+  tech-stack:
+  - Python 3.8+
+  title: Agile Coach Skill Package
+  use-cases:
   - Primary workflow for Agile Coach
   - Analysis and recommendations for agile coach tasks
   - Best practices implementation for agile coach
   - Integration with related skills and workflows
-
-# === RELATIONSHIPS ===
-related-agents: []
-related-skills: []
-related-commands: []
-orchestrated-by: []
-
-# === TECHNICAL ===
-dependencies:
-  scripts: []
-  references: []
-  assets: []
-compatibility:
-  python-version: 3.8+
-  platforms: [macos, linux, windows]
-tech-stack: [Python 3.8+]
-
-# === EXAMPLES ===
-examples:
-  -
-    title: Example Usage
-    input: "TODO: Add example input for scrum-master"
-    output: "TODO: Add expected output"
-
-# === DISCOVERABILITY ===
-tags: [agile, delivery, development, master, scrum]
 ---
 
 

@@ -1,17 +1,94 @@
 ---
-
-# === CORE IDENTITY ===
 name: technical-writer
-title: Technical Writer Skill Package
-description: Comprehensive documentation automation with quality analysis, README generation, CHANGELOG management, API documentation formatting, and Mermaid diagram generation. Integrates with /update.docs command. Use for documentation audits, technical writing, API docs, README creation, diagram generation, and maintaining project documentation.
-domain: engineering
-subdomain: documentation
-
-# === WEBSITE DISPLAY ===
-difficulty: intermediate
-time-saved: "50%+ time savings on documentation tasks"
-frequency: "Daily to weekly for active projects"
-use-cases:
+description: Comprehensive documentation automation with quality analysis, README
+  generation, CHANGELOG management, API documentation formatting, and Mermaid diagram
+  generation. Integrates with /update.docs command. Use for documentation audits,
+  technical writing, API docs, README creation, diagram generation, and maintaining
+  project documentation.
+license: MIT
+metadata:
+  author: Claude Skills Team
+  compatibility:
+    python-version: 3.8+
+    platforms:
+    - macos
+    - linux
+    - windows
+  contributors:
+  - Documentation Team
+  - Engineering Team
+  created: 2025-11-28
+  dependencies:
+    scripts:
+    - doc_quality_analyzer.py
+    - readme_generator.py
+    - changelog_generator.py
+    - api_doc_formatter.py
+    - mermaid_diagram_generator.py
+    - interactive_doc_wizard.py
+    references:
+    - technical_writing_standards.md
+    - api_documentation_patterns.md
+    - developer_documentation_guide.md
+    assets:
+    - readme_template.md
+    - api_endpoint_template.md
+    - changelog_template.md
+    - user_guide_template.md
+  difficulty: intermediate
+  domain: engineering
+  examples:
+  - title: Documentation Quality Audit
+    input: python scripts/doc_quality_analyzer.py ./docs --format json
+    output: 'Quality Score: 85/100. Found 3 broken links, 12 missing code examples,
+      readability grade: 9.2'
+  - title: README Generation
+    input: python scripts/readme_generator.py . --template comprehensive
+    output: 'Generated README.md with 8 sections: overview, installation, usage, API,
+      examples, contributing, license, changelog'
+  - title: CHANGELOG Update
+    input: python scripts/changelog_generator.py --since HEAD~10 --prepend
+    output: Updated CHANGELOG.md with 15 new entries from git commits, grouped by
+      type (feat, fix, docs)
+  featured: false
+  frequency: Daily to weekly for active projects
+  orchestrated-by:
+  - code-reviewer
+  related-agents:
+  - code-reviewer
+  - fullstack-engineer
+  - backend-engineer
+  related-commands:
+  - update.docs
+  - review.code
+  related-skills:
+  - code-reviewer
+  - senior-devops
+  stats:
+    downloads: 0
+    stars: 0
+    rating: 0.0
+    reviews: 0
+  subdomain: documentation
+  tags:
+  - documentation
+  - technical-writing
+  - readme
+  - changelog
+  - api-docs
+  - markdown
+  - quality-analysis
+  - mermaid
+  - diagrams
+  - architecture
+  tech-stack:
+  - Python 3.8+
+  - Markdown
+  - Git
+  time-saved: 50%+ time savings on documentation tasks
+  title: Technical Writer Skill Package
+  updated: 2025-12-16
+  use-cases:
   - Documentation quality audits and analysis
   - Automated README generation and updates
   - CHANGELOG maintenance and synchronization
@@ -19,80 +96,8 @@ use-cases:
   - Mermaid diagram generation (architecture, flowcharts, sequence, class, ERD, state)
   - Pre-release documentation reviews
   - Technical writing workflows
-
-# === RELATIONSHIPS ===
-related-agents:
-  - code-reviewer
-  - fullstack-engineer
-  - backend-engineer
-related-skills:
-  - code-reviewer
-  - senior-devops
-related-commands:
-  - update.docs
-  - review.code
-orchestrated-by:
-  - code-reviewer
-
-# === TECHNICAL ===
-dependencies:
-  scripts:
-    - doc_quality_analyzer.py
-    - readme_generator.py
-    - changelog_generator.py
-    - api_doc_formatter.py
-    - mermaid_diagram_generator.py
-    - interactive_doc_wizard.py
-  references:
-    - technical_writing_standards.md
-    - api_documentation_patterns.md
-    - developer_documentation_guide.md
-  assets:
-    - readme_template.md
-    - api_endpoint_template.md
-    - changelog_template.md
-    - user_guide_template.md
-compatibility:
-  python-version: 3.8+
-  platforms: [macos, linux, windows]
-tech-stack: [Python 3.8+, Markdown, Git]
-
-# === EXAMPLES ===
-examples:
-  -
-    title: Documentation Quality Audit
-    input: "python scripts/doc_quality_analyzer.py ./docs --format json"
-    output: "Quality Score: 85/100. Found 3 broken links, 12 missing code examples, readability grade: 9.2"
-  -
-    title: README Generation
-    input: "python scripts/readme_generator.py . --template comprehensive"
-    output: "Generated README.md with 8 sections: overview, installation, usage, API, examples, contributing, license, changelog"
-  -
-    title: CHANGELOG Update
-    input: "python scripts/changelog_generator.py --since HEAD~10 --prepend"
-    output: "Updated CHANGELOG.md with 15 new entries from git commits, grouped by type (feat, fix, docs)"
-
-# === ANALYTICS ===
-stats:
-  downloads: 0
-  stars: 0
-  rating: 0.0
-  reviews: 0
-
-# === VERSIONING ===
-version: v1.1.0
-author: Claude Skills Team
-contributors:
-  - Documentation Team
-  - Engineering Team
-created: 2025-11-28
-updated: 2025-12-16
-license: MIT
-
-# === DISCOVERABILITY ===
-tags: [documentation, technical-writing, readme, changelog, api-docs, markdown, quality-analysis, mermaid, diagrams, architecture]
-featured: false
-verified: true
+  verified: true
+  version: v1.1.0
 ---
 
 

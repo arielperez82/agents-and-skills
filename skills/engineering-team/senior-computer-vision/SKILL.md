@@ -1,64 +1,64 @@
 ---
-
-# === CORE IDENTITY ===
 name: senior-computer-vision
-title: Senior Computer Vision Skill Package
-description: World-class computer vision skill for image/video processing, object detection, segmentation, and visual AI systems. Expertise in PyTorch, OpenCV, YOLO, SAM, diffusion models, and vision transformers. Includes 3D vision, video analysis, real-time processing, and production deployment. Use when building vision AI systems, implementing object detection, training custom vision models, or optimizing inference pipelines.
-domain: engineering
-subdomain: computer-vision
-
-# === WEBSITE DISPLAY ===
-difficulty: advanced
-time-saved: "TODO: Quantify time savings"
-frequency: "TODO: Estimate usage frequency"
-use-cases:
+description: World-class computer vision skill for image/video processing, object
+  detection, segmentation, and visual AI systems. Expertise in PyTorch, OpenCV, YOLO,
+  SAM, diffusion models, and vision transformers. Includes 3D vision, video analysis,
+  real-time processing, and production deployment. Use when building vision AI systems,
+  implementing object detection, training custom vision models, or optimizing inference
+  pipelines.
+license: MIT
+metadata:
+  author: Claude Skills Team
+  compatibility:
+    python-version: 3.8+
+    platforms:
+    - macos
+    - linux
+    - windows
+  contributors: []
+  created: 2025-10-20
+  dependencies:
+    scripts: []
+    references: []
+    assets: []
+  difficulty: advanced
+  domain: engineering
+  examples:
+  - title: Example Usage
+    input: 'TODO: Add example input for senior-computer-vision'
+    output: 'TODO: Add expected output'
+  featured: false
+  frequency: 'TODO: Estimate usage frequency'
+  orchestrated-by: []
+  related-agents: []
+  related-commands: []
+  related-skills: []
+  stats:
+    downloads: 0
+    stars: 0
+    rating: 0.0
+    reviews: 0
+  subdomain: computer-vision
+  tags:
+  - analysis
+  - computer
+  - engineering
+  - product
+  - senior
+  - vision
+  tech-stack:
+  - Python 3.8+
+  - Markdown
+  time-saved: 'TODO: Quantify time savings'
+  title: Senior Computer Vision Skill Package
+  updated: 2025-11-23
+  use-cases:
   - Primary workflow for Senior Computer Vision
   - Analysis and recommendations for senior computer vision tasks
   - Best practices implementation for senior computer vision
   - Integration with related skills and workflows
-
-# === RELATIONSHIPS ===
-related-agents: []
-related-skills: []
-related-commands: []
-orchestrated-by: []
-
-# === TECHNICAL ===
-dependencies:
-  scripts: []
-  references: []
-  assets: []
-compatibility:
-  python-version: 3.8+
-  platforms: [macos, linux, windows]
-tech-stack: [Python 3.8+, Markdown]
-
-# === EXAMPLES ===
-examples:
-  -
-    title: Example Usage
-    input: "TODO: Add example input for senior-computer-vision"
-    output: "TODO: Add expected output"
-
-# === ANALYTICS ===
-stats:
-  downloads: 0
-  stars: 0
-  rating: 0.0
-  reviews: 0
-
-# === VERSIONING ===
-version: v1.0.0
-author: Claude Skills Team
-contributors: []
-created: 2025-10-20
-updated: 2025-11-23
-license: MIT
-
-# === DISCOVERABILITY ===
-tags: [analysis, computer, engineering, product, senior, vision]
-featured: false
-verified: true
+  verified: true
+  version: v1.0.0
 ---
 
 

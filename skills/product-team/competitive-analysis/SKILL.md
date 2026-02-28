@@ -1,67 +1,66 @@
 ---
-
-# === CORE IDENTITY ===
 name: competitive-analysis
-title: Competitive Analysis & Intelligence
-description: Strategic competitive analysis framework for evaluating skills, commands, agents, and product features against external repositories and competitors
-domain: product
-subdomain: product-team-general
-
-# === WEBSITE DISPLAY ===
-difficulty: intermediate
-time-saved: "70% faster competitive analysis, 50% more comprehensive gap coverage"
-frequency: "Monthly for strategic planning, quarterly for market reviews"
-use-cases:
+description: Strategic competitive analysis framework for evaluating skills, commands,
+  agents, and product features against external repositories and competitors
+license: MIT
+metadata:
+  author: Claude Skills Library
+  compatibility:
+    python-version: 3.8+
+    platforms:
+    - macos
+    - linux
+    - windows
+  contributors: []
+  created: 2025-11-27
+  dependencies:
+    scripts: []
+    references:
+    - references/company-research.md
+    - references/pestel-analysis.md
+    assets: []
+  difficulty: intermediate
+  domain: product
+  examples:
+  - title: Competitive Scorecard
+    input: Analyze competitor repository against our skills
+    output: Visual scorecard with ratings and recommendations
+  featured: false
+  frequency: Monthly for strategic planning, quarterly for market reviews
+  orchestrated-by: []
+  related-agents:
+  - product-director
+  - product-manager
+  - product-analyst
+  related-commands: []
+  related-skills: []
+  stats:
+    downloads: 0
+    stars: 0
+    rating: 0.0
+    reviews: 0
+  subdomain: product-team-general
+  tags:
+  - competitive-intelligence
+  - gap-analysis
+  - strategic-planning
+  - scorecard
+  - prioritization
+  - product
+  tech-stack:
+  - Python 3.8+
+  - Markdown
+  time-saved: 70% faster competitive analysis, 50% more comprehensive gap coverage
+  title: Competitive Analysis & Intelligence
+  updated: 2026-02-17
+  use-cases:
   - Competitive scorecard generation with weighted dimensions
   - Feature gap analysis and opportunity identification
   - Competitive advantage documentation
   - Adoption prioritization using impact/effort frameworks
   - Strategic positioning assessment
-
-# === RELATIONSHIPS ===
-related-agents: [product-director, product-manager, product-analyst]
-related-skills: []
-related-commands: []
-orchestrated-by: []
-
-# === TECHNICAL ===
-dependencies:
-  scripts: []
-  references:
-    - references/company-research.md
-    - references/pestel-analysis.md
-  assets: []
-compatibility:
-  python-version: 3.8+
-  platforms: [macos, linux, windows]
-tech-stack: [Python 3.8+, Markdown]
-
-# === EXAMPLES ===
-examples:
-  -
-    title: Competitive Scorecard
-    input: "Analyze competitor repository against our skills"
-    output: "Visual scorecard with ratings and recommendations"
-
-# === ANALYTICS ===
-stats:
-  downloads: 0
-  stars: 0
-  rating: 0.0
-  reviews: 0
-
-# === VERSIONING ===
-version: v1.1.0
-author: Claude Skills Library
-contributors: []
-created: 2025-11-27
-updated: 2026-02-17
-license: MIT
-
-# === DISCOVERABILITY ===
-tags: [competitive-intelligence, gap-analysis, strategic-planning, scorecard, prioritization, product]
-featured: false
-verified: true
+  verified: true
+  version: v1.1.0
 ---
 
 # Competitive Analysis Skill

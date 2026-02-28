@@ -1,64 +1,75 @@
 ---
-
-# === CORE IDENTITY ===
 name: senior-devops
-title: Senior Devops Skill Package
-description: Comprehensive DevOps skill for CI/CD, infrastructure automation, containerization, and cloud platforms (AWS, GCP, Azure). Includes pipeline setup, infrastructure as code, deployment automation, and monitoring. Use when setting up pipelines, deploying applications, managing infrastructure, implementing monitoring, or optimizing deployment processes.
-domain: engineering
-subdomain: devops-operations
-
-# === WEBSITE DISPLAY ===
-difficulty: advanced
-time-saved: "TODO: Quantify time savings"
-frequency: "TODO: Estimate usage frequency"
-use-cases:
+description: Comprehensive DevOps skill for CI/CD, infrastructure automation, containerization,
+  and cloud platforms (AWS, GCP, Azure). Includes pipeline setup, infrastructure as
+  code, deployment automation, and monitoring. Use when setting up pipelines, deploying
+  applications, managing infrastructure, implementing monitoring, or optimizing deployment
+  processes.
+license: MIT
+metadata:
+  author: Claude Skills Team
+  compatibility:
+    python-version: 3.8+
+    platforms:
+    - macos
+    - linux
+    - windows
+  contributors: []
+  created: 2025-10-19
+  dependencies:
+    scripts:
+    - pipeline_generator.py
+    - terraform_scaffolder.py
+    - deployment_manager.py
+    - servicenow_change_manager.py
+    references:
+    - cicd_pipeline_guide.md
+    - infrastructure_as_code.md
+    - deployment_strategies.md
+    - servicenow_change_mgmt.md
+    assets:
+    - servicenow-change-template.json
+  difficulty: advanced
+  domain: engineering
+  examples:
+  - title: Example Usage
+    input: 'TODO: Add example input for senior-devops'
+    output: 'TODO: Add expected output'
+  featured: false
+  frequency: 'TODO: Estimate usage frequency'
+  orchestrated-by: []
+  related-agents: []
+  related-commands: []
+  related-skills: []
+  stats:
+    downloads: 0
+    stars: 0
+    rating: 0.0
+    reviews: 0
+  subdomain: devops-operations
+  tags:
+  - automation
+  - ci/cd
+  - cloud
+  - devops
+  - engineering
+  - senior
+  - servicenow
+  - change-management
+  - itsm
+  tech-stack:
+  - Python 3.8+
+  - Markdown
+  time-saved: 'TODO: Quantify time savings'
+  title: Senior Devops Skill Package
+  updated: 2025-11-23
+  use-cases:
   - Setting up infrastructure as code with Terraform or CloudFormation
   - Implementing CI/CD pipelines with automated testing and deployment
   - Configuring container orchestration with Kubernetes
   - Monitoring and alerting setup for production systems
-
-# === RELATIONSHIPS ===
-related-agents: []
-related-skills: []
-related-commands: []
-orchestrated-by: []
-
-# === TECHNICAL ===
-dependencies:
-  scripts: [pipeline_generator.py, terraform_scaffolder.py, deployment_manager.py, servicenow_change_manager.py]
-  references: [cicd_pipeline_guide.md, infrastructure_as_code.md, deployment_strategies.md, servicenow_change_mgmt.md]
-  assets: [servicenow-change-template.json]
-compatibility:
-  python-version: 3.8+
-  platforms: [macos, linux, windows]
-tech-stack: [Python 3.8+, Markdown]
-
-# === EXAMPLES ===
-examples:
-  -
-    title: Example Usage
-    input: "TODO: Add example input for senior-devops"
-    output: "TODO: Add expected output"
-
-# === ANALYTICS ===
-stats:
-  downloads: 0
-  stars: 0
-  rating: 0.0
-  reviews: 0
-
-# === VERSIONING ===
-version: v1.0.0
-author: Claude Skills Team
-contributors: []
-created: 2025-10-19
-updated: 2025-11-23
-license: MIT
-
-# === DISCOVERABILITY ===
-tags: [automation, ci/cd, cloud, devops, engineering, senior, servicenow, change-management, itsm]
-featured: false
-verified: true
+  verified: true
+  version: v1.0.0
 ---
 
 

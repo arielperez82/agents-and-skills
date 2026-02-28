@@ -1,78 +1,63 @@
 ---
-
-# === CORE IDENTITY ===
 name: senior-dotnet
-title: Senior .NET Skill Package
-description: World-class C# and .NET development skill for enterprise applications, ASP.NET Core web APIs, and cloud-native systems. Expertise in .NET 8, Entity Framework Core, ASP.NET Core Identity, Blazor, and microservices architecture. Includes project scaffolding, dependency management, security implementation, and performance optimization.
-domain: engineering
-subdomain: dotnet-development
-
-# === WEBSITE DISPLAY ===
-difficulty: advanced
-time-saved: "60%+ on project scaffolding, 50% on security implementation"
-frequency: "Daily for enterprise development teams"
-use-cases:
-  - Building enterprise ASP.NET Core Web APIs with production-ready configuration
-  - Designing microservices with .NET Aspire and service discovery
-  - Implementing Entity Framework Core data layers with optimized queries
-  - Setting up ASP.NET Core Identity with OAuth2 and JWT authentication
-  - Performance tuning .NET applications and async patterns
-
-# === RELATIONSHIPS ===
-related-agents: [dotnet-engineer]
-related-skills: [senior-backend, senior-architect]
-related-commands: []
-orchestrated-by: [dotnet-engineer]
-
-# === TECHNICAL ===
-dependencies:
-  scripts: [dotnet_project_scaffolder.py, dependency_analyzer.py, entity_generator.py, api_endpoint_generator.py, security_config_generator.py, performance_profiler.py]
-  references: [dotnet-best-practices.md, aspnet-core-patterns.md, ef-core-guide.md, dotnet-security-reference.md, dotnet-performance-tuning.md]
-  assets: []
-compatibility:
-  python-version: 3.8+
-  platforms: [macos, linux, windows]
-tech-stack:
-  - C# 12
-  - .NET 8 LTS
-  - ASP.NET Core 8
-  - Entity Framework Core 8
-  - ASP.NET Core Identity
-  - Blazor
-  - Minimal APIs
-  - MediatR/CQRS
-  - FluentValidation
-  - AutoMapper
-  - xUnit
-  - Docker
-  - Kubernetes
-
-# === EXAMPLES ===
-examples:
-  - title: "ASP.NET Core Web API Scaffolding"
-    input: "python scripts/dotnet_project_scaffolder.py my-service --type webapi --db sqlserver"
-    output: "Complete ASP.NET Core 8 project with Clean Architecture, Docker setup, and CI/CD pipeline"
-  - title: "Entity Generation"
-    input: "python scripts/entity_generator.py Product --fields 'Id:int,Name:string,Price:decimal,CreatedAt:DateTime'"
-    output: "EF Core entity with repository, service, controller, and DTO classes"
-
-# === ANALYTICS ===
-stats:
-  downloads: 0
-  stars: 0
-  rating: 0.0
-  reviews: 0
-
-# === VERSIONING ===
-version: v1.0.0
-author: Claude Skills Team
-contributors: []
-created: 2025-12-16
-updated: 2025-12-16
+description: World-class C# and .NET development skill for enterprise applications,
+  ASP.NET Core web APIs, and cloud-native systems. Expertise in .NET 8, Entity Framework
+  Core, ASP.NET Core Identity, Blazor, and microservices architecture. Includes project
+  scaffolding, dependency management, security implementation, and performance optimization.
 license: MIT
-
-# === DISCOVERABILITY ===
-tags:
+metadata:
+  author: Claude Skills Team
+  compatibility:
+    python-version: 3.8+
+    platforms:
+    - macos
+    - linux
+    - windows
+  contributors: []
+  created: 2025-12-16
+  dependencies:
+    scripts:
+    - dotnet_project_scaffolder.py
+    - dependency_analyzer.py
+    - entity_generator.py
+    - api_endpoint_generator.py
+    - security_config_generator.py
+    - performance_profiler.py
+    references:
+    - dotnet-best-practices.md
+    - aspnet-core-patterns.md
+    - ef-core-guide.md
+    - dotnet-security-reference.md
+    - dotnet-performance-tuning.md
+    assets: []
+  difficulty: advanced
+  domain: engineering
+  examples:
+  - title: ASP.NET Core Web API Scaffolding
+    input: python scripts/dotnet_project_scaffolder.py my-service --type webapi --db
+      sqlserver
+    output: Complete ASP.NET Core 8 project with Clean Architecture, Docker setup,
+      and CI/CD pipeline
+  - title: Entity Generation
+    input: python scripts/entity_generator.py Product --fields 'Id:int,Name:string,Price:decimal,CreatedAt:DateTime'
+    output: EF Core entity with repository, service, controller, and DTO classes
+  featured: false
+  frequency: Daily for enterprise development teams
+  orchestrated-by:
+  - dotnet-engineer
+  related-agents:
+  - dotnet-engineer
+  related-commands: []
+  related-skills:
+  - senior-backend
+  - senior-architect
+  stats:
+    downloads: 0
+    stars: 0
+    rating: 0.0
+    reviews: 0
+  subdomain: dotnet-development
+  tags:
   - csharp
   - dotnet
   - aspnet-core
@@ -87,8 +72,31 @@ tags:
   - nuget
   - api
   - backend
-featured: false
-verified: true
+  tech-stack:
+  - C# 12
+  - .NET 8 LTS
+  - ASP.NET Core 8
+  - Entity Framework Core 8
+  - ASP.NET Core Identity
+  - Blazor
+  - Minimal APIs
+  - MediatR/CQRS
+  - FluentValidation
+  - AutoMapper
+  - xUnit
+  - Docker
+  - Kubernetes
+  time-saved: 60%+ on project scaffolding, 50% on security implementation
+  title: Senior .NET Skill Package
+  updated: 2025-12-16
+  use-cases:
+  - Building enterprise ASP.NET Core Web APIs with production-ready configuration
+  - Designing microservices with .NET Aspire and service discovery
+  - Implementing Entity Framework Core data layers with optimized queries
+  - Setting up ASP.NET Core Identity with OAuth2 and JWT authentication
+  - Performance tuning .NET applications and async patterns
+  verified: true
+  version: v1.0.0
 ---
 
 # Senior .NET

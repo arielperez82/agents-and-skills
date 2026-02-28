@@ -1,70 +1,68 @@
 ---
-
-# === CORE IDENTITY ===
 name: workshop-facilitation
-title: Workshop Facilitation Protocol
-description: Canonical facilitation protocol for interactive multi-turn workshops. One-step-at-a-time flow with progress labels, numbered recommendations at decision points, quick-select options, and interruption handling.
-domain: product
-subdomain: facilitation
-
-# === WEBSITE DISPLAY ===
-difficulty: intermediate
-time-saved: "Reduces facilitation prep from hours to minutes with a repeatable protocol"
-frequency: "Per workshop or interactive session"
-use-cases:
+description: Canonical facilitation protocol for interactive multi-turn workshops.
+  One-step-at-a-time flow with progress labels, numbered recommendations at decision
+  points, quick-select options, and interruption handling.
+license: MIT
+metadata:
+  author: Claude Skills Team
+  compatibility:
+    platforms:
+    - macos
+    - linux
+    - windows
+  contributors: []
+  created: 2026-02-17
+  dependencies:
+    scripts: []
+    references: []
+  difficulty: intermediate
+  domain: product
+  examples:
+  - title: Opening a Workshop Session
+    input: Facilitate a prioritization workshop for the Q2 roadmap
+    output: 'Quick heads-up: this should take about 7-10 minutes and around 10 questions.
+      How do you want to start? 1. Guided mode 2. Context dump 3. Best guess mode'
+  - title: Decision Point with Numbered Recommendations
+    input: User completes context collection phase
+    output: 'Based on your context, here are the recommended focus areas: 1. Prioritize
+      Context Design (Recommended) 2. Prioritize Agent Orchestration 3. Prioritize
+      Team-AI Facilitation'
+  featured: false
+  frequency: Per workshop or interactive session
+  orchestrated-by: []
+  related-agents:
+  - product-manager
+  - product-analyst
+  - agile-coach
+  related-commands: []
+  related-skills:
+  - product-team/continuous-discovery
+  - product-team/agile-product-owner
+  stats:
+    downloads: 0
+    stars: 0
+    rating: 0.0
+    reviews: 0
+  subdomain: facilitation
+  tags:
+  - workshop
+  - facilitation
+  - interactive
+  - multi-turn
+  - guided-conversation
+  tech-stack: []
+  time-saved: Reduces facilitation prep from hours to minutes with a repeatable protocol
+  title: Workshop Facilitation Protocol
+  updated: 2026-02-17
+  use-cases:
   - Running guided multi-turn workshops with one question per turn
   - Offering entry modes (Guided, Context dump, Best guess) for different user needs
   - Providing numbered recommendations only at decision points
   - Handling interruptions and meta questions mid-session
   - Delivering condensed single-shot output when requested
-
-# === RELATIONSHIPS ===
-related-agents:
-  - product-manager
-  - product-analyst
-  - agile-coach
-related-skills:
-  - product-team/continuous-discovery
-  - product-team/agile-product-owner
-related-commands: []
-orchestrated-by: []
-
-# === TECHNICAL ===
-dependencies:
-  scripts: []
-  references: []
-compatibility:
-  platforms: [macos, linux, windows]
-tech-stack: []
-
-# === EXAMPLES ===
-examples:
-  - title: Opening a Workshop Session
-    input: "Facilitate a prioritization workshop for the Q2 roadmap"
-    output: "Quick heads-up: this should take about 7-10 minutes and around 10 questions. How do you want to start? 1. Guided mode 2. Context dump 3. Best guess mode"
-  - title: Decision Point with Numbered Recommendations
-    input: "User completes context collection phase"
-    output: "Based on your context, here are the recommended focus areas: 1. Prioritize Context Design (Recommended) 2. Prioritize Agent Orchestration 3. Prioritize Team-AI Facilitation"
-
-# === ANALYTICS ===
-stats:
-  downloads: 0
-  stars: 0
-  rating: 0.0
-  reviews: 0
-
-# === VERSIONING ===
-version: v1.0.0
-author: Claude Skills Team
-contributors: []
-created: 2026-02-17
-updated: 2026-02-17
-license: MIT
-
-# === DISCOVERABILITY ===
-tags: [workshop, facilitation, interactive, multi-turn, guided-conversation]
-featured: false
-verified: true
+  verified: true
+  version: v1.0.0
 ---
 
 # Workshop Facilitation Protocol

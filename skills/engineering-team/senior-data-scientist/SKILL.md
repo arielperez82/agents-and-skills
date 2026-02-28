@@ -1,62 +1,45 @@
 ---
-
-# === CORE IDENTITY ===
 name: senior-data-scientist
-title: Senior Data Scientist Skill Package
-description: World-class data science skill for statistical modeling, experimentation, causal inference, and advanced analytics. Expertise in Python (NumPy, Pandas, Scikit-learn), R, SQL, statistical methods, A/B testing, time series, and business intelligence. Includes experiment design, feature engineering, model evaluation, and stakeholder communication. Use when designing experiments, building predictive models, performing causal analysis, or driving data-driven decisions.
-domain: engineering
-subdomain: data-engineering
-
-# === WEBSITE DISPLAY ===
-difficulty: advanced
-time-saved: "TODO: Quantify time savings"
-frequency: "TODO: Estimate usage frequency"
-use-cases:
-  - Designing data pipelines for ETL/ELT processes
-  - Building data warehouses and data lakes
-  - Implementing data quality and governance frameworks
-  - Creating analytics dashboards and reporting
-
-# === RELATIONSHIPS ===
-related-agents: []
-related-skills: []
-related-commands: []
-orchestrated-by: []
-
-# === TECHNICAL ===
-dependencies:
-  scripts: []
-  references: []
-  assets: []
-compatibility:
-  python-version: 3.8+
-  platforms: [macos, linux, windows]
-tech-stack: [Python 3.8+, Markdown]
-
-# === EXAMPLES ===
-examples:
-  -
-    title: Example Usage
-    input: "TODO: Add example input for senior-data-scientist"
-    output: "TODO: Add expected output"
-
-# === ANALYTICS ===
-stats:
-  downloads: 0
-  stars: 0
-  rating: 0.0
-  reviews: 0
-
-# === VERSIONING ===
-version: v1.0.0
-author: Claude Skills Team
-contributors: []
-created: 2025-10-20
-updated: 2025-11-23
+description: World-class data science skill for statistical modeling, experimentation,
+  causal inference, and advanced analytics. Expertise in Python (NumPy, Pandas, Scikit-learn),
+  R, SQL, statistical methods, A/B testing, time series, and business intelligence.
+  Includes experiment design, feature engineering, model evaluation, and stakeholder
+  communication. Use when designing experiments, building predictive models, performing
+  causal analysis, or driving data-driven decisions.
 license: MIT
-
-# === DISCOVERABILITY ===
-tags:
+metadata:
+  author: Claude Skills Team
+  compatibility:
+    python-version: 3.8+
+    platforms:
+    - macos
+    - linux
+    - windows
+  contributors: []
+  created: 2025-10-20
+  dependencies:
+    scripts: []
+    references: []
+    assets: []
+  difficulty: advanced
+  domain: engineering
+  examples:
+  - title: Example Usage
+    input: 'TODO: Add example input for senior-data-scientist'
+    output: 'TODO: Add expected output'
+  featured: false
+  frequency: 'TODO: Estimate usage frequency'
+  orchestrated-by: []
+  related-agents: []
+  related-commands: []
+  related-skills: []
+  stats:
+    downloads: 0
+    stars: 0
+    rating: 0.0
+    reviews: 0
+  subdomain: data-engineering
+  tags:
   - analysis
   - analytics
   - data
@@ -65,8 +48,19 @@ tags:
   - scientist
   - senior
   - testing
-featured: false
-verified: true
+  tech-stack:
+  - Python 3.8+
+  - Markdown
+  time-saved: 'TODO: Quantify time savings'
+  title: Senior Data Scientist Skill Package
+  updated: 2025-11-23
+  use-cases:
+  - Designing data pipelines for ETL/ELT processes
+  - Building data warehouses and data lakes
+  - Implementing data quality and governance frameworks
+  - Creating analytics dashboards and reporting
+  verified: true
+  version: v1.0.0
 ---
 
 

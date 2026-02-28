@@ -1,70 +1,64 @@
 ---
-
-# === CORE IDENTITY ===
 name: senior-architect
-title: Senior Architect Skill Package
-description: Comprehensive software architecture skill for designing scalable, maintainable systems using ReactJS, NextJS, NodeJS, Express, React Native, Swift, Kotlin, Flutter, Postgres, GraphQL, Go, Python. Includes architecture diagram generation, system design patterns, tech stack decision frameworks, and dependency analysis. Use when designing system architecture, making technical decisions, creating architecture diagrams, evaluating trade-offs, or defining integration patterns.
-domain: engineering
-subdomain: system-architecture
-
-# === WEBSITE DISPLAY ===
-difficulty: advanced
-time-saved: "TODO: Quantify time savings"
-frequency: "TODO: Estimate usage frequency"
-use-cases:
-  - Designing scalable system architectures for cloud-native applications
-  - Evaluating technology stacks and making evidence-based decisions
-  - Creating comprehensive architecture documentation with diagrams
-  - Reviewing existing architectures for performance and security
-
-# === RELATIONSHIPS ===
-related-agents: []
-related-skills: []
-related-commands: []
-orchestrated-by: []
-
-# === TECHNICAL ===
-dependencies:
-  scripts: []
-  references: []
-  assets: []
-compatibility:
-  python-version: 3.8+
-  platforms: [macos, linux, windows]
-tech-stack: [Python 3.8+, Markdown]
-
-# === EXAMPLES ===
-examples:
-  -
-    title: Example Usage
-    input: "TODO: Add example input for senior-architect"
-    output: "TODO: Add expected output"
-
-# === ANALYTICS ===
-stats:
-  downloads: 0
-  stars: 0
-  rating: 0.0
-  reviews: 0
-
-# === VERSIONING ===
-version: v1.0.0
-author: Claude Skills Team
-contributors: []
-created: 2025-10-19
-updated: 2025-11-23
+description: Comprehensive software architecture skill for designing scalable, maintainable
+  systems using ReactJS, NextJS, NodeJS, Express, React Native, Swift, Kotlin, Flutter,
+  Postgres, GraphQL, Go, Python. Includes architecture diagram generation, system
+  design patterns, tech stack decision frameworks, and dependency analysis. Use when
+  designing system architecture, making technical decisions, creating architecture
+  diagrams, evaluating trade-offs, or defining integration patterns.
 license: MIT
-
-# === DISCOVERABILITY ===
-tags:
+metadata:
+  author: Claude Skills Team
+  compatibility:
+    python-version: 3.8+
+    platforms:
+    - macos
+    - linux
+    - windows
+  contributors: []
+  created: 2025-10-19
+  dependencies:
+    scripts: []
+    references: []
+    assets: []
+  difficulty: advanced
+  domain: engineering
+  examples:
+  - title: Example Usage
+    input: 'TODO: Add example input for senior-architect'
+    output: 'TODO: Add expected output'
+  featured: false
+  frequency: 'TODO: Estimate usage frequency'
+  orchestrated-by: []
+  related-agents: []
+  related-commands: []
+  related-skills: []
+  stats:
+    downloads: 0
+    stars: 0
+    rating: 0.0
+    reviews: 0
+  subdomain: system-architecture
+  tags:
   - analysis
   - architect
   - architecture
   - design
   - engineering
   - senior
-featured: false
-verified: true
+  tech-stack:
+  - Python 3.8+
+  - Markdown
+  time-saved: 'TODO: Quantify time savings'
+  title: Senior Architect Skill Package
+  updated: 2025-11-23
+  use-cases:
+  - Designing scalable system architectures for cloud-native applications
+  - Evaluating technology stacks and making evidence-based decisions
+  - Creating comprehensive architecture documentation with diagrams
+  - Reviewing existing architectures for performance and security
+  verified: true
+  version: v1.0.0
 ---
 
 

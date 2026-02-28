@@ -1,7 +1,8 @@
 ---
 name: ux-designer
 description: User experience and interface design specialist
-version: 6.0.0
+metadata:
+  version: 6.0.0
 ---
 
 # UX Designer

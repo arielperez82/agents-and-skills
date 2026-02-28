@@ -1,94 +1,92 @@
 ---
-
-# === CORE IDENTITY ===
 name: seo-strategist
-title: SEO Strategist Skill Package
-description: Strategic SEO planning and analysis toolkit for site-wide optimization, keyword research, technical SEO audits, and competitive positioning. Complements content-creator's on-page SEO with strategic planning, topic cluster architecture, and SEO roadmap generation. Use for keyword strategy, technical SEO audits, SERP analysis, site architecture planning, or when user mentions SEO strategy, keyword research, technical SEO, or search rankings.
-domain: marketing
-subdomain: search-marketing
-
-# === WEBSITE DISPLAY ===
-difficulty: intermediate
-time-saved: "60%+ faster SEO strategy development"
-frequency: Weekly/Monthly for strategy, daily for monitoring
-use-cases:
+description: Strategic SEO planning and analysis toolkit for site-wide optimization,
+  keyword research, technical SEO audits, and competitive positioning. Complements
+  content-creator's on-page SEO with strategic planning, topic cluster architecture,
+  and SEO roadmap generation. Use for keyword strategy, technical SEO audits, SERP
+  analysis, site architecture planning, or when user mentions SEO strategy, keyword
+  research, technical SEO, or search rankings.
+license: MIT
+metadata:
+  author: Claude Skills Team
+  compatibility:
+    python-version: 3.8+
+    platforms:
+    - macos
+    - linux
+    - windows
+  contributors: []
+  created: 2025-12-16
+  dependencies:
+    scripts:
+    - keyword_researcher.py
+    - technical_seo_auditor.py
+    - seo_roadmap_generator.py
+    references:
+    - seo_strategy_framework.md
+    - technical_seo_guide.md
+    - competitive_seo_analysis.md
+    assets:
+    - keyword_research_template.md
+    - seo_audit_checklist.md
+    - seo_roadmap_template.md
+  difficulty: intermediate
+  domain: marketing
+  examples:
+  - title: Keyword Research & Clustering
+    input: python scripts/keyword_researcher.py keywords.csv --cluster --output json
+    output: Topic clusters with priority scores and content recommendations
+  - title: Technical SEO Audit
+    input: python scripts/technical_seo_auditor.py https://example.com --depth 3
+    output: Technical SEO score, crawlability issues, and recommendations
+  - title: SEO Roadmap Generation
+    input: python scripts/seo_roadmap_generator.py audit-results.json --quarters 4
+    output: Prioritized quarterly SEO roadmap with KPIs
+  featured: false
+  frequency: Weekly/Monthly for strategy, daily for monitoring
+  orchestrated-by:
+  - cs-seo-strategist
+  python-tools:
+  - keyword_researcher.py
+  - technical_seo_auditor.py
+  - seo_roadmap_generator.py
+  related-agents:
+  - cs-seo-strategist
+  - cs-content-creator
+  - cs-demand-gen-specialist
+  related-commands: []
+  related-skills:
+  - marketing-team/content-creator
+  - marketing-team/marketing-demand-acquisition
+  stats:
+    downloads: 0
+    stars: 0
+    rating: 0.0
+    reviews: 0
+  subdomain: search-marketing
+  tags:
+  - seo
+  - strategy
+  - keywords
+  - technical-seo
+  - search-marketing
+  tech-stack:
+  - Python 3.8+
+  - JSON/CSV data processing
+  - HTML parsing
+  - SEO frameworks
+  time-saved: 60%+ faster SEO strategy development
+  title: SEO Strategist Skill Package
+  updated: 2025-12-16
+  use-cases:
   - Developing comprehensive keyword strategies and topic clusters
   - Performing technical SEO audits and site health analysis
   - Analyzing competitor SERP positioning and opportunities
   - Creating SEO roadmaps with prioritized action items
   - Planning site architecture for optimal crawlability
   - Generating internal linking strategy recommendations
-
-# === RELATIONSHIPS ===
-related-agents:
-  - cs-seo-strategist
-  - cs-content-creator
-  - cs-demand-gen-specialist
-related-skills:
-  - marketing-team/content-creator
-  - marketing-team/marketing-demand-acquisition
-related-commands: []
-orchestrated-by:
-  - cs-seo-strategist
-
-# === TECHNICAL ===
-dependencies:
-  scripts:
-    - keyword_researcher.py
-    - technical_seo_auditor.py
-    - seo_roadmap_generator.py
-  references:
-    - seo_strategy_framework.md
-    - technical_seo_guide.md
-    - competitive_seo_analysis.md
-  assets:
-    - keyword_research_template.md
-    - seo_audit_checklist.md
-    - seo_roadmap_template.md
-compatibility:
-  python-version: 3.8+
-  platforms: [macos, linux, windows]
-tech-stack:
-  - Python 3.8+
-  - JSON/CSV data processing
-  - HTML parsing
-  - SEO frameworks
-python-tools:
-  - keyword_researcher.py
-  - technical_seo_auditor.py
-  - seo_roadmap_generator.py
-
-# === EXAMPLES ===
-examples:
-  - title: Keyword Research & Clustering
-    input: "python scripts/keyword_researcher.py keywords.csv --cluster --output json"
-    output: "Topic clusters with priority scores and content recommendations"
-  - title: Technical SEO Audit
-    input: "python scripts/technical_seo_auditor.py https://example.com --depth 3"
-    output: "Technical SEO score, crawlability issues, and recommendations"
-  - title: SEO Roadmap Generation
-    input: "python scripts/seo_roadmap_generator.py audit-results.json --quarters 4"
-    output: "Prioritized quarterly SEO roadmap with KPIs"
-
-# === ANALYTICS ===
-stats:
-  downloads: 0
-  stars: 0
-  rating: 0.0
-  reviews: 0
-
-# === VERSIONING ===
-version: v1.0.0
-author: Claude Skills Team
-contributors: []
-created: 2025-12-16
-updated: 2025-12-16
-license: MIT
-
-# === DISCOVERABILITY ===
-tags: [seo, strategy, keywords, technical-seo, search-marketing]
-featured: false
-verified: true
+  verified: true
+  version: v1.0.0
 ---
 
 # SEO Strategist

@@ -1,72 +1,44 @@
 ---
-
-# === CORE IDENTITY ===
 name: senior-backend
-title: Senior Backend Skill Package
-description: Comprehensive backend development skill for building scalable backend systems using Node.js, Express, Go, Python, PostgreSQL, GraphQL, REST APIs. Includes API scaffolding, database optimization, security implementation, and performance tuning. Use when designing APIs, optimizing database queries, implementing business logic, handling authentication/authorization, or reviewing backend code.
-domain: engineering
-subdomain: backend-development
-
-# === WEBSITE DISPLAY ===
-difficulty: advanced
-time-saved: "TODO: Quantify time savings"
-frequency: "TODO: Estimate usage frequency"
-use-cases:
-  - Building robust API services with proper authentication and authorization
-  - Designing database schemas and optimizing query performance
-  - Implementing microservices patterns and service communication
-  - Setting up CI/CD pipelines for backend applications
-
-# === RELATIONSHIPS ===
-related-agents: []
-related-skills: []
-related-commands: []
-orchestrated-by: []
-
-# === TECHNICAL ===
-dependencies:
-  scripts: []
-  references: []
-  assets: []
-compatibility:
-  python-version: 3.8+
-  platforms: [macos, linux, windows]
-tech-stack:
-  - Node.js
-  - Express
-  - Go
-  - Python
-  - PostgreSQL
-  - GraphQL
-  - REST APIs
-  - Docker
-  - Kubernetes
-  - Redis
-
-# === EXAMPLES ===
-examples:
-  -
-    title: Example Usage
-    input: "TODO: Add example input for senior-backend"
-    output: "TODO: Add expected output"
-
-# === ANALYTICS ===
-stats:
-  downloads: 0
-  stars: 0
-  rating: 0.0
-  reviews: 0
-
-# === VERSIONING ===
-version: v1.0.0
-author: Claude Skills Team
-contributors: []
-created: 2025-10-19
-updated: 2025-11-08
+description: Comprehensive backend development skill for building scalable backend
+  systems using Node.js, Express, Go, Python, PostgreSQL, GraphQL, REST APIs. Includes
+  API scaffolding, database optimization, security implementation, and performance
+  tuning. Use when designing APIs, optimizing database queries, implementing business
+  logic, handling authentication/authorization, or reviewing backend code.
 license: MIT
-
-# === DISCOVERABILITY ===
-tags:
+metadata:
+  author: Claude Skills Team
+  compatibility:
+    python-version: 3.8+
+    platforms:
+    - macos
+    - linux
+    - windows
+  contributors: []
+  created: 2025-10-19
+  dependencies:
+    scripts: []
+    references: []
+    assets: []
+  difficulty: advanced
+  domain: engineering
+  examples:
+  - title: Example Usage
+    input: 'TODO: Add example input for senior-backend'
+    output: 'TODO: Add expected output'
+  featured: false
+  frequency: 'TODO: Estimate usage frequency'
+  orchestrated-by: []
+  related-agents: []
+  related-commands: []
+  related-skills: []
+  stats:
+    downloads: 0
+    stars: 0
+    rating: 0.0
+    reviews: 0
+  subdomain: backend-development
+  tags:
   - api
   - backend
   - data
@@ -77,8 +49,27 @@ tags:
   - optimization
   - performance
   - security
-featured: false
-verified: true
+  tech-stack:
+  - Node.js
+  - Express
+  - Go
+  - Python
+  - PostgreSQL
+  - GraphQL
+  - REST APIs
+  - Docker
+  - Kubernetes
+  - Redis
+  time-saved: 'TODO: Quantify time savings'
+  title: Senior Backend Skill Package
+  updated: 2025-11-08
+  use-cases:
+  - Building robust API services with proper authentication and authorization
+  - Designing database schemas and optimizing query performance
+  - Implementing microservices patterns and service communication
+  - Setting up CI/CD pipelines for backend applications
+  verified: true
+  version: v1.0.0
 ---
 
 # Senior Backend

@@ -1,37 +1,51 @@
 ---
-
-# === CORE IDENTITY ===
 name: marketing-strategy-pmm
-title: Marketing Strategy Pmm Skill Package
-description: Product marketing, positioning, GTM strategy, and competitive intelligence. Includes ICP definition, April Dunford positioning methodology, launch playbooks, competitive battlecards, and international market entry guides. Use when developing positioning, planning product launches, creating messaging, analyzing competitors, entering new markets, enabling sales, or when user mentions product marketing, positioning, GTM, go-to-market, competitive analysis, market entry, or sales enablement.
-domain: marketing
-subdomain: product-marketing-general
-
-# === WEBSITE DISPLAY ===
-difficulty: intermediate
-time-saved: "TODO: Quantify time savings"
-frequency: "TODO: Estimate usage frequency"
-use-cases:
-  - Primary workflow for Marketing Strategy Pmm
-  - Analysis and recommendations for marketing strategy pmm tasks
-  - Best practices implementation for marketing strategy pmm
-  - Integration with related skills and workflows
-
-# === RELATIONSHIPS ===
-related-agents: []
-related-skills: []
-related-commands: []
-orchestrated-by: []
-
-# === TECHNICAL ===
-dependencies:
-  scripts: []
-  references: []
-  assets: []
-compatibility:
-  python-version: 3.8+
-  platforms: [macos, linux, windows]
-tech-stack:
+description: Product marketing, positioning, GTM strategy, and competitive intelligence.
+  Includes ICP definition, April Dunford positioning methodology, launch playbooks,
+  competitive battlecards, and international market entry guides. Use when developing
+  positioning, planning product launches, creating messaging, analyzing competitors,
+  entering new markets, enabling sales, or when user mentions product marketing, positioning,
+  GTM, go-to-market, competitive analysis, market entry, or sales enablement.
+license: MIT
+metadata:
+  author: Claude Skills Team
+  compatibility:
+    python-version: 3.8+
+    platforms:
+    - macos
+    - linux
+    - windows
+  contributors: []
+  created: 2025-10-20
+  dependencies:
+    scripts: []
+    references: []
+    assets: []
+  difficulty: intermediate
+  domain: marketing
+  examples:
+  - title: Example Usage
+    input: 'TODO: Add example input for marketing-strategy-pmm'
+    output: 'TODO: Add expected output'
+  featured: false
+  frequency: 'TODO: Estimate usage frequency'
+  orchestrated-by: []
+  related-agents: []
+  related-commands: []
+  related-skills: []
+  stats:
+    downloads: 0
+    stars: 0
+    rating: 0.0
+    reviews: 0
+  subdomain: product-marketing-general
+  tags:
+  - analysis
+  - marketing
+  - pmm
+  - product
+  - strategy
+  tech-stack:
   - HubSpot CRM
   - Google Analytics
   - Gong/Chorus
@@ -40,33 +54,16 @@ tech-stack:
   - Confluence
   - Competitive intelligence tools
   - Python 3.8+
-
-# === EXAMPLES ===
-examples:
-  -
-    title: Example Usage
-    input: "TODO: Add example input for marketing-strategy-pmm"
-    output: "TODO: Add expected output"
-
-# === ANALYTICS ===
-stats:
-  downloads: 0
-  stars: 0
-  rating: 0.0
-  reviews: 0
-
-# === VERSIONING ===
-version: v1.0.0
-author: Claude Skills Team
-contributors: []
-created: 2025-10-20
-updated: 2025-11-08
-license: MIT
-
-# === DISCOVERABILITY ===
-tags: [analysis, marketing, pmm, product, strategy]
-featured: false
-verified: true
+  time-saved: 'TODO: Quantify time savings'
+  title: Marketing Strategy Pmm Skill Package
+  updated: 2025-11-08
+  use-cases:
+  - Primary workflow for Marketing Strategy Pmm
+  - Analysis and recommendations for marketing strategy pmm tasks
+  - Best practices implementation for marketing strategy pmm
+  - Integration with related skills and workflows
+  verified: true
+  version: v1.0.0
 ---
 
 # Marketing Strategy & Product Marketing

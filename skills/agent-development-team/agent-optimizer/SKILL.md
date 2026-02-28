@@ -1,6 +1,6 @@
 ---
 name: agent-optimizer
-description: Optimizes agent definitions for responsibility precision, retrieval efficiency, collaboration completeness, classification alignment, and example quality. Use when optimizing an agent, reviewing agent efficiency, agent quality audit, bloated agent, or post-creation/post-intake agent review. Triggers: optimize agent, review agent, agent efficiency, agent quality, bloated agent.
+description: "Optimizes agent definitions for responsibility precision, retrieval efficiency, collaboration completeness, classification alignment, and example quality. Use when optimizing an agent, reviewing agent efficiency, agent quality audit, bloated agent, or post-creation/post-intake agent review. Triggers: optimize agent, review agent, agent efficiency, agent quality, bloated agent."
 ---
 
 # Agent Optimizer

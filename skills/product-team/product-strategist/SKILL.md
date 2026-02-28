@@ -1,74 +1,73 @@
 ---
-
-# === CORE IDENTITY ===
 name: product-strategist
-title: Product Strategist Skill Package
-description: Strategic product leadership toolkit for Head of Product including OKR cascade generation, market analysis, vision setting, and team scaling. Use for strategic planning, goal alignment, competitive analysis, and organizational design.
-domain: product
-subdomain: product-management
-
-# === WEBSITE DISPLAY ===
-difficulty: intermediate
-time-saved: "~3-6 hours per strategy cycle through reusable planning frameworks and OKR scaffolds"
-frequency: "weekly for strategy tracking, monthly/quarterly for planning cycles"
-use-cases:
-  - Running strategy sessions and documenting strategic decisions
-  - Building and cascading OKRs across company, product, and teams
-  - Creating now/next/later roadmaps aligned to strategic themes
-  - Defining positioning and differentiation for core markets
-
-# === RELATIONSHIPS ===
-related-agents:
-  - product-director
-  - product-manager
-related-skills:
-  - product-team/workshop-facilitation
-  - product-team/prioritization-frameworks
-related-commands: []
-orchestrated-by: []
-
-# === TECHNICAL ===
-dependencies:
-  scripts: []
-  references:
+description: Strategic product leadership toolkit for Head of Product including OKR
+  cascade generation, market analysis, vision setting, and team scaling. Use for strategic
+  planning, goal alignment, competitive analysis, and organizational design.
+license: MIT
+metadata:
+  author: Claude Skills Team
+  compatibility:
+    python-version: 3.8+
+    platforms:
+    - macos
+    - linux
+    - windows
+  contributors: []
+  created: 2025-10-19
+  dependencies:
+    scripts: []
+    references:
     - references/frameworks.md
     - references/templates.md
     - references/tools.md
     - references/strategy-session-workflow.md
     - references/roadmap-planning-guide.md
     - references/positioning-framework.md
-  assets: []
-compatibility:
-  python-version: 3.8+
-  platforms: [macos, linux, windows]
-tech-stack: [Python 3.8+, CLI, JSON export, Alignment scoring]
-
-# === EXAMPLES ===
-examples:
-  -
-    title: Quarterly strategy alignment
-    input: "Need to align annual company priorities to Q2 product roadmap and team-level OKRs."
-    output: "Strategy session agenda, OKR cascade draft, and roadmap themes with ownership."
-
-# === ANALYTICS ===
-stats:
-  downloads: 0
-  stars: 0
-  rating: 0.0
-  reviews: 0
-
-# === VERSIONING ===
-version: v1.0.0
-author: Claude Skills Team
-contributors: []
-created: 2025-10-19
-updated: 2025-11-08
-license: MIT
-
-# === DISCOVERABILITY ===
-tags: [analysis, design, product, strategist]
-featured: false
-verified: true
+    assets: []
+  difficulty: intermediate
+  domain: product
+  examples:
+  - title: Quarterly strategy alignment
+    input: Need to align annual company priorities to Q2 product roadmap and team-level
+      OKRs.
+    output: Strategy session agenda, OKR cascade draft, and roadmap themes with ownership.
+  featured: false
+  frequency: weekly for strategy tracking, monthly/quarterly for planning cycles
+  orchestrated-by: []
+  related-agents:
+  - product-director
+  - product-manager
+  related-commands: []
+  related-skills:
+  - product-team/workshop-facilitation
+  - product-team/prioritization-frameworks
+  stats:
+    downloads: 0
+    stars: 0
+    rating: 0.0
+    reviews: 0
+  subdomain: product-management
+  tags:
+  - analysis
+  - design
+  - product
+  - strategist
+  tech-stack:
+  - Python 3.8+
+  - CLI
+  - JSON export
+  - Alignment scoring
+  time-saved: ~3-6 hours per strategy cycle through reusable planning frameworks and
+    OKR scaffolds
+  title: Product Strategist Skill Package
+  updated: 2025-11-08
+  use-cases:
+  - Running strategy sessions and documenting strategic decisions
+  - Building and cascading OKRs across company, product, and teams
+  - Creating now/next/later roadmaps aligned to strategic themes
+  - Defining positioning and differentiation for core markets
+  verified: true
+  version: v1.0.0
 ---
 
 # Product Strategist

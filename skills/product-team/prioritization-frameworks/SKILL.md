@@ -1,49 +1,27 @@
 ---
-
-# === CORE IDENTITY ===
 name: prioritization-frameworks
-title: Prioritization Frameworks
-description: Portfolio allocation with NPV-based within-bucket prioritization for comparing features, tech debt, bugs, reliability, and polish on a unified scale. Replaces standalone RICE as the top-level method while preserving RICE within growth/revenue buckets. Use for cross-type prioritization, financial quantification of tech debt, and strategic capacity allocation.
-domain: product
-subdomain: product-management
-
-# === WEBSITE DISPLAY ===
-difficulty: advanced
-time-saved: "Reduces quarterly prioritization from days to hours"
-frequency: "Quarterly (allocation), continuous (within-bucket ranking)"
-use-cases:
-  - Setting quarterly capacity allocations across strategic buckets
-  - Ranking items within buckets using RICE + NPV + Cost of Delay
-  - Ranking items within buckets using WSJF when time sensitivity matters
-  - Comparing tech debt paydown against growth features using unified priority score
-  - Modeling financial impact of bugs via CLV-at-risk
-  - Classifying polish work using Kano Model
-  - Monte Carlo forecasting for probabilistic delivery dates
-  - Extracting throughput data from git commit history
-  - Calibrating effort estimates for AI-assisted development
-
-# === RELATIONSHIPS ===
-related-agents:
-  - product-director
-  - product-manager
-  - senior-project-manager
-  - agile-coach
-  - product-analyst
-  - implementation-planner
-related-skills:
-  - product-team/product-manager-toolkit
-  - product-team/product-strategist
-  - delivery-team/agile-coach
-related-commands: []
-orchestrated-by: []
-
-# === TECHNICAL ===
-dependencies:
-  scripts:
+description: Portfolio allocation with NPV-based within-bucket prioritization for
+  comparing features, tech debt, bugs, reliability, and polish on a unified scale.
+  Replaces standalone RICE as the top-level method while preserving RICE within growth/revenue
+  buckets. Use for cross-type prioritization, financial quantification of tech debt,
+  and strategic capacity allocation.
+license: MIT
+metadata:
+  author: Claude Skills Team
+  compatibility:
+    python-version: 3.8+
+    platforms:
+    - macos
+    - linux
+    - windows
+  contributors: []
+  created: 2026-02-11
+  dependencies:
+    scripts:
     - scripts/portfolio_prioritizer.py
     - scripts/monte_carlo_forecast.py
     - scripts/git_throughput_extractor.py
-  references:
+    references:
     - references/npv-financial-model.md
     - references/portfolio-allocation-framework.md
     - references/must-strategic-tracks.md
@@ -53,43 +31,71 @@ dependencies:
     - references/wsjf-framework.md
     - references/ai-pace-calibration.md
     - references/confidence-driven-prioritization.md
-compatibility:
-  python-version: "3.8+"
-  platforms: [macos, linux, windows]
-tech-stack:
+  difficulty: advanced
+  domain: product
+  examples:
+  - title: Quarterly Portfolio Allocation
+    input: 'Set capacity split: 60% growth, 20% revenue, 15% tech debt, 5% polish'
+    output: Allocation applied. 42 items scored within buckets. Top 3 per bucket shown.
+  - title: Tech Debt vs Feature Comparison
+    input: Compare auth refactor (debt) against SSO feature (growth) for overflow
+      capacity
+    output: 'Auth refactor: Priority Score 8.7 (NPV $598K, strategic 9/10). SSO: Priority
+      Score 9.2 (NPV $720K, strategic 8/10).'
+  featured: false
+  frequency: Quarterly (allocation), continuous (within-bucket ranking)
+  orchestrated-by: []
+  related-agents:
+  - product-director
+  - product-manager
+  - senior-project-manager
+  - agile-coach
+  - product-analyst
+  - implementation-planner
+  related-commands: []
+  related-skills:
+  - product-team/product-manager-toolkit
+  - product-team/product-strategist
+  - delivery-team/agile-coach
+  stats:
+    downloads: 0
+    stars: 0
+    rating: 0.0
+    reviews: 0
+  subdomain: product-management
+  tags:
+  - prioritization
+  - portfolio
+  - npv
+  - rice
+  - tech-debt
+  - product
+  - strategy
+  - kano
+  - cost-of-delay
+  - monte-carlo
+  - forecasting
+  - wsjf
+  tech-stack:
   - Python 3.8+
   - CLI
   - CSV processing
   - JSON export
-
-# === EXAMPLES ===
-examples:
-  - title: Quarterly Portfolio Allocation
-    input: "Set capacity split: 60% growth, 20% revenue, 15% tech debt, 5% polish"
-    output: "Allocation applied. 42 items scored within buckets. Top 3 per bucket shown."
-  - title: Tech Debt vs Feature Comparison
-    input: "Compare auth refactor (debt) against SSO feature (growth) for overflow capacity"
-    output: "Auth refactor: Priority Score 8.7 (NPV $598K, strategic 9/10). SSO: Priority Score 9.2 (NPV $720K, strategic 8/10)."
-
-# === ANALYTICS ===
-stats:
-  downloads: 0
-  stars: 0
-  rating: 0.0
-  reviews: 0
-
-# === VERSIONING ===
-version: v1.0.0
-author: Claude Skills Team
-contributors: []
-created: 2026-02-11
-updated: 2026-02-20
-license: MIT
-
-# === DISCOVERABILITY ===
-tags: [prioritization, portfolio, npv, rice, tech-debt, product, strategy, kano, cost-of-delay, monte-carlo, forecasting, wsjf]
-featured: false
-verified: true
+  time-saved: Reduces quarterly prioritization from days to hours
+  title: Prioritization Frameworks
+  updated: 2026-02-20
+  use-cases:
+  - Setting quarterly capacity allocations across strategic buckets
+  - Ranking items within buckets using RICE + NPV + Cost of Delay
+  - Ranking items within buckets using WSJF when time sensitivity matters
+  - Comparing tech debt paydown against growth features using unified priority score
+  - Modeling financial impact of bugs via CLV-at-risk
+  - Classifying polish work using Kano Model
+  - Monte Carlo forecasting for probabilistic delivery dates
+  - Extracting throughput data from git commit history
+  - Calibrating effort estimates for AI-assisted development
+  verified: true
+  version: v1.0.0
 ---
 
 # Prioritization Frameworks

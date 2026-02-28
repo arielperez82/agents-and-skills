@@ -1,72 +1,73 @@
 ---
-
-# === CORE IDENTITY ===
 name: wiki-documentation
-title: Wiki Documentation & Knowledge Management
-description: Wiki-based documentation strategy, space architecture, template libraries, content governance, and knowledge base management. Product-agnostic patterns that work with any wiki platform (Confluence, Notion, GitBook, wiki.js, or plain markdown under .docs/).
-domain: delivery
-subdomain: documentation
-
-# === WEBSITE DISPLAY ===
-difficulty: intermediate
-time-saved: "3-5 hours per documentation space setup"
-frequency: weekly
-use-cases:
+description: Wiki-based documentation strategy, space architecture, template libraries,
+  content governance, and knowledge base management. Product-agnostic patterns that
+  work with any wiki platform (Confluence, Notion, GitBook, wiki.js, or plain markdown
+  under .docs/).
+license: MIT
+metadata:
+  author: Claude Skills Team
+  compatibility:
+    platforms:
+    - macos
+    - linux
+    - windows
+  contributors: []
+  created: 2025-10-21
+  dependencies:
+    scripts:
+    - scripts/space_structure_analyzer.py
+    references:
+    - references/templates.md
+    assets: []
+  difficulty: intermediate
+  domain: delivery
+  examples:
+  - title: Create team documentation space
+    input: Set up a documentation space for the backend team
+    output: Space structure with home page, processes, meeting notes archive, resources,
+      and templates
+  - title: Documentation governance audit
+    input: Review documentation health for the project
+    output: Report on orphaned pages, stale content, missing owners, and recommended
+      actions
+  featured: false
+  frequency: weekly
+  orchestrated-by: []
+  related-agents:
+  - technical-writer
+  - docs-reviewer
+  related-commands: []
+  related-skills:
+  - engineering-team/documentation
+  - delivery-team/ticket-management
+  stats:
+    downloads: 0
+    stars: 0
+    rating: 0.0
+    reviews: 0
+  subdomain: documentation
+  tags:
+  - documentation
+  - wiki
+  - knowledge-management
+  - templates
+  - governance
+  - delivery
+  tech-stack:
+  - Markdown
+  - Any wiki platform
+  time-saved: 3-5 hours per documentation space setup
+  title: Wiki Documentation & Knowledge Management
+  updated: 2026-02-09
+  use-cases:
   - Create and structure documentation spaces for teams and projects
   - Build template libraries for recurring document types
   - Implement content governance and review cycles
   - Design knowledge bases with clear taxonomy and navigation
   - Establish documentation standards and quality checklists
-
-# === RELATIONSHIPS ===
-related-agents:
-  - technical-writer
-  - docs-reviewer
-related-skills:
-  - engineering-team/documentation
-  - delivery-team/ticket-management
-related-commands: []
-orchestrated-by: []
-
-# === TECHNICAL ===
-dependencies:
-  scripts:
-    - scripts/space_structure_analyzer.py
-  references:
-    - references/templates.md
-  assets: []
-compatibility:
-  platforms: [macos, linux, windows]
-tech-stack: [Markdown, Any wiki platform]
-
-# === EXAMPLES ===
-examples:
-  - title: Create team documentation space
-    input: "Set up a documentation space for the backend team"
-    output: "Space structure with home page, processes, meeting notes archive, resources, and templates"
-  - title: Documentation governance audit
-    input: "Review documentation health for the project"
-    output: "Report on orphaned pages, stale content, missing owners, and recommended actions"
-
-# === ANALYTICS ===
-stats:
-  downloads: 0
-  stars: 0
-  rating: 0.0
-  reviews: 0
-
-# === VERSIONING ===
-version: v2.0.0
-author: Claude Skills Team
-contributors: []
-created: 2025-10-21
-updated: 2026-02-09
-license: MIT
-
-# === DISCOVERABILITY ===
-tags: [documentation, wiki, knowledge-management, templates, governance, delivery]
-featured: false
-verified: true
+  verified: true
+  version: v2.0.0
 ---
 
 

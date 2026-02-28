@@ -1,31 +1,23 @@
 ---
-
-# === CORE IDENTITY ===
 name: senior-qa
-title: Senior QA Skill Package
-description: Comprehensive QA and testing skill for quality assurance, test automation, and testing strategies for ReactJS, NextJS, NodeJS applications. Includes test suite generation, coverage analysis, E2E testing setup, and quality metrics. Use when designing test strategies, writing test cases, implementing test automation, performing manual testing, or analyzing test coverage.
-domain: engineering
-subdomain: quality-assurance
-
-# === WEBSITE DISPLAY ===
-difficulty: advanced
-time-saved: "TODO: Quantify time savings"
-frequency: "TODO: Estimate usage frequency"
-use-cases:
-  - Designing comprehensive test strategies and test plans
-  - Implementing automated testing frameworks
-  - Setting up continuous testing in CI/CD pipelines
-  - Conducting performance and load testing
-
-# === RELATIONSHIPS ===
-related-agents: [qa-engineer]
-related-skills: [engineering-team/code-reviewer]
-related-commands: [/generate.tests, /generate.tdd]
-orchestrated-by: [qa-engineer]
-
-# === TECHNICAL ===
-dependencies:
-  scripts:
+description: Comprehensive QA and testing skill for quality assurance, test automation,
+  and testing strategies for ReactJS, NextJS, NodeJS applications. Includes test suite
+  generation, coverage analysis, E2E testing setup, and quality metrics. Use when
+  designing test strategies, writing test cases, implementing test automation, performing
+  manual testing, or analyzing test coverage.
+license: MIT
+metadata:
+  author: Claude Skills Team
+  compatibility:
+    python-version: 3.8+
+    platforms:
+    - macos
+    - linux
+    - windows
+  contributors: []
+  created: 2025-10-19
+  dependencies:
+    scripts:
     - test_suite_generator.py
     - coverage_analyzer.py
     - e2e_test_scaffolder.py
@@ -34,43 +26,55 @@ dependencies:
     - format_detector.py
     - test_spec_generator.py
     - refactor_analyzer.py
-  references:
+    references:
     - testing_strategies.md
     - test_automation_patterns.md
     - qa_best_practices.md
     - tdd_methodology.md
-  assets: []
-compatibility:
-  python-version: 3.8+
-  platforms: [macos, linux, windows]
-tech-stack: [Python 3.8+, Markdown]
-
-# === EXAMPLES ===
-examples:
-  -
-    title: Example Usage
-    input: "TODO: Add example input for senior-qa"
-    output: "TODO: Add expected output"
-
-# === ANALYTICS ===
-stats:
-  downloads: 0
-  stars: 0
-  rating: 0.0
-  reviews: 0
-
-# === VERSIONING ===
-version: v1.0.0
-author: Claude Skills Team
-contributors: []
-created: 2025-10-19
-updated: 2025-11-23
-license: MIT
-
-# === DISCOVERABILITY ===
-tags: [analysis, automation, design, engineering, senior, testing]
-featured: false
-verified: true
+    assets: []
+  difficulty: advanced
+  domain: engineering
+  examples:
+  - title: Example Usage
+    input: 'TODO: Add example input for senior-qa'
+    output: 'TODO: Add expected output'
+  featured: false
+  frequency: 'TODO: Estimate usage frequency'
+  orchestrated-by:
+  - qa-engineer
+  related-agents:
+  - qa-engineer
+  related-commands:
+  - /generate.tests
+  - /generate.tdd
+  related-skills:
+  - engineering-team/code-reviewer
+  stats:
+    downloads: 0
+    stars: 0
+    rating: 0.0
+    reviews: 0
+  subdomain: quality-assurance
+  tags:
+  - analysis
+  - automation
+  - design
+  - engineering
+  - senior
+  - testing
+  tech-stack:
+  - Python 3.8+
+  - Markdown
+  time-saved: 'TODO: Quantify time savings'
+  title: Senior QA Skill Package
+  updated: 2025-11-23
+  use-cases:
+  - Designing comprehensive test strategies and test plans
+  - Implementing automated testing frameworks
+  - Setting up continuous testing in CI/CD pipelines
+  - Conducting performance and load testing
+  verified: true
+  version: v1.0.0
 ---
 
 

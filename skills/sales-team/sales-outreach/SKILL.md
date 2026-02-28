@@ -1,69 +1,73 @@
 ---
-
-# === CORE IDENTITY ===
 name: sales-outreach
-title: Sales Outreach & Personalization
-description: ABM email personalization, cold outreach drafting, and professional tone frameworks for B2B sales. Enables SDRs to craft research-backed, personalized outreach that connects prospect pain points to product value.
-domain: sales
-subdomain: sales-development
-
-# === WEBSITE DISPLAY ===
-difficulty: intermediate
-time-saved: "Reduces outreach drafting from 20 minutes to 3 minutes per email"
-frequency: "Per-lead, multiple times daily"
-use-cases:
+description: ABM email personalization, cold outreach drafting, and professional tone
+  frameworks for B2B sales. Enables SDRs to craft research-backed, personalized outreach
+  that connects prospect pain points to product value.
+license: MIT
+metadata:
+  author: Claude Skills Team
+  compatibility:
+    platforms:
+    - macos
+    - linux
+    - windows
+  contributors: []
+  created: 2026-02-11
+  dependencies:
+    scripts: []
+    references: []
+  difficulty: intermediate
+  domain: sales
+  examples:
+  - title: ABM Personalized Email
+    input: 'Draft outreach to VP Engineering at a 200-person fintech scaling their
+      platform team, pain point: developer onboarding taking 3 weeks'
+    output: 'Subject: Cutting dev onboarding from 3 weeks to 3 days. Body: Hi [Name],
+      I noticed [Company] is scaling engineering rapidly... [personalized value prop
+      connecting onboarding pain to solution]'
+  - title: Website-Based Cold Outreach
+    input: Draft outreach based on acmecorp.com — they sell project management software
+      and just raised Series B
+    output: 'Subject: Congrats on the Series B — scaling infrastructure question.
+      Body: Hi [Name], saw the Series B news... [connects growth stage to scaling
+      challenges to product value]'
+  featured: false
+  frequency: Per-lead, multiple times daily
+  orchestrated-by: []
+  related-agents:
+  - sales-development-rep
+  - account-executive
+  related-commands: []
+  related-skills:
+  - sales-team/lead-research
+  - sales-team/lead-qualification
+  - sales-team/meeting-intelligence
+  stats:
+    downloads: 0
+    stars: 0
+    rating: 0.0
+    reviews: 0
+  subdomain: sales-development
+  tags:
+  - sales
+  - outreach
+  - ABM
+  - email
+  - personalization
+  - cold-email
+  - SDR
+  - prospecting
+  time-saved: Reduces outreach drafting from 20 minutes to 3 minutes per email
+  title: Sales Outreach & Personalization
+  updated: 2026-02-11
+  use-cases:
   - Drafting personalized ABM emails from lead research
   - Creating cold outreach based on prospect's website and public information
   - Adapting outreach tone for different buyer personas (technical, executive, operational)
   - Writing multi-touch outreach sequences (initial, follow-up, breakup)
   - Personalizing at scale while maintaining authenticity
-
-# === RELATIONSHIPS ===
-related-agents:
-  - sales-development-rep
-  - account-executive
-related-skills:
-  - sales-team/lead-research
-  - sales-team/lead-qualification
-  - sales-team/meeting-intelligence
-related-commands: []
-orchestrated-by: []
-
-# === TECHNICAL ===
-dependencies:
-  scripts: []
-  references: []
-compatibility:
-  platforms: [macos, linux, windows]
-
-# === EXAMPLES ===
-examples:
-  - title: ABM Personalized Email
-    input: "Draft outreach to VP Engineering at a 200-person fintech scaling their platform team, pain point: developer onboarding taking 3 weeks"
-    output: "Subject: Cutting dev onboarding from 3 weeks to 3 days. Body: Hi [Name], I noticed [Company] is scaling engineering rapidly... [personalized value prop connecting onboarding pain to solution]"
-  - title: Website-Based Cold Outreach
-    input: "Draft outreach based on acmecorp.com — they sell project management software and just raised Series B"
-    output: "Subject: Congrats on the Series B — scaling infrastructure question. Body: Hi [Name], saw the Series B news... [connects growth stage to scaling challenges to product value]"
-
-# === ANALYTICS ===
-stats:
-  downloads: 0
-  stars: 0
-  rating: 0.0
-  reviews: 0
-
-# === VERSIONING ===
-version: v1.0.0
-author: Claude Skills Team
-contributors: []
-created: 2026-02-11
-updated: 2026-02-11
-license: MIT
-
-# === DISCOVERABILITY ===
-tags: [sales, outreach, ABM, email, personalization, cold-email, SDR, prospecting]
-featured: false
-verified: true
+  verified: true
+  version: v1.0.0
 ---
 
 # Sales Outreach & Personalization

@@ -1,9 +1,9 @@
 ---
 name: coverage-analysis
-type: technique
-description: >
-  Coverage analysis measures code exercised during fuzzing.
-  Use when assessing harness effectiveness or identifying fuzzing blockers.
+description: Coverage analysis measures code exercised during fuzzing. Use when assessing
+  harness effectiveness or identifying fuzzing blockers.
+metadata:
+  type: technique
 ---
 
 # Coverage Analysis

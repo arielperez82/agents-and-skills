@@ -1,21 +1,37 @@
 ---
-
-# === CORE IDENTITY ===
 name: senior-frontend
-title: Senior Frontend Skill Package
-description: Comprehensive frontend development skill for building modern, performant web applications using React, Next.js, TypeScript, Tailwind CSS. Includes component scaffolding, performance optimization, bundle analysis, and UI best practices. Use when developing frontend features, optimizing performance, implementing UI/UX designs, managing state, or reviewing frontend code.
-domain: engineering
-subdomain: frontend-development
-
-# === TECHNICAL ===
-dependencies:
-  scripts: []
-  references: []
-  assets: []
-compatibility:
-  python-version: 3.8+
-  platforms: [macos, linux, windows]
-tech-stack:
+description: Comprehensive frontend development skill for building modern, performant
+  web applications using React, Next.js, TypeScript, Tailwind CSS. Includes component
+  scaffolding, performance optimization, bundle analysis, and UI best practices. Use
+  when developing frontend features, optimizing performance, implementing UI/UX designs,
+  managing state, or reviewing frontend code.
+metadata:
+  compatibility:
+    python-version: 3.8+
+    platforms:
+    - macos
+    - linux
+    - windows
+  dependencies:
+    scripts: []
+    references: []
+    assets: []
+  domain: engineering
+  examples:
+  - title: Example Usage
+    input: 'TODO: Add example input for senior-frontend'
+    output: 'TODO: Add expected output'
+  subdomain: frontend-development
+  tags:
+  - analysis
+  - design
+  - development
+  - engineering
+  - frontend
+  - optimization
+  - performance
+  - senior
+  tech-stack:
   - React
   - Next.js
   - TypeScript
@@ -26,24 +42,7 @@ tech-stack:
   - Webpack
   - ESLint
   - Jest
-
-# === EXAMPLES ===
-examples:
-  -
-    title: Example Usage
-    input: "TODO: Add example input for senior-frontend"
-    output: "TODO: Add expected output"
-
-# === DISCOVERABILITY ===
-tags:
-  - analysis
-  - design
-  - development
-  - engineering
-  - frontend
-  - optimization
-  - performance
-  - senior
+  title: Senior Frontend Skill Package
 ---
 
 # Senior Frontend

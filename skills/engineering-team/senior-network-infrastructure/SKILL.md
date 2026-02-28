@@ -1,77 +1,98 @@
 ---
-
-# === CORE IDENTITY ===
 name: senior-network-infrastructure
-title: Senior Network Infrastructure Skill Package
-description: Network infrastructure specialist for VPC/VNet design, VPN configuration, firewall policies, load balancing, and multi-cloud networking. Includes topology analysis, security group generation, and network compliance auditing.
-domain: engineering
-subdomain: network-infrastructure
-
-# === WEBSITE DISPLAY ===
-difficulty: advanced
-time-saved: "70% reduction in network configuration time"
-frequency: "Weekly for infrastructure changes, daily during deployments"
-use-cases:
+description: Network infrastructure specialist for VPC/VNet design, VPN configuration,
+  firewall policies, load balancing, and multi-cloud networking. Includes topology
+  analysis, security group generation, and network compliance auditing.
+license: MIT
+metadata:
+  author: Claude Skills Team
+  compatibility:
+    python-version: 3.8+
+    platforms:
+    - macos
+    - linux
+    - windows
+  contributors: []
+  created: 2025-12-16
+  dependencies:
+    scripts:
+    - vpn_configurator.py
+    - firewall_policy_generator.py
+    - network_topology_analyzer.py
+    - subnet_planner.py
+    references:
+    - vpc_design_patterns.md
+    - network_security_guide.md
+    - cloud_networking.md
+    assets: []
+  difficulty: advanced
+  domain: engineering
+  examples:
+  - title: VPN Configuration
+    input: Configure site-to-site VPN between AWS and Azure
+    output: Terraform configuration for AWS VPN Gateway and Azure VPN Gateway with
+      IPSec tunnel
+  - title: Firewall Rules
+    input: Generate security groups for 3-tier web application
+    output: AWS Security Groups for web, app, and database tiers with least-privilege
+      rules
+  - title: Subnet Planning
+    input: Plan subnets for /16 VPC with 3 AZs
+    output: CIDR allocation plan with public, private, and database subnets per AZ
+  featured: false
+  frequency: Weekly for infrastructure changes, daily during deployments
+  orchestrated-by:
+  - network-engineer
+  related-agents:
+  - network-engineer
+  - devsecops-engineer
+  - architect
+  related-commands: []
+  related-skills:
+  - engineering-team/senior-devops
+  - engineering-team/senior-security
+  stats:
+    downloads: 0
+    stars: 0
+    rating: 0.0
+    reviews: 0
+  subdomain: network-infrastructure
+  tags:
+  - network
+  - infrastructure
+  - VPN
+  - firewall
+  - VPC
+  - load-balancer
+  - security-groups
+  - routing
+  - DNS
+  - multi-cloud
+  - networking
+  - AWS
+  - GCP
+  - Azure
+  - engineering
+  tech-stack:
+  - Python 3.8+
+  - Terraform
+  - AWS VPC
+  - Azure VNet
+  - GCP VPC
+  - BGP
+  - IPSec
+  - WireGuard
+  time-saved: 70% reduction in network configuration time
+  title: Senior Network Infrastructure Skill Package
+  updated: 2025-12-16
+  use-cases:
   - Designing VPC/VNet architecture for multi-region applications
   - Configuring site-to-site VPN between cloud providers
   - Generating firewall rules and security groups
   - Planning subnet allocation and CIDR blocks
   - Auditing network security compliance
-
-# === RELATIONSHIPS ===
-related-agents: [network-engineer, devsecops-engineer, architect]
-related-skills: [engineering-team/senior-devops, engineering-team/senior-security]
-related-commands: []
-orchestrated-by: [network-engineer]
-
-# === TECHNICAL ===
-dependencies:
-  scripts:
-    - vpn_configurator.py
-    - firewall_policy_generator.py
-    - network_topology_analyzer.py
-    - subnet_planner.py
-  references:
-    - vpc_design_patterns.md
-    - network_security_guide.md
-    - cloud_networking.md
-  assets: []
-compatibility:
-  python-version: 3.8+
-  platforms: [macos, linux, windows]
-tech-stack: [Python 3.8+, Terraform, AWS VPC, Azure VNet, GCP VPC, BGP, IPSec, WireGuard]
-
-# === EXAMPLES ===
-examples:
-  - title: "VPN Configuration"
-    input: "Configure site-to-site VPN between AWS and Azure"
-    output: "Terraform configuration for AWS VPN Gateway and Azure VPN Gateway with IPSec tunnel"
-  - title: "Firewall Rules"
-    input: "Generate security groups for 3-tier web application"
-    output: "AWS Security Groups for web, app, and database tiers with least-privilege rules"
-  - title: "Subnet Planning"
-    input: "Plan subnets for /16 VPC with 3 AZs"
-    output: "CIDR allocation plan with public, private, and database subnets per AZ"
-
-# === ANALYTICS ===
-stats:
-  downloads: 0
-  stars: 0
-  rating: 0.0
-  reviews: 0
-
-# === VERSIONING ===
-version: v1.0.0
-author: Claude Skills Team
-contributors: []
-created: 2025-12-16
-updated: 2025-12-16
-license: MIT
-
-# === DISCOVERABILITY ===
-tags: [network, infrastructure, VPN, firewall, VPC, load-balancer, security-groups, routing, DNS, multi-cloud, networking, AWS, GCP, Azure, engineering]
-featured: false
-verified: true
+  verified: true
+  version: v1.0.0
 ---
 
 

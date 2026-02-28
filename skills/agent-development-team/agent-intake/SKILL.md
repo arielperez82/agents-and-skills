@@ -1,8 +1,16 @@
 ---
 name: agent-intake
-description: "Use when evaluating, incorporating, or adding external agents to the agent catalog. Triggers: \"intake agent\", \"evaluate agent\", \"add agent\", \"incorporate agent\"."
-version: 1.0.0
-capabilities: ["agent discovery", "governance audit", "ecosystem fit assessment", "incorporation", "validation"]
+description: 'Use when evaluating, incorporating, or adding external agents to the
+  agent catalog. Triggers: "intake agent", "evaluate agent", "add agent", "incorporate
+  agent".'
+metadata:
+  capabilities:
+  - agent discovery
+  - governance audit
+  - ecosystem fit assessment
+  - incorporation
+  - validation
+  version: 1.0.0
 ---
 
 # Agent Intake

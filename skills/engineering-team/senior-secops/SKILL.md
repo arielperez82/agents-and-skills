@@ -1,70 +1,63 @@
 ---
-
-# === CORE IDENTITY ===
 name: senior-secops
-title: Senior Secops Skill Package
-description: Comprehensive SecOps skill for application security, vulnerability management, compliance, and secure development practices. Includes security scanning, vulnerability assessment, compliance checking, and security automation. Use when implementing security controls, conducting security audits, responding to vulnerabilities, or ensuring compliance requirements.
-domain: engineering
-subdomain: security-engineering
-
-# === WEBSITE DISPLAY ===
-difficulty: advanced
-time-saved: "TODO: Quantify time savings"
-frequency: "TODO: Estimate usage frequency"
-use-cases:
-  - Conducting security audits and vulnerability assessments
-  - Implementing authentication and authorization patterns
-  - Setting up security monitoring and incident response
-  - Reviewing code for OWASP Top 10 vulnerabilities
-
-# === RELATIONSHIPS ===
-related-agents: []
-related-skills: []
-related-commands: []
-orchestrated-by: []
-
-# === TECHNICAL ===
-dependencies:
-  scripts: []
-  references: []
-  assets: []
-compatibility:
-  python-version: 3.8+
-  platforms: [macos, linux, windows]
-tech-stack: [Python 3.8+, Markdown]
-
-# === EXAMPLES ===
-examples:
-  -
-    title: Example Usage
-    input: "TODO: Add example input for senior-secops"
-    output: "TODO: Add expected output"
-
-# === ANALYTICS ===
-stats:
-  downloads: 0
-  stars: 0
-  rating: 0.0
-  reviews: 0
-
-# === VERSIONING ===
-version: v1.0.0
-author: Claude Skills Team
-contributors: []
-created: 2025-10-19
-updated: 2025-11-23
+description: Comprehensive SecOps skill for application security, vulnerability management,
+  compliance, and secure development practices. Includes security scanning, vulnerability
+  assessment, compliance checking, and security automation. Use when implementing
+  security controls, conducting security audits, responding to vulnerabilities, or
+  ensuring compliance requirements.
 license: MIT
-
-# === DISCOVERABILITY ===
-tags:
+metadata:
+  author: Claude Skills Team
+  compatibility:
+    python-version: 3.8+
+    platforms:
+    - macos
+    - linux
+    - windows
+  contributors: []
+  created: 2025-10-19
+  dependencies:
+    scripts: []
+    references: []
+    assets: []
+  difficulty: advanced
+  domain: engineering
+  examples:
+  - title: Example Usage
+    input: 'TODO: Add example input for senior-secops'
+    output: 'TODO: Add expected output'
+  featured: false
+  frequency: 'TODO: Estimate usage frequency'
+  orchestrated-by: []
+  related-agents: []
+  related-commands: []
+  related-skills: []
+  stats:
+    downloads: 0
+    stars: 0
+    rating: 0.0
+    reviews: 0
+  subdomain: security-engineering
+  tags:
   - automation
   - development
   - engineering
   - secops
   - security
   - senior
-featured: false
-verified: true
+  tech-stack:
+  - Python 3.8+
+  - Markdown
+  time-saved: 'TODO: Quantify time savings'
+  title: Senior Secops Skill Package
+  updated: 2025-11-23
+  use-cases:
+  - Conducting security audits and vulnerability assessments
+  - Implementing authentication and authorization patterns
+  - Setting up security monitoring and incident response
+  - Reviewing code for OWASP Top 10 vulnerabilities
+  verified: true
+  version: v1.0.0
 ---
 
 

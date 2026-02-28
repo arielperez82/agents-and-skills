@@ -1,73 +1,74 @@
 ---
-
-# === CORE IDENTITY ===
 name: ticket-management
-title: Ticket & Issue Tracking Management
-description: Issue tracking strategy, project configuration, query patterns, workflow design, automation rules, dashboard creation, and reporting. Product-agnostic patterns that work with any ticket system (Jira, Linear, GitHub Issues, Shortcut, or markdown-based tracking under .docs/).
-domain: delivery
-subdomain: project-tracking
-
-# === WEBSITE DISPLAY ===
-difficulty: intermediate
-time-saved: "2-4 hours per project setup and reporting cycle"
-frequency: daily
-use-cases:
+description: Issue tracking strategy, project configuration, query patterns, workflow
+  design, automation rules, dashboard creation, and reporting. Product-agnostic patterns
+  that work with any ticket system (Jira, Linear, GitHub Issues, Shortcut, or markdown-based
+  tracking under .docs/).
+license: MIT
+metadata:
+  author: Claude Skills Team
+  compatibility:
+    platforms:
+    - macos
+    - linux
+    - windows
+  contributors: []
+  created: 2025-10-21
+  dependencies:
+    scripts:
+    - scripts/jql_query_builder.py
+    references:
+    - references/jql-examples.md
+    - references/automation-examples.md
+    assets: []
+  difficulty: intermediate
+  domain: delivery
+  examples:
+  - title: Configure new Scrum project
+    input: Set up a new project for the platform team with Scrum workflow
+    output: Project with issue types, workflow states, board, permissions, and saved
+      filters
+  - title: Build team dashboard
+    input: Create a dashboard showing sprint health and velocity
+    output: Dashboard with burndown, velocity chart, open blockers, and created-vs-resolved
+  featured: false
+  frequency: daily
+  orchestrated-by: []
+  related-agents:
+  - senior-project-manager
+  - agile-coach
+  related-commands: []
+  related-skills:
+  - delivery-team/agile-coach
+  - delivery-team/wiki-documentation
+  stats:
+    downloads: 0
+    stars: 0
+    rating: 0.0
+    reviews: 0
+  subdomain: project-tracking
+  tags:
+  - tickets
+  - issues
+  - tracking
+  - workflow
+  - dashboard
+  - reporting
+  - delivery
+  - agile
+  tech-stack:
+  - Any issue tracker
+  time-saved: 2-4 hours per project setup and reporting cycle
+  title: Ticket & Issue Tracking Management
+  updated: 2026-02-09
+  use-cases:
   - Configure new projects with workflows, issue types, and permissions
   - Write advanced queries for filtering, reporting, and bulk operations
   - Design automation rules to reduce manual ticket management
   - Build dashboards for sprint metrics, velocity, and stakeholder visibility
   - Implement ticket hygiene and data quality standards
-
-# === RELATIONSHIPS ===
-related-agents:
-  - senior-project-manager
-  - agile-coach
-related-skills:
-  - delivery-team/agile-coach
-  - delivery-team/wiki-documentation
-related-commands: []
-orchestrated-by: []
-
-# === TECHNICAL ===
-dependencies:
-  scripts:
-    - scripts/jql_query_builder.py
-  references:
-    - references/jql-examples.md
-    - references/automation-examples.md
-  assets: []
-compatibility:
-  platforms: [macos, linux, windows]
-tech-stack: [Any issue tracker]
-
-# === EXAMPLES ===
-examples:
-  - title: Configure new Scrum project
-    input: "Set up a new project for the platform team with Scrum workflow"
-    output: "Project with issue types, workflow states, board, permissions, and saved filters"
-  - title: Build team dashboard
-    input: "Create a dashboard showing sprint health and velocity"
-    output: "Dashboard with burndown, velocity chart, open blockers, and created-vs-resolved"
-
-# === ANALYTICS ===
-stats:
-  downloads: 0
-  stars: 0
-  rating: 0.0
-  reviews: 0
-
-# === VERSIONING ===
-version: v2.0.0
-author: Claude Skills Team
-contributors: []
-created: 2025-10-21
-updated: 2026-02-09
-license: MIT
-
-# === DISCOVERABILITY ===
-tags: [tickets, issues, tracking, workflow, dashboard, reporting, delivery, agile]
-featured: false
-verified: true
+  verified: true
+  version: v2.0.0
 ---
 
 

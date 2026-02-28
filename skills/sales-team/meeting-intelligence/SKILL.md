@@ -1,70 +1,76 @@
 ---
-
-# === CORE IDENTITY ===
 name: meeting-intelligence
-title: Meeting Intelligence
-description: Pre-call briefing, post-call follow-up, and proposal detection for B2B sales meetings. Enables AEs to enter every meeting prepared with research and leave every meeting with prompt, structured follow-ups.
-domain: sales
-subdomain: account-management
-
-# === WEBSITE DISPLAY ===
-difficulty: intermediate
-time-saved: "Saves 30-45 minutes per meeting (15-20 min prep + 15-25 min follow-up)"
-frequency: "Per-meeting, 3-8 times daily for active AEs"
-use-cases:
+description: Pre-call briefing, post-call follow-up, and proposal detection for B2B
+  sales meetings. Enables AEs to enter every meeting prepared with research and leave
+  every meeting with prompt, structured follow-ups.
+license: MIT
+metadata:
+  author: Claude Skills Team
+  compatibility:
+    platforms:
+    - macos
+    - linux
+    - windows
+  contributors: []
+  created: 2026-02-11
+  dependencies:
+    scripts: []
+    references: []
+  difficulty: intermediate
+  domain: sales
+  examples:
+  - title: Pre-Call Briefing
+    input: Prepare briefing for tomorrow's call with Sarah Chen (CTO) and Mike Ross
+      (VP Eng) at DataFlow Inc
+    output: 'Briefing: DataFlow Inc ($25M ARR, 180 employees, data pipeline SaaS).
+      Sarah Chen: CTO since 2023, prev AWS. Mike Ross: VP Eng, manages 40 engineers.
+      Recent news: Series C, expanding to EU. Key pain: data latency complaints from
+      enterprise customers. Suggested talking points: [3 items]'
+  - title: Post-Call Follow-Up
+    input: 'Draft follow-up from transcript: discussed pricing, they want a proposal
+      for 50-seat license, timeline Q2, concern about migration from current vendor'
+    output: 'Subject: Follow-up — DataFlow proposal and migration plan. Body: [structured
+      email covering discussed topics, addressing migration concern, proposing next
+      steps with timeline, attaching relevant case study]. Action items detected:
+      Send proposal by Friday, schedule technical deep-dive with Mike.'
+  featured: false
+  frequency: Per-meeting, 3-8 times daily for active AEs
+  orchestrated-by: []
+  related-agents:
+  - account-executive
+  - sales-development-rep
+  related-commands: []
+  related-skills:
+  - sales-team/lead-research
+  - sales-team/sales-call-analysis
+  - sales-team/pipeline-analytics
+  - sales-team/sales-outreach
+  stats:
+    downloads: 0
+    stars: 0
+    rating: 0.0
+    reviews: 0
+  subdomain: account-management
+  tags:
+  - sales
+  - meetings
+  - briefing
+  - follow-up
+  - proposals
+  - AE
+  - account-executive
+  - meeting-prep
+  time-saved: Saves 30-45 minutes per meeting (15-20 min prep + 15-25 min follow-up)
+  title: Meeting Intelligence
+  updated: 2026-02-11
+  use-cases:
   - Generating pre-call briefing documents from participant research
   - Drafting post-call follow-up emails from meeting notes or transcripts
   - Detecting proposal requests and action items from call transcripts
   - Preparing research summaries on external meeting participants
   - Creating structured meeting notes with next steps
-
-# === RELATIONSHIPS ===
-related-agents:
-  - account-executive
-  - sales-development-rep
-related-skills:
-  - sales-team/lead-research
-  - sales-team/sales-call-analysis
-  - sales-team/pipeline-analytics
-  - sales-team/sales-outreach
-related-commands: []
-orchestrated-by: []
-
-# === TECHNICAL ===
-dependencies:
-  scripts: []
-  references: []
-compatibility:
-  platforms: [macos, linux, windows]
-
-# === EXAMPLES ===
-examples:
-  - title: Pre-Call Briefing
-    input: "Prepare briefing for tomorrow's call with Sarah Chen (CTO) and Mike Ross (VP Eng) at DataFlow Inc"
-    output: "Briefing: DataFlow Inc ($25M ARR, 180 employees, data pipeline SaaS). Sarah Chen: CTO since 2023, prev AWS. Mike Ross: VP Eng, manages 40 engineers. Recent news: Series C, expanding to EU. Key pain: data latency complaints from enterprise customers. Suggested talking points: [3 items]"
-  - title: Post-Call Follow-Up
-    input: "Draft follow-up from transcript: discussed pricing, they want a proposal for 50-seat license, timeline Q2, concern about migration from current vendor"
-    output: "Subject: Follow-up — DataFlow proposal and migration plan. Body: [structured email covering discussed topics, addressing migration concern, proposing next steps with timeline, attaching relevant case study]. Action items detected: Send proposal by Friday, schedule technical deep-dive with Mike."
-
-# === ANALYTICS ===
-stats:
-  downloads: 0
-  stars: 0
-  rating: 0.0
-  reviews: 0
-
-# === VERSIONING ===
-version: v1.0.0
-author: Claude Skills Team
-contributors: []
-created: 2026-02-11
-updated: 2026-02-11
-license: MIT
-
-# === DISCOVERABILITY ===
-tags: [sales, meetings, briefing, follow-up, proposals, AE, account-executive, meeting-prep]
-featured: false
-verified: true
+  verified: true
+  version: v1.0.0
 ---
 
 # Meeting Intelligence

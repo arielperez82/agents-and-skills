@@ -1,71 +1,45 @@
 ---
-
-# === CORE IDENTITY ===
 name: senior-prompt-engineer
-title: Senior Prompt Engineer Skill Package
-description: World-class prompt engineering skill for LLM optimization, prompt patterns, structured outputs, and AI product development. Expertise in Claude, GPT-4, prompt design patterns, few-shot learning, chain-of-thought, and AI evaluation. Includes RAG optimization, agent design, and LLM system architecture. Use when building AI products, optimizing LLM performance, designing agentic systems, or implementing advanced prompting techniques.
-domain: engineering
-subdomain: prompt-engineering
-
-# === WEBSITE DISPLAY ===
-difficulty: advanced
-time-saved: "TODO: Quantify time savings"
-frequency: "TODO: Estimate usage frequency"
-use-cases:
-  - Primary workflow for Senior Prompt Engineer
-  - Analysis and recommendations for senior prompt engineer tasks
-  - Best practices implementation for senior prompt engineer
-  - Integration with related skills and workflows
-
-# === RELATIONSHIPS ===
-related-agents: []
-related-skills: []
-related-commands: []
-orchestrated-by: []
-
-# === TECHNICAL ===
-dependencies:
-  scripts: []
-  references: []
-  assets: []
-compatibility:
-  python-version: 3.8+
-  platforms: [macos, linux, windows]
-tech-stack:
-  - Python
-  - Claude API
-  - GPT-4 API
-  - LangChain
-  - LlamaIndex
-  - Vector databases
-  - Pinecone
-  - Anthropic SDK
-  - OpenAI SDK
-
-# === EXAMPLES ===
-examples:
-  -
-    title: Example Usage
-    input: "TODO: Add example input for senior-prompt-engineer"
-    output: "TODO: Add expected output"
-
-# === ANALYTICS ===
-stats:
-  downloads: 0
-  stars: 0
-  rating: 0.0
-  reviews: 0
-
-# === VERSIONING ===
-version: v1.0.0
-author: Claude Skills Team
-contributors: []
-created: 2025-10-20
-updated: 2025-11-23
+description: World-class prompt engineering skill for LLM optimization, prompt patterns,
+  structured outputs, and AI product development. Expertise in Claude, GPT-4, prompt
+  design patterns, few-shot learning, chain-of-thought, and AI evaluation. Includes
+  RAG optimization, agent design, and LLM system architecture. Use when building AI
+  products, optimizing LLM performance, designing agentic systems, or implementing
+  advanced prompting techniques.
 license: MIT
-
-# === DISCOVERABILITY ===
-tags:
+metadata:
+  author: Claude Skills Team
+  compatibility:
+    python-version: 3.8+
+    platforms:
+    - macos
+    - linux
+    - windows
+  contributors: []
+  created: 2025-10-20
+  dependencies:
+    scripts: []
+    references: []
+    assets: []
+  difficulty: advanced
+  domain: engineering
+  examples:
+  - title: Example Usage
+    input: 'TODO: Add example input for senior-prompt-engineer'
+    output: 'TODO: Add expected output'
+  featured: false
+  frequency: 'TODO: Estimate usage frequency'
+  orchestrated-by: []
+  related-agents: []
+  related-commands: []
+  related-skills: []
+  stats:
+    downloads: 0
+    stars: 0
+    rating: 0.0
+    reviews: 0
+  subdomain: prompt-engineering
+  tags:
   - architecture
   - design
   - development
@@ -76,8 +50,26 @@ tags:
   - product
   - prompt
   - senior
-featured: false
-verified: true
+  tech-stack:
+  - Python
+  - Claude API
+  - GPT-4 API
+  - LangChain
+  - LlamaIndex
+  - Vector databases
+  - Pinecone
+  - Anthropic SDK
+  - OpenAI SDK
+  time-saved: 'TODO: Quantify time savings'
+  title: Senior Prompt Engineer Skill Package
+  updated: 2025-11-23
+  use-cases:
+  - Primary workflow for Senior Prompt Engineer
+  - Analysis and recommendations for senior prompt engineer tasks
+  - Best practices implementation for senior prompt engineer
+  - Integration with related skills and workflows
+  verified: true
+  version: v1.0.0
 ---
 
 # Senior Prompt Engineer

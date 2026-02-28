@@ -1,64 +1,64 @@
 ---
-
-# === CORE IDENTITY ===
 name: code-reviewer
-title: Code Reviewer Skill Package
-description: Comprehensive code review skill for TypeScript, JavaScript, Python, Swift, Kotlin, Go. Includes automated code analysis, best practice checking, security scanning, and review checklist generation. Also covers receiving feedback with technical rigor (no performative agreement), when and how to request code-reviewer, and verification gates (evidence before completion claims). Use when reviewing pull requests, receiving review feedback, providing code feedback, identifying issues, or ensuring code quality standards.
-domain: engineering
-subdomain: engineering-general
-
-# === WEBSITE DISPLAY ===
-difficulty: intermediate
-time-saved: "TODO: Quantify time savings"
-frequency: "TODO: Estimate usage frequency"
-use-cases:
+description: Comprehensive code review skill for TypeScript, JavaScript, Python, Swift,
+  Kotlin, Go. Includes automated code analysis, best practice checking, security scanning,
+  and review checklist generation. Also covers receiving feedback with technical rigor
+  (no performative agreement), when and how to request code-reviewer, and verification
+  gates (evidence before completion claims). Use when reviewing pull requests, receiving
+  review feedback, providing code feedback, identifying issues, or ensuring code quality
+  standards.
+license: MIT
+metadata:
+  author: Claude Skills Team
+  compatibility:
+    python-version: 3.8+
+    platforms:
+    - macos
+    - linux
+    - windows
+  contributors: []
+  created: 2025-10-19
+  dependencies:
+    scripts: []
+    references: []
+    assets: []
+  difficulty: intermediate
+  domain: engineering
+  examples:
+  - title: Example Usage
+    input: 'TODO: Add example input for code-reviewer'
+    output: 'TODO: Add expected output'
+  featured: false
+  frequency: 'TODO: Estimate usage frequency'
+  orchestrated-by: []
+  related-agents: []
+  related-commands: []
+  related-skills: []
+  stats:
+    downloads: 0
+    stars: 0
+    rating: 0.0
+    reviews: 0
+  subdomain: engineering-general
+  tags:
+  - analysis
+  - code
+  - engineering
+  - reviewer
+  - security
+  tech-stack:
+  - Python 3.8+
+  - Markdown
+  time-saved: 'TODO: Quantify time savings'
+  title: Code Reviewer Skill Package
+  updated: 2025-11-23
+  use-cases:
   - Primary workflow for Code Reviewer
   - Analysis and recommendations for code reviewer tasks
   - Best practices implementation for code reviewer
   - Integration with related skills and workflows
-
-# === RELATIONSHIPS ===
-related-agents: []
-related-skills: []
-related-commands: []
-orchestrated-by: []
-
-# === TECHNICAL ===
-dependencies:
-  scripts: []
-  references: []
-  assets: []
-compatibility:
-  python-version: 3.8+
-  platforms: [macos, linux, windows]
-tech-stack: [Python 3.8+, Markdown]
-
-# === EXAMPLES ===
-examples:
-  -
-    title: Example Usage
-    input: "TODO: Add example input for code-reviewer"
-    output: "TODO: Add expected output"
-
-# === ANALYTICS ===
-stats:
-  downloads: 0
-  stars: 0
-  rating: 0.0
-  reviews: 0
-
-# === VERSIONING ===
-version: v1.0.0
-author: Claude Skills Team
-contributors: []
-created: 2025-10-19
-updated: 2025-11-23
-license: MIT
-
-# === DISCOVERABILITY ===
-tags: [analysis, code, engineering, reviewer, security]
-featured: false
-verified: true
+  verified: true
+  version: v1.0.0
 ---
 
 

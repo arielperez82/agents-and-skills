@@ -1,69 +1,70 @@
 ---
-
-# === CORE IDENTITY ===
 name: lead-research
-title: Lead Research & Enrichment
-description: Company research, lead enrichment, and web intelligence synthesis for B2B sales. Enables SDRs and AEs to research prospects, enrich contact records, and build comprehensive company profiles from web sources.
-domain: sales
-subdomain: sales-development
-
-# === WEBSITE DISPLAY ===
-difficulty: intermediate
-time-saved: "Reduces per-lead research from 30 minutes to 5 minutes"
-frequency: "Per-lead, multiple times daily"
-use-cases:
+description: Company research, lead enrichment, and web intelligence synthesis for
+  B2B sales. Enables SDRs and AEs to research prospects, enrich contact records, and
+  build comprehensive company profiles from web sources.
+license: MIT
+metadata:
+  author: Claude Skills Team
+  compatibility:
+    platforms:
+    - macos
+    - linux
+    - windows
+  contributors: []
+  created: 2026-02-11
+  dependencies:
+    scripts: []
+    references: []
+  difficulty: intermediate
+  domain: sales
+  examples:
+  - title: Company Profile from Email Domain
+    input: Research the company behind contact@acmecorp.com
+    output: 'AcmeCorp: Series B SaaS ($15M ARR), 120 employees, enterprise project
+      management, based in Austin TX. Key pain points: scaling infrastructure, SOC
+      2 compliance.'
+  - title: Lead Role Classification
+    input: Classify role for Jane Smith, VP Engineering at AcmeCorp
+    output: 'Decision-maker. Technical buyer. Reports to CTO. Budget authority for
+      tooling and infrastructure. Pain points: team scaling, developer productivity.'
+  featured: false
+  frequency: Per-lead, multiple times daily
+  orchestrated-by: []
+  related-agents:
+  - sales-development-rep
+  - account-executive
+  related-commands: []
+  related-skills:
+  - sales-team/lead-qualification
+  - sales-team/sales-outreach
+  - sales-team/meeting-intelligence
+  stats:
+    downloads: 0
+    stars: 0
+    rating: 0.0
+    reviews: 0
+  subdomain: sales-development
+  tags:
+  - sales
+  - lead-research
+  - enrichment
+  - company-research
+  - ABM
+  - prospecting
+  - SDR
+  - web-research
+  time-saved: Reduces per-lead research from 30 minutes to 5 minutes
+  title: Lead Research & Enrichment
+  updated: 2026-02-11
+  use-cases:
   - Researching a prospect's company before outreach
   - Enriching CRM contact records with web-sourced data
   - Building company profiles (ARR, size, industry, key products, tech stack)
   - Classifying a lead's role, department, and decision-making authority
   - Preparing research briefs for account executives before meetings
-
-# === RELATIONSHIPS ===
-related-agents:
-  - sales-development-rep
-  - account-executive
-related-skills:
-  - sales-team/lead-qualification
-  - sales-team/sales-outreach
-  - sales-team/meeting-intelligence
-related-commands: []
-orchestrated-by: []
-
-# === TECHNICAL ===
-dependencies:
-  scripts: []
-  references: []
-compatibility:
-  platforms: [macos, linux, windows]
-
-# === EXAMPLES ===
-examples:
-  - title: Company Profile from Email Domain
-    input: "Research the company behind contact@acmecorp.com"
-    output: "AcmeCorp: Series B SaaS ($15M ARR), 120 employees, enterprise project management, based in Austin TX. Key pain points: scaling infrastructure, SOC 2 compliance."
-  - title: Lead Role Classification
-    input: "Classify role for Jane Smith, VP Engineering at AcmeCorp"
-    output: "Decision-maker. Technical buyer. Reports to CTO. Budget authority for tooling and infrastructure. Pain points: team scaling, developer productivity."
-
-# === ANALYTICS ===
-stats:
-  downloads: 0
-  stars: 0
-  rating: 0.0
-  reviews: 0
-
-# === VERSIONING ===
-version: v1.0.0
-author: Claude Skills Team
-contributors: []
-created: 2026-02-11
-updated: 2026-02-11
-license: MIT
-
-# === DISCOVERABILITY ===
-tags: [sales, lead-research, enrichment, company-research, ABM, prospecting, SDR, web-research]
-featured: false
-verified: true
+  verified: true
+  version: v1.0.0
 ---
 
 # Lead Research & Enrichment

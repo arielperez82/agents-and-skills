@@ -1,0 +1,33 @@
+---
+name: typescript-strict
+title: TypeScript Strict Mode
+description: Enforce TypeScript strict mode configuration and patterns
+domain: engineering
+---
+
+# TypeScript Strict Mode
+
+## Overview
+
+This skill enforces strict TypeScript configuration across all projects.
+
+## Rules
+
+- No `any` types allowed
+- Enable all strict compiler options
+- Use `unknown` instead of `any` for truly unknown types
+
+## Examples
+
+```typescript
+// Good: explicit types
+const processInput = (data: unknown): string => {
+  if (typeof data === 'string') return data;
+  throw new Error('Expected string');
+};
+```
+
+## References
+
+- TypeScript handbook
+- ESLint strict rules

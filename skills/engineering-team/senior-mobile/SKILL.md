@@ -1,93 +1,64 @@
 ---
-
-# === CORE IDENTITY ===
 name: senior-mobile
-title: Senior Mobile Skill Package
-description: Comprehensive cross-platform mobile development skill for React Native, Flutter, and Expo. Includes project scaffolding, platform detection, app store validation, and CI/CD setup. Use when building mobile apps, selecting frameworks, validating releases, or setting up mobile development workflows.
-domain: engineering
-subdomain: mobile-development
-
-# === WEBSITE DISPLAY ===
-difficulty: advanced
-time-saved: "60% faster project setup, 80% fewer store rejections"
-frequency: "Weekly for active mobile development"
-use-cases:
-  - Creating new React Native or Flutter projects with best practices
-  - Detecting platform capabilities and project configuration
-  - Validating apps before App Store/Play Store submission
-  - Setting up CI/CD pipelines for mobile releases
-
-# === RELATIONSHIPS ===
-related-agents:
-  - mobile-engineer
-  - ios-engineer
-  - flutter-engineer
-related-skills:
-  - senior-ios
-  - senior-flutter
-  - senior-frontend
-related-commands: []
-orchestrated-by:
-  - mobile-engineer
-
-# === TECHNICAL ===
-dependencies:
-  scripts:
+description: Comprehensive cross-platform mobile development skill for React Native,
+  Flutter, and Expo. Includes project scaffolding, platform detection, app store validation,
+  and CI/CD setup. Use when building mobile apps, selecting frameworks, validating
+  releases, or setting up mobile development workflows.
+license: MIT
+metadata:
+  author: Claude Skills Team
+  compatibility:
+    python-version: 3.8+
+    platforms:
+    - macos
+    - linux
+    - windows
+  contributors: []
+  created: 2025-12-13
+  dependencies:
+    scripts:
     - mobile_scaffolder.py
     - platform_detector.py
     - app_store_validator.py
-  references:
+    references:
     - frameworks.md
     - templates.md
     - tools.md
-  assets: []
-compatibility:
-  python-version: 3.8+
-  platforms: [macos, linux, windows]
-tech-stack:
-  - React Native
-  - Flutter
-  - Expo
-  - TypeScript
-  - Dart
-  - iOS
-  - Android
-  - Xcode
-  - Android Studio
-  - Fastlane
-
-# === EXAMPLES ===
-examples:
-  -
-    title: Generate React Native Project
-    input: "python3 mobile_scaffolder.py --framework react-native --platforms ios,android --navigation react-navigation --state redux"
-    output: "Complete project structure with TypeScript, navigation, state management, and CI/CD config"
-  -
-    title: Detect Platform Capabilities
-    input: "python3 platform_detector.py --check all --depth full"
-    output: "Detailed report of iOS/Android capabilities, signing status, and configuration"
-  -
-    title: Validate for App Store
-    input: "python3 app_store_validator.py --store apple --strict"
-    output: "Compliance report with required fixes for App Store submission"
-
-# === ANALYTICS ===
-stats:
-  downloads: 0
-  stars: 0
-  rating: 0.0
-  reviews: 0
-
-# === VERSIONING ===
-version: v1.0.0
-author: Claude Skills Team
-contributors: []
-created: 2025-12-13
-updated: 2025-12-13
-license: MIT
-
-# === DISCOVERABILITY ===
-tags:
+    assets: []
+  difficulty: advanced
+  domain: engineering
+  examples:
+  - title: Generate React Native Project
+    input: python3 mobile_scaffolder.py --framework react-native --platforms ios,android
+      --navigation react-navigation --state redux
+    output: Complete project structure with TypeScript, navigation, state management,
+      and CI/CD config
+  - title: Detect Platform Capabilities
+    input: python3 platform_detector.py --check all --depth full
+    output: Detailed report of iOS/Android capabilities, signing status, and configuration
+  - title: Validate for App Store
+    input: python3 app_store_validator.py --store apple --strict
+    output: Compliance report with required fixes for App Store submission
+  featured: true
+  frequency: Weekly for active mobile development
+  orchestrated-by:
+  - mobile-engineer
+  related-agents:
+  - mobile-engineer
+  - ios-engineer
+  - flutter-engineer
+  related-commands: []
+  related-skills:
+  - senior-ios
+  - senior-flutter
+  - senior-frontend
+  stats:
+    downloads: 0
+    stars: 0
+    rating: 0.0
+    reviews: 0
+  subdomain: mobile-development
+  tags:
   - mobile
   - react-native
   - flutter
@@ -98,8 +69,27 @@ tags:
   - app-store
   - play-store
   - engineering
-featured: true
-verified: true
+  tech-stack:
+  - React Native
+  - Flutter
+  - Expo
+  - TypeScript
+  - Dart
+  - iOS
+  - Android
+  - Xcode
+  - Android Studio
+  - Fastlane
+  time-saved: 60% faster project setup, 80% fewer store rejections
+  title: Senior Mobile Skill Package
+  updated: 2025-12-13
+  use-cases:
+  - Creating new React Native or Flutter projects with best practices
+  - Detecting platform capabilities and project configuration
+  - Validating apps before App Store/Play Store submission
+  - Setting up CI/CD pipelines for mobile releases
+  verified: true
+  version: v1.0.0
 ---
 
 # Senior Mobile

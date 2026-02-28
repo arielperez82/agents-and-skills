@@ -1,65 +1,63 @@
 ---
-
-# === CORE IDENTITY ===
 name: business-analyst-toolkit
-title: Business Analyst Toolkit
-description: Business process analysis, requirements documentation, and workflow optimization for retail, supply chain, and technology organizations
-domain: product
-subdomain: product-team-general
-
-# === WEBSITE DISPLAY ===
-difficulty: intermediate
-time-saved: "60% faster process documentation, 40% faster stakeholder alignment"
-frequency: "Weekly for active BA projects"
-use-cases:
+description: Business process analysis, requirements documentation, and workflow optimization
+  for retail, supply chain, and technology organizations
+license: MIT
+metadata:
+  author: Claude Skills Library
+  compatibility:
+    python-version: 3.8+
+    platforms:
+    - macos
+    - linux
+    - windows
+  contributors: []
+  created: 2025-11-21
+  dependencies:
+    scripts: []
+    references: []
+    assets: []
+  difficulty: intermediate
+  domain: product
+  examples:
+  - title: Example Usage
+    input: 'TODO: Add example input for business-analyst-toolkit'
+    output: 'TODO: Add expected output'
+  featured: false
+  frequency: Weekly for active BA projects
+  orchestrated-by: []
+  related-agents: []
+  related-commands: []
+  related-skills: []
+  stats:
+    downloads: 0
+    stars: 0
+    rating: 0.0
+    reviews: 0
+  subdomain: product-team-general
+  tags:
+  - analyst
+  - business
+  - design
+  - product
+  - toolkit
+  - retail
+  - supply-chain
+  - technology
+  tech-stack:
+  - Python 3.8+
+  - Markdown
+  time-saved: 60% faster process documentation, 40% faster stakeholder alignment
+  title: Business Analyst Toolkit
+  updated: 2025-11-27
+  use-cases:
   - Retail operations process optimization (inventory, fulfillment, POS)
   - Supply chain workflow analysis and improvement
   - Technology platform requirements and integration documentation
   - E-commerce checkout and customer journey mapping
   - Omnichannel retail process design
-
-# === RELATIONSHIPS ===
-related-agents: []
-related-skills: []
-related-commands: []
-orchestrated-by: []
-
-# === TECHNICAL ===
-dependencies:
-  scripts: []
-  references: []
-  assets: []
-compatibility:
-  python-version: 3.8+
-  platforms: [macos, linux, windows]
-tech-stack: [Python 3.8+, Markdown]
-
-# === EXAMPLES ===
-examples:
-  -
-    title: Example Usage
-    input: "TODO: Add example input for business-analyst-toolkit"
-    output: "TODO: Add expected output"
-
-# === ANALYTICS ===
-stats:
-  downloads: 0
-  stars: 0
-  rating: 0.0
-  reviews: 0
-
-# === VERSIONING ===
-version: v1.1.0
-author: Claude Skills Library
-contributors: []
-created: 2025-11-21
-updated: 2025-11-27
-license: MIT
-
-# === DISCOVERABILITY ===
-tags: [analyst, business, design, product, toolkit, retail, supply-chain, technology]
-featured: false
-verified: true
+  verified: true
+  version: v1.1.0
 ---
 
 

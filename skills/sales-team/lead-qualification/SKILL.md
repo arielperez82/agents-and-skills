@@ -1,69 +1,72 @@
 ---
-
-# === CORE IDENTITY ===
 name: lead-qualification
-title: Lead Qualification & Scoring
-description: Enterprise lead scoring rubrics, ICP matching, and qualification frameworks (BANT, MEDDIC, CHAMP) for B2B sales. Enables systematic lead scoring against ideal customer profiles with configurable criteria and threshold-based routing.
-domain: sales
-subdomain: sales-development
-
-# === WEBSITE DISPLAY ===
-difficulty: intermediate
-time-saved: "Reduces qualification time from 15 minutes to 2 minutes per lead"
-frequency: "Per-lead, multiple times daily"
-use-cases:
+description: Enterprise lead scoring rubrics, ICP matching, and qualification frameworks
+  (BANT, MEDDIC, CHAMP) for B2B sales. Enables systematic lead scoring against ideal
+  customer profiles with configurable criteria and threshold-based routing.
+license: MIT
+metadata:
+  author: Claude Skills Team
+  compatibility:
+    platforms:
+    - macos
+    - linux
+    - windows
+  contributors: []
+  created: 2026-02-11
+  dependencies:
+    scripts: []
+    references: []
+  difficulty: intermediate
+  domain: sales
+  examples:
+  - title: Enterprise Lead Scoring
+    input: 'Score: Jane Smith, VP Engineering, 500-person SaaS company, expressed
+      interest in automation'
+    output: 'Score: 85/100 (Hot). ICP match: 92%. BANT: Budget (likely), Authority
+      (yes — VP), Need (automation interest), Timeline (unknown). Route: Assign to
+      AE immediately.'
+  - title: SMB Lead Filtering
+    input: 'Score: John Doe, Marketing Intern, 5-person agency, downloaded whitepaper'
+    output: 'Score: 25/100 (Cold). ICP match: 15%. BANT: Budget (unlikely), Authority
+      (no), Need (unclear), Timeline (none). Route: Nurture sequence.'
+  featured: false
+  frequency: Per-lead, multiple times daily
+  orchestrated-by: []
+  related-agents:
+  - sales-development-rep
+  - account-executive
+  related-commands: []
+  related-skills:
+  - sales-team/lead-research
+  - sales-team/sales-outreach
+  - sales-team/pipeline-analytics
+  stats:
+    downloads: 0
+    stars: 0
+    rating: 0.0
+    reviews: 0
+  subdomain: sales-development
+  tags:
+  - sales
+  - lead-qualification
+  - scoring
+  - BANT
+  - MEDDIC
+  - CHAMP
+  - ICP
+  - enterprise
+  - SDR
+  time-saved: Reduces qualification time from 15 minutes to 2 minutes per lead
+  title: Lead Qualification & Scoring
+  updated: 2026-02-11
+  use-cases:
   - Scoring inbound leads against enterprise qualification criteria
   - Matching leads to Ideal Customer Profile (ICP) definitions
   - Applying BANT/MEDDIC/CHAMP frameworks to assess deal viability
   - Setting MQL/SQL thresholds and routing rules
   - Qualifying leads from form submissions, events, or inbound inquiries
-
-# === RELATIONSHIPS ===
-related-agents:
-  - sales-development-rep
-  - account-executive
-related-skills:
-  - sales-team/lead-research
-  - sales-team/sales-outreach
-  - sales-team/pipeline-analytics
-related-commands: []
-orchestrated-by: []
-
-# === TECHNICAL ===
-dependencies:
-  scripts: []
-  references: []
-compatibility:
-  platforms: [macos, linux, windows]
-
-# === EXAMPLES ===
-examples:
-  - title: Enterprise Lead Scoring
-    input: "Score: Jane Smith, VP Engineering, 500-person SaaS company, expressed interest in automation"
-    output: "Score: 85/100 (Hot). ICP match: 92%. BANT: Budget (likely), Authority (yes — VP), Need (automation interest), Timeline (unknown). Route: Assign to AE immediately."
-  - title: SMB Lead Filtering
-    input: "Score: John Doe, Marketing Intern, 5-person agency, downloaded whitepaper"
-    output: "Score: 25/100 (Cold). ICP match: 15%. BANT: Budget (unlikely), Authority (no), Need (unclear), Timeline (none). Route: Nurture sequence."
-
-# === ANALYTICS ===
-stats:
-  downloads: 0
-  stars: 0
-  rating: 0.0
-  reviews: 0
-
-# === VERSIONING ===
-version: v1.0.0
-author: Claude Skills Team
-contributors: []
-created: 2026-02-11
-updated: 2026-02-11
-license: MIT
-
-# === DISCOVERABILITY ===
-tags: [sales, lead-qualification, scoring, BANT, MEDDIC, CHAMP, ICP, enterprise, SDR]
-featured: false
-verified: true
+  verified: true
+  version: v1.0.0
 ---
 
 # Lead Qualification & Scoring

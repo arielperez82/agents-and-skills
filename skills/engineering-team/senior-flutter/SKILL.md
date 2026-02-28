@@ -1,46 +1,65 @@
 ---
-
-# === CORE IDENTITY ===
 name: senior-flutter
-title: Senior Flutter Skill Package
-description: Flutter and Dart development expertise for building beautiful, performant cross-platform applications. Covers widget architecture, state management (Riverpod, Bloc, Provider), platform channels, and production deployment. Use when building Flutter apps, implementing complex UIs, optimizing performance, or integrating native code.
-domain: engineering
-subdomain: flutter-development
-
-# === WEBSITE DISPLAY ===
-difficulty: advanced
-time-saved: "55% faster UI development, 40% reduced platform-specific code"
-frequency: "Daily for Flutter development teams"
-use-cases:
-  - Building cross-platform apps with Flutter
-  - Implementing complex widget architectures
-  - Managing state with Riverpod, Bloc, or Provider
-  - Integrating native iOS/Android code via platform channels
-  - Optimizing Flutter app performance
-
-# === RELATIONSHIPS ===
-related-agents:
-  - flutter-engineer
-  - mobile-engineer
-related-skills:
-  - senior-mobile
-  - senior-ios
-related-commands: []
-orchestrated-by:
-  - flutter-engineer
-
-# === TECHNICAL ===
-dependencies:
-  scripts: []
-  references:
+description: Flutter and Dart development expertise for building beautiful, performant
+  cross-platform applications. Covers widget architecture, state management (Riverpod,
+  Bloc, Provider), platform channels, and production deployment. Use when building
+  Flutter apps, implementing complex UIs, optimizing performance, or integrating native
+  code.
+license: MIT
+metadata:
+  author: Claude Skills Team
+  compatibility:
+    python-version: 3.8+
+    platforms:
+    - macos
+    - linux
+    - windows
+  contributors: []
+  created: 2025-12-13
+  dependencies:
+    scripts: []
+    references:
     - dart-patterns.md
     - widget-architecture.md
     - state-management.md
-  assets: []
-compatibility:
-  python-version: 3.8+
-  platforms: [macos, linux, windows]
-tech-stack:
+    assets: []
+  difficulty: advanced
+  domain: engineering
+  examples:
+  - title: Riverpod State Management
+    input: Implement async data fetching with Riverpod
+    output: AsyncNotifierProvider with loading, error, and data states
+  - title: Platform Channel Integration
+    input: Call native iOS/Android code from Flutter
+    output: MethodChannel implementation with proper error handling
+  featured: true
+  frequency: Daily for Flutter development teams
+  orchestrated-by:
+  - flutter-engineer
+  related-agents:
+  - flutter-engineer
+  - mobile-engineer
+  related-commands: []
+  related-skills:
+  - senior-mobile
+  - senior-ios
+  stats:
+    downloads: 0
+    stars: 0
+    rating: 0.0
+    reviews: 0
+  subdomain: flutter-development
+  tags:
+  - flutter
+  - dart
+  - mobile
+  - cross-platform
+  - riverpod
+  - bloc
+  - provider
+  - widgets
+  - engineering
+  tech-stack:
   - Flutter 3.x
   - Dart 3.x
   - Riverpod
@@ -51,46 +70,17 @@ tech-stack:
   - Dio
   - Firebase
   - Platform Channels
-
-# === EXAMPLES ===
-examples:
-  -
-    title: Riverpod State Management
-    input: "Implement async data fetching with Riverpod"
-    output: "AsyncNotifierProvider with loading, error, and data states"
-  -
-    title: Platform Channel Integration
-    input: "Call native iOS/Android code from Flutter"
-    output: "MethodChannel implementation with proper error handling"
-
-# === ANALYTICS ===
-stats:
-  downloads: 0
-  stars: 0
-  rating: 0.0
-  reviews: 0
-
-# === VERSIONING ===
-version: v1.0.0
-author: Claude Skills Team
-contributors: []
-created: 2025-12-13
-updated: 2025-12-13
-license: MIT
-
-# === DISCOVERABILITY ===
-tags:
-  - flutter
-  - dart
-  - mobile
-  - cross-platform
-  - riverpod
-  - bloc
-  - provider
-  - widgets
-  - engineering
-featured: true
-verified: true
+  time-saved: 55% faster UI development, 40% reduced platform-specific code
+  title: Senior Flutter Skill Package
+  updated: 2025-12-13
+  use-cases:
+  - Building cross-platform apps with Flutter
+  - Implementing complex widget architectures
+  - Managing state with Riverpod, Bloc, or Provider
+  - Integrating native iOS/Android code via platform channels
+  - Optimizing Flutter app performance
+  verified: true
+  version: v1.0.0
 ---
 
 # Senior Flutter

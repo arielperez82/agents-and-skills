@@ -1,69 +1,73 @@
 ---
-
-# === CORE IDENTITY ===
 name: pipeline-analytics
-title: Pipeline Analytics & Health Monitoring
-description: Pipeline health monitoring, deal risk flagging, stage velocity analysis, and coaching insights for B2B sales. Enables daily pipeline reviews that surface at-risk deals, identify coaching opportunities, and provide data-driven forecasting inputs.
-domain: sales
-subdomain: sales-operations
-
-# === WEBSITE DISPLAY ===
-difficulty: advanced
-time-saved: "Reduces daily pipeline review from 60 minutes to 15 minutes"
-frequency: "Daily (pipeline review), weekly (deep analysis), quarterly (forecast)"
-use-cases:
+description: Pipeline health monitoring, deal risk flagging, stage velocity analysis,
+  and coaching insights for B2B sales. Enables daily pipeline reviews that surface
+  at-risk deals, identify coaching opportunities, and provide data-driven forecasting
+  inputs.
+license: MIT
+metadata:
+  author: Claude Skills Team
+  compatibility:
+    platforms:
+    - macos
+    - linux
+    - windows
+  contributors: []
+  created: 2026-02-11
+  dependencies:
+    scripts: []
+    references: []
+  difficulty: advanced
+  domain: sales
+  examples:
+  - title: Daily Pipeline Review
+    input: 'Review pipeline: 45 deals across 5 stages, $2.1M total value'
+    output: 'Pipeline Health: 72/100 (Moderate). 8 deals at risk (4 stale >14 days,
+      2 no recent activity, 2 missing champion). Stage breakdown: Qualification(12)
+      → Demo(15) → Proposal(10) → Negotiation(5) → Close(3). Velocity: avg 18 days/stage.
+      Action items: [5 specific deal interventions]'
+  - title: Rep Pipeline Coaching
+    input: 'Analyze pipeline patterns for Rep A: 12 deals, 60% stuck in Demo stage'
+    output: 'Pattern: Demo-to-Proposal conversion at 25% (team avg 45%). Root cause:
+      demos not tailored to pain points (see call analysis scores). Coaching: Run
+      discovery recap before every demo. 3 specific deals to re-engage with new approach.'
+  featured: false
+  frequency: Daily (pipeline review), weekly (deep analysis), quarterly (forecast)
+  orchestrated-by: []
+  related-agents:
+  - account-executive
+  related-commands: []
+  related-skills:
+  - sales-team/sales-call-analysis
+  - sales-team/meeting-intelligence
+  - sales-team/lead-qualification
+  stats:
+    downloads: 0
+    stars: 0
+    rating: 0.0
+    reviews: 0
+  subdomain: sales-operations
+  tags:
+  - sales
+  - pipeline
+  - analytics
+  - forecasting
+  - deal-risk
+  - coaching
+  - sales-ops
+  - velocity
+  time-saved: Reduces daily pipeline review from 60 minutes to 15 minutes
+  title: Pipeline Analytics & Health Monitoring
+  updated: 2026-02-11
+  use-cases:
   - Running daily pipeline health reviews across all deals
   - Flagging at-risk deals based on staleness, engagement gaps, or missing milestones
   - Analyzing stage-to-stage conversion rates and velocity
   - Generating pipeline health scores for individual reps and team overall
   - Producing coaching insights from pipeline patterns
   - Providing forecast accuracy inputs
-
-# === RELATIONSHIPS ===
-related-agents:
-  - account-executive
-related-skills:
-  - sales-team/sales-call-analysis
-  - sales-team/meeting-intelligence
-  - sales-team/lead-qualification
-related-commands: []
-orchestrated-by: []
-
-# === TECHNICAL ===
-dependencies:
-  scripts: []
-  references: []
-compatibility:
-  platforms: [macos, linux, windows]
-
-# === EXAMPLES ===
-examples:
-  - title: Daily Pipeline Review
-    input: "Review pipeline: 45 deals across 5 stages, $2.1M total value"
-    output: "Pipeline Health: 72/100 (Moderate). 8 deals at risk (4 stale >14 days, 2 no recent activity, 2 missing champion). Stage breakdown: Qualification(12) → Demo(15) → Proposal(10) → Negotiation(5) → Close(3). Velocity: avg 18 days/stage. Action items: [5 specific deal interventions]"
-  - title: Rep Pipeline Coaching
-    input: "Analyze pipeline patterns for Rep A: 12 deals, 60% stuck in Demo stage"
-    output: "Pattern: Demo-to-Proposal conversion at 25% (team avg 45%). Root cause: demos not tailored to pain points (see call analysis scores). Coaching: Run discovery recap before every demo. 3 specific deals to re-engage with new approach."
-
-# === ANALYTICS ===
-stats:
-  downloads: 0
-  stars: 0
-  rating: 0.0
-  reviews: 0
-
-# === VERSIONING ===
-version: v1.0.0
-author: Claude Skills Team
-contributors: []
-created: 2026-02-11
-updated: 2026-02-11
-license: MIT
-
-# === DISCOVERABILITY ===
-tags: [sales, pipeline, analytics, forecasting, deal-risk, coaching, sales-ops, velocity]
-featured: false
-verified: true
+  verified: true
+  version: v1.0.0
 ---
 
 # Pipeline Analytics & Health Monitoring

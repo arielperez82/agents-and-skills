@@ -1,39 +1,20 @@
 ---
-
-# === CORE IDENTITY ===
 name: saas-finance
-title: SaaS Finance Metrics & Analysis
-description: "SaaS finance metrics, pricing, acquisition channels, investment analysis, and business health diagnostics. Consolidates 7 reference guides for PM financial fluency."
-domain: product
-subdomain: saas-finance
-
-# === WEBSITE DISPLAY ===
-difficulty: intermediate
-time-saved: "Eliminates hours of metric lookup and financial modeling per decision"
-frequency: "Weekly (metrics review), quarterly (health diagnostic, pricing/channel decisions)"
-use-cases:
-  - Quick lookup of SaaS metric formulas and benchmarks
-  - Calculating and interpreting revenue, retention, and growth metrics
-  - Evaluating unit economics and capital efficiency
-  - Making data-driven pricing change decisions
-  - Evaluating acquisition channel viability (scale/test/kill)
-  - Assessing feature investment ROI (build/don't build)
-  - Running comprehensive business health diagnostics
-
-# === RELATIONSHIPS ===
-related-agents:
-  - product-director
-  - product-manager
-  - product-analyst
-related-skills:
-  - product-team/prioritization-frameworks
-  - product-team/product-strategist
-related-commands: []
-orchestrated-by: []
-
-# === TECHNICAL ===
-dependencies:
-  references:
+description: SaaS finance metrics, pricing, acquisition channels, investment analysis,
+  and business health diagnostics. Consolidates 7 reference guides for PM financial
+  fluency.
+license: CC-BY-NC-SA-4.0
+metadata:
+  author: Claude Skills Team
+  compatibility:
+    platforms:
+    - macos
+    - linux
+    - windows
+  contributors: []
+  created: 2026-02-17
+  dependencies:
+    references:
     - references/metrics-quickref.md
     - references/revenue-growth-metrics.md
     - references/economics-efficiency-metrics.md
@@ -41,37 +22,59 @@ dependencies:
     - references/channel-advisor.md
     - references/investment-advisor.md
     - references/business-health-diagnostic.md
-compatibility:
-  platforms: [macos, linux, windows]
-
-# === EXAMPLES ===
-examples:
+  difficulty: intermediate
+  domain: product
+  examples:
   - title: Quick Metric Lookup
-    input: "What's a healthy LTV:CAC ratio and how do I calculate it?"
-    output: "LTV:CAC = LTV / CAC. Healthy: 3:1; <1:1 unsustainable; >5:1 underinvesting. See metrics-quickref.md."
+    input: What's a healthy LTV:CAC ratio and how do I calculate it?
+    output: 'LTV:CAC = LTV / CAC. Healthy: 3:1; <1:1 unsustainable; >5:1 underinvesting.
+      See metrics-quickref.md.'
   - title: Business Health Check
-    input: "We have $15M ARR, 40% YoY growth, 95% NRR, 3.5:1 LTV:CAC. How are we doing?"
-    output: "Moderate health. NRR <100% is a red flag -- base is contracting. Fix retention before scaling. See business-health-diagnostic.md."
-
-# === ANALYTICS ===
-stats:
-  downloads: 0
-  stars: 0
-  rating: 0.0
-  reviews: 0
-
-# === VERSIONING ===
-version: v1.0.0
-author: Claude Skills Team
-contributors: []
-created: 2026-02-17
-updated: 2026-02-17
-license: CC-BY-NC-SA-4.0
-
-# === DISCOVERABILITY ===
-tags: [saas, finance, metrics, pricing, acquisition, investment, ltv, cac, mrr, arr]
-featured: false
-verified: true
+    input: We have $15M ARR, 40% YoY growth, 95% NRR, 3.5:1 LTV:CAC. How are we doing?
+    output: Moderate health. NRR <100% is a red flag -- base is contracting. Fix retention
+      before scaling. See business-health-diagnostic.md.
+  featured: false
+  frequency: Weekly (metrics review), quarterly (health diagnostic, pricing/channel
+    decisions)
+  orchestrated-by: []
+  related-agents:
+  - product-director
+  - product-manager
+  - product-analyst
+  related-commands: []
+  related-skills:
+  - product-team/prioritization-frameworks
+  - product-team/product-strategist
+  stats:
+    downloads: 0
+    stars: 0
+    rating: 0.0
+    reviews: 0
+  subdomain: saas-finance
+  tags:
+  - saas
+  - finance
+  - metrics
+  - pricing
+  - acquisition
+  - investment
+  - ltv
+  - cac
+  - mrr
+  - arr
+  time-saved: Eliminates hours of metric lookup and financial modeling per decision
+  title: SaaS Finance Metrics & Analysis
+  updated: 2026-02-17
+  use-cases:
+  - Quick lookup of SaaS metric formulas and benchmarks
+  - Calculating and interpreting revenue, retention, and growth metrics
+  - Evaluating unit economics and capital efficiency
+  - Making data-driven pricing change decisions
+  - Evaluating acquisition channel viability (scale/test/kill)
+  - Assessing feature investment ROI (build/don't build)
+  - Running comprehensive business health diagnostics
+  verified: true
+  version: v1.0.0
 ---
 
 # SaaS Finance Metrics & Analysis
