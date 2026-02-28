@@ -7,11 +7,9 @@ export type SuppressionDirective = {
   readonly line: number;
 };
 
-const INLINE_PATTERN =
-  /<!--\s*pips-allow:\s*(.+?)\s*-->/g;
+const INLINE_PATTERN = /<!--\s*pips-allow:\s*(.+?)\s*-->/g;
 
-const FILE_PATTERN =
-  /<!--\s*pips-allow-file:\s*(.+?)\s*-->/g;
+const FILE_PATTERN = /<!--\s*pips-allow-file:\s*(.+?)\s*-->/g;
 
 const parseDirectiveBody = (
   body: string,
@@ -55,9 +53,7 @@ const parseWithPattern = (
   return directives;
 };
 
-export const parseSuppressionsFromContent = (
-  content: string,
-): readonly SuppressionDirective[] => {
+export const parseSuppressionsFromContent = (content: string): readonly SuppressionDirective[] => {
   if (content === '') return [];
 
   return [
@@ -66,9 +62,7 @@ export const parseSuppressionsFromContent = (
   ];
 };
 
-const createMissingJustificationFinding = (
-  directive: SuppressionDirective,
-): Finding => ({
+const createMissingJustificationFinding = (directive: SuppressionDirective): Finding => ({
   category: 'suppression',
   severity: 'HIGH',
   rawSeverity: 'HIGH',
@@ -81,18 +75,12 @@ const createMissingJustificationFinding = (
   context: 'body',
 });
 
-const isInlineMatch = (
-  finding: Finding,
-  directive: SuppressionDirective,
-): boolean =>
+const isInlineMatch = (finding: Finding, directive: SuppressionDirective): boolean =>
   directive.scope === 'inline' &&
   finding.category === directive.category &&
   (finding.line === directive.line || finding.line === directive.line + 1);
 
-const isFileMatch = (
-  finding: Finding,
-  directive: SuppressionDirective,
-): boolean =>
+const isFileMatch = (finding: Finding, directive: SuppressionDirective): boolean =>
   directive.scope === 'file' && finding.category === directive.category;
 
 export const applySuppressions = (
@@ -112,8 +100,7 @@ export const applySuppressions = (
     }
 
     const inlineIndex = directives.findIndex(
-      (d, idx) =>
-        isInlineMatch(finding, d) && !usedInlineDirectives.has(idx),
+      (d, idx) => isInlineMatch(finding, d) && !usedInlineDirectives.has(idx),
     );
 
     if (inlineIndex !== -1) {

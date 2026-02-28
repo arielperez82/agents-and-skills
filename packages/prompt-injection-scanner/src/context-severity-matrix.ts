@@ -5,12 +5,7 @@ type SeverityAdjustment = {
   readonly contextReason: string;
 };
 
-const SEVERITY_ORDER: readonly Severity[] = [
-  'LOW',
-  'MEDIUM',
-  'HIGH',
-  'CRITICAL',
-];
+const SEVERITY_ORDER: readonly Severity[] = ['LOW', 'MEDIUM', 'HIGH', 'CRITICAL'];
 
 const elevate = (severity: Severity): Severity => {
   const index = SEVERITY_ORDER.indexOf(severity);
@@ -38,8 +33,7 @@ const contextRules: readonly ContextRule[] = [
   {
     match: (ctx) =>
       ctx.startsWith('body:heading:') &&
-      (ctx === 'body:heading:Workflows' ||
-        ctx === 'body:heading:Instructions'),
+      (ctx === 'body:heading:Workflows' || ctx === 'body:heading:Instructions'),
     adjust: (severity) => severity,
     reason: 'baseline severity: Workflows/Instructions section uses pattern default',
   },
@@ -65,10 +59,7 @@ const contextRules: readonly ContextRule[] = [
   },
 ];
 
-export const adjustSeverity = (
-  rawSeverity: Severity,
-  context: string,
-): SeverityAdjustment => {
+export const adjustSeverity = (rawSeverity: Severity, context: string): SeverityAdjustment => {
   const matchingRule = contextRules.find((rule) => rule.match(context));
 
   if (!matchingRule) {

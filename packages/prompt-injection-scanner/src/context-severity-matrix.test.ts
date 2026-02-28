@@ -141,12 +141,7 @@ describe('adjustSeverity', () => {
   });
 
   describe('severity ordering is correct', () => {
-    const severities: readonly Severity[] = [
-      'LOW',
-      'MEDIUM',
-      'HIGH',
-      'CRITICAL',
-    ];
+    const severities: readonly Severity[] = ['LOW', 'MEDIUM', 'HIGH', 'CRITICAL'];
 
     it.each(severities)(
       'adjustSeverity returns a valid Severity for raw=%s in any context',

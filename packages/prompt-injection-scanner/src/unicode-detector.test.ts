@@ -2,10 +2,7 @@ import { describe, it, expect } from 'vitest';
 import { detectUnicodeIssues } from './unicode-detector.js';
 import type { Finding } from './types.js';
 
-const findByPatternId = (
-  findings: readonly Finding[],
-  prefix: string,
-): readonly Finding[] =>
+const findByPatternId = (findings: readonly Finding[], prefix: string): readonly Finding[] =>
   findings.filter((f) => f.patternId.startsWith(prefix));
 
 describe('detectUnicodeIssues', () => {

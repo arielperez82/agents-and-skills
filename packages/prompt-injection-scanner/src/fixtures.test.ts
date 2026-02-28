@@ -10,8 +10,7 @@ import type { Finding, Severity } from './types.js';
 const currentDir = dirname(fileURLToPath(import.meta.url));
 const fixturesDir = resolve(currentDir, '..', 'fixtures');
 
-const readFixture = (name: string): string =>
-  readFileSync(resolve(fixturesDir, name), 'utf-8');
+const readFixture = (name: string): string => readFileSync(resolve(fixturesDir, name), 'utf-8');
 
 const fixturePath = (name: string): string => resolve(fixturesDir, name);
 
@@ -91,9 +90,7 @@ describe('fixture integration tests', () => {
 
             expect(hasHighOrCriticalFindings(result.findings)).toBe(true);
 
-            const categoryFindings = result.findings.filter(
-              (f) => f.category === spec.category,
-            );
+            const categoryFindings = result.findings.filter((f) => f.category === spec.category);
             expect(categoryFindings.length).toBeGreaterThanOrEqual(1);
           });
         }
@@ -113,9 +110,7 @@ describe('fixture integration tests', () => {
         const content = readFixture(fixtureName);
         const result = scan(content);
 
-        const highOrCritical = result.findings.filter((f) =>
-          HIGH_OR_CRITICAL.includes(f.severity),
-        );
+        const highOrCritical = result.findings.filter((f) => HIGH_OR_CRITICAL.includes(f.severity));
         expect(highOrCritical).toHaveLength(0);
       });
     }
@@ -130,8 +125,8 @@ describe('fixture integration tests', () => {
       it(`${fixtureName} has header comment with attack technique`, () => {
         const content = readFixture(fixtureName);
         const lines = content.split('\n');
-        const commentLines = lines.filter((line) =>
-          line.startsWith('# Attack:') || line.startsWith('# Technique:'),
+        const commentLines = lines.filter(
+          (line) => line.startsWith('# Attack:') || line.startsWith('# Technique:'),
         );
         expect(commentLines.length).toBeGreaterThanOrEqual(2);
       });
@@ -173,22 +168,14 @@ describe('fixture integration tests', () => {
     });
 
     it('returns exit code 0 for benign agent fixture', async () => {
-      const result = await runCli([
-        fixturePath('benign-agent-standard.txt'),
-        '--format',
-        'json',
-      ]);
+      const result = await runCli([fixturePath('benign-agent-standard.txt'), '--format', 'json']);
 
       expect(result.exitCode).toBe(0);
       expect(result.stderr).toBe('');
     });
 
     it('returns exit code 0 for benign skill fixture', async () => {
-      const result = await runCli([
-        fixturePath('benign-skill-standard.txt'),
-        '--format',
-        'json',
-      ]);
+      const result = await runCli([fixturePath('benign-skill-standard.txt'), '--format', 'json']);
 
       expect(result.exitCode).toBe(0);
       expect(result.stderr).toBe('');
@@ -207,17 +194,11 @@ describe('fixture integration tests', () => {
       const allFindings = parsed.flatMap((r) => r.findings);
 
       expect(allFindings.length).toBeGreaterThanOrEqual(1);
-      expect(
-        allFindings.some((f) => f.category === 'instruction-override'),
-      ).toBe(true);
+      expect(allFindings.some((f) => f.category === 'instruction-override')).toBe(true);
     });
 
     it('CLI JSON output contains zero findings for benign fixture', async () => {
-      const result = await runCli([
-        fixturePath('benign-agent-standard.txt'),
-        '--format',
-        'json',
-      ]);
+      const result = await runCli([fixturePath('benign-agent-standard.txt'), '--format', 'json']);
 
       const parsed = JSON.parse(result.stdout) as readonly {
         readonly findings: readonly Finding[];

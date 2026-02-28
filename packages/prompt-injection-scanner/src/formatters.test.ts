@@ -18,9 +18,7 @@ const createFinding = (overrides: Partial<Finding> = {}): Finding => ({
   ...overrides,
 });
 
-const createFileResult = (
-  overrides: Partial<FileResult> = {},
-): FileResult => ({
+const createFileResult = (overrides: Partial<FileResult> = {}): FileResult => ({
   file: 'test.md',
   findings: [],
   summary: {
@@ -196,10 +194,7 @@ describe('formatHuman', () => {
   it('shows summary counts', () => {
     const results: readonly FileResult[] = [
       createFileResult({
-        findings: [
-          createFinding({ severity: 'CRITICAL' }),
-          createFinding({ severity: 'HIGH' }),
-        ],
+        findings: [createFinding({ severity: 'CRITICAL' }), createFinding({ severity: 'HIGH' })],
         summary: {
           total: 2,
           critical: 1,

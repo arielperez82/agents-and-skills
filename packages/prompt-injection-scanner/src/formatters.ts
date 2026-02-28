@@ -56,9 +56,7 @@ const formatFileSection = (result: FileResult): string => {
 
   const findingLines = result.findings.map(formatFinding).join('\n\n');
   const suppressedLine =
-    result.summary.suppressedCount > 0
-      ? `  Suppressed: ${result.summary.suppressedCount}`
-      : '';
+    result.summary.suppressedCount > 0 ? `  Suppressed: ${result.summary.suppressedCount}` : '';
   const summary = [
     `${ANSI.dim}Summary:${ANSI.reset}`,
     `  Critical: ${result.summary.critical}`,

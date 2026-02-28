@@ -1,10 +1,7 @@
 import { describe, it, expect } from 'vitest';
 
 import type { Finding } from './types.js';
-import {
-  parseSuppressionsFromContent,
-  applySuppressions,
-} from './suppression.js';
+import { parseSuppressionsFromContent, applySuppressions } from './suppression.js';
 import type { SuppressionDirective } from './suppression.js';
 
 const createFinding = (overrides: Partial<Finding> = {}): Finding => ({
@@ -55,8 +52,7 @@ describe('parseSuppressionsFromContent', () => {
     });
 
     it('trims whitespace from category and justification', () => {
-      const content =
-        '<!-- pips-allow:  instruction-override  --  documented example  -->';
+      const content = '<!-- pips-allow:  instruction-override  --  documented example  -->';
 
       const directives = parseSuppressionsFromContent(content);
 
@@ -75,8 +71,7 @@ describe('parseSuppressionsFromContent', () => {
       expect(directives).toHaveLength(1);
       expect(directives[0]).toEqual({
         category: 'instruction-override',
-        justification:
-          'this file is documentation about attacks',
+        justification: 'this file is documentation about attacks',
         scope: 'file',
         line: 1,
       });
@@ -85,8 +80,7 @@ describe('parseSuppressionsFromContent', () => {
 
   describe('missing justification', () => {
     it('generates a directive with empty justification when justification is missing', () => {
-      const content =
-        '<!-- pips-allow: instruction-override -->';
+      const content = '<!-- pips-allow: instruction-override -->';
 
       const directives = parseSuppressionsFromContent(content);
 
@@ -95,8 +89,7 @@ describe('parseSuppressionsFromContent', () => {
     });
 
     it('generates a directive with empty justification for file-level without justification', () => {
-      const content =
-        '<!-- pips-allow-file: data-exfiltration -->';
+      const content = '<!-- pips-allow-file: data-exfiltration -->';
 
       const directives = parseSuppressionsFromContent(content);
 
@@ -139,9 +132,7 @@ describe('applySuppressions', () => {
 
       expect(result).toHaveLength(1);
       expect(result[0]?.suppressed).toBe(true);
-      expect(result[0]?.suppressionJustification).toBe(
-        'documented example',
-      );
+      expect(result[0]?.suppressionJustification).toBe('documented example');
     });
 
     it('marks finding as suppressed when inline directive is on the preceding line', () => {
@@ -162,9 +153,7 @@ describe('applySuppressions', () => {
     });
 
     it('does not suppress finding when category does not match', () => {
-      const findings = [
-        createFinding({ line: 6, category: 'data-exfiltration' }),
-      ];
+      const findings = [createFinding({ line: 6, category: 'data-exfiltration' })];
       const directives: readonly SuppressionDirective[] = [
         {
           category: 'instruction-override',
@@ -235,18 +224,13 @@ describe('applySuppressions', () => {
       const result = applySuppressions(findings, directives);
 
       expect(result.every((f) => f.suppressed === true)).toBe(true);
-      expect(
-        result.every(
-          (f) =>
-            f.suppressionJustification === 'attack documentation file',
-        ),
-      ).toBe(true);
+      expect(result.every((f) => f.suppressionJustification === 'attack documentation file')).toBe(
+        true,
+      );
     });
 
     it('does not suppress findings of a different category', () => {
-      const findings = [
-        createFinding({ line: 5, category: 'data-exfiltration' }),
-      ];
+      const findings = [createFinding({ line: 5, category: 'data-exfiltration' })];
       const directives: readonly SuppressionDirective[] = [
         {
           category: 'instruction-override',
@@ -276,9 +260,7 @@ describe('applySuppressions', () => {
 
       const result = applySuppressions(findings, directives);
 
-      const generated = result.filter(
-        (f) => f.patternId === 'suppression-missing-justification',
-      );
+      const generated = result.filter((f) => f.patternId === 'suppression-missing-justification');
       expect(generated).toHaveLength(1);
       expect(generated[0]?.severity).toBe('HIGH');
       expect(generated[0]?.line).toBe(5);
@@ -298,9 +280,7 @@ describe('applySuppressions', () => {
 
       const result = applySuppressions(findings, directives);
 
-      const generated = result.filter(
-        (f) => f.patternId === 'suppression-missing-justification',
-      );
+      const generated = result.filter((f) => f.patternId === 'suppression-missing-justification');
       expect(generated).toHaveLength(1);
       expect(generated[0]?.severity).toBe('HIGH');
     });

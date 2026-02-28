@@ -18,8 +18,7 @@ const buildZeroWidthPattern = (): RegExp => {
 export const instructionOverride: PatternCategory = {
   id: 'instruction-override',
   name: 'Instruction Override',
-  description:
-    'Detects attempts to override, ignore, or replace system instructions',
+  description: 'Detects attempts to override, ignore, or replace system instructions',
   rules: [
     {
       id: 'io-001',
@@ -56,15 +55,13 @@ export const instructionOverride: PatternCategory = {
       pattern:
         /(?:[1l!|]gnore|1gn0re|ign0re|ignor3|igno[r\u0155]3|[1l!|]gn[0\u00f8]re)\s+(all\s+)?previous\s+instructions/i,
       severity: 'MEDIUM',
-      message:
-        'Typoglycemia variant of "ignore previous instructions" with character swaps',
+      message: 'Typoglycemia variant of "ignore previous instructions" with character swaps',
     },
     {
       id: 'io-007',
       pattern: buildZeroWidthPattern(),
       severity: 'HIGH',
-      message:
-        'Zero-width character insertion in "ignore previous" to evade detection',
+      message: 'Zero-width character insertion in "ignore previous" to evade detection',
     },
   ],
 };

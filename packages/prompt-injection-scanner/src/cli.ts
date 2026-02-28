@@ -19,8 +19,7 @@ type ParsedArgs = {
 
 const SEVERITY_LEVELS: readonly Severity[] = ['LOW', 'MEDIUM', 'HIGH', 'CRITICAL'];
 
-const severityRank = (severity: Severity): number =>
-  SEVERITY_LEVELS.indexOf(severity);
+const severityRank = (severity: Severity): number => SEVERITY_LEVELS.indexOf(severity);
 
 const isValidSeverity = (value: string): value is Severity =>
   SEVERITY_LEVELS.includes(value as Severity);
@@ -62,10 +61,8 @@ const parseArgs = (args: readonly string[]): ParsedArgs | { readonly error: stri
   return { files, format, severity };
 };
 
-const meetsThreshold = (
-  findingSeverity: Severity,
-  threshold: Severity,
-): boolean => severityRank(findingSeverity) >= severityRank(threshold);
+const meetsThreshold = (findingSeverity: Severity, threshold: Severity): boolean =>
+  severityRank(findingSeverity) >= severityRank(threshold);
 
 const scanFile = (
   filePath: string,
@@ -74,9 +71,7 @@ const scanFile = (
   try {
     const content = readFileSync(filePath, 'utf-8');
     const result = scan(content);
-    const filtered = result.findings.filter((f) =>
-      meetsThreshold(f.severity, severityThreshold),
-    );
+    const filtered = result.findings.filter((f) => meetsThreshold(f.severity, severityThreshold));
     const suppressedCount = filtered.filter((f) => f.suppressed === true).length;
     const summary = {
       total: filtered.length,
@@ -95,20 +90,14 @@ const scanFile = (
 const hasUnsuppressedHighOrCritical = (results: readonly FileResult[]): boolean =>
   results.some((r) =>
     r.findings.some(
-      (f) =>
-        (f.severity === 'CRITICAL' || f.severity === 'HIGH') &&
-        f.suppressed !== true,
+      (f) => (f.severity === 'CRITICAL' || f.severity === 'HIGH') && f.suppressed !== true,
     ),
   );
 
-const buildOutput = (
-  format: Format,
-  results: readonly FileResult[],
-): string => (format === 'json' ? formatJson(results) : formatHuman(results));
+const buildOutput = (format: Format, results: readonly FileResult[]): string =>
+  format === 'json' ? formatJson(results) : formatHuman(results);
 
-export const runCli = (
-  args: readonly string[],
-): Promise<CliResult> => {
+export const runCli = (args: readonly string[]): Promise<CliResult> => {
   const parsed = parseArgs(args);
 
   if ('error' in parsed) {
@@ -119,7 +108,8 @@ export const runCli = (
     return Promise.resolve({
       exitCode: 2,
       stdout: '',
-      stderr: 'Usage: prompt-injection-scanner [--format json|human] [--severity CRITICAL|HIGH|MEDIUM|LOW] <file...>',
+      stderr:
+        'Usage: prompt-injection-scanner [--format json|human] [--severity CRITICAL|HIGH|MEDIUM|LOW] <file...>',
     });
   }
 
@@ -153,13 +143,15 @@ const isDirectExecution = (): boolean => {
 };
 
 if (isDirectExecution()) {
-  runCli(process.argv.slice(2)).then((result) => {
-    if (result.stdout) process.stdout.write(result.stdout + '\n');
-    if (result.stderr) process.stderr.write(result.stderr + '\n');
-    process.exit(result.exitCode);
-  }).catch((err: unknown) => {
-    const message = err instanceof Error ? err.message : String(err);
-    process.stderr.write(`Fatal error: ${message}\n`);
-    process.exit(2);
-  });
+  runCli(process.argv.slice(2))
+    .then((result) => {
+      if (result.stdout) process.stdout.write(result.stdout + '\n');
+      if (result.stderr) process.stderr.write(result.stderr + '\n');
+      process.exit(result.exitCode);
+    })
+    .catch((err: unknown) => {
+      const message = err instanceof Error ? err.message : String(err);
+      process.stderr.write(`Fatal error: ${message}\n`);
+      process.exit(2);
+    });
 }

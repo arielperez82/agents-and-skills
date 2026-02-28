@@ -9,18 +9,13 @@ import type { Finding, Severity } from './types.js';
 const currentDir = dirname(fileURLToPath(import.meta.url));
 const fixturesDir = resolve(currentDir, '..', 'fixtures');
 
-const readFixture = (name: string): string =>
-  readFileSync(resolve(fixturesDir, name), 'utf-8');
+const readFixture = (name: string): string => readFileSync(resolve(fixturesDir, name), 'utf-8');
 
 const HIGH_OR_CRITICAL: readonly Severity[] = ['HIGH', 'CRITICAL'];
 
-const hasUnsuppressedHighOrCritical = (
-  findings: readonly Finding[],
-): boolean =>
+const hasUnsuppressedHighOrCritical = (findings: readonly Finding[]): boolean =>
   findings.some(
-    (f) =>
-      (f.severity === 'HIGH' || f.severity === 'CRITICAL') &&
-      f.suppressed !== true,
+    (f) => (f.severity === 'HIGH' || f.severity === 'CRITICAL') && f.suppressed !== true,
   );
 
 describe('adversarial fixture tests', () => {
@@ -36,38 +31,28 @@ describe('adversarial fixture tests', () => {
       const content = readFixture('adversarial-trojan-skill-html-comment.txt');
       const result = scan(content);
 
-      const overrideFindings = result.findings.filter(
-        (f) => f.category === 'instruction-override',
-      );
+      const overrideFindings = result.findings.filter((f) => f.category === 'instruction-override');
       expect(overrideFindings.length).toBeGreaterThanOrEqual(1);
     });
   });
 
   describe('YAML description injection', () => {
     it('produces HIGH or CRITICAL findings', () => {
-      const content = readFixture(
-        'adversarial-yaml-description-injection.txt',
-      );
+      const content = readFixture('adversarial-yaml-description-injection.txt');
       const result = scan(content);
 
       expect(hasUnsuppressedHighOrCritical(result.findings)).toBe(true);
     });
 
     it('detects injection in frontmatter context', () => {
-      const content = readFixture(
-        'adversarial-yaml-description-injection.txt',
-      );
+      const content = readFixture('adversarial-yaml-description-injection.txt');
       const result = scan(content);
 
       const frontmatterFindings = result.findings.filter((f) =>
         f.context.startsWith('frontmatter:'),
       );
       expect(frontmatterFindings.length).toBeGreaterThanOrEqual(1);
-      expect(
-        frontmatterFindings.some((f) =>
-          HIGH_OR_CRITICAL.includes(f.severity),
-        ),
-      ).toBe(true);
+      expect(frontmatterFindings.some((f) => HIGH_OR_CRITICAL.includes(f.severity))).toBe(true);
     });
   });
 
@@ -83,9 +68,7 @@ describe('adversarial fixture tests', () => {
       const content = readFixture('adversarial-unicode-invisible.txt');
       const result = scan(content);
 
-      const unicodeFindings = result.findings.filter(
-        (f) => f.category === 'encoding-obfuscation',
-      );
+      const unicodeFindings = result.findings.filter((f) => f.category === 'encoding-obfuscation');
       expect(unicodeFindings.length).toBeGreaterThanOrEqual(1);
     });
   });
@@ -105,9 +88,7 @@ describe('adversarial fixture tests', () => {
       const highOrCriticalFindings = result.findings.filter((f) =>
         HIGH_OR_CRITICAL.includes(f.severity),
       );
-      const distinctCategories = new Set(
-        highOrCriticalFindings.map((f) => f.category),
-      );
+      const distinctCategories = new Set(highOrCriticalFindings.map((f) => f.category));
       expect(distinctCategories.size).toBeGreaterThanOrEqual(2);
     });
 
@@ -115,9 +96,7 @@ describe('adversarial fixture tests', () => {
       const content = readFixture('adversarial-multi-vector.txt');
       const result = scan(content);
 
-      expect(
-        result.findings.some((f) => f.category === 'instruction-override'),
-      ).toBe(true);
+      expect(result.findings.some((f) => f.category === 'instruction-override')).toBe(true);
     });
 
     it('detects transitive-trust or encoding-obfuscation among the findings', () => {
@@ -125,9 +104,7 @@ describe('adversarial fixture tests', () => {
       const result = scan(content);
 
       const hasSecondVector = result.findings.some(
-        (f) =>
-          f.category === 'transitive-trust' ||
-          f.category === 'encoding-obfuscation',
+        (f) => f.category === 'transitive-trust' || f.category === 'encoding-obfuscation',
       );
       expect(hasSecondVector).toBe(true);
     });

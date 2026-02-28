@@ -20,13 +20,15 @@ export const encodingObfuscation: PatternCategory = {
     },
     {
       id: 'eo-003',
-      pattern: /\b(rot13|rot-13|caesar\s+cipher)\b.*\b(decode|decrypt|follow|execute|translate)\b|\b(decode|decrypt|follow|execute|translate)\b.*\b(rot13|rot-13|caesar\s+cipher)\b/i,
+      pattern:
+        /\b(rot13|rot-13|caesar\s+cipher)\b.*\b(decode|decrypt|follow|execute|translate)\b|\b(decode|decrypt|follow|execute|translate)\b.*\b(rot13|rot-13|caesar\s+cipher)\b/i,
       severity: 'MEDIUM',
       message: 'ROT13 or cipher reference with execution intent',
     },
     {
       id: 'eo-004',
-      pattern: /["'](\+["'][a-z]["']\+){3,}|["'][a-z]["']\s*\+\s*["'][a-z]["']\s*\+\s*["'][a-z]["']\s*\+\s*["'][a-z]["']/i,
+      pattern:
+        /["'](\+["'][a-z]["']\+){3,}|["'][a-z]["']\s*\+\s*["'][a-z]["']\s*\+\s*["'][a-z]["']\s*\+\s*["'][a-z]["']/i,
       severity: 'HIGH',
       message: 'Obfuscated string via character concatenation splitting',
     },

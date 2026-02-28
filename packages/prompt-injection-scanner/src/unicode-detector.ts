@@ -32,8 +32,7 @@ const CYRILLIC_HOMOGLYPHS: ReadonlyMap<number, string> = new Map([
 const formatCodePoint = (codePoint: number): string =>
   `U+${codePoint.toString(16).toUpperCase().padStart(4, '0')}`;
 
-const isCodeBlockContext = (context: string): boolean =>
-  context.includes('code-block');
+const isCodeBlockContext = (context: string): boolean => context.includes('code-block');
 
 const computeLineAndColumn = (
   text: string,
@@ -56,10 +55,7 @@ const createFinding = (
   context: string,
 ): Finding => {
   const { line, column } = computeLineAndColumn(text, charIndex);
-  const { adjustedSeverity, contextReason } = adjustSeverity(
-    rawSeverity,
-    context,
-  );
+  const { adjustedSeverity, contextReason } = adjustSeverity(rawSeverity, context);
   return {
     category: 'encoding-obfuscation',
     severity: adjustedSeverity,
@@ -74,10 +70,7 @@ const createFinding = (
   };
 };
 
-const detectZeroWidthChars = (
-  text: string,
-  context: string,
-): readonly Finding[] => {
+const detectZeroWidthChars = (text: string, context: string): readonly Finding[] => {
   const findings: Finding[] = [];
   const rawSeverity: Severity = isCodeBlockContext(context) ? 'MEDIUM' : 'HIGH';
 
@@ -102,10 +95,7 @@ const detectZeroWidthChars = (
   return findings;
 };
 
-const detectBidiOverrides = (
-  text: string,
-  context: string,
-): readonly Finding[] => {
+const detectBidiOverrides = (text: string, context: string): readonly Finding[] => {
   const findings: Finding[] = [];
 
   for (let i = 0; i < text.length; i++) {
@@ -129,13 +119,9 @@ const detectBidiOverrides = (
   return findings;
 };
 
-const containsLatinLetters = (word: string): boolean =>
-  /[a-zA-Z]/.test(word);
+const containsLatinLetters = (word: string): boolean => /[a-zA-Z]/.test(word);
 
-const detectCyrillicHomoglyphs = (
-  text: string,
-  context: string,
-): readonly Finding[] => {
+const detectCyrillicHomoglyphs = (text: string, context: string): readonly Finding[] => {
   const findings: Finding[] = [];
   const words = text.split(/\s+/);
   let currentIndex = 0;
@@ -171,8 +157,7 @@ const detectCyrillicHomoglyphs = (
   return findings;
 };
 
-const BASE64_PATTERN =
-  /(?<![a-zA-Z0-9+/])[A-Za-z0-9+/]{21,}={0,2}(?![a-zA-Z0-9+/=])/g;
+const BASE64_PATTERN = /(?<![a-zA-Z0-9+/])[A-Za-z0-9+/]{21,}={0,2}(?![a-zA-Z0-9+/=])/g;
 
 const looksLikeSlashSeparatedWords = (str: string): boolean =>
   /^[A-Za-z0-9]+(?:\/[A-Za-z0-9]+)+$/.test(str);
@@ -185,10 +170,7 @@ const looksLikeBase64 = (str: string): boolean => {
   return hasUpperAndLower && hasDigitsOrSpecial;
 };
 
-const detectBase64Strings = (
-  text: string,
-  context: string,
-): readonly Finding[] => {
+const detectBase64Strings = (text: string, context: string): readonly Finding[] => {
   const findings: Finding[] = [];
   const regex = new RegExp(BASE64_PATTERN.source, 'g');
   let match: RegExpExecArray | null = regex.exec(text);
@@ -214,13 +196,9 @@ const detectBase64Strings = (
   return findings;
 };
 
-const HTML_ENTITY_SEQUENCE_PATTERN =
-  /(?:&#x?[0-9a-fA-F]+;|&[a-zA-Z]+;){3,}/g;
+const HTML_ENTITY_SEQUENCE_PATTERN = /(?:&#x?[0-9a-fA-F]+;|&[a-zA-Z]+;){3,}/g;
 
-const detectHtmlEntitySequences = (
-  text: string,
-  context: string,
-): readonly Finding[] => {
+const detectHtmlEntitySequences = (text: string, context: string): readonly Finding[] => {
   const findings: Finding[] = [];
   const regex = new RegExp(HTML_ENTITY_SEQUENCE_PATTERN.source, 'g');
   let match: RegExpExecArray | null = regex.exec(text);
@@ -243,10 +221,7 @@ const detectHtmlEntitySequences = (
   return findings;
 };
 
-export const detectUnicodeIssues = (
-  text: string,
-  context: string,
-): readonly Finding[] => [
+export const detectUnicodeIssues = (text: string, context: string): readonly Finding[] => [
   ...detectZeroWidthChars(text, context),
   ...detectBidiOverrides(text, context),
   ...detectCyrillicHomoglyphs(text, context),

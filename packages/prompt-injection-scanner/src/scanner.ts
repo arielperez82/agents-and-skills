@@ -6,17 +6,8 @@ import type { Heading, Root, Text } from 'mdast';
 
 import { allCategories } from '../patterns/index.js';
 import { adjustSeverity } from './context-severity-matrix.js';
-import {
-  applySuppressions,
-  parseSuppressionsFromContent,
-} from './suppression.js';
-import type {
-  Finding,
-  PatternCategory,
-  PatternRule,
-  ScanOptions,
-  ScanResult,
-} from './types.js';
+import { applySuppressions, parseSuppressionsFromContent } from './suppression.js';
+import type { Finding, PatternCategory, PatternRule, ScanOptions, ScanResult } from './types.js';
 import { detectUnicodeIssues } from './unicode-detector.js';
 
 type ContentSegment = {
@@ -42,8 +33,7 @@ const computeLineFromOffset = (
   const prefix = text.slice(0, charOffset);
   const newlines = prefix.split('\n').length - 1;
   const lastNewline = prefix.lastIndexOf('\n');
-  const column =
-    lastNewline === -1 ? charOffset + 1 : charOffset - lastNewline;
+  const column = lastNewline === -1 ? charOffset + 1 : charOffset - lastNewline;
   return { lineOffset: newlines, column };
 };
 
@@ -56,15 +46,9 @@ const matchRule = (
   if (!match) return undefined;
 
   const matchIndex = match.index;
-  const { lineOffset, column } = computeLineFromOffset(
-    segment.text,
-    matchIndex,
-  );
+  const { lineOffset, column } = computeLineFromOffset(segment.text, matchIndex);
 
-  const { adjustedSeverity, contextReason } = adjustSeverity(
-    rule.severity,
-    segment.context,
-  );
+  const { adjustedSeverity, contextReason } = adjustSeverity(rule.severity, segment.context);
 
   return {
     category: categoryId,
@@ -93,9 +77,7 @@ const applyPatterns = (
     ),
   );
 
-const applyUnicodeDetection = (
-  segments: readonly ContentSegment[],
-): readonly Finding[] =>
+const applyUnicodeDetection = (segments: readonly ContentSegment[]): readonly Finding[] =>
   segments.flatMap((segment) =>
     detectUnicodeIssues(segment.text, segment.context).map((finding) => ({
       ...finding,
@@ -105,13 +87,11 @@ const applyUnicodeDetection = (
 
 const extractFrontmatterValue = (value: unknown): readonly string[] => {
   if (typeof value === 'string') return [value];
-  if (Array.isArray(value))
-    return value.flatMap((item: unknown) => extractFrontmatterValue(item));
+  if (Array.isArray(value)) return value.flatMap((item: unknown) => extractFrontmatterValue(item));
   return [];
 };
 
-const hasFrontmatter = (content: string): boolean =>
-  content.startsWith('---');
+const hasFrontmatter = (content: string): boolean => content.startsWith('---');
 
 const countFrontmatterLines = (content: string): number => {
   const lines = content.split('\n');
@@ -151,9 +131,7 @@ const getHeadingText = (heading: Heading): string =>
     .map((child) => child.value)
     .join('');
 
-const collectHeadingRanges = (
-  tree: Root,
-): ReadonlyMap<number, string> => {
+const collectHeadingRanges = (tree: Root): ReadonlyMap<number, string> => {
   const headingAtLine = new Map<number, string>();
   visit(tree, 'heading', (node: Heading) => {
     const startLine = node.position?.start.line ?? 1;
@@ -186,9 +164,7 @@ const scanBody = (content: string): readonly ContentSegment[] => {
   if (bodyContent.trim() === '') return [];
 
   const tree = unified().use(remarkParse).parse(bodyContent);
-  const lineOffset = hasFrontmatter(content)
-    ? countFrontmatterLines(content)
-    : 0;
+  const lineOffset = hasFrontmatter(content) ? countFrontmatterLines(content) : 0;
   const headingAtLine = collectHeadingRanges(tree);
   const segments: ContentSegment[] = [];
 
@@ -237,17 +213,12 @@ const scanBody = (content: string): readonly ContentSegment[] => {
   return segments;
 };
 
-export const scan = (
-  content: string,
-  _options?: ScanOptions,
-): ScanResult => {
+export const scan = (content: string, _options?: ScanOptions): ScanResult => {
   if (content.trim() === '') {
     return { findings: [], summary: buildSummary([]) };
   }
 
-  const frontmatterSegments = hasFrontmatter(content)
-    ? scanFrontmatter(content)
-    : [];
+  const frontmatterSegments = hasFrontmatter(content) ? scanFrontmatter(content) : [];
   const bodySegments = scanBody(content);
   const allSegments = [...frontmatterSegments, ...bodySegments];
   const patternFindings = applyPatterns(allSegments, allCategories);

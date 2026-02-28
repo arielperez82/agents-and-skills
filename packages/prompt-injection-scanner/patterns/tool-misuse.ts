@@ -14,7 +14,8 @@ export const toolMisuse: PatternCategory = {
     },
     {
       id: 'tm-002',
-      pattern: /\b(write|create|modify|overwrite)\b.*\b(\/etc\/|~\/\.ssh\/|~\/\.bashrc|~\/\.profile|\/root\/|authorized_keys)\b/i,
+      pattern:
+        /\b(write|create|modify|overwrite)\b.*\b(\/etc\/|~\/\.ssh\/|~\/\.bashrc|~\/\.profile|\/root\/|authorized_keys)\b/i,
       severity: 'CRITICAL',
       message: 'File write to sensitive system path',
     },

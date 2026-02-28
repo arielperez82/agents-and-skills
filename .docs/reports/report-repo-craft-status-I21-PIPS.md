@@ -62,29 +62,27 @@ phases:
     feedback: null
   - name: Build
     number: 4
-    status: in_progress
+    status: completed
     agents: [engineering-lead]
     artifact_paths:
-      - packages/prompt-injection-scanner/package.json
-      - packages/prompt-injection-scanner/tsconfig.json
-      - packages/prompt-injection-scanner/vitest.config.ts
-      - packages/prompt-injection-scanner/eslint.config.ts
-      - packages/prompt-injection-scanner/prettier.config.ts
-      - packages/prompt-injection-scanner/bin/scan.mjs
-    commit_shas: ["026f811"]
-    current_step: 2
-    steps_completed: [1]
+      - packages/prompt-injection-scanner/
+      - .github/workflows/prompt-injection-scan.yml
+      - skills/engineering-team/prompt-injection-security/SKILL.md
+      - .docs/reports/report-repo-I21-PIPS-retroactive-audit-2026-02.md
+    commit_shas: ["026f811", "57b08c7", "d0dd621", "78336a1", "d027060", "51ffc64", "5792cb9", "dba50a6", "133bff4"]
+    current_step: 16
+    steps_completed: [1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16]
     started_at: "2026-02-28T16:11:00Z"
-    completed_at: null
+    completed_at: "2026-02-28T22:50:00Z"
     human_decision: null
     feedback: null
   - name: Validate
     number: 5
-    status: pending
-    agents: []
+    status: in_progress
+    agents: [tdd-reviewer, ts-enforcer, security-assessor, code-reviewer, cognitive-load-assessor]
     artifact_paths: []
     commit_shas: []
-    started_at: null
+    started_at: "2026-02-28T22:51:00Z"
     completed_at: null
     human_decision: null
     feedback: null
