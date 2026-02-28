@@ -100,16 +100,37 @@ grep -iE '\.env|/credentials|/secrets|api_key\s*=|token\s*=\s*["\'][^"\']+["\']'
 
 ## 6. MCP tool access
 
-**Definition:** If agent or its workflows use MCP tools, those should be declared (e.g. in frontmatter or a "Tools" section). Undeclared MCP servers make dependency and security review harder.
+**Definition:** If agent or its workflows use MCP tools, those should be declared (e.g. in frontmatter or a "Tools" section). Undeclared MCP servers make dependency and security review harder. MCP tools can execute arbitrary code and access external services, making undeclared usage a significant security concern.
 
 **Checks:**
 - Search for "MCP", "mcp_", "call_mcp" in body. If present, check for a declaration of which MCP servers are used.
 
-**Severity:** Undeclared MCP usage = **Medium**.
+**Severity:** Undeclared MCP usage = **High**.
 
 **Grep patterns:**
 ```bash
 grep -iE 'mcp|call_mcp' agent.md
+```
+
+---
+
+## 7. Prompt injection
+
+**Definition:** Agent body, frontmatter fields, or referenced content must not contain hidden instructions that could override agent behavior. Prompt injection attacks hide payloads in HTML comments, zero-width Unicode characters, YAML description fields, homoglyph substitution, or transitive trust references.
+
+**Checks:**
+- Run `npx prompt-injection-scanner <candidate-file> --format human` (Phase 2.5).
+- Review any HIGH or CRITICAL findings from the scanner.
+- Manually inspect HTML comments in the markdown body for hidden instructions.
+- Check for zero-width Unicode characters in text content.
+- Verify YAML description fields do not contain instruction-like content.
+- Check for references to external URLs with "load", "follow", or "execute" instructions.
+
+**Severity:** Hidden instruction override in body or HTML comment = **Critical**. Instruction override in frontmatter = **Critical**. Zero-width character obfuscation = **High**. Transitive trust attack (load from external URL) = **Critical**. Homoglyph substitution = **High**.
+
+**Scanner command:**
+```bash
+npx prompt-injection-scanner agent.md --format human
 ```
 
 ---
@@ -123,6 +144,7 @@ grep -iE 'mcp|call_mcp' agent.md
 | Skill reference integrity | — | Unresolved refs | — | — |
 | Conflict with review gates | Bypass mandatory gate | — | — | — |
 | Credential exposure | Hardcoded credential path | — | — | Env var mention |
-| MCP tool access | — | — | Undeclared MCP | — |
+| MCP tool access | — | Undeclared MCP | — | — |
+| Prompt injection | Instruction override, transitive trust | Encoding obfuscation, homoglyphs | Suspicious base64, HTML entities | — |
 
 **Gate logic:** Any Critical = REJECT. Any High = FLAGGED (can proceed with approval). Medium/Low = document in report.

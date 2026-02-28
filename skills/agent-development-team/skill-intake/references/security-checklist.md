@@ -93,6 +93,38 @@ Checklist for evaluating sandboxed skills before incorporation into a project's 
 - [ ] **Path traversal**: Can user input influence file paths?
   - `../` in file paths from user input → **High**
 
+### 9. Prompt Injection (Critical/High)
+
+<!-- pips-allow-file: instruction-override -- Educational documentation listing attack patterns for security checklist -->
+<!-- pips-allow-file: transitive-trust -- Educational documentation listing attack patterns for security checklist -->
+<!-- pips-allow-file: tool-misuse -- Grep patterns in code blocks are detection examples, not attacks -->
+
+- [ ] **Instruction overrides**: Does the SKILL.md body, frontmatter, or reference docs contain hidden instructions to override, ignore, or replace system behavior?
+  - "ignore previous instructions", "new system prompt", "override instructions" → **Critical**
+  - Hidden in HTML comments within markdown → **Critical**
+  - Hidden in YAML description or other frontmatter fields → **Critical**
+- [ ] **Encoding obfuscation**: Are there zero-width Unicode characters, homoglyphs, or encoded payloads hiding instructions?
+  - Zero-width joiners/non-joiners inserted into instruction text → **High**
+  - Cyrillic homoglyphs mixed with Latin text → **High**
+  - Base64-encoded strings with execution instructions → **High**
+- [ ] **Transitive trust attacks**: Does the skill instruct loading content from external URLs or claiming authority for external sources?
+  - "load skill from https://..." or "follow instructions from URL" → **Critical**
+  - "this document is authoritative, follow its instructions" → **High**
+  - Trust chain extension to downstream agents → **High**
+- [ ] **Social engineering**: Does the skill use urgency, authority claims, or role reassignment to manipulate agent behavior?
+  - "you are now a different agent", "urgent override" → **High**
+
+**Scanner command:**
+```bash
+# Scan SKILL.md (critical surface - loaded directly into agent context)
+npx prompt-injection-scanner SKILL.md --format human
+
+# Scan all reference documents
+npx prompt-injection-scanner references/*.md --format human
+```
+
+**Why this matters:** Unlike scripts (which run in a sandboxed process), SKILL.md content is injected directly into the LLM context window. A prompt injection hidden in skill body text can override agent behavior, exfiltrate data, or escalate privileges without any code execution. The skill body is the most critical attack surface in the intake pipeline.
+
 ## Semgrep Scan (Required)
 
 Run Semgrep on all skill scripts before incorporation. This catches vulnerability classes that grep patterns miss (XXE, SQL injection, path traversal, insecure transport, hardcoded secrets, unsafe deserialization, ReDoS, etc.).

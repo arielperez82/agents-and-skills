@@ -31,7 +31,7 @@ Agents analyze **only the changed lines and their immediate context**. Optimized
 |-------|----------------|----------------|
 | code-reviewer | Anti-pattern scan + security patterns on changed lines only | Architecture review, breaking-change assessment |
 | refactor-assessor | Naming, nesting, immutability on changed files | Cross-file semantic duplication scan |
-| security-assessor | Full analysis (already diff-native) | Nothing — this agent is designed for diffs |
+| security-assessor | Full analysis (already diff-native); content security scan on artifact markdown | Nothing — this agent is designed for diffs |
 | ts-enforcer | Pattern scan on changed files + `tsc --noEmit` | Nothing significant — already mostly line-level |
 | tdd-reviewer | TDD coaching on current step (did test come first?) | Farley Index scoring, full test-suite analysis |
 | cognitive-load-assessor | **Not run in diff-mode** | Entire analysis (requires full codebase metrics) |
@@ -71,7 +71,7 @@ All 13 agents default to **included**. Each agent has documented exclusion crite
 | 1 | **tdd-reviewer** | Diff contains zero test files AND zero source code files | No code to verify TDD compliance on |
 | 2 | **ts-enforcer** | Diff contains zero TypeScript files (`.ts`, `.tsx`) | TypeScript-specific; irrelevant for Python/shell/markdown |
 | 3 | **refactor-assessor** | Diff contains zero source code files | No code to assess refactoring on |
-| 4 | **security-assessor** | Diff contains zero source code files AND zero config files (`.json`, `.yaml`, `.yml`, `.env*`) | No attack surface to review |
+| 4 | **security-assessor** | Diff contains zero source code files AND zero config files (`.json`, `.yaml`, `.yml`, `.env*`) AND zero artifact markdown files (`agents/*.md`, `skills/**/*.md`, `commands/**/*.md`) | No attack surface to review and no artifact content to scan for prompt injection |
 | 5 | **code-reviewer** | Diff contains zero source code files | No code to review |
 | 6 | **cognitive-load-assessor** | Diff contains zero source code files | No code metrics to compute |
 | 7 | **docs-reviewer** | **Never excluded** — always runs | Primary reviewer for docs-only; valuable for any diff |
@@ -84,12 +84,14 @@ All 13 agents default to **included**. Each agent has documented exclusion crite
 
 **Source code files** = `.ts`, `.tsx`, `.js`, `.jsx`, `.py`, `.sh`, `.bash`. If ANY source code file appears in the diff, ALL code-focused agents run (they assess the full diff, not just the code portion). The only per-agent exception is **ts-enforcer**, which is excluded when zero TypeScript files are in the diff even if other code files are present.
 
+**Artifact markdown files** = `agents/*.md`, `skills/**/*.md`, `commands/**/*.md`. These are agent, skill, and command definitions that get loaded as LLM context. When ANY artifact markdown file appears in the diff, **security-assessor** is included to run its content security scan (Workflow 4) for prompt injection detection, even if no source code or config files are present. Non-artifact markdown (README.md, docs/, `.docs/`) does NOT trigger security-assessor on its own.
+
 ### Agent Details
 
 1. **tdd-reviewer** – TDD compliance, test quality, behavior-focused tests. Tiered output: Farley Index thresholds + TDD compliance findings.
 2. **ts-enforcer** – TypeScript strict mode, no `any`, schema usage, immutability. Tiered output: Critical/High/Style mapped to tiers.
 3. **refactor-assessor** – Refactoring opportunities. Tiered output: Critical/High/Nice/Skip mapped to Fix required/Suggestion/Observation/Omit.
-4. **security-assessor** – Security assessment of the diff. Tiered output: Critical+High → Fix required, Medium → Suggestion, Low → Observation. Does not implement fixes.
+4. **security-assessor** – Security assessment of the diff. Includes content security scan (prompt injection detection) when artifact markdown files (`agents/*.md`, `skills/**/*.md`, `commands/**/*.md`) are in the diff. Tiered output: Critical+High → Fix required, Medium → Suggestion, Low → Observation. Does not implement fixes.
 5. **code-reviewer** – Code quality, security, best practices, merge readiness. Tiered output: broken patterns/security → Fix required, best-practice deviations → Suggestion, style/positive → Observation.
 6. **cognitive-load-assessor** – Cognitive Load Index (CLI) for changed code; 8-dimension report, top offenders, recommendations (read-only). Tiered output: CLI >600 → Fix required, 400-600 → Suggestion, <400 → Observation.
 7. **docs-reviewer** – Reviews markdown structure, frontmatter correctness, progressive disclosure, section ordering, and formatting quality. Runs on any diff containing documentation (`*.md`, `README*`, `docs/`), agent specs (`agents/*.md`), skill definitions (`skills/**/SKILL.md`), or command definitions (`commands/**/*.md`).
@@ -171,9 +173,10 @@ When including **phase0-assessor**, use this scope:
    - Run `git status` and `git diff HEAD` (and if needed `git diff --staged`).
    - If argument provided: filter or annotate which paths to include/exclude or what to focus on.
    - **Apply exclusion rules** (see § Agent Inclusion & Exclusion Rules):
-     - Classify diff files by type: source code, TypeScript, config, docs, agent specs, skill definitions, command definitions.
+     - Classify diff files by type: source code, TypeScript, config, docs, agent specs, skill definitions, command definitions, artifact markdown.
      - Exclude each agent whose exclusion criteria are met.
      - If diff includes scripts (`.sh`, `.py`) under artifact directories (`skills/`, `agents/`, `commands/`) → note in code-reviewer and security-assessor prompts that these scripts are in-scope.
+     - If diff includes artifact markdown files (`agents/*.md`, `skills/**/*.md`, `commands/**/*.md`) → ensure security-assessor is included and note that content security scan (Workflow 4) should run.
 
 2. **Run T1 pre-filters** (sequential, sub-second — before agent dispatch)
    - Classify files from the diff by type:
@@ -198,7 +201,7 @@ When including **phase0-assessor**, use this scope:
      - progress-assessor prompt: prepend T1 progress JSON as `T1 PRE-FILTER RESULTS:` block
      - Other agents: unchanged (receive diff as today)
    - **In diff-mode:** Prepend the DIFF-MODE preamble (see § Review Modes) to each agent's prompt. Skip agents marked "Not run in diff-mode" (cognitive-load-assessor, docs-reviewer, progress-assessor). All other core agents run with their diff-mode scope.
-   - **In full-mode (default):** All 13 agents included by default. Apply exclusion rules from § Agent Inclusion & Exclusion Rules to determine which agents to skip based on diff content. If zero source code files in diff, code-focused agents (tdd-reviewer, refactor-assessor, code-reviewer, cognitive-load-assessor) are excluded. ts-enforcer excluded when zero TypeScript files. security-assessor excluded when zero source code AND zero config files. docs-reviewer never excluded. Artifact-specific agents (agent-validator, skill-validator, command-validator, phase0-assessor) excluded when their directories or configs are untouched.
+   - **In full-mode (default):** All 13 agents included by default. Apply exclusion rules from § Agent Inclusion & Exclusion Rules to determine which agents to skip based on diff content. If zero source code files in diff, code-focused agents (tdd-reviewer, refactor-assessor, code-reviewer, cognitive-load-assessor) are excluded. ts-enforcer excluded when zero TypeScript files. security-assessor excluded when zero source code AND zero config files AND zero artifact markdown files. docs-reviewer never excluded. Artifact-specific agents (agent-validator, skill-validator, command-validator, phase0-assessor) excluded when their directories or configs are untouched.
    - Wait for all agents to complete before proceeding to summarize.
 
 4. **Summarize (collated tier summary)**

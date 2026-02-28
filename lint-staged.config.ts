@@ -7,4 +7,7 @@ export default {
   '**/*/package.json': () => [
     `bash -c 'set -o pipefail; pnpm audit --prod --audit-level high 2>&1 | tail -1'`,
   ],
+  '{agents,skills,commands}/**/*.md': (files: readonly string[]) => [
+    `npx prompt-injection-scanner --severity HIGH ${files.join(' ')}`,
+  ],
 };

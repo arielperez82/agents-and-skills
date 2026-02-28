@@ -14,6 +14,7 @@ use-cases:
   - Producing a structured security findings report with severity and fix recommendations
   - Acting as a lightweight security gate without running full audits or pentests
   - Delegating from code-reviewer for security-focused assessment of changes
+  - Scanning agent, skill, and command markdown for prompt injection patterns
 
 # === AGENT CLASSIFICATION ===
 classification:
@@ -52,7 +53,8 @@ tools: [Read, Grep, Glob, Bash]
 dependencies:
   tools: [Read, Grep, Glob, Bash]
   mcp-tools: []
-  scripts: []
+  scripts:
+    - plans/prompt-injection-security/packages/prompt-injection-scanner/dist/cli.js
 ---
 
 # Security Assessor
@@ -154,6 +156,51 @@ git diff --cached
 
 **Expected output:** Security Assessment Report suitable for inclusion in a code review comment or summary.
 
+### Workflow 4: Content security scan for artifact markdown
+
+**Goal:** Detect prompt injection patterns in agent, skill, and command markdown files that could manipulate LLM behavior when loaded as context.
+
+**When to run:** The diff includes files matching `agents/*.md`, `skills/**/*.md`, or `commands/**/*.md`. This workflow runs **in addition to** the standard security assessment (Workflows 1-3), not instead of it.
+
+**Steps:**
+1. Identify artifact markdown files in the diff:
+   ```bash
+   # From the diff file list, filter for artifact paths
+   # agents/*.md, skills/**/*.md, commands/**/*.md
+   ```
+2. Run the prompt injection scanner on each changed artifact file:
+   ```bash
+   npx prompt-injection-scanner <file1> <file2> ... --format json
+   ```
+   - Performance target: completes in <500ms for a typical staged set (1-10 files).
+   - If the scanner is not installed or fails to execute, fall back to manual assessment of the file contents for obvious injection patterns (role overrides, instruction hijacking, delimiter attacks).
+3. Parse the JSON output and map findings to the confidence-tiered format:
+
+   | Scanner Confidence | Report Tier | Behavior |
+   |---|---|---|
+   | CRITICAL | 🔴 Fix Required | Blocking — must be resolved before commit |
+   | HIGH | 🟡 Recommendation | Non-blocking — reviewer should evaluate |
+   | MEDIUM / LOW | 🔵 Observation | Informational — shown for awareness |
+   | Suppressed (via `.prompt-injection-ignore`) | 🔵 Observation | Shown as "suppressed" with reason — does not block |
+
+4. Include content security findings in the Security Assessment Report under a dedicated subsection:
+
+   ```markdown
+   ## Content Security (Prompt Injection Scan)
+
+   **Files scanned:** N artifact markdown files
+   **Scanner:** prompt-injection-scanner vX.X.X
+
+   | File | Finding | Confidence | Tier |
+   |------|---------|------------|------|
+   | agents/foo.md | Role override pattern detected | CRITICAL | Fix Required |
+   | skills/bar/SKILL.md | Suppressed: known safe pattern | suppressed | Observation |
+   ```
+
+5. If no artifact markdown files are in the diff, skip this workflow silently (do not add an empty section to the report).
+
+**Expected output:** Content security subsection appended to the standard Security Assessment Report, or omitted if no artifact files changed.
+
 ## Report format (canonical)
 
 Use this structure so outputs are consistent and machine-friendly:
@@ -182,6 +229,10 @@ Use this structure so outputs are consistent and machine-friendly:
 - **Reference:** (e.g. OWASP category or CWE if applicable)
 
 (Repeat per finding.)
+
+## Content Security (Prompt Injection Scan)
+
+(Include only when artifact markdown files were scanned — see Workflow 4.)
 
 ## Next steps
 
@@ -222,6 +273,8 @@ User: "Assess `src/payment/processor.ts` for security." Guardian reads file, pro
 - **No implementation:** Zero code or config edits; only report artifact.
 - **Clear handoff:** Next steps always point to security-engineer (or devsecops-engineer for infra) for remediation.
 - **Scope respect:** Assessment limited to provided diff or paths; no unsolicited project-wide scans.
+- **Content security coverage:** All artifact markdown files in the diff are scanned for prompt injection patterns when present.
+- **Scanner performance:** Content security scan completes in <500ms for typical staged sets.
 
 ## Related agents
 
@@ -233,3 +286,4 @@ User: "Assess `src/payment/processor.ts` for security." Guardian reads file, pro
 
 - **Skill documentation:** [../skills/engineering-team/senior-security/SKILL.md](../skills/engineering-team/senior-security/SKILL.md)
 - **Agent author workflow (guardians):** [agent-author](agent-author.md) Workflow 3 – Introduce a New Guardian or Cross-Cutting Role
+- **Prompt injection scanner:** `plans/prompt-injection-security/packages/prompt-injection-scanner/` — CLI tool for detecting prompt injection patterns in markdown artifacts
