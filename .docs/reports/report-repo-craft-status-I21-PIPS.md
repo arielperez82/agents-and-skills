@@ -5,7 +5,7 @@ mode: auto
 auto_mode_confirmed_at: "2026-02-28T12:00:00Z"
 overall_status: in_progress
 created_at: "2026-02-28T12:00:00Z"
-updated_at: "2026-02-28T15:00:00Z"
+updated_at: "2026-02-28T15:35:00Z"
 phases:
   - name: Discover
     number: 0
@@ -36,13 +36,18 @@ phases:
     feedback: null
   - name: Design
     number: 2
-    status: pending
-    agents: [architect, adr-writer]
-    artifact_paths: []
+    status: approved
+    agents: [architect]
+    artifact_paths:
+      - .docs/canonical/backlogs/backlog-repo-I21-PIPS.md
+      - .docs/canonical/adrs/adr-021-01-scanner-architecture.md
+      - .docs/canonical/adrs/adr-021-02-data-driven-pattern-library.md
+      - .docs/canonical/adrs/adr-021-03-context-severity-matrix.md
+      - .docs/canonical/adrs/adr-021-04-workspace-package-deployment.md
     commit_shas: []
-    started_at: null
-    completed_at: null
-    human_decision: null
+    started_at: "2026-02-28T15:01:00Z"
+    completed_at: "2026-02-28T15:35:00Z"
+    human_decision: approve
     feedback: null
   - name: Plan
     number: 3
@@ -118,6 +123,19 @@ Initiative: I21-PIPS
 - Decision: Approved (auto-mode)
 - Notes: 21 user stories (15 Must, 2 Should, 4 Could). 103 BDD scenarios (43% error/edge-case). 9 walking skeleton scenarios. 5-wave roadmap.
 
+### Phase 2: Design — Approved
+- Started: 2026-02-28T15:01:00Z
+- Completed: 2026-02-28T15:35:00Z
+- Agents: architect
+- Artifacts:
+  - .docs/canonical/backlogs/backlog-repo-I21-PIPS.md (27 items across 6 waves + 5 deferred)
+  - .docs/canonical/adrs/adr-021-01-scanner-architecture.md (hybrid AST+regex)
+  - .docs/canonical/adrs/adr-021-02-data-driven-pattern-library.md (category-per-file)
+  - .docs/canonical/adrs/adr-021-03-context-severity-matrix.md (separate config)
+  - .docs/canonical/adrs/adr-021-04-workspace-package-deployment.md (workspace package)
+- Decision: Approved (auto-mode)
+- Notes: Backlog expands charter B1-B19 to B1-B27 for granularity. 4 ADRs covering scanner architecture, pattern library design, context-severity matrix, and deployment model. All architectural decisions align with existing patterns (lint-changed, gray-matter, remark-parse).
+
 ## Audit Log
 
 - **2026-02-28T14:45:00Z** `AUTO_APPROVE` Phase 0 (Discover) — Clean pass with warnings
@@ -128,3 +146,7 @@ Initiative: I21-PIPS
   - Trigger: Auto-mode gate, all required artifacts produced
   - Detail: 2 agents completed, 3 artifacts (charter updated + scenarios doc + initiative roadmap). 21 user stories with MoSCoW. 103 BDD scenarios exceeding 40% error-path target. Walking skeleton identified (US-01 + US-02 + US-04).
   - Resolution: Advanced to Phase 2.
+- **2026-02-28T15:35:00Z** `AUTO_APPROVE` Phase 2 (Design) — Backlog + 4 ADRs produced
+  - Trigger: Auto-mode gate, all required artifacts produced
+  - Detail: 1 agent completed, 5 artifacts (backlog + 4 ADRs). 27 backlog items mapped to charter outcomes. ADRs cover scanner architecture, pattern library, severity matrix, workspace package.
+  - Resolution: Advanced to Phase 3.
