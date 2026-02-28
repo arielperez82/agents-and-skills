@@ -3,7 +3,7 @@ type: charter
 endeavor: repo
 initiative: I22-SFMC
 initiative_name: skill-frontmatter-compliance
-status: draft
+status: complete
 scope_type: mixed
 created: 2026-02-28
 updated: 2026-02-28
