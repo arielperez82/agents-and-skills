@@ -9,6 +9,8 @@ import re
 import yaml
 from pathlib import Path
 
+RECOMMENDED_METADATA = {'domain', 'tags', 'related-agents', 'related-skills', 'version'}
+
 def validate_skill(skill_path):
     """Basic validation of a skill"""
     skill_path = Path(skill_path)
@@ -83,13 +85,20 @@ def validate_skill(skill_path):
         if len(description) > 1024:
             return False, f"Description is too long ({len(description)} characters). Maximum is 1024 characters."
 
+    # Warn on incomplete metadata (does not affect validity)
+    metadata = frontmatter.get('metadata')
+    if isinstance(metadata, dict):
+        missing = RECOMMENDED_METADATA - set(metadata.keys())
+        if missing:
+            print(f"WARNING: metadata is missing recommended fields: {', '.join(sorted(missing))}")
+
     return True, "Skill is valid!"
 
 if __name__ == "__main__":
     if len(sys.argv) != 2:
         print("Usage: python quick_validate.py <skill_directory>")
         sys.exit(1)
-    
+
     valid, message = validate_skill(sys.argv[1])
     print(message)
     sys.exit(0 if valid else 1)
