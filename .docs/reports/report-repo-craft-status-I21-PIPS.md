@@ -64,10 +64,16 @@ phases:
     number: 4
     status: in_progress
     agents: [engineering-lead]
-    artifact_paths: []
-    commit_shas: []
-    current_step: 1
-    steps_completed: []
+    artifact_paths:
+      - packages/prompt-injection-scanner/package.json
+      - packages/prompt-injection-scanner/tsconfig.json
+      - packages/prompt-injection-scanner/vitest.config.ts
+      - packages/prompt-injection-scanner/eslint.config.ts
+      - packages/prompt-injection-scanner/prettier.config.ts
+      - packages/prompt-injection-scanner/bin/scan.mjs
+    commit_shas: ["026f811"]
+    current_step: 2
+    steps_completed: [1]
     started_at: "2026-02-28T16:11:00Z"
     completed_at: null
     human_decision: null

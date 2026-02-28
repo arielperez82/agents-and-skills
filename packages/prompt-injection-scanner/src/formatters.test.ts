@@ -7,6 +7,8 @@ import type { Finding } from './types.js';
 const createFinding = (overrides: Partial<Finding> = {}): Finding => ({
   category: 'instruction-override',
   severity: 'HIGH',
+  rawSeverity: 'HIGH',
+  contextReason: 'body text elevated +1: directly consumed content',
   line: 5,
   column: 1,
   matchedText: 'ignore all previous instructions',
@@ -21,7 +23,14 @@ const createFileResult = (
 ): FileResult => ({
   file: 'test.md',
   findings: [],
-  summary: { total: 0, critical: 0, high: 0, medium: 0, low: 0 },
+  summary: {
+    total: 0,
+    critical: 0,
+    high: 0,
+    medium: 0,
+    low: 0,
+    suppressedCount: 0,
+  },
   ...overrides,
 });
 
@@ -39,7 +48,14 @@ describe('formatJson', () => {
     const result = createFileResult({
       file: 'docs/agent.md',
       findings: [finding],
-      summary: { total: 1, critical: 0, high: 1, medium: 0, low: 0 },
+      summary: {
+        total: 1,
+        critical: 0,
+        high: 1,
+        medium: 0,
+        low: 0,
+        suppressedCount: 0,
+      },
     });
 
     const output = formatJson([result]);
@@ -82,12 +98,26 @@ describe('formatHuman', () => {
       createFileResult({
         file: 'a.md',
         findings: [createFinding({ line: 1 })],
-        summary: { total: 1, critical: 0, high: 1, medium: 0, low: 0 },
+        summary: {
+          total: 1,
+          critical: 0,
+          high: 1,
+          medium: 0,
+          low: 0,
+          suppressedCount: 0,
+        },
       }),
       createFileResult({
         file: 'b.md',
         findings: [createFinding({ line: 3 })],
-        summary: { total: 1, critical: 0, high: 1, medium: 0, low: 0 },
+        summary: {
+          total: 1,
+          critical: 0,
+          high: 1,
+          medium: 0,
+          low: 0,
+          suppressedCount: 0,
+        },
       }),
     ];
 
@@ -101,7 +131,14 @@ describe('formatHuman', () => {
     const results: readonly FileResult[] = [
       createFileResult({
         findings: [createFinding({ severity: 'CRITICAL' })],
-        summary: { total: 1, critical: 1, high: 0, medium: 0, low: 0 },
+        summary: {
+          total: 1,
+          critical: 1,
+          high: 0,
+          medium: 0,
+          low: 0,
+          suppressedCount: 0,
+        },
       }),
     ];
 
@@ -114,7 +151,14 @@ describe('formatHuman', () => {
     const results: readonly FileResult[] = [
       createFileResult({
         findings: [createFinding({ line: 42 })],
-        summary: { total: 1, critical: 0, high: 1, medium: 0, low: 0 },
+        summary: {
+          total: 1,
+          critical: 0,
+          high: 1,
+          medium: 0,
+          low: 0,
+          suppressedCount: 0,
+        },
       }),
     ];
 
@@ -127,7 +171,14 @@ describe('formatHuman', () => {
     const results: readonly FileResult[] = [
       createFileResult({
         findings: [createFinding({ patternId: 'io-007' })],
-        summary: { total: 1, critical: 0, high: 1, medium: 0, low: 0 },
+        summary: {
+          total: 1,
+          critical: 0,
+          high: 1,
+          medium: 0,
+          low: 0,
+          suppressedCount: 0,
+        },
       }),
     ];
 
@@ -149,12 +200,91 @@ describe('formatHuman', () => {
           createFinding({ severity: 'CRITICAL' }),
           createFinding({ severity: 'HIGH' }),
         ],
-        summary: { total: 2, critical: 1, high: 1, medium: 0, low: 0 },
+        summary: {
+          total: 2,
+          critical: 1,
+          high: 1,
+          medium: 0,
+          low: 0,
+          suppressedCount: 0,
+        },
       }),
     ];
 
     const output = formatHuman(results);
 
     expect(output).toContain('2 findings');
+  });
+
+  it('shows suppressed findings with dim formatting and suppressed label', () => {
+    const results: readonly FileResult[] = [
+      createFileResult({
+        findings: [
+          createFinding({
+            suppressed: true,
+            suppressionJustification: 'documented example',
+          }),
+        ],
+        summary: {
+          total: 1,
+          critical: 0,
+          high: 1,
+          medium: 0,
+          low: 0,
+          suppressedCount: 1,
+        },
+      }),
+    ];
+
+    const output = formatHuman(results);
+
+    expect(output).toContain('[suppressed]');
+    expect(output).toContain('documented example');
+    expect(output).toContain('\x1b[2m');
+  });
+
+  it('includes suppressedCount in summary when present', () => {
+    const results: readonly FileResult[] = [
+      createFileResult({
+        findings: [
+          createFinding({
+            suppressed: true,
+            suppressionJustification: 'test',
+          }),
+        ],
+        summary: {
+          total: 1,
+          critical: 0,
+          high: 1,
+          medium: 0,
+          low: 0,
+          suppressedCount: 1,
+        },
+      }),
+    ];
+
+    const output = formatHuman(results);
+
+    expect(output).toContain('Suppressed: 1');
+  });
+
+  it('omits suppressed line from summary when suppressedCount is 0', () => {
+    const results: readonly FileResult[] = [
+      createFileResult({
+        findings: [createFinding()],
+        summary: {
+          total: 1,
+          critical: 0,
+          high: 1,
+          medium: 0,
+          low: 0,
+          suppressedCount: 0,
+        },
+      }),
+    ];
+
+    const output = formatHuman(results);
+
+    expect(output).not.toContain('Suppressed:');
   });
 });

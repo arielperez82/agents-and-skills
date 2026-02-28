@@ -5,6 +5,11 @@ import { SKIP, visit } from 'unist-util-visit';
 import type { Heading, Root, Text } from 'mdast';
 
 import { allCategories } from '../patterns/index.js';
+import { adjustSeverity } from './context-severity-matrix.js';
+import {
+  applySuppressions,
+  parseSuppressionsFromContent,
+} from './suppression.js';
 import type {
   Finding,
   PatternCategory,
@@ -12,6 +17,7 @@ import type {
   ScanOptions,
   ScanResult,
 } from './types.js';
+import { detectUnicodeIssues } from './unicode-detector.js';
 
 type ContentSegment = {
   readonly text: string;
@@ -26,6 +32,7 @@ const buildSummary = (findings: readonly Finding[]) => ({
   high: findings.filter((f) => f.severity === 'HIGH').length,
   medium: findings.filter((f) => f.severity === 'MEDIUM').length,
   low: findings.filter((f) => f.severity === 'LOW').length,
+  suppressedCount: findings.filter((f) => f.suppressed === true).length,
 });
 
 const computeLineFromOffset = (
@@ -54,9 +61,16 @@ const matchRule = (
     matchIndex,
   );
 
+  const { adjustedSeverity, contextReason } = adjustSeverity(
+    rule.severity,
+    segment.context,
+  );
+
   return {
     category: categoryId,
-    severity: rule.severity,
+    severity: adjustedSeverity,
+    rawSeverity: rule.severity,
+    contextReason,
     line: segment.line + lineOffset,
     column,
     matchedText: match[0],
@@ -77,6 +91,16 @@ const applyPatterns = (
         return finding ? [finding] : [];
       }),
     ),
+  );
+
+const applyUnicodeDetection = (
+  segments: readonly ContentSegment[],
+): readonly Finding[] =>
+  segments.flatMap((segment) =>
+    detectUnicodeIssues(segment.text, segment.context).map((finding) => ({
+      ...finding,
+      line: finding.line + segment.line - 1,
+    })),
   );
 
 const extractFrontmatterValue = (value: unknown): readonly string[] => {
@@ -226,7 +250,12 @@ export const scan = (
     : [];
   const bodySegments = scanBody(content);
   const allSegments = [...frontmatterSegments, ...bodySegments];
-  const findings = applyPatterns(allSegments, allCategories);
+  const patternFindings = applyPatterns(allSegments, allCategories);
+  const unicodeFindings = applyUnicodeDetection(allSegments);
+  const rawFindings = [...patternFindings, ...unicodeFindings];
+
+  const directives = parseSuppressionsFromContent(content);
+  const findings = applySuppressions(rawFindings, directives);
 
   return {
     findings,

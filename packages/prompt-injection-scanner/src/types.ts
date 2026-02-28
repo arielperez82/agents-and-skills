@@ -3,12 +3,16 @@ export type Severity = 'CRITICAL' | 'HIGH' | 'MEDIUM' | 'LOW';
 export type Finding = {
   readonly category: string;
   readonly severity: Severity;
+  readonly rawSeverity: Severity;
+  readonly contextReason: string;
   readonly line: number;
   readonly column: number;
   readonly matchedText: string;
   readonly patternId: string;
   readonly message: string;
   readonly context: string;
+  readonly suppressed?: boolean;
+  readonly suppressionJustification?: string;
 };
 
 export type ScanResult = {
@@ -19,6 +23,7 @@ export type ScanResult = {
     readonly high: number;
     readonly medium: number;
     readonly low: number;
+    readonly suppressedCount: number;
   };
 };
 

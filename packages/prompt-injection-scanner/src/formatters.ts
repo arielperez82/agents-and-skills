@@ -30,6 +30,13 @@ const severityColor = (severity: Finding['severity']): string => {
 };
 
 const formatFinding = (finding: Finding): string => {
+  if (finding.suppressed === true) {
+    const suppressionNote = finding.suppressionJustification
+      ? ` (${finding.suppressionJustification})`
+      : '';
+    return `${ANSI.dim}  ${finding.severity} [suppressed]${suppressionNote}\n  Line ${finding.line}, Col ${finding.column}\n  [${finding.patternId}] ${finding.message}\n  Matched: "${finding.matchedText}"${ANSI.reset}`;
+  }
+
   const color = severityColor(finding.severity);
   return [
     `  ${color}${ANSI.bold}${finding.severity}${ANSI.reset}`,
@@ -48,12 +55,17 @@ const formatFileSection = (result: FileResult): string => {
   }
 
   const findingLines = result.findings.map(formatFinding).join('\n\n');
+  const suppressedLine =
+    result.summary.suppressedCount > 0
+      ? `  Suppressed: ${result.summary.suppressedCount}`
+      : '';
   const summary = [
     `${ANSI.dim}Summary:${ANSI.reset}`,
     `  Critical: ${result.summary.critical}`,
     `  High: ${result.summary.high}`,
     `  Medium: ${result.summary.medium}`,
     `  Low: ${result.summary.low}`,
+    ...(suppressedLine ? [suppressedLine] : []),
   ].join('\n');
 
   return `${header}\n${separator}\n${findingLines}\n\n${summary}\n`;

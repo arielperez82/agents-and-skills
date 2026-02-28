@@ -77,12 +77,14 @@ const scanFile = (
     const filtered = result.findings.filter((f) =>
       meetsThreshold(f.severity, severityThreshold),
     );
+    const suppressedCount = filtered.filter((f) => f.suppressed === true).length;
     const summary = {
       total: filtered.length,
       critical: filtered.filter((f) => f.severity === 'CRITICAL').length,
       high: filtered.filter((f) => f.severity === 'HIGH').length,
       medium: filtered.filter((f) => f.severity === 'MEDIUM').length,
       low: filtered.filter((f) => f.severity === 'LOW').length,
+      suppressedCount,
     };
     return { file: filePath, findings: filtered, summary };
   } catch {
@@ -90,9 +92,13 @@ const scanFile = (
   }
 };
 
-const hasHighOrCritical = (results: readonly FileResult[]): boolean =>
-  results.some(
-    (r) => r.summary.critical > 0 || r.summary.high > 0,
+const hasUnsuppressedHighOrCritical = (results: readonly FileResult[]): boolean =>
+  results.some((r) =>
+    r.findings.some(
+      (f) =>
+        (f.severity === 'CRITICAL' || f.severity === 'HIGH') &&
+        f.suppressed !== true,
+    ),
   );
 
 const buildOutput = (
@@ -136,7 +142,7 @@ export const runCli = (
   }
 
   const stdout = buildOutput(parsed.format, results);
-  const exitCode = hasHighOrCritical(results) ? 1 : 0;
+  const exitCode = hasUnsuppressedHighOrCritical(results) ? 1 : 0;
 
   return Promise.resolve({ exitCode, stdout, stderr: '' });
 };
