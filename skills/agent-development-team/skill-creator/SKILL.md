@@ -227,6 +227,69 @@ The agent reads REDLINING.md or OOXML.md only when the user needs those features
 - **Avoid deeply nested references** - Keep references one level deep from SKILL.md. All reference files should link directly from SKILL.md.
 - **Structure longer reference files** - For files longer than 100 lines, include a table of contents at the top so the agent can see the full scope when previewing.
 
+## Compliant Frontmatter Schema
+
+The Claude API validates SKILL.md frontmatter against a strict 5-key allowlist. All skills must conform to this schema.
+
+### Allowed Top-Level Keys
+
+| Key | Required | Description |
+|-----|----------|-------------|
+| `name` | Yes | Hyphen-case identifier (a-z, 0-9, hyphens). Max 64 chars. |
+| `description` | Yes | What the skill does and when to use it. Max 1024 chars. No angle brackets. |
+| `license` | No | License identifier or reference. |
+| `allowed-tools` | No | List of tools the skill is allowed to use. |
+| `metadata` | No | Arbitrary nested content for extended fields. |
+
+Any other top-level key causes a hard rejection by the Claude API.
+
+### Key Ordering
+
+Frontmatter keys should follow this canonical order: `name`, `description`, `license`, `allowed-tools`, `metadata`.
+
+### Recommended Metadata Sub-Fields
+
+Extended information goes under `metadata`:
+
+```yaml
+metadata:
+  title: Human-readable skill title
+  domain: engineering | product | delivery | marketing | ux
+  subdomain: specific-area
+  tags: [tag1, tag2]
+  version: v1.0.0
+  difficulty: beginner | intermediate | advanced
+  use-cases: [...]
+  related-agents: [agent-name]
+  related-skills: [skill-name]
+  related-commands: [command-name]
+  tech-stack: [technology1, technology2]
+```
+
+These fields are recommended but not required. Missing metadata fields produce warnings (not errors) during validation.
+
+### Example: Compliant Frontmatter
+
+```yaml
+---
+name: my-skill
+description: Does X when Y happens. Use for Z scenarios.
+license: MIT
+metadata:
+  title: My Skill Package
+  domain: engineering
+  subdomain: backend-development
+  tags: [api, backend]
+  version: v1.0.0
+  difficulty: intermediate
+  use-cases:
+    - Building API services
+    - Database optimization
+  related-agents: [backend-engineer]
+  related-skills: [senior-backend]
+---
+```
+
 ## Skill Creation Process
 
 Skill creation involves these steps:
