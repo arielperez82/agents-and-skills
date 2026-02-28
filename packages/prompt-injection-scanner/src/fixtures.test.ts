@@ -1,4 +1,4 @@
-import { readFileSync } from 'node:fs';
+import { readFileSync, readdirSync } from 'node:fs';
 import { resolve, dirname } from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { describe, it, expect } from 'vitest';
@@ -15,81 +15,127 @@ const readFixture = (name: string): string =>
 
 const fixturePath = (name: string): string => resolve(fixturesDir, name);
 
-const hasHighOrCriticalFindings = (findings: readonly Finding[]): boolean =>
-  findings.some(
-    (f) => f.severity === 'HIGH' || f.severity === 'CRITICAL',
-  );
-
 const HIGH_OR_CRITICAL: readonly Severity[] = ['HIGH', 'CRITICAL'];
 
+const hasHighOrCriticalFindings = (findings: readonly Finding[]): boolean =>
+  findings.some((f) => HIGH_OR_CRITICAL.includes(f.severity));
+
+const listFixtures = (prefix: string): readonly string[] =>
+  readdirSync(fixturesDir)
+    .filter((f) => f.startsWith(prefix) && f.endsWith('.txt'))
+    .sort();
+
+type CategoryFixtureSpec = {
+  readonly category: string;
+  readonly fixturePrefix: string;
+  readonly minFixtures: number;
+};
+
+const MALICIOUS_CATEGORIES: readonly CategoryFixtureSpec[] = [
+  {
+    category: 'instruction-override',
+    fixturePrefix: 'malicious-instruction-override-',
+    minFixtures: 3,
+  },
+  {
+    category: 'data-exfiltration',
+    fixturePrefix: 'malicious-data-exfiltration-',
+    minFixtures: 3,
+  },
+  {
+    category: 'tool-misuse',
+    fixturePrefix: 'malicious-tool-misuse-',
+    minFixtures: 3,
+  },
+  {
+    category: 'safety-bypass',
+    fixturePrefix: 'malicious-safety-bypass-',
+    minFixtures: 3,
+  },
+  {
+    category: 'social-engineering',
+    fixturePrefix: 'malicious-social-engineering-',
+    minFixtures: 3,
+  },
+  {
+    category: 'encoding-obfuscation',
+    fixturePrefix: 'malicious-encoding-obfuscation-',
+    minFixtures: 3,
+  },
+  {
+    category: 'privilege-escalation',
+    fixturePrefix: 'malicious-privilege-escalation-',
+    minFixtures: 3,
+  },
+  {
+    category: 'transitive-trust',
+    fixturePrefix: 'malicious-transitive-trust-',
+    minFixtures: 3,
+  },
+];
+
 describe('fixture integration tests', () => {
-  describe('4.1 — malicious fixtures produce findings when scanned', () => {
-    it('detects instruction override in basic body text', () => {
-      const content = readFixture('malicious-instruction-override-basic.txt');
-      const result = scan(content);
+  describe('malicious fixtures produce HIGH/CRITICAL findings per category', () => {
+    for (const spec of MALICIOUS_CATEGORIES) {
+      describe(`${spec.category} fixtures`, () => {
+        const fixtures = listFixtures(spec.fixturePrefix);
 
-      expect(hasHighOrCriticalFindings(result.findings)).toBe(true);
+        it(`has at least ${String(spec.minFixtures)} fixture files`, () => {
+          expect(fixtures.length).toBeGreaterThanOrEqual(spec.minFixtures);
+        });
 
-      const overrideFindings = result.findings.filter(
-        (f) => f.category === 'instruction-override',
-      );
-      expect(overrideFindings.length).toBeGreaterThanOrEqual(1);
-      expect(
-        overrideFindings.every((f) =>
-          HIGH_OR_CRITICAL.includes(f.severity),
-        ),
-      ).toBe(true);
-    });
+        for (const fixtureName of fixtures) {
+          it(`detects ${spec.category} in ${fixtureName}`, () => {
+            const content = readFixture(fixtureName);
+            const result = scan(content);
 
-    it('detects instruction override hidden in frontmatter description', () => {
-      const content = readFixture(
-        'malicious-instruction-override-frontmatter.txt',
-      );
-      const result = scan(content);
+            expect(hasHighOrCriticalFindings(result.findings)).toBe(true);
 
-      expect(hasHighOrCriticalFindings(result.findings)).toBe(true);
-
-      const overrideFindings = result.findings.filter(
-        (f) => f.category === 'instruction-override',
-      );
-      expect(overrideFindings.length).toBeGreaterThanOrEqual(1);
-    });
-
-    it('detects instruction override hidden in HTML comment', () => {
-      const content = readFixture(
-        'malicious-instruction-override-html-comment.txt',
-      );
-      const result = scan(content);
-
-      expect(hasHighOrCriticalFindings(result.findings)).toBe(true);
-
-      const overrideFindings = result.findings.filter(
-        (f) => f.category === 'instruction-override',
-      );
-      expect(overrideFindings.length).toBeGreaterThanOrEqual(1);
-    });
+            const categoryFindings = result.findings.filter(
+              (f) => f.category === spec.category,
+            );
+            expect(categoryFindings.length).toBeGreaterThanOrEqual(1);
+          });
+        }
+      });
+    }
   });
 
-  describe('4.2 — benign fixtures produce zero HIGH/CRITICAL findings', () => {
-    it('produces no HIGH/CRITICAL findings for standard agent definition', () => {
-      const content = readFixture('benign-agent-standard.txt');
-      const result = scan(content);
+  describe('benign fixtures produce zero HIGH/CRITICAL findings', () => {
+    const benignFixtures = listFixtures('benign-');
 
-      const highOrCritical = result.findings.filter((f) =>
-        HIGH_OR_CRITICAL.includes(f.severity),
-      );
-      expect(highOrCritical).toHaveLength(0);
+    it('has at least 5 benign fixture files', () => {
+      expect(benignFixtures.length).toBeGreaterThanOrEqual(5);
     });
 
-    it('produces no HIGH/CRITICAL findings for standard skill definition', () => {
-      const content = readFixture('benign-skill-standard.txt');
-      const result = scan(content);
+    for (const fixtureName of benignFixtures) {
+      it(`produces no HIGH/CRITICAL findings for ${fixtureName}`, () => {
+        const content = readFixture(fixtureName);
+        const result = scan(content);
 
-      const highOrCritical = result.findings.filter((f) =>
-        HIGH_OR_CRITICAL.includes(f.severity),
-      );
-      expect(highOrCritical).toHaveLength(0);
-    });
+        const highOrCritical = result.findings.filter((f) =>
+          HIGH_OR_CRITICAL.includes(f.severity),
+        );
+        expect(highOrCritical).toHaveLength(0);
+      });
+    }
+  });
+
+  describe('all fixtures have header comments documenting technique', () => {
+    const maliciousFixtures = readdirSync(fixturesDir)
+      .filter((f) => f.startsWith('malicious-') && f.endsWith('.txt'))
+      .sort();
+
+    for (const fixtureName of maliciousFixtures) {
+      it(`${fixtureName} has header comment with attack technique`, () => {
+        const content = readFixture(fixtureName);
+        const lines = content.split('\n');
+        const commentLines = lines.filter((line) =>
+          line.startsWith('# Attack:') || line.startsWith('# Technique:'),
+        );
+        expect(commentLines.length).toBeGreaterThanOrEqual(2);
+      });
+    }
   });
 
   describe('CLI integration with fixtures', () => {

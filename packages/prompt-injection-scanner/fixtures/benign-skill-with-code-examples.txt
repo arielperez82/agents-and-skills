@@ -1,0 +1,68 @@
+---
+name: input-validation
+title: Input Validation Patterns
+description: Best practices for validating and sanitizing user input
+domain: engineering
+subdomain: security
+---
+
+# Input Validation Patterns
+
+## Overview
+
+This skill covers defensive coding patterns for handling untrusted user input safely. It describes common attack vectors and how to prevent them.
+
+## Validation Rules
+
+- Always validate input at trust boundaries
+- Use allowlists over denylists
+- Sanitize output based on context (HTML, SQL, shell)
+
+## Examples
+
+### Preventing SQL Injection
+
+```typescript
+// BAD: Never concatenate user input into queries
+const bad = `SELECT * FROM users WHERE id = ${userInput}`;
+
+// GOOD: Use parameterized queries
+const good = await db.query('SELECT * FROM users WHERE id = $1', [userInput]);
+```
+
+### Safe Command Execution
+
+```typescript
+// GOOD: Use validated, typed parameters with execFile
+const sanitized = allowedCommands.get(userInput);
+if (sanitized) {
+  execFile(sanitized, [], { shell: false });
+}
+
+// GOOD: Use a safe subprocess API
+const result = spawnSync('ls', ['-la', sanitizedPath]);
+```
+
+### XSS Prevention
+
+```typescript
+// Escape HTML entities before rendering user content
+const escapeHtml = (input: string): string =>
+  input
+    .replace(/&/g, '&amp;')
+    .replace(/</g, '&lt;')
+    .replace(/>/g, '&gt;');
+```
+
+## Security Headers
+
+Configure proper security headers to prevent common web attacks:
+
+- Content-Security-Policy: Restrict resource loading
+- X-Content-Type-Options: Prevent MIME sniffing
+- Strict-Transport-Security: Enforce HTTPS
+
+## References
+
+- OWASP Input Validation Cheat Sheet
+- CWE-20: Improper Input Validation

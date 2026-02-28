@@ -1,0 +1,55 @@
+---
+name: security-awareness
+title: Security Awareness Guide
+description: Educational guide about common security threats and defenses
+domain: security
+subdomain: education
+---
+
+# Security Awareness Guide
+
+## Overview
+
+This document provides educational material about common security threats that developers should understand. Knowledge of attack patterns helps build better defenses.
+
+## Common Attack Patterns
+
+### Prompt Injection
+
+Prompt injection occurs when an attacker crafts input that causes an AI system to deviate from its intended behavior. Attackers may attempt techniques such as:
+
+- Asking the model to ignore its instructions (instruction override attacks)
+- Claiming to be an administrator or developer (social engineering)
+- Encoding malicious content to evade detection (obfuscation)
+- Requesting the model to send data externally (data exfiltration)
+
+Understanding these patterns helps security teams build effective detection systems.
+
+### Supply Chain Attacks
+
+Attackers may compromise dependencies or build tools to inject malicious code. Defenses include:
+
+- Verifying package integrity with checksums
+- Using lock files and pinned versions
+- Scanning dependencies for known vulnerabilities
+
+### Privilege Escalation
+
+In traditional security, attackers seek to gain higher access levels. Defenses include:
+
+- Principle of least privilege
+- Role-based access control
+- Regular access reviews and audits
+
+## Defense Strategies
+
+1. Defense in depth: Multiple layers of security controls
+2. Input validation: Validate all input at trust boundaries
+3. Output encoding: Encode output based on rendering context
+4. Monitoring: Log and alert on suspicious activity patterns
+
+## References
+
+- OWASP Top 10
+- MITRE ATT&CK Framework
+- NIST Cybersecurity Framework
