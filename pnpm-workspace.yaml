@@ -3,6 +3,7 @@ packages:
   - scripts/skills-deploy
   - scripts/claude-ui-upload
   - packages/lint-changed
+  - packages/prompt-injection-scanner
 
 onlyBuiltDependencies:
   - esbuild

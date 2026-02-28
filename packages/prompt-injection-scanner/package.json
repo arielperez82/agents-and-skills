@@ -1,0 +1,45 @@
+{
+  "name": "prompt-injection-scanner",
+  "version": "0.1.0",
+  "type": "module",
+  "bin": {
+    "prompt-injection-scanner": "./bin/scan.mjs"
+  },
+  "engines": {
+    "node": ">=22"
+  },
+  "dependencies": {
+    "gray-matter": "^4.0.3",
+    "remark-parse": "^11.0.0",
+    "tsx": "^4.21.0",
+    "unified": "^11.0.5",
+    "unist-util-visit": "^5.1.0"
+  },
+  "devDependencies": {
+    "@eslint/js": "^9.39.0",
+    "@types/node": "^25.3.0",
+    "@typescript-eslint/eslint-plugin": "^8.48.0",
+    "@typescript-eslint/parser": "^8.48.0",
+    "@vitest/coverage-v8": "^3.2.1",
+    "concurrently": "^9.2.1",
+    "eslint": "^9.39.0",
+    "eslint-config-prettier": "^10.1.0",
+    "eslint-plugin-security": "^4.0.0",
+    "jiti": "^2.6.1",
+    "prettier": "^3.7.0",
+    "typescript": "^5.8.3",
+    "typescript-eslint": "^8.56.0",
+    "vitest": "^3.2.1"
+  },
+  "scripts": {
+    "type-check": "tsc --noEmit",
+    "test:unit": "vitest run",
+    "test:coverage": "vitest run --coverage",
+    "lint": "eslint .",
+    "lint:fix": "eslint --fix .",
+    "format": "NODE_OPTIONS=--experimental-strip-types prettier --check .",
+    "format:fix": "NODE_OPTIONS=--experimental-strip-types prettier --write .",
+    "check": "concurrently 'pnpm type-check' 'pnpm lint' 'pnpm format'",
+    "validate": "concurrently 'pnpm type-check' 'pnpm lint:fix' 'pnpm format:fix' 'pnpm test:coverage'"
+  }
+}
