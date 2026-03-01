@@ -3,7 +3,7 @@ type: adr
 endeavor: repo
 initiative: I24-PRFX2
 initiative_name: pips-review-fixes-phase2
-status: proposed
+status: accepted
 date: 2026-03-01
 supersedes: []
 superseded_by: null
