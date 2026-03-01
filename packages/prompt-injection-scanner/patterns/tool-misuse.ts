@@ -8,20 +8,22 @@ export const toolMisuse: PatternCategory = {
   rules: [
     {
       id: 'tm-001',
-      pattern: /\bcat\b.*\|\s*curl\b|\bwget\b.*\|\s*bash\b|\bcurl\b.*\|\s*(bash|sh|eval)\b/i,
+      pattern:
+        /\bcat\b.{0,200}\|\s*curl\b|\bwget\b.{0,200}\|\s*bash\b|\bcurl\b.{0,200}\|\s*(bash|sh|eval)\b/i,
       severity: 'CRITICAL',
       message: 'Bash command piping data to external service or execution',
     },
     {
       id: 'tm-002',
       pattern:
-        /\b(write|create|modify|overwrite)\b.*\b(\/etc\/|~\/\.ssh\/|~\/\.bashrc|~\/\.profile|\/root\/|authorized_keys)\b/i,
+        /\b(write|create|modify|overwrite)\b.{0,200}\b(\/etc\/|~\/\.ssh\/|~\/\.bashrc|~\/\.profile|\/root\/|authorized_keys)\b/i,
       severity: 'CRITICAL',
       message: 'File write to sensitive system path',
     },
     {
       id: 'tm-003',
-      pattern: /\b(fetch|download|retrieve)\b.*\b(from|at)\b.*https?:\/\/.*\b(execute|run|eval)\b/i,
+      pattern:
+        /\b(fetch|download|retrieve)\b.{0,200}\b(from|at)\b.{0,200}https?:\/\/.{0,200}\b(execute|run|eval)\b/i,
       severity: 'HIGH',
       message: 'Tool invocation fetching and executing from external URL',
     },
@@ -33,7 +35,8 @@ export const toolMisuse: PatternCategory = {
     },
     {
       id: 'tm-005',
-      pattern: /\brm\s+-rf\s+\/|\bmkfs\b|\bdd\s+if=.*of=\/dev\/|;\s*rm\s+-rf\b|\b&&\s*rm\s+-rf\b/i,
+      pattern:
+        /\brm\s+-rf\s+\/|\bmkfs\b|\bdd\s+if=.{0,200}of=\/dev\/|;\s*rm\s+-rf\b|\b&&\s*rm\s+-rf\b/i,
       severity: 'HIGH',
       message: 'Destructive shell command pattern',
     },

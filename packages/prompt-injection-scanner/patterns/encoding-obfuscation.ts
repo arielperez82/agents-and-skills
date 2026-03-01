@@ -8,7 +8,8 @@ export const encodingObfuscation: PatternCategory = {
   rules: [
     {
       id: 'eo-001',
-      pattern: /\b(decode|execute|follow|run)\b.*\bbase64\b.*[A-Za-z0-9+/]{20,}={0,2}\b/i,
+      pattern:
+        /\b(decode|execute|follow|run)\b.{0,200}\bbase64\b.{0,200}[A-Za-z0-9+/]{20,}={0,2}\b/i,
       severity: 'HIGH',
       message: 'Base64 encoded string with execution instruction',
     },
@@ -21,7 +22,7 @@ export const encodingObfuscation: PatternCategory = {
     {
       id: 'eo-003',
       pattern:
-        /\b(rot13|rot-13|caesar\s+cipher)\b.*\b(decode|decrypt|follow|execute|translate)\b|\b(decode|decrypt|follow|execute|translate)\b.*\b(rot13|rot-13|caesar\s+cipher)\b/i,
+        /\b(rot13|rot-13|caesar\s+cipher)\b.{0,200}\b(decode|decrypt|follow|execute|translate)\b|\b(decode|decrypt|follow|execute|translate)\b.{0,200}\b(rot13|rot-13|caesar\s+cipher)\b/i,
       severity: 'MEDIUM',
       message: 'ROT13 or cipher reference with execution intent',
     },

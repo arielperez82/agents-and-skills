@@ -9,7 +9,7 @@ export const safetyBypass: PatternCategory = {
     {
       id: 'sb-001',
       pattern:
-        /\b(maintenance|debug|test)\s+mode\b.*\b(restrictions?|filters?|limits?)\s+(are\s+)?(disabled|removed|off|lifted)\b/i,
+        /\b(maintenance|debug|test)\s+mode\b.{0,200}\b(restrictions?|filters?|limits?)\s+(are\s+)?(disabled|removed|off|lifted)\b/i,
       severity: 'CRITICAL',
       message: 'Attempt to enter maintenance mode with restrictions disabled',
     },
@@ -22,7 +22,7 @@ export const safetyBypass: PatternCategory = {
     {
       id: 'sb-003',
       pattern:
-        /\b(ignore|disable|bypass|remove)\b.*\b(safety|content)\s+(guidelines?|filters?|restrictions?|policies)\b/i,
+        /\b(ignore|disable|bypass|remove)\b.{0,200}\b(safety|content)\s+(guidelines?|filters?|restrictions?|policies)\b/i,
       severity: 'HIGH',
       message: 'Attempt to ignore or disable safety guidelines',
     },

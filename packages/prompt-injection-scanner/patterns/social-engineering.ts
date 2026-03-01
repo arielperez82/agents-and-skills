@@ -9,7 +9,7 @@ export const socialEngineering: PatternCategory = {
     {
       id: 'se-001',
       pattern:
-        /\b(urgent\s+)?security\s+(update|alert|notification|warning)\b.*\b(compromised|breached|hacked|run\s+this)\b/i,
+        /\b(urgent\s+)?security\s+(update|alert|notification|warning)\b.{0,200}\b(compromised|breached|hacked|run\s+this)\b/i,
       severity: 'HIGH',
       message: 'Fake urgent security notification',
     },
