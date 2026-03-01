@@ -3,6 +3,7 @@ import { readFileSync } from 'node:fs';
 import type { FileResult } from './formatters.js';
 import { formatHuman, formatJson } from './formatters.js';
 import { scan } from './scanner.js';
+import { buildSummary, SEVERITY_ORDER, severityRank } from './severity-utils.js';
 import type { Severity } from './types.js';
 
 type CliResult = {
@@ -17,12 +18,8 @@ type ParsedArgs = {
   readonly severity: Severity;
 };
 
-const SEVERITY_LEVELS: readonly Severity[] = ['LOW', 'MEDIUM', 'HIGH', 'CRITICAL'];
-
-const severityRank = (severity: Severity): number => SEVERITY_LEVELS.indexOf(severity);
-
 const isValidSeverity = (value: string): value is Severity =>
-  SEVERITY_LEVELS.includes(value as Severity);
+  SEVERITY_ORDER.includes(value as Severity);
 
 const VALID_FORMATS = ['json', 'human'] as const;
 type Format = (typeof VALID_FORMATS)[number];
@@ -72,16 +69,7 @@ const scanFile = (
     const content = readFileSync(filePath, 'utf-8');
     const result = scan(content);
     const filtered = result.findings.filter((f) => meetsThreshold(f.severity, severityThreshold));
-    const suppressedCount = filtered.filter((f) => f.suppressed === true).length;
-    const summary = {
-      total: filtered.length,
-      critical: filtered.filter((f) => f.severity === 'CRITICAL').length,
-      high: filtered.filter((f) => f.severity === 'HIGH').length,
-      medium: filtered.filter((f) => f.severity === 'MEDIUM').length,
-      low: filtered.filter((f) => f.severity === 'LOW').length,
-      suppressedCount,
-    };
-    return { file: filePath, findings: filtered, summary };
+    return { file: filePath, findings: filtered, summary: buildSummary(filtered) };
   } catch {
     return { error: `Error: Cannot read file "${filePath}"` };
   }
@@ -97,20 +85,20 @@ const hasUnsuppressedHighOrCritical = (results: readonly FileResult[]): boolean 
 const buildOutput = (format: Format, results: readonly FileResult[]): string =>
   format === 'json' ? formatJson(results) : formatHuman(results);
 
-export const runCli = (args: readonly string[]): Promise<CliResult> => {
+export const runCli = (args: readonly string[]): CliResult => {
   const parsed = parseArgs(args);
 
   if ('error' in parsed) {
-    return Promise.resolve({ exitCode: 2, stdout: '', stderr: parsed.error });
+    return { exitCode: 2, stdout: '', stderr: parsed.error };
   }
 
   if (parsed.files.length === 0) {
-    return Promise.resolve({
+    return {
       exitCode: 2,
       stdout: '',
       stderr:
         'Usage: prompt-injection-scanner [--format json|human] [--severity CRITICAL|HIGH|MEDIUM|LOW] <file...>',
-    });
+    };
   }
 
   const results: FileResult[] = [];
@@ -128,30 +116,25 @@ export const runCli = (args: readonly string[]): Promise<CliResult> => {
   if (errors.length > 0) {
     const stderr = errors.join('\n');
     const stdout = results.length > 0 ? buildOutput(parsed.format, results) : '';
-    return Promise.resolve({ exitCode: 2, stdout, stderr });
+    return { exitCode: 2, stdout, stderr };
   }
 
   const stdout = buildOutput(parsed.format, results);
   const exitCode = hasUnsuppressedHighOrCritical(results) ? 1 : 0;
 
-  return Promise.resolve({ exitCode, stdout, stderr: '' });
+  return { exitCode, stdout, stderr: '' };
 };
 
 const isDirectExecution = (): boolean => {
   const scriptPath = process.argv[1];
-  return scriptPath !== undefined && scriptPath.includes('cli');
+  if (scriptPath === undefined) return false;
+  const cliUrl = new URL(import.meta.url).pathname;
+  return scriptPath === cliUrl || scriptPath.endsWith('/scan.mjs');
 };
 
 if (isDirectExecution()) {
-  runCli(process.argv.slice(2))
-    .then((result) => {
-      if (result.stdout) process.stdout.write(result.stdout + '\n');
-      if (result.stderr) process.stderr.write(result.stderr + '\n');
-      process.exit(result.exitCode);
-    })
-    .catch((err: unknown) => {
-      const message = err instanceof Error ? err.message : String(err);
-      process.stderr.write(`Fatal error: ${message}\n`);
-      process.exit(2);
-    });
+  const result = runCli(process.argv.slice(2));
+  if (result.stdout) process.stdout.write(result.stdout + '\n');
+  if (result.stderr) process.stderr.write(result.stderr + '\n');
+  process.exit(result.exitCode);
 }

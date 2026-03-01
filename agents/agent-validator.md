@@ -183,11 +183,11 @@ Scan frontmatter string fields for patterns that attempt to inject role boundari
 
 ### Tiered Output
 
-| Finding Type | Tier | Icon |
+| Finding Type | Tier | Action |
 |---|---|---|
-| Invisible Unicode characters in frontmatter | 🔴 Fix required | Hidden characters must be removed |
-| Fake role markers in frontmatter | 🟡 Suggestion | Review for legitimacy |
-| No content safety issues | 🔵 Observation | Clean frontmatter |
+| Invisible Unicode characters in frontmatter | Fix required | Hidden characters must be removed |
+| Fake role markers in frontmatter | Suggestion | Review for legitimacy |
+| No content safety issues | Observation | Clean frontmatter |
 
 These checks run as part of every validation workflow (single agent, batch, and pre-commit). They do not depend on the `prompt-injection-scanner` package.
 

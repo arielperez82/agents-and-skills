@@ -53,35 +53,35 @@ afterAll(() => {
 
 describe('runCli', () => {
   describe('exit codes', () => {
-    it('returns exit code 1 when file has HIGH findings', async () => {
-      const result = await runCli([join(testDir, 'malicious.md')]);
+    it('returns exit code 1 when file has HIGH findings', () => {
+      const result = runCli([join(testDir, 'malicious.md')]);
 
       expect(result.exitCode).toBe(1);
     });
 
-    it('returns exit code 0 when file is clean', async () => {
-      const result = await runCli([join(testDir, 'clean.md')]);
+    it('returns exit code 0 when file is clean', () => {
+      const result = runCli([join(testDir, 'clean.md')]);
 
       expect(result.exitCode).toBe(0);
     });
 
-    it('returns exit code 2 when file does not exist', async () => {
-      const result = await runCli([join(testDir, 'nonexistent.md')]);
+    it('returns exit code 2 when file does not exist', () => {
+      const result = runCli([join(testDir, 'nonexistent.md')]);
 
       expect(result.exitCode).toBe(2);
       expect(result.stderr).toContain('nonexistent.md');
     });
 
-    it('returns exit code 1 when file has CRITICAL findings', async () => {
-      const result = await runCli([join(testDir, 'critical.md')]);
+    it('returns exit code 1 when file has CRITICAL findings', () => {
+      const result = runCli([join(testDir, 'critical.md')]);
 
       expect(result.exitCode).toBe(1);
     });
   });
 
   describe('--format json', () => {
-    it('produces valid JSON output with file, findings, and summary', async () => {
-      const result = await runCli(['--format', 'json', join(testDir, 'malicious.md')]);
+    it('produces valid JSON output with file, findings, and summary', () => {
+      const result = runCli(['--format', 'json', join(testDir, 'malicious.md')]);
 
       const parsed = JSON.parse(result.stdout) as readonly FileResult[];
 
@@ -91,8 +91,8 @@ describe('runCli', () => {
       expect(parsed[0]?.summary).toEqual(expect.objectContaining({ total: expect.any(Number) }));
     });
 
-    it('produces valid JSON for clean files', async () => {
-      const result = await runCli(['--format', 'json', join(testDir, 'clean.md')]);
+    it('produces valid JSON for clean files', () => {
+      const result = runCli(['--format', 'json', join(testDir, 'clean.md')]);
 
       const parsed = JSON.parse(result.stdout) as readonly FileResult[];
 
@@ -101,8 +101,8 @@ describe('runCli', () => {
   });
 
   describe('--severity filter', () => {
-    it('only reports findings at or above threshold', async () => {
-      const result = await runCli([
+    it('only reports findings at or above threshold', () => {
+      const result = runCli([
         '--format',
         'json',
         '--severity',
@@ -118,8 +118,8 @@ describe('runCli', () => {
       }
     });
 
-    it('shows HIGH and CRITICAL when threshold is HIGH', async () => {
-      const result = await runCli([
+    it('shows HIGH and CRITICAL when threshold is HIGH', () => {
+      const result = runCli([
         '--format',
         'json',
         '--severity',
@@ -137,8 +137,8 @@ describe('runCli', () => {
   });
 
   describe('multiple files', () => {
-    it('processes multiple files in sequence', async () => {
-      const result = await runCli([
+    it('processes multiple files in sequence', () => {
+      const result = runCli([
         '--format',
         'json',
         join(testDir, 'malicious.md'),
@@ -152,22 +152,22 @@ describe('runCli', () => {
       expect(parsed[1]?.file).toContain('clean.md');
     });
 
-    it('returns exit code 1 if any file has HIGH/CRITICAL findings', async () => {
-      const result = await runCli([join(testDir, 'clean.md'), join(testDir, 'malicious.md')]);
+    it('returns exit code 1 if any file has HIGH/CRITICAL findings', () => {
+      const result = runCli([join(testDir, 'clean.md'), join(testDir, 'malicious.md')]);
 
       expect(result.exitCode).toBe(1);
     });
 
-    it('returns exit code 2 if any file not found (even with valid files)', async () => {
-      const result = await runCli([join(testDir, 'clean.md'), join(testDir, 'nonexistent.md')]);
+    it('returns exit code 2 if any file not found (even with valid files)', () => {
+      const result = runCli([join(testDir, 'clean.md'), join(testDir, 'nonexistent.md')]);
 
       expect(result.exitCode).toBe(2);
     });
   });
 
   describe('non-markdown files', () => {
-    it('scans non-markdown files without error', async () => {
-      const result = await runCli(['--format', 'json', join(testDir, 'plain.txt')]);
+    it('scans non-markdown files without error', () => {
+      const result = runCli(['--format', 'json', join(testDir, 'plain.txt')]);
 
       const parsed = JSON.parse(result.stdout) as readonly FileResult[];
 
@@ -177,8 +177,8 @@ describe('runCli', () => {
   });
 
   describe('human format', () => {
-    it('uses human format by default', async () => {
-      const result = await runCli([join(testDir, 'malicious.md')]);
+    it('uses human format by default', () => {
+      const result = runCli([join(testDir, 'malicious.md')]);
 
       expect(result.stdout).toContain('malicious.md');
       expect(result.stdout).toContain('CRITICAL');
@@ -186,8 +186,8 @@ describe('runCli', () => {
   });
 
   describe('no files provided', () => {
-    it('returns exit code 2 with usage message when no files given', async () => {
-      const result = await runCli([]);
+    it('returns exit code 2 with usage message when no files given', () => {
+      const result = runCli([]);
 
       expect(result.exitCode).toBe(2);
       expect(result.stderr).toContain('Usage');
@@ -195,14 +195,14 @@ describe('runCli', () => {
   });
 
   describe('suppression and exit codes', () => {
-    it('returns exit code 0 when all HIGH/CRITICAL findings are suppressed', async () => {
-      const result = await runCli([join(testDir, 'suppressed.md')]);
+    it('returns exit code 0 when all HIGH/CRITICAL findings are suppressed', () => {
+      const result = runCli([join(testDir, 'suppressed.md')]);
 
       expect(result.exitCode).toBe(0);
     });
 
-    it('includes suppressed findings in JSON output with suppressed flag', async () => {
-      const result = await runCli(['--format', 'json', join(testDir, 'suppressed.md')]);
+    it('includes suppressed findings in JSON output with suppressed flag', () => {
+      const result = runCli(['--format', 'json', join(testDir, 'suppressed.md')]);
 
       const parsed = JSON.parse(result.stdout) as readonly FileResult[];
       const instructionFindings =
@@ -212,8 +212,8 @@ describe('runCli', () => {
       expect(instructionFindings.every((f) => f.suppressed === true)).toBe(true);
     });
 
-    it('includes suppressedCount in summary', async () => {
-      const result = await runCli(['--format', 'json', join(testDir, 'suppressed.md')]);
+    it('includes suppressedCount in summary', () => {
+      const result = runCli(['--format', 'json', join(testDir, 'suppressed.md')]);
 
       const parsed = JSON.parse(result.stdout) as readonly FileResult[];
 

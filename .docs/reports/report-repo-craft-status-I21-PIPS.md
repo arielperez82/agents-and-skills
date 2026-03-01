@@ -78,7 +78,7 @@ phases:
     feedback: null
   - name: Validate
     number: 5
-    status: in_progress
+    status: approved
     agents: [tdd-reviewer, ts-enforcer, security-assessor, code-reviewer, cognitive-load-assessor]
     artifact_paths: []
     commit_shas: []

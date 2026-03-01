@@ -54,7 +54,7 @@ dependencies:
   tools: [Read, Grep, Glob, Bash]
   mcp-tools: []
   scripts:
-    - plans/prompt-injection-security/packages/prompt-injection-scanner/dist/cli.js
+    - packages/prompt-injection-scanner/bin/scan.mjs
 ---
 
 # Security Assessor
@@ -291,4 +291,4 @@ User: "Assess `src/payment/processor.ts` for security." Guardian reads file, pro
 - **Skill documentation:** [../skills/engineering-team/senior-security/SKILL.md](../skills/engineering-team/senior-security/SKILL.md)
 - **Prompt injection security skill:** [../skills/engineering-team/prompt-injection-security/SKILL.md](../skills/engineering-team/prompt-injection-security/SKILL.md)
 - **Agent author workflow (guardians):** [agent-author](agent-author.md) Workflow 3 – Introduce a New Guardian or Cross-Cutting Role
-- **Prompt injection scanner:** `plans/prompt-injection-security/packages/prompt-injection-scanner/` — CLI tool for detecting prompt injection patterns in markdown artifacts
+- **Prompt injection scanner:** `packages/prompt-injection-scanner/` — CLI tool for detecting prompt injection patterns in markdown artifacts

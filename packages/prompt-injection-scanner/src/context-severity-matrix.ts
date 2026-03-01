@@ -1,3 +1,4 @@
+import { SEVERITY_ORDER } from './severity-utils.js';
 import type { Severity } from './types.js';
 
 type SeverityAdjustment = {
@@ -5,16 +6,14 @@ type SeverityAdjustment = {
   readonly contextReason: string;
 };
 
-const SEVERITY_ORDER: readonly Severity[] = ['LOW', 'MEDIUM', 'HIGH', 'CRITICAL'];
-
 const elevate = (severity: Severity): Severity => {
   const index = SEVERITY_ORDER.indexOf(severity);
-  return SEVERITY_ORDER[Math.min(index + 1, SEVERITY_ORDER.length - 1)] as Severity;
+  return SEVERITY_ORDER[Math.min(index + 1, SEVERITY_ORDER.length - 1)] ?? severity;
 };
 
 const reduce = (severity: Severity): Severity => {
   const index = SEVERITY_ORDER.indexOf(severity);
-  return SEVERITY_ORDER[Math.max(index - 1, 0)] as Severity;
+  return SEVERITY_ORDER[Math.max(index - 1, 0)] ?? severity;
 };
 
 const ensureMinimum = (severity: Severity, minimum: Severity): Severity => {

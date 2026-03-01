@@ -6,8 +6,11 @@ import type { Heading, Root, Text } from 'mdast';
 
 import { allCategories } from '../patterns/index.js';
 import { adjustSeverity } from './context-severity-matrix.js';
+import { buildSummary } from './severity-utils.js';
 import { applySuppressions, parseSuppressionsFromContent } from './suppression.js';
-import type { Finding, PatternCategory, PatternRule, ScanOptions, ScanResult } from './types.js';
+import { computePosition } from './text-utils.js';
+import type { Finding, PatternCategory, PatternRule, ScanResult } from './types.js';
+
 import { detectUnicodeIssues } from './unicode-detector.js';
 
 type ContentSegment = {
@@ -15,26 +18,6 @@ type ContentSegment = {
   readonly line: number;
   readonly column: number;
   readonly context: string;
-};
-
-const buildSummary = (findings: readonly Finding[]) => ({
-  total: findings.length,
-  critical: findings.filter((f) => f.severity === 'CRITICAL').length,
-  high: findings.filter((f) => f.severity === 'HIGH').length,
-  medium: findings.filter((f) => f.severity === 'MEDIUM').length,
-  low: findings.filter((f) => f.severity === 'LOW').length,
-  suppressedCount: findings.filter((f) => f.suppressed === true).length,
-});
-
-const computeLineFromOffset = (
-  text: string,
-  charOffset: number,
-): { readonly lineOffset: number; readonly column: number } => {
-  const prefix = text.slice(0, charOffset);
-  const newlines = prefix.split('\n').length - 1;
-  const lastNewline = prefix.lastIndexOf('\n');
-  const column = lastNewline === -1 ? charOffset + 1 : charOffset - lastNewline;
-  return { lineOffset: newlines, column };
 };
 
 const matchRule = (
@@ -46,7 +29,7 @@ const matchRule = (
   if (!match) return undefined;
 
   const matchIndex = match.index;
-  const { lineOffset, column } = computeLineFromOffset(segment.text, matchIndex);
+  const pos = computePosition(segment.text, matchIndex);
 
   const { adjustedSeverity, contextReason } = adjustSeverity(rule.severity, segment.context);
 
@@ -55,8 +38,8 @@ const matchRule = (
     severity: adjustedSeverity,
     rawSeverity: rule.severity,
     contextReason,
-    line: segment.line + lineOffset,
-    column,
+    line: segment.line + pos.line - 1,
+    column: pos.column,
     matchedText: match[0],
     patternId: rule.id,
     message: rule.message,
@@ -213,7 +196,7 @@ const scanBody = (content: string): readonly ContentSegment[] => {
   return segments;
 };
 
-export const scan = (content: string, _options?: ScanOptions): ScanResult => {
+export const scan = (content: string): ScanResult => {
   if (content.trim() === '') {
     return { findings: [], summary: buildSummary([]) };
   }

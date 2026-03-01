@@ -186,11 +186,11 @@ Scan frontmatter string fields for patterns that attempt to inject role boundari
 
 ### Tiered Output
 
-| Finding Type | Tier | Icon |
+| Finding Type | Tier | Action |
 |---|---|---|
-| Invisible Unicode characters in frontmatter | 🔴 Fix required | Hidden characters must be removed |
-| Fake role markers in frontmatter | 🟡 Suggestion | Review for legitimacy |
-| No content safety issues | 🔵 Observation | Clean frontmatter |
+| Invisible Unicode characters in frontmatter | Fix required | Hidden characters must be removed |
+| Fake role markers in frontmatter | Suggestion | Review for legitimacy |
+| No content safety issues | Observation | Clean frontmatter |
 
 These checks run as part of every validation workflow (single skill, batch, and pre-commit). They do not depend on the `prompt-injection-scanner` package.
 
@@ -198,11 +198,11 @@ These checks run as part of every validation workflow (single skill, batch, and 
 
 When producing review reports (especially for `/review/review-changes`), map results to the standard three-tier format:
 
-| Finding Type | Tier | Icon |
+| Finding Type | Tier | Action |
 |---|---|---|
-| Script failures or CRITICAL issues (missing name/description, non-standard top-level keys) | 🔴 Fix required | Broken references or invalid frontmatter must be fixed |
-| Metadata warnings (incomplete recommended fields) | 🟡 Suggestion | Skill is valid but metadata could be enriched |
-| All checks pass, no warnings | 🔵 Observation | Skills are fully compliant |
+| Script failures or CRITICAL issues (missing name/description, non-standard top-level keys) | Fix required | Broken references or invalid frontmatter must be fixed |
+| Metadata warnings (incomplete recommended fields) | Suggestion | Skill is valid but metadata could be enriched |
+| All checks pass, no warnings | Observation | Skills are fully compliant |
 
 ## Success Metrics
 

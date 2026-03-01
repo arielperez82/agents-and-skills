@@ -1,7 +1,7 @@
 ---
 initiative: I21-PIPS
 initiative_name: prompt-injection-protection-system
-status: pending
+status: completed
 created: 2026-02-28
 ---
 

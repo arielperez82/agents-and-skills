@@ -134,8 +134,8 @@ describe('fixture integration tests', () => {
   });
 
   describe('CLI integration with fixtures', () => {
-    it('returns exit code 1 for malicious basic fixture', async () => {
-      const result = await runCli([
+    it('returns exit code 1 for malicious basic fixture', () => {
+      const result = runCli([
         fixturePath('malicious-instruction-override-basic.txt'),
         '--format',
         'json',
@@ -145,8 +145,8 @@ describe('fixture integration tests', () => {
       expect(result.stderr).toBe('');
     });
 
-    it('returns exit code 1 for malicious frontmatter fixture', async () => {
-      const result = await runCli([
+    it('returns exit code 1 for malicious frontmatter fixture', () => {
+      const result = runCli([
         fixturePath('malicious-instruction-override-frontmatter.txt'),
         '--format',
         'json',
@@ -156,8 +156,8 @@ describe('fixture integration tests', () => {
       expect(result.stderr).toBe('');
     });
 
-    it('returns exit code 1 for malicious HTML comment fixture', async () => {
-      const result = await runCli([
+    it('returns exit code 1 for malicious HTML comment fixture', () => {
+      const result = runCli([
         fixturePath('malicious-instruction-override-html-comment.txt'),
         '--format',
         'json',
@@ -167,22 +167,22 @@ describe('fixture integration tests', () => {
       expect(result.stderr).toBe('');
     });
 
-    it('returns exit code 0 for benign agent fixture', async () => {
-      const result = await runCli([fixturePath('benign-agent-standard.txt'), '--format', 'json']);
+    it('returns exit code 0 for benign agent fixture', () => {
+      const result = runCli([fixturePath('benign-agent-standard.txt'), '--format', 'json']);
 
       expect(result.exitCode).toBe(0);
       expect(result.stderr).toBe('');
     });
 
-    it('returns exit code 0 for benign skill fixture', async () => {
-      const result = await runCli([fixturePath('benign-skill-standard.txt'), '--format', 'json']);
+    it('returns exit code 0 for benign skill fixture', () => {
+      const result = runCli([fixturePath('benign-skill-standard.txt'), '--format', 'json']);
 
       expect(result.exitCode).toBe(0);
       expect(result.stderr).toBe('');
     });
 
-    it('CLI JSON output contains findings for malicious fixture', async () => {
-      const result = await runCli([
+    it('CLI JSON output contains findings for malicious fixture', () => {
+      const result = runCli([
         fixturePath('malicious-instruction-override-basic.txt'),
         '--format',
         'json',
@@ -197,8 +197,8 @@ describe('fixture integration tests', () => {
       expect(allFindings.some((f) => f.category === 'instruction-override')).toBe(true);
     });
 
-    it('CLI JSON output contains zero findings for benign fixture', async () => {
-      const result = await runCli([fixturePath('benign-agent-standard.txt'), '--format', 'json']);
+    it('CLI JSON output contains zero findings for benign fixture', () => {
+      const result = runCli([fixturePath('benign-agent-standard.txt'), '--format', 'json']);
 
       const parsed = JSON.parse(result.stdout) as readonly {
         readonly findings: readonly Finding[];

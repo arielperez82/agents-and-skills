@@ -1,3 +1,4 @@
+import { computePosition } from './text-utils.js';
 import type { Finding } from './types.js';
 
 export type SuppressionDirective = {
@@ -24,11 +25,6 @@ const parseDirectiveBody = (
   return { category, justification };
 };
 
-const lineNumberOf = (content: string, charIndex: number): number => {
-  const prefix = content.slice(0, charIndex);
-  return prefix.split('\n').length;
-};
-
 const parseWithPattern = (
   content: string,
   pattern: RegExp,
@@ -45,7 +41,7 @@ const parseWithPattern = (
       category,
       justification,
       scope,
-      line: lineNumberOf(content, match.index),
+      line: computePosition(content, match.index).line,
     });
     match = regex.exec(content);
   }

@@ -1,4 +1,5 @@
 import { adjustSeverity } from './context-severity-matrix.js';
+import { computePosition } from './text-utils.js';
 import type { Finding, Severity } from './types.js';
 
 const ZERO_WIDTH_CHARS = new Set([
@@ -34,17 +35,6 @@ const formatCodePoint = (codePoint: number): string =>
 
 const isCodeBlockContext = (context: string): boolean => context.includes('code-block');
 
-const computeLineAndColumn = (
-  text: string,
-  charIndex: number,
-): { readonly line: number; readonly column: number } => {
-  const prefix = text.slice(0, charIndex);
-  const lineOffset = prefix.split('\n').length - 1;
-  const lastNewline = prefix.lastIndexOf('\n');
-  const column = lastNewline === -1 ? charIndex + 1 : charIndex - lastNewline;
-  return { line: 1 + lineOffset, column };
-};
-
 const createFinding = (
   patternId: string,
   rawSeverity: Severity,
@@ -54,7 +44,7 @@ const createFinding = (
   charIndex: number,
   context: string,
 ): Finding => {
-  const { line, column } = computeLineAndColumn(text, charIndex);
+  const { line, column } = computePosition(text, charIndex);
   const { adjustedSeverity, contextReason } = adjustSeverity(rawSeverity, context);
   return {
     category: 'encoding-obfuscation',

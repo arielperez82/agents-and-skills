@@ -337,6 +337,23 @@ Filenames under `.docs/canonical/` should follow the naming grammar above. To au
 - ADRs: I18-RLMP-001 through I18-RLMP-003
 - Research: [researcher-260225-I18-RLMP-rlm-context-efficiency.md](reports/researcher-260225-I18-RLMP-rlm-context-efficiency.md)
 
+**I20-MUTT** (mutation-testing):
+
+- Charter: [charter-repo-I20-MUTT-mutation-testing.md](canonical/charters/charter-repo-I20-MUTT-mutation-testing.md)
+- Roadmap: [roadmap-repo-I20-MUTT-mutation-testing-2026.md](canonical/roadmaps/roadmap-repo-I20-MUTT-mutation-testing-2026.md)
+- Backlog: [backlog-repo-I20-MUTT-mutation-testing.md](canonical/backlogs/backlog-repo-I20-MUTT-mutation-testing.md)
+- Plan: [plan-repo-I20-MUTT-mutation-testing.md](canonical/plans/plan-repo-I20-MUTT-mutation-testing.md)
+
+**I21-PIPS** (prompt-injection-protection-system):
+
+- Charter: [charter-repo-I21-PIPS-prompt-injection-protection-system.md](canonical/charters/charter-repo-I21-PIPS-prompt-injection-protection-system.md)
+- Scenarios: [charter-repo-I21-PIPS-prompt-injection-protection-system-scenarios.md](canonical/charters/charter-repo-I21-PIPS-prompt-injection-protection-system-scenarios.md)
+- Roadmap: [roadmap-repo-I21-PIPS-prompt-injection-protection-system-2026.md](canonical/roadmaps/roadmap-repo-I21-PIPS-prompt-injection-protection-system-2026.md)
+- Backlog: [backlog-repo-I21-PIPS.md](canonical/backlogs/backlog-repo-I21-PIPS.md)
+- Plan: [plan-repo-I21-PIPS.md](canonical/plans/plan-repo-I21-PIPS.md)
+- ADRs: I21-PIPS-001 through I21-PIPS-004
+- Retroactive Audit: [report-repo-I21-PIPS-retroactive-audit-2026-02.md](reports/report-repo-I21-PIPS-retroactive-audit-2026-02.md)
+
 Root `AGENTS.md` (if present) should point here: "See .docs/AGENTS.md for agent artifact conventions and operating reference."
 
 ---

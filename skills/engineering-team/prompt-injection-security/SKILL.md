@@ -1,13 +1,14 @@
 ---
 name: prompt-injection-security
-title: Prompt Injection Security
 description: Detection and prevention of prompt injection attacks in AI agent/skill/command systems. Use when authoring, reviewing, or ingesting markdown artifacts that will be loaded as LLM context.
-domain: security
-subdomain: prompt-injection
-tags: [security, prompt-injection, content-safety, intake-security]
-difficulty: intermediate
-time-saved: 30m
-frequency: daily
+metadata:
+  title: Prompt Injection Security
+  domain: security
+  subdomain: prompt-injection
+  tags: [security, prompt-injection, content-safety, intake-security]
+  difficulty: intermediate
+  time-saved: 30m
+  frequency: daily
 ---
 
 # Prompt Injection Security
@@ -327,7 +328,7 @@ Each pattern is defined with:
 
 3. **Run tests** to verify detection and no false positives:
    ```bash
-   cd plans/prompt-injection-security/packages/prompt-injection-scanner
+   cd packages/prompt-injection-scanner
    pnpm test
    ```
 

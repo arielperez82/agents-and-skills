@@ -372,7 +372,7 @@ Role and specialist skills (same folder):
 5. **Planning work** → Load `planning`.
 6. **Functional style** → Load `functional`.
 
-### Skill ↔ agent mapping (examples)
+### Skill <-> agent mapping (examples)
 
 | When you... | Load skill | Engage agent |
 |-----------|------------|---------------|
