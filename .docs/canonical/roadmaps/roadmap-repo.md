@@ -2,7 +2,7 @@
 type: roadmap
 endeavor: repo
 status: active
-updated: 2026-02-28
+updated: 2026-03-01
 ---
 
 # Roadmap: agents-and-skills
@@ -17,7 +17,7 @@ Initiatives actively in progress.
 
 | Initiative | Name | Description | Status | Charter |
 |------------|------|-------------|--------|---------|
-| I21-PIPS | Prompt Injection Protection System | Layered defense system detecting prompt injection and context poisoning in agent/skill/command artifacts at intake, authoring, and review time | active | [charter](../charters/charter-repo-I21-PIPS-prompt-injection-protection-system.md) |
+| I24-PRFX2 | PIPS Review Fixes Phase 2 | Address remaining Fix Required (F3) and 12 Suggestions from I21-PIPS review: security hardening, functional refactoring, test quality, documentation | active | [charter](../charters/charter-repo-I24-PRFX2-pips-review-fixes-phase2.md) |
 
 ## Next
 
@@ -31,7 +31,9 @@ Initiatives chartered and ready to start when capacity allows.
 
 Ideas and potential initiatives not yet chartered or deferred.
 
-_(empty)_
+| Initiative | Name | Description | Status | Charter |
+|------------|------|-------------|--------|---------|
+| — | security-engineer.md Decomposition | Extract 835-line security-engineer.md knowledge into skill references (deferred S20 from I24-PRFX2) | idea | — |
 
 ## Done
 
@@ -60,3 +62,5 @@ Completed initiatives.
 | I18-RLMP | RLM-Inspired Context Efficiency | Tiered review skill with prefilter scripts for context-efficient agent reviews | [charter](../charters/charter-repo-I18-RLMP-rlm-context-efficiency.md) |
 | I19-IREV | Incremental Review Enforcement | Enforce full review gate in `/code` Step 4 and `/git/cm`; eliminate review duplication in `/craft` Phase 4 | [charter](../charters/charter-repo-I19-IREV-incremental-review-enforcement.md) |
 | I20-MUTT | Mutation Testing | Mutation testing methodology skill, Stryker configuration skill, and Phase 0 conditional check | [charter](../charters/charter-repo-I20-MUTT-mutation-testing.md) |
+| I21-PIPS | Prompt Injection Protection System | Layered defense system detecting prompt injection and context poisoning in agent/skill/command artifacts | [charter](../charters/charter-repo-I21-PIPS-prompt-injection-protection-system.md) |
+| I23-PRFX | PIPS Review Fixes Phase 1 | Addressed 10/11 Fix Required and 7/21 Suggestions from I21-PIPS review | [charter](../charters/charter-repo-I23-PRFX.md) |

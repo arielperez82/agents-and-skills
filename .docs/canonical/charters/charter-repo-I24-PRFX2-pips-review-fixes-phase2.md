@@ -3,7 +3,7 @@ type: charter
 endeavor: repo
 initiative: I24-PRFX2
 initiative_name: pips-review-fixes-phase2
-status: proposed
+status: active
 scope_type: mixed
 created: 2026-03-01
 updated: 2026-03-01
@@ -27,7 +27,7 @@ The I21-PIPS review report identified 11 Fix Required and 21 Suggestions. I23-PR
 
 **What remains (this initiative):**
 - F3 (1 Fix Required -- security design decision)
-- S1, S2, S4, S6, S7, S8, S10, S11, S12, S14, S15, S18, S20, S21 (14 Suggestions)
+- S1, S2, S4, S6, S7, S8, S10, S11, S12, S14, S15, S18 (12 Suggestions; S20 deferred, S21 no-op)
 
 ## Scope
 
@@ -96,12 +96,9 @@ The I21-PIPS review report identified 11 Fix Required and 21 Suggestions. I23-PR
 - Duplicate "Content Safety Checks" sections in `agent-validator.md` and `skill-validator.md` (nearly identical 41 lines each). Extract to shared reference document and link from both agents.
 - Location: `agents/agent-validator.md`, `agents/skill-validator.md`
 
-**S20 -- security-engineer.md Knowledge Extraction**
-- `security-engineer.md` (Grade C, 835 lines) inlines too much knowledge with only 1 skill reference for 757 body lines. Extract domain knowledge into skill files. This is a significant effort and may warrant its own sub-initiative.
-- Location: `agents/security-engineer.md`
-
 ### Out of Scope
 
+- **S20** (security-engineer.md knowledge extraction) -- Deferred to Later roadmap. Too large (835 lines) for this initiative; warrants its own sub-initiative. Product-director decision in Phase 0.
 - **S21** (Close phase agent list) -- Historical status file entry, no action needed.
 - New scanner features beyond addressing review findings.
 - Changes to the scanner's detection patterns or categories (except S2 ReDoS fixes).
@@ -129,7 +126,6 @@ The I21-PIPS review report identified 11 Fix Required and 21 Suggestions. I23-PR
 
 ### Sequence 4: Documentation
 1. Extract shared Content Safety Checks reference (S18)
-2. Extract security-engineer.md knowledge to skills (S20)
 
 ## Success Criteria
 
@@ -146,7 +142,6 @@ The I21-PIPS review report identified 11 Fix Required and 21 Suggestions. I23-PR
 |------|------------|
 | F3 design decision could require significant scanner architecture changes | Start with ADR; implement incrementally |
 | S2 ReDoS fixes could change detection behavior | Run full fixture suite after each pattern change |
-| S20 is large (835 lines to decompose) | May split into sub-initiative if scope exceeds 50 files |
 | Functional refactoring (S10-S12) could introduce regressions | TDD: existing 309 tests serve as safety net |
 
 ## Effort Estimate
@@ -154,4 +149,4 @@ The I21-PIPS review report identified 11 Fix Required and 21 Suggestions. I23-PR
 - **Sequence 1 (Security):** Medium-Large -- F3 requires design + implementation; S2 requires regex audit
 - **Sequence 2 (Refactoring):** Medium -- 3 targeted refactorings with existing test coverage
 - **Sequence 3 (Test/Quality):** Small-Medium -- mostly documentation + one test refactor
-- **Sequence 4 (Documentation):** Medium -- S20 is the bulk of the work
+- **Sequence 4 (Documentation):** Small -- S18 shared reference extraction only (S20 deferred)
