@@ -3,8 +3,8 @@ type: backlog
 endeavor: repo
 initiative: I05-ATEL
 initiative_name: agent-telemetry
-status: done
-updated: 2026-02-17
+status: closed
+updated: 2026-03-01
 ---
 
 # Backlog: Agent Telemetry
@@ -38,7 +38,7 @@ Full ID prefix for this initiative: **I05-ATEL**. In-doc shorthand: B1, B2, ... 
 | B19 | Create src/client.ts (createTelemetryClient with separate read token and ingest token configuration, wiring all datasources + pipes) + unit test with msw mocks. Test error paths: 401, 429, 500, network timeout, malformed response, empty results | 4 | Single entry point for all telemetry operations with proper token separation | done |
 | B20 | Create tests/integration/helpers/factories.ts: makeAgentActivationRow, makeSkillActivationRow, makeApiRequestRow, makeSessionSummaryRow, makeTelemetryHealthRow + batch helpers (plural variants). All factories typed against datasource InferRow types | 4 | Test data factories; unblocks integration tests | done |
 | B21 | Create integration tests for ALL pipes against Tinybird local: agent_usage_summary, skill_frequency, cost_by_model, session_overview, optimization_insights, telemetry_health_summary + cross-endpoint consistency test (session totals match cost_by_model totals) + parameter validation tests (negative days, zero, large values, missing session_id) | 4 | End-to-end validation of datasource-to-pipe pipeline | done |
-| B22 | Verify standard OTel metrics (token.usage, cost.usage, tool_result) flowing to Tinybird. Confirm session_id availability as OTel resource attribute for cross-path correlation. **DEFERRED**: OTLP/protobuf vs Tinybird NDJSON protocol mismatch requires OTel Collector (charter non-goal). Hooks path is working in production with richer data (agent_type enrichment, session context, transcript parsing). Revisit if Tinybird adds native OTLP ingestion. See `.docs/reports/researcher-260217-otel-tinybird-validation-b22.md` | 7 | OTel data path validated (parallel OTel track) | deferred |
+| B22 | Verify standard OTel metrics (token.usage, cost.usage, tool_result) flowing to Tinybird. Confirm session_id availability as OTel resource attribute for cross-path correlation. **DROPPED**: Protocol mismatch (OTLP protobuf vs Tinybird NDJSON) requires OTel Collector, which is a charter non-goal. Hooks-only path chosen per ADR I05-ATEL-001. See `.docs/canonical/adrs/I05-ATEL-001-hooks-only-drop-otel-path.md` | 7 | OTel data path validated (parallel OTel track) | dropped |
 | B23 | Hook event validation spike: validate SubagentStart/SubagentStop payloads (confirm agent_type, agent_id, agent_transcript_path available), validate PostToolUse data (confirm tool_name and input accessible for path filtering), validate SessionStart/SessionEnd payloads, validate session_id availability across all events. Document findings. See `.docs/reports/researcher-260217-hook-event-validation-spike.md` | 5 | De-risks hook implementation; prevents Wave 5-6 rework | done |
 | B24 | Document JSONL transcript schema: capture sample transcripts from real sessions, define Zod schema for transcript rows, create test fixtures (valid, empty, malformed, no-token-fields, large). Build `parseTranscriptTokens(content: string)` module with strict field allowlist (only token count fields, never content) + unit test | 5 | Prerequisite for B27; ensures safe transcript parsing | done |
 | B25 | Create `.claude/hooks/` directory. Resolve settings file (`.claude/settings.local.json` per existing convention) | 5 | Unblocks hook wrapper creation | done |

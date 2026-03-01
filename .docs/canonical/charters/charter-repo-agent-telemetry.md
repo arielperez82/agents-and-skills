@@ -3,8 +3,8 @@ type: charter
 endeavor: repo
 initiative: I05-ATEL
 initiative_name: agent-telemetry
-status: done
-updated: 2026-02-12
+status: closed
+updated: 2026-03-01
 ---
 
 # Charter: Agent Telemetry
@@ -33,13 +33,15 @@ Existing tooling does NOT cover these:
 
 ## Primary approach
 
-**Two data paths to Tinybird:**
+**Data path to Tinybird:**
 
-### Path 1: Native OTel
+> **Decision (2026-03-01):** The original charter defined two data paths (Native OTel + Hook scripts). The Native OTel path was dropped per ADR I05-ATEL-001: Tinybird's Events API accepts NDJSON, not OTLP protobuf, and running an OTel Collector is a charter non-goal. The hooks-only path provides richer agent-attributed data and is production-proven. See [ADR I05-ATEL-001](../adrs/I05-ATEL-001-hooks-only-drop-otel-path.md).
 
-Claude Code's built-in telemetry (`CLAUDE_CODE_ENABLE_TELEMETRY=1`) exports standard metrics (token.usage, cost.usage, tool_result events, api_request events) via OpenTelemetry to Tinybird's OTLP ingestion endpoint over HTTPS. No OTel Collector required -- Tinybird accepts OTLP directly. The OTLP endpoint MUST use HTTPS (`https://api.tinybird.co/...`).
+### ~~Path 1: Native OTel~~ (Dropped — ADR I05-ATEL-001)
 
-### Path 2: Hook scripts to Tinybird TS SDK
+~~Claude Code's built-in telemetry (`CLAUDE_CODE_ENABLE_TELEMETRY=1`) exports standard metrics (token.usage, cost.usage, tool_result events, api_request events) via OpenTelemetry to Tinybird's OTLP ingestion endpoint over HTTPS. No OTel Collector required -- Tinybird accepts OTLP directly. The OTLP endpoint MUST use HTTPS (`https://api.tinybird.co/...`).~~
+
+### Path 2: Hook scripts to Tinybird TS SDK (Primary — production-proven)
 
 Custom hook scripts on `SubagentStart`, `SubagentStop`, `PostToolUse` (with file-path matcher for skill/command detection), and `SessionEnd` events. These parse transcript JSONL files to extract per-agent token breakdowns and send structured events to Tinybird via the TypeScript SDK (`@tinybirdco/sdk`).
 
@@ -214,9 +216,9 @@ Outcomes only; no task granularity. Execution is pulled from the backlog and pla
 | 4 | Typed client and integration tests | src/client.ts exports createTelemetryClient factory with separate read/write token configuration, wiring all datasources and pipes; unit tests pass with msw mocks; integration tests pass for all pipes against Tinybird local including cross-endpoint consistency and parameter validation; factory functions in tests/integration/helpers/ cover all datasources | done |
 | 5 | Hook core logic implemented and tested | Hook event validation spike completed; JSONL transcript schema documented with Zod types and test fixtures; 5 core logic modules under src/hooks/ with co-located unit tests (parse-agent-start, parse-agent-stop, parse-skill-activation, build-session-summary, build-usage-context); .claude/hooks/ directory created; response validation for SessionStart hook tested | done |
 | 6 | Hook wrappers configured and E2E verified | 5 pre-compiled JS entry-point wrappers under .claude/hooks/; .claude/settings.local.json updated with hook definitions; all hooks log failures to telemetry_health; E2E verification passes with specific pass/fail checklist | done |
-| 7 | Native OTel enabled and documented | CLAUDE_CODE_ENABLE_TELEMETRY configured with HTTPS-only Tinybird OTLP endpoint; setup documented in .docs/; standard metrics verified flowing to Tinybird | blocked |
-| 8 | Feedback loop verified, docs updated, production deployed | SessionStart hook queries agent_usage_summary with 2s timeout and cache fallback, returns validated optimization context; CLAUDE.md updated with telemetry-informed agent selection guidance (mandatory agents stay mandatory); .docs/AGENTS.md updated with I05-ATEL references, learnings, and agent name stability note; Tinybird deployed to production | partial (B34+B35 done; B36 blocked — TB_TOKEN/TB_HOST secrets not configured) |
-| 9 | Telemetry interpretation layer: cost optimization and analysis skills | `agent-cost-optimization` skill at `skills/agent-development-team/agent-cost-optimization/SKILL.md` covers model tier selection guidelines, token budget patterns, cache optimization strategies, cost-per-task benchmarks; `telemetry-analysis` skill at `skills/engineering-team/telemetry-analysis/SKILL.md` covers metric interpretation patterns for all I05-ATEL pipes (what "good" looks like, threshold-based alerting logic, trend analysis). Both skills reference I05-ATEL pipe outputs. **Validation:** Both SKILL.md files exist, are indexed in skills/README.md, and are wired to relevant agents via frontmatter | todo |
+| 7 | Native OTel enabled and documented | ~~CLAUDE_CODE_ENABLE_TELEMETRY configured with HTTPS-only Tinybird OTLP endpoint; setup documented in .docs/; standard metrics verified flowing to Tinybird~~ | dropped (ADR I05-ATEL-001 — hooks-only path chosen) |
+| 8 | Feedback loop verified, docs updated, production deployed | SessionStart hook queries agent_usage_summary with 2s timeout and cache fallback, returns validated optimization context; CLAUDE.md updated with telemetry-informed agent selection guidance (mandatory agents stay mandatory); .docs/AGENTS.md updated with I05-ATEL references, learnings, and agent name stability note; Tinybird deployed to production | done |
+| 9 | Telemetry interpretation layer: cost optimization and analysis skills | `agent-cost-optimization` skill at `skills/agent-development-team/agent-cost-optimization/SKILL.md` covers model tier selection guidelines, token budget patterns, cache optimization strategies, cost-per-task benchmarks; `telemetry-analysis` skill at `skills/engineering-team/telemetry-analysis/SKILL.md` covers metric interpretation patterns for all I05-ATEL pipes (what "good" looks like, threshold-based alerting logic, trend analysis). Both skills reference I05-ATEL pipe outputs. **Validation:** Both SKILL.md files exist, are indexed in skills/README.md, and are wired to relevant agents via frontmatter | done |
 
 ## Parallelization notes
 

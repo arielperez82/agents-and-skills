@@ -3,14 +3,14 @@ type: status-report
 endeavor: repo
 initiative: I05-ATEL
 initiative_name: agent-telemetry
-updated: 2026-02-17
+updated: 2026-03-01
 ---
 
-# I05-ATEL Status Report — 2026-02-17
+# I05-ATEL Status Report — 2026-03-01
 
 ## Summary
 
-Agent Telemetry initiative is **92% complete** (35 of 38 backlog items done, 2 blocked). Waves 1-7 are complete (except B36 production deploy, blocked on Tinybird project setup). B22 (Native OTel) remains blocked pending Tinybird OTLP compatibility investigation.
+Agent Telemetry initiative is **closed** — 38 of 38 backlog items resolved (37 done + 1 dropped per ADR I05-ATEL-001). All 8 waves complete. Production Tinybird project live, all pipes operational, interpretation skills created. Hooks-only data path chosen.
 
 ## Outcome Status
 
@@ -22,9 +22,9 @@ Agent Telemetry initiative is **92% complete** (35 of 38 backlog items done, 2 b
 | 4 | Typed client + integration tests | done |
 | 5 | Hook core logic + tests | done |
 | 6 | Hook wrappers + E2E verification | done |
-| 7 | Native OTel | blocked (B22) |
-| 8 | Feedback loop, docs, production deploy | partial (B34+B35 done; B36 blocked — Tinybird production project not yet created, TB_TOKEN/TB_HOST secrets not configured) |
-| 9 | Telemetry interpretation skills | todo |
+| 7 | Native OTel | dropped (ADR I05-ATEL-001 — hooks-only path chosen; protocol mismatch, charter non-goal) |
+| 8 | Feedback loop, docs, production deploy | done (B34+B35+B36 all complete) |
+| 9 | Telemetry interpretation skills | done (B37 agent-cost-optimization + B38 telemetry-analysis) |
 
 ## Wave Progress
 
@@ -33,27 +33,32 @@ Agent Telemetry initiative is **92% complete** (35 of 38 backlog items done, 2 b
 | 1 (B1-B3) | Quality gate + scaffold | done |
 | 2 (B4-B10) | Datasources + OTel config | done |
 | 3 (B9-B18) | Pipes + barrel + OTel docs | done |
-| 4 (B19-B22) | Client + integration tests + OTel verify | B22 blocked, rest done |
+| 4 (B19-B22) | Client + integration tests + OTel verify | done (B22 dropped) |
 | 5 (B23-B30) | Hook spike + core logic | done |
 | 6 (B31-B33) | Hook wrappers + E2E | done |
-| 7 (B34-B36) | Docs + production deploy | B34+B35 done; B36 blocked |
-| 8 (B37-B38) | Interpretation skills | todo (blocked by B36) |
+| 7 (B34-B36) | Docs + production deploy | done |
+| 8 (B37-B38) | Interpretation skills | done |
 
-## Blockers
+## Resolved Items
 
-- **B22 (Native OTel)**: Tinybird's OTLP endpoint expects protobuf encoding but Claude Code sends JSON-encoded OTel. Researcher spike documented in `researcher-260217-otel-tinybird-validation-b22.md`. Options: (1) collector proxy, (2) drop OTel path, (3) wait for Tinybird JSON OTLP support. Decision pending.
-- **B36 (Production deploy)**: Tinybird production project needs to be created first. Then configure `TB_TOKEN` and `TB_HOST` as GitHub repository secrets and trigger `telemetry-deploy.yml` via workflow_dispatch.
+- **B22 (Native OTel)**: Dropped per ADR I05-ATEL-001. Tinybird OTLP endpoint expects protobuf encoding; no confirmed native OTLP/JSON ingestion. Running an OTel Collector is a charter non-goal. Hooks path is production-proven with richer data (agent context enrichment, session correlation, transcript parsing). Single data path eliminates double-counting risk.
+- **B36 (Production deploy)**: Complete. Tinybird production project live, pipe endpoints returning data.
+- **B37 (agent-cost-optimization skill)**: Complete. 166-line SKILL.md at `skills/agent-development-team/agent-cost-optimization/SKILL.md`, indexed in README, referenced by product-director + cto-advisor.
+- **B38 (telemetry-analysis skill)**: Complete. 251-line SKILL.md at `skills/engineering-team/telemetry-analysis/SKILL.md`, indexed in README, referenced by observability-engineer + product-director.
 
 ## Quality Metrics
 
-- **Unit tests**: 224 passing
+- **Unit tests**: 254+ passing
 - **Integration tests**: 30 passing (Tinybird Local)
 - **Type-check**: clean (strict mode, noUncheckedIndexedAccess)
 - **Lint**: clean (strictTypeChecked)
 - **Format**: clean
 
-## Next Steps
+## Close Summary
 
-1. **B36**: Create Tinybird production project, configure TB_TOKEN + TB_HOST secrets, trigger deploy
-2. **Wave 8 (B37-B38)**: Create agent-cost-optimization and telemetry-analysis skills (after B36)
-3. **B22 resolution**: Decide OTel path (collector proxy vs drop vs wait)
+Initiative closed 2026-03-01. All items resolved:
+- 37 backlog items completed (B1-B21, B23-B38)
+- 1 backlog item dropped with ADR (B22 — OTel path, per I05-ATEL-001)
+- OTel validate-endpoint module removed (dead code after B22 drop)
+- Charter updated with hooks-only decision note
+- Assessment telemetry caveat updated (production data now available for ROI validation)

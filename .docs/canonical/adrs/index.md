@@ -1,7 +1,7 @@
 ---
 type: index
 endeavor: repo
-updated: 2026-02-25
+updated: 2026-03-01
 ---
 
 # ADR Index
@@ -20,5 +20,6 @@ Optional index for Architecture Decision Records. ADRs live in this directory wi
 | I18-RLMP-001 | [T1 scripts co-located under tiered-review skill](I18-RLMP-001-scripts-colocated-under-tiered-review-skill.md) | Proposed | 2026-02-25 |
 | I18-RLMP-002 | [Symbolic handle pattern for agent context](I18-RLMP-002-symbolic-handle-pattern.md) | Proposed | 2026-02-25 |
 | I18-RLMP-003 | [Sequential pre-filters before parallel dispatch](I18-RLMP-003-sequential-prefilters-before-parallel-dispatch.md) | Proposed | 2026-02-25 |
+| I05-ATEL-001 | [Drop native OTel path — hooks-only telemetry](I05-ATEL-001-hooks-only-drop-otel-path.md) | Accepted | 2026-03-01 |
 
 See [charter](../../charters/charter-repo-artifact-conventions.md) for ADR placement and front matter requirements.

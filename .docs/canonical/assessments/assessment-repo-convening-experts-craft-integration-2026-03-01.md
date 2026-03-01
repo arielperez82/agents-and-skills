@@ -326,7 +326,14 @@ The agent-author recommends a phased rollout:
 
 ### Telemetry Caveat
 
-Current telemetry data is operationally broken (I05-ATEL Waves 1-2 pending). Cost projections use the hardcoded pricing table and estimated token volumes from panel session analysis. Once telemetry is repaired, projections should be validated against actual usage data.
+**Update (2026-03-01):** I05-ATEL is now closed. Production Tinybird project is live (B36 done), all 6 pipes operational, and both interpretation skills created (B37 agent-cost-optimization, B38 telemetry-analysis). The hooks-only data path is production-proven (254+ tests, E2E verified). The native OTel path was dropped per ADR I05-ATEL-001.
+
+Cost projections in this assessment use the hardcoded pricing table and estimated token volumes from panel session analysis. These can now be validated against real production data by querying:
+- `cost_by_model` — actual model-tier cost distribution
+- `cost_by_agent` (via `agent_usage_summary`) — actual per-agent costs
+- `optimization_insights` — actual efficiency scores and cache hit rates
+
+To validate: run `/telemetry/optimize` or query pipes directly with production credentials (stored in `.env.local`, not committed). Sufficient data accumulation (2-4 weeks of normal usage) is recommended before drawing conclusions. Priority 6 in the Actionable Recommendations table is now unblocked.
 
 ### Open Design Decision
 
