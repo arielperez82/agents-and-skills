@@ -315,4 +315,77 @@ describe('applySuppressions', () => {
       expect(result[0]?.suppressionJustification).toBeUndefined();
     });
   });
+
+  describe('noInlineConfig option', () => {
+    it('ignores inline directives when noInlineConfig is true', () => {
+      const findings = [createFinding({ line: 6 })];
+      const directives: readonly SuppressionDirective[] = [
+        {
+          category: 'instruction-override',
+          justification: 'documented example',
+          scope: 'inline',
+          line: 5,
+        },
+      ];
+
+      const result = applySuppressions(findings, directives, { noInlineConfig: true });
+
+      expect(result[0]?.suppressed).toBeUndefined();
+    });
+
+    it('still applies file-level directives when noInlineConfig is true', () => {
+      const findings = [createFinding({ line: 5 }), createFinding({ line: 20 })];
+      const directives: readonly SuppressionDirective[] = [
+        {
+          category: 'instruction-override',
+          justification: 'attack documentation file',
+          scope: 'file',
+          line: 1,
+        },
+      ];
+
+      const result = applySuppressions(findings, directives, { noInlineConfig: true });
+
+      expect(result.every((f) => f.suppressed === true)).toBe(true);
+      expect(result.every((f) => f.suppressionJustification === 'attack documentation file')).toBe(
+        true,
+      );
+    });
+
+    it('preserves default behavior when noInlineConfig is not provided', () => {
+      const findings = [createFinding({ line: 6 })];
+      const directives: readonly SuppressionDirective[] = [
+        {
+          category: 'instruction-override',
+          justification: 'documented example',
+          scope: 'inline',
+          line: 5,
+        },
+      ];
+
+      const result = applySuppressions(findings, directives);
+
+      expect(result[0]?.suppressed).toBe(true);
+    });
+
+    it('still generates missing-justification findings for inline directives when noInlineConfig is true', () => {
+      const findings = [createFinding({ line: 6 })];
+      const directives: readonly SuppressionDirective[] = [
+        {
+          category: 'instruction-override',
+          justification: '',
+          scope: 'inline',
+          line: 5,
+        },
+      ];
+
+      const result = applySuppressions(findings, directives, { noInlineConfig: true });
+
+      const original = result.find((f) => f.patternId === 'io-001');
+      expect(original?.suppressed).toBeUndefined();
+
+      const generated = result.filter((f) => f.patternId === 'suppression-missing-justification');
+      expect(generated).toHaveLength(1);
+    });
+  });
 });

@@ -7,7 +7,11 @@ import type { Heading, Root, Text } from 'mdast';
 import { allCategories } from '../patterns/index.js';
 import { adjustSeverity } from './context-severity-matrix.js';
 import { buildSummary } from './severity-utils.js';
-import { applySuppressions, parseSuppressionsFromContent } from './suppression.js';
+import {
+  applySuppressions,
+  parseSuppressionsFromContent,
+  type SuppressionOptions,
+} from './suppression.js';
 import { computePosition } from './text-utils.js';
 import type { Finding, PatternCategory, PatternRule, ScanResult } from './types.js';
 
@@ -196,7 +200,7 @@ const scanBody = (content: string): readonly ContentSegment[] => {
   return segments;
 };
 
-export const scan = (content: string): ScanResult => {
+export const scan = (content: string, options?: SuppressionOptions): ScanResult => {
   if (content.trim() === '') {
     return { findings: [], summary: buildSummary([]) };
   }
@@ -209,7 +213,7 @@ export const scan = (content: string): ScanResult => {
   const rawFindings = [...patternFindings, ...unicodeFindings];
 
   const directives = parseSuppressionsFromContent(content);
-  const findings = applySuppressions(rawFindings, directives);
+  const findings = applySuppressions(rawFindings, directives, options);
 
   return {
     findings,

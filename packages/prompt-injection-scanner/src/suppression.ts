@@ -8,6 +8,10 @@ export type SuppressionDirective = {
   readonly line: number;
 };
 
+export type SuppressionOptions = {
+  readonly noInlineConfig?: boolean;
+};
+
 const INLINE_PATTERN = /<!--\s*pips-allow:\s*(.+?)\s*-->/g;
 
 const FILE_PATTERN = /<!--\s*pips-allow-file:\s*(.+?)\s*-->/g;
@@ -82,7 +86,9 @@ const isFileMatch = (finding: Finding, directive: SuppressionDirective): boolean
 export const applySuppressions = (
   findings: readonly Finding[],
   directives: readonly SuppressionDirective[],
+  options?: SuppressionOptions,
 ): readonly Finding[] => {
+  const noInlineConfig = options?.noInlineConfig === true;
   const usedInlineDirectives = new Set<number>();
 
   const processedFindings = findings.map((finding) => {
@@ -93,6 +99,10 @@ export const applySuppressions = (
         suppressed: true as const,
         suppressionJustification: fileDirective.justification,
       };
+    }
+
+    if (noInlineConfig) {
+      return finding;
     }
 
     const inlineIndex = directives.findIndex(

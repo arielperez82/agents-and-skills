@@ -16,6 +16,7 @@ type ParsedArgs = {
   readonly files: readonly string[];
   readonly format: 'json' | 'human';
   readonly severity: Severity;
+  readonly noInlineConfig: boolean;
 };
 
 const isValidSeverity = (value: string): value is Severity =>
@@ -30,6 +31,7 @@ const isValidFormat = (value: string): value is Format =>
 const parseArgs = (args: readonly string[]): ParsedArgs | { readonly error: string } => {
   let format: Format = 'human';
   let severity: Severity = 'LOW';
+  let noInlineConfig = false;
   const files: string[] = [];
 
   for (let i = 0; i < args.length; i++) {
@@ -50,12 +52,14 @@ const parseArgs = (args: readonly string[]): ParsedArgs | { readonly error: stri
       }
       severity = next;
       i++;
+    } else if (arg === '--no-inline-config') {
+      noInlineConfig = true;
     } else if (arg !== undefined) {
       files.push(arg);
     }
   }
 
-  return { files, format, severity };
+  return { files, format, severity, noInlineConfig };
 };
 
 const meetsThreshold = (findingSeverity: Severity, threshold: Severity): boolean =>
@@ -64,10 +68,13 @@ const meetsThreshold = (findingSeverity: Severity, threshold: Severity): boolean
 const scanFile = (
   filePath: string,
   severityThreshold: Severity,
+  options?: { readonly noInlineConfig?: boolean },
 ): FileResult | { readonly error: string } => {
   try {
     const content = readFileSync(filePath, 'utf-8');
-    const result = scan(content);
+    const suppressionOptions =
+      options?.noInlineConfig === true ? { noInlineConfig: true as const } : undefined;
+    const result = scan(content, suppressionOptions);
     const filtered = result.findings.filter((f) => meetsThreshold(f.severity, severityThreshold));
     return { file: filePath, findings: filtered, summary: buildSummary(filtered) };
   } catch {
@@ -97,7 +104,7 @@ export const runCli = (args: readonly string[]): CliResult => {
       exitCode: 2,
       stdout: '',
       stderr:
-        'Usage: prompt-injection-scanner [--format json|human] [--severity CRITICAL|HIGH|MEDIUM|LOW] <file...>',
+        'Usage: prompt-injection-scanner [--format json|human] [--severity CRITICAL|HIGH|MEDIUM|LOW] [--no-inline-config] <file...>',
     };
   }
 
@@ -105,7 +112,9 @@ export const runCli = (args: readonly string[]): CliResult => {
   const errors: string[] = [];
 
   for (const filePath of parsed.files) {
-    const result = scanFile(filePath, parsed.severity);
+    const result = scanFile(filePath, parsed.severity, {
+      noInlineConfig: parsed.noInlineConfig,
+    });
     if ('error' in result) {
       errors.push(result.error);
     } else {
