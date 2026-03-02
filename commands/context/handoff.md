@@ -103,6 +103,10 @@ To resume in a new session, read this file first, then follow the
 Key Anchors to load relevant context before continuing from Next Steps.
 ```
 
+## Standalone vs Craft-Embedded Snapshots
+
+This command produces **standalone snapshots** that include Git State, Verification, and Open Questions sections. Craft-embedded snapshots (written during `/craft` Phase 4) use the compact 5-field format from the `context-continuity` skill and omit Git State (already tracked in the status file YAML). Use this command for non-`/craft` work; use `/craft` for initiative-driven development.
+
 ## Constraints
 
 - Snapshot must be under 2KB (compact summaries, not transcripts)

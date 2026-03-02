@@ -1,6 +1,6 @@
 # Engineering Team Skills - Claude Code Guidance
 
-This guide covers the 32 production-ready engineering role skills and their Python automation tools.
+This guide covers the 33 production-ready engineering skills and their Python automation tools.
 
 ## Engineering Skills Overview
 
