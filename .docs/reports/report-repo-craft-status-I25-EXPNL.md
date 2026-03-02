@@ -34,13 +34,14 @@ phases:
     feedback: null
   - name: Design
     number: 2
-    status: pending
-    agents: [architect, adr-writer]
-    artifact_paths: []
+    status: approved
+    agents: [architect]
+    artifact_paths:
+      - .docs/canonical/backlogs/backlog-repo-I25-EXPNL-expert-panel-integration.md
     commit_shas: []
-    started_at: null
-    completed_at: null
-    human_decision: null
+    started_at: "2026-03-02T00:40:00Z"
+    completed_at: "2026-03-02T01:00:00Z"
+    human_decision: approve
     feedback: null
   - name: Plan
     number: 3
@@ -107,3 +108,10 @@ Initiative: I25-EXPNL
 - **BDD scenarios:** 42 total (18 happy path, 24 error/edge = 57% edge coverage)
 - **Roadmap:** 3 waves — Wave 0 (walking skeleton, 2-3h), Wave 1 (Discovery+Requirements, 1.5-2h), Wave 2 (Skill+Plan+Telemetry, 0.5-1h)
 - **Audit:** AUTO_APPROVE — charter complete with BDD scenarios, roadmap sequences walking skeleton first
+
+### Phase 2: Design — AUTO_APPROVE
+- **Agents:** architect (adr-writer skipped — docs-only initiative, no meaningful trade-offs requiring ADRs)
+- **Backlog:** 9 items across 3 waves, mapping to roadmap outcomes
+- **Key decisions:** Opt-in panels, role-based (not agent-backed), classification after Phase 0, single-round for Light tier
+- **Status schema:** Added complexity_tier (top-level) and panel_invoked/panel_artifact_path (per-phase)
+- **Audit:** AUTO_APPROVE — backlog complete, adr-writer skipped per resilience rule (decisions documented in backlog)
