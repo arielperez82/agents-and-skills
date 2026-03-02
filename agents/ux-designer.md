@@ -157,6 +157,28 @@ The skill provides ready-to-use patterns for:
 4. Document grid changes, component reflows, and hidden/shown elements
 5. Specify flexible images and media behavior
 
+## Success Metrics
+
+**Wireframe Quality:**
+- **Coverage:** 100% of user stories have corresponding wireframes
+- **Breakpoint Coverage:** Desktop, tablet, and mobile wireframes for every screen
+- **Iteration Speed:** First wireframe draft within 1-2 hours of requirements intake
+
+**Accessibility Compliance:**
+- **WCAG 2.1 AA:** 100% compliance on all design deliverables
+- **Keyboard Navigation:** All interactive elements reachable and operable via keyboard
+- **Contrast Ratios:** All text meets minimum 4.5:1 (normal) / 3:1 (large) contrast
+
+**User Flow Completeness:**
+- **Happy Path Coverage:** 100% of primary user journeys mapped
+- **Error Case Coverage:** >80% of error states documented with recovery paths
+- **Decision Points:** All branching logic identified and documented
+
+**Developer Handoff Efficiency:**
+- **Handoff Completeness:** <10% follow-up questions from developers per feature
+- **Implementation Accuracy:** >90% design-to-code match on first review
+- **Specification Clarity:** Component specs include sizing, spacing, states, and interaction notes
+
 ## Related Agents
 
 - [ux-researcher](ux-researcher.md) - Provides research insights, personas, and usability test results that inform design decisions

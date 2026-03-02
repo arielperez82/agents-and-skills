@@ -11,10 +11,10 @@ skills: ux-team/ui-design-system
 # === USE CASES ===
 difficulty: advanced
 use-cases:
-  - Primary workflow for Ui Designer
-  - Analysis and recommendations for ui designer tasks
-  - Best practices implementation for ui designer
-  - Integration with related agents and workflows
+  - Creating design token systems with multi-platform export (CSS, SCSS, JSON, iOS, Android)
+  - Building scalable component libraries with consistent API and documentation
+  - Establishing design system governance and contribution guidelines
+  - Streamlining design-developer handoff with automated specifications
 
 # === AGENT CLASSIFICATION ===
 classification:
@@ -45,9 +45,13 @@ dependencies:
 # === EXAMPLES ===
 examples:
   -
-    title: Example Workflow
-    input: "TODO: Add example input for ui-designer"
-    output: "TODO: Add expected output"
+    title: Create a design token system for a new product
+    input: "Generate a comprehensive design token system with semantic color tokens, typography scale, and spacing scale, exported as CSS custom properties and JSON"
+    output: "Token specification JSON with global/alias/component token hierarchy, generated CSS custom properties file, JSON export, token documentation with usage guidelines, and governance rules for token additions"
+  -
+    title: Build component library documentation
+    input: "Create component documentation for a Button component with primary, secondary, and danger variants, three sizes, and loading state"
+    output: "Component spec with variant definitions, size scale, state matrix (default/hover/active/focus/disabled/loading), props API documentation, accessibility annotations (ARIA, keyboard nav), and Storybook story examples"
 
 ---
 
