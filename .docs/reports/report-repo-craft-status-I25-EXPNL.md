@@ -22,13 +22,15 @@ phases:
     feedback: null
   - name: Define
     number: 1
-    status: pending
+    status: approved
     agents: [product-analyst, acceptance-designer]
-    artifact_paths: []
+    artifact_paths:
+      - .docs/canonical/charters/charter-repo-I25-EXPNL-expert-panel-integration.md
+      - .docs/canonical/roadmaps/roadmap-repo-I25-EXPNL-expert-panel-integration-2026.md
     commit_shas: []
-    started_at: null
-    completed_at: null
-    human_decision: null
+    started_at: "2026-03-02T00:20:00Z"
+    completed_at: "2026-03-02T00:40:00Z"
+    human_decision: approve
     feedback: null
   - name: Design
     number: 2
@@ -98,3 +100,10 @@ Initiative: I25-EXPNL
 - **Claims verdict:** PASS WITH WARNINGS (16 Verified, 3 Stale, 5 Unverifiable, 1 Contradicted non-critical)
 - **Key findings:** Revised tier model (Trivial/Light/Medium/Complex/Strategic), buyer advocate role added, ops elevated to mandatory in Design panel
 - **Audit:** AUTO_APPROVE — claims-verifier PASS, no critical-path contradictions
+
+### Phase 1: Define — AUTO_APPROVE
+- **Agents:** product-analyst (sequential), acceptance-designer (sequential)
+- **Charter:** 9 user stories across 3 waves (Must/Should/Could), walking skeleton = US-1+US-2+US-3
+- **BDD scenarios:** 42 total (18 happy path, 24 error/edge = 57% edge coverage)
+- **Roadmap:** 3 waves — Wave 0 (walking skeleton, 2-3h), Wave 1 (Discovery+Requirements, 1.5-2h), Wave 2 (Skill+Plan+Telemetry, 0.5-1h)
+- **Audit:** AUTO_APPROVE — charter complete with BDD scenarios, roadmap sequences walking skeleton first
