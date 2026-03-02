@@ -3,9 +3,9 @@ goal: "Integrate convening-experts panels into craft flow phases based on the as
 initiative_id: "I25-EXPNL"
 mode: auto
 auto_mode_confirmed_at: "2026-03-02T00:00:00Z"
-overall_status: in_progress
+overall_status: completed
 created_at: "2026-03-02T00:00:00Z"
-updated_at: "2026-03-02T00:00:00Z"
+updated_at: "2026-03-02T02:20:00Z"
 phases:
   - name: Discover
     number: 0
@@ -81,13 +81,14 @@ phases:
     feedback: null
   - name: Close
     number: 6
-    status: pending
+    status: approved
     agents: [product-director, senior-project-manager, learner, progress-assessor, docs-reviewer]
-    artifact_paths: []
+    artifact_paths:
+      - .docs/canonical/roadmaps/roadmap-repo.md
     commit_shas: []
-    started_at: null
-    completed_at: null
-    human_decision: null
+    started_at: "2026-03-02T02:10:00Z"
+    completed_at: "2026-03-02T02:20:00Z"
+    human_decision: approve
     feedback: null
 ---
 
@@ -140,7 +141,19 @@ Initiative: I25-EXPNL
 - **Files created:** `skills/convening-experts/references/craft-panel-templates.md`
 - **Files modified:** `commands/craft/craft.md`, `skills/convening-experts/SKILL.md`
 - **Audit:** AUTO_APPROVE — all 10 steps complete, zero Fix Required findings from pre-commit hooks
-- **Agents:** implementation-planner (sequential)
+
+### Phase 5: Validate — AUTO_APPROVE
+- **Agents:** docs-reviewer (docs-only scope — code reviewers excluded)
+- **Findings:** 1 Fix Required (Plan Review "Selected" role status undefined → fixed to "Domain-matched"), 3 Suggestions (noted), 5 Observations (all positive)
+- **Fix commit:** `d40e8b4`
+- **Audit:** AUTO_APPROVE — zero remaining Fix Required after fix applied
+
+### Phase 6: Close — AUTO_APPROVE
+- **Agents:** product-director (roadmap update), learner (process capture)
+- **Roadmap:** I25-EXPNL moved to Done on master roadmap
+- **Charter acceptance:** All 9 user stories addressed (US-1 through US-9), all Must/Should delivered, both Could-have items (US-7 Plan Review, US-8 telemetry) delivered
+- **Learnings:** docs-only initiatives benefit from orchestrator direct execution (no engineering-lead overhead); blast-radius classification adds minimal cost with meaningful panel targeting
+- **Audit:** AUTO_APPROVE — charter fully reconciled, no scope additions
 - **Plan:** 10 steps across 6 sub-waves (3 logical waves). Critical path: Step 1→3→4→7
 - **Walking skeleton:** Steps 2-4 (Design Panel template + blast-radius classification + Phase 2 checkpoint)
 - **Files touched:** 3 modified (craft.md, SKILL.md, craft-panel-templates.md), 1 created (craft-panel-templates.md)

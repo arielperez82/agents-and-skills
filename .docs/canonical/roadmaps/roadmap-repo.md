@@ -64,3 +64,4 @@ Completed initiatives.
 | I20-MUTT | Mutation Testing | Mutation testing methodology skill, Stryker configuration skill, and Phase 0 conditional check | [charter](../charters/charter-repo-I20-MUTT-mutation-testing.md) |
 | I21-PIPS | Prompt Injection Protection System | Layered defense system detecting prompt injection and context poisoning in agent/skill/command artifacts | [charter](../charters/charter-repo-I21-PIPS-prompt-injection-protection-system.md) |
 | I23-PRFX | PIPS Review Fixes Phase 1 | Addressed 10/11 Fix Required and 7/21 Suggestions from I21-PIPS review | [charter](../charters/charter-repo-I23-PRFX.md) |
+| I25-EXPNL | Expert Panel Integration | Integrated convening-experts panels into /craft flow phases with blast-radius complexity classification | [charter](../charters/charter-repo-I25-EXPNL-expert-panel-integration.md) |
