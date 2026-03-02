@@ -87,6 +87,10 @@ All artifacts follow the existing canonical hierarchy and naming conventions fro
 
 When editing files, be aware that some files may be symlinks (e.g., `CLAUDE.md` → `.docs/AGENTS.md`). Edits via symlink work correctly, but agents should reference the canonical path in artifact listings and cross-references.
 
+### Context Continuity
+
+Load the **`context-continuity` skill** (`skills/engineering-team/context-continuity/SKILL.md`) at session start (before Phase 4). This skill provides the handoff snapshot format, context budget estimation formula, and reconstruction protocol used by the Handoff Snapshot Protocol and Context Budget Protocol later in this document.
+
 ### Orchestrator Responsibilities
 
 The /craft orchestrator (the agent executing this command) is responsible for infrastructure that subagents cannot handle:

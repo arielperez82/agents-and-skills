@@ -80,6 +80,7 @@ Engineering skills (path: `skills/engineering-team/<name>/`). Load proactively p
 | **subagent-driven-development** | Implementation plans | Independent tasks, spec/implement/review |
 | **nocodb** | NocoDB | Setup, external DBs, views, backups |
 | **telemetry-analysis** | I05-ATEL pipe interpretation | Metric baselines, alerting thresholds, trend analysis, efficiency scoring |
+| **context-continuity** | Long sessions, /craft builds, handoff | Context budget discipline, handoff snapshot format, session continuity patterns |
 | **tinybird** | Tinybird projects | Datafiles, queries, endpoints, deployments, tests |
 | **clickhouse-best-practices** | ClickHouse (or Tinybird) schemas, queries, configs | 28 rules for schema, query, insert, materialized views; check before recommendations |
 | **check-tools** | Environment validation | Tool installs (Python, Node, Java, Go, Rust, Git) |

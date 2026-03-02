@@ -32,6 +32,9 @@ This guide covers the 32 production-ready engineering role skills and their Pyth
 **Security (1 skill):**
 - prompt-injection-security
 
+**Workflow Optimization (1 skill):**
+- context-continuity
+
 **Specialist (6 skills):**
 - senior-graphql, senior-observability, technical-writer
 - incident-response, legacy-codebase-analyzer
@@ -347,6 +350,6 @@ Incorporated from [trailofbits/skills](https://github.com/trailofbits/skills):
 
 Additionally, `senior-security` gained references for insecure-defaults detection and differential security review.
 
-**Last Updated:** February 28, 2026
-**Skills Deployed:** 38/38 engineering skills production-ready (32 role + 6 Trail of Bits)
+**Last Updated:** March 2, 2026
+**Skills Deployed:** 39/39 engineering skills production-ready (32 role + 6 Trail of Bits + 1 workflow optimization)
 **Total Tools:** 44 Python automation tools across core + strategic + AI/ML/Data + platform + specialist
