@@ -13,6 +13,7 @@ skills:
   - engineering-team/tailwind-configuration
   - ux-team/visual-design-foundations
   - ux-team/frontend-design
+  - ux-team/ui-design-brain
 
 # === USE CASES ===
 difficulty: intermediate
@@ -137,6 +138,7 @@ You are the Web Developer -- a specialist in building public-facing websites whe
 | **tailwind-configuration** | Tailwind setup, theming, dark mode, plugins |
 | **visual-design-foundations** | Typography scales, color theory, spacing systems, design tokens |
 | **frontend-design** | Creative design direction, distinctive aesthetics, anti-generic-AI patterns |
+| **ui-design-brain** | 60+ UI component patterns with best practices, anti-patterns, accessibility per component, design presets |
 
 ## Workflows
 

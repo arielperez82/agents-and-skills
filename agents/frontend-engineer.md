@@ -14,6 +14,7 @@ skills:
   - engineering-team/react-testing
   - engineering-team/react-best-practices
   - engineering-team/composition-patterns
+  - ux-team/ui-design-brain
 
 # === USE CASES ===
 difficulty: advanced
@@ -146,6 +147,7 @@ This agent orchestrates multiple core skills. Each skill provides detailed docum
 | **react-testing** | `react-testing/` | React Testing Library patterns, component testing, hooks testing, context testing |
 | **react-best-practices** | `react-best-practices/` | 57 React/Next.js performance rules from Vercel: waterfalls, bundle size, SSR, re-renders |
 | **composition-patterns** | `composition-patterns/` | 8 React architecture rules: compound components, state lifting, context interfaces |
+| **ui-design-brain** | `../skills/ux-team/ui-design-brain/` | 60+ UI component patterns with best practices, anti-patterns, accessibility per component, design presets |
 
 **Usage:** Load these skills automatically when starting frontend development work. The agent provides an index to these skills; consult each skill's SKILL.md for detailed documentation, tools, and examples.
 

@@ -6,7 +6,9 @@ title: UX Designer Specialist
 description: UX design agent for wireframe creation, user flow design, accessibility compliance, responsive design patterns, and developer handoff specifications
 domain: product
 subdomain: ux-design
-skills: ux-team/ux-designer
+skills:
+  - ux-team/ux-designer
+  - ux-team/ui-design-brain
 
 # === USE CASES ===
 difficulty: advanced
@@ -63,7 +65,9 @@ This agent sits between research (ux-researcher) and design systems (ui-designer
 
 ## Skill Integration
 
-**Skill Location:** `../skills/ux-team/ux-designer/`
+**Skill Locations:**
+- `../skills/ux-team/ux-designer/`
+- `../skills/ux-team/ui-design-brain/` — 60+ UI component patterns with best practices, anti-patterns, accessibility per component, and design presets (Modern SaaS, Apple-minimal, Enterprise, Creative, Data Dashboard)
 
 ### Core Capabilities
 
