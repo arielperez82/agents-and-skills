@@ -67,3 +67,100 @@ Produce a panel assessment saved to:
 ### Output
 
 Assessment saved to `.docs/canonical/assessments/assessment-{endeavor}-design-panel-{date}.md`
+
+## Discovery Panel
+
+**Trigger:** Phase 0 gate, Complex+ complexity tier (or orchestrator/user judgment pre-classification)
+
+### Composition
+
+| Role | Status | Responsibility |
+|------|--------|---------------|
+| **User Advocate** | Mandatory | Represents end-user needs, pain points, and workflows |
+| **Buyer/Stakeholder Advocate** | Mandatory | Validates investment justification and organizational value |
+| **Technical Feasibility Expert** | Mandatory | Assesses implementation feasibility and technical constraints |
+| **Competitive/Market Analyst** | Mandatory | Evaluates alternatives, market context, and competitive positioning |
+
+### Format
+
+3-round format:
+1. **Problem framing** — Each expert articulates the problem from their perspective; identifies assumptions
+2. **Challenge assumptions** — Experts challenge each other's framing; surface hidden constraints
+3. **Converge on scope** — Agree on validated problem statement, key risks, and scope boundaries
+
+### Buyer Advocate Guidance
+
+For internal tooling, the Buyer Advocate focuses on developer experience and adoption friction — will the organization invest in this, and does the problem justify the cost?
+
+### Prompt Template
+
+```
+Convene a Discovery Panel for the following initiative.
+
+Goal: {goal}
+Research report: {research_report_path}
+Strategic assessment: {strategic_assessment_path}
+
+Each panelist should evaluate the goal from their perspective and identify:
+- Whether the right problem is being solved
+- Assumptions that need validation before defining scope
+- Risks or gaps in the research findings
+- Whether the value proposition justifies the investment
+
+Produce a panel assessment saved to:
+.docs/canonical/assessments/assessment-{endeavor}-discovery-panel-{date}.md
+```
+
+### Output
+
+Assessment saved to `.docs/canonical/assessments/assessment-{endeavor}-discovery-panel-{date}.md`. Feeds into Phase 1 agent context (product-analyst, acceptance-designer).
+
+## Requirements Panel
+
+**Trigger:** Phase 1 gate, Complex+ complexity tier
+
+### Composition
+
+| Role | Status | Responsibility |
+|------|--------|---------------|
+| **End-User Advocate** | Mandatory | Validates stories solve real user problems |
+| **Buyer Advocate** | Mandatory | Confirms value proposition justifies investment |
+| **Compliance/Risk Expert** | Mandatory | Identifies regulatory, security, or governance constraints |
+| **Engineer** | Mandatory | Assesses technical feasibility of acceptance criteria |
+
+### Format
+
+3-round format:
+1. **Story review** — Each expert evaluates user stories and acceptance criteria from their perspective
+2. **Gap analysis** — Experts identify missing stories, overlapping criteria, or unmeasurable outcomes
+3. **Converge on requirements** — Agree on validated story set with measurable, achievable criteria
+
+### Validation Focus
+
+- Stories solve real user problems (not just technical tasks)
+- Value proposition justifies investment for the buyer
+- Acceptance criteria are measurable and verifiable
+- No critical gaps in coverage (missing personas, edge cases, error paths)
+
+### Prompt Template
+
+```
+Convene a Requirements Panel for the following initiative.
+
+Goal: {goal}
+Charter: {charter_path}
+Research report: {research_report_path}
+
+Each panelist should evaluate the charter's user stories and acceptance criteria from their perspective:
+- Do the stories address real user needs?
+- Are the acceptance criteria measurable and achievable?
+- Is the value proposition clear and justified?
+- Are there gaps in coverage (missing personas, edge cases, compliance requirements)?
+
+Produce a panel assessment saved to:
+.docs/canonical/assessments/assessment-{endeavor}-requirements-panel-{date}.md
+```
+
+### Output
+
+Assessment saved to `.docs/canonical/assessments/assessment-{endeavor}-requirements-panel-{date}.md`. Feeds into acceptance-designer context for BDD scenario refinement.
