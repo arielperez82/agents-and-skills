@@ -869,6 +869,45 @@ Story Reviews do not produce separate commits — code is already committed per-
 
 **Note:** This is typically the longest phase. The orchestrator drives progress step-by-step, dispatching the engineering-lead (who in turn dispatches specialist subagents) for each plan step. Each step produces testable, committed output. If a step fails or is blocked, the orchestrator reports to the human and waits for guidance.
 
+#### Context Budget Protocol
+
+Proactively manage context utilization to prevent silent compression and quality degradation during long phases. Load the `context-continuity` skill (`skills/engineering-team/context-continuity/SKILL.md`) for the full pattern; this section specifies the /craft integration.
+
+**When to estimate:** After every Phase 4 step dispatch return and at every phase transition point.
+
+**Heuristic estimation:** Token-level counting is not available via API. Use observable signals as a proxy:
+
+```
+context_score = (messages × 1.0 + tool_calls × 0.5 + files_read × 2.0 + agent_dispatches × 5.0) / budget_constant
+```
+
+Where `budget_constant` is a tunable value (initial: **200**). Calibrate over time — if compression triggers earlier than expected, reduce the constant; if sessions comfortably handle more, increase it. Document calibration findings via `learner` in Phase 6.
+
+**Threshold actions:**
+
+| Estimated utilization | Action |
+|----------------------|--------|
+| < 50% | Continue normally |
+| 50-60% | Write a handoff snapshot (if not already written for this step). Log: "Context at ~X%. Snapshot written." |
+| > 60% | Recommend compaction. Present the user with: |
+
+```
+Context utilization estimated at ~X%.
+
+Recommended actions:
+  (a) Run /compact and continue in this session
+  (b) Start a new session with /craft:resume (recommended for best quality)
+  (c) Continue as-is (risk: silent compression may degrade output quality)
+```
+
+In auto-mode, option (a) is selected automatically. If `/compact` is not available or fails, option (b) is recommended with a handoff snapshot already written.
+
+**Signals to track** (reset per step, accumulate per phase):
+- `messages`: count of conversation turns since last snapshot or session start
+- `tool_calls`: count of tool invocations (Read, Edit, Write, Bash, Agent, etc.)
+- `files_read`: count of distinct files read (weighted higher — each file adds significant context)
+- `agent_dispatches`: count of Agent tool calls (weighted highest — each dispatch returns substantial content)
+
 #### Handoff Snapshot Protocol
 
 Write compact handoff snapshots to the status file at step and phase boundaries. These snapshots enable efficient session resumption when context is exhausted or a new conversation starts.
