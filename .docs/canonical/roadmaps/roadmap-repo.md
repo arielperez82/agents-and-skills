@@ -25,7 +25,7 @@ Initiatives chartered and ready to start when capacity allows.
 
 | Initiative | Name | Description | Status | Charter |
 |------------|------|-------------|--------|---------|
-| I22-SFMC | Skill Frontmatter API Compliance | Migrate 62 non-compliant skills to API-valid frontmatter by moving extended keys under `metadata`; update validator to error on non-standard keys, warn on incomplete metadata | draft | [charter](../charters/charter-repo-I22-SFMC-skill-frontmatter-compliance.md) |
+| *(none — capacity available)* | | | | |
 
 ## Later
 
@@ -33,7 +33,7 @@ Ideas and potential initiatives not yet chartered or deferred.
 
 | Initiative | Name | Description | Status | Charter |
 |------------|------|-------------|--------|---------|
-| — | security-engineer.md Decomposition | Extract 835-line security-engineer.md knowledge into skill references (deferred S20 from I24-PRFX2) | idea | — |
+| *(none)* | | | | |
 
 ## Done
 
@@ -65,4 +65,5 @@ Completed initiatives.
 | I21-PIPS | Prompt Injection Protection System | Layered defense system detecting prompt injection and context poisoning in agent/skill/command artifacts | [charter](../charters/charter-repo-I21-PIPS-prompt-injection-protection-system.md) |
 | I23-PRFX | PIPS Review Fixes Phase 1 | Addressed 10/11 Fix Required and 7/21 Suggestions from I21-PIPS review | [charter](../charters/charter-repo-I23-PRFX.md) |
 | I24-PRFX2 | PIPS Review Fixes Phase 2 | Remaining Fix Required (F3) + 12 Suggestions from I21-PIPS: --no-inline-config, ReDoS, --base-dir, --redact, refactoring, docs | [charter](../charters/charter-repo-I24-PRFX2-pips-review-fixes-phase2.md) |
+| I22-SFMC | Skill Frontmatter API Compliance | Migrated 62 non-compliant skills to API-valid frontmatter; updated validator to error on non-standard keys, warn on incomplete metadata | [charter](../charters/charter-repo-I22-SFMC-skill-frontmatter-compliance.md) |
 | I25-EXPNL | Expert Panel Integration | Integrated convening-experts panels into /craft flow phases with blast-radius complexity classification | [charter](../charters/charter-repo-I25-EXPNL-expert-panel-integration.md) |
