@@ -60,54 +60,69 @@ const createFinding = (
   };
 };
 
-const detectZeroWidthChars = (text: string, context: string): readonly Finding[] => {
-  const findings: Finding[] = [];
-  const rawSeverity: Severity = isCodeBlockContext(context) ? 'MEDIUM' : 'HIGH';
-
-  for (let i = 0; i < text.length; i++) {
-    const codePoint = text.codePointAt(i);
-    if (codePoint !== undefined && ZERO_WIDTH_CHARS.has(codePoint)) {
-      const formatted = formatCodePoint(codePoint);
-      findings.push(
+/**
+ * Higher-order function that captures the shared char-scan pattern:
+ * iterate over characters in a segment, check membership in a predicate,
+ * and produce a Finding per match.
+ *
+ * @param charSet   - Set of code points to match against
+ * @param patternId - Finding pattern ID (e.g. 'uc-001')
+ * @param getSeverity - Derives severity from context
+ * @param buildMessage - Builds the human-readable message from code point
+ */
+const collectFindings =
+  (
+    charSet: ReadonlySet<number>,
+    patternId: string,
+    getSeverity: (context: string) => Severity,
+    buildMessage: (codePoint: number) => string,
+  ) =>
+  (segment: string, fullText: string, segmentOffset: number, context: string): readonly Finding[] =>
+    Array.from({ length: segment.length }, (_, i) => i).flatMap((i) => {
+      const codePoint = segment.codePointAt(i);
+      if (codePoint === undefined || !charSet.has(codePoint)) return [];
+      return [
         createFinding(
-          'uc-001',
-          rawSeverity,
-          `Zero-width character detected: ${formatted}`,
-          text[i] ?? '',
-          text,
-          i,
+          patternId,
+          getSeverity(context),
+          buildMessage(codePoint),
+          segment[i] ?? '',
+          fullText,
+          segmentOffset + i,
           context,
         ),
-      );
-    }
-  }
+      ];
+    });
 
-  return findings;
-};
+const collectZeroWidthFindings = collectFindings(
+  ZERO_WIDTH_CHARS,
+  'uc-001',
+  (context) => (isCodeBlockContext(context) ? 'MEDIUM' : 'HIGH'),
+  (codePoint) => `Zero-width character detected: ${formatCodePoint(codePoint)}`,
+);
 
-const detectBidiOverrides = (text: string, context: string): readonly Finding[] => {
-  const findings: Finding[] = [];
+const collectBidiFindings = collectFindings(
+  BIDI_OVERRIDE_CHARS,
+  'uc-002',
+  () => 'HIGH',
+  (codePoint) => `Bidirectional override character detected: ${formatCodePoint(codePoint)}`,
+);
 
-  for (let i = 0; i < text.length; i++) {
-    const codePoint = text.codePointAt(i);
-    if (codePoint !== undefined && BIDI_OVERRIDE_CHARS.has(codePoint)) {
-      const formatted = formatCodePoint(codePoint);
-      findings.push(
-        createFinding(
-          'uc-002',
-          'HIGH',
-          `Bidirectional override character detected: ${formatted}`,
-          text[i] ?? '',
-          text,
-          i,
-          context,
-        ),
-      );
-    }
-  }
+const collectCyrillicFindings = collectFindings(
+  new Set(CYRILLIC_HOMOGLYPHS.keys()),
+  'uc-003',
+  () => 'HIGH',
+  (codePoint) => {
+    const latinEquiv = CYRILLIC_HOMOGLYPHS.get(codePoint) ?? '';
+    return `Cyrillic homoglyph detected: ${formatCodePoint(codePoint)} (looks like Latin '${latinEquiv}')`;
+  },
+);
 
-  return findings;
-};
+const detectZeroWidthChars = (text: string, context: string): readonly Finding[] =>
+  collectZeroWidthFindings(text, text, 0, context);
+
+const detectBidiOverrides = (text: string, context: string): readonly Finding[] =>
+  collectBidiFindings(text, text, 0, context);
 
 const containsLatinLetters = (word: string): boolean => /[a-zA-Z]/.test(word);
 
@@ -115,29 +130,8 @@ const detectCyrillicHomoglyphs = (text: string, context: string): readonly Findi
   [...text.matchAll(/\S+/g)].flatMap((match) => {
     const word = match[0];
     const wordStart = match.index;
-
     if (!containsLatinLetters(word)) return [];
-
-    const charFindings: Finding[] = [];
-    for (let i = 0; i < word.length; i++) {
-      const codePoint = word.codePointAt(i);
-      if (codePoint !== undefined && CYRILLIC_HOMOGLYPHS.has(codePoint)) {
-        const formatted = formatCodePoint(codePoint);
-        const latinEquiv = CYRILLIC_HOMOGLYPHS.get(codePoint) ?? '';
-        charFindings.push(
-          createFinding(
-            'uc-003',
-            'HIGH',
-            `Cyrillic homoglyph detected: ${formatted} (looks like Latin '${latinEquiv}')`,
-            word[i] ?? '',
-            text,
-            wordStart + i,
-            context,
-          ),
-        );
-      }
-    }
-    return charFindings;
+    return collectCyrillicFindings(word, text, wordStart, context);
   });
 
 const BASE64_PATTERN = /(?<![a-zA-Z0-9+/])[A-Za-z0-9+/]{21,}={0,2}(?![a-zA-Z0-9+/=])/g;

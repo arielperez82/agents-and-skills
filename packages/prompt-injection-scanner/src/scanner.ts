@@ -2,7 +2,7 @@ import matter from 'gray-matter';
 import remarkParse from 'remark-parse';
 import { unified } from 'unified';
 import { SKIP, visit } from 'unist-util-visit';
-import type { Heading, Root, Text } from 'mdast';
+import type { Code, Heading, Html, Root, Text } from 'mdast';
 
 import { allCategories } from '../patterns/index.js';
 import { adjustSeverity } from './context-severity-matrix.js';
@@ -144,6 +144,17 @@ const findCurrentHeading = (
   return result;
 };
 
+const nodeToSegment = (
+  node: Code | Html | Text,
+  lineOffset: number,
+  context: string,
+): ContentSegment => ({
+  text: node.value,
+  line: (node.position?.start.line ?? 1) + lineOffset,
+  column: node.position?.start.column ?? 1,
+  context,
+});
+
 const scanBody = (content: string): readonly ContentSegment[] => {
   const parsed = matter(content);
   const bodyContent = parsed.content;
@@ -156,29 +167,15 @@ const scanBody = (content: string): readonly ContentSegment[] => {
   const segments: ContentSegment[] = [];
 
   visit(tree, (node) => {
-    if (node.type === 'heading') {
-      return SKIP;
-    }
+    if (node.type === 'heading') return SKIP;
 
     if (node.type === 'code') {
-      const nodeLine = node.position?.start.line ?? 1;
-      segments.push({
-        text: node.value,
-        line: nodeLine + lineOffset,
-        column: node.position?.start.column ?? 1,
-        context: 'body:code-block',
-      });
+      segments.push(nodeToSegment(node as Code, lineOffset, 'body:code-block'));
       return SKIP;
     }
 
     if (node.type === 'html') {
-      const nodeLine = node.position?.start.line ?? 1;
-      segments.push({
-        text: node.value,
-        line: nodeLine + lineOffset,
-        column: node.position?.start.column ?? 1,
-        context: 'body:html-comment',
-      });
+      segments.push(nodeToSegment(node as Html, lineOffset, 'body:html-comment'));
       return SKIP;
     }
 
@@ -186,12 +183,7 @@ const scanBody = (content: string): readonly ContentSegment[] => {
       const nodeLine = node.position?.start.line ?? 1;
       const heading = findCurrentHeading(headingAtLine, nodeLine);
       const headingContext = heading ? `body:heading:${heading}` : 'body';
-      segments.push({
-        text: node.value,
-        line: nodeLine + lineOffset,
-        column: node.position?.start.column ?? 1,
-        context: headingContext,
-      });
+      segments.push(nodeToSegment(node as Text, lineOffset, headingContext));
     }
 
     return undefined;
