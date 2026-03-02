@@ -18,6 +18,8 @@ import {
   agentUsageSummary,
   costByAgent,
   costByModel,
+  craftBaseline,
+  initiativeMetrics,
   optimizationInsights,
   scriptPerformance,
   sessionOverview,
@@ -53,6 +55,14 @@ export type TelemetryClient = {
     readonly costByModel: (params: {
       readonly days?: number;
     }) => Promise<QueryResult<InferOutputRow<typeof costByModel>>>;
+    readonly craftBaseline: (params: {
+      readonly days?: number;
+      readonly project_name?: string;
+    }) => Promise<QueryResult<InferOutputRow<typeof craftBaseline>>>;
+    readonly initiativeMetrics: (params: {
+      readonly session_ids: string;
+      readonly project_name?: string;
+    }) => Promise<QueryResult<InferOutputRow<typeof initiativeMetrics>>>;
     readonly optimizationInsights: (params: {
       readonly days?: number;
     }) => Promise<QueryResult<InferOutputRow<typeof optimizationInsights>>>;
@@ -94,6 +104,9 @@ export const createTelemetryClient = (config: TelemetryClientConfig): TelemetryC
         reader.query('agent_usage_summary', params as Record<string, unknown>),
       costByAgent: (params) => reader.query('cost_by_agent', params as Record<string, unknown>),
       costByModel: (params) => reader.query('cost_by_model', params as Record<string, unknown>),
+      craftBaseline: (params) => reader.query('craft_baseline', params as Record<string, unknown>),
+      initiativeMetrics: (params) =>
+        reader.query('initiative_metrics', params as Record<string, unknown>),
       optimizationInsights: (params) =>
         reader.query('optimization_insights', params as Record<string, unknown>),
       scriptPerformance: (params) =>

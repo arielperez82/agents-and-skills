@@ -2,6 +2,8 @@ export { agentUsageDaily, type AgentUsageDailyRow } from './agent-usage-daily';
 export { agentUsageSummary, type AgentUsageSummaryRow } from './agent-usage-summary';
 export { costByAgent, type CostByAgentRow } from './cost-by-agent';
 export { costByModel, type CostByModelRow } from './cost-by-model';
+export { craftBaseline, type CraftBaselineRow } from './craft-baseline';
+export { initiativeMetrics, type InitiativeMetricsRow } from './initiative-metrics';
 export { optimizationInsights, type OptimizationInsightsRow } from './optimization-insights';
 export { scriptPerformance, type ScriptPerformanceRow } from './script-performance';
 export { sessionOverview, type SessionOverviewRow } from './session-overview';

@@ -55,6 +55,7 @@ When reading a status file (for resume or precondition checks):
    - `current_step` must be null or a positive integer (Phase 4 only)
    - `steps_completed` must be an array of positive integers (Phase 4 only)
    - `complexity_tier` must be one of: `null`, `trivial`, `light`, `medium`, `complex`, `strategic`
+   - `session_ids` must be an array of strings (Claude session IDs)
    - `panel_invoked` must be one of: `null`, `true`, `false` (Phases 0-3 only)
    - `panel_artifact_path` must pass Artifact Path Safety checks when not null (Phases 0-3 only)
 2. **Feedback sanitization:** When embedding feedback from a previous rejection into agent prompts:
@@ -213,6 +214,7 @@ overall_status: in_progress  # in_progress | completed | abandoned
 created_at: "<ISO 8601>"
 updated_at: "<ISO 8601>"
 complexity_tier: null
+session_ids: []
 phases:
   - name: Discover
     number: 0
@@ -918,6 +920,18 @@ Present the collated tier summary to the human.
 
 **Preconditions:** Phase 5 approved or skipped.
 
+**Step 0 — Efficiency Report (T1, graceful on failure):**
+
+Before dispatching parallel agents, generate the craft efficiency report:
+
+```bash
+node --experimental-strip-types \
+  telemetry/src/hooks/entrypoints/generate-craft-efficiency-report.ts \
+  "<status-file-path>" ".docs/reports"
+```
+
+Capture `reportPath` from the stdout JSON. Store as `<efficiency-report-path>`. If the script fails or returns `reportPath: null`, continue — the report is optional.
+
 **Agents:** `product-director`, `senior-project-manager`, `learner`, `progress-assessor`, `docs-reviewer` (run in parallel — no dependencies between them).
 
 **Prompt for product-director:**
@@ -1011,6 +1025,12 @@ Goal: <goal>
 Initiative: <initiative-id>
 Status file: <path to status file>
 All artifact paths: <list from status file>
+Efficiency report: <efficiency-report-path or "not available">
+
+If an efficiency report is available, read it and incorporate:
+- Whether this initiative was above/below/at baseline cost
+- Elevated error rates or low cache hit rates as process improvement candidates
+- If no data available, note baseline comparison was not possible
 
 Pay special attention to the Audit Log section in the status file. It contains structured
 entries for every REJECT, CLARIFY, and AUTO_APPROVE event. Mine these for process patterns:
@@ -1114,7 +1134,7 @@ If a phase has multiple sequential agents and one fails, the artifacts from comp
 ## Status File Updates
 
 Update the status file at every state transition:
-- Phase start: `status: in_progress`, `started_at: <now>`
+- Phase start: `status: in_progress`, `started_at: <now>`. Also append `$CLAUDE_SESSION_ID` (from the `CLAUDE_SESSION_ID` environment variable) to the top-level `session_ids` array if not already present.
 - Phase complete: `status: <decision>`, `completed_at: <now>`, `human_decision: <decision>`, `feedback: <if rejected>`
 - Artifact produced: Append path to `artifact_paths`
 - Commit created: Append SHA to `commit_shas`
