@@ -4,7 +4,7 @@ initiative_name: expert-panel-integration
 type: plan
 endeavor: repo
 scope_type: docs-only
-status: draft
+status: completed
 created: 2026-03-02
 charter: charter-repo-I25-EXPNL-expert-panel-integration.md
 roadmap: roadmap-repo-I25-EXPNL-expert-panel-integration-2026.md

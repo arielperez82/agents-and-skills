@@ -77,7 +77,15 @@ def extract_references(body: str, root: Path) -> list[tuple[str, str, Path | Non
         seg = m.group(1).rstrip("/")
         if not seg or seg in ("*", "**", "$1", "${SKILL}", "README.md"):
             continue
+        # Strip #fragment anchors before path resolution (e.g. craft-panel-templates.md#design-panel)
+        seg = seg.split("#")[0].rstrip("/")
+        if not seg:
+            continue
         parts = seg.split("/")
+        # Reject path traversal attempts (defense-in-depth)
+        if ".." in parts:
+            refs.append(("skill", m.group(0), None))
+            continue
         path = root / "skills"
         for p in parts:
             path = path / p

@@ -3,7 +3,7 @@ type: charter
 endeavor: repo
 initiative: I25-EXPNL
 initiative_name: expert-panel-integration
-status: draft
+status: completed
 scope_type: docs
 created: 2026-03-02
 updated: 2026-03-02

@@ -353,7 +353,7 @@ Four panel templates are available for craft flow checkpoints. See [references/c
 | 2: Design | Design | Light | Single-round (Light) / 3-round (Medium+) |
 | 3: Plan | Plan Review | Strategic | 3-round |
 
-For full orchestration logic and checkpoint behavior, see `commands/craft/craft.md`.
+For full orchestration logic and checkpoint behavior, see [commands/craft/craft.md](../../commands/craft/craft.md).
 
 ## Constraints
 
