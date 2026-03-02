@@ -607,9 +607,25 @@ Use sequential numbering (001, 002, ...).
 2. If existing ADRs are sufficient, proceed without re-running the `adr-writer`. Note this in the Phase Log.
 3. If new ADRs are genuinely needed, retry once. If the retry fails, proceed with the backlog and flag "ADRs pending" in the status file — they can be written in Phase 6 (Close) or as a follow-up.
 
+**Panel Checkpoint (Design Panel):**
+
+After architect and adr-writer complete, evaluate `complexity_tier` against the tier-to-phase mapping. If Phase 2 has a panel for this tier (Light+), offer the panel.
+
+1. **Recommendation:** `"Design Panel recommended ({tier} complexity, {scope_description}). Run panel / Skip?"`
+2. **Run path:**
+   - Invoke `convening-experts` with the Design Panel template from `skills/convening-experts/references/craft-panel-templates.md#design-panel`
+   - Select code/mixed or docs-only variant based on `scope_type`
+   - When `complexity_tier` is `light`, use single-round format; otherwise use 3-round format
+   - Save output to `.docs/canonical/assessments/assessment-{endeavor}-design-panel-{date}.md`
+   - Present panel output alongside architect output at the gate
+3. **Skip path:** Record `panel_invoked: false` in the Phase 2 status entry. Proceed to standard gate.
+4. **Status recording:** Record `panel_invoked: true/false` and `panel_artifact_path` (if invoked) in the Phase 2 entry.
+5. **Trivial tier:** No panel offered. Skip checkpoint silently.
+
 **Output artifacts:**
 - `.docs/canonical/backlogs/backlog-{endeavor}-{initiative-id}-{subject}.md`
 - `.docs/canonical/adrs/{initiative-id}-*.md`
+- `.docs/canonical/assessments/assessment-{endeavor}-design-panel-{date}.md` (conditional — only when panel invoked)
 
 ---
 
