@@ -153,6 +153,8 @@ Currently, the architect works alone in Phase 2: designs the system, writes ADRs
 - **Fullstack Engineer** — API surface, state management, component architecture
 - **Security Engineer** — threat modeling, auth patterns, data protection
 - **Acceptance Designer** — "can we actually test this design?"
+- **DevSecOps Engineer** — "can we deploy this securely?"
+- **Observability Engineer** — "can we operate and monitor this adequately in production?"
 
 **Proposed format:**
 
@@ -267,7 +269,7 @@ Recommended standardized panel templates by phase:
 
 1. **Discovery Panel** (Phase 0): User Perspective + Business Analyst + Technical Feasibility + Competitive Analyst
 2. **Requirements Panel** (Phase 1): End-User Advocate + Compliance Expert + Engineer + Product Strategist
-3. **Design Panel** (Phase 2): Domain Specialists relevant to the architecture (DB, Frontend, Backend, Security, Testability)
+3. **Design Panel** (Phase 2): Domain Specialists relevant to the architecture (DB, Frontend, Backend, Security, Testability, Deployability, Observability)
 4. **Plan Review Panel** (Phase 3, strategic only): Build Agents who will execute + DevOps + QA perspective
 
 Standardization means the orchestrator picks the template and adjusts based on initiative domain rather than figuring out composition from scratch.
