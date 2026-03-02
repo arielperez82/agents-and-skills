@@ -75,6 +75,33 @@ const createMissingJustificationFinding = (directive: SuppressionDirective): Fin
   context: 'body',
 });
 
+/**
+ * Matches an inline suppression directive to a finding.
+ *
+ * Checks if a suppression directive can suppress a finding based on:
+ * - Matching category
+ * - Proximity: directive on same line as finding OR on the line immediately before it
+ *
+ * The proximity is asymmetric by design: suppression comments match findings on the same line
+ * or the line *after* the directive, but NOT the line before. This ensures that a suppression
+ * comment must come *before* the thing it suppresses, which aligns with how developers naturally
+ * write code comments (comments precede the code they document).
+ *
+ * Example:
+ * ```
+ * <!-- pips-allow: injection-risk -- code requires dynamic evaluation -->
+ * eval(userInput);  // This is suppressed (same line as directive)
+ *
+ * const risky = eval(userInput);  // This is suppressed (directive on line before)
+ *
+ * eval(userInput);  // This is NOT suppressed (directive would need to come after)
+ * <!-- pips-allow: injection-risk -- too late -->
+ * ```
+ *
+ * @param finding - The security finding to check
+ * @param directive - The suppression directive to match against
+ * @returns true if the directive suppresses the finding, false otherwise
+ */
 const isInlineMatch = (finding: Finding, directive: SuppressionDirective): boolean =>
   directive.scope === 'inline' &&
   finding.category === directive.category &&

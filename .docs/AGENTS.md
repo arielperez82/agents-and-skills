@@ -213,6 +213,8 @@ Agents that capture or encode learnings (learner, docs-reviewer, agent-author) m
 
 **L73 — Parallel subagent steps that share files need careful orchestration** (I21-PIPS, 2026-02-28): Steps 6, 7, 8 were dispatched as parallel agents modifying shared files (types.ts, scanner.ts). All three converged on the same working tree state because later agents read files already modified by earlier ones. This worked by luck — the agents happened to integrate cleanly. For future parallelization of steps that modify shared files: either (a) use git worktrees for isolation then merge, or (b) sequence steps that share files and only parallelize truly independent work (different file sets).
 
+**L74 — RED and GREEN steps should be separate commits for clear TDD evidence** (I21-PIPS, 2026-02-28): When tests and implementation are committed together, git history does not show the RED → GREEN cycle — reviewers cannot verify the TDD discipline was followed. Separate commits make the cycle visible: one commit adds the failing test (RED), the next adds the minimal implementation (GREEN). This is especially important for security-sensitive or complex changes where the TDD cycle itself is evidence of rigor.
+
 ---
 
 ## Development practices — GitHub workflows

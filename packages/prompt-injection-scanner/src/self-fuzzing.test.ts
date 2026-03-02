@@ -3,6 +3,58 @@ import { describe, it, expect } from 'vitest';
 import { scan } from './scanner.js';
 import type { Finding, Severity } from './types.js';
 
+/**
+ * Baseline Detection Rates for Prompt Injection Variants
+ *
+ * This test suite establishes baseline detection rates across fuzz variations
+ * to ensure the scanner remains effective against obfuscation techniques.
+ *
+ * DETECTION RATES (17 known payloads per variation):
+ *
+ * Single Variations:
+ *   - Extra whitespace:           100% (17/17 detected)
+ *   - Mixed case (alternating):   100% (17/17 detected)
+ *   - Zero-width space insertion: 100% (17/17 detected)
+ *   - Leading newlines:           100% (17/17 detected)
+ *   - Trailing junk text:         100% (17/17 detected)
+ *
+ * Combined Variations:
+ *   - Case + whitespace:          100% (17/17 detected)
+ *   - Newlines + trailing junk:   100% (17/17 detected)
+ *
+ * Word Reordering:
+ *   - Reordered within patterns:  100% (3/3 variants detected)
+ *
+ * THE 80% THRESHOLD RATIONALE:
+ *
+ * The 80% minimum detection rate represents the lowest acceptable threshold
+ * for accepting a fuzzing variation as safe to deploy. The rationale:
+ *
+ * 1. COVERAGE: 80% captures the vast majority of attacks (statistically 4 of 5
+ *    variants). This is sufficient to deter most adversaries—even moderately
+ *    sophisticated attackers will expect some payloads to fail.
+ *
+ * 2. TOLERANCE FOR EDGE CASES: Some injection patterns may legitimately fail
+ *    under extreme obfuscation. A single missed payload out of 17 does not
+ *    represent a meaningful security gap if the scanner is detecting 16.
+ *
+ * 3. COMPLEXITY-ROBUSTNESS TRADEOFF: Requiring 100% would force overly
+ *    complex pattern matching that could introduce false positives or
+ *    performance penalties. 80% provides reasonable confidence while keeping
+ *    rules maintainable and performant.
+ *
+ * 4. DEFENSE IN DEPTH: In production, agents/skills operate alongside other
+ *    safeguards (authentication, authorization, code review, monitoring).
+ *    The prompt injection scanner is one layer, not the sole defense.
+ *
+ * CURRENT STATUS:
+ *
+ * All variations exceed the 80% threshold, most achieving 100%. This indicates
+ * the scanner is robust against common obfuscation techniques. If a variation
+ * falls below 80%, the pattern detection rules should be reviewed and
+ * strengthened before deploying changes.
+ */
+
 const HIGH_OR_CRITICAL: readonly Severity[] = ['HIGH', 'CRITICAL'];
 
 const hasHighOrCriticalFindings = (findings: readonly Finding[]): boolean =>

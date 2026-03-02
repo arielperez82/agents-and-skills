@@ -31,49 +31,112 @@ type Format = (typeof VALID_FORMATS)[number];
 const isValidFormat = (value: string): value is Format =>
   (VALID_FORMATS as readonly string[]).includes(value);
 
-const parseArgs = (args: readonly string[]): ParsedArgs | { readonly error: string } => {
-  let format: Format = 'human';
-  let severity: Severity = 'LOW';
-  let noInlineConfig = false;
-  let baseDir: string | undefined = undefined;
-  let redact = false;
-  const files: string[] = [];
+type ParseState = {
+  readonly index: number;
+  readonly format: Format;
+  readonly severity: Severity;
+  readonly noInlineConfig: boolean;
+  readonly baseDir: string | undefined;
+  readonly redact: boolean;
+  readonly files: readonly string[];
+};
 
-  for (let i = 0; i < args.length; i++) {
-    const arg = args[i];
+const initialState: ParseState = {
+  index: 0,
+  format: 'human',
+  severity: 'LOW',
+  noInlineConfig: false,
+  baseDir: undefined,
+  redact: false,
+  files: [],
+};
+
+const parseArgs = (args: readonly string[]): ParsedArgs | { readonly error: string } => {
+  type Result = ParsedArgs | { readonly error: string };
+
+  const parseStep = (state: ParseState): Result => {
+    if (state.index >= args.length) {
+      return {
+        files: state.files,
+        format: state.format,
+        severity: state.severity,
+        noInlineConfig: state.noInlineConfig,
+        baseDir: state.baseDir,
+        redact: state.redact,
+      };
+    }
+
+    const arg = args[state.index];
+
     if (arg === '--format') {
-      const next = args[i + 1];
+      const next = args[state.index + 1];
       if (next === undefined || !isValidFormat(next)) {
         return { error: 'Invalid --format value. Use "json" or "human".' };
       }
-      format = next;
-      i++;
-    } else if (arg === '--severity') {
-      const next = args[i + 1];
+      return parseStep({
+        ...state,
+        index: state.index + 2,
+        format: next,
+      });
+    }
+
+    if (arg === '--severity') {
+      const next = args[state.index + 1];
       if (next === undefined || !isValidSeverity(next)) {
         return {
           error: 'Invalid --severity value. Use CRITICAL, HIGH, MEDIUM, or LOW.',
         };
       }
-      severity = next;
-      i++;
-    } else if (arg === '--no-inline-config') {
-      noInlineConfig = true;
-    } else if (arg === '--base-dir') {
-      const next = args[i + 1];
+      return parseStep({
+        ...state,
+        index: state.index + 2,
+        severity: next,
+      });
+    }
+
+    if (arg === '--no-inline-config') {
+      return parseStep({
+        ...state,
+        index: state.index + 1,
+        noInlineConfig: true,
+      });
+    }
+
+    if (arg === '--base-dir') {
+      const next = args[state.index + 1];
       if (next === undefined || next.startsWith('--')) {
         return { error: 'Missing value for --base-dir.' };
       }
-      baseDir = next;
-      i++;
-    } else if (arg === '--redact') {
-      redact = true;
-    } else if (arg !== undefined) {
-      files.push(arg);
+      return parseStep({
+        ...state,
+        index: state.index + 2,
+        baseDir: next,
+      });
     }
-  }
 
-  return { files, format, severity, noInlineConfig, baseDir, redact };
+    if (arg === '--redact') {
+      return parseStep({
+        ...state,
+        index: state.index + 1,
+        redact: true,
+      });
+    }
+
+    if (arg !== undefined) {
+      return parseStep({
+        ...state,
+        index: state.index + 1,
+        files: [...state.files, arg],
+      });
+    }
+
+    return parseStep({
+      ...state,
+      index: state.index + 1,
+    });
+  };
+
+  return parseStep(initialState);
 };
 
 const isInsideDir = (filePath: string, dirPath: string): boolean =>
