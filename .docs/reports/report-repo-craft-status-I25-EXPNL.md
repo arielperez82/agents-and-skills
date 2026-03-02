@@ -85,7 +85,7 @@ phases:
     agents: [product-director, senior-project-manager, learner, progress-assessor, docs-reviewer]
     artifact_paths:
       - .docs/canonical/roadmaps/roadmap-repo.md
-    commit_shas: []
+    commit_shas: [433b548]
     started_at: "2026-03-02T02:10:00Z"
     completed_at: "2026-03-02T02:20:00Z"
     human_decision: approve
