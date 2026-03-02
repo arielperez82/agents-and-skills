@@ -79,3 +79,34 @@ jobs:
 
       - name: Run Semgrep (local rules)
         run: semgrep scan --config .semgrep.yml --error --quiet
+
+  prompt-injection-scan:
+    name: Prompt Injection Scan
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Setup pnpm
+        uses: pnpm/action-setup@v2
+        with:
+          version: '10.18.2'
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version-file: '.nvmrc'
+          cache: 'pnpm'
+          cache-dependency-path: 'pnpm-lock.yaml'
+
+      - name: Install dependencies
+        run: pnpm install --frozen-lockfile
+
+      - name: Scan artifacts for prompt injection
+        run: |
+          npx prompt-injection-scanner \
+            --format json \
+            --severity HIGH \
+            agents/**/*.md \
+            skills/**/*.md \
+            commands/**/*.md      
