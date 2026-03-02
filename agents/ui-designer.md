@@ -29,6 +29,7 @@ classification:
 related-agents: []
 related-skills:
   - ux-team/ui-design-system
+  - ux-team/ui-design-brain
   - ux-team/visual-design-foundations
   - ux-team/ux-designer
   - ux-team/frontend-design
