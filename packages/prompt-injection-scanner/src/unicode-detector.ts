@@ -111,41 +111,34 @@ const detectBidiOverrides = (text: string, context: string): readonly Finding[] 
 
 const containsLatinLetters = (word: string): boolean => /[a-zA-Z]/.test(word);
 
-const detectCyrillicHomoglyphs = (text: string, context: string): readonly Finding[] => {
-  const findings: Finding[] = [];
-  const words = text.split(/\s+/);
-  let currentIndex = 0;
+const detectCyrillicHomoglyphs = (text: string, context: string): readonly Finding[] =>
+  [...text.matchAll(/\S+/g)].flatMap((match) => {
+    const word = match[0];
+    const wordStart = match.index;
 
-  for (const word of words) {
-    const wordStart = text.indexOf(word, currentIndex);
-    const hasLatin = containsLatinLetters(word);
+    if (!containsLatinLetters(word)) return [];
 
-    if (hasLatin) {
-      for (let i = 0; i < word.length; i++) {
-        const codePoint = word.codePointAt(i);
-        if (codePoint !== undefined && CYRILLIC_HOMOGLYPHS.has(codePoint)) {
-          const formatted = formatCodePoint(codePoint);
-          const latinEquiv = CYRILLIC_HOMOGLYPHS.get(codePoint) ?? '';
-          findings.push(
-            createFinding(
-              'uc-003',
-              'HIGH',
-              `Cyrillic homoglyph detected: ${formatted} (looks like Latin '${latinEquiv}')`,
-              word[i] ?? '',
-              text,
-              wordStart + i,
-              context,
-            ),
-          );
-        }
+    const charFindings: Finding[] = [];
+    for (let i = 0; i < word.length; i++) {
+      const codePoint = word.codePointAt(i);
+      if (codePoint !== undefined && CYRILLIC_HOMOGLYPHS.has(codePoint)) {
+        const formatted = formatCodePoint(codePoint);
+        const latinEquiv = CYRILLIC_HOMOGLYPHS.get(codePoint) ?? '';
+        charFindings.push(
+          createFinding(
+            'uc-003',
+            'HIGH',
+            `Cyrillic homoglyph detected: ${formatted} (looks like Latin '${latinEquiv}')`,
+            word[i] ?? '',
+            text,
+            wordStart + i,
+            context,
+          ),
+        );
       }
     }
-
-    currentIndex = wordStart + word.length;
-  }
-
-  return findings;
-};
+    return charFindings;
+  });
 
 const BASE64_PATTERN = /(?<![a-zA-Z0-9+/])[A-Za-z0-9+/]{21,}={0,2}(?![a-zA-Z0-9+/=])/g;
 

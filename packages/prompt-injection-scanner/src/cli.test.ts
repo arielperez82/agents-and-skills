@@ -1,4 +1,4 @@
-import { writeFileSync, mkdirSync, rmSync } from 'node:fs';
+import { writeFileSync, mkdirSync, rmSync, symlinkSync } from 'node:fs';
 import { join } from 'node:path';
 import { tmpdir } from 'node:os';
 import { describe, it, expect, beforeAll, afterAll } from 'vitest';
@@ -294,6 +294,128 @@ describe('runCli', () => {
       const result = runCli(['--no-inline-config', join(testDir, 'inline-suppressed.md')]);
 
       expect(result.stdout).toContain('inline-suppressed.md');
+    });
+  });
+
+  describe('--base-dir flag', () => {
+    it('allows files inside the base directory', () => {
+      const result = runCli(['--base-dir', testDir, '--format', 'json', join(testDir, 'clean.md')]);
+
+      expect(result.exitCode).not.toBe(2);
+      const parsed = JSON.parse(result.stdout) as readonly FileResult[];
+      expect(parsed).toHaveLength(1);
+    });
+
+    it('rejects files outside the base directory', () => {
+      const result = runCli(['--base-dir', join(testDir, 'subdir'), join(testDir, 'clean.md')]);
+
+      expect(result.exitCode).toBe(2);
+      expect(result.stderr).toContain('outside the allowed base directory');
+    });
+
+    it('returns error for missing --base-dir value', () => {
+      const result = runCli(['--base-dir']);
+
+      expect(result.exitCode).toBe(2);
+      expect(result.stderr).toContain('Missing value for --base-dir');
+    });
+
+    it('returns error when --base-dir value starts with --', () => {
+      const result = runCli(['--base-dir', '--format', 'json', join(testDir, 'clean.md')]);
+
+      expect(result.exitCode).toBe(2);
+      expect(result.stderr).toContain('Missing value for --base-dir');
+    });
+
+    it('still processes valid files when one file is outside base dir', () => {
+      const outsideFile = join(tmpdir(), 'outside.md');
+      const result = runCli([
+        '--base-dir',
+        testDir,
+        '--format',
+        'json',
+        join(testDir, 'clean.md'),
+        outsideFile,
+      ]);
+
+      expect(result.exitCode).toBe(2);
+      expect(result.stderr).toContain('outside the allowed base directory');
+      const parsed = JSON.parse(result.stdout) as readonly FileResult[];
+      expect(parsed).toHaveLength(1);
+      expect(parsed[0]?.file).toContain('clean.md');
+    });
+
+    it('detects symlink escape when symlink points outside base dir', () => {
+      const symlinkPath = join(testDir, 'escape-link.md');
+      const outsideTarget = join(tmpdir(), `pis-outside-${Date.now()}.md`);
+
+      writeFileSync(outsideTarget, 'content');
+      try {
+        symlinkSync(outsideTarget, symlinkPath);
+      } catch {
+        // Skip if symlinks not supported
+        rmSync(outsideTarget, { force: true });
+        return;
+      }
+
+      try {
+        const result = runCli(['--base-dir', testDir, symlinkPath]);
+
+        expect(result.exitCode).toBe(2);
+        expect(result.stderr).toContain('symlink escape');
+      } finally {
+        rmSync(symlinkPath, { force: true });
+        rmSync(outsideTarget, { force: true });
+      }
+    });
+  });
+
+  describe('--redact flag', () => {
+    it('truncates matched text in JSON output when --redact is used', () => {
+      const result = runCli(['--redact', '--format', 'json', join(testDir, 'malicious.md')]);
+
+      const parsed = JSON.parse(result.stdout) as readonly FileResult[];
+      const findings = parsed[0]?.findings ?? [];
+      expect(findings.length).toBeGreaterThan(0);
+
+      for (const finding of findings) {
+        expect(finding.matchedText.length).toBeLessThanOrEqual(23); // 20 chars + '...'
+      }
+    });
+
+    it('does NOT truncate when --redact is not used', () => {
+      const result = runCli(['--format', 'json', join(testDir, 'malicious.md')]);
+
+      const parsed = JSON.parse(result.stdout) as readonly FileResult[];
+      const findings = parsed[0]?.findings ?? [];
+      const hasLongMatch = findings.some((f) => f.matchedText.length > 23);
+
+      expect(hasLongMatch).toBe(true);
+    });
+
+    it('truncates matched text in human format when --redact is used', () => {
+      const result = runCli(['--redact', join(testDir, 'malicious.md')]);
+
+      expect(result.stdout).toContain('...');
+    });
+
+    it('combines --redact with --severity filter', () => {
+      const result = runCli([
+        '--redact',
+        '--severity',
+        'HIGH',
+        '--format',
+        'json',
+        join(testDir, 'malicious.md'),
+      ]);
+
+      const parsed = JSON.parse(result.stdout) as readonly FileResult[];
+      const findings = parsed[0]?.findings ?? [];
+
+      for (const finding of findings) {
+        expect(['CRITICAL', 'HIGH']).toContain(finding.severity);
+        expect(finding.matchedText.length).toBeLessThanOrEqual(23);
+      }
     });
   });
 });

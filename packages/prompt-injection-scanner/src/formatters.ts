@@ -6,8 +6,28 @@ export type FileResult = {
   readonly summary: ScanResult['summary'];
 };
 
-export const formatJson = (results: readonly FileResult[]): string =>
-  JSON.stringify(results, null, 2);
+type FormatOptions = {
+  readonly redact?: boolean;
+};
+
+const REDACT_MAX_LENGTH = 20;
+
+export const redactText = (text: string, maxLength: number): string =>
+  text.length > maxLength ? text.slice(0, maxLength) + '...' : text;
+
+const redactFindings = (findings: readonly Finding[]): readonly Finding[] =>
+  findings.map((f) => ({ ...f, matchedText: redactText(f.matchedText, REDACT_MAX_LENGTH) }));
+
+const applyRedaction = (
+  results: readonly FileResult[],
+  options?: FormatOptions,
+): readonly FileResult[] =>
+  options?.redact === true
+    ? results.map((r) => ({ ...r, findings: redactFindings(r.findings) }))
+    : results;
+
+export const formatJson = (results: readonly FileResult[], options?: FormatOptions): string =>
+  JSON.stringify(applyRedaction(results, options), null, 2);
 
 const ANSI = {
   red: '\x1b[31m',
@@ -69,5 +89,5 @@ const formatFileSection = (result: FileResult): string => {
   return `${header}\n${separator}\n${findingLines}\n\n${summary}\n`;
 };
 
-export const formatHuman = (results: readonly FileResult[]): string =>
-  results.map(formatFileSection).join('\n');
+export const formatHuman = (results: readonly FileResult[], options?: FormatOptions): string =>
+  applyRedaction(results, options).map(formatFileSection).join('\n');

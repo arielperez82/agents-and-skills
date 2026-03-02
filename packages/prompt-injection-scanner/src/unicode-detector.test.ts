@@ -233,6 +233,24 @@ describe('detectUnicodeIssues', () => {
 
       expect(homoglyphFindings[0]?.message).toMatch(/U\+[0-9A-F]{4}/);
     });
+
+    it('correctly identifies homoglyph in repeated substrings', () => {
+      const text = 'pass pass p\u0430ss';
+      const findings = detectUnicodeIssues(text, 'body');
+      const homoglyphFindings = findByPatternId(findings, 'uc-003');
+
+      expect(homoglyphFindings).toHaveLength(1);
+      expect(homoglyphFindings[0]?.message).toContain('U+0430');
+      expect(homoglyphFindings[0]?.column).toBe(12);
+    });
+
+    it('handles tab-separated words with homoglyphs', () => {
+      const text = 'hello\tp\u0430ss';
+      const findings = detectUnicodeIssues(text, 'body');
+      const homoglyphFindings = findByPatternId(findings, 'uc-003');
+
+      expect(homoglyphFindings).toHaveLength(1);
+    });
   });
 
   describe('Base64 strings', () => {

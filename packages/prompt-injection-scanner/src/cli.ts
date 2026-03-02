@@ -1,4 +1,5 @@
-import { readFileSync } from 'node:fs';
+import { readFileSync, realpathSync } from 'node:fs';
+import { resolve } from 'node:path';
 
 import type { FileResult } from './formatters.js';
 import { formatHuman, formatJson } from './formatters.js';
@@ -17,6 +18,8 @@ type ParsedArgs = {
   readonly format: 'json' | 'human';
   readonly severity: Severity;
   readonly noInlineConfig: boolean;
+  readonly baseDir: string | undefined;
+  readonly redact: boolean;
 };
 
 const isValidSeverity = (value: string): value is Severity =>
@@ -32,6 +35,8 @@ const parseArgs = (args: readonly string[]): ParsedArgs | { readonly error: stri
   let format: Format = 'human';
   let severity: Severity = 'LOW';
   let noInlineConfig = false;
+  let baseDir: string | undefined = undefined;
+  let redact = false;
   const files: string[] = [];
 
   for (let i = 0; i < args.length; i++) {
@@ -54,12 +59,53 @@ const parseArgs = (args: readonly string[]): ParsedArgs | { readonly error: stri
       i++;
     } else if (arg === '--no-inline-config') {
       noInlineConfig = true;
+    } else if (arg === '--base-dir') {
+      const next = args[i + 1];
+      if (next === undefined || next.startsWith('--')) {
+        return { error: 'Missing value for --base-dir.' };
+      }
+      baseDir = next;
+      i++;
+    } else if (arg === '--redact') {
+      redact = true;
     } else if (arg !== undefined) {
       files.push(arg);
     }
   }
 
-  return { files, format, severity, noInlineConfig };
+  return { files, format, severity, noInlineConfig, baseDir, redact };
+};
+
+const isInsideDir = (filePath: string, dirPath: string): boolean =>
+  filePath.startsWith(dirPath + '/') || filePath === dirPath;
+
+const safeRealpath = (path: string): string => {
+  try {
+    return realpathSync(path);
+  } catch {
+    return path;
+  }
+};
+
+const validateFileInBaseDir = (
+  filePath: string,
+  baseDir: string,
+): string | undefined => {
+  const resolvedBase = resolve(baseDir);
+  const resolvedFile = resolve(filePath);
+
+  if (!isInsideDir(resolvedFile, resolvedBase)) {
+    return `Error: Path "${filePath}" is outside the allowed base directory.`;
+  }
+
+  const realBase = safeRealpath(resolvedBase);
+  const realFile = safeRealpath(resolvedFile);
+
+  if (!isInsideDir(realFile, realBase)) {
+    return `Error: Path "${filePath}" resolves outside the allowed base directory (symlink escape).`;
+  }
+
+  return undefined;
 };
 
 const meetsThreshold = (findingSeverity: Severity, threshold: Severity): boolean =>
@@ -89,8 +135,11 @@ const hasUnsuppressedHighOrCritical = (results: readonly FileResult[]): boolean 
     ),
   );
 
-const buildOutput = (format: Format, results: readonly FileResult[]): string =>
-  format === 'json' ? formatJson(results) : formatHuman(results);
+const buildOutput = (
+  format: Format,
+  results: readonly FileResult[],
+  options?: { readonly redact?: boolean },
+): string => (format === 'json' ? formatJson(results, options) : formatHuman(results, options));
 
 export const runCli = (args: readonly string[]): CliResult => {
   const parsed = parseArgs(args);
@@ -104,7 +153,7 @@ export const runCli = (args: readonly string[]): CliResult => {
       exitCode: 2,
       stdout: '',
       stderr:
-        'Usage: prompt-injection-scanner [--format json|human] [--severity CRITICAL|HIGH|MEDIUM|LOW] [--no-inline-config] <file...>',
+        'Usage: prompt-injection-scanner [--format json|human] [--severity CRITICAL|HIGH|MEDIUM|LOW] [--no-inline-config] [--base-dir <path>] [--redact] <file...>',
     };
   }
 
@@ -112,6 +161,14 @@ export const runCli = (args: readonly string[]): CliResult => {
   const errors: string[] = [];
 
   for (const filePath of parsed.files) {
+    if (parsed.baseDir !== undefined) {
+      const violation = validateFileInBaseDir(filePath, parsed.baseDir);
+      if (violation !== undefined) {
+        errors.push(violation);
+        continue;
+      }
+    }
+
     const result = scanFile(filePath, parsed.severity, {
       noInlineConfig: parsed.noInlineConfig,
     });
@@ -124,11 +181,12 @@ export const runCli = (args: readonly string[]): CliResult => {
 
   if (errors.length > 0) {
     const stderr = errors.join('\n');
-    const stdout = results.length > 0 ? buildOutput(parsed.format, results) : '';
+    const stdout =
+      results.length > 0 ? buildOutput(parsed.format, results, { redact: parsed.redact }) : '';
     return { exitCode: 2, stdout, stderr };
   }
 
-  const stdout = buildOutput(parsed.format, results);
+  const stdout = buildOutput(parsed.format, results, { redact: parsed.redact });
   const exitCode = hasUnsuppressedHighOrCritical(results) ? 1 : 0;
 
   return { exitCode, stdout, stderr: '' };

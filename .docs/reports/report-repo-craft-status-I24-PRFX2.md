@@ -59,13 +59,13 @@ phases:
     feedback: null
   - name: Build
     number: 4
-    status: pending
+    status: in_progress
     agents: [engineering-lead]
     artifact_paths: []
-    commit_shas: []
-    current_step: null
-    steps_completed: []
-    started_at: null
+    commit_shas: ["3a7e31a"]
+    current_step: 2
+    steps_completed: [1]
+    started_at: "2026-03-01T00:26:00Z"
     completed_at: null
     human_decision: null
     feedback: null
