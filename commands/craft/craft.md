@@ -56,6 +56,7 @@ When reading a status file (for resume or precondition checks):
    - `steps_completed` must be an array of positive integers (Phase 4 only)
    - `complexity_tier` must be one of: `null`, `trivial`, `light`, `medium`, `complex`, `strategic`
    - `session_ids` must be an array of strings (Claude session IDs)
+   - `handoff_snapshots` must be an array of objects with `step`, `timestamp`, `size_bytes` (Phase 4 only)
    - `panel_invoked` must be one of: `null`, `true`, `false` (Phases 0-3 only)
    - `panel_artifact_path` must pass Artifact Path Safety checks when not null (Phases 0-3 only)
 2. **Feedback sanitization:** When embedding feedback from a previous rejection into agent prompts:
@@ -272,6 +273,7 @@ phases:
     commit_shas: []
     current_step: null       # step number currently executing (null if not started)
     steps_completed: []      # list of step numbers that finished successfully
+    handoff_snapshots: []    # index of snapshots: [{step: N, timestamp: "ISO-8601", size_bytes: N}]
     started_at: null
     completed_at: null
     human_decision: null
@@ -866,6 +868,64 @@ Story Reviews do not produce separate commits — code is already committed per-
 **Gate rejection/restart behavior:** If Phase 4 is rejected or restarted at the gate, incremental commits from this run are preserved in git history (they are not reverted). The re-run produces new commits on top. If the user wants a clean history, they can squash commits during PR creation. The status file's `commit_shas`, `steps_completed`, and `current_step` for Phase 4 are cleared on restart and repopulated during the new run.
 
 **Note:** This is typically the longest phase. The orchestrator drives progress step-by-step, dispatching the engineering-lead (who in turn dispatches specialist subagents) for each plan step. Each step produces testable, committed output. If a step fails or is blocked, the orchestrator reports to the human and waits for guidance.
+
+#### Handoff Snapshot Protocol
+
+Write compact handoff snapshots to the status file at step and phase boundaries. These snapshots enable efficient session resumption when context is exhausted or a new conversation starts.
+
+**When to write:**
+- After each Phase 4 step commit (mandatory)
+- After each phase gate decision, before the phase commit (mandatory)
+- When context budget estimation exceeds 50% (automatic — see Context Budget Protocol)
+
+**Snapshot format (embedded in the Phase Log as collapsible sections):**
+
+```markdown
+<details><summary>Handoff snapshot (step N)</summary>
+
+**Objective Focus:** What the orchestrator is currently working toward — the active plan step or phase goal.
+
+**Completed Work:** Summary of steps/phases done since last snapshot, with commit SHAs.
+- Step 1: <description> (`<sha>`)
+- Step 2: <description> (`<sha>`)
+
+**Key Anchors** (max 5 — start here when resuming):
+- `<file-path>` :: `<symbol/section>` — why it matters
+- `<file-path>` :: `<symbol/section>` — why it matters
+
+**Decision Rationale** (max 3 — non-obvious choices made):
+- <choice>: <why> (alternative considered: <what was rejected>)
+
+**Next Steps** (ordered):
+1. <next action>
+2. <next action>
+
+</details>
+```
+
+**Size constraint:** Each snapshot must be under 2KB. Snapshots are summaries, not transcripts — omit details that can be reconstructed from artifacts on disk.
+
+**Phase transition snapshots** include two additional fields:
+
+```markdown
+**Phase Completed:** Phase N (<name>) — gate decision: <approve/reject/skip>
+**Artifacts Produced:** List of artifact paths created in this phase.
+```
+
+Phase transition snapshots are written before the phase commit so they are included in the commit.
+
+**Status file index:** Each snapshot write appends an entry to the `handoff_snapshots` array in the Phase 4 (or relevant phase) YAML entry:
+
+```yaml
+handoff_snapshots:
+  - step: 3              # step number, or "phase-2" for phase transitions
+    timestamp: "ISO-8601"
+    size_bytes: 1200
+```
+
+This index enables `/craft:resume` to locate the most recent snapshot without parsing the full Phase Log.
+
+**Integration with Step Review:** The snapshot is written after the Step Review passes and the commit succeeds — never before the step is verified. Sequence: GREEN → Step Review → commit → handoff snapshot → next step.
 
 ---
 
