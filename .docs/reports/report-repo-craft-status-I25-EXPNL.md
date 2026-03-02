@@ -45,13 +45,14 @@ phases:
     feedback: null
   - name: Plan
     number: 3
-    status: pending
+    status: approved
     agents: [implementation-planner]
-    artifact_paths: []
+    artifact_paths:
+      - .docs/canonical/plans/plan-repo-I25-EXPNL-expert-panel-integration.md
     commit_shas: []
-    started_at: null
-    completed_at: null
-    human_decision: null
+    started_at: "2026-03-02T01:00:00Z"
+    completed_at: "2026-03-02T01:20:00Z"
+    human_decision: approve
     feedback: null
   - name: Build
     number: 4
@@ -115,3 +116,12 @@ Initiative: I25-EXPNL
 - **Key decisions:** Opt-in panels, role-based (not agent-backed), classification after Phase 0, single-round for Light tier
 - **Status schema:** Added complexity_tier (top-level) and panel_invoked/panel_artifact_path (per-phase)
 - **Audit:** AUTO_APPROVE — backlog complete, adr-writer skipped per resilience rule (decisions documented in backlog)
+
+### Phase 3: Plan — AUTO_APPROVE
+- **Agents:** implementation-planner (sequential)
+- **Plan:** 10 steps across 6 sub-waves (3 logical waves). Critical path: Step 1→3→4→7
+- **Walking skeleton:** Steps 2-4 (Design Panel template + blast-radius classification + Phase 2 checkpoint)
+- **Files touched:** 3 modified (craft.md, SKILL.md, craft-panel-templates.md), 1 created (craft-panel-templates.md)
+- **Effort estimate:** 3-4.25 hours total
+- **Cost tier routing:** Step 1 T1 (mechanical), Steps 2/5/6/8/9 T2 (pattern-following), Steps 3/4/7/10 T3 (judgment-dependent)
+- **Audit:** AUTO_APPROVE — plan complete with wave dependency graph, step-to-backlog mapping, and effort estimates
