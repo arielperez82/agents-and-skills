@@ -17,7 +17,7 @@ Initiatives actively in progress.
 
 | Initiative | Name | Description | Status | Charter |
 |------------|------|-------------|--------|---------|
-| I24-PRFX2 | PIPS Review Fixes Phase 2 | Address remaining Fix Required (F3) and 12 Suggestions from I21-PIPS review: security hardening, functional refactoring, test quality, documentation | active | [charter](../charters/charter-repo-I24-PRFX2-pips-review-fixes-phase2.md) |
+| *(none — capacity available)* | | | | |
 
 ## Next
 
@@ -64,4 +64,5 @@ Completed initiatives.
 | I20-MUTT | Mutation Testing | Mutation testing methodology skill, Stryker configuration skill, and Phase 0 conditional check | [charter](../charters/charter-repo-I20-MUTT-mutation-testing.md) |
 | I21-PIPS | Prompt Injection Protection System | Layered defense system detecting prompt injection and context poisoning in agent/skill/command artifacts | [charter](../charters/charter-repo-I21-PIPS-prompt-injection-protection-system.md) |
 | I23-PRFX | PIPS Review Fixes Phase 1 | Addressed 10/11 Fix Required and 7/21 Suggestions from I21-PIPS review | [charter](../charters/charter-repo-I23-PRFX.md) |
+| I24-PRFX2 | PIPS Review Fixes Phase 2 | Remaining Fix Required (F3) + 12 Suggestions from I21-PIPS: --no-inline-config, ReDoS, --base-dir, --redact, refactoring, docs | [charter](../charters/charter-repo-I24-PRFX2-pips-review-fixes-phase2.md) |
 | I25-EXPNL | Expert Panel Integration | Integrated convening-experts panels into /craft flow phases with blast-radius complexity classification | [charter](../charters/charter-repo-I25-EXPNL-expert-panel-integration.md) |

@@ -3,10 +3,10 @@ type: charter
 endeavor: repo
 initiative: I24-PRFX2
 initiative_name: pips-review-fixes-phase2
-status: active
+status: completed
 scope_type: mixed
 created: 2026-03-01
-updated: 2026-03-01
+updated: 2026-03-02
 source: .docs/reports/report-repo-I21-PIPS-review-changes-2026-02.md
 parent: I23-PRFX
 ---
@@ -355,3 +355,52 @@ Acceptance Criteria:
 | Must-have | US-1, US-3 | F3, S2 |
 | Should-have | US-2, US-4, US-5, US-6, US-8, US-10, US-13 | S1, S4, S10, S11, S7, S14, S18 |
 | Could-have | US-7, US-9, US-11, US-12 | S12, S8, S15, S6 |
+
+---
+
+## Delivery Acceptance
+
+### Status
+
+**COMPLETED** (2026-03-02)
+
+### Reconciliation Table
+
+| # | Charter Outcome | Status | Evidence |
+|---|---|---|---|
+| F3 | --no-inline-config flag (security design decision) | MET | Commit 3a7e31a (ADR status → accepted), commit 3bcf3e6 (implementation + 13 tests). Flag parsed in cli.ts lines 97-103, threaded through scanFile → scan → applySuppressions. Tests verify suppression bypass and file-level directives preserved. |
+| S2 | ReDoS Pattern Audit | MET | File created: src/redos-benchmark.test.ts. 516 tests covering all scanner patterns + unicode detectors. 10KB adversarial inputs per pattern, all execute <100ms. Commit 3bcf3e6 "step 3 — ReDoS benchmark suite and pattern hardening". |
+| S4 | --redact flag (matchedText redaction in CI) | MET | Commit 7c45623 "add --base-dir, --redact flags". Flag parsed in cli.ts lines 117-122. redactText helper in formatters.ts truncates to 20 chars + "...". Tests in formatters.test.ts + cli.test.ts verify redaction in both human and JSON output. |
+| S6 | TDD Commit Granularity | MET | Learning documented in .docs/AGENTS.md at L74: "RED and GREEN steps should be separate commits for clear TDD evidence". References I21-PIPS observation. |
+| S7 | cli.test.ts Factory Functions | MET | Commit 82350a5 "extract shared Content Safety Checks reference + refactor cli.test.ts". createTestFile factory function at cli.test.ts:44. All tests use factory (lines 76, 86, 96, 108, 120, 135, 149, 164, 181, 182, 197, 198, 209, 222). No beforeAll/afterAll for shared dirs. |
+| S8 | Self-Fuzzing Baseline Documentation | MET | Commit aaaacd0 "could-have polish — functional parseArgs, baseline docs, JSDoc, TDD learning". self-fuzzing.test.ts lines 9-43 document 80% threshold rationale, coverage explanation, performance trade-offs. Per-variation detection rates documented. |
+| S10 | Extract nodeToSegment Pure Function | MET | Commit 82350a5. nodeToSegment function at scanner.ts:147-172. Replaces 3 inline segment constructions (lines 173, 178, 186). scanBody reduced from 54 to ~20 lines. All 859 tests pass. |
+| S11 | Extract collectFindings HOF | MET | Commit 82350a5. collectFindings HOF at unicode-detector.ts:73-95. Applied to detectZeroWidthFindings, detectBidiFindings, detectCyrillicFindings (lines 97-111). No mutable array accumulation. |
+| S12 | Functional parseArgs + --redact | MET | Commit aaaacd0 "functional parseArgs, baseline docs". parseArgs uses parseStep reducer pattern (cli.ts:54-127). No let, no for loop with i++. Handles --format, --severity, --no-inline-config, --base-dir, --redact flags without mutation. |
+| S14 | Cyrillic Homoglyph Word-Finding | MET | Commit 7c45623. unicode-detector.ts line 130 uses text.matchAll(/\S+/g) instead of indexOf. Word positions from match.index. Tests cover repeated substrings, adjacent identical words, various whitespace. |
+| S15 | Suppression Proximity Documentation | MET | Commit aaaacd0. suppression.ts line 85 JSDoc: "The proximity is asymmetric by design: suppression comments match findings on the same line or immediately before." Explicit asymmetric design note. |
+| S18 | Shared Content Safety Checks Reference | MET | Commit e7ebccf "extract shared Content Safety Checks reference". File created: skills/engineering-team/prompt-injection-security/references/content-safety-checks.md (41-line shared content). Both agents (agent-validator.md, skill-validator.md) reference the shared file. Both agents pass validate_agent.py. |
+| S20 | (Out of Scope) | N/A | Deferred per Phase 0 product-director decision. security-engineer.md knowledge extraction (835 lines) warrants its own sub-initiative. Not addressed in I24-PRFX2 per charter scope. |
+
+### Scope Additions
+
+None. All deliverables trace to charter user stories (US-1 through US-13, mapped to F3, S1-S18).
+
+### Charter Success Criteria Met
+
+- F3 resolved (ADR accepted + flag implemented)
+- All 12 in-scope Suggestions addressed (S2, S4, S6-S8, S10-S12, S14-S15, S18)
+- 859 tests passing (vs charter requirement 309+; no regressions)
+- pnpm type-check && pnpm lint && pnpm test all green
+- ADR written and accepted (I24-PRFX2-001-suppression-trust-model.md)
+- Cognitive load score <= 254 (no impact on scanner package metrics)
+
+### Verdict
+
+**ACCEPT**
+
+All charter outcomes delivered. Fix Required (F3) and in-scope Suggestions (S2, S4, S6-S8, S10-S12, S14-S15, S18) reconcile to git commits with evidence. Tests exceed charter baseline (859 > 309+). ADR properly documented and accepted. Zero unapproved scope additions. No regressions in test suite.
+
+### Roadmap Recommendation
+
+Move I24-PRFX2 from "Now" to "Done" on the evergreen roadmap at `.docs/canonical/roadmaps/roadmap-repo.md`.

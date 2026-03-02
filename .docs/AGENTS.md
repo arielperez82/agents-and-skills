@@ -215,6 +215,12 @@ Agents that capture or encode learnings (learner, docs-reviewer, agent-author) m
 
 **L74 — RED and GREEN steps should be separate commits for clear TDD evidence** (I21-PIPS, 2026-02-28): When tests and implementation are committed together, git history does not show the RED → GREEN cycle — reviewers cannot verify the TDD discipline was followed. Separate commits make the cycle visible: one commit adds the failing test (RED), the next adds the minimal implementation (GREEN). This is especially important for security-sensitive or complex changes where the TDD cycle itself is evidence of rigor.
 
+**L75 — Worktree isolation gotcha: agents branch from origin/main, not current HEAD** (I24-PRFX2, 2026-03-02): When using `isolation: "worktree"` for parallel agents, worktrees branch from `origin/main` (not the current HEAD). If the current branch has uncommitted or unpushed work, worktree agents won't see it. Mitigation: push before dispatching worktree agents, or use worktree output as reference material rather than expecting it to reflect in-progress work.
+
+**L76 — macOS symlink path resolution: tmpdir() vs realpathSync inconsistency** (I24-PRFX2, 2026-03-02): `tmpdir()` returns `/var/folders/...` but `realpathSync` resolves to `/private/var/folders/...`. Path comparison functions must use consistent resolution (both resolved or both unresolved) to avoid false mismatches in temp file cleanup or path validation logic.
+
+**L77 — Bounded quantifiers prevent ReDoS in regex patterns** (I24-PRFX2, 2026-03-02): Replacing unbounded `.*` with `.{0,200}` is an effective ReDoS mitigation. The 200-character limit covers legitimate matches while preventing exponential backtracking on adversarial inputs — a practical trade-off for security-sensitive regex patterns.
+
 ---
 
 ## Development practices — GitHub workflows
