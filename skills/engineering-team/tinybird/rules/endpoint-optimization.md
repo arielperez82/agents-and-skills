@@ -111,6 +111,39 @@ Apply only when runtime thresholds are exceeded, based on `pipe_stats_rt` and `E
 - **When**: exact `COUNT(DISTINCT)` with p95 > 5s, or memory > 50%, or OOM errors.
 - Fix: Use `uniqHLL12` or similar approximate functions when acceptable.
 
+## Multi-Node Pipe Patterns
+
+### Outer SELECT wrapper for derived columns
+
+When multiple output columns derive from the same computed expression (e.g., signal derived from health_score), compute once in an inner query and derive in an outer SELECT. Avoids triplicating complex expressions.
+
+```sql
+-- BAD: same complex expression computed 3 times
+SELECT
+  if(score > 0.8, 'healthy', 'degraded') AS signal,
+  if(score > 0.8, 'green', 'red') AS color,
+  if(score > 0.8, 1, 0) AS is_healthy
+FROM scores_node
+
+-- GOOD: compute once, derive in outer SELECT
+SELECT
+  signal,
+  if(signal = 'healthy', 'green', 'red') AS color,
+  if(signal = 'healthy', 1, 0) AS is_healthy
+FROM (
+  SELECT *, if(score > 0.8, 'healthy', 'degraded') AS signal
+  FROM scores_node
+)
+```
+
+### CROSS JOIN for single-row intermediate nodes
+
+When each data domain node produces exactly 1 row, CROSS JOIN is the correct pattern. **Warning:** if any node returns 0 rows, the entire result collapses to 0 rows. Guard with `count()` + conditional defaults to ensure each node always produces exactly 1 row.
+
+### Avoid redundant JOINs
+
+If columns can be passed through an existing subquery or node, don't re-join the source data nodes just to retrieve those columns. Check whether the data you need is already available in the query path before adding a JOIN.
+
 ## Monitoring and Validation
 
 - Track `tinybird.pipe_stats_rt` and `tinybird.pipe_stats`.

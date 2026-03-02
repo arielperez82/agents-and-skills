@@ -40,6 +40,7 @@ Reusable guidance extracted from Tinybird Code (the Tinybird CLI coding agent). 
 - `rules/events-api-quarantine.md`
 - `rules/integration-testing.md`
 - `rules/typescript-sdk.md`
+- `rules/architecture.md`
 
 ## Quick Reference
 

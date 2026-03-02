@@ -63,6 +63,99 @@ SELECT * FROM events WHERE session_id={{String(my_param, "default")}}
 5. ORDER BY
 6. LIMIT
 
+## Empty Set and NULL Gotchas
+
+### avg() returns NaN on empty sets
+
+`avg()` on an empty set returns `NaN`, not `NULL`. NaN propagates through arithmetic and `toUInt8(NaN)` throws "inf or nan to integer conversion".
+
+```sql
+-- BAD: crashes on empty set
+SELECT toUInt8(avg(score)) FROM events WHERE 1 = 0
+
+-- GOOD: guard with count() check
+SELECT if(count() = 0, 0, avg(score)) AS avg_score FROM events WHERE ...
+```
+
+### any() returns type default on empty non-Nullable columns
+
+`any()` on an empty non-Nullable column returns the type default (0 for Float64, '' for String), **not** NULL. `IS NULL` checks will not catch this.
+
+```sql
+-- BAD: row_value is 0 on empty set, IS NULL check never triggers
+SELECT any(score) AS row_value FROM events WHERE 1 = 0
+
+-- GOOD: use count() to detect empty sets
+SELECT count() AS row_count, any(score) AS row_value FROM events WHERE ...
+-- Then check row_count = 0 in application code or outer query
+```
+
+### Conditional NULL causes SDK build failures
+
+`if(count() = 0, NULL, expr)` causes opaque Tinybird SDK build failures ("undefined undefined" error). Avoid conditional NULLs in node SQL.
+
+```sql
+-- BAD: causes SDK build failure
+SELECT if(count() = 0, NULL, avg(score)) AS avg_score
+
+-- GOOD: use aggregate defaults or count-based guards
+SELECT if(count() = 0, 0, avg(score)) AS avg_score
+```
+
+## ClickHouse SQL Limitations
+
+### No correlated subqueries referencing CTE aliases
+
+ClickHouse does not support correlated subqueries that reference CTE aliases. Use `LEFT JOIN` with a derived subquery instead.
+
+```sql
+-- BAD: correlated subquery referencing CTE
+WITH base AS (SELECT * FROM events)
+SELECT *, (SELECT max(ts) FROM other WHERE other.id = base.id) FROM base
+
+-- GOOD: LEFT JOIN with derived subquery
+WITH base AS (SELECT * FROM events)
+SELECT base.*, sub.max_ts
+FROM base
+LEFT JOIN (SELECT id, max(ts) AS max_ts FROM other GROUP BY id) AS sub ON base.id = sub.id
+```
+
+### Pipe nodes compile to CTEs — no scalar subqueries referencing outer FROM
+
+Tinybird compiles pipe nodes into CTEs internally. Scalar subqueries inside SELECT cannot reference outer FROM aliases. Structure queries so each node is self-contained.
+
+### LEFT JOIN returns 0 for non-Nullable columns on unmatched rows
+
+With the default `join_use_nulls=0`, LEFT JOIN returns 0 (not NULL) for non-Nullable columns on unmatched rows. Use `nullIf(col, 0)` to re-introduce NULLs when needed.
+
+```sql
+SELECT a.id, nullIf(b.score, 0) AS score
+FROM table_a AS a
+LEFT JOIN table_b AS b ON a.id = b.id
+```
+
+### Floating-point precision at boundaries
+
+ClickHouse floating-point arithmetic follows IEEE 754: `abs(0.96 - 1.0) = 0.040000000000000036 > 0.04`. Tests and thresholds must account for this or use values safely inside boundaries (e.g., use `0.95` instead of `0.96` when threshold is `0.04` from `1.0`).
+
+## Templating Gotchas
+
+### formatDateTime codes
+
+`%m` = month (01-12), `%i` = minutes (00-59). Easy to confuse — double-check when formatting timestamps.
+
+### Template string concatenation
+
+Use `+` (not `~`) in `error()` calls. `~` (Jinja2 concat) causes "invalid syntax" build errors with SDK 0.0.29+.
+
+```sql
+-- BAD: Jinja2 concat operator
+{% if not defined(param) %}{{ error('Missing ' ~ 'param') }}{% end %}
+
+-- GOOD: use + for concatenation
+{% if not defined(param) %}{{ error('Missing ' + 'param') }}{% end %}
+```
+
 ## External Tables
 
 Iceberg:

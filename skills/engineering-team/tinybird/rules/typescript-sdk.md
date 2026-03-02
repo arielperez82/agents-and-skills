@@ -89,6 +89,47 @@ const result = await tinybird.query.topPages({ start_date: new Date("2024-01-01"
 
 For decoupled API without typed client (dynamic endpoint names, raw SQL, gradual migration): `createTinybirdApi({ baseUrl, token })` then `api.query()`, `api.ingest()`, `api.sql()`, `api.request()`. See [SDK README](https://github.com/tinybirdco/tinybird-sdk-typescript/blob/main/README.md) for usage.
 
+## Development workflow
+
+### Node-by-node incremental build
+
+Build complex pipes incrementally: deploy and validate each node before adding the next. Building all nodes at once makes error sources impossible to identify.
+
+1. Define the first node, run `tinybird deploy`
+2. Verify the node works (query it, check for errors)
+3. Add the next node, run `tinybird deploy` again
+4. Repeat until all nodes are in place
+
+This is essential for multi-node pipes where each node depends on the previous one.
+
+### CTE name collisions across nodes
+
+Tinybird compiles pipe nodes into CTEs. A CTE named `freshness` in one node will collide with a CTE of the same name in another node. Use unique, descriptive names prefixed with the node's domain.
+
+```typescript
+// BAD: generic CTE name reused across nodes
+node({ name: 'usage_node', sql: `WITH freshness AS (...) SELECT ...` })
+node({ name: 'health_node', sql: `WITH freshness AS (...) SELECT ...` })
+
+// GOOD: unique CTE names per node
+node({ name: 'usage_node', sql: `WITH usage_freshness AS (...) SELECT ...` })
+node({ name: 'health_node', sql: `WITH health_freshness AS (...) SELECT ...` })
+```
+
+### SDK error messages
+
+The SDK wraps ClickHouse errors (e.g., `Code 60 UNKNOWN_TABLE`) as generic "Datasource not available". When debugging, check Docker logs for the real ClickHouse error:
+
+```bash
+docker logs tinybird-local 2>&1 | grep -i error
+# Or check the ClickHouse server log inside the container
+docker exec tinybird-local cat /var/log/clickhouse-server/clickhouse-server.log | tail -50
+```
+
+### Build vs deploy in local mode
+
+`tinybird build` in local mode both compiles AND deploys to the workspace. Running `tinybird deploy` after build shows "no changes". Use `deploy` after pipe SQL changes to force-update, or use `build` as the single build+deploy step.
+
 ## SDK gotchas and validation
 
 These gotchas were discovered by running `tinybird build` against Tinybird Local. Unit tests alone cannot catch them -- they require the real Tinybird build/deploy pipeline.

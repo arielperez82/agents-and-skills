@@ -38,7 +38,7 @@ ENGINE_VER "updated_at"
 ENGINE_IS_DELETED "is_deleted"  -- optional, UInt8: 1=deleted, 0=active
 ```
 
-- Always query with `FINAL` or use alternative deduplication method
+- Always query with `FINAL` or use alternative deduplication method — **every** read of a ReplacingMergeTree datasource needs `FINAL`, including when the same datasource is read multiple times in different CTEs/nodes within one pipe
 - Deduplication happens during merges (asynchronous, uncontrollable)
 - **Do not** build AggregatingMergeTree MVs on top of ReplacingMergeTree—MVs only see incoming blocks, not merged state, so duplicates persist
 
