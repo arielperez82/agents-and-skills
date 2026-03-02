@@ -37,7 +37,47 @@ Read all artifact paths from completed phases in the status file.
 - If all checks pass: show summary (e.g. "Phases 0-2 completed, resuming at Phase 3") and proceed
 - If any missing: report which files are missing, ask user to re-run the producing phase, provide an alternative path, or continue without
 
-## 4. Determine Resume Point
+## 4. Reconstruct from Handoff Snapshot
+
+After validating artifacts, check for handoff snapshots to efficiently reconstruct orchestrator context. This is the primary mechanism for session continuity — it avoids re-reading all artifacts from scratch.
+
+**Detection:** Check the Phase 4 (or most recent in-progress phase) YAML entry for a `handoff_snapshots` array. If entries exist, the most recent snapshot's content is in the Phase Log as a collapsible `<details><summary>Handoff snapshot (step N)</summary>` section.
+
+**Reconstruction protocol:**
+
+1. **Find the most recent snapshot** — Use the `handoff_snapshots` array to identify the latest entry (highest `step` value or most recent `timestamp`). Then locate the corresponding `<details>` section in the Phase Log markdown body.
+
+2. **Read the snapshot** — Extract the 5 fields: Objective Focus, Completed Work, Key Anchors, Decision Rationale, Next Steps. If a phase transition snapshot, also extract Phase Completed and Artifacts Produced.
+
+3. **Load key anchors selectively** — For each Key Anchor entry (`<file-path> :: <symbol/section>`), read only the referenced section of the file (not the full file). Use the symbol/section name to locate the relevant portion. This keeps reconstruction context-efficient.
+
+4. **Verify anchor freshness** — For each anchor file, check that the referenced symbol/section still exists. If a file has been modified since the snapshot timestamp (compare git log), warn that the anchor may be stale and read the updated section instead.
+
+5. **Present reconstruction summary:**
+   ```
+   Resuming from [step N / Phase N].
+   Context reconstructed from handoff snapshot ([timestamp]).
+
+   Key decisions carried forward:
+   - [decision 1]: [rationale]
+   - [decision 2]: [rationale]
+
+   Key anchors loaded:
+   - [file:symbol] — [why it matters]
+   - [file:symbol] — [why it matters]
+
+   Next steps (from snapshot):
+   1. [next action]
+   2. [next action]
+   ```
+
+6. **Budget target:** Total context consumed during reconstruction (snapshot + anchor reads + summary) should stay under 15% of the available context window. If anchor files are large, read only the first 50 lines around the referenced symbol.
+
+**Fallback:** If no `handoff_snapshots` array exists in the status file (pre-I26-CXCO sessions), or the array is empty, fall back to the current behavior: read all artifact paths from completed phases. This ensures backwards compatibility with existing status files.
+
+## 5. Determine Resume Point
+
+(Renumbered from §4 after I26-CXCO added §4 Reconstruct from Handoff Snapshot)
 
 Find the first phase with status other than "approved" or "skipped":
 
@@ -69,9 +109,9 @@ When Phase 4 (Build) has `status: in_progress`, use its step-tracking fields for
 5. Verify completed step commits exist in git history (`git cat-file -t <sha>` for each SHA in `commit_shas`). If any SHA is missing, warn the user that git history may have diverged and ask whether to proceed or re-run affected steps.
 6. Any uncommitted changes in the working tree from an interrupted step should be presented to the user: offer to discard them (clean slate for re-run) or keep them (attempt to continue from where the step left off)
 
-## 5. Execute
+## 6. Execute
 
-Resume the `/craft` main loop from the determined phase, using all prior artifacts from completed phases.
+Resume the `/craft` main loop from the determined phase, using all prior artifacts from completed phases. If a handoff snapshot was loaded in §4, the orchestrator has the context needed to continue without re-reading all artifacts.
 
 ## Enforcement
 
