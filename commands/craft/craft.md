@@ -415,10 +415,24 @@ After originating agent(s) update, dispatch `claims-verifier` again (Workflow 2:
 - `cto-advisor` — When the goal has broad technical strategy implications (new platforms, major architectural shifts, build vs. buy).
 - `architect` — When feasibility depends on technical architecture and you need early "art of the possible" input.
 
+**Panel Checkpoint (Discovery Panel):**
+
+After claims-verifier completes, evaluate whether a Discovery Panel is warranted. This checkpoint operates before formal complexity classification (which happens after Phase 0 approval), so use orchestrator judgment or user request.
+
+1. **Trigger:** Orchestrator judges the goal spans multiple domains, has cross-initiative dependencies, or has platform-level scope (likely Complex or Strategic). User can also request a Discovery Panel explicitly.
+2. **Recommendation:** `"Discovery Panel recommended (goal appears to span multiple domains). Run panel / Skip?"`
+3. **Run path:**
+   - Invoke `convening-experts` with the Discovery Panel template from `skills/convening-experts/references/craft-panel-templates.md#discovery-panel`
+   - Save output to `.docs/canonical/assessments/assessment-{endeavor}-discovery-panel-{date}.md`
+   - Present panel output alongside research findings and strategic assessment at the gate
+4. **Skip path:** Record `panel_invoked: false` in the Phase 0 status entry. Proceed to standard gate.
+5. **Status recording:** Record `panel_invoked: true/false` and `panel_artifact_path` (if invoked) in the Phase 0 entry.
+
 **Output artifacts:**
 - `.docs/reports/researcher-{date}-{subject}.md` (research report)
 - `.docs/reports/claims-verifier-{date}-{subject}.md` (verification report)
 - Any additional assessment reports (strategic, UX, architecture)
+- `.docs/canonical/assessments/assessment-{endeavor}-discovery-panel-{date}.md` (conditional — only when panel invoked)
 
 **Gate behavior:** This phase's gate is special — it includes a go/no-go recommendation and a research verification verdict. Present the research findings, strategic assessment, **and verification verdict**, then offer the standard gate options plus:
 - **Refine** — Accept the recommendation to change the goal. The human provides a refined goal, and the session restarts with the new goal (status file updated).
@@ -526,9 +540,23 @@ Also produce a roadmap that sequences the outcomes:
 Save roadmap to: .docs/canonical/roadmaps/roadmap-{endeavor}-{initiative-id}-{subject}-{year}.md
 ```
 
+**Panel Checkpoint (Requirements Panel):**
+
+After acceptance-designer completes, evaluate `complexity_tier` against the tier-to-phase mapping. If Phase 1 has a panel for this tier (Complex+), offer the panel.
+
+1. **Trigger:** `complexity_tier` is `complex` or `strategic`.
+2. **Recommendation:** `"Requirements Panel recommended ({tier} complexity). Run panel / Skip?"`
+3. **Run path:**
+   - Invoke `convening-experts` with the Requirements Panel template from `skills/convening-experts/references/craft-panel-templates.md#requirements-panel`
+   - Save output to `.docs/canonical/assessments/assessment-{endeavor}-requirements-panel-{date}.md`
+   - Panel output validates user stories and acceptance criteria; feeds back into acceptance-designer context if refinement needed
+4. **Skip path:** Record `panel_invoked: false` in the Phase 1 status entry. Proceed to standard gate.
+5. **Status recording:** Record `panel_invoked: true/false` and `panel_artifact_path` (if invoked) in the Phase 1 entry.
+
 **Output artifacts:**
 - `.docs/canonical/charters/charter-{endeavor}-{initiative-id}-{subject}.md` (with user stories, acceptance criteria, BDD scenarios)
 - `.docs/canonical/roadmaps/roadmap-{endeavor}-{initiative-id}-{subject}-{year}.md`
+- `.docs/canonical/assessments/assessment-{endeavor}-requirements-panel-{date}.md` (conditional — only when panel invoked)
 
 ---
 
