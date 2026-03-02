@@ -477,6 +477,20 @@ After Phase 0 is approved, classify the initiative's complexity tier. This class
 
 **Pre-Phase 0 heuristic:** For goals that clearly indicate Strategic or Complex scope (many domains, cross-initiative, platform-level changes), the orchestrator may flag this before Phase 0 for early Discovery Panel consideration. This is advisory — formal classification happens after Phase 0 approval.
 
+**Panel Telemetry:**
+
+Every panel checkpoint (invoked or skipped) emits a telemetry event through existing hook infrastructure. No new Tinybird pipes or datasources are required.
+
+| Field | Type | Description |
+|-------|------|-------------|
+| `initiative_id` | string | Initiative ID (e.g., `I25-EXPNL`) |
+| `phase` | integer | Phase number (0-3) |
+| `complexity_tier` | string | Tier at time of checkpoint (`trivial`-`strategic`) |
+| `template` | string | Panel template (`discovery`, `requirements`, `design`, `plan-review`) |
+| `outcome` | string | `invoked` or `skipped` |
+
+Events are queryable by `initiative_id`, `phase`, and `outcome` through existing Tinybird infrastructure. Emit at each panel checkpoint (both run and skip paths).
+
 ---
 
 ### Phase 1: Define
@@ -712,7 +726,22 @@ LOOK-BACK: Reference the charter for acceptance criteria, the roadmap for outcom
 Save to: .docs/canonical/plans/plan-{endeavor}-{initiative-id}-{subject}.md
 ```
 
-**Output artifact:** `.docs/canonical/plans/plan-{endeavor}-{initiative-id}-{subject}.md`
+**Panel Checkpoint (Plan Review Panel):**
+
+After implementation-planner completes, evaluate `complexity_tier`. If Strategic, offer the Plan Review Panel.
+
+1. **Trigger:** `complexity_tier` is `strategic`.
+2. **Recommendation:** `"Plan Review Panel recommended (Strategic complexity). Run panel / Skip?"`
+3. **Run path:**
+   - Invoke `convening-experts` with the Plan Review Panel template from `skills/convening-experts/references/craft-panel-templates.md#plan-review-panel`
+   - Save output to `.docs/canonical/assessments/assessment-{endeavor}-plan-review-panel-{date}.md`
+   - Panel validates step decomposition, dependencies, and wave structure
+4. **Skip path:** Record `panel_invoked: false` in the Phase 3 status entry. Proceed to standard gate.
+5. **Status recording:** Record `panel_invoked: true/false` and `panel_artifact_path` (if invoked) in the Phase 3 entry.
+
+**Output artifacts:**
+- `.docs/canonical/plans/plan-{endeavor}-{initiative-id}-{subject}.md`
+- `.docs/canonical/assessments/assessment-{endeavor}-plan-review-panel-{date}.md` (conditional — only when panel invoked)
 
 ---
 

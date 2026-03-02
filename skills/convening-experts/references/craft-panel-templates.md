@@ -164,3 +164,54 @@ Produce a panel assessment saved to:
 ### Output
 
 Assessment saved to `.docs/canonical/assessments/assessment-{endeavor}-requirements-panel-{date}.md`. Feeds into acceptance-designer context for BDD scenario refinement.
+
+## Plan Review Panel
+
+**Trigger:** Phase 3 gate, Strategic complexity tier only
+
+### Composition
+
+| Role | Status | Responsibility |
+|------|--------|---------------|
+| **Build-Phase Domain Agent(s)** | Selected | Relevant domain expertise for the initiative (e.g., backend-engineer, frontend-engineer) |
+| **DevOps Perspective** | Mandatory | Validates deployment steps, CI/CD integration, infrastructure readiness |
+| **QA Perspective** | Mandatory | Validates test strategy, coverage plan, quality gate placement |
+
+### Format
+
+3-round format:
+1. **Plan walkthrough** — Lead presents step decomposition, wave structure, and critical path
+2. **Feasibility challenge** — Each expert challenges step sizing, dependency ordering, and missing integration points
+3. **Converge** — Agree on plan adjustments, flag risks, and validate wave structure
+
+### Validation Focus
+
+- Step decomposition is realistic (not too large, not too granular)
+- Dependencies between steps are correctly identified
+- Wave structure is sound (parallel steps are truly independent)
+- Integration, deployment, and monitoring steps are not missing
+- Walking skeleton proves the architecture before breadth expansion
+
+### Prompt Template
+
+```
+Convene a Plan Review Panel for the following initiative.
+
+Goal: {goal}
+Charter: {charter_path}
+Backlog: {backlog_path}
+Implementation plan: {plan_path}
+
+Each panelist should evaluate the plan from their perspective and identify:
+- Steps that are too large or too small for reliable execution
+- Missing dependencies or incorrect ordering
+- Integration points that need explicit steps
+- Risks to the critical path
+
+Produce a panel assessment saved to:
+.docs/canonical/assessments/assessment-{endeavor}-plan-review-panel-{date}.md
+```
+
+### Output
+
+Assessment saved to `.docs/canonical/assessments/assessment-{endeavor}-plan-review-panel-{date}.md`.

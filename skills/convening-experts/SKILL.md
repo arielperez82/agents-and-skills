@@ -319,6 +319,42 @@ Claude convenes:
 Format: Multi-round (root cause needs collaborative analysis)
 ```
 
+## Craft Flow Integration
+
+Expert panels integrate into the `/craft` SDLC flow as opt-in quality checkpoints at phase gates. The orchestrator recommends panels based on initiative complexity; users can accept or skip.
+
+### Blast-Radius Classification
+
+Initiatives are classified into 5 complexity tiers after Phase 0 approval. The tier determines which phases offer panel checkpoints:
+
+| Tier | Panel Phases | Description |
+|------|-------------|-------------|
+| Strategic | 0, 1, 2, 3 | Cross-initiative, 4+ domains, or 15+ steps |
+| Complex | 0, 1, 2 | 2+ domains with high blast radius |
+| Medium | 2 | Code/mixed with 4+ steps |
+| Light | 2 | Docs-only with 2+ downstream consumers |
+| Trivial | (none) | Low complexity, no panels |
+
+### Panel Templates
+
+Four panel templates are available for craft flow checkpoints. See [references/craft-panel-templates.md](references/craft-panel-templates.md) for full composition, format, and prompt templates:
+
+- **Discovery Panel** — Phase 0, Complex+. Validates problem framing and value proposition.
+- **Requirements Panel** — Phase 1, Complex+. Validates user stories and acceptance criteria.
+- **Design Panel** — Phase 2, Light+. Reviews architecture with ops and domain perspectives.
+- **Plan Review Panel** — Phase 3, Strategic only. Validates plan decomposition and dependencies.
+
+### Phase-Panel Mapping
+
+| Phase | Panel | Minimum Tier | Format |
+|-------|-------|-------------|--------|
+| 0: Discover | Discovery | Complex | 3-round |
+| 1: Define | Requirements | Complex | 3-round |
+| 2: Design | Design | Light | Single-round (Light) / 3-round (Medium+) |
+| 3: Plan | Plan Review | Strategic | 3-round |
+
+For full orchestration logic and checkpoint behavior, see `commands/craft/craft.md`.
+
 ## Constraints
 
 **Never:**
