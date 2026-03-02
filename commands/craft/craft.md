@@ -54,6 +54,9 @@ When reading a status file (for resume or precondition checks):
    - `commit_shas` must be an array of strings (Git SHA hashes)
    - `current_step` must be null or a positive integer (Phase 4 only)
    - `steps_completed` must be an array of positive integers (Phase 4 only)
+   - `complexity_tier` must be one of: `null`, `trivial`, `light`, `medium`, `complex`, `strategic`
+   - `panel_invoked` must be one of: `null`, `true`, `false` (Phases 0-3 only)
+   - `panel_artifact_path` must pass Artifact Path Safety checks when not null (Phases 0-3 only)
 2. **Feedback sanitization:** When embedding feedback from a previous rejection into agent prompts:
    - Truncate to 200 characters maximum
    - Wrap in a markdown code block: `` ```feedback\n<text>\n``` ``
@@ -209,6 +212,7 @@ mode: interactive
 overall_status: in_progress  # in_progress | completed | abandoned
 created_at: "<ISO 8601>"
 updated_at: "<ISO 8601>"
+complexity_tier: null
 phases:
   - name: Discover
     number: 0
@@ -220,6 +224,8 @@ phases:
     completed_at: null
     human_decision: null  # approve | clarify | reject | skip | restart
     feedback: null
+    panel_invoked: null
+    panel_artifact_path: null
   - name: Define
     number: 1
     status: pending
@@ -230,6 +236,8 @@ phases:
     completed_at: null
     human_decision: null
     feedback: null
+    panel_invoked: null
+    panel_artifact_path: null
   - name: Design
     number: 2
     status: pending
@@ -240,6 +248,8 @@ phases:
     completed_at: null
     human_decision: null
     feedback: null
+    panel_invoked: null
+    panel_artifact_path: null
   - name: Plan
     number: 3
     status: pending
@@ -250,6 +260,8 @@ phases:
     completed_at: null
     human_decision: null
     feedback: null
+    panel_invoked: null
+    panel_artifact_path: null
   - name: Build
     number: 4
     status: pending
@@ -413,6 +425,43 @@ After originating agent(s) update, dispatch `claims-verifier` again (Workflow 2:
 - **Override** — Proceed despite a "don't pursue" recommendation. Record the override rationale in the status file.
 
 Record artifact paths in the status file. Present a summary of key findings, the strategic recommendation, and the **claims-verifier verdict** at the gate. If the verifier verdict is FAIL (after Clarify loop exhausted), this is a mandatory pause — even in auto-mode.
+
+---
+
+### Complexity Classification (between Phase 0 and Phase 1)
+
+After Phase 0 is approved, classify the initiative's complexity tier. This classification determines which phases offer expert panel checkpoints.
+
+**When:** After Phase 0 gate approval, before Phase 1 begins.
+
+**Inputs:**
+- `scope_type` — docs-only, code, or mixed (from goal analysis or Scope Detection)
+- `step_count` — estimated number of plan steps (from Phase 0 research)
+- `domain_count` — number of distinct technical domains touched
+- `downstream_consumer_count` — number of files/systems that reference or consume the deliverables
+
+**Classification table** (evaluate top-to-bottom, first match wins):
+
+| Tier | Criteria | Panel Phases |
+|------|----------|--------------|
+| Strategic | `domain_count` >= 4 OR `step_count` >= 15 OR cross-initiative dependencies | 0, 1, 2, 3 |
+| Complex | `domain_count` >= 2 AND (`step_count` >= 8 OR `downstream_consumer_count` >= 10) | 0, 1, 2 |
+| Medium | `scope_type` = code/mixed AND `step_count` >= 4 | 2 |
+| Light | `scope_type` = docs-only AND `downstream_consumer_count` >= 2 | 2 |
+| Trivial | None of the above | (none) |
+
+**Rules:**
+- Docs-heavy initiatives with 2+ downstream consumers MUST classify as Light or higher (never Trivial)
+- Skills, commands, and agents are docs-heavy artifacts — they are consumed by agents and users and deserve panel review proportional to their blast radius
+- `downstream_consumer_count` is a primary classification input alongside `step_count` — blast radius matters as much as effort
+
+**Orchestrator behavior:**
+1. After Phase 0 approval, evaluate the classification inputs
+2. Present the recommended tier to the user: `"Complexity classification: {tier} (reason: {criteria matched}). Confirm or override?"`
+3. User confirms or provides an override tier with rationale
+4. Record `complexity_tier` in the status file
+
+**Pre-Phase 0 heuristic:** For goals that clearly indicate Strategic or Complex scope (many domains, cross-initiative, platform-level changes), the orchestrator may flag this before Phase 0 for early Discovery Panel consideration. This is advisory — formal classification happens after Phase 0 approval.
 
 ---
 
