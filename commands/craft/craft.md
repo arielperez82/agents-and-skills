@@ -653,16 +653,17 @@ Use sequential numbering (001, 002, ...).
 
 After architect and adr-writer complete, evaluate `complexity_tier` against the tier-to-phase mapping. If Phase 2 has a panel for this tier (Light+), offer the panel.
 
-1. **Recommendation:** `"Design Panel recommended ({tier} complexity, {scope_description}). Run panel / Skip?"`
-2. **Run path:**
+1. **Trigger:** `complexity_tier` is `light`, `medium`, `complex`, or `strategic` (i.e., not `trivial`).
+2. **Recommendation:** `"Design Panel recommended ({tier} complexity, {scope_description}). Run panel / Skip?"`
+3. **Run path:**
    - Invoke `convening-experts` with the Design Panel template from `skills/convening-experts/references/craft-panel-templates.md#design-panel`
    - Select code/mixed or docs-only variant based on `scope_type`
    - When `complexity_tier` is `light`, use single-round format; otherwise use 3-round format
    - Save output to `.docs/canonical/assessments/assessment-{endeavor}-design-panel-{date}.md`
    - Present panel output alongside architect output at the gate
-3. **Skip path:** Record `panel_invoked: false` in the Phase 2 status entry. Proceed to standard gate.
-4. **Status recording:** Record `panel_invoked: true/false` and `panel_artifact_path` (if invoked) in the Phase 2 entry.
-5. **Trivial tier:** No panel offered. Skip checkpoint silently.
+4. **Skip path:** Record `panel_invoked: false` in the Phase 2 status entry. Proceed to standard gate.
+5. **Status recording:** Record `panel_invoked: true/false` and `panel_artifact_path` (if invoked) in the Phase 2 entry.
+6. **Trivial tier:** No panel offered. Skip checkpoint silently.
 
 **Output artifacts:**
 - `.docs/canonical/backlogs/backlog-{endeavor}-{initiative-id}-{subject}.md`

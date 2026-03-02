@@ -74,7 +74,7 @@ phases:
     status: approved
     agents: [docs-reviewer]
     artifact_paths: []
-    commit_shas: []
+    commit_shas: [d40e8b4]
     started_at: "2026-03-02T02:00:00Z"
     completed_at: "2026-03-02T02:10:00Z"
     human_decision: approve
@@ -132,6 +132,7 @@ Initiative: I25-EXPNL
 ### Phase 4: Build — AUTO_APPROVE
 - **Agents:** orchestrator direct execution (docs-only scope)
 - **Steps completed:** 10/10
+- **Step 1** (convention discovery): read-only analysis, no committed artifacts
 - **Commits:**
   - `878e405` — steps 2+3: Design Panel template and blast-radius classification
   - `082e8e9` — step 4: Phase 2 Design Panel checkpoint (walking skeleton complete)
@@ -154,9 +155,3 @@ Initiative: I25-EXPNL
 - **Charter acceptance:** All 9 user stories addressed (US-1 through US-9), all Must/Should delivered, both Could-have items (US-7 Plan Review, US-8 telemetry) delivered
 - **Learnings:** docs-only initiatives benefit from orchestrator direct execution (no engineering-lead overhead); blast-radius classification adds minimal cost with meaningful panel targeting
 - **Audit:** AUTO_APPROVE — charter fully reconciled, no scope additions
-- **Plan:** 10 steps across 6 sub-waves (3 logical waves). Critical path: Step 1→3→4→7
-- **Walking skeleton:** Steps 2-4 (Design Panel template + blast-radius classification + Phase 2 checkpoint)
-- **Files touched:** 3 modified (craft.md, SKILL.md, craft-panel-templates.md), 1 created (craft-panel-templates.md)
-- **Effort estimate:** 3-4.25 hours total
-- **Cost tier routing:** Step 1 T1 (mechanical), Steps 2/5/6/8/9 T2 (pattern-following), Steps 3/4/7/10 T3 (judgment-dependent)
-- **Audit:** AUTO_APPROVE — plan complete with wave dependency graph, step-to-backlog mapping, and effort estimates
