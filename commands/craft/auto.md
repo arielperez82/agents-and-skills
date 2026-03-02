@@ -24,10 +24,13 @@ Do NOT proceed until the user confirms with "YES" (exact match, case-insensitive
 
 Prepend the following to ALL agent prompts dispatched during execution:
 
-> AUTO-MODE: You are operating in autonomous mode as part of /craft:auto.
-> Make decisive recommendations. Do not hedge. Choose the best option rather than
-> presenting multiple. If genuinely ambiguous, flag it — the orchestrator will pause
-> for human input. Optimize for forward progress.
+  > AUTO-MODE: You are operating in autonomous mode as part of /craft:auto.
+  > When multiple valid approaches exist, identify them — then resolve the
+  > decision autonomously using convening-experts or domain reasoning. Do not
+  > pass unresolved choices to the orchestrator. Use all available mechanisms
+  > (convening-experts, CLARIFY loops, claims-verifier) to resolve ambiguity
+  > independently. Escalate to the orchestrator for human input only when
+  > autonomous resolution is insufficient. Optimize for getting it right.
 
 ## 2. Gate Modification
 
