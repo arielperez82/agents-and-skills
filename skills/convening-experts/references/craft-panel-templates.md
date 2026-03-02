@@ -173,7 +173,7 @@ Assessment saved to `.docs/canonical/assessments/assessment-{endeavor}-requireme
 
 | Role | Status | Responsibility |
 |------|--------|---------------|
-| **Build-Phase Domain Agent(s)** | Selected | Relevant domain expertise for the initiative (e.g., backend-engineer, frontend-engineer) |
+| **Build-Phase Domain Agent(s)** | Domain-matched | Selected based on initiative domain (e.g., backend-engineer, frontend-engineer) |
 | **DevOps Perspective** | Mandatory | Validates deployment steps, CI/CD integration, infrastructure readiness |
 | **QA Perspective** | Mandatory | Validates test strategy, coverage plan, quality gate placement |
 
