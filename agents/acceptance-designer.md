@@ -40,7 +40,8 @@ related-skills:
   - engineering-team/tdd
   - engineering-team/core-testing-methodology
   - engineering-team/bdd-principles
-related-commands: []
+related-commands:
+  - define
 collaborates-with:
   - agent: tdd-reviewer
     purpose: Hands off to TDD inner loop after acceptance test is written

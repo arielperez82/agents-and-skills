@@ -37,7 +37,9 @@ related-skills:
   - engineering-team/technical-writer
   - agent-development-team/agent-cost-optimization
   - engineering-team/telemetry-analysis
-related-commands: []
+related-commands:
+  - discover
+  - define
 collaborates-with:
   - agent: technical-writer
     purpose: Mermaid diagram generation for roadmap timelines, OKR mindmaps, and strategic prioritization quadrants

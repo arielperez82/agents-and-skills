@@ -36,7 +36,9 @@ related-skills:
   - product-team/workshop-facilitation
   - engineering-team/technical-writer
   - sales-team/sales-call-analysis
-related-commands: []
+related-commands:
+  - discover
+  - define
 collaborates-with:
   - agent: technical-writer
     purpose: Mermaid diagram generation for roadmaps (Gantt), prioritization matrices (quadrant), and feature mindmaps

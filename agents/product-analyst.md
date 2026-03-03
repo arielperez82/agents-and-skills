@@ -33,7 +33,8 @@ related-skills:
   - product-team/competitive-analysis
   - delivery-team/ticket-management
   - exploring-data
-related-commands: []
+related-commands:
+  - define
 
 # === TECHNICAL ===
 tools: [Read, Write, Bash, Grep, Glob]

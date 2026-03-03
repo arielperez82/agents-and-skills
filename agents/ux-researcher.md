@@ -30,7 +30,8 @@ related-agents: []
 related-skills:
   - ux-team/ux-researcher-designer
   - ux-team/ux-designer
-related-commands: []
+related-commands:
+  - discover
 
 # === TECHNICAL ===
 tools: [Read, Write, Bash, Grep, Glob]

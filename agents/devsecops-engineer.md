@@ -28,7 +28,7 @@ classification:
 # === RELATIONSHIPS ===
 related-agents: []
 related-skills: [engineering-team/quality-gate-first, engineering-team/avoid-feature-creep, engineering-team/vercel-deploy-claimable, engineering-team/senior-devops, engineering-team/core-testing-methodology, engineering-team/docker-compose-basics, engineering-team/terraform-configuration, engineering-team/deployment-pipeline-design, engineering-team/github-expert, engineering-team/multi-cloud-architecture, engineering-team/nocodb]
-related-commands: [skill/phase-0-check]
+related-commands: [review/phase-0-check]
 collaborates-with:
   - agent: tdd-reviewer
     purpose: Ensuring CI/CD pipelines support TDD workflows and quality gates
@@ -931,7 +931,7 @@ kubectl get pods -n observability
      --change-type emergency \
      --output curl
 
-   # Emergency changes bypass normal CAB - proceed immediately after single approval
+   # Emergency changes skip standard CAB process - single approval then proceed
    ```
 
 **Expected Output:** Complete audit trail of deployment in ServiceNow with change request, approval history, implementation notes, and closure status for compliance reporting
@@ -942,7 +942,7 @@ kubectl get pods -n observability
 ```bash
 # Automated change management in CI/CD pipeline
 python3 ../skills/engineering-team/senior-devops/scripts/deployment_manager.py --input config.yaml --output json --file deploy.json
-python3 ../skills/engineering-team/senior-devops/scripts/servicenow_change_manager.py --deployment-file deploy.json --change-type standard --output curl | bash
+python3 ../skills/engineering-team/senior-devops/scripts/servicenow_change_manager.py --deployment-file deploy.json --change-type standard --output shell | sh
 kubectl apply -f k8s/ && curl -X PUT ... -d '{"state": "0", "close_code": "successful"}'
 ```
 

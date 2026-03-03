@@ -36,7 +36,8 @@ metadata:
   related-agents:
   - product-manager
   - product-analyst
-  related-commands: []
+  related-commands:
+  - discover
   related-skills:
   - product-team/workshop-facilitation
   - product-team/product-manager-toolkit
