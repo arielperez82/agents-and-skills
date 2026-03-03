@@ -518,6 +518,12 @@
     },
     "skills/agent-development-team/agent-optimizer": {
       "skill_id": "skill_01UFkNLbJF8SLwQJNn7GgzPh"
+    },
+    "skills/engineering-team/prompt-injection-security": {
+      "skill_id": "skill_01AW1SK6iZD9nXKMJg8dqhpm"
+    },
+    "skills/ux-team/ui-design-brain": {
+      "skill_id": "skill_01NK3Zw9nuQPExxxRmG4wARQ"
     }
   }
 }
