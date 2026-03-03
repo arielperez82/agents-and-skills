@@ -232,7 +232,7 @@ Whenever we **add or change** GitHub Actions workflows (e.g. under `.github/work
 3. **Effectful workflows** (deploy, publish, write to external systems): Do not run effectful steps locally. Optionally guard effectful steps (e.g. env flag or `if` so they skip under act) so workflow structure can be validated with act without side effects; add that guard when needed.
 4. **Reference:** Full learning and caveats — L27 (Recorded learnings above).
 
-Agents that create or modify workflows (e.g. devsecops-engineer, or any agent adding CI per Phase 0) must follow this practice. Phase 0 and quality-gate-first treat "validate with act" as part of CI pipeline setup and audits (see quality-gate-first skill and `/skill/phase-0-check`).
+Agents that create or modify workflows (e.g. devsecops-engineer, or any agent adding CI per Phase 0) must follow this practice. Phase 0 and quality-gate-first treat "validate with act" as part of CI pipeline setup and audits (see quality-gate-first skill and `/review/phase-0-check`).
 
 ---
 

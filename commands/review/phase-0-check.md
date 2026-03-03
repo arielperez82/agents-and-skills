@@ -1,4 +1,4 @@
-W---
+---
 description: Run Phase 0 (quality gate) checklist for the current repo or plan
 argument-hint: [path or plan-doc]
 ---

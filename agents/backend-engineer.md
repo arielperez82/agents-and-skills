@@ -44,7 +44,7 @@ related-skills:
   - engineering-team/functional
   - engineering-team/modern-javascript-patterns
   - exploring-data
-related-commands: [skill/phase-0-check]
+related-commands: [review/phase-0-check]
 collaborates-with:
   - agent: devsecops-engineer
     purpose: Phase 0 setup — collaborate for CI pipeline and deploy pipeline (layers 2 and 3); devsecops-engineer owns pipeline implementation

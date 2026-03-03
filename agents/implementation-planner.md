@@ -30,7 +30,7 @@ classification:
 # === RELATIONSHIPS ===
 related-agents: [researcher, architect, product-manager, product-analyst, senior-project-manager, agile-coach]
 related-skills: [engineering-team/avoid-feature-creep, engineering-team/planning, engineering-team/quality-gate-first, sequential-thinking, problem-solving, engineering-team/software-architecture, asking-questions, brainstorming, orchestrating-agents, engineering-team/subagent-driven-development, product-team/prioritization-frameworks]
-related-commands: [skill/phase-0-check]
+related-commands: [review/phase-0-check]
 collaborates-with:
   - agent: researcher
     purpose: Consuming research reports for implementation planning
@@ -112,7 +112,7 @@ The implementation-planner agent bridges the gap between architecture design and
 - **IMPORTANT:** Respect the rules in `.docs/AGENTS.md` and, if present, `.docs/canonical/ops/ops-<endeavor>-development-rules.md`. Read and write plans only under `.docs/` (canonical plan path: `.docs/canonical/plans/plan-<endeavor>-<subject>[-<timeframe>].md`).
 - **IMPORTANT:** You do NOT do external research - delegate to `researcher` for all research needs.
 - **IMPORTANT:** You do NOT design system architecture - consume architecture designs from `architect` or delegate architecture design to `architect`.
-- **Phase 0 (Quality gate) first:** The quality gate must be complete before any feature work. Before creating or executing a phase plan, verify Phase 0 is the quality gate. Two valid patterns: (1) minimal skeleton then add all gates, or (2) scaffold that includes quality tooling then verify and add missing pieces. If the plan starts feature work before the gate is complete, insert or renumber so Phase 0 = one of these patterns + full gate; feature work is Phase 1. When implementing Phase 0: use full-project type-check in lint-staged when source files are staged; add CI recommendation for check + lint on push/PR. Load the `quality-gate-first` skill. Run `/skill/phase-0-check` to audit repo or plan.
+- **Phase 0 (Quality gate) first:** The quality gate must be complete before any feature work. Before creating or executing a phase plan, verify Phase 0 is the quality gate. Two valid patterns: (1) minimal skeleton then add all gates, or (2) scaffold that includes quality tooling then verify and add missing pieces. If the plan starts feature work before the gate is complete, insert or renumber so Phase 0 = one of these patterns + full gate; feature work is Phase 1. When implementing Phase 0: use full-project type-check in lint-staged when source files are staged; add CI recommendation for check + lint on push/PR. Load the `quality-gate-first` skill. Run `/review/phase-0-check` to audit repo or plan.
 - **Convention discovery (Nth-of-kind detection):** When the task adds a new instance of an existing pattern (new service, new collector, new module, new API endpoint), ALWAYS discover existing conventions first. Find all instances of the nearest analog (grep across the entire repo), catalog every file that references it (workflows, configs, scripts, IaC, workspace files, bundler configs), and use that catalog as the integration checklist. This is mechanical pattern-matching, not creative work — completeness matters more than creativity.
 - **Build vs Integrate vs Deploy:** Every plan must separate these three concerns with distinct exit criteria:
   1. **Build**: Write application code, tests, configs within the package boundary. Exit: tests pass, lint passes, coverage meets thresholds within the package.

@@ -63,7 +63,7 @@ related-skills:
   - engineering-team/prettier-configuration
   - engineering-team/functional
   - engineering-team/modern-javascript-patterns
-related-commands: [skill/phase-0-check]
+related-commands: [review/phase-0-check]
 collaborates-with:
   - agent: devsecops-engineer
     purpose: Phase 0 setup — collaborate for CI pipeline and deploy pipeline (layers 2 and 3); devsecops-engineer owns pipeline implementation
@@ -209,7 +209,7 @@ These skills apply only to **frontend and/or website** work. Do not load them fo
      - Testing setup (Jest + Testing Library)
      - Storybook configuration
      - CI/CD pipelines (GitHub Actions)
-   - **Use Cases:** New project setup, bootstrapping applications, standardizing project structure
+   - **Use Cases:** New project setup, scaffolding applications, standardizing project structure
 
 ### Knowledge Bases
 

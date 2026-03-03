@@ -22,7 +22,7 @@ Each workflow is defined by **capability descriptions** to pass to `/skill/find-
 | Workflow name | Capability descriptions to query (run find-local-skill for each) | Typical use |
 |---------------|------------------------------------------------------------------|-------------|
 | **development-loop** | "TDD" or "test-driven development"; "testing patterns" or "test factories"; "refactoring after tests pass" | RED–GREEN–REFACTOR: write tests first, implement, refactor. Use at start of coding work. |
-| **phase-0** | "quality gate" or "Phase 0"; (optional) "CI pipeline" or "deploy pipeline" if scaffolding | New project or plan review: quality gate before feature work. See also `/skill/phase-0-check` to audit. |
+| **phase-0** | "quality gate" or "Phase 0"; (optional) "CI pipeline" or "deploy pipeline" if scaffolding | New project or plan review: quality gate before feature work. See also `/review/phase-0-check` to audit. |
 | **planning-implementation** | "planning" or "implementation plan"; "subagent" or "parallel implementation" (if splitting work) | Multi-step implementation from a plan; subagent-driven execution. |
 | **sales-outreach** | "lead research" or "company research"; "lead qualification" or "ICP"; "sales outreach" or "ABM email"; (optional) "meeting intelligence" for follow-up | End-to-end outbound: research → qualify → draft outreach; optionally meeting prep/follow-up. |
 | **code-quality-review** | "code review"; "quality gate" (if reviewing plans); "refactoring" (if suggesting improvements) | Reviewing PRs, plans, or backlogs; suggesting Phase 0 or refactors. |
@@ -37,7 +37,7 @@ Each workflow is defined by **capability descriptions** to pass to `/skill/find-
 ## Relationship to other commands
 
 - **`/skill/find-local-skill`** — Single capability query. Use when you need one additional capability. Use **load-workflow** when you want the standard set for a whole workflow.
-- **`/skill/phase-0-check`** — Audits repo or plan against Phase 0; loads quality-gate skill by path. Use **load-workflow phase-0** when you want to *prepare* for Phase 0 work (e.g. load quality gate + any CI/deploy skills) rather than audit.
+- **`/review/phase-0-check`** — Audits repo or plan against Phase 0; loads quality-gate skill by path. Use **load-workflow phase-0** when you want to *prepare* for Phase 0 work (e.g. load quality gate + any CI/deploy skills) rather than audit.
 
 ## Adding workflows
 

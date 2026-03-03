@@ -64,7 +64,7 @@ related-skills:
   - engineering-team/eslint-configuration
   - engineering-team/prettier-configuration
   - engineering-team/quality-gate-first
-related-commands: [skill/phase-0-check]
+related-commands: [review/phase-0-check]
 collaborates-with:
   - agent: seo-strategist
     purpose: Keyword strategy, site architecture planning, and SEO roadmaps

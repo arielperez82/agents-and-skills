@@ -41,7 +41,7 @@ related-skills:
   - engineering-team/markdownlint-configuration
   - engineering-team/mutation-testing
 related-commands:
-  - skill/phase-0-check
+  - review/phase-0-check
 collaborates-with:
   - agent: devsecops-engineer
     purpose: Implements CI/CD pipeline and deploy pipeline (Phase 0 layers 2-3); receives gap reports from assessor

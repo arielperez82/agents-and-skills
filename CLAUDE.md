@@ -334,7 +334,7 @@ Run `/review/review-changes` final time → fix issues → `/pr`.
   3. **Deploy pipeline (remote):** GitHub Actions workflow_dispatch (manual trigger). Build → dry-run → deploy. Repository secrets for credentials. No local production deploys.
 - **Additional local elements:** Markdown linting (when repo has many `.md`), Stylelint for CSS/styles when frontend, a11y linting (e.g. jsx-a11y), audit script (e.g. Lighthouse; script + optional CI, not pre-commit).
 
-**Document Phase 0** in backlog, development plan, and technical spec (including which pattern above). Load the `quality-gate-first` skill when starting a new project or generating/reviewing plans. Run `/skill/phase-0-check` to audit the repo or a plan document.
+**Document Phase 0** in backlog, development plan, and technical spec (including which pattern above). Load the `quality-gate-first` skill when starting a new project or generating/reviewing plans. Run `/review/phase-0-check` to audit the repo or a plan document.
 
 ## Refactoring Priorities
 

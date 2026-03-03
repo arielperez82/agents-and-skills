@@ -36,7 +36,7 @@ related-agents:
   - ts-enforcer
   - docs-reviewer
 related-skills: [engineering-team/quality-gate-first, delivery-team/wiki-documentation, engineering-team/tiered-review]
-related-commands: [skill/phase-0-check]
+related-commands: [review/phase-0-check]
 collaborates-with:
   - agent: implementation-planner
     purpose: Review and validate implementation plans for quality and tracking readiness
@@ -97,7 +97,7 @@ npx tsx skills/engineering-team/tiered-review/scripts/prefilter-progress.ts .doc
 - ❌ Implement features (you assess tracking of implementation)
 - ❌ Recommend or use PLAN.md, WIP.md, LEARNINGS.md at repo root
 
-**Phase 0 (Quality gate) in plans:** In consistency/completeness reviews, check that the quality gate is complete before any feature work. Phase 0 should be either (1) minimal skeleton + full gate, or (2) scaffold-with-gates + verify. If backlog, development plan, or technical spec start feature work before the gate is complete, recommend adding or renumbering so Phase 0 is the quality gate and all three documents are aligned. Load the `quality-gate-first` skill. Run `/skill/phase-0-check` to audit a plan document.
+**Phase 0 (Quality gate) in plans:** In consistency/completeness reviews, check that the quality gate is complete before any feature work. Phase 0 should be either (1) minimal skeleton + full gate, or (2) scaffold-with-gates + verify. If backlog, development plan, or technical spec start feature work before the gate is complete, recommend adding or renumbering so Phase 0 is the quality gate and all three documents are aligned. Load the `quality-gate-first` skill. Run `/review/phase-0-check` to audit a plan document.
 
 ## Core Responsibility
 

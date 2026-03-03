@@ -51,7 +51,7 @@ related-skills:
   - engineering-team/stryker-configuration
   - engineering-team/bdd-principles
   - engineering-team/playwright-bdd-step-definitions
-related-commands: [skill/phase-0-check]
+related-commands: [review/phase-0-check]
 collaborates-with:
   - agent: code-reviewer
     purpose: Code review with test coverage assessment and quality validation

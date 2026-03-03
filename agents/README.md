@@ -407,7 +407,7 @@ Delivering to production safely is the first feature. No feature work begins unt
 3. **Deploy pipeline (remote):** GitHub Actions workflow_dispatch — build → dry-run → deploy.
 
 **Agents:** `devsecops-engineer` (pipeline setup), `implementation-planner` (includes Phase 0 in all plans).
-**Skill:** `quality-gate-first`. **Command:** `/skill/phase-0-check` to audit.
+**Skill:** `quality-gate-first`. **Command:** `/review/phase-0-check` to audit.
 
 ### Phase 1 — Planning & Requirements
 

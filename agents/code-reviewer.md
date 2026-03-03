@@ -45,7 +45,7 @@ related-skills:
   - engineering-team/code-maturity-assessor
   - engineering-team/functional
   - engineering-team/tiered-review
-related-commands: [skill/phase-0-check]
+related-commands: [review/phase-0-check]
 collaborates-with:
   - agent: devsecops-engineer
     purpose: When reviewing new or scaffolded projects — flag missing CI/deploy pipeline; collaborate with devsecops-engineer to establish Phase 0 layers 2 and 3

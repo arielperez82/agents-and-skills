@@ -73,7 +73,7 @@ All three layers must be operational before Phase 1 (feature work) begins. The d
 
 ## Agent collaboration
 
-When setting up Phase 0 (especially **CI pipeline** and **deploy pipeline** — layers 2 and 3), **collaborate with the devsecops-engineer agent**. The devsecops-engineer owns CI/CD and deploy pipeline implementation. fullstack-engineer, backend-engineer, frontend-engineer, and architect should involve devsecops-engineer when scaffolding new projects or when plans require operational CI and deploy pipelines. code-reviewer should flag missing CI/deploy on new projects and recommend involving devsecops-engineer. Run `/skill/phase-0-check` to audit a repo or plan.
+When setting up Phase 0 (especially **CI pipeline** and **deploy pipeline** — layers 2 and 3), **collaborate with the devsecops-engineer agent**. The devsecops-engineer owns CI/CD and deploy pipeline implementation. fullstack-engineer, backend-engineer, frontend-engineer, and architect should involve devsecops-engineer when scaffolding new projects or when plans require operational CI and deploy pipelines. code-reviewer should flag missing CI/deploy on new projects and recommend involving devsecops-engineer. Run `/review/phase-0-check` to audit a repo or plan.
 
 ## Check Registry
 
