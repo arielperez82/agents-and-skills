@@ -40,15 +40,16 @@ phases:
     panel_artifact_path: null
   - name: Design
     number: 2
-    status: pending
-    agents: [architect, adr-writer]
-    artifact_paths: []
+    status: approved
+    agents: [architect]
+    artifact_paths:
+      - .docs/canonical/plans/plan-repo-I14-MATO-P2-technical-design.md
     commit_shas: []
-    started_at: null
-    completed_at: null
+    started_at: "2026-03-03T00:21:00Z"
+    completed_at: "2026-03-03T00:24:00Z"
     human_decision: null
     feedback: null
-    panel_invoked: null
+    panel_invoked: false
     panel_artifact_path: null
   - name: Plan
     number: 3
@@ -104,6 +105,10 @@ audit_log:
     decision: AUTO_APPROVE
     reason: "Product-analyst produced 7-story backlog (B1-B7) in 2 waves. Acceptance-designer produced 18 BDD scenarios across 6 features. Walking skeleton identified: Codex happy path."
     timestamp: "2026-03-03T00:20:00Z"
+  - phase: 2
+    decision: AUTO_APPROVE
+    reason: "Architect produced technical design with build_argv per-backend, separate telemetry_helper, preflight cache, and dispatch command pattern. No ADR needed — no controversial decisions."
+    timestamp: "2026-03-03T00:24:00Z"
 ---
 
 # Craft: I14-MATO Phase 2 — Activate Cross-Vendor Agent Dispatch
@@ -124,3 +129,7 @@ Initiative: I14-MATO
 - product-analyst: .docs/canonical/backlogs/backlog-repo-I14-MATO-P2-cross-vendor-dispatch.md (7 stories, 2 waves)
 - acceptance-designer: .docs/canonical/backlogs/backlog-repo-I14-MATO-P2-bdd-scenarios.md (18 BDD scenarios, 6 features)
 - Walking skeleton: Codex happy path (most reliable T2 delegate)
+
+### Phase 2: Design — APPROVED (auto)
+- architect: .docs/canonical/plans/plan-repo-I14-MATO-P2-technical-design.md
+- Key decisions: build_argv per backend, separate telemetry_helper.py, preflight cache in /tmp, /dispatch as markdown command
