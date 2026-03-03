@@ -17,7 +17,7 @@ Initiatives actively in progress.
 
 | Initiative | Name | Description | Status | Charter |
 |------------|------|-------------|--------|---------|
-| *(none — capacity available)* | | | | |
+| I14-MATO | Multi-Agent Token Optimization (Phase 2) | Activate cross-vendor dispatch: CLAUDE.md rules, /dispatch command, gemini/codex backends, pre-flight auth, telemetry | Active | [charter](../charters/charter-repo-I14-MATO-multi-agent-token-optimization.md) |
 
 ## Next
 
@@ -54,7 +54,7 @@ Completed initiatives.
 | I11-PMSI | PM Skills Intake | Product management skills intake (8 skills, 8 Python tools) | [charter](../charters/charter-repo-I11-PMSI-pm-skills-intake.md) |
 | I12-CRFT | Craft Command | Full SDLC orchestration command (`/craft`) with phase gates, resume, and auto variants | [charter](../charters/charter-repo-I12-CRFT-craft-command.md) |
 | I13-RCHG | Review Changes Artifact-Aware | Extend `/review/review-changes` to treat agent/skill/command artifacts as first-class review targets | [charter](../charters/charter-repo-I13-RCHG-review-changes-artifact-aware.md) |
-| I14-MATO | Multi-Agent Token Optimization | Token cost optimization for multi-agent orchestration (Phase 1: model right-sizing + cost pipe) | [charter](../charters/charter-repo-I14-MATO-multi-agent-token-optimization.md) |
+| I14-MATO (Phase 1) | Multi-Agent Token Optimization | Token cost optimization for multi-agent orchestration (Phase 1: model right-sizing + cost pipe) | [charter](../charters/charter-repo-I14-MATO-multi-agent-token-optimization.md) |
 | I15-TOPT | Telemetry Optimize Command | `/telemetry/optimize` command for agent cost optimization reporting | [charter](../charters/charter-repo-I15-TOPT-telemetry-optimize.md) |
 | I16-MCEF | Monte Carlo Estimation & Forecasting | Monte Carlo forecasting, WSJF scoring, git throughput extraction, AI-pace calibration for prioritization-frameworks skill | [charter](../charters/charter-repo-I16-MCEF-monte-carlo-estimation.md) |
 | I17-STSR | Skill Telemetry Sub-Resources | Track skill sub-resources (references, scripts), script execution duration, and project context in telemetry | [charter](../charters/charter-repo-I17-STSR-skill-telemetry-sub-resources.md) |

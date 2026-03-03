@@ -2,7 +2,7 @@
 
 **Initiative:** I14-MATO
 **Date:** 2026-02-19
-**Status:** Done
+**Status:** Active (Phase 2)
 
 ## Goal and Scope
 
@@ -138,6 +138,64 @@ As a developer, I want unified cost tracking across Claude, Cursor, Gemini, and 
 - Existing orchestration skill: `skills/orchestrating-agents/SKILL.md`
 - Cost telemetry: `telemetry/src/pipes/cost_by_model.ts`, `telemetry/src/pipes/cost_by_agent.ts`
 - Agent catalog: `agents/README.md`
+
+## Phase 2 Scope (2026-03-03)
+
+**Goal:** Close the gap between documented multi-agent capability and actual usage. Make Claude automatically dispatch T2 work to Gemini/Codex/Cursor instead of doing everything itself.
+
+**Approved layers (incremental delivery):**
+
+### Layer 1A: CLAUDE.md Dispatch Rules (immediate, zero-code)
+
+Add concrete "T2 Delegation Triggers" section to CLAUDE.md with specific task→backend mappings that Claude follows automatically during normal workflow.
+
+Deliverables:
+1. CLAUDE.md updated with T2 delegation trigger rules
+2. Concrete task→backend routing table (research→gemini, boilerplate→gemini, doc drafts→gemini, etc.)
+3. Validation sandwich pattern: cheap generation + Claude validation
+4. Pre-flight auth check protocol at session start
+
+### Layer 1B: `/dispatch` Command (medium effort)
+
+Build a dispatch command that classifies task tier and routes to the cheapest capable backend.
+
+Deliverables:
+1. `commands/dispatch/dispatch.md` command definition
+2. Task classification logic (T1/T2/T3 based on cognitive requirements)
+3. Backend selection with fallback chain (gemini → codex → haiku → sonnet)
+4. Output capture and validation integration
+
+### Layer 2: Complete Python Client Backends
+
+Add Gemini and Codex to `_BACKENDS` registry in `cli_client.py`. Create wrapper modules.
+
+Deliverables:
+1. `cli_client.py` updated with gemini and codex backend entries (flag mappings, binary names)
+2. `gemini_client.py` wrapper (like `cursor_client.py`)
+3. `codex_client.py` wrapper
+4. Tests for new backends
+5. `_resolve_backend` auto-detect updated to include all 4 backends
+
+### Layer 3: Pre-flight Auth & Enhanced Telemetry
+
+Backend availability verification at session start. Telemetry for cross-vendor invocations.
+
+Deliverables:
+1. Pre-flight backend health check (verify auth, connectivity for all configured backends)
+2. Auth guidance workflow (prompt user to authenticate when needed)
+3. Telemetry hooks extended to capture non-Claude invocations (backend, model, duration, cost proxy)
+4. `orchestrating-agents` skill updated to v0.4.0 with all changes
+
+### Outcome Sequence
+
+| Step | Layer | Outcome | Depends On |
+|------|-------|---------|------------|
+| 1 | 1A | CLAUDE.md dispatch rules → Claude starts delegating immediately | — |
+| 2 | 2 | Python client backends → gemini/codex callable from scripts | — |
+| 3 | 1B | /dispatch command → structured routing with classification | Steps 1, 2 |
+| 4 | 3 | Pre-flight + telemetry → observability and reliability | Steps 1, 2 |
+
+**Steps 1 and 2 are parallel (no dependencies). Steps 3 and 4 depend on both.**
 
 ## Phase 1 Completion Summary (2026-02-19)
 
