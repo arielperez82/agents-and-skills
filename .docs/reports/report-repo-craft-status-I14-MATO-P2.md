@@ -86,12 +86,13 @@ phases:
     feedback: null
   - name: Validate
     number: 5
-    status: pending
-    agents: []
-    artifact_paths: []
-    commit_shas: []
-    started_at: null
-    completed_at: null
+    status: approved
+    agents: [product-manager, code-reviewer, security-engineer]
+    artifact_paths:
+      - .docs/reports/handoff-I14-MATO-P2-post-phase4.md
+    commit_shas: ["642bebe"]
+    started_at: "2026-03-03T02:01:00Z"
+    completed_at: "2026-03-03T02:30:00Z"
     human_decision: null
     feedback: null
   - name: Close
