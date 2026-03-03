@@ -2,8 +2,8 @@
 """
 Unit tests for cli_client — the backend-agnostic CLI transport layer.
 
-Tests backend auto-detection (claude preferred, agent fallback),
-explicit backend selection, and error handling.
+Tests backend auto-detection (claude → codex → gemini → cursor),
+explicit backend selection, per-backend argv construction, and error handling.
 """
 
 import sys
@@ -25,7 +25,7 @@ def _make_result(stdout="ok", stderr="", returncode=0):
 
 
 class TestAutoDetection(unittest.TestCase):
-    """Backend auto-detection: claude first, agent fallback."""
+    """Backend auto-detection: claude → codex → gemini → cursor."""
 
     @patch("cli_client.subprocess.run")
     @patch("cli_client.shutil.which")
@@ -54,7 +54,7 @@ class TestAutoDetection(unittest.TestCase):
         self.assertEqual(argv[0], "agent")
 
     @patch("cli_client.shutil.which")
-    def test_raises_when_neither_cli_available(self, mock_which):
+    def test_raises_when_no_cli_available(self, mock_which):
         from cli_client import invoke_cli
 
         mock_which.return_value = None
@@ -64,7 +64,32 @@ class TestAutoDetection(unittest.TestCase):
 
         msg = str(ctx.exception).lower()
         self.assertIn("claude", msg)
+        self.assertIn("codex", msg)
+        self.assertIn("gemini", msg)
         self.assertIn("agent", msg)
+
+    @patch("cli_client.subprocess.run")
+    @patch("cli_client.shutil.which")
+    def test_auto_detect_order_four_backends(self, mock_which, mock_run):
+        """Auto-detect order: claude -> codex -> gemini -> cursor.
+
+        When claude is missing but codex is found, codex should be used
+        (not gemini or cursor).
+        """
+        from cli_client import invoke_cli
+
+        def which_side_effect(cmd):
+            if cmd == "codex":
+                return "/usr/bin/codex"
+            return None
+
+        mock_which.side_effect = which_side_effect
+        mock_run.return_value = _make_result("ok")
+
+        invoke_cli("test prompt")
+
+        argv = mock_run.call_args[0][0]
+        self.assertEqual(argv[0], "codex")
 
 
 class TestExplicitBackend(unittest.TestCase):
@@ -113,7 +138,112 @@ class TestExplicitBackend(unittest.TestCase):
         with self.assertRaises(ValueError) as ctx:
             invoke_cli("test", backend="invalid")
 
-        self.assertIn("invalid", str(ctx.exception).lower())
+        msg = str(ctx.exception).lower()
+        self.assertIn("invalid", msg)
+        self.assertIn("codex", msg)
+        self.assertIn("gemini", msg)
+
+
+class TestBackendArgvConstruction(unittest.TestCase):
+    """Per-backend argv construction via build_argv callables."""
+
+    @patch("cli_client.subprocess.run")
+    @patch("cli_client.shutil.which")
+    def test_codex_argv_has_exec_subcommand(self, mock_which, mock_run):
+        """Codex uses positional args: codex exec <prompt> --sandbox read-only."""
+        from cli_client import invoke_cli
+
+        mock_which.return_value = "/usr/bin/codex"
+        mock_run.return_value = _make_result("ok")
+
+        invoke_cli("do something", backend="codex")
+
+        argv = mock_run.call_args[0][0]
+        self.assertEqual(argv[0], "codex")
+        self.assertEqual(argv[1], "exec")
+        self.assertEqual(argv[2], "do something")
+        self.assertIn("--sandbox", argv)
+        sandbox_idx = argv.index("--sandbox")
+        self.assertEqual(argv[sandbox_idx + 1], "read-only")
+        self.assertNotIn("-p", argv)
+        self.assertNotIn("--output-format", argv)
+
+    @patch("cli_client.subprocess.run")
+    @patch("cli_client.shutil.which")
+    def test_gemini_argv_uses_short_output_flag(self, mock_which, mock_run):
+        """Gemini uses short flags: gemini -p <prompt> -o <format>."""
+        from cli_client import invoke_cli
+
+        mock_which.return_value = "/usr/bin/gemini"
+        mock_run.return_value = _make_result("ok")
+
+        invoke_cli("do something", backend="gemini", output_format="text")
+
+        argv = mock_run.call_args[0][0]
+        self.assertEqual(argv[0], "gemini")
+        self.assertIn("-p", argv)
+        p_idx = argv.index("-p")
+        self.assertEqual(argv[p_idx + 1], "do something")
+        self.assertIn("-o", argv)
+        o_idx = argv.index("-o")
+        self.assertEqual(argv[o_idx + 1], "text")
+        self.assertNotIn("--output-format", argv)
+
+    @patch("cli_client.subprocess.run")
+    @patch("cli_client.shutil.which")
+    def test_claude_argv_uses_long_output_format(self, mock_which, mock_run):
+        """Claude uses: claude -p <prompt> --output-format <format>."""
+        from cli_client import invoke_cli
+
+        mock_which.return_value = "/usr/bin/claude"
+        mock_run.return_value = _make_result("ok")
+
+        invoke_cli("hello", backend="claude", output_format="json")
+
+        argv = mock_run.call_args[0][0]
+        self.assertEqual(argv, ["claude", "-p", "hello", "--output-format", "json"])
+
+    @patch("cli_client.subprocess.run")
+    @patch("cli_client.shutil.which")
+    def test_cursor_argv_uses_agent_binary(self, mock_which, mock_run):
+        """Cursor uses: agent -p <prompt> --output-format <format>."""
+        from cli_client import invoke_cli
+
+        mock_which.return_value = "/usr/bin/agent"
+        mock_run.return_value = _make_result("ok")
+
+        invoke_cli("hello", backend="cursor", output_format="text")
+
+        argv = mock_run.call_args[0][0]
+        self.assertEqual(argv, ["agent", "-p", "hello", "--output-format", "text"])
+
+    @patch("cli_client.subprocess.run")
+    @patch("cli_client.shutil.which")
+    def test_codex_extra_args_appended(self, mock_which, mock_run):
+        """Extra args are appended to codex argv."""
+        from cli_client import invoke_cli
+
+        mock_which.return_value = "/usr/bin/codex"
+        mock_run.return_value = _make_result("ok")
+
+        invoke_cli("task", backend="codex", extra_args=["--verbose"])
+
+        argv = mock_run.call_args[0][0]
+        self.assertIn("--verbose", argv)
+
+    @patch("cli_client.subprocess.run")
+    @patch("cli_client.shutil.which")
+    def test_gemini_extra_args_appended(self, mock_which, mock_run):
+        """Extra args are appended to gemini argv."""
+        from cli_client import invoke_cli
+
+        mock_which.return_value = "/usr/bin/gemini"
+        mock_run.return_value = _make_result("ok")
+
+        invoke_cli("task", backend="gemini", extra_args=["--debug"])
+
+        argv = mock_run.call_args[0][0]
+        self.assertIn("--debug", argv)
 
 
 class TestInvocation(unittest.TestCase):
@@ -265,6 +395,30 @@ class TestClaudeClientIntegration(unittest.TestCase):
         from cli_client import CLIInvocationError
 
         self.assertIs(ClaudeInvocationError, CLIInvocationError)
+
+
+class TestTelemetryIntegration(unittest.TestCase):
+    """Telemetry hook fires after successful invocation."""
+
+    @patch("telemetry_helper.urllib.request.urlopen")
+    @patch("cli_client.subprocess.run")
+    @patch("cli_client.shutil.which")
+    def test_invoke_cli_calls_emit_invocation(self, mock_which, mock_run, mock_urlopen):
+        from cli_client import invoke_cli
+
+        mock_which.return_value = "/usr/bin/claude"
+        mock_run.return_value = _make_result("ok")
+        mock_response = type("Response", (), {
+            "status": 200,
+            "__enter__": lambda s: s,
+            "__exit__": lambda s, *a: False,
+        })()
+        mock_urlopen.return_value = mock_response
+
+        with patch.dict("os.environ", {"TB_INGEST_TOKEN": "tok", "TB_INGEST_URL": "https://example.com"}):
+            invoke_cli("test prompt")
+
+        mock_urlopen.assert_called_once()
 
 
 if __name__ == "__main__":

@@ -66,15 +66,22 @@ phases:
     panel_artifact_path: null
   - name: Build
     number: 4
-    status: pending
+    status: approved
     agents: [engineering-lead]
-    artifact_paths: []
+    artifact_paths:
+      - skills/orchestrating-agents/scripts/cli_client.py
+      - skills/orchestrating-agents/scripts/codex_client.py
+      - skills/orchestrating-agents/scripts/gemini_client.py
+      - skills/orchestrating-agents/scripts/preflight.py
+      - skills/orchestrating-agents/scripts/telemetry_helper.py
+      - commands/dispatch/dispatch.md
+      - CLAUDE.md
     commit_shas: []
-    current_step: null
-    steps_completed: []
+    current_step: 7
+    steps_completed: [1, 2, 3, 4, 5, 6, 7]
     handoff_snapshots: []
-    started_at: null
-    completed_at: null
+    started_at: "2026-03-03T01:00:00Z"
+    completed_at: "2026-03-03T02:00:00Z"
     human_decision: null
     feedback: null
   - name: Validate

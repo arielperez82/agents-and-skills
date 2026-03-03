@@ -1,23 +1,63 @@
 """
 Backend-agnostic CLI Client Module
 
-Invokes either Claude Code CLI (`claude`) or Cursor Agent CLI (`agent`)
-via subprocess. Auto-detects available backend (prefers claude).
+Invokes Claude Code CLI, Codex CLI, Gemini CLI, or Cursor Agent CLI
+via subprocess. Auto-detects available backend.
 
 Backends:
-  - "claude": Claude Code CLI (`claude -p ...`)
-  - "cursor": Cursor Agent CLI (`agent -p ...`)
-  - "auto" (default): claude if available, else agent
+  - "claude": Claude Code CLI (`claude -p ... --output-format ...`)
+  - "codex": Codex CLI (`codex exec <prompt> --sandbox read-only`)
+  - "gemini": Gemini CLI (`gemini -p ... -o ...`)
+  - "cursor": Cursor Agent CLI (`agent -p ... --output-format ...`)
+  - "auto" (default): first available in order claude → codex → gemini → cursor
 """
 
 import subprocess
 import shutil
-from typing import List
+import time as _time
+from typing import Callable, List
 
-_BACKENDS = {
-    "claude": {"binary": "claude", "name": "Claude Code CLI"},
-    "cursor": {"binary": "agent", "name": "Cursor Agent CLI"},
+
+def _build_claude_argv(prompt: str, output_format: str, extra_args: List[str]) -> List[str]:
+    return ["claude", "-p", prompt, "--output-format", output_format] + extra_args
+
+
+def _build_cursor_argv(prompt: str, output_format: str, extra_args: List[str]) -> List[str]:
+    return ["agent", "-p", prompt, "--output-format", output_format] + extra_args
+
+
+def _build_codex_argv(prompt: str, output_format: str, extra_args: List[str]) -> List[str]:
+    return ["codex", "exec", prompt, "--sandbox", "read-only"] + extra_args
+
+
+def _build_gemini_argv(prompt: str, output_format: str, extra_args: List[str]) -> List[str]:
+    return ["gemini", "-p", prompt, "-o", output_format] + extra_args
+
+
+_BACKENDS: dict[str, dict] = {
+    "claude": {
+        "binary": "claude",
+        "name": "Claude Code CLI",
+        "build_argv": _build_claude_argv,
+    },
+    "codex": {
+        "binary": "codex",
+        "name": "Codex CLI",
+        "build_argv": _build_codex_argv,
+    },
+    "gemini": {
+        "binary": "gemini",
+        "name": "Gemini CLI",
+        "build_argv": _build_gemini_argv,
+    },
+    "cursor": {
+        "binary": "agent",
+        "name": "Cursor Agent CLI",
+        "build_argv": _build_cursor_argv,
+    },
 }
+
+_AUTO_DETECT_ORDER = ("claude", "codex", "gemini", "cursor")
 
 
 class CLIInvocationError(Exception):
@@ -37,30 +77,32 @@ class CLIInvocationError(Exception):
         return self.stderr
 
 
-def _resolve_backend(backend: str | None) -> str:
-    """Resolve backend to a binary name on PATH.
+def _resolve_backend_key(backend: str | None) -> str:
+    """Resolve backend to a backend key in _BACKENDS.
 
     Args:
-        backend: "claude", "cursor", "auto", or None (same as "auto")
+        backend: "claude", "codex", "gemini", "cursor", "auto", or None (same as "auto")
 
     Returns:
-        Binary name (e.g. "claude" or "agent")
+        Backend key (e.g. "claude", "codex", "gemini", or "cursor")
 
     Raises:
         ValueError: If backend is invalid or requested CLI not found
     """
     if backend is None or backend == "auto":
-        for key in ("claude", "cursor"):
+        for key in _AUTO_DETECT_ORDER:
             binary = _BACKENDS[key]["binary"]
             if shutil.which(binary) is not None:
-                return binary
+                return key
         raise ValueError(
-            "No CLI found. Install Claude Code (claude) or Cursor Agent (agent)."
+            "No CLI found. Install Claude Code (claude), Codex (codex), "
+            "Gemini (gemini), or Cursor Agent (agent)."
         )
 
     if backend not in _BACKENDS:
+        valid = ", ".join(f"'{k}'" for k in _BACKENDS)
         raise ValueError(
-            f"Invalid backend '{backend}'. Must be 'claude', 'cursor', or 'auto'."
+            f"Invalid backend '{backend}'. Must be {valid}, or 'auto'."
         )
 
     binary = _BACKENDS[backend]["binary"]
@@ -68,7 +110,7 @@ def _resolve_backend(backend: str | None) -> str:
         name = _BACKENDS[backend]["name"]
         raise ValueError(f"{name} ({binary}) not found on PATH.")
 
-    return binary
+    return backend
 
 
 def invoke_cli(
@@ -85,7 +127,8 @@ def invoke_cli(
 
     Args:
         prompt: User message. Must be non-empty after strip.
-        backend: "claude", "cursor", or None/auto (default: auto-detect, claude preferred).
+        backend: "claude", "codex", "gemini", "cursor", or None/auto
+                 (default: auto-detect, claude preferred).
         output_format: "text" or "json". Default "text".
         timeout: Seconds before raising CLIInvocationError. None = no timeout.
         cwd: Working directory for the subprocess.
@@ -101,11 +144,26 @@ def invoke_cli(
     if not prompt or not prompt.strip():
         raise ValueError("Prompt cannot be empty")
 
-    binary = _resolve_backend(backend)
+    key = _resolve_backend_key(backend)
+    entry = _BACKENDS[key]
+    build_argv: Callable = entry["build_argv"]
+    binary = entry["binary"]
 
-    argv: List[str] = [binary, "-p", prompt, "--output-format", output_format]
-    if extra_args:
-        argv.extend(extra_args)
+    argv = build_argv(prompt, output_format, list(extra_args) if extra_args else [])
+
+    _start = _time.monotonic()
+
+    def _emit_telemetry(success: bool) -> None:
+        try:
+            from telemetry_helper import emit_invocation
+            emit_invocation(
+                backend=key,
+                prompt_length=len(prompt),
+                duration_ms=int((_time.monotonic() - _start) * 1000),
+                success=success,
+            )
+        except Exception:
+            pass  # Telemetry must never break dispatch
 
     try:
         result = subprocess.run(
@@ -116,12 +174,14 @@ def invoke_cli(
             cwd=cwd,
         )
     except subprocess.TimeoutExpired as e:
+        _emit_telemetry(success=False)
         raise CLIInvocationError(
             f"CLI timed out after {timeout}s",
             returncode=None,
             stderr=getattr(e, "stderr", "") or "",
         )
     except FileNotFoundError:
+        _emit_telemetry(success=False)
         raise CLIInvocationError(
             f"{binary} not found on PATH",
             returncode=None,
@@ -129,10 +189,12 @@ def invoke_cli(
         )
 
     if result.returncode != 0:
+        _emit_telemetry(success=False)
         raise CLIInvocationError(
             f"CLI exited with code {result.returncode}: {result.stderr or result.stdout or 'no output'}",
             returncode=result.returncode,
             stderr=result.stderr or "",
         )
 
+    _emit_telemetry(success=True)
     return (result.stdout or "").strip()

@@ -22,6 +22,30 @@
 - Leverage tools.
 - Route work to the cheapest capable model (T1 local scripts → T2 haiku/subscription CLIs → T3 sonnet/opus for novel judgment).
 
+### T2 Delegation Triggers
+
+When a task matches a T2 pattern below, delegate to the appropriate backend instead of doing it yourself. Use `invoke_cli` or the `/dispatch` command for structured routing.
+
+**Task → Backend routing:**
+
+| Task Pattern | Backend | Tier | Why |
+|---|---|---|---|
+| Summarization, paraphrasing, doc drafts | gemini | T2 | Fast, cheap, good at prose |
+| Boilerplate code gen, scaffolding, repetitive transforms | codex | T2 | Code-focused, follows patterns |
+| Lint, format, file rename, file move, shell scripts | local scripts | T1 | Deterministic, no LLM needed |
+| Security review, novel architecture, ambiguous judgment | claude (sonnet/opus) | T3 | Requires deep reasoning |
+
+**Precedence:** T1 local > T2 gemini/codex > T3 claude. Always prefer the cheapest capable tier.
+
+**Validation sandwich:** For T2-generated output, always validate the result before using it:
+1. Dispatch to T2 backend (cheap generation)
+2. Review the output yourself (Claude validates)
+3. Accept, reject, or refine
+
+**Pre-flight:** At session start, verify backend availability via `preflight.check_backends()`. Skip unavailable backends in the fallback chain.
+
+**Fallback chain:** gemini → codex → claude-haiku → claude-sonnet. If the preferred backend is unavailable, fall through to the next.
+
 **TEST-DRIVEN DEVELOPMENT IS NON-NEGOTIABLE.** Every single line of production code must be written in response to a failing test. No exceptions. This is not a suggestion or a preference - it is the fundamental practice that enables all other principles in this document.
 
 I follow Test-Driven Development (TDD) with a strong emphasis on behavior-driven testing and functional programming principles. All work should be done in small, incremental changes that maintain a working state throughout development.
