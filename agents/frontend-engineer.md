@@ -106,9 +106,9 @@ collaborates-with:
     without-collaborator: "Public-facing websites may lack comprehensive SEO strategy and technical optimization"
 
 # === TECHNICAL ===
-tools: [Read, Write, Bash, Grep, Glob]
+tools: [Read, Write, Edit, Bash, Grep, Glob]
 dependencies:
-  tools: [Read, Write, Bash, Grep, Glob]
+  tools: [Read, Write, Edit, Bash, Grep, Glob]
   mcp-tools: []
   scripts: []
 

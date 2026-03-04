@@ -64,9 +64,9 @@ collaborates-with:
     without-collaborator: "Legacy system security assessment may lack comprehensive vulnerability analysis"
 
 # === TECHNICAL ===
-tools: [Read, Write, Bash, Grep, Glob]
+tools: [Read, Write, Edit, Bash, Grep, Glob]
 dependencies:
-  tools: [Read, Write, Bash, Grep, Glob]
+  tools: [Read, Write, Edit, Bash, Grep, Glob]
   mcp-tools: []
   scripts:
     - pipeline_generator.py

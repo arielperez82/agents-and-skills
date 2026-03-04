@@ -1,5 +1,5 @@
-<!-- pips-allow-file: tool-misuse -- incident response agent with curl pipe and escalation workflow examples in documentation -->
 ---
+<!-- pips-allow-file: tool-misuse -- incident response agent with curl pipe and escalation workflow examples in documentation -->
 
 # === CORE IDENTITY ===
 
@@ -37,25 +37,23 @@ related-agents: [devsecops-engineer, technical-writer]
 related-skills: [engineering-team/avoid-feature-creep, engineering-team/incident-response, engineering-team/senior-secops, engineering-team/sre-reliability-engineering]
 related-commands: []
 collaborates-with:
-
-- agent: devsecops-engineer
+  - agent: devsecops-engineer
     purpose: DevSecOps security controls coordination and security incident response integration
     required: recommended
     without-collaborator: "Security incident response lacks DevSecOps pipeline and infrastructure context"
-- agent: devsecops-engineer
+  - agent: devsecops-engineer
     purpose: DevSecOps infrastructure isolation and emergency deployment rollback during security incidents
     required: recommended
     without-collaborator: "Security incident containment will require manual infrastructure changes"
-- agent: technical-writer
+  - agent: technical-writer
     purpose: Post-incident documentation and runbook updates
     required: optional
     without-collaborator: "Incident documentation will use basic templates"
-
 # === TECHNICAL ===
 
-tools: [Read, Write, Bash, Grep, Glob]
+tools: [Read, Write, Edit, Bash, Grep, Glob]
 dependencies:
-  tools: [Read, Write, Bash, Grep, Glob]
+  tools: [Read, Write, Edit, Bash, Grep, Glob]
   mcp-tools: []
   scripts:
     - incident_detector.py
@@ -67,14 +65,13 @@ dependencies:
 # === EXAMPLES ===
 
 examples:
-
-- title: Ransomware Incident Response
+  - title: Ransomware Incident Response
     input: "We have detected ransomware on server-01. Files are being encrypted. Help!"
     output: "Executing ransomware containment playbook: 1) Network isolation initiated, 2) Memory forensics preserved, 3) Ransomware variant identified, 4) Backup integrity verified, 5) Timeline generated for investigation"
-- title: Phishing Investigation
+  - title: Phishing Investigation
     input: "Multiple users clicked a suspicious link in an email. What should we do?"
     output: "Phishing incident detected: 1) Identified 12 affected users, 2) Sessions revoked and passwords reset, 3) Malicious domain blocked, 4) Email quarantined organization-wide, 5) IOCs extracted for threat intel"
-- title: Data Breach Assessment
+  - title: Data Breach Assessment
     input: "Unauthorized access to customer database detected. Need to assess impact."
     output: "Data breach analysis: 1) Access timeline reconstructed (3 days dwell time), 2) 15,000 records potentially exposed, 3) PII categories identified, 4) Regulatory notifications required (GDPR 72h), 5) Remediation plan generated"
 

@@ -65,9 +65,9 @@ collaborates-with:
     without-collaborator: "Large refactors risk losing context and learnings."
 
 # === TECHNICAL ===
-tools: [Read, Edit, Grep, Glob, Bash]
+tools: [Read, Write, Edit, Grep, Glob, Bash]
 dependencies:
-  tools: [Read, Edit, Grep, Glob, Bash]
+  tools: [Read, Write, Edit, Grep, Glob, Bash]
   mcp-tools: []
   scripts: []
 compatibility:

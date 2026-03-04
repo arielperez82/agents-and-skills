@@ -52,7 +52,7 @@ collaborates-with:
     without-collaborator: "Progress updates may not reach portfolio oversight"
 
 # === CONFIGURATION ===
-tools: Read, Grep, Glob, Bash
+tools: [Read, Grep, Glob, Bash]
 ---
 
 > **Note**: This agent was renamed from `ap-progress-guardian` to `progress-assessor` (2026-02-11) so reviewer/assessor agents consistently end with -reviewer or -assessor. It now lives in the root `agents/` directory as a cross-cutting progress assessor.

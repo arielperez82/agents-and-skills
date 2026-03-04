@@ -98,7 +98,7 @@ collaborates-with:
     without-collaborator: "Interactive features may lack test coverage"
 
 # === CONFIGURATION ===
-tools: [Read, Write, Bash, Grep, Glob]
+tools: [Read, Write, Edit, Bash, Grep, Glob]
 ---
 
 # Web Developer

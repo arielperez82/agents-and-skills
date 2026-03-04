@@ -63,9 +63,9 @@ collaborates-with:
     without-collaborator: "Valuable learnings and gotchas may not be preserved for future developers"
 
 # === TECHNICAL ===
-tools: [Read, Write, Bash, Grep, Glob]
+tools: [Read, Write, Edit, Bash, Grep, Glob]
 dependencies:
-  tools: [Read, Write, Bash, Grep, Glob]
+  tools: [Read, Write, Edit, Bash, Grep, Glob]
   mcp-tools: [mcp__github]
   scripts: []
 

@@ -82,9 +82,9 @@ collaborates-with:
     without-collaborator: "TDD compliance relies on implementer self-review only"
 
 # === TECHNICAL ===
-tools: [Read, Edit, Grep, Glob, Bash]
+tools: [Read, Write, Edit, Grep, Glob, Bash]
 dependencies:
-  tools: [Read, Edit, Grep, Glob, Bash]
+  tools: [Read, Write, Edit, Grep, Glob, Bash]
   mcp-tools: []
   scripts: []
 compatibility:

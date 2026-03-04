@@ -43,7 +43,7 @@ collaborates-with:
     without-collaborator: "TypeScript compliance may not be verified during TDD cycles"
 
 # === CONFIGURATION ===
-tools: Read, Grep, Glob, Bash
+tools: [Read, Grep, Glob, Bash]
 ---
 
 > **Note**: This agent was renamed from `ts-enforcer` to `ts-enforcer` and moved to root `agents/` directory as part of the Guardians/Monitors/Validators cleanup (2026-01-26).

@@ -31,9 +31,9 @@ related-skills: [engineering-team/avoid-feature-creep, engineering-team/senior-p
 related-commands: []
 
 # === TECHNICAL ===
-tools: [Read, Write, Bash, Grep, Glob]
+tools: [Read, Write, Edit, Bash, Grep, Glob]
 dependencies:
-  tools: [Read, Write, Bash, Grep, Glob]
+  tools: [Read, Write, Edit, Bash, Grep, Glob]
   mcp-tools: []
   scripts: []
 

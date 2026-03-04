@@ -40,7 +40,7 @@ collaborates-with:
     without-collaborator: "TPP guidance may not align with TDD principles"
 
 # === CONFIGURATION ===
-tools: Read, Grep, Glob, Bash
+tools: [Read, Grep, Glob, Bash]
 ---
 
 > **Note**: This agent was renamed from `ap-tpp-guardian` to `tpp-assessor` (2026-02-11) so reviewer/assessor agents consistently end with -reviewer or -assessor. It lives in the root `agents/` directory.

@@ -48,7 +48,7 @@ collaborates-with:
     when: At end of features when learnings need merging to canonical docs
 
 # === CONFIGURATION ===
-tools: Read, Edit, Grep
+tools: [Read, Write, Edit, Grep, Glob, Bash]
 ---
 
 > **Note**: This agent was renamed from `learn` to `learner` (title: Lorekeeper) as part of the Guardians/Monitors/Validators cleanup (2026-01-27). It remains in the root `agents/` directory as a cross-cutting concern for knowledge management.

@@ -67,7 +67,7 @@ collaborates-with:
     without-collaborator: "TDD workflows may lack proper test automation infrastructure"
 
 # === CONFIGURATION ===
-tools: Read, Grep, Glob, Bash
+tools: [Read, Grep, Glob, Bash]
 ---
 
 # TDD Reviewer

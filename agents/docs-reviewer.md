@@ -47,7 +47,7 @@ collaborates-with:
     without-collaborator: "Documentation generation will rely on manual creation without automated tools"
 
 # === CONFIGURATION ===
-tools: Read, Edit, Grep, Glob, Bash
+tools: [Read, Write, Edit, Grep, Glob, Bash]
 
 # === EXAMPLES ===
 examples:
