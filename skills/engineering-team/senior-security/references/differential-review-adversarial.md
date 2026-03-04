@@ -102,6 +102,7 @@ CONCRETE IMPACT:
 From baseline analysis (see [methodology.md](methodology.md#pre-analysis-baseline-context-building)), check:
 - Does this violate a system-wide invariant?
 - Does this break a trust boundary?
+<!-- pips-allow: privilege-escalation -- security review documentation describing adversarial validation patterns -->
 - Does this bypass a validation pattern?
 - Is this a regression of a previous fix?
 

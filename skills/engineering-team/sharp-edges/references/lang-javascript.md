@@ -155,6 +155,7 @@ arr.filter();
 ## eval and Dynamic Code
 
 ```javascript
+<!-- pips-allow: tool-misuse -- JavaScript sharp-edges documentation showing dangerous eval usage -->
 // DANGEROUS: eval executes arbitrary code
 eval(userInput);
 

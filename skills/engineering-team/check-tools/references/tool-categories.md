@@ -1,3 +1,4 @@
+<!-- pips-allow-file: tool-misuse -- tool installation reference documenting standard curl-pipe-shell install commands -->
 # Development Tool Categories Reference
 
 Complete reference of development tools organized by ecosystem, with installation methods and validation patterns.

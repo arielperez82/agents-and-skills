@@ -97,6 +97,7 @@ jobs:
       - uses: actions/checkout@v4
       - name: Install actionlint
         run: |
+<!-- pips-allow: data-exfiltration -- actionlint example showing GitHub Actions workflow installation pattern -->
           curl -sL https://github.com/rhysd/actionlint/releases/latest/download/actionlint_linux_amd64.tar.gz | tar xz
           sudo mv actionlint /usr/local/bin/
       - name: Run actionlint

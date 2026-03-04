@@ -120,6 +120,7 @@ timeout_seconds: -1  # Wait forever? Use system default?
 ```yaml
 # Dangerous patterns
 allowed_origins: "*"       # CORS wildcard
+<!-- pips-allow: privilege-escalation -- sharp-edges documentation showing dangerous configuration anti-patterns -->
 allowed_hosts: "any"       # Bypass host validation
 log_level: "none"          # Disable security logging
 password_policy: "disabled" # No password requirements

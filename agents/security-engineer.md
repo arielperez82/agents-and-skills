@@ -96,6 +96,7 @@ Security specialist that orchestrates the senior-security skill package for end-
 |------|---------|------|
 | Threat Modeler | STRIDE threat modeling, attack surface mapping, trust boundary analysis | `senior-security/scripts/threat_modeler.py` |
 | Security Auditor | OWASP Top 10, dependency CVEs, exposed secrets, weak crypto | `senior-security/scripts/security_auditor.py` |
+<!-- pips-allow: privilege-escalation -- security tooling description listing penetration testing capabilities -->
 | Pentest Automator | API security testing, auth bypass, injection fuzzing, header validation | `senior-security/scripts/pentest_automator.py` |
 
 ### References

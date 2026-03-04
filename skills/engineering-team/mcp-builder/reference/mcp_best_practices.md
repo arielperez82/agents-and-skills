@@ -359,6 +359,7 @@ MCP servers that connect to external services should implement proper authentica
 - Provide clear information about what data is accessed
 
 **Data transmission:**
+<!-- pips-allow: data-exfiltration -- MCP best practices documenting privacy and data protection requirements -->
 - Don't send data to servers outside your organization without disclosure
 - Use secure transmission (HTTPS) for all network communication
 - Validate certificates for external services

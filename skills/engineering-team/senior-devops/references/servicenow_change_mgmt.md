@@ -1,3 +1,4 @@
+<!-- pips-allow-file: data-exfiltration -- ServiceNow change management reference with API curl calls in CI/CD workflow examples -->
 # ServiceNow Change Management Integration
 
 Comprehensive guide for integrating deployment pipelines with ServiceNow Change Management for audit compliance, ITIL workflows, and deployment tracking.
@@ -85,6 +86,7 @@ Create → Assess → Technical Review → CAB Review → Approve → Schedule �
 
 ### Emergency Changes
 
+<!-- pips-allow: privilege-escalation -- ServiceNow change management documentation describing emergency change process -->
 Urgent changes that bypass normal approval processes.
 
 **Characteristics:**
@@ -319,6 +321,7 @@ jobs:
     steps:
       - name: Update Change to Implement
         run: |
+<!-- pips-allow: data-exfiltration -- ServiceNow webhook integration example using curl in CI/CD pipeline -->
           curl -X PUT "${{ secrets.SNOW_INSTANCE }}/api/now/table/change_request/${{ needs.create-change.outputs.change_number }}" \
             -H "Authorization: Basic ${{ secrets.SNOW_AUTH }}" \
             -d '{"state": "-1"}'

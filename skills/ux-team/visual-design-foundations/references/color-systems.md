@@ -1,3 +1,4 @@
+<!-- pips-allow-file: tool-misuse -- color systems reference with regex .exec() calls in code examples -->
 # Color Systems Reference
 
 ## Color Palette Generation

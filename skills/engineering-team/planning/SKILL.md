@@ -23,6 +23,7 @@ For significant work under artifact conventions:
 
 Route learnings by scope and half-life:
 
+<!-- pips-allow: privilege-escalation -- planning skill describing governance conventions for agent behavior -->
 1. **Layer 1 — Operational (cross-agent):** `.docs/AGENTS.md`. Use for: gotchas and patterns that change how agents behave; global conventions. Bridge rule: cross-agent behavior change → short entry in AGENTS.md + pointer to source.
 2. **Layer 2 — Domain (endeavor-level):** `.docs/canonical/assessments/assessment-<endeavor>-<subject>-<date>.md` or a **"Learnings" section** in the relevant plan, charter, roadmap, or backlog. Use for: conclusions that shape prioritization, constraints, architecture direction. Rule: if a learning changes what we do next, it must land in canonical docs.
 3. **Layer 3 — Deep specialist:** With the agent's skills/commands. Use for: checklists, frameworks, implementation patterns. Rule: "how to think/do", not "what this repo has decided."

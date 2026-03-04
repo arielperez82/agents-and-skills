@@ -264,6 +264,7 @@ jobs:
         run: curl -f https://app.example.com/health
       - name: Notify team
         run: |
+<!-- pips-allow: data-exfiltration -- deployment pipeline design example showing Slack notification webhook -->
           curl -X POST ${{ secrets.SLACK_WEBHOOK }} \
             -d '{"text":"Production deployment successful!"}'
 ```

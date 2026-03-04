@@ -32,6 +32,7 @@ def append_to(item, target=None):
 ## Eval, Exec, and Code Execution
 
 ```python
+<!-- pips-allow: tool-misuse -- Python sharp-edges documentation showing dangerous eval/exec usage -->
 # DANGEROUS: Arbitrary code execution
 eval(user_input)      # Executes Python expression
 exec(user_input)      # Executes Python statements
@@ -200,6 +201,7 @@ template = user_input  # "{0.__class__.__mro__[1].__subclasses__()}"
 template.format(some_object)  # Can access arbitrary attributes!
 
 # DANGEROUS: f-string with user input (if using eval)
+<!-- pips-allow: tool-misuse -- Python sharp-edges documentation showing dangerous eval in f-string pattern -->
 eval(f'f"{user_input}"')  # Code execution
 
 # DANGEROUS: % formatting with user-controlled format

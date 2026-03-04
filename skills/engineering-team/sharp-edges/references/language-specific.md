@@ -480,6 +480,7 @@ def append_to(item, target=None):
 ### Eval and Friends
 
 ```python
+<!-- pips-allow: tool-misuse -- language-specific sharp-edges reference showing dangerous eval patterns -->
 # DANGEROUS: Arbitrary code execution
 eval(user_input)      # Executes Python expression
 exec(user_input)      # Executes Python statements
@@ -536,6 +537,7 @@ s1 is s2  # Maybe - depends on interpreter
 ### Dynamic Execution
 
 ```ruby
+<!-- pips-allow: tool-misuse -- language-specific sharp-edges reference showing dangerous Ruby eval patterns -->
 # DANGEROUS: Arbitrary code execution
 eval(user_input)           # Executes Ruby code
 send(user_input, *args)    # Calls arbitrary method

@@ -1,3 +1,4 @@
+<!-- pips-allow-file: tool-misuse -- incident response agent with curl pipe and escalation workflow examples in documentation -->
 ---
 
 # === CORE IDENTITY ===

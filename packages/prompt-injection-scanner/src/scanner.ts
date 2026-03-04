@@ -170,12 +170,12 @@ const scanBody = (content: string): readonly ContentSegment[] => {
     if (node.type === 'heading') return SKIP;
 
     if (node.type === 'code') {
-      segments.push(nodeToSegment(node as Code, lineOffset, 'body:code-block'));
+      segments.push(nodeToSegment(node, lineOffset, 'body:code-block'));
       return SKIP;
     }
 
     if (node.type === 'html') {
-      segments.push(nodeToSegment(node as Html, lineOffset, 'body:html-comment'));
+      segments.push(nodeToSegment(node, lineOffset, 'body:html-comment'));
       return SKIP;
     }
 
@@ -183,7 +183,7 @@ const scanBody = (content: string): readonly ContentSegment[] => {
       const nodeLine = node.position?.start.line ?? 1;
       const heading = findCurrentHeading(headingAtLine, nodeLine);
       const headingContext = heading ? `body:heading:${heading}` : 'body';
-      segments.push(nodeToSegment(node as Text, lineOffset, headingContext));
+      segments.push(nodeToSegment(node, lineOffset, headingContext));
     }
 
     return undefined;

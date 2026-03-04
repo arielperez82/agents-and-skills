@@ -8,6 +8,7 @@
 
 ```bash
 # macOS/Linux
+<!-- pips-allow: tool-misuse -- uv installation command documentation -->
 curl -LsSf https://astral.sh/uv/install.sh | sh
 
 # Windows

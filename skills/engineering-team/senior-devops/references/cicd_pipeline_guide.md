@@ -365,6 +365,7 @@ git push origin main
 
 **What not to do:**
 ```yaml
+<!-- pips-allow: privilege-escalation -- CI/CD anti-pattern documentation showing what NOT to do -->
 # DON'T add skip options that bypass all validation
 if: "!contains(github.event.head_commit.message, '[skip ci]')"
 ```

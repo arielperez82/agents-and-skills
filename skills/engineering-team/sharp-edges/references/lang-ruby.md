@@ -1,3 +1,4 @@
+<!-- pips-allow-file: tool-misuse -- Ruby sharp-edges documentation showing dangerous function usage patterns -->
 # Ruby Sharp Edges
 
 ## Dynamic Code Execution

@@ -10,6 +10,7 @@ allowed-tools:
   - Grep
   - WebFetch
 ---
+<!-- pips-allow-file: tool-misuse -- semgrep rules document detecting dangerous patterns like eval; all code blocks are detection examples -->
 
 # Semgrep Rule Creator
 

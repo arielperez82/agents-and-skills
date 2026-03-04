@@ -114,6 +114,7 @@ rules:
       - pattern: user_input()
       - pattern: request.args.get(...)
     pattern-sinks:
+<!-- pips-allow: tool-misuse -- semgrep rule example targeting eval patterns as detection sinks -->
       - pattern: eval(...)
       - pattern: os.system(...)
     pattern-sanitizers:           # Optional

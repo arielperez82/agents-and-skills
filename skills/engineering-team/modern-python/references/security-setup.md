@@ -16,6 +16,7 @@ brew install prek
 cargo install prek
 
 # Standalone installer
+<!-- pips-allow: tool-misuse -- prek tool installation command documentation -->
 curl --proto '=https' --tlsv1.2 -LsSf https://github.com/j178/prek/releases/latest/download/prek-installer.sh | sh
 ```
 

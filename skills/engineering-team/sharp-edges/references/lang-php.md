@@ -164,6 +164,7 @@ $arr[(int)1e2] = "b";    // $arr[100]
 ```php
 // DANGEROUS: Unescaped shell commands
 system("ls " . $_GET['dir']);
+<!-- pips-allow: tool-misuse -- PHP sharp-edges documentation showing dangerous function usage -->
 exec("grep " . $_GET['pattern'] . " file.txt");
 passthru("convert " . $_FILES['image']['name']);
 
