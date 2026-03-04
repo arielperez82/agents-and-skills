@@ -21,9 +21,16 @@ BODY_LINES=$(echo "$BODY" | wc -l)
 SECTION_COUNT=$(echo "$BODY" | grep -cE '^#+' || true)
 SECTION_COUNT=${SECTION_COUNT:-0}
 
-# Skill count: lines under "skills:" (list items) or comma-separated
-SKILL_COUNT=$(echo "$FRONTMATTER" | sed -n '/^skills:/,/^[a-z]/p' | grep -E '^\s+-\s+|^[a-z].*/' | wc -l | tr -d ' ')
+# Skill count: YAML list items under "skills:" or inline comma/bracket-separated
+# Use awk to capture the skills block (indented lines after skills:), stopping at next top-level key
+SKILL_COUNT=$(echo "$FRONTMATTER" | awk '
+  /^skills:/ { found=1; next }
+  found && /^[a-zA-Z]/ { exit }
+  found && /^[ \t]+-/ { count++ }
+  END { print count+0 }
+')
 if [ "$SKILL_COUNT" -eq 0 ]; then
+  # Fallback: inline format like "skills: [a, b, c]" or "skills: a, b, c"
   SKILL_COUNT=$(echo "$FRONTMATTER" | grep -E '^skills:' | sed 's/.*: *//;s/.*\[ *//;s/[][]//g;s/,/ /g' | wc -w | tr -d ' ')
 fi
 SKILL_COUNT=${SKILL_COUNT:-0}
