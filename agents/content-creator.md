@@ -368,7 +368,6 @@ done
 
 - [demand-gen-specialist](demand-gen-specialist.md) - Demand generation and acquisition campaigns
 - [product-marketer](product-marketer.md) - Product positioning and messaging (planned)
-- [ap-social-media-manager](ap-social-media-manager.md) - Social media management and scheduling (planned)
 - [sales-development-rep](sales-development-rep.md) - Lead research insights inform trending content topics and sales enablement
 
 ## References

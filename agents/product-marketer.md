@@ -433,7 +433,7 @@ echo "Plan complete: ${TARGET_MARKET}-gtm-plan.txt"
 
 - [content-creator](content-creator.md) - Creates content for positioning and GTM campaigns
 - [demand-gen-specialist](demand-gen-specialist.md) - Executes acquisition campaigns based on PMM positioning
-- [ap-ceo-advisor](../c-level/ap-ceo-advisor.md) - Strategic planning context for market expansion
+- [cto-advisor](cto-advisor.md) - Strategic planning context for market expansion
 - [product-manager](product-manager.md) - Product roadmap prioritization based on competitive intelligence (planned)
 
 ## References
