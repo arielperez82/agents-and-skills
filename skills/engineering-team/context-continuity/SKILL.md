@@ -82,13 +82,37 @@ A handoff snapshot is a compact summary of orchestrator state, optimized for a f
 
 Context is finite. Proactive management prevents silent compression and quality degradation.
 
-**Observable signals** (no token counting API available):
+### Quick Check (preferred)
+
+Use the status-line script in agent mode for an instant, machine-readable context check:
+
+```bash
+# Pipe Claude Code status data through the script
+echo '{"context_window":{"used_percentage":57}}' | ~/.claude/scripts/status-line.sh --agent
+# Output: CTX 57% START-GATE Do NOT start new work. Write snapshot. Recommend handoff.
+```
+
+The script lives at `~/.claude/scripts/status-line.sh` (user-level, available across all projects).
+
+**Agent mode output format:** `CTX <pct>% <ZONE> <action>`
+
+| Zone | Meaning |
+|------|---------|
+| `OK` | Continue normally |
+| `CAUTION` | Write snapshot, continue |
+| `START-GATE` | Do NOT start new work |
+| `HIGH-RISK` | Recommend `/compact` or new session |
+
+Agents and workflows should use this one-liner instead of manually computing the heuristic formula. Parse the zone from the output to decide whether to proceed.
+
+### Heuristic Estimation (fallback)
+
+When the status-line script is unavailable or `used_percentage` is not accessible, estimate context utilization from observable signals:
+
 - `messages` -- conversation turns since last snapshot or session start
 - `tool_calls` -- tool invocations (Read, Edit, Write, Bash, Agent, etc.)
 - `files_read` -- distinct files read (weighted higher -- each adds significant context)
 - `agent_dispatches` -- Agent tool calls (weighted highest -- each returns substantial content)
-
-**Estimation formula:**
 
 ```
 context_score = (messages * 1.0 + tool_calls * 0.5 + files_read * 2.0 + agent_dispatches * 5.0) / budget_constant
@@ -101,10 +125,32 @@ context_score = (messages * 1.0 + tool_calls * 0.5 + files_read * 2.0 + agent_di
 | Score | Meaning | Action |
 |-------|---------|--------|
 | < 0.50 | Comfortable | Continue normally |
-| 0.50 - 0.60 | Caution zone | Write a handoff snapshot to preserve state |
+| 0.50 - 0.55 | Caution | Write a handoff snapshot to preserve state |
+| 0.55 - 0.60 | Start gate | **Do NOT start new work.** Write snapshot. Recommend handoff. |
 | > 0.60 | High risk | Recommend `/compact` or new session; snapshot already written |
 
 **When to estimate:** After completing a logical unit of work (step, phase, significant edit batch).
+
+### Start Gate: Check Before Starting New Work
+
+Before starting any new unit of work (plan step, build step, phase transition, review dispatch), run the quick check above (or estimate with the heuristic formula as fallback).
+
+**If context score ≥ 0.55:**
+
+1. **Do NOT start the next unit of work.** Quality degrades silently beyond this point.
+2. Write a handoff snapshot immediately (if not already written for the current step).
+3. Inform the user:
+   ```
+   Context at ~X%. Recommending session handoff before starting [next thing].
+
+   Options:
+     (a) Run /compact and continue in this session
+     (b) Start a new session with /craft:resume or read the handoff snapshot (recommended)
+     (c) Override and continue (risk: silent quality degradation)
+   ```
+4. Wait for the user's choice before proceeding. Do not auto-select.
+
+This is a **pre-flight check** — run it before dispatching work, not after observing degradation. A clean handoff at 55% is always better than degraded output at 80%.
 
 ## When to Write Snapshots
 

@@ -892,16 +892,19 @@ Where `budget_constant` is a tunable value (initial: **200**). Calibrate over ti
 | Estimated utilization | Action |
 |----------------------|--------|
 | < 50% | Continue normally |
-| 50-60% | Write a handoff snapshot (if not already written for this step). Log: "Context at ~X%. Snapshot written." |
-| > 60% | Recommend compaction. Present the user with: |
+| 50-55% | Write a handoff snapshot (if not already written for this step). Log: "Context at ~X%. Snapshot written." |
+| 55-60% | **Start gate.** Do NOT dispatch the next step agent or begin a phase transition. Write a handoff snapshot and present handoff options (see below). |
+| > 60% | Recommend `/compact` or new session. Snapshot already written. |
+
+**Start Gate (55%):** Before beginning the next Phase 4 step or phase transition, check context. If ≥ 55%, write a handoff snapshot and present the user with handoff options. Do not dispatch the next step agent.
 
 ```
-Context utilization estimated at ~X%.
+Context at ~X%. Recommending session handoff before starting [next step/phase].
 
-Recommended actions:
+Options:
   (a) Run /compact and continue in this session
   (b) Start a new session with /craft:resume (recommended for best quality)
-  (c) Continue as-is (risk: silent compression may degrade output quality)
+  (c) Override and continue (risk: silent quality degradation)
 ```
 
 In auto-mode, option (a) is selected automatically. If `/compact` is not available or fails, option (b) is recommended with a handoff snapshot already written.
