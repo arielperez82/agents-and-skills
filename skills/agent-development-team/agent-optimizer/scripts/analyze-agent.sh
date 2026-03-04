@@ -45,8 +45,8 @@ CLASS_TYPE=${CLASS_TYPE:-unknown}
 WORKFLOW_COUNT=$(echo "$BODY" | grep -cE '^##+ Workflow|^##+ Example' || true)
 WORKFLOW_COUNT=${WORKFLOW_COUNT:-0}
 
-# Heuristic: actionable lines (numbered, bullets with verbs, code blocks, table data rows)
-ACTIONABLE=$(echo "$BODY" | grep -cE '^\s*( [0-9]+\.|[*-])\s+[A-Z]|^[0-9]+\.|```|^\s*- |^\|[^-]' || true)
+# Heuristic: actionable lines (numbered, bullets with verbs, code blocks, table data rows, blockquotes)
+ACTIONABLE=$(echo "$BODY" | grep -cE '^\s*( [0-9]+\.|[*-])\s+[A-Z]|^[0-9]+\.|```|^\s*- |^\|[^-]|^>' || true)
 ACTIONABLE=${ACTIONABLE:-0}
 # Content lines exclude blank lines, section headers, and table separator rows (structural-only)
 STRUCTURAL=$(echo "$BODY" | grep -cE '^\s*$|^#+\s|^\|[-:|][-:|[:space:]]*\|$' || true)
