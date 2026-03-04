@@ -45,10 +45,14 @@ CLASS_TYPE=${CLASS_TYPE:-unknown}
 WORKFLOW_COUNT=$(echo "$BODY" | grep -cE '^##+ Workflow|^##+ Example' || true)
 WORKFLOW_COUNT=${WORKFLOW_COUNT:-0}
 
-# Heuristic: actionable lines (numbered, bullets with verbs, code blocks)
-ACTIONABLE=$(echo "$BODY" | grep -cE '^\s*( [0-9]+\.|[*-])\s+[A-Z]|^[0-9]+\.|```|^\s*- ' || true)
+# Heuristic: actionable lines (numbered, bullets with verbs, code blocks, table data rows)
+ACTIONABLE=$(echo "$BODY" | grep -cE '^\s*( [0-9]+\.|[*-])\s+[A-Z]|^[0-9]+\.|```|^\s*- |^\|[^-]' || true)
 ACTIONABLE=${ACTIONABLE:-0}
-PRECISION_SCORE=$((BODY_LINES > 0 ? ACTIONABLE * 100 / BODY_LINES : 0))
+# Content lines exclude blank lines, section headers, and table separator rows (structural-only)
+STRUCTURAL=$(echo "$BODY" | grep -cE '^\s*$|^#+\s|^\|[-:|][-:|[:space:]]*\|$' || true)
+STRUCTURAL=${STRUCTURAL:-0}
+CONTENT_LINES=$((BODY_LINES - STRUCTURAL))
+PRECISION_SCORE=$((CONTENT_LINES > 0 ? ACTIONABLE * 100 / CONTENT_LINES : 0))
 [ "$PRECISION_SCORE" -gt 100 ] && PRECISION_SCORE=100
 
 # Retrieval: flag if body very long (likely duplication)
