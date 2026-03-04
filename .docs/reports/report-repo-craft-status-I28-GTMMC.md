@@ -73,7 +73,7 @@ phases:
       - skills/marketing-team/lead-scoring/references/scoring-model-template.md
       - skills/marketing-team/abm-strategy/SKILL.md
       - skills/marketing-team/abm-strategy/references/account-tier-template.md
-    commit_shas: []
+    commit_shas: ["1dc19f5"]
     current_step: 5
     steps_completed: [1, 2, 3, 4]
     handoff_snapshots:
