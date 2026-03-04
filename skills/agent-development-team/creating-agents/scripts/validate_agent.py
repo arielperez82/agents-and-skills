@@ -46,11 +46,21 @@ def find_repo_root(start: Path) -> Path:
 def extract_frontmatter(content: str):
     if not content.startswith("---"):
         return None, content, "No YAML frontmatter found (file must start with ---)"
-    match = re.match(r"^---\r?\n(.*?)\r?\n---", content, re.DOTALL)
-    if not match:
+    # Use string search instead of regex to avoid backtracking on large files
+    first_newline = content.index("\n")
+    # Find closing --- delimiter (handles both \n--- and \r\n---)
+    close_idx = content.find("\n---\n", first_newline)
+    if close_idx == -1:
+        close_idx = content.find("\n---\r\n", first_newline)
+    if close_idx == -1 and content.rstrip().endswith("---"):
+        close_idx = content.rfind("\n---")
+    if close_idx == -1:
         return None, content, "Malformed frontmatter delimiters (missing closing ---)"
-    frontmatter_text = match.group(1)
-    body = content[match.end():].strip()
+    frontmatter_text = content[first_newline + 1:close_idx]
+    if frontmatter_text.endswith("\r"):
+        frontmatter_text = frontmatter_text[:-1]
+    body_start = content.index("\n", close_idx + 1) + 1 if close_idx + 4 < len(content) else len(content)
+    body = content[body_start:].strip()
     return frontmatter_text, body, None
 
 
