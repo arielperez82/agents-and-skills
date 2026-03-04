@@ -17,7 +17,8 @@ SECTIONS=$(awk 'BEGIN{c=0; fence=0} /^```/{fence=1-fence} fence==0 && /^#/{c++} 
 SECTIONS=${SECTIONS:-0}
 CODE_BLOCKS=$(grep -c '```' "$SKILL_PATH" || true)
 CODE_BLOCKS=$(( ${CODE_BLOCKS:-0} / 2 ))
-ASCII_LINES=$(grep -cE '┌|└|│|─|╭|╰|├|╮|╯' "$SKILL_PATH" || true)
+# Count ASCII art lines outside code fences (box-drawing in code blocks is illustrative, not wasteful)
+ASCII_LINES=$(awk 'BEGIN{c=0; fence=0} /^```/{fence=1-fence} fence==0 && /[┌└│─╭╰├╮╯]/{c++} END{print c}' "$SKILL_PATH")
 ASCII_LINES=${ASCII_LINES:-0}
 FRONTMATTER_LINES=$(awk '/^---$/{c++; if(c==2) {print NR; exit}}' "$SKILL_PATH")
 FRONTMATTER_LINES=${FRONTMATTER_LINES:-0}
