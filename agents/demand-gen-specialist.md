@@ -26,7 +26,9 @@ classification:
   model: haiku
 
 # === RELATIONSHIPS ===
-related-agents: []
+related-agents:
+  - marketing-ops-manager
+  - abm-strategist
 related-skills:
   - marketing-team/marketing-demand-acquisition
 related-commands: []

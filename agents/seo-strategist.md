@@ -31,6 +31,7 @@ classification:
 related-agents:
   - content-creator
   - demand-gen-specialist
+  - aeo-geo-strategist
 related-skills:
   - marketing-team/seo-strategist
   - marketing-team/seo-audit

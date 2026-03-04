@@ -26,7 +26,11 @@ classification:
   model: sonnet
 
 # === RELATIONSHIPS ===
-related-agents: [sales-development-rep, copywriter]
+related-agents:
+  - sales-development-rep
+  - copywriter
+  - linkedin-strategist
+  - aeo-geo-strategist
 related-skills:
   - marketing-team/content-creator
   - marketing-team/marketing-psychology

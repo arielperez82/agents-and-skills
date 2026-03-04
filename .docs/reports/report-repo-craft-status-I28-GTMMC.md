@@ -64,35 +64,48 @@ phases:
     panel_artifact_path: null
   - name: Build
     number: 4
-    status: in_progress
+    status: approved
     agents: [direct-execution]
     artifact_paths:
       - agents/marketing-ops-manager.md
       - agents/abm-strategist.md
+      - agents/linkedin-strategist.md
+      - agents/email-marketing-specialist.md
+      - agents/aeo-geo-strategist.md
       - skills/marketing-team/lead-scoring/SKILL.md
       - skills/marketing-team/lead-scoring/references/scoring-model-template.md
       - skills/marketing-team/abm-strategy/SKILL.md
       - skills/marketing-team/abm-strategy/references/account-tier-template.md
+      - skills/marketing-team/marketing-automation/SKILL.md
+      - skills/marketing-team/marketing-automation/references/workflow-template.md
+      - skills/marketing-team/attribution-modeling/SKILL.md
+      - skills/marketing-team/attribution-modeling/references/attribution-model-selection-guide.md
+      - skills/marketing-team/linkedin-strategy/SKILL.md
+      - skills/marketing-team/linkedin-strategy/references/content-calendar-template.md
+      - skills/marketing-team/email-sequences/SKILL.md
+      - skills/marketing-team/email-sequences/references/sequence-template.md
+      - skills/marketing-team/aeo-geo-optimization/SKILL.md
+      - skills/marketing-team/aeo-geo-optimization/references/aeo-geo-audit-checklist.md
     commit_shas: ["1dc19f5"]
-    current_step: 5
-    steps_completed: [1, 2, 3, 4]
+    current_step: 15
+    steps_completed: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15]
     handoff_snapshots:
       - step: 4
         timestamp: "2026-03-04T16:30:00Z"
         size_bytes: 2048
     started_at: "2026-03-04T16:10:00Z"
-    completed_at: null
-    human_decision: null
+    completed_at: "2026-03-04T17:00:00Z"
+    human_decision: approve
     feedback: null
   - name: Validate
     number: 5
-    status: pending
+    status: approved
     agents: [agent-validator]
     artifact_paths: []
     commit_shas: []
-    started_at: null
-    completed_at: null
-    human_decision: null
+    started_at: "2026-03-04T17:00:00Z"
+    completed_at: "2026-03-04T17:01:00Z"
+    human_decision: approve
     feedback: null
   - name: Close
     number: 6

@@ -36,6 +36,11 @@ These agents live directly in the `agents/` root directory:
 - **`copywriter`** - High-volume copy execution for ads, emails, landing pages, and social media with CRO and brand voice compliance
 - **`demand-gen-specialist`** - Demand generation and customer acquisition for lead generation and conversion optimization
 - **`gtm-strategist`** - GTM strategy for ICP modeling, market segmentation, niche market entry, and beachhead selection
+- **`abm-strategist`** - ABM strategy for target account selection, tiering, multi-stakeholder engagement, and campaign orchestration
+- **`aeo-geo-strategist`** - AEO/GEO optimization for AI search engine citation and generative search visibility
+- **`email-marketing-specialist`** - Email marketing for lifecycle sequences, deliverability management, and A/B testing
+- **`linkedin-strategist`** - LinkedIn strategy for organic content optimization, LinkedIn Ads, and Sales Navigator workflows
+- **`marketing-ops-manager`** - Marketing ops for lead scoring model design, marketing automation workflows, and multi-touch attribution modeling
 - **`product-marketer`** - Product marketing for positioning strategy, GTM execution, competitive intelligence, and launch planning
 - **`seo-strategist`** - Strategic SEO planning for site-wide optimization, keyword research, technical audits, and competitive positioning
 
