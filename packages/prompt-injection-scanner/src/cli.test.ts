@@ -55,9 +55,11 @@ function createTestFile(
   };
 }
 
-function createTestDir(
-  files: Record<string, string>,
-): { dir: string; file: (name: string) => string; cleanup: () => void } {
+function createTestDir(files: Record<string, string>): {
+  dir: string;
+  file: (name: string) => string;
+  cleanup: () => void;
+} {
   const dir = join(tmpdir(), `pis-cli-test-${Date.now()}-${Math.random().toString(36).slice(2)}`);
   mkdirSync(dir, { recursive: true });
   for (const [name, content] of Object.entries(files)) {
@@ -236,7 +238,7 @@ describe('runCli', () => {
     it('uses human format by default', () => {
       const { path, cleanup } = createTestFile(maliciousContent, 'malicious.md');
       try {
-        const result = runCli([path]);
+        const result = runCli(['--verbose', path]);
 
         expect(result.stdout).toContain('malicious.md');
         expect(result.stdout).toContain('CRITICAL');
@@ -395,11 +397,7 @@ describe('runCli', () => {
     it('rejects files outside the base directory', () => {
       const { dir, file, cleanup } = createTestDir({ 'clean.md': cleanContent });
       try {
-        const result = runCli([
-          '--base-dir',
-          join(dir, 'subdir'),
-          file('clean.md'),
-        ]);
+        const result = runCli(['--base-dir', join(dir, 'subdir'), file('clean.md')]);
 
         expect(result.exitCode).toBe(2);
         expect(result.stderr).toContain('outside the allowed base directory');
@@ -474,6 +472,152 @@ describe('runCli', () => {
         rmSync(symlinkPath, { force: true });
         rmSync(outsideTarget, { force: true });
         cleanup();
+      }
+    });
+  });
+
+  describe('--quiet / --warnings / --verbose flags', () => {
+    it('defaults to quiet mode — omits clean files in human output', () => {
+      const malicious = createTestFile(maliciousContent, 'malicious.md');
+      const clean = createTestFile(cleanContent, 'clean.md');
+      try {
+        const result = runCli([malicious.path, clean.path]);
+
+        expect(result.stdout).toContain('malicious.md');
+        expect(result.stdout).not.toContain('clean.md');
+      } finally {
+        malicious.cleanup();
+        clean.cleanup();
+      }
+    });
+
+    it('--verbose shows all files including clean ones', () => {
+      const malicious = createTestFile(maliciousContent, 'malicious.md');
+      const clean = createTestFile(cleanContent, 'clean.md');
+      try {
+        const result = runCli(['--verbose', malicious.path, clean.path]);
+
+        expect(result.stdout).toContain('malicious.md');
+        expect(result.stdout).toContain('clean.md');
+      } finally {
+        malicious.cleanup();
+        clean.cleanup();
+      }
+    });
+
+    it('--warnings shows suppressed findings but not clean files', () => {
+      const suppressed = createTestFile(suppressedContent, 'suppressed.md');
+      const clean = createTestFile(cleanContent, 'clean.md');
+      try {
+        const result = runCli(['--warnings', suppressed.path, clean.path]);
+
+        expect(result.stdout).toContain('suppressed.md');
+        expect(result.stdout).not.toContain('clean.md');
+        expect(result.stdout).toContain('[suppressed]');
+      } finally {
+        suppressed.cleanup();
+        clean.cleanup();
+      }
+    });
+
+    it('--format json ignores verbosity flags', () => {
+      const clean = createTestFile(cleanContent, 'clean.md');
+      try {
+        const result = runCli(['--format', 'json', '--quiet', clean.path]);
+        const parsed = JSON.parse(result.stdout) as readonly FileResult[];
+
+        expect(parsed).toHaveLength(1);
+        expect(parsed[0]?.file).toContain('clean.md');
+      } finally {
+        clean.cleanup();
+      }
+    });
+
+    it('quiet mode shows compact summary line', () => {
+      const clean = createTestFile(cleanContent, 'clean.md');
+      try {
+        const result = runCli([clean.path]);
+
+        expect(result.stdout).toContain('Scanned 1 file');
+        expect(result.stdout).toContain('0 violations');
+      } finally {
+        clean.cleanup();
+      }
+    });
+  });
+
+  describe('YAML parse error handling', () => {
+    it('reports parse errors with descriptive message instead of "Cannot read file"', () => {
+      const badYaml = [
+        '---',
+        'title: test',
+        'invalid: yaml: content: [broken',
+        '---',
+        '',
+        '# Normal body',
+      ].join('\n');
+      const { path, cleanup } = createTestFile(badYaml, 'bad-yaml.md');
+      try {
+        const result = runCli([path]);
+
+        expect(result.stderr).toContain('Parse error');
+        expect(result.stderr).not.toContain('Cannot read file');
+      } finally {
+        cleanup();
+      }
+    });
+
+    it('parse errors do not set exit code 2', () => {
+      const badYaml = [
+        '---',
+        'title: test',
+        'invalid: yaml: content: [broken',
+        '---',
+        '',
+        '# Body',
+      ].join('\n');
+      const { path, cleanup } = createTestFile(badYaml, 'bad-yaml.md');
+      try {
+        const result = runCli([path]);
+
+        expect(result.exitCode).not.toBe(2);
+      } finally {
+        cleanup();
+      }
+    });
+
+    it('genuine FS read errors still report "Cannot read file"', () => {
+      const { path, cleanup } = createTestFile(cleanContent, 'clean.md');
+      const nonexistentPath = join(path, '..', 'nonexistent.md');
+      try {
+        const result = runCli([nonexistentPath]);
+
+        expect(result.exitCode).toBe(2);
+        expect(result.stderr).toContain('Cannot read file');
+      } finally {
+        cleanup();
+      }
+    });
+
+    it('file with parse error is still included in results with 0 findings', () => {
+      const uniqueBadYaml = [
+        '---',
+        `timestamp: ${Date.now()}`,
+        'foo: *nonexistent_anchor_ref',
+        '---',
+        '',
+        '# Body',
+      ].join('\n');
+      const bad = createTestFile(uniqueBadYaml, 'bad-yaml-result.md');
+      try {
+        const result = runCli(['--format', 'json', bad.path]);
+        const parsed = JSON.parse(result.stdout) as readonly FileResult[];
+
+        expect(parsed).toHaveLength(1);
+        expect(parsed[0]?.findings).toEqual([]);
+        expect(result.stderr).toContain('Parse error');
+      } finally {
+        bad.cleanup();
       }
     });
   });

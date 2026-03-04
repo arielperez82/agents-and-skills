@@ -1,4 +1,4 @@
-import type { Finding, ScanResult } from './types.js';
+import type { Finding, ScanResult, Verbosity } from './types.js';
 
 export type FileResult = {
   readonly file: string;
@@ -8,6 +8,8 @@ export type FileResult = {
 
 type FormatOptions = {
   readonly redact?: boolean;
+  readonly verbosity?: Verbosity;
+  readonly parseErrors?: number;
 };
 
 const REDACT_MAX_LENGTH = 20;
@@ -89,5 +91,59 @@ const formatFileSection = (result: FileResult): string => {
   return `${header}\n${separator}\n${findingLines}\n\n${summary}\n`;
 };
 
-export const formatHuman = (results: readonly FileResult[], options?: FormatOptions): string =>
-  applyRedaction(results, options).map(formatFileSection).join('\n');
+const hasUnsuppressedFindings = (result: FileResult): boolean =>
+  result.findings.some((f) => f.suppressed !== true);
+
+const hasAnyFindings = (result: FileResult): boolean => result.findings.length > 0;
+
+const filterFindingsForQuiet = (result: FileResult): FileResult => ({
+  ...result,
+  findings: result.findings.filter((f) => f.suppressed !== true),
+});
+
+const countUnsuppressed = (results: readonly FileResult[]): number =>
+  results.reduce((count, r) => count + r.findings.filter((f) => f.suppressed !== true).length, 0);
+
+const countSuppressed = (results: readonly FileResult[]): number =>
+  results.reduce((count, r) => count + r.summary.suppressedCount, 0);
+
+const formatCompactSummary = (results: readonly FileResult[], parseErrors: number): string => {
+  const fileCount = results.length;
+  const violations = countUnsuppressed(results);
+  const suppressed = countSuppressed(results);
+
+  const parts = [`${violations} ${violations === 1 ? 'violation' : 'violations'}`];
+
+  if (suppressed > 0) {
+    parts.push(`${suppressed} suppressed`);
+  }
+
+  if (parseErrors > 0) {
+    parts.push(`${parseErrors} parse ${parseErrors === 1 ? 'error' : 'errors'}`);
+  }
+
+  return `Scanned ${fileCount} ${fileCount === 1 ? 'file' : 'files'}: ${parts.join(', ')}`;
+};
+
+const filterByVerbosity = (
+  results: readonly FileResult[],
+  verbosity: Verbosity,
+): readonly FileResult[] => {
+  if (verbosity === 'verbose') return results;
+  if (verbosity === 'warnings') return results.filter(hasAnyFindings);
+  return results.filter(hasUnsuppressedFindings).map(filterFindingsForQuiet);
+};
+
+export const formatHuman = (results: readonly FileResult[], options?: FormatOptions): string => {
+  const verbosity: Verbosity = options?.verbosity ?? 'quiet';
+  const redacted = applyRedaction(results, options);
+  const filtered = filterByVerbosity(redacted, verbosity);
+  const sections = filtered.map(formatFileSection).join('\n');
+
+  if (verbosity === 'quiet') {
+    const summary = formatCompactSummary(redacted, options?.parseErrors ?? 0);
+    return sections ? `${sections}\n${summary}` : summary;
+  }
+
+  return sections;
+};

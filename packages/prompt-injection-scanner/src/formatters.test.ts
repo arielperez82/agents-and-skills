@@ -186,7 +186,7 @@ describe('formatHuman', () => {
   });
 
   it('produces clean output for empty findings', () => {
-    const output = formatHuman([createFileResult()]);
+    const output = formatHuman([createFileResult()], { verbosity: 'verbose' });
 
     expect(output).toContain('0 findings');
   });
@@ -231,7 +231,7 @@ describe('formatHuman', () => {
       }),
     ];
 
-    const output = formatHuman(results);
+    const output = formatHuman(results, { verbosity: 'verbose' });
 
     expect(output).toContain('[suppressed]');
     expect(output).toContain('documented example');
@@ -258,7 +258,7 @@ describe('formatHuman', () => {
       }),
     ];
 
-    const output = formatHuman(results);
+    const output = formatHuman(results, { verbosity: 'verbose' });
 
     expect(output).toContain('Suppressed: 1');
   });
@@ -368,6 +368,192 @@ describe('formatJson with redaction', () => {
     const parsed = JSON.parse(output) as readonly FileResult[];
 
     expect(parsed[0]?.findings[0]?.matchedText).toBe(longMatch);
+  });
+});
+
+describe('formatHuman verbosity', () => {
+  it('quiet mode omits files with no unsuppressed findings', () => {
+    const results: readonly FileResult[] = [
+      createFileResult({ file: 'clean.md' }),
+      createFileResult({
+        file: 'dirty.md',
+        findings: [createFinding()],
+        summary: {
+          total: 1,
+          critical: 0,
+          high: 1,
+          medium: 0,
+          low: 0,
+          suppressedCount: 0,
+        },
+      }),
+    ];
+
+    const output = formatHuman(results, { verbosity: 'quiet' });
+
+    expect(output).not.toContain('clean.md');
+    expect(output).toContain('dirty.md');
+  });
+
+  it('quiet mode omits suppressed findings', () => {
+    const results: readonly FileResult[] = [
+      createFileResult({
+        file: 'mixed.md',
+        findings: [
+          createFinding({ suppressed: true, suppressionJustification: 'test' }),
+          createFinding({ severity: 'CRITICAL', patternId: 'io-002' }),
+        ],
+        summary: {
+          total: 2,
+          critical: 1,
+          high: 1,
+          medium: 0,
+          low: 0,
+          suppressedCount: 1,
+        },
+      }),
+    ];
+
+    const output = formatHuman(results, { verbosity: 'quiet' });
+
+    expect(output).not.toContain('[suppressed]');
+    expect(output).toContain('CRITICAL');
+  });
+
+  it('quiet mode shows compact summary line', () => {
+    const results: readonly FileResult[] = [
+      createFileResult({
+        file: 'a.md',
+        findings: [createFinding()],
+        summary: {
+          total: 1,
+          critical: 0,
+          high: 1,
+          medium: 0,
+          low: 0,
+          suppressedCount: 0,
+        },
+      }),
+      createFileResult({ file: 'b.md' }),
+    ];
+
+    const output = formatHuman(results, { verbosity: 'quiet' });
+
+    expect(output).toContain('Scanned 2 files');
+    expect(output).toContain('1 violation');
+  });
+
+  it('quiet mode compact summary includes suppressed count', () => {
+    const results: readonly FileResult[] = [
+      createFileResult({
+        file: 'a.md',
+        findings: [createFinding({ suppressed: true, suppressionJustification: 'ok' })],
+        summary: {
+          total: 1,
+          critical: 0,
+          high: 1,
+          medium: 0,
+          low: 0,
+          suppressedCount: 1,
+        },
+      }),
+    ];
+
+    const output = formatHuman(results, { verbosity: 'quiet' });
+
+    expect(output).toContain('1 suppressed');
+  });
+
+  it('quiet mode compact summary includes parse error count', () => {
+    const results: readonly FileResult[] = [createFileResult({ file: 'a.md' })];
+
+    const output = formatHuman(results, { verbosity: 'quiet', parseErrors: 3 });
+
+    expect(output).toContain('3 parse errors');
+  });
+
+  it('warnings mode shows files with findings including suppressed', () => {
+    const results: readonly FileResult[] = [
+      createFileResult({ file: 'clean.md' }),
+      createFileResult({
+        file: 'suppressed-only.md',
+        findings: [createFinding({ suppressed: true, suppressionJustification: 'ok' })],
+        summary: {
+          total: 1,
+          critical: 0,
+          high: 1,
+          medium: 0,
+          low: 0,
+          suppressedCount: 1,
+        },
+      }),
+    ];
+
+    const output = formatHuman(results, { verbosity: 'warnings' });
+
+    expect(output).not.toContain('clean.md');
+    expect(output).toContain('suppressed-only.md');
+    expect(output).toContain('[suppressed]');
+  });
+
+  it('verbose mode shows all files including clean ones', () => {
+    const results: readonly FileResult[] = [
+      createFileResult({ file: 'clean.md' }),
+      createFileResult({
+        file: 'dirty.md',
+        findings: [createFinding()],
+        summary: {
+          total: 1,
+          critical: 0,
+          high: 1,
+          medium: 0,
+          low: 0,
+          suppressedCount: 0,
+        },
+      }),
+    ];
+
+    const output = formatHuman(results, { verbosity: 'verbose' });
+
+    expect(output).toContain('clean.md');
+    expect(output).toContain('dirty.md');
+  });
+
+  it('defaults to quiet when no verbosity specified', () => {
+    const results: readonly FileResult[] = [
+      createFileResult({ file: 'clean.md' }),
+      createFileResult({
+        file: 'dirty.md',
+        findings: [createFinding()],
+        summary: {
+          total: 1,
+          critical: 0,
+          high: 1,
+          medium: 0,
+          low: 0,
+          suppressedCount: 0,
+        },
+      }),
+    ];
+
+    const output = formatHuman(results);
+
+    expect(output).not.toContain('clean.md');
+    expect(output).toContain('dirty.md');
+  });
+
+  it('quiet mode with zero violations shows only summary', () => {
+    const results: readonly FileResult[] = [
+      createFileResult({ file: 'clean1.md' }),
+      createFileResult({ file: 'clean2.md' }),
+    ];
+
+    const output = formatHuman(results, { verbosity: 'quiet' });
+
+    expect(output).toContain('Scanned 2 files');
+    expect(output).toContain('0 violations');
+    expect(output).not.toContain('clean1.md');
+    expect(output).not.toContain('clean2.md');
   });
 });
 

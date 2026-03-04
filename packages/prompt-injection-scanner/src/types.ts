@@ -1,5 +1,7 @@
 export type Severity = 'CRITICAL' | 'HIGH' | 'MEDIUM' | 'LOW';
 
+export type Verbosity = 'quiet' | 'warnings' | 'verbose';
+
 export type Finding = {
   readonly category: string;
   readonly severity: Severity;

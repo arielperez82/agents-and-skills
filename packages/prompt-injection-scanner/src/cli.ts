@@ -5,7 +5,7 @@ import type { FileResult } from './formatters.js';
 import { formatHuman, formatJson } from './formatters.js';
 import { scan } from './scanner.js';
 import { buildSummary, SEVERITY_ORDER, severityRank } from './severity-utils.js';
-import type { Severity } from './types.js';
+import type { Severity, Verbosity } from './types.js';
 
 type CliResult = {
   readonly exitCode: number;
@@ -20,6 +20,7 @@ type ParsedArgs = {
   readonly noInlineConfig: boolean;
   readonly baseDir: string | undefined;
   readonly redact: boolean;
+  readonly verbosity: Verbosity;
 };
 
 const isValidSeverity = (value: string): value is Severity =>
@@ -38,6 +39,7 @@ type ParseState = {
   readonly noInlineConfig: boolean;
   readonly baseDir: string | undefined;
   readonly redact: boolean;
+  readonly verbosity: Verbosity;
   readonly files: readonly string[];
 };
 
@@ -48,6 +50,7 @@ const initialState: ParseState = {
   noInlineConfig: false,
   baseDir: undefined,
   redact: false,
+  verbosity: 'quiet',
   files: [],
 };
 
@@ -55,7 +58,7 @@ const parseArgs = (args: readonly string[]): ParsedArgs | { readonly error: stri
   let state: ParseState = initialState;
 
   while (state.index < args.length) {
-    const arg = args[state.index];
+    const arg = args[state.index] ?? '';
 
     if (arg === '--format') {
       const next = args[state.index + 1];
@@ -96,6 +99,21 @@ const parseArgs = (args: readonly string[]): ParsedArgs | { readonly error: stri
       continue;
     }
 
+    if (arg === '--quiet') {
+      state = { ...state, index: state.index + 1, verbosity: 'quiet' };
+      continue;
+    }
+
+    if (arg === '--warnings') {
+      state = { ...state, index: state.index + 1, verbosity: 'warnings' };
+      continue;
+    }
+
+    if (arg === '--verbose') {
+      state = { ...state, index: state.index + 1, verbosity: 'verbose' };
+      continue;
+    }
+
     state = { ...state, index: state.index + 1, files: [...state.files, arg] };
   }
 
@@ -106,11 +124,11 @@ const parseArgs = (args: readonly string[]): ParsedArgs | { readonly error: stri
     noInlineConfig: state.noInlineConfig,
     baseDir: state.baseDir,
     redact: state.redact,
+    verbosity: state.verbosity,
   };
 };
 
-const normalizeDir = (dirPath: string): string =>
-  dirPath.endsWith('/') ? dirPath : dirPath + '/';
+const normalizeDir = (dirPath: string): string => (dirPath.endsWith('/') ? dirPath : dirPath + '/');
 
 const isInsideDir = (filePath: string, dirPath: string): boolean =>
   filePath.startsWith(normalizeDir(dirPath)) || filePath === dirPath;
@@ -126,10 +144,7 @@ const safeRealpath = (path: string): string => {
   }
 };
 
-const validateFileInBaseDir = (
-  filePath: string,
-  baseDir: string,
-): string | undefined => {
+const validateFileInBaseDir = (filePath: string, baseDir: string): string | undefined => {
   const resolvedBase = resolve(baseDir);
   const resolvedFile = resolve(filePath);
 
@@ -150,20 +165,35 @@ const validateFileInBaseDir = (
 const meetsThreshold = (findingSeverity: Severity, threshold: Severity): boolean =>
   severityRank(findingSeverity) >= severityRank(threshold);
 
+type ScanFileResult =
+  | FileResult
+  | { readonly error: string }
+  | { readonly parseWarning: string; readonly result: FileResult };
+
 const scanFile = (
   filePath: string,
   severityThreshold: Severity,
   options?: { readonly noInlineConfig?: boolean },
-): FileResult | { readonly error: string } => {
+): ScanFileResult => {
+  let content: string;
   try {
-    const content = readFileSync(filePath, 'utf-8');
+    content = readFileSync(filePath, 'utf-8');
+  } catch {
+    return { error: `Error: Cannot read file "${filePath}"` };
+  }
+
+  try {
     const suppressionOptions =
       options?.noInlineConfig === true ? { noInlineConfig: true as const } : undefined;
     const result = scan(content, suppressionOptions);
     const filtered = result.findings.filter((f) => meetsThreshold(f.severity, severityThreshold));
     return { file: filePath, findings: filtered, summary: buildSummary(filtered) };
-  } catch {
-    return { error: `Error: Cannot read file "${filePath}"` };
+  } catch (err: unknown) {
+    const message = err instanceof Error ? err.message : String(err);
+    return {
+      parseWarning: `Parse error in "${filePath}": ${message}`,
+      result: { file: filePath, findings: [], summary: buildSummary([]) },
+    };
   }
 };
 
@@ -177,7 +207,11 @@ const hasUnsuppressedHighOrCritical = (results: readonly FileResult[]): boolean 
 const buildOutput = (
   format: Format,
   results: readonly FileResult[],
-  options?: { readonly redact?: boolean },
+  options: {
+    readonly redact?: boolean;
+    readonly verbosity: Verbosity;
+    readonly parseErrors: number;
+  },
 ): string => (format === 'json' ? formatJson(results, options) : formatHuman(results, options));
 
 export const runCli = (args: readonly string[]): CliResult => {
@@ -192,12 +226,13 @@ export const runCli = (args: readonly string[]): CliResult => {
       exitCode: 2,
       stdout: '',
       stderr:
-        'Usage: prompt-injection-scanner [--format json|human] [--severity CRITICAL|HIGH|MEDIUM|LOW] [--no-inline-config] [--base-dir <path>] [--redact] <file...>',
+        'Usage: prompt-injection-scanner [--format json|human] [--severity CRITICAL|HIGH|MEDIUM|LOW] [--no-inline-config] [--base-dir <path>] [--redact] [--quiet|--warnings|--verbose] <file...>',
     };
   }
 
   const results: FileResult[] = [];
   const errors: string[] = [];
+  const parseWarnings: string[] = [];
 
   for (const filePath of parsed.files) {
     if (parsed.baseDir !== undefined) {
@@ -213,6 +248,9 @@ export const runCli = (args: readonly string[]): CliResult => {
     });
     if ('error' in result) {
       errors.push(result.error);
+    } else if ('parseWarning' in result) {
+      parseWarnings.push(result.parseWarning);
+      results.push(result.result);
     } else {
       results.push(result);
     }
@@ -221,14 +259,25 @@ export const runCli = (args: readonly string[]): CliResult => {
   if (errors.length > 0) {
     const stderr = errors.join('\n');
     const stdout =
-      results.length > 0 ? buildOutput(parsed.format, results, { redact: parsed.redact }) : '';
+      results.length > 0
+        ? buildOutput(parsed.format, results, {
+            redact: parsed.redact,
+            verbosity: parsed.verbosity,
+            parseErrors: parseWarnings.length,
+          })
+        : '';
     return { exitCode: 2, stdout, stderr };
   }
 
-  const stdout = buildOutput(parsed.format, results, { redact: parsed.redact });
+  const stderr = parseWarnings.join('\n');
+  const stdout = buildOutput(parsed.format, results, {
+    redact: parsed.redact,
+    verbosity: parsed.verbosity,
+    parseErrors: parseWarnings.length,
+  });
   const exitCode = hasUnsuppressedHighOrCritical(results) ? 1 : 0;
 
-  return { exitCode, stdout, stderr: '' };
+  return { exitCode, stdout, stderr };
 };
 
 const isDirectExecution = (): boolean => {
