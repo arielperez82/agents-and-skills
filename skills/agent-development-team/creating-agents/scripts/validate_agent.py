@@ -218,7 +218,7 @@ def validate_agent(agent_path: Path):
     loose_color_pattern = re.compile(r"^color:", re.MULTILINE)
     lines_outside_classification = frontmatter_text
     # Match classification block: indented lines or blank lines, until a non-indented non-blank line
-    cls_match = re.search(r"classification:\s*\n((?:(?:\s+.*|)\n)*)", frontmatter_text)
+    cls_match = re.search(r"classification:\s*\n((?:[ \t]+[^\n]*\n|\n)*)", frontmatter_text)
     if cls_match:
         lines_outside_classification = frontmatter_text[:cls_match.start()] + frontmatter_text[cls_match.end():]
     if loose_model_pattern.search(lines_outside_classification):
