@@ -30,7 +30,7 @@ def find_repo_root(start: Path) -> Path:
 def extract_frontmatter(content: str) -> tuple[dict | None, str]:
     if not content.startswith("---"):
         return None, content
-    match = re.match(r"^---\n(.*?)\n---", content, re.DOTALL)
+    match = re.match(r"^---\r?\n(.*?)\r?\n---", content, re.DOTALL)
     if not match:
         return None, content
     try:
