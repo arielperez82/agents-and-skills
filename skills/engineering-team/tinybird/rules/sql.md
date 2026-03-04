@@ -104,6 +104,26 @@ SELECT if(count() = 0, 0, avg(score)) AS avg_score
 
 ## ClickHouse SQL Limitations
 
+### Aggregate alias collision in DESCRIBE
+
+When a pipe node aliases an aggregate to the same name as the source column (e.g., `max(poll_timestamp) AS poll_timestamp`), Tinybird's internal DESCRIBE query wraps the expression in another aggregate, triggering ClickHouse Code 184 ILLEGAL_AGGREGATION. The pipe may work for data queries but fail on schema introspection.
+
+```sql
+-- BAD: alias matches source column name
+SELECT max(poll_timestamp) AS poll_timestamp FROM raw_data GROUP BY id
+
+-- GOOD: use a different alias
+SELECT max(poll_timestamp) AS latest_poll_timestamp FROM raw_data GROUP BY id
+```
+
+Workaround: If you need the original column name downstream, rename in a subsequent pipe node.
+
+### CROSS JOIN in CTEs fails in Tinybird Local
+
+Complex CTEs containing CROSS JOIN subqueries can fail in Tinybird Local even when valid ClickHouse SQL. The compilation from pipe nodes to CTEs creates nesting that exceeds local processing limits.
+
+**Fix:** Extract the CROSS JOIN query into its own pipe node. Each node compiles to a separate CTE, keeping individual node complexity manageable.
+
 ### No correlated subqueries referencing CTE aliases
 
 ClickHouse does not support correlated subqueries that reference CTE aliases. Use `LEFT JOIN` with a derived subquery instead.

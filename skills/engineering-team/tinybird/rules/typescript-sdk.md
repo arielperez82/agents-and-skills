@@ -116,6 +116,10 @@ node({ name: 'usage_node', sql: `WITH usage_freshness AS (...) SELECT ...` })
 node({ name: 'health_node', sql: `WITH health_freshness AS (...) SELECT ...` })
 ```
 
+### Forward workspace token visibility
+
+Workspaces created via `tb workspace create --forward` (used by the SDK for branch isolation in local dev) do not create named scoped tokens visible to `tb token ls`. Only the admin token works. For local development with multiple collectors, set all collector tokens in `.env.local` to the admin token.
+
 ### SDK error messages
 
 The SDK wraps ClickHouse errors (e.g., `Code 60 UNKNOWN_TABLE`) as generic "Datasource not available". When debugging, check Docker logs for the real ClickHouse error:
