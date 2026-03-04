@@ -73,7 +73,7 @@ def is_template_or_external_ref(ref: str) -> bool:
 def extract_references(body: str, root: Path) -> list[tuple[str, str, Path | None]]:
     refs = []
     # skills/.../SKILL.md or skills/team/name — build path from parts
-    for m in re.finditer(r"skills/([^\s\]`]+)(?:/SKILL\.md)?", body):
+    for m in re.finditer(r"skills/([^\s\]`)]+)(?:/SKILL\.md)?", body):
         seg = m.group(1).rstrip("/")
         if not seg or seg in ("*", "**", "$1", "${SKILL}", "README.md"):
             continue
