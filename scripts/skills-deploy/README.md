@@ -77,9 +77,11 @@ The workflow has two jobs:
 
 - **actionlint:** When you stage `.github/workflows/skills-deploy.yml`, the repo pre-commit hook (`telemetry/.husky/pre-commit`) runs `telemetry/scripts/run-actionlint.sh` on it. You can also run manually from repo root: `actionlint .github/workflows/skills-deploy.yml`. Install: `brew install actionlint` or `go install github.com/rhysd/actionlint/cmd/actionlint@latest`.
 - **act:** To run the workflow locally without side effects, run only the **test** job:
+
   ```bash
   act push -W .github/workflows/skills-deploy.yml -j test
   ```
+
   Running `act -j deploy` would execute the deploy script; without `ANTHROPIC_API_KEY` it fails at runtime, and with the key it performs real API calls. Use `-j test` for safe local validation of the pipeline.
 
 ## First-time deploy
