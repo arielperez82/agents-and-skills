@@ -3,7 +3,7 @@ goal: "I14-MATO Phase 2: Activate cross-vendor agent dispatch. Layer 1A: Add T2 
 initiative_id: "I14-MATO"
 mode: auto
 auto_mode_confirmed_at: "2026-03-03T00:00:00Z"
-overall_status: in_progress
+overall_status: completed
 created_at: "2026-03-03T00:00:00Z"
 updated_at: "2026-03-03T00:00:00Z"
 complexity_tier: medium
@@ -97,12 +97,13 @@ phases:
     feedback: null
   - name: Close
     number: 6
-    status: pending
+    status: approved
     agents: [product-director, senior-project-manager, learner, progress-assessor, docs-reviewer]
-    artifact_paths: []
+    artifact_paths:
+      - skills/orchestrating-agents/SKILL.md
     commit_shas: []
-    started_at: null
-    completed_at: null
+    started_at: "2026-03-03T03:00:00Z"
+    completed_at: "2026-03-03T03:30:00Z"
     human_decision: null
     feedback: null
 audit_log:
@@ -122,6 +123,18 @@ audit_log:
     decision: AUTO_APPROVE
     reason: "Implementation planner produced 7-step plan across 3 tracks with TDD sequences. Steps sized for single subagent dispatch."
     timestamp: "2026-03-03T00:28:00Z"
+  - phase: 4
+    decision: AUTO_APPROVE
+    reason: "All 7 steps complete. 51 tests passing. Security review and code review fixes applied (approval_mode allowlist, telemetry on all paths, HTTPS enforcement, symlink-safe cache)."
+    timestamp: "2026-03-03T02:00:00Z"
+  - phase: 5
+    decision: APPROVED
+    reason: "3 agents reviewed (product-manager, code-reviewer, security-engineer). All fix-required items resolved. PM accepted with caveats (SKILL.md v0.4.0 deferred to Phase 6)."
+    timestamp: "2026-03-03T02:30:00Z"
+  - phase: 6
+    decision: APPROVED
+    reason: "Phase 6 Close complete. product-director: ACCEPT WITH CAVEATS (B1-B6 MET, B7 PARTIAL). senior-project-manager: NEEDS IMPROVEMENT (Phase 5 collapsed into Phase 4, missing core review agents). learner: 5 learnings captured (L24-L28). SKILL.md updated to v0.4.0."
+    timestamp: "2026-03-03T03:30:00Z"
 ---
 
 # Craft: I14-MATO Phase 2 — Activate Cross-Vendor Agent Dispatch
@@ -151,3 +164,21 @@ Initiative: I14-MATO
 - implementation-planner: .docs/canonical/plans/plan-repo-I14-MATO-P2-implementation.md
 - 7 steps, 3 tracks: A (docs, 1 step), B (python, 3 steps), C (integration, 3 steps)
 - Tracks A+B parallel, Track C sequential after both
+
+### Phase 4: Build — APPROVED (auto)
+- engineering-lead: All 7 steps complete, 51 tests passing
+- Files created: codex_client.py, gemini_client.py, preflight.py, telemetry_helper.py, dispatch.md (+ test files)
+- Files modified: cli_client.py (build_argv per backend), CLAUDE.md (T2 Delegation Triggers)
+- Commit: 642bebe
+
+### Phase 5: Validate — APPROVED
+- product-manager: ACCEPT WITH CAVEATS (SKILL.md not v0.4.0, telemetry payload narrower than spec)
+- code-reviewer: 3 Fix Required → all resolved (approval_mode allowlist, telemetry on all paths, codex output_format)
+- security-engineer: 3 findings → all resolved (allowlist, HTTPS enforcement, symlink-safe cache)
+
+### Phase 6: Close — APPROVED
+- product-director: ACCEPT WITH CAVEATS (B1-B6 MET, B7 PARTIAL — telemetry payload narrower)
+- senior-project-manager: NEEDS IMPROVEMENT (Phase 5 collapsed into Phase 4, missing 4 core review agents)
+- learner: 5 learnings captured (L24-L28: per-backend argv, allowlist validation, HTTPS-only telemetry, cached preflight, telemetry on all exits)
+- docs-reviewer: SKILL.md updated to v0.4.0 with preflight, telemetry, and /dispatch sections
+- Deviations noted for future: always run Phase 5 as separate gate with full /review/review-changes agent set

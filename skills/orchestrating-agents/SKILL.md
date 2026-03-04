@@ -2,7 +2,7 @@
 name: orchestrating-agents
 description: Orchestrates parallel API instances, delegated sub-tasks, and multi-agent workflows across four CLI backends (Claude Code, Cursor Agent, Gemini, Codex). Supports cost-optimized tier routing, streaming, and tool-enabled delegation patterns. Use for parallel analysis, multi-perspective reviews, cross-vendor delegation, or complex task decomposition.
 metadata:
-  version: 0.3.0
+  version: 0.4.0
 ---
 
 # Orchestrating Agents
@@ -341,7 +341,7 @@ npm install -g @anthropic-ai/claude-code
 claude login
 
 # Cursor Agent (flat-rate multi-model proxy)
-curl https://cursor.com/install -fsS | bash
+# Visit https://cursor.com/install for installation instructions
 agent login
 
 # Gemini CLI
@@ -361,7 +361,46 @@ gemini -p "Reply OK" -o text
 codex exec "Reply OK"
 ```
 
-**Auto-detection:** The Python client tries `claude` first, then `agent`. To force a backend, use `invoke_cli(prompt, backend="claude")` or `backend="cursor"`.
+**Auto-detection:** The Python client tries `claude` → `codex` → `gemini` → `cursor` in order. To force a backend, use `invoke_cli(prompt, backend="codex")` or any registered backend key.
+
+## Pre-flight Backend Check
+
+Verify backend availability once and cache for 1 hour. Use at session start or before dispatch.
+
+```python
+from preflight import check_backends
+
+available = check_backends()          # {"claude": True, "codex": True, "gemini": False, "cursor": False}
+available = check_backends(force=True) # bypass cache, re-probe all
+```
+
+- Probes via `shutil.which` (fast, no subprocess)
+- Cache stored in `/tmp/preflight_backends_cache.json` with owner-only permissions
+- Symlink-safe writes (checks for symlinks before writing)
+- Best-effort: cache write failures are silently ignored
+
+## /dispatch Command
+
+Route tasks to the cheapest capable backend via `/dispatch <task description>`. See `commands/dispatch/dispatch.md`.
+
+Classification: T1 (local scripts) → T2 (gemini/codex) → T3 (claude sonnet/opus).
+Fallback chain: `gemini → codex → claude-haiku → claude-sonnet`.
+
+## Cross-Vendor Telemetry
+
+Best-effort invocation telemetry via `telemetry_helper.py`. POSTs events to Tinybird when configured.
+
+```python
+from telemetry_helper import emit_invocation
+
+emit_invocation(backend="codex", prompt_length=150, duration_ms=1200, success=True)
+```
+
+**Requires env vars:** `TB_INGEST_TOKEN`, `TB_INGEST_URL` (HTTPS only — silently refuses HTTP).
+
+**Payload:** `backend`, `prompt_length`, `duration_ms`, `success`, `timestamp`.
+
+**Integrated into `invoke_cli`:** Telemetry emits on all exit paths (success, non-zero exit, timeout, FileNotFoundError) to avoid survivorship bias.
 
 ## Error Handling
 
