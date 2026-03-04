@@ -6,7 +6,8 @@ title: Copywriter
 description: Copy execution specialist for writing and editing web, email, social, and landing page copy with CRO optimization and brand voice adherence
 domain: marketing
 subdomain: content-marketing
-skills: marketing-team/content-creator
+skills:
+  - marketing-team/content-creator
 
 # === USE CASES ===
 difficulty: advanced
