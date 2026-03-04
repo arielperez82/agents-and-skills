@@ -20,7 +20,31 @@
 - Integrate continuously.
 - Trust, but verify.
 - Leverage tools.
+- Commit early, commit often.
 - Route work to the cheapest capable model (T1 local scripts → T2 haiku/subscription CLIs → T3 sonnet/opus for novel judgment).
+
+### Commit Early, Commit Often
+
+**The rhythm is: RED → GREEN → REFACTOR → COMMIT.** Every passing cycle ends with a commit. No exceptions. This applies to code, docs, plans, charters — everything in the repo.
+
+**Three guarantees this provides:**
+
+1. **Never red longer than one cycle.** There is always a green commit to revert to. The only time the system is "red" is while actively making the current test pass.
+2. **System always deployable.** The last commit is verified and stable. Every commit represents a working, tested state.
+3. **Minimal work-at-risk.** The only delta is between the last commit and the current cycle. Catastrophic failures (context loss, crashes, bad refactors) cost at most one cycle of work.
+
+**20 small commits > 1 large commit.** Each commit captures incremental value. Each commit works. Each commit is a safe rollback point. Never accumulate multiple cycles before committing.
+
+**`--no-verify` is prohibited** unless a review panel or human explicitly agrees with the rationale. Pre-commit hooks exist for a reason — they are the per-commit safety net. Bypassing them defeats the guarantee that every commit is a known-good state.
+
+**Two-tier validation model:**
+
+| Tier | When | What | Weight |
+|------|------|------|--------|
+| **Per-commit (lightweight)** | Every RED-GREEN-REFACTOR-COMMIT cycle | Validation hooks (PostToolUse lint, Stop lint), pre-commit hooks (Husky + lint-staged: type-check, lint, format, tests) | Automatic, unskippable |
+| **Per-story (heavyweight)** | Once per story/issue/bug/use-case | `/review/review-changes` — full 13-agent parallel gate | Manual trigger, comprehensive |
+
+Per-commit safety is cheap and automatic. Per-story review is thorough and deliberate. Both are required — they are complementary, not alternatives.
 
 ### T2 Delegation Triggers
 
@@ -295,14 +319,17 @@ Double-loop TDD — BDD acceptance tests (outer) drive unit-level TDD (inner):
 
 1. **RED** — Write failing test (`tdd-reviewer` coaches; `tpp-assessor` guides test selection)
 2. **GREEN** — Minimum code to pass (`ts-enforcer` verifies TypeScript strict, no `any`, immutability)
-3. **REFACTOR** — Assess improvements (`refactor-assessor`: Critical / High / Nice / Skip)
-4. Update status report (`.docs/reports/`); capture discoveries via `learner`
+3. **REFACTOR** — Assess improvements (`refactor-assessor`: Critical / High / Nice / Skip). Only refactor while green.
+4. **COMMIT** — If still green after refactor (or if no refactor needed), commit immediately. Pre-commit hooks validate automatically. Never accumulate multiple cycles.
+5. Repeat from step 1 for the next behavior. Update status report (`.docs/reports/`); capture discoveries via `learner`.
+
+**The loop is: RED → GREEN → REFACTOR → COMMIT → next cycle.** Each commit is one small increment of working, tested functionality.
 
 For multi-task initiatives: `engineering-lead` dispatches specialist subagents with two-stage review gates.
 
-### 4. Validate (before every commit/PR)
+### 4. Validate (per-story gate, before PR)
 
-Run `/review/review-changes` — single gate, all agents in parallel:
+Run `/review/review-changes` once per story/issue/bug/use-case — not per commit. Per-commit safety comes from hooks (PostToolUse lint, Stop lint) and pre-commit hooks (Husky + lint-staged). The heavyweight review gate runs when the story is complete:
 
 | Core (always) | Optional (when applicable) |
 |---|---|
@@ -315,7 +342,7 @@ Run `/review/review-changes` — single gate, all agents in parallel:
 | | `phase0-assessor` — when Phase 0 configs changed |
 | | `claims-verifier` — when /craft Phase 0 or claim-heavy work |
 
-After pass: **ask for commit approval**, then `/git/cm` or `/git/cp`.
+After pass: **ask for commit approval** (if uncommitted changes remain from fixes), then `/git/cm` or `/git/cp`. Note: most work should already be committed via per-cycle commits during the Build phase.
 
 ### 5. PR & Merge
 
@@ -339,9 +366,10 @@ Run `/review/review-changes` final time → fix issues → `/pr`.
 | Before production code | `tdd-reviewer` (test-first) |
 | Writing TypeScript | `ts-enforcer` (strict compliance) |
 | After GREEN | `refactor-assessor` (assess improvements) |
+| After GREEN+REFACTOR | **COMMIT immediately** (pre-commit hooks validate; never accumulate cycles) |
 | `/code` Step 4 | `/review/review-changes --mode diff` (full Step Review) |
-| Before commit (`/git/cm`) | Built-in diff-mode review gate (unconditional, Fix Required blocks) |
-| Before PR | `/review/review-changes` full-mode (parallel validation) |
+| Story/issue complete | `/review/review-changes` full-mode (heavyweight per-story gate) |
+| Before PR | `/review/review-changes` full-mode if not already run for story |
 | Architecture decision | `adr-writer` (`.docs/canonical/adrs/`) |
 | Feature complete | `learner` + `docs-reviewer` + `progress-assessor` |
 
@@ -416,7 +444,8 @@ Engage agents proactively, not just reactively:
 - **When writing TypeScript** → Engage `ts-enforcer` to verify strict mode compliance
 - **After tests turn GREEN** → Engage `refactor-assessor` to assess refactoring opportunities
 - **Starting multi-step work** → Engage `implementation-planner` and `product-analyst` to manage plan.
-- **Before committing** → Run `/review/review-changes` (launches tdd-reviewer, ts-enforcer, refactor-assessor, security-assessor, code-reviewer, cognitive-load-assessor in parallel)
+- **Before committing (per-cycle)** → Pre-commit hooks handle validation automatically (type-check, lint, format, tests). Just commit.
+- **Before PR / story complete** → Run `/review/review-changes` (launches tdd-reviewer, ts-enforcer, refactor-assessor, security-assessor, code-reviewer, cognitive-load-assessor in parallel)
 
 **How to engage**: Explicitly invoke the agent by name and follow its guidance. Example: "Engaging tdd-reviewer to verify TDD compliance before writing production code." For pre-commit validation, run `/review/review-changes` as the single gate.
 
@@ -445,12 +474,14 @@ Before writing any code, verify:
 - ALWAYS load relevant skills at work start
 - When unsure which local skill to load, run `/skill/find-local-skill [activity description]` and load the returned skill(s)
 - ALWAYS engage relevant agents proactively
-- **Before committing**: Run `/review/review-changes` (parallel validation gate)
+- **After every GREEN+REFACTOR**: Commit immediately (pre-commit hooks validate)
+- **Before PR / story complete**: Run `/review/review-changes` (parallel validation gate)
+- **Never use `--no-verify`** unless human/panel approved
 - Assess refactoring after every green (but only if adds value)
 - Ask "What do I wish I'd known at the start?" after significant changes
 - Document gotchas, patterns, decisions, edge cases while context is fresh
 
-**Validation gate:** Run `/review/review-changes` before every commit/PR. See "Canonical Development Flow → 4. Validate" above for the full agent list. Details in `commands/review/review-changes.md`.
+**Validation gate:** Per-commit validation is handled automatically by hooks and pre-commit. Run `/review/review-changes` once per story/issue/use-case (heavyweight gate). See "Canonical Development Flow → 4. Validate" above for the full agent list. Details in `commands/review/review-changes.md`.
 
 ## Setup and Configuration Verification
 
@@ -564,6 +595,10 @@ object.property = value
 
 ## Commit Guidelines
 
+**Commit after every passing RED-GREEN-REFACTOR cycle.** Each commit = one small increment of working functionality. 20 small commits that each work are always better than 1 large commit with 50 files.
+
+**`--no-verify` is prohibited** unless a review panel or human explicitly agrees. Pre-commit hooks are the per-commit safety net — bypassing them breaks the "every commit is a known-good state" guarantee.
+
 **Before every commit:**
 
 - [ ] Project scripts discovered (`package.json` scripts, Makefile, etc.)
@@ -574,6 +609,7 @@ object.property = value
 - [ ] No `any` types or unjustified assertions
 - [ ] Refactoring assessed (if tests green)
 - [ ] Learnings documented (if significant change)
+- [ ] **No `--no-verify`** (unless human/panel approved)
 
 **Commit message format:**
 

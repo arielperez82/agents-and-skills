@@ -64,19 +64,28 @@ Mark Step 1 complete in TodoWrite, mark Step 2 in_progress.
 
 ---
 
-## Step 2: Implementation
+## Step 2: Implementation (RED-GREEN-REFACTOR-COMMIT per task)
 
-Implement selected plan phase step-by-step following extracted tasks (Step 2.1, Step 2.2, etc.). Mark tasks complete as done. For UI work, call `ui-ux-designer` subagent: "Implement [feature] UI per ./docs/design-guidelines.md". Use `ai-multimodal` skill for image assets, `imagemagick` for editing. Run type checking and compile to verify no syntax errors.
+Implement selected plan phase step-by-step following extracted tasks (Step 2.1, Step 2.2, etc.). **Each task follows the RED-GREEN-REFACTOR-COMMIT cycle:**
 
-**Output:** `✓ Step 2: Implemented [N] files - [X/Y] tasks complete, compilation passed`
+1. **RED** — Write a failing test for the task's behavior
+2. **GREEN** — Write minimum code to pass the test
+3. **REFACTOR** — Assess and apply improvements (only while green)
+4. **COMMIT** — Commit immediately if still green. Pre-commit hooks validate automatically. Never accumulate multiple cycles before committing.
+
+**Commit after every passing cycle, not after all tasks are done.** 20 small commits that each work are always better than 1 large commit with 50 files. Each commit is a safe rollback point. Never use `--no-verify`.
+
+Mark tasks complete as done. For UI work, call `ui-ux-designer` subagent: "Implement [feature] UI per ./docs/design-guidelines.md". Use `ai-multimodal` skill for image assets, `imagemagick` for editing. Run type checking and compile to verify no syntax errors.
+
+**Output:** `✓ Step 2: Implemented [N] files - [X/Y] tasks complete - [C] commits made`
 
 Mark Step 2 complete in TodoWrite, mark Step 3 in_progress.
 
 ---
 
-## Step 3: Testing
+## Step 3: Full Test Suite Verification
 
-Write tests covering happy path, edge cases, and error cases. Call `tester` subagent: "Run test suite for plan phase [phase-name]". If ANY tests fail: STOP, call `debugger` subagent: "Analyze failures: [details]", fix all issues, re-run `tester`. Repeat until 100% pass.
+Per-cycle tests already ran during Step 2 (each RED-GREEN-REFACTOR-COMMIT cycle). This step verifies the **full test suite** passes end-to-end after all tasks are complete. Call `tester` subagent: "Run full test suite for plan phase [phase-name]". If ANY tests fail: STOP, call `debugger` subagent: "Analyze failures: [details]", fix all issues, commit the fix, re-run `tester`. Repeat until 100% pass.
 
 **Testing standards:** Unit tests may use mocks for external dependencies (APIs, DB). Integration tests use test environment. E2E tests use real but isolated data. Forbidden: commenting out tests, changing assertions to pass, TODO/FIXME to defer fixes.
 
@@ -88,9 +97,9 @@ Mark Step 3 complete in TodoWrite, mark Step 4 in_progress.
 
 ---
 
-## Step 4: Step Review (diff-mode)
+## Step 4: Step Review (per-story heavyweight gate, diff-mode)
 
-Run `/review/review-changes --mode diff` to validate changes from this plan step. This runs 5 agents in parallel on the changed lines and their immediate context:
+Run `/review/review-changes --mode diff` to validate the complete body of work from this plan step. Per-cycle safety was handled by pre-commit hooks during Step 2; this is the comprehensive quality gate. Runs 5 agents in parallel on the changed lines and their immediate context:
 
 - `code-reviewer` — anti-pattern scan, security patterns on changed lines
 - `refactor-assessor` — naming, nesting, immutability on changed files
@@ -138,8 +147,9 @@ Mark Step 5 complete in TodoWrite, mark Step 6 in_progress.
 
 2. **ONBOARDING CHECK:** Detect onboarding requirements (API keys, env vars, config) + generate summary report with next steps.
 
-3. **AUTO-COMMIT (after steps 1 and 2 completes):**
-- Run only if: Steps 1 and 2 successful + User approved + Tests passed
+3. **FINAL COMMIT (after steps 1 and 2 completes):**
+- Most code should already be committed via per-cycle commits in Step 2. This commit captures any remaining changes (status updates, doc updates, review fixes).
+- Run only if: Steps 1 and 2 successful + User approved + Tests passed + uncommitted changes exist
 - Auto-stage, commit with message [phase - plan] and push
 
 **Validation:** Steps 1 and 2 must complete successfully. Step 3 (auto-commit) runs only if conditions met.

@@ -15,7 +15,7 @@ Follow the **`/code` workflow** (see `commands/code.md`) with these modification
 3. **Step 5 (Finalize) replaces Steps 5+6** — Combine into a single finalize step:
    - STATUS UPDATE: Call `project-manager` AND `docs-manager` in parallel
    - ONBOARDING CHECK: Detect requirements (API keys, env vars, config)
-   - AUTO-COMMIT: Call `git-manager` to auto-stage, commit with message [phase - plan], and push
+   - FINAL COMMIT: Most code already committed via per-cycle commits in Step 2. Call `git-manager` to auto-stage any remaining changes (status updates, doc updates), commit with message [phase - plan], and push
 
 ## Step Output Format
 

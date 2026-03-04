@@ -21,7 +21,9 @@ Write code before the test? Delete it. Start over.
 
 **No exceptions:** Don't keep it as "reference", don't "adapt" it while writing tests, don't look at it. Delete means delete. Implement fresh from tests.
 
-## RED-GREEN-REFACTOR Cycle
+## RED-GREEN-REFACTOR-COMMIT Cycle
+
+**The rhythm: RED → GREEN → REFACTOR → COMMIT. Every passing cycle ends with a commit.**
 
 ### RED: Write Failing Test First
 - NO production code until you have a failing test
@@ -58,7 +60,6 @@ pnpm test path/to/test.test.ts
 - Write ONLY enough code to make the test pass
 - Resist adding functionality not demanded by a test
 - Don't add features, refactor other code, or "improve" beyond the test
-- Commit immediately after green
 
 ### Verify GREEN (MANDATORY)
 
@@ -69,8 +70,19 @@ Confirm test passes, other tests still pass, output pristine (no errors, warning
 ### REFACTOR: Assess Improvements
 - Assess AFTER every green (but only refactor if it adds value)
 - Remove duplication, improve names, extract helpers—keep tests green, don't add behavior
-- Commit before refactoring
-- All tests must pass after refactoring
+- All tests must pass after refactoring. If refactoring breaks tests, revert immediately — you have a green commit to go back to.
+
+### COMMIT: Capture the Increment
+- **Commit after every passing cycle.** If green after refactor (or if no refactor needed), commit immediately.
+- Pre-commit hooks (Husky + lint-staged) validate automatically — type-check, lint, format, tests.
+- **Never use `--no-verify`** unless a review panel or human explicitly agrees.
+- **Never accumulate multiple cycles** before committing. Each commit = one increment of working functionality.
+- **This applies to docs too.** Plans, charters, reports — if it's in the repo, commit it incrementally.
+
+**Three guarantees:**
+1. **Never red longer than one cycle** — always a green commit to revert to
+2. **System always deployable** — last commit is verified and stable
+3. **Minimal work-at-risk** — delta is only the current cycle
 
 ### Good Tests
 
@@ -86,7 +98,7 @@ Confirm test passes, other tests still pass, output pristine (no errors, warning
 
 ### Default Expectation
 
-Commit history should show clear RED → GREEN → REFACTOR progression.
+Commit history should show clear RED → GREEN → REFACTOR → COMMIT progression. Each commit captures one cycle.
 
 **Ideal progression:**
 ```
@@ -294,8 +306,9 @@ The burden of proof is on the requester. 100% is the default expectation.
 2. **Run test** - confirm it fails (`pnpm test:watch`)
 3. **Implement minimum** - just enough to pass
 4. **Run test** - confirm it passes
-5. **Refactor if valuable** - improve code structure
-6. **Commit** - with conventional commit message
+5. **Refactor if valuable** - improve code structure, verify still green
+6. **Commit immediately** - pre-commit hooks validate; never accumulate cycles
+7. **Repeat from 1** - next behavior increment
 
 ### Workflow Example
 
@@ -436,6 +449,8 @@ For detailed refactoring methodology (assessment and patterns after GREEN), use 
 - ❌ Speculative code ("just in case" logic without tests)
 - ❌ "Keep as reference" or "adapt existing code" instead of delete-and-restart
 - ❌ Rationalizing "just this once" or "this is different because..."
+- ❌ Using `--no-verify` to skip pre-commit hooks (breaks the "every commit is green" guarantee)
+- ❌ Accumulating multiple RED-GREEN-REFACTOR cycles before committing (batching defeats incremental safety)
 
 **Red flags:** Can't explain why test failed; tests added "later"; "I already manually tested it"; "spirit not ritual." All of these mean: delete code, start over with TDD.
 
@@ -448,6 +463,7 @@ For detailed refactoring methodology (assessment and patterns after GREEN), use 
 Before marking work complete:
 
 - [ ] Every production code line has a failing test that demanded it
+- [ ] Each RED-GREEN-REFACTOR cycle was committed individually (not batched)
 - [ ] Commit history shows TDD evidence (or documented exception)
 - [ ] All tests pass
 - [ ] Coverage verified at 100% (or exception documented)
@@ -455,5 +471,6 @@ Before marking work complete:
 - [ ] Tests verify behavior (not implementation details)
 - [ ] Refactoring assessed and applied if valuable
 - [ ] Conventional commit messages used
+- [ ] No `--no-verify` used (unless human/panel approved)
 
 **Final rule:** Production code → test exists and failed first. Otherwise → not TDD. No exceptions without your human partner's permission.

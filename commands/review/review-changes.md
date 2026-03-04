@@ -5,7 +5,20 @@ argument-hint: [optional focus or file scope]
 
 # Purpose
 
-Run the pre-commit validation agents on **uncommitted changes only** (working tree + staged since last commit). Optionally scope or focus the review via the argument.
+Run the heavyweight validation agents on **uncommitted changes only** (working tree + staged since last commit). Optionally scope or focus the review via the argument.
+
+## Validation Tiers
+
+This command is the **per-story heavyweight gate** — it runs once per story/issue/bug/use-case, not per commit. Per-commit safety is handled by a separate, lighter tier:
+
+| Tier | When | What runs | Cost |
+|------|------|-----------|------|
+| **Per-commit (automatic)** | Every RED-GREEN-REFACTOR-COMMIT cycle | PostToolUse lint hook, Stop lint hook, Husky pre-commit (lint-staged: type-check, lint, format, tests) | Seconds, unskippable |
+| **Per-story (this command)** | Story/issue/bug complete, before PR | 13 parallel agents (tdd-reviewer, ts-enforcer, refactor-assessor, security-assessor, code-reviewer, cognitive-load-assessor, docs-reviewer, etc.) | Minutes, comprehensive |
+
+**The per-commit tier ensures every commit is a known-good state.** The per-story tier ensures the complete body of work meets quality standards before PR/merge.
+
+**`--no-verify` is prohibited** at the per-commit tier unless a review panel or human explicitly agrees. This command does not replace pre-commit hooks — it complements them.
 
 ## Scope
 
