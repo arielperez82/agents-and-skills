@@ -17,7 +17,7 @@ Initiatives actively in progress.
 
 | Initiative | Name | Description | Status | Charter |
 |------------|------|-------------|--------|---------|
-| I14-MATO | Multi-Agent Token Optimization (Phase 2) | Activate cross-vendor dispatch: CLAUDE.md rules, /dispatch command, gemini/codex backends, pre-flight auth, telemetry | Active | [charter](../charters/charter-repo-I14-MATO-multi-agent-token-optimization.md) |
+| *(none — capacity available)* | | | | |
 
 ## Next
 
@@ -70,3 +70,4 @@ Completed initiatives.
 | I22-SFMC | Skill Frontmatter API Compliance | Migrated 62 non-compliant skills to API-valid frontmatter; updated validator to error on non-standard keys, warn on incomplete metadata | [charter](../charters/charter-repo-I22-SFMC-skill-frontmatter-compliance.md) |
 | I25-EXPNL | Expert Panel Integration | Integrated convening-experts panels into /craft flow phases with blast-radius complexity classification | [charter](../charters/charter-repo-I25-EXPNL-expert-panel-integration.md) |
 | I26-CXCO | Craft Context Continuity | Handoff snapshots, context budget protocol, enhanced resume reconstruction, context-continuity skill, /context/handoff command | [charter](../charters/charter-repo-I26-CXCO-craft-context-continuity.md) |
+| I14-MATO (Phase 2) | Multi-Agent Token Optimization | Cross-vendor dispatch: CLAUDE.md rules, /dispatch command, gemini/codex backends, pre-flight auth, telemetry | [charter](../charters/charter-repo-I14-MATO-multi-agent-token-optimization.md) |
