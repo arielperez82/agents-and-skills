@@ -12,7 +12,8 @@ if [ ! -f "$SKILL_PATH" ]; then
 fi
 
 TOTAL=$(wc -l < "$SKILL_PATH")
-SECTIONS=$(grep -c "^#" "$SKILL_PATH" || true)
+# Count markdown sections, skipping # lines inside code fences
+SECTIONS=$(awk 'BEGIN{c=0; fence=0} /^```/{fence=1-fence} fence==0 && /^#/{c++} END{print c}' "$SKILL_PATH")
 SECTIONS=${SECTIONS:-0}
 CODE_BLOCKS=$(grep -c '```' "$SKILL_PATH" || true)
 CODE_BLOCKS=$(( ${CODE_BLOCKS:-0} / 2 ))
