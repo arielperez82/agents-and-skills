@@ -1,0 +1,189 @@
+---
+goal: "I27-GTMSI"
+initiative_id: "I27-GTMSI"
+mode: auto
+auto_mode_confirmed_at: "2026-03-04T10:56:58Z"
+overall_status: in_progress
+created_at: "2026-03-04T10:56:58Z"
+updated_at: "2026-03-04T11:05:00Z"
+complexity_tier: light
+scope_type: docs-only
+session_ids: []
+phases:
+  - name: Discover
+    number: 0
+    status: approved
+    agents: [researcher, product-director, claims-verifier]
+    artifact_paths:
+      - .docs/reports/researcher-260304-ai-gtm-landscape-2025-2026.md
+    commit_shas: []
+    started_at: "2026-03-04T10:57:00Z"
+    completed_at: "2026-03-04T11:05:00Z"
+    human_decision: approve
+    feedback: null
+    panel_invoked: false
+    panel_artifact_path: null
+  - name: Define
+    number: 1
+    status: approved
+    agents: [product-analyst, acceptance-designer]
+    artifact_paths:
+      - .docs/canonical/charters/charter-repo-I27-GTMSI-gtm-strategy-intelligence.md
+    commit_shas: []
+    started_at: "2026-03-04T11:05:00Z"
+    completed_at: "2026-03-04T11:05:00Z"
+    human_decision: approve
+    feedback: null
+    panel_invoked: false
+    panel_artifact_path: null
+  - name: Design
+    number: 2
+    status: approved
+    agents: [architect]
+    artifact_paths:
+      - .docs/canonical/backlogs/backlog-repo-I27-GTMSI-gtm-strategy-intelligence.md
+    commit_shas: []
+    started_at: "2026-03-04T12:00:00Z"
+    completed_at: "2026-03-04T12:05:00Z"
+    human_decision: approve
+    feedback: null
+    panel_invoked: false
+    panel_artifact_path: null
+  - name: Plan
+    number: 3
+    status: approved
+    agents: [implementation-planner]
+    artifact_paths:
+      - .docs/canonical/plans/plan-repo-I27-GTMSI-gtm-strategy-intelligence.md
+    commit_shas: []
+    started_at: "2026-03-04T12:10:00Z"
+    completed_at: "2026-03-04T12:15:00Z"
+    human_decision: approve
+    feedback: null
+    panel_invoked: false
+    panel_artifact_path: null
+  - name: Build
+    number: 4
+    status: pending
+    agents: [engineering-lead]
+    artifact_paths: []
+    commit_shas: []
+    current_step: null
+    steps_completed: []
+    handoff_snapshots: []
+    started_at: null
+    completed_at: null
+    human_decision: null
+    feedback: null
+  - name: Validate
+    number: 5
+    status: pending
+    agents: []
+    artifact_paths: []
+    commit_shas: []
+    started_at: null
+    completed_at: null
+    human_decision: null
+    feedback: null
+  - name: Close
+    number: 6
+    status: pending
+    agents: [product-director, senior-project-manager, learner, progress-assessor, docs-reviewer]
+    artifact_paths: []
+    commit_shas: []
+    started_at: null
+    completed_at: null
+    human_decision: null
+    feedback: null
+---
+
+# Craft: I27-GTMSI
+
+Initiative: I27-GTMSI — GTM Strategy & Intelligence Layer
+
+## Phase Log
+
+### Phase 0: Discover — Approved
+- Started: 2026-03-04T10:57:00Z
+- Completed: 2026-03-04T11:05:00Z
+- Agents: researcher (pre-existing), product-director, claims-verifier
+- Artifacts:
+  - `.docs/reports/researcher-260304-ai-gtm-landscape-2025-2026.md` (pre-existing research)
+- Commits: none (pre-existing artifacts, no new files)
+- Decision: AUTO_APPROVE
+- Notes: Research report pre-existed. Product-director: STRONG GO (fills documented gap, unblocks I28+I29, resolves 4 dangling command refs, capacity available). Claims-verifier: PASS WITH MINOR CORRECTION (Clay 75+ → 150+ providers — non-blocking factual update). Panel: not warranted (Light-Medium docs-only).
+
+### Phase 1: Define — Approved
+- Started: 2026-03-04T11:05:00Z
+- Completed: 2026-03-04T11:05:00Z
+- Agents: product-analyst (pre-existing charter), acceptance-designer (skipped — charter has detailed AC)
+- Artifacts:
+  - `.docs/canonical/charters/charter-repo-I27-GTMSI-gtm-strategy-intelligence.md` (pre-existing)
+- Commits: none (pre-existing artifacts)
+- Decision: AUTO_APPROVE
+- Notes: Charter already exists with 8 user stories (US-1 through US-8), 12 success criteria (SC-1 through SC-12), walking skeleton defined (US-1+US-2+US-6), priority ranking, constraints, risks, dependencies. BDD scenarios not needed — charter acceptance criteria are sufficiently detailed for a docs-only initiative. Panel: not warranted (Light complexity).
+
+### Complexity Classification
+- scope_type: docs-only (all .md files)
+- step_count: ~10
+- domain_count: 1 (agent/skill development)
+- downstream_consumer_count: High (agents consumed by users, commands, other agents)
+- Tier: **Light** (docs-only with 2+ downstream consumers)
+- Panel phases: [2] (Design Panel eligible)
+
+<details><summary>Handoff snapshot (Phase 0-1 complete)</summary>
+
+**Objective Focus:** Phase 2 (Design) — create backlog from charter, then Phase 3 (Plan), then Phase 4 (Build — docs-only direct execution).
+
+**Completed Work:**
+- Phase 0: Research pre-existed, product-director STRONG GO, claims-verifier PASS
+- Phase 1: Charter pre-existed with detailed user stories and acceptance criteria
+- Complexity classified as Light (docs-only, 1 domain, ~10 steps, high downstream consumers)
+
+**Key Anchors** (start here when resuming):
+- `.docs/canonical/charters/charter-repo-I27-GTMSI-gtm-strategy-intelligence.md` :: US-1 through US-8 — the work items
+- `.docs/reports/researcher-260304-ai-gtm-landscape-2025-2026.md` :: Section 10 Gap Analysis — justifies agents/skills
+- `agents/product-marketer.md` :: reference agent format (frontmatter schema, body structure)
+- `skills/marketing-team/marketing-strategy-pmm/SKILL.md` :: reference skill format (frontmatter schema)
+- `agents/content-creator.md` :: will get cross-ref updates; also pattern for copywriter differentiation
+
+**Decision Rationale:**
+- Skipped BDD scenarios: charter ACs are detailed enough for docs-only work (no code to test)
+- Skipped Phase 0 panel: Light-Medium initiative, single domain, no cross-initiative complexity
+- Auto-approved both phases: pre-existing artifacts, strong strategic alignment
+
+**Next Steps** (ordered):
+1. Phase 2: Create backlog from charter (architect agent) — map US-1 through US-8 to backlog items with waves
+2. Phase 3: Create implementation plan from backlog (implementation-planner) — walking skeleton first
+3. Phase 4: Execute plan (docs-only direct execution) — create 3 agents, 3 skills, update 3 agents, update README
+4. Phase 5: Validate — run agent-validator on all new/modified agents
+5. Phase 6: Close — charter acceptance, roadmap update (I27 → Done, I28 → Now)
+
+</details>
+
+### Phase 2: Design — Approved
+- Started: 2026-03-04T12:00:00Z
+- Completed: 2026-03-04T12:05:00Z
+- Agents: architect (backlog), adr-writer (skipped — no meaningful trade-offs for docs-only)
+- Artifacts:
+  - `.docs/canonical/backlogs/backlog-repo-I27-GTMSI-gtm-strategy-intelligence.md`
+- Commits: pending (will commit with Phase 3)
+- Decision: APPROVE (human)
+- Notes: 9 backlog items across 3 waves. Wave 1 = walking skeleton (B1-B3). ADRs skipped — docs-only initiative following existing patterns, no architectural trade-offs. Design Panel eligible but low value for docs-only; skipped.
+
+## Audit Log
+
+- **2026-03-04T11:05:00Z** `AUTO_APPROVE` Phase 0 (Discover) — Pre-existing research, STRONG GO
+  - Trigger: Auto-mode gate, no warnings
+  - Detail: Research pre-existed; product-director STRONG GO; claims-verifier PASS (1 minor correction)
+  - Resolution: Advanced to Phase 1
+
+- **2026-03-04T11:05:00Z** `AUTO_APPROVE` Phase 1 (Define) — Pre-existing charter
+  - Trigger: Auto-mode gate, no warnings
+  - Detail: Charter pre-existed with 8 user stories, 12 success criteria, walking skeleton defined
+  - Resolution: Advanced to Phase 2
+
+- **2026-03-04T12:05:00Z** `APPROVE` Phase 2 (Design) — Backlog created
+  - Trigger: Human approval at gate
+  - Detail: 9 items across 3 waves; ADRs skipped (no trade-offs); Design Panel skipped (low value for docs-only)
+  - Resolution: Advanced to Phase 3
