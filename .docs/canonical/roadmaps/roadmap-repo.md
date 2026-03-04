@@ -2,7 +2,7 @@
 type: roadmap
 endeavor: repo
 status: active
-updated: 2026-03-02
+updated: 2026-03-04
 ---
 
 # Roadmap: agents-and-skills
@@ -21,11 +21,13 @@ Initiatives actively in progress.
 
 ## Next
 
-Initiatives chartered and ready to start when capacity allows.
+Initiatives chartered and ready to start when capacity allows. Sequential execution: I27 → I28 → I29.
 
 | Initiative | Name | Description | Status | Charter |
 |------------|------|-------------|--------|---------|
-| *(none — capacity available)* | | | | |
+| I27-GTMSI | GTM Strategy & Intelligence | Strategy layer: gtm-strategist, competitive-intelligence-analyst, copywriter agents + icp-modeling, niche-market-strategy, competitive-intel skills. Fixes 4 dangling copywriter command refs. | Chartered | [charter](../charters/charter-repo-I27-GTMSI-gtm-strategy-intelligence.md) |
+| I28-GTMMC | GTM Marketing Ops & Channels | Marketing ops & channels: marketing-ops-manager, abm-strategist, linkedin-strategist, email-marketing-specialist, aeo-geo-strategist agents + 6 skills. Depends on I27. | Chartered | [charter](../charters/charter-repo-I28-GTMMC-gtm-marketing-channels.md) |
+| I29-GTMSO | GTM Sales Ops & Revenue | Sales ops & revenue: sales-ops-analyst, revenue-ops-analyst agents + crm-ops, pipeline-forecasting, revenue-analytics, cadence-design skills. Depends on I27+I28. | Chartered | [charter](../charters/charter-repo-I29-GTMSO-gtm-sales-ops-revenue.md) |
 
 ## Later
 
