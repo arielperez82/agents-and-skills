@@ -8,6 +8,6 @@ export default {
     `bash -c 'set -o pipefail; pnpm audit --prod --audit-level high 2>&1 | tail -1'`,
   ],
   '{agents,skills,commands}/**/*.md': (files: readonly string[]) => [
-    `npx prompt-injection-scanner --severity HIGH ${files.map((f) => `"${f}"`).join(' ')}`,
+    `npx prompt-injection-scanner --severity HIGH ${files.map((f) => '"' + f + '"').join(' ')} --format json`,
   ],
 };
