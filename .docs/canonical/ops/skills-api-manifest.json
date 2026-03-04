@@ -527,6 +527,15 @@
     },
     "skills/engineering-team/context-continuity": {
       "skill_id": "skill_01LmJf5i3cuFGHMAvvLsSN8g"
+    },
+    "skills/marketing-team/competitive-intel": {
+      "skill_id": "skill_01KgffZZJBZ21DbBoaF3pK1h"
+    },
+    "skills/marketing-team/icp-modeling": {
+      "skill_id": "skill_01Q6xaHbnB4uKHeTAGbinJ49"
+    },
+    "skills/marketing-team/niche-market-strategy": {
+      "skill_id": "skill_011EnsXeXcMvs27LwPHrJPx8"
     }
   }
 }
