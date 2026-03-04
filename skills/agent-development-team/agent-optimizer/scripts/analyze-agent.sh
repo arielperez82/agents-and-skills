@@ -18,7 +18,7 @@ FRONTMATTER=$(awk '/^---$/{c++; if(c==1) next} c==1' "$AGENT_PATH")
 
 TOTAL_LINES=$(wc -l < "$AGENT_PATH")
 BODY_LINES=$(echo "$BODY" | wc -l)
-SECTION_COUNT=$(echo "$BODY" | grep -cE '^#+' || true)
+SECTION_COUNT=$(echo "$BODY" | awk 'BEGIN{c=0; fence=0} /^```/{fence=1-fence} fence==0 && /^#/{c++} END{print c}')
 SECTION_COUNT=${SECTION_COUNT:-0}
 
 # Skill count: YAML list items under "skills:" or inline comma/bracket-separated
