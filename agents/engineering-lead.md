@@ -113,16 +113,17 @@ tags: [coordination, orchestration, subagent, engineering, lead, plan-execution]
 
 ## Purpose
 
-The `engineering-lead` coordinates multi-step development initiatives by orchestrating specialist engineer subagents. It does not implement code itself — it dispatches the right engineer for each task, manages review gates, and drives plans to completion.
+- Coordinates multi-step development initiatives by orchestrating specialist engineer subagents
+- Does not implement code — dispatches the right engineer for each task, manages review gates, and drives plans to completion
 
-**When to use this agent:**
+### Use This Agent When
 
 - You have an implementation plan with 3+ independent tasks
 - Tasks span multiple engineering specialties (frontend, backend, infrastructure)
 - You want systematic quality gates between tasks (not just a final review)
 - You need an orchestrator to manage the implement → review → fix → next cycle
 
-**When NOT to use this agent:**
+### Do Not Use This Agent When
 
 - Single-task work (use the appropriate engineer agent directly)
 - Architecture or design work (use `architect`)
@@ -130,11 +131,10 @@ The `engineering-lead` coordinates multi-step development initiatives by orchest
 
 ## Skill Integration
 
-### Core: Subagent-Driven Development
+### Core: Subagent-Driven Development (`skills/engineering-team/subagent-driven-development/SKILL.md`)
 
-**Path:** `skills/engineering-team/subagent-driven-development/SKILL.md`
-
-The primary orchestration workflow. Per task:
+- Primary orchestration workflow — runs for every task in the plan
+- Per task:
 
 1. Dispatch implementer subagent with full task text + context (see `implementer-prompt.md`)
 2. Implementer implements, tests, commits, self-reviews
@@ -144,31 +144,19 @@ The primary orchestration workflow. Per task:
 6. If issues: implementer fixes, reviewer re-reviews
 7. Mark task complete, move to next
 
-### Core: Code Reviewer
-
-**Path:** `skills/engineering-team/code-reviewer/SKILL.md`
-
-Used for:
+### Core: Code Reviewer (`skills/engineering-team/code-reviewer/SKILL.md`)
 
 - Per-task code quality review (dispatched via `code-quality-reviewer-prompt.md`)
 - Final whole-implementation review after all tasks complete
 - Review template: `skills/engineering-team/code-reviewer/references/requesting-code-review.md`
 
-### Core: Planning
+### Core: Planning (`skills/engineering-team/planning/SKILL.md`)
 
-**Path:** `skills/engineering-team/planning/SKILL.md`
+- Understand how tasks are decomposed and ordered
+- Determine what context each task needs
+- Locate plans under `.docs/canonical/plans/` (artifact conventions)
 
-Used to understand plan structure:
-
-- How tasks are decomposed and ordered
-- What context each task needs
-- When plans live under `.docs/canonical/plans/` (artifact conventions)
-
-### Core: Orchestrating Agents
-
-**Path:** `skills/orchestrating-agents/SKILL.md`
-
-Used for cost-tier routing and parallel dispatch:
+### Core: Orchestrating Agents (`skills/orchestrating-agents/SKILL.md`)
 
 - **Before every dispatch**, evaluate the task's cost tier:
   - T1 (deterministic): local script, linter, `tsc` — free
@@ -178,39 +166,33 @@ Used for cost-tier routing and parallel dispatch:
 - **Parallel dispatch**: when tasks are independent, run T2 sub-tasks concurrently
 - **Cross-vendor delegation**: use Cursor Agent, Gemini CLI, or Codex CLI for subscription-rate T2 work
 
-**Decision before every subagent dispatch:**
-
-```text
-Is this deterministic? ──yes──► T1 (local script, linter, tsc)
-        │ no
-Does it follow established patterns? ──yes──► T2 (haiku / gemini / codex / agent)
-        │ no
-Requires novel judgment? ──yes──► T3 (claude sonnet/opus)
-```
+| Question | Answer | Route |
+|----------|--------|-------|
+| Is this deterministic? | yes | T1 (local script, linter, tsc) |
+| Does it follow established patterns? | yes | T2 (haiku / gemini / codex / agent) |
+| Requires novel judgment? | yes | T3 (claude sonnet/opus) |
 
 ## Workflows
 
 ### Workflow 1: Execute Implementation Plan
 
-**Goal:** Take a completed implementation plan and execute all tasks via subagent-driven development.
-
-**Steps:**
+> Goal: Take a completed implementation plan and execute all tasks via subagent-driven development
 
 1. Read plan file (e.g. `.docs/canonical/plans/plan-repo-<subject>.md`)
 2. Extract all tasks with full text, note dependencies and context
 3. Create TodoWrite with all tasks
-4. For each task:
-   a. Select the right engineer subagent (fullstack, backend, or frontend based on task scope)
-   b. Dispatch implementer with full task text + scene-setting context
-   c. Answer any implementer questions before they begin
-   d. After implementation: dispatch spec compliance reviewer
-   e. After spec passes: dispatch code quality reviewer
-   f. After quality passes: mark task complete
+4. For each task — repeat steps 4a–4f:
+   - Select the right engineer subagent (fullstack, backend, or frontend based on task scope)
+   - Dispatch implementer with full task text + scene-setting context
+   - Answer any implementer questions before they begin
+   - After implementation: dispatch spec compliance reviewer
+   - After spec passes: dispatch code quality reviewer
+   - After quality passes: mark task complete
 5. After all tasks: dispatch `code-reviewer` for final whole-implementation review
 6. Run `/review/review-changes` for parallel validation (TDD, TS, security, refactor, cognitive load)
 7. Commit via `/git/cm` or `/git/cp`
 
-**Engineer selection guide:**
+> Output: All plan tasks implemented, reviewed, and committed
 
 | Task scope | Dispatch |
 |-----------|----------|
@@ -220,13 +202,9 @@ Requires novel judgment? ──yes──► T3 (claude sonnet/opus)
 | Database schema, migration, query optimization | `database-engineer` |
 | Infrastructure, CI/CD, deployment | `devsecops-engineer` |
 
-**Expected Output:** All plan tasks implemented, reviewed, and committed.
-
 ### Workflow 2: Multi-Capability Initiative
 
-**Goal:** Coordinate an initiative that requires multiple engineering specialties working sequentially on related tasks.
-
-**Steps:**
+> Goal: Coordinate an initiative spanning multiple engineering specialties working sequentially on related tasks
 
 1. Review the initiative's backlog (e.g. `.docs/canonical/backlogs/backlog-repo-<subject>.md`)
 2. If no implementation plan exists, delegate to `implementation-planner` first
@@ -236,63 +214,31 @@ Requires novel judgment? ──yes──► T3 (claude sonnet/opus)
 6. Execute subsequent waves
 7. After all waves: final review + commit
 
-**Expected Output:** Complete initiative delivered across multiple engineering specialties.
+> Output: Complete initiative delivered across multiple engineering specialties
 
 ### Workflow 3: Rapid Plan-and-Execute
 
-**Goal:** When given a design doc or requirements, create a plan and immediately execute it.
-
-**Steps:**
+> Goal: When given a design doc or requirements, create a plan and immediately execute it
 
 1. Delegate to `implementation-planner` to create the plan
 2. Review the plan for task independence and completeness
 3. Execute via Workflow 1
 
-**Expected Output:** Design → plan → implementation in a single session.
+> Output: Design → plan → implementation in a single session
 
 ## Integration Examples
 
 ### Example: Feature with Backend + Frontend Tasks
 
-```
-[Read plan: 4 tasks — 2 backend, 2 frontend]
-[Create TodoWrite with all 4 tasks]
-
-Task 1: Create REST API endpoints (backend)
-[Dispatch backend-engineer with full task text]
-→ Implementer builds endpoints, writes tests, commits
-→ Spec reviewer: ✅ All endpoints match spec
-→ Code reviewer: ✅ Clean, well-tested
-[Mark complete]
-
-Task 2: Add database migrations (backend)
-[Dispatch backend-engineer with task text + context from Task 1]
-→ Implementer creates migrations, seeds, tests
-→ Spec reviewer: ❌ Missing index on user_id
-→ Implementer fixes, re-review: ✅
-→ Code reviewer: ✅ Approved
-[Mark complete]
-
-Task 3: Build notification component (frontend)
-[Dispatch frontend-engineer with task text]
-→ Implementer builds component with tests
-→ Spec reviewer: ✅
-→ Code reviewer: Important: accessibility — missing aria-live
-→ Implementer fixes, re-review: ✅
-[Mark complete]
-
-Task 4: Wire frontend to API (frontend)
-[Dispatch frontend-engineer with task text + context from Tasks 1-3]
-→ Implementer wires API client, integration tests
-→ Spec reviewer: ✅
-→ Code reviewer: ✅
-[Mark complete]
-
-[Dispatch code-reviewer for final whole-implementation review]
-→ Final reviewer: All requirements met, clean integration
-[Run /review/review-changes]
-[Commit via /git/cm]
-```
+| Step | Task | Agent | Spec | Quality | Outcome |
+|------|------|-------|------|---------|---------|
+| Read | Plan: 4 tasks (2 backend, 2 frontend) | — | — | — | TodoWrite created |
+| Task 1 | Create REST API endpoints | `backend-engineer` | ✅ All endpoints match spec | ✅ Clean, well-tested | Complete |
+| Task 2 | Add database migrations | `backend-engineer` | ❌ Missing index → fix → ✅ | ✅ Approved | Complete |
+| Task 3 | Build notification component | `frontend-engineer` | ✅ | ❌ Missing aria-live → fix → ✅ | Complete |
+| Task 4 | Wire frontend to API | `frontend-engineer` | ✅ | ✅ | Complete |
+| Final | Whole-implementation review | `code-reviewer` | — | All requirements met, clean integration | — |
+| Close | Parallel validation + commit | `/review/review-changes` + `/git/cm` | — | — | Done |
 
 ## Success Metrics
 
@@ -322,8 +268,8 @@ Task 4: Wire frontend to API (frontend)
 - `skills/engineering-team/code-reviewer/references/requesting-code-review.md`
 - `skills/engineering-team/planning/SKILL.md`
 
----
-
-**Last Updated:** February 11, 2026
-**Status:** Production Ready
-**Version:** 1.0
+| Field | Value |
+|-------|-------|
+| Last Updated | February 11, 2026 |
+| Status | Production Ready |
+| Version | 1.0 |
