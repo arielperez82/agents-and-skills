@@ -88,7 +88,7 @@ def resolve_skill_path(skill: str, root: Path) -> Path:
 
 def has_section(body: str, title: str) -> bool:
     """Check if body contains a markdown heading with the given title (case-insensitive, flexible spacing)."""
-    pattern = r"^#{1,3}\s+" + re.escape(title) + r"(\s|$)"
+    pattern = r"^#{1,6}\s+" + re.escape(title) + r"(\s|$)"
     return bool(re.search(pattern, body, re.MULTILINE | re.IGNORECASE))
 
 
