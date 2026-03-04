@@ -123,6 +123,7 @@ This agent uses tools from the senior-mobile skill:
 **Objective:** Set up a Flutter project with clean architecture and proper separation of concerns.
 
 **When to Use:**
+
 - Starting a new Flutter project
 - Need maintainable architecture
 - Team requires clear patterns
@@ -130,6 +131,7 @@ This agent uses tools from the senior-mobile skill:
 **Process:**
 
 1. **Generate Project Structure**
+
    ```bash
    python3 ../skills/engineering-team/senior-mobile/scripts/mobile_scaffolder.py \
      --framework flutter \
@@ -140,6 +142,7 @@ This agent uses tools from the senior-mobile skill:
    ```
 
 2. **Organize by Feature**
+
    ```
    lib/
    ├── core/
@@ -164,6 +167,7 @@ This agent uses tools from the senior-mobile skill:
    ```
 
 3. **Configure Code Generation**
+
    ```yaml
    # pubspec.yaml
    dev_dependencies:
@@ -174,6 +178,7 @@ This agent uses tools from the senior-mobile skill:
    ```
 
 4. **Implement Core Abstractions**
+
    ```dart
    // Result type for error handling
    sealed class Result<T, E extends Exception> {
@@ -192,6 +197,7 @@ This agent uses tools from the senior-mobile skill:
    ```
 
 5. **Set Up Dependency Injection**
+
    ```dart
    @riverpod
    AuthRepository authRepository(AuthRepositoryRef ref) {
@@ -203,6 +209,7 @@ This agent uses tools from the senior-mobile skill:
    ```
 
 **Success Criteria:**
+
 - Clear separation of layers
 - Dependencies flow inward
 - Easy to test each layer
@@ -213,6 +220,7 @@ This agent uses tools from the senior-mobile skill:
 **Objective:** Implement robust state management with proper async handling.
 
 **When to Use:**
+
 - Adding new feature state
 - Need loading/error/success states
 - Managing complex UI state
@@ -220,6 +228,7 @@ This agent uses tools from the senior-mobile skill:
 **Process:**
 
 1. **Define State Model with Freezed**
+
    ```dart
    @freezed
    class User with _$User {
@@ -235,6 +244,7 @@ This agent uses tools from the senior-mobile skill:
    ```
 
 2. **Create Riverpod Provider**
+
    ```dart
    @riverpod
    class UsersNotifier extends _$UsersNotifier {
@@ -258,6 +268,7 @@ This agent uses tools from the senior-mobile skill:
    ```
 
 3. **Consume in Widget**
+
    ```dart
    class UsersScreen extends ConsumerWidget {
      @override
@@ -277,6 +288,7 @@ This agent uses tools from the senior-mobile skill:
    ```
 
 4. **Add Error Handling**
+
    ```dart
    state = await AsyncValue.guard(() async {
      try {
@@ -288,6 +300,7 @@ This agent uses tools from the senior-mobile skill:
    ```
 
 5. **Test the Provider**
+
    ```dart
    test('UsersNotifier loads users', () async {
      final container = ProviderContainer(
@@ -305,6 +318,7 @@ This agent uses tools from the senior-mobile skill:
    ```
 
 **Success Criteria:**
+
 - All async states handled
 - Error messages user-friendly
 - Easy to test
@@ -315,6 +329,7 @@ This agent uses tools from the senior-mobile skill:
 **Objective:** Access native iOS/Android APIs from Flutter.
 
 **When to Use:**
+
 - Need native functionality not in Flutter
 - Integrating existing native code
 - Performance-critical native operations
@@ -322,6 +337,7 @@ This agent uses tools from the senior-mobile skill:
 **Process:**
 
 1. **Define Method Channel Contract**
+
    ```dart
    class NativeBattery {
      static const _channel = MethodChannel('com.example.app/battery');
@@ -338,6 +354,7 @@ This agent uses tools from the senior-mobile skill:
    ```
 
 2. **Implement iOS Side (Swift)**
+
    ```swift
    // ios/Runner/AppDelegate.swift
    let controller = window?.rootViewController as! FlutterViewController
@@ -358,6 +375,7 @@ This agent uses tools from the senior-mobile skill:
    ```
 
 3. **Implement Android Side (Kotlin)**
+
    ```kotlin
    // android/app/src/main/kotlin/.../MainActivity.kt
    MethodChannel(flutterEngine.dartExecutor.binaryMessenger, "com.example.app/battery")
@@ -374,6 +392,7 @@ This agent uses tools from the senior-mobile skill:
    ```
 
 4. **Create Provider Wrapper**
+
    ```dart
    @riverpod
    Future<int> batteryLevel(BatteryLevelRef ref) async {
@@ -387,6 +406,7 @@ This agent uses tools from the senior-mobile skill:
    - Handle platform-specific edge cases
 
 **Success Criteria:**
+
 - Works on both platforms
 - Proper error handling
 - Well-documented API
@@ -397,6 +417,7 @@ This agent uses tools from the senior-mobile skill:
 **Objective:** Identify and resolve widget performance issues.
 
 **When to Use:**
+
 - Janky animations
 - Slow scrolling
 - Excessive rebuilds
@@ -409,6 +430,7 @@ This agent uses tools from the senior-mobile skill:
    - Check performance overlay
 
 2. **Identify Rebuild Issues**
+
    ```dart
    // BAD: Creates new function each build
    ListView.builder(
@@ -427,6 +449,7 @@ This agent uses tools from the senior-mobile skill:
    ```
 
 3. **Add Const Constructors**
+
    ```dart
    // Use const wherever possible
    return const Column(
@@ -439,6 +462,7 @@ This agent uses tools from the senior-mobile skill:
    ```
 
 4. **Use RepaintBoundary**
+
    ```dart
    RepaintBoundary(
      child: CustomPaint(
@@ -448,6 +472,7 @@ This agent uses tools from the senior-mobile skill:
    ```
 
 5. **Optimize Lists**
+
    ```dart
    ListView.builder(
      itemCount: items.length,
@@ -464,6 +489,7 @@ This agent uses tools from the senior-mobile skill:
    - Confirm 60 FPS
 
 **Success Criteria:**
+
 - 60 FPS during animations
 - Minimal unnecessary rebuilds
 - Smooth scrolling
@@ -492,12 +518,14 @@ This agent uses tools from the senior-mobile skill:
 **Request:** "Set up a Flutter project with Riverpod and clean architecture"
 
 **Process:**
+
 1. Run scaffolder with flutter framework and riverpod state
 2. Organize code into domain/data/presentation layers
 3. Configure code generation with Freezed
 4. Set up dependency injection with Riverpod
 
 **Output:** Production-ready architecture with:
+
 - Clear separation of concerns
 - Type-safe state management
 - Code generation configured
@@ -507,6 +535,7 @@ This agent uses tools from the senior-mobile skill:
 **Request:** "Access device sensors from Flutter"
 
 **Process:**
+
 1. Define MethodChannel contract in Dart
 2. Implement iOS handler in Swift
 3. Implement Android handler in Kotlin

@@ -122,6 +122,7 @@ This agent uses tools from the senior-mobile skill:
 **Objective:** Build a modern SwiftUI application with best practices.
 
 **When to Use:**
+
 - New iOS app development
 - Building new features in SwiftUI
 - Need modern architecture patterns
@@ -134,6 +135,7 @@ This agent uses tools from the senior-mobile skill:
    - Plan navigation structure
 
 2. **Set Up Project Structure**
+
    ```
    MyApp/
    ├── Models/
@@ -146,6 +148,7 @@ This agent uses tools from the senior-mobile skill:
    ```
 
 3. **Implement with Modern Patterns**
+
    ```swift
    @Observable
    class UserViewModel {
@@ -161,6 +164,7 @@ This agent uses tools from the senior-mobile skill:
    ```
 
 4. **Add Navigation**
+
    ```swift
    NavigationStack {
        List(items) { item in
@@ -180,6 +184,7 @@ This agent uses tools from the senior-mobile skill:
    - Profile with Instruments
 
 **Success Criteria:**
+
 - App follows MVVM architecture
 - Uses @Observable (iOS 17+) or @StateObject
 - NavigationStack for navigation
@@ -190,6 +195,7 @@ This agent uses tools from the senior-mobile skill:
 **Objective:** Incrementally migrate UIKit app to SwiftUI.
 
 **When to Use:**
+
 - Legacy UIKit app modernization
 - Gradual adoption of SwiftUI
 - Need to maintain stability during migration
@@ -202,6 +208,7 @@ This agent uses tools from the senior-mobile skill:
    - Prioritize migration order (leaf nodes first)
 
 2. **Create Bridge Infrastructure**
+
    ```swift
    // Embed SwiftUI in UIKit
    let hostingController = UIHostingController(rootView: SwiftUIView())
@@ -233,6 +240,7 @@ This agent uses tools from the senior-mobile skill:
    - Update modal presentations
 
 **Success Criteria:**
+
 - No regressions in existing functionality
 - SwiftUI views integrate seamlessly
 - Performance maintained or improved
@@ -243,6 +251,7 @@ This agent uses tools from the senior-mobile skill:
 **Objective:** Successfully submit app to App Store with minimal rejection risk.
 
 **When to Use:**
+
 - Preparing for first release
 - Submitting app updates
 - After significant changes
@@ -257,6 +266,7 @@ This agent uses tools from the senior-mobile skill:
    - [ ] Version and build numbers updated
 
 2. **Run Validation**
+
    ```bash
    python3 ../skills/engineering-team/senior-mobile/scripts/app_store_validator.py \
      --store apple \
@@ -287,6 +297,7 @@ This agent uses tools from the senior-mobile skill:
    - Submit
 
 **Success Criteria:**
+
 - Validation passes with no critical issues
 - All screenshots uploaded
 - App metadata complete
@@ -297,6 +308,7 @@ This agent uses tools from the senior-mobile skill:
 **Objective:** Identify and resolve performance issues.
 
 **When to Use:**
+
 - Slow app performance reported
 - Memory warnings or crashes
 - Pre-release performance audit
@@ -308,6 +320,7 @@ This agent uses tools from the senior-mobile skill:
    - Use Release configuration
 
 2. **Choose Instruments Template**
+
    | Issue | Instrument |
    |-------|------------|
    | Slow operations | Time Profiler |
@@ -328,6 +341,7 @@ This agent uses tools from the senior-mobile skill:
    - Review memory graph for retain cycles
 
 5. **Implement Fixes**
+
    ```swift
    // Before: Expensive in body
    var body: some View {
@@ -355,6 +369,7 @@ This agent uses tools from the senior-mobile skill:
    - Document findings
 
 **Success Criteria:**
+
 - Performance issue resolved
 - 60 FPS during animations
 - No memory leaks
@@ -383,6 +398,7 @@ This agent uses tools from the senior-mobile skill:
 **Request:** "Build a settings screen using SwiftUI with @Observable"
 
 **Process:**
+
 1. Define UserSettings @Observable class
 2. Create SettingsView with Form
 3. Implement navigation with NavigationStack
@@ -395,6 +411,7 @@ This agent uses tools from the senior-mobile skill:
 **Request:** "Our app has janky scrolling in the feed"
 
 **Process:**
+
 1. Profile with Time Profiler and Core Animation
 2. Identify expensive computations in cell body
 3. Move to cached computed properties

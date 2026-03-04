@@ -22,6 +22,7 @@ command -v npx && echo "AVAILABLE: npx (eslint)" || echo "MISSING: npx"
 ```
 
 Recommend installation for missing tools:
+
 - lizard: `pip install lizard`
 - radon: `pip install radon`
 - jscpd: `npm install -g jscpd`
@@ -43,18 +44,21 @@ Lizard is the recommended primary tool: supports 30+ languages, outputs JSON, me
 ## D1: Structural Complexity Commands
 
 **Python (radon)**:
+
 ```bash
 radon cc -s -a -j <directory>
 # JSON output with per-function complexity and summary averages
 ```
 
 **Multi-language (lizard)**:
+
 ```bash
 lizard --json <directory>
 # JSON output: NLOC, CCN (cyclomatic), token count, params, nesting per function
 ```
 
 **Go (gocyclo)**:
+
 ```bash
 gocyclo -avg .
 # Output: complexity package function file:line
@@ -63,12 +67,14 @@ gocyclo -over 15 .
 ```
 
 **JavaScript/TypeScript (eslint)**:
+
 ```bash
 npx eslint --rule '{"complexity": ["warn", 0]}' --format json src/
 # Reports cyclomatic complexity per function in JSON
 ```
 
 **Fallback (any language)**:
+
 ```bash
 # Count decision keywords per file as proxy for complexity
 grep -rn "if \|elif \|else \|for \|while \|switch \|case \|catch \|&&\|||" --include="*.{py,js,ts,go,java,rs}" <directory> | wc -l
@@ -78,12 +84,14 @@ grep -rn "if \|elif \|else \|for \|while \|switch \|case \|catch \|&&\|||" --inc
 ## D2: Nesting Depth Commands
 
 **Lizard (primary)**:
+
 ```bash
 lizard --json <directory>
 # JSON output includes max nesting depth per function
 ```
 
 **Fallback (indentation-based)**:
+
 ```bash
 # Measure max indentation depth per file (assuming 4-space indent)
 awk '{match($0, /^[[:space:]]*/); depth=RLENGTH/4; if(depth>max) max=depth} END{print max}' <file>
@@ -95,6 +103,7 @@ awk '{match($0, /^\t*/); depth=RLENGTH; if(depth>max) max=depth} END{print max}'
 ## D3: Volume and Size Commands
 
 **Function and file length**:
+
 ```bash
 # File lengths (all source files)
 find <directory> -name "*.py" -o -name "*.js" -o -name "*.ts" -o -name "*.go" -o -name "*.java" -o -name "*.rs" | xargs wc -l | sort -rn
@@ -105,6 +114,7 @@ lizard --json <directory>
 ```
 
 **Parameter count**:
+
 ```bash
 # Via lizard JSON output (param count per function)
 lizard --json <directory>
@@ -115,6 +125,7 @@ radon cc -s -j <directory>
 ```
 
 **Methods per class**:
+
 ```bash
 # Python
 grep -c "def " <file>
@@ -129,6 +140,7 @@ grep -E 'func\s+\(\w+\s+\*?\w+\)' *.go | awk -F'[( )]' '{print $3}' | sort | uni
 ## D4: Naming Quality Commands
 
 **Extract identifiers**:
+
 ```bash
 # Python AST-based extraction
 python3 -c "
@@ -143,11 +155,13 @@ grep -oE '[a-zA-Z_][a-zA-Z0-9_]{2,}' <file> | sort -u
 ```
 
 **Identifier length distribution**:
+
 ```bash
 grep -oE '[a-zA-Z_][a-zA-Z0-9_]*' <file> | awk '{print length, $0}' | sort -rn
 ```
 
 **Naming convention mixing detection**:
+
 ```bash
 # camelCase count
 grep -oE '[a-z]+[A-Z][a-zA-Z]*' <file> | wc -l
@@ -157,6 +171,7 @@ grep -oE '[a-z]+_[a-z]+' <file> | wc -l
 ```
 
 **Single-character variables (excluding idiomatic)**:
+
 ```bash
 grep -oE '\b[a-z]\b' <file> | grep -vE '^[ijkxyn_]$' | wc -l
 ```
@@ -164,6 +179,7 @@ grep -oE '\b[a-z]\b' <file> | grep -vE '^[ijkxyn_]$' | wc -l
 ## D5: Coupling Commands
 
 **Import counts**:
+
 ```bash
 # Python
 grep -c "^import \|^from " <file>
@@ -179,6 +195,7 @@ find <directory> -name "*.py" -exec grep -c "^import \|^from " {} + | awk -F: '{
 ```
 
 **Cross-module dependency count**:
+
 ```bash
 # Unique imported modules (Python)
 grep -rh "^import \|^from " --include="*.py" <directory> | awk '{print $2}' | sort -u | wc -l
@@ -190,6 +207,7 @@ grep -rhE "^import .* from ['\"]" --include="*.ts" --include="*.js" <directory> 
 ## D6: Cohesion Commands
 
 **Python class analysis (LCOM approximation)**:
+
 ```bash
 python3 -c "
 import ast, sys
@@ -216,6 +234,7 @@ for node in ast.walk(tree):
 ```
 
 **Simpler heuristic (any language)**:
+
 ```bash
 # Count methods and properties per class as proxy
 # High method count with few shared fields suggests low cohesion
@@ -224,12 +243,14 @@ for node in ast.walk(tree):
 ## D7: Duplication Commands
 
 **jscpd (primary, multi-language)**:
+
 ```bash
 jscpd --reporters json --output /tmp/jscpd-report <directory>
 # JSON report includes: percentage of duplicated lines, clone list
 ```
 
 **Fallback (line-level)**:
+
 ```bash
 # Find duplicated non-blank lines
 find <directory> -name "*.py" -exec cat {} + | grep -v '^\s*$' | sort | uniq -d | wc -l
@@ -239,16 +260,19 @@ find <directory> -name "*.py" -exec cat {} + | grep -v '^\s*$' | sort | uniq -d 
 ## D8: Navigability Commands
 
 **Directory depth**:
+
 ```bash
 find <directory> -type d | awk -F/ '{print NF}' | sort -rn | head -1
 ```
 
 **Files per directory**:
+
 ```bash
 find <directory> -type f \( -name "*.py" -o -name "*.js" -o -name "*.ts" -o -name "*.go" -o -name "*.java" -o -name "*.rs" \) | xargs -I{} dirname {} | sort | uniq -c | sort -rn
 ```
 
 **File size coefficient of variation**:
+
 ```bash
 find <directory> -type f \( -name "*.py" -o -name "*.js" -o -name "*.ts" -o -name "*.go" -o -name "*.java" -o -name "*.rs" \) -exec wc -l {} + | awk '{print $1}' | head -n -1 | awk '{sum+=$1; sumsq+=$1*$1; n++} END{mean=sum/n; var=sumsq/n-mean*mean; if(mean>0) print sqrt(var)/mean; else print 0}'
 ```
@@ -263,6 +287,7 @@ When a dimension's primary tool is unavailable, apply these ordered fallbacks:
 4. **Record fallback usage** -- every dimension must note which measurement method was used
 
 Accuracy degradation estimate when using heuristic fallbacks:
+
 - D1/D2: ~20% less accurate (keyword counting misses nuance of control flow graphs)
 - D3: ~5% less accurate (LOC counting is straightforward)
 - D4: ~25% less accurate without LLM assessment

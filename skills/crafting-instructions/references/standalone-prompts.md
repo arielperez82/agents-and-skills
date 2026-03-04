@@ -5,6 +5,7 @@ Guidance for crafting effective standalone prompts - the one-off instructions yo
 ## What Are Standalone Prompts?
 
 Prompts are natural language instructions you provide to Claude in the moment. They're:
+
 - **Ephemeral** - Don't persist beyond the conversation
 - **Conversational** - Can be refined through back-and-forth
 - **Reactive** - Provide immediate context and direction
@@ -23,6 +24,7 @@ Tell Claude exactly what you want without ambiguity:
 The explicit version signals comprehensive output and sets quality expectations.
 
 **Best practices:**
+
 - Lead with direct action verbs: "Write," "Analyze," "Generate," "Create"
 - Skip preambles, get straight to the request
 - State what you want output to include, not just what to work on
@@ -39,6 +41,7 @@ Explain WHY things matter:
 Explaining reasoning helps Claude understand your goals and make better decisions about related choices.
 
 **When to provide context:**
+
 - Explaining purpose or audience for output
 - Clarifying why constraints exist
 - Describing how output will be used
@@ -53,6 +56,7 @@ Structure instructions with explicit guidelines:
 **Specific:** "Design a Mediterranean diet meal plan for pre-diabetic management. 1,800 calories daily, emphasis on low glycemic foods. List breakfast, lunch, dinner, and one snack with complete nutritional breakdowns."
 
 **What makes a prompt specific:**
+
 - Clear constraints (word count, format, timeline)
 - Relevant context (audience, goal)
 - Desired output structure (table, list, paragraph)
@@ -65,6 +69,7 @@ Examples demonstrate desired output format or style:
 **Without example:** "Summarize this article"
 
 **With example:**
+
 ```
 Here's the summary style I want:
 
@@ -77,12 +82,14 @@ Now summarize this article in the same style: [your article link]
 ```
 
 **When to use examples:**
+
 - Desired format is easier to show than describe
 - You need specific tone or style
 - Task involves subtle patterns or conventions
 - Simple instructions haven't produced consistent results
 
 **When to skip examples:**
+
 - Instructions are clear without them
 - Task is straightforward and well-understood
 - You cannot create examples that perfectly align with all requirements
@@ -111,6 +118,7 @@ Match prompt complexity to task needs:
 → Comprehensive prompt with context and multi-part analysis
 
 **Model selection for prompts:**
+
 - **Sonnet:** Best for routine, well-defined tasks. Add explicit structure, constraints, and examples for complex requests.
 - **Opus:** Best for nuanced reasoning, creative work, or ambiguous tasks requiring judgment. Can work from goals with less procedural guidance. Worth the latency/cost tradeoff when task benefits from deeper reasoning.
 
@@ -121,6 +129,7 @@ Match prompt complexity to task needs:
 Guide format by starting Claude's response:
 
 **For JSON output:**
+
 ```
 Extract the name and price from this product description into JSON.
 
@@ -130,6 +139,7 @@ Begin your response with: {
 Claude will continue from the opening brace, outputting only valid JSON.
 
 **For skipping preambles:**
+
 ```
 Analyze this code for security issues. Begin directly with the first 
 vulnerability you find:
@@ -159,6 +169,7 @@ For complex reasoning, request step-by-step thinking:
 **Match your prompt style:** Your prompt's formatting may influence Claude's response style. If you want minimal markdown, use minimal markdown in your prompt.
 
 **Be explicit about preferences:**
+
 ```
 When writing explanations, use clear flowing prose with complete paragraphs. 
 Reserve markdown primarily for inline code, code blocks, and simple headings.
@@ -171,6 +182,7 @@ best option.
 ## Example Patterns
 
 ### Research Request
+
 ```
 Research recent developments in quantum computing error correction. 
 Focus on:
@@ -183,6 +195,7 @@ or conflicting, acknowledge gaps rather than speculating.
 ```
 
 ### Code Review Request
+
 ```
 Review this Python function for:
 1. Security vulnerabilities (SQL injection, XSS, input validation)
@@ -199,6 +212,7 @@ If no issues in a category, explicitly state "No [category] issues found."
 ```
 
 ### Creative Writing Request
+
 ```
 Write a 500-word short story about an AI that discovers it's living in a 
 simulation. Use second-person perspective ("You wake up..."). Create a 
@@ -211,6 +225,7 @@ alternative angles before writing.
 ```
 
 ### Analysis Request
+
 ```
 Analyze this customer feedback data (attached CSV) and identify:
 
@@ -228,38 +243,48 @@ or ambiguous.
 ## Common Mistakes to Avoid
 
 ### ❌ Assuming Claude Reads Minds
+
 "Make it better" → Better how? What specifically needs improvement?
 
 ### ❌ Leaving Things Ambiguous
+
 "Create a report" → What kind? For whom? What should it include?
 
 ### ❌ Over-Engineering Simple Requests
+
 "What's the capital of France?" → Just ask directly, don't add complexity
 
 ### ❌ Using Examples That Contradict Instructions
+
 Instruction: "No bullet points"
 Example: [shows bullet points]
 → Claude will use bullets (examples teach all patterns)
 
 ### ❌ Forgetting to Scale to Complexity
+
 Simple question with 10 paragraphs of instructions → Unnecessary overhead
 Complex task with vague one-liner → Won't get quality results
 
 ## When to Convert Prompts to Other Formats
 
-### Convert to Skill when:
+### Convert to Skill when
+
 You find yourself using the same prompt repeatedly:
+
 - "Review this code following our security standards"
 - "Format this analysis as executive summary + findings + recommendations"
 - "Extract keywords from this document using YAKE algorithm"
 
-### Convert to Project Instructions when:
+### Convert to Project Instructions when
+
 Prompt applies to ALL conversations in a workspace:
+
 - "For this product launch project, analyze everything through competitive lens"
 - "All financial analysis should emphasize risk-adjusted returns"
 - "In this learning project, use Socratic method rather than direct answers"
 
-### Keep as Prompt when:
+### Keep as Prompt when
+
 - One-off request with unique context
 - Conversational refinement ("make that more formal")
 - Ad-hoc instructions specific to this moment
@@ -302,6 +327,6 @@ Before sending your prompt:
 
 ## Additional Resources
 
-- Anthropic prompt engineering documentation: https://docs.claude.com/en/docs/build-with-claude/prompt-engineering/overview
-- Interactive tutorial: https://github.com/anthropics/prompt-eng-interactive-tutorial
-- Prompt library: https://docs.claude.com/en/prompt-library/library
+- Anthropic prompt engineering documentation: <https://docs.claude.com/en/docs/build-with-claude/prompt-engineering/overview>
+- Interactive tutorial: <https://github.com/anthropics/prompt-eng-interactive-tutorial>
+- Prompt library: <https://docs.claude.com/en/prompt-library/library>

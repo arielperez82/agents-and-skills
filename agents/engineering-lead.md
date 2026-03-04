@@ -116,12 +116,14 @@ tags: [coordination, orchestration, subagent, engineering, lead, plan-execution]
 The `engineering-lead` coordinates multi-step development initiatives by orchestrating specialist engineer subagents. It does not implement code itself — it dispatches the right engineer for each task, manages review gates, and drives plans to completion.
 
 **When to use this agent:**
+
 - You have an implementation plan with 3+ independent tasks
 - Tasks span multiple engineering specialties (frontend, backend, infrastructure)
 - You want systematic quality gates between tasks (not just a final review)
 - You need an orchestrator to manage the implement → review → fix → next cycle
 
 **When NOT to use this agent:**
+
 - Single-task work (use the appropriate engineer agent directly)
 - Architecture or design work (use `architect`)
 - Creating the plan itself (use `implementation-planner`)
@@ -129,9 +131,11 @@ The `engineering-lead` coordinates multi-step development initiatives by orchest
 ## Skill Integration
 
 ### Core: Subagent-Driven Development
+
 **Path:** `skills/engineering-team/subagent-driven-development/SKILL.md`
 
 The primary orchestration workflow. Per task:
+
 1. Dispatch implementer subagent with full task text + context (see `implementer-prompt.md`)
 2. Implementer implements, tests, commits, self-reviews
 3. Dispatch spec compliance reviewer (see `spec-reviewer-prompt.md`)
@@ -141,17 +145,21 @@ The primary orchestration workflow. Per task:
 7. Mark task complete, move to next
 
 ### Core: Code Reviewer
+
 **Path:** `skills/engineering-team/code-reviewer/SKILL.md`
 
 Used for:
+
 - Per-task code quality review (dispatched via `code-quality-reviewer-prompt.md`)
 - Final whole-implementation review after all tasks complete
 - Review template: `skills/engineering-team/code-reviewer/references/requesting-code-review.md`
 
 ### Core: Planning
+
 **Path:** `skills/engineering-team/planning/SKILL.md`
 
 Used to understand plan structure:
+
 - How tasks are decomposed and ordered
 - What context each task needs
 - When plans live under `.docs/canonical/plans/` (artifact conventions)
@@ -161,6 +169,7 @@ Used to understand plan structure:
 **Path:** `skills/orchestrating-agents/SKILL.md`
 
 Used for cost-tier routing and parallel dispatch:
+
 - **Before every dispatch**, evaluate the task's cost tier:
   - T1 (deterministic): local script, linter, `tsc` — free
   - T2 (pattern-following): `claude --model haiku`, `gemini`, `codex`, `agent` — cheap
@@ -186,6 +195,7 @@ Requires novel judgment? ──yes──► T3 (claude sonnet/opus)
 **Goal:** Take a completed implementation plan and execute all tasks via subagent-driven development.
 
 **Steps:**
+
 1. Read plan file (e.g. `.docs/canonical/plans/plan-repo-<subject>.md`)
 2. Extract all tasks with full text, note dependencies and context
 3. Create TodoWrite with all tasks
@@ -201,6 +211,7 @@ Requires novel judgment? ──yes──► T3 (claude sonnet/opus)
 7. Commit via `/git/cm` or `/git/cp`
 
 **Engineer selection guide:**
+
 | Task scope | Dispatch |
 |-----------|----------|
 | Full-stack feature (frontend + backend + DB) | `fullstack-engineer` |
@@ -216,6 +227,7 @@ Requires novel judgment? ──yes──► T3 (claude sonnet/opus)
 **Goal:** Coordinate an initiative that requires multiple engineering specialties working sequentially on related tasks.
 
 **Steps:**
+
 1. Review the initiative's backlog (e.g. `.docs/canonical/backlogs/backlog-repo-<subject>.md`)
 2. If no implementation plan exists, delegate to `implementation-planner` first
 3. Group tasks by dependency into waves (see L2 — wave-based parallelization)
@@ -231,6 +243,7 @@ Requires novel judgment? ──yes──► T3 (claude sonnet/opus)
 **Goal:** When given a design doc or requirements, create a plan and immediately execute it.
 
 **Steps:**
+
 1. Delegate to `implementation-planner` to create the plan
 2. Review the plan for task independence and completeness
 3. Execute via Workflow 1

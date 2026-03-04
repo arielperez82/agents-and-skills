@@ -78,6 +78,7 @@ When setting up Phase 0 (especially **CI pipeline** and **deploy pipeline** — 
 ## Check Registry
 
 The canonical list of all Phase 0 checks is in `references/check-registry.md`. Each check has:
+
 - **ID**, name, description, tier (`core` | `conditional`)
 - **Detection criteria** (what signals trigger this check)
 - **Tools + devDependencies** to install

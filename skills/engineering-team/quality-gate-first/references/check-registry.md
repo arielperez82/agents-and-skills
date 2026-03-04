@@ -45,42 +45,50 @@ Structured reference of every Phase 0 check: what it does, when it applies, and 
 ## Core Check Details
 
 ### `trailing-whitespace` / `mixed-line-ending` / `check-json` / `check-yaml` / `prettier`
+
 - **Deps:** `prettier`
 - **Config:** `prettier.config.ts`, `.prettierignore`
 - **Skill:** `engineering-team/prettier-configuration`
 - **Note:** These five checks are all handled by Prettier. One tool, one config, five checks covered.
 
 ### `large-files`
+
 - **Deps:** None (shell script)
 - **Config:** None
 - **Note:** Custom function in lint-staged checking file size via `stat` or `wc -c`.
 
 ### `merge-conflicts`
+
 - **Deps:** None (shell script)
 - **Config:** None
 - **lint-staged:** `grep -rn '<<<<<<< \|======= \|>>>>>>> ' && exit 1`
 
 ### `private-keys`
+
 - **Deps:** None (shell script) or `detect-secrets` (pip)
 - **Config:** `.secrets.baseline` (when using detect-secrets)
 - **Note:** Overlaps with conditional `detect-secrets` check. Core version is minimal grep; conditional version is full tool.
 
 ### `no-commit-to-branch`
+
 - **Deps:** `husky`
 - **Config:** `.husky/pre-commit`
 - **Note:** Hook-level guard, runs before lint-staged. No CI equivalent — use GitHub branch protection rules.
 
 ### `case-conflict`
+
 - **Deps:** None
 - **Note:** Pre-commit script checking `git ls-files` for case-only duplicates.
 
 ### `type-check`
+
 - **Deps:** `typescript`
 - **Config:** `tsconfig.json` (strict mode)
 - **Skill:** `engineering-team/typescript-strict`
 - **Note:** lint-staged uses function form `() => 'tsc --noEmit'` for full-project check (not per-file).
 
 ### `eslint`
+
 - **Deps:** `eslint`, `jiti`, `typescript-eslint`, `eslint-plugin-simple-import-sort`, `eslint-plugin-sonarjs`, `eslint-plugin-security`, `eslint-config-prettier`
 - **Config:** `eslint.config.ts`
 - **Skill:** `engineering-team/eslint-configuration`
@@ -89,71 +97,85 @@ Structured reference of every Phase 0 check: what it does, when it applies, and 
 ## Conditional Check Details
 
 ### `eslint-security`
+
 - **Deps:** `eslint-plugin-security`
 - **Config:** Part of `eslint.config.ts` — add `security.configs.recommended` and `no-restricted-properties` rules banning `execSync`, `exec`, `statSync`, `stat`
 - **Skill:** `engineering-team/eslint-configuration` (security plugin recipe)
 - **Note:** Detects child_process usage, non-literal fs filenames, eval with expressions, object injection, and other Node.js security anti-patterns. The `no-restricted-properties` rules enforce `execFileSync` over `execSync` (shell injection) and `lstatSync` over `statSync` (symlink following). Recommended for all TS/JS projects.
 
 ### `semgrep`
+
 - **Deps:** System install: `pip install semgrep` or `brew install semgrep`
 - **Config:** `.semgrep.yml` (local rules), `.semgrepignore` (exclusion patterns)
 - **Skill:** `engineering-team/semgrep-scanning`, `engineering-team/semgrep-rule-creator`
 - **Note:** Community edition only — no account required. Ships local rules in `.semgrep.yml` targeting shell injection (`execSync`), symlink following (`statSync`), and `spawn` with `shell: true`. Optionally extend with community rulesets (`--config p/typescript.security`). Use `.semgrepignore` to exclude Terraform, IaC, and generated code. Runner script: `scripts/run-semgrep.sh`. In CI: `pip install semgrep && semgrep scan --config .semgrep.yml --error`.
 
 ### `markdownlint`
+
 - **Deps:** `markdownlint-cli2`
 - **Config:** `.markdownlint.json` or `.markdownlint-cli2.jsonc`
 - **Skill:** `engineering-team/markdownlint-configuration`
 
 ### `stylelint`
+
 - **Deps:** `stylelint`, `stylelint-config-standard`, `stylelint-config-prettier` (+ `stylelint-config-standard-scss` for SCSS, `stylelint-plugin-tailwindcss` for Tailwind)
 - **Config:** `.stylelintrc.json` or `stylelint.config.ts`
 
 ### `jsx-a11y`
+
 - **Deps:** `eslint-plugin-jsx-a11y`
 - **Config:** Part of `eslint.config.ts`
 - **Skill:** `engineering-team/eslint-configuration` (plugin recipes)
 
 ### `react-hooks`
+
 - **Deps:** `eslint-plugin-react-hooks`
 - **Config:** Part of `eslint.config.ts`
 - **Skill:** `engineering-team/eslint-configuration` (plugin recipes)
 
 ### `shellcheck`
+
 - **Deps:** System install: `brew install shellcheck` (macOS) or `apt install shellcheck`
 - **Config:** `.shellcheckrc` (optional)
 - **Skill:** `engineering-team/shell-scripting`
 - **Note:** Runner script template at `engineering-team/shell-scripting/scripts/run-shellcheck.sh` — checks tool installed, exits 0 if no args, execs `shellcheck --severity=warning`. Copy to project `scripts/` and wire into lint-staged or Husky hook.
 
 ### `actionlint`
+
 - **Deps:** System install: `brew install actionlint` or `go install github.com/rhysd/actionlint/cmd/actionlint@latest`
 - **Config:** `.github/actionlint.yml` (optional — self-hosted runner labels, ShellCheck ignore codes)
 - **Skill:** `engineering-team/actionlint`
 - **Note:** Runner script template at `engineering-team/actionlint/scripts/run-actionlint.sh` — checks tool installed, exits 0 if no args, execs `actionlint`. Copy to project `scripts/` and wire into lint-staged or Husky hook. Actionlint also runs ShellCheck on `run:` steps when ShellCheck is installed.
 
 ### `tflint`
+
 - **Deps:** System install: `brew install tflint terraform`
 - **Config:** `.tflint.hcl`
 - **Skill:** `engineering-team/terraform-configuration`
 
 ### `hadolint`
+
 - **Deps:** System install: `brew install hadolint`
 - **Config:** `.hadolint.yaml` (optional)
 
 ### `vitest-typecheck`
+
 - **Deps:** `vitest` (already present)
 - **Config:** `vitest.config.ts` with `typecheck.enabled: true`
 - **Skill:** `engineering-team/vitest-configuration`
 
 ### `toml-lint`
+
 - **Deps:** System install: `brew install taplo` or `cargo install taplo-cli`
 - **Config:** `taplo.toml` (optional)
 
 ### `detect-secrets`
+
 - **Deps:** `pip install detect-secrets`
 - **Config:** `.secrets.baseline`
 
 ### `dependency-audit`
+
 - **Tier:** conditional
 - **Detection criteria:** Project has `package.json` (Node.js project with pnpm/npm/yarn)
 - **Deps:** None (built into pnpm/npm/yarn)
@@ -163,6 +185,7 @@ Structured reference of every Phase 0 check: what it does, when it applies, and 
 - **Note:** `--prod` skips devDependency advisories (less noise in CI). `--audit-level high` fails only on high/critical severity. Run after `pnpm install --frozen-lockfile` in CI. No additional devDependencies or config files needed.
 
 ### `mutation-testing`
+
 - **Tier:** conditional
 - **Detection criteria:** Project has 70%+ line coverage (check coverage reports or CI history) AND has modules identified as critical business logic
 - **Deps:** `@stryker-mutator/core`, `@stryker-mutator/vitest-runner`, `@stryker-mutator/typescript-checker`

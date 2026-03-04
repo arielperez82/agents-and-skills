@@ -198,11 +198,13 @@ Collaborate with **tdd-reviewer** when TDD methodology or test-first compliance 
 **Steps:**
 
 1. **Generate Unit Test Infrastructure** - Create Jest configuration and unit test scaffolding for existing components
+
    ```bash
    python3 ../skills/engineering-team/senior-qa/scripts/test_suite_generator.py --input ./src --output text --verbose
    ```
 
 2. **Review Generated Test Structure** - Verify test files created with appropriate naming conventions and patterns
+
    ```bash
    # Expected structure:
    # src/components/Button/Button.test.tsx
@@ -212,6 +214,7 @@ Collaborate with **tdd-reviewer** when TDD methodology or test-first compliance 
    ```
 
 3. **Configure Test Coverage Thresholds** - Set minimum coverage requirements in package.json or jest.config.js
+
    ```bash
    # Edit jest.config.js to add:
    # coverageThreshold: {
@@ -225,11 +228,13 @@ Collaborate with **tdd-reviewer** when TDD methodology or test-first compliance 
    ```
 
 4. **Setup E2E Test Framework** - Initialize Cypress or Playwright with page object patterns
+
    ```bash
    python3 ../skills/engineering-team/senior-qa/scripts/e2e_test_scaffolder.py --input ./ --config e2e-config.json --output text
    ```
 
 5. **Review E2E Test Structure** - Verify page objects, fixtures, and test specs created
+
    ```bash
    # Expected structure:
    # cypress/e2e/auth/login.cy.ts
@@ -239,6 +244,7 @@ Collaborate with **tdd-reviewer** when TDD methodology or test-first compliance 
    ```
 
 6. **Run Initial Test Suite** - Execute all tests to verify infrastructure working
+
    ```bash
    # Run unit tests with coverage
    npm run test:coverage
@@ -248,6 +254,7 @@ Collaborate with **tdd-reviewer** when TDD methodology or test-first compliance 
    ```
 
 7. **Integrate with CI/CD Pipeline** - Add GitHub Actions workflow for automated testing
+
    ```bash
    # E2E scaffolder generates .github/workflows/test.yml
    # Verify workflow includes:
@@ -259,6 +266,7 @@ Collaborate with **tdd-reviewer** when TDD methodology or test-first compliance 
    ```
 
 8. **Configure Test Reporting** - Setup coverage reports and test result dashboards
+
    ```bash
    # Add coverage reporting to CI/CD:
    # - Codecov integration
@@ -272,6 +280,7 @@ Collaborate with **tdd-reviewer** when TDD methodology or test-first compliance 
 **Time Estimate:** 2-3 hours for complete test infrastructure setup including configuration
 
 **Example:**
+
 ```bash
 # Complete workflow in one sequence
 python3 ../skills/engineering-team/senior-qa/scripts/test_suite_generator.py --input ./src --output text
@@ -288,6 +297,7 @@ git add . && git commit -m "test: initialize comprehensive test infrastructure"
 **Steps:**
 
 1. **Run Coverage Analysis** - Analyze current test coverage across entire codebase
+
    ```bash
    # Generate coverage report
    npm run test:coverage
@@ -297,6 +307,7 @@ git add . && git commit -m "test: initialize comprehensive test infrastructure"
    ```
 
 2. **Review Coverage Metrics** - Identify critical untested code paths
+
    ```bash
    cat coverage-analysis.json | jq '.untested_files[] | select(.criticality == "high")'
    # Expected output:
@@ -306,6 +317,7 @@ git add . && git commit -m "test: initialize comprehensive test infrastructure"
    ```
 
 3. **Prioritize Test Creation** - Reference testing strategies to prioritize test cases
+
    ```bash
    cat ../skills/engineering-team/senior-qa/references/testing_strategies.md | grep -A 20 "Risk-Based Prioritization"
    # Create priority list:
@@ -316,6 +328,7 @@ git add . && git commit -m "test: initialize comprehensive test infrastructure"
    ```
 
 4. **Create Test Plan Document** - Document test scope, strategy, and timeline
+
    ```bash
    # Create .docs/canonical/plans/plan-repo-test-<timeframe>.md (or add Test Strategy section to existing plan).
    # When the plan belongs to an initiative, include initiative + initiative_name in front matter (see .docs/AGENTS.md initiative naming).
@@ -328,6 +341,7 @@ git add . && git commit -m "test: initialize comprehensive test infrastructure"
    ```
 
 5. **Generate Test Cases for Critical Paths** - Create detailed test scenarios
+
    ```bash
    # For each critical untested module:
    python3 ../skills/engineering-team/senior-qa/scripts/test_suite_generator.py --input ./src/core/payment/PaymentProcessor.ts --output text
@@ -339,6 +353,7 @@ git add . && git commit -m "test: initialize comprehensive test infrastructure"
    ```
 
 6. **Implement High-Priority Tests** - Write tests for critical gaps first
+
    ```bash
    # Focus on:
    # 1. User authentication flow
@@ -351,6 +366,7 @@ git add . && git commit -m "test: initialize comprehensive test infrastructure"
    ```
 
 7. **Run E2E Test Coverage Analysis** - Identify missing E2E scenarios
+
    ```bash
    # Review user flows without E2E coverage:
    # - Authentication flows
@@ -362,6 +378,7 @@ git add . && git commit -m "test: initialize comprehensive test infrastructure"
    ```
 
 8. **Set Quality Gates** - Define minimum quality thresholds
+
    ```bash
    # Update package.json with quality scripts:
    # "quality-gate": "npm run test:coverage && npm run test:e2e && npm run lint"
@@ -371,6 +388,7 @@ git add . && git commit -m "test: initialize comprehensive test infrastructure"
    ```
 
 9. **Re-analyze After Test Implementation** - Verify coverage improvements
+
    ```bash
    npm run test:coverage
    python3 ../skills/engineering-team/senior-qa/scripts/coverage_analyzer.py --input ./coverage/coverage-final.json --output json --file coverage-analysis-after.json
@@ -384,6 +402,7 @@ git add . && git commit -m "test: initialize comprehensive test infrastructure"
 **Time Estimate:** 4-6 hours for initial analysis and test plan creation; 1-2 weeks for full test implementation depending on codebase size
 
 **Example:**
+
 ```bash
 # Quick test gap analysis workflow
 npm run test:coverage
@@ -398,11 +417,13 @@ grep -A 5 "Critical Gaps" gaps.txt
 **Steps:**
 
 1. **Review Regression Testing Patterns** - Reference best practices for regression test design
+
    ```bash
    cat ../skills/engineering-team/senior-qa/references/test_automation_patterns.md | grep -A 30 "Regression Testing"
    ```
 
 2. **Identify Critical User Journeys** - Map user flows requiring regression coverage
+
    ```bash
    # Critical flows to test:
    # 1. User registration and login
@@ -415,6 +436,7 @@ grep -A 5 "Critical Gaps" gaps.txt
    ```
 
 3. **Setup Visual Regression Testing** - Configure screenshot comparison tests
+
    ```bash
    # Install visual regression dependencies
    npm install --save-dev @percy/cli @percy/cypress
@@ -426,6 +448,7 @@ grep -A 5 "Critical Gaps" gaps.txt
    ```
 
 4. **Create Baseline Screenshots** - Generate baseline images for comparison
+
    ```bash
    # Run E2E tests to capture baselines
    npm run test:e2e -- --update-snapshots
@@ -437,6 +460,7 @@ grep -A 5 "Critical Gaps" gaps.txt
    ```
 
 5. **Implement API Regression Tests** - Create contract tests for API endpoints
+
    ```bash
    # Create API test suite testing:
    # - Response structure (schema validation)
@@ -449,6 +473,7 @@ grep -A 5 "Critical Gaps" gaps.txt
    ```
 
 6. **Configure Test Data Management** - Setup test data fixtures and factories
+
    ```bash
    # Reference test automation patterns for data management
    cat ../skills/engineering-team/senior-qa/references/test_automation_patterns.md | grep -A 20 "Test Data Management"
@@ -461,6 +486,7 @@ grep -A 5 "Critical Gaps" gaps.txt
    ```
 
 7. **Setup Parallel Test Execution** - Configure tests to run concurrently
+
    ```bash
    # Configure Cypress parallel execution
    # cypress.config.ts:
@@ -478,6 +504,7 @@ grep -A 5 "Critical Gaps" gaps.txt
    ```
 
 8. **Implement Flaky Test Detection** - Add retry logic and flakiness tracking
+
    ```bash
    # Configure test retries in CI:
    # - Retry failed tests 2x
@@ -489,6 +516,7 @@ grep -A 5 "Critical Gaps" gaps.txt
    ```
 
 9. **Create Regression Test Suite** - Organize tests into regression-specific suite
+
    ```bash
    # Tag tests for regression runs:
    # describe.concurrent('Regression: User Authentication', () => {...})
@@ -498,6 +526,7 @@ grep -A 5 "Critical Gaps" gaps.txt
    ```
 
 10. **Setup Continuous Regression Monitoring** - Integrate regression suite into CI/CD
+
     ```bash
     # Configure GitHub Actions to run regression suite:
     # - On every PR
@@ -509,6 +538,7 @@ grep -A 5 "Critical Gaps" gaps.txt
     ```
 
 11. **Configure Test Reporting Dashboard** - Setup test result visualization
+
     ```bash
     # Integrate test reporting:
     # - Allure reports for test results
@@ -524,6 +554,7 @@ grep -A 5 "Critical Gaps" gaps.txt
 **Time Estimate:** 6-10 hours for initial regression suite setup; 30-60 minutes per regression run in CI/CD
 
 **Example:**
+
 ```bash
 # Quick regression test execution
 npm run test:regression
@@ -542,6 +573,7 @@ npm run test:regression
 **Steps:**
 
 1. **Define Key Quality Metrics** - Establish metrics to track
+
    ```bash
    # Key Metrics:
    # 1. Test Coverage (line, branch, function)
@@ -554,6 +586,7 @@ npm run test:regression
    ```
 
 2. **Setup Automated Coverage Tracking** - Configure continuous coverage monitoring
+
    ```bash
    # Run coverage analysis on every commit
    npm run test:coverage
@@ -565,6 +598,7 @@ npm run test:regression
    ```
 
 3. **Track Test Execution Metrics** - Monitor test performance over time
+
    ```bash
    # Capture test execution times
    npm test -- --json --outputFile=test-results.json
@@ -578,6 +612,7 @@ npm run test:regression
    ```
 
 4. **Identify Flaky Tests** - Track and remediate unreliable tests
+
    ```bash
    # Run tests multiple times to detect flakiness
    for i in {1..5}; do
@@ -589,6 +624,7 @@ npm run test:regression
    ```
 
 5. **Setup Quality Gate Automation** - Configure automated quality checks in CI/CD
+
    ```bash
    # Create quality-gate.sh script:
    #!/bin/bash
@@ -608,6 +644,7 @@ npm run test:regression
    ```
 
 6. **Create Quality Metrics Dashboard** - Visualize metrics over time
+
    ```bash
    # Generate HTML dashboard:
    # - Coverage trends (line chart)
@@ -621,6 +658,7 @@ npm run test:regression
    ```
 
 7. **Configure Automated Reporting** - Setup scheduled quality reports
+
    ```bash
    # GitHub Actions scheduled workflow for weekly quality report:
    # .github/workflows/quality-report.yml
@@ -636,11 +674,13 @@ npm run test:regression
    ```
 
 8. **Review QA Best Practices** - Ensure metrics align with industry standards
+
    ```bash
    cat ../skills/engineering-team/senior-qa/references/qa_best_practices.md | grep -A 40 "Quality Metrics"
    ```
 
 9. **Implement Continuous Improvement Process** - Use metrics to drive quality improvements
+
    ```bash
    # Weekly review process:
    # 1. Review quality metrics dashboard
@@ -654,6 +694,7 @@ npm run test:regression
    ```
 
 10. **Benchmark Against Historical Data** - Compare current quality with past performance
+
     ```bash
     # Generate trend reports
     python3 ../skills/engineering-team/senior-qa/scripts/coverage_analyzer.py --input ./metrics/coverage/*.json --output csv --file coverage-trends.csv
@@ -670,6 +711,7 @@ npm run test:regression
 **Time Estimate:** 4-6 hours for initial metrics dashboard setup; 15-30 minutes per week for quality review and improvement planning
 
 **Example:**
+
 ```bash
 # Weekly quality metrics generation
 npm run test:coverage
@@ -1075,21 +1117,25 @@ echo "📝 Open report: open $REPORT_DIR/quality-report.html"
 ## Success Metrics
 
 **Test Coverage:**
+
 - Line Coverage: 80%+ across codebase (90%+ for critical paths)
 - Branch Coverage: 75%+ for decision logic
 - Function Coverage: 85%+ for all functions
 
 **Quality Assurance:**
+
 - Test Automation Rate: 90%+ of test cases automated
 - Defect Escape Rate: < 5% of bugs reach production
 - Test Pass Rate: 98%+ tests passing consistently
 
 **Development Efficiency:**
+
 - Time to Quality Gate: Quality checks complete in < 5 minutes
 - PR Review Time: 30-40% reduction with automated checks
 - Test automation increases feature velocity by 25-35%
 
 ### Quality Coverage Metrics
+
 - **Line Coverage:** 80%+ across entire codebase (target 90%+ for critical paths)
 - **Branch Coverage:** 75%+ for decision logic (target 85%+ for complex business logic)
 - **Function Coverage:** 85%+ for all functions (100% for public APIs)
@@ -1097,6 +1143,7 @@ echo "📝 Open report: open $REPORT_DIR/quality-report.html"
 - **Critical Path Coverage:** 100% coverage for authentication, payment, data persistence flows
 
 ### Test Automation Metrics
+
 - **Test Automation Rate:** 90%+ of test cases automated (vs manual testing)
 - **E2E Test Coverage:** 100% of critical user journeys covered by automated E2E tests
 - **Test Suite Size:** Appropriate test distribution (70% unit, 20% integration, 10% E2E)
@@ -1104,6 +1151,7 @@ echo "📝 Open report: open $REPORT_DIR/quality-report.html"
 - **Test Execution Time:** Full test suite completes in < 10 minutes for CI/CD efficiency
 
 ### Code Quality Metrics
+
 - **Test Pass Rate:** 98%+ tests passing consistently (target 100% for production)
 - **Flaky Test Rate:** < 2% of tests exhibiting flakiness (track and fix flaky tests)
 - **Test Maintainability:** Page Object Model pattern reduces E2E test maintenance by 40%
@@ -1111,6 +1159,7 @@ echo "📝 Open report: open $REPORT_DIR/quality-report.html"
 - **Regression Prevention:** 95%+ of past bugs prevented by regression test suite
 
 ### Development Efficiency Metrics
+
 - **Time to Quality Gate:** Quality checks complete in < 5 minutes (unit + lint)
 - **PR Review Time:** 30-40% reduction with automated quality checks
 - **Bug Detection Speed:** Issues identified in CI/CD vs production (90%+ caught pre-merge)
@@ -1118,6 +1167,7 @@ echo "📝 Open report: open $REPORT_DIR/quality-report.html"
 - **Onboarding Speed:** New developers productive in < 2 days with clear test patterns
 
 ### Continuous Improvement Metrics
+
 - **Quality Trend:** Week-over-week quality score improvements tracked
 - **Coverage Trend:** Coverage increasing or stable (never decreasing without justification)
 - **Velocity Impact:** Test automation increases feature velocity by 25-35%

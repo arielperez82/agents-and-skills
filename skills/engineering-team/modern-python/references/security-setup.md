@@ -84,6 +84,7 @@ Catches common shell scripting errors: unquoted variables, undefined variables, 
 ```
 
 Common findings:
+
 - `SC2086`: Unquoted variable expansion (word splitting risk)
 - `SC2046`: Unquoted command substitution
 - `SC2155`: Declare and assign separately to avoid masking return values
@@ -145,6 +146,7 @@ actionlint .github/workflows/
 ```
 
 Common findings:
+
 - Invalid event triggers
 - Undefined workflow inputs
 - Shell syntax errors in `run:` blocks
@@ -188,6 +190,7 @@ permissions:
 ```
 
 Common findings:
+
 - `excessive-permissions`: No `permissions:` block
 - `template-injection`: Using `${{ github.event.* }}` unsafely
 - `unpinned-action`: Actions not pinned to SHA

@@ -195,6 +195,7 @@ Stop and wait for input.
 ### 2. Generate Initiative ID
 
 Derive an initiative ID in `I<nn>-<ACRONYM>` format from the goal:
+
 - `<nn>`: Next sequential number. Check `.docs/canonical/` for existing initiative IDs and increment.
 - `<ACRONYM>`: 3-5 letter acronym from the goal's key noun/verb (e.g., "Add physics simulation" -> `PHYS`, "Build webhook system" -> `WHOOK`).
 
@@ -341,6 +342,7 @@ For each phase: update status to `in_progress` and record `started_at`, run prec
 Optionally pull in `ux-researcher` (if goal involves user-facing changes), `cto-advisor` (if goal has significant technical strategy implications), or `architect` (if feasibility depends on technical architecture).
 
 **Prompt for researcher:**
+
 ```
 Research the following goal thoroughly:
 
@@ -358,6 +360,7 @@ Save the report to: .docs/reports/researcher-{date}-{subject}.md
 ```
 
 **Prompt for product-director:**
+
 ```
 Evaluate the following goal from a strategic value and prioritization perspective:
 
@@ -380,6 +383,7 @@ Include your assessment in the research report or save separately to:
 ```
 
 **Prompt for claims-verifier (runs after all Phase 0 agents complete):**
+
 ```
 Verify the external claims in all Phase 0 artifacts:
 
@@ -403,6 +407,7 @@ Save to: .docs/reports/claims-verifier-{date}-{subject}.md
 ```
 
 **If verifier verdict is FAIL:** Trigger Clarify loop — send the Verification Failure blocks back to each **originating agent** with:
+
 ```
 Your Phase 0 artifact has unverified claims that block the gate.
 
@@ -420,6 +425,7 @@ Save the updated artifact to the same path.
 After originating agent(s) update, dispatch `claims-verifier` again (Workflow 2: re-verify). Max 1 Clarify round. If still FAIL, mandatory human pause.
 
 **Optional agents (engage when the goal warrants it):**
+
 - `ux-researcher` — When the goal involves user-facing changes, research user needs and validate assumptions.
 - `cto-advisor` — When the goal has broad technical strategy implications (new platforms, major architectural shifts, build vs. buy).
 - `architect` — When feasibility depends on technical architecture and you need early "art of the possible" input.
@@ -438,12 +444,14 @@ After claims-verifier completes, evaluate whether a Discovery Panel is warranted
 5. **Status recording:** Record `panel_invoked: true/false` and `panel_artifact_path` (if invoked) in the Phase 0 entry.
 
 **Output artifacts:**
+
 - `.docs/reports/researcher-{date}-{subject}.md` (research report)
 - `.docs/reports/claims-verifier-{date}-{subject}.md` (verification report)
 - Any additional assessment reports (strategic, UX, architecture)
 - `.docs/canonical/assessments/assessment-{endeavor}-discovery-panel-{date}.md` (conditional — only when panel invoked)
 
 **Gate behavior:** This phase's gate is special — it includes a go/no-go recommendation and a research verification verdict. Present the research findings, strategic assessment, **and verification verdict**, then offer the standard gate options plus:
+
 - **Refine** — Accept the recommendation to change the goal. The human provides a refined goal, and the session restarts with the new goal (status file updated).
 - **Override** — Proceed despite a "don't pursue" recommendation. Record the override rationale in the status file.
 
@@ -458,6 +466,7 @@ After Phase 0 is approved, classify the initiative's complexity tier. This class
 **When:** After Phase 0 gate approval, before Phase 1 begins.
 
 **Inputs:**
+
 - `scope_type` — docs-only, code, or mixed (from goal analysis or Scope Detection)
 - `step_count` — estimated number of plan steps (from Phase 0 research)
 - `domain_count` — number of distinct technical domains touched
@@ -474,11 +483,13 @@ After Phase 0 is approved, classify the initiative's complexity tier. This class
 | Trivial | None of the above | (none) |
 
 **Rules:**
+
 - Docs-heavy initiatives with 2+ downstream consumers MUST classify as Light or higher (never Trivial)
 - Skills, commands, and agents are docs-heavy artifacts — they are consumed by agents and users and deserve panel review proportional to their blast radius
 - `downstream_consumer_count` is a primary classification input alongside `step_count` — blast radius matters as much as effort
 
 **Orchestrator behavior:**
+
 1. After Phase 0 approval, evaluate the classification inputs
 2. Present the recommended tier to the user: `"Complexity classification: {tier} (reason: {criteria matched}). Confirm or override?"`
 3. User confirms or provides an override tier with rationale
@@ -511,6 +522,7 @@ Events are queryable by `initiative_id`, `phase`, and `outcome` through existing
 **Agents:** `product-analyst` (first), then `acceptance-designer` (sequential — second agent needs output from first). The `product-director` is available for escalation if the product-analyst is uncertain about prioritization.
 
 **Prompt for product-analyst:**
+
 ```
 Analyze the research report and goal to produce a charter for this initiative.
 
@@ -538,6 +550,7 @@ Save to: .docs/canonical/charters/charter-{endeavor}-{initiative-id}-{subject}.m
 ```
 
 **Prompt for acceptance-designer:**
+
 ```
 Design BDD Given-When-Then scenarios from the charter's user stories.
 
@@ -577,6 +590,7 @@ After acceptance-designer completes, evaluate `complexity_tier` against the tier
 5. **Status recording:** Record `panel_invoked: true/false` and `panel_artifact_path` (if invoked) in the Phase 1 entry.
 
 **Output artifacts:**
+
 - `.docs/canonical/charters/charter-{endeavor}-{initiative-id}-{subject}.md` (with user stories, acceptance criteria, BDD scenarios)
 - `.docs/canonical/roadmaps/roadmap-{endeavor}-{initiative-id}-{subject}-{year}.md`
 - `.docs/canonical/assessments/assessment-{endeavor}-requirements-panel-{date}.md` (conditional — only when panel invoked)
@@ -592,6 +606,7 @@ After acceptance-designer completes, evaluate `complexity_tier` against the tier
 **Agents:** `architect` (first), then `adr-writer` (sequential — ADRs reference the architecture). The architect should proactively pull in domain specialists as needed.
 
 **Prompt for architect:**
+
 ```
 Produce an architecture design and backlog for the following initiative.
 
@@ -636,6 +651,7 @@ Save the backlog to: .docs/canonical/backlogs/backlog-{endeavor}-{initiative-id}
 ```
 
 **Prompt for adr-writer:**
+
 ```
 Review the backlog and architecture design, then create ADRs for each significant decision.
 
@@ -654,6 +670,7 @@ Use sequential numbering (001, 002, ...).
 ```
 
 **ADR writer resilience:** The `adr-writer` is a secondary agent in this phase — the backlog is the critical artifact. If the `adr-writer` fails (rate limits, dispatch errors, context overflow):
+
 1. Check for existing ADRs in `.docs/canonical/adrs/` that already cover the initiative's decisions. Scope narrowings, deferrals, and refinements of existing decisions do not need new ADRs.
 2. If existing ADRs are sufficient, proceed without re-running the `adr-writer`. Note this in the Phase Log.
 3. If new ADRs are genuinely needed, retry once. If the retry fails, proceed with the backlog and flag "ADRs pending" in the status file — they can be written in Phase 6 (Close) or as a follow-up.
@@ -675,6 +692,7 @@ After architect and adr-writer complete, evaluate `complexity_tier` against the 
 6. **Trivial tier:** No panel offered. Skip checkpoint silently.
 
 **Output artifacts:**
+
 - `.docs/canonical/backlogs/backlog-{endeavor}-{initiative-id}-{subject}.md`
 - `.docs/canonical/adrs/{initiative-id}-*.md`
 - `.docs/canonical/assessments/assessment-{endeavor}-design-panel-{date}.md` (conditional — only when panel invoked)
@@ -690,6 +708,7 @@ After architect and adr-writer complete, evaluate `complexity_tier` against the 
 **Agent:** `implementation-planner`. Should consult `senior-project-manager` for sequencing and phasing expertise.
 
 **Prompt:**
+
 ```
 Produce a step-by-step implementation plan from the backlog.
 
@@ -750,6 +769,7 @@ After implementation-planner completes, evaluate `complexity_tier`. If Strategic
 5. **Status recording:** Record `panel_invoked: true/false` and `panel_artifact_path` (if invoked) in the Phase 3 entry.
 
 **Output artifacts:**
+
 - `.docs/canonical/plans/plan-{endeavor}-{initiative-id}-{subject}.md`
 - `.docs/canonical/assessments/assessment-{endeavor}-plan-review-panel-{date}.md` (conditional — only when panel invoked)
 
@@ -806,6 +826,7 @@ If the goal text clearly indicates docs-only work (contains "update", "document"
 **If the orchestrator must write files on behalf of a subagent** (due to permission constraints), it should do so immediately after the subagent returns content, before dispatching the next step.
 
 **Prompt per step (template):**
+
 ```
 Execute plan step [N] using subagent-driven development.
 
@@ -911,6 +932,7 @@ Options:
 In auto-mode, option (a) is selected automatically. If `/compact` is not available or fails, option (b) is recommended with a handoff snapshot already written.
 
 **Signals to track** (reset per step, accumulate per phase):
+
 - `messages`: count of conversation turns since last snapshot or session start
 - `tool_calls`: count of tool invocations (Read, Edit, Write, Bash, Agent, etc.)
 - `files_read`: count of distinct files read (weighted higher — each file adds significant context)
@@ -921,6 +943,7 @@ In auto-mode, option (a) is selected automatically. If `/compact` is not availab
 Write compact handoff snapshots to the status file at step and phase boundaries. These snapshots enable efficient session resumption when context is exhausted or a new conversation starts.
 
 **When to write:**
+
 - After each Phase 4 step commit (mandatory)
 - After each phase gate decision, before the phase commit (mandatory)
 - When context budget estimation exceeds 50% (automatic — see Context Budget Protocol)
@@ -985,6 +1008,7 @@ This index enables `/craft:resume` to locate the most recent snapshot without pa
 **Command:** `/review/review-changes`
 
 **Execution:**
+
 ```
 Run /review/review-changes on the diff between the pre-Phase-4 commit and HEAD.
 
@@ -1011,11 +1035,13 @@ Present the collated tier summary to the human.
 **Output artifact:** Review summary (presented inline, not saved to file unless the user requests it).
 
 **Operational completeness check:** After the code-quality Final Sweep, run an operational completeness check:
+
 - If MEMORY.md or project docs contain a "Definition of Done" checklist for the artifact type being built, validate the deliverables against that checklist.
 - Common items: CI workflow includes new packages, CD workflow includes new deployables, infrastructure modules exist or are tracked as deferred, token/secret sync scripts updated.
 - This is separate from the code-reviewer's quality analysis — it covers deployment readiness, not code quality.
 
 **Gate behavior:** The gate for this phase operates on the review results:
+
 - If there are Fix Required findings: fix the issues, commit the fixes via `/git/cm`, then re-run the Final Sweep.
 - When Fix Required findings specify exact values (coverage thresholds, config settings, etc.), the fix must implement the reviewer's EXACT recommended values. After applying fixes, verify: diff the applied fix against the reviewer's recommendation to confirm they match. A fix that "makes tests pass" but diverges from the reviewer's specific guidance is not resolved.
 - If only Suggestions/Observations, recommend **Approve**.
@@ -1042,6 +1068,7 @@ Capture `reportPath` from the stdout JSON. Store as `<efficiency-report-path>`. 
 **Agents:** `product-director`, `senior-project-manager`, `learner`, `progress-assessor`, `docs-reviewer` (run in parallel — no dependencies between them).
 
 **Prompt for product-director:**
+
 ```
 Perform Charter Delivery Acceptance for this initiative.
 
@@ -1086,6 +1113,7 @@ Report: reconciliation table + verdict + scope additions (if any) + roadmap reco
 ```
 
 **Prompt for senior-project-manager:**
+
 ```
 Perform Project Closure & Deviation Audit for this initiative.
 
@@ -1125,6 +1153,7 @@ Report: deviation list (with documented/approved status) + process health verdic
 ```
 
 **Prompt for learner:**
+
 ```
 Review the complete craft session and capture learnings.
 
@@ -1161,6 +1190,7 @@ as "Process improvement candidates" for the craft command maintainer.
 ```
 
 **Prompt for progress-assessor:**
+
 ```
 Verify document tracking completeness for the craft session.
 
@@ -1182,6 +1212,7 @@ Report: pass/fail with details.
 ```
 
 **Prompt for docs-reviewer:**
+
 ```
 Review and update documentation for the completed initiative.
 
@@ -1229,6 +1260,7 @@ Before starting each phase, verify that required artifacts from prior phases exi
 
 **Agent dispatch failure:**
 Report the error clearly and offer three options:
+
 - **Retry** — Run the agent again.
 - **Skip** — Skip this agent (if the phase has multiple agents, continue with the rest).
 - **Abort** — Stop the entire craft session (status saved for later resume).
@@ -1241,6 +1273,7 @@ If a phase has multiple sequential agents and one fails, the artifacts from comp
 ## Status File Updates
 
 Update the status file at every state transition:
+
 - Phase start: `status: in_progress`, `started_at: <now>`. Also append `$CLAUDE_SESSION_ID` (from the `CLAUDE_SESSION_ID` environment variable) to the top-level `session_ids` array if not already present.
 - Phase complete: `status: <decision>`, `completed_at: <now>`, `human_decision: <decision>`, `feedback: <if rejected>`
 - Artifact produced: Append path to `artifact_paths`
@@ -1307,6 +1340,7 @@ Append structured entries to an `## Audit Log` section in the status file markdo
 ```
 
 **Rules:**
+
 - Keep entries concise — the learner extracts patterns, not raw transcripts
 - Always log Rejects, Clarifies, and Auto-Approves — never skip
 - Approvals and Skips in interactive mode don't need audit entries (they're already in the Phase Log)

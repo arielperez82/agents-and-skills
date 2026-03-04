@@ -5,6 +5,7 @@
 ## Expert Panel: ECL Assay Troubleshooting
 
 **Panel Members:**
+
 - Dr. Michael Rodriguez, Assay Scientist
 - Dr. Lisa Wang, Systems Thinker
 - Tom Anderson, Five Whys Facilitator
@@ -32,6 +33,7 @@ Serum introduces matrix complexity that buffer doesn't have. Three primary hypot
    - Expected: If one cytokine drives background, it's cross-reactivity
 
 **Critical Missing Data:**
+
 - Serum dilution curve (1:2, 1:4, 1:10)?
 - Blocking buffer composition?
 - Background pattern across plate (uniform vs edge effects)?
@@ -50,6 +52,7 @@ High background → Lower signal-to-noise → Push detection sensitivity up
 ```
 
 **Interconnections to Map:**
+
 1. **Sample prep → Blocking → Detection**: Are we optimizing these in isolation or as a system?
 2. **Plate coating → Capture antibody density → Non-specific binding sites**: High capture density increases specific signal but also increases non-specific binding sites
 3. **Detection antibody concentration → Signal vs Background ratio**: There's usually an optimal concentration window
@@ -57,11 +60,13 @@ High background → Lower signal-to-noise → Push detection sensitivity up
 **Emergence Observation:** Multiplex assays show non-linear behavior. Background in multiplex ≠ sum of single-plex backgrounds because antibodies can interact.
 
 **Leverage Points:**
+
 - **Highest leverage**: Sample dilution (reduces matrix effect exponentially)
 - **Medium leverage**: Blocking optimization (linear improvement)
 - **Lowest leverage**: Detection antibody concentration (narrow window)
 
 **System Hypothesis:** You're likely in a "Limits to Growth" archetype—pushing sensitivity hits fundamental matrix limitations. The system wants you to either:
+
 1. Dilute samples more (accept lower sensitivity)
 2. Reduce matrix interference (pre-treatment)
 
@@ -91,11 +96,13 @@ High background → Lower signal-to-noise → Push detection sensitivity up
 → Incubation conditions (time, temperature, agitation) may favor displacement if serum proteins have higher affinity than blocker.
 
 **Diagnostic Tests:**
+
 1. Extend blocking time: 2hr → 4hr (tests if coverage is incomplete)
 2. Add blocking agent to sample diluent (prevents displacement)
 3. Reduce sample incubation time (less time for displacement)
 
 **Causal Chain:**
+
 ```
 Serum proteins → Compete with blocker → Bind to plate/antibodies → 
 Non-specific detection antibody binding → ECL background
@@ -107,15 +114,17 @@ Non-specific detection antibody binding → ECL background
 
 ## Round 2: Cross-Examination
 
-### Dr. Rodriguez responds to Dr. Wang:
+### Dr. Rodriguez responds to Dr. Wang
 
-Lisa's **reinforcing feedback loop** insight is critical—I've been focused on individual variables, not the system dynamics. 
+Lisa's **reinforcing feedback loop** insight is critical—I've been focused on individual variables, not the system dynamics.
 
 Building on her point: If we're in a "Limits to Growth" archetype, we need to **identify the limiting factor**:
+
 - Is it the assay's fundamental sensitivity limit?
 - Or is it matrix interference we can engineer around?
 
 **Connecting to my hypothesis**: Her leverage point analysis suggests I should prioritize:
+
 1. **Highest impact**: Increase sample dilution (1:2 → 1:4 or 1:10)
 2. **Second priority**: Optimize blocking
 3. **Avoid**: Increasing detection antibody concentration (low leverage, could worsen feedback loop)
@@ -123,15 +132,17 @@ Building on her point: If we're in a "Limits to Growth" archetype, we need to **
 **Challenge to Tom's causal chain**: His "displacement" hypothesis is testable and elegant. If true, adding BSA to sample diluent is a simple fix. But **alternative hypothesis**: What if the issue is ECL substrate interaction with serum lipids, not antibody binding? That wouldn't show displacement dynamics.
 
 **Proposed test to differentiate**:
+
 - Run assay with streptavidin-HRP (no antibodies) on blocked plates with serum → If background persists, it's ECL chemistry interference, not antibody binding.
 
 ---
 
-### Dr. Wang responds to Tom:
+### Dr. Wang responds to Tom
 
 Tom's **Five Whys** landed on "blocker displacement," which is mechanistically sound, but I want to **question the boundary conditions**:
 
 The "Limits to Growth" archetype suggests there's a **balancing feedback** that will kick in:
+
 ```
 Increase sample dilution → Lower matrix interference → Better S/N → 
 BUT: Lower analyte concentration → Weaker signal → Worse S/N
@@ -140,10 +151,12 @@ BUT: Lower analyte concentration → Weaker signal → Worse S/N
 So there's a **sweet spot**. Tom's countermeasure (add blocker to diluent) might shift that sweet spot, but won't eliminate the fundamental tension.
 
 **Integration with Michael's work**: His streptavidin-HRP control test will tell us if we're dealing with:
+
 - **Binding problem** (Tom's displacement) → Blocker in diluent fixes it
 - **Chemistry problem** (ECL interference) → Need different approach (substrate change, lipid removal pre-treatment)
 
 **System-level recommendation**: Don't optimize variables sequentially. Run a **factorial experiment**:
+
 - Sample dilution: 1:2, 1:4, 1:10
 - Blocker in diluent: Yes/No
 - Measure both signal and background
@@ -152,13 +165,14 @@ This maps the system behavior space rather than chasing one causal chain.
 
 ---
 
-### Tom responds to Dr. Rodriguez:
+### Tom responds to Dr. Rodriguez
 
 Michael's **streptavidin-HRP control** is brilliant—it's a classic root cause isolation technique. Cut out antibody variables entirely.
 
 But I want to **push back on the experimental complexity**. Lisa's factorial experiment is thorough but requires 6+ plates. For troubleshooting, I prefer:
 
 **Sequential elimination with minimal experiments**:
+
 1. **Test 1**: Add BSA to sample diluent (tests my displacement hypothesis)
    - If background drops → Root cause confirmed, move to optimization
    - If no change → Move to test 2
@@ -171,6 +185,7 @@ But I want to **push back on the experimental complexity**. Lisa's factorial exp
 **However**, I agree with Lisa's point about the "sweet spot." Once we identify root cause, we **should** run the factorial to optimize rather than tune variables one at a time.
 
 **Synthesis proposal**:
+
 - Phase 1 (Diagnosis): Sequential tests (my approach)
 - Phase 2 (Optimization): Factorial design (Lisa's approach)
 
@@ -178,7 +193,7 @@ But I want to **push back on the experimental complexity**. Lisa's factorial exp
 
 ## Round 3: Convergence
 
-### Dr. Rodriguez (Assay Scientist):
+### Dr. Rodriguez (Assay Scientist)
 
 **Consensus emerging**: We've triangulated on a **diagnostic workflow** that combines our perspectives:
 
@@ -190,16 +205,18 @@ But I want to **push back on the experimental complexity**. Lisa's factorial exp
 2. **Optimization phase** (Lisa's system approach): Factorial design on sample dilution × blocker concentration once mechanism is confirmed
 
 **Addressing Lisa's feedback loop concern**: You're right that we can't eliminate the signal-vs-matrix tradeoff. But **reframing the goal**: We want S/N > 10 for lowest analyte concentration. That means:
+
 - 1:4 dilution with optimized blocking is likely optimal
 - Accept that we can't run serum at 1:2 dilution for this multiplex
 
 ---
 
-### Dr. Wang (Systems Thinker):
+### Dr. Wang (Systems Thinker)
 
 **Agreement with convergence**, but adding a **systems safeguard**:
 
 Tom and Michael's workflow is sound, but we need to **monitor for unintended consequences**:
+
 - Increasing blocker in diluent might increase viscosity → worse mixing → inconsistent results
 - Higher dilution reduces matrix effects but also reduces dynamic range → check if that impacts customer use cases
 
@@ -207,19 +224,22 @@ Tom and Michael's workflow is sound, but we need to **monitor for unintended con
 
 ---
 
-### Tom (Five Whys Facilitator):
+### Tom (Five Whys Facilitator)
 
 **Full agreement**. Final workflow:
 
 **Phase 1: Root Cause Confirmation** (1-2 days)
+
 - Test blocker-in-diluent modification
 - If inconclusive, run streptavidin control
 
 **Phase 2: Optimization** (3-5 days)
+
 - Factorial experiment: dilution × blocker concentration
 - Measure signal, background, CV% across 3 customer serum pools
 
 **Phase 3: Validation** (1 week)
+
 - Run optimized protocol with customer samples
 - Monitor for Lisa's unintended consequences (viscosity, dynamic range)
 
@@ -240,6 +260,7 @@ Tom and Michael's workflow is sound, but we need to **monitor for unintended con
 **Validation (Phase 3):** Pilot optimized protocol with diverse customer serum samples, monitoring for unintended consequences (viscosity effects, dynamic range limitations).
 
 **Decision Framework:**
+
 - If optimized protocol achieves S/N > 10 → Implement new SOP
 - If S/N remains < 10 → Escalate to assay redesign (different antibody pairs or sample pre-treatment)
 

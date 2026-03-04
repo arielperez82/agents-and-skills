@@ -16,12 +16,14 @@ Refactoring is the third step of TDD. After GREEN, assess if refactoring adds va
 ### Commit Before Refactoring - WHY
 
 Having a working baseline before refactoring:
+
 - Allows reverting if refactoring breaks things
 - Provides safety net for experimentation
 - Makes refactoring less risky
 - Shows clear separation in git history
 
 **Workflow:**
+
 1. GREEN: Tests pass
 2. COMMIT: Save working code
 3. REFACTOR: Improve structure
@@ -39,11 +41,13 @@ Having a working baseline before refactoring:
 ## DRY = Knowledge, Not Code
 
 **Abstract when**:
+
 - Same business concept (semantic meaning)
 - Would change together if requirements change
 - Obvious why grouped together
 
 **Keep separate when**:
+
 - Different concepts that look similar (structural)
 - Would evolve independently
 - Coupling would be confusing
@@ -96,6 +100,7 @@ If code isn't driven by a failing test, don't write it.
 **Key lesson**: Every line must have a test that demanded its existence.
 
 ❌ **Speculative code examples:**
+
 - "Just in case" logic
 - Features not yet needed
 - Code written "for future flexibility"

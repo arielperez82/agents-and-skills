@@ -25,6 +25,7 @@ VERY IMPORTANT: To avoid what is often referred to as "AI slop", avoid using exc
 ### Step 1: Initialize Project
 
 Run the initialization script to create a new React project:
+
 ```bash
 bash scripts/init-artifact.sh <project-name>
 cd <project-name>
@@ -47,6 +48,7 @@ To build the artifact, edit the generated files. See **Common Development Tasks*
 ### Step 3: Bundle to Single HTML File
 
 To bundle the React app into a single HTML artifact:
+
 ```bash
 bash scripts/bundle-artifact.sh
 ```
@@ -56,6 +58,7 @@ This creates `bundle.html` - a self-contained artifact with all JavaScript, CSS,
 **Requirements**: Your project must have an `index.html` in the root directory.
 
 **What the script does**:
+
 - Installs bundling dependencies (parcel, @parcel/config-default, parcel-resolver-tspaths, html-inline)
 - Creates `.parcelrc` config with path alias support
 - Builds with Parcel (no source maps)
@@ -73,4 +76,4 @@ To test/visualize the artifact, use available tools (including other Skills or b
 
 ## Reference
 
-- **shadcn/ui components**: https://ui.shadcn.com/docs/components
+- **shadcn/ui components**: <https://ui.shadcn.com/docs/components>

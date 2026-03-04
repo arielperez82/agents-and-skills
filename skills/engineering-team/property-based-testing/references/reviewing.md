@@ -129,17 +129,20 @@ def test_no_deadline(x): ...  # Could timeout
 Search using library-specific patterns:
 
 **Python/Hypothesis:**
+
 ```bash
 rg "@given\(" --type py
 rg "from hypothesis import" --type py
 ```
 
 **JavaScript/fast-check:**
+
 ```bash
 rg "fc\.(assert|property)" --type js --type ts
 ```
 
 **Rust/proptest:**
+
 ```bash
 rg "proptest!" --type rust
 ```
@@ -192,6 +195,7 @@ To verify test_sort catches bugs:
 ## Quality Checklist
 
 For each test, verify:
+
 - [ ] Not tautological (assertion doesn't compare same expression)
 - [ ] Strong assertion (not just "no crash")
 - [ ] Not vacuous (inputs not over-filtered)

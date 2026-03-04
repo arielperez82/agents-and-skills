@@ -135,7 +135,7 @@ Automation scripts for common NocoDB operations:
 
 ## NocoDB Documentation
 
-**Official Documentation:** https://nocodb.com/docs
+**Official Documentation:** <https://nocodb.com/docs>
 
 **Key Documentation Sections:**
 
@@ -212,6 +212,6 @@ docker exec nocodb_metadata pg_dump -U nocodb nocodb_meta > backups/nocodb-metad
 
 ## Resources
 
-- **NocoDB Documentation:** https://nocodb.com/docs
-- **NocoDB GitHub:** https://github.com/nocodb/nocodb
-- **Supabase Documentation:** https://supabase.com/docs
+- **NocoDB Documentation:** <https://nocodb.com/docs>
+- **NocoDB GitHub:** <https://github.com/nocodb/nocodb>
+- **Supabase Documentation:** <https://supabase.com/docs>

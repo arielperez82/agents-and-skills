@@ -129,6 +129,7 @@ python3 ../../senior-mobile/scripts/app_store_validator.py --store apple --stric
 **Time:** Variable based on complexity
 
 **Steps:**
+
 1. Define app architecture (MVVM, TCA, or custom)
 2. Set up project with proper folder structure
 3. Implement data layer with SwiftData or Core Data
@@ -141,6 +142,7 @@ python3 ../../senior-mobile/scripts/app_store_validator.py --store apple --stric
 **Reference:** `references/swiftui-guide.md`
 
 **Architecture Pattern (MVVM):**
+
 ```swift
 // Model
 struct User: Identifiable, Codable {
@@ -198,6 +200,7 @@ struct UserListView: View {
 **Time:** 2-8 weeks depending on app size
 
 **Steps:**
+
 1. Audit existing UIKit codebase
 2. Identify isolated components for migration
 3. Create SwiftUI wrappers using UIViewRepresentable
@@ -210,6 +213,7 @@ struct UserListView: View {
 **Reference:** `references/swift-patterns.md`
 
 **Bridge Pattern:**
+
 ```swift
 // Wrap UIKit view for use in SwiftUI
 struct MapViewRepresentable: UIViewRepresentable {
@@ -266,6 +270,7 @@ class SettingsViewController: UIViewController {
 **Time:** 1-2 days for prepared apps
 
 **Steps:**
+
 1. Complete App Store Connect setup
 2. Configure signing and capabilities in Xcode
 3. Run `app_store_validator.py` from senior-mobile tools
@@ -278,6 +283,7 @@ class SettingsViewController: UIViewController {
 **Reference:** `references/xcode-workflows.md`
 
 **Pre-Submission Checklist:**
+
 - [ ] App icon in all required sizes (1024x1024 for App Store)
 - [ ] Launch screen configured
 - [ ] Info.plist privacy descriptions for all permissions
@@ -294,6 +300,7 @@ class SettingsViewController: UIViewController {
 **Time:** 2-4 hours per profiling session
 
 **Steps:**
+
 1. Build for profiling (Product > Profile)
 2. Select appropriate Instruments template
 3. Run app through critical user flows
@@ -305,6 +312,7 @@ class SettingsViewController: UIViewController {
 **Reference:** `references/xcode-workflows.md`
 
 **Key Instruments:**
+
 | Instrument | Purpose | When to Use |
 |------------|---------|-------------|
 | Time Profiler | CPU usage analysis | Slow operations, high CPU |
@@ -315,6 +323,7 @@ class SettingsViewController: UIViewController {
 | SwiftUI | SwiftUI view lifecycle | Excessive body evaluations |
 
 **Common Performance Patterns:**
+
 ```swift
 // Avoid: Expensive computation in body
 var body: some View {
@@ -483,6 +492,7 @@ python3 ../../senior-mobile/scripts/platform_detector.py --check ios --depth ful
 ## Best Practices
 
 ### SwiftUI
+
 - Use `@Observable` macro (iOS 17+) over `@ObservableObject`
 - Prefer `NavigationStack` over `NavigationView`
 - Keep views small and focused
@@ -490,6 +500,7 @@ python3 ../../senior-mobile/scripts/platform_detector.py --check ios --depth ful
 - Use `@ViewBuilder` for conditional content
 
 ### Performance
+
 - Minimize body complexity
 - Use `LazyVStack`/`LazyHStack` for large lists
 - Implement proper `Equatable` for custom types
@@ -497,6 +508,7 @@ python3 ../../senior-mobile/scripts/platform_detector.py --check ios --depth ful
 - Profile before optimizing
 
 ### Architecture
+
 - Separate concerns (View, ViewModel, Model, Service)
 - Use dependency injection
 - Keep business logic testable

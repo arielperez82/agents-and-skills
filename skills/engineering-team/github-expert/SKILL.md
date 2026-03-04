@@ -40,6 +40,7 @@ python scripts/create_workflow.py dependabot --type dependabot-auto-merge
 ```
 
 **Available Templates:**
+
 - `nodejs-ci`: Node.js testing and building with multiple versions
 - `python-ci`: Python testing with multiple Python versions
 - `docker-build`: Docker build and push to GitHub Container Registry
@@ -48,6 +49,7 @@ python scripts/create_workflow.py dependabot --type dependabot-auto-merge
 - `dependabot-auto-merge`: Auto-merge Dependabot PRs
 
 **When to use:**
+
 - Setting up new project CI/CD
 - Adding automated testing
 - Implementing deployment automation
@@ -57,6 +59,7 @@ python scripts/create_workflow.py dependabot --type dependabot-auto-merge
 **Reference: `references/github_actions_guide.md`**
 
 Comprehensive guide covering:
+
 - Workflow syntax and structure
 - Common events and triggers
 - Matrix strategies for multi-platform testing
@@ -67,6 +70,7 @@ Comprehensive guide covering:
 - Advanced patterns (reusable workflows, composite actions)
 
 **When to consult:**
+
 - Learning GitHub Actions syntax
 - Debugging workflow issues
 - Need optimization strategies
@@ -85,12 +89,14 @@ Automate repository management with Dependabot and CodeQL.
 
 **`assets/dependabot.yml`**
 Configure automated dependency updates:
+
 - Weekly updates for npm, GitHub Actions
 - Security updates daily
 - Auto-labels and commit messages
 - Grouped updates to reduce PR noise
 
 **Usage:**
+
 1. Copy to `.github/dependabot.yml`
 2. Customize package ecosystems (npm, pip, docker, etc.)
 3. Adjust update schedule
@@ -98,18 +104,21 @@ Configure automated dependency updates:
 
 **`assets/codeql-analysis.yml`**
 Automated security scanning:
+
 - Scans on push, PR, and scheduled
 - Multi-language support
 - Automatic vulnerability detection
 - Security alerts integration
 
 **Usage:**
+
 1. Copy to `.github/workflows/codeql-analysis.yml`
 2. Select languages to scan
 3. Enable in repository security settings
 4. Review security alerts regularly
 
 **When to use:**
+
 - Keeping dependencies updated
 - Security scanning
 - Vulnerability detection
@@ -121,6 +130,7 @@ Standardize pull request process with templates.
 
 **`assets/pull_request_template.md`**
 Comprehensive PR template with:
+
 - Description and change type
 - Related issues linking
 - Testing checklist
@@ -128,11 +138,13 @@ Comprehensive PR template with:
 - Review guidelines
 
 **Usage:**
+
 1. Copy to `.github/pull_request_template.md`
 2. Customize sections for your workflow
 3. All new PRs will use this template
 
 **Benefits:**
+
 - Consistent PR documentation
 - Ensures testing is done
 - Links issues automatically
@@ -144,6 +156,7 @@ Create structured issue templates.
 
 **`assets/bug_report_template.md`**
 Bug report template with:
+
 - Clear bug description
 - Reproduction steps
 - Expected vs actual behavior
@@ -151,11 +164,13 @@ Bug report template with:
 - Screenshots and logs
 
 **Usage:**
+
 1. Create `.github/ISSUE_TEMPLATE/`
 2. Copy bug_report_template.md there
 3. Create additional templates (feature request, etc.)
 
 **Benefits:**
+
 - Consistent bug reports
 - Easier triaging
 - Faster debugging
@@ -184,12 +199,14 @@ gh release create v1.1.0 --notes-file notes.md
 ```
 
 **Features:**
+
 - Categorizes commits (features, fixes, docs, etc.)
 - Lists contributors
 - Shows statistics
 - Conventional commit support
 
 **When to use:**
+
 - Creating releases
 - Publishing changelogs
 - Documenting version changes
@@ -200,6 +217,7 @@ gh release create v1.1.0 --notes-file notes.md
 ### Example 1: "Set up CI/CD for my Node.js project"
 
 1. **Generate CI workflow**:
+
    ```bash
    python scripts/create_workflow.py ci --type nodejs-ci
    ```
@@ -210,11 +228,13 @@ gh release create v1.1.0 --notes-file notes.md
    - Ensure test scripts match package.json
 
 3. **Add deployment** (if needed):
+
    ```bash
    python scripts/create_workflow.py deploy --type deploy-azure
    ```
 
 4. **Set up secrets**:
+
    ```bash
    gh secret set AZURE_CREDENTIALS --body "$(az ad sp create-for-rbac --sdk-auth)"
    ```
@@ -231,6 +251,7 @@ gh release create v1.1.0 --notes-file notes.md
    - Customize ecosystems and schedule
 
 2. **Set up auto-merge** (optional):
+
    ```bash
    python scripts/create_workflow.py dependabot --type dependabot-auto-merge
    ```
@@ -265,11 +286,13 @@ gh release create v1.1.0 --notes-file notes.md
 ### Example 4: "Standardize PR and issue process"
 
 1. **Add PR template**:
+
    ```bash
    cp assets/pull_request_template.md .github/pull_request_template.md
    ```
 
 2. **Add issue templates**:
+
    ```bash
    mkdir -p .github/ISSUE_TEMPLATE
    cp assets/bug_report_template.md .github/ISSUE_TEMPLATE/
@@ -288,6 +311,7 @@ gh release create v1.1.0 --notes-file notes.md
 ### Example 5: "Create a release with notes"
 
 1. **Generate release notes**:
+
    ```bash
    ./scripts/generate_release_notes.sh v1.0.0 v1.1.0 > notes.md
    ```
@@ -298,6 +322,7 @@ gh release create v1.1.0 --notes-file notes.md
    - Note breaking changes
 
 3. **Create release**:
+
    ```bash
    gh release create v1.1.0 --notes-file notes.md
    ```
@@ -309,6 +334,7 @@ gh release create v1.1.0 --notes-file notes.md
 ## Best Practices
 
 ### GitHub Actions
+
 - Pin actions to SHA for security
 - Use caching to speed up workflows
 - Minimize permissions (least privilege)
@@ -317,6 +343,7 @@ gh release create v1.1.0 --notes-file notes.md
 - Use reusable workflows for common patterns
 
 ### Repository Management
+
 - Enable branch protection on main
 - Require status checks before merge
 - Use CODEOWNERS for auto-assignment
@@ -324,6 +351,7 @@ gh release create v1.1.0 --notes-file notes.md
 - Regular security audits
 
 ### CI/CD Pipeline
+
 - Test on multiple platforms/versions
 - Fail fast (don't waste resources)
 - Cache dependencies appropriately
@@ -332,6 +360,7 @@ gh release create v1.1.0 --notes-file notes.md
 - Monitor workflow execution times
 
 ### Security
+
 - Never log secrets
 - Use environment secrets, not repository secrets for sensitive data
 - Enable secret scanning
@@ -389,6 +418,7 @@ gh release create <tag>
 ### references/github_actions_guide.md
 
 **Read when:**
+
 - Learning GitHub Actions
 - Creating custom workflows
 - Debugging workflow issues
@@ -396,6 +426,7 @@ gh release create <tag>
 - Security questions
 
 **Key sections:**
+
 - Quick Reference (syntax, events, common actions)
 - CI/CD Patterns (matrix, caching, conditionals)
 - Secrets Management
@@ -416,6 +447,7 @@ For these topics, provide general CI/CD guidance but acknowledge platform differ
 ## Success Metrics
 
 Your GitHub repository should have:
+
 - ✅ CI workflow running on PRs
 - ✅ Automated dependency updates
 - ✅ Security scanning enabled

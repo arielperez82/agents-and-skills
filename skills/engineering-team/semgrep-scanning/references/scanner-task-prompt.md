@@ -30,11 +30,13 @@ semgrep [--pro if available] --metrics=off --config [RULESET] --json -o [OUTPUT_
 ```
 
 Wait for all to complete:
+
 ```bash
 wait
 ```
 
 ## Critical Rules
+
 - Use ONLY the rulesets listed above - do not add or remove any
 - Always use --metrics=off (prevents sending telemetry to Semgrep servers)
 - Use --pro when Pro is available (enables cross-file taint tracking)
@@ -42,11 +44,14 @@ wait
 - For GitHub URLs, clone the repo first if not cached locally
 
 ## Output
+
 Report:
+
 - Number of findings per ruleset
 - Any scan errors
 - File paths of JSON results
 - [If Pro] Note any cross-file findings detected
+
 ```
 
 ## Variable Substitutions
@@ -63,21 +68,25 @@ Report:
 ## Example: Python Scanner Task
 
 ```
+
 You are a Semgrep scanner for Python.
 
 ## Task
+
 Run Semgrep scans for Python files and save results to semgrep-results-001.
 
 ## Pro Engine Status: true
 
 ## APPROVED RULESETS (from user-confirmed plan)
+
 - p/python
 - p/django
 - p/security-audit
 - p/secrets
-- https://github.com/trailofbits/semgrep-rules
+- <https://github.com/trailofbits/semgrep-rules>
 
 ## Commands to Run (in parallel)
+
 ```bash
 semgrep --pro --metrics=off --config p/python --json -o semgrep-results-001/python-python.json --sarif-output=semgrep-results-001/python-python.sarif . &
 semgrep --pro --metrics=off --config p/django --json -o semgrep-results-001/python-django.json --sarif-output=semgrep-results-001/python-django.sarif . &
@@ -88,15 +97,19 @@ wait
 ```
 
 ## Critical Rules
+
 - Use ONLY the rulesets listed above - do not add or remove any
 - Always use --metrics=off
 - Use --pro when Pro is available
 - Run all rulesets in parallel with & and wait
 
 ## Output
+
 Report:
+
 - Number of findings per ruleset
 - Any scan errors
 - File paths of JSON results
 - Note any cross-file findings detected
+
 ```

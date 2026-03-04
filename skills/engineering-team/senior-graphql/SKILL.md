@@ -47,6 +47,7 @@ This skill provides comprehensive GraphQL development capabilities including sch
 ## Core Capabilities
 
 ### Schema Architecture
+
 - Schema-first design methodology
 - Type system design (scalars, enums, interfaces, unions)
 - Input type and argument patterns
@@ -54,6 +55,7 @@ This skill provides comprehensive GraphQL development capabilities including sch
 - Schema stitching and composition
 
 ### Resolver Development
+
 - Resolver pattern implementation
 - Context and middleware integration
 - Authentication/authorization in resolvers
@@ -61,6 +63,7 @@ This skill provides comprehensive GraphQL development capabilities including sch
 - N+1 query prevention with DataLoader
 
 ### Apollo Federation
+
 - Supergraph architecture design
 - Subgraph creation and entity definitions
 - `@key`, `@external`, `@requires` directive usage
@@ -68,6 +71,7 @@ This skill provides comprehensive GraphQL development capabilities including sch
 - Schema composition validation
 
 ### Performance Optimization
+
 - Query complexity analysis and limiting
 - Depth limiting implementation
 - Caching strategies (Apollo Cache, Redis)
@@ -75,6 +79,7 @@ This skill provides comprehensive GraphQL development capabilities including sch
 - Persisted queries
 
 ### Real-time Features
+
 - Subscription implementation
 - WebSocket configuration
 - PubSub patterns
@@ -107,6 +112,7 @@ python scripts/federation_scaffolder.py users-service --entities User,Profile
    - Define subscription needs for real-time features
 
 2. **Design Schema**
+
    ```graphql
    # Types with clear naming conventions
    type User {
@@ -164,16 +170,19 @@ python scripts/federation_scaffolder.py users-service --entities User,Profile
    ```
 
 3. **Validate Schema**
+
    ```bash
    python scripts/schema_analyzer.py schema.graphql --validate
    ```
 
 4. **Generate Resolvers**
+
    ```bash
    python scripts/resolver_generator.py schema.graphql --output src/resolvers --typescript
    ```
 
 **Success Criteria:**
+
 - Schema passes validation
 - All types have descriptions
 - Relay pagination implemented for lists
@@ -185,6 +194,7 @@ python scripts/federation_scaffolder.py users-service --entities User,Profile
 **Goal:** Eliminate N+1 queries using DataLoader batching.
 
 **Problem Example:**
+
 ```graphql
 # This query would cause N+1 without DataLoader
 query {
@@ -199,6 +209,7 @@ query {
 **Solution:**
 
 1. **Create DataLoader Factory**
+
    ```typescript
    // src/dataloaders/index.ts
    import DataLoader from 'dataloader';
@@ -233,6 +244,7 @@ query {
    ```
 
 2. **Add Loaders to Context**
+
    ```typescript
    // src/server.ts
    import { createLoaders } from './dataloaders';
@@ -248,6 +260,7 @@ query {
    ```
 
 3. **Use in Resolvers**
+
    ```typescript
    // src/resolvers/post.resolver.ts
    export const PostResolvers = {
@@ -265,6 +278,7 @@ query {
    - Confirm single batch query instead of N queries
 
 **Success Criteria:**
+
 - Batch queries visible in logs
 - Query count reduced from N+1 to 2
 - Response time improved significantly
@@ -275,6 +289,7 @@ query {
 **Goal:** Build a federated supergraph from multiple subgraphs.
 
 **Architecture:**
+
 ```
 ┌─────────────────────────────────────────────────┐
 │                 Apollo Gateway                   │
@@ -291,6 +306,7 @@ query {
 **Steps:**
 
 1. **Scaffold Subgraphs**
+
    ```bash
    # Create users subgraph
    python scripts/federation_scaffolder.py users-service \
@@ -311,6 +327,7 @@ query {
    ```
 
 2. **Define Entity References**
+
    ```graphql
    # users-service/schema.graphql
    type User @key(fields: "id") {
@@ -349,6 +366,7 @@ query {
    ```
 
 3. **Implement Reference Resolvers**
+
    ```typescript
    // posts-service/resolvers.ts
    export const resolvers = {
@@ -374,6 +392,7 @@ query {
    ```
 
 4. **Configure Gateway**
+
    ```typescript
    // gateway/index.ts
    import { ApolloGateway, IntrospectAndCompose } from '@apollo/gateway';
@@ -393,6 +412,7 @@ query {
    ```
 
 5. **Test Federated Query**
+
    ```graphql
    query FederatedQuery {
      user(id: "123") {
@@ -413,6 +433,7 @@ query {
    ```
 
 **Success Criteria:**
+
 - All subgraphs start without errors
 - Schema composition succeeds
 - Cross-subgraph queries resolve correctly
@@ -425,6 +446,7 @@ query {
 **Steps:**
 
 1. **Configure WebSocket Server**
+
    ```typescript
    // src/server.ts
    import { createServer } from 'http';
@@ -468,6 +490,7 @@ query {
    ```
 
 2. **Implement PubSub**
+
    ```typescript
    // src/pubsub.ts
    import { PubSub } from 'graphql-subscriptions';
@@ -488,6 +511,7 @@ query {
    ```
 
 3. **Define Subscription Schema**
+
    ```graphql
    type Subscription {
      postCreated: Post!
@@ -509,6 +533,7 @@ query {
    ```
 
 4. **Implement Subscription Resolvers**
+
    ```typescript
    // src/resolvers/subscription.resolver.ts
    import { withFilter } from 'graphql-subscriptions';
@@ -543,6 +568,7 @@ query {
    ```
 
 5. **Publish Events**
+
    ```typescript
    // src/resolvers/mutation.resolver.ts
    export const MutationResolvers = {
@@ -573,6 +599,7 @@ query {
    ```
 
 **Success Criteria:**
+
 - WebSocket connection established
 - Subscriptions receive real-time updates
 - Filtering works correctly
@@ -586,6 +613,7 @@ query {
 **Purpose:** Analyze GraphQL schemas for quality, complexity, and best practices.
 
 **Usage:**
+
 ```bash
 # Basic analysis
 python scripts/schema_analyzer.py schema.graphql
@@ -601,6 +629,7 @@ python scripts/schema_analyzer.py schema.graphql --complexity
 ```
 
 **Features:**
+
 - Type system analysis (types, interfaces, unions, enums)
 - Query/mutation/subscription inventory
 - Complexity scoring per operation
@@ -614,6 +643,7 @@ python scripts/schema_analyzer.py schema.graphql --complexity
 **Purpose:** Generate TypeScript resolvers from GraphQL schema.
 
 **Usage:**
+
 ```bash
 # Generate resolvers
 python scripts/resolver_generator.py schema.graphql --output src/resolvers
@@ -629,6 +659,7 @@ python scripts/resolver_generator.py schema.graphql --output src/resolvers --tes
 ```
 
 **Generated Output:**
+
 - Resolver files per type
 - Type definitions
 - DataLoader factories
@@ -640,6 +671,7 @@ python scripts/resolver_generator.py schema.graphql --output src/resolvers --tes
 **Purpose:** Scaffold Apollo Federation subgraphs with proper entity definitions.
 
 **Usage:**
+
 ```bash
 # Create new subgraph
 python scripts/federation_scaffolder.py users-service --entities User,Profile
@@ -655,6 +687,7 @@ python scripts/federation_scaffolder.py gateway --subgraphs users:4001,posts:400
 ```
 
 **Generated Structure:**
+
 ```
 service-name/
 ├── src/
@@ -672,6 +705,7 @@ service-name/
 ## Best Practices
 
 ### Schema Design
+
 - Use descriptive names (avoid abbreviations)
 - Document all types and fields
 - Implement Relay-style pagination for lists
@@ -680,6 +714,7 @@ service-name/
 - Version breaking changes with new fields (not removal)
 
 ### Resolver Patterns
+
 - Keep resolvers thin (delegate to services)
 - Use DataLoader for all batch-able relations
 - Implement proper error handling
@@ -687,6 +722,7 @@ service-name/
 - Log slow resolvers for optimization
 
 ### Federation
+
 - Define clear subgraph boundaries
 - Minimize cross-subgraph queries
 - Use `@requires` sparingly
@@ -694,6 +730,7 @@ service-name/
 - Version subgraph schemas independently
 
 ### Performance
+
 - Implement query complexity limits
 - Use persisted queries in production
 - Cache with appropriate TTLs
@@ -703,11 +740,13 @@ service-name/
 ## References
 
 ### Reference Files
+
 - `references/schema-patterns.md` - Schema design patterns and conventions
 - `references/federation-guide.md` - Apollo Federation architecture guide
 - `references/performance-optimization.md` - GraphQL performance best practices
 
 ### External Resources
+
 - [GraphQL Specification](https://spec.graphql.org/)
 - [Apollo Server Documentation](https://www.apollographql.com/docs/apollo-server/)
 - [Apollo Federation](https://www.apollographql.com/docs/federation/)

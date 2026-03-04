@@ -17,12 +17,13 @@ This directory contains on-demand skill packages that extend agent capabilities 
 | **find-skills** | Finding/installing skills | Discover and install skills from the open agent skills ecosystem via `npx skills find` |
 
 **Use `find-skills` when**:
+
 - User asks "how do I do X" where X might have an existing skill
 - User says "find a skill for X" or "is there a skill that can..."
 - User wants to extend capabilities with installable skills
 - Searching for tools, templates, or workflows in the skills ecosystem
 
-**Quick start**: `npx skills find [query]` to search, `npx skills add <package>` to install. Browse at https://skills.sh/
+**Quick start**: `npx skills find [query]` to search, `npx skills add <package>` to install. Browse at <https://skills.sh/>
 
 **Finding local skills (this repo):** When you need a skill that already lives in this repo, use the `/skill/find-local-skill` command with a short description of the activity (e.g. "configuring Vitest for React", "writing BDD scenarios"). It returns matching skills and paths so you can load the right `SKILL.md`. Use this before starting work when unsure which skill applies.
 

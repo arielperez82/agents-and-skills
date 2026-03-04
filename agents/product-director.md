@@ -86,6 +86,7 @@ The product-director agent bridges the gap between executive vision and product 
 The Product Director sets quarterly portfolio allocations jointly with the CTO. This is the top-level decision that shapes all downstream prioritization.
 
 **Workflow: Quarterly Portfolio Allocation**
+
 1. Review current bucket allocations against actuals (drift detection)
 2. Assess system health (velocity trends, incident rate, tech debt drag)
 3. Set capacity split across strategic buckets (growth, revenue, tech debt, polish)
@@ -108,6 +109,7 @@ Before committing to delivery dates for any initiative, use throughput-based Mon
 See [ai-pace-calibration reference](../skills/product-team/prioritization-frameworks/references/ai-pace-calibration.md) for calibrating estimates to AI-assisted delivery pace.
 
 **Supplementary frameworks** (reach-for when needed):
+
 - MuST (Multiple Strategic Tracks) — when the right strategic bet is genuinely unknown
 - POM (Product Operating Model) — when the prioritization process itself feels broken
 
@@ -160,6 +162,7 @@ See [prioritization-frameworks SKILL.md](../skills/product-team/prioritization-f
 **Goal:** Generate aligned OKRs from company objectives down to team key results with measurable targets
 
 **Steps:**
+
 1. **Gather Company OKRs** - Collect executive-level objectives:
    - Company vision and mission
    - Strategic pillars (3-5 focus areas)
@@ -168,6 +171,7 @@ See [prioritization-frameworks SKILL.md](../skills/product-team/prioritization-f
    - Timeline and milestones
 
 2. **Create OKR Input File** - Structure company OKRs in YAML format:
+
    ```yaml
    company_okrs:
      - objective: "Become the #1 platform for remote teams"
@@ -184,6 +188,7 @@ See [prioritization-frameworks SKILL.md](../skills/product-team/prioritization-f
    ```
 
 3. **Generate Product OKR Cascade** - Run OKR cascade tool
+
    ```bash
    python ../skills/product-team/product-strategist/scripts/okr_cascade_generator.py company-okrs.yaml --output human
    ```
@@ -218,6 +223,7 @@ See [prioritization-frameworks SKILL.md](../skills/product-team/prioritization-f
 **Time Estimate:** 4-6 hours for complete quarterly OKR planning (15-20 OKRs)
 
 **Example:**
+
 ```bash
 # Complete OKR cascade workflow
 cat > q4-company-okrs.yaml << 'EOF'
@@ -244,6 +250,7 @@ python ../skills/product-team/product-strategist/scripts/okr_cascade_generator.p
 The roadmap is **evergreen** — it is not created per-initiative or per-quarter. It is continuously maintained as the strategic view of what's happening across all initiatives.
 
 **Steps:**
+
 1. **Receive Charter** - When a new initiative charter arrives:
    - Read the charter's intent, constraints, and scope
    - Understand the outcomes and effort required
@@ -284,7 +291,9 @@ The roadmap is **evergreen** — it is not created per-initiative or per-quarter
 **Goal:** Prioritize product features based on OKR contribution and strategic alignment
 
 **Steps:**
+
 1. **Review Current OKRs** - Understand quarterly objectives:
+
    ```bash
    python ../skills/product-team/product-strategist/scripts/okr_cascade_generator.py current-okrs.yaml --output json > okrs.json
    ```
@@ -296,6 +305,7 @@ The roadmap is **evergreen** — it is not created per-initiative or per-quarter
    - Innovation experiments and R&D projects
 
 3. **Map Features to OKRs** - Link each feature to key results:
+
    ```markdown
    Feature: Advanced Analytics Dashboard
    → Supports KR: "Increase user engagement by 30%"
@@ -313,6 +323,7 @@ The roadmap is **evergreen** — it is not created per-initiative or per-quarter
    - **No Impact (0)**: No clear OKR alignment
 
 5. **Calculate Strategic Priority** - Weight by OKR importance:
+
    ```
    Strategic Score = (OKR Impact × OKR Priority) / Effort
 
@@ -341,6 +352,7 @@ The roadmap is **evergreen** — it is not created per-initiative or per-quarter
 **Time Estimate:** 1-2 days for feature prioritization (30-50 features)
 
 **Example:**
+
 ```bash
 # Map features to OKRs and calculate priority
 cat > feature-okr-mapping.txt << 'EOF'
@@ -361,6 +373,7 @@ python ../skills/product-team/product-strategist/scripts/okr_cascade_generator.p
 **Goal:** Conduct quarterly strategy review to assess progress and adjust roadmap based on learnings
 
 **Steps:**
+
 1. **Gather Performance Data** - Collect metrics from past quarter:
    - OKR achievement rates (% complete)
    - Feature adoption metrics
@@ -369,9 +382,11 @@ python ../skills/product-team/product-strategist/scripts/okr_cascade_generator.p
    - Competitive landscape changes
 
 2. **Grade OKRs** - Score key results on 0.0-1.0 scale:
+
    ```bash
    cat ../skills/product-team/product-strategist/references/okr_methodology.md | grep -A 15 "Grading OKRs"
    ```
+
    - **0.0-0.3**: Significantly missed target
    - **0.4-0.6**: Made progress but fell short
    - **0.7-1.0**: Achieved or exceeded target
@@ -425,6 +440,7 @@ python ../skills/product-team/product-strategist/scripts/okr_cascade_generator.p
 **When:** Invoked by the /craft orchestrator during Phase 6 (Close), running in parallel with other close agents.
 
 **Steps:**
+
 1. **Read the Phase 1 charter** — focus on the Success Criteria / Acceptance Criteria section. If the charter is missing, report REJECT with "Cannot perform acceptance — charter not found." If the charter has no Success Criteria section, report REJECT with "Cannot reconcile — charter has no defined success criteria."
 2. **Read Phase 4 deliverables** — changed files, commit history, artifact paths from the status file. If zero deliverables (no changed files, no commits), mark all criteria as NOT MET.
 3. **Reconcile criterion by criterion** — for each charter criterion, find evidence in the deliverables. Produce a reconciliation table:
@@ -560,24 +576,28 @@ echo "📊 Update KR progress values in: $OKR_FILE"
 ## Success Metrics
 
 **Strategic Alignment:**
+
 - **OKR Cascade Alignment:** >80% alignment score between company and team OKRs
 - **OKR Achievement Rate:** 70% average OKR completion (stretch goal, not promise)
 - **Strategic Focus:** 90%+ of engineering time aligned to OKR-driven initiatives
 - **Vision Clarity:** >85% of team members can articulate product vision
 
 **Roadmap Effectiveness:**
+
 - **Roadmap Accuracy:** 75%+ of planned initiatives ship within target quarter
 - **Strategic Bet Success:** 60%+ of strategic initiatives achieve success metrics
 - **Roadmap Flexibility:** Ability to adjust 20% of roadmap each quarter based on learnings
 - **Stakeholder Confidence:** >80% stakeholder satisfaction with roadmap clarity
 
 **Planning Efficiency:**
+
 - **OKR Planning Time:** <1 week to complete quarterly OKR cascade
 - **Roadmap Review Time:** <1 day per quarterly roadmap review cycle
 - **Strategy Review Time:** <1 week per quarterly review
 - **Alignment Meeting Time:** 50% reduction in time spent on alignment meetings
 
 **Business Impact:**
+
 - **Feature Adoption:** >60% adoption of strategically prioritized features
 - **Strategic Goal Achievement:** 70%+ of company OKRs achieved or exceeded
 - **Resource Optimization:** 30% reduction in work on non-strategic initiatives

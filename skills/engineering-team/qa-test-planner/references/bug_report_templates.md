@@ -78,12 +78,16 @@ Standard templates for clear, reproducible, actionable bug documentation.
 
 **Console Errors:**
 ```
+
 [Paste any console errors here]
+
 ```
 
 **Network Errors:**
 ```
+
 [Paste any failed requests here]
+
 ```
 
 ---
@@ -338,12 +342,16 @@ For application crashes and unhandled errors.
 **Error Type:** [Crash / Exception / Hang / White Screen]
 **Error Message:**
 ```
+
 [Exact error message]
+
 ```
 
 **Stack Trace:**
 ```
+
 [Full stack trace]
+
 ```
 
 ## Reproduction
@@ -362,7 +370,9 @@ For application crashes and unhandled errors.
 
 ## Logs
 ```
+
 [Relevant log entries before crash]
+
 ```
 
 ## Impact
@@ -398,11 +408,13 @@ For application crashes and unhandled errors.
 ## Bug Title Best Practices
 
 **Good Titles:**
+
 - "[Login] Password reset email not sent for valid email addresses"
 - "[Checkout] Cart total shows $0 when discount code applied twice"
 - "[Dashboard] Page crashes when loading more than 1000 records"
 
 **Bad Titles:**
+
 - "Bug in login" (too vague)
 - "It doesn't work" (no context)
 - "Please fix ASAP!!!" (emotional, no information)
@@ -413,6 +425,7 @@ For application crashes and unhandled errors.
 ## Bug Report Checklist
 
 Before submitting:
+
 - [ ] Title is specific and descriptive
 - [ ] Steps can be reproduced by someone else
 - [ ] Expected vs actual clearly stated

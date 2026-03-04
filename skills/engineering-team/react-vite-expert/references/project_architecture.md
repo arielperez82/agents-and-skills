@@ -178,6 +178,7 @@ src/
 ## Naming Conventions
 
 ### Files & Folders
+
 ```
 Component files:       PascalCase     → Button.tsx, UserProfile.tsx
 Component folders:     PascalCase     → Button/, UserProfile/
@@ -190,6 +191,7 @@ Story files:         match source   → Button.stories.tsx
 ```
 
 ### Code
+
 ```typescript
 // Components: PascalCase
 export const Button = () => { }
@@ -221,6 +223,7 @@ export enum UserRole {
 ## Component Organization Patterns
 
 ### Pattern 1: Colocation (Recommended)
+
 Each component has its own folder with all related files:
 
 ```
@@ -234,11 +237,13 @@ Button/
 ```
 
 **Benefits:**
+
 - Easy to find related files
 - Easy to move/delete features
 - Clear boundaries
 
 ### Pattern 2: Atomic Design
+
 Organize components by complexity:
 
 ```
@@ -251,6 +256,7 @@ components/
 ```
 
 ### Pattern 3: Domain-Driven Design
+
 Organize by business domains:
 
 ```
@@ -268,6 +274,7 @@ src/
 ## State Management Strategies
 
 ### Local State (useState)
+
 For component-specific state that doesn't need to be shared.
 
 ```typescript
@@ -278,6 +285,7 @@ const [selectedTab, setSelectedTab] = useState(0);
 ```
 
 ### Lifted State (Props)
+
 For sharing state between sibling components.
 
 ```typescript
@@ -295,6 +303,7 @@ function Parent() {
 ```
 
 ### Context API
+
 For theme, auth, localization - low-frequency updates.
 
 ```typescript
@@ -307,6 +316,7 @@ const I18nContext = createContext<I18nState>('en');
 ```
 
 ### Zustand (Recommended for most apps)
+
 Lightweight, simple API, great performance.
 
 ```typescript
@@ -331,6 +341,7 @@ const login = useUserStore((state) => state.login);
 ```
 
 ### Redux Toolkit
+
 For complex apps with lots of async logic and middleware needs.
 
 ```typescript
@@ -360,6 +371,7 @@ const userSlice = createSlice({
 ```
 
 ### TanStack Query (React Query)
+
 For server state (API data, caching, synchronization).
 
 ```typescript
@@ -381,6 +393,7 @@ const { data: user, isLoading, error } = useUser('123');
 ## Import Strategies
 
 ### Absolute Imports (Recommended)
+
 Configure path aliases in `vite.config.ts` and `tsconfig.json`:
 
 ```typescript
@@ -416,6 +429,7 @@ import { User } from '@/types/user.types';
 ```
 
 ### Barrel Exports (index.ts)
+
 Create clean public APIs for folders:
 
 ```typescript
@@ -432,6 +446,7 @@ import { Button, Input, Modal } from '@/components/ui';
 ```
 
 ### Named Exports (Recommended)
+
 ```typescript
 // ✅ Good: Named exports (tree-shakeable)
 export const Button = () => { };
@@ -463,6 +478,7 @@ If exceeding limits, consider:
 ## Code Organization Best Practices
 
 ### 1. Single Responsibility Principle
+
 Each component/hook/function should do ONE thing well.
 
 ```typescript
@@ -487,6 +503,7 @@ function UserDashboard() {
 ```
 
 ### 2. Composition Over Inheritance
+
 Use composition to build complex components.
 
 ```typescript
@@ -502,6 +519,7 @@ Use composition to build complex components.
 ```
 
 ### 3. Container/Presentational Pattern
+
 Separate logic from presentation.
 
 ```typescript
@@ -530,6 +548,7 @@ export const UserListContainer = () => {
 ```
 
 ### 4. Custom Hooks for Logic Reuse
+
 Extract reusable logic into custom hooks.
 
 ```typescript
@@ -552,20 +571,24 @@ const { user, loading } = useUser('123');
 ## Decision Matrix
 
 ### When to Create a New Feature Module?
+
 - ✅ Has 3+ components
 - ✅ Has its own state management
 - ✅ Has dedicated API endpoints
 - ✅ Represents a distinct business capability
 
 ### When to Use Context vs. Props?
+
 - **Props**: Default choice, explicit, type-safe
 - **Context**: Avoiding prop drilling (4+ levels), theme, auth, i18n
 
 ### When to Use Redux vs. Zustand?
+
 - **Zustand**: Most apps, simpler API, less boilerplate
 - **Redux**: Complex apps, need middleware, dev tools, time-travel debugging
 
 ### When to Split a Component?
+
 - 🚩 File > 250 lines
 - 🚩 Multiple responsibilities
 - 🚩 Reusable parts

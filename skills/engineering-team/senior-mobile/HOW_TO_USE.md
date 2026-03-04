@@ -80,6 +80,7 @@ Use `references/frameworks.md` to compare React Native vs Flutter:
 ### CI/CD Setup
 
 Generate project with CI:
+
 ```bash
 python3 scripts/mobile_scaffolder.py \
   --framework react-native \
@@ -88,6 +89,7 @@ python3 scripts/mobile_scaffolder.py \
 ```
 
 Configure secrets in GitHub:
+
 - `APPLE_CERTIFICATE_BASE64`
 - `APPLE_PROVISIONING_PROFILE_BASE64`
 - `ANDROID_KEYSTORE_BASE64`

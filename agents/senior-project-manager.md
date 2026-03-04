@@ -90,6 +90,7 @@ This skill focuses on strategic planning and does not include Python automation 
 ### Skill Frameworks
 
 The senior-project-manager skill provides comprehensive workflows for:
+
 - **Artifact Review:** Reviewing roadmaps, charters, backlogs, and plans for completeness, risk, and dependency gaps
 - **Progress Tracking:** Marking backlog items and plan steps as done; updating RAG status
 - **Risk Management:** Risk identification, impact assessment, mitigation planning, escalation
@@ -103,6 +104,7 @@ The senior-project-manager skill provides comprehensive workflows for:
 **Goal:** Review existing roadmaps, backlogs, and plans for completeness, risk exposure, and dependency gaps; track progress and update RAG status
 
 **Steps:**
+
 1. **Review Roadmap** - Read the evergreen roadmap (`roadmap-repo.md`) and verify initiative sequencing and Now/Next/Later placement
 2. **Review Active Backlogs** - Check backlog items for completeness, acceptance criteria, and dependency declarations
 3. **Map Dependencies** - Identify cross-initiative and cross-team dependencies; flag gaps
@@ -117,6 +119,7 @@ The senior-project-manager skill provides comprehensive workflows for:
 **Time Estimate:** 3-4 hours for portfolio review and status report
 
 **Example:**
+
 ```bash
 # Review the evergreen roadmap
 cat .docs/canonical/roadmaps/roadmap-repo.md
@@ -156,6 +159,7 @@ echo "✅ Portfolio status report written"
 **Goal:** Identify, assess, and mitigate project risks with comprehensive tracking and executive escalation protocols
 
 **Steps:**
+
 1. **Conduct Risk Workshop** - Facilitate cross-functional risk identification session with project teams
 2. **Categorize Risks** - Classify risks by type (technical, resource, schedule, budget, external)
 3. **Assess Impact and Probability** - Score each risk on impact (1-5) and probability (1-5) scales
@@ -170,6 +174,7 @@ echo "✅ Portfolio status report written"
 **Time Estimate:** 4-6 hours including risk workshop and documentation
 
 **Example:**
+
 ```bash
 # Create risk management workspace
 mkdir -p risk-management
@@ -227,21 +232,23 @@ echo "✅ Risk register created with escalation protocols"
 **Goal:** Maintain constant RAG status visibility across projects and orchestrate specialized expertise when risks require intervention
 
 **Steps:**
+
 1. **Establish RAG Monitoring Framework** - Define clear criteria for Red/Amber/Green status across projects and risk categories
 2. **Integrate Flow Metrics** - Consume team throughput, capacity, and flow efficiency data from Agile Coach for RAG assessment
 3. **Implement Continuous Monitoring** - Set up daily/weekly RAG assessments for all active projects using flow metrics as leading indicators
 4. **Identify Risk Thresholds** - Define quantitative triggers based on flow metrics that require calling in specialized expertise
 5. **Quantify Risks** - Assess impact and probability of identified risks using flow data and structured frameworks
-5. **Orchestrate Expertise Response** - Call in appropriate agents based on risk type (security, architecture, DevOps, etc.)
-6. **Track Mitigation Effectiveness** - Monitor impact of expertise interventions on RAG status improvement
-7. **Escalate Critical Issues** - Ensure executive visibility for risks that cannot be mitigated at project level
-8. **Document Risk Patterns** - Maintain risk register with lessons learned for future project sequencing
+6. **Orchestrate Expertise Response** - Call in appropriate agents based on risk type (security, architecture, DevOps, etc.)
+7. **Track Mitigation Effectiveness** - Monitor impact of expertise interventions on RAG status improvement
+8. **Escalate Critical Issues** - Ensure executive visibility for risks that cannot be mitigated at project level
+9. **Document Risk Patterns** - Maintain risk register with lessons learned for future project sequencing
 
 **Expected Output:** Weekly status updates, monthly executive dashboard, decision log, and stakeholder communication archive
 
 **Time Estimate:** 3-4 hours per week for ongoing reporting and communication
 
 **Example:**
+
 ```bash
 # Create stakeholder reporting workspace
 mkdir -p stakeholder-reporting/$(date +%Y-%m)
@@ -329,6 +336,7 @@ echo "✅ Executive summary and stakeholder log created"
 **Goal:** Review charters and plans produced by other agents (product-analyst, architect, implementation-planner) for risk exposure, dependency gaps, and delivery feasibility
 
 **Steps:**
+
 1. **Review Charter** - Read the charter for completeness: scope, success criteria, constraints, assumptions
 2. **Review Operational Readiness** - Ask these questions of every charter and plan:
    - **Deployment**: How will this be deployed? Is there a CI/CD pipeline? Is the deploy pipeline automated, secure, and repeatable? Are rollback procedures defined?
@@ -349,6 +357,7 @@ echo "✅ Executive summary and stakeholder log created"
 **Time Estimate:** 3-4 hours for charter/plan review and risk assessment
 
 **Example:**
+
 ```bash
 # Review a charter produced by product-analyst / architect
 cat .docs/canonical/charters/charter-repo-customer-portal.md
@@ -398,6 +407,7 @@ echo "✅ Risk assessment report written"
 **When:** Invoked by the /craft orchestrator during Phase 6 (Close), running in parallel with other close agents.
 
 **Steps:**
+
 1. **Read the Audit Log and Phase Log** from the status file. If the status file has no Audit Log section, report SIGNIFICANT ISSUES with "Governance gap — Audit Log section missing from status file." If the Audit Log is empty (no entries), report CLEAN with note "Audit log empty — either no deviations occurred or logging was not maintained."
 2. **Identify deviation events** — every REJECT, CLARIFY, scope change, or deviation from the original charter.
 3. **Verify documentation and approval** — for each deviation or scope change:
@@ -627,12 +637,14 @@ cat > "$DASHBOARD_DIR/daily-status-$DATE.md" << 'EOF'
 ## Portfolio Status at a Glance
 
 ```
+
 Portfolio Health: 🟢 GREEN
 Active Projects: 5
 At Risk: 1 (Project Beta - minor delay)
 On Track: 4
 Critical Blockers: 0
 High Blockers: 1
+
 ```
 
 ## Today's Highlights
@@ -717,24 +729,28 @@ echo "  - Archive in: Confluence 'Portfolio Dashboards' space"
 ## Success Metrics
 
 **Risk Management Excellence:**
+
 - **Risk Identification Rate:** 95%+ of critical risks identified before they impact project timeline using flow metrics as early indicators
 - **RAG Status Accuracy:** 90%+ alignment between RAG assessments and actual project outcomes
 - **Expertise Response Time:** Average <24 hours from risk identification to specialized expertise engagement
 - **Risk Mitigation Success:** 80%+ of escalated risks successfully mitigated through expertise orchestration
 
 **Expertise Orchestration:**
+
 - **Agent Calling Accuracy:** 85%+ of expertise interventions result in positive RAG status improvement
 - **Dependency Sequencing:** 90%+ of critical dependencies identified and sequenced correctly
 - **Escalation Effectiveness:** 100% of Red-status risks receive appropriate executive or specialized attention
 - **Portfolio Risk Visibility:** Real-time RAG dashboard maintained for all active projects
 
 **Strategic Oversight:**
+
 - **Proactive Risk Management:** 70%+ of project risks mitigated before becoming critical issues
 - **Expertise Utilization:** Optimal balance between project autonomy and specialized intervention
 - **Portfolio Health:** Maintain 80%+ of projects in Green status, <10% in Red status
 - **Dependency Management:** Zero missed critical dependencies affecting project sequencing
 
 **Impact Measurement:**
+
 - **Risk Quantification:** All risks assessed with impact and probability scores using flow metrics for prioritization
 - **Expertise ROI:** Measurable improvement in project outcomes from specialized interventions
 - **Flow Metrics Integration:** 90%+ of RAG decisions informed by current flow metrics and capacity data

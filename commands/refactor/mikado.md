@@ -20,6 +20,7 @@ Use the `refactor-assessor` subagent with the `mikado-method` skill to build a M
 ## Output
 
 Structured report with:
+
 - Mikado graph (goal at top, prerequisites as children)
 - Execution order (leaf-to-root)
 - Risk assessment per node

@@ -52,24 +52,28 @@ System and deployment settings, code changes and version control history (git lo
 ### Priority Assignment Criteria
 
 **P0 indicators:**
+
 - Service is down or severely degraded for end users
 - Data integrity is compromised or at risk
 - Security breach is active or suspected
 - Revenue-impacting failure in progress
 
 **P1 indicators:**
+
 - Issue has occurred multiple times (pattern established)
 - Workaround exists but is fragile or labor-intensive
 - Issue affects a subset of users or specific workflows
 - Root cause is identified but not yet fixed
 
 **P2 indicators:**
+
 - Issue occurred once with successful workaround
 - Monitoring detected a near-miss or anomaly
 - Code review or analysis revealed a latent defect
 - Dependency vulnerability with no known exploit
 
 **P3 indicators:**
+
 - Systemic weakness identified through post-mortem or review
 - Observability gap discovered (cannot detect a class of failures)
 - Architecture improvement that would prevent a category of issues
@@ -78,20 +82,26 @@ System and deployment settings, code changes and version control history (git lo
 ## Evidence Collection Workflow
 
 ### Step 1: Preserve Volatile Evidence
+
 Capture evidence that may disappear: in-memory state, ephemeral container logs, active network connections, process state. Do this before any remediation actions.
 
 ### Step 2: Collect Across All Four Types
+
 Gather logs, metrics, reproduction steps, and configuration state. Gaps in any category weaken root cause analysis.
 
 ### Step 3: Validate Evidence Quality
+
 For each piece of evidence:
+
 1. **Cross-reference**: verify data from multiple independent sources
 2. **Timestamp validation**: confirm event sequence accuracy
 3. **Completeness check**: identify potential data gaps or corruption
 4. **Correlation vs causation**: distinguish patterns that co-occur from patterns that cause each other
 
 ### Step 4: Organize by Timeline
+
 Arrange all evidence chronologically to reconstruct what happened:
+
 - Events before symptom onset (potential triggers)
 - Events during the incident (symptom progression)
 - Events after mitigation (recovery confirmation)
@@ -119,6 +129,7 @@ ROOT CAUSE (fundamental reason)
 ### Validation Questions
 
 At each link in the chain:
+
 1. Is there verifiable evidence (not speculation)?
 2. Does removing this cause prevent the symptom?
 3. Does the evidence timeline support this causal relationship?

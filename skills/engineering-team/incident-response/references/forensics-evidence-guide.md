@@ -53,6 +53,7 @@ sha256sum -c evidence_file.sha256
 ```
 
 **Integration with incident_responder.py:**
+
 ```bash
 # Automatic hash calculation during evidence collection
 python incident_responder.py \
@@ -71,11 +72,13 @@ python incident_responder.py \
 **Why:** Contains decrypted data, running processes, network connections, malware in memory.
 
 **Tools:**
+
 - Linux: LiME (Linux Memory Extractor)
 - Windows: WinPMem, Magnet RAM Capture
 - macOS: MacQuisition
 
 **Linux Memory Acquisition:**
+
 ```bash
 # Using LiME
 insmod lime.ko "path=/evidence/memory.lime format=lime"
@@ -85,6 +88,7 @@ sha256sum /evidence/memory.lime > /evidence/memory.sha256
 ```
 
 **Windows Memory Acquisition:**
+
 ```cmd
 # Using WinPMem
 winpmem_mini_x64.exe memory.raw
@@ -94,6 +98,7 @@ winpmem_mini_x64.exe memory.raw
 ```
 
 **Analysis Tools:**
+
 - Volatility Framework (volatility3)
 - Rekall
 - Strings analysis
@@ -103,11 +108,13 @@ winpmem_mini_x64.exe memory.raw
 **Why:** Contains file system, deleted files, application data, logs.
 
 **Tools:**
+
 - Linux: dd, dc3dd, dcfldd
 - Windows: FTK Imager, EnCase
 - Cross-platform: Guymager
 
 **Linux Disk Imaging:**
+
 ```bash
 # Full disk image with dd
 dd if=/dev/sda of=/evidence/disk.raw bs=4M status=progress
@@ -120,6 +127,7 @@ dd if=/dev/sda | gzip > /evidence/disk.raw.gz
 ```
 
 **Mount for Analysis (Read-Only):**
+
 ```bash
 # Create loop device (read-only)
 losetup -r /dev/loop0 /evidence/disk.raw
@@ -145,6 +153,7 @@ mount -o ro,noexec /dev/loop0 /mnt/evidence
 | Nginx | /var/log/nginx/access.log | Web access |
 
 **Collection Script:**
+
 ```bash
 #!/bin/bash
 # collect_logs.sh - Comprehensive log collection
@@ -169,6 +178,7 @@ find "$EVIDENCE_DIR" -type f -exec sha256sum {} \; > "$EVIDENCE_DIR/manifest.sha
 ```
 
 **Integration with incident_responder.py:**
+
 ```bash
 python incident_responder.py \
   --incident INC-001 \
@@ -182,11 +192,13 @@ python incident_responder.py \
 **Why:** Contains network traffic, connections, potential C2 communication.
 
 **Tools:**
+
 - tcpdump
 - Wireshark/tshark
 - Zeek (Bro)
 
 **Live Capture:**
+
 ```bash
 # Capture all traffic on interface
 tcpdump -i eth0 -w /evidence/capture.pcap
@@ -199,6 +211,7 @@ tcpdump -i eth0 -w /evidence/capture_%Y%m%d_%H%M%S.pcap -G 3600
 ```
 
 **Analysis:**
+
 ```bash
 # Extract connections
 tshark -r capture.pcap -T fields -e ip.src -e ip.dst -e tcp.port
@@ -213,6 +226,7 @@ tshark -r capture.pcap -Y "dns.qry.name" -T fields -e dns.qry.name
 ### 5. Cloud Evidence Collection
 
 **AWS:**
+
 ```bash
 # CloudTrail logs
 aws cloudtrail lookup-events \
@@ -231,6 +245,7 @@ aws logs filter-log-events \
 ```
 
 **Azure:**
+
 ```bash
 # Activity logs
 az monitor activity-log list \
@@ -245,6 +260,7 @@ az ad sign-in list \
 ```
 
 **GCP:**
+
 ```bash
 # Audit logs
 gcloud logging read \
@@ -255,6 +271,7 @@ gcloud logging read \
 ### 6. Application-Specific Evidence
 
 **Database Logs:**
+
 ```sql
 -- PostgreSQL query log
 SHOW log_directory;
@@ -265,6 +282,7 @@ SHOW VARIABLES LIKE 'general_log%';
 ```
 
 **Container Logs:**
+
 ```bash
 # Docker container logs
 docker logs --since 24h container_name > /evidence/container.log
@@ -346,6 +364,7 @@ For evidence to be admissible in legal proceedings:
 ### Cross-Border Considerations
 
 When evidence spans jurisdictions:
+
 - Document data location and applicable laws
 - Consider MLAT (Mutual Legal Assistance Treaty) requirements
 - Engage legal counsel for international incidents

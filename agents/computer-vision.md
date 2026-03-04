@@ -143,11 +143,13 @@ The skill package includes production-ready templates in the `assets/` directory
 **Steps:**
 
 1. **Analyze Dataset Structure** - Use dataset pipeline builder to generate comprehensive dataset statistics
+
    ```bash
    python3 ../skills/engineering-team/senior-computer-vision/scripts/dataset_pipeline_builder.py --input ./raw_dataset/ --output json --file dataset_analysis.json --verbose
    ```
 
 2. **Review Dataset Metrics** - Examine class distribution, image quality, and potential issues
+
    ```bash
    cat dataset_analysis.json | jq '.statistics'
    # Expected metrics:
@@ -159,6 +161,7 @@ The skill package includes production-ready templates in the `assets/` directory
    ```
 
 3. **Generate Augmentation Strategy** - Create augmentation pipeline based on dataset characteristics
+
    ```bash
    # Dataset pipeline builder generates recommended augmentation config
    cat dataset_analysis.json | jq '.augmentation_recommendations'
@@ -170,6 +173,7 @@ The skill package includes production-ready templates in the `assets/` directory
    ```
 
 4. **Convert Annotation Format** - Standardize annotations to target format (COCO, YOLO, Pascal VOC)
+
    ```bash
    # If conversion needed
    python3 ../skills/engineering-team/senior-computer-vision/scripts/dataset_pipeline_builder.py --input ./raw_dataset/ --config conversion_config.yaml --output text
@@ -177,6 +181,7 @@ The skill package includes production-ready templates in the `assets/` directory
    ```
 
 5. **Split Dataset** - Create train/val/test splits with stratification
+
    ```bash
    # Configure split ratios in config.yaml:
    # train: 0.7
@@ -188,6 +193,7 @@ The skill package includes production-ready templates in the `assets/` directory
    ```
 
 6. **Validate Data Quality** - Run comprehensive validation checks
+
    ```bash
    # Validation includes:
    # - Image integrity (corrupted files)
@@ -201,6 +207,7 @@ The skill package includes production-ready templates in the `assets/` directory
    ```
 
 7. **Generate Data Pipeline Code** - Create production-ready data loader code
+
    ```bash
    # Tool generates PyTorch DataLoader or TensorFlow Dataset code
    # Includes:
@@ -215,6 +222,7 @@ The skill package includes production-ready templates in the `assets/` directory
 **Time Estimate:** 30-60 minutes for dataset analysis and preparation (excluding large dataset download time)
 
 **Example:**
+
 ```bash
 # Complete dataset preparation workflow
 python3 ../skills/engineering-team/senior-computer-vision/scripts/dataset_pipeline_builder.py --input ./coco_dataset/ --config dataset_config.yaml --output json --file report.json --verbose
@@ -229,6 +237,7 @@ cat report.json | jq '.summary'
 **Steps:**
 
 1. **Review Architecture Patterns** - Select appropriate model architecture for task
+
    ```bash
    cat ../skills/engineering-team/senior-computer-vision/references/computer_vision_architectures.md | grep -A 30 "Object Detection"
    # Consider:
@@ -238,6 +247,7 @@ cat report.json | jq '.summary'
    ```
 
 2. **Configure Training Pipeline** - Set up training configuration with optimal hyperparameters
+
    ```bash
    # Create training_config.yaml:
    # model:
@@ -256,6 +266,7 @@ cat report.json | jq '.summary'
    ```
 
 3. **Start Training with Experiment Tracking** - Launch training with automated experiment logging
+
    ```bash
    python3 ../skills/engineering-team/senior-computer-vision/scripts/vision_model_trainer.py --input ./prepared_dataset/ --config training_config.yaml --output text --verbose
    # Training includes:
@@ -268,6 +279,7 @@ cat report.json | jq '.summary'
    ```
 
 4. **Monitor Training Progress** - Track metrics during training
+
    ```bash
    # View training logs
    tail -f training.log
@@ -281,6 +293,7 @@ cat report.json | jq '.summary'
    ```
 
 5. **Evaluate Best Model** - Run comprehensive evaluation on test set
+
    ```bash
    # Evaluation metrics:
    # - mAP@0.5, mAP@0.75, mAP@[0.5:0.95]
@@ -293,6 +306,7 @@ cat report.json | jq '.summary'
    ```
 
 6. **Analyze Results and Iterate** - Review metrics and identify improvement areas
+
    ```bash
    cat evaluation_results.json | jq '.metrics'
    # If performance insufficient:
@@ -303,6 +317,7 @@ cat report.json | jq '.summary'
    ```
 
 7. **Export Production Model** - Save model in deployment-ready format
+
    ```bash
    # Save model checkpoints
    # Export to ONNX for deployment
@@ -318,6 +333,7 @@ cat report.json | jq '.summary'
 **Time Estimate:** 4-12 hours for training (depends on dataset size, model complexity, and hardware)
 
 **Example:**
+
 ```bash
 # Complete training workflow
 python3 ../skills/engineering-team/senior-computer-vision/scripts/vision_model_trainer.py --input ./dataset/ --config train_config.yaml --output json --file training_results.json --verbose
@@ -332,6 +348,7 @@ mlflow ui --port 5000
 **Steps:**
 
 1. **Baseline Performance Measurement** - Measure original model performance metrics
+
    ```bash
    python3 ../skills/engineering-team/senior-computer-vision/scripts/inference_optimizer.py --input model.pth --output json --file baseline_metrics.json --verbose
    # Baseline metrics:
@@ -343,6 +360,7 @@ mlflow ui --port 5000
    ```
 
 2. **Review Optimization Strategies** - Reference optimization best practices
+
    ```bash
    cat ../skills/engineering-team/senior-computer-vision/references/object_detection_optimization.md | grep -A 40 "Inference Optimization"
    # Optimization techniques:
@@ -354,6 +372,7 @@ mlflow ui --port 5000
    ```
 
 3. **Apply Quantization** - Convert model to INT8 or FP16 for faster inference
+
    ```bash
    # FP16 quantization (2x speedup, minimal accuracy loss)
    python3 ../skills/engineering-team/senior-computer-vision/scripts/inference_optimizer.py --input model.pth --config fp16_config.yaml --output json --file fp16_results.json
@@ -363,6 +382,7 @@ mlflow ui --port 5000
    ```
 
 4. **Convert to TensorRT** - Apply hardware-specific optimization for NVIDIA GPUs
+
    ```bash
    # TensorRT optimization provides:
    # - Layer fusion
@@ -374,6 +394,7 @@ mlflow ui --port 5000
    ```
 
 5. **Export to ONNX** - Create portable model format for cross-platform deployment
+
    ```bash
    # ONNX export enables:
    # - Deployment on various runtimes (ONNX Runtime, TensorRT, OpenVINO)
@@ -384,6 +405,7 @@ mlflow ui --port 5000
    ```
 
 6. **Benchmark Optimized Models** - Compare performance across optimization strategies
+
    ```bash
    # Compare metrics across all variants:
    # | Model Variant | Latency | Throughput | Size | mAP | Memory |
@@ -397,6 +419,7 @@ mlflow ui --port 5000
    ```
 
 7. **Validate Accuracy Preservation** - Ensure optimizations maintain acceptable accuracy
+
    ```bash
    # Run evaluation on test set with optimized model
    # Acceptable accuracy drop: < 2% mAP
@@ -407,6 +430,7 @@ mlflow ui --port 5000
    ```
 
 8. **Profile Memory and Latency** - Detailed profiling for production planning
+
    ```bash
    # Memory profiling:
    # - Peak GPU memory usage
@@ -420,6 +444,7 @@ mlflow ui --port 5000
    ```
 
 9. **Select Optimal Model** - Choose best model variant for deployment target
+
    ```bash
    # Selection criteria:
    # - Server deployment (GPU available): TensorRT for max throughput
@@ -429,6 +454,7 @@ mlflow ui --port 5000
    ```
 
 10. **Generate Deployment Package** - Package model with deployment artifacts
+
     ```bash
     # Package includes:
     # - Optimized model file (.trt, .onnx, .pt)
@@ -444,6 +470,7 @@ mlflow ui --port 5000
 **Time Estimate:** 2-4 hours for optimization and benchmarking
 
 **Example:**
+
 ```bash
 # Complete optimization workflow
 python3 ../skills/engineering-team/senior-computer-vision/scripts/inference_optimizer.py --input model.pth --config optimization_config.yaml --output json --file optimization_results.json --verbose
@@ -458,6 +485,7 @@ cat optimization_results.json | jq '.recommendations'
 **Steps:**
 
 1. **Review Production System Patterns** - Reference deployment architecture best practices
+
    ```bash
    cat ../skills/engineering-team/senior-computer-vision/references/production_vision_systems.md | grep -A 50 "Deployment Strategies"
    # Architecture patterns:
@@ -468,6 +496,7 @@ cat optimization_results.json | jq '.recommendations'
    ```
 
 2. **Create Docker Container** - Containerize model with inference server
+
    ```bash
    # Dockerfile includes:
    # - Base image (NVIDIA CUDA, PyTorch runtime)
@@ -480,6 +509,7 @@ cat optimization_results.json | jq '.recommendations'
    ```
 
 3. **Test Container Locally** - Verify containerized inference works correctly
+
    ```bash
    # Run container locally
    docker run -p 8000:8000 --gpus all vision-model:v1.0.0
@@ -494,6 +524,7 @@ cat optimization_results.json | jq '.recommendations'
    ```
 
 4. **Push to Container Registry** - Upload container for deployment
+
    ```bash
    # Tag and push to registry
    docker tag vision-model:v1.0.0 registry.example.com/vision-model:v1.0.0
@@ -505,6 +536,7 @@ cat optimization_results.json | jq '.recommendations'
    ```
 
 5. **Deploy to Kubernetes** - Deploy using Kubernetes for orchestration
+
    ```bash
    # Apply Kubernetes manifests
    kubectl apply -f k8s/namespace.yml
@@ -523,6 +555,7 @@ cat optimization_results.json | jq '.recommendations'
    ```
 
 6. **Configure Auto-Scaling** - Set up horizontal and vertical scaling
+
    ```bash
    # Horizontal Pod Autoscaler (HPA) configuration:
    # - Min replicas: 2 (high availability)
@@ -535,6 +568,7 @@ cat optimization_results.json | jq '.recommendations'
    ```
 
 7. **Set Up Monitoring** - Configure comprehensive monitoring and alerting
+
    ```bash
    # Monitoring stack:
    # - Prometheus for metrics collection
@@ -554,6 +588,7 @@ cat optimization_results.json | jq '.recommendations'
    ```
 
 8. **Configure A/B Testing** - Set up traffic splitting for model comparison
+
    ```bash
    # Deploy two model versions
    kubectl apply -f k8s/deployment-v1.yml
@@ -570,6 +605,7 @@ cat optimization_results.json | jq '.recommendations'
    ```
 
 9. **Implement Logging and Tracing** - Set up comprehensive observability
+
    ```bash
    # Logging:
    # - Application logs (inference requests, errors)
@@ -585,6 +621,7 @@ cat optimization_results.json | jq '.recommendations'
    ```
 
 10. **Run Load Tests** - Validate system performance under production load
+
     ```bash
     # Load testing scenarios:
     # - Normal load (baseline traffic)
@@ -603,6 +640,7 @@ cat optimization_results.json | jq '.recommendations'
     ```
 
 11. **Configure Backup and Rollback** - Ensure safe deployment with rollback capability
+
     ```bash
     # Backup current model version
     kubectl get deployment vision-model -o yaml > backup-v1.0.0.yaml
@@ -618,6 +656,7 @@ cat optimization_results.json | jq '.recommendations'
     ```
 
 12. **Document Deployment** - Create comprehensive deployment documentation
+
     ```bash
     # Documentation includes:
     # - Architecture diagram
@@ -634,6 +673,7 @@ cat optimization_results.json | jq '.recommendations'
 **Time Estimate:** 6-10 hours for initial deployment setup, 1-2 hours for subsequent deployments
 
 **Example:**
+
 ```bash
 # Quick deployment to Kubernetes
 docker build -t vision-model:v1.0.0 .
@@ -908,12 +948,14 @@ echo "   3. Monitor performance"
 ### Model Performance Metrics
 
 **Accuracy Standards:**
+
 - **Object Detection mAP:** > 85% for production deployment
 - **Classification Accuracy:** > 90% top-1, > 98% top-5
 - **Segmentation IoU:** > 75% mean IoU across classes
 - **Per-Class Performance:** No class below 70% precision/recall
 
 **Model Improvement:**
+
 - **Training Time Reduction:** 40-60% with optimized data pipelines
 - **Accuracy Gain:** 5-10% improvement with proper augmentation
 - **Convergence Speed:** 30-50% fewer epochs with transfer learning
@@ -921,12 +963,14 @@ echo "   3. Monitor performance"
 ### Inference Performance Metrics
 
 **Latency Targets:**
+
 - **Real-Time Inference:** < 33ms (30 FPS) for video processing
 - **Batch Inference:** < 10ms per image with batching
 - **Edge Devices:** < 100ms on Jetson Nano, < 200ms on Raspberry Pi
 - **Server Deployment:** < 20ms p95 latency with TensorRT
 
 **Optimization Gains:**
+
 - **FP16 Quantization:** 2-3x speedup, < 0.5% accuracy loss
 - **INT8 Quantization:** 3-5x speedup, 1-2% accuracy loss
 - **TensorRT Acceleration:** 5-10x speedup with layer fusion
@@ -935,12 +979,14 @@ echo "   3. Monitor performance"
 ### System Reliability Metrics
 
 **Availability:**
+
 - **Uptime:** 99.9% (< 8.76 hours downtime/year)
 - **Error Rate:** < 0.1% failed inference requests
 - **Mean Time to Recovery (MTTR):** < 10 minutes
 - **Successful Deployments:** > 98% without rollback
 
 **Scalability:**
+
 - **Throughput:** 1000+ inferences/second with auto-scaling
 - **Concurrent Users:** Support 10,000+ simultaneous requests
 - **Horizontal Scaling:** Linear performance with replica count
@@ -949,12 +995,14 @@ echo "   3. Monitor performance"
 ### Development Efficiency Metrics
 
 **Time Savings:**
+
 - **Dataset Preparation:** 70-80% time reduction with automation
 - **Model Training Setup:** 60-75% faster with pre-configured pipelines
 - **Optimization Workflow:** 85-90% time saved vs manual optimization
 - **Deployment Time:** From days to hours with automated pipelines
 
 **Quality Improvements:**
+
 - **Bug Prevention:** 60-70% fewer production issues with validation
 - **Consistency:** 95%+ adherence to best practices
 - **Documentation Quality:** Complete deployment docs generated automatically
@@ -963,12 +1011,14 @@ echo "   3. Monitor performance"
 ### Cost Optimization Metrics
 
 **Infrastructure Costs:**
+
 - **GPU Utilization:** Improved from 40% to 75% (cost efficiency)
 - **Auto-Scaling:** 30-50% cost reduction with dynamic scaling
 - **Model Size:** 50-75% storage cost reduction with optimization
 - **Inference Cost:** 3-5x reduction with quantization and batching
 
 **Development Costs:**
+
 - **Engineer Productivity:** 40-60% improvement in delivery speed
 - **Training Costs:** 30-50% reduction with efficient hyperparameter search
 - **Debug Time:** 50-70% faster issue resolution with monitoring

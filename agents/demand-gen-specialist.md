@@ -106,23 +106,32 @@ The demand-gen-specialist agent bridges the gap between marketing strategy and m
 **Goal:** Plan and launch demand generation campaign across multiple acquisition channels
 
 **Steps:**
+
 1. **Define Campaign Goals** - Set targets for leads, MQLs, SQLs, conversion rates
 2. **Reference Acquisition Frameworks** - Review proven lead generation strategies
+
    ```bash
    cat ../skills/marketing-team/marketing-demand-acquisition/references/acquisition_frameworks.md
    ```
+
 3. **Select Channels** - Choose optimal mix based on target audience and budget
+
    ```bash
    cat ../skills/marketing-team/marketing-demand-acquisition/references/channel_best_practices.md
    ```
+
 4. **Create Campaign Plan** - Use template to structure multi-channel approach
+
    ```bash
    cp ../skills/marketing-team/marketing-demand-acquisition/assets/campaign-plan.md .docs/canonical/plans/plan-repo-campaign-2026-q4.md
    ```
+
 5. **Design Landing Pages** - Reference conversion optimization best practices
+
    ```bash
    cat ../skills/marketing-team/marketing-demand-acquisition/references/conversion_optimization.md
    ```
+
 6. **Launch and Monitor** - Deploy campaigns, track metrics, collect data
 
 **Expected Output:** Structured campaign plan with channel strategy, budget allocation, success metrics
@@ -134,26 +143,34 @@ The demand-gen-specialist agent bridges the gap between marketing strategy and m
 **Goal:** Identify and fix conversion bottlenecks in acquisition funnel
 
 **Steps:**
+
 1. **Export Campaign Data** - Gather metrics from all acquisition channels (GA4, ad platforms, CRM)
 2. **Calculate Channel CAC** - Run CAC calculator to analyze cost efficiency
+
    ```bash
    python ../skills/marketing-team/marketing-demand-acquisition/scripts/calculate_cac.py campaign-spend.csv conversions.csv
    ```
+
 3. **Map Conversion Funnel** - Use template to visualize drop-off points
+
    ```bash
    cp ../skills/marketing-team/marketing-demand-acquisition/assets/funnel-analysis.md current-funnel-analysis.md
    ```
+
 4. **Identify Bottlenecks** - Analyze conversion rates at each funnel stage:
    - Awareness → Interest (CTR)
    - Interest → Consideration (landing page conversion)
    - Consideration → Intent (form completion)
    - Intent → Purchase/MQL (qualification rate)
 5. **Reference Optimization Guides** - Review best practices for problem areas
+
    ```bash
    cat ../skills/marketing-team/marketing-demand-acquisition/references/conversion_optimization.md
    ```
+
 6. **Implement A/B Tests** - Test hypotheses for improvement
 7. **Re-calculate CAC Post-Optimization** - Measure cost efficiency improvements
+
    ```bash
    python ../skills/marketing-team/marketing-demand-acquisition/scripts/calculate_cac.py post-optimization-spend.csv post-optimization-conversions.csv
    ```
@@ -163,6 +180,7 @@ The demand-gen-specialist agent bridges the gap between marketing strategy and m
 **Time Estimate:** 6-8 hours for analysis and optimization planning
 
 **Example:**
+
 ```bash
 # Complete CAC analysis workflow
 python ../skills/marketing-team/marketing-demand-acquisition/scripts/calculate_cac.py q3-spend.csv q3-conversions.csv > cac-report.txt
@@ -175,6 +193,7 @@ cat cac-report.txt
 **Goal:** Evaluate and compare performance across acquisition channels to optimize budget allocation
 
 **Steps:**
+
 1. **Collect Channel Data** - Export metrics from each acquisition channel:
    - Google Ads (CPC, CTR, conversion rate, CPA)
    - LinkedIn Ads (impressions, clicks, leads, cost per lead)
@@ -182,13 +201,17 @@ cat cac-report.txt
    - Content Marketing (organic traffic, leads, MQLs)
    - Email Campaigns (open rate, click rate, conversions)
 2. **Run CAC Comparison** - Calculate and compare CAC across all channels
+
    ```bash
    python ../skills/marketing-team/marketing-demand-acquisition/scripts/calculate_cac.py channel-spend.csv channel-conversions.csv
    ```
+
 3. **Reference Channel Best Practices** - Understand benchmarks for each channel
+
    ```bash
    cat ../skills/marketing-team/marketing-demand-acquisition/references/channel_best_practices.md
    ```
+
 4. **Calculate Key Metrics:**
    - CAC (Customer Acquisition Cost) by channel
    - LTV:CAC ratio
@@ -206,11 +229,14 @@ cat cac-report.txt
 **Goal:** Create and launch lead magnet campaign to capture high-quality leads
 
 **Steps:**
+
 1. **Define Lead Magnet** - Choose format: ebook, webinar, template, assessment, free trial
 2. **Reference Conversion Best Practices** - Review lead capture optimization strategies
+
    ```bash
    cat ../skills/marketing-team/marketing-demand-acquisition/references/conversion_optimization.md
    ```
+
 3. **Create Landing Page** - Design high-converting landing page with:
    - Clear value proposition
    - Compelling CTA
@@ -223,6 +249,7 @@ cat cac-report.txt
    - Organic social posts
    - Blog post with CTA
 6. **Monitor and Optimize** - Track CAC and conversion metrics
+
    ```bash
    # Weekly CAC analysis
    python ../skills/marketing-team/marketing-demand-acquisition/scripts/calculate_cac.py lead-magnet-spend.csv lead-magnet-conversions.csv
@@ -289,23 +316,27 @@ fi
 ## Success Metrics
 
 **Acquisition Metrics:**
+
 - **Lead Volume:** 20-30% month-over-month growth
 - **MQL Conversion Rate:** 15-25% of total leads qualify as MQLs
 - **CAC (Customer Acquisition Cost):** Decrease by 15-20% with optimization
 - **LTV:CAC Ratio:** Maintain 3:1 or higher ratio
 
 **Channel Performance:**
+
 - **Paid Search:** CTR 3-5%, conversion rate 5-10%
 - **Paid Social:** CTR 1-2%, CPL (cost per lead) benchmarked by industry
 - **Content Marketing:** 30-40% of organic traffic converts to leads
 - **Email Campaigns:** Open rate 20-30%, click rate 3-5%, conversion rate 2-5%
 
 **Funnel Optimization:**
+
 - **Landing Page Conversion:** 25-40% conversion rate on optimized pages
 - **Form Completion:** 60-80% of visitors who start form complete it
 - **Lead Quality:** 40-50% of MQLs convert to SQLs
 
 **Business Impact:**
+
 - **Pipeline Contribution:** Demand gen accounts for 50-70% of sales pipeline
 - **Revenue Attribution:** Track $X in closed-won revenue to demand gen campaigns
 - **Payback Period:** CAC recovered within 6-12 months

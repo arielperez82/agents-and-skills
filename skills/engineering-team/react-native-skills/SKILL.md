@@ -14,6 +14,7 @@ Comprehensive best practices for React Native and Expo applications. Contains ru
 ## When to Apply
 
 Reference these guidelines when:
+
 - Building React Native or Expo apps
 - Optimizing list and scroll performance
 - Implementing animations with Reanimated
@@ -103,6 +104,7 @@ rules/animation-gpu-properties.md
 ```
 
 Each rule file contains:
+
 - Brief explanation of why it matters
 - Incorrect code example with explanation
 - Correct code example with explanation

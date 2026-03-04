@@ -9,16 +9,19 @@ This guide covers modern architecture patterns for fullstack web applications, i
 ### Service Design Principles
 
 **Single Responsibility**
+
 - Each service owns a specific business capability
 - Clear boundaries between services
 - Independent deployment and scaling
 
 **Loose Coupling**
+
 - Services communicate via well-defined APIs
 - Event-driven architecture for async operations
 - No direct database access between services
 
 **High Cohesion**
+
 - Related functionality grouped together
 - Minimize cross-service dependencies
 - Clear service contracts
@@ -26,11 +29,13 @@ This guide covers modern architecture patterns for fullstack web applications, i
 ### Service Communication Patterns
 
 **Synchronous Communication**
+
 - REST APIs for CRUD operations
 - GraphQL for flexible queries
 - gRPC for high-performance internal calls
 
 **Asynchronous Communication**
+
 - Message queues (RabbitMQ, Kafka)
 - Event sourcing patterns
 - CQRS (Command Query Responsibility Segregation)
@@ -38,12 +43,14 @@ This guide covers modern architecture patterns for fullstack web applications, i
 ### Service Mesh
 
 **Features**
+
 - Service discovery
 - Load balancing
 - Circuit breaking
 - Observability
 
 **Popular Solutions**
+
 - Istio
 - Linkerd
 - Consul Connect
@@ -53,24 +60,28 @@ This guide covers modern architecture patterns for fullstack web applications, i
 ### Layer Structure
 
 **Presentation Layer**
+
 - UI components (React, Next.js)
 - Controllers/Resolvers
 - Input validation
 - Response formatting
 
 **Application Layer**
+
 - Use cases/Services
 - Business logic orchestration
 - DTO (Data Transfer Objects)
 - Application-specific rules
 
 **Domain Layer**
+
 - Entities
 - Value objects
 - Domain services
 - Business rules
 
 **Infrastructure Layer**
+
 - Database implementations
 - External API integrations
 - File system operations
@@ -79,11 +90,13 @@ This guide covers modern architecture patterns for fullstack web applications, i
 ### Dependency Rule
 
 **Core Principle:** Dependencies flow inward
+
 - Presentation depends on Application
 - Application depends on Domain
 - Domain has no dependencies
 
 **Benefits:**
+
 - Testable business logic
 - Framework independence
 - Database independence
@@ -94,11 +107,13 @@ This guide covers modern architecture patterns for fullstack web applications, i
 ### Strategic Design
 
 **Bounded Context**
+
 - Define clear boundaries
 - Separate models per context
 - Context mapping between domains
 
 **Ubiquitous Language**
+
 - Shared vocabulary across team
 - Code reflects business terminology
 - Consistent naming conventions
@@ -106,26 +121,31 @@ This guide covers modern architecture patterns for fullstack web applications, i
 ### Tactical Design
 
 **Entities**
+
 - Objects with unique identity
 - Mutable state
 - Lifecycle management
 
 **Value Objects**
+
 - Immutable objects
 - No identity
 - Compared by values
 
 **Aggregates**
+
 - Cluster of entities and value objects
 - Consistency boundary
 - Single root entity
 
 **Repositories**
+
 - Abstraction over data access
 - Domain-centric interface
 - Hide persistence details
 
 **Domain Events**
+
 - Capture business events
 - Enable loose coupling
 - Audit trail
@@ -135,6 +155,7 @@ This guide covers modern architecture patterns for fullstack web applications, i
 ### Component Architecture
 
 **Atomic Design**
+
 - Atoms: Basic building blocks (Button, Input)
 - Molecules: Simple combinations (SearchForm)
 - Organisms: Complex components (Header, ProductCard)
@@ -142,6 +163,7 @@ This guide covers modern architecture patterns for fullstack web applications, i
 - Pages: Specific instances
 
 **Container/Presenter Pattern**
+
 - Container: Logic and state
 - Presenter: Pure UI
 - Clear separation of concerns
@@ -149,16 +171,19 @@ This guide covers modern architecture patterns for fullstack web applications, i
 ### State Management
 
 **Local State**
+
 - Component-specific state
 - useState, useReducer
 - Minimal lifting
 
 **Global State**
+
 - Application-wide state
 - Zustand, Jotai, Redux
 - Shared data
 
 **Server State**
+
 - Data from APIs
 - React Query, SWR
 - Caching and synchronization
@@ -166,11 +191,13 @@ This guide covers modern architecture patterns for fullstack web applications, i
 ### Routing
 
 **File-based Routing (Next.js)**
+
 - `pages/` directory structure
 - Dynamic routes: `[id].tsx`
 - API routes: `pages/api/`
 
 **Client-side Routing**
+
 - React Router
 - Protected routes
 - Nested routes
@@ -180,12 +207,14 @@ This guide covers modern architecture patterns for fullstack web applications, i
 ### API Design
 
 **RESTful Principles**
+
 - Resource-based URLs
 - HTTP methods (GET, POST, PUT, DELETE)
 - Stateless communication
 - HATEOAS (optional)
 
 **GraphQL Schema Design**
+
 - Type-first approach
 - Query optimization
 - Mutation patterns
@@ -194,18 +223,21 @@ This guide covers modern architecture patterns for fullstack web applications, i
 ### Service Layer Pattern
 
 **Controller Layer**
+
 - Request handling
 - Input validation
 - Response formatting
 - Error handling
 
 **Service Layer**
+
 - Business logic
 - Transaction management
 - Cross-cutting concerns
 - Integration orchestration
 
 **Repository Layer**
+
 - Data access abstraction
 - Query building
 - ORM integration
@@ -214,11 +246,13 @@ This guide covers modern architecture patterns for fullstack web applications, i
 ### Background Jobs
 
 **Job Queue Patterns**
+
 - Bull (Redis-based)
 - BullMQ (Modern alternative)
 - Agenda (MongoDB-based)
 
 **Use Cases**
+
 - Email sending
 - Report generation
 - Data processing
@@ -229,12 +263,14 @@ This guide covers modern architecture patterns for fullstack web applications, i
 ### Schema Design Patterns
 
 **Normalized Design**
+
 - Eliminate redundancy
 - Third normal form (3NF)
 - Referential integrity
 - Join-heavy queries
 
 **Denormalized Design**
+
 - Optimized for reads
 - Reduced joins
 - Controlled redundancy
@@ -243,16 +279,19 @@ This guide covers modern architecture patterns for fullstack web applications, i
 ### Data Access Patterns
 
 **Active Record**
+
 - Models contain persistence logic
 - Simple CRUD operations
 - Rapid development
 
 **Data Mapper**
+
 - Separation of domain and persistence
 - Complex mapping logic
 - Testability
 
 **Repository Pattern**
+
 - Collection-like interface
 - Domain-centric queries
 - Multiple data sources
@@ -260,16 +299,19 @@ This guide covers modern architecture patterns for fullstack web applications, i
 ### Caching Strategies
 
 **Cache-Aside**
+
 - Application manages cache
 - Read-through pattern
 - Lazy loading
 
 **Write-Through**
+
 - Write to cache and DB simultaneously
 - Consistency guaranteed
 - Higher latency
 
 **Write-Behind**
+
 - Write to cache first
 - Async DB updates
 - Better performance
@@ -279,21 +321,25 @@ This guide covers modern architecture patterns for fullstack web applications, i
 ### Frontend Optimization
 
 **Code Splitting**
+
 - Dynamic imports
 - Route-based splitting
 - Component lazy loading
 
 **Server-Side Rendering (SSR)**
+
 - Initial page load optimization
 - SEO benefits
 - Hybrid rendering
 
 **Static Site Generation (SSG)**
+
 - Pre-rendered pages
 - CDN distribution
 - Revalidation strategies
 
 **Image Optimization**
+
 - Next.js Image component
 - Lazy loading
 - Responsive images
@@ -302,17 +348,20 @@ This guide covers modern architecture patterns for fullstack web applications, i
 ### Backend Optimization
 
 **Connection Pooling**
+
 - Reuse database connections
 - Prevent connection exhaustion
 - Configuration tuning
 
 **Query Optimization**
+
 - Index strategies
 - N+1 query prevention
 - Batch loading (DataLoader)
 - Query caching
 
 **Horizontal Scaling**
+
 - Load balancing
 - Stateless services
 - Session management
@@ -323,16 +372,19 @@ This guide covers modern architecture patterns for fullstack web applications, i
 ### Authentication
 
 **JWT (JSON Web Tokens)**
+
 - Stateless authentication
 - Token refresh strategies
 - Token blacklisting
 
 **Session-based**
+
 - Server-side session storage
 - Session cookies
 - CSRF protection
 
 **OAuth 2.0**
+
 - Third-party authentication
 - Authorization flows
 - Token management
@@ -340,11 +392,13 @@ This guide covers modern architecture patterns for fullstack web applications, i
 ### Authorization
 
 **RBAC (Role-Based Access Control)**
+
 - Define roles (Admin, User, Guest)
 - Assign permissions to roles
 - Check user roles
 
 **ABAC (Attribute-Based Access Control)**
+
 - Policy-based decisions
 - Context-aware authorization
 - Fine-grained control
@@ -352,11 +406,13 @@ This guide covers modern architecture patterns for fullstack web applications, i
 ### Input Validation
 
 **Server-side Validation**
+
 - Never trust client input
 - Validate all inputs
 - Sanitize data
 
 **Client-side Validation**
+
 - UX improvement
 - Immediate feedback
 - Not a security measure
@@ -389,12 +445,14 @@ This guide covers modern architecture patterns for fullstack web applications, i
 ### Logging
 
 **Structured Logging**
+
 - JSON format
 - Contextual information
 - Searchable logs
 - Correlation IDs
 
 **Log Levels**
+
 - ERROR: Application errors
 - WARN: Potential issues
 - INFO: Important events
@@ -403,12 +461,14 @@ This guide covers modern architecture patterns for fullstack web applications, i
 ### Metrics
 
 **Application Metrics**
+
 - Request rate
 - Error rate
 - Response time
 - Saturation
 
 **Business Metrics**
+
 - User signups
 - Conversion rate
 - Revenue
@@ -417,12 +477,14 @@ This guide covers modern architecture patterns for fullstack web applications, i
 ### Tracing
 
 **Distributed Tracing**
+
 - Trace requests across services
 - Identify bottlenecks
 - Visualize call chains
 - Performance profiling
 
 **Tools**
+
 - Jaeger
 - Zipkin
 - OpenTelemetry
@@ -430,26 +492,31 @@ This guide covers modern architecture patterns for fullstack web applications, i
 ## Anti-Patterns to Avoid
 
 **Monolithic Services**
+
 - Everything in one service
 - Hard to scale
 - Deployment bottleneck
 
 **Tight Coupling**
+
 - Direct database access between services
 - Shared libraries with business logic
 - Hidden dependencies
 
 **Premature Optimization**
+
 - Optimize before measuring
 - Complex solutions for simple problems
 - Over-engineering
 
 **God Objects**
+
 - Classes doing too much
 - Violate single responsibility
 - Hard to maintain
 
 **Circular Dependencies**
+
 - Services depend on each other
 - Deadlocks and race conditions
 - Deployment complications

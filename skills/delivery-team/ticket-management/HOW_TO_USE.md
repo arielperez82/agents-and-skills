@@ -7,16 +7,19 @@ Hey Claude—I just added the "jira-expert" skill. Can you set up a custom workf
 ## Example Invocations
 
 ### Example 1: Basic Usage
+
 ```
 Hey Claude—I just added the "jira-expert" skill. Can you set up a custom workflow?
 ```
 
 ### Example 2: Specific Workflow
+
 ```
 Hey Claude—I just added the "jira-expert" skill. Can you provide a comprehensive analysis?
 ```
 
 ### Example 3: Integration with Other Skills
+
 ```
 Hey Claude—I just added the "jira-expert" skill. Can you use it together with related skills to deliver a complete solution?
 ```

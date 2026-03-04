@@ -208,12 +208,16 @@
 
 **API/Interface:**
 ```
+
 [API spec or interface definition]
+
 ```
 
 **Data Model:**
 ```
+
 [Schema or data structure]
+
 ```
 
 **Key Algorithms/Logic:**
@@ -249,6 +253,7 @@
 ```
 
 **Response:**
+
 ```json
 {
   "result": "success",
@@ -257,17 +262,20 @@
 ```
 
 **Error Handling:**
+
 - 400: [Reason]
 - 404: [Reason]
 - 500: [Reason]
 
 ## Security Considerations
+
 - [Security consideration 1]
 - [Security consideration 2]
 - [Authentication/Authorization approach]
 - [Data encryption requirements]
 
 ## Performance Considerations
+
 - [Expected load/throughput]
 - [Scalability approach]
 - [Caching strategy]
@@ -276,52 +284,64 @@
 ## Testing Strategy
 
 ### Unit Tests
+
 - [Test area 1]
 - [Test area 2]
 
 ### Integration Tests
+
 - [Test scenario 1]
 - [Test scenario 2]
 
 ### Performance Tests
+
 - [Load test plan]
 - [Performance benchmarks]
 
 ## Deployment Plan
+
 1. [Deployment step 1]
 2. [Deployment step 2]
 3. [Deployment step 3]
 
 ### Rollback Plan
+
 [How to revert if issues occur]
 
 ## Monitoring and Alerting
+
 - [Metric 1] - Alert threshold: [Value]
 - [Metric 2] - Alert threshold: [Value]
 - [Log tracking]
 
 ## Migration Plan (if applicable)
+
 [How to migrate from current system]
 
 ## Dependencies
+
 - [Dependency 1] - Why needed
 - [Dependency 2] - Why needed
 
 ## Open Questions
+
 - [ ] [Question 1] - @[Owner]
 - [ ] [Question 2] - @[Owner]
 
 ## Future Considerations
+
 - [Future enhancement 1]
 - [Future enhancement 2]
 
 ## References
+
 - [Link to related specs]
 - [Link to design docs]
 - [Link to JIRA epics]
 
 ---
 *For questions, contact @[Author]*
+
 ```
 
 ---
@@ -363,48 +383,60 @@ command here
 [Add screenshot if helpful]
 
 ### Step 2: [Action]
+
 [Detailed description]
 
 **Tips:**
+
 - 💡 [Helpful tip]
 - ⚠️ [Warning about common mistake]
 
 ### Step 3: [Action]
+
 [Continue pattern...]
 
 ## Verification
+
 To verify everything worked:
+
 1. [Check 1]
 2. [Check 2]
 
 ## Troubleshooting
 
 ### Problem: [Common issue]
+
 **Symptoms:** [What you see]
 **Cause:** [Why it happens]
 **Solution:**
+
 1. [Fix step 1]
 2. [Fix step 2]
 
 ### Problem: [Another issue]
+
 [Same structure as above]
 
 ## Best Practices
+
 - [Best practice 1]
 - [Best practice 2]
 - [Best practice 3]
 
 ## Related Guides
+
 - [Link to related guide 1]
 - [Link to related guide 2]
 
 ## Need Help?
+
 - Questions? Ask in #[channel]
 - Issues? Create ticket in [JIRA project]
 - Contact: @[Expert name]
 
 ---
 *Last updated: [Date] by @[Name]*
+
 ```
 
 ---

@@ -283,6 +283,7 @@ Missing it in any one of these causes `ERR_UNKNOWN_FILE_EXTENSION` for the `.ts`
 ### `.prettierignore` is essential
 
 Without it, `prettier --check .` or `prettier --write .` will:
+
 - Try to parse `dist/` bundles and fail or produce garbage
 - Reformat `coverage/` JSON reports
 - Attempt to format lock files (slow, pointless, noisy diffs)

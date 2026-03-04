@@ -18,6 +18,7 @@ Guide users in structuring React applications for maximum maintainability and sc
 **Reference: `references/project_architecture.md`**
 
 This comprehensive guide covers:
+
 - **Folder structure patterns**: Feature-based, atomic design, domain-driven
 - **File organization**: Colocation strategies, naming conventions
 - **Import strategies**: Path aliases, barrel exports, tree-shaking
@@ -25,6 +26,7 @@ This comprehensive guide covers:
 - **Scaling guidelines**: How to evolve structure as app grows
 
 **When to consult:**
+
 - User asks "how should I organize my React project?"
 - Starting a new project
 - Refactoring existing project structure
@@ -32,6 +34,7 @@ This comprehensive guide covers:
 - Need to establish team conventions
 
 **Key Decision Trees:**
+
 1. **Feature-based vs Component-based**: Read section "Optimal Folder Structure"
 2. **State management strategy**: Read section "State Management Strategies"
 3. **Import organization**: Read section "Import Strategies"
@@ -44,6 +47,7 @@ Automate component, hook, and feature creation with production-ready templates.
 
 **`scripts/create_component.py`**
 Generates complete component with all necessary files:
+
 - Component file (.tsx)
 - TypeScript types (.types.ts)
 - CSS Module (.module.css)
@@ -69,6 +73,7 @@ python scripts/create_component.py SimpleComponent --no-tests
 ```
 
 **When to use:**
+
 - Creating any new component
 - Setting up new feature modules
 - Need consistent component structure
@@ -76,6 +81,7 @@ python scripts/create_component.py SimpleComponent --no-tests
 
 **`scripts/create_hook.py`**
 Generates custom hooks with templates for common patterns:
+
 - State management hooks
 - Effect hooks
 - Data fetching hooks
@@ -98,6 +104,7 @@ python scripts/create_hook.py useSearchDebounce --type debounce
 ```
 
 **When to use:**
+
 - Extracting reusable logic
 - Creating custom state management
 - Need common hook patterns
@@ -110,6 +117,7 @@ Optimize React applications for maximum performance and minimal bundle size.
 **Reference: `references/performance_optimization.md`**
 
 This guide covers:
+
 - **React rendering optimization**: React.memo(), useMemo(), useCallback()
 - **Code splitting**: React.lazy(), route-based splitting, component splitting
 - **Virtualization**: Long list optimization with react-window
@@ -121,6 +129,7 @@ This guide covers:
 - **Web Vitals tracking**: Measuring LCP, FID, CLS
 
 **When to consult:**
+
 - App feels slow or laggy
 - Large bundle sizes
 - Long initial load time
@@ -129,6 +138,7 @@ This guide covers:
 - Performance audit reveals issues
 
 **Quick Performance Checklist:**
+
 1. Run `python scripts/analyze_bundle.py` to identify large dependencies
 2. Check `references/performance_optimization.md` for optimization strategies
 3. Apply code splitting for routes: `React.lazy(() => import('./Page'))`
@@ -147,12 +157,14 @@ python scripts/analyze_bundle.py
 ```
 
 **What it analyzes:**
+
 - Package.json dependencies (identifies large libraries)
 - Import patterns (suggests better imports for tree-shaking)
 - Build output (bundle sizes, chunk distribution)
 - Provides specific optimization recommendations
 
 **When to run:**
+
 - Before production deployment
 - After adding new dependencies
 - When bundle size increases unexpectedly
@@ -167,6 +179,7 @@ Deploy optimized Vite configurations and project setups.
 
 **`assets/vite.config.optimized.ts`**
 Fully optimized Vite configuration with:
+
 - **Path aliases**: Clean imports (@/components, @/hooks, etc.)
 - **Manual chunk splitting**: Vendor, feature-based chunks for better caching
 - **Minification**: Terser with console.log removal in production
@@ -177,6 +190,7 @@ Fully optimized Vite configuration with:
 - **CSS code splitting**: Automatic CSS chunking
 
 **When to use:**
+
 - Starting new project
 - Optimizing existing build
 - Setting up production pipeline
@@ -184,6 +198,7 @@ Fully optimized Vite configuration with:
 - Want to analyze bundle
 
 **How to use:**
+
 1. Copy `assets/vite.config.optimized.ts` to project root
 2. Install dependencies: `npm install -D rollup-plugin-visualizer`
 3. Customize manual chunks for your features
@@ -191,6 +206,7 @@ Fully optimized Vite configuration with:
 
 **`assets/tsconfig.optimized.json`**
 TypeScript configuration with:
+
 - **Strict mode enabled**: Catch more errors at compile time
 - **Path aliases**: Matching Vite config
 - **Optimal compiler options**: For Vite and modern React
@@ -198,6 +214,7 @@ TypeScript configuration with:
 - **Type safety**: noImplicitReturns, noUncheckedIndexedAccess
 
 **When to use:**
+
 - Starting new TypeScript project
 - Want stricter type checking
 - Need path aliases
@@ -205,6 +222,7 @@ TypeScript configuration with:
 
 **`assets/package.json.example`**
 Complete package.json with:
+
 - **All recommended scripts**: dev, build, test, lint, format
 - **Essential dependencies**: React, React DOM, Router
 - **Dev dependencies**: TypeScript, ESLint, Prettier, Vitest
@@ -213,6 +231,7 @@ Complete package.json with:
 - **CI/CD scripts**: For automated pipelines
 
 **When to use:**
+
 - Starting new project
 - Need script recommendations
 - Setting up CI/CD
@@ -221,6 +240,7 @@ Complete package.json with:
 
 **`assets/project-structure-example.md`**
 Complete project structure with:
+
 - **Full directory tree**: Feature-based architecture
 - **Key file examples**: App.tsx, router, providers, API setup
 - **Configuration examples**: vitest, eslint, prettier
@@ -228,6 +248,7 @@ Complete project structure with:
 - **Scaling guidelines**: How to grow the structure
 
 **When to use:**
+
 - Starting new project from scratch
 - Need structure reference
 - Refactoring existing project
@@ -241,6 +262,7 @@ Implement modern React patterns and avoid common pitfalls.
 **Reference: `references/best_practices.md`**
 
 This guide covers:
+
 - **Component patterns**: Compound components, render props, HOC, custom hooks
 - **TypeScript best practices**: Typing components, hooks, events, generic components
 - **Error handling**: Error boundaries, async error handling
@@ -250,6 +272,7 @@ This guide covers:
 - **Accessibility**: a11y best practices, ARIA, keyboard navigation
 
 **When to consult:**
+
 - Implementing complex component patterns
 - Need TypeScript guidance
 - Setting up error handling
@@ -260,6 +283,7 @@ This guide covers:
 - Teaching React patterns
 
 **Pattern Decision Guide:**
+
 - **Compound Components**: For flexible, composable UI (Tabs, Accordion)
 - **Custom Hooks**: Extract and reuse logic (useAuth, useDebounce)
 - **Context + Hook**: Share state across tree (Theme, Auth)
@@ -271,6 +295,7 @@ This guide covers:
 Write type-safe React code with proper TypeScript patterns.
 
 **Key TypeScript patterns in `references/best_practices.md`:**
+
 - Component prop typing (interfaces vs types)
 - Event handler typing
 - Ref typing
@@ -280,12 +305,14 @@ Write type-safe React code with proper TypeScript patterns.
 - Utility types
 
 **When user asks about TypeScript:**
+
 1. Read relevant section in `references/best_practices.md`
 2. Provide type-safe examples
 3. Explain the "why" behind the pattern
 4. Show both the wrong and right way
 
 **Common TypeScript Questions:**
+
 - "How do I type this component?" → Component Props Typing section
 - "How do I type an event handler?" → Hooks Typing section
 - "How do I make a generic component?" → Generic Components section
@@ -296,6 +323,7 @@ Write type-safe React code with proper TypeScript patterns.
 Implement comprehensive testing for React applications.
 
 **Testing patterns in `references/best_practices.md`:**
+
 - Component testing with React Testing Library
 - Custom hook testing
 - Test utilities and setup
@@ -303,6 +331,7 @@ Implement comprehensive testing for React applications.
 - Integration testing
 
 **Testing Philosophy:**
+
 - Test user behavior, not implementation
 - Test what the user sees and does
 - Mock external dependencies
@@ -310,6 +339,7 @@ Implement comprehensive testing for React applications.
 - Arrange-Act-Assert pattern
 
 **When user needs testing help:**
+
 1. Check if component generator created tests: `scripts/create_component.py`
 2. Reference testing section in `references/best_practices.md`
 3. Show test setup in `assets/project-structure-example.md`
@@ -340,6 +370,7 @@ Is it global and complex?
 ```
 
 **When to consult `references/project_architecture.md`:**
+
 - Choosing state management solution
 - Need code examples for each approach
 - Understanding trade-offs
@@ -365,6 +396,7 @@ Is it global and complex?
    - Reference `assets/package.json.example` for scripts
 
 4. **Generate initial components**:
+
    ```bash
    # Create basic UI components
    python scripts/create_component.py Button --type component --story
@@ -386,6 +418,7 @@ Is it global and complex?
 ### Example 2: "My React app is slow, how do I optimize it?"
 
 1. **Analyze current state**:
+
    ```bash
    # Run bundle analyzer
    python scripts/analyze_bundle.py
@@ -440,6 +473,7 @@ Is it global and complex?
 ### Example 4: "I need to create many similar components"
 
 1. **Use component generator**:
+
    ```bash
    # Generate multiple components at once
    python scripts/create_component.py UserCard --type component
@@ -473,6 +507,7 @@ Is it global and complex?
    - Create test utilities (render with providers)
 
 3. **Generate components with tests**:
+
    ```bash
    # Components come with tests by default
    python scripts/create_component.py Button
@@ -491,16 +526,19 @@ Is it global and complex?
 ## Best Practices for Using This Skill
 
 ### Be Comprehensive
+
 - Don't just answer questions - provide complete solutions
 - Show file structure, configuration, and examples
 - Explain the "why" behind recommendations
 
 ### Use All Resources
+
 - **Scripts**: Generate code for consistency
 - **References**: Deep dives into concepts
 - **Assets**: Production-ready configs and examples
 
 ### Follow This Order
+
 1. **Understand**: Ask clarifying questions
 2. **Reference**: Consult relevant documentation
 3. **Generate**: Use scripts when applicable
@@ -508,18 +546,21 @@ Is it global and complex?
 5. **Provide**: Give complete working examples
 
 ### Prioritize Performance
+
 - Proactively suggest optimizations
 - Run bundle analyzer regularly
 - Recommend lazy loading by default
 - Use optimized configurations
 
 ### Teach Best Practices
+
 - Show the wrong way vs the right way
 - Explain trade-offs
 - Reference TypeScript strict mode
 - Encourage testing
 
 ### Stay Organized
+
 - Recommend feature-based structure early
 - Use path aliases from the start
 - Establish naming conventions
@@ -528,7 +569,9 @@ Is it global and complex?
 ## Reference Documentation
 
 ### references/project_architecture.md
+
 **Read when:**
+
 - Structuring new project
 - Organizing existing project
 - Choosing state management
@@ -536,6 +579,7 @@ Is it global and complex?
 - User asks "how should I organize...?"
 
 **Key sections:**
+
 - Optimal Folder Structure (2 patterns)
 - Naming Conventions
 - Component Organization Patterns
@@ -544,7 +588,9 @@ Is it global and complex?
 - Decision Matrix
 
 ### references/performance_optimization.md
+
 **Read when:**
+
 - App is slow
 - Large bundle sizes
 - Optimizing for production
@@ -552,6 +598,7 @@ Is it global and complex?
 - Before deployment
 
 **Key sections:**
+
 - React Rendering Optimization (memo, useMemo, useCallback)
 - Code Splitting
 - Virtualization
@@ -562,7 +609,9 @@ Is it global and complex?
 - Web Vitals Tracking
 
 ### references/best_practices.md
+
 **Read when:**
+
 - Implementing patterns
 - TypeScript questions
 - Error handling setup
@@ -571,6 +620,7 @@ Is it global and complex?
 - Code review
 
 **Key sections:**
+
 - Component Patterns (5 patterns)
 - TypeScript Best Practices
 - Error Handling Patterns
@@ -582,6 +632,7 @@ Is it global and complex?
 ## Quick Reference
 
 ### Common Commands
+
 ```bash
 # Generate component
 python scripts/create_component.py ComponentName --type component
@@ -597,6 +648,7 @@ python scripts/analyze_bundle.py
 ```
 
 ### Common Questions
+
 - "How do I structure my project?" → `references/project_architecture.md`
 - "How do I optimize performance?" → `references/performance_optimization.md` + run `analyze_bundle.py`
 - "What pattern should I use?" → `references/best_practices.md`
@@ -604,11 +656,13 @@ python scripts/analyze_bundle.py
 - "What should my package.json look like?" → `assets/package.json.example`
 
 ### File Structure Priority
+
 1. Feature-based (large apps) - See `references/project_architecture.md`
 2. Component-based (medium apps) - See simpler structure
 3. Flat (small apps) - Minimal organization
 
 ### Performance Priority
+
 1. Code splitting (routes first)
 2. Remove large dependencies
 3. Lazy loading (images, components)
@@ -616,6 +670,7 @@ python scripts/analyze_bundle.py
 5. Virtualization (long lists)
 
 ### State Management Priority
+
 1. Server data → React Query
 2. Local state → useState
 3. Shared simple state → Context
@@ -634,6 +689,7 @@ For these topics, provide general React guidance but acknowledge limitations.
 ## Success Metrics
 
 Your React + Vite project should achieve:
+
 - ✅ Bundle size < 200KB (initial, gzipped)
 - ✅ Lighthouse score > 90
 - ✅ All tests passing

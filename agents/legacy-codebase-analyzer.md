@@ -213,6 +213,7 @@ This agent leverages seven production-ready Python analysis tools for comprehens
 **Steps:**
 
 1. **Initialize Assessment Workspace**
+
    ```bash
    # Create assessment directory
    mkdir -p assessment-$(date +%Y-%m-%d)
@@ -224,6 +225,7 @@ This agent leverages seven production-ready Python analysis tools for comprehens
    ```
 
 2. **Run Codebase Inventory**
+
    ```bash
    # Generate comprehensive inventory
    python ${SKILL_PATH}/scripts/codebase_inventory.py ${CODEBASE} \
@@ -243,6 +245,7 @@ This agent leverages seven production-ready Python analysis tools for comprehens
    ```
 
 3. **Execute Security Vulnerability Scan**
+
    ```bash
    # Scan for security vulnerabilities
    python ${SKILL_PATH}/scripts/security_vulnerability_scanner.py ${CODEBASE} \
@@ -262,6 +265,7 @@ This agent leverages seven production-ready Python analysis tools for comprehens
    ```
 
 4. **Analyze Performance Bottlenecks**
+
    ```bash
    # Detect performance issues
    python ${SKILL_PATH}/scripts/performance_bottleneck_detector.py ${CODEBASE} \
@@ -281,6 +285,7 @@ This agent leverages seven production-ready Python analysis tools for comprehens
    ```
 
 5. **Assess Code Quality**
+
    ```bash
    # Run code quality analysis
    python ${SKILL_PATH}/scripts/code_quality_analyzer.py ${CODEBASE} \
@@ -300,6 +305,7 @@ This agent leverages seven production-ready Python analysis tools for comprehens
    ```
 
 6. **Evaluate Architecture Health**
+
    ```bash
    # Analyze architectural health
    python ${SKILL_PATH}/scripts/architecture_health_analyzer.py ${CODEBASE} \
@@ -319,6 +325,7 @@ This agent leverages seven production-ready Python analysis tools for comprehens
    ```
 
 7. **Calculate Technical Debt Score**
+
    ```bash
    # Generate comprehensive debt score
    python ${SKILL_PATH}/scripts/technical_debt_scorer.py ${CODEBASE} \
@@ -341,6 +348,7 @@ This agent leverages seven production-ready Python analysis tools for comprehens
 8. **Compile Assessment Report**
 
    Read the technical debt report template:
+
    ```bash
    # Copy and populate template
    cp ${SKILL_PATH}/assets/technical_debt_report_template.md .docs/canonical/assessments/assessment-repo-legacy-$(date +%Y-%m-%d).md
@@ -358,6 +366,7 @@ This agent leverages seven production-ready Python analysis tools for comprehens
    - Prioritized recommendations
 
 9. **Create Executive Summary**
+
    ```bash
    # Copy executive template
    cp ${SKILL_PATH}/assets/executive_summary_template.md .docs/canonical/assessments/assessment-repo-legacy-executive-$(date +%Y-%m-%d).md
@@ -371,6 +380,7 @@ This agent leverages seven production-ready Python analysis tools for comprehens
    - Expected ROI (e.g., 3x over 2 years)
 
 **Expected Output:**
+
 - Comprehensive assessment report (30-50 pages)
 - Executive summary (1-2 pages)
 - JSON data files for all analysis dimensions
@@ -379,6 +389,7 @@ This agent leverages seven production-ready Python analysis tools for comprehens
 - Initial recommendations
 
 **Success Criteria:**
+
 - All five dimensions analyzed (Security, Quality, Performance, Architecture, Business)
 - Technical debt score calculated with justification
 - Critical vulnerabilities identified and prioritized
@@ -397,6 +408,7 @@ This agent leverages seven production-ready Python analysis tools for comprehens
 **Steps:**
 
 1. **Run Comprehensive Security Scan**
+
    ```bash
    CODEBASE="/path/to/legacy-system"
    SKILL_PATH="../skills/engineering-team/legacy-codebase-analyzer"
@@ -437,6 +449,7 @@ This agent leverages seven production-ready Python analysis tools for comprehens
 3. **Map to OWASP Top 10**
 
    Categorize findings:
+
    ```bash
    # Extract OWASP mappings from scan
    grep "OWASP" security-audit.txt | sort | uniq -c
@@ -451,6 +464,7 @@ This agent leverages seven production-ready Python analysis tools for comprehens
 4. **Assess Dependency Vulnerabilities**
 
    Review third-party library risks:
+
    ```bash
    # Focus on dependency section
    grep -A 20 "Dependency Vulnerabilities" security-audit.txt
@@ -499,6 +513,7 @@ This agent leverages seven production-ready Python analysis tools for comprehens
 7. **Generate Security Audit Report**
 
    Create comprehensive security report:
+
    ```markdown
    # Security Audit Report
 
@@ -539,6 +554,7 @@ This agent leverages seven production-ready Python analysis tools for comprehens
    - Define security metrics for ongoing monitoring
 
 **Expected Output:**
+
 - Comprehensive security audit report
 - Vulnerability list with severity and CVE mappings
 - OWASP Top 10 coverage analysis
@@ -547,6 +563,7 @@ This agent leverages seven production-ready Python analysis tools for comprehens
 - Compliance documentation (if applicable)
 
 **Success Criteria:**
+
 - All vulnerabilities identified and categorized
 - Critical issues have immediate remediation plan
 - OWASP coverage complete
@@ -565,6 +582,7 @@ This agent leverages seven production-ready Python analysis tools for comprehens
 **Steps:**
 
 1. **Execute Multi-Dimensional Analysis**
+
    ```bash
    CODEBASE="/path/to/legacy-system"
    SKILL_PATH="../skills/engineering-team/legacy-codebase-analyzer"
@@ -588,6 +606,7 @@ This agent leverages seven production-ready Python analysis tools for comprehens
    ```
 
 2. **Calculate Technical Debt Score**
+
    ```bash
    # Generate comprehensive debt score
    python ${SKILL_PATH}/scripts/technical_debt_scorer.py ${CODEBASE} \
@@ -603,6 +622,7 @@ This agent leverages seven production-ready Python analysis tools for comprehens
 3. **Analyze Debt Score Components**
 
    Review JSON output structure:
+
    ```json
    {
      "overall_debt_score": 7.2,
@@ -702,11 +722,13 @@ This agent leverages seven production-ready Python analysis tools for comprehens
 7. **Create Executive Presentation**
 
    Use executive summary template:
+
    ```bash
    cp ${SKILL_PATH}/assets/executive_summary_template.md .docs/reports/report-repo-debt-presentation-$(date +%Y-%m-%d).md
    ```
 
    Populate with:
+
    ```markdown
    # Technical Debt Assessment: [System Name]
 
@@ -743,6 +765,7 @@ This agent leverages seven production-ready Python analysis tools for comprehens
 8. **Track Debt Over Time**
 
    Establish baseline and tracking:
+
    ```bash
    # Save baseline
    cp debt-score.json baseline-$(date +%Y-%m-%d).json
@@ -756,6 +779,7 @@ This agent leverages seven production-ready Python analysis tools for comprehens
    ```
 
 **Expected Output:**
+
 - Technical debt score (0-10) with breakdown
 - Business impact quantification (velocity, quality, cost)
 - Remediation investment estimate
@@ -764,6 +788,7 @@ This agent leverages seven production-ready Python analysis tools for comprehens
 - Baseline for tracking improvement
 
 **Success Criteria:**
+
 - Debt score calculated with clear methodology
 - Business impact translated to financial terms
 - ROI justifies modernization investment
@@ -784,6 +809,7 @@ This agent leverages seven production-ready Python analysis tools for comprehens
 1. **Gather Assessment Data**
 
    Ensure all analyses complete:
+
    ```bash
    CODEBASE="/path/to/legacy-system"
    SKILL_PATH="../skills/engineering-team/legacy-codebase-analyzer"
@@ -794,6 +820,7 @@ This agent leverages seven production-ready Python analysis tools for comprehens
    ```
 
 2. **Generate Initial Roadmap**
+
    ```bash
    # Create modernization roadmap
    python ${SKILL_PATH}/scripts/modernization_roadmap_generator.py ${CODEBASE} \
@@ -811,6 +838,7 @@ This agent leverages seven production-ready Python analysis tools for comprehens
 3. **Review Generated Roadmap Structure**
 
    Examine output:
+
    ```json
    {
      "overview": {
@@ -838,6 +866,7 @@ This agent leverages seven production-ready Python analysis tools for comprehens
 4. **Refine Phase 1: Foundation & Quick Wins**
 
    Copy roadmap template and populate:
+
    ```bash
    cp ${SKILL_PATH}/assets/roadmap_template.md .docs/canonical/plans/plan-repo-modernization-$(date +%Y).md
    ```
@@ -1049,6 +1078,7 @@ This agent leverages seven production-ready Python analysis tools for comprehens
     - Lessons learned documentation
 
 **Expected Output:**
+
 - Comprehensive 4-phase modernization roadmap
 - Detailed initiatives with effort estimates
 - Risk assessment matrix with mitigations
@@ -1058,6 +1088,7 @@ This agent leverages seven production-ready Python analysis tools for comprehens
 - Stakeholder communication plan
 
 **Success Criteria:**
+
 - Roadmap covers 18-month transformation
 - All critical areas addressed (security, quality, architecture)
 - Effort estimates realistic (validated by team)
@@ -1080,6 +1111,7 @@ This agent leverages seven production-ready Python analysis tools for comprehens
 1. **Gather All Assessment Artifacts**
 
    Collect completed analyses:
+
    ```bash
    # Verify all inputs ready
    ls -la debt-score.json \
@@ -1093,6 +1125,7 @@ This agent leverages seven production-ready Python analysis tools for comprehens
 2. **Extract Key Metrics**
 
    Pull critical data points:
+
    ```bash
    # Technical debt score
    jq '.overall_debt_score' debt-score.json
@@ -1116,6 +1149,7 @@ This agent leverages seven production-ready Python analysis tools for comprehens
    ```
 
 3. **Create Executive Summary Document**
+
    ```bash
    SKILL_PATH="../skills/engineering-team/legacy-codebase-analyzer"
 
@@ -1413,6 +1447,7 @@ This agent leverages seven production-ready Python analysis tools for comprehens
     - Slide 7: Recommendation & next steps
 
 **Expected Output:**
+
 - Comprehensive executive summary document (5-8 pages)
 - One-page executive overview
 - Slide deck for presentation (7-10 slides)
@@ -1421,6 +1456,7 @@ This agent leverages seven production-ready Python analysis tools for comprehens
 - Financial analysis with ROI justification
 
 **Success Criteria:**
+
 - Business impact clearly articulated
 - Technical findings translated to business language
 - Investment justified with ROI calculation
@@ -1854,6 +1890,7 @@ echo "Next: Review executive-summary.md and schedule stakeholder presentation"
 ## Success Metrics
 
 **Assessment Efficiency:**
+
 - Complete legacy assessment: 2-4 hours (vs 1-2 weeks manual)
 - Security audit: 1-2 hours (vs 3-5 days manual)
 - Technical debt quantification: 1-2 hours (vs 1 week estimation)
@@ -1861,6 +1898,7 @@ echo "Next: Review executive-summary.md and schedule stakeholder presentation"
 - Time savings: 90%+ on assessment phase
 
 **Technical Accuracy:**
+
 - Security vulnerability detection: 95%+ accuracy vs manual review
 - Code quality metrics: Validated against industry standards
 - Technical debt score: Within 10% of expert assessment
@@ -1868,6 +1906,7 @@ echo "Next: Review executive-summary.md and schedule stakeholder presentation"
 - Architecture analysis: 100% circular dependency detection
 
 **Business Outcomes:**
+
 - Executive approval rate: 80%+ (clear business case)
 - Modernization funding secured: 75%+ (ROI justification)
 - Stakeholder alignment: High (data-driven findings)
@@ -1875,6 +1914,7 @@ echo "Next: Review executive-summary.md and schedule stakeholder presentation"
 - Budget accuracy: Within 20% variance
 
 **Deliverable Quality:**
+
 - Executive summaries: Approved without revision (70%+)
 - Technical reports: Complete for engineering handoff
 - Roadmaps: Actionable and followed by teams
@@ -1892,21 +1932,25 @@ echo "Next: Review executive-summary.md and schedule stakeholder presentation"
 ## References
 
 **Skill Documentation:**
+
 - `../skills/engineering-team/legacy-codebase-analyzer/SKILL.md` - Complete skill overview
 - `../skills/engineering-team/legacy-codebase-analyzer/references/analysis_framework.md` - Assessment methodology and scoring
 - `../skills/engineering-team/legacy-codebase-analyzer/references/modernization_patterns.md` - Transformation strategies and patterns
 - `../skills/engineering-team/legacy-codebase-analyzer/references/deliverable_templates.md` - Report formats and templates
 
 **Templates:**
+
 - `../skills/engineering-team/legacy-codebase-analyzer/assets/executive_summary_template.md` - Executive presentation format
 - `../skills/engineering-team/legacy-codebase-analyzer/assets/technical_debt_report_template.md` - Detailed technical report structure
 - `../skills/engineering-team/legacy-codebase-analyzer/assets/roadmap_template.md` - Multi-phase modernization plan format
 
 **Related Commands:**
+
 - `/plan.refactor` - Refactoring planning command
 - `/review.code` - Code quality review command
 - `/audit.security` - Security audit command
 
 **Project Documentation:**
+
 - `/docs/WORKFLOW.md` - Git workflow and branching strategy
 - `/docs/standards/quality-standards.md` - Code quality standards

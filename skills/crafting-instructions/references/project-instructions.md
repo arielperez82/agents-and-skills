@@ -11,6 +11,7 @@ Project instructions are ADDITIVE to Claude's base system prompt. They customize
 ## System Prompt Boundary
 
 Claude already has extensive capabilities in its system prompt:
+
 - Citation and attribution protocols
 - Copyright and safety guidelines
 - General web_search and tool usage patterns
@@ -23,25 +24,33 @@ Claude already has extensive capabilities in its system prompt:
 ## Core Optimization Principles
 
 ### 1. Imperative Language
+
 Frame as direct commands, not suggestions:
+
 - ❌ "Consider analyzing data" → ✅ "Analyze data using"
 - ❌ "You might want to search" → ✅ "Search for"
 - ❌ "Try to be concise" → ✅ "Provide concise responses"
 
 ### 2. Positive Framing
+
 State what TO do, not what NOT to do:
-- ❌ "Don't use bullet points" 
+
+- ❌ "Don't use bullet points"
 - ✅ "Write in flowing paragraph form because prose is more conversational for learning contexts"
 
 Always explain WHY when framing requirements.
 
 ### 3. Context and Motivation
+
 Explain reasoning behind requirements:
+
 - ❌ "Use formal tone"
 - ✅ "Use formal tone because documentation targets enterprise clients expecting authoritative voice"
 
 ### 4. Strategic Over Procedural
+
 Provide goals and decision frameworks, not step-by-step procedures:
+
 - Specify: Success criteria, constraints, decision frameworks
 - Minimize: Sequential steps Claude can infer from goals
 
@@ -50,12 +59,14 @@ Provide goals and decision frameworks, not step-by-step procedures:
 Project instructions may be executed by different Claude models. Calibrate accordingly:
 
 **If project primarily uses Sonnet:**
+
 - Include explicit decision frameworks with clear conditions
 - State fallback behaviors for edge cases
 - More examples demonstrating expected patterns
 - Concrete constraints over abstract principles
 
 **If project primarily uses Opus:**
+
 - Lead with goals and success criteria
 - Provide rich context about WHY—Opus uses this for autonomous judgment
 - Fewer procedural steps, more strategic direction
@@ -63,6 +74,7 @@ Project instructions may be executed by different Claude models. Calibrate accor
 - Principles and reasoning over exhaustive rules
 
 **Model-agnostic baseline:**
+
 - Imperative language (works for both)
 - Positive framing with context (both benefit)
 - No system prompt duplication (universal)
@@ -90,6 +102,7 @@ across multiple studies, suggest enabling Extended thinking.
 ### When to Add Structure
 
 Use XML or structured formats ONLY when:
+
 - Separating distinct content types in complex scenarios
 - Absolute boundaries between data sources required
 - API-driven workflows need structured parsing
@@ -99,6 +112,7 @@ Use XML or structured formats ONLY when:
 ## Project-Specific Elements
 
 ### Role Definition
+
 Specify expertise level and domain focus:
 
 ```markdown
@@ -106,6 +120,7 @@ Role: Technical writer for developer documentation with 10+ years API experience
 ```
 
 ### Quality Standards
+
 Define what "good" means for THIS project beyond base standards:
 
 ```markdown
@@ -115,6 +130,7 @@ that demonstrates production practices, not just happy path scenarios.
 ```
 
 ### Decision Frameworks
+
 Provide conditional logic for ambiguous situations:
 
 ```markdown
@@ -125,6 +141,7 @@ When documentation references external APIs:
 ```
 
 ### Domain Tool Patterns
+
 Specify ONLY if project needs DIFFERENT tool usage than defaults:
 
 ```markdown
@@ -136,6 +153,7 @@ initial search, as snippets miss architectural patterns.
 ```
 
 ### Complexity Indicators
+
 When to suggest Extended thinking for project domains:
 
 ```markdown
@@ -145,6 +163,7 @@ systematic threat modeling benefits from deeper analysis.
 ```
 
 ### Project Constraints
+
 Specific limitations or requirements with reasoning:
 
 ```markdown
@@ -241,57 +260,71 @@ work through logical chains systematically.
 ## Common Mistakes to Avoid
 
 ### ❌ System Prompt Duplication
+
 ```
 Use web_search for current information. Create artifacts for long content. 
 Always cite sources accurately.
 ```
+
 **Impact:** Wastes tokens, adds no value
 **Fix:** Omit entirely unless project has SPECIFIC deviations
 
 ### ❌ Negative Framing Without Context
+
 ```
 Do NOT use bullet points. Never create lists. Don't be verbose.
 ```
+
 **Impact:** Forces Claude to guess desired alternative
 **Fix:** "Present in natural prose paragraphs because flowing text is more conversational"
 
 ### ❌ Fake Thinking Triggers
+
 ```
 Use "think carefully" for moderate thinking.
 Use "think hard" for deep thinking.
 ```
+
 **Impact:** Misleading - phrases don't control Extended thinking
 **Fix:** "For [specific complexity], suggest Extended thinking toggle, explaining why"
 
 ### ❌ Verbose Updates
+
 ```
 Explain your reasoning at each step. Keep me updated throughout.
 ```
+
 **Impact:** Slows execution, contradicts terse default
 **Fix:** "Execute efficiently. Update only when blocked or at major milestones"
 
 ### ❌ Procedural Micromanagement
+
 ```
 Step 1: Analyze query
 Step 2: Determine approach
 Step 3: Execute search
 Step 4: Synthesize findings
 ```
+
 **Impact:** Restricts natural optimization
 **Fix:** "Research goal: X. Quality standard: Y. Present findings in Z format because [reason]"
 
 ### ❌ Tool Over-Specification
+
 ```
 When user asks about time: call user_time_v0
 When scheduling: call user_time_v0 then event_create_v1
 ```
+
 **Impact:** Duplicates system prompt logic
 **Fix:** Only specify if DIFFERENT: "For legal research, prioritize web_fetch for full text because snippets miss precedent context"
 
 ### ❌ Contextless Requirements
+
 ```
 Always use formal tone. Responses must be under 200 words.
 ```
+
 **Impact:** No reasoning, limiting generalization
 **Fix:** "Use formal tone for audit reports because regulators expect authoritative voice. Aim for 200 words initially to respect executive time, expanding when complexity requires"
 
@@ -300,6 +333,7 @@ Always use formal tone. Responses must be under 200 words.
 Before finalizing project instructions:
 
 **Strategic completeness:**
+
 - [ ] Role clearly defines expertise level
 - [ ] Goals and quality standards are project-specific (not base behavior)
 - [ ] Context explains WHY requirements exist
@@ -307,6 +341,7 @@ Before finalizing project instructions:
 - [ ] Constraints use positive framing with reasoning
 
 **Technical optimization:**
+
 - [ ] Imperative language throughout
 - [ ] Positive directives preferred over negatives
 - [ ] Structure matches complexity (simple by default)
@@ -315,6 +350,7 @@ Before finalizing project instructions:
 - [ ] No system prompt duplication
 
 **Execution readiness:**
+
 - [ ] Instructions immediately actionable
 - [ ] Success criteria clear and measurable
 - [ ] Silent execution enabled by default (updates only when needed)
@@ -322,12 +358,14 @@ Before finalizing project instructions:
 ## When Project Instructions Aren't Enough
 
 **Consider Skills instead when:**
+
 - Same capabilities needed across multiple projects
 - Instructions becoming very long (>1000 words)
 - Procedures should load on-demand, not always present
 - Want portable expertise beyond single workspace
 
 **Consider adding Skills to Project when:**
+
 - Project has persistent context (documents, data)
 - Skills provide reusable methods (analysis frameworks)
 - Project approaching context limits but needs capabilities

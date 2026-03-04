@@ -195,6 +195,7 @@ The skill package includes production-ready templates in the `assets/` directory
 **Steps:**
 
 1. **Assess Current State** - Review existing monitoring and identify gaps
+
    ```bash
    # Check existing monitoring components
    kubectl get pods -n monitoring
@@ -206,6 +207,7 @@ The skill package includes production-ready templates in the `assets/` directory
    ```
 
 2. **Generate Dashboard Configurations** - Create dashboards for all services
+
    ```bash
    # Generate service overview dashboard
    python3 ../skills/engineering-team/senior-observability/scripts/dashboard_generator.py \
@@ -225,6 +227,7 @@ The skill package includes production-ready templates in the `assets/` directory
    ```
 
 3. **Deploy Prometheus Stack** - Install Prometheus Operator with Grafana
+
    ```bash
    # Add Helm repository
    helm repo add prometheus-community https://prometheus-community.github.io/helm-charts
@@ -241,6 +244,7 @@ The skill package includes production-ready templates in the `assets/` directory
    ```
 
 4. **Deploy Loki for Logging** - Install Loki stack for centralized logging
+
    ```bash
    # Add Grafana Helm repository
    helm repo add grafana https://grafana.github.io/helm-charts
@@ -258,6 +262,7 @@ The skill package includes production-ready templates in the `assets/` directory
    ```
 
 5. **Deploy Jaeger for Tracing** - Install Jaeger Operator
+
    ```bash
    # Install Jaeger Operator
    kubectl create namespace observability
@@ -281,6 +286,7 @@ The skill package includes production-ready templates in the `assets/` directory
    ```
 
 6. **Configure ServiceMonitors** - Set up metric scraping for applications
+
    ```bash
    # Create ServiceMonitor for application
    cat <<EOF | kubectl apply -f -
@@ -301,6 +307,7 @@ The skill package includes production-ready templates in the `assets/` directory
    ```
 
 7. **Import Dashboards** - Load generated dashboards into Grafana
+
    ```bash
    # Port-forward to Grafana
    kubectl port-forward -n monitoring svc/prometheus-grafana 3000:80 &
@@ -314,6 +321,7 @@ The skill package includes production-ready templates in the `assets/` directory
    ```
 
 8. **Verify Stack Health** - Confirm all components operational
+
    ```bash
    # Check Prometheus targets
    kubectl port-forward -n monitoring svc/prometheus-operated 9090:9090 &
@@ -339,6 +347,7 @@ The skill package includes production-ready templates in the `assets/` directory
 **Steps:**
 
 1. **Identify Critical User Journeys** - Map user-facing functionality to services
+
    ```bash
    # Document critical paths
    cat > slo-definition.md <<EOF
@@ -357,6 +366,7 @@ The skill package includes production-ready templates in the `assets/` directory
    ```
 
 2. **Define SLIs** - Determine measurable indicators for each service
+
    ```bash
    # Generate SLI recommendations
    python3 ../skills/engineering-team/senior-observability/scripts/slo_calculator.py \
@@ -372,6 +382,7 @@ The skill package includes production-ready templates in the `assets/` directory
    ```
 
 3. **Calculate Baseline Metrics** - Analyze historical data to set realistic targets
+
    ```bash
    # Analyze 30 days of metrics
    python3 ../skills/engineering-team/senior-observability/scripts/slo_calculator.py \
@@ -393,6 +404,7 @@ The skill package includes production-ready templates in the `assets/` directory
    ```
 
 4. **Set SLO Targets** - Define targets based on business requirements and baselines
+
    ```bash
    # Define SLO targets
    cat > slo-targets.yaml <<EOF
@@ -418,6 +430,7 @@ The skill package includes production-ready templates in the `assets/` directory
    ```
 
 5. **Calculate Error Budgets** - Determine allowed failure budget for each SLO
+
    ```bash
    # Calculate error budget
    python3 ../skills/engineering-team/senior-observability/scripts/slo_calculator.py \
@@ -436,6 +449,7 @@ The skill package includes production-ready templates in the `assets/` directory
    ```
 
 6. **Generate Alert Rules** - Create multi-burn-rate alerts for error budget consumption
+
    ```bash
    # Generate Prometheus alert rules
    python3 ../skills/engineering-team/senior-observability/scripts/alert_rule_generator.py \
@@ -450,6 +464,7 @@ The skill package includes production-ready templates in the `assets/` directory
    ```
 
 7. **Create SLO Dashboard** - Build Grafana dashboard for SLO tracking
+
    ```bash
    # Generate SLO dashboard
    python3 ../skills/engineering-team/senior-observability/scripts/dashboard_generator.py \
@@ -466,6 +481,7 @@ The skill package includes production-ready templates in the `assets/` directory
    ```
 
 8. **Document Error Budget Policy** - Define actions when budget is consumed
+
    ```bash
    cat > error-budget-policy.md <<EOF
    # Error Budget Policy - Payment API
@@ -505,6 +521,7 @@ The skill package includes production-ready templates in the `assets/` directory
 **Steps:**
 
 1. **Audit Existing Alerts** - Review current alerting rules for issues
+
    ```bash
    # Export existing alerts
    kubectl get prometheusrules -A -o yaml > current-alerts.yaml
@@ -523,6 +540,7 @@ The skill package includes production-ready templates in the `assets/` directory
    ```
 
 2. **Design Alert Strategy** - Define alerting philosophy and severity levels
+
    ```bash
    cat > alert-strategy.md <<EOF
    # Alert Strategy
@@ -547,6 +565,7 @@ The skill package includes production-ready templates in the `assets/` directory
    ```
 
 3. **Generate Alert Rules** - Create alerts for all critical services
+
    ```bash
    # Generate SLO alerts
    python3 ../skills/engineering-team/senior-observability/scripts/alert_rule_generator.py \
@@ -565,6 +584,7 @@ The skill package includes production-ready templates in the `assets/` directory
    ```
 
 4. **Create Runbook for Each Alert** - Document response procedures
+
    ```bash
    # Copy runbook template
    cp ../skills/engineering-team/senior-observability/assets/runbook_template.md \
@@ -578,6 +598,7 @@ The skill package includes production-ready templates in the `assets/` directory
    ```
 
 5. **Configure Alert Routing** - Set up notification channels
+
    ```bash
    # AlertManager configuration
    cat > alertmanager-config.yaml <<EOF
@@ -626,6 +647,7 @@ The skill package includes production-ready templates in the `assets/` directory
    ```
 
 6. **Test Alerts** - Verify alerts fire and route correctly
+
    ```bash
    # Create test alert
    cat <<EOF | kubectl apply -f -
@@ -656,6 +678,7 @@ The skill package includes production-ready templates in the `assets/` directory
    ```
 
 7. **Deploy Alerts to Production** - Apply all alert rules
+
    ```bash
    # Apply all alert rules
    kubectl apply -f alerts/ -n monitoring
@@ -668,6 +691,7 @@ The skill package includes production-ready templates in the `assets/` directory
    ```
 
 8. **Document On-Call Procedures** - Create on-call rotation guide
+
    ```bash
    cat > oncall-guide.md <<EOF
    # On-Call Guide
@@ -704,6 +728,7 @@ The skill package includes production-ready templates in the `assets/` directory
 **Steps:**
 
 1. **Plan Dashboard Hierarchy** - Define dashboard structure and navigation
+
    ```bash
    cat > dashboard-hierarchy.md <<EOF
    # Dashboard Hierarchy
@@ -729,6 +754,7 @@ The skill package includes production-ready templates in the `assets/` directory
    ```
 
 2. **Generate Service Overview Dashboard** - Create RED method dashboard
+
    ```bash
    # Generate dashboard for API service
    python3 ../skills/engineering-team/senior-observability/scripts/dashboard_generator.py \
@@ -746,6 +772,7 @@ The skill package includes production-ready templates in the `assets/` directory
    ```
 
 3. **Generate Infrastructure Dashboard** - Create USE method dashboard
+
    ```bash
    # Generate Kubernetes cluster dashboard
    python3 ../skills/engineering-team/senior-observability/scripts/dashboard_generator.py \
@@ -763,6 +790,7 @@ The skill package includes production-ready templates in the `assets/` directory
    ```
 
 4. **Generate SLO Dashboard** - Create error budget tracking dashboard
+
    ```bash
    # Generate SLO tracking dashboard
    python3 ../skills/engineering-team/senior-observability/scripts/dashboard_generator.py \
@@ -781,6 +809,7 @@ The skill package includes production-ready templates in the `assets/` directory
    ```
 
 5. **Add Variable Templating** - Enable filtering across services
+
    ```bash
    # Variables to add to dashboards:
    # - namespace: Filter by Kubernetes namespace
@@ -795,6 +824,7 @@ The skill package includes production-ready templates in the `assets/` directory
    ```
 
 6. **Configure Annotations** - Add deployment markers
+
    ```bash
    # Add annotation query to dashboards
    # Deployment annotations:
@@ -817,6 +847,7 @@ The skill package includes production-ready templates in the `assets/` directory
    ```
 
 7. **Import All Dashboards** - Load dashboards into Grafana
+
    ```bash
    # Port-forward to Grafana
    kubectl port-forward -n monitoring svc/prometheus-grafana 3000:80 &
@@ -843,6 +874,7 @@ The skill package includes production-ready templates in the `assets/` directory
    ```
 
 8. **Set Up Dashboard Home** - Configure default landing page
+
    ```bash
    # Create home dashboard with links to all others
    cat > dashboards/home.json <<EOF
@@ -893,6 +925,7 @@ The skill package includes production-ready templates in the `assets/` directory
 **Steps:**
 
 1. **Install NewRelic Infrastructure Agent** - Deploy agent to Kubernetes cluster
+
    ```bash
    # Add NewRelic Helm repository
    helm repo add newrelic https://helm-charts.newrelic.com
@@ -917,6 +950,7 @@ The skill package includes production-ready templates in the `assets/` directory
    ```
 
 2. **Configure APM Instrumentation** - Add NewRelic APM agent to applications
+
    ```bash
    # For Node.js applications, add to package.json:
    # "newrelic": "^11.0.0"
@@ -953,6 +987,7 @@ The skill package includes production-ready templates in the `assets/` directory
    ```
 
 3. **Generate NewRelic Dashboards** - Create NRQL-based dashboards
+
    ```bash
    # Generate service overview dashboard for NewRelic
    python3 ../skills/engineering-team/senior-observability/scripts/dashboard_generator.py \
@@ -990,6 +1025,7 @@ The skill package includes production-ready templates in the `assets/` directory
    ```
 
 4. **Set Up NRQL Alert Conditions** - Create SLO-based alerts
+
    ```bash
    # Generate NewRelic alert rules
    python3 ../skills/engineering-team/senior-observability/scripts/alert_rule_generator.py \
@@ -1023,6 +1059,7 @@ The skill package includes production-ready templates in the `assets/` directory
    ```
 
 5. **Configure Service Level Management** - Define SLIs and SLOs in NewRelic
+
    ```bash
    # Create Service Level via NerdGraph API
    cat > create-slo.graphql <<EOF
@@ -1102,6 +1139,7 @@ The skill package includes production-ready templates in the `assets/` directory
    ```
 
 6. **Set Up Notification Channels** - Configure PagerDuty and Slack integration
+
    ```bash
    # Create PagerDuty notification channel
    cat > create-pagerduty-channel.graphql <<EOF
@@ -1146,6 +1184,7 @@ The skill package includes production-ready templates in the `assets/` directory
    ```
 
 7. **Configure Log Forwarding** - Set up structured logging to NewRelic
+
    ```bash
    # For Kubernetes, logs are automatically forwarded via newrelic-bundle
    # Verify log forwarding is working
@@ -1168,6 +1207,7 @@ The skill package includes production-ready templates in the `assets/` directory
    ```
 
 8. **Verify NewRelic Integration** - Confirm all data flowing correctly
+
    ```bash
    # Check APM data
    curl -X POST 'https://api.newrelic.com/graphql' \
@@ -1361,24 +1401,28 @@ echo "Alert health check complete!"
 ## Success Metrics
 
 **Observability Coverage:**
+
 - Service instrumentation: 100% of production services with metrics, logs, and traces
 - Dashboard coverage: Every service has overview and SLO dashboards
 - Alert coverage: All critical paths have SLO-based alerting
 - Runbook coverage: 100% of alerts have documented runbooks
 
 **Operational Efficiency:**
+
 - Mean Time to Detection (MTTD): <2 minutes for production issues
 - Mean Time to Resolution (MTTR): 50% reduction through better observability
 - Alert noise reduction: 70% fewer non-actionable alerts
 - Dashboard load time: <3 seconds for all dashboards
 
 **SLO Performance:**
+
 - Error budget compliance: >90% of services within budget
 - SLO target accuracy: Targets reflect actual user experience
 - Burn rate alerting: Issues detected before user impact
 - Error budget policy adoption: Teams actively manage error budgets
 
 **Team Productivity:**
+
 - On-call burden: 60% reduction in pages per rotation
 - Investigation time: 40% reduction through correlated observability
 - Root cause identification: 80% of incidents have clear root cause

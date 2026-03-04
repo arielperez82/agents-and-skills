@@ -27,6 +27,7 @@
 ## 1. Detection
 
 ### Alert Sources
+
 - [ ] SIEM (Splunk/Elastic/Datadog)
 - [ ] EDR (CrowdStrike/Carbon Black)
 - [ ] Cloud Security (GuardDuty/Defender)
@@ -34,6 +35,7 @@
 - [ ] Other: ____________
 
 ### Initial Triage Questions
+
 1. What triggered the alert?
 2. Which systems are affected?
 3. Is this confirmed malicious?
@@ -41,6 +43,7 @@
 5. Is the threat active?
 
 ### Automated Detection
+
 ```bash
 # Run automated triage
 python incident_detector.py \
@@ -67,12 +70,14 @@ python incident_detector.py \
 ### Immediate Actions (First 15 Minutes)
 
 #### For Compromised Accounts
+
 - [ ] Disable affected user account
 - [ ] Revoke all active sessions
 - [ ] Check for newly created accounts
 - [ ] Block source IP (if external)
 
 **Commands:**
+
 ```bash
 # Execute account containment
 python incident_responder.py \
@@ -82,12 +87,14 @@ python incident_responder.py \
 ```
 
 #### For Compromised Systems
+
 - [ ] Isolate from network (disconnect/VLAN)
 - [ ] DO NOT shut down (preserve memory)
 - [ ] Block malicious IPs at firewall
 - [ ] Take forensic snapshot
 
 **Commands:**
+
 ```bash
 # Execute system isolation
 python incident_responder.py \
@@ -97,6 +104,7 @@ python incident_responder.py \
 ```
 
 #### For Data Breach
+
 - [ ] Close access vector immediately
 - [ ] Identify data exposure scope
 - [ ] Preserve access logs
@@ -113,6 +121,7 @@ python incident_responder.py \
 ```
 
 ### Containment Verification
+
 - [ ] Threat activity stopped
 - [ ] No lateral movement observed
 - [ ] Evidence preserved
@@ -155,6 +164,7 @@ python incident_responder.py \
 ## 4. Investigation
 
 ### Investigation Questions
+
 1. **Timeline:** When did compromise begin?
 2. **Entry Point:** How did attacker gain access?
 3. **Lateral Movement:** Where did they go?
@@ -191,6 +201,7 @@ python incident_analyzer.py \
 ## 5. Eradication
 
 ### Eradication Checklist
+
 - [ ] Remove malware from all systems
 - [ ] Remove backdoors/persistence
 - [ ] Patch exploited vulnerability
@@ -198,6 +209,7 @@ python incident_analyzer.py \
 - [ ] Update security rules
 
 ### Verification Steps
+
 - [ ] IOC scan clean on all systems
 - [ ] No malware signatures detected
 - [ ] Vulnerability patched and verified
@@ -208,6 +220,7 @@ python incident_analyzer.py \
 ## 6. Recovery
 
 ### Recovery Steps
+
 - [ ] Restore from clean backup (if needed)
 - [ ] Re-enable accounts with new credentials
 - [ ] Restore network connectivity
@@ -215,6 +228,7 @@ python incident_analyzer.py \
 - [ ] Validate business operations
 
 ### Monitoring Period
+
 - [ ] Enhanced logging enabled for 30 days
 - [ ] Daily alert review scheduled
 - [ ] Threat hunting for similar TTPs
@@ -225,6 +239,7 @@ python incident_analyzer.py \
 ## 7. Post-Incident
 
 ### Documentation
+
 - [ ] Full incident report generated
 - [ ] Timeline documented
 - [ ] Evidence manifest completed
@@ -251,6 +266,7 @@ python incident_analyzer.py \
 | | | | [ ] Open |
 
 ### Lessons Learned Meeting
+
 - **Date:**
 - **Attendees:**
 - **Key Findings:**

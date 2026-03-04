@@ -232,6 +232,7 @@ Options:
 ### Output
 
 The tool generates:
+
 - `{pipeline_name}_dag.py` - Complete Airflow DAG
 - `{pipeline_name}_config.json` - Runtime configuration
 - `README.md` - Pipeline documentation
@@ -444,27 +445,32 @@ if results['quality_score'] < 0.95:
 ### Validation Dimensions
 
 **1. Completeness:**
+
 - Null checks
 - Missing value detection
 - Required field validation
 
 **2. Accuracy:**
+
 - Data type validation
 - Format validation (regex)
 - Range checks
 - Precision validation
 
 **3. Consistency:**
+
 - Cross-field validation
 - Referential integrity
 - Business rule validation
 
 **4. Timeliness:**
+
 - Data freshness checks
 - SLA monitoring
 - Update frequency validation
 
 **5. Validity:**
+
 - Schema validation
 - Allowed value checks
 - Pattern matching
@@ -472,6 +478,7 @@ if results['quality_score'] < 0.95:
 ### Output Formats
 
 **JSON Report:**
+
 ```json
 {
   "quality_score": 0.96,
@@ -498,6 +505,7 @@ if results['quality_score'] < 0.95:
 ```
 
 **HTML Report:**
+
 - Executive summary dashboard
 - Dimension-level breakdowns
 - Failed check details
@@ -917,17 +925,20 @@ The validator checks for:
 ### Generated Outputs
 
 **Kafka Mode:**
+
 - Topic configuration files (.properties)
 - Producer/consumer configuration templates
 - Schema Registry integration configs
 
 **Flink Mode:**
+
 - Java/Python job scaffolding
 - Checkpoint configuration
 - State backend configuration
 - Kafka connector setup
 
 **Docker Mode:**
+
 - docker-compose.yaml with full streaming stack
 - Zookeeper, Kafka, Schema Registry, Flink, Kafka UI
 
@@ -1085,6 +1096,7 @@ Options:
 ### Integration with Monitoring Systems
 
 **Prometheus Metrics Export:**
+
 ```bash
 python scripts/streaming_quality_validator.py \
     --lag --consumer-group events-processor --threshold 10000 \
@@ -1094,6 +1106,7 @@ python scripts/streaming_quality_validator.py \
 ```
 
 **Exposed Metrics:**
+
 - `streaming_consumer_lag{consumer_group, topic}`
 - `streaming_data_freshness_p50_ms{topic}`
 - `streaming_data_freshness_p95_ms{topic}`
@@ -1306,6 +1319,7 @@ Options:
 ### Generated Configuration Examples
 
 **Topic Configuration:**
+
 ```properties
 # user-events topic configuration
 num.partitions=12
@@ -1318,6 +1332,7 @@ compression.type=producer
 ```
 
 **Exactly-Once Producer:**
+
 ```properties
 # Exactly-once producer configuration
 bootstrap.servers=kafka-cluster:9092

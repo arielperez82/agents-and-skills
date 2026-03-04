@@ -183,6 +183,7 @@ Current load exceeding single server?
 ### Shard Key Selection Criteria
 
 The most impactful decision when sharding:
+
 - **High cardinality**: Many distinct values for even distribution
 - **Even access frequency**: Avoid hot shards from skewed access patterns
 - **Query alignment**: Most queries should target a single shard

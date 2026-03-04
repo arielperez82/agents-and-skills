@@ -19,6 +19,7 @@ Use the `debugger` subagent to perform root cause analysis on the reported probl
 ## Output
 
 Structured report with:
+
 - Problem statement (restated)
 - Why chain (up to 5 levels)
 - Root cause identification

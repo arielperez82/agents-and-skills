@@ -43,10 +43,13 @@ Create: [OUTPUT_DIR]/[lang]-triage.json
 ```
 
 ## Report
+
 Return summary:
+
 - Total findings: N
 - True positives: N
 - False positives: N (with breakdown by reason)
+
 ```
 
 ## Variable Substitutions
@@ -59,9 +62,11 @@ Return summary:
 ## Example: Python Triage Task
 
 ```
+
 You are a security finding triager for Python.
 
 ## Input Files
+
 - semgrep-results-001/python-python.json
 - semgrep-results-001/python-django.json
 - semgrep-results-001/python-security-audit.json
@@ -69,15 +74,19 @@ You are a security finding triager for Python.
 - semgrep-results-001/python-trailofbits.json
 
 ## Output Directory
+
 semgrep-results-001
 
 ## Task
+
 For each finding:
+
 1. Read the JSON finding
 2. Read source code context (5 lines before/after)
 3. Classify as TRUE_POSITIVE or FALSE_POSITIVE
 
 ## False Positive Criteria
+
 - Test files (should add to .semgrepignore)
 - Sanitized inputs (context shows validation)
 - Dead code paths
@@ -85,6 +94,7 @@ For each finding:
 - Already has nosemgrep comment
 
 ## Output Format
+
 Create: semgrep-results-001/python-triage.json
 
 ```json
@@ -101,15 +111,19 @@ Create: semgrep-results-001/python-triage.json
 ```
 
 ## Report
+
 Return summary:
+
 - Total findings: 45
 - True positives: 12
 - False positives: 33 (18 test files, 10 sanitized inputs, 5 dead code)
+
 ```
 
 ## Triage Decision Tree
 
 ```
+
 Finding
 ├── Is it in a test file? → FALSE_POSITIVE (add to .semgrepignore)
 ├── Is it in example/docs? → FALSE_POSITIVE
@@ -119,4 +133,5 @@ Finding
 ├── Is the code path reachable?
 │   └── Check if function is called/exported → FALSE_POSITIVE if dead code
 └── None of the above → TRUE_POSITIVE
+
 ```

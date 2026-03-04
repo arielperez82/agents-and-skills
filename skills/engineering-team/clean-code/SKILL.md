@@ -99,6 +99,7 @@ metadata:
 | **Is this a shared component?** | Multiple places affected |
 
 **Quick Check:**
+
 ```
 File to edit: UserService.ts
 └── Who imports this? → UserController.ts, AuthController.ts
@@ -194,10 +195,9 @@ File to edit: UserService.ts
 **Should I fix the X errors?**
 ```
 
-4. **Wait for user confirmation** before fixing
-5. **After fixing** → Re-run script to confirm
+1. **Wait for user confirmation** before fixing
+2. **After fixing** → Re-run script to confirm
 
 > 🔴 **VIOLATION:** Running script and ignoring output = FAILED task.
 > 🔴 **VIOLATION:** Auto-fixing without asking = Not allowed.
 > 🔴 **Rule:** Always READ output → SUMMARIZE → ASK → then fix.
-

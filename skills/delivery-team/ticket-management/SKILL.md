@@ -129,6 +129,7 @@ Backlog → Ready → In Progress → In Review → QA → Done
 ```
 
 **Transition Rules:**
+
 - Define who can transition between states
 - Add validators (e.g., required fields before moving to "In Review")
 - Add post-transition actions (e.g., notify reviewer, update parent)
@@ -149,31 +150,37 @@ Advanced query patterns for common scenarios. Syntax shown is JQL-style but conc
 ### Essential Queries
 
 **My open work:**
+
 ```
 assignee = currentUser() AND status != Done
 ```
 
 **Sprint burndown:**
+
 ```
 sprint = currentSprint() AND status changed TO "Done" DURING (startOfSprint(), now())
 ```
 
 **Overdue issues:**
+
 ```
 dueDate < now() AND status != Done
 ```
 
 **Stale issues (untouched 30+ days):**
+
 ```
 updated < -30d AND status != Done
 ```
 
 **High priority bugs:**
+
 ```
 type = Bug AND priority >= High AND status != Done
 ```
 
 **Team capacity:**
+
 ```
 assignee in (user1, user2, user3) AND sprint in openSprints()
 ```
@@ -181,21 +188,25 @@ assignee in (user1, user2, user3) AND sprint in openSprints()
 ### Reporting Queries
 
 **Velocity (closed sprints):**
+
 ```
 sprint in closedSprints() AND resolution = Done
 ```
 
 **Bug trend (last 30 days):**
+
 ```
 type = Bug AND created >= -30d
 ```
 
 **Blocker analysis:**
+
 ```
 priority = Blocker AND status != Done
 ```
 
 **Created vs Resolved:**
+
 ```
 # Created this week
 created >= startOfWeek()
@@ -373,24 +384,28 @@ This skill's workflow patterns, query concepts, and governance standards apply w
 ## Best Practices
 
 **Workflow Design:**
+
 - Keep workflows simple (4-6 states maximum)
 - Every state should have a clear meaning and entry criteria
 - Avoid "parking lot" states where issues go to die
 - Transitions should reflect the team's actual process
 
 **Query Writing:**
+
 - Save and name queries for reuse
 - Avoid overly complex queries (break into multiple saved filters)
 - Use date functions for time-based reports
 - Test queries before adding to dashboards
 
 **Automation:**
+
 - Start with simple rules and add complexity gradually
 - Test every automation with sample data before enabling
 - Monitor for false triggers in the first week
 - Document all active rules so team understands the automation
 
 **Governance:**
+
 - Regular permission audits
 - Document workflow rationale for future reference
 - Change management for major workflow updates

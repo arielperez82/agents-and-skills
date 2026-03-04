@@ -14,6 +14,7 @@ Design features by defining properties upfront as executable specifications, bef
 ### Phase 1: Understand the Feature
 
 Gather information:
+
 - **Purpose**: What problem does this solve?
 - **Inputs**: What data does it accept? What makes inputs valid?
 - **Outputs**: What does it produce? What guarantees?
@@ -81,6 +82,7 @@ class TestFeatureSpec:
 ### Phase 5: Iterate on Design
 
 Properties reveal design questions:
+
 - "What about deleted users?"
 - "Case-sensitive?"
 - "Which algorithm?"
@@ -93,6 +95,7 @@ Surface these questions early, before implementation.
 Build properties incrementally from weak to strong:
 
 ### Level 1: Basic (Weak)
+
 ```python
 @given(valid_inputs())
 def test_no_crash(x):
@@ -100,6 +103,7 @@ def test_no_crash(x):
 ```
 
 ### Level 2: Type Preservation
+
 ```python
 @given(valid_inputs())
 def test_returns_type(x):
@@ -107,6 +111,7 @@ def test_returns_type(x):
 ```
 
 ### Level 3: Invariants
+
 ```python
 @given(valid_inputs())
 def test_invariant(x):
@@ -115,6 +120,7 @@ def test_invariant(x):
 ```
 
 ### Level 4: Full Specification (Strong)
+
 ```python
 @given(valid_inputs())
 def test_complete(x):
@@ -125,6 +131,7 @@ def test_complete(x):
 ## Strategy Design Principles
 
 ### 1. Build Constraints Into Strategy
+
 ```python
 # GOOD - constraints in strategy
 @given(st.integers(min_value=1, max_value=100))
@@ -137,6 +144,7 @@ def test_with_assume(x):
 ```
 
 ### 2. Match Real-World Constraints
+
 ```python
 valid_users = st.builds(
     User,
@@ -147,6 +155,7 @@ valid_users = st.builds(
 ```
 
 ### 3. Include Edge Cases Explicitly
+
 ```python
 @given(valid_lists())
 @example([])           # Empty
@@ -169,6 +178,7 @@ Properties often reveal design gaps:
 ## Red Flags
 
 - **Writing tautological properties**: Don't reimplement the function logic in the test
+
   ```python
   # BAD - tests nothing
   assert add(a, b) == a + b
@@ -177,6 +187,7 @@ Properties often reveal design gaps:
   assert add(a, 0) == a  # identity
   assert add(a, b) == add(b, a)  # commutativity
   ```
+
 - **Starting too strong**: Build from weak to strong properties
 - **Ignoring design questions**: Properties that feel awkward often reveal design gaps
 - **Overly complex strategies**: If your input strategy is 50 lines, the domain model might need simplification

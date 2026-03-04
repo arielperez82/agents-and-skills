@@ -223,6 +223,7 @@ Test that the agent loads correctly in Cursor:
 ```
 
 Or manually in Cursor Chat:
+
 ```
 @agents/agent-name.md
 What skills are you using?
@@ -233,6 +234,7 @@ What skills are you using?
 Test these aspects before committing:
 
 **1. Path Resolution**
+
 ```bash
 # From agent directory
 cd agents/domain/
@@ -240,6 +242,7 @@ ls ../../skills/domain-team/skill-name/  # Should list contents
 ```
 
 **2. Python Tool Execution**
+
 ```bash
 # Create test input
 echo "Test content" > test-input.txt
@@ -251,6 +254,7 @@ python ../../skills/domain-team/skill-name/scripts/tool.py test-input.txt
 ```
 
 **3. Knowledge Base Access**
+
 ```bash
 # Verify reference files exist
 cat ../../skills/domain-team/skill-name/references/guide.md
@@ -295,6 +299,7 @@ Agents should delegate to specialized agents rather than duplicating capabilitie
 These patterns help you understand the conventions for each domain when creating new agents:
 
 ### Marketing Agents (root `agents/`)
+
 - **Location**: Root `agents/` directory (no subfolder)
 - **Reference**: `../skills/marketing-team/`
 - **Focus**: Content creation, SEO, demand generation
@@ -302,6 +307,7 @@ These patterns help you understand the conventions for each domain when creating
 - **Example agents**: `content-creator`, `seo-strategist`, `product-marketer`
 
 ### Product Agents (root `agents/`)
+
 - **Location**: Root `agents/` directory (no subfolder)
 - **Reference**: `../skills/product-team/`
 - **Focus**: Prioritization, user research, agile workflows
@@ -309,6 +315,7 @@ These patterns help you understand the conventions for each domain when creating
 - **Example agents**: `product-manager`, `product-director`, `ux-researcher`
 
 ### Engineering Agents (root `agents/`)
+
 - **Location**: Root `agents/` directory (no subfolder)
 - **Reference**: `../skills/engineering-team/`
 - **Focus**: Code development, quality, architecture
@@ -316,6 +323,7 @@ These patterns help you understand the conventions for each domain when creating
 - **Example agents**: `backend-engineer`, `frontend-engineer`, `architect`
 
 ### Delivery Agents (root `agents/`)
+
 - **Location**: Root `agents/` directory (no subfolder)
 - **Reference**: `../skills/delivery-team/`
 - **Focus**: Project management, agile coaching, progress tracking
@@ -333,6 +341,7 @@ Use this skill when:
 - Understanding agent classification and execution patterns
 
 **Do NOT use this skill for**:
+
 - Refactoring multiple agents or analyzing ecosystem overlap
 - Creating or modifying skills (use capability discovery with "creating skills" or "skill authoring" to load the matching skill)
 - Understanding when to invoke agents (see `agents/README.md`)

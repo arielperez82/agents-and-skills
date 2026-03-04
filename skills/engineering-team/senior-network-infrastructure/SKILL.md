@@ -144,6 +144,7 @@ python scripts/subnet_planner.py --vpc-cidr 10.0.0.0/16 --azs 3 --tiers 3
 Generate production-ready VPN configurations for multi-cloud connectivity.
 
 **Key Features:**
+
 - AWS Site-to-Site VPN and Client VPN generation
 - Azure VPN Gateway configuration
 - GCP Cloud VPN setup
@@ -152,6 +153,7 @@ Generate production-ready VPN configurations for multi-cloud connectivity.
 - Output in Terraform, CloudFormation, or CLI commands
 
 **Common Usage:**
+
 ```bash
 # AWS Site-to-Site VPN
 python scripts/vpn_configurator.py --provider aws --type site-to-site --remote-ip 203.0.113.1 --output terraform
@@ -167,6 +169,7 @@ python scripts/vpn_configurator.py --help
 ```
 
 **Use Cases:**
+
 - Connecting on-premises data center to cloud
 - Multi-cloud connectivity (AWS to Azure)
 - Remote access VPN for developers
@@ -177,6 +180,7 @@ python scripts/vpn_configurator.py --help
 Create security groups, NACLs, and firewall rules following least-privilege principles.
 
 **Key Features:**
+
 - AWS Security Groups and NACLs
 - Azure Network Security Groups (NSGs)
 - GCP Firewall Rules
@@ -185,6 +189,7 @@ Create security groups, NACLs, and firewall rules following least-privilege prin
 - Compliance-ready rules (PCI-DSS, SOC2, HIPAA)
 
 **Common Usage:**
+
 ```bash
 # 3-tier application security groups
 python scripts/firewall_policy_generator.py --cloud aws --tier 3-tier --output terraform
@@ -200,6 +205,7 @@ python scripts/firewall_policy_generator.py --help
 ```
 
 **Use Cases:**
+
 - New application deployments
 - Security compliance audits
 - Network segmentation projects
@@ -210,6 +216,7 @@ python scripts/firewall_policy_generator.py --help
 Analyze network configurations for redundancy, security, and best practices.
 
 **Key Features:**
+
 - Subnet connectivity validation
 - Route table analysis
 - Redundancy checking (multi-AZ, multi-region)
@@ -218,6 +225,7 @@ Analyze network configurations for redundancy, security, and best practices.
 - Compliance gap identification
 
 **Common Usage:**
+
 ```bash
 # Analyze VPC configuration
 python scripts/network_topology_analyzer.py --input vpc-config.json --check-redundancy
@@ -233,6 +241,7 @@ python scripts/network_topology_analyzer.py --help
 ```
 
 **Use Cases:**
+
 - Pre-deployment network review
 - Quarterly security audits
 - Cost optimization analysis
@@ -243,6 +252,7 @@ python scripts/network_topology_analyzer.py --help
 Calculate CIDR allocations and plan subnet layouts for optimal IP utilization.
 
 **Key Features:**
+
 - Automatic CIDR subdivision
 - Multi-AZ subnet planning
 - Reserved IP calculation
@@ -251,6 +261,7 @@ Calculate CIDR allocations and plan subnet layouts for optimal IP utilization.
 - IP address inventory
 
 **Common Usage:**
+
 ```bash
 # Plan subnets for 3-tier, 3-AZ deployment
 python scripts/subnet_planner.py --vpc-cidr 10.0.0.0/16 --azs 3 --tiers 3
@@ -266,6 +277,7 @@ python scripts/subnet_planner.py --help
 ```
 
 **Use Cases:**
+
 - New VPC design
 - Network expansion planning
 - IP address management
@@ -324,15 +336,20 @@ Technical reference guide in `references/cloud_networking.md`:
 
 1. **Gather Requirements** - Application tiers, availability zones, estimated IP usage, compliance needs
 2. **Plan CIDR Allocation** - Use subnet planner for optimal IP utilization
+
    ```bash
    python scripts/subnet_planner.py --vpc-cidr 10.0.0.0/16 --azs 3 --tiers 3 --reserve-future 20
    ```
+
 3. **Generate VPC Configuration** - Create Terraform for VPC, subnets, route tables
 4. **Configure Security Groups** - Generate least-privilege firewall rules
+
    ```bash
    python scripts/firewall_policy_generator.py --cloud aws --tier 3-tier --output terraform
    ```
+
 5. **Validate Design** - Analyze topology for redundancy and security
+
    ```bash
    python scripts/network_topology_analyzer.py --input vpc-config.json --check-redundancy --security-audit
    ```
@@ -345,10 +362,12 @@ See [vpc_design_patterns.md](references/vpc_design_patterns.md) for architecture
 
 1. **Gather Remote Site Details** - Public IP, BGP ASN (if using BGP), pre-shared key requirements
 2. **Generate VPN Configuration** - Create VPN gateway and tunnel configuration
+
    ```bash
    python scripts/vpn_configurator.py --provider aws --type site-to-site \
      --remote-ip 203.0.113.1 --remote-cidr 192.168.0.0/16 --ha --output terraform
    ```
+
 3. **Configure Customer Gateway** - Apply configuration to on-premises device
 4. **Verify Tunnel Status** - Check tunnel establishment and BGP peering
 5. **Test Connectivity** - Validate traffic flow between sites
@@ -361,15 +380,19 @@ See [cloud_networking.md](references/cloud_networking.md) for VPN best practices
 
 1. **Document Application Flows** - Identify all required network communications
 2. **Generate Base Policies** - Create tier-based security groups
+
    ```bash
    python scripts/firewall_policy_generator.py --cloud aws --tier 3-tier \
      --app-port 8080 --db-port 5432 --output terraform
    ```
+
 3. **Add Custom Rules** - Append application-specific rules
 4. **Review and Audit** - Validate no overly permissive rules
+
    ```bash
    python scripts/network_topology_analyzer.py --input security-groups.json --security-audit
    ```
+
 5. **Apply and Test** - Deploy rules and verify application connectivity
 
 See [network_security_guide.md](references/network_security_guide.md) for security best practices.
@@ -380,10 +403,12 @@ See [network_security_guide.md](references/network_security_guide.md) for securi
 
 1. **Export Current Configuration** - Gather VPC, security groups, route tables
 2. **Run Security Analysis** - Identify vulnerabilities and compliance gaps
+
    ```bash
    python scripts/network_topology_analyzer.py --input network-export/ \
      --security-audit --compliance pci-dss --output audit-report.md
    ```
+
 3. **Review Findings** - Prioritize issues by severity
 4. **Generate Remediation Plan** - Create action items for each finding
 5. **Apply Fixes** - Update configurations to address gaps
@@ -418,6 +443,7 @@ python scripts/network_topology_analyzer.py --input ./infrastructure --verbose
 ### 3. Implement Best Practices
 
 Follow the patterns and practices documented in:
+
 - `references/vpc_design_patterns.md`
 - `references/network_security_guide.md`
 - `references/cloud_networking.md`
@@ -425,24 +451,28 @@ Follow the patterns and practices documented in:
 ## Best Practices Summary
 
 ### Network Design
+
 - Use private subnets for application and database tiers
 - Implement NAT Gateways for outbound-only internet access
 - Plan for future growth with adequate CIDR allocation
 - Use Transit Gateway for hub-spoke topologies
 
 ### Security
+
 - Apply least-privilege security group rules
 - Use separate security groups per application tier
 - Enable VPC Flow Logs for network monitoring
 - Implement network segmentation for isolation
 
 ### High Availability
+
 - Deploy across multiple availability zones
 - Use redundant VPN tunnels with failover
 - Implement health checks for all endpoints
 - Plan for regional failover
 
 ### Cost Optimization
+
 - Right-size NAT Gateways based on traffic
 - Use VPC endpoints to reduce data transfer costs
 - Consider reserved capacity for Direct Connect
@@ -473,18 +503,21 @@ python scripts/subnet_planner.py --vpc-cidr 172.16.0.0/12 --inventory --output c
 ### Common Issues
 
 **VPN Tunnel Not Establishing:**
+
 - Verify remote IP address and pre-shared key
 - Check security group allows IPSec protocols (UDP 500, 4500)
 - Validate BGP ASN if using dynamic routing
 - Review IKE/IPSec phase 1 and 2 parameters match
 
 **Security Group Rules Not Working:**
+
 - Verify stateful vs stateless rules (SG vs NACL)
 - Check rule priority/order for NACLs
 - Validate source/destination CIDR blocks
 - Ensure both inbound and outbound rules are configured
 
 **Subnet IP Exhaustion:**
+
 - Review CIDR allocation with subnet planner
 - Identify unused elastic IPs and ENIs
 - Consider larger subnet sizes for high-density workloads

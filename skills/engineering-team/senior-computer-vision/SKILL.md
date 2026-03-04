@@ -105,6 +105,7 @@ python scripts/dataset_pipeline_builder.py --config config.yaml --deploy
 Train production-ready computer vision models with automated pipelines.
 
 **Key Features:**
+
 - Object detection (YOLO, Faster R-CNN, RetinaNet)
 - Semantic segmentation (U-Net, DeepLab, Mask R-CNN)
 - Transfer learning from pre-trained models
@@ -112,6 +113,7 @@ Train production-ready computer vision models with automated pipelines.
 - Training metrics and visualization
 
 **Common Usage:**
+
 ```bash
 # Train object detection model
 python scripts/vision_model_trainer.py --task detection --data ./dataset --model yolov8
@@ -127,6 +129,7 @@ python scripts/vision_model_trainer.py --help
 ```
 
 **Use Cases:**
+
 - Training custom object detectors for specific domains
 - Fine-tuning pre-trained models on new datasets
 - Experimenting with different architectures
@@ -136,6 +139,7 @@ python scripts/vision_model_trainer.py --help
 Optimize trained models for production deployment.
 
 **Key Features:**
+
 - Model quantization (INT8, FP16)
 - TensorRT optimization for NVIDIA GPUs
 - ONNX export for cross-platform deployment
@@ -143,6 +147,7 @@ Optimize trained models for production deployment.
 - Latency and throughput profiling
 
 **Common Usage:**
+
 ```bash
 # Optimize model for deployment
 python scripts/inference_optimizer.py --model model.pth --target tensorrt
@@ -158,6 +163,7 @@ python scripts/inference_optimizer.py --help
 ```
 
 **Use Cases:**
+
 - Reducing inference latency for real-time applications
 - Optimizing models for edge devices
 - Cross-platform model deployment
@@ -167,6 +173,7 @@ python scripts/inference_optimizer.py --help
 Build robust dataset pipelines with quality validation.
 
 **Key Features:**
+
 - Automated data augmentation (rotation, flip, color jitter, mixup)
 - Train/validation/test splitting strategies
 - Annotation format conversion (COCO, YOLO, Pascal VOC)
@@ -174,6 +181,7 @@ Build robust dataset pipelines with quality validation.
 - Dataset versioning and tracking
 
 **Common Usage:**
+
 ```bash
 # Build dataset pipeline
 python scripts/dataset_pipeline_builder.py --input raw_data/ --output processed/
@@ -189,6 +197,7 @@ python scripts/dataset_pipeline_builder.py --help
 ```
 
 **Use Cases:**
+
 - Preparing datasets for model training
 - Expanding small datasets through augmentation
 - Ensuring dataset quality and consistency
@@ -227,17 +236,22 @@ This skill covers world-class capabilities in:
 **Time:** 2-4 hours for training, 1 hour for optimization
 
 1. **Prepare Dataset** - Collect and annotate images, validate quality
+
    ```bash
    # Build dataset pipeline with augmentation
    python scripts/dataset_pipeline_builder.py --input raw_data/ --output dataset/ --augment --factor 3
    ```
+
 2. **Train Model** - Train object detection model with optimal hyperparameters
+
    ```bash
    # Train YOLO model
    python scripts/vision_model_trainer.py --task detection --data dataset/ --model yolov8 --epochs 100
    ```
+
 3. **Evaluate Performance** - Test on validation set, analyze mAP, precision, recall
 4. **Optimize for Deployment** - Quantize and optimize for production inference
+
    ```bash
    # Optimize with TensorRT
    python scripts/inference_optimizer.py --model checkpoints/best.pth --target tensorrt
@@ -252,10 +266,12 @@ See [object_detection_optimization.md](references/object_detection_optimization.
 1. **Design Architecture** - Define input sources, processing pipeline, output formats
 2. **Implement Frame Processing** - Object detection, tracking, scene analysis per frame
 3. **Optimize Performance** - Batch processing, GPU utilization, multi-threading
+
    ```bash
    # Benchmark inference speed
    python scripts/inference_optimizer.py --model model.pth --benchmark --batch-size 16
    ```
+
 4. **Deploy Pipeline** - Containerize, setup monitoring, configure auto-scaling
 
 ### 3. Production Model Deployment
@@ -263,10 +279,12 @@ See [object_detection_optimization.md](references/object_detection_optimization.
 **Time:** 2-3 hours for containerization and deployment
 
 1. **Optimize Model** - Quantization, pruning, TensorRT optimization
+
    ```bash
    # Full optimization pipeline
    python scripts/inference_optimizer.py --model model.pth --optimize-all --target production
    ```
+
 2. **Containerize** - Create Docker image with model serving API
 3. **Deploy to Cloud** - Kubernetes deployment, load balancer configuration
 4. **Setup Monitoring** - Latency tracking, error rates, model drift detection
@@ -278,11 +296,14 @@ See [object_detection_optimization.md](references/object_detection_optimization.
 1. **Collect Data** - Gather images/videos from relevant sources
 2. **Annotate** - Use CVAT, LabelImg, or Roboflow for annotations
 3. **Validate Quality** - Check for annotation errors, class imbalance
+
    ```bash
    # Validate dataset quality
    python scripts/dataset_pipeline_builder.py --input data/ --validate --report quality.json
    ```
+
 4. **Apply Augmentation** - Expand dataset with synthetic variations
+
    ```bash
    # Apply augmentation
    python scripts/dataset_pipeline_builder.py --input data/ --augment --factor 5 --output augmented/
@@ -382,15 +403,18 @@ High-throughput inference system:
 ## Performance Targets
 
 **Latency:**
+
 - P50: < 50ms
 - P95: < 100ms
 - P99: < 200ms
 
 **Throughput:**
+
 - Requests/second: > 1000
 - Concurrent users: > 10,000
 
 **Availability:**
+
 - Uptime: 99.9%
 - Error rate: < 0.1%
 

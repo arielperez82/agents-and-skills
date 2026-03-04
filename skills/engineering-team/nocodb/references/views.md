@@ -8,7 +8,7 @@ For NocoDB v0.255.0, view creation is done **via UI** (not API). NocoDB has APIs
 
 **This guide uses manual UI steps as the reliable approach for v0.255.0.**
 
-**Reference:** NocoDB documentation for view creation: https://nocodb.com/docs/product-docs/view
+**Reference:** NocoDB documentation for view creation: <https://nocodb.com/docs/product-docs/view>
 
 ## Prerequisites
 
@@ -316,5 +316,5 @@ After creating all views:
 
 ## References
 
-- **NocoDB Views Documentation:** https://nocodb.com/docs/product-docs/view
-- **NocoDB Relationships:** https://nocodb.com/docs/product-docs/tables/table-details#relationships
+- **NocoDB Views Documentation:** <https://nocodb.com/docs/product-docs/view>
+- **NocoDB Relationships:** <https://nocodb.com/docs/product-docs/tables/table-details#relationships>

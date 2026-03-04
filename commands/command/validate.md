@@ -13,9 +13,11 @@ Run the command validator script on the `commands/` directory. Reports pass/fail
 
 1. **Resolve path:** If `--all` or omitted, use repo root `commands/`. Else use the given path as the commands directory to scan.
 2. **Run validator:**
+
    ```bash
    python3 skills/agent-development-team/creating-agents/scripts/validate_commands.py [path]
    ```
+
    From repo root. For `--all`, omit path so the script uses `commands/`.
 3. **Report:** Present the script output (per-command PASS/FAIL and summary table).
 

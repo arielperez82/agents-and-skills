@@ -58,6 +58,7 @@ Focus effort on L1-L2 for maximum impact. Move to higher levels only when needed
 ## Fast-Path for Small Changes
 
 When GREEN phase produced < 30 LOC of new production code:
+
 - Quick scan for obvious naming/duplication issues (2-3 min max)
 - Mark COMPLETED with note "fast-path: <30 LOC"
 
@@ -198,6 +199,7 @@ Safety: verify truly unused, check for dynamic references, remove, compile and t
 ### Refactoring to Patterns (Kerievsky)
 
 Don't design patterns upfront - refactor toward them as needs emerge:
+
 - Extract Method repeatedly -> Compose Method -> Template Method
 - Encapsulate Field + Move Method -> Strategy
 - Extract Class + Move Method -> Decorator

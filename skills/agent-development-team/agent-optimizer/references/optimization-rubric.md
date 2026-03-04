@@ -9,6 +9,7 @@ Five dimensions for assessing agent quality and optimization. Used by agent-opti
 **Definition:** Percentage of body content that is actionable (workflow steps, concrete instructions) vs decorative (preambles, motivation, restated principles).
 
 **Scoring:**
+
 - Count lines in body (after frontmatter): total lines.
 - Classify each line/block: actionable (steps, commands, checklists, concrete examples) vs decorative (philosophy, "you should", repeated AGENTS.md principles).
 - **Score** = (actionable lines / total body lines) × 100.
@@ -24,6 +25,7 @@ Five dimensions for assessing agent quality and optimization. Used by agent-opti
 **Definition:** Agent body acts as index: pointers to skills/references, not duplicated content. No full paragraphs copied from referenced SKILL.md files.
 
 **Scoring:**
+
 - Count skill references (skills, related-skills) and check if body contains paragraphs that duplicate those skills' content.
 - **Score:** 100% if zero duplicated paragraphs; else 100 − (duplicated paragraphs × 20), min 0.
 
@@ -38,6 +40,7 @@ Five dimensions for assessing agent quality and optimization. Used by agent-opti
 **Definition:** Every `collaborates-with` entry has `purpose`, `required`, and `without-collaborator`. All delegation paths declared.
 
 **Scoring:**
+
 - For each `collaborates-with` block: +1 if all three fields present and non-empty; else 0.
 - **Score** = (complete entries / total entries) × 100. No collaborates-with = 100% (N/A).
 
@@ -52,6 +55,7 @@ Five dimensions for assessing agent quality and optimization. Used by agent-opti
 **Definition:** `classification.type` matches actual tool usage and workflow patterns. Strategic agents do not declare Bash; quality agents do not produce implementation artifacts.
 
 **Scoring:**
+
 - **type = strategic:** tools should not include Bash/Edit for code; workflow = recommend, not implement. Mismatch = 0 for this dimension.
 - **type = implementation:** tools may include Bash, Edit; workflow = build, code. Mismatch if no execution tools but claims implementation = 0.
 - **type = quality:** tools = assess, report; must not produce code/artifacts. Mismatch = 0.
@@ -69,6 +73,7 @@ Five dimensions for assessing agent quality and optimization. Used by agent-opti
 **Definition:** All listed workflows (3+ recommended) have concrete inputs, expected output format, and integration examples where relevant.
 
 **Scoring:**
+
 - Count workflows (sections or bullets that describe "when/how to use" the agent).
 - For each workflow: +1 if it has (a) concrete input example and (b) expected output or outcome; else 0.
 - **Score** = (workflows with both / total workflows) × 100. Fewer than 3 workflows = score as-is but flag "consider adding workflows".
@@ -84,6 +89,7 @@ Five dimensions for assessing agent quality and optimization. Used by agent-opti
 **Formula:** Average of the five dimension scores (each 0–100). If a dimension is N/A (e.g. no collaborates-with), exclude it from the average.
 
 **Grade bands:**
+
 - **A:** 90–100
 - **B:** 75–89
 - **C:** 60–74
@@ -91,6 +97,7 @@ Five dimensions for assessing agent quality and optimization. Used by agent-opti
 - **F:** 0–39
 
 **Status indicator (for audit):**
+
 - **OK:** Grade A or B, no dimension below threshold.
 - **REVIEW:** Grade C, or any dimension below threshold.
 - **OPTIMIZE:** Grade D or F, or multiple dimensions below threshold.

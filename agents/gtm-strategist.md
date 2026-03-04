@@ -77,6 +77,7 @@ The gtm-strategist agent bridges the gap between market research and data enrich
 ## Skill Integration
 
 **Skill Locations:**
+
 - `../skills/marketing-team/icp-modeling/`
 - `../skills/marketing-team/niche-market-strategy/`
 
@@ -103,6 +104,7 @@ No Python tools — these are methodology and framework skills that provide stru
 **Goal:** Build a data-driven ideal customer profile from multiple data dimensions
 
 **Steps:**
+
 1. **Gather Closed-Won Data** - Analyze patterns in winning customers across last 6-12 months
 2. **Define Firmographic Criteria** - Document company size, industry, revenue range, geography, funding stage
 3. **Define Technographic Criteria** - Identify tech stack, tools, infrastructure, and platform patterns
@@ -117,6 +119,7 @@ No Python tools — these are methodology and framework skills that provide stru
 **Time Estimate:** 1-2 weeks
 
 **Example:**
+
 ```bash
 # ICP Definition output
 echo "ICP Profile: Mid-market SaaS (200-1000 employees, Series B-D)
@@ -139,6 +142,7 @@ Top 50 accounts identified, average ICP score: 82/100"
 **Goal:** Size the addressable market and identify high-value segments for targeting
 
 **Steps:**
+
 1. **Define Market Boundaries** - Establish what problem category and who has this problem
 2. **Calculate TAM** - Total Addressable Market — total global market for the problem
 3. **Calculate SAM** - Serviceable Available Market — segment reachable with product and distribution
@@ -153,6 +157,7 @@ Top 50 accounts identified, average ICP score: 82/100"
 **Time Estimate:** 1-2 weeks
 
 **Example:**
+
 ```bash
 # Market Sizing output
 echo "Market: Developer API Monitoring Tools
@@ -175,6 +180,7 @@ Beachhead Strategy: Win top 25 fintech accounts in 12 months
 **Goal:** Develop a focused market entry plan for a specific vertical or niche segment
 
 **Steps:**
+
 1. **Define Niche Boundaries** - Vertical, company size, geography, specific pain points
 2. **Assess Niche Attractiveness** - Market size, growth rate, competition, barriers to entry
 3. **Map Existing Presence** - Current customers in niche, referral networks, brand recognition
@@ -189,6 +195,7 @@ Beachhead Strategy: Win top 25 fintech accounts in 12 months
 **Time Estimate:** 1-2 weeks
 
 **Example:**
+
 ```bash
 # Niche Entry Strategy output
 echo "Niche: Fintech companies with 50+ engineers, SOC2 compliance
@@ -281,24 +288,28 @@ echo "  - No cloud adoption plans in next 12 months"
 ## Success Metrics
 
 **ICP Accuracy:**
+
 - **Pipeline Match Rate:** 70%+ of pipeline matches defined ICP criteria
 - **ICP Score Correlation:** Positive correlation between ICP score and win rate (r > 0.6)
 - **Disqualification Rate:** 30%+ of unqualified leads filtered before sales engagement
 - **Score Calibration:** Monthly scoring model calibration against closed-won data
 
 **Segment Win Rate:**
+
 - **Target vs. Non-Target:** 25%+ improvement in win rate within target segments vs. non-target
 - **Beachhead Penetration:** 10%+ market share in beachhead segment within 12 months
 - **Segment Expansion:** Successful expansion from beachhead to adjacent segments within 18 months
 - **Deal Velocity:** 20%+ faster sales cycles within target segments
 
 **Market Sizing Accuracy:**
+
 - **TAM/SAM Validation:** Within 20% of analyst estimates (Gartner, IDC, Forrester)
 - **SOM Achievement:** 80%+ of Year 1 SOM target achieved
 - **Segment Size Accuracy:** Segment counts validated against enrichment data within 15%
 - **Forecast Reliability:** Quarterly pipeline forecast accuracy within 25% of actuals
 
 **Pipeline Quality:**
+
 - **Average Deal Size:** 30%+ increase in average deal size after ICP refinement
 - **Conversion Rate:** 15%+ improvement in MQL-to-SQL conversion for ICP-matched leads
 - **Customer Lifetime Value:** Higher LTV in ICP-matched accounts vs. non-ICP accounts

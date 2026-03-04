@@ -18,11 +18,13 @@ Production Traffic → Green (v2.0)
 ```
 
 **Pros:**
+
 - Zero downtime
 - Instant rollback
 - Full environment testing before switch
 
 **Cons:**
+
 - Requires double infrastructure
 - Database migrations complex
 
@@ -40,11 +42,13 @@ kubectl rollout resume deployment/api
 ```
 
 **Pros:**
+
 - Risk mitigation
 - Early issue detection
 - Real user feedback
 
 **Cons:**
+
 - Requires monitoring
 - Longer deployment time
 
@@ -68,6 +72,7 @@ if (showNewCheckout) {
 ```
 
 **Use Cases:**
+
 - Gradual feature rollout
 - A/B testing
 - Kill switch for problematic features
@@ -105,6 +110,7 @@ CMD ["node", "dist/main.js"]
 ```
 
 **Benefits:**
+
 - Smaller image size (50-90% reduction)
 - Faster deployments
 - Reduced attack surface
@@ -487,8 +493,8 @@ resource "aws_elasticache_cluster" "redis" {
 
 ## Resources
 
-- **Kubernetes:** https://kubernetes.io/docs/
-- **Docker:** https://docs.docker.com/
-- **Prometheus:** https://prometheus.io/docs/
-- **OpenTelemetry:** https://opentelemetry.io/docs/
-- **Terraform:** https://www.terraform.io/docs/
+- **Kubernetes:** <https://kubernetes.io/docs/>
+- **Docker:** <https://docs.docker.com/>
+- **Prometheus:** <https://prometheus.io/docs/>
+- **OpenTelemetry:** <https://opentelemetry.io/docs/>
+- **Terraform:** <https://www.terraform.io/docs/>

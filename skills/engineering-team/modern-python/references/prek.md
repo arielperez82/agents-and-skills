@@ -50,7 +50,7 @@ repos:
       - id: ruff-format
 ```
 
-2. Install and run:
+1. Install and run:
 
 ```bash
 # Install git hooks
@@ -186,10 +186,10 @@ Or manually:
 .PHONY: hooks hooks-install
 
 hooks:
-	prek run --all-files
+ prek run --all-files
 
 hooks-install:
-	prek install
+ prek install
 ```
 
 ## Migration from pre-commit

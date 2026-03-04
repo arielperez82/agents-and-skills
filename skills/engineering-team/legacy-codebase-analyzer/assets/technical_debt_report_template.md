@@ -32,12 +32,14 @@
 {methodology_tools_description}
 
 **Analysis Tools:**
+
 - {tool_1}
 - {tool_2}
 - {tool_3}
 - {tool_4}
 
 **Metrics Collected:**
+
 - {metric_1}
 - {metric_2}
 - {metric_3}
@@ -45,11 +47,13 @@
 ### Scope
 
 **Included in Analysis:**
+
 - {scope_item_1}
 - {scope_item_2}
 - {scope_item_3}
 
 **Excluded from Analysis:**
+
 - {exclusion_1}
 - {exclusion_2}
 
@@ -116,6 +120,7 @@
 - **Largest Duplicate:** {largest_duplicate_lines} lines
 
 **Major Duplication Areas:**
+
 1. {duplication_area_1}
 2. {duplication_area_2}
 3. {duplication_area_3}
@@ -144,11 +149,13 @@
 #### Architecture Patterns Identified
 
 **Current Patterns:**
+
 - {current_pattern_1}
 - {current_pattern_2}
 - {current_pattern_3}
 
 **Recommended Patterns:**
+
 - {recommended_pattern_1}
 - {recommended_pattern_2}
 - {recommended_pattern_3}
@@ -239,6 +246,7 @@
 #### Coverage Gaps
 
 Critical areas lacking adequate test coverage:
+
 1. {coverage_gap_1}
 2. {coverage_gap_2}
 3. {coverage_gap_3}

@@ -20,6 +20,7 @@ Use `codebase-scout` agent (located at `agents/codebase-scout.md`).
 ## Adaptive Strategy
 
 The scout agent uses an adaptive strategy:
+
 1. **Primary**: Try external agentic tools (Gemini, OpenCode) if available - faster for large codebases with 1M+ token context windows
 2. **Fallback**: Use internal tools (Glob, Grep, Read) if external tools unavailable
 
@@ -28,6 +29,7 @@ The agent automatically selects the best strategy based on tool availability.
 ## Optional: Pattern Discovery
 
 If search scope is unclear, the scout agent can optionally leverage `researcher` for pattern discovery:
+
 - Example: "What file patterns typically handle authentication in React apps?"
 - Use research findings to inform search patterns
 - Then proceed with codebase search
@@ -35,6 +37,7 @@ If search scope is unclear, the scout agent can optionally leverage `researcher`
 ## Workflow
 
 The scout agent will:
+
 1. Analyze the search request and identify relevant directories
 2. Optionally delegate to `researcher` if pattern discovery is needed
 3. Divide codebase into logical sections for parallel searching
@@ -47,12 +50,14 @@ The scout agent will:
 ## How to Use
 
 **Basic Usage:**
+
 ```
 /scout Find all payment-related files
 /scout Locate authentication components 5
 ```
 
 **With Scale:**
+
 ```
 /scout Find database migration files 4
 ```

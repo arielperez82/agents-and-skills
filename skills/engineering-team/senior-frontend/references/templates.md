@@ -7,6 +7,7 @@ Production-ready templates for React/Next.js components, hooks, layouts, and tes
 ### Next.js + TypeScript + Tailwind Starter
 
 **package.json:**
+
 ```json
 {
   "name": "frontend-app",
@@ -49,6 +50,7 @@ Production-ready templates for React/Next.js components, hooks, layouts, and tes
 ```
 
 **tailwind.config.ts:**
+
 ```typescript
 import type { Config } from 'tailwindcss';
 
@@ -597,6 +599,7 @@ describe('useDebounce', () => {
 ## Environment Configuration
 
 **.env.local:**
+
 ```env
 # API
 NEXT_PUBLIC_API_URL=http://localhost:3000/api

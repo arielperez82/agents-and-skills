@@ -135,6 +135,7 @@ python scripts/servicenow_status_sync.py --action resolve --snow-number INC00123
 Automated alert triage, severity classification, and indicator of compromise (IOC) correlation.
 
 **Features:**
+
 - Severity classification (P0-P3) based on incident type and scope
 - Pattern detection (brute force, data exfiltration, lateral movement)
 - IOC correlation with known threat indicators
@@ -142,6 +143,7 @@ Automated alert triage, severity classification, and indicator of compromise (IO
 - Real-time log parsing and analysis
 
 **Usage:**
+
 ```bash
 python scripts/incident_detector.py --input /var/log/auth.log --severity P1 --output json
 ```
@@ -151,6 +153,7 @@ python scripts/incident_detector.py --input /var/log/auth.log --severity P1 --ou
 Containment action execution, timeline tracking, and evidence collection with playbook support.
 
 **Features:**
+
 - Pre-built playbooks (phishing, ransomware, data breach, cloud compromise)
 - Automated containment actions with rollback capability
 - Evidence collection with chain of custody tracking
@@ -158,6 +161,7 @@ Containment action execution, timeline tracking, and evidence collection with pl
 - Integration with ticketing systems (Jira, ServiceNow)
 
 **Usage:**
+
 ```bash
 python scripts/incident_responder.py --incident INC-001 --action contain --collect-evidence
 ```
@@ -167,6 +171,7 @@ python scripts/incident_responder.py --incident INC-001 --action contain --colle
 Root cause analysis, impact assessment, and remediation recommendations with report generation.
 
 **Features:**
+
 - Attack vector and entry point identification
 - Dwell time calculation and lateral movement mapping
 - Business impact quantification (systems, users, data, cost)
@@ -175,6 +180,7 @@ Root cause analysis, impact assessment, and remediation recommendations with rep
 - Lessons learned documentation
 
 **Usage:**
+
 ```bash
 python scripts/incident_analyzer.py --incident INC-001 --rca --impact --report
 ```
@@ -194,6 +200,7 @@ python scripts/incident_analyzer.py --incident INC-001 --rca --impact --report
 **Expected Output:** Prioritized incident list with severity levels and response recommendations
 
 **Example:**
+
 ```bash
 # Detect potential incidents from authentication logs
 python scripts/incident_detector.py \
@@ -218,6 +225,7 @@ python scripts/incident_detector.py \
 **Expected Output:** Contained incident with evidence preserved and timeline documented
 
 **Example:**
+
 ```bash
 # Execute ransomware containment playbook
 python scripts/incident_responder.py \
@@ -242,6 +250,7 @@ python scripts/incident_responder.py \
 **Expected Output:** Root cause analysis with attack timeline and impact assessment
 
 **Example:**
+
 ```bash
 # Full incident analysis with RCA
 python scripts/incident_analyzer.py \
@@ -267,6 +276,7 @@ python scripts/incident_analyzer.py \
 **Expected Output:** Complete incident report with lessons learned and improvement actions
 
 **Example:**
+
 ```bash
 # Generate post-incident report
 python scripts/incident_analyzer.py \
@@ -284,6 +294,7 @@ python scripts/incident_analyzer.py \
 Automated alert triage and severity classification with IOC correlation and pattern detection.
 
 **Key Features:**
+
 - Severity classification (P0-Critical, P1-High, P2-Medium, P3-Low)
 - Detection patterns: brute force, credential stuffing, data exfiltration, lateral movement, privilege escalation
 - IOC correlation: IP addresses, domains, file hashes, email addresses
@@ -292,6 +303,7 @@ Automated alert triage and severity classification with IOC correlation and patt
 - Confidence scoring for each detection
 
 **CLI Arguments:**
+
 - `--input` - Path to log file or directory (required)
 - `--ioc-file` - Path to IOC file for correlation (optional)
 - `--severity` - Filter by minimum severity level: P0, P1, P2, P3 (optional)
@@ -301,6 +313,7 @@ Automated alert triage and severity classification with IOC correlation and patt
 - `--version` - Show version
 
 **Common Usage:**
+
 ```bash
 # Basic detection from auth logs
 python scripts/incident_detector.py --input /var/log/auth.log
@@ -316,6 +329,7 @@ python scripts/incident_detector.py --help
 ```
 
 **Use Cases:**
+
 - Real-time security alert monitoring
 - Daily security log review
 - Threat hunting exercises
@@ -326,6 +340,7 @@ python scripts/incident_detector.py --help
 Incident containment, timeline tracking, and evidence collection with playbook execution.
 
 **Key Features:**
+
 - Pre-built playbooks: phishing, ransomware, data_breach, cloud_compromise, insider_threat
 - Containment actions: account disable, network isolation, credential rotation, service shutdown
 - Evidence collection: logs, memory state, system config, network captures
@@ -334,6 +349,7 @@ Incident containment, timeline tracking, and evidence collection with playbook e
 - Action logging with timestamps and outcomes
 
 **CLI Arguments:**
+
 - `--incident` - Incident identifier (required)
 - `--playbook` - Playbook to execute: phishing, ransomware, data_breach, cloud_compromise, insider_threat (optional)
 - `--action` - Specific action: contain, isolate, disable, preserve (optional)
@@ -345,6 +361,7 @@ Incident containment, timeline tracking, and evidence collection with playbook e
 - `--version` - Show version
 
 **Common Usage:**
+
 ```bash
 # Execute ransomware containment playbook
 python scripts/incident_responder.py --incident INC-001 --playbook ransomware
@@ -363,6 +380,7 @@ python scripts/incident_responder.py --help
 ```
 
 **Use Cases:**
+
 - Active incident containment
 - Evidence preservation for forensics
 - Incident timeline documentation
@@ -373,6 +391,7 @@ python scripts/incident_responder.py --help
 Root cause analysis, impact assessment, and post-incident report generation.
 
 **Key Features:**
+
 - Attack vector identification: phishing, vulnerability exploitation, misconfiguration, insider
 - Dwell time calculation (time from compromise to detection)
 - Lateral movement path reconstruction
@@ -383,6 +402,7 @@ Root cause analysis, impact assessment, and post-incident report generation.
 - Lessons learned documentation
 
 **CLI Arguments:**
+
 - `--incident` - Incident identifier (required)
 - `--evidence-dir` - Path to collected evidence (optional)
 - `--rca` - Perform root cause analysis (flag)
@@ -394,6 +414,7 @@ Root cause analysis, impact assessment, and post-incident report generation.
 - `--version` - Show version
 
 **Common Usage:**
+
 ```bash
 # Root cause analysis only
 python scripts/incident_analyzer.py --incident INC-001 --rca
@@ -412,6 +433,7 @@ python scripts/incident_analyzer.py --help
 ```
 
 **Use Cases:**
+
 - Post-incident forensic analysis
 - Executive reporting on security incidents
 - Compliance documentation (breach notifications)
@@ -422,6 +444,7 @@ python scripts/incident_analyzer.py --help
 Generate ServiceNow incident payloads from observability alerts for enterprise ITSM integration.
 
 **Key Features:**
+
 - Alert format auto-detection (Prometheus, NewRelic, DataDog, PagerDuty)
 - Severity-to-priority mapping (P0-P3 → ServiceNow impact/urgency/priority)
 - CMDB Configuration Item linking
@@ -429,6 +452,7 @@ Generate ServiceNow incident payloads from observability alerts for enterprise I
 - curl command generation for API testing
 
 **CLI Arguments:**
+
 - `--alert-file` - Path to alert JSON file (required)
 - `--severity` - Override alert severity: P0, P1, P2, P3 (optional)
 - `--assignment-group` - Target assignment group (optional)
@@ -439,6 +463,7 @@ Generate ServiceNow incident payloads from observability alerts for enterprise I
 - `--version` - Show version
 
 **Common Usage:**
+
 ```bash
 # Generate incident payload from alert
 python scripts/servicenow_incident_manager.py --alert-file alert.json --output json
@@ -457,6 +482,7 @@ python scripts/servicenow_incident_manager.py --help
 ```
 
 **Use Cases:**
+
 - Escalating observability alerts to ServiceNow incidents
 - ITSM integration for audit compliance
 - Automated incident ticket creation from monitoring
@@ -467,6 +493,7 @@ python scripts/servicenow_incident_manager.py --help
 Bi-directional status synchronization between monitoring alerts and ServiceNow incidents.
 
 **Key Features:**
+
 - State mapping (alert state → ServiceNow incident state)
 - Work notes generation and updates
 - Resolution code handling (fixed, workaround, duplicate, etc.)
@@ -474,6 +501,7 @@ Bi-directional status synchronization between monitoring alerts and ServiceNow i
 - Audit trail maintenance
 
 **CLI Arguments:**
+
 - `--action` - Action to perform: acknowledge, update, hold, resolve, close, reopen (required)
 - `--snow-number` - ServiceNow incident number (required)
 - `--status` - New status value (optional)
@@ -485,6 +513,7 @@ Bi-directional status synchronization between monitoring alerts and ServiceNow i
 - `--version` - Show version
 
 **Common Usage:**
+
 ```bash
 # Acknowledge incident
 python scripts/servicenow_status_sync.py --action acknowledge \
@@ -512,6 +541,7 @@ python scripts/servicenow_status_sync.py --help
 ```
 
 **Use Cases:**
+
 - Synchronizing alert state with ServiceNow incidents
 - Maintaining audit trail of incident response actions
 - Resolving and closing ITSM tickets from response workflows
@@ -567,21 +597,25 @@ ServiceNow ITSM integration guide in `references/servicenow-patterns.md`:
 Track incident response effectiveness with these metrics:
 
 **Detection Metrics:**
+
 - Mean Time to Detect (MTTD): Target < 1 hour for P0/P1
 - Alert accuracy: Target > 95% true positive rate
 - IOC coverage: Percentage of known threats detected
 
 **Response Metrics:**
+
 - Mean Time to Respond (MTTR): Target < 4 hours for P0, < 24 hours for P1
 - Containment rate: Target 98%+ incidents contained before spread
 - Evidence completeness: All required evidence collected
 
 **Quality Metrics:**
+
 - False positive rate: Target < 5%
 - Recurring incidents: Target < 2% (same root cause)
 - Playbook coverage: Incidents with applicable playbooks
 
 **Improvement Metrics:**
+
 - Lessons learned implementation rate
 - Control effectiveness improvement
 - Training completion rate post-incident
@@ -598,24 +632,28 @@ Track incident response effectiveness with these metrics:
 ## Best Practices Summary
 
 ### Detection
+
 - Aggregate alerts from multiple sources
 - Correlate with threat intelligence
 - Maintain low false positive rates
 - Tune detection rules regularly
 
 ### Containment
+
 - Follow pre-defined playbooks
 - Document all actions taken
 - Preserve evidence before remediation
 - Communicate with stakeholders
 
 ### Investigation
+
 - Establish clear timeline
 - Identify all affected systems
 - Determine data exposure scope
 - Document chain of custody
 
 ### Recovery
+
 - Validate system integrity
 - Monitor for re-compromise
 - Update detection rules
@@ -626,18 +664,21 @@ Track incident response effectiveness with these metrics:
 ### Common Issues
 
 **Detection tool not finding alerts:**
+
 - Verify log file path and permissions
 - Check log format compatibility
 - Ensure IOC file is properly formatted
 - Review detection pattern configuration
 
 **Evidence collection failing:**
+
 - Verify write permissions to output directory
 - Check available disk space
 - Ensure source files are accessible
 - Review hash verification errors
 
 **Report generation incomplete:**
+
 - Verify all required inputs are provided
 - Check evidence directory structure
 - Ensure incident data is available

@@ -80,6 +80,7 @@ This is a coaching-driven skill focused on facilitation, communication, and agil
 **Goal:** Facilitate sprint planning that aligns with agile principles, promotes team collaboration, and ensures transparent commitment to achievable goals
 
 **Steps:**
+
 1. **Agile Principles Review** - Ensure planning aligns with agile manifesto values (individuals, working software, collaboration, responding to change)
 2. **Team Collaboration Setup** - Create safe environment for open dialogue, ensure all voices are heard in planning discussions
 3. **Transparent Goal Setting** - Guide team to define clear, measurable sprint objectives with collective ownership and commitment
@@ -93,6 +94,7 @@ This is a coaching-driven skill focused on facilitation, communication, and agil
 **Time Estimate:** 2 hours for 2-week sprint (1 hour per week of sprint duration)
 
 **Example:**
+
 ```bash
 # Review backlog and prepare for planning
 cat ../skills/delivery-team/scrum-master/SKILL.md
@@ -112,6 +114,7 @@ cat ../skills/delivery-team/scrum-master/SKILL.md
 **Goal:** Facilitate daily standups that promote team communication, ensure transparency, and foster collaborative problem-solving
 
 **Steps:**
+
 1. **Inclusive Environment** - Ensure all team members feel safe to share openly, start on time to respect everyone's commitment
 2. **Collaborative Sharing** - Guide team through three questions focusing on progress, plans, and impediments with emphasis on team support
 3. **Visual Transparency** - Update sprint board collaboratively to maintain shared understanding of work status
@@ -124,6 +127,7 @@ cat ../skills/delivery-team/scrum-master/SKILL.md
 **Time Estimate:** 15 minutes daily (strictly timeboxed)
 
 **Example:**
+
 ```bash
 #  Team sync checklist
 # - Start on time (don't wait for latecomers)
@@ -148,10 +152,13 @@ cat ../skills/delivery-team/scrum-master/SKILL.md
 **Goal:** Facilitate retrospectives that promote psychological safety, collaborative learning, and commitment to continuous improvement aligned with agile manifesto values
 
 **Steps:**
+
 1. **Agile Values Reinforcement** - Select format that aligns with agile principles of collaboration and continuous improvement
+
    ```bash
    cat ../skills/delivery-team/agile-coach/references/retro-formats.md
    ```
+
 2. **Continuous Improvement Check** - Review progress on previous improvement commitments, celebrating successes and learning from challenges
 3. **Psychological Safety** - Create environment of trust and openness, reminding team that retrospectives are about improvement, not blame
 4. **Collaborative Data Collection** - Use inclusive techniques that ensure all team members contribute to understanding team dynamics
@@ -164,6 +171,7 @@ cat ../skills/delivery-team/scrum-master/SKILL.md
 **Time Estimate:** 1.5 hours for 2-week sprint (45 minutes per week of sprint duration)
 
 **Example:**
+
 ```bash
 # Retrospective preparation
 # Review previous action items:
@@ -197,6 +205,7 @@ cat ../skills/delivery-team/scrum-master/SKILL.md
 **Goal:** Track team throughput, capacity utilization, and delivery patterns to support continuous improvement and sustainable pacing
 
 **Steps:**
+
 1. **Throughput Tracking** - Monitor work completed over time periods (stories, features, or value delivered) to understand team flow patterns
 2. **Capacity Utilization Analysis** - Track team capacity vs. actual utilization, accounting for PTO, meetings, and unplanned work
 3. **Delivery Predictability Assessment** - Evaluate consistency of delivery rates and commitment reliability over rolling time windows
@@ -210,6 +219,7 @@ cat ../skills/delivery-team/scrum-master/SKILL.md
 **Time Estimate:** 45-60 minutes weekly for data collection and analysis, integrated into regular team health check-ins
 
 **Example:**
+
 ```bash
 # Flow metrics tracking example (rolling 4-week windows)
 # Week 1-4: 38 items completed (avg 9.5/week)
@@ -408,21 +418,25 @@ echo "- Monitor throughput trends weekly for continuous improvement"
 ## Success Metrics
 
 **Agile Principles Adherence:**
+
 - **Agile Manifesto Alignment:** Team consistently demonstrates commitment to individuals, working software, collaboration, and responding to change
 - **Transparency Level:** Open communication and information sharing across all team interactions
 - **Continuous Improvement:** Regular implementation of retrospective insights and process refinements
 
 **Team Collaboration:**
+
 - **Communication Effectiveness:** Team members actively share knowledge and support each other's work
 - **Psychological Safety:** Team openly discusses challenges and experiments with new approaches
 - **Cross-functional Support:** Team leverages diverse skills and helps each other overcome obstacles
 
 **Team Health & Morale:**
+
 - **Sustainable Pace:** Team maintains healthy work-life balance while delivering value
 - **Ceremony Engagement:** High participation and energy in agile ceremonies with focus on collaboration
 - **Learning Culture:** Team views failures as learning opportunities and celebrates improvements
 
 **Flow and Capacity Management:**
+
 - **Throughput Stability:** Consistent delivery rates with <15% variance over rolling periods
 - **Capacity Utilization:** Optimal utilization (70-85%) preventing burnout while maximizing output
 - **Flow Efficiency:** >65% efficiency in work flow from start to completion

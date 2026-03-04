@@ -33,6 +33,7 @@ General-purpose pattern for agents needing tool calling and iterative problem-so
 **Examples**: Code generation agents, research agents, troubleshooting agents.
 
 **Anti-patterns**:
+
 - Giving a ReAct agent responsibilities across multiple unrelated domains (split into specialists instead)
 - Omitting tool access when the agent needs to observe real state (reasoning without grounding)
 
@@ -47,6 +48,7 @@ For agents that must evaluate and iteratively improve their own output.
 **Examples**: Code reviewer agents, architecture reviewer agents, agent validator agents.
 
 **Anti-patterns**:
+
 - Using Reflection for simple lookup or generation tasks (adds latency without value)
 - Reflection without explicit quality criteria (the agent has nothing concrete to review against)
 - Unlimited review loops (cap iterations; typically 2 is sufficient)
@@ -62,6 +64,7 @@ For classifying a request and delegating to exactly one specialist.
 **Examples**: Workflow dispatchers, task routers, intent classifiers.
 
 **Anti-patterns**:
+
 - Router that also does work (routers delegate, they do not execute)
 - Missing fallback for unclassifiable requests
 - Router with only two routes (use a simple conditional instead)
@@ -77,6 +80,7 @@ For complex tasks requiring structured decomposition before execution.
 **Examples**: Project planner agents, migration coordinator agents.
 
 **Anti-patterns**:
+
 - Planning for tasks with fewer than 3 steps (over-engineering)
 - Plans without validation checkpoints (no way to detect drift)
 - Planning without executing (plans are means, not ends)
@@ -92,6 +96,7 @@ For linear workflows with clear dependencies between stages.
 **Examples**: Document processing pipelines (extract -> transform -> validate -> publish), multi-phase development workflows.
 
 **Anti-patterns**:
+
 - Sequential orchestration for independent tasks (use Parallel instead)
 - Long chains without intermediate validation (errors compound)
 - Stages that do not actually depend on the previous output
@@ -107,6 +112,7 @@ For running multiple independent analyses simultaneously.
 **Examples**: Multi-reviewer code review (security + performance + correctness in parallel), parallel documentation generation.
 
 **Anti-patterns**:
+
 - Parallelizing tasks that have data dependencies (produces inconsistent results)
 - No aggregation step (parallel results need synthesis)
 - Too many parallel workers without resource consideration
@@ -122,6 +128,7 @@ For a supervisor agent that coordinates multiple worker agents dynamically.
 **Examples**: Feature coordinator supervising frontend/backend/database/testing specialists, incident response coordinator.
 
 **Anti-patterns**:
+
 - Hierarchical for static workflows (use Sequential or Parallel instead)
 - Supervisor that does worker-level work (supervisors coordinate, they do not execute)
 - Deep hierarchies (prefer flat; rarely more than 2 levels)

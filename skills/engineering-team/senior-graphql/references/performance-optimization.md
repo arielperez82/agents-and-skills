@@ -62,6 +62,7 @@ SELECT * FROM users WHERE id IN (1, 2, 3...);  -- 1 batched query
 ### DataLoader Best Practices
 
 1. **Create fresh loaders per request**
+
    ```typescript
    context: () => ({
      loaders: {
@@ -72,11 +73,13 @@ SELECT * FROM users WHERE id IN (1, 2, 3...);  -- 1 batched query
    ```
 
 2. **Handle null results**
+
    ```typescript
    return userIds.map(id => userMap.get(id) ?? null);
    ```
 
 3. **Batch related entities**
+
    ```typescript
    const postsByAuthorLoader = new DataLoader<string, Post[]>(
      async (authorIds) => {
@@ -587,24 +590,28 @@ const loggingPlugin = {
 ## Performance Checklist
 
 ### Query Optimization
+
 - [ ] DataLoader for all relationships
 - [ ] Query complexity limits
 - [ ] Depth limiting
 - [ ] Pagination for all lists
 
 ### Caching
+
 - [ ] Response caching configured
 - [ ] Cache hints on types/fields
 - [ ] Redis for distributed caching
 - [ ] APQ or static persisted queries
 
 ### Database
+
 - [ ] Indexes on foreign keys
 - [ ] Select only needed fields
 - [ ] Cursor-based pagination
 - [ ] Query logging enabled
 
 ### Monitoring
+
 - [ ] Apollo Studio connected
 - [ ] Resolver timing logged
 - [ ] Error tracking configured

@@ -172,6 +172,7 @@ Design and deploy VPC architecture for multi-region, high-availability applicati
    - Document compliance requirements (PCI-DSS, HIPAA, etc.)
 
 2. **Plan CIDR Allocation**
+
    ```bash
    # Generate subnet plan with 20% reserved for future growth
    python3 ../skills/engineering-team/senior-network-infrastructure/scripts/subnet_planner.py \
@@ -183,6 +184,7 @@ Design and deploy VPC architecture for multi-region, high-availability applicati
    ```
 
 3. **Generate Security Groups**
+
    ```bash
    # Create 3-tier security groups with compliance preset
    python3 ../skills/engineering-team/senior-network-infrastructure/scripts/firewall_policy_generator.py \
@@ -193,6 +195,7 @@ Design and deploy VPC architecture for multi-region, high-availability applicati
    ```
 
 4. **Validate Design**
+
    ```bash
    # Analyze topology for redundancy and security
    python3 ../skills/engineering-team/senior-network-infrastructure/scripts/network_topology_analyzer.py \
@@ -226,6 +229,7 @@ Configure secure VPN connectivity between cloud and on-premises or multi-cloud.
    - Pre-shared key requirements
 
 2. **Generate VPN Configuration**
+
    ```bash
    # AWS site-to-site VPN with high availability
    python3 ../skills/engineering-team/senior-network-infrastructure/scripts/vpn_configurator.py \
@@ -238,6 +242,7 @@ Configure secure VPN connectivity between cloud and on-premises or multi-cloud.
    ```
 
 3. **Generate Customer Gateway Configuration**
+
    ```bash
    # Get configuration for on-premises device
    python3 ../skills/engineering-team/senior-network-infrastructure/scripts/vpn_configurator.py \
@@ -275,6 +280,7 @@ Implement least-privilege firewall rules for applications.
    - Identify compliance requirements
 
 2. **Generate Base Policies**
+
    ```bash
    # Generate 3-tier security groups
    python3 ../skills/engineering-team/senior-network-infrastructure/scripts/firewall_policy_generator.py \
@@ -286,6 +292,7 @@ Implement least-privilege firewall rules for applications.
    ```
 
 3. **Generate Microservices Policies (if applicable)**
+
    ```bash
    # Generate microservices security patterns
    python3 ../skills/engineering-team/senior-network-infrastructure/scripts/firewall_policy_generator.py \
@@ -296,6 +303,7 @@ Implement least-privilege firewall rules for applications.
    ```
 
 4. **Audit Generated Rules**
+
    ```bash
    # Check for overly permissive rules
    python3 ../skills/engineering-team/senior-network-infrastructure/scripts/network_topology_analyzer.py \
@@ -326,6 +334,7 @@ Comprehensive security audit for compliance validation.
    - Gather VPC Flow Logs samples
 
 2. **Run Security Analysis**
+
    ```bash
    # Comprehensive compliance audit
    python3 ../skills/engineering-team/senior-network-infrastructure/scripts/network_topology_analyzer.py \
@@ -441,16 +450,19 @@ fi
 ## Success Metrics
 
 **Time Savings:**
+
 - Configuration Time: 70% reduction in network setup time (from hours to minutes)
 - Deployment Speed: VPC deployment in under 30 minutes with IaC
 - VPN Setup: Complete site-to-site VPN configuration in 1-2 hours
 
 **Quality Metrics:**
+
 - Security Compliance: 100% of security group rules pass audit
 - Findings Remediation: All critical/high findings addressed within SLA
 - Documentation Coverage: 100% of network changes documented with IaC
 
 **Operational Metrics:**
+
 - High Availability: 99.99% uptime with multi-AZ and redundant VPN tunnels
 - IP Utilization: >80% efficiency in CIDR allocation
 - Audit Coverage: Quarterly security audits with automated analysis

@@ -42,18 +42,21 @@ New → Assess → Authorize → Scheduled → Implement → Review → Closed
 Pre-approved, low-risk changes that follow a documented procedure.
 
 **Characteristics:**
+
 - No CAB approval required
 - Uses pre-approved templates
 - Low risk and well-understood
 - Commonly recurring
 
 **Examples:**
+
 - Routine deployments to non-production
 - Scheduled maintenance windows
 - Pre-approved security patches
 - Configuration file updates
 
 **ServiceNow Template Usage:**
+
 ```json
 {
   "type": "Standard",
@@ -68,18 +71,21 @@ Pre-approved, low-risk changes that follow a documented procedure.
 Standard changes requiring CAB review and approval.
 
 **Characteristics:**
+
 - Requires CAB approval
 - Risk assessment mandatory
 - Implementation and backout plans required
 - Scheduled change window
 
 **Examples:**
+
 - Production feature deployments
 - Infrastructure changes
 - Database schema migrations
 - Network configuration updates
 
 **Approval Workflow:**
+
 ```
 Create → Assess → Technical Review → CAB Review → Approve → Schedule → Implement
 ```
@@ -90,18 +96,21 @@ Create → Assess → Technical Review → CAB Review → Approve → Schedule �
 Urgent changes that bypass normal approval processes.
 
 **Characteristics:**
+
 - Expedited approval (single approver)
 - Post-implementation review required
 - Used for critical fixes only
 - Higher scrutiny after implementation
 
 **Examples:**
+
 - Security vulnerability patches
 - Critical production bug fixes
 - Service restoration after outage
 - Data breach remediation
 
 **When to Use:**
+
 - Active security incident
 - Service availability below SLA
 - Data integrity at risk
@@ -176,6 +185,7 @@ curl -X PUT "https://instance.service-now.com/api/now/table/change_request/CHG00
 **Endpoint:** `POST /api/now/table/change_request`
 
 **Required Fields:**
+
 ```json
 {
   "short_description": "Deployment: payment-service v2.3.1",
@@ -190,6 +200,7 @@ curl -X PUT "https://instance.service-now.com/api/now/table/change_request/CHG00
 ```
 
 **Recommended Additional Fields:**
+
 ```json
 {
   "risk": 3,
@@ -206,6 +217,7 @@ curl -X PUT "https://instance.service-now.com/api/now/table/change_request/CHG00
 **Endpoint:** `PUT /api/now/table/change_request/{number_or_sys_id}`
 
 **State Values:**
+
 | State | Value | Description |
 |-------|-------|-------------|
 | New | -5 | Initial state |
@@ -222,6 +234,7 @@ curl -X PUT "https://instance.service-now.com/api/now/table/change_request/CHG00
 **Endpoint:** `GET /api/now/table/change_request`
 
 **Query Examples:**
+
 ```
 # Open changes for a service
 ?sysparm_query=cmdb_ci.name=payment-service^state!=-3^state!=3
@@ -442,6 +455,7 @@ pipeline {
 ### 1. Use Standard Change Templates
 
 Pre-create templates for common deployment scenarios:
+
 - Standard application deployment
 - Configuration file updates
 - Database migration
@@ -450,6 +464,7 @@ Pre-create templates for common deployment scenarios:
 ### 2. Include Correlation IDs
 
 Always include correlation IDs to link changes to:
+
 - CI/CD pipeline runs
 - Git commits/tags
 - Jira tickets
@@ -458,6 +473,7 @@ Always include correlation IDs to link changes to:
 ### 3. Automate Risk Assessment
 
 Calculate risk programmatically based on:
+
 - Environment (prod vs non-prod)
 - Service criticality
 - Change scope
@@ -466,6 +482,7 @@ Calculate risk programmatically based on:
 ### 4. Link to CMDB
 
 Always link changes to Configuration Items:
+
 - Primary CI (service being deployed)
 - Related CIs (dependent services)
 - Business service (for impact analysis)
@@ -473,6 +490,7 @@ Always link changes to Configuration Items:
 ### 5. Document Rollback Plans
 
 Every change must include:
+
 - Step-by-step rollback procedure
 - Previous version information
 - Estimated rollback time
@@ -481,6 +499,7 @@ Every change must include:
 ### 6. Schedule Change Windows
 
 Align deployments with:
+
 - Maintenance windows
 - Low-traffic periods
 - Team availability
@@ -489,6 +508,7 @@ Align deployments with:
 ### 7. Post-Implementation Review
 
 For all changes, document:
+
 - Actual implementation time
 - Issues encountered
 - Lessons learned

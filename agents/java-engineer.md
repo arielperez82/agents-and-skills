@@ -99,6 +99,7 @@ Expert Java and Spring Boot development agent specializing in enterprise applica
 This agent provides comprehensive Java and Spring Boot development capabilities for building production-ready enterprise systems. It orchestrates project scaffolding, JPA entity generation, API development, security configuration, dependency analysis, and performance profiling through guided workflows and Python automation tools.
 
 **Primary Use Cases:**
+
 - Scaffold Spring Boot microservices and monoliths
 - Generate JPA entities with full stack (repository, service, controller, DTO)
 - Implement Spring Security with OAuth2/JWT authentication
@@ -153,6 +154,7 @@ python ../skills/engineering-team/senior-java/scripts/performance_profiler.py --
 **Steps:**
 
 1. **Scaffold Project**
+
    ```bash
    cd /path/to/workspace
    python ../skills/engineering-team/senior-java/scripts/spring_project_scaffolder.py order-service --type microservice --db postgresql --security jwt
@@ -167,6 +169,7 @@ python ../skills/engineering-team/senior-java/scripts/performance_profiler.py --
    - Testing infrastructure (JUnit 5, Mockito, Testcontainers)
 
 2. **Configure Environment**
+
    ```bash
    cd order-service
    # Edit src/main/resources/application.yml
@@ -174,18 +177,21 @@ python ../skills/engineering-team/senior-java/scripts/performance_profiler.py --
    ```
 
 3. **Start Services**
+
    ```bash
    docker-compose up -d
    # Starts PostgreSQL and Redis containers
    ```
 
 4. **Run Migrations**
+
    ```bash
    ./mvnw flyway:migrate
    # Or with Liquibase: ./mvnw liquibase:update
    ```
 
 5. **Start Development Server**
+
    ```bash
    ./mvnw spring-boot:run
    # API running on http://localhost:8080
@@ -202,6 +208,7 @@ python ../skills/engineering-team/senior-java/scripts/performance_profiler.py --
 **Steps:**
 
 1. **Generate Entity**
+
    ```bash
    python ../skills/engineering-team/senior-java/scripts/entity_generator.py Product \
      --fields "id:Long,name:String,description:String,price:BigDecimal,category:Category,createdAt:LocalDateTime" \
@@ -232,6 +239,7 @@ python ../skills/engineering-team/senior-java/scripts/performance_profiler.py --
 **Steps:**
 
 1. **Generate Security Config**
+
    ```bash
    python ../skills/engineering-team/senior-java/scripts/security_config_generator.py \
      --type jwt \
@@ -245,6 +253,7 @@ python ../skills/engineering-team/senior-java/scripts/performance_profiler.py --
    - `UserDetailsServiceImpl.java` - User loading from database
 
 3. **Configure Properties**
+
    ```yaml
    # application.yml
    jwt:
@@ -254,6 +263,7 @@ python ../skills/engineering-team/senior-java/scripts/performance_profiler.py --
    ```
 
 4. **Implement Method Security**
+
    ```java
    @PreAuthorize("hasRole('ADMIN')")
    public void adminOnlyMethod() { }
@@ -272,6 +282,7 @@ python ../skills/engineering-team/senior-java/scripts/performance_profiler.py --
 **Steps:**
 
 1. **Analyze Queries**
+
    ```bash
    python ../skills/engineering-team/senior-java/scripts/performance_profiler.py --analyze-queries src/
    ```
@@ -285,6 +296,7 @@ python ../skills/engineering-team/senior-java/scripts/performance_profiler.py --
    - Add Hibernate second-level cache
 
 4. **Validate Improvements**
+
    ```bash
    # Re-run analysis
    python ../skills/engineering-team/senior-java/scripts/performance_profiler.py --analyze-queries src/ --compare baseline.json
@@ -363,21 +375,25 @@ echo "Security audit complete. Review .docs/reports/report-repo-security-audit-$
 ## Success Metrics
 
 **Development Efficiency:**
+
 - **Project Scaffolding:** < 30 minutes for complete microservice setup
 - **Entity Generation:** < 5 minutes per entity stack
 - **Security Setup:** < 2 hours for JWT/OAuth2 implementation
 
 **Code Quality:**
+
 - **Test Coverage:** 80%+ for business logic
 - **Static Analysis:** 0 critical/high issues
 - **Security Vulnerabilities:** 0 in dependencies
 
 **Runtime Performance:**
+
 - **API Latency:** P99 < 200ms for CRUD operations
 - **Throughput:** > 1000 RPS per instance
 - **Memory:** < 512MB heap for typical service
 
 **Maintainability:**
+
 - **Documentation:** 100% OpenAPI coverage
 - **Architecture:** Consistent layered structure
 - **Code Style:** Checkstyle/SpotBugs compliance

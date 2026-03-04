@@ -92,6 +92,7 @@ rapid.Check(t, func(t *rapid.T) {
 ## Best Practices
 
 1. **Constrain early**: Build constraints into strategy, not `assume()`
+
    ```python
    # GOOD
    st.integers(min_value=1, max_value=100)
@@ -101,18 +102,21 @@ rapid.Check(t, func(t *rapid.T) {
    ```
 
 2. **Size limits**: Use `max_size` to prevent slow tests
+
    ```python
    st.lists(st.integers(), max_size=100)
    st.text(max_size=1000)
    ```
 
 3. **Realistic data**: Make strategies match real-world constraints
+
    ```python
    # Real user ages, not arbitrary integers
    st.integers(min_value=0, max_value=150)
    ```
 
 4. **Reuse strategies**: Define once, use across tests
+
    ```python
    valid_users = st.builds(User, ...)
 

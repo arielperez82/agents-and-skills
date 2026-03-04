@@ -41,6 +41,7 @@ Launch **`product-analyst`** with the problem statement / discovery context. Ins
 ### Step 2: BDD Scenarios & Roadmap (acceptance-designer)
 
 After the charter is written, launch **`acceptance-designer`** with:
+
 - The charter from Step 1
 - The original problem statement / discovery context
 
@@ -57,11 +58,13 @@ Instruct to produce:
 ### Step 3: Present to User
 
 Summarize what was produced:
+
 - Charter location and key decisions (scope, MoSCoW, walking skeleton)
 - Number of BDD scenarios and edge case coverage
 - Roadmap phases and delivery sequence
 
 Suggest next steps:
+
 - Review and refine the charter
 - Run `/plan` to create a technical implementation plan
 - Run `/code` to start building from the plan

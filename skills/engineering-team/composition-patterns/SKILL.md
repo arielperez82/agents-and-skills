@@ -14,6 +14,7 @@ Composition patterns for building flexible, maintainable React components. Avoid
 ## When to Apply
 
 Reference these guidelines when:
+
 - Refactoring components with many boolean props
 - Building reusable component libraries
 - Designing flexible component APIs
@@ -63,6 +64,7 @@ rules/state-context-interface.md
 ```
 
 Each rule file contains:
+
 - Brief explanation of why it matters
 - Incorrect code example with explanation
 - Correct code example with explanation

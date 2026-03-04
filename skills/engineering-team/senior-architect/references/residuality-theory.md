@@ -17,6 +17,7 @@ Core paradigm: "Architectures should be trained, not designed."
 Unexpected events challenging system operation.
 
 Categories:
+
 - **Technical**: Failures, scaling demands, security breaches
 - **Business model**: Pricing shifts, competitive disruption
 - **Economic**: Funding changes, market crashes
@@ -71,6 +72,7 @@ Generate second (different) stressor set. Apply to both naive and modified archi
 Rows: stressors. Columns: components. Mark cells where stressor affects component.
 
 Reveals:
+
 - Vulnerable components (high column count)
 - High-impact stressors (high row count)
 - Coupling indicators (stressors affecting multiple components)
@@ -80,6 +82,7 @@ Reveals:
 Rows and columns: components. Mark direct connections.
 
 Coupling ratio = K/N (connections / components):
+
 - < 1.5: Loose coupling (target)
 - 1.5-3.0: Moderate coupling
 - > 3.0: Tight coupling (high cascade risk)

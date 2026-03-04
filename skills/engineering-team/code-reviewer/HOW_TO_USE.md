@@ -7,16 +7,19 @@ Hey Claude—I just added the "code-reviewer" skill. Can you review this pull re
 ## Example Invocations
 
 ### Example 1: Basic Usage
+
 ```
 Hey Claude—I just added the "code-reviewer" skill. Can you review this pull request?
 ```
 
 ### Example 2: Specific Workflow
+
 ```
 Hey Claude—I just added the "code-reviewer" skill. Can you help me with pull request review?
 ```
 
 ### Example 3: Integration with Other Skills
+
 ```
 Hey Claude—I just added the "code-reviewer" skill. Can you use it together with related skills to deliver a complete solution?
 ```

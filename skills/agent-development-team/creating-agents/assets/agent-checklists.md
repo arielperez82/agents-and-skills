@@ -43,6 +43,7 @@ Use these checklists when creating or updating agents.
 ## Validation Checklist
 
 **Automated Validation (Run First):**
+
 - [ ] **Static validation passed**: `python3 scripts/validate_agent.py agents/agent-name.md` or `/agent/validate agent-name`
   - ✅ YAML frontmatter valid
   - ✅ All required fields present
@@ -77,4 +78,3 @@ Avoid:
 - [ ] Mixing guardian responsibilities with implementation inside a single agent
 - [ ] Hidden dependencies not represented in `collaborates-with`
 - [ ] Long narrative sections that belong in skills or references instead
-

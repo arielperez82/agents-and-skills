@@ -16,6 +16,7 @@ Agents are classified into four distinct types based on their operational charac
 ### Agent Type Details
 
 #### Strategic Agents (Blue)
+
 - **Purpose:** Planning, research, analysis, and strategic decision-making
 - **Characteristics:** Read-heavy operations, no code execution, document generation
 - **Resource Usage:** Low CPU, moderate memory, minimal I/O
@@ -24,6 +25,7 @@ Agents are classified into four distinct types based on their operational charac
 - **Tools:** Primarily Read, Write, and Grep for knowledge extraction
 
 #### Implementation Agents (Green)
+
 - **Purpose:** Active code development, feature building, system implementation
 - **Characteristics:** Full tool access, code generation, file modifications
 - **Resource Usage:** Moderate CPU, high memory, high I/O
@@ -32,6 +34,7 @@ Agents are classified into four distinct types based on their operational charac
 - **Tools:** Full toolset including Bash for builds and execution
 
 #### Quality Agents (Red)
+
 - **Purpose:** Testing, validation, code review, security scanning
 - **Characteristics:** Heavy Bash operations, test runners, linting, scanning
 - **Resource Usage:** High CPU, high memory, intensive I/O operations
@@ -40,6 +43,7 @@ Agents are classified into four distinct types based on their operational charac
 - **Tools:** Full tools with extensive Bash for test execution
 
 #### Coordination Agents (Purple)
+
 - **Purpose:** Orchestrate other agents, manage workflows, delegate tasks
 - **Characteristics:** Lightweight operations, workflow coordination, delegation
 - **Resource Usage:** Low across all metrics
@@ -214,6 +218,7 @@ Agent frontmatter uses two fields to describe relationships with skills:
 **Definition:** The primary skills that define this agent—what it does and how it does it.
 
 **Obligations:**
+
 - Agent documentation SHOULD include:
   - Skill location path(s) with exact paths to SKILL.md and key resources
   - Brief description of what the skill provides
@@ -232,6 +237,7 @@ Agent frontmatter uses two fields to describe relationships with skills:
 **Definition:** Other skills the agent should know about and pull in as-needed, but aren't core to its identity.
 
 **Obligations:**
+
 - Agent MAY reference or use these skills when relevant
 - No obligation to document them in the agent body
 - Users should consult the skill's own SKILL.md for details
@@ -250,11 +256,13 @@ Agent frontmatter uses two fields to describe relationships with skills:
 ### Validation Rule
 
 If a skill appears in `skills`, the agent body SHOULD reference it with:
+
 1. Exact path to the skill's SKILL.md
 2. Brief description of what it provides
 3. When/why to use it
 
 If the skill lacks even a path reference, either:
+
 1. Add the skill path and brief description, OR
 2. Move to `related-skills` (if supplementary, not core)
 
@@ -415,6 +423,7 @@ Before committing an agent:
 **Learning:** Agents should be **thin orchestrators** (200-300 lines), not comprehensive documentation repositories.
 
 **What we learned:**
+
 - Initial `agent-author` was 1188 lines with all doctrine embedded
 - Refactored to 237 lines as a pure orchestrator
 - Detailed standards moved to skill references (`references/authoring-guide.md`)
@@ -482,4 +491,3 @@ skills/agent-development-team/creating-agents/
 - **Architectural decisions** → ADRs via `adr-writer`
 
 **Note:** The `learner` agent should be updated to route learnings to appropriate skill references based on domain, not just a single CLAUDE.md file.
-

@@ -5,9 +5,11 @@ This directory contains sample data for technical debt analysis and engineering 
 ## Sample Files
 
 ### 1. sample-system.json
+
 **Purpose:** System architecture and technical debt assessment data
 
 **Description:** Realistic Series A analytics platform with:
+
 - Architecture overview (monolithic with microservice migration underway)
 - Code quality metrics (test coverage, complexity, duplication)
 - Infrastructure assessment (CI/CD status, uptime, deployment frequency)
@@ -17,6 +19,7 @@ This directory contains sample data for technical debt analysis and engineering 
 - Remediation roadmap with quarterly initiatives
 
 **Key Sections:**
+
 - `architecture`: Design patterns and coupling analysis
 - `code_quality`: Test coverage, complexity, duplication
 - `infrastructure`: Deployment, scaling, monitoring
@@ -26,6 +29,7 @@ This directory contains sample data for technical debt analysis and engineering 
 - `technical_debt_investment`: Payback analysis and roadmap
 
 **How to Use:**
+
 ```bash
 # Analyze technical debt
 python ../scripts/tech_debt_analyzer.py sample-system.json
@@ -38,6 +42,7 @@ python ../scripts/tech_debt_analyzer.py sample-system.json -o json -f debt-roadm
 ```
 
 **What to Expect:**
+
 - Technical debt score (0-100, lower = more debt)
 - Debt level classification (low, medium, high, critical)
 - Top 5 areas to address
@@ -47,9 +52,11 @@ python ../scripts/tech_debt_analyzer.py sample-system.json -o json -f debt-roadm
 ---
 
 ### 2. sample-team.json
+
 **Purpose:** Engineering team structure and scaling analysis
 
 **Description:** Complete team assessment and 12-month scaling plan including:
+
 - Current team composition (12 engineers, breakdown by specialty)
 - Seniority distribution and team satisfaction
 - Productivity metrics (features/quarter, bugs, deployment frequency)
@@ -61,6 +68,7 @@ python ../scripts/tech_debt_analyzer.py sample-system.json -o json -f debt-roadm
 - Culture and retention initiatives
 
 **Key Sections:**
+
 - `current_team`: Today's headcount and composition
 - `productivity_metrics`: Throughput and quality indicators
 - `capacity_analysis`: Effective delivery capacity percentage
@@ -70,6 +78,7 @@ python ../scripts/tech_debt_analyzer.py sample-system.json -o json -f debt-roadm
 - `compensation_budget`: Salary investment required
 
 **How to Use:**
+
 ```bash
 # Calculate team capacity and staffing needs
 python ../scripts/team_scaling_calculator.py sample-team.json
@@ -82,6 +91,7 @@ python ../scripts/team_scaling_calculator.py sample-team.json -o json -f hiring-
 ```
 
 **What to Expect:**
+
 - Current capacity utilization percentage
 - Recommended headcount growth
 - Hiring timeline and priorities
@@ -123,30 +133,35 @@ python scripts/team_scaling_calculator.py assets/sample-team.json -o json
 ### Debt Categories & Scoring
 
 **Architecture (25% weight)**
+
 - Design patterns (monolithic vs microservices)
 - Coupling and dependencies
 - API governance
 - Async vs synchronous processing
 
 **Code Quality (20% weight)**
+
 - Test coverage (target: 75%+)
 - Cyclomatic complexity (target: <10 average)
 - Code duplication (target: <10%)
 - Documentation completeness
 
 **Infrastructure (20% weight)**
+
 - Deployment automation (CI/CD maturity)
 - Container orchestration
 - Monitoring and observability
 - Disaster recovery
 
 **Security (20% weight)**
+
 - Dependency management
 - Security scanning tools
 - Encryption (at rest, in transit)
 - Audit logging
 
 **Performance (15% weight)**
+
 - API response times
 - Database query optimization
 - Caching strategy
@@ -198,6 +213,7 @@ Team Capacity:
 **Current State:** 12 engineers, 4,000 effective hours/year
 
 **Roadmap Demands:**
+
 - Microservices migration: 2,000 hours
 - New enterprise features: 1,200 hours
 - Performance optimization: 800 hours
@@ -212,18 +228,22 @@ Team Capacity:
 ### Hiring Prioritization
 
 **Immediate (Next 2 Months):**
+
 - Senior Backend Engineer (2x ROI due to seniority)
 - DevOps Engineer (unblocks infrastructure roadmap)
 
 **Near-term (Months 3-4):**
+
 - Frontend Engineer (user-facing features)
 - QA Engineer (testing infrastructure)
 
 **Mid-term (Months 5-9):**
+
 - 2x Mid-level Backend Engineers (scale the team)
 - Engineering Manager (structure for growth)
 
 **Strategic (Future):**
+
 - Machine Learning Engineer (AI features)
 - Security Engineer (compliance & hardening)
 
@@ -257,30 +277,35 @@ Team Capacity:
 ### Assessment Questions
 
 **Architecture:**
+
 - Monolithic or microservices?
 - Tightly coupled or loosely coupled?
 - How are services communicating?
 - Any single points of failure?
 
 **Code Quality:**
+
 - Current test coverage percentage?
 - Any legacy code nobody understands?
 - Code duplication levels?
 - Documentation status?
 
 **Infrastructure:**
+
 - How often can we deploy? (daily/weekly/monthly?)
 - Are deployments automated?
 - What's your uptime percentage?
 - How many manual steps in deployment?
 
 **Security:**
+
 - When did dependencies last get updated?
 - Do you run security scans?
 - Is data encrypted at rest and in transit?
 - Do you have audit logs?
 
 **Performance:**
+
 - What's your API response time? (target: <200ms p95)
 - Database query performance?
 - Cache strategy in place?
@@ -330,6 +355,7 @@ Team Capacity:
 ### Organizational Design
 
 **Current (Flat):**
+
 ```
 CTO
 ├─ 5 Backend Engineers
@@ -339,6 +365,7 @@ CTO
 ```
 
 **Target (Structured):**
+
 ```
 VP Engineering
 ├─ Engineering Manager (Backend)
@@ -374,6 +401,7 @@ Q4: Microservices foundation (400 hours)
 ```
 
 **Benefits:**
+
 - Year 1 Productivity Gain: 2,000 hours (= 2.5 engineers)
 - Year 2+ Annual Gain: 3,000 hours/year (= 3.75 engineers)
 - Payback Period: 9 months
@@ -461,6 +489,7 @@ Q4: Microservices foundation (400 hours)
 ## File Specifications
 
 **sample-system.json:**
+
 - Format: JSON
 - Encoding: UTF-8
 - Required: system, architecture, code_quality, impact_assessment
@@ -468,6 +497,7 @@ Q4: Microservices foundation (400 hours)
 - Size: ~20-30KB
 
 **sample-team.json:**
+
 - Format: JSON
 - Encoding: UTF-8
 - Required: current_team, productivity_metrics, growth_plan

@@ -43,6 +43,7 @@ Infer project type and constraints from `$ARGUMENTS`. If `$ARGUMENTS` is empty o
 ### Step 3: Tech Stack Selection
 
 If user specified tech stack in `$ARGUMENTS`, use it. Otherwise, auto-select the best-fit tech stack based on inferred requirements. Prefer:
+
 - TypeScript strict mode (always)
 - pnpm (package manager)
 - Vitest (testing)

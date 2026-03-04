@@ -42,6 +42,7 @@ This is defense-in-depth: even though the craft orchestrator already validates t
 **Light tier** (`complexity_tier: light`): Single-round. Each expert provides an independent perspective without cross-examination. Panel convenes but does not iterate.
 
 **Standard+ tier**: 3-round format:
+
 1. **Present design** — Lead presents the proposed design; experts ask clarifying questions only
 2. **Domain critique** — Each expert critiques from their domain; no rebuttals yet
 3. **Converge** — Experts respond to each other's critiques; lead synthesizes to a recommendation
@@ -95,6 +96,7 @@ Assessment saved to `.docs/canonical/assessments/assessment-{endeavor}-design-pa
 ### Format
 
 3-round format:
+
 1. **Problem framing** — Each expert articulates the problem from their perspective; identifies assumptions
 2. **Challenge assumptions** — Experts challenge each other's framing; surface hidden constraints
 3. **Converge on scope** — Agree on validated problem statement, key risks, and scope boundaries
@@ -142,6 +144,7 @@ Assessment saved to `.docs/canonical/assessments/assessment-{endeavor}-discovery
 ### Format
 
 3-round format:
+
 1. **Story review** — Each expert evaluates user stories and acceptance criteria from their perspective
 2. **Gap analysis** — Experts identify missing stories, overlapping criteria, or unmeasurable outcomes
 3. **Converge on requirements** — Agree on validated story set with measurable, achievable criteria
@@ -191,6 +194,7 @@ Assessment saved to `.docs/canonical/assessments/assessment-{endeavor}-requireme
 ### Format
 
 3-round format:
+
 1. **Plan walkthrough** — Lead presents step decomposition, wave structure, and critical path
 2. **Feasibility challenge** — Each expert challenges step sizing, dependency ordering, and missing integration points
 3. **Converge** — Agree on plan adjustments, flag risks, and validate wave structure

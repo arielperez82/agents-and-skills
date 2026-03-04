@@ -419,6 +419,6 @@ Create `docs/security/nocodb-security-checklist.md`:
 
 ## References
 
-- **NocoDB Security:** https://nocodb.com/docs
-- **OWASP Top 10:** https://owasp.org/www-project-top-ten/
-- **Trivy Documentation:** https://aquasecurity.github.io/trivy/
+- **NocoDB Security:** <https://nocodb.com/docs>
+- **OWASP Top 10:** <https://owasp.org/www-project-top-ten/>
+- **Trivy Documentation:** <https://aquasecurity.github.io/trivy/>

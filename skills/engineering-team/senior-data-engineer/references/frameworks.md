@@ -22,16 +22,19 @@ Comprehensive frameworks and methodologies for building world-class data pipelin
 **Purpose:** Handle both real-time and batch processing with redundancy
 
 **Components:**
+
 - **Batch Layer:** Comprehensive, accurate historical data processing
 - **Speed Layer:** Real-time processing for low-latency updates
 - **Serving Layer:** Merge batch and real-time views
 
 **When to Use:**
+
 - Need both historical accuracy and real-time updates
 - High-volume data ingestion (>1TB/day)
 - Tolerance for eventual consistency
 
 **Implementation:**
+
 ```
 Batch Layer:
 - Spark batch jobs on HDFS/S3
@@ -49,11 +52,13 @@ Serving Layer:
 ```
 
 **Pros:**
+
 - Fault-tolerant (batch reprocessing)
 - Low latency (speed layer)
 - Comprehensive (batch layer)
 
 **Cons:**
+
 - Code duplication (batch + streaming)
 - Complex maintenance
 - Higher infrastructure cost
@@ -63,15 +68,18 @@ Serving Layer:
 **Purpose:** Simplified streaming-first approach
 
 **Components:**
+
 - **Single Stream Processing Layer:** All data processed as streams
 - **Serving Layer:** Query results from stream state
 
 **When to Use:**
+
 - Real-time processing is primary concern
 - Data can be reprocessed from stream log
 - Simpler operational model preferred
 
 **Implementation:**
+
 ```
 Stream Processing:
 - Kafka as immutable log
@@ -85,11 +93,13 @@ Serving:
 ```
 
 **Pros:**
+
 - Simpler codebase (one processing model)
 - True real-time processing
 - Easier maintenance
 
 **Cons:**
+
 - Requires robust stream log retention
 - Complex state management
 - Reprocessing can be slower
@@ -101,30 +111,35 @@ Serving:
 **Layers:**
 
 **Bronze (Raw):**
+
 - Exact copy of source data
 - Minimal transformations
 - Schema-on-read
 - Audit trail preservation
 
 **Silver (Cleansed):**
+
 - Validated and cleaned data
 - Standardized formats
 - Business rules applied
 - Deduplication
 
 **Gold (Curated):**
+
 - Business-level aggregations
 - Feature engineering complete
 - Analysis-ready datasets
 - Performance-optimized
 
 **When to Use:**
+
 - Data lake/lakehouse architecture
 - Multiple data consumers
 - Need for data lineage
 - Progressive quality improvement
 
 **Implementation:**
+
 ```sql
 -- Bronze: Raw ingestion
 CREATE TABLE bronze.events (
@@ -154,6 +169,7 @@ CREATE TABLE gold.daily_user_metrics (
 ```
 
 **Best Practices:**
+
 - Preserve raw data indefinitely
 - Version transformations
 - Clear promotion criteria (Bronze → Silver → Gold)
@@ -164,6 +180,7 @@ CREATE TABLE gold.daily_user_metrics (
 **Purpose:** Distributed data ownership with event-driven integration
 
 **Principles:**
+
 - Database per service
 - Event-driven data sharing
 - Eventual consistency
@@ -172,6 +189,7 @@ CREATE TABLE gold.daily_user_metrics (
 **Patterns:**
 
 **Event Sourcing:**
+
 ```python
 # Example: Order service emitting events
 {
@@ -188,16 +206,19 @@ CREATE TABLE gold.daily_user_metrics (
 ```
 
 **CQRS Pattern:**
+
 - Write model: Event-sourced, optimized for commands
 - Read model: Materialized views, optimized for queries
 - Async synchronization via event stream
 
 **Data Integration:**
+
 - Kafka for event streaming
 - Schema registry for compatibility
 - CDC (Change Data Capture) for legacy systems
 
 **When to Use:**
+
 - Microservices architecture
 - High write throughput
 - Multiple read patterns
@@ -214,6 +235,7 @@ CREATE TABLE gold.daily_user_metrics (
 **Key Concepts:**
 
 **Fact Tables:**
+
 - Measures (quantifiable metrics)
 - Foreign keys to dimensions
 - Grain (level of detail)
@@ -234,6 +256,7 @@ CREATE TABLE fact_sales (
 ```
 
 **Dimension Tables:**
+
 - Descriptive attributes
 - Slowly Changing Dimensions (SCD)
 - Natural and surrogate keys
@@ -256,19 +279,23 @@ CREATE TABLE dim_product (
 **SCD Types:**
 
 **Type 1 (Overwrite):**
+
 - No history preservation
 - Simple updates
 
 **Type 2 (Add Row):**
+
 - Full history tracking
 - Effective/expiry dates
 - Current flag
 
 **Type 3 (Add Column):**
+
 - Limited history (previous + current)
 - Fast lookups
 
 **Type 4 (History Table):**
+
 - Separate history table
 - Current table for fast queries
 
@@ -279,6 +306,7 @@ CREATE TABLE dim_product (
 **Core Entities:**
 
 **Hubs (Business Keys):**
+
 ```sql
 CREATE TABLE hub_customer (
     customer_hash BINARY(32) PRIMARY KEY,
@@ -289,6 +317,7 @@ CREATE TABLE hub_customer (
 ```
 
 **Links (Relationships):**
+
 ```sql
 CREATE TABLE link_order_customer (
     link_hash BINARY(32) PRIMARY KEY,
@@ -300,6 +329,7 @@ CREATE TABLE link_order_customer (
 ```
 
 **Satellites (Attributes):**
+
 ```sql
 CREATE TABLE sat_customer_details (
     customer_hash BINARY(32),
@@ -313,12 +343,14 @@ CREATE TABLE sat_customer_details (
 ```
 
 **When to Use:**
+
 - Enterprise data warehouse
 - Multiple source systems
 - Regulatory compliance needs
 - Long-term historical tracking
 
 **Benefits:**
+
 - Parallel loading (hubs, links, satellites)
 - Easy source integration
 - Complete audit trail
@@ -329,6 +361,7 @@ CREATE TABLE sat_customer_details (
 **Purpose:** Denormalized, query-optimized single table
 
 **Characteristics:**
+
 - Pre-joined dimensions and facts
 - Columnar storage (Parquet, ORC)
 - Partition pruning
@@ -370,12 +403,14 @@ CREATE TABLE obt_sales_analytics (
 ```
 
 **When to Use:**
+
 - Cloud data warehouses with cheap storage
 - BI tool performance critical
 - Read-heavy workloads
 - Simple query patterns
 
 **Trade-offs:**
+
 - Storage cost (denormalization)
 - Update complexity
 - Dimensional changes require full rebuild
@@ -387,11 +422,13 @@ CREATE TABLE obt_sales_analytics (
 ### Full Load Pattern
 
 **When to Use:**
+
 - Small datasets (<1GB)
 - No reliable change tracking
 - Daily snapshot requirements
 
 **Implementation:**
+
 ```python
 def full_load_pipeline():
     # Extract
@@ -414,6 +451,7 @@ def full_load_pipeline():
 ### Incremental Load Pattern
 
 **Change Data Capture (CDC):**
+
 ```python
 def cdc_pipeline():
     # Get last processed timestamp
@@ -437,6 +475,7 @@ def cdc_pipeline():
 ```
 
 **Watermark Strategies:**
+
 - Timestamp column (updated_at)
 - Sequence number (auto-increment ID)
 - Version number
@@ -445,6 +484,7 @@ def cdc_pipeline():
 ### Slowly Changing Dimension (SCD) Pattern
 
 **Type 2 Implementation (Full History):**
+
 ```sql
 -- Check for changes
 MERGE INTO dim_customer AS target
@@ -496,6 +536,7 @@ WHEN NOT MATCHED THEN INSERT (
 **Key Techniques:**
 
 **Deduplication:**
+
 ```python
 def idempotent_load(data, partition_key):
     # Delete existing partition
@@ -507,6 +548,7 @@ def idempotent_load(data, partition_key):
 ```
 
 **Upsert with Unique Constraint:**
+
 ```sql
 INSERT INTO target_table (id, value, updated_at)
 VALUES (1, 'data', CURRENT_TIMESTAMP)
@@ -516,6 +558,7 @@ ON CONFLICT (id) DO UPDATE SET
 ```
 
 **Deterministic Transformations:**
+
 - No random values
 - No timestamp generation (use source timestamps)
 - Consistent sort orders
@@ -527,6 +570,7 @@ ON CONFLICT (id) DO UPDATE SET
 ### Data Quality Dimensions
 
 **Completeness:**
+
 - Null checks
 - Required field validation
 - Record count validation
@@ -559,6 +603,7 @@ def check_completeness(df):
 ```
 
 **Accuracy:**
+
 - Data type validation
 - Format validation
 - Range checks
@@ -590,6 +635,7 @@ def check_accuracy(df):
 ```
 
 **Consistency:**
+
 - Cross-field validation
 - Temporal consistency
 - Aggregate reconciliation
@@ -612,6 +658,7 @@ def check_consistency(df):
 ```
 
 **Timeliness:**
+
 - Data freshness checks
 - SLA monitoring
 
@@ -672,6 +719,7 @@ results = context.run_validation_operator(
 ### CI/CD for Data Pipelines
 
 **Version Control:**
+
 ```
 data-pipelines/
 ├── dags/
@@ -692,6 +740,7 @@ data-pipelines/
 **Testing Strategy:**
 
 **Unit Tests (Transform Logic):**
+
 ```python
 def test_calculate_total():
     input_df = pd.DataFrame({
@@ -705,6 +754,7 @@ def test_calculate_total():
 ```
 
 **Integration Tests (Pipeline):**
+
 ```python
 def test_sales_etl_pipeline():
     # Setup test data
@@ -719,6 +769,7 @@ def test_sales_etl_pipeline():
 ```
 
 **Data Quality Tests:**
+
 ```python
 def test_data_quality_checks():
     df = load_test_data()
@@ -729,6 +780,7 @@ def test_data_quality_checks():
 ```
 
 **Deployment Pipeline:**
+
 ```yaml
 # .github/workflows/data-pipeline-deploy.yml
 name: Data Pipeline Deploy
@@ -772,18 +824,21 @@ jobs:
 ### Monitoring and Observability
 
 **Pipeline Metrics:**
+
 - Execution time
 - Data volume processed
 - Success/failure rate
 - Cost per run
 
 **Data Metrics:**
+
 - Data freshness
 - Quality score
 - Schema changes
 - Anomalies detected
 
 **Alerting:**
+
 ```python
 def pipeline_monitoring():
     metrics = {
@@ -813,6 +868,7 @@ def pipeline_monitoring():
 ### Airflow DAG Patterns
 
 **Time-Based Scheduling:**
+
 ```python
 from airflow import DAG
 from airflow.operators.python import PythonOperator
@@ -832,6 +888,7 @@ dag = DAG(
 ```
 
 **Task Dependencies:**
+
 ```python
 # Linear dependency
 extract >> transform >> load
@@ -848,6 +905,7 @@ branch_task >> [process_full_load, process_incremental]
 ```
 
 **Dynamic Task Generation:**
+
 ```python
 from airflow.models import Variable
 
@@ -894,6 +952,7 @@ def backfill_pipeline(start_date, end_date):
 ### Kafka-Based Streaming
 
 **Producer Pattern:**
+
 ```python
 from kafka import KafkaProducer
 import json
@@ -914,6 +973,7 @@ def send_event(event):
 ```
 
 **Consumer Pattern:**
+
 ```python
 from kafka import KafkaConsumer
 
@@ -983,6 +1043,7 @@ query.awaitTermination()
 ### Stateful Stream Processing
 
 **Keyed State Pattern:**
+
 ```python
 from pyflink.datastream import KeyedProcessFunction
 from pyflink.datastream.state import ValueStateDescriptor, ListStateDescriptor
@@ -1016,6 +1077,7 @@ class StatefulAggregator(KeyedProcessFunction):
 ```
 
 **State Backend Configuration:**
+
 ```python
 # RocksDB for large state
 env.set_state_backend(RocksDBStateBackend("file:///tmp/state"))
@@ -1035,6 +1097,7 @@ ttl_config = StateTtlConfig.builder(Time.hours(24)) \
 ### Stream Joins
 
 **Stream-Stream Join (Windowed):**
+
 ```python
 # Join two streams within a time window
 from pyspark.sql.functions import expr
@@ -1057,6 +1120,7 @@ joined_stream = orders_stream.join(
 ```
 
 **Stream-Table Join (Enrichment):**
+
 ```python
 # Enrich stream with static reference data
 from pyspark.sql.functions import broadcast
@@ -1073,6 +1137,7 @@ enriched_orders = orders_stream.join(
 ```
 
 **Temporal Table Join (Flink):**
+
 ```java
 // Join with versioned table based on event time
 Table orders = tableEnv.from("orders_stream");
@@ -1090,6 +1155,7 @@ Table enrichedOrders = orders.joinLateral(
 ### Windowing Strategies
 
 **Tumbling Window:**
+
 ```python
 from pyspark.sql.functions import window
 
@@ -1106,6 +1172,7 @@ tumbling_agg = events_stream \
 ```
 
 **Sliding Window:**
+
 ```python
 # Overlapping windows with slide interval
 sliding_agg = events_stream \
@@ -1120,6 +1187,7 @@ sliding_agg = events_stream \
 ```
 
 **Session Window:**
+
 ```python
 from pyspark.sql.functions import session_window
 
@@ -1137,6 +1205,7 @@ session_agg = events_stream \
 ```
 
 **Late Data Handling:**
+
 ```python
 # Allow late data up to 1 hour
 windowed_counts = events_stream \
@@ -1157,6 +1226,7 @@ query = windowed_counts.writeStream \
 ### Exactly-Once Semantics
 
 **Kafka Exactly-Once Producer:**
+
 ```python
 from kafka import KafkaProducer
 
@@ -1187,6 +1257,7 @@ except Exception as e:
 ```
 
 **Flink Exactly-Once Checkpointing:**
+
 ```java
 StreamExecutionEnvironment env = StreamExecutionEnvironment.getExecutionEnvironment();
 
@@ -1206,6 +1277,7 @@ env.getCheckpointConfig().setCheckpointStorage("s3://bucket/checkpoints");
 ```
 
 **End-to-End Exactly-Once:**
+
 ```python
 # Kafka source -> Flink processing -> Kafka sink with exactly-once
 
@@ -1225,6 +1297,7 @@ kafka_sink = KafkaSink.builder() \
 ### Event Time Processing
 
 **Watermark Strategies:**
+
 ```python
 from pyflink.common import WatermarkStrategy, Duration
 
@@ -1249,6 +1322,7 @@ class PunctuatedWatermarkGenerator(WatermarkGenerator):
 ```
 
 **Handling Late Data:**
+
 ```java
 // Flink side outputs for late data
 OutputTag<Event> lateDataTag = new OutputTag<Event>("late-data") {};
@@ -1271,6 +1345,7 @@ lateStream.addSink(new LateDataSink());
 ### Backpressure and Flow Control
 
 **Detecting Backpressure:**
+
 ```python
 # Kafka consumer with backpressure monitoring
 from kafka import KafkaConsumer
@@ -1304,6 +1379,7 @@ for message in consumer:
 ```
 
 **Rate Limiting:**
+
 ```python
 from pyspark.sql.streaming import StreamingQuery
 
@@ -1324,6 +1400,7 @@ query = rate_limited_stream.writeStream \
 ### Apache Flink Patterns
 
 **DataStream API Pattern:**
+
 ```java
 DataStream<Event> events = env.fromSource(kafkaSource, watermarkStrategy, "kafka");
 
@@ -1338,6 +1415,7 @@ results.sinkTo(kafkaSink);
 ```
 
 **Complex Event Processing (CEP):**
+
 ```java
 import org.apache.flink.cep.CEP;
 import org.apache.flink.cep.pattern.Pattern;
@@ -1364,6 +1442,7 @@ DataStream<Alert> alerts = patternStream.process(new PatternProcessFunction<Even
 ```
 
 **Async I/O Pattern:**
+
 ```java
 // Asynchronous enrichment from external service
 AsyncDataStream.unorderedWait(
@@ -1391,6 +1470,7 @@ class AsyncEnrichmentFunction extends RichAsyncFunction<Event, EnrichedEvent> {
 ### AWS Kinesis Patterns
 
 **Kinesis Data Streams Producer:**
+
 ```python
 import boto3
 import json
@@ -1430,6 +1510,7 @@ def put_records_batch(stream_name, records):
 ```
 
 **Kinesis Consumer with KCL:**
+
 ```python
 from amazon_kclpy import kcl
 from amazon_kclpy.kcl import RecordProcessorBase
@@ -1457,6 +1538,7 @@ class MyRecordProcessor(RecordProcessorBase):
 ```
 
 **Enhanced Fan-Out Consumer:**
+
 ```python
 import boto3
 
@@ -1487,6 +1569,7 @@ def subscribe_to_shard(consumer_arn, shard_id):
 ### Change Data Capture (CDC) for Streaming
 
 **Debezium CDC Pattern:**
+
 ```json
 {
   "name": "postgres-cdc-connector",
@@ -1512,6 +1595,7 @@ def subscribe_to_shard(consumer_arn, shard_id):
 ```
 
 **Processing CDC Events:**
+
 ```python
 def process_cdc_event(event):
     """Process Debezium CDC event."""
@@ -1548,6 +1632,7 @@ def handle_update(before, after):
 ```
 
 **CDC to Streaming Pipeline:**
+
 ```python
 # CDC events -> Kafka -> Flink -> Data Lake
 
@@ -1577,6 +1662,7 @@ env.add_source(cdc_source) \
 ### Data Catalog
 
 **Metadata Management:**
+
 ```python
 # Example: AWS Glue Catalog
 import boto3
@@ -1620,6 +1706,7 @@ glue.create_table(
 ### Data Lineage
 
 **Column-Level Lineage:**
+
 ```python
 # Example lineage tracking
 lineage = {
@@ -1647,6 +1734,7 @@ lineage = {
 ### Access Control
 
 **Row-Level Security:**
+
 ```sql
 -- Create security policy
 CREATE POLICY customer_data_access ON customer_table
@@ -1662,6 +1750,7 @@ USING (
 ```
 
 **Column-Level Security:**
+
 ```sql
 -- Mask PII for non-privileged users
 CREATE VIEW customer_view AS
@@ -1685,6 +1774,7 @@ FROM customer_table;
 ## Best Practices Summary
 
 ### Pipeline Design
+
 1. Idempotent operations
 2. Incremental processing where possible
 3. Clear data lineage
@@ -1692,6 +1782,7 @@ FROM customer_table;
 5. Automated recovery mechanisms
 
 ### Performance
+
 1. Partition large tables (date, region)
 2. Use columnar formats (Parquet, ORC)
 3. Predicate pushdown
@@ -1699,6 +1790,7 @@ FROM customer_table;
 5. Caching intermediate results
 
 ### Reliability
+
 1. Retry logic with exponential backoff
 2. Dead letter queues
 3. Circuit breakers
@@ -1706,6 +1798,7 @@ FROM customer_table;
 5. Monitoring and alerting
 
 ### Maintainability
+
 1. Version control everything
 2. Automated testing
 3. Clear documentation

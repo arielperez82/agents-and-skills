@@ -13,6 +13,7 @@ Generates production-ready React components with TypeScript definitions, unit te
 ### Usage
 
 **Basic Commands:**
+
 ```bash
 # Generate basic component
 python scripts/component_generator.py Button --type component
@@ -34,6 +35,7 @@ python scripts/component_generator.py --help
 ```
 
 **Available Options:**
+
 - `name`: Component name (required, PascalCase)
 - `--type/-t`: Component type (component, compound, hoc, hook) - default: component
 - `--level/-l`: Atomic design level (atom, molecule, organism, template) - default: molecule
@@ -47,6 +49,7 @@ python scripts/component_generator.py --help
 ### Component Types
 
 **Functional Component:**
+
 ```bash
 python scripts/component_generator.py Button --type component --complete
 
@@ -59,6 +62,7 @@ python scripts/component_generator.py Button --type component --complete
 ```
 
 **Compound Component:**
+
 ```bash
 python scripts/component_generator.py Select --type compound --complete
 
@@ -70,6 +74,7 @@ python scripts/component_generator.py Select --type compound --complete
 ```
 
 **Custom Hook:**
+
 ```bash
 python scripts/component_generator.py useDebounce --type hook --tests
 
@@ -82,6 +87,7 @@ python scripts/component_generator.py useDebounce --type hook --tests
 ### Generated Component Structure
 
 **Button Component Example:**
+
 ```typescript
 // components/Button/Button.tsx
 import { ButtonHTMLAttributes, forwardRef } from 'react';
@@ -216,6 +222,7 @@ Next steps:
 ### Common Workflows
 
 **Create UI Component Library:**
+
 ```bash
 # Atoms
 python scripts/component_generator.py Button --level atom --complete
@@ -244,6 +251,7 @@ Analyzes webpack bundle output to identify large dependencies, duplicate package
 ### Usage
 
 **Basic Commands:**
+
 ```bash
 # Analyze Next.js build
 python scripts/bundle_analyzer.py .next/
@@ -262,6 +270,7 @@ python scripts/bundle_analyzer.py --help
 ```
 
 **Available Options:**
+
 - `path`: Path to build directory (required)
 - `--output/-o`: Output format (text, json, html) - default: text
 - `--save/-s`: Save report to file
@@ -273,18 +282,21 @@ python scripts/bundle_analyzer.py --help
 ### Analysis Features
 
 **Bundle Size Analysis:**
+
 - Total bundle size
 - Per-page bundle sizes
 - Shared chunks analysis
 - First-load JS size
 
 **Dependency Analysis:**
+
 - Largest dependencies
 - Duplicate packages
 - Unused dependencies
 - Tree-shaking opportunities
 
 **Optimization Recommendations:**
+
 - Code splitting suggestions
 - Dynamic import opportunities
 - Image optimization needs
@@ -392,6 +404,7 @@ python scripts/bundle_analyzer.py .next/ --output html --save report.html
 ### Common Workflows
 
 **Pre-Deployment Analysis:**
+
 ```bash
 # 1. Build production
 npm run build
@@ -411,6 +424,7 @@ python scripts/bundle_analyzer.py .next/ --compare pre-deploy-report.html
 ```
 
 **Continuous Monitoring:**
+
 ```bash
 # Add to CI/CD pipeline
 npm run build
@@ -436,6 +450,7 @@ Generates production-ready Next.js or React projects with TypeScript, Tailwind C
 ### Usage
 
 **Basic Commands:**
+
 ```bash
 # Create Next.js App Router project
 python scripts/frontend_scaffolder.py my-app --framework nextjs
@@ -454,6 +469,7 @@ python scripts/frontend_scaffolder.py --help
 ```
 
 **Available Options:**
+
 - `name`: Project name (required)
 - `--framework/-f`: Framework (nextjs, react-vite, remix) - default: nextjs
 - `--styling/-s`: Styling (tailwind, css-modules, styled-components) - default: tailwind
@@ -468,6 +484,7 @@ python scripts/frontend_scaffolder.py --help
 ### Generated Project Structure
 
 **Next.js App Router:**
+
 ```
 my-app/
 ├── app/
@@ -513,6 +530,7 @@ my-app/
 ### Features Included
 
 **Complete Setup (--complete):**
+
 - TypeScript configuration
 - Tailwind CSS with custom theme
 - React Query for data fetching
@@ -527,6 +545,7 @@ my-app/
 - Authentication setup (optional)
 
 **Minimal Setup (--minimal):**
+
 - Basic Next.js/React setup
 - TypeScript
 - Tailwind CSS (basic)
@@ -574,6 +593,7 @@ Additional commands:
 ### Common Workflows
 
 **New Project Setup:**
+
 ```bash
 # 1. Scaffold project
 python scripts/frontend_scaffolder.py my-app --framework nextjs --complete

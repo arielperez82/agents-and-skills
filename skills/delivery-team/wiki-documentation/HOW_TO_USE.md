@@ -7,16 +7,19 @@ Hey Claude—I just added the "confluence-expert" skill. Can you organize our do
 ## Example Invocations
 
 ### Example 1: Basic Usage
+
 ```
 Hey Claude—I just added the "confluence-expert" skill. Can you organize our documentation?
 ```
 
 ### Example 2: Specific Workflow
+
 ```
 Hey Claude—I just added the "confluence-expert" skill. Can you provide a comprehensive analysis?
 ```
 
 ### Example 3: Integration with Other Skills
+
 ```
 Hey Claude—I just added the "confluence-expert" skill. Can you use it together with related skills to deliver a complete solution?
 ```

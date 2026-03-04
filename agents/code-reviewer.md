@@ -184,21 +184,28 @@ When the review does touch frontend or web-facing code (HTML/CSS/JS/React, pages
 **Goal:** Conduct comprehensive PR review with automated analysis, security scanning, and structured feedback
 
 **Steps:**
+
 1. **Analyze PR Metrics** - Run automated analysis to understand scope and complexity
+
    ```bash
    python ../skills/engineering-team/code-reviewer/scripts/pr_analyzer.py 123 --repo=company/project
    ```
+
 2. **Review Priority Assessment** - Examine complexity score, security concerns, and estimated review time from analyzer output
 3. **Code Quality Analysis** - Run quality checker on changed files to identify code smells and violations
+
    ```bash
    python ../skills/engineering-team/code-reviewer/scripts/code_quality_checker.py ./src --language=typescript
    ```
+
 4. **Manual Review with Checklist** - Follow comprehensive checklist from `references/code_review_checklist.md` covering functionality, security, performance, tests, and documentation
 5. **Refactoring Opportunity Assessment** - Delegate to `refactor-assessor` to assess refactoring opportunities, identify knowledge duplication, and evaluate semantic vs structural similarity
 6. **Generate Review Report** - Create structured feedback with categorized issues
+
    ```bash
    python ../skills/engineering-team/code-reviewer/scripts/review_report_generator.py 123 --format=markdown
    ```
+
 7. **Provide Feedback** - Post review with blocking/major/minor issues clearly categorized, include specific line references and improvement suggestions
 
 **Expected Output:** Comprehensive review report with prioritized issues (blocking: 0, major: 2, minor: 5), actionable recommendations, security assessment, and estimated remediation time
@@ -206,6 +213,7 @@ When the review does touch frontend or web-facing code (HTML/CSS/JS/React, pages
 **Time Estimate:** 20-45 minutes depending on PR size (small: 20min, medium: 30min, large: 45min)
 
 **Example:**
+
 ```bash
 # Complete PR review workflow
 cd /path/to/repo
@@ -229,11 +237,15 @@ cat .docs/canonical/reviews/review-repo-commit-<hash>.md
 **Goal:** Evaluate overall codebase architecture, identify technical debt, and provide strategic improvement recommendations
 
 **Steps:**
+
 1. **Comprehensive Quality Scan** - Run quality checker across entire codebase with verbose output
+
    ```bash
    python ../skills/engineering-team/code-reviewer/scripts/code_quality_checker.py ./ --verbose --json > codebase-quality.json
    ```
+
 2. **Anti-Pattern Detection** - Search for common anti-patterns using grep and reference guide
+
    ```bash
    # TypeScript: Check for 'any' type abuse
    grep -r ": any" src/**/*.ts | wc -l
@@ -244,6 +256,7 @@ cat .docs/canonical/reviews/review-repo-commit-<hash>.md
    # Go: Check for ignored errors
    grep -r "_ =" src/**/*.go | wc -l
    ```
+
 3. **Complexity Analysis** - Identify high-complexity modules requiring refactoring using complexity metrics from quality checker output
 4. **Security Audit** - Review security vulnerabilities flagged in quality report, cross-reference with common anti-patterns guide
 5. **Technical Debt Documentation** - Categorize findings into immediate fixes (blocking), short-term improvements (major), and long-term refactoring (minor)
@@ -258,14 +271,18 @@ cat .docs/canonical/reviews/review-repo-commit-<hash>.md
 **Goal:** Conduct security-specific code review identifying vulnerabilities, authentication issues, and data protection concerns
 
 **Steps:**
+
 1. **Security Scan** - Run PR analyzer with focus on security metrics
+
    ```bash
    python ../skills/engineering-team/code-reviewer/scripts/pr_analyzer.py <pr-number> --repo=company/project
    ```
+
 2. **Authentication Review** - Check authentication/authorization changes against security checklist (SQL injection, XSS, CSRF, authentication bypass)
 3. **Data Protection Audit** - Verify sensitive data handling, encryption usage, secret management, and PII protection
 4. **Dependency Vulnerabilities** - Review security concerns flagged by analyzer, check for known CVEs
 5. **Anti-Pattern Detection** - Search codebase for security anti-patterns from reference guide (plaintext passwords, hardcoded secrets, SQL concatenation)
+
    ```bash
    # Check for potential secrets
    grep -r "api_key\|API_KEY\|secret\|password" src/ --include="*.ts" --include="*.py"
@@ -273,6 +290,7 @@ cat .docs/canonical/reviews/review-repo-commit-<hash>.md
    # Check for SQL injection risks
    grep -r "SELECT.*\+" src/ --include="*.py" --include="*.go"
    ```
+
 6. **Security Report** - Generate report with severity-categorized vulnerabilities and remediation guidance
 
 **Expected Output:** Security review report with vulnerability assessment (critical: 0, high: 1, medium: 3, low: 7), specific remediation steps for each issue, and security best practices recommendations
@@ -284,7 +302,9 @@ cat .docs/canonical/reviews/review-repo-commit-<hash>.md
 **Goal:** Configure automated code quality enforcement through pre-commit hooks, CI/CD gates, and linting integration
 
 **Steps:**
+
 1. **Configure Language Linters** - Set up ESLint (TypeScript/JavaScript), pylint/flake8 (Python), SwiftLint (Swift), ktlint (Kotlin), golangci-lint (Go) based on coding standards reference
+
    ```bash
    # TypeScript/JavaScript: Install and configure ESLint
    npm install --save-dev eslint @typescript-eslint/parser @typescript-eslint/eslint-plugin
@@ -294,11 +314,16 @@ cat .docs/canonical/reviews/review-repo-commit-<hash>.md
 
    # Review coding_standards.md for configuration
    ```
+
 2. **Create Pre-commit Hooks** - Install automated quality checks before each commit
+
    ```bash
    cat > .git/hooks/pre-commit << 'EOF'
-#!/bin/bash
+
+# !/bin/bash
+
 # Run code quality checker on staged files
+
 STAGED_FILES=$(git diff --cached --name-only --diff-filter=ACM)
 
 if [ -n "$STAGED_FILES" ]; then
@@ -310,6 +335,7 @@ if [ -n "$STAGED_FILES" ]; then
 fi
 EOF
    chmod +x .git/hooks/pre-commit
+
    ```
 3. **Configure CI/CD Quality Gates** - Add GitHub Actions workflow for automated PR reviews
    ```yaml
@@ -329,8 +355,8 @@ EOF
          - name: Generate Review Report
            run: python scripts/review_report_generator.py ${{ github.event.pull_request.number }}
    ```
-4. **Document Team Standards** - Create team-specific coding standards document based on references, customize rules for project needs
-5. **Train Team** - Conduct workshop using code review checklist and anti-patterns guide
+1. **Document Team Standards** - Create team-specific coding standards document based on references, customize rules for project needs
+2. **Train Team** - Conduct workshop using code review checklist and anti-patterns guide
 
 **Expected Output:** Automated code quality enforcement system with pre-commit hooks blocking problematic commits, CI/CD pipeline failing PRs below quality threshold, and documented team standards
 
@@ -343,9 +369,11 @@ EOF
 **When to use:** All reviews. Previously gated behind ">500 lines" — now the default path because T1 pre-filtering is fast (sub-second) and always beneficial.
 
 **T1 Pre-Filter Step:** When T1 pre-filter data is available (provided by `review-changes` or invoked directly), consume it first:
+
 ```bash
 echo "<diff>" | npx tsx skills/engineering-team/tiered-review/scripts/prefilter-diff.ts
 ```
+
 - Files classified **trivial** (whitespace/imports only, ≤5 lines): Skip T3. Report only if T1 found structural issues.
 - Files classified **moderate** (logic changes <50 lines, no signature changes): T2 haiku for style/patterns, T3 only if T2 flags issues.
 - Files classified **significant** (≥50 lines or function signature changes): Full T3 review with raw hunks from T1 output.
@@ -353,6 +381,7 @@ echo "<diff>" | npx tsx skills/engineering-team/tiered-review/scripts/prefilter-
 **Existing T1 tools** (also run in the T1 step): `pr_analyzer.py`, `code_quality_checker.py`, `review_report_generator.py` — these complement `prefilter-diff.ts`.
 
 **Consuming T1 PRE-FILTER RESULTS:** When `review-changes` provides a `T1 PRE-FILTER RESULTS:` block at the top of your prompt, parse the JSON to drive your review:
+
 1. Parse the JSON object — it follows the `DiffPrefilterOutput` schema with `files[]` and `summary`.
 2. For each file in `files[]`, read its `significance` field:
    - `"trivial"` — Skip full review. Only report if `changedFunctions` is non-empty (structural issue despite low line count).
@@ -367,6 +396,7 @@ echo "<diff>" | npx tsx skills/engineering-team/tiered-review/scripts/prefilter-
 
 1. **T1 — Automated checks first** (free, deterministic)
    Run local tools before any LLM review:
+
    ```bash
    pnpm lint
    pnpm type-check
@@ -375,6 +405,7 @@ echo "<diff>" | npx tsx skills/engineering-team/tiered-review/scripts/prefilter-
 
 2. **T2 — First-pass review with cheaper models** (pattern-following)
    Dispatch cheap agents in parallel for mechanical review dimensions:
+
    ```bash
    # Style, naming, formatting issues
    claude -p "Review this diff for naming conventions, formatting issues, and style violations. List findings as: file:line — issue." --model haiku < diff.txt > /tmp/review-style.txt
@@ -524,22 +555,26 @@ Group findings by tier in the report: Fix required first, then Suggestions, then
 ## Success Metrics
 
 **Code Quality Metrics:**
+
 - **Defect Density:** Reduce production bugs by 40% through pre-merge issue detection
 - **Review Coverage:** Achieve 100% PR review rate with consistent quality standards
 - **Code Complexity:** Maintain average cyclomatic complexity below 10 across codebase
 - **Technical Debt:** Reduce high-priority technical debt items by 30% per quarter
 
 **Efficiency Metrics:**
+
 - **Review Time:** Reduce average PR review time by 35% (from 60min to 39min) through automated analysis
 - **Feedback Speed:** Provide initial feedback within 2 hours of PR submission (vs. 8-12 hours manual)
 - **False Positive Rate:** Maintain automated check false positive rate below 15%
 
 **Security Metrics:**
+
 - **Vulnerability Detection:** Catch 90%+ of security vulnerabilities before production
 - **Security Incident Reduction:** Reduce security incidents by 50% through systematic scanning
 - **Secret Exposure:** Zero incidents of committed secrets/credentials
 
 **Team Development:**
+
 - **Standards Adoption:** Achieve 95% team adherence to coding standards within 3 months
 - **Review Quality Consistency:** Maintain review quality variance below 20% across reviewers
 - **Developer Learning:** Reduce repeated code quality issues by 60% through constructive feedback

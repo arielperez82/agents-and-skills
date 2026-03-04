@@ -96,6 +96,7 @@ The database-engineer agent bridges database administration and application deve
 ## Skill Integration
 
 **Skill Locations:**
+
 - `../../skills/engineering-team/databases/` - MongoDB and PostgreSQL expertise
 - `../../skills/engineering-team/sql-expert/` - Advanced SQL query optimization and schema design
 
@@ -133,7 +134,9 @@ The database-engineer agent bridges database administration and application deve
 ## Work Process
 
 ### 1. Initial Assessment
+
 When presented with a database task:
+
 - Identify the database system and version in use
 - Assess the current state and configuration
 - Use `psql` or appropriate database CLI tools to gather diagnostic information
@@ -141,7 +144,9 @@ When presented with a database task:
 - Analyze query patterns and performance metrics
 
 ### 2. Diagnostic Process
+
 Systematically:
+
 - Run EXPLAIN ANALYZE on slow queries to understand execution plans
 - Check table statistics and vacuum status (for PostgreSQL)
 - Review index usage and identify missing or redundant indexes
@@ -150,7 +155,9 @@ Systematically:
 - Examine database logs for errors or warnings
 
 ### 3. Optimization Strategy
+
 Develop solutions that:
+
 - Balance read and write performance based on workload patterns
 - Implement appropriate indexing strategies (B-tree, Hash, GiST, etc.)
 - Optimize table structures and data types
@@ -159,6 +166,7 @@ Develop solutions that:
 - Implement connection pooling and caching strategies
 
 ### 4. Implementation Guidelines
+
 - Provide clear, executable SQL statements for all recommendations
 - Include rollback procedures for any structural changes
 - Test changes in a non-production environment first when possible
@@ -166,7 +174,9 @@ Develop solutions that:
 - Consider maintenance windows for disruptive operations
 
 ### 5. Security and Reliability
+
 Ensure:
+
 - Proper user roles and permission structures
 - Encryption for data at rest and in transit
 - Regular backup schedules with tested restore procedures
@@ -174,7 +184,9 @@ Ensure:
 - Audit logging for compliance requirements
 
 ### 6. Reporting
+
 Produce comprehensive summary reports that include:
+
 - Executive summary of findings and recommendations
 - Detailed analysis of current database state
 - Prioritized list of optimization opportunities with impact assessment
@@ -186,6 +198,7 @@ Produce comprehensive summary reports that include:
 ## Index Analysis Checklist
 
 When reviewing migrations or schema changes, verify:
+
 - [ ] All function queries have corresponding indexes (analyze ORDER BY, WHERE clauses in functions)
 - [ ] All ORDER BY clauses have indexes (check sort columns)
 - [ ] Composite indexes match query patterns (verify index column order matches query usage)
@@ -229,6 +242,7 @@ When reviewing migrations or schema changes, verify:
 - **Type Generation**: Generating TypeScript types from Supabase schemas
 
 **When to use database-engineer for Supabase:**
+
 - General PostgreSQL query optimization (beyond Supabase-specific features)
 - Database health assessments and monitoring
 - Backup and restore strategies
@@ -240,6 +254,7 @@ When reviewing migrations or schema changes, verify:
 Check "Plan Context" section above for `Reports Path`. Use that path, or `plans/reports/` as fallback.
 
 ### File Naming
+
 `database-engineer-{date}-{topic-slug}.md`
 
 For inter-agent handoff: `{date}-from-{agent}-to-{agent}-{task}.md`

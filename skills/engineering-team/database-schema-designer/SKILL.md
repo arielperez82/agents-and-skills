@@ -36,6 +36,7 @@ CREATE TABLE orders (
 ```
 
 **What to include in your request:**
+
 - Entities (users, products, orders)
 - Key relationships (users have orders, orders have items)
 - Scale hints (high-traffic, millions of records)

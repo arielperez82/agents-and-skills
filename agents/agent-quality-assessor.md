@@ -105,10 +105,13 @@ Use this agent when:
 **Goal:** Produce a quality score for one agent file.
 
 **Steps:**
+
 1. Run the analysis script:
+
    ```bash
    bash skills/agent-development-team/agent-optimizer/scripts/analyze-agent.sh agents/<name>.md
    ```
+
 2. Parse `Grade:` and `Status:` from stdout.
 3. Extract per-dimension scores (responsibility precision, retrieval efficiency, collaboration completeness, classification alignment, example quality).
 4. Report grade, status, dimension breakdown, and tier classification.
@@ -122,6 +125,7 @@ Use this agent when:
 **Goal:** Score all agent files changed in the current diff.
 
 **Steps:**
+
 1. Identify changed `.md` files under `agents/` (excluding README.md) from the diff.
 2. Run `analyze-agent.sh` for each changed file.
 3. Parse and collect results.
@@ -134,6 +138,7 @@ Use this agent when:
 **Goal:** Score the entire agent catalog.
 
 **Steps:**
+
 1. List all `.md` files under `agents/` (excluding README.md).
 2. Run `analyze-agent.sh` for each file.
 3. Aggregate results: count by grade, identify lowest-scoring agents.

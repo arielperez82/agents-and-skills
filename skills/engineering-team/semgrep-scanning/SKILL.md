@@ -175,6 +175,7 @@ Map findings to categories:
 Using the detected languages and frameworks from Step 1, select rulesets by following the **Ruleset Selection Algorithm** in [rulesets.md]({baseDir}/references/rulesets.md).
 
 The algorithm covers:
+
 1. Security baseline (always included)
 2. Language-specific rulesets
 3. Framework rulesets (if detected)
@@ -261,6 +262,7 @@ After presenting the plan:
    - Return to waiting for approval
 
 2. **Use AskUserQuestion** if user hasn't responded:
+
    ```
    "I've prepared the scan plan with 9 rulesets (including Trail of Bits). Proceed with scanning?"
    Options: ["Yes, run scan", "Modify rulesets first"]
@@ -279,6 +281,7 @@ After presenting the plan:
 ### Pre-Scan Checklist
 
 Before marking Step 3 complete, verify:
+
 - [ ] Target directory shown to user
 - [ ] Engine type (Pro/OSS) displayed
 - [ ] Languages detected and listed
@@ -310,11 +313,11 @@ Use the scanner task prompt template from [scanner-task-prompt.md]({baseDir}/ref
 Spawn these 3 Tasks in a SINGLE message:
 
 1. **Task: Python Scanner**
-   - Approved rulesets: p/python, p/django, p/security-audit, p/secrets, https://github.com/trailofbits/semgrep-rules
+   - Approved rulesets: p/python, p/django, p/security-audit, p/secrets, <https://github.com/trailofbits/semgrep-rules>
    - Output: semgrep-results-001/python-*.json
 
 2. **Task: JavaScript Scanner**
-   - Approved rulesets: p/javascript, p/react, p/nodejs, p/security-audit, p/secrets, https://github.com/trailofbits/semgrep-rules
+   - Approved rulesets: p/javascript, p/react, p/nodejs, p/security-audit, p/secrets, <https://github.com/trailofbits/semgrep-rules>
    - Output: semgrep-results-001/js-*.json
 
 3. **Task: Docker Scanner**
@@ -338,6 +341,7 @@ uv run {baseDir}/scripts/merge_triaged_sarif.py [OUTPUT_DIR]
 ```
 
 This script:
+
 1. Attempts to use [SARIF Multitool](https://www.npmjs.com/package/@microsoft/sarif-multitool) for merging (if `npx` is available)
 2. Falls back to pure Python merge if Multitool unavailable
 3. Reads all `*-triage.json` files to extract true positive findings

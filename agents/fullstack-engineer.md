@@ -240,11 +240,13 @@ The skill package includes user-customizable templates in the `assets/` director
 **Steps:**
 
 1. **Generate Project Structure** - Use project scaffolder to create base application with selected tech stack
+
    ```bash
    python3 ../skills/engineering-team/senior-fullstack/scripts/project_scaffolder.py --input my-fullstack-app --output text --verbose
    ```
 
 2. **Review Generated Structure** - Verify all components created correctly (frontend, backend, database, Docker configs, CI/CD pipelines)
+
    ```bash
    cd my-fullstack-app
    tree -L 2  # Review directory structure
@@ -252,6 +254,7 @@ The skill package includes user-customizable templates in the `assets/` director
    ```
 
 3. **Configure Environment** - Set up environment variables and database connections
+
    ```bash
    cp .env.example .env
    # Edit .env with your configuration:
@@ -261,12 +264,14 @@ The skill package includes user-customizable templates in the `assets/` director
    ```
 
 4. **Start Development Services** - Launch all services using Docker Compose
+
    ```bash
    docker-compose up -d
    # Services started: frontend (Next.js), backend (Node.js), database (PostgreSQL), redis (cache)
    ```
 
 5. **Run Database Migrations** - Initialize database schema using Prisma
+
    ```bash
    npm install
    npx prisma migrate dev --name init
@@ -274,6 +279,7 @@ The skill package includes user-customizable templates in the `assets/` director
    ```
 
 6. **Verify Installation** - Ensure all services running and tests passing
+
    ```bash
    npm run test
    npm run lint
@@ -281,6 +287,7 @@ The skill package includes user-customizable templates in the `assets/` director
    ```
 
 7. **Start Development Server** - Begin development with hot reload enabled
+
    ```bash
    npm run dev
    # Frontend: http://localhost:3000
@@ -293,6 +300,7 @@ The skill package includes user-customizable templates in the `assets/` director
 **Time Estimate:** 15-20 minutes for complete setup (excluding dependency installation time)
 
 **Example:**
+
 ```bash
 # Complete workflow in one go
 python3 ../skills/engineering-team/senior-fullstack/scripts/project_scaffolder.py --input ecommerce-platform --output text --verbose
@@ -309,11 +317,13 @@ npm install && npx prisma migrate dev && npm run dev
 **Steps:**
 
 1. **Run Comprehensive Analysis** - Execute code quality analyzer on entire codebase
+
    ```bash
    python3 ../skills/engineering-team/senior-fullstack/scripts/code_quality_analyzer.py --input ./ --output json --file quality-report.json --verbose
    ```
 
 2. **Review Analysis Report** - Examine quality scores across all categories
+
    ```bash
    cat quality-report.json | jq '.summary'
    # Expected metrics:
@@ -325,6 +335,7 @@ npm install && npx prisma migrate dev && npm run dev
    ```
 
 3. **Fix Security Vulnerabilities** - Address critical security issues first
+
    ```bash
    npm audit fix --force
    # Review package-lock.json changes
@@ -333,6 +344,7 @@ npm install && npx prisma migrate dev && npm run dev
    ```
 
 4. **Improve Test Coverage** - Add missing tests for uncovered modules
+
    ```bash
    npm run test:coverage
    # Identify modules below 80% coverage
@@ -341,6 +353,7 @@ npm install && npx prisma migrate dev && npm run dev
    ```
 
 5. **Optimize Performance** - Implement performance improvements
+
    ```bash
    # Frontend optimizations:
    # - Add React.memo for expensive components
@@ -354,12 +367,14 @@ npm install && npx prisma migrate dev && npm run dev
    ```
 
 6. **Fix Linting Issues** - Clean up code style and formatting
+
    ```bash
    npm run lint -- --fix
    npm run format
    ```
 
 7. **Update Documentation** - Improve code and API documentation
+
    ```bash
    # Add JSDoc comments to public functions
    # Update README.md with latest features
@@ -368,12 +383,14 @@ npm install && npx prisma migrate dev && npm run dev
    ```
 
 8. **Build for Production** - Verify all changes work in production build
+
    ```bash
    npm run build
    npm run test:e2e
    ```
 
 9. **Re-analyze to Verify Improvements** - Confirm quality score improvements
+
    ```bash
    python3 ../skills/engineering-team/senior-fullstack/scripts/code_quality_analyzer.py --input ./ --output json --file quality-report-after.json
    # Compare before/after scores
@@ -384,6 +401,7 @@ npm install && npx prisma migrate dev && npm run dev
 **Time Estimate:** 4-8 hours depending on codebase size and number of issues identified
 
 **Example:**
+
 ```bash
 # Quick quality check and fix cycle
 python3 ../skills/engineering-team/senior-fullstack/scripts/code_quality_analyzer.py --input ./ --output text | tee analysis.txt
@@ -401,11 +419,13 @@ python3 ../skills/engineering-team/senior-fullstack/scripts/code_quality_analyze
 **Steps:**
 
 1. **Review API Architecture Patterns** - Reference architecture best practices for API design
+
    ```bash
    cat ../skills/engineering-team/senior-fullstack/references/architecture-patterns.md | grep -A 20 "API Design"
    ```
 
 2. **Define API Contracts** - Create OpenAPI/GraphQL schema for type-safe integration
+
    ```bash
    # For REST APIs:
    # Create openapi.yaml specification
@@ -418,6 +438,7 @@ python3 ../skills/engineering-team/senior-fullstack/scripts/code_quality_analyze
    ```
 
 3. **Implement Backend Endpoints** - Build API routes with proper validation
+
    ```bash
    # Create API routes in backend/
    # Implement input validation with Zod or Joi
@@ -428,6 +449,7 @@ python3 ../skills/engineering-team/senior-fullstack/scripts/code_quality_analyze
    ```
 
 4. **Create Frontend API Client** - Build type-safe API client layer
+
    ```bash
    # Create API client using:
    # - Axios or Fetch for REST
@@ -443,6 +465,7 @@ python3 ../skills/engineering-team/senior-fullstack/scripts/code_quality_analyze
    ```
 
 5. **Add End-to-End Type Safety** - Ensure types shared between frontend and backend
+
    ```bash
    # For REST + tRPC:
    # Generate types from backend
@@ -455,6 +478,7 @@ python3 ../skills/engineering-team/senior-fullstack/scripts/code_quality_analyze
    ```
 
 6. **Implement Error Handling** - Add comprehensive error boundaries and user feedback
+
    ```bash
    # Frontend:
    # - React Error Boundaries
@@ -468,6 +492,7 @@ python3 ../skills/engineering-team/senior-fullstack/scripts/code_quality_analyze
    ```
 
 7. **Write Integration Tests** - Test full API-frontend flow
+
    ```bash
    # Create integration tests with:
    # - React Testing Library
@@ -477,6 +502,7 @@ python3 ../skills/engineering-team/senior-fullstack/scripts/code_quality_analyze
    ```
 
 8. **Add API Documentation** - Document all endpoints for team reference
+
    ```bash
    # Generate API documentation:
    # - Swagger UI for REST
@@ -486,6 +512,7 @@ python3 ../skills/engineering-team/senior-fullstack/scripts/code_quality_analyze
    ```
 
 9. **Test Real Integration** - Verify integration in development environment
+
    ```bash
    docker-compose up -d
    npm run dev
@@ -495,6 +522,7 @@ python3 ../skills/engineering-team/senior-fullstack/scripts/code_quality_analyze
    ```
 
 10. **Review Best Practices** - Ensure implementation follows security and performance standards
+
     ```bash
     cat ../skills/engineering-team/senior-fullstack/references/best-practices.md | grep -A 30 "API Security"
     ```
@@ -504,6 +532,7 @@ python3 ../skills/engineering-team/senior-fullstack/scripts/code_quality_analyze
 **Time Estimate:** 6-10 hours for complete API-frontend integration layer
 
 **Example:**
+
 ```bash
 # GraphQL integration setup
 npx graphql-codegen --config codegen.yml
@@ -519,11 +548,13 @@ npm run test:e2e
 **Steps:**
 
 1. **Review Deployment Architecture** - Reference deployment patterns and strategies
+
    ```bash
    cat ../skills/engineering-team/senior-fullstack/references/architecture-patterns.md | grep -A 40 "Deployment"
    ```
 
 2. **Prepare Production Environment** - Configure production-ready settings
+
    ```bash
    # Create production environment variables
    cp .env.example .env.production
@@ -537,6 +568,7 @@ npm run test:e2e
    ```
 
 3. **Run Quality Gates** - Ensure code meets production standards
+
    ```bash
    # Run comprehensive quality check
    python3 ../skills/engineering-team/senior-fullstack/scripts/code_quality_analyzer.py --input ./ --output json
@@ -554,6 +586,7 @@ npm run test:e2e
    ```
 
 4. **Build Production Docker Images** - Create optimized container images
+
    ```bash
    # Build multi-stage Docker images
    docker build -t myapp-frontend:latest -f Dockerfile.frontend .
@@ -566,6 +599,7 @@ npm run test:e2e
    ```
 
 5. **Push to Container Registry** - Upload images for deployment
+
    ```bash
    # Tag images with version
    docker tag myapp-frontend:latest registry.example.com/myapp-frontend:v1.0.0
@@ -577,6 +611,7 @@ npm run test:e2e
    ```
 
 6. **Configure CI/CD Pipeline** - Set up automated deployment workflow
+
    ```bash
    # GitHub Actions pipeline already generated by scaffolder
    # Located at: .github/workflows/deploy.yml
@@ -595,6 +630,7 @@ npm run test:e2e
    ```
 
 7. **Deploy to Kubernetes** - Deploy using Kubernetes manifests
+
    ```bash
    # Apply Kubernetes configurations
    kubectl apply -f k8s/namespace.yml
@@ -610,6 +646,7 @@ npm run test:e2e
    ```
 
 8. **Or Deploy to Vercel/Railway** - Alternative PaaS deployment
+
    ```bash
    # Vercel deployment (for Next.js frontend)
    vercel --prod
@@ -621,6 +658,7 @@ npm run test:e2e
    ```
 
 9. **Run Database Migrations** - Update production database schema
+
    ```bash
    # Run migrations safely
    npx prisma migrate deploy
@@ -630,6 +668,7 @@ npm run test:e2e
    ```
 
 10. **Configure Monitoring** - Set up application and infrastructure monitoring
+
     ```bash
     # Add monitoring tools:
     # - Sentry for error tracking
@@ -642,6 +681,7 @@ npm run test:e2e
     ```
 
 11. **Verify Deployment** - Test production application thoroughly
+
     ```bash
     # Health checks
     curl https://your-app.com/health
@@ -655,6 +695,7 @@ npm run test:e2e
     ```
 
 12. **Set Up Rollback Plan** - Ensure ability to revert if issues arise
+
     ```bash
     # Kubernetes rollback
     kubectl rollout undo deployment/myapp -n production
@@ -668,6 +709,7 @@ npm run test:e2e
 **Time Estimate:** 3-6 hours for initial deployment setup, 30-45 minutes for subsequent deployments via CI/CD
 
 **Example:**
+
 ```bash
 # Quick deployment to Kubernetes
 npm run test:all && npm run build
@@ -934,11 +976,13 @@ echo "   - React admin UI"
 ### Development Efficiency Metrics
 
 **Time to First Deploy:**
+
 - **Baseline:** 2-3 days for manual setup
 - **With Agent:** 2-4 hours including customization
 - **Improvement:** 85-90% time reduction
 
 **Project Setup Speed:**
+
 - **Scaffolding:** 10-15 minutes for complete environment
 - **Development Ready:** < 20 minutes including dependencies
 - **First Build:** < 5 minutes with pre-configured settings
@@ -946,18 +990,21 @@ echo "   - React admin UI"
 ### Code Quality Metrics
 
 **Quality Score Distribution:**
+
 - **Excellent (85-100):** Production-ready, minimal issues
 - **Good (70-84):** Acceptable with minor improvements needed
 - **Fair (50-69):** Significant improvements required
 - **Poor (<50):** Major refactoring needed
 
 **Target Standards:**
+
 - **Test Coverage:** 80%+ (unit + integration)
 - **Security Score:** 90%+ (no critical vulnerabilities)
 - **Performance Score:** 85%+ (optimized loading and queries)
 - **Documentation Score:** 80%+ (API and code documentation)
 
 **Quality Improvement:**
+
 - **Average Score Increase:** 15-25 points after implementing recommendations
 - **Security Vulnerability Resolution:** 95%+ of issues fixed
 - **Test Coverage Growth:** +20-30% with targeted test additions
@@ -965,12 +1012,14 @@ echo "   - React admin UI"
 ### Architecture Quality Metrics
 
 **Architecture Compliance:**
+
 - **Clean Architecture Adherence:** 90%+ (proper layer separation)
 - **SOLID Principles:** 85%+ compliance in critical modules
 - **Design Pattern Usage:** Appropriate patterns applied consistently
 - **Code Duplication:** < 5% (DRY principle maintained)
 
 **Maintainability Index:**
+
 - **Target:** 70+ (good maintainability)
 - **Cyclomatic Complexity:** < 10 per function (simple logic)
 - **Cognitive Complexity:** < 15 per function (easy to understand)
@@ -978,12 +1027,14 @@ echo "   - React admin UI"
 ### Performance Metrics
 
 **Frontend Performance:**
+
 - **First Contentful Paint (FCP):** < 1.8s
 - **Largest Contentful Paint (LCP):** < 2.5s
 - **Time to Interactive (TTI):** < 3.5s
 - **Cumulative Layout Shift (CLS):** < 0.1
 
 **Backend Performance:**
+
 - **API Response Time (P95):** < 200ms
 - **Database Query Time (P95):** < 100ms
 - **Throughput:** 1000+ requests/second
@@ -992,16 +1043,19 @@ echo "   - React admin UI"
 ### Team Productivity Metrics
 
 **Developer Onboarding:**
+
 - **Time to First Commit:** < 1 hour (vs 1-2 days manual)
 - **Time to Productivity:** < 1 day (vs 1-2 weeks)
 - **Setup Documentation Required:** Minimal (automated setup)
 
 **Development Velocity:**
+
 - **Feature Development Speed:** 30-40% faster with scaffolding
 - **Code Review Time:** 25-35% reduction with quality checks
 - **Bug Fix Time:** 20-30% faster with comprehensive testing
 
 **Technical Debt Reduction:**
+
 - **Debt Prevention:** 60-70% through automated quality gates
 - **Debt Resolution:** 40-50% faster with actionable recommendations
 - **Architecture Consistency:** 90%+ across team projects
@@ -1009,16 +1063,19 @@ echo "   - React admin UI"
 ### Deployment Metrics
 
 **Deployment Frequency:**
+
 - **Small Teams:** 10-20 deployments/week
 - **Large Teams:** 50-100 deployments/week
 - **Release Cycle:** From weeks to hours
 
 **Deployment Reliability:**
+
 - **Success Rate:** 98%+ (with quality gates)
 - **Rollback Rate:** < 2% (well-tested changes)
 - **Mean Time to Recovery (MTTR):** < 10 minutes
 
 **Infrastructure Stability:**
+
 - **Uptime:** 99.9%+ (proper monitoring and health checks)
 - **Container Restart Rate:** < 0.1% (stable deployments)
 - **Resource Utilization:** 60-70% (efficient scaling)

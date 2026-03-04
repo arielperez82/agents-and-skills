@@ -121,6 +121,7 @@ python scripts/servicenow_change_manager.py --deployment-file deploy.json --chan
 Generate production-ready CI/CD pipelines for multiple platforms.
 
 **Key Features:**
+
 - GitHub Actions workflow generation
 - CircleCI config creation
 - GitLab CI pipeline templates
@@ -129,6 +130,7 @@ Generate production-ready CI/CD pipelines for multiple platforms.
 - Docker image building and pushing
 
 **Common Usage:**
+
 ```bash
 # Generate GitHub Actions pipeline
 python scripts/pipeline_generator.py --platform github --language nodejs --output .github/workflows/
@@ -144,6 +146,7 @@ python scripts/pipeline_generator.py --help
 ```
 
 **Use Cases:**
+
 - Setting up CI/CD for new projects
 - Standardizing pipelines across teams
 - Adding deployment stages to existing pipelines
@@ -153,6 +156,7 @@ python scripts/pipeline_generator.py --help
 Scaffold infrastructure as code with Terraform best practices.
 
 **Key Features:**
+
 - Modular Terraform structure generation
 - AWS, GCP, Azure provider templates
 - Remote state configuration (S3, GCS, Azure Blob)
@@ -161,6 +165,7 @@ Scaffold infrastructure as code with Terraform best practices.
 - Security best practices built-in
 
 **Common Usage:**
+
 ```bash
 # Scaffold AWS infrastructure
 python scripts/terraform_scaffolder.py --provider aws --modules vpc,eks,rds --output infrastructure/
@@ -176,6 +181,7 @@ python scripts/terraform_scaffolder.py --help
 ```
 
 **Use Cases:**
+
 - Starting new infrastructure projects
 - Organizing existing Terraform code
 - Creating reusable infrastructure modules
@@ -185,6 +191,7 @@ python scripts/terraform_scaffolder.py --help
 Automate application deployments with multiple strategies.
 
 **Key Features:**
+
 - Blue-green deployment automation
 - Canary release management
 - Rolling update strategies
@@ -193,6 +200,7 @@ Automate application deployments with multiple strategies.
 - Multi-environment deployment
 
 **Common Usage:**
+
 ```bash
 # Blue-green deployment
 python scripts/deployment_manager.py --strategy blue-green --app myapp --version v2.0
@@ -208,6 +216,7 @@ python scripts/deployment_manager.py --help
 ```
 
 **Use Cases:**
+
 - Zero-downtime deployments
 - Testing new releases with minimal risk
 - Automating deployment workflows
@@ -217,6 +226,7 @@ python scripts/deployment_manager.py --help
 Generate ServiceNow change request payloads from deployment configurations for ITIL-compliant change management.
 
 **Key Features:**
+
 - Change request generation (Standard, Normal, Emergency)
 - Automatic risk assessment based on deployment scope
 - Backout plan documentation from deployment config
@@ -226,6 +236,7 @@ Generate ServiceNow change request payloads from deployment configurations for I
 - curl command generation for API testing
 
 **Common Usage:**
+
 ```bash
 # Generate normal change request from deployment
 python scripts/servicenow_change_manager.py \
@@ -253,6 +264,7 @@ python scripts/servicenow_change_manager.py --help
 ```
 
 **Use Cases:**
+
 - ITIL-compliant deployment change management
 - Audit trail for production deployments
 - CAB approval automation
@@ -325,10 +337,12 @@ ITIL change management integration guide in `references/servicenow_change_mgmt.m
 
 1. **Define Pipeline Stages** - Test, build, scan, deploy stages with appropriate triggers
 2. **Generate Pipeline Configuration** - Use pipeline generator for platform-specific config
+
    ```bash
    # Generate GitHub Actions pipeline
    python scripts/pipeline_generator.py --platform github --language nodejs --deploy kubernetes
    ```
+
 3. **Configure Secrets** - Setup repository secrets for cloud credentials, API keys
 4. **Test Pipeline** - Trigger test run, validate all stages execute correctly
 5. **Enable Branch Protection** - Require pipeline success before merging
@@ -341,17 +355,21 @@ See [cicd_pipeline_guide.md](references/cicd_pipeline_guide.md) for pipeline pat
 
 1. **Design Infrastructure** - Define required resources (networking, compute, database, storage)
 2. **Scaffold Terraform** - Generate modular Terraform structure
+
    ```bash
    # Scaffold AWS infrastructure
    python scripts/terraform_scaffolder.py --provider aws --modules vpc,eks,rds --output infrastructure/
    ```
+
 3. **Configure Remote State** - Setup S3/GCS backend for state management
 4. **Apply Infrastructure** - Plan and apply Terraform configuration
+
    ```bash
    terraform init
    terraform plan -out=tfplan
    terraform apply tfplan
    ```
+
 5. **Document Architecture** - Create diagrams and runbooks
 
 See [infrastructure_as_code.md](references/infrastructure_as_code.md) for IaC best practices.
@@ -363,10 +381,12 @@ See [infrastructure_as_code.md](references/infrastructure_as_code.md) for IaC be
 1. **Containerize Application** - Create optimized Dockerfile with multi-stage build
 2. **Create Kubernetes Manifests** - Deployment, Service, Ingress, ConfigMap, Secret
 3. **Deploy Application** - Use deployment manager for controlled rollout
+
    ```bash
    # Blue-green deployment
    python scripts/deployment_manager.py --strategy blue-green --app myapp --version v1.0
    ```
+
 4. **Configure Monitoring** - Setup Prometheus metrics, Grafana dashboards
 5. **Test & Validate** - Health checks, load testing, rollback testing
 
@@ -409,6 +429,7 @@ python scripts/terraform_scaffolder.py .
 ### 3. Implement Best Practices
 
 Follow the patterns and practices documented in:
+
 - `references/cicd_pipeline_guide.md`
 - `references/infrastructure_as_code.md`
 - `references/deployment_strategies.md`
@@ -416,24 +437,28 @@ Follow the patterns and practices documented in:
 ## Best Practices Summary
 
 ### Code Quality
+
 - Follow established patterns
 - Write comprehensive tests
 - Document decisions
 - Review regularly
 
 ### Performance
+
 - Measure before optimizing
 - Use appropriate caching
 - Optimize critical paths
 - Monitor in production
 
 ### Security
+
 - Validate all inputs
 - Use parameterized queries
 - Implement proper authentication
 - Keep dependencies updated
 
 ### Maintainability
+
 - Write clear code
 - Use consistent naming
 - Add helpful comments

@@ -7,11 +7,13 @@ Modern authentication patterns including OAuth 2.1, JWT, RBAC, and MFA (2025 sta
 ### Key Changes from OAuth 2.0
 
 **Mandatory:**
+
 - PKCE (Proof Key for Code Exchange) for all clients
 - Exact redirect URI matching
 - State parameter for CSRF protection
 
 **Deprecated:**
+
 - Implicit grant flow (security risk)
 - Resource owner password credentials grant
 - Bearer token in query strings
@@ -181,12 +183,14 @@ const verified = speakeasy.totp.verify({
 ### FIDO2/WebAuthn (Passwordless - 2025 Standard)
 
 **Benefits:**
+
 - Phishing-resistant
 - No shared secrets
 - Hardware-backed security
 - Better UX (biometrics, security keys)
 
 **Implementation:**
+
 ```typescript
 // Registration
 const publicKeyCredentialCreationOptions = {
@@ -251,6 +255,7 @@ app.use(
 ### Argon2id (2025 Standard - Replaces bcrypt)
 
 **Why Argon2id:**
+
 - Winner of Password Hashing Competition (2015)
 - Memory-hard (resistant to GPU/ASIC attacks)
 - Configurable CPU and memory cost
@@ -331,8 +336,8 @@ const keyRecord = await db.apiKeys.findOne({ hashedKey: providedHash });
 
 ## Resources
 
-- **OAuth 2.1:** https://oauth.net/2.1/
-- **JWT Best Practices:** https://datatracker.ietf.org/doc/html/rfc8725
-- **WebAuthn:** https://webauthn.guide/
-- **NIST Password Guidelines:** https://pages.nist.gov/800-63-3/
-- **OWASP Auth Cheat Sheet:** https://cheatsheetseries.owasp.org/cheatsheets/Authentication_Cheat_Sheet.html
+- **OAuth 2.1:** <https://oauth.net/2.1/>
+- **JWT Best Practices:** <https://datatracker.ietf.org/doc/html/rfc8725>
+- **WebAuthn:** <https://webauthn.guide/>
+- **NIST Password Guidelines:** <https://pages.nist.gov/800-63-3/>
+- **OWASP Auth Cheat Sheet:** <https://cheatsheetseries.owasp.org/cheatsheets/Authentication_Cheat_Sheet.html>

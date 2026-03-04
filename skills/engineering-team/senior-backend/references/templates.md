@@ -7,6 +7,7 @@ Production-ready code templates, migration patterns, testing examples, and imple
 ### Express + TypeScript + Prisma Starter
 
 **Project Structure:**
+
 ```
 backend/
 ├── src/
@@ -31,6 +32,7 @@ backend/
 ```
 
 **package.json:**
+
 ```json
 {
   "name": "backend-api",
@@ -83,6 +85,7 @@ backend/
 ```
 
 **tsconfig.json:**
+
 ```json
 {
   "compilerOptions": {
@@ -107,6 +110,7 @@ backend/
 ```
 
 **Dockerfile:**
+
 ```dockerfile
 FROM node:18-alpine AS builder
 
@@ -137,6 +141,7 @@ CMD ["npm", "start"]
 ```
 
 **docker-compose.yml:**
+
 ```yaml
 version: '3.8'
 
@@ -184,6 +189,7 @@ volumes:
 ### Prisma Schema
 
 **schema.prisma:**
+
 ```prisma
 generator client {
   provider = "prisma-client-js"
@@ -260,6 +266,7 @@ enum Role {
 ### Database Migration Template
 
 **Migration File:**
+
 ```sql
 -- CreateTable
 CREATE TABLE "users" (
@@ -990,6 +997,7 @@ export const userResolvers = {
 ## Environment Configuration
 
 **.env.example:**
+
 ```env
 # Server
 NODE_ENV=development

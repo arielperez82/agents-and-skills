@@ -20,6 +20,7 @@ User Request
 ```
 
 **Questions to Ask:**
+
 - What happens if this component fails?
 - How does this scale under load?
 - What are the dependencies?
@@ -63,6 +64,7 @@ Decomposed:
 **Partition Tolerance** - System works despite network failures
 
 **Real-World Choices:**
+
 - **CP (Consistency + Partition Tolerance):** Banking systems, financial transactions
 - **AP (Availability + Partition Tolerance):** Social media feeds, product catalogs
 - **CA (Consistency + Availability):** Single-node databases (not distributed)
@@ -73,6 +75,7 @@ Decomposed:
 **Else (no partition):** Choose Latency or Consistency
 
 **Examples:**
+
 - **PA/EL:** Cassandra (available during partition, low latency normally)
 - **PC/EC:** HBase (consistent during partition, consistent over latency)
 - **PA/EC:** DynamoDB (configurable consistency vs latency)
@@ -86,6 +89,7 @@ Decomposed:
 | **Both** | Core business logic, payment processing, authentication |
 
 **Example:**
+
 ```typescript
 // Maintainable: Readable, easy to debug
 const users = await db.users.findAll({
@@ -108,12 +112,14 @@ const users = await db.query(`
 **20-40% productivity increase** from addressing technical debt properly
 
 **Debt Quadrants:**
+
 1. **Reckless + Deliberate:** "We don't have time for design"
 2. **Reckless + Inadvertent:** "What's layering?"
 3. **Prudent + Deliberate:** "Ship now, refactor later" (acceptable)
 4. **Prudent + Inadvertent:** "Now we know better" (acceptable)
 
 **Prioritization:**
+
 - High interest, high impact → Fix immediately
 - High interest, low impact → Schedule in sprint
 - Low interest, high impact → Tech debt backlog
@@ -159,6 +165,7 @@ Each context has its own:
 ```
 
 **Benefits:**
+
 - Clear responsibilities
 - Easier testing (mock layers)
 - Flexibility to change implementations
@@ -169,6 +176,7 @@ Each context has its own:
 **Assume everything fails eventually**
 
 **Patterns:**
+
 1. **Circuit Breaker** - Stop calling failing service
 2. **Retry with Backoff** - Exponential delay between retries
 3. **Timeout** - Don't wait forever
@@ -196,6 +204,7 @@ const result = await breaker.fire(requestParams);
 **SOLID Principles:**
 
 **S - Single Responsibility** - Class/function does one thing
+
 ```typescript
 // Bad: User class handles auth + email + logging
 class User {
@@ -217,6 +226,7 @@ class Logger {
 ```
 
 **O - Open/Closed** - Open for extension, closed for modification
+
 ```typescript
 // Good: Strategy pattern
 interface PaymentStrategy {
@@ -235,6 +245,7 @@ class PayPalPayment implements PaymentStrategy {
 ### Thinking About Edge Cases
 
 **Common Edge Cases:**
+
 - Empty arrays/collections
 - Null/undefined values
 - Boundary values (min/max integers)
@@ -267,6 +278,7 @@ async function getUsers(limit?: number) {
 **70% happy-path tests drafted by AI, humans focus on edge cases**
 
 **Test-Driven Development (TDD):**
+
 ```
 1. Write failing test
 2. Write minimal code to pass
@@ -275,6 +287,7 @@ async function getUsers(limit?: number) {
 ```
 
 **Behavior-Driven Development (BDD):**
+
 ```gherkin
 Feature: User Registration
   Scenario: User registers with valid email
@@ -290,6 +303,7 @@ Feature: User Registration
 **100% median ROI, $500k average return** from observability investments
 
 **Three Questions:**
+
 1. **Is it slow?** → Check metrics (response time, DB queries)
 2. **Is it broken?** → Check logs (errors, stack traces)
 3. **Where is it broken?** → Check traces (distributed systems)
@@ -312,6 +326,7 @@ logger.error('Payment processing failed', {
 ### API Contract Design (Treating APIs as Products)
 
 **Principles:**
+
 1. **Versioning** - `/api/v1/users`, `/api/v2/users`
 2. **Consistency** - Same patterns across endpoints
 3. **Documentation** - OpenAPI/Swagger
@@ -340,6 +355,7 @@ DELETE /api/v1/users/:id     # Delete user
 ### Database Schema Design Discussions
 
 **Key Considerations:**
+
 - **Normalization vs Denormalization** - Trade-offs for performance
 - **Indexing strategy** - Query patterns dictate indexes
 - **Migration path** - How to evolve schema without downtime
@@ -349,6 +365,7 @@ DELETE /api/v1/users/:id     # Delete user
 ### Code Review Mindset (Prevention-First)
 
 **What to Look For:**
+
 - Security vulnerabilities (SQL injection, XSS)
 - Performance issues (N+1 queries, missing indexes)
 - Error handling (uncaught exceptions)
@@ -357,6 +374,7 @@ DELETE /api/v1/users/:id     # Delete user
 - Tests (coverage for new code)
 
 **Constructive Feedback:**
+
 ```
 # Good review comment
 "This could be vulnerable to SQL injection. Consider using parameterized queries:
@@ -381,7 +399,7 @@ DELETE /api/v1/users/:id     # Delete user
 
 ## Resources
 
-- **Domain-Driven Design:** https://martinfowler.com/bliki/DomainDrivenDesign.html
-- **CAP Theorem:** https://en.wikipedia.org/wiki/CAP_theorem
-- **SOLID Principles:** https://en.wikipedia.org/wiki/SOLID
-- **Resilience Patterns:** https://docs.microsoft.com/en-us/azure/architecture/patterns/
+- **Domain-Driven Design:** <https://martinfowler.com/bliki/DomainDrivenDesign.html>
+- **CAP Theorem:** <https://en.wikipedia.org/wiki/CAP_theorem>
+- **SOLID Principles:** <https://en.wikipedia.org/wiki/SOLID>
+- **Resilience Patterns:** <https://docs.microsoft.com/en-us/azure/architecture/patterns/>

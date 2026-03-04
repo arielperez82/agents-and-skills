@@ -17,6 +17,7 @@ Load the **`context-continuity` skill** (`skills/engineering-team/context-contin
 ## Path Safety
 
 If an output path is provided:
+
 - Must not contain `..` (no path traversal)
 - Must be a relative path (no absolute paths starting with `/`)
 - Must end in `.md`
@@ -38,6 +39,7 @@ git branch --show-current       # Current branch
 ### 2. Assess Current Work
 
 Review the conversation to identify:
+
 - What the session's objective was
 - What has been accomplished (completed tasks, commits made)
 - What is currently in progress or blocked
@@ -95,6 +97,7 @@ Write the handoff snapshot to the output path using this format:
 ### 4. Confirm
 
 After writing, report:
+
 ```
 Handoff snapshot written to: <path>
 Size: <bytes>

@@ -112,6 +112,7 @@ The ui-designer agent bridges the gap between design and code, providing actiona
 **Goal:** Create comprehensive design token system with semantic tokens and multi-platform export
 
 **Steps:**
+
 1. **Audit Current Design** - Inventory existing design decisions:
    - Colors: Primary, secondary, accent, neutrals, semantic (success, error, warning, info)
    - Typography: Font families, sizes, weights, line heights, letter spacing
@@ -122,14 +123,17 @@ The ui-designer agent bridges the gap between design and code, providing actiona
    - Animations: Durations, easing functions
 
 2. **Define Token Architecture** - Structure token system:
+
    ```bash
    cat ../skills/ux-team/ui-design-system/references/design_token_standards.md | grep -A 20 "Token Taxonomy"
    ```
+
    - **Global Tokens**: Core values (color palette, type scale)
    - **Alias Tokens**: Semantic meanings (color-text-primary, color-bg-error)
    - **Component Tokens**: Component-specific overrides (button-primary-bg)
 
 3. **Create Token Specification** - Document tokens in JSON:
+
    ```json
    {
      "color": {
@@ -185,6 +189,7 @@ The ui-designer agent bridges the gap between design and code, providing actiona
    ```
 
 4. **Generate Platform-Specific Tokens** - Export for all platforms:
+
    ```bash
    # CSS Variables
    python ../skills/ux-team/ui-design-system/scripts/design_token_generator.py tokens.json --format css > tokens.css
@@ -230,6 +235,7 @@ The ui-designer agent bridges the gap between design and code, providing actiona
 **Time Estimate:** 1-2 weeks for initial token system creation (includes audit, generation, validation)
 
 **Example:**
+
 ```bash
 # Complete token generation workflow
 cat > design-tokens.json << 'EOF'
@@ -255,19 +261,24 @@ python ../skills/ux-team/ui-design-system/scripts/design_token_generator.py desi
 **Goal:** Build scalable, accessible component library with consistent API and documentation
 
 **Steps:**
+
 1. **Plan Component Hierarchy** - Structure component library:
+
    ```bash
    cat ../skills/ux-team/ui-design-system/references/design_system_principles.md | grep -A 30 "Atomic Design"
    ```
+
    - **Atoms**: Button, Input, Label, Icon, Badge
    - **Molecules**: Form Field, Search Bar, Card Header
    - **Organisms**: Navigation Bar, Form, Data Table, Modal
    - **Templates**: Page layouts, section layouts
 
 2. **Define Component API** - Design consistent component interfaces:
+
    ```bash
    cat ../skills/ux-team/ui-design-system/references/component_api_guidelines.md | head -40
    ```
+
    - **Props**: size, variant, disabled, loading, error
    - **Composition**: children, slots, render props
    - **Events**: onClick, onChange, onSubmit
@@ -275,6 +286,7 @@ python ../skills/ux-team/ui-design-system/scripts/design_token_generator.py desi
    - **Styling**: className, style, theme overrides
 
 3. **Create Component Specification** - Document component requirements:
+
    ```markdown
    # Button Component
 
@@ -310,6 +322,7 @@ python ../skills/ux-team/ui-design-system/scripts/design_token_generator.py desi
    ```
 
 4. **Implement Components** - Build with design tokens:
+
    ```jsx
    // Example: Button component using design tokens
    import tokens from './tokens.json';
@@ -352,9 +365,11 @@ python ../skills/ux-team/ui-design-system/scripts/design_token_generator.py desi
    - Integration tests: Component interactions
 
 6. **Document Components** - Create comprehensive documentation:
+
    ```bash
    cp ../skills/ux-team/ui-design-system/assets/component-doc-template.md docs/button.md
    ```
+
    - Overview: Purpose, when to use, when not to use
    - Variants: Visual examples of all variants
    - Props: Complete API documentation
@@ -363,6 +378,7 @@ python ../skills/ux-team/ui-design-system/scripts/design_token_generator.py desi
    - Design Guidelines: Spacing, alignment, combinations
 
 7. **Setup Storybook** - Interactive component showcase:
+
    ```jsx
    // Button.stories.jsx
    export default {
@@ -398,6 +414,7 @@ python ../skills/ux-team/ui-design-system/scripts/design_token_generator.py desi
 **Goal:** Create comprehensive design system documentation with contribution guidelines and governance model
 
 **Steps:**
+
 1. **Setup Documentation Site** - Choose documentation platform:
    - Docusaurus, VitePress, or Nextra (static site generators)
    - Storybook Docs (component-focused documentation)
@@ -405,6 +422,7 @@ python ../skills/ux-team/ui-design-system/scripts/design_token_generator.py desi
    - Integration with Figma (Zeroheight, Supernova)
 
 2. **Document Foundation** - Establish design principles:
+
    ```markdown
    # Design System Foundation
 
@@ -427,6 +445,7 @@ python ../skills/ux-team/ui-design-system/scripts/design_token_generator.py desi
    ```
 
 3. **Document Design Tokens** - Token catalog and usage:
+
    ```markdown
    # Color Tokens
 
@@ -455,9 +474,11 @@ python ../skills/ux-team/ui-design-system/scripts/design_token_generator.py desi
    - Do's and Don'ts
 
 5. **Create Contribution Guidelines** - Enable team contributions:
+
    ```bash
    cat ../skills/ux-team/ui-design-system/assets/design-system-starter.md | grep -A 20 "Contributing"
    ```
+
    - How to propose new components
    - Token addition process
    - Component modification workflow
@@ -494,6 +515,7 @@ python ../skills/ux-team/ui-design-system/scripts/design_token_generator.py desi
 **Goal:** Streamline design-to-code workflow with automated handoff and design system integration
 
 **Steps:**
+
 1. **Establish Handoff Process** - Define design-to-engineering workflow:
    - Design review: Accessibility, consistency, feasibility
    - Token usage: Verify designs use system tokens
@@ -502,16 +524,19 @@ python ../skills/ux-team/ui-design-system/scripts/design_token_generator.py desi
    - Handoff format: Figma Dev Mode, Zeplin, or design specs doc
 
 2. **Use Design Tokens in Figma** - Sync design and code tokens:
+
    ```bash
    # Export Figma tokens
    python ../skills/ux-team/ui-design-system/scripts/design_token_generator.py figma-export.json --format css > tokens.css
    ```
+
    - Install Figma Tokens plugin
    - Import token JSON into Figma
    - Apply tokens to design elements (colors, spacing, typography)
    - Sync bidirectionally (code ↔ Figma)
 
 3. **Create Component Mapping** - Link Figma components to code:
+
    ```markdown
    # Component Mapping
 
@@ -535,6 +560,7 @@ python ../skills/ux-team/ui-design-system/scripts/design_token_generator.py desi
    - **Responsive**: Breakpoint specifications, mobile considerations
 
 6. **Create Implementation Stories** - Break design into tasks:
+
    ```markdown
    ## Implementation Tasks
 
@@ -556,6 +582,7 @@ python ../skills/ux-team/ui-design-system/scripts/design_token_generator.py desi
    ```
 
 7. **Implement with Design System** - Build using system components:
+
    ```jsx
    import { Button, Card, Input, Badge } from '@company/design-system';
 
@@ -721,24 +748,28 @@ echo "6. Add do's and don'ts"
 ## Success Metrics
 
 **Design Token Adoption:**
+
 - **Token Coverage:** >95% of design values use defined tokens (not hard-coded)
 - **Platform Export:** Tokens available for all platforms (web, iOS, Android)
 - **Sync Accuracy:** <24 hour lag between design tool and code tokens
 - **Token Governance:** <48 hour approval for new token additions
 
 **Component Library Quality:**
+
 - **Component Coverage:** 30-50 production-ready components
 - **Accessibility Compliance:** 100% WCAG 2.1 AA compliance
 - **Test Coverage:** >80% unit test coverage, >90% critical path coverage
 - **Documentation Completeness:** 100% components have complete documentation
 
 **Design System Adoption:**
+
 - **Product Coverage:** >80% of products use design system
 - **Component Usage:** >70% of UI built with system components (not custom)
 - **Developer Satisfaction:** NPS >50 for design system DX
 - **Designer Satisfaction:** NPS >60 for design tool integration
 
 **Design-Developer Efficiency:**
+
 - **Handoff Time:** 50% reduction in design-to-code handoff time
 - **Implementation Accuracy:** 90% design-to-code match on first review
 - **Rework Rate:** 40% reduction in design-related rework

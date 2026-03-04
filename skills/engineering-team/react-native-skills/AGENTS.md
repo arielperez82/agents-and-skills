@@ -60,16 +60,21 @@ Comprehensive performance optimization guide for React Native applications, desi
    - 9.8 [Use Native Modals Over JS-Based Bottom Sheets](#98-use-native-modals-over-js-based-bottom-sheets)
    - 9.9 [Use Pressable Instead of Touchable Components](#99-use-pressable-instead-of-touchable-components)
 10. [Design System](#10-design-system) — **MEDIUM**
-   - 10.1 [Use Compound Components Over Polymorphic Children](#101-use-compound-components-over-polymorphic-children)
-11. [Monorepo](#11-monorepo) — **LOW**
-   - 11.1 [Install Native Dependencies in App Directory](#111-install-native-dependencies-in-app-directory)
-   - 11.2 [Use Single Dependency Versions Across Monorepo](#112-use-single-dependency-versions-across-monorepo)
-12. [Third-Party Dependencies](#12-third-party-dependencies) — **LOW**
-   - 12.1 [Import from Design System Folder](#121-import-from-design-system-folder)
-13. [JavaScript](#13-javascript) — **LOW**
-   - 13.1 [Hoist Intl Formatter Creation](#131-hoist-intl-formatter-creation)
-14. [Fonts](#14-fonts) — **LOW**
-   - 14.1 [Load fonts natively at build time](#141-load-fonts-natively-at-build-time)
+
+- 10.1 [Use Compound Components Over Polymorphic Children](#101-use-compound-components-over-polymorphic-children)
+1. [Monorepo](#11-monorepo) — **LOW**
+
+- 11.1 [Install Native Dependencies in App Directory](#111-install-native-dependencies-in-app-directory)
+- 11.2 [Use Single Dependency Versions Across Monorepo](#112-use-single-dependency-versions-across-monorepo)
+1. [Third-Party Dependencies](#12-third-party-dependencies) — **LOW**
+
+- 12.1 [Import from Design System Folder](#121-import-from-design-system-folder)
+1. [JavaScript](#13-javascript) — **LOW**
+
+- 13.1 [Hoist Intl Formatter Creation](#131-hoist-intl-formatter-creation)
+1. [Fonts](#14-fonts) — **LOW**
+
+- 14.1 [Load fonts natively at build time](#141-load-fonts-natively-at-build-time)
 
 ---
 

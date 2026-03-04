@@ -36,6 +36,7 @@ The "plan-validate-execute" pattern catches errors early by having the agent cre
 ### Problem Example
 
 User asks the agent to update 50 form fields in a PDF based on a spreadsheet. Without validation, the agent might:
+
 - Reference non-existent fields
 - Create conflicting values
 - Miss required fields
@@ -135,6 +136,7 @@ Many models are trained with XML tags in training data. Use them to structure co
 ```
 
 Especially useful for:
+
 - Complex multi-step workflows
 - Organizing multiple examples
 - Structuring reference material

@@ -65,12 +65,14 @@ Comprehensive checklist for reviewing code across TypeScript, JavaScript, Python
 ### TypeScript/JavaScript
 
 **Type Safety**
+
 - [ ] Proper TypeScript types (avoid `any`)
 - [ ] Interfaces defined for complex objects
 - [ ] Generic types used appropriately
 - [ ] Type guards implemented
 
 **Modern Patterns**
+
 - [ ] ES6+ features used appropriately
 - [ ] Promises/async-await over callbacks
 - [ ] Destructuring used where beneficial
@@ -78,6 +80,7 @@ Comprehensive checklist for reviewing code across TypeScript, JavaScript, Python
 - [ ] Template literals for string concatenation
 
 **React-Specific**
+
 - [ ] Hooks used correctly (dependencies)
 - [ ] Components properly memoized
 - [ ] State management is appropriate
@@ -85,6 +88,7 @@ Comprehensive checklist for reviewing code across TypeScript, JavaScript, Python
 - [ ] Keys provided for lists
 
 **Example Issues:**
+
 ```typescript
 // Bad: Using 'any' type
 function processData(data: any) {
@@ -104,6 +108,7 @@ function processData(data: DataObject): string {
 ### Python
 
 **Pythonic Code**
+
 - [ ] PEP 8 style guide followed
 - [ ] List/dict comprehensions used appropriately
 - [ ] Context managers for resources
@@ -111,6 +116,7 @@ function processData(data: DataObject): string {
 - [ ] f-strings for formatting
 
 **Common Issues**
+
 - [ ] Mutable default arguments avoided
 - [ ] `with` statements for file operations
 - [ ] Exception handling is specific
@@ -118,6 +124,7 @@ function processData(data: DataObject): string {
 - [ ] Virtual environment documented
 
 **Example:**
+
 ```python
 # Bad: Mutable default argument
 def add_item(item, items=[]):
@@ -135,6 +142,7 @@ def add_item(item, items=None):
 ### Swift
 
 **Swift-Specific**
+
 - [ ] Optional unwrapping is safe
 - [ ] Guard statements used appropriately
 - [ ] Structs vs classes chosen correctly
@@ -142,6 +150,7 @@ def add_item(item, items=None):
 - [ ] Memory management (weak/unowned)
 
 **Example:**
+
 ```swift
 // Bad: Force unwrapping
 let value = dictionary["key"]!
@@ -160,6 +169,7 @@ guard let value = dictionary["key"] else {
 ### Kotlin
 
 **Kotlin-Specific**
+
 - [ ] Null safety utilized
 - [ ] Extension functions used
 - [ ] Data classes for models
@@ -167,6 +177,7 @@ guard let value = dictionary["key"] else {
 - [ ] Scope functions used appropriately
 
 **Example:**
+
 ```kotlin
 // Bad: Null checks everywhere
 if (user != null) {
@@ -182,6 +193,7 @@ user?.name?.let { println(it) }
 ### Go
 
 **Go-Specific**
+
 - [ ] Error handling explicit
 - [ ] Defer used for cleanup
 - [ ] Goroutines managed properly
@@ -189,6 +201,7 @@ user?.name?.let { println(it) }
 - [ ] Interfaces are minimal
 
 **Example:**
+
 ```go
 // Bad: Ignoring errors
 result, _ := doSomething()
@@ -221,6 +234,7 @@ if err != nil {
 - [ ] Tests run quickly
 
 **Example Test Structure:**
+
 ```typescript
 describe('calculateTotal', () => {
   it('should return sum of positive numbers', () => {
@@ -274,6 +288,7 @@ describe('calculateTotal', () => {
 - [ ] Headers secured
 
 **Security Anti-Patterns:**
+
 ```javascript
 // Bad: SQL injection vulnerable
 const query = `SELECT * FROM users WHERE id = ${userId}`;
@@ -342,6 +357,7 @@ const user = { password: hashedPassword };
 - [ ] Signed commits (if required)
 
 **Good Commit Messages:**
+
 ```
 feat(auth): add OAuth2 login flow
 fix(api): resolve race condition in user creation
@@ -383,6 +399,7 @@ test(api): add integration tests for payments
 ### Providing Feedback
 
 **Be Constructive**
+
 - Focus on code, not person
 - Explain why, not just what
 - Suggest alternatives
@@ -390,6 +407,7 @@ test(api): add integration tests for payments
 - Use questions, not commands
 
 **Prioritize Issues**
+
 - Blocking: Security, bugs, breaking changes
 - Major: Performance, architecture, maintainability
 - Minor: Style, naming, comments
@@ -457,6 +475,7 @@ test(api): add integration tests for payments
 Use this checklist as a guide, not a rigid set of rules. Context matters - some items may not apply to every review. The goal is to catch issues early, maintain code quality, and facilitate knowledge sharing across the team.
 
 **Key Takeaways:**
+
 - Prioritize security and correctness
 - Be thorough but pragmatic
 - Provide actionable feedback

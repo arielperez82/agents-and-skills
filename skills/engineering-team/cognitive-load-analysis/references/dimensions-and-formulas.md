@@ -34,12 +34,14 @@ Measures decision-path complexity density across the codebase.
 **Raw metrics**: Cyclomatic or Cognitive Complexity per function (CogC_f or CC_f), total function count (F).
 
 **Formula**:
+
 ```
 D1_raw = 0.4 * mean(score_f for all f) + 0.6 * P90(score_f for all f)
 D1 = sigmoid(D1_raw, midpoint=15, steepness=0.15)
 ```
 
 **Sigmoid calibration**:
+
 - D1 < 0.2: Mean CogC < 5, P90 < 10 (excellent)
 - D1 0.2-0.5: Mean CogC 5-15, P90 10-25 (acceptable)
 - D1 0.5-0.8: Mean CogC 15-30, P90 25-50 (concerning)
@@ -52,6 +54,7 @@ Measures how deeply control structures are nested, compounding cognitive effort.
 **Raw metrics**: Maximum nesting depth per function (maxNest_f).
 
 **Formula**:
+
 ```
 D2_raw = 0.3 * mean(maxNest_f for all f) + 0.7 * P90(maxNest_f for all f)
 D2 = sigmoid(D2_raw, midpoint=4, steepness=0.5)
@@ -66,6 +69,7 @@ Measures whether functions, files, and classes exceed working memory capacity.
 **Raw metrics**: Lines per function (LOC_f), lines per file (LOC_file), parameters per function (params_f), methods per class (methods_c).
 
 **Formula**:
+
 ```
 size_func   = sigmoid(P90(LOC_f),     midpoint=30,  steepness=0.05)
 size_file   = sigmoid(P90(LOC_file),  midpoint=300, steepness=0.005)
@@ -84,6 +88,7 @@ Measures how well identifiers communicate intent.
 **Raw metrics**: Average identifier length, abbreviation density, single-char variable count per 100 LOC, naming convention consistency ratio.
 
 **Formula (with LLM assessment)**:
+
 ```
 naming_short       = proportion of identifiers shorter than 3 chars (excluding i, j, k, x, y)
 naming_abbrev      = abbreviation_density (already 0-1)
@@ -97,11 +102,13 @@ D4 = 0.60 * D4_static + 0.40 * llm_naming_score
 ```
 
 **LLM-agnostic fallback** (when LLM assessment is impractical):
+
 ```
 D4_fallback = 0.35 * naming_short + 0.30 * naming_abbrev + 0.15 * naming_single_char + 0.10 * naming_consistency + 0.10 * (1.0 - dictionary_coverage)
 ```
 
 **LLM Reproducibility Protocol**:
+
 - Temperature: 0
 - Sample: 20 identifiers per file, deterministic selection via SHA-256 of file path
 - Seed: `int(hashlib.sha256(file_path.encode()).hexdigest()[:8], 16)`
@@ -121,6 +128,7 @@ Measures how tightly modules depend on each other.
 **Raw metrics**: Efferent coupling per module (Ce), import count per file, instability metric.
 
 **Formula**:
+
 ```
 coupling_efferent  = sigmoid(mean(Ce), midpoint=8, steepness=0.2)
 coupling_imports   = sigmoid(mean(imports_per_file), midpoint=10, steepness=0.15)
@@ -136,11 +144,13 @@ Measures whether classes/modules have a single clear responsibility.
 **Raw metrics**: LCOM per class (0 = fully cohesive, 1 = no cohesion).
 
 **Formula (class-based languages)**:
+
 ```
 D6 = sigmoid(mean(LCOM_per_class), midpoint=0.5, steepness=4)
 ```
 
 **Formula (functional/module-based languages)**:
+
 ```
 module_cohesion = 1.0 - (avg_exports_used_together / total_exports)
 D6 = sigmoid(module_cohesion, midpoint=0.4, steepness=4)
@@ -153,6 +163,7 @@ Measures code clone density.
 **Raw metrics**: Duplication percentage (duplicated lines / total lines).
 
 **Formula**:
+
 ```
 D7 = sigmoid(duplication_pct * 100, midpoint=5, steepness=0.3)
 ```
@@ -166,6 +177,7 @@ Measures how easily a developer can find relevant code.
 **Raw metrics**: Maximum directory depth, files per directory (P90), coefficient of variation of file sizes.
 
 **Formula**:
+
 ```
 nav_depth    = sigmoid(max_directory_depth, midpoint=5, steepness=0.4)
 nav_density  = sigmoid(P90(files_per_directory), midpoint=15, steepness=0.1)
@@ -198,17 +210,21 @@ Maximum interaction penalty: +150 points (all three pairs triggered).
 ## Large Codebase Sampling
 
 For codebases exceeding 100K LOC:
+
 ```
 selected = [f for f in sorted(files) if int(hashlib.sha256(f.encode()).hexdigest()[:8], 16) % 100 < 30]
 ```
+
 Additionally always include all files exceeding 200 LOC. This deterministic method ensures identical file selection across runs.
 
 ## Polyglot Codebases
 
 Analyze each language subset independently, then aggregate weighted by LOC proportion:
+
 ```
 CLI_polyglot = sum(LOC_lang / LOC_total * CLI_lang) for each language
 ```
+
 Report both aggregate and per-language breakdowns.
 
 ## Dimension-Specific Actions (for Recommendations)

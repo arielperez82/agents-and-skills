@@ -190,6 +190,7 @@ Use this checklist before creating or refactoring an agent:
 **Learning:** Successful refactors move from monolithic agent files to thin orchestrators that delegate to specialized skills.
 
 **Refactor pattern:**
+
 1. **Identify** large agent file (>800 lines) with embedded doctrine
 2. **Extract** detailed standards into skill references
 3. **Create** skill structure: `SKILL.md` (overview) + `references/` (doctrine) + `assets/` (templates)
@@ -197,6 +198,7 @@ Use this checklist before creating or refactoring an agent:
 5. **Update** all cross-references to point to new skill locations
 
 **Success metrics:**
+
 - Agent file reduced from 1188 → 237 lines (80% reduction)
 - Zero duplication between agent and skills
 - Clear separation: agent = orchestrator, skills = doctrine
@@ -206,6 +208,7 @@ Use this checklist before creating or refactoring an agent:
 **Learning:** Three-level documentation structure improves discoverability and maintainability.
 
 **Level 1: Agent File** (~200-300 lines)
+
 - Purpose and when to use
 - Skill integration overview
 - Workflow summaries
@@ -213,6 +216,7 @@ Use this checklist before creating or refactoring an agent:
 - References to skills
 
 **Level 2: Skill SKILL.md** (~200-400 lines)
+
 - Quick start guide
 - Core principles
 - Structure overview
@@ -220,6 +224,7 @@ Use this checklist before creating or refactoring an agent:
 - References to detailed guides
 
 **Level 3: Skill References** (unlimited)
+
 - Complete doctrinal content
 - Detailed patterns and examples
 - Edge cases and gotchas
@@ -232,12 +237,14 @@ Use this checklist before creating or refactoring an agent:
 **Learning:** When refactoring, delete duplicated content **before** adding new content to avoid tool limitations.
 
 **What we learned:**
+
 - `ApplyPatch` fails on large deletions (>500 lines) with "Failed to find context"
 - Better approach: Use `search_replace` with exact old_string for large blocks
 - Or: Break into smaller sequential deletions
 - Or: Manual deletion for very large sections (user intervention)
 
 **Best practice:** During refactor:
+
 1. Extract content to skills first
 2. Delete duplicated sections from agent file immediately
 3. Then add new orchestrator content
@@ -248,10 +255,10 @@ Use this checklist before creating or refactoring an agent:
 **Learning:** Agent ecosystem learnings belong in skill references, not a single CLAUDE.md.
 
 **Routing rules:**
+
 - **Agent authoring patterns** → `skills/agent-development-team/creating-agents/references/authoring-guide.md`
 - **Agent refactoring patterns** → `skills/agent-development-team/refactoring-agents/references/refactor-guide.md` (this file)
 - **General codebase learnings** → Project-specific CLAUDE.md or domain skill references
 - **Architectural decisions** → ADRs via `adr-writer`
 
 **Implication:** `learner` agent needs updating to route learnings to appropriate skill references based on domain, not assume a single CLAUDE.md exists.
-

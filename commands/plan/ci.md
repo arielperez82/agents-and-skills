@@ -6,6 +6,7 @@ argument-hint: [github-actions-url]
 Activate `planning` skill.
 
 ## Github Actions URL
+
  $ARGUMENTS
 
 Use the `implementation-planner` subagent to read the github actions logs, analyze and find the root causes of the issues, then provide a detailed plan for implementing the fixes.

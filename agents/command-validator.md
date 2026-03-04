@@ -101,10 +101,13 @@ Use this agent when:
 **Goal:** Validate the entire commands directory and produce a pass/fail report.
 
 **Steps:**
+
 1. Run the validation script:
+
    ```bash
    python3 skills/agent-development-team/creating-agents/scripts/validate_commands.py
    ```
+
 2. Parse per-command PASS/FAIL results from stdout.
 3. Report issues (missing argument-hint, duplicate descriptions, unresolved references, naming violations).
 
@@ -117,6 +120,7 @@ Use this agent when:
 **Goal:** Validate commands when the diff touches `commands/`.
 
 **Steps:**
+
 1. Confirm the diff includes changes under `commands/`.
 2. Run `validate_commands.py` on the entire commands directory (it scans all commands to catch cross-command conflicts like duplicate descriptions).
 3. Report results with tier classification.
@@ -128,6 +132,7 @@ Use this agent when:
 **Goal:** Investigate a specific validation failure.
 
 **Steps:**
+
 1. Run `validate_commands.py` and identify the failing command.
 2. Read the failing command file to understand the issue.
 3. Report the specific issue with location and recommendation.

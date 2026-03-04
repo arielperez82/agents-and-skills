@@ -5,12 +5,14 @@ PEP 723 allows embedding dependency metadata directly in Python scripts, elimina
 ## When to Use PEP 723
 
 **Use for:**
+
 - Single-file scripts with external dependencies
 - Quick automation scripts
 - Utility scripts shared between projects
 - Scripts that need to be self-contained
 
 **Don't use for:**
+
 - Multi-file projects (use `pyproject.toml`)
 - Reusable packages/libraries
 - Projects requiring complex configuration

@@ -5,6 +5,7 @@ MongoDB Atlas is fully-managed cloud database service with automated backups, mo
 ## Quick Start
 
 ### Create Free Cluster
+
 1. Sign up at mongodb.com/atlas
 2. Create organization and project
 3. Build cluster (M0 Free Tier)
@@ -16,11 +17,13 @@ MongoDB Atlas is fully-managed cloud database service with automated backups, mo
 6. Get connection string
 
 ### Connection String Format
+
 ```
 mongodb+srv://username:password@cluster.mongodb.net/database?retryWrites=true&w=majority
 ```
 
 ### Connect
+
 ```javascript
 // Node.js
 const { MongoClient } = require("mongodb");
@@ -42,6 +45,7 @@ db = client.myDatabase
 ## Cluster Tiers
 
 ### M0 (Free Tier)
+
 - 512 MB storage
 - Shared CPU/RAM
 - Perfect for development/learning
@@ -49,6 +53,7 @@ db = client.myDatabase
 - No backups
 
 ### M10+ (Dedicated Clusters)
+
 - Dedicated resources
 - 2GB - 4TB+ storage
 - Automated backups
@@ -58,6 +63,7 @@ db = client.myDatabase
 - VPC peering
 
 ### Serverless
+
 - Pay per operation
 - Auto-scales to zero
 - Good for sporadic workloads
@@ -67,6 +73,7 @@ db = client.myDatabase
 ## Database Configuration
 
 ### Create Database
+
 ```javascript
 // Via Atlas UI: Database → Add Database
 // Via shell
@@ -79,6 +86,7 @@ await db.createCollection("myCollection");
 ```
 
 ### Schema Validation
+
 ```javascript
 // Set validation rules in Atlas UI or via shell
 db.createCollection("users", {
@@ -98,6 +106,7 @@ db.createCollection("users", {
 ## Security
 
 ### Network Access
+
 ```javascript
 // IP Whitelist (Atlas UI → Network Access)
 // - Add IP Address: specific IPs
@@ -109,6 +118,7 @@ mongodb+srv://cluster.mongodb.net/?retryWrites=true&w=majority&ssl=true
 ```
 
 ### Database Users
+
 ```javascript
 // Create via Atlas UI → Database Access
 // - Username/password authentication
@@ -123,6 +133,7 @@ mongodb+srv://cluster.mongodb.net/?retryWrites=true&w=majority&ssl=true
 ```
 
 ### Encryption
+
 ```javascript
 // Encryption at rest (automatic on M10+)
 // Encryption in transit (TLS/SSL, always enabled)
@@ -144,6 +155,7 @@ const client = new MongoClient(uri, { autoEncryption: autoEncryptionOpts });
 ## Backups and Snapshots
 
 ### Cloud Backups (M10+)
+
 ```javascript
 // Automatic continuous backups
 // - Snapshots every 6-24 hours
@@ -157,6 +169,7 @@ const client = new MongoClient(uri, { autoEncryption: autoEncryptionOpts });
 ```
 
 ### Manual Backups
+
 ```bash
 # Export using mongodump
 mongodump --uri="mongodb+srv://user:pass@cluster.mongodb.net/mydb" --out=/backup
@@ -168,6 +181,7 @@ mongorestore --uri="mongodb+srv://..." /backup/mydb
 ## Monitoring and Alerts
 
 ### Metrics Dashboard
+
 ```javascript
 // Atlas UI → Metrics
 // Key metrics:
@@ -185,6 +199,7 @@ mongorestore --uri="mongodb+srv://..." /backup/mydb
 ```
 
 ### Alerts
+
 ```javascript
 // Configure via Atlas UI → Alerts
 // Alert types:
@@ -203,6 +218,7 @@ mongorestore --uri="mongodb+srv://..." /backup/mydb
 ```
 
 ### Performance Advisor
+
 ```javascript
 // Automatic index recommendations
 // Atlas UI → Performance Advisor
@@ -222,6 +238,7 @@ mongorestore --uri="mongodb+srv://..." /backup/mydb
 ## Atlas Search (Full-Text Search)
 
 ### Create Search Index
+
 ```javascript
 // Atlas UI → Search → Create Index
 
@@ -247,6 +264,7 @@ mongorestore --uri="mongodb+srv://..." /backup/mydb
 ```
 
 ### Search Queries
+
 ```javascript
 // Aggregation pipeline with $search
 db.articles.aggregate([
@@ -286,6 +304,7 @@ db.articles.aggregate([
 ## Atlas Vector Search (AI/ML)
 
 ### Create Vector Search Index
+
 ```javascript
 // For AI similarity search (embeddings)
 {
@@ -301,6 +320,7 @@ db.articles.aggregate([
 ```
 
 ### Vector Search Query
+
 ```javascript
 // Search by similarity
 db.products.aggregate([
@@ -326,6 +346,7 @@ db.products.aggregate([
 ## Data Federation
 
 ### Query Across Sources
+
 ```javascript
 // Federated database instance
 // Query data from:
@@ -355,6 +376,7 @@ db.sales.find({ region: "US" })
 ## Atlas Charts (Embedded Analytics)
 
 ### Create Dashboard
+
 ```javascript
 // Atlas UI → Charts → New Dashboard
 // Data source: Atlas cluster
@@ -393,6 +415,7 @@ atlas backups snapshots list --clusterName myCluster
 ## Best Practices
 
 1. **Use connection pooling** - Reuse connections
+
 ```javascript
 const client = new MongoClient(uri, {
   maxPoolSize: 50,
@@ -400,28 +423,30 @@ const client = new MongoClient(uri, {
 });
 ```
 
-2. **Enable authentication** - Always use database users, not Atlas users
+1. **Enable authentication** - Always use database users, not Atlas users
 
-3. **Restrict network access** - IP whitelist or VPC peering
+2. **Restrict network access** - IP whitelist or VPC peering
 
-4. **Monitor regularly** - Set up alerts for key metrics
+3. **Monitor regularly** - Set up alerts for key metrics
 
-5. **Index optimization** - Use Performance Advisor recommendations
+4. **Index optimization** - Use Performance Advisor recommendations
 
-6. **Backup verification** - Regularly test restores
+5. **Backup verification** - Regularly test restores
 
-7. **Right-size clusters** - Start small, scale as needed
+6. **Right-size clusters** - Start small, scale as needed
 
-8. **Multi-region** - For global applications (M10+)
+7. **Multi-region** - For global applications (M10+)
 
-9. **Read preferences** - Use secondaries for read-heavy workloads
+8. **Read preferences** - Use secondaries for read-heavy workloads
+
 ```javascript
 const client = new MongoClient(uri, {
   readPreference: "secondaryPreferred"
 });
 ```
 
-10. **Connection string security** - Use environment variables
+1. **Connection string security** - Use environment variables
+
 ```javascript
 const uri = process.env.MONGODB_URI;
 ```
@@ -429,6 +454,7 @@ const uri = process.env.MONGODB_URI;
 ## Troubleshooting
 
 ### Connection Issues
+
 ```javascript
 // Check IP whitelist
 // Verify credentials
@@ -442,6 +468,7 @@ const client = new MongoClient(uri, {
 ```
 
 ### Performance Issues
+
 ```javascript
 // Check Performance Advisor
 // Review slow query logs
@@ -453,6 +480,7 @@ db.serverStatus().connections
 ```
 
 ### Common Errors
+
 ```javascript
 // MongoNetworkError: IP not whitelisted
 // → Add IP to Network Access

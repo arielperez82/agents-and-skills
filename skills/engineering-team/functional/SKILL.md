@@ -27,6 +27,7 @@ Immutable data is the foundation of functional programming. Understanding WHY he
 - **Concurrency-safe**: No race conditions when data can't change
 
 **Example of the problem:**
+
 ```typescript
 // ❌ WRONG - Mutation creates unpredictable behavior
 const user = { name: 'Alice', permissions: ['read'] };
@@ -49,12 +50,14 @@ console.log(updatedUser.permissions); // ['read', 'write'] - new version
 We follow "Functional Light" principles - practical functional patterns without heavy abstractions:
 
 **What we DO:**
+
 - Pure functions and immutable data
 - Composition and declarative code
 - Array methods over loops
 - Type safety and readonly
 
 **What we DON'T do:**
+
 - Category theory or monads
 - Heavy FP libraries (fp-ts, Ramda)
 - Over-engineering with abstractions
@@ -63,6 +66,7 @@ We follow "Functional Light" principles - practical functional patterns without 
 **Why:** The goal is **maintainable, testable code** - not academic purity. If a functional pattern makes code harder to understand, don't use it.
 
 **Example - Keep it simple:**
+
 ```typescript
 // ✅ GOOD - Simple, clear, functional
 const activeUsers = users.filter(u => u.active);
@@ -88,6 +92,7 @@ Code should be clear through naming and structure. Comments indicate unclear cod
 ### Examples
 
 ❌ **WRONG - Comments explaining unclear code**
+
 ```typescript
 // Get the user and check if active and has permission
 function check(u: any) {
@@ -106,6 +111,7 @@ function check(u: any) {
 ```
 
 ✅ **CORRECT - Self-documenting code**
+
 ```typescript
 function canUserAccessResource(user: User | undefined): boolean {
   if (!user) return false;
@@ -130,6 +136,7 @@ If code requires comments to understand, refactor instead:
 - Use type aliases for domain concepts
 
 ✅ **Acceptable JSDoc for public APIs**
+
 ```typescript
 /**
  * Registers a scenario for runtime switching.
@@ -150,6 +157,7 @@ Prefer `map`, `filter`, `reduce` for transformations. They're declarative (what,
 ### Map - Transform Each Element
 
 ❌ **WRONG - Imperative loop**
+
 ```typescript
 const scenarioIds = [];
 for (const scenario of scenarios) {
@@ -158,6 +166,7 @@ for (const scenario of scenarios) {
 ```
 
 ✅ **CORRECT - Functional map**
+
 ```typescript
 const scenarioIds = scenarios.map(s => s.id);
 ```
@@ -165,6 +174,7 @@ const scenarioIds = scenarios.map(s => s.id);
 ### Filter - Select Subset
 
 ❌ **WRONG - Imperative loop**
+
 ```typescript
 const activeScenarios = [];
 for (const scenario of scenarios) {
@@ -175,6 +185,7 @@ for (const scenario of scenarios) {
 ```
 
 ✅ **CORRECT - Functional filter**
+
 ```typescript
 const activeScenarios = scenarios.filter(s => s.active);
 ```
@@ -182,6 +193,7 @@ const activeScenarios = scenarios.filter(s => s.active);
 ### Reduce - Aggregate Values
 
 ❌ **WRONG - Imperative loop**
+
 ```typescript
 let total = 0;
 for (const item of items) {
@@ -190,6 +202,7 @@ for (const item of items) {
 ```
 
 ✅ **CORRECT - Functional reduce**
+
 ```typescript
 const total = items.reduce((sum, item) => sum + item.price * item.quantity, 0);
 ```
@@ -197,6 +210,7 @@ const total = items.reduce((sum, item) => sum + item.price * item.quantity, 0);
 ### Chaining Multiple Operations
 
 ✅ **CORRECT - Compose array methods**
+
 ```typescript
 const total = items
   .filter(item => item.active)
@@ -207,11 +221,13 @@ const total = items
 ### When Loops Are Acceptable
 
 Imperative loops are fine when:
+
 - Early termination is essential (use `for...of` with `break`)
 - Performance critical (measure first!)
 - Side effects are necessary (logging, DOM manipulation)
 
 But even then, consider:
+
 - `Array.find()` for early termination
 - `Array.some()` / `Array.every()` for boolean checks
 
@@ -224,6 +240,7 @@ Default to options objects for function parameters. This improves readability an
 ### Why Options Objects?
 
 **Benefits:**
+
 - Named parameters (clear what each argument means)
 - No ordering dependencies
 - Easy to add optional parameters
@@ -233,6 +250,7 @@ Default to options objects for function parameters. This improves readability an
 ### Examples
 
 ❌ **WRONG - Positional parameters**
+
 ```typescript
 function createPayment(
   amount: number,
@@ -250,6 +268,7 @@ createPayment(100, 'GBP', 'card_123', '123', true, false);
 ```
 
 ✅ **CORRECT - Options object**
+
 ```typescript
 type CreatePaymentOptions = {
   amount: number;
@@ -278,6 +297,7 @@ createPayment({
 ### When Positional Parameters Are OK
 
 Use positional parameters when:
+
 - 1-2 parameters max
 - Order is obvious (e.g., `add(a, b)`)
 - High-frequency utility functions
@@ -316,6 +336,7 @@ Pure functions have no side effects and always return the same output for the sa
 ### Examples
 
 ❌ **WRONG - Impure function (mutations)**
+
 ```typescript
 function addScenario(scenarios: Scenario[], newScenario: Scenario): void {
   scenarios.push(newScenario); // ❌ Mutates input
@@ -329,6 +350,7 @@ function increment(): number {
 ```
 
 ✅ **CORRECT - Pure functions**
+
 ```typescript
 function addScenario(
   scenarios: ReadonlyArray<Scenario>,
@@ -386,6 +408,7 @@ Compose small functions into larger ones. Each function does one thing well.
 ### Examples
 
 ❌ **WRONG - Complex monolithic function**
+
 ```typescript
 function registerScenario(input: unknown) {
   if (typeof input !== 'object' || !input) {
@@ -405,6 +428,7 @@ function registerScenario(input: unknown) {
 ```
 
 ✅ **CORRECT - Composed functions**
+
 ```typescript
 // Small, focused functions
 const validate = (input: unknown) => ScenarioSchema.parse(input);
@@ -533,6 +557,7 @@ type Mock = {
 ### Examples
 
 ❌ **WRONG - Deep nesting (4+ levels)**
+
 ```typescript
 function processOrder(order: Order) {
   if (order.items.length > 0) {
@@ -548,6 +573,7 @@ function processOrder(order: Order) {
 ```
 
 ✅ **CORRECT - Flat with early returns**
+
 ```typescript
 function processOrder(order: Order) {
   if (order.items.length === 0) return;
@@ -560,6 +586,7 @@ function processOrder(order: Order) {
 ```
 
 ✅ **CORRECT - Extract to functions**
+
 ```typescript
 function processOrder(order: Order) {
   if (!canProcessOrder(order)) return;

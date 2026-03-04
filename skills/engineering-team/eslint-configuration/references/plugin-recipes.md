@@ -27,11 +27,13 @@ import simpleImportSort from 'eslint-plugin-simple-import-sort';
 ```
 
 **What it catches:**
+
 - Unsorted import statements
 - Mixed import grouping (external and internal imports interleaved)
 - Unsorted named exports
 
 **Default sort order:**
+
 1. Side-effect imports (`import './polyfills'`)
 2. Node.js builtins (`import fs from 'node:fs'`)
 3. External packages (`import React from 'react'`)
@@ -55,6 +57,7 @@ rules: {
 ```
 
 **Gotchas:**
+
 - Conflicts with ESLint's built-in `sort-imports` rule. Disable it: `'sort-imports': 'off'`.
 - Conflicts with `import/order` from eslint-plugin-import. Disable it if using both plugins.
 - 100% auto-fixable -- `eslint --fix` handles all violations.
@@ -81,11 +84,13 @@ import sonarjsPlugin from 'eslint-plugin-sonarjs';
 **What it catches:**
 
 Bug detection:
+
 - Identical expressions on both sides of a binary operator
 - Collection operations with no effect (e.g., calling `.reverse()` without using the result)
 - Gratuitous boolean expressions in conditions
 
 Code smell detection:
+
 - Cognitive complexity exceeding threshold (default: 15)
 - Duplicate string literals (3+ occurrences)
 - Collapsible if-statements (nested ifs that can be combined)
@@ -159,16 +164,19 @@ export default tseslint.config(
 ```
 
 **What it does:**
+
 - Turns OFF every ESLint rule that conflicts with Prettier formatting
 - Covers rules from: eslint core, typescript-eslint, and many plugins
 - Does NOT run Prettier -- only disables conflicting rules
 
 **What it does NOT do:**
+
 - Does not format code (use Prettier directly)
 - Does not add any new rules
 - Does not require Prettier to be installed (though you should have it)
 
 **Gotchas:**
+
 - Must come after any config that enables formatting rules (e.g., after `strictTypeChecked`, after `sonarjs`). If placed before, those configs will re-enable the formatting rules Prettier disabled.
 - Do NOT use `eslint-plugin-prettier` (which runs Prettier as an ESLint rule). It is slow and produces confusing error messages. Run Prettier separately.
 
@@ -190,6 +198,7 @@ jsxA11y.flatConfigs.recommended,
 ```
 
 **What it catches:**
+
 - `<img>` without `alt` attribute
 - Invalid ARIA attributes or roles
 - Non-interactive elements with click handlers but no keyboard equivalent
@@ -207,6 +216,7 @@ jsxA11y.flatConfigs.strict,
 Strict mode errors on things recommended mode only warns about.
 
 **Gotchas:**
+
 - Only applicable to projects using JSX (React, Preact, Solid). Do not add to pure TypeScript/Node.js projects.
 - Uses `flatConfigs` (not `configs`). The legacy `configs.recommended` is for `.eslintrc` format.
 
@@ -237,17 +247,20 @@ import reactHooks from 'eslint-plugin-react-hooks';
 **What it catches:**
 
 `rules-of-hooks` (error):
+
 - Hooks called inside conditions (`if (x) { useState() }`)
 - Hooks called inside loops
 - Hooks called inside nested functions
 - Hooks called in non-component, non-hook functions
 
 `exhaustive-deps` (warn):
+
 - Missing dependencies in `useEffect`, `useMemo`, `useCallback`, `useImperativeHandle`
 - Unnecessary dependencies (values that never change)
 - Functions defined outside the hook but used inside without being listed
 
 **Gotchas:**
+
 - `exhaustive-deps` is set to `warn` by default for good reason -- it can produce false positives with stable references (dispatch functions, refs). Promoting to `error` requires discipline.
 - The plugin currently does not ship a flat config preset. You must manually register the plugin and rules as shown above.
 - Only applicable to React projects. Do not add to Vue, Svelte, or non-framework projects.

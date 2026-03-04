@@ -67,6 +67,7 @@ When overlap exists, compare quality:
 ## Integration Checklist (Post-Decision)
 
 ### For ADD
+
 - [ ] Create skill directory under `.claude/skills/{skill-name}/`
 - [ ] Add SKILL.md with proper frontmatter (description, capabilities, dependencies)
 - [ ] Wire cross-skill imports following the project's existing pattern
@@ -75,6 +76,7 @@ When overlap exists, compare quality:
 - [ ] Update project documentation (MEMORY.md, CLAUDE.md, etc.)
 
 ### For MERGE-IN
+
 - [ ] Identify target existing skill for merge
 - [ ] List specific functions/modules to migrate
 - [ ] Write tests for migrated functionality first
@@ -84,6 +86,7 @@ When overlap exists, compare quality:
 - [ ] Update target skill's SKILL.md capabilities list
 
 ### For ADAPT
+
 - [ ] Identify unique capabilities to extract
 - [ ] Determine target skill for integration
 - [ ] Write tests for new capabilities first
@@ -92,6 +95,7 @@ When overlap exists, compare quality:
 - [ ] Verify existing tests still pass
 
 ### For REPLACE
+
 - [ ] Document all dependents of existing skill
 - [ ] Create migration plan for each dependent
 - [ ] Write compatibility tests for dependent expectations
@@ -100,6 +104,7 @@ When overlap exists, compare quality:
 - [ ] Remove old skill, update all references
 
 ### For REJECT
+
 - [ ] Document rejection reasoning
 - [ ] Note any partial value for future reference
 - [ ] Clean up sandbox

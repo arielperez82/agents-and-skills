@@ -14,6 +14,7 @@
 ## 1. Communication Objectives
 
 ### Primary Goals
+
 - [ ] Ensure timely and accurate information flow during incidents
 - [ ] Maintain stakeholder confidence through transparent communication
 - [ ] Meet regulatory notification requirements
@@ -21,6 +22,7 @@
 - [ ] Support effective incident response coordination
 
 ### Communication Principles
+
 1. **Accuracy over speed** - Only communicate verified information
 2. **Consistency** - Single source of truth from designated spokesperson
 3. **Appropriateness** - Tailor message to audience
@@ -345,7 +347,8 @@ Submitted by:
 
 ## 7. Communication Dos and Don'ts
 
-### DO:
+### DO
+
 - [ ] Stick to verified facts only
 - [ ] Use approved templates and channels
 - [ ] Document all communications with timestamps
@@ -354,7 +357,8 @@ Submitted by:
 - [ ] Provide clear next steps and contact information
 - [ ] Use encrypted channels for sensitive information
 
-### DON'T:
+### DON'T
+
 - [ ] Speculate about cause, impact, or attribution
 - [ ] Share technical vulnerability details externally
 - [ ] Communicate outside designated channels

@@ -9,11 +9,13 @@
 **Before approving any PR claiming "100% coverage":**
 
 1. Check out the branch
+
    ```bash
    git checkout feature-branch
    ```
 
 2. Run coverage verification:
+
    ```bash
    cd packages/core
    pnpm test:coverage

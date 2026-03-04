@@ -7,16 +7,19 @@ Hey Claude—I just added the "senior-ml-engineer" skill. Can you analyze my cur
 ## Example Invocations
 
 ### Example 1: Basic Usage
+
 ```
 Hey Claude—I just added the "senior-ml-engineer" skill. Can you analyze my current codebase?
 ```
 
 ### Example 2: Specific Workflow
+
 ```
 Hey Claude—I just added the "senior-ml-engineer" skill. Can you help me with ml model deployment to production?
 ```
 
 ### Example 3: Integration with Other Skills
+
 ```
 Hey Claude—I just added the "senior-ml-engineer" skill. Can you use it together with related skills to deliver a complete solution?
 ```

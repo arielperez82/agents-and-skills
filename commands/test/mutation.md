@@ -21,6 +21,7 @@ Use the `qa-engineer` subagent with the `mutation-testing` skill to assess how w
 ## Output
 
 Structured report with:
+
 - Mutation score (killed / total mutants)
 - Survived mutants with source location and mutation type
 - Recommended test cases to kill survivors (prioritized by risk)

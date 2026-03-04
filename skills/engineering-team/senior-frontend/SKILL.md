@@ -54,6 +54,7 @@ Expert frontend development skill with comprehensive tools for building modern, 
 This skill provides production-ready frontend development capabilities through three Python automation tools and extensive reference documentation. Whether building React components, optimizing Next.js applications, implementing state management, or improving performance, this skill ensures best practices and scalable architecture.
 
 **What This Skill Provides:**
+
 - Component generation with TypeScript, tests, and stories
 - Bundle analysis and optimization recommendations
 - Project scaffolding for Next.js and React applications
@@ -62,6 +63,7 @@ This skill provides production-ready frontend development capabilities through t
 - Performance optimization techniques (code splitting, memoization)
 
 **Use this skill when:**
+
 - Developing React/Next.js applications
 - Building reusable component libraries
 - Optimizing frontend performance and bundle size
@@ -110,6 +112,7 @@ cd my-app && npm install && npm run dev
 ### 1. Building Component Library
 
 **Steps:**
+
 1. Scaffold project: `python scripts/frontend_scaffolder.py ui-library --framework nextjs`
 2. Generate atoms: Button, Input, Label components
 3. Generate molecules: FormField, SearchBar using atoms
@@ -118,6 +121,7 @@ cd my-app && npm install && npm run dev
 6. Document with Storybook stories
 
 **Component Patterns:**
+
 - Atomic Design hierarchy (atoms → molecules → organisms)
 - TypeScript for type safety
 - Tailwind CSS with CVA for variants
@@ -129,6 +133,7 @@ cd my-app && npm install && npm run dev
 ### 2. Performance Optimization
 
 **Optimization Workflow:**
+
 1. Build for production: `npm run build`
 2. Analyze bundle: `python scripts/bundle_analyzer.py .next/ --verbose`
 3. Identify large dependencies and duplicates
@@ -140,6 +145,7 @@ cd my-app && npm install && npm run dev
 5. Re-analyze and verify improvements
 
 **Optimization Techniques:**
+
 - Lazy loading with React.lazy()
 - useMemo and useCallback for expensive operations
 - React.memo for component memoization
@@ -151,11 +157,13 @@ cd my-app && npm install && npm run dev
 ### 3. State Management Implementation
 
 **For Simple State:**
+
 - Use Zustand for lightweight global state
 - localStorage persistence with middleware
 - TypeScript for type-safe state
 
 **For Complex State:**
+
 - Context + useReducer for complex flows
 - Actions and reducers pattern
 - Separate context per domain
@@ -165,6 +173,7 @@ cd my-app && npm install && npm run dev
 ### 4. Next.js Application Development
 
 **Development Workflow:**
+
 1. Scaffold Next.js project with App Router
 2. Implement layouts (Dashboard, Auth, Marketing)
 3. Create pages with server components
@@ -175,6 +184,7 @@ cd my-app && npm install && npm run dev
 8. Optimize for production
 
 **Next.js Features:**
+
 - Server Components for better performance
 - Server-side rendering (SSR) for dynamic content
 - Static generation (SSG) for static pages
@@ -186,6 +196,7 @@ cd my-app && npm install && npm run dev
 ### 5. Testing and Quality Assurance
 
 **Testing Strategy:**
+
 1. Unit tests for components (Testing Library)
 2. Custom hook tests with renderHook
 3. Integration tests for user flows
@@ -193,6 +204,7 @@ cd my-app && npm install && npm run dev
 5. E2E tests with Playwright
 
 **Testing Best Practices:**
+
 - Test user behavior, not implementation
 - Use semantic queries (getByRole, getByLabelText)
 - Mock external dependencies
@@ -207,6 +219,7 @@ cd my-app && npm install && npm run dev
 Automated React component generation with TypeScript, tests, and documentation.
 
 **Key Features:**
+
 - Multiple component types (functional, compound, HOC, hook)
 - Atomic design level support (atom, molecule, organism, template)
 - Styling options (Tailwind, CSS Modules, styled-components)
@@ -215,6 +228,7 @@ Automated React component generation with TypeScript, tests, and documentation.
 - TypeScript definitions with proper types
 
 **Usage:**
+
 ```bash
 # Complete component with tests and stories
 python scripts/component_generator.py Button --complete
@@ -233,6 +247,7 @@ python scripts/component_generator.py useDebounce --type hook --tests
 Advanced bundle analysis for identifying optimization opportunities.
 
 **Key Features:**
+
 - Bundle size breakdown by page
 - Largest dependencies identification
 - Duplicate package detection
@@ -242,6 +257,7 @@ Advanced bundle analysis for identifying optimization opportunities.
 - Before/after comparisons
 
 **Usage:**
+
 ```bash
 # Analyze build
 python scripts/bundle_analyzer.py .next/ --verbose
@@ -260,6 +276,7 @@ python scripts/bundle_analyzer.py .next/ --compare baseline.html
 Complete project scaffolding for Next.js and React applications.
 
 **Key Features:**
+
 - Next.js 14 (App Router) or React + Vite support
 - TypeScript configuration
 - Tailwind CSS with custom theme
@@ -270,6 +287,7 @@ Complete project scaffolding for Next.js and React applications.
 - CI/CD pipelines (GitHub Actions)
 
 **Usage:**
+
 ```bash
 # Next.js project with all features
 python scripts/frontend_scaffolder.py my-app --framework nextjs --complete
@@ -332,6 +350,7 @@ Complete tool documentation:
 ## Best Practices Summary
 
 ### Component Design
+
 - Use TypeScript for type safety
 - Follow Atomic Design principles
 - Keep components small and focused
@@ -339,6 +358,7 @@ Complete tool documentation:
 - Implement proper prop types and defaults
 
 ### Performance
+
 - Code split routes and heavy components
 - Memoize expensive computations
 - Use React.memo for pure components
@@ -347,6 +367,7 @@ Complete tool documentation:
 - Lazy load below-the-fold content
 
 ### State Management
+
 - Keep state close to where it's used
 - Use Zustand for simple global state
 - Context + useReducer for complex flows
@@ -354,6 +375,7 @@ Complete tool documentation:
 - Avoid prop drilling with composition
 
 ### Testing
+
 - Test user behavior, not implementation
 - Use semantic queries (getByRole, getByLabelText)
 - Mock external dependencies
@@ -361,6 +383,7 @@ Complete tool documentation:
 - Maintain 80%+ coverage on critical paths
 
 ### Accessibility
+
 - Use semantic HTML elements
 - Implement proper ARIA labels
 - Ensure keyboard navigation
@@ -393,6 +416,7 @@ pnpm run build-storybook  # Build static Storybook
 ## Integration Points
 
 This skill integrates with:
+
 - **Backend Skills:** API consumption, authentication
 - **Design Skills:** Figma integration, design tokens
 - **QA Skills:** E2E testing, visual regression

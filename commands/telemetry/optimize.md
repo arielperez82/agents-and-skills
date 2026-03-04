@@ -74,6 +74,7 @@ The pipe returns cost attribution by agent and model:
 ### Step 4: Merge Results
 
 Join the two result sets by `agent_type`:
+
 - `optimization_insights` provides: avg_cost_per_invocation, avg_tokens, cache_hit_rate, frequency, efficiency_score
 - `cost_by_agent` provides: model, total_input, total_output, total_cache_read, total_cost_usd
 
@@ -97,33 +98,40 @@ Load the **agent-cost-optimization** skill and apply its Benchmarks thresholds. 
 For each agent, generate an actionable recommendation based on its priority bucket:
 
 **CRITICAL agents:**
+
 - Follow the skill's 3-step diagnostic workflow: (1) Check model tier -- is opus used where sonnet would suffice? (2) Check prompt size -- avg_tokens relative to token budget guidelines. (3) Check invocation frequency -- is the agent called more often than needed?
 - If the agent uses an `opus` model, include: "Consider downgrading to sonnet."
 - If the agent already uses `sonnet` or `haiku`, focus on prompt size and invocation frequency instead.
 
 **HIGH agents:**
+
 - "Review model selection and prompt size; consider caching or prompt compression."
 - Address the primary cost driver visible in the metrics.
 
 **MEDIUM agents:**
+
 - "Improve cache hit rate: front-load stable content in prompts, minimize variable prefixes, use consistent formatting."
 - Reference prompt structure guidance from the skill's Cache Optimization Strategies section.
 
 **LOW agents:**
+
 - "Healthy -- monitor only."
 
 **Additional signals (append to any recommendation when triggered):**
+
 - `avg_tokens` > 30,000: append "[token budget critical]"
 - `avg_tokens` > 10,000 (and <= 30,000): append "[token budget warning]"
 - `input_ratio` > 0.95: append "[prompt bloat]"
 
 **Model tier mismatch (append when triggered):**
+
 - If an agent uses `opus` (or `claude-opus`) AND is NOT classified as CRITICAL, append: "Uses opus but cost is not critical -- review if sonnet would suffice."
 - Do NOT add this for CRITICAL agents (model tier is already part of the CRITICAL diagnostic workflow).
 
 ### Step 7: Sort and Render
 
 Sort the merged, classified results:
+
 1. By priority: CRITICAL > HIGH > MEDIUM > LOW
 2. Within the same priority, by `avg_cost_per_invocation` descending
 
@@ -163,6 +171,7 @@ Do not render a table.
 ### One pipe fails, the other succeeds
 
 Render the table using available data:
+
 - If `cost_by_agent` failed: set Model column to "query failed" for all agents, omit input_ratio and model tier mismatch signals. Display a warning about partial results.
 - If `optimization_insights` failed: cannot classify agents. Display an error -- classification requires optimization_insights data.
 

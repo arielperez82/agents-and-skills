@@ -27,6 +27,7 @@ Use `workshop-facilitation` as the interaction protocol throughout. Ask one ques
 ### Phase 1: Frame the Problem
 
 If `$ARGUMENTS` is empty or vague, use `workshop-facilitation` to elicit:
+
 - What problem or opportunity are we exploring?
 - Who is affected? (customer segment, persona)
 - Why now? (trigger, urgency, strategic context)
@@ -45,6 +46,7 @@ Launch three agents **in parallel**:
 3. **`researcher`** — Market gaps, competitive landscape, industry trends. Focus on: Has anyone solved this? What approaches exist? What are the risks?
 
 **Prompt each agent with:**
+
 - The problem hypothesis from Phase 1
 - Their specific focus area
 - Instruction to keep output concise (max 150 lines per report)
@@ -71,10 +73,12 @@ Combine all agent outputs into a discovery report:
 ### Phase 5: Write Discovery Report
 
 Write the report to `.docs/reports/discovery-{date}-{subject}.md` where:
+
 - `{date}` is today's date in YYYY-MM-DD format
 - `{subject}` is a kebab-case slug derived from the problem hypothesis (max 5 words)
 
 **Report structure:**
+
 ```markdown
 # Discovery Report: {Subject}
 

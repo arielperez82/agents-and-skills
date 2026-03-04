@@ -170,6 +170,7 @@ Profile CPU usage:
 5. Stop and analyze
 
 Focus on:
+
 - Heavy functions (high "Weight")
 - Call tree depth
 - Main thread blocking

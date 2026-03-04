@@ -139,6 +139,7 @@ Use this agent when:
 **Goal:** Design and write a new agent that orchestrates existing skills.
 
 **Steps:**
+
 1. Clarify the agent’s **job-to-be-done** and outputs.
 2. Invoke the `creating-agents` skill:
    - Read `../../skills/agent-development-team/creating-agents/SKILL.md`.
@@ -160,6 +161,7 @@ Use this agent when:
 **Goal:** Resolve overlap between two or more agents and produce a concrete refactor plan.
 
 **Steps:**
+
 1. Identify in-scope agents and symptoms (overlap, confusion, missing role).
 2. Invoke the `refactoring-agents` skill:
    - Read `../../skills/agent-development-team/refactoring-agents/SKILL.md`.
@@ -179,6 +181,7 @@ Use this agent when:
 **Goal:** Add a new guardian/validator agent or other cross-cutting coordination role without harming clarity.
 
 **Steps:**
+
 1. Use `refactoring-agents` to:
    - Confirm that a new guardian is warranted vs expanding an existing one.
    - Define what the guardian assesses and when it is invoked.

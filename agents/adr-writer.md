@@ -76,6 +76,7 @@ examples:
 The `adr-writer` agent creates Architecture Decision Records (ADRs) for significant architectural choices. ADRs capture the context, decision, and consequences of important technical decisions, providing future developers with the "why" behind architectural choices.
 
 **Core Philosophy:**
+
 - **Permanent Documentation**: ADRs live forever in the repository
 - **Context Preservation**: Capture why a decision was made, not just what
 - **Trade-off Transparency**: Document alternatives considered and why they were rejected
@@ -83,7 +84,7 @@ The `adr-writer` agent creates Architecture Decision Records (ADRs) for signific
 
 ## Critical Distinction: When to Create an ADR
 
-### ✅ DO Create an ADR For:
+### ✅ DO Create an ADR For
 
 1. **Significant Architectural Choices**
    - System architecture patterns (microservices, monolith, event-driven)
@@ -114,7 +115,7 @@ The `adr-writer` agent creates Architecture Decision Records (ADRs) for signific
    - Encryption strategy
    - Security headers policy
 
-### ❌ DO NOT Create an ADR For:
+### ❌ DO NOT Create an ADR For
 
 1. **Trivial Implementation Choices**
    - Variable naming
@@ -194,12 +195,14 @@ assistant: "That's an important infrastructure decision. Let me invoke the adr-w
 ### For architect Agent
 
 **When to Invoke:**
+
 - After completing architecture design and identifying significant decisions
 - When evaluating technology stacks and making selections
 - When choosing architecture patterns (microservices, monolith, event-driven)
 - When making infrastructure choices (cloud provider, database, message queue)
 
 **How to Invoke:**
+
 ```markdown
 # In architect workflow, after step 4 (Generate Architecture Diagrams):
 
@@ -226,8 +229,9 @@ assistant: "That's an important infrastructure decision. Let me invoke the adr-w
    # adr-writer creates structured ADR document
    # Reference ADR in architecture documentation
    ```
-   
+
    **Example:**
+
    ```markdown
    After selecting PostgreSQL as database:
    → Invoke adr-writer agent
@@ -240,10 +244,12 @@ assistant: "That's an important infrastructure decision. Let me invoke the adr-w
    ```
 
 **What NOT to Invoke adr-writer For:**
+
 - Implementation details (variable naming, function structure)
 - Temporary workarounds
 - Decisions already covered by existing ADRs or guidelines
 - UI/styling choices
+
 ```
 
 ### For docs-reviewer Agent
@@ -265,15 +271,16 @@ assistant: "That's an important infrastructure decision. Let me invoke the adr-w
    docs-reviewer: "I notice the documentation explains HOW authentication works, but there's no explanation of WHY we chose JWT over session-based auth. This is a significant architectural decision that should be documented."
    ```
 
-2. **Assess Significance**: Apply adr-writer decision framework:
+1. **Assess Significance**: Apply adr-writer decision framework:
    - Is this a one-way door? → YES (switching auth systems is expensive)
    - Did we evaluate alternatives? → Likely YES (JWT vs sessions is a common decision)
    - Will this affect future decisions? → YES (auth choice affects API design, security)
    - Will future developers wonder "why"? → YES (common question)
-   
+
    **Result**: 4/4 criteria met → Invoke adr-writer
 
-3. **Invoke adr-writer**:
+2. **Invoke adr-writer**:
+
    ```markdown
    docs-reviewer: "I notice there's no ADR explaining why we chose JWT over sessions. Let me invoke the adr-writer agent to create a retroactive ADR."
    
@@ -286,12 +293,14 @@ assistant: "That's an important infrastructure decision. Let me invoke the adr-w
    → docs-reviewer references ADR in architecture documentation
    ```
 
-4. **Update Documentation**: Reference the new ADR in the architecture docs:
+3. **Update Documentation**: Reference the new ADR in the architecture docs:
+
    ```markdown
    ## Authentication System
    
    We use JWT tokens for authentication. For the rationale behind this decision, see [ADR: Authentication Approach](.docs/canonical/adrs/adr-YYYYMMDD-authentication-approach.md).
    ```
+
 ```
 
 ### For Other Agents
@@ -322,6 +331,7 @@ assistant: "That's an important infrastructure decision. Let me invoke the adr-w
    → adr-writer creates structured ADR
    → Reference ADR in relevant documentation
    ```
+
 ```
 
 ## ADR Format and Structure
@@ -444,6 +454,7 @@ When triggered, create a new ADR:
 # Naming: adr-YYYYMMDD-<subject>.md (e.g. adr-20260206-validation-library-choice.md)
 # File: .docs/canonical/adrs/adr-YYYYMMDD-<subject>.md
 ```
+
 Required front matter: type, endeavor, status (proposed|accepted|superseded), date, supersedes, superseded_by. See .docs/AGENTS.md and charter for placement. Accepted ADRs that change constraints must update Charter/Plan/Backlog links. Do not create roadmap, backlog, or plan files; when referencing plan/backlog, use initiative from .docs/AGENTS.md References (by initiative).
 
 ### 3. Gather Context
@@ -460,6 +471,7 @@ Before writing the ADR, gather:
 ### 4. Write Clear, Concise ADRs
 
 **Good ADR characteristics:**
+
 - ✅ Clear problem statement
 - ✅ Specific alternatives with trade-offs
 - ✅ Honest about negative consequences
@@ -467,6 +479,7 @@ Before writing the ADR, gather:
 - ✅ Actionable implementation notes
 
 **Poor ADR characteristics:**
+
 - ❌ Vague problem statement
 - ❌ Only one option considered
 - ❌ Doesn't explain rationale
@@ -657,6 +670,7 @@ We will use a **monorepo structure with pnpm workspaces**.
 
 Repository structure:
 ```
+
 /
 ├── apps/
 │   ├── web/          (Next.js app)
@@ -666,6 +680,7 @@ Repository structure:
 │   ├── business/     (Shared logic)
 │   └── schemas/      (Shared types)
 └── pnpm-workspace.yaml
+
 ```
 
 ## Alternatives Considered
@@ -748,19 +763,20 @@ Repository structure:
      - 'packages/*'
    ```
 
-2. Structure packages with consistent patterns:
+1. Structure packages with consistent patterns:
    - Each package has own `package.json`
    - Shared TypeScript config in root
    - Shared ESLint/Prettier config
 
-3. Use workspace protocol for internal dependencies:
+2. Use workspace protocol for internal dependencies:
+
    ```json
    "dependencies": {
      "@myapp/schemas": "workspace:*"
    }
    ```
 
-4. Set up Changesets for versioning/changelog
+3. Set up Changesets for versioning/changelog
 
 ## Related Decisions
 
@@ -771,6 +787,7 @@ Repository structure:
 
 - [pnpm Workspaces Documentation](https://pnpm.io/workspaces)
 - [Monorepo Best Practices](https://example.com/monorepo-guide)
+
 ```
 
 ### Example 3: Rejecting an ADR (Not Significant Enough)
@@ -951,6 +968,7 @@ We will follow Test-Driven Development.
 ## Tools Available
 
 The `adr-writer` agent has access to:
+
 - **Read**: Read existing ADRs, codebase, documentation
 - **Write**: Create new ADR files
 - **Edit**: Update ADR index, mark ADRs as superseded
@@ -1003,6 +1021,7 @@ The `adr-writer` agent is successful when:
 ```
 
 **Distinction**:
+
 - **ADR**: Why we chose this architecture (context, decision, consequences)
 - **CLAUDE.md**: How to work with this architecture (gotchas, patterns, guidelines)
 
@@ -1011,6 +1030,7 @@ The `adr-writer` agent is successful when:
 ### adr-writer vs technical-writer
 
 **adr-writer** (this agent):
+
 - **Focus**: Architecture Decision Records (ADRs) only
 - **Purpose**: Document the "why" behind architectural decisions
 - **Scope**: Significant architectural choices with context, alternatives, and consequences
@@ -1018,6 +1038,7 @@ The `adr-writer` agent is successful when:
 - **When to use**: Technology selections, architecture patterns, infrastructure decisions
 
 **technical-writer**:
+
 - **Focus**: General technical documentation (READMEs, CHANGELOGs, API docs, diagrams)
 - **Purpose**: Comprehensive documentation for developers and users
 - **Scope**: All types of technical documentation across the project
@@ -1029,6 +1050,7 @@ The `adr-writer` agent is successful when:
 ### adr-writer vs learner
 
 **adr-writer** (this agent):
+
 - **Focus**: Architectural decisions and their rationale
 - **Purpose**: Document "why we chose this architecture"
 - **Scope**: Significant architectural choices (technology, patterns, infrastructure)
@@ -1036,6 +1058,7 @@ The `adr-writer` agent is successful when:
 - **When to use**: Making or discovering architectural decisions
 
 **learner** (Lorekeeper):
+
 - **Focus**: Operational knowledge and patterns
 - **Purpose**: Document "how to work with this codebase"
 - **Scope**: Gotchas, patterns, anti-patterns, tooling knowledge, workflow insights
@@ -1043,6 +1066,7 @@ The `adr-writer` agent is successful when:
 - **When to use**: Discovering gotchas, fixing bugs, learning patterns
 
 **Relationship**: Complementary. ADRs explain architectural decisions, while CLAUDE.md (via learner) captures how to work with those decisions. For example:
+
 - **ADR**: "We chose PostgreSQL because of ACID transactions"
 - **CLAUDE.md**: "When working with PostgreSQL, use connection pooling and watch for N+1 queries"
 

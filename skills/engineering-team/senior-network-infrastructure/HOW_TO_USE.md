@@ -170,16 +170,19 @@ python scripts/network_topology_analyzer.py --input network-export.json --securi
 ## Troubleshooting
 
 **VPN not connecting:**
+
 - Check security group allows UDP 500, 4500, and ESP (protocol 50)
 - Verify pre-shared key matches on both ends
 - Confirm remote IP address is correct
 
 **Security group not working:**
+
 - Remember security groups are stateful (return traffic auto-allowed)
 - Check NACL rules (stateless, must allow return traffic)
 - Verify source/destination CIDR blocks
 
 **Subnet out of IPs:**
+
 - Review allocation with subnet_planner.py
 - Check for unused ENIs and Elastic IPs
 - Consider larger CIDR for high-density workloads

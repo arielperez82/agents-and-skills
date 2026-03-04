@@ -84,6 +84,7 @@ The seo-strategist agent orchestrates strategic SEO planning that goes beyond in
 This agent is designed for marketing teams, SEO specialists, and digital marketers who need to develop and execute comprehensive SEO strategies. By combining Python-based analysis tools with expert frameworks, the agent enables data-driven SEO decisions and systematic improvement planning.
 
 **Key Distinction from content-creator:**
+
 - **content-creator** = On-page SEO (single article: keywords, meta tags, readability)
 - **seo-strategist** = Strategic SEO (site-wide: keyword research, technical health, roadmaps)
 
@@ -152,11 +153,14 @@ This agent is designed for marketing teams, SEO specialists, and digital markete
 **Goal:** Develop comprehensive keyword strategy with topic clusters
 
 **Steps:**
+
 1. **Prepare keyword list** - Export from tools or compile manually
 2. **Run keyword researcher** - Cluster and prioritize keywords
+
    ```bash
    python ../skills/marketing-team/seo-strategist/scripts/keyword_researcher.py keywords.csv --cluster --score --output json > clusters.json
    ```
+
 3. **Review clusters** - Identify pillar topics and supporting clusters
 4. **Map to content** - Assign clusters to existing or planned content
 5. **Document strategy** - Use keyword_research_template.md
@@ -167,6 +171,7 @@ This agent is designed for marketing teams, SEO specialists, and digital markete
 **Time Estimate:** 4-6 hours for comprehensive keyword analysis
 
 **Example:**
+
 ```bash
 # Cluster keywords and score
 python ../skills/marketing-team/seo-strategist/scripts/keyword_researcher.py keywords.csv --cluster --score
@@ -180,11 +185,14 @@ python ../skills/marketing-team/seo-strategist/scripts/keyword_researcher.py key
 **Goal:** Identify and prioritize technical SEO issues across site
 
 **Steps:**
+
 1. **Export site data** - Download HTML files or use crawler export
 2. **Run technical audit** - Analyze site structure and issues
+
    ```bash
    python ../skills/marketing-team/seo-strategist/scripts/technical_seo_auditor.py ./site-export/ --checks all --output json > audit.json
    ```
+
 3. **Review findings** - Analyze issues by category and severity
 4. **Prioritize fixes** - Focus on critical and high-severity issues first
 5. **Create action plan** - Document fixes with owners and deadlines
@@ -195,6 +203,7 @@ python ../skills/marketing-team/seo-strategist/scripts/keyword_researcher.py key
 **Time Estimate:** 3-4 hours for audit and analysis
 
 **Example:**
+
 ```bash
 # Full technical audit
 python ../skills/marketing-team/seo-strategist/scripts/technical_seo_auditor.py ./site-export/ --output text
@@ -208,16 +217,21 @@ python ../skills/marketing-team/seo-strategist/scripts/technical_seo_auditor.py 
 **Goal:** Create prioritized quarterly SEO roadmap
 
 **Steps:**
+
 1. **Complete technical audit** - Generate audit.json from technical_seo_auditor.py
 2. **Generate roadmap** - Create prioritized action plan
+
    ```bash
    python ../skills/marketing-team/seo-strategist/scripts/seo_roadmap_generator.py audit.json --quarters 4 --output md > .docs/canonical/plans/plan-repo-seo-quarterly-2026.md
    # Add initiative + initiative_name to the plan front matter when it belongs to an initiative (see .docs/AGENTS.md initiative naming).
    ```
+
 3. **Identify quick wins** - Focus on high-impact, low-effort tasks
+
    ```bash
    python ../skills/marketing-team/seo-strategist/scripts/seo_roadmap_generator.py audit.json --quick-wins
    ```
+
 4. **Set KPI targets** - Define measurable targets for each quarter
 5. **Assign resources** - Allocate team hours to initiatives
 6. **Review and approve** - Present roadmap to stakeholders
@@ -227,6 +241,7 @@ python ../skills/marketing-team/seo-strategist/scripts/technical_seo_auditor.py 
 **Time Estimate:** 2-3 hours for roadmap generation and review
 
 **Example:**
+
 ```bash
 # Quick wins only
 python ../skills/marketing-team/seo-strategist/scripts/seo_roadmap_generator.py audit.json --quick-wins
@@ -243,16 +258,21 @@ python ../skills/marketing-team/seo-strategist/scripts/seo_roadmap_generator.py 
 **Goal:** Analyze competitor SEO strategies and identify opportunities
 
 **Steps:**
+
 1. **Identify competitors** - List 3-5 SERP competitors
 2. **Reference framework** - Review competitive analysis guide
+
    ```bash
    cat ../skills/marketing-team/seo-strategist/references/competitive_seo_analysis.md
    ```
+
 3. **Gather competitor data** - Export competitor sitemaps, backlinks, rankings
 4. **Run keyword analysis** - Compare keyword coverage
+
    ```bash
    python ../skills/marketing-team/seo-strategist/scripts/keyword_researcher.py competitor-keywords.csv --cluster
    ```
+
 5. **Identify gaps** - Find opportunities where competitors rank and you don't
 6. **Develop positioning** - Create differentiation strategy
 
@@ -338,12 +358,14 @@ This agent works alongside content-creator in a complementary workflow:
 ### Handoff Points
 
 **From seo-strategist to content-creator:**
+
 - Keyword targets and priorities
 - Topic cluster assignments
 - Search intent guidance
 - Competitive content gaps
 
 **From content-creator to seo-strategist:**
+
 - Content performance data
 - On-page optimization gaps
 - Content calendar needs
@@ -367,17 +389,20 @@ python ../skills/marketing-team/seo-strategist/scripts/technical_seo_auditor.py 
 ## Success Metrics
 
 **Strategic Metrics:**
+
 - Keyword rankings improvement (top 10, top 3 positions)
 - Organic traffic growth (monthly, quarterly)
 - SEO score improvement (technical audit score)
 - Topic cluster completion rate
 
 **Efficiency Metrics:**
+
 - Time to keyword strategy: 60% faster with tools
 - Audit completion time: 70% faster than manual
 - Roadmap generation: 80% faster with automation
 
 **Business Metrics:**
+
 - Organic revenue growth
 - Cost per organic acquisition
 - Organic conversion rate

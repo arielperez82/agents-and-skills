@@ -125,16 +125,21 @@ examples:
 **Goal:** Create SEO-optimized blog post with consistent brand voice
 
 **Steps:**
+
 1. **Draft Content** - Write initial blog post draft in markdown format
 2. **Analyze Brand Voice** - Run brand voice analyzer to check tone and readability
+
    ```bash
    python ../skills/marketing-team/content-creator/scripts/brand_voice_analyzer.py draft-post.md
    ```
+
 3. **Review Feedback** - Adjust content based on formality score, tone, and readability metrics
 4. **Optimize for SEO** - Run SEO optimizer with target keywords
+
    ```bash
    python ../skills/marketing-team/content-creator/scripts/seo_optimizer.py draft-post.md "target keyword" "secondary,keywords,here"
    ```
+
 5. **Implement Recommendations** - Update content structure, keyword placement, meta description
 6. **Final Validation** - Re-run both analyzers to verify improvements
 
@@ -143,6 +148,7 @@ examples:
 **Time Estimate:** 2-3 hours for 1,500-word blog post
 
 **Example:**
+
 ```bash
 # Complete workflow
 echo "# Blog Post Draft" > post.md
@@ -155,17 +161,22 @@ python ../skills/marketing-team/content-creator/scripts/seo_optimizer.py post.md
 **Goal:** Adapt a blog post or article into a long-form LinkedIn post and core narrative for distribution
 
 **Steps:**
+
 1. **Start with Core Content** - Begin with blog post or long-form content
 2. **Reference Platform Guidelines** - Review platform-specific best practices
+
    ```bash
    cat ../skills/marketing-team/content-creator/references/social_media_optimization.md
    ```
+
 3. **Extract Core Narrative** - Identify the key insight, data points, and takeaways
 4. **Create LinkedIn Post** - Professional tone, 1,300 characters, 3-5 hashtags, long-form storytelling
 5. **Validate Brand Voice** - Ensure consistency with source content
+
    ```bash
    python ../skills/marketing-team/content-creator/scripts/brand_voice_analyzer.py linkedin-post.txt
    ```
+
 6. **Hand Off Short-Form** - Provide core narrative and key messages to copywriter for short-form platform adaptations (tweets, ad captions, short Instagram captions)
 
 **Expected Output:** Long-form LinkedIn post + core narrative brief for copywriter handoff
@@ -177,21 +188,26 @@ python ../skills/marketing-team/content-creator/scripts/seo_optimizer.py post.md
 **Goal:** Audit existing content library for brand voice consistency and SEO optimization
 
 **Steps:**
+
 1. **Collect Content** - Gather markdown files for all published content
 2. **Batch Brand Voice Analysis** - Run analyzer on all content pieces
+
    ```bash
    for file in content/*.md; do
      echo "Analyzing: $file"
      python ../skills/marketing-team/content-creator/scripts/brand_voice_analyzer.py "$file" json >> audit-results.json
    done
    ```
+
 3. **Identify Inconsistencies** - Review formality scores, tone patterns, readability metrics
 4. **SEO Audit** - Run SEO optimizer on key landing pages and blog posts
+
    ```bash
    for file in landing-pages/*.md; do
      python ../skills/marketing-team/content-creator/scripts/seo_optimizer.py "$file" "target-keyword"
    done
    ```
+
 5. **Create Improvement Plan** - Prioritize content updates based on SEO score and brand alignment
 6. **Implement Updates** - Revise content following brand guidelines and SEO recommendations
 
@@ -200,6 +216,7 @@ python ../skills/marketing-team/content-creator/scripts/seo_optimizer.py post.md
 **Time Estimate:** 4-6 hours for 20-30 content pieces
 
 **Example:**
+
 ```bash
 # Quick audit of top 5 blog posts
 ls -t blog/*.md | head -5 | while read file; do
@@ -214,21 +231,29 @@ done
 **Goal:** Plan and structure content for multi-channel marketing campaign
 
 **Steps:**
+
 1. **Reference Content Frameworks** - Select appropriate templates for campaign
+
    ```bash
    cat ../skills/marketing-team/content-creator/references/content_frameworks.md
    ```
+
 2. **Copy Content Calendar** - Use template for campaign planning
+
    ```bash
    cp ../skills/marketing-team/content-creator/assets/content-calendar.md campaign-calendar.md
    ```
+
 3. **Define Brand Voice Target** - Reference brand guidelines for campaign tone
+
    ```bash
    cat ../skills/marketing-team/content-creator/references/brand_guidelines.md
    ```
+
 4. **Create Content Briefs** - Use brief template for each content piece
 5. **Draft Long-Form Content** - Write blog posts, articles, and thought leadership pieces. Hand off short-form assets (email sequences, landing page copy, ad copy, social snippets) to copywriter with briefs and brand voice guidance.
 6. **Validate Before Publishing** - Run analyzers on all campaign content
+
    ```bash
    python ../skills/marketing-team/content-creator/scripts/brand_voice_analyzer.py campaign-email.md
    python ../skills/marketing-team/content-creator/scripts/seo_optimizer.py campaign-landing-page.md "campaign keyword"
@@ -243,6 +268,7 @@ done
 **Goal:** Create timely, relevant content based on industry trends, competitor signals, and market movements to build thought leadership and support sales enablement
 
 **Steps:**
+
 1. **Monitor Trend Signals** - Identify trending topics from multiple sources:
    - Industry news and press releases
    - Competitor content and product announcements
@@ -263,23 +289,28 @@ done
    - **Competitive shift**: Positioning piece or comparison guide
    - **Customer pain point**: How-to guide or solution-focused content
    - Reference content frameworks:
+
      ```bash
      cat ../skills/marketing-team/content-creator/references/content_frameworks.md
      ```
 
 4. **Draft Content** - Create content using brand voice guidelines:
+
    ```bash
    python ../skills/marketing-team/content-creator/scripts/brand_voice_analyzer.py trending-draft.md
    ```
+
    - Include data points and specific references (not generic commentary)
    - Add original analysis or perspective
    - Connect trend to audience pain points
    - Include actionable takeaways
 
 5. **Optimize and Publish** - Run SEO and platform optimization:
+
    ```bash
    python ../skills/marketing-team/content-creator/scripts/seo_optimizer.py trending-draft.md "trending keyword"
    ```
+
    - Publish long-form content (blog post, LinkedIn article)
    - Hand off short-form distribution (tweet thread, ad copy, email snippets) to copywriter
    - Schedule for optimal engagement windows
@@ -314,4 +345,3 @@ done
 - **Marketing Domain Guide:** [../skills/marketing-team/CLAUDE.md](../skills/marketing-team/CLAUDE.md)
 - **Agent Development Guide:** [agent-author](agent-author.md)
 - **Marketing Roadmap:** [../skills/marketing-team/marketing_skills_roadmap.md](../skills/marketing-team/marketing_skills_roadmap.md)
-

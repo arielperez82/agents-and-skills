@@ -20,9 +20,11 @@ General-purpose browser automation skill. Write custom Playwright code for any a
 **CRITICAL WORKFLOW - Follow these steps in order:**
 
 1. **Auto-detect dev servers** - For localhost testing, ALWAYS run server detection FIRST:
+
    ```bash
    cd $SKILL_DIR && node -e "require('./lib/helpers').detectDevServers().then(servers => console.log(JSON.stringify(servers)))"
    ```
+
    - If **1 server found**: Use it automatically, inform user
    - If **multiple servers found**: Ask user which one to test
    - If **no servers found**: Ask for URL or offer to help start dev server
@@ -299,6 +301,7 @@ await browser.close();
 ```
 
 **When to use inline vs files:**
+
 - **Inline**: Quick one-off tasks (screenshot, check if element exists, get page title)
 - **Files**: Complex tests, responsive design checks, anything user might want to re-run
 
@@ -352,6 +355,7 @@ See `lib/helpers.js` for full list.
 ## Troubleshooting
 
 **Playwright not installed:**
+
 ```bash
 cd $SKILL_DIR && pnpm run setup
 ```

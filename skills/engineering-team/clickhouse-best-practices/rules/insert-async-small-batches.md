@@ -41,6 +41,7 @@ ALTER USER my_app_user SETTINGS
 ```
 
 **Flush conditions (whichever occurs first):**
+
 - Buffer reaches `async_insert_max_data_size`
 - Time threshold `async_insert_busy_timeout_ms` elapses
 - Maximum insert queries accumulate

@@ -635,6 +635,7 @@ describe('useCounter', () => {
 ## Common Anti-Patterns to Avoid
 
 ### ❌ Anti-Pattern 1: Prop Drilling
+
 ```typescript
 // Bad: Passing props through many levels
 <App>
@@ -644,6 +645,7 @@ describe('useCounter', () => {
 ```
 
 **✅ Solution: Context or State Management**
+
 ```typescript
 <AuthProvider>
   <App>
@@ -653,6 +655,7 @@ describe('useCounter', () => {
 ```
 
 ### ❌ Anti-Pattern 2: Large Components
+
 ```typescript
 // Bad: 500+ line component doing everything
 function Dashboard() {
@@ -665,6 +668,7 @@ function Dashboard() {
 ```
 
 **✅ Solution: Split into smaller components**
+
 ```typescript
 function Dashboard() {
   return (
@@ -679,6 +683,7 @@ function Dashboard() {
 ```
 
 ### ❌ Anti-Pattern 3: Mutating State Directly
+
 ```typescript
 // Bad: Direct mutation
 const handleClick = () => {
@@ -688,6 +693,7 @@ const handleClick = () => {
 ```
 
 **✅ Solution: Immutable updates**
+
 ```typescript
 const handleClick = () => {
   setUser({ ...user, name: 'New Name' });
@@ -695,6 +701,7 @@ const handleClick = () => {
 ```
 
 ### ❌ Anti-Pattern 4: Using Index as Key
+
 ```typescript
 // Bad: Using array index
 {items.map((item, index) => (
@@ -703,6 +710,7 @@ const handleClick = () => {
 ```
 
 **✅ Solution: Use unique IDs**
+
 ```typescript
 {items.map((item) => (
   <div key={item.id}>{item.name}</div>
@@ -710,6 +718,7 @@ const handleClick = () => {
 ```
 
 ### ❌ Anti-Pattern 5: Overusing useEffect
+
 ```typescript
 // Bad: Unnecessary useEffect
 const [count, setCount] = useState(0);
@@ -721,6 +730,7 @@ useEffect(() => {
 ```
 
 **✅ Solution: Derived state**
+
 ```typescript
 const [count, setCount] = useState(0);
 const doubled = count * 2; // No useEffect needed

@@ -23,16 +23,19 @@ refactor/* ────┘
 ### Quality Gate Progression
 
 **Develop (Fast Feedback):**
+
 - Validate only changed files
 - Target: < 2 minutes
 - Focus: Catch obvious errors quickly
 
 **Staging (Comprehensive):**
+
 - Validate all content
 - Target: < 5 minutes
 - Focus: Full sweep before pre-production
 
 **Main (Production Gate):**
+
 - Verify source branch
 - Target: < 3 minutes
 - Focus: Final verification
@@ -45,6 +48,7 @@ refactor/* ────┘
 Only validate files that changed in the PR/push, reducing CI time significantly.
 
 **When to Use:**
+
 - Development branches (develop, feature/*)
 - Large repositories with many files
 - Fast feedback loops needed
@@ -89,11 +93,13 @@ detect-changes:
 ```
 
 **Benefits:**
+
 - 80%+ faster CI for typical PRs
 - Reduces GitHub Actions minutes usage
 - Provides faster developer feedback
 
 **Trade-offs:**
+
 - May miss integration issues
 - Requires full validation before production
 
@@ -103,6 +109,7 @@ detect-changes:
 Run jobs only when relevant files change or specific conditions are met.
 
 **When to Use:**
+
 - Different validation for different content types
 - Skip expensive operations when not needed
 - Optimize CI resource usage
@@ -126,6 +133,7 @@ validate-agents:
 ```
 
 **Benefits:**
+
 - Skips irrelevant jobs entirely
 - Clear job dependencies
 - Easy to understand flow
@@ -136,6 +144,7 @@ validate-agents:
 Run validation in parallel across multiple content types or categories.
 
 **When to Use:**
+
 - Large content validation suites
 - Independent validation tasks
 - Maximize parallelization
@@ -166,6 +175,7 @@ validate-content:
 ```
 
 **Benefits:**
+
 - Parallel execution reduces total time
 - Independent failures don't block other types
 - Easy to add new content types
@@ -176,6 +186,7 @@ validate-content:
 Run comprehensive validation on a schedule to catch drift or accumulated issues.
 
 **When to Use:**
+
 - Nightly/weekly full validation
 - Catch issues not covered by incremental validation
 - Verify overall repository health
@@ -207,6 +218,7 @@ jobs:
 ```
 
 **Benefits:**
+
 - Catches accumulated issues
 - Provides regular health checks
 - Enables manual full validation when needed
@@ -364,6 +376,7 @@ git push origin main
 ### Anti-Pattern 1: Skip All Validation
 
 **What not to do:**
+
 ```yaml
 <!-- pips-allow: privilege-escalation -- CI/CD anti-pattern documentation showing what NOT to do -->
 # DON'T add skip options that bypass all validation
@@ -375,6 +388,7 @@ if: "!contains(github.event.head_commit.message, '[skip ci]')"
 ### Anti-Pattern 2: Long-Running Sequential Jobs
 
 **What not to do:**
+
 ```yaml
 # DON'T run everything sequentially when parallel is possible
 steps:
@@ -389,6 +403,7 @@ steps:
 ### Anti-Pattern 3: Ignoring Failures
 
 **What not to do:**
+
 ```yaml
 # DON'T ignore all failures
 continue-on-error: true  # On critical validation

@@ -407,6 +407,7 @@ When reviewing a SQL query (or Tinybird pipe node), verify tests would catch mut
 **Mutation Score = (Detected Mutants / Valid Mutants) x 100**
 
 Where:
+
 - **Detected** = Killed + Timeout (mutants caught by tests)
 - **Valid** = Total - CompileError - Ignored (mutants that could have been caught)
 - **NoCoverage** mutants (no test covers the mutated code) remain in the Valid denominator -- they represent real test gaps, not noise

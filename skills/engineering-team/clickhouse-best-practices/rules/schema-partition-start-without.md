@@ -10,6 +10,7 @@ tags: [schema, partitioning, simplicity]
 **Impact: MEDIUM**
 
 Start without partitioning and add it later only if:
+
 - You have clear data lifecycle requirements (retention, archiving)
 - Your access patterns clearly benefit from partition pruning
 - You understand the cardinality implications

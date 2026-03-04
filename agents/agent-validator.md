@@ -106,10 +106,13 @@ Use this agent when:
 **Goal:** Verify a single agent file passes all checks before committing.
 
 **Steps:**
+
 1. Run the validator on the target agent:
+
    ```bash
    python3 skills/agent-development-team/creating-agents/scripts/validate_agent.py agents/<name>.md
    ```
+
 2. Review the report — fix any CRITICAL issues (these cause exit code 1).
 3. Address HIGH warnings where practical.
 4. Note MEDIUM informational items for future improvement.
@@ -121,15 +124,21 @@ Use this agent when:
 **Goal:** Validate the entire agent catalog and produce a summary.
 
 **Steps:**
+
 1. Run batch validation:
+
    ```bash
    python3 skills/agent-development-team/creating-agents/scripts/validate_agent.py --all --summary
    ```
+
 2. For full details on every agent:
+
    ```bash
    python3 skills/agent-development-team/creating-agents/scripts/validate_agent.py --all
    ```
+
 3. For machine-readable output (CI integration):
+
    ```bash
    python3 skills/agent-development-team/creating-agents/scripts/validate_agent.py --all --json
    ```
@@ -141,10 +150,13 @@ Use this agent when:
 **Goal:** Run validation automatically when agent files change.
 
 **Steps:**
+
 1. After modifying any `agents/*.md` agent file, run:
+
    ```bash
    python3 skills/agent-development-team/creating-agents/scripts/validate_agent.py agents/<name>.md
    ```
+
 2. Or use the command: `/agent/validate <name>`
 3. Only commit if validation passes (exit code 0).
 
@@ -159,6 +171,7 @@ Use this agent when:
 ### Example 1: Post-Authoring Validation
 
 After `agent-author` creates a new agent:
+
 ```bash
 # Validate the new agent
 python3 skills/agent-development-team/creating-agents/scripts/validate_agent.py agents/new-agent.md
@@ -183,6 +196,7 @@ fi
 ### Example 3: Post-Refactor Verification
 
 After `agent-author` refactors agents:
+
 ```bash
 # Batch validate to catch any breakage
 python3 skills/agent-development-team/creating-agents/scripts/validate_agent.py --all --summary

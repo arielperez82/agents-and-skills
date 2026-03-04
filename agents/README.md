@@ -18,16 +18,19 @@ This directory contains specifications for specialized Claude Code agents that w
 These agents live directly in the `agents/` root directory:
 
 #### Meta Development
+
 - **`agent-author`** - Orchestrates creation and maintenance of agents and skills, enforcing standards and templates
 - **Agent optimizer** (skill: `agent-development-team/agent-optimizer`, command: `/agent:optimize`) - Analyze and optimize agent definitions using the 5-dimension rubric; single agent or batch
 - **Agent intake** (skill: `agent-development-team/agent-intake`, command: `/agent:intake`) - Evaluate and incorporate external agents via governance audit, ecosystem fit assessment, and validated incorporation
 
 #### Delivery & Project Management
+
 - **`agile-coach`** - Agile coaching specialist for ceremonies, team dynamics, communication, and agile manifesto adherence
 - **`progress-assessor`** - Assesses and validates progress tracking through canonical docs under `.docs/` (plans, status reports, learnings in AGENTS.md and canonical docs)
 - **`senior-project-manager`** - Strategic program management for portfolio planning, stakeholder management, and delivery excellence
 
 #### Marketing
+
 - **`competitive-intelligence-analyst`** - Competitive intelligence for CI monitoring, battlecard creation, win/loss analysis, and competitor tracking
 - **`content-creator`** - AI-powered content creation for brand voice consistency, SEO optimization, and multi-platform strategy
 - **`copywriter`** - High-volume copy execution for ads, emails, landing pages, and social media with CRO and brand voice compliance
@@ -37,20 +40,24 @@ These agents live directly in the `agents/` root directory:
 - **`seo-strategist`** - Strategic SEO planning for site-wide optimization, keyword research, technical audits, and competitive positioning
 
 #### Documentation & Knowledge
+
 - **`docs-reviewer`** - Creates and maintains world-class permanent documentation (README, guides, API docs) with DIVIO/Diataxis classification
 - **`learner`** - Captures learnings, gotchas, and patterns into CLAUDE.md
 
 ### Engineering Agents
 
 #### Architecture & Design
+
 - **`architect`** - System architecture specialist for design patterns, scalability planning, and technology evaluation
 - **`adr-writer`** - Creates Architecture Decision Records (ADRs) documenting significant architectural choices
 - **`graphql-architect`** - GraphQL API design specialist for schema architecture, resolver patterns, and federation
 
 #### Engineering Leadership
+
 - **`engineering-lead`** - Coordinates multi-step development initiatives by dispatching specialist engineer subagents per task, managing two-stage review gates, and driving plans to completion
 
 #### Development Specialists
+
 - **`backend-engineer`** - Backend development for API design, database optimization, and microservices architecture
 - **`frontend-engineer`** - Frontend development for React/Vue components, UI/UX implementation, and performance optimization
 - **`web-developer`** - Marketing site and brochure site specialist for SEO, performance, visual design, accessibility, and conversion
@@ -62,6 +69,7 @@ These agents live directly in the `agents/` root directory:
 - **`dotnet-engineer`** - C# and .NET development for enterprise applications and cloud-native systems
 
 #### Data & ML
+
 - **`data-engineer`** - Data engineering for scalable pipelines, ETL/ELT systems, and real-time streaming
 - **`data-scientist`** - Data science for statistical modeling, experimentation, causal inference, and analytics
 - **`database-engineer`** - Database specialist for MongoDB and PostgreSQL schema design and optimization
@@ -70,6 +78,7 @@ These agents live directly in the `agents/` root directory:
 - **`computer-vision`** - Computer vision for image/video processing, object detection, and visual AI systems
 
 #### Quality & Testing
+
 - **`acceptance-designer`** - Acceptance Test Designer: Designs BDD acceptance tests bridging product requirements to the TDD outer loop
 - **`agent-quality-assessor`** - Scores agent specifications on 5 quality dimensions (responsibility precision, retrieval efficiency, collaboration completeness, classification alignment, example quality)
 - **`agent-validator`** - Validates agent specifications against the frontmatter schema, skill paths, classification rules, body structure, and content safety (prompt injection scanning)
@@ -86,6 +95,7 @@ These agents live directly in the `agents/` root directory:
 - **`phase0-assessor`** - Phase 0 quality gate assessor: detects project type, cross-references check registry, reports present/missing/partial checks with remediation
 
 #### DevOps & Infrastructure
+
 - **`devsecops-engineer`** - DevSecOps for CI/CD, infrastructure automation, containerization, and cloud platforms
 - **`network-engineer`** - Network infrastructure for VPC/VNet design, VPN configuration, and load balancing
 - **`observability-engineer`** - Observability for monitoring, logging, distributed tracing, and SLI/SLO implementation
@@ -93,6 +103,7 @@ These agents live directly in the `agents/` root directory:
 - **`incident-responder`** - Incident response for security incident detection, containment, and recovery
 
 #### Specialized Engineering
+
 - **`prompt-engineer`** - Prompt engineering for LLM optimization, prompt patterns, and AI product development
 - **`technical-writer`** - Technical writing for documentation automation, README generation, and API documentation
 - **`debugger`** - Debugging specialist for root cause analysis and error resolution
@@ -125,9 +136,11 @@ These agents live directly in the `agents/` root directory:
 ### Development Process Agents
 
 #### `tdd-reviewer`
+
 **Purpose**: TDD methodology coach and guardian - ensures TDD principles are followed by ALL developers.
 
 **Use when**:
+
 - Need TDD methodology guidance and coaching
 - Reviewing code for TDD compliance
 - Establishing TDD standards for teams
@@ -138,9 +151,11 @@ These agents live directly in the `agents/` root directory:
 ---
 
 #### `qa-engineer`
+
 **Purpose**: Quality automation specialist and testing infrastructure expert.
 
 **Use when**:
+
 - Setting up test automation frameworks
 - Optimizing CI/CD testing pipelines
 - Implementing quality metrics and dashboards
@@ -152,13 +167,16 @@ These agents live directly in the `agents/` root directory:
 ---
 
 #### `ts-enforcer`
+
 **Purpose**: Enforces TypeScript strict mode and best practices.
 
 **Use proactively when**:
+
 - Defining new types or schemas
 - Planning TypeScript code structure
 
 **Use reactively when**:
+
 - Code written with potential type issues
 - Detecting mutations or `any` types
 - Reviewing TypeScript compliance
@@ -168,14 +186,17 @@ These agents live directly in the `agents/` root directory:
 ---
 
 #### `refactor-assessor`
+
 **Purpose**: Assesses refactoring opportunities after tests pass (TDD's third step).
 
 **Use proactively when**:
+
 - Tests just turned green
 - Considering creating abstractions
 - Planning code improvements
 
 **Use reactively when**:
+
 - Noticing code duplication
 - Reviewing code quality
 - Evaluating semantic vs structural similarity
@@ -185,9 +206,11 @@ These agents live directly in the `agents/` root directory:
 ---
 
 #### `security-assessor`
+
 **Purpose**: Assesses code or diffs for security issues and produces a structured findings report with criticality (Critical/High/Medium/Low). Does not implement fixes—only assesses and reports. Includes content security workflow for scanning agent, skill, and command markdown for prompt injection patterns.
 
 **Use when**:
+
 - Pre-commit or PR: want a security assessment of changed code without full audits
 - Need a structured security findings report for triage or handoff
 - code-reviewer delegates the security slice of a code review
@@ -198,9 +221,11 @@ These agents live directly in the `agents/` root directory:
 ---
 
 #### `claims-verifier`
+
 **Purpose**: Adversarial verification agent that independently validates external claims (API contracts, library capabilities, user statistics, market data, regulatory requirements) in any agent's output before those claims influence decisions or implementation.
 
 **Use when**:
+
 - `/craft` Phase 0 completes (automatic — runs sequentially after all Phase 0 agents)
 - Any agent artifact contains external factual claims that decisions depend on
 - Need to verify statistical claims from UX research, market claims from product-director, or technical claims from researcher
@@ -212,14 +237,17 @@ These agents live directly in the `agents/` root directory:
 ### Code Review Agents
 
 #### `code-reviewer`
+
 **Purpose**: Reviews code for quality, security, and best practices across all tech stacks.
 
 **Use proactively when**:
+
 - About to review a PR
 - Creating a PR (self-review)
 - Want guided review process
 
 **Use reactively when**:
+
 - PR submitted for review
 - Need to analyze specific code changes
 - Evaluating merge readiness
@@ -231,13 +259,16 @@ These agents live directly in the `agents/` root directory:
 ### Documentation & Knowledge Agents
 
 #### `docs-reviewer`
+
 **Purpose**: Creates and maintains world-class permanent documentation with DIVIO/Diataxis classification.
 
 **Use proactively when**:
+
 - Creating new README, guides, or API docs
 - Planning user-facing documentation
 
 **Use reactively when**:
+
 - Reviewing existing documentation
 - Documentation needs improvement
 - Feature complete (update docs)
@@ -249,14 +280,17 @@ These agents live directly in the `agents/` root directory:
 ---
 
 #### `adr-writer`
+
 **Purpose**: Creates Architecture Decision Records (ADRs) documenting significant architectural decisions with context, alternatives, and trade-offs.
 
 **Use proactively when**:
+
 - About to make significant architectural choice
 - Evaluating technology/library options
 - Planning foundational decisions
 
 **Use reactively when**:
+
 - Just made an architectural decision
 - Discovering undocumented architectural choice
 - Need to explain "why we did it this way"
@@ -264,6 +298,7 @@ These agents live directly in the `agents/` root directory:
 **Core responsibility**: Create Architecture Decision Records (ADRs) for significant decisions only.
 
 **When to use**:
+
 - Significant architectural choices with trade-offs
 - Technology selections with long-term impact
 - Pattern decisions affecting multiple modules
@@ -274,13 +309,16 @@ These agents live directly in the `agents/` root directory:
 ---
 
 #### `learner`
+
 **Purpose**: Captures learnings, gotchas, and patterns into CLAUDE.md.
 
 **Use proactively when**:
+
 - Discovering unexpected behavior
 - Making architectural decisions (rationale)
 
 **Use reactively when**:
+
 - Completing significant features
 - Fixing complex bugs
 - After any significant learning moment
@@ -294,14 +332,17 @@ These agents live directly in the `agents/` root directory:
 ### Analysis & Architecture Agents
 
 #### `use-case-data-analyzer`
+
 **Purpose**: Analyzes how user-facing use cases map to underlying data access patterns and architectural implementation.
 
 **Use proactively when**:
+
 - Implementing new features that interact with data
 - Designing API endpoints
 - Planning refactoring of data-heavy systems
 
 **Use reactively when**:
+
 - Understanding how a feature works end-to-end
 - Identifying gaps in data access patterns
 - Investigating architectural decisions
@@ -313,9 +354,11 @@ These agents live directly in the `agents/` root directory:
 ---
 
 #### `cognitive-load-assessor`
+
 **Purpose**: Calculates a Cognitive Load Index (CLI) score (0-1000) for a codebase using eight dimensions (structural complexity, nesting, volume, naming, coupling, cohesion, duplication, navigability), producing a scored report with per-dimension breakdown and recommendations.
 
 **Use when**:
+
 - Assessing maintainability or mental effort of a codebase
 - Producing a repeatable CLI report with top offenders and actionable recommendations
 - Analyzing polyglot or large (>100K LOC) codebases (uses deterministic sampling)
@@ -325,9 +368,11 @@ These agents live directly in the `agents/` root directory:
 ---
 
 #### `supabase-database-engineer`
+
 **Purpose**: Supabase database specialist for schema design, migration management, RLS policy architecture, and database optimization.
 
 **Use proactively when**:
+
 - Designing new database schemas for Supabase
 - Planning schema changes or migrations
 - Implementing RLS policies for security
@@ -336,6 +381,7 @@ These agents live directly in the `agents/` root directory:
 - Generating TypeScript types from schemas
 
 **Use reactively when**:
+
 - Reviewing existing schema design
 - Analyzing performance bottlenecks
 - Assessing security coverage
@@ -346,6 +392,7 @@ These agents live directly in the `agents/` root directory:
 **Core responsibility**: Design normalized schemas, create safe migrations with rollback strategies, implement comprehensive RLS policies, optimize indexes and constraints, manage migration workflows.
 
 **Key capabilities**:
+
 - Schema design with 3NF normalization
 - Migration planning with rollback strategies
 - RLS policy architecture and testing
@@ -360,14 +407,17 @@ These agents live directly in the `agents/` root directory:
 ### Workflow & Planning Agents
 
 #### `progress-assessor`
+
 **Purpose**: Manages progress through significant work using a three-document system.
 
 **Use proactively when**:
+
 - Starting significant multi-step work
 - Beginning feature requiring multiple PRs
 - Starting complex refactoring or investigation
 
 **Use reactively when**:
+
 - Completing a step (update status report under `.docs/reports/`)
 - Discovering something (add via learner to `.docs/AGENTS.md` or Learnings section in canonical doc)
 - Plan needs changing (propose changes, get approval)
@@ -375,6 +425,7 @@ These agents live directly in the `agents/` root directory:
 - Feature complete (merge learnings, update canonical docs as needed)
 
 **Core responsibility**:
+
 - Use canonical docs under `.docs/`: plan(s) in `.docs/canonical/plans/`, status in `.docs/reports/`, learnings in `.docs/AGENTS.md` or "Learnings" sections in charter/roadmap/backlog/plan
 - Enforce small increments, TDD, commit approval
 - Never modify the plan without explicit user approval
@@ -438,6 +489,7 @@ progress-assessor
 ```
 
 **Key outputs:**
+
 - PRD / user stories with acceptance criteria
 - BDD acceptance scenarios in business language (outer-loop tests)
 - Architecture decisions documented as ADRs
@@ -506,6 +558,7 @@ OUTER LOOP (BDD acceptance tests)
 Run `/review/review-changes` — the single validation gate that launches all review agents **in parallel** on uncommitted changes:
 
 **Core (always):**
+
 1. `tdd-reviewer` — TDD compliance, test quality, behavior-focused tests
 2. `ts-enforcer` — TypeScript strict mode, no `any`, schema usage, immutability (skip if no TS in diff)
 3. `refactor-assessor` — Refactoring opportunities (Critical / High / Nice / Skip)
@@ -616,6 +669,7 @@ progress-assessor (orchestrates significant work)
 ### When to Use Which Documentation Agent
 
 **Use `progress-assessor`** for:
+
 - "What am I working on right now?"
 - "What's the next step?"
 - "Where was I when I stopped yesterday?"
@@ -623,30 +677,35 @@ progress-assessor (orchestrates significant work)
 - Answer: Canonical plan and status under `.docs/`; learnings in `.docs/AGENTS.md` or Learnings sections
 
 **Use `adr-writer`** for:
+
 - "Why did we choose technology X over Y?"
 - "What were the trade-offs in this architectural decision?"
 - "Why is the system designed this way?"
 - Answer: Permanent ADR in `.docs/canonical/adrs/`
 
 **Use `learner`** for:
+
 - "What gotchas should I know about?"
 - "What patterns work well here?"
 - "How do I avoid this common mistake?"
 - Answer: Permanent entry in `.docs/AGENTS.md` or canonical Learnings sections
 
 **Use `docs-reviewer`** for:
+
 - "How do I install this?"
 - "How do I use this API?"
 - "What features does this have?"
 - Answer: Permanent `README.md`, guides, API docs
 
 **Use `use-case-data-analyzer`** for:
+
 - "How does this feature work end-to-end?"
 - "What data patterns support this use case?"
 - "What's missing to implement this feature?"
 - Answer: Analytical report mapping use cases to data patterns
 
 **Use `supabase-database-engineer`** for:
+
 - "How should I design this Supabase schema?"
 - "What RLS policies do I need?"
 - "How do I optimize this database structure?"
@@ -666,6 +725,7 @@ These agent specifications are designed to be integrated into Claude Code. To us
 3. **Follow the agent's guidance** for your specific situation
 
 Each agent is designed to be:
+
 - **Proactive**: Used before work begins to guide best practices
 - **Reactive**: Used after work to verify compliance and improvements
 - **Autonomous**: Operates independently with clear responsibilities
@@ -696,12 +756,14 @@ When invoking or parsing an agent, two frontmatter fields describe its relations
 ### Operational Interpretation
 
 **When you see `skills: engineering-team/senior-data-engineer`:**
+
 - This skill defines what the agent IS and DOES
 - Agent body provides an INDEX: paths and brief descriptions pointing to the skill
 - Load the skill's SKILL.md for detailed documentation (tools, workflows, examples)
 - **Prefer retrieval-led reasoning:** Use the agent's index to find and read skill docs rather than expecting everything in the agent body
 
 **When you see `related-skills: [engineering-team/tinybird, engineering-team/databases]`:**
+
 - These skills complement the agent's capabilities
 - Load them as-needed for supplementary functionality
 - Consult the skill's own SKILL.md for documentation
@@ -713,6 +775,7 @@ Agents serve as an **index** pointing to skills, not as duplicated documentation
 ### Validation When Parsing
 
 If an agent declares a skill in `skills` but the body lacks even a path reference to it, this is an inconsistency. The skill should either be:
+
 1. Referenced with path and brief description, OR
 2. Moved to `related-skills` (if supplementary, not core)
 
@@ -746,6 +809,7 @@ These agents work together through the **Canonical Development Flow** (see above
 - **Knowledge**: learner + adr-writer + docs-reviewer preserve permanent knowledge
 
 **Key workflow principles** (see `planning` skill for details):
+
 - Phase 0 quality gate complete before any feature work
 - All work in small, known-good increments
 - TDD non-negotiable (RED-GREEN-REFACTOR, double-loop with BDD)

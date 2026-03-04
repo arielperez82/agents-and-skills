@@ -38,6 +38,7 @@ MySolution/
 ### Dependency Rule
 
 **Dependencies flow inward only:**
+
 - Api → Application → Domain
 - Infrastructure → Domain
 - Domain has no dependencies

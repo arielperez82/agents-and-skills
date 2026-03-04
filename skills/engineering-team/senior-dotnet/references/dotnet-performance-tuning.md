@@ -603,18 +603,21 @@ public class SerializationBenchmarks
 ## Performance Checklist
 
 ### General
+
 - [ ] Use async/await properly (async all the way)
 - [ ] Avoid blocking calls (.Result, .Wait())
 - [ ] Use CancellationToken for long operations
 - [ ] Implement proper exception handling
 
 ### Memory
+
 - [ ] Use Span<T>/Memory<T> for buffer operations
 - [ ] Use ArrayPool for temporary buffers
 - [ ] Avoid string concatenation in loops
 - [ ] Profile for memory leaks with dotMemory
 
 ### Database
+
 - [ ] Use AsNoTracking for read-only queries
 - [ ] Project to DTOs (avoid over-fetching)
 - [ ] Use Include/ThenInclude to prevent N+1
@@ -622,12 +625,14 @@ public class SerializationBenchmarks
 - [ ] Use bulk operations for mass updates
 
 ### HTTP
+
 - [ ] Use IHttpClientFactory (connection pooling)
 - [ ] Configure appropriate timeouts
 - [ ] Implement retry policies with Polly
 - [ ] Use circuit breakers for resilience
 
 ### Caching
+
 - [ ] Implement appropriate caching strategy
 - [ ] Use distributed cache for scaled deployments
 - [ ] Set appropriate expiration policies

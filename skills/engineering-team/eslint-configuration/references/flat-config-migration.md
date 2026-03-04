@@ -145,6 +145,7 @@ export default tseslint.config(
 ```
 
 Key changes:
+
 - `typescript-eslint` configs automatically set the parser. No need to import `@typescript-eslint/parser` separately.
 - `projectService: true` replaces `project: './tsconfig.json'`. It is faster and handles multi-tsconfig setups automatically.
 - `tsconfigRootDir: import.meta.dirname` replaces `__dirname` (which is not available in ES modules).

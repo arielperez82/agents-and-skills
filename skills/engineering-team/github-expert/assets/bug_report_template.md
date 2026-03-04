@@ -10,6 +10,7 @@ assignees: ''
 <!-- A clear and concise description of what the bug is -->
 
 ## Steps to Reproduce
+
 1. Go to '...'
 2. Click on '....'
 3. Scroll down to '....'
@@ -28,6 +29,7 @@ Paste error logs here
 ```
 
 ## Environment
+
 - OS: [e.g. Windows 11, macOS 14, Ubuntu 22.04]
 - Browser: [e.g. Chrome 120, Firefox 121]
 - Version: [e.g. v1.2.3]

@@ -40,18 +40,21 @@ For T1 tasks: Execute locally (no backend needed)
 
 ## Execution Protocol
 
-### For T1 (local):
+### For T1 (local)
+
 Execute the command directly via shell. No LLM invocation.
 
-### For T2/T3 (backend dispatch):
+### For T2/T3 (backend dispatch)
 
 1. **Pre-flight check:**
+
    ```python
    from preflight import check_backends
    available = check_backends()
    ```
 
 2. **Dispatch:**
+
    ```python
    from cli_client import invoke_cli
    result = invoke_cli(prompt, backend=selected_backend, timeout=300)
@@ -64,6 +67,7 @@ Execute the command directly via shell. No LLM invocation.
 
 4. **Log the dispatch:**
    Print a summary line:
+
    ```
    [dispatch] tier=T2 backend=codex duration=1.2s prompt_len=150
    ```

@@ -118,6 +118,7 @@ External claims come from many domains. Verify each category with appropriate so
 **Skill Location:** `../skills/research/`
 
 You use the `research` skill's `references/source-verification-tiers.md` for:
+
 - Source reputation tier classification (High / Medium-High / Medium / Excluded)
 - Cross-referencing methodology (independent sources, circular reference detection)
 - Confidence ratings (High / Medium / Low)
@@ -143,19 +144,20 @@ A **Claims Verification Report** containing:
 |---|-------|--------|-----------|-------------------|--------|------------|---------------|
 | 1 | {claim text} | {agent name} | {URL checked} | {fetched docs / searched / internal data request} | {Verified / Contradicted / Unverifiable / Stale} | {High / Medium / Low} | Yes/No |
 
-2. **Source Audit Table** (using template from `source-verification-tiers.md`)
+1. **Source Audit Table** (using template from `source-verification-tiers.md`)
 
 | Source | Domain | Reputation | Type | Access Date | Verification |
 |--------|--------|------------|------|-------------|--------------|
 | {name} | {domain} | {High/Medium-High/Medium} | {academic/official/industry/technical} | {YYYY-MM-DD} | {Cross-verified/Partially verified/Single-source} |
 
 **Reputation Summary**:
+
 - High reputation sources: {count} ({percentage}%)
 - Medium-high reputation: {count} ({percentage}%)
 - Average reputation score: {0.0-1.0}
 
-3. **Blockers List** — Any Contradicted or Unverifiable claims on the critical path
-4. **Overall Verdict**: `PASS` / `PASS WITH WARNINGS` / `FAIL`
+1. **Blockers List** — Any Contradicted or Unverifiable claims on the critical path
+2. **Overall Verdict**: `PASS` / `PASS WITH WARNINGS` / `FAIL`
    - **PASS**: All critical-path claims verified, no contradictions
    - **PASS WITH WARNINGS**: All critical-path claims verified, but some non-critical claims are single-source or stale
    - **FAIL**: Any critical-path claim is Contradicted or Unverifiable
@@ -254,6 +256,7 @@ When claims are Contradicted or Unverifiable, produce a structured **Verificatio
 ```
 
 The originating agent is expected to either:
+
 1. Provide a valid source that confirms the claim
 2. Correct the claim based on what the source actually says
 3. Remove the claim if it cannot be substantiated

@@ -29,12 +29,14 @@ P0 (Critical) → All Hands + CISO + Executive Team (war room)
 ### Phase 1: Detection & Triage (0-15 minutes)
 
 **Objectives:**
+
 - Identify and classify the incident
 - Assign severity level
 - Begin evidence preservation
 - Initiate response procedures
 
 **Tool Integration:**
+
 ```bash
 # Automated detection and triage
 python incident_detector.py --input /var/log/ --output json --file triage.json
@@ -44,6 +46,7 @@ python incident_detector.py --input alerts.json --severity P1
 ```
 
 **Triage Checklist:**
+
 - [ ] What triggered the alert? (SIEM, EDR, user report, etc.)
 - [ ] Which systems/users are affected?
 - [ ] Is this confirmed malicious or potential false positive?
@@ -52,6 +55,7 @@ python incident_detector.py --input alerts.json --severity P1
 - [ ] Has this incident type been seen before?
 
 **Immediate Actions:**
+
 1. Document in incident management system
 2. Assign incident ID and severity level
 3. Notify appropriate responders based on severity
@@ -60,12 +64,14 @@ python incident_detector.py --input alerts.json --severity P1
 ### Phase 2: Containment (15-60 minutes)
 
 **Objectives:**
+
 - Stop the bleeding (prevent further damage)
 - Isolate affected systems
 - Preserve evidence
 - Prevent lateral movement
 
 **Tool Integration:**
+
 ```bash
 # Execute containment playbook
 python incident_responder.py --incident INC-001 --playbook ransomware
@@ -87,6 +93,7 @@ python incident_responder.py --incident INC-001 --collect-evidence --paths /var/
 | **Ransomware** | Isolate systems, disable shares, identify variant, verify backups |
 
 **Long-Term Containment:**
+
 - Apply emergency patches
 - Update detection rules
 - Strengthen authentication (enforce MFA)
@@ -96,12 +103,14 @@ python incident_responder.py --incident INC-001 --collect-evidence --paths /var/
 ### Phase 3: Investigation & Analysis (1-24 hours)
 
 **Objectives:**
+
 - Determine root cause
 - Map attack timeline
 - Identify full scope of compromise
 - Collect forensic evidence
 
 **Tool Integration:**
+
 ```bash
 # Root cause analysis
 python incident_analyzer.py --incident INC-001 --rca --attack-vector phishing
@@ -114,6 +123,7 @@ python incident_analyzer.py --incident INC-001 --report --output markdown
 ```
 
 **Investigation Questions:**
+
 1. **Timeline:** When did compromise begin?
 2. **Attack Vector:** How did attacker gain access?
 3. **Lateral Movement:** Where did they go after initial access?
@@ -121,6 +131,7 @@ python incident_analyzer.py --incident INC-001 --report --output markdown
 5. **Persistence:** Did they establish backdoors?
 
 **Evidence Collection Priority (Order of Volatility):**
+
 1. Memory (RAM) - Most volatile
 2. Network connections
 3. Running processes
@@ -130,12 +141,14 @@ python incident_analyzer.py --incident INC-001 --report --output markdown
 ### Phase 4: Eradication (2-48 hours)
 
 **Objectives:**
+
 - Remove all traces of the threat
 - Patch vulnerabilities exploited
 - Remove persistence mechanisms
 - Verify clean state
 
 **Eradication Checklist:**
+
 - [ ] Delete malware from all affected systems
 - [ ] Remove backdoors and persistence mechanisms
 - [ ] Patch exploited vulnerabilities
@@ -144,6 +157,7 @@ python incident_analyzer.py --incident INC-001 --report --output markdown
 - [ ] Update security rules (WAF, IDS, EDR)
 
 **Verification:**
+
 - [ ] Scan all systems for indicators of compromise (IOCs)
 - [ ] Verify malware signatures not present
 - [ ] Confirm backdoors removed
@@ -153,12 +167,14 @@ python incident_analyzer.py --incident INC-001 --report --output markdown
 ### Phase 5: Recovery (2-7 days)
 
 **Objectives:**
+
 - Restore normal operations
 - Validate system integrity
 - Monitor for re-compromise
 - Return to business as usual
 
 **Recovery Steps:**
+
 1. Restore systems from clean backups (if applicable)
 2. Re-enable user accounts (with new credentials)
 3. Restore network connectivity incrementally
@@ -167,6 +183,7 @@ python incident_analyzer.py --incident INC-001 --report --output markdown
 6. Validate business operations
 
 **Post-Recovery Monitoring:**
+
 - Enhanced logging for 30 days minimum
 - Daily review of related alerts
 - Threat hunting for similar TTPs
@@ -175,18 +192,21 @@ python incident_analyzer.py --incident INC-001 --report --output markdown
 ### Phase 6: Post-Incident Review (1-2 weeks after)
 
 **Objectives:**
+
 - Document lessons learned
 - Improve processes
 - Update playbooks
 - Prevent recurrence
 
 **Retrospective Agenda:**
+
 1. What happened? (timeline, root cause)
 2. What went well? (effective responses)
 3. What went poorly? (gaps, delays)
 4. What should we change? (process, tools, training)
 
 **Deliverables:**
+
 - Incident report (executive summary)
 - Timeline of events
 - Impact assessment (systems, data, downtime)
@@ -198,12 +218,14 @@ python incident_analyzer.py --incident INC-001 --report --output markdown
 ### Playbook: Phishing Attack
 
 **Indicators:**
+
 - User reports suspicious email
 - Spoofed sender address
 - Malicious link or attachment
 - Request for credentials/payment
 
 **Response Steps:**
+
 ```bash
 # Execute phishing playbook
 python incident_responder.py --incident INC-001 --playbook phishing
@@ -217,6 +239,7 @@ python incident_responder.py --incident INC-001 --playbook phishing
 6. **Train:** Send security awareness reminder
 
 **Prevention Controls:**
+
 - SPF/DKIM/DMARC email authentication
 - Link rewriting and sandboxing
 - Regular phishing simulations
@@ -224,12 +247,14 @@ python incident_responder.py --incident INC-001 --playbook phishing
 ### Playbook: Ransomware
 
 **Indicators:**
+
 - Files encrypted with unusual extensions
 - Ransom note displayed
 - Backup deletion attempts
 - Unusual SMB traffic (lateral spread)
 
 **Response Steps:**
+
 ```bash
 # Execute ransomware playbook - IMMEDIATE ACTION
 python incident_responder.py --incident INC-001 --playbook ransomware
@@ -243,6 +268,7 @@ python incident_responder.py --incident INC-001 --playbook ransomware
 6. **Report:** File FBI IC3 report, notify cyber insurance
 
 **Critical Rules:**
+
 - DO NOT pay ransom (no guarantee, funds criminals)
 - DO NOT shut down systems (preserve memory)
 - DO NOT reconnect until verified clean
@@ -250,12 +276,14 @@ python incident_responder.py --incident INC-001 --playbook ransomware
 ### Playbook: Data Breach
 
 **Indicators:**
+
 - Unauthorized database access
 - Large data downloads/exports
 - Exposed cloud storage (S3, etc.)
 - Customer reports of compromised data
 
 **Response Steps:**
+
 ```bash
 # Execute data breach playbook
 python incident_responder.py --incident INC-001 --playbook data_breach
@@ -269,6 +297,7 @@ python incident_responder.py --incident INC-001 --playbook data_breach
 6. **Communicate:** Prepare customer/PR notifications
 
 **Notification Timelines:**
+
 | Regulation | Deadline | Authority |
 |------------|----------|-----------|
 | GDPR | 72 hours | Supervisory authority |
@@ -279,12 +308,14 @@ python incident_responder.py --incident INC-001 --playbook data_breach
 ### Playbook: Cloud Account Compromise
 
 **Indicators:**
+
 - Unusual AWS/Azure/GCP activity
 - Resource creation from new IPs/regions
 - Cryptocurrency mining instances
 - CloudTrail anomalies
 
 **Response Steps:**
+
 ```bash
 # Execute cloud compromise playbook
 python incident_responder.py --incident INC-001 --playbook cloud_compromise
@@ -297,6 +328,7 @@ python incident_responder.py --incident INC-001 --playbook cloud_compromise
 5. **Monitor:** Enable GuardDuty/Defender alerts
 
 **Prevention Controls:**
+
 - MFA enforcement on all accounts
 - Least privilege IAM policies
 - Access key rotation (90 days)
@@ -305,12 +337,14 @@ python incident_responder.py --incident INC-001 --playbook cloud_compromise
 ### Playbook: Insider Threat
 
 **Indicators:**
+
 - Unusual data access patterns
 - Mass downloads/exports
 - After-hours access to sensitive systems
 - Policy bypass attempts
 
 **Response Steps:**
+
 ```bash
 # Execute insider threat playbook (requires approval)
 python incident_responder.py --incident INC-001 --playbook insider_threat
@@ -323,6 +357,7 @@ python incident_responder.py --incident INC-001 --playbook insider_threat
 5. **Act:** Disable access (coordinate with HR)
 
 **Critical Rules:**
+
 - DO NOT alert subject prematurely
 - DO coordinate with HR/Legal before visible actions
 - DO preserve chain of custody for evidence
@@ -332,11 +367,13 @@ python incident_responder.py --incident INC-001 --playbook insider_threat
 ### Internal Communication
 
 **War Room Setup:**
+
 - Platform: Dedicated Slack/Teams channel or Zoom bridge
 - Participants: Security team, affected system owners, management
 - Update frequency: Every 30-60 minutes during active incident
 
 **Status Update Template:**
+
 ```
 INCIDENT UPDATE - [INC-ID] - [TIMESTAMP]
 Status: [ACTIVE/CONTAINED/RESOLVED]
@@ -351,11 +388,13 @@ ETA to Resolution: [If known]
 ### External Communication
 
 **Customer Notification Triggers:**
+
 - P0 incidents affecting customer data
 - Data breaches with PII/PCI/PHI exposure
 - Extended service outages (>4 hours)
 
 **Regulatory Reporting:**
+
 - GDPR: 72 hours to supervisory authority
 - PCI: Immediate to payment brands
 - HIPAA: 60 days to HHS
@@ -364,21 +403,25 @@ ETA to Resolution: [If known]
 ## Tools & Resources
 
 ### Detection Tools
+
 - **SIEM:** Splunk, Elastic Security, Datadog
 - **EDR:** CrowdStrike, Carbon Black, Microsoft Defender
 - **IDS/IPS:** Suricata, Snort, Zeek
 
 ### Incident Management
+
 - **Ticketing:** Jira Service Management, ServiceNow
 - **Alerting:** PagerDuty, Opsgenie
 - **Communication:** Slack, Microsoft Teams
 
 ### Forensics
+
 - **Memory:** Volatility, LiME
 - **Disk:** Autopsy, FTK Imager
 - **Network:** Wireshark, tcpdump
 
 ### Threat Intelligence
+
 - **IOC Databases:** MISP, AlienVault OTX, VirusTotal
 - **TTPs:** MITRE ATT&CK Framework
 - **Ransomware ID:** ID Ransomware, No More Ransom
@@ -386,6 +429,7 @@ ETA to Resolution: [If known]
 ## Integration with Python Tools
 
 ### Automated Detection Pipeline
+
 ```bash
 #!/bin/bash
 # Daily security log analysis
@@ -403,6 +447,7 @@ fi
 ```
 
 ### Incident Response Automation
+
 ```bash
 #!/bin/bash
 # Automated containment for confirmed ransomware
@@ -414,6 +459,7 @@ python incident_responder.py \
 ```
 
 ### Post-Incident Reporting
+
 ```bash
 #!/bin/bash
 # Generate comprehensive incident report

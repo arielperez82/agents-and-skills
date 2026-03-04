@@ -137,17 +137,21 @@ The product-marketer agent bridges the gap between product strategy and sales ex
 **Goal:** Define ideal customer profile and develop differentiated product positioning from market research
 
 **Steps:**
+
 1. **Market Research** - Review competitive landscape and customer interviews (10-15 interviews recommended)
 2. **Reference Positioning Framework** - Study April Dunford methodology
+
    ```bash
    cat ../skills/marketing-team/marketing-strategy-pmm/references/positioning-frameworks.md
    ```
+
 3. **Define ICP Firmographics** - Document company size, industry, geography, revenue, funding stage of best-fit customers
 4. **Map Buyer Personas** - Identify economic buyer, technical buyer, end user with goals, fears, and messaging priorities
 5. **Isolate Unique Attributes** - Document 3-5 unique product attributes competitors don't have
 6. **Connect to Customer Value** - Map each attribute to specific business outcomes and customer benefits
 7. **Validate with Sales** - Test positioning with sales team (do customers respond positively?)
 8. **Document in One-Pager** - Create positioning summary using template
+
    ```bash
    cp ../skills/marketing-team/marketing-strategy-pmm/assets/one-pager-template.pptx positioning-one-pager.pptx
    ```
@@ -157,6 +161,7 @@ The product-marketer agent bridges the gap between product strategy and sales ex
 **Time Estimate:** 2-3 weeks (including customer research and stakeholder alignment)
 
 **Example:**
+
 ```bash
 # Positioning exercise output
 echo "ICP: Mid-market SaaS companies (200-1000 employees)
@@ -176,20 +181,26 @@ Value Prop: [Company] helps mid-market SaaS teams ship 2x faster by automating [
 **Goal:** Analyze competitive landscape and develop sales battlecards for effective competitive selling
 
 **Steps:**
+
 1. **Identify Competitive Set** - List direct competitors, indirect competitors, status quo alternatives
 2. **Track Competitor Changes** - Run competitor tracker to capture current positioning
+
    ```bash
    python ../skills/marketing-team/marketing-strategy-pmm/scripts/competitor_tracker.py competitor-urls.txt
    ```
+
 3. **Analyze Positioning** - Document each competitor's value proposition, target market, pricing, key strengths
 4. **Create Battlecards** - Use template for each main competitor
+
    ```bash
    cp ../skills/marketing-team/marketing-strategy-pmm/assets/battlecard-template.docx competitor-a-battlecard.docx
    ```
+
 5. **Document Win Strategies** - For each competitor, define how to win competitive deals
 6. **Review with Sales** - Gather feedback from sales team on competitor objections and win rates
 7. **Create Objection Responses** - Develop talk tracks for common competitive objections
 8. **Reference Messaging** - Use competitive messaging templates
+
    ```bash
    cat ../skills/marketing-team/marketing-strategy-pmm/references/messaging-templates.md
    ```
@@ -199,6 +210,7 @@ Value Prop: [Company] helps mid-market SaaS teams ship 2x faster by automating [
 **Time Estimate:** 1-2 weeks (for 3-5 main competitors)
 
 **Example:**
+
 ```bash
 # Battlecard workflow
 # 1. Gather competitive data
@@ -216,11 +228,14 @@ cp ../skills/marketing-team/marketing-strategy-pmm/assets/battlecard-template.do
 **Goal:** Develop comprehensive GTM strategy and execute product launch across channels
 
 **Steps:**
+
 1. **Define GTM Motion** - Choose PLG (product-led), Sales-Led, or Hybrid based on ACV and ICP
 2. **Reference GTM Playbook** - Review launch tiers and GTM strategy options
+
    ```bash
    cat ../skills/marketing-team/marketing-strategy-pmm/references/launch-checklists.md
    ```
+
 3. **Determine Launch Tier** - Major (quarterly, $50k+ budget), Standard (monthly, $10-25k), Minor (weekly, <$5k)
 4. **Develop Launch Plan** - Use launch checklist template covering 8 weeks pre-launch through post-launch optimization
 5. **Define Success Metrics** - Pipeline $ generated, MQL/SQL targets, win rate improvements, market share
@@ -234,6 +249,7 @@ cp ../skills/marketing-team/marketing-strategy-pmm/assets/battlecard-template.do
 **Time Estimate:** 4-8 weeks (depending on launch tier and complexity)
 
 **Example:**
+
 ```bash
 # GTM launch workflow
 # Week 1-2: Define positioning and messaging
@@ -257,11 +273,14 @@ cp ../skills/marketing-team/marketing-strategy-pmm/assets/sales-deck-template.pp
 **Goal:** Enable sales team with positioning, battlecards, and messaging to improve win rates and deal velocity
 
 **Steps:**
+
 1. **Analyze Win/Loss Data** - Gather last 30-60 days of closed won and lost deals
 2. **Run Win/Loss Analysis** - Use analyzer to identify patterns and competitive trends
+
    ```bash
    python ../skills/marketing-team/marketing-strategy-pmm/scripts/win_loss_analyzer.py closed-deals.csv
    ```
+
 3. **Identify Top Win Reasons** - Document what resonates most with customers (ease of use, price, features, support)
 4. **Identify Loss Patterns** - Understand why deals are being lost (competitor, price, feature gaps, status quo)
 5. **Create Sales Assets** - Build or update based on findings:
@@ -269,9 +288,11 @@ cp ../skills/marketing-team/marketing-strategy-pmm/assets/sales-deck-template.pp
    - Battlecards for each top competitor
    - One-pagers for objection handling
 6. **Develop Persona Messaging** - Reference messaging templates for each buyer type
+
    ```bash
    cat ../skills/marketing-team/marketing-strategy-pmm/references/messaging-templates.md
    ```
+
 7. **Sales Training** - Conduct competitive selling workshop covering positioning, battlecards, talk tracks
 8. **Track Metrics** - Monitor win rate, sales velocity, deal size improvements month-over-month
 
@@ -280,6 +301,7 @@ cp ../skills/marketing-team/marketing-strategy-pmm/assets/sales-deck-template.pp
 **Time Estimate:** 2-3 weeks (for comprehensive enablement program)
 
 **Example:**
+
 ```bash
 # Win/loss analysis workflow
 # 1. Collect deal data
@@ -406,24 +428,28 @@ echo "Plan complete: ${TARGET_MARKET}-gtm-plan.txt"
 ## Success Metrics
 
 **Positioning & Messaging Effectiveness:**
+
 - **Win Rate Improvement:** 20-30% increase in competitive win rate within 3 months of repositioning
 - **Sales Velocity:** 15-25% reduction in sales cycle length (measured in days to close)
 - **Deal Size Growth:** 20-35% increase in average contract value (ACV) through premium positioning
 - **Message Resonance:** 70%+ of salesforce reports messaging resonates with customers
 
 **Market Positioning:**
+
 - **Market Share:** Measure year-over-year customer growth vs. competitors
 - **Brand Awareness:** Track unaided brand awareness lift in target segments (+15-25% 6-month goal)
 - **Competitive Positioning:** Monitor win rate vs. each top competitor (track separately)
 - **Customer Testimonials:** Increase in customer quotes mentioning specific positioning elements
 
 **GTM Execution:**
+
 - **Launch Impact:** 3:1+ ratio of pipeline generated to marketing spend on launches
 - **MQL Generation:** 20-30% month-over-month growth in marketing-qualified leads
 - **Campaign ROI:** Positive ROI within 60-90 days of launch campaign
 - **Sales Enablement Adoption:** 80%+ of salesforce using battlecards and assets within 30 days
 
 **Competitive Intelligence:**
+
 - **Win/Loss Insight Velocity:** Monthly competitive intelligence reports informing product roadmap
 - **Battlecard Currency:** 95%+ of battlecards updated within 30 days of competitive changes
 - **Lost Deal Prevention:** 40%+ reduction in deals lost to specific competitors after battlecard deployment

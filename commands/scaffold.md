@@ -24,6 +24,7 @@ Follow these steps in order. Do not skip steps.
 ### Step 1: Git Init Check
 
 Check if the current directory is a git repository. If not:
+
 - Ask the user if they want to initialize git
 - If yes, run `git init`
 - If no, proceed without git (warn that pre-commit hooks won't work)
@@ -67,18 +68,21 @@ Create the project structure based on the selected tech stack:
 Set up all three layers per the `quality-gate-first` skill:
 
 **Layer 1 — Pre-commit (local):**
+
 - Husky + lint-staged
 - Type-check (full project when source staged)
 - Lint + format on staged files (ESLint + Prettier)
 - Unit tests on staged source files
 
 **Layer 2 — CI pipeline (remote):**
+
 - GitHub Actions on push/PR
 - Format check, lint, type-check, build, unit tests
 - Path-based triggers, pinned action versions, frozen lockfile
 - Separate check/test jobs
 
 **Layer 3 — Deploy pipeline (remote):**
+
 - GitHub Actions workflow_dispatch (manual trigger)
 - Build, dry-run, deploy steps
 - Repository secrets for credentials
@@ -107,6 +111,7 @@ Ask the user if they want to commit the scaffolded project. If yes, run `/git/cm
 ## Out of Scope
 
 The following are explicitly NOT part of `/scaffold`:
+
 - Wireframe or design work
 - Feature implementation or business logic
 - Code review beyond the scaffold itself

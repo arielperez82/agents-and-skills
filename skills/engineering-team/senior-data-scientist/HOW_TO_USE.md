@@ -7,16 +7,19 @@ Hey Claude—I just added the "senior-data-scientist" skill. Can you analyze thi
 ## Example Invocations
 
 ### Example 1: Basic Usage
+
 ```
 Hey Claude—I just added the "senior-data-scientist" skill. Can you analyze this dataset?
 ```
 
 ### Example 2: Specific Workflow
+
 ```
 Hey Claude—I just added the "senior-data-scientist" skill. Can you help me with a/b test design and analysis?
 ```
 
 ### Example 3: Integration with Other Skills
+
 ```
 Hey Claude—I just added the "senior-data-scientist" skill. Can you use it together with related skills to deliver a complete solution?
 ```

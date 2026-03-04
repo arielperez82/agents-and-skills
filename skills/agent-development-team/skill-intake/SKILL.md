@@ -115,6 +115,7 @@ Rather than hardcoding skill references, the intake process discovers the curren
 When incorporating a new skill, follow whatever cross-skill import pattern the project already uses. Common patterns:
 
 **Python sys.path pattern:**
+
 ```python
 import sys
 import os
@@ -123,6 +124,7 @@ sys.path.insert(0, os.path.abspath(shared_path))
 ```
 
 **SKILL.md frontmatter dependencies:**
+
 ```yaml
 dependencies: ["shared-skill-name"]
 ```

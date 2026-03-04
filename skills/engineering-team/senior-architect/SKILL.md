@@ -107,12 +107,14 @@ python scripts/dependency_analyzer.py [options]
 Automated tool for architecture diagram generator tasks.
 
 **Features:**
+
 - Automated scaffolding
 - Best practices built-in
 - Configurable templates
 - Quality checks
 
 **Usage:**
+
 ```bash
 python scripts/architecture_diagram_generator.py <project-path> [options]
 ```
@@ -122,12 +124,14 @@ python scripts/architecture_diagram_generator.py <project-path> [options]
 Comprehensive analysis and optimization tool.
 
 **Features:**
+
 - Deep analysis
 - Performance metrics
 - Recommendations
 - Automated fixes
 
 **Usage:**
+
 ```bash
 python scripts/project_architect.py <target-path> [--verbose]
 ```
@@ -137,12 +141,14 @@ python scripts/project_architect.py <target-path> [--verbose]
 Advanced tooling for specialized tasks.
 
 **Features:**
+
 - Expert-level automation
 - Custom configurations
 - Integration ready
 - Production-grade output
 
 **Usage:**
+
 ```bash
 python scripts/dependency_analyzer.py [arguments] [options]
 ```
@@ -196,16 +202,20 @@ Technical reference guide in `references/tech_decision_guide.md`:
 
 1. **Gather Requirements** - Understand functional and non-functional requirements, constraints, and success criteria
 2. **Identify Components** - Break system into services, databases, queues, caches, and external integrations
+
    ```bash
    # Generate architecture diagram
    python scripts/architecture_diagram_generator.py --requirements requirements.md
    ```
+
 3. **Define Integration Patterns** - Specify API contracts, event schemas, and communication protocols
 4. **Analyze Dependencies** - Review service dependencies and data flows
+
    ```bash
    # Analyze dependencies
    python scripts/dependency_analyzer.py --services services/
    ```
+
 5. **Document Architecture** - Create comprehensive architecture documentation with diagrams and decision records
 
 See [architecture_patterns.md](references/architecture_patterns.md) for detailed patterns and examples.
@@ -227,10 +237,12 @@ See [tech_decision_guide.md](references/tech_decision_guide.md) for evaluation f
 
 1. **Service Boundary Definition** - Apply domain-driven design to identify bounded contexts
 2. **Infrastructure Setup** - Configure Docker, Kubernetes, service mesh, and observability
+
    ```bash
    # Generate project architecture
    python scripts/project_architect.py --pattern microservices
    ```
+
 3. **API Gateway Configuration** - Setup routing, authentication, rate limiting
 4. **Deploy & Monitor** - Deploy services and establish monitoring dashboards
 
@@ -240,10 +252,12 @@ See [tech_decision_guide.md](references/tech_decision_guide.md) for evaluation f
 
 1. **Establish Baselines** - Measure current performance metrics (latency, throughput, resource usage)
 2. **Identify Bottlenecks** - Use profiling tools and analysis scripts
+
    ```bash
    # Analyze system dependencies and bottlenecks
    python scripts/dependency_analyzer.py --analyze-performance
    ```
+
 3. **Implement Optimizations** - Apply caching, database indexing, query optimization, code improvements
 4. **Validate Improvements** - Measure impact and document optimizations
 
@@ -274,6 +288,7 @@ python scripts/project_architect.py .
 ### 3. Implement Best Practices
 
 Follow the patterns and practices documented in:
+
 - `references/architecture_patterns.md`
 - `references/system_design_workflows.md`
 - `references/tech_decision_guide.md`
@@ -281,24 +296,28 @@ Follow the patterns and practices documented in:
 ## Best Practices Summary
 
 ### Code Quality
+
 - Follow established patterns
 - Write comprehensive tests
 - Document decisions
 - Review regularly
 
 ### Performance
+
 - Measure before optimizing
 - Use appropriate caching
 - Optimize critical paths
 - Monitor in production
 
 ### Security
+
 - Validate all inputs
 - Use parameterized queries
 - Implement proper authentication
 - Keep dependencies updated
 
 ### Maintainability
+
 - Write clear code
 - Use consistent naming
 - Add helpful comments

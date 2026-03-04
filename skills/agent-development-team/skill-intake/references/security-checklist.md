@@ -115,6 +115,7 @@ Checklist for evaluating sandboxed skills before incorporation into a project's 
   - "you are now a different agent", "urgent override" → **High**
 
 **Scanner command:**
+
 ```bash
 # Scan SKILL.md (critical surface - loaded directly into agent context)
 npx prompt-injection-scanner SKILL.md --format human
@@ -139,11 +140,13 @@ semgrep scan --config auto --lang javascript .claude/skills/_sandbox/{skill-name
 ```
 
 **Triage rules:**
+
 - `Blocking` findings with no `nosemgrep` justification → **High** (must fix or suppress with rationale)
 - Findings in test/example code that are intentional (e.g., pentest payloads) → Suppress with `nosemgrep: rule-id -- justification`
 - False positives (e.g., localhost HTTP in dev tools, RegExp from hardcoded patterns) → Suppress with `nosemgrep: rule-id -- justification`
 
 **Common findings and fixes:**
+
 | Finding | Fix |
 |---------|-----|
 | `use-defused-xml-parse` | `import defusedxml.ElementTree as ET` with stdlib fallback |

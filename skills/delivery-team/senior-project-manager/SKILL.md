@@ -102,6 +102,7 @@ This skill provides Senior PM expertise through strategic frameworks, communicat
 **Time:** 2 hours (plus 1 week for approval)
 
 **Steps:**
+
 1. **Gather business requirements** - Meet with stakeholders to define business needs
    - Why are we building this? (Business objective - revenue, cost savings, risk mitigation)
    - What problem does it solve? (Problem statement and impact)
@@ -143,6 +144,7 @@ See [Workflows](#workflows) section for detailed project initiation steps.
 **Time:** 3 hours (planning) + 2 hours (meeting)
 
 **Steps:**
+
 1. **Prepare portfolio data** - One week before review meeting
    - List all active projects and major initiatives
    - For each project: status (green/yellow/red), % complete, key metrics
@@ -192,6 +194,7 @@ See [Portfolio Management](#workflows) section for detailed methodology.
 **Time:** 1 hour per month (ongoing)
 
 **Steps:**
+
 1. **Conduct risk identification workshops** - Monthly or quarterly (1 hour)
    - Gather project team in workshop format
    - Brainstorm potential risks: technical, resource, timeline, stakeholder
@@ -231,6 +234,7 @@ See [Risk Management](#workflows) section for detailed risk assessment framework
 **Time:** 2 hours per reporting cycle
 
 **Steps:**
+
 1. **Define reporting cadence and KPIs** - Establish expectations
    - Weekly: Brief team updates (5 mins)
    - Bi-weekly: Detailed team status (30 mins)
@@ -299,24 +303,28 @@ Strategic project management for Software, SaaS, and digital applications (web a
 ## Core Responsibilities
 
 **Strategic Planning**
+
 - Develop product roadmaps aligned with business objectives
 - Define project scope, objectives, and success criteria
 - Create multi-project portfolio strategies
 - Align technical initiatives with business goals
 
 **Stakeholder Management**
+
 - Executive-level communication and reporting
 - Manage expectations across C-suite, product, engineering, and sales
 - Facilitate strategic decision-making
 - Build consensus across departments
 
 **Risk & Budget Management**
+
 - Identify and mitigate project risks
 - Budget planning and resource allocation
 - ROI analysis and business case development
 - Change management and impact assessment
 
 **Team Leadership**
+
 - Cross-functional team coordination
 - Resource capacity planning
 - Conflict resolution and escalation management
@@ -325,6 +333,7 @@ Strategic project management for Software, SaaS, and digital applications (web a
 ## Workflows
 
 ### Project Initiation
+
 1. Gather business requirements and objectives
 2. Define project scope, timeline, and budget
 3. Identify stakeholders and create RACI matrix
@@ -332,6 +341,7 @@ Strategic project management for Software, SaaS, and digital applications (web a
 5. **HANDOFF TO**: Scrum Master for sprint planning or Jira Expert for project setup
 
 ### Portfolio Management
+
 1. Review all active projects and initiatives
 2. Assess resource allocation across portfolio
 3. Prioritize projects based on business value and strategic fit
@@ -340,6 +350,7 @@ Strategic project management for Software, SaaS, and digital applications (web a
 6. **USE**: Jira Expert to pull cross-project metrics
 
 ### Risk Management
+
 1. Conduct risk identification workshops
 2. Assess probability and impact of each risk
 3. Develop mitigation and contingency plans
@@ -348,6 +359,7 @@ Strategic project management for Software, SaaS, and digital applications (web a
 6. **USE**: Confluence Expert to document risk register
 
 ### Stakeholder Reporting
+
 1. Define reporting cadence and KPIs
 2. Gather metrics from Scrum Master and Jira Expert
 3. Create executive summaries highlighting:
@@ -362,6 +374,7 @@ Strategic project management for Software, SaaS, and digital applications (web a
 ## Decision Framework
 
 **When to Escalate**
+
 - Budget overruns >15%
 - Timeline slippage affecting releases
 - Resource conflicts across multiple projects
@@ -369,6 +382,7 @@ Strategic project management for Software, SaaS, and digital applications (web a
 - Critical risk realization
 
 **When to Delegate**
+
 - Day-to-day sprint management → Scrum Master
 - Technical project setup → Jira Expert
 - Documentation management → Confluence Expert
@@ -385,30 +399,35 @@ Strategic project management for Software, SaaS, and digital applications (web a
 ## Handoff Protocols
 
 **TO Scrum Master**:
+
 - Project scope and objectives defined
 - Initial backlog priorities identified
 - Team composition confirmed
 - Sprint cadence agreed
 
 **TO Jira Expert**:
+
 - Project structure requirements
 - Workflow and field needs
 - Reporting requirements
 - Integration needs
 
 **TO Confluence Expert**:
+
 - Documentation requirements
 - Space structure needs
 - Template requirements
 - Knowledge management strategy
 
 **FROM Scrum Master**:
+
 - Sprint health metrics
 - Velocity trends
 - Team capacity issues
 - Blocker escalations
 
 **FROM Jira Expert**:
+
 - Cross-project metrics
 - Issue trends and patterns
 - Workflow bottlenecks
@@ -426,10 +445,12 @@ Strategic project management for Software, SaaS, and digital applications (web a
 ## Atlassian MCP Integration
 
 **Tools Used**:
+
 - Jira for portfolio dashboards and cross-project reporting
 - Confluence for strategic documentation and stakeholder reports
 
 **Key Queries**:
+
 - Use Jira MCP to aggregate metrics across multiple projects
 - Use Confluence MCP to create and maintain executive report pages
 - Track portfolio health through Jira filters and dashboards

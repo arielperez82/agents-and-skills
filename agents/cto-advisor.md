@@ -125,7 +125,9 @@ The cto-advisor agent bridges the gap between business strategy and technical ex
 **Goal:** Define 3-5 year technology vision and quarterly execution roadmap aligned with business objectives
 
 **Steps:**
+
 1. **Assess Current State** - Document existing architecture, technology stack, team capabilities, and technical debt
+
    ```bash
    # Run technical debt assessment
    python ../skills/engineering-team/cto-advisor/scripts/tech_debt_analyzer.py current_systems.json -o json -f debt_assessment.json
@@ -146,6 +148,7 @@ The cto-advisor agent bridges the gap between business strategy and technical ex
 **Time Estimate:** 2-3 weeks for complete strategy development (20-30 hours of CTO time plus team input)
 
 **Example:**
+
 ```bash
 #!/bin/bash
 # tech-strategy-workflow.sh - Complete technology strategy development
@@ -170,11 +173,13 @@ echo "Q3-Q4: Continue migration, maintain balance"
 **Goal:** Develop optimal team scaling plan with hiring roadmap, team structure, and budget projections
 
 **Steps:**
+
 1. **Analyze Current Team State** - Document current headcount, roles, velocity, attrition rate, and team satisfaction scores
 
 2. **Define Growth Targets** - Set target headcount based on business growth plans, product roadmap demands, and strategic initiatives
 
 3. **Run Scaling Calculator** - Generate optimal team structure and hiring plan
+
    ```bash
    python ../skills/engineering-team/cto-advisor/scripts/team_scaling_calculator.py team_data.json -o json -f scaling_plan.json
    ```
@@ -192,6 +197,7 @@ echo "Q3-Q4: Continue migration, maintain balance"
 **Time Estimate:** 1-2 weeks for annual planning (15-20 hours including stakeholder alignment)
 
 **Example:**
+
 ```bash
 #!/bin/bash
 # team-scaling-workflow.sh - Annual team scaling and hiring plan
@@ -237,11 +243,13 @@ cat ../skills/engineering-team/cto-advisor/references/templates.md | grep -A 50 
 **Goal:** Establish architecture governance process and evaluate strategic technology decisions
 
 **Steps:**
+
 1. **Implement ADR Process** - Establish Architecture Decision Record framework for documenting major technical decisions using ADR template from references/architecture_decision_records.md
 
 2. **Define Decision Categories** - Categorize decisions requiring ADRs (architecture patterns, technology selection, security standards, infrastructure choices)
 
 3. **Evaluate Technology Options** - Apply technology evaluation framework to assess vendors or technologies
+
    ```bash
    # Reference evaluation criteria
    cat ../skills/engineering-team/cto-advisor/references/technology_evaluation_framework.md | grep -A 30 "Evaluation Criteria"
@@ -260,6 +268,7 @@ cat ../skills/engineering-team/cto-advisor/references/templates.md | grep -A 50 
 **Time Estimate:** 3-4 weeks per major technology decision (POC + evaluation + documentation)
 
 **Example:**
+
 ```bash
 #!/bin/bash
 # architecture-governance-workflow.sh - Technology evaluation and ADR process
@@ -288,9 +297,11 @@ echo "POC: PostgreSQL with JSON support for flexible schema needs"
 **Goal:** Establish engineering metrics framework and drive continuous improvement in deployment frequency, lead time, quality, and team health
 
 **Steps:**
+
 1. **Baseline Current Performance** - Measure current DORA metrics (deployment frequency, lead time for changes, change failure rate, MTTR) and quality metrics (test coverage, defect rates, code review time)
 
 2. **Set Target Metrics** - Define aspirational targets based on industry benchmarks
+
    ```bash
    # Review metrics framework and targets
    cat ../skills/engineering-team/cto-advisor/references/engineering_metrics.md | grep -A 30 "DORA Metrics"
@@ -311,6 +322,7 @@ echo "POC: PostgreSQL with JSON support for flexible schema needs"
 **Time Estimate:** 4-6 weeks for initial implementation, ongoing quarterly reviews (2-3 hours per quarter)
 
 **Example:**
+
 ```bash
 #!/bin/bash
 # engineering-excellence-workflow.sh - DORA metrics implementation
@@ -602,6 +614,7 @@ echo "4. Schedule Q3 2026 review"
 ## Success Metrics
 
 **Technical Excellence:**
+
 - **System Uptime:** >99.9% availability
 - **Deployment Frequency:** >1 deployment per day (DORA metric)
 - **Lead Time for Changes:** <1 day from commit to production
@@ -610,6 +623,7 @@ echo "4. Schedule Q3 2026 review"
 - **Security Incidents:** Zero critical vulnerabilities in production
 
 **Team Success:**
+
 - **Team Satisfaction:** >8/10 in quarterly surveys
 - **Voluntary Attrition:** <10% annually (industry average 13-15%)
 - **Key Position Fill Rate:** >90% of critical roles filled within target timeframes
@@ -618,6 +632,7 @@ echo "4. Schedule Q3 2026 review"
 - **Manager Effectiveness:** >85% of direct reports rate managers 4/5 or higher
 
 **Business Impact:**
+
 - **On-Time Delivery:** >80% of committed features delivered on schedule
 - **Revenue Enablement:** Engineering velocity supports business growth targets
 - **Cost Efficiency:** Cost per transaction declining year-over-year
@@ -626,6 +641,7 @@ echo "4. Schedule Q3 2026 review"
 - **Mean Time to Resolution:** <1 hour for critical production incidents
 
 **Strategic Alignment:**
+
 - **Technology Roadmap Execution:** >75% of strategic initiatives completed on time
 - **Architecture Governance:** 100% of major decisions documented in ADRs
 - **Stakeholder Satisfaction:** >8/10 satisfaction from CEO, board, and business leaders

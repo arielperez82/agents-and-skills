@@ -73,16 +73,19 @@ Use `avg_cost_per_invocation` from `optimization_insights` to identify optimizat
 ### Step 3: Apply targeted fixes
 
 **For CRITICAL cost agents:**
+
 1. Check model tier — is opus being used where sonnet would suffice?
 2. Check prompt size — are full documents loaded when summaries would work?
 3. Check invocation frequency — is the agent called more often than needed?
 
 **For agents with high input ratio (total_input / (total_input + total_output) > 0.95, derived from agent_usage_summary):**
+
 1. Implement RAG with chunking instead of loading full documents
 2. Use few-shot examples instead of verbose system prompts
 3. Send only changed code + minimal context for review agents (diff-only)
 
 **For LOW cache_hit_rate (<0.80):**
+
 1. Ensure system prompts are identical across invocations (enables prompt caching)
 2. Move variable content to the end of prompts (cache prefix matching)
 3. Use consistent formatting in dynamic sections
@@ -134,7 +137,8 @@ These patterns consistently show high efficiency scores:
 | Generative | implementation-planner (87% output ratio) | Small prompts, rich outputs; ideal for creative/planning |
 | Lean prompts | ux-researcher (86% output, near-perfect cache) | Proves quality output doesn't require massive context |
 
-### Replicate by:
+### Replicate by
+
 - Keeping system prompts concise (< 2K tokens)
 - Using skill references instead of inlining skill content
 - Structuring prompts to maximize the stable prefix

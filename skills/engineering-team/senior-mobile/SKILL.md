@@ -127,6 +127,7 @@ python3 scripts/app_store_validator.py --store apple --strict
 **Time:** 15-30 minutes (vs 2-4 hours manual)
 
 **Steps:**
+
 1. Determine project requirements (platforms, navigation, state management)
 2. Run `mobile_scaffolder.py` with appropriate options
 3. Review generated structure and customize as needed
@@ -168,6 +169,7 @@ python3 scripts/mobile_scaffolder.py \
 **Time:** 5-10 minutes
 
 **Steps:**
+
 1. Navigate to mobile project root
 2. Run `platform_detector.py` with full depth
 3. Review iOS and Android capability reports
@@ -188,6 +190,7 @@ python3 scripts/platform_detector.py --check android --depth signing
 ```
 
 **Output includes:**
+
 - Project type detection (React Native, Flutter, Expo, Native)
 - iOS: Bundle ID, provisioning profiles, entitlements, Info.plist analysis
 - Android: Package name, Gradle configuration, signing config, manifest permissions
@@ -198,6 +201,7 @@ python3 scripts/platform_detector.py --check android --depth signing
 **Time:** 10-15 minutes
 
 **Steps:**
+
 1. Build release versions for target stores
 2. Run `app_store_validator.py` with strict mode
 3. Review compliance report
@@ -228,6 +232,7 @@ python3 scripts/app_store_validator.py \
 ```
 
 **Validates:**
+
 - **Apple:** Info.plist completeness, privacy manifest, icon sizes, entitlements, minimum iOS version
 - **Google:** AndroidManifest.xml, target SDK version, 64-bit support, signing, permissions declarations
 
@@ -236,6 +241,7 @@ python3 scripts/app_store_validator.py \
 **Time:** 20-30 minutes
 
 **Steps:**
+
 1. Document project requirements (team skills, timeline, features)
 2. Review `references/frameworks.md` decision matrix
 3. Score each framework against requirements
@@ -245,6 +251,7 @@ python3 scripts/app_store_validator.py \
 **Reference:** `references/frameworks.md`
 
 **Decision Factors:**
+
 | Factor | React Native | Flutter | When to Weight Heavily |
 |--------|-------------|---------|----------------------|
 | Team JavaScript experience | ++++ | + | Existing web team |
@@ -259,6 +266,7 @@ python3 scripts/app_store_validator.py \
 **Time:** 30-45 minutes
 
 **Steps:**
+
 1. Generate project with `--ci` flag for base configuration
 2. Configure signing credentials in CI secrets
 3. Set up Fastlane for iOS/Android automation
@@ -267,6 +275,7 @@ python3 scripts/app_store_validator.py \
 6. Enable release automation
 
 **Generated CI Configurations:**
+
 - GitHub Actions workflows for iOS and Android
 - Fastlane configuration files
 - Environment variable templates
@@ -329,24 +338,28 @@ Options:
 ## Best Practices
 
 ### Project Structure
+
 - Use monorepo structure for shared code between platforms
 - Separate platform-specific code into dedicated directories
 - Implement feature-based module organization
 - Use environment configuration for different build variants
 
 ### Performance
+
 - Implement lazy loading for screens and heavy components
 - Use native driver for animations where possible
 - Optimize images and assets for mobile
 - Profile and monitor app performance regularly
 
 ### Security
+
 - Never commit signing credentials
 - Use secure storage for sensitive data
 - Implement certificate pinning for API calls
 - Follow platform-specific security guidelines
 
 ### Testing
+
 - Write unit tests for business logic
 - Implement integration tests for critical flows
 - Use snapshot testing for UI components

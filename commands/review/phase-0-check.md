@@ -32,6 +32,7 @@ npx tsx skills/engineering-team/quality-gate-first/scripts/assess-phase0.ts [pro
 ```
 
 This script:
+
 1. Runs `detect-project.ts` to build a project profile (languages, frameworks, package manager, etc.)
 2. Cross-references the check registry for applicable checks
 3. Reports **Present** / **Missing** / **Partial** per check with specific details

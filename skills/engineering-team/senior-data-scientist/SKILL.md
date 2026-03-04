@@ -107,6 +107,7 @@ python scripts/model_evaluation_suite.py --config config.yaml --deploy
 Design statistically rigorous experiments with power analysis.
 
 **Key Features:**
+
 - A/B test design with sample size calculation
 - Statistical power analysis
 - Multi-variant testing setup
@@ -114,6 +115,7 @@ Design statistically rigorous experiments with power analysis.
 - Bayesian experiment design
 
 **Common Usage:**
+
 ```bash
 # Design A/B test
 python scripts/experiment_designer.py --effect-size 0.05 --power 0.8 --alpha 0.05
@@ -129,6 +131,7 @@ python scripts/experiment_designer.py --help
 ```
 
 **Use Cases:**
+
 - Designing product experiments before launch
 - Calculating required sample sizes
 - Planning sequential testing strategies
@@ -138,6 +141,7 @@ python scripts/experiment_designer.py --help
 Automate feature generation, selection, and transformation.
 
 **Key Features:**
+
 - Automated feature generation (polynomial, interaction terms)
 - Feature selection (mutual information, recursive elimination)
 - Encoding (one-hot, target, frequency)
@@ -145,6 +149,7 @@ Automate feature generation, selection, and transformation.
 - Dimensionality reduction (PCA, t-SNE, UMAP)
 
 **Common Usage:**
+
 ```bash
 # Generate features
 python scripts/feature_engineering_pipeline.py --input data.csv --generate --interactions
@@ -160,6 +165,7 @@ python scripts/feature_engineering_pipeline.py --help
 ```
 
 **Use Cases:**
+
 - Preparing features for model training
 - Reducing feature dimensionality
 - Discovering important feature interactions
@@ -169,6 +175,7 @@ python scripts/feature_engineering_pipeline.py --help
 Comprehensive model evaluation with interpretability.
 
 **Key Features:**
+
 - Cross-validation strategies (k-fold, stratified, time-series)
 - Hyperparameter optimization (grid search, random search, Bayesian)
 - Model interpretation (SHAP values, feature importance, partial dependence)
@@ -176,6 +183,7 @@ Comprehensive model evaluation with interpretability.
 - Model comparison and statistical testing
 
 **Common Usage:**
+
 ```bash
 # Evaluate model
 python scripts/model_evaluation_suite.py --model model.pkl --data test.csv --metrics all
@@ -191,6 +199,7 @@ python scripts/model_evaluation_suite.py --help
 ```
 
 **Use Cases:**
+
 - Comparing multiple model architectures
 - Finding optimal hyperparameters
 - Explaining model predictions to stakeholders
@@ -230,10 +239,12 @@ This skill covers world-class capabilities in:
 
 1. **Define Hypothesis** - State null and alternative hypotheses, success metrics
 2. **Design Experiment** - Calculate sample size, randomization strategy
+
    ```bash
    # Design A/B test with power analysis
    python scripts/experiment_designer.py --effect-size 0.05 --power 0.8 --alpha 0.05 --output test_plan.json
    ```
+
 3. **Run Experiment** - Implement randomization, collect data
 4. **Analyze Results** - Statistical significance testing, confidence intervals
 5. **Report Findings** - Effect size, business impact, recommendations
@@ -246,16 +257,20 @@ See [experiment_design_frameworks.md](references/experiment_design_frameworks.md
 
 1. **Exploratory Data Analysis** - Understand distributions, correlations, missing data
 2. **Feature Engineering** - Generate and select features
+
    ```bash
    # Automated feature engineering
    python scripts/feature_engineering_pipeline.py --input data.csv --pipeline full --output features.csv
    ```
+
 3. **Model Training** - Train multiple model types (linear, tree-based, neural nets)
 4. **Model Evaluation** - Cross-validation, hyperparameter tuning
+
    ```bash
    # Evaluate and tune model
    python scripts/model_evaluation_suite.py --model sklearn.ensemble.RandomForestClassifier --tune --data train.csv
    ```
+
 5. **Model Interpretation** - SHAP values, feature importance, business insights
 
 ### 3. Causal Inference Analysis
@@ -276,10 +291,12 @@ See [statistical_methods_advanced.md](references/statistical_methods_advanced.md
 
 1. **Data Preparation** - Handle missing values, detect seasonality, stationarity tests
 2. **Feature Engineering** - Lag features, rolling statistics, external variables
+
    ```bash
    # Generate time series features
    python scripts/feature_engineering_pipeline.py --input timeseries.csv --temporal --lags 7,14,30
    ```
+
 3. **Model Selection** - ARIMA, Prophet, LSTM, XGBoost for time series
 4. **Cross-Validation** - Time-series split, walk-forward validation
 5. **Forecast & Monitor** - Generate forecasts, track accuracy over time
@@ -378,15 +395,18 @@ High-throughput inference system:
 ## Performance Targets
 
 **Latency:**
+
 - P50: < 50ms
 - P95: < 100ms
 - P99: < 200ms
 
 **Throughput:**
+
 - Requests/second: > 1000
 - Concurrent users: > 10,000
 
 **Availability:**
+
 - Uptime: 99.9%
 - Error rate: < 0.1%
 

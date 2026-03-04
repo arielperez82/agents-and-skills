@@ -31,6 +31,7 @@ git commit -m "Add: validation workflow pattern"
 ```
 
 **Commit message patterns:**
+
 - `"Add [feature]: description"` - New functionality
 - `"Fix [issue]: description"` - Bug fixes  
 - `"Update [section]: description"` - Content changes
@@ -44,6 +45,7 @@ git commit -m "Add: validation workflow pattern"
 **ALSO CRITICAL: Only create diffs/changelogs when user explicitly asks "what changed?" or "show differences"**
 
 **Don't preemptively create:**
+
 - CHANGELOG.md files
 - Change documentation
 - "Here's what I modified" summaries
@@ -85,22 +87,26 @@ git diff --stat <commit-1> <commit-2> > /mnt/user-data/outputs/diff-stats.txt
 ## Reverting Commits or Discarding Work
 
 **Undo last commit (keep uncommitted changes):**
+
 ```bash
 cd /home/claude/skill-name
 git reset --soft HEAD~1
 ```
 
 **Undo last commit (discard all changes):**
+
 ```bash
 git reset --hard HEAD~1
 ```
 
 **Revert specific commit (creates new commit, preserves history):**
+
 ```bash
 git revert <commit-hash>
 ```
 
 **Discard uncommitted edits (restore to last commit):**
+
 ```bash
 git restore .
 ```
@@ -176,6 +182,7 @@ zip -r /mnt/user-data/outputs/skill-name.zip skill-name/ -x "*.git*"
 ## Workflow Integration
 
 **During skill creation:**
+
 1. Run init_skill.sh
 2. Immediately: `git init && git add . && git commit -m "Initial structure"`
 3. Edit SKILL.md
@@ -183,12 +190,14 @@ zip -r /mnt/user-data/outputs/skill-name.zip skill-name/ -x "*.git*"
 5. Continue editing → commit after each major change
 
 **During skill editing:**
+
 1. Make change with str_replace or bash
 2. Test if needed
 3. Commit: `git add <file> && git commit -m "Fix: corrected example"`
 4. Repeat
 
 **Before delivery:**
+
 1. Review history: `git log --oneline`
 2. Verify clean: `git status`
 3. Package with -x to exclude .git

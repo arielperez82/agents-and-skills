@@ -188,6 +188,7 @@ type Product @key(fields: "id") {
 Organize subgraphs by business domain, not by technical layers.
 
 **Good:**
+
 ```
 users-subgraph     → User, Profile, Authentication
 orders-subgraph    → Order, OrderItem, Payment
@@ -196,6 +197,7 @@ reviews-subgraph   → Review, Rating
 ```
 
 **Bad:**
+
 ```
 read-subgraph      → All queries
 write-subgraph     → All mutations
@@ -340,6 +342,7 @@ query GetOrderDetails($orderId: ID!) {
 ```
 
 **Query Plan:**
+
 1. Fetch `order` from orders-subgraph
 2. Fetch `product` references from products-subgraph
 3. Parallel: Fetch `reviews` from reviews-subgraph

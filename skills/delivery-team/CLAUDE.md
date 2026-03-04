@@ -5,6 +5,7 @@ This guide covers the 4 production-ready delivery management skills.
 ## Delivery Skills Overview
 
 **Available Skills:**
+
 1. **senior-project-manager/** - Senior project manager workflows and best practices
 2. **agile-coach/** - Agile ceremonies, coaching, team facilitation
 3. **wiki-documentation/** - Documentation strategy, space architecture, templates, governance
@@ -17,6 +18,7 @@ This guide covers the 4 production-ready delivery management skills.
 **Focus:** Project planning, stakeholder management, risk mitigation
 
 **Key Workflows:**
+
 - Project charter creation
 - Stakeholder analysis and communication plans
 - Risk register maintenance
@@ -27,6 +29,7 @@ This guide covers the 4 production-ready delivery management skills.
 **Focus:** Agile ceremonies, team coaching, impediment removal
 
 **Key Workflows:**
+
 - Planning facilitation
 - Team sync coordination
 - Retrospectives
@@ -37,6 +40,7 @@ This guide covers the 4 production-ready delivery management skills.
 **Focus:** Documentation spaces, templates, content governance, knowledge bases
 
 **Key Workflows:**
+
 - Space architecture and setup
 - Template library management
 - Content governance and review cycles
@@ -48,6 +52,7 @@ This guide covers the 4 production-ready delivery management skills.
 **Focus:** Issue tracking configuration, queries, workflows, dashboards
 
 **Key Workflows:**
+
 - Project setup with workflows and permissions
 - Advanced query patterns for reporting
 - Automation rules (assignment, transitions, notifications)

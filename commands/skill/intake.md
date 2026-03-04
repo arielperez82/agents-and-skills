@@ -17,9 +17,11 @@ Orchestrate the full lifecycle of discovering, evaluating, sandboxing, and incor
 Before starting any phase, build an understanding of the current project's skill pipeline:
 
 1. **Discover existing skills** by globbing for SKILL.md files:
+
    ```
    Glob pattern: .claude/skills/**/SKILL.md
    ```
+
 2. **Read each SKILL.md** to understand:
    - What capabilities already exist
    - What dependencies are declared
@@ -37,6 +39,7 @@ This dynamic discovery replaces any hardcoded skill references. The pipeline ada
 **Goal**: Determine what to acquire and how
 
 **Actions**:
+
 1. Create task list tracking all 8 phases
 2. Parse the input (`$ARGUMENTS`):
    - **If GitHub URL or registry reference** → Note the URL, proceed to Phase 1
@@ -58,10 +61,13 @@ This dynamic discovery replaces any hardcoded skill references. The pipeline ada
 **Goal**: Download or scaffold the skill into a sandbox
 
 **Actions**:
+
 1. Create sandbox using the sandbox manager:
+
    ```bash
    python3 ~/.claude/skills/agent-development-team/skill-intake/scripts/sandbox_manager.py create {skill-name}
    ```
+
 2. Acquire the skill:
    - **If GitHub repo**: `git clone --depth 1 {url} .claude/skills/_sandbox/{skill-name}/source`
    - **If building from scratch**: Scaffold directory structure in sandbox with SKILL.md template, scripts/ directory, and requirements.txt
@@ -71,6 +77,7 @@ This dynamic discovery replaces any hardcoded skill references. The pipeline ada
    - Timestamp
    - File count and total size
 4. Update sandbox manifest:
+
    ```bash
    python3 ~/.claude/skills/agent-development-team/skill-intake/scripts/sandbox_manager.py update {skill-name} '{"source": "{url-or-scratch}", "file_count": N, "total_size": "X KB"}'
    ```
@@ -84,6 +91,7 @@ This dynamic discovery replaces any hardcoded skill references. The pipeline ada
 **Goal**: Assess security risk of the acquired code
 
 **Actions**:
+
 1. Read the security checklist: `~/.claude/skills/agent-development-team/skill-intake/references/security-checklist.md`
 2. Launch a `security-assessor` subagent on the sandbox directory with instructions to:
    - Check for network calls to non-standard domains (compare against domains declared in the skill's SKILL.md or requirements)
@@ -109,13 +117,16 @@ This dynamic discovery replaces any hardcoded skill references. The pipeline ada
 **Goal**: Verify the skill actually works
 
 **Actions**:
+
 1. Check for requirements.txt, setup.py, or package.json in the sandbox
 2. If Python dependencies exist, create isolated venv and install:
+
    ```bash
    python3 -m venv .claude/skills/_sandbox/{skill-name}/.venv
    source .claude/skills/_sandbox/{skill-name}/.venv/bin/activate
    pip install -r .claude/skills/_sandbox/{skill-name}/requirements.txt
    ```
+
 3. Run skill scripts with appropriate test inputs:
    - Determine test inputs from the skill's SKILL.md, README, or script --help
    - If no test inputs documented, infer from the domain and CLI flags
@@ -135,6 +146,7 @@ This dynamic discovery replaces any hardcoded skill references. The pipeline ada
 **Goal**: Determine how the skill fits into the project's pipeline
 
 **Actions**:
+
 1. Read the incorporation framework: `~/.claude/skills/agent-development-team/skill-intake/references/incorporation-framework.md`
 2. Use the `convening-experts` skill to convene a panel with these roles:
    - **Systems Architect**: Pipeline fit, dependency analysis, import patterns
@@ -158,6 +170,7 @@ This dynamic discovery replaces any hardcoded skill references. The pipeline ada
 **Goal**: Create a detailed implementation plan
 
 **Actions**:
+
 1. Launch an `implementation-planner` subagent with:
    - The architecture assessment from Phase 4
    - The incorporation decision and rationale
@@ -178,6 +191,7 @@ This dynamic discovery replaces any hardcoded skill references. The pipeline ada
 **Goal**: Execute the incorporation plan
 
 **Actions**:
+
 1. For each batch in the implementation plan:
    a. Launch a fresh `fullstack-engineer` or `backend-engineer` subagent with:
       - The specific batch task
@@ -193,6 +207,7 @@ This dynamic discovery replaces any hardcoded skill references. The pipeline ada
    - Ensure entry point follows project CLI conventions
    - Update SKILL.md frontmatter (description, capabilities, dependencies)
 3. Use the sandbox manager to promote:
+
    ```bash
    python3 ~/.claude/skills/agent-development-team/skill-intake/scripts/sandbox_manager.py promote {skill-name} {target-path}
    ```
@@ -206,6 +221,7 @@ This dynamic discovery replaces any hardcoded skill references. The pipeline ada
 **Goal**: Verify everything works end-to-end with no regressions
 
 **Actions**:
+
 1. **Regression testing**: For each existing skill discovered in Pre-Flight that has a runnable script:
    - Run its main script with standard test inputs
    - Verify output matches expected format
@@ -230,6 +246,7 @@ This dynamic discovery replaces any hardcoded skill references. The pipeline ada
 **Goal**: Update documentation and generate the intake report
 
 **Actions**:
+
 1. Read the report template: `~/.claude/skills/agent-development-team/skill-intake/references/intake-report-template.md`
 2. Update documentation:
    - Update the new skill's SKILL.md with final capabilities and dependencies

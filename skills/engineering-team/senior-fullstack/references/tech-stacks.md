@@ -9,12 +9,14 @@ Comprehensive guide to modern fullstack technology stacks, including languages, 
 ### JavaScript/TypeScript
 
 **TypeScript**
+
 - Static typing for JavaScript
 - Enhanced IDE support
 - Catch errors at compile time
 - Better refactoring capabilities
 
 **Configuration (tsconfig.json)**
+
 ```json
 {
   "compilerOptions": {
@@ -33,6 +35,7 @@ Comprehensive guide to modern fullstack technology stacks, including languages, 
 ```
 
 **Best Practices**
+
 - Enable strict mode
 - Use type inference where possible
 - Define interfaces for data structures
@@ -41,12 +44,14 @@ Comprehensive guide to modern fullstack technology stacks, including languages, 
 ### Python
 
 **Use Cases**
+
 - Data processing
 - Machine learning
 - Scripting and automation
 - Backend services (FastAPI, Django)
 
 **Virtual Environment**
+
 ```bash
 python3 -m venv venv
 source venv/bin/activate
@@ -56,12 +61,14 @@ pip install -r requirements.txt
 ### Go
 
 **Use Cases**
+
 - High-performance services
 - CLI tools
 - Microservices
 - Concurrent processing
 
 **Strengths**
+
 - Fast compilation
 - Built-in concurrency
 - Strong standard library
@@ -70,6 +77,7 @@ pip install -r requirements.txt
 ### Kotlin (Android/Backend)
 
 **Use Cases**
+
 - Android mobile apps
 - Backend services (Ktor, Spring Boot)
 - Cross-platform development
@@ -77,6 +85,7 @@ pip install -r requirements.txt
 ### Swift (iOS)
 
 **Use Cases**
+
 - iOS mobile apps
 - macOS applications
 - SwiftUI for declarative UI
@@ -86,12 +95,14 @@ pip install -r requirements.txt
 ### React
 
 **Core Concepts**
+
 - Component-based architecture
 - Virtual DOM
 - Hooks (useState, useEffect, useContext)
 - Unidirectional data flow
 
 **Ecosystem**
+
 - React Router (routing)
 - React Query (data fetching)
 - Zustand/Jotai (state management)
@@ -99,6 +110,7 @@ pip install -r requirements.txt
 - React Testing Library (testing)
 
 **Best Practices**
+
 - Keep components small and focused
 - Use custom hooks for reusable logic
 - Optimize with React.memo, useMemo, useCallback
@@ -107,6 +119,7 @@ pip install -r requirements.txt
 ### Next.js
 
 **Features**
+
 - Server-side rendering (SSR)
 - Static site generation (SSG)
 - API routes
@@ -115,12 +128,14 @@ pip install -r requirements.txt
 - Incremental static regeneration (ISR)
 
 **Rendering Strategies**
+
 - Static Generation: Pre-render at build time
 - Server-side Rendering: Render on each request
 - Client-side Rendering: Render in browser
 - Incremental Static Regeneration: Rebuild pages on demand
 
 **App Router (Next.js 13+)**
+
 - React Server Components
 - Streaming
 - Layouts and templates
@@ -128,6 +143,7 @@ pip install -r requirements.txt
 - Error handling
 
 **Pages Router (Next.js 12)**
+
 - getStaticProps: Fetch data at build time
 - getServerSideProps: Fetch data on each request
 - getStaticPaths: Generate dynamic routes
@@ -135,12 +151,14 @@ pip install -r requirements.txt
 ### React Native
 
 **Cross-platform Mobile Development**
+
 - iOS and Android from single codebase
 - Native performance
 - Hot reloading
 - Large ecosystem
 
 **Libraries**
+
 - React Navigation (navigation)
 - React Native Reanimated (animations)
 - React Native Gesture Handler (gestures)
@@ -149,6 +167,7 @@ pip install -r requirements.txt
 ### Flutter
 
 **Cross-platform Framework**
+
 - Single codebase for iOS, Android, Web, Desktop
 - Dart language
 - Rich widget library
@@ -159,6 +178,7 @@ pip install -r requirements.txt
 ### Node.js + Express
 
 **Lightweight Web Framework**
+
 ```javascript
 const express = require('express');
 const app = express();
@@ -174,6 +194,7 @@ app.listen(3000);
 ```
 
 **Middleware**
+
 - Body parsing
 - CORS
 - Authentication
@@ -185,18 +206,21 @@ app.listen(3000);
 **Query Language for APIs**
 
 **Advantages**
+
 - Request exactly what you need
 - Single endpoint
 - Strong typing
 - Real-time with subscriptions
 
 **Popular Libraries**
+
 - Apollo Server (Node.js)
 - GraphQL Yoga (flexible)
 - TypeGraphQL (TypeScript)
 - Prisma (database integration)
 
 **Schema Example**
+
 ```graphql
 type User {
   id: ID!
@@ -218,12 +242,14 @@ type Mutation {
 ### REST APIs
 
 **Design Principles**
+
 - Resource-based URLs
 - HTTP methods (GET, POST, PUT, DELETE, PATCH)
 - Status codes
 - JSON responses
 
 **Best Practices**
+
 - Use nouns for resources (`/users`, not `/getUsers`)
 - Version your API (`/api/v1/users`)
 - Implement pagination
@@ -237,6 +263,7 @@ type Mutation {
 **Relational Database**
 
 **Features**
+
 - ACID compliance
 - Advanced indexing
 - JSON support
@@ -245,12 +272,14 @@ type Mutation {
 - Common Table Expressions (CTEs)
 
 **Use Cases**
+
 - Complex queries
 - Transactions
 - Referential integrity
 - Analytics
 
 **Best Practices**
+
 - Use indexes strategically
 - Analyze query performance with EXPLAIN
 - Use connection pooling
@@ -261,12 +290,14 @@ type Mutation {
 **Modern Database Toolkit**
 
 **Features**
+
 - Type-safe database access
 - Auto-generated migrations
 - Intuitive query API
 - Multiple database support
 
 **Schema Example**
+
 ```prisma
 model User {
   id        Int      @id @default(autoincrement())
@@ -287,6 +318,7 @@ model Post {
 ```
 
 **Commands**
+
 ```bash
 npx prisma init
 npx prisma migrate dev --name init
@@ -299,12 +331,14 @@ npx prisma studio
 **Serverless PostgreSQL**
 
 **Features**
+
 - Automatic scaling
 - Branching (Git-like for databases)
 - Connection pooling
 - Pay-per-use pricing
 
 **Use Cases**
+
 - Serverless applications
 - Development/staging environments
 - Cost-effective scaling
@@ -314,6 +348,7 @@ npx prisma studio
 **Open-source Firebase Alternative**
 
 **Features**
+
 - PostgreSQL database
 - Authentication
 - Real-time subscriptions
@@ -322,6 +357,7 @@ npx prisma studio
 - Auto-generated REST and GraphQL APIs
 
 **Use Cases**
+
 - Rapid prototyping
 - Full-featured backend
 - Real-time applications
@@ -331,12 +367,14 @@ npx prisma studio
 **Document Database**
 
 **Features**
+
 - Schema flexibility
 - Horizontal scaling
 - Rich query language
 - Aggregation pipeline
 
 **Use Cases**
+
 - Flexible schemas
 - High write throughput
 - Hierarchical data
@@ -349,6 +387,7 @@ npx prisma studio
 **Containerization Platform**
 
 **Dockerfile Example**
+
 ```dockerfile
 FROM node:18-alpine
 WORKDIR /app
@@ -360,6 +399,7 @@ CMD ["npm", "start"]
 ```
 
 **Docker Compose**
+
 ```yaml
 version: '3.8'
 services:
@@ -388,6 +428,7 @@ volumes:
 **Container Orchestration**
 
 **Features**
+
 - Automated deployment
 - Scaling
 - Load balancing
@@ -395,6 +436,7 @@ volumes:
 - Rolling updates
 
 **Key Concepts**
+
 - Pods: Smallest deployable units
 - Services: Network abstraction
 - Deployments: Declarative updates
@@ -406,12 +448,14 @@ volumes:
 **Infrastructure as Code**
 
 **Use Cases**
+
 - Cloud resource provisioning
 - Multi-cloud deployments
 - Version-controlled infrastructure
 - Reproducible environments
 
 **Example**
+
 ```hcl
 resource "aws_instance" "web" {
   ami           = "ami-0c55b159cbfafe1f0"
@@ -426,6 +470,7 @@ resource "aws_instance" "web" {
 ### CI/CD
 
 **GitHub Actions**
+
 ```yaml
 name: CI/CD
 on:
@@ -448,6 +493,7 @@ jobs:
 ```
 
 **CircleCI**
+
 - Fast builds
 - Docker layer caching
 - Parallel execution
@@ -458,6 +504,7 @@ jobs:
 ### AWS (Amazon Web Services)
 
 **Core Services**
+
 - EC2: Virtual servers
 - S3: Object storage
 - RDS: Managed databases
@@ -469,6 +516,7 @@ jobs:
 ### GCP (Google Cloud Platform)
 
 **Core Services**
+
 - Compute Engine: VMs
 - Cloud Storage: Object storage
 - Cloud SQL: Managed databases
@@ -479,6 +527,7 @@ jobs:
 ### Azure (Microsoft Azure)
 
 **Core Services**
+
 - Virtual Machines
 - Blob Storage
 - Azure SQL Database
@@ -491,6 +540,7 @@ jobs:
 **Frontend Deployment Platform**
 
 **Features**
+
 - Zero-config Next.js deployment
 - Automatic HTTPS
 - Preview deployments
@@ -498,6 +548,7 @@ jobs:
 - Analytics
 
 **Use Cases**
+
 - Next.js applications
 - Static sites
 - Jamstack projects
@@ -507,6 +558,7 @@ jobs:
 **Full-stack Deployment**
 
 **Features**
+
 - Deploy from GitHub
 - Managed databases
 - Environment variables
@@ -520,6 +572,7 @@ jobs:
 **JavaScript Testing Framework**
 
 **Features**
+
 - Zero configuration
 - Snapshot testing
 - Mocking
@@ -527,6 +580,7 @@ jobs:
 - Watch mode
 
 **Example**
+
 ```javascript
 describe('User service', () => {
   test('creates a user', async () => {
@@ -541,11 +595,13 @@ describe('User service', () => {
 **Component Testing**
 
 **Principles**
+
 - Test user behavior, not implementation
 - Query by accessibility
 - Avoid testing internals
 
 **Example**
+
 ```javascript
 import { render, screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
@@ -565,12 +621,14 @@ test('submits form', async () => {
 **End-to-end Testing**
 
 **Features**
+
 - Real browser testing
 - Time travel debugging
 - Automatic waiting
 - Network stubbing
 
 **Example**
+
 ```javascript
 describe('Login flow', () => {
   it('logs in successfully', () => {
@@ -590,6 +648,7 @@ describe('Login flow', () => {
 **JavaScript Linter**
 
 **Configuration**
+
 ```json
 {
   "extends": ["next/core-web-vitals", "prettier"],
@@ -605,6 +664,7 @@ describe('Login flow', () => {
 **Code Formatter**
 
 **Configuration**
+
 ```json
 {
   "semi": true,
@@ -638,6 +698,7 @@ describe('Login flow', () => {
 ### Sentry
 
 **Error Tracking**
+
 - Real-time error alerts
 - Stack traces
 - User context
@@ -646,6 +707,7 @@ describe('Login flow', () => {
 ### Datadog
 
 **Monitoring Platform**
+
 - Infrastructure monitoring
 - APM (Application Performance Monitoring)
 - Log aggregation
@@ -654,6 +716,7 @@ describe('Login flow', () => {
 ### LogRocket
 
 **Session Replay**
+
 - Replay user sessions
 - Console logs
 - Network activity
@@ -664,41 +727,48 @@ describe('Login flow', () => {
 ### When to Use What
 
 **Next.js**
+
 - SEO-critical applications
 - E-commerce
 - Marketing sites
 - Blogs
 
 **React SPA**
+
 - Complex dashboards
 - Internal tools
 - Rich interactions
 - Real-time apps
 
 **React Native**
+
 - Cross-platform mobile apps
 - Shared codebase priority
 - Native feel required
 
 **GraphQL**
+
 - Complex data requirements
 - Multiple frontend clients
 - Real-time features
 - Rapid iteration
 
 **REST**
+
 - Simple CRUD operations
 - Public APIs
 - Third-party integrations
 - Standard HTTP clients
 
 **PostgreSQL**
+
 - Complex queries
 - Strong consistency
 - Relational data
 - ACID requirements
 
 **MongoDB**
+
 - Flexible schemas
 - High write throughput
 - Hierarchical data
@@ -707,18 +777,21 @@ describe('Login flow', () => {
 ## Stack Combinations
 
 ### JAMstack (Next.js + Headless CMS)
+
 - Next.js frontend
 - Contentful/Sanity CMS
 - Vercel deployment
 - Static + ISR
 
 ### MERN Stack
+
 - MongoDB
 - Express
 - React
 - Node.js
 
 ### T3 Stack
+
 - TypeScript
 - tRPC
 - Tailwind CSS
@@ -726,6 +799,7 @@ describe('Login flow', () => {
 - Prisma
 
 ### Serverless Stack
+
 - Next.js (Vercel)
 - Supabase (Database + Auth)
 - Edge functions

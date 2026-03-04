@@ -35,6 +35,7 @@ Claude decides whether to load a skill based solely on its frontmatter `descript
 **Phases must be numbered with entry and exit criteria.**
 
 Unnumbered prose instructions produce unreliable execution order. Every phase needs:
+
 - A number (Phase 1, Phase 2, ...)
 - Entry criteria (what must be true before starting)
 - Numbered actions (what to do)
@@ -65,6 +66,7 @@ Every workflow instruction becomes tool calls at runtime. If a workflow searches
 **Match instruction specificity to task fragility.**
 
 Not every step needs the same level of prescription. Calibrate per step:
+
 - **Low freedom** (exact commands, no variation): Fragile operations — database migrations, crypto, destructive actions. "Run exactly this script."
 - **Medium freedom** (pseudocode with parameters): Preferred patterns where variation is acceptable. "Use this template and customize as needed."
 - **High freedom** (heuristics and judgment): Variable tasks — code review, exploration, documentation. "Analyze the structure and suggest improvements."
@@ -207,6 +209,7 @@ Map your component type to the right tool set. Full guide in [tool-assignment-gu
 | Action agent | Read, Grep, Glob, Write, Bash, TodoRead, TodoWrite |
 
 **Key rules:**
+
 - Use Glob (not `find`), Grep (not `grep`), Read (not `cat`) — always prefer dedicated tools
 - Skills use `allowed-tools:` — agents use `tools:`
 - List only tools that instructions actually reference

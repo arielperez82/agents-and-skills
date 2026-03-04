@@ -240,6 +240,6 @@ NocoDB connects as a **privileged PostgreSQL role** (`postgres.{PROJECT_REF}`), 
 
 ## References
 
-- **NocoDB Documentation:** https://nocodb.com/docs/product-docs/data-sources
-- **Supabase Connection Pooling:** https://supabase.com/docs/guides/database/connecting-to-postgres
-- **PostgreSQL Foreign Keys:** https://www.postgresql.org/docs/current/ddl-constraints.html#DDL-CONSTRAINTS-FK
+- **NocoDB Documentation:** <https://nocodb.com/docs/product-docs/data-sources>
+- **Supabase Connection Pooling:** <https://supabase.com/docs/guides/database/connecting-to-postgres>
+- **PostgreSQL Foreign Keys:** <https://www.postgresql.org/docs/current/ddl-constraints.html#DDL-CONSTRAINTS-FK>

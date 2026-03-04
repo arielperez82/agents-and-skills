@@ -14,6 +14,7 @@ Systematically verify tool presence and versions across major programming ecosys
 ## Environment Compatibility
 
 This skill supports flexible validation modes:
+
 - **Strict mode**: Fail on missing core tools (python3, node, git, gcc)
 - **Lenient mode**: Report all tools but only warn on optional ones
 - **Custom mode**: Define required vs optional tools per project
@@ -37,11 +38,13 @@ Trigger this skill when working on:
 ### 1. Python Ecosystem
 
 **Core Tools** (typically available):
+
 - `python3`, `python` - Python interpreters ✅
 - `pip` - Package installer ✅
 - `uv` - Fast Python package installer ✅
 
 **Development Tools** (install as needed):
+
 - `poetry` - Dependency management and packaging
 - `black` - Code formatter
 - `mypy` - Static type checker
@@ -49,6 +52,7 @@ Trigger this skill when working on:
 - `ruff` - Fast Python linter
 
 **Validation Pattern**:
+
 ```bash
 if command -v python3 &> /dev/null; then
     python3 --version
@@ -58,10 +62,12 @@ fi
 ### 2. Node.js Ecosystem
 
 **Core Tools** (typically available):
+
 - `node` - Node.js runtime ✅
 - `npm` - Package manager ✅
 
 **Development Tools** (install as needed):
+
 - `nvm` - Node version manager
 - `yarn` - Fast, reliable package manager
 - `pnpm` - Efficient disk space package manager
@@ -70,6 +76,7 @@ fi
 - `chromedriver` - Browser automation
 
 **Validation Pattern**:
+
 ```bash
 if command -v node &> /dev/null; then
     node --version
@@ -84,13 +91,16 @@ fi
 ### 3. Java Ecosystem
 
 **Core Tools** (typically available):
+
 - `java` - Java runtime and compiler ✅
 
 **Build Tools** (install as needed):
+
 - `mvn` - Maven build tool
 - `gradle` - Gradle build tool
 
 **Validation Pattern**:
+
 ```bash
 if command -v java &> /dev/null; then
     java -version 2>&1 | head -3
@@ -100,9 +110,11 @@ fi
 ### 4. Go Ecosystem
 
 **Development Tools** (install as needed):
+
 - `go` - Go compiler and toolchain
 
 **Validation Pattern**:
+
 ```bash
 if command -v go &> /dev/null; then
     go version
@@ -112,10 +124,12 @@ fi
 ### 5. Rust Ecosystem
 
 **Development Tools** (install as needed):
+
 - `rustc` - Rust compiler
 - `cargo` - Rust package manager and build tool
 
 **Environment Setup**:
+
 ```bash
 # Source cargo environment if it exists
 if [[ -f "$HOME/.cargo/env" ]]; then
@@ -126,15 +140,18 @@ fi
 ### 6. C/C++ Ecosystem
 
 **Core Tools** (typically available):
+
 - `gcc` - GNU Compiler Collection ✅
 
 **Build Tools** (install as needed):
+
 - `clang` - LLVM C/C++ compiler
 - `cmake` - Cross-platform build system
 - `ninja` - Small build system with focus on speed
 - `conan` - C/C++ package manager
 
 **Validation Pattern**:
+
 ```bash
 if command -v gcc &> /dev/null; then
     gcc --version | head -1
@@ -144,6 +161,7 @@ fi
 ### 7. System Utilities
 
 **Core Tools** (typically available):
+
 - `git` - Version control ✅
 - `curl` - Data transfer tool ✅
 - `awk` - Pattern scanning and processing ✅
@@ -154,6 +172,7 @@ fi
 - `make` - Build automation ✅
 
 **Development Tools** (install as needed):
+
 - `jq` - JSON processor
 - `rg` (ripgrep) - Fast text search
 - `tmux` - Terminal multiplexer
@@ -349,6 +368,7 @@ Use `check_required_tool` for core tools, `check_optional_tool` for others.
 ## Validation Checklist
 
 Before delivering, verify:
+
 - [ ] Core tools marked required, others optional
 - [ ] Environments sourced (nvm, cargo) before checking
 - [ ] Versions extracted correctly (handle stderr)
@@ -410,6 +430,7 @@ Before delivering, verify:
 ## Getting Started
 
 ### Quick Validation
+
 ```bash
 # Fast tool check (exit code validation)
 bash assets/check-tools.sh
@@ -425,6 +446,7 @@ bash assets/environment-diagnostic.sh full /path/to/report.txt
 ```
 
 ### Customization
+
 1. **For CI/CD**: Use `check-tools.sh` (fast, exit code based)
 2. **For debugging**: Use `environment-diagnostic.sh full` (comprehensive)
 3. **For onboarding**: Use `environment-diagnostic.sh tools` with package lists

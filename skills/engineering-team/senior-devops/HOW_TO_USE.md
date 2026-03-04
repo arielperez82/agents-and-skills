@@ -7,16 +7,19 @@ Hey Claude—I just added the "senior-devops" skill. Can you set up a CI/CD pipe
 ## Example Invocations
 
 ### Example 1: Basic Usage
+
 ```
 Hey Claude—I just added the "senior-devops" skill. Can you set up a CI/CD pipeline?
 ```
 
 ### Example 2: Specific Workflow
+
 ```
 Hey Claude—I just added the "senior-devops" skill. Can you help me with ci/cd pipeline setup?
 ```
 
 ### Example 3: Integration with Other Skills
+
 ```
 Hey Claude—I just added the "senior-devops" skill. Can you use it together with related skills to deliver a complete solution?
 ```

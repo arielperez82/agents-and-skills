@@ -91,6 +91,7 @@ The product-manager agent bridges the gap between customer insights and product 
 The Product Manager ranks items within each strategic bucket using domain-appropriate frameworks, and uses the portfolio prioritizer tool alongside existing RICE scoring.
 
 **Workflow: Within-Bucket Prioritization**
+
 1. Receive quarterly bucket allocations from Product Director + CTO
 2. Score growth/revenue items using RICE + NPV + Cost of Delay
 3. Score tech debt items using Debt Severity Matrix (criticality x compound interest x dependency)
@@ -99,6 +100,7 @@ The Product Manager ranks items within each strategic bucket using domain-approp
 6. When cross-bucket overflow occurs, use unified priority score for normalization
 
 **Tools:**
+
 - `../skills/product-team/prioritization-frameworks/scripts/portfolio_prioritizer.py` — portfolio scoring + NPV
 - `../skills/product-team/product-manager-toolkit/scripts/rice_prioritizer.py` — RICE within growth/revenue buckets
 
@@ -153,6 +155,7 @@ See [prioritization-frameworks SKILL.md](../skills/product-team/prioritization-f
 **Goal:** Prioritize feature backlog using RICE framework and generate quarterly roadmap
 
 **Steps:**
+
 1. **Gather Feature Requests** - Collect from multiple sources:
    - Customer feedback (support tickets, interviews)
    - Sales team requests
@@ -161,18 +164,21 @@ See [prioritization-frameworks SKILL.md](../skills/product-team/prioritization-f
    - Competitive gaps
 
 2. **Create RICE Input CSV** - Structure features with RICE parameters:
+
    ```csv
    feature,reach,impact,confidence,effort
    User Dashboard,500,3,0.8,5
    API Rate Limiting,1000,2,0.9,3
    Dark Mode,300,1,1.0,2
    ```
+
    - **Reach**: Number of users affected per quarter
    - **Impact**: massive(3), high(2), medium(1.5), low(1), minimal(0.5)
    - **Confidence**: high(1.0), medium(0.8), low(0.5)
    - **Effort**: person-months (XL=6, L=3, M=1, S=0.5, XS=0.25)
 
 3. **Run RICE Prioritization** - Execute analysis with team capacity
+
    ```bash
    python ../skills/product-team/product-manager-toolkit/scripts/rice_prioritizer.py features.csv --capacity 20
    ```
@@ -198,6 +204,7 @@ See [prioritization-frameworks SKILL.md](../skills/product-team/prioritization-f
 **Time Estimate:** 4-6 hours for complete prioritization cycle (20-30 features)
 
 **Example:**
+
 ```bash
 # Complete prioritization workflow
 python ../skills/product-team/product-manager-toolkit/scripts/rice_prioritizer.py q4-features.csv --capacity 20 > roadmap.txt
@@ -210,6 +217,7 @@ cat roadmap.txt
 **Goal:** Conduct customer interviews, extract insights, and identify high-priority problems
 
 **Steps:**
+
 1. **Conduct User Interviews** - Semi-structured format:
    - **Opening**: Build rapport, explain purpose
    - **Context**: Current workflow and challenges
@@ -225,6 +233,7 @@ cat roadmap.txt
    - Save as plain text file
 
 3. **Run Interview Analyzer** - Extract structured insights
+
    ```bash
    python ../skills/product-team/product-manager-toolkit/scripts/customer_interview_analyzer.py interview-001.txt
    ```
@@ -238,6 +247,7 @@ cat roadmap.txt
    - **Key Quotes**: Direct user language
 
 5. **Synthesize Across Interviews** - Aggregate insights:
+
    ```bash
    # Analyze multiple interviews
    python ../skills/product-team/product-manager-toolkit/scripts/customer_interview_analyzer.py interview-001.txt json > insights-001.json
@@ -266,10 +276,13 @@ cat roadmap.txt
 **Goal:** Document requirements professionally with clear scope, metrics, and acceptance criteria
 
 **Steps:**
+
 1. **Choose PRD Template** - Select based on complexity:
+
    ```bash
    cat ../skills/product-team/product-manager-toolkit/references/prd_templates.md
    ```
+
    - **Standard PRD**: Complex features (6-8 weeks dev)
    - **One-Page PRD**: Simple features (2-4 weeks)
    - **Feature Brief**: Exploration phase (1 week)
@@ -320,12 +333,14 @@ cat roadmap.txt
 **Goal:** Plan quarterly product goals with prioritized initiatives and success metrics
 
 **Steps:**
+
 1. **Review Company OKRs** - Align product goals to business objectives:
    - Review CEO/executive OKRs for quarter
    - Identify product contribution areas
    - Understand strategic priorities
 
 2. **Run Feature Prioritization** - Use RICE for candidate features
+
    ```bash
    python ../skills/product-team/product-manager-toolkit/scripts/rice_prioritizer.py q4-candidates.csv --capacity 18
    ```
@@ -369,6 +384,7 @@ cat roadmap.txt
 **Goal:** Transform customer pain points and feature requests from sales call analysis into structured PRDs
 
 **Steps:**
+
 1. **Receive Call Analysis** - Get sales call scorecard output from `account-executive`:
    - Pain points identified during discovery calls
    - Feature requests with severity and frequency
@@ -382,19 +398,23 @@ cat roadmap.txt
    - Map to existing roadmap items or new opportunities
 
 3. **Validate with Interview Analyzer** - Cross-reference with formal customer interviews
+
    ```bash
    python ../skills/product-team/product-manager-toolkit/scripts/customer_interview_analyzer.py call-notes.txt
    ```
 
 4. **Prioritize Using RICE** - Score validated opportunities
+
    ```bash
    python ../skills/product-team/product-manager-toolkit/scripts/rice_prioritizer.py call-driven-features.csv --capacity 20
    ```
 
 5. **Draft PRD** - Use the appropriate PRD template for the highest-priority item:
+
    ```bash
    cat ../skills/product-team/product-manager-toolkit/references/prd_templates.md
    ```
+
    - Include "Voice of Customer" section with direct quotes from calls
    - Reference call analysis scores as evidence
    - Connect to competitive intelligence from sales conversations
@@ -511,24 +531,28 @@ echo "Report: $QUARTER-roadmap.txt"
 ## Success Metrics
 
 **Prioritization Effectiveness:**
+
 - **Decision Speed:** <2 days from backlog review to roadmap commitment
 - **Stakeholder Alignment:** >90% stakeholder agreement on priorities
 - **RICE Validation:** 80%+ of shipped features match predicted impact
 - **Portfolio Balance:** 40% quick wins, 40% big bets, 20% fill-ins
 
 **Discovery Quality:**
+
 - **Interview Volume:** 10-15 interviews per discovery sprint
 - **Insight Extraction:** 5-10 high-priority pain points identified
 - **Problem Validation:** 70%+ of prioritized problems validated before build
 - **Time to Insight:** <1 week from interviews to prioritized problem list
 
 **Requirements Quality:**
+
 - **PRD Completeness:** 100% of PRDs include problem, solution, metrics, acceptance criteria
 - **Stakeholder Review:** <3 days average PRD review cycle
 - **Engineering Clarity:** >90% of PRDs require no clarification during development
 - **Scope Accuracy:** >80% of features ship within original scope estimate
 
 **Business Impact:**
+
 - **Feature Adoption:** >60% of users adopt new features within 30 days
 - **Problem Resolution:** >70% reduction in pain point severity post-launch
 - **Revenue Impact:** Track revenue/retention lift from prioritized features

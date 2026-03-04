@@ -32,6 +32,7 @@ Coverage is a proxy for fuzzer capability and performance. While coverage [is no
 ## When to Apply
 
 **Apply this technique when:**
+
 - Starting a new fuzzing campaign to establish a baseline
 - Fuzzer appears to plateau without finding new paths
 - After harness modifications to verify improvements
@@ -40,6 +41,7 @@ Coverage is a proxy for fuzzer capability and performance. While coverage [is no
 - Debugging why certain code paths aren't reached
 
 **Skip this technique when:**
+
 - Fuzzing campaign is actively finding crashes
 - Coverage infrastructure isn't set up yet
 - Working with extremely large codebases where full coverage reports are impractical
@@ -86,6 +88,7 @@ The following workflow represents best practices for integrating coverage analys
 Choose your instrumentation method based on toolchain:
 
 **LLVM/Clang (C/C++):**
+
 ```bash
 clang++ -fprofile-instr-generate -fcoverage-mapping \
   -O2 -DNO_MAIN \
@@ -93,6 +96,7 @@ clang++ -fprofile-instr-generate -fcoverage-mapping \
 ```
 
 **GCC (C/C++):**
+
 ```bash
 g++ -ftest-coverage -fprofile-arcs \
   -O2 -DNO_MAIN \
@@ -100,6 +104,7 @@ g++ -ftest-coverage -fprofile-arcs \
 ```
 
 **Rust:**
+
 ```bash
 rustup toolchain install nightly --component llvm-tools-preview
 cargo +nightly fuzz coverage fuzz_target_1
@@ -179,11 +184,13 @@ int main(int argc, char **argv) {
 ### Step 3: Execute on Corpus
 
 **LLVM (C/C++):**
+
 ```bash
 LLVM_PROFILE_FILE=fuzz.profraw ./fuzz_exec corpus/
 ```
 
 **GCC (C/C++):**
+
 ```bash
 ./fuzz_exec_gcov corpus/
 ```
@@ -194,6 +201,7 @@ Coverage data is automatically generated when running `cargo fuzz coverage`.
 ### Step 4: Process Coverage Data
 
 **LLVM:**
+
 ```bash
 # Merge raw profile data
 llvm-profdata merge -sparse fuzz.profraw -o fuzz.profdata
@@ -211,6 +219,7 @@ llvm-cov show ./fuzz_exec \
 ```
 
 **GCC with gcovr:**
+
 ```bash
 # Install gcovr (via pip for latest version)
 python3 -m venv venv
@@ -224,6 +233,7 @@ gcovr --gcov-executable "llvm-cov gcov" \
 ```
 
 **Rust:**
+
 ```bash
 # Install required tools
 cargo install cargo-binutils rustfilt
@@ -268,6 +278,7 @@ Review the coverage report to identify:
 **Problem**: Fuzzer cannot discover paths guarded by magic value checks.
 
 **Coverage reveals:**
+
 ```cpp
 // Coverage shows this block is never executed
 if (buf == 0x7F454C46) {  // ELF magic number
@@ -276,6 +287,7 @@ if (buf == 0x7F454C46) {  // ELF magic number
 ```
 
 **Solution**: Add magic values to dictionary file:
+
 ```
 # magic.dict
 "\x7F\x45\x4C\x46"
@@ -286,11 +298,13 @@ if (buf == 0x7F454C46) {  // ELF magic number
 **Problem**: Coverage generation fails when corpus contains crashing inputs.
 
 **Before:**
+
 ```bash
 ./fuzz_exec corpus/  # Crashes on bad input, no coverage generated
 ```
 
 **After:**
+
 ```cpp
 // Fork before executing to isolate crashes
 int main(int argc, char **argv) {
@@ -339,6 +353,7 @@ target_link_libraries(fuzz_exec -fprofile-instr-generate)
 ```
 
 Build:
+
 ```bash
 cmake -DCMAKE_C_COMPILER=clang -DCMAKE_CXX_COMPILER=clang++ .
 cmake --build . --target fuzz_exec
@@ -380,16 +395,19 @@ gcovr --delete  # Remove .gcda files
 For projects with hundreds of source files:
 
 1. **Filter by prefix**: Only generate reports for relevant directories
+
    ```bash
    llvm-cov show ./fuzz_exec -instr-profile=fuzz.profdata /path/to/src/
    ```
 
 2. **Use directory coverage**: Group by directory to reduce clutter (LLVM 18+)
+
    ```bash
    llvm-cov show -show-directory-coverage -format=html -output-dir html/
    ```
 
 3. **Generate JSON for programmatic analysis**:
+
    ```bash
    llvm-cov export -format=lcov > coverage.json
    ```
@@ -432,6 +450,7 @@ llvm-cov show ./fuzz_exec \
 libFuzzer uses LLVM's SanitizerCoverage by default for guiding fuzzing, but you need separate instrumentation for generating reports.
 
 **Build for coverage:**
+
 ```bash
 clang++ -fprofile-instr-generate -fcoverage-mapping \
   -O2 -DNO_MAIN \
@@ -439,6 +458,7 @@ clang++ -fprofile-instr-generate -fcoverage-mapping \
 ```
 
 **Execute corpus and generate report:**
+
 ```bash
 LLVM_PROFILE_FILE=fuzz.profraw ./fuzz_exec corpus/
 llvm-profdata merge -sparse fuzz.profraw -o fuzz.profdata
@@ -446,6 +466,7 @@ llvm-cov show ./fuzz_exec -instr-profile=fuzz.profdata -format=html -output-dir 
 ```
 
 **Integration tips:**
+
 - Don't use `-fsanitize=fuzzer` for coverage builds (it conflicts with profile instrumentation)
 - Reuse the same harness function (`LLVMFuzzerTestOneInput`) with a different main function
 - Use the `-ignore-filename-regex` flag to exclude harness code from coverage reports
@@ -456,18 +477,21 @@ llvm-cov show ./fuzz_exec -instr-profile=fuzz.profdata -format=html -output-dir 
 AFL++ provides its own coverage feedback mechanism, but for detailed reports use standard LLVM/GCC tools.
 
 **Build for coverage with LLVM:**
+
 ```bash
 clang++ -fprofile-instr-generate -fcoverage-mapping \
   -O2 main.cc harness.cc execute-rt.cc -o fuzz_exec
 ```
 
 **Build for coverage with GCC:**
+
 ```bash
 AFL_USE_ASAN=0 afl-gcc -ftest-coverage -fprofile-arcs \
   main.cc harness.cc execute-rt.cc -o fuzz_exec_gcov
 ```
 
 **Execute and generate report:**
+
 ```bash
 # LLVM approach
 LLVM_PROFILE_FILE=fuzz.profraw ./fuzz_exec afl_output/queue/
@@ -480,6 +504,7 @@ gcovr --html-details -o coverage.html
 ```
 
 **Integration tips:**
+
 - Don't use AFL++'s instrumentation (`afl-clang-fast`) for coverage builds
 - Use standard compilers with coverage flags instead
 - AFL++'s `queue/` directory contains your corpus
@@ -490,17 +515,20 @@ gcovr --html-details -o coverage.html
 cargo-fuzz provides built-in coverage generation using LLVM tools.
 
 **Install prerequisites:**
+
 ```bash
 rustup toolchain install nightly --component llvm-tools-preview
 cargo install cargo-binutils rustfilt
 ```
 
 **Generate coverage data:**
+
 ```bash
 cargo +nightly fuzz coverage fuzz_target_1
 ```
 
 **Create HTML report script:**
+
 ```bash
 cat <<'EOF' > ./generate_html
 #!/bin/sh
@@ -518,11 +546,13 @@ chmod +x ./generate_html
 ```
 
 **Generate report:**
+
 ```bash
 ./generate_html fuzz_target_1 src/lib.rs
 ```
 
 **Integration tips:**
+
 - Always use the nightly toolchain for coverage
 - The `-Xdemangler=rustfilt` flag makes function names readable
 - Filter by source files (e.g., `src/lib.rs`) to focus on crate code
@@ -534,6 +564,7 @@ chmod +x ./generate_html
 honggfuzz works with standard LLVM/GCC coverage instrumentation.
 
 **Build for coverage:**
+
 ```bash
 # Use standard compiler, not honggfuzz compiler
 clang -fprofile-instr-generate -fcoverage-mapping \
@@ -541,11 +572,13 @@ clang -fprofile-instr-generate -fcoverage-mapping \
 ```
 
 **Execute corpus:**
+
 ```bash
 LLVM_PROFILE_FILE=fuzz.profraw ./fuzz_exec honggfuzz_workspace/
 ```
 
 **Integration tips:**
+
 - Don't use `hfuzz-clang` for coverage builds
 - honggfuzz corpus is typically in a workspace directory
 - Use the same LLVM workflow as libFuzzer

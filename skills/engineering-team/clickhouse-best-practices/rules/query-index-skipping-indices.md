@@ -14,11 +14,13 @@ Queries filtering on columns not in ORDER BY cannot use the primary index and re
 **Important:** Skip indices should be considered **after** optimizing data types, primary key selection, and materialized views.
 
 **When to use:**
+
 - High overall cardinality but low cardinality within blocks
 - Rare values critical for search (error codes, specific IDs)
 - Column correlates with primary key
 
 **When NOT to use:**
+
 - As a first optimization step
 - Matching values scattered across many blocks
 - Without testing on real data

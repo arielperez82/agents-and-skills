@@ -35,6 +35,7 @@ lib/
 ### 3. Implement State Management
 
 **Riverpod (Recommended):**
+
 ```dart
 @riverpod
 class UsersNotifier extends _$UsersNotifier {

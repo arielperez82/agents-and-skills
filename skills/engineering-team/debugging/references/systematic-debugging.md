@@ -64,6 +64,7 @@ Must complete each phase before proceeding to next.
 ## Red Flags - STOP and Follow Process
 
 If catch yourself thinking:
+
 - "Quick fix for now, investigate later"
 - "Just try changing X and see if it works"
 - "Add multiple changes, run tests"
@@ -96,6 +97,7 @@ If catch yourself thinking:
 ## Real-World Impact
 
 From debugging sessions:
+
 - Systematic approach: 15-30 minutes to fix
 - Random fixes approach: 2-3 hours of thrashing
 - First-time fix rate: 95% vs 40%

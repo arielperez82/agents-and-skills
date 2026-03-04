@@ -98,6 +98,7 @@ it('should toggle value', () => {
 ```
 
 **Pattern:**
+
 - `result.current` - Current return value of hook
 - `act()` - Wrap state updates
 - `rerender()` - Re-run hook with new props
@@ -252,6 +253,7 @@ it('should show validation errors for invalid input', async () => {
 ### 1. Unnecessary act() wrapping
 
 ❌ **WRONG - Manual act() everywhere**
+
 ```tsx
 act(() => {
   render(<MyComponent />);
@@ -263,18 +265,21 @@ await act(async () => {
 ```
 
 ✅ **CORRECT - RTL handles it**
+
 ```tsx
 render(<MyComponent />);
 await user.click(button);
 ```
 
 **Modern RTL auto-wraps:**
+
 - `render()`
 - `userEvent` methods
 - `fireEvent`
 - `waitFor`, `findBy`
 
 **When you DO need manual `act()`:**
+
 - Custom hook state updates (`renderHook`)
 - Direct state mutations (rare, usually bad practice)
 
@@ -283,6 +288,7 @@ await user.click(button);
 ### 2. Manual cleanup() calls
 
 ❌ **WRONG - Manual cleanup**
+
 ```tsx
 afterEach(() => {
   cleanup(); // Automatic since RTL 9!
@@ -290,6 +296,7 @@ afterEach(() => {
 ```
 
 ✅ **CORRECT - No cleanup needed**
+
 ```tsx
 // Cleanup happens automatically after each test
 ```
@@ -299,6 +306,7 @@ afterEach(() => {
 ### 3. beforeEach render pattern
 
 ❌ **WRONG - Shared render in beforeEach**
+
 ```tsx
 let button;
 beforeEach(() => {
@@ -312,6 +320,7 @@ it('test 1', () => {
 ```
 
 ✅ **CORRECT - Factory function per test**
+
 ```tsx
 const renderComponent = () => {
   render(<MyComponent />);
@@ -332,6 +341,7 @@ For factory patterns and behavior-driven test structure, use capability discover
 ### 4. Testing component internals
 
 ❌ **WRONG - Accessing component internals**
+
 ```tsx
 const wrapper = shallow(<MyComponent />);
 expect(wrapper.state('isOpen')).toBe(true); // Internal state
@@ -339,6 +349,7 @@ expect(wrapper.instance().handleClick).toBeDefined(); // Internal method
 ```
 
 ✅ **CORRECT - Test rendered output**
+
 ```tsx
 render(<MyComponent />);
 expect(screen.getByRole('dialog')).toBeInTheDocument(); // What user sees
@@ -349,12 +360,14 @@ expect(screen.getByRole('dialog')).toBeInTheDocument(); // What user sees
 ### 5. Shallow rendering
 
 ❌ **WRONG - Shallow rendering**
+
 ```tsx
 const wrapper = shallow(<MyComponent />);
 // Child components not rendered - incomplete test
 ```
 
 ✅ **CORRECT - Full rendering**
+
 ```tsx
 render(<MyComponent />);
 // Full component tree rendered - realistic test

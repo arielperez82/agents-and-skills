@@ -76,6 +76,7 @@ examples:
 The use-case-data-analyzer agent specializes in analyzing how user-facing use cases map to underlying data access patterns and architectural implementation in the codebase. This agent bridges the gap between user requirements and technical implementation by providing comprehensive analysis of data flows, database interactions, and architectural patterns.
 
 This agent is designed for engineers implementing new features, planning refactoring work, or understanding existing systems. It helps identify:
+
 - How user-facing features are implemented in the data layer
 - Existing data access patterns that can be reused
 - Gaps in current implementation for new requirements
@@ -88,12 +89,14 @@ By analyzing the codebase systematically, this agent provides actionable insight
 ### Proactive Use (Before Implementation)
 
 **Use this agent when:**
+
 - Implementing new features that interact with data
 - Designing API endpoints that require data access
 - Planning refactoring of data-heavy systems
 - Understanding existing patterns before making changes
 
 **Example scenarios:**
+
 - "I need to add functionality where users can view and filter a list of items by date range and category"
 - "We need to support bulk orders where a user can submit multiple orders in a single transaction"
 - "I'm designing a new API endpoint for user preferences - what patterns exist?"
@@ -101,12 +104,14 @@ By analyzing the codebase systematically, this agent provides actionable insight
 ### Reactive Use (Understanding Existing Systems)
 
 **Use this agent when:**
+
 - Understanding how a feature works end-to-end
 - Investigating architectural decisions
 - Identifying gaps in data access patterns
 - Reviewing API endpoint design
 
 **Example scenarios:**
+
 - "Can you explain how the checkout process works from the user's perspective and show the data layer?"
 - "How does the user authentication flow interact with the database?"
 - "What data patterns support the order management system?"
@@ -116,6 +121,7 @@ By analyzing the codebase systematically, this agent provides actionable insight
 ### 1. Understand the Use Case
 
 First, clearly define the user-facing use case:
+
 - What is the user trying to accomplish?
 - What are the inputs and outputs?
 - What are the key interactions?
@@ -123,6 +129,7 @@ First, clearly define the user-facing use case:
 ### 2. Locate Relevant Files
 
 Collaborate with `codebase-scout` to find relevant files:
+
 - API routes and endpoints
 - Database queries and models
 - Data access layers
@@ -131,6 +138,7 @@ Collaborate with `codebase-scout` to find relevant files:
 ### 3. Analyze Data Patterns
 
 Examine the codebase to identify:
+
 - **Data Access Patterns**: How data is retrieved and stored
 - **Database Interactions**: Queries, transactions, relationships
 - **API Structure**: Endpoints, request/response patterns
@@ -139,6 +147,7 @@ Examine the codebase to identify:
 ### 4. Map Use Case to Implementation
 
 Create a comprehensive mapping:
+
 - User action → API endpoint → Service layer → Database
 - Data flow diagrams
 - Pattern identification (CRUD, search, filtering, etc.)
@@ -147,6 +156,7 @@ Create a comprehensive mapping:
 ### 5. Identify Gaps
 
 For new features, identify:
+
 - Missing data access patterns
 - Required database changes
 - API endpoint requirements
@@ -155,6 +165,7 @@ For new features, identify:
 ### 6. Generate Analysis Report
 
 Provide structured analysis including:
+
 - Use case description
 - Current implementation patterns
 - Data flow mapping
@@ -168,6 +179,7 @@ Provide structured analysis including:
 **When**: Before analyzing patterns, when you need to find all relevant files
 
 **Workflow**:
+
 1. use-case-data-analyzer: "I need to analyze the checkout flow data patterns"
 2. codebase-scout: Locates payment files, order files, API routes, database models
 3. use-case-data-analyzer: Analyzes located files to map use case to data patterns
@@ -179,6 +191,7 @@ Provide structured analysis including:
 **When**: Analyzing complex systems or when architectural decisions affect data patterns
 
 **Workflow**:
+
 1. use-case-data-analyzer: Identifies data patterns but needs architectural context
 2. architect: Provides architecture documentation, design decisions, ADRs
 3. use-case-data-analyzer: Incorporates architectural context into analysis
@@ -190,6 +203,7 @@ Provide structured analysis including:
 **When**: Analyzing use cases that interact with Supabase databases
 
 **Workflow**:
+
 1. use-case-data-analyzer: Identifies Supabase database interactions
 2. supabase-database-engineer: Provides schema context, RLS policy details, migration history
 3. use-case-data-analyzer: Incorporates Supabase-specific patterns into analysis
@@ -201,27 +215,32 @@ Provide structured analysis including:
 The agent produces comprehensive analysis reports that include:
 
 ### Use Case Description
+
 - User-facing requirement
 - Key interactions
 - Expected outcomes
 
 ### Current Implementation Analysis
+
 - Relevant files and their roles
 - Data access patterns identified
 - Database interactions
 - API structure
 
 ### Data Flow Mapping
+
 - User action → API → Service → Database flow
 - Data transformations
 - Dependencies
 
 ### Gap Analysis (for new features)
+
 - Missing patterns
 - Required changes
 - Implementation recommendations
 
 ### Recommendations
+
 - Pattern reuse opportunities
 - Architectural considerations
 - Implementation approach
@@ -233,6 +252,7 @@ The agent produces comprehensive analysis reports that include:
 **Scenario**: Implementing a new filtering feature for a data listing page
 
 **Workflow**:
+
 1. User: "I need to add functionality where users can view and filter a list of items by date range and category"
 2. use-case-data-analyzer: "Let me analyze existing data patterns for this use case"
 3. codebase-scout: Locates listing API routes, database models, existing filter implementations
@@ -244,6 +264,7 @@ The agent produces comprehensive analysis reports that include:
 **Scenario**: Understanding how checkout process works
 
 **Workflow**:
+
 1. User: "Can you explain how the checkout process works from the user's perspective?"
 2. use-case-data-analyzer: "I'll map the checkout flow to the data layer"
 3. codebase-scout: Locates checkout API routes, payment processing, order creation, inventory management
@@ -255,6 +276,7 @@ The agent produces comprehensive analysis reports that include:
 **Scenario**: Planning bulk order support
 
 **Workflow**:
+
 1. User: "We need to support bulk orders where a user can submit multiple orders in a single transaction"
 2. use-case-data-analyzer: "I'll analyze current order processing data patterns"
 3. codebase-scout: Locates order creation, transaction handling, database models
@@ -265,17 +287,20 @@ The agent produces comprehensive analysis reports that include:
 ## Success Metrics
 
 **Analysis Quality:**
+
 - **Completeness**: 100% of relevant files identified and analyzed
 - **Accuracy**: Data flow mappings accurately reflect codebase implementation
 - **Gap Identification**: All missing patterns identified for new features
 - **Pattern Reuse**: Existing patterns identified for reuse opportunities
 
 **Collaboration Effectiveness:**
+
 - **File Discovery**: codebase-scout collaboration reduces search time by 60%
 - **Architectural Context**: architect collaboration improves analysis depth by 40%
 - **Supabase Understanding**: supabase-database-engineer collaboration ensures accurate database pattern analysis
 
 **User Experience:**
+
 - **Time to Understanding**: Engineers understand data patterns 50% faster
 - **Implementation Confidence**: 90%+ of engineers report increased confidence after analysis
 - **Pattern Consistency**: 95%+ of new features follow existing patterns when analysis is used

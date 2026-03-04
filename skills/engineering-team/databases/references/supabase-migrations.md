@@ -24,6 +24,7 @@ supabase init
 ```
 
 This creates:
+
 - `supabase/config.toml` - Configuration file
 - `supabase/migrations/` - Migration files directory
 
@@ -41,6 +42,7 @@ supabase migration new core_schema
 ```
 
 **Migration File Naming:**
+
 - Must follow pattern: `<timestamp>_<name>.sql`
 - Timestamp format: `YYYYMMDDHHMMSS`
 - Files are applied in timestamp order
@@ -106,6 +108,7 @@ supabase start
 ```
 
 This starts:
+
 - PostgreSQL database (port 54322)
 - PostgREST API (port 54321)
 - Supabase Studio (port 54323)
@@ -122,6 +125,7 @@ supabase status --output json
 ```
 
 **Local Connection Details:**
+
 - Database: `postgresql://postgres:postgres@127.0.0.1:54322/postgres`
 - API URL: `http://127.0.0.1:54321`
 - Anon Key: `sb_publishable_...` (from `supabase status`)
@@ -162,6 +166,7 @@ pnpm test
 PostgREST (Supabase API layer) caches the database schema. After migrations:
 
 **If tables aren't visible via API:**
+
 1. Restart Supabase: `supabase stop && supabase start`
 2. Or reload schema: `docker exec supabase_db_<project> psql -U postgres -d postgres -c "NOTIFY pgrst, 'reload schema';"`
 
@@ -233,6 +238,7 @@ supabase logs
 **Problem:** Migration applied but tables not accessible via Supabase client.
 
 **Solution:**
+
 1. Check GRANT statements are in migration
 2. Reload PostgREST schema: `supabase stop && supabase start`
 3. Verify with `supabase status` that services are running
@@ -242,6 +248,7 @@ supabase logs
 **Problem:** Migration SQL has errors.
 
 **Solution:**
+
 1. Test SQL in Supabase Studio SQL Editor first
 2. Check migration file syntax
 3. Verify dependencies (extensions, tables) exist
@@ -252,6 +259,7 @@ supabase logs
 **Problem:** Docker issues or port conflicts.
 
 **Solution:**
+
 1. Check Docker is running: `docker ps`
 2. Check ports aren't in use: `lsof -i :54321`
 3. Stop existing instance: `supabase stop`

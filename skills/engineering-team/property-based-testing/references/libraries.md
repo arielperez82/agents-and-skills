@@ -42,6 +42,7 @@ function echidna_balance_invariant() public returns (bool) {
 ```
 
 **Installation**:
+
 ```bash
 # Echidna (via crytic toolchain)
 pip install crytic-compile
@@ -56,16 +57,19 @@ See [secure-contracts.com](https://secure-contracts.com) for tutorials.
 ## Installation
 
 **Python**:
+
 ```bash
 pip install hypothesis
 ```
 
 **JavaScript/TypeScript**:
+
 ```bash
 npm install fast-check
 ```
 
 **Rust** (add to Cargo.toml):
+
 ```toml
 [dev-dependencies]
 proptest = "1.0"
@@ -74,6 +78,7 @@ quickcheck = "1.0"
 ```
 
 **Go**:
+
 ```bash
 go get pgregory.net/rapid
 # or for gopter:
@@ -81,6 +86,7 @@ go get github.com/leanovate/gopter
 ```
 
 **Java** (Maven):
+
 ```xml
 <dependency>
   <groupId>net.jqwik</groupId>
@@ -91,11 +97,13 @@ go get github.com/leanovate/gopter
 ```
 
 **Clojure** (deps.edn):
+
 ```clojure
 {:deps {org.clojure/test.check {:mvn/version "1.1.2"}}}
 ```
 
 **Haskell**:
+
 ```bash
 cabal install QuickCheck
 # or for Hedgehog:

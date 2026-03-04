@@ -7,12 +7,14 @@ argument-hint: [task]
 Activate `planning` skill.
 
 ## Your mission
+
 Use the `implementation-planner` subagent to create 2 detailed implementation plans for this following task:
 <task>
  $ARGUMENTS
 </task>
 
 ## Workflow
+
 1. First: Create a directory named `plans/{date}-plan-name` (date format from `$CK_PLAN_DATE_FORMAT`).
    Make sure you pass the directory path to every subagent during the process.
 2. Follow strictly to the "Plan Creation & Organization" rules of `planning` skill.
@@ -23,6 +25,7 @@ Use the `implementation-planner` subagent to create 2 detailed implementation pl
 6. Main agent receives the implementation plan from `implementation-planner` subagent, and ask user to review the plan
 
 ## Important Notes
+
 **IMPORTANT:** Analyze the skills catalog and activate the skills that are needed for the task during the process.
 **IMPORTANT:** Sacrifice grammar for the sake of concision when writing reports.
 **IMPORTANT:** Ensure token efficiency while maintaining high quality.

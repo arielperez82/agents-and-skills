@@ -9,6 +9,7 @@ Language-specific coding standards for TypeScript, JavaScript, Python, Swift, Ko
 ### Naming Conventions
 
 **Variables and Functions**
+
 ```typescript
 // camelCase for variables and functions
 const userName = 'John';
@@ -24,6 +25,7 @@ const API_ENDPOINT = 'https://api.example.com';
 ```
 
 **Files and Modules**
+
 ```
 // kebab-case for files
 user-service.ts
@@ -41,6 +43,7 @@ src/
 ### TypeScript Best Practices
 
 **Prefer Interfaces Over Types**
+
 ```typescript
 // Prefer interface for object shapes
 interface User {
@@ -55,6 +58,7 @@ type UserWithStatus = User & { status: Status };
 ```
 
 **Avoid 'any' - Use Proper Types**
+
 ```typescript
 // Bad
 function processData(data: any) {
@@ -78,6 +82,7 @@ function processData<T extends { value: string }>(data: T): string {
 ```
 
 **Strict Null Checks**
+
 ```typescript
 // Enable in tsconfig.json
 {
@@ -105,6 +110,7 @@ console.log(user?.name);
 ### Modern JavaScript Patterns
 
 **Async/Await over Promises**
+
 ```typescript
 // Bad - Promise chains
 function fetchUserData(id: string) {
@@ -128,6 +134,7 @@ async function fetchUserData(id: string): Promise<User> {
 ```
 
 **Destructuring and Spread**
+
 ```typescript
 // Object destructuring
 const { name, email, ...rest } = user;
@@ -144,6 +151,7 @@ const newArray = [...oldArray, newItem];
 ```
 
 **Template Literals**
+
 ```typescript
 // Bad
 const message = 'Hello, ' + user.name + '! You have ' + count + ' messages.';
@@ -163,6 +171,7 @@ const html = `
 ### React-Specific Standards
 
 **Functional Components with Hooks**
+
 ```typescript
 // Prefer functional components
 interface UserProfileProps {
@@ -185,6 +194,7 @@ const UserProfile: React.FC<UserProfileProps> = ({ userId }) => {
 ```
 
 **Custom Hooks for Logic Reuse**
+
 ```typescript
 function useUser(userId: string) {
   const [user, setUser] = useState<User | null>(null);
@@ -214,6 +224,7 @@ function UserProfile({ userId }: { userId: string }) {
 ### PEP 8 Compliance
 
 **Naming Conventions**
+
 ```python
 # snake_case for variables and functions
 user_name = 'John'
@@ -236,6 +247,7 @@ class User:
 ```
 
 **Imports Organization**
+
 ```python
 # Standard library imports
 import os
@@ -278,6 +290,7 @@ class Repository(Generic[T]):
 ### Pythonic Patterns
 
 **List Comprehensions**
+
 ```python
 # Bad
 squares = []
@@ -295,6 +308,7 @@ user_map = {user.id: user.name for user in users}
 ```
 
 **Context Managers**
+
 ```python
 # Always use with statement for files
 with open('file.txt', 'r') as f:
@@ -321,6 +335,7 @@ with database_transaction() as conn:
 ```
 
 **f-strings for Formatting**
+
 ```python
 # Bad
 message = "Hello, %s! You have %d messages." % (user.name, count)
@@ -504,6 +519,7 @@ func ProcessData(r Reader) (*Result, error) {
 ## Code Formatting
 
 ### Line Length
+
 - TypeScript/JavaScript: 80-100 characters
 - Python: 79 characters (PEP 8)
 - Swift: 100-120 characters
@@ -511,6 +527,7 @@ func ProcessData(r Reader) (*Result, error) {
 - Go: 80-120 characters
 
 ### Indentation
+
 - TypeScript/JavaScript: 2 spaces
 - Python: 4 spaces
 - Swift: 4 spaces
@@ -520,6 +537,7 @@ func ProcessData(r Reader) (*Result, error) {
 ### File Organization
 
 **TypeScript/JavaScript**
+
 ```
 src/
 ├── components/     # React components
@@ -531,6 +549,7 @@ src/
 ```
 
 **Python**
+
 ```
 project/
 ├── project/        # Main package
@@ -582,22 +601,27 @@ def calculate_total(items: List[Item], tax_rate: float) -> float:
 ## Linting and Formatting Tools
 
 **TypeScript/JavaScript**
+
 - ESLint for linting
 - Prettier for formatting
 - TypeScript compiler for type checking
 
 **Python**
+
 - pylint or flake8 for linting
 - black for formatting
 - mypy for type checking
 
 **Swift**
+
 - SwiftLint for linting
 
 **Kotlin**
+
 - ktlint for linting
 
 **Go**
+
 - go fmt for formatting
 - golint for linting
 - go vet for analysis
@@ -605,6 +629,7 @@ def calculate_total(items: List[Item], tax_rate: float) -> float:
 ## Conclusion
 
 Consistent coding standards improve:
+
 - Code readability
 - Team collaboration
 - Code maintenance

@@ -15,9 +15,11 @@ Bronze (Raw)            Silver (Validated)        Gold (Business-Ready)
 ## Bronze Layer (Raw)
 
 ### Purpose
+
 Ingest and preserve raw data exactly as received from source systems. Serves as the system of record and audit trail.
 
 ### Characteristics
+
 - Raw data as-is from source systems
 - Append-only for auditability (never update or delete)
 - Partitioned by ingestion date (enables efficient reprocessing)
@@ -25,12 +27,15 @@ Ingest and preserve raw data exactly as received from source systems. Serves as 
 - Retains full history of all source data
 
 ### Schema
+
 - Schema-on-read: no enforced schema at write time
 - Include metadata columns: `_ingestion_timestamp`, `_source_system`, `_source_file`
 - Store in columnar format (Parquet, Delta, Iceberg) for efficient downstream reads
 
 ### Quality Gate: Bronze to Silver
+
 Before promoting data from Bronze to Silver, validate:
+
 - [ ] Source file/message received completely (row count matches source, no truncation)
 - [ ] Ingestion metadata populated (timestamp, source, file reference)
 - [ ] Data is parseable (no corrupted records that block downstream processing)
@@ -39,9 +44,11 @@ Before promoting data from Bronze to Silver, validate:
 ## Silver Layer (Validated)
 
 ### Purpose
+
 Clean, validate, and standardize data. This is the enterprise-conforming layer where data quality rules are enforced.
 
 ### Characteristics
+
 - Data quality rules applied
 - Deduplication on business keys
 - Schema standardization (consistent naming conventions, data types)
@@ -51,26 +58,31 @@ Clean, validate, and standardize data. This is the enterprise-conforming layer w
 ### Data Quality Rules
 
 **Completeness checks**:
+
 - Required fields are non-null
 - Expected row counts within threshold of source
 
 **Validity checks**:
+
 - Values within expected ranges (e.g., age between 0 and 150)
 - Enumerated fields contain only valid values
 - Date fields are parseable and within reasonable ranges
 
 **Consistency checks**:
+
 - Foreign key references resolve to valid records
 - Cross-field validation (e.g., end_date >= start_date)
 - Currency/unit standardization
 
 **Uniqueness checks**:
+
 - Business key uniqueness enforced after deduplication
 - No duplicate events after idempotency processing
 
 ### Schema Standardization
 
 Apply consistent conventions across all Silver tables:
+
 - Column naming: `snake_case`, no abbreviations
 - Timestamps: UTC, ISO 8601 format
 - Currency: Store as integer (cents), not floating point
@@ -78,7 +90,9 @@ Apply consistent conventions across all Silver tables:
 - Null handling: Explicit nulls, no empty strings as null substitutes
 
 ### Quality Gate: Silver to Gold
+
 Before promoting data from Silver to Gold, validate:
+
 - [ ] All data quality rules passing (completeness, validity, consistency, uniqueness)
 - [ ] Deduplication complete (business key uniqueness verified)
 - [ ] Schema matches Silver contract (no unexpected columns, types correct)
@@ -88,9 +102,11 @@ Before promoting data from Silver to Gold, validate:
 ## Gold Layer (Business-Ready)
 
 ### Purpose
+
 Business-level aggregations, dimensional models, and pre-computed metrics optimized for consumption by BI tools, dashboards, and data products.
 
 ### Characteristics
+
 - Business logic applied (KPIs, calculated fields, business rules)
 - Dimensional models (star schema or snowflake schema)
 - Pre-computed aggregations and metrics
@@ -100,17 +116,20 @@ Business-level aggregations, dimensional models, and pre-computed metrics optimi
 ### Common Gold Layer Patterns
 
 **Fact tables** (measures and events):
+
 - `fact_orders`: order_id, customer_key, product_key, date_key, quantity, revenue, discount
 - `fact_page_views`: session_id, user_key, page_key, date_key, duration_seconds
 - Grain: one row per event/transaction at the most granular useful level
 
 **Dimension tables** (descriptors):
+
 - `dim_customer`: customer_key, name, segment, region, acquisition_date, lifetime_value_tier
 - `dim_product`: product_key, name, category, subcategory, brand, price_tier
 - `dim_date`: date_key, date, day_of_week, month, quarter, year, is_holiday, fiscal_period
 - Include SCD Type 2 columns where history matters: `valid_from`, `valid_to`, `is_current`
 
 **Aggregate tables** (pre-computed for performance):
+
 - `agg_daily_revenue`: date_key, product_category, region, total_revenue, order_count
 - `agg_monthly_customer_metrics`: month_key, customer_segment, active_users, churn_rate, avg_order_value
 - Document the grain and refresh frequency for each aggregate
@@ -118,6 +137,7 @@ Business-level aggregations, dimensional models, and pre-computed metrics optimi
 ## When to Use Medallion Architecture
 
 ### Good Fit
+
 - Data lakehouse environments (Delta Lake, Iceberg, Hudi)
 - Multiple data sources with varying quality levels
 - Need for auditability and data lineage
@@ -125,6 +145,7 @@ Business-level aggregations, dimensional models, and pre-computed metrics optimi
 - Regulatory requirements for data retention and traceability
 
 ### Poor Fit
+
 - Simple single-source OLTP applications (use a database directly)
 - Real-time-only streaming with no historical analysis needs
 - Very small data volumes where a single table suffices
@@ -154,6 +175,7 @@ Gold:   Rebuild aggregations for affected partitions only
 ### Data Lineage
 
 Track data flow through all three layers:
+
 - Bronze: source system, ingestion job, ingestion timestamp
 - Silver: transformation job, quality check results, processing timestamp
 - Gold: aggregation job, business logic version, computation timestamp

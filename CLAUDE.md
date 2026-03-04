@@ -62,6 +62,7 @@ When a task matches a T2 pattern below, delegate to the appropriate backend inst
 **Precedence:** T1 local > T2 gemini/codex > T3 claude. Always prefer the cheapest capable tier.
 
 **Validation sandwich:** For T2-generated output, always validate the result before using it:
+
 1. Dispatch to T2 backend (cheap generation)
 2. Review the output yourself (Claude validates)
 3. Accept, reject, or refine

@@ -112,19 +112,24 @@ examples:
 **Goal:** Write conversion-optimized landing page copy from a brief
 
 **Steps:**
+
 1. **Review Content Brief** - Understand target audience, value proposition, desired action
 2. **Reference Brand Voice Guidelines** - Load brand guidelines for tone and messaging constraints
+
    ```bash
    cat ../skills/marketing-team/content-creator/references/brand_guidelines.md
    ```
+
 3. **Write Hero Section** - Headline, subheadline, CTA, social proof
 4. **Write Feature/Benefit Sections** - Focus on outcomes, not features
 5. **Write Objection-Handling Section** - Address top 3 buying objections
 6. **Write Final CTA Section** - Urgency + value reinforcement
 7. **Validate with Brand Voice Analyzer** - Check tone and readability
+
    ```bash
    python ../skills/marketing-team/content-creator/scripts/brand_voice_analyzer.py landing-page.md
    ```
+
 8. **Create A/B Variant** - Write alternative headline for testing
 
 **Expected Output:** Complete landing page copy with hero, features, objections, CTA, and A/B variant
@@ -136,17 +141,21 @@ examples:
 **Goal:** Draft a multi-email nurture sequence for a campaign
 
 **Steps:**
+
 1. **Define Sequence Goal** - Trial activation, webinar registration, demo booking
 2. **Reference Brand Voice and Messaging Templates** - Load frameworks for email structure
+
    ```bash
    cat ../skills/marketing-team/content-creator/references/content_frameworks.md
    ```
+
 3. **Draft Email 1** - Hook + value prop (no hard sell)
 4. **Draft Email 2** - Social proof + case study snippet
 5. **Draft Email 3** - Objection handling + FAQ
 6. **Draft Email 4** - Urgency + final CTA
 7. **Write Subject Lines** - 2 variants per email for A/B testing
 8. **Validate Tone Consistency** - Run brand voice analyzer across sequence
+
    ```bash
    for file in email-sequence/*.md; do
      echo "Analyzing: $file"
@@ -163,15 +172,19 @@ examples:
 **Goal:** Create short-form social media copy (tweets, ad captions, short Instagram captions) from a content brief or long-form piece
 
 **Steps:**
+
 1. **Review Source Content** - Understand the key message, audience, and campaign goal. If a long-form piece exists (blog post, LinkedIn article), content-creator provides the core narrative.
 2. **Reference Platform Guidelines** - Load platform-specific best practices
+
    ```bash
    cat ../skills/marketing-team/content-creator/references/social_media_optimization.md
    ```
+
 3. **Write Twitter/X Post** - Concise hook, 280 characters, engagement-optimized
 4. **Write Ad Captions** - Platform-specific ad copy (Facebook, Instagram, LinkedIn ads)
 5. **Write Short Instagram Caption** - Visual-first approach, line breaks, hashtag strategy
 6. **Validate Brand Voice** - Ensure consistency across all platform versions
+
    ```bash
    python ../skills/marketing-team/content-creator/scripts/brand_voice_analyzer.py twitter-post.txt
    python ../skills/marketing-team/content-creator/scripts/brand_voice_analyzer.py ad-caption.txt
@@ -204,4 +217,3 @@ examples:
 - **Skill Documentation:** [../skills/marketing-team/content-creator/SKILL.md](../skills/marketing-team/content-creator/SKILL.md)
 - **Marketing Domain Guide:** [../skills/marketing-team/CLAUDE.md](../skills/marketing-team/CLAUDE.md)
 - **Agent Development Guide:** [agent-author](agent-author.md)
-

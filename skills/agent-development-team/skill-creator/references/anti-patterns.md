@@ -13,6 +13,7 @@ Common mistakes in workflow-based skills, organized by category. Each anti-patte
 **Why it's wrong:** Claude decides whether to activate a skill based solely on the `description` field. A vague description causes wrong activations or missed activations. Once active, "When to Use" and "When NOT to Use" sections scope the LLM's behavior — without them, the LLM attempts tasks outside the skill's competence.
 
 **Before:**
+
 ```markdown
 ---
 name: analyzing-logs
@@ -23,6 +24,7 @@ Here's how to analyze logs...
 ```
 
 **After:**
+
 ```markdown
 ---
 name: analyzing-logs
@@ -69,11 +71,13 @@ The `description` controls activation. The body sections scope behavior after ac
 **Why it's wrong:** The LLM follows chains linearly. By the time it reaches file C, the context from SKILL.md has degraded. Each hop adds latency and increases the chance of the LLM stopping early.
 
 **Before:**
+
 ```
 SKILL.md -> references/setup.md -> references/advanced-setup.md -> references/edge-cases.md
 ```
 
 **After:**
+
 ```
 SKILL.md -> references/setup.md (includes advanced and edge cases)
 SKILL.md -> references/edge-cases.md (standalone)
@@ -90,6 +94,7 @@ All files are one hop from SKILL.md. Files do not reference other reference file
 **Why it's wrong:** The skill breaks for any user whose filesystem differs. This is always wrong, with no exceptions.
 
 **Before:**
+
 ```markdown
 Run the script:
 \`\`\`bash
@@ -98,6 +103,7 @@ python /Users/jane/projects/my-skill/scripts/analyze.py
 ```
 
 **After:**
+
 ```markdown
 Run the script:
 \`\`\`bash
@@ -126,6 +132,7 @@ uv run {baseDir}/scripts/analyze.py
 **Why it's wrong:** The LLM cannot reliably determine ordering from prose. Numbered phases with entry/exit criteria create unambiguous execution order.
 
 **Before:**
+
 ```markdown
 ## Workflow
 First, gather the data. Then analyze it. After that, present findings.
@@ -133,6 +140,7 @@ Make sure to validate before presenting.
 ```
 
 **After:**
+
 ```markdown
 ## Workflow
 
@@ -167,12 +175,14 @@ Make sure to validate before presenting.
 **Why it's wrong:** Without exit criteria, the LLM may produce incomplete work for a phase and move on, or loop endlessly trying to "finish" a phase with no definition of done.
 
 **Before:**
+
 ```markdown
 ### Phase 2: Build Database
 Build the CodeQL database from the source code.
 ```
 
 **After:**
+
 ```markdown
 ### Phase 2: Build Database
 **Entry:** Language detected, build command identified
@@ -191,12 +201,14 @@ Build the CodeQL database from the source code.
 **Why it's wrong:** LLMs can produce plausible but incorrect output. A verification step catches errors before the user acts on bad results.
 
 **Before:**
+
 ```markdown
 ### Phase 3: Generate Report
 Write the analysis report to output.md.
 ```
 
 **After:**
+
 ```markdown
 ### Phase 3: Generate Report
 1. Write analysis report to output.md
@@ -218,12 +230,14 @@ Report to user:
 **Why it's wrong:** Ambiguous routing causes the LLM to pick the wrong workflow or freeze deciding between them.
 
 **Before:**
+
 ```markdown
 | "analyze" | `workflows/static-analysis.md` |
 | "analyze code" | `workflows/dynamic-analysis.md` |
 ```
 
 **After:**
+
 ```markdown
 | "static", "scan", "lint", "find bugs" | `workflows/static-analysis.md` |
 | "dynamic", "fuzz", "runtime", "execute" | `workflows/dynamic-analysis.md` |
@@ -242,6 +256,7 @@ Use distinctive keywords per workflow. If two workflows genuinely overlap, add a
 **Before:** Routing table with 5 specific options and nothing else.
 
 **After:**
+
 ```markdown
 | None of the above | Ask user to clarify: "I can help with X, Y, or Z. Which would you like?" |
 ```
@@ -257,10 +272,12 @@ Use distinctive keywords per workflow. If two workflows genuinely overlap, add a
 **Why it's wrong:** Dedicated tools (Glob, Grep, Read) are optimized for their purpose, handle edge cases (permissions, encoding), and provide better output formatting. Bash equivalents are fragile and verbose.
 
 **Before:**
+
 ```markdown
 allowed-tools:
   - Bash
 ```
+
 ```markdown
 Find all Python files:
 \`\`\`bash
@@ -269,12 +286,14 @@ find . -name "*.py" -type f
 ```
 
 **After:**
+
 ```markdown
 allowed-tools:
   - Glob
   - Grep
   - Read
 ```
+
 ```markdown
 Find all Python files using Glob with pattern `**/*.py`.
 ```
@@ -288,6 +307,7 @@ Find all Python files using Glob with pattern `**/*.py`.
 **Why it's wrong:** Extra tools expand the attack surface. A read-only analysis skill with Write access might create files the user didn't expect. Principle of least privilege applies.
 
 **Before:**
+
 ```yaml
 allowed-tools:
   - Bash
@@ -300,6 +320,7 @@ allowed-tools:
 ```
 
 **After (for a read-only analysis skill):**
+
 ```yaml
 allowed-tools:
   - Read
@@ -318,11 +339,13 @@ Only list tools the skill actually needs. Audit by checking which tools appear i
 **Why it's wrong:** Subagents start fresh with no context. They need explicit instructions about what to look for, what format to produce, and what tools to use.
 
 **Before:**
+
 ```markdown
 Spawn a subagent to analyze the function.
 ```
 
 **After:**
+
 ```markdown
 Spawn a Task agent (subagent_type=Explore) with prompt:
 "Read the function `processInput` in `src/handler.py`. List all external
@@ -340,15 +363,19 @@ Return findings as a markdown list."
 **Why it's wrong:** Agents with ambiguous tool access make inconsistent choices about which tool to use for a given operation.
 
 **Before:**
+
 ```yaml
 tools: Read, Grep, Glob, Bash, Write
 ```
+
 (Agent body never mentions when to use which tool.)
 
 **After:**
+
 ```yaml
 tools: Read, Grep, Glob
 ```
+
 ```markdown
 ## Tool Usage
 - **Glob** to find files by pattern (e.g., `**/*.sol`, `**/SKILL.md`)
@@ -369,6 +396,7 @@ tools: Read, Grep, Glob
 **Before:** 200 lines of API documentation copied from official docs.
 
 **After:**
+
 ```markdown
 ## When to Use X vs Y
 
@@ -395,6 +423,7 @@ Y's flexibility is overhead when the schema is known.
 **Before:** Skill describes what to do but not what shortcuts to avoid.
 
 **After:**
+
 ```markdown
 ## Rationalizations to Reject
 
@@ -414,11 +443,13 @@ Y's flexibility is overhead when the schema is known.
 **Why it's wrong:** Abstract rules are ambiguous. Concrete examples anchor the LLM's understanding and reduce interpretation drift.
 
 **Before:**
+
 ```markdown
 Ensure the output is well-formatted and includes all relevant information.
 ```
 
 **After:**
+
 ```markdown
 ## Output Format
 
@@ -447,6 +478,7 @@ Ensure the output is well-formatted and includes all relevant information.
 **Why it's wrong:** The agent won't actually execute N×M calls. It will shortcut — scanning a few files, skipping patterns, or summarizing early — and miss results silently. Even if it tries, the volume of calls degrades response quality and exhausts context.
 
 **Before:**
+
 ```markdown
 ### Phase 2: Search for Vulnerabilities
 1. Use Glob to find all `.sol` files
@@ -460,6 +492,7 @@ Ensure the output is well-formatted and includes all relevant information.
 ```
 
 **After:**
+
 ```markdown
 ### Phase 2: Search for Vulnerabilities
 1. Grep the codebase for `delegatecall|selfdestruct|tx\.origin|block\.timestamp|...` (single combined regex)
@@ -478,6 +511,7 @@ Combine patterns into one regex. Grep once across the codebase. Filter results a
 **Why it's wrong:** With 1000 files, that's 1000 subagents. The agent will hit context limits, refuse, or produce degraded results long before finishing. Even with 50 files, spawning 50 subagents creates massive overhead and unpredictable execution.
 
 **Before:**
+
 ```markdown
 ### Phase 3: Analyze Code
 For each code file discovered in Phase 2, spawn a Task subagent to:
@@ -487,6 +521,7 @@ For each code file discovered in Phase 2, spawn a Task subagent to:
 ```
 
 **After:**
+
 ```markdown
 ### Phase 3: Analyze Code
 Batch discovered files into groups of 10-20. For each batch, spawn a single Task subagent with prompt:
@@ -506,6 +541,7 @@ Batch items into fixed-size groups. One subagent per batch, not one per item.
 **Why it's wrong:** Claude treats the description as an executive summary. When it contains workflow steps ("dispatches subagent per task with code review between tasks"), Claude follows the description and shortcuts past the actual SKILL.md body. A description saying "code review between tasks" caused Claude to do ONE review, even though the SKILL.md flowchart showed TWO reviews (spec compliance then code quality). When the description was changed to triggering conditions only, Claude correctly read and followed the full process.
 
 **Before:**
+
 ```markdown
 ---
 name: subagent-driven-development
@@ -516,6 +552,7 @@ description: >-
 ```
 
 **After:**
+
 ```markdown
 ---
 name: subagent-driven-development

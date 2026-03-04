@@ -96,6 +96,7 @@ Do not instruct the agent to "analyze the problem before acting" or "consider ed
 ### When reviewing an existing agent
 
 For each instruction, ask:
+
 - Is this a domain-specific methodology step? **Keep**
 - Is this a non-obvious constraint? **Keep**
 - Is this a project convention the model cannot infer? **Keep**

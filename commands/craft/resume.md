@@ -13,6 +13,7 @@ Follow the **`/craft` workflow** (see `commands/craft/craft.md`) with these modi
 - If none found: report "No active /craft session found" and suggest `/craft <goal>`
 
 **Path safety:** If `$ARGUMENTS` is provided, validate it before reading:
+
 - Must start with `.docs/` (relative) — no absolute paths
 - Must not contain `..`
 - Must match the expected pattern `report-*-craft-status-*.md`
@@ -21,6 +22,7 @@ Follow the **`/craft` workflow** (see `commands/craft/craft.md`) with these modi
 ## 2. Validate Status File Integrity
 
 Before using the status file, run the **Status File Integrity** checks from `craft.md § Security Protocols`:
+
 - Schema validation (all fields match allowed values)
 - Artifact path safety (all `artifact_paths` start with `.docs/`, no `..`, no absolute paths)
 - Feedback sanitization (any stored feedback will be truncated and wrapped when embedded in prompts)
@@ -54,6 +56,7 @@ After validating artifacts, check for handoff snapshots to efficiently reconstru
 4. **Verify anchor freshness** — For each anchor file, check that the referenced symbol/section still exists. If a file has been modified since the snapshot timestamp (compare git log), warn that the anchor may be stale and read the updated section instead.
 
 5. **Present reconstruction summary:**
+
    ```
    Resuming from [step N / Phase N].
    Context reconstructed from handoff snapshot ([timestamp]).
@@ -94,6 +97,7 @@ When Phase 4 (Build) has `status: in_progress`, use its step-tracking fields for
 1. Read `steps_completed` and `current_step` from the Phase 4 status entry
 2. Read the implementation plan to get the total step count
 3. Present a summary:
+
    ```
    Phase 4 (Build) was interrupted.
    Steps completed: [list] of [total] (commits preserved in git)
@@ -105,6 +109,7 @@ When Phase 4 (Build) has `status: in_progress`, use its step-tracking fields for
    - Re-run step [current_step] (if it was interrupted mid-execution)
    - Re-run Phase 4 from scratch
    ```
+
 4. On resume: skip completed steps, dispatch the engineering-lead starting from the first incomplete step
 5. Verify completed step commits exist in git history (`git cat-file -t <sha>` for each SHA in `commit_shas`). If any SHA is missing, warn the user that git history may have diverged and ask whether to proceed or re-run affected steps.
 6. Any uncommitted changes in the working tree from an interrupted step should be presented to the user: offer to discard them (clean slate for re-run) or keep them (attempt to continue from where the step left off)

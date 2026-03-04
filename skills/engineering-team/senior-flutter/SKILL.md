@@ -139,6 +139,7 @@ python3 ../../senior-mobile/scripts/platform_detector.py --check all --depth ful
 **Time:** 2-4 hours for initial structure
 
 **Steps:**
+
 1. Create Flutter project with proper configuration
 2. Set up folder structure following clean architecture
 3. Configure dependency injection
@@ -151,6 +152,7 @@ python3 ../../senior-mobile/scripts/platform_detector.py --check all --depth ful
 **Reference:** `references/widget-architecture.md`
 
 **Project Structure:**
+
 ```
 lib/
 ├── core/
@@ -185,6 +187,7 @@ lib/
 ```
 
 **Core Setup:**
+
 ```dart
 // lib/core/router/app_router.dart
 import 'package:go_router/go_router.dart';
@@ -245,6 +248,7 @@ class MyApp extends ConsumerWidget {
 **Time:** 1-2 hours per feature
 
 **Steps:**
+
 1. Define feature state model with Freezed
 2. Create repository interface and implementation
 3. Implement provider/notifier for state management
@@ -255,6 +259,7 @@ class MyApp extends ConsumerWidget {
 **Reference:** `references/state-management.md`
 
 **Riverpod Pattern (Recommended):**
+
 ```dart
 // Domain entity with Freezed
 @freezed
@@ -321,6 +326,7 @@ class UsersScreen extends ConsumerWidget {
 ```
 
 **Bloc Pattern (Alternative):**
+
 ```dart
 // Events
 @freezed
@@ -366,6 +372,7 @@ class UserBloc extends Bloc<UserEvent, UserState> {
 **Time:** 2-4 hours per integration
 
 **Steps:**
+
 1. Define method channel contract
 2. Implement Dart side with proper error handling
 3. Implement iOS side (Swift)
@@ -377,6 +384,7 @@ class UserBloc extends Bloc<UserEvent, UserState> {
 **Reference:** `references/dart-patterns.md`
 
 **Dart Implementation:**
+
 ```dart
 class NativeBattery {
   static const _channel = MethodChannel('com.example.app/battery');
@@ -470,6 +478,7 @@ class MainActivity: FlutterActivity() {
 **Time:** 2-4 hours per optimization session
 
 **Steps:**
+
 1. Profile with Flutter DevTools
 2. Identify unnecessary rebuilds
 3. Implement const constructors where possible
@@ -481,6 +490,7 @@ class MainActivity: FlutterActivity() {
 **Reference:** `references/widget-architecture.md`
 
 **Performance Patterns:**
+
 ```dart
 // AVOID: Widget rebuilds entire subtree
 class BadExample extends StatelessWidget {
@@ -685,6 +695,7 @@ python3 ../../senior-mobile/scripts/app_store_validator.py --store google
 ## Best Practices
 
 ### Widget Design
+
 - Keep widgets small and focused (single responsibility)
 - Use composition over inheritance
 - Implement const constructors
@@ -692,12 +703,14 @@ python3 ../../senior-mobile/scripts/app_store_validator.py --store google
 - Use proper keys for dynamic lists
 
 ### State Management
+
 - Choose one pattern and use consistently
 - Keep state as local as possible
 - Avoid global state when possible
 - Test business logic independently
 
 ### Performance
+
 - Profile before optimizing
 - Use lazy loading for large lists
 - Implement image caching
@@ -705,6 +718,7 @@ python3 ../../senior-mobile/scripts/app_store_validator.py --store google
 - Use isolates for heavy computation
 
 ### Testing
+
 - Unit test business logic
 - Widget test UI components
 - Integration test critical flows

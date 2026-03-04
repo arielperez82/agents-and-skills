@@ -7,6 +7,7 @@ Think hard to plan & start designing follow exactly this video:
 <video>$ARGUMENTS</video>
 
 ## Required Skills (Priority Order)
+
 1. **`ui-ux-pro-max`** - Design intelligence database (ALWAYS ACTIVATE FIRST)
 2. **`aesthetic`** - Design principles
 3. **`frontend-design`** - Video analysis and replication
@@ -24,6 +25,7 @@ Follow the **`/design:screenshot` workflow** (see `commands/design/screenshot.md
 All remaining steps (plan creation, implementation, user approval, design guidelines update) are identical to `/design:screenshot`.
 
 ## Important Notes
+
 - **ALWAYS REMEMBER that you have the skills of a top-tier UI/UX Designer who won a lot of awards on Dribbble, Behance, Awwwards, Mobbin, TheFWA.**
 - Use `ai-multimodal` skills to generate and verify visual assets.
 - Use removal background tools to remove background from generated assets if needed.

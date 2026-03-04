@@ -117,6 +117,7 @@ python3 scripts/performance_profiler.py ./src/Repositories \
 ### New Web API Project
 
 1. **Scaffold project:**
+
    ```bash
    python3 scripts/dotnet_project_scaffolder.py OrdersApi \
      --type webapi \
@@ -127,6 +128,7 @@ python3 scripts/performance_profiler.py ./src/Repositories \
    ```
 
 2. **Generate domain entities:**
+
    ```bash
    python3 scripts/entity_generator.py Order \
      --properties "CustomerId:int:required,OrderDate:DateTime,Status:OrderStatus" \
@@ -139,6 +141,7 @@ python3 scripts/performance_profiler.py ./src/Repositories \
    ```
 
 3. **Create endpoints:**
+
    ```bash
    python3 scripts/api_endpoint_generator.py Orders \
      --entity Order \
@@ -148,6 +151,7 @@ python3 scripts/performance_profiler.py ./src/Repositories \
    ```
 
 4. **Configure security:**
+
    ```bash
    python3 scripts/security_config_generator.py jwt \
      --policies "Admin,Customer"
@@ -156,6 +160,7 @@ python3 scripts/performance_profiler.py ./src/Repositories \
 ### Modernizing Legacy Code
 
 1. **Analyze dependencies:**
+
    ```bash
    python3 scripts/dependency_analyzer.py ./LegacyApp \
      --check-security \
@@ -164,6 +169,7 @@ python3 scripts/performance_profiler.py ./src/Repositories \
    ```
 
 2. **Profile performance:**
+
    ```bash
    python3 scripts/performance_profiler.py ./LegacyApp \
      --format markdown \
@@ -175,12 +181,14 @@ python3 scripts/performance_profiler.py ./src/Repositories \
 ### Adding New Feature
 
 1. **Generate entity:**
+
    ```bash
    python3 scripts/entity_generator.py Feature \
      --properties "Name:string:required,Description:string,IsEnabled:bool"
    ```
 
 2. **Create API:**
+
    ```bash
    python3 scripts/api_endpoint_generator.py Features \
      --entity Feature \
@@ -188,6 +196,7 @@ python3 scripts/performance_profiler.py ./src/Repositories \
    ```
 
 3. **Run security check:**
+
    ```bash
    python3 scripts/dependency_analyzer.py . --check-security
    ```
@@ -206,12 +215,14 @@ python3 scripts/performance_profiler.py ./src/Repositories \
 ## What to Expect
 
 ### Project Scaffolder Output
+
 - Complete project structure
 - Program.cs with configured services
 - appsettings.json templates
 - Docker and CI/CD files (optional)
 
 ### Entity Generator Output
+
 - Entity class with data annotations
 - Repository interface and implementation
 - Service layer with business logic
@@ -220,24 +231,28 @@ python3 scripts/performance_profiler.py ./src/Repositories \
 - AutoMapper profile
 
 ### Endpoint Generator Output
+
 - Controller or Minimal API handlers
 - FluentValidation validators
 - Pagination support (optional)
 - OpenAPI annotations
 
 ### Dependency Analyzer Output
+
 - Package inventory
 - Vulnerability warnings
 - Upgrade recommendations
 - Framework compatibility notes
 
 ### Security Generator Output
+
 - Authentication configuration
 - Authorization policies
 - Token service (JWT)
 - Security middleware setup
 
 ### Performance Profiler Output
+
 - N+1 query detection
 - Async/await issues
 - Memory allocation warnings

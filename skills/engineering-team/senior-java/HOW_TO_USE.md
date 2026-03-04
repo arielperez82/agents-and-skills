@@ -7,16 +7,19 @@ Hey Claude—I just added the "senior-java" skill. Can you help me with [describ
 ## Example Invocations
 
 ### Example 1: Basic Usage
+
 ```
 Hey Claude—I just added the "senior-java" skill. Can you [specific task related to this skill]?
 ```
 
 ### Example 2: Advanced Usage
+
 ```
 Hey Claude—I just added the "senior-java" skill. Can you [more complex task with specific requirements]?
 ```
 
 ### Example 3: Integration with Other Skills
+
 ```
 Hey Claude—I just added the "senior-java" skill. Can you use it together with [another skill] to [combined task]?
 ```

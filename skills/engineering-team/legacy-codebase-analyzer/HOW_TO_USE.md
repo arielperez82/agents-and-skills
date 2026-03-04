@@ -7,16 +7,19 @@ Hey Claude—I just added the "legacy-codebase-analyzer" skill. Can you analyze 
 ## Example Invocations
 
 ### Example 1: Complete Legacy Analysis
+
 ```
 Hey Claude—I just added the "legacy-codebase-analyzer" skill. Can you analyze this PHP codebase and identify technical debt, security vulnerabilities, and create a modernization roadmap?
 ```
 
 ### Example 2: Focused Security Audit
+
 ```
 Hey Claude—I just added the "legacy-codebase-analyzer" skill. Can you scan this legacy Node.js application for security vulnerabilities and outdated dependencies?
 ```
 
 ### Example 3: Modernization Planning
+
 ```
 Hey Claude—I just added the "legacy-codebase-analyzer" skill. Can you create a prioritized modernization roadmap for this legacy Java monolith with migration recommendations?
 ```

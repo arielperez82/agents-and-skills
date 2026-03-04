@@ -197,11 +197,13 @@ The skill package includes production-ready templates in the `assets/` directory
 **Steps:**
 
 1. **Generate Pipeline Configuration** - Use pipeline generator to create GitHub Actions workflow with all stages
+
    ```bash
    python3 ../skills/engineering-team/senior-devops/scripts/pipeline_generator.py --input my-microservice --output text --verbose
    ```
 
 2. **Review Generated Pipeline** - Verify all stages created correctly (build, test, security scan, deploy)
+
    ```bash
    cat .github/workflows/ci-cd.yml
    # Stages:
@@ -219,6 +221,7 @@ The skill package includes production-ready templates in the `assets/` directory
    ```
 
 3. **Configure Secrets and Variables** - Set up required secrets in GitHub repository settings
+
    ```bash
    # Required secrets:
    # - DOCKER_USERNAME
@@ -234,6 +237,7 @@ The skill package includes production-ready templates in the `assets/` directory
    ```
 
 4. **Create Docker Multi-Stage Build** - Optimize Docker image for production
+
    ```bash
    # Review generated Dockerfile
    cat Dockerfile
@@ -245,6 +249,7 @@ The skill package includes production-ready templates in the `assets/` directory
    ```
 
 5. **Configure Kubernetes Deployment** - Set up deployment manifests with health checks
+
    ```bash
    # Review generated Kubernetes manifests
    cat k8s/deployment.yaml
@@ -257,6 +262,7 @@ The skill package includes production-ready templates in the `assets/` directory
    ```
 
 6. **Test Pipeline Locally** - Validate pipeline stages before pushing
+
    ```bash
    # Install act (GitHub Actions local runner)
    brew install act  # macOS
@@ -266,6 +272,7 @@ The skill package includes production-ready templates in the `assets/` directory
    ```
 
 7. **Push and Trigger Pipeline** - Commit changes and watch pipeline execute
+
    ```bash
    git add .github/workflows/ Dockerfile k8s/
    git commit -m "feat(ci): add GitHub Actions CI/CD pipeline"
@@ -276,6 +283,7 @@ The skill package includes production-ready templates in the `assets/` directory
    ```
 
 8. **Verify Deployment** - Confirm application deployed successfully to Kubernetes
+
    ```bash
    kubectl get pods -n production
    kubectl logs -f deployment/my-microservice -n production
@@ -290,6 +298,7 @@ The skill package includes production-ready templates in the `assets/` directory
 **Time Estimate:** 30-45 minutes for complete setup (excluding initial pipeline run time)
 
 **Example:**
+
 ```bash
 # Complete workflow in one go
 python3 ../skills/engineering-team/senior-devops/scripts/pipeline_generator.py --input payment-service --output text
@@ -306,11 +315,13 @@ gh run watch
 **Steps:**
 
 1. **Generate Terraform Infrastructure** - Use Terraform scaffolder to create base infrastructure
+
    ```bash
    python3 ../skills/engineering-team/senior-devops/scripts/terraform_scaffolder.py --input ./infrastructure --output text --verbose
    ```
 
 2. **Review Generated Terraform Modules** - Verify module structure and configurations
+
    ```bash
    tree infrastructure/
    # infrastructure/
@@ -328,6 +339,7 @@ gh run watch
    ```
 
 3. **Configure Remote State Backend** - Set up S3 bucket and DynamoDB for state locking
+
    ```bash
    # Create S3 bucket for remote state
    aws s3 mb s3://my-terraform-state-bucket --region us-east-1
@@ -345,6 +357,7 @@ gh run watch
    ```
 
 4. **Initialize Terraform** - Download providers and initialize backend
+
    ```bash
    cd infrastructure
    terraform init
@@ -355,6 +368,7 @@ gh run watch
    ```
 
 5. **Create Workspaces for Environments** - Set up dev, staging, production workspaces
+
    ```bash
    # Create workspaces
    terraform workspace new dev
@@ -366,6 +380,7 @@ gh run watch
    ```
 
 6. **Plan Infrastructure for Dev Environment** - Review changes before applying
+
    ```bash
    terraform workspace select dev
    terraform plan -var-file="environments/dev.tfvars" -out=dev.tfplan
@@ -379,6 +394,7 @@ gh run watch
    ```
 
 7. **Apply Infrastructure** - Create dev environment resources
+
    ```bash
    terraform apply dev.tfplan
 
@@ -394,6 +410,7 @@ gh run watch
    ```
 
 8. **Capture Outputs** - Save important values for application configuration
+
    ```bash
    terraform output -json > outputs.json
 
@@ -405,6 +422,7 @@ gh run watch
    ```
 
 9. **Repeat for Staging and Production** - Apply same infrastructure to other environments
+
    ```bash
    terraform workspace select staging
    terraform plan -var-file="environments/staging.tfvars" -out=staging.tfplan
@@ -416,6 +434,7 @@ gh run watch
    ```
 
 10. **Set Up State Management and Backups** - Configure state file backups
+
     ```bash
     # Enable S3 versioning (already done in step 3)
     # Set up lifecycle policy for old versions
@@ -429,6 +448,7 @@ gh run watch
 **Time Estimate:** 2-3 hours for complete multi-environment setup (including apply time for all environments)
 
 **Example:**
+
 ```bash
 # Quick setup for single environment
 python3 ../skills/engineering-team/senior-devops/scripts/terraform_scaffolder.py --input ./infra
@@ -446,11 +466,13 @@ terraform output -json > outputs.json
 **Steps:**
 
 1. **Prepare Canary Deployment Configuration** - Use deployment manager to generate canary manifests
+
    ```bash
    python3 ../skills/engineering-team/senior-devops/scripts/deployment_manager.py --input deployment-config.yaml --output text --verbose
    ```
 
 2. **Review Deployment Strategy** - Verify canary configuration and traffic split percentages
+
    ```bash
    cat k8s/canary-deployment.yaml
    # Configuration:
@@ -462,6 +484,7 @@ terraform output -json > outputs.json
    ```
 
 3. **Deploy Canary Version** - Deploy new version alongside stable version
+
    ```bash
    # Deploy canary with 10% traffic
    kubectl apply -f k8s/canary-deployment.yaml
@@ -474,6 +497,7 @@ terraform output -json > outputs.json
    ```
 
 4. **Configure Service Mesh for Traffic Splitting** - Set up Istio VirtualService for percentage-based routing
+
    ```bash
    cat k8s/virtual-service.yaml
    # Traffic split:
@@ -484,6 +508,7 @@ terraform output -json > outputs.json
    ```
 
 5. **Monitor Canary Metrics** - Watch application metrics during canary rollout
+
    ```bash
    # Monitor error rates
    kubectl exec -it deploy/prometheus-server -- promtool query instant \
@@ -498,6 +523,7 @@ terraform output -json > outputs.json
    ```
 
 6. **Gradually Increase Canary Traffic** - If metrics healthy, shift more traffic to canary
+
    ```bash
    # Increase to 25% after 5 minutes
    kubectl patch virtualservice my-app --type='json' \
@@ -514,6 +540,7 @@ terraform output -json > outputs.json
    ```
 
 7. **Validate Canary Health** - Confirm error rates and latency within acceptable thresholds
+
    ```bash
    # Check error rate (should be < 5%)
    ERROR_RATE=$(kubectl exec -it deploy/prometheus-server -- \
@@ -530,6 +557,7 @@ terraform output -json > outputs.json
    ```
 
 8. **Complete Canary Promotion** - If all metrics healthy, shift 100% traffic to canary
+
    ```bash
    # Shift all traffic to canary (100%)
    kubectl patch virtualservice my-app --type='json' \
@@ -541,6 +569,7 @@ terraform output -json > outputs.json
    ```
 
 9. **Decommission Old Version** - Remove stable deployment and promote canary to stable
+
    ```bash
    # Scale down old stable deployment
    kubectl scale deployment/my-app-stable --replicas=0
@@ -551,6 +580,7 @@ terraform output -json > outputs.json
    ```
 
 10. **Verify Final State** - Confirm deployment successful and all traffic to new version
+
     ```bash
     kubectl get pods -l app=my-app
     kubectl get virtualservice my-app -o yaml
@@ -567,6 +597,7 @@ terraform output -json > outputs.json
 **Time Estimate:** 45-60 minutes for complete canary rollout (including monitoring periods)
 
 **Example:**
+
 ```bash
 # Automated canary deployment with monitoring
 python3 ../skills/engineering-team/senior-devops/scripts/deployment_manager.py --input canary-config.yaml
@@ -582,6 +613,7 @@ kubectl rollout status deployment/my-app-canary
 **Steps:**
 
 1. **Deploy Prometheus Operator** - Install Prometheus using Helm for metric collection
+
    ```bash
    # Add Prometheus Helm repository
    helm repo add prometheus-community https://prometheus-community.github.io/helm-charts
@@ -596,6 +628,7 @@ kubectl rollout status deployment/my-app-canary
    ```
 
 2. **Configure ServiceMonitors** - Set up application metric scraping
+
    ```bash
    cat <<EOF | kubectl apply -f -
    apiVersion: monitoring.coreos.com/v1
@@ -615,6 +648,7 @@ kubectl rollout status deployment/my-app-canary
    ```
 
 3. **Deploy Grafana Dashboards** - Import pre-built dashboards for Kubernetes monitoring
+
    ```bash
    # Access Grafana
    kubectl port-forward -n monitoring svc/prometheus-grafana 3000:80
@@ -628,6 +662,7 @@ kubectl rollout status deployment/my-app-canary
    ```
 
 4. **Install ELK Stack for Logging** - Deploy Elasticsearch, Logstash, Kibana for centralized logging
+
    ```bash
    # Add Elastic Helm repository
    helm repo add elastic https://helm.elastic.co
@@ -652,6 +687,7 @@ kubectl rollout status deployment/my-app-canary
    ```
 
 5. **Configure Log Aggregation** - Set up Filebeat to collect logs from all pods
+
    ```bash
    cat <<EOF | kubectl apply -f -
    apiVersion: v1
@@ -679,6 +715,7 @@ kubectl rollout status deployment/my-app-canary
    ```
 
 6. **Deploy Jaeger for Distributed Tracing** - Install Jaeger Operator
+
    ```bash
    # Install Jaeger Operator
    kubectl create namespace observability
@@ -704,6 +741,7 @@ kubectl rollout status deployment/my-app-canary
    ```
 
 7. **Instrument Application for Tracing** - Add OpenTelemetry SDK to application code
+
    ```bash
    # Example for Node.js application
    # Install OpenTelemetry packages
@@ -727,6 +765,7 @@ kubectl rollout status deployment/my-app-canary
    ```
 
 8. **Set Up Alerting Rules** - Configure Prometheus AlertManager for production alerts
+
    ```bash
    cat <<EOF | kubectl apply -f -
    apiVersion: monitoring.coreos.com/v1
@@ -758,6 +797,7 @@ kubectl rollout status deployment/my-app-canary
    ```
 
 9. **Configure Alert Notifications** - Set up Slack/PagerDuty integration
+
    ```bash
    cat <<EOF | kubectl apply -f -
    apiVersion: v1
@@ -782,6 +822,7 @@ kubectl rollout status deployment/my-app-canary
    ```
 
 10. **Verify Monitoring Stack** - Test all monitoring components and dashboards
+
     ```bash
     # Check Prometheus targets
     kubectl port-forward -n monitoring svc/prometheus-kube-prometheus-prometheus 9090:9090
@@ -805,6 +846,7 @@ kubectl rollout status deployment/my-app-canary
 **Time Estimate:** 2-3 hours for complete monitoring stack setup (including testing and verification)
 
 **Example:**
+
 ```bash
 # Automated monitoring stack deployment
 ./scripts/deploy-monitoring-stack.sh
@@ -821,6 +863,7 @@ kubectl get pods -n observability
 **Steps:**
 
 1. **Generate Deployment Configuration** - Use deployment manager to create deployment config
+
    ```bash
    python3 ../skills/engineering-team/senior-devops/scripts/deployment_manager.py \
      --input deployment-config.yaml \
@@ -829,6 +872,7 @@ kubectl get pods -n observability
    ```
 
 2. **Create Change Request Payload** - Generate ServiceNow change request from deployment
+
    ```bash
    python3 ../skills/engineering-team/senior-devops/scripts/servicenow_change_manager.py \
      --deployment-file deploy-config.json \
@@ -850,6 +894,7 @@ kubectl get pods -n observability
    ```
 
 3. **Submit Change Request to ServiceNow** - Create change ticket via API
+
    ```bash
    # Generate curl command
    python3 ../skills/engineering-team/senior-devops/scripts/servicenow_change_manager.py \
@@ -866,6 +911,7 @@ kubectl get pods -n observability
    ```
 
 4. **Wait for CAB Approval (Normal Changes)** - Poll for approval status
+
    ```bash
    # Check change status
    curl -s "https://your-instance.service-now.com/api/now/table/change_request/$CHANGE_NUMBER" \
@@ -883,6 +929,7 @@ kubectl get pods -n observability
    ```
 
 5. **Update Change to Implement** - Mark change as in-progress when deployment starts
+
    ```bash
    curl -X PUT "https://your-instance.service-now.com/api/now/table/change_request/$CHANGE_NUMBER" \
      -H "Authorization: Bearer $SNOW_TOKEN" \
@@ -891,6 +938,7 @@ kubectl get pods -n observability
    ```
 
 6. **Execute Deployment** - Run deployment with change tracking
+
    ```bash
    # Deploy to Kubernetes
    kubectl apply -f k8s/deployment.yaml
@@ -904,6 +952,7 @@ kubectl get pods -n observability
    ```
 
 7. **Close Change Request** - Mark change as successful or failed
+
    ```bash
    # On success
    curl -X PUT "https://your-instance.service-now.com/api/now/table/change_request/$CHANGE_NUMBER" \
@@ -924,6 +973,7 @@ kubectl get pods -n observability
    ```
 
 8. **Emergency Change Workflow** - For critical hotfixes
+
    ```bash
    # Create emergency change (single approver, post-implementation review)
    python3 ../skills/engineering-team/senior-devops/scripts/servicenow_change_manager.py \
@@ -939,6 +989,7 @@ kubectl get pods -n observability
 **Time Estimate:** 10-15 minutes for change creation, variable for CAB approval (standard changes auto-approve)
 
 **Example:**
+
 ```bash
 # Automated change management in CI/CD pipeline
 python3 ../skills/engineering-team/senior-devops/scripts/deployment_manager.py --input config.yaml --output json --file deploy.json
@@ -990,6 +1041,7 @@ kubectl get pods -n newrelic
 ```
 
 **NewRelic Benefits:**
+
 - Single platform for APM, infrastructure, logs, and traces
 - Built-in SLO management with error budget tracking
 - NRQL query language for custom metrics analysis
@@ -1194,24 +1246,28 @@ echo "📄 Configuration saved to ./configs/$ENVIRONMENT-outputs.json"
 ## Success Metrics
 
 **Infrastructure Automation:**
+
 - Deployment frequency: Daily or multiple times per day (vs. weekly manual deployments)
 - Infrastructure provisioning time: 80% reduction (from hours to minutes with IaC automation)
 - Configuration drift incidents: 90% reduction through automated drift detection
 - Infrastructure cost optimization: 25-40% reduction through right-sizing and automated scaling
 
 **CI/CD Pipeline Performance:**
+
 - Build time: 50% reduction through parallelization and caching
 - Pipeline success rate: >95% (vs. <80% without automated testing)
 - Security vulnerability detection: 100% automated scanning before production
 - Deployment rollback time: <5 minutes with automated rollback procedures
 
 **Deployment Quality:**
+
 - Production incidents: 70% reduction through canary deployments and automated rollback
 - Deployment success rate: >98% for production deployments
 - Mean Time to Recovery (MTTR): <15 minutes (vs. 2+ hours manual)
 - Zero-downtime deployments: 100% through blue-green and canary strategies
 
 **Observability and Monitoring:**
+
 - Alert noise reduction: 60% through intelligent alerting rules
 - Mean Time to Detection (MTTD): <2 minutes for production issues
 - Monitoring coverage: 100% of production services with metrics, logs, and traces

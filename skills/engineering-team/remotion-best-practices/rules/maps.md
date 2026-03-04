@@ -38,7 +38,7 @@ If `pnpm-lock.yaml` is found, use the following command:
 pnpm i mapbox-gl @turf/turf @types/mapbox-gl
 ```
 
-The user needs to create a free Mapbox account and create an access token by visiting https://console.mapbox.com/account/access-tokens/.
+The user needs to create a free Mapbox account and create an access token by visiting <https://console.mapbox.com/account/access-tokens/>.
 
 The mapbox token needs to be added to the `.env` file:
 

@@ -66,6 +66,7 @@ This agent sits between research (ux-researcher) and design systems (ui-designer
 ## Skill Integration
 
 **Skill Locations:**
+
 - `../skills/ux-team/ux-designer/`
 - `../skills/ux-team/ui-design-brain/` — 60+ UI component patterns with best practices, anti-patterns, accessibility per component, and design presets (Modern SaaS, Apple-minimal, Enterprise, Creative, Data Dashboard)
 
@@ -105,6 +106,7 @@ This agent sits between research (ux-researcher) and design systems (ui-designer
 ### Design Patterns Reference
 
 The skill provides ready-to-use patterns for:
+
 - **Navigation:** Top nav, hamburger menu, tabs, breadcrumbs
 - **Forms:** Single-column layout, labels above inputs, inline validation
 - **Cards:** Consistent padding, clear hierarchy, hover states
@@ -124,6 +126,7 @@ The skill provides ready-to-use patterns for:
 **Goal:** Create comprehensive UX design from requirements
 
 **Steps:**
+
 1. Load requirements (PRD, tech spec, user stories)
 2. Identify user personas and target devices
 3. Map user flows (happy path + error cases)
@@ -140,6 +143,7 @@ The skill provides ready-to-use patterns for:
 **Goal:** Verify a design meets WCAG 2.1 Level AA
 
 **Steps:**
+
 1. Review perceivable criteria (alt text, contrast, resizability)
 2. Review operable criteria (keyboard access, focus indicators, no traps)
 3. Review understandable criteria (labels, error messages, consistency)
@@ -151,6 +155,7 @@ The skill provides ready-to-use patterns for:
 **Goal:** Define how a design adapts across breakpoints
 
 **Steps:**
+
 1. Design mobile layout (320-767px) first
 2. Adapt for tablet (768-1023px)
 3. Adapt for desktop (1024px+)
@@ -160,21 +165,25 @@ The skill provides ready-to-use patterns for:
 ## Success Metrics
 
 **Wireframe Quality:**
+
 - **Coverage:** 100% of user stories have corresponding wireframes
 - **Breakpoint Coverage:** Desktop, tablet, and mobile wireframes for every screen
 - **Iteration Speed:** First wireframe draft within 1-2 hours of requirements intake
 
 **Accessibility Compliance:**
+
 - **WCAG 2.1 AA:** 100% compliance on all design deliverables
 - **Keyboard Navigation:** All interactive elements reachable and operable via keyboard
 - **Contrast Ratios:** All text meets minimum 4.5:1 (normal) / 3:1 (large) contrast
 
 **User Flow Completeness:**
+
 - **Happy Path Coverage:** 100% of primary user journeys mapped
 - **Error Case Coverage:** >80% of error states documented with recovery paths
 - **Decision Points:** All branching logic identified and documented
 
 **Developer Handoff Efficiency:**
+
 - **Handoff Completeness:** <10% follow-up questions from developers per feature
 - **Implementation Accuracy:** >90% design-to-code match on first review
 - **Specification Clarity:** Component specs include sizing, spacing, states, and interaction notes

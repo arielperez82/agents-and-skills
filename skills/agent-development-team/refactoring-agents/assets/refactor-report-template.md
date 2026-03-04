@@ -86,4 +86,3 @@ Use this section with the checklist from `references/refactor-guide.md`:
 - Open questions:
 - Risks and mitigation ideas:
 - Future opportunities (not in scope now but worth tracking):
-

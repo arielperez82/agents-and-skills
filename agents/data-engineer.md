@@ -218,12 +218,14 @@ The skill package includes production-ready templates in the `references/templat
 **What it provides:** Real-time analytics platform for building low-latency OLAP APIs. Use when you need sub-second query responses at high concurrency.
 
 **When to use:**
+
 - Building real-time analytics endpoints from streaming or event data
 - Creating low-latency dashboards and metrics APIs
 - Optimizing query performance for user-facing analytics
 - Managing datasources, pipes, and endpoints
 
 **Key resources:**
+
 - `rules/datasource-files.md` - Datasource schema definitions
 - `rules/pipe-files.md` - Query transformation pipelines
 - `rules/endpoint-files.md` - API endpoint configuration
@@ -245,12 +247,14 @@ The skill package includes production-ready templates in the `references/templat
 **Steps:**
 
 1. **Architecture Design** - Select appropriate architecture pattern based on requirements (Lambda for historical accuracy + real-time, Kappa for streaming-first, Medallion for progressive refinement)
+
    ```bash
    # Reference architecture patterns
    cat ../skills/engineering-team/senior-data-engineer/references/frameworks.md | grep -A 50 "Data Pipeline Architecture Patterns"
    ```
 
 2. **Create Pipeline Configuration** - Define YAML configuration specifying sources, transformations, targets, schedule, and dependencies
+
    ```yaml
    # pipeline_config.yaml
    name: sales_etl_pipeline
@@ -275,6 +279,7 @@ The skill package includes production-ready templates in the `references/templat
    ```
 
 3. **Generate Airflow DAG** - Use pipeline orchestrator to create production-ready DAG with all components
+
    ```bash
    python3 ../skills/engineering-team/senior-data-engineer/scripts/pipeline_orchestrator.py \
      --config pipeline_config.yaml \
@@ -283,6 +288,7 @@ The skill package includes production-ready templates in the `references/templat
    ```
 
 4. **Implement Data Quality Rules** - Define comprehensive validation rules covering all quality dimensions
+
    ```yaml
    # quality_rules.yaml
    dimensions:
@@ -303,6 +309,7 @@ The skill package includes production-ready templates in the `references/templat
    ```
 
 5. **Deploy and Test Pipeline** - Deploy DAG to Airflow, trigger test run, validate outputs
+
    ```bash
    # Copy DAG to Airflow dags folder
    cp dags/sales_etl_pipeline.py $AIRFLOW_HOME/dags/
@@ -318,6 +325,7 @@ The skill package includes production-ready templates in the `references/templat
    ```
 
 6. **Configure Monitoring and Alerts** - Set up pipeline monitoring, SLA alerts, and failure notifications
+
    ```bash
    # Add monitoring configuration to DAG
    # - Success/failure email alerts
@@ -331,6 +339,7 @@ The skill package includes production-ready templates in the `references/templat
 **Time Estimate:** 1-2 days for initial implementation, 2-4 hours for testing and monitoring setup
 
 **Example:**
+
 ```bash
 # Complete pipeline setup workflow
 python3 ../skills/engineering-team/senior-data-engineer/scripts/pipeline_orchestrator.py \
@@ -355,12 +364,14 @@ python3 ../skills/engineering-team/senior-data-engineer/scripts/data_quality_val
 **Steps:**
 
 1. **Requirements Analysis** - Gather business requirements for analytics, identify key metrics and dimensions
+
    ```bash
    # Review dimensional modeling patterns
    cat ../skills/engineering-team/senior-data-engineer/references/frameworks.md | grep -A 100 "Data Modeling Frameworks"
    ```
 
 2. **Design Dimensional Model** - Create star schema with fact tables and dimensions, define grain and SCD types
+
    ```
    # Example dimensional model:
    Fact Table: fact_sales
@@ -376,6 +387,7 @@ python3 ../skills/engineering-team/senior-data-engineer/scripts/data_quality_val
    ```
 
 3. **Implement dbt Models** - Create staging, intermediate, and mart models using templates
+
    ```bash
    # Reference dbt templates
    cat ../skills/engineering-team/senior-data-engineer/references/templates.md | grep -A 50 "dbt Models"
@@ -393,6 +405,7 @@ python3 ../skills/engineering-team/senior-data-engineer/scripts/data_quality_val
    ```
 
 4. **Implement SCD Logic** - Add slowly changing dimension logic for tracking historical changes
+
    ```sql
    -- Example SCD Type 2 implementation from templates
    -- Track customer attribute changes over time
@@ -415,6 +428,7 @@ python3 ../skills/engineering-team/senior-data-engineer/scripts/data_quality_val
    ```
 
 5. **Add Data Quality Tests** - Implement dbt tests for data validation
+
    ```yaml
    # models/marts/schema.yml
    version: 2
@@ -432,6 +446,7 @@ python3 ../skills/engineering-team/senior-data-engineer/scripts/data_quality_val
    ```
 
 6. **Deploy and Document** - Run dbt models, generate documentation, schedule regular refreshes
+
    ```bash
    # Test and build models
    dbt test
@@ -456,12 +471,14 @@ python3 ../skills/engineering-team/senior-data-engineer/scripts/data_quality_val
 **Steps:**
 
 1. **Define Quality Dimensions** - Establish quality standards across all dimensions (completeness, accuracy, consistency, timeliness, validity)
+
    ```bash
    # Reference quality framework
    cat ../skills/engineering-team/senior-data-engineer/references/frameworks.md | grep -A 80 "Data Quality Framework"
    ```
 
 2. **Create Validation Rules** - Define specific validation rules for each critical dataset
+
    ```yaml
    # validation_rules.yaml
    dataset: sales_transactions
@@ -502,6 +519,7 @@ python3 ../skills/engineering-team/senior-data-engineer/scripts/data_quality_val
    ```
 
 3. **Run Validation Analysis** - Execute data quality validator on target datasets
+
    ```bash
    # Validate CSV file
    python3 ../skills/engineering-team/senior-data-engineer/scripts/data_quality_validator.py \
@@ -520,6 +538,7 @@ python3 ../skills/engineering-team/senior-data-engineer/scripts/data_quality_val
    ```
 
 4. **Review Quality Report** - Analyze validation results, identify failing checks and trends
+
    ```
    # Expected report sections:
    - Overall Quality Score: 97.3% (PASS - above 95% threshold)
@@ -541,6 +560,7 @@ python3 ../skills/engineering-team/senior-data-engineer/scripts/data_quality_val
    ```
 
 5. **Integrate with Pipeline** - Add quality checks as Airflow task in ETL pipeline
+
    ```python
    # Add to Airflow DAG
    quality_check = BashOperator(
@@ -566,6 +586,7 @@ python3 ../skills/engineering-team/senior-data-engineer/scripts/data_quality_val
    ```
 
 6. **Set Up Monitoring Dashboard** - Create dashboard tracking quality metrics over time
+
    ```bash
    # Export metrics to monitoring system
    # - Daily quality scores by dimension
@@ -581,6 +602,7 @@ python3 ../skills/engineering-team/senior-data-engineer/scripts/data_quality_val
 **Time Estimate:** 2-3 days for initial rule definition and validation setup, 1 day for pipeline integration and monitoring
 
 **Example:**
+
 ```bash
 # Complete quality validation workflow
 python3 ../skills/engineering-team/senior-data-engineer/scripts/data_quality_validator.py \
@@ -607,6 +629,7 @@ fi
 **Steps:**
 
 1. **Profile Current Performance** - Analyze recent pipeline executions to establish baseline metrics
+
    ```bash
    # Analyze Airflow DAG performance over last 30 days
    python3 ../skills/engineering-team/senior-data-engineer/scripts/etl_performance_optimizer.py \
@@ -624,6 +647,7 @@ fi
    ```
 
 2. **Identify Bottlenecks** - Review performance analysis to find slow tasks and root causes
+
    ```bash
    # Get detailed bottleneck analysis
    python3 ../skills/engineering-team/senior-data-engineer/scripts/etl_performance_optimizer.py \
@@ -642,6 +666,7 @@ fi
    ```
 
 3. **Apply SQL Optimizations** - Implement query optimization recommendations
+
    ```sql
    -- Before optimization: Full table scan on large fact table
    SELECT customer_id, SUM(amount) as total
@@ -668,6 +693,7 @@ fi
    ```
 
 4. **Optimize Spark Jobs** - Apply Spark tuning recommendations for distributed processing
+
    ```python
    # Before: Default Spark configuration
    spark = SparkSession.builder.appName("sales_agg").getOrCreate()
@@ -689,6 +715,7 @@ fi
    ```
 
 5. **Implement Incremental Processing** - Convert full-refresh pipelines to incremental patterns
+
    ```python
    # Before: Full table reload daily
    df = spark.read.jdbc(source_url, "sales_transactions")
@@ -712,6 +739,7 @@ fi
    ```
 
 6. **Measure Optimization Impact** - Re-run profiler to validate improvements
+
    ```bash
    # Re-analyze after optimizations
    python3 ../skills/engineering-team/senior-data-engineer/scripts/etl_performance_optimizer.py \
@@ -733,6 +761,7 @@ fi
 **Time Estimate:** 2-3 days for analysis and optimization, 1 day for testing and validation
 
 **Example:**
+
 ```bash
 # Complete optimization workflow
 python3 ../skills/engineering-team/senior-data-engineer/scripts/etl_performance_optimizer.py \
@@ -759,6 +788,7 @@ python3 ../skills/engineering-team/senior-data-engineer/scripts/etl_performance_
 **Steps:**
 
 1. **Architecture Selection** - Choose streaming architecture pattern based on requirements (Kappa for streaming-only, Lambda for batch + streaming hybrid)
+
    ```bash
    # Reference streaming architecture patterns
    cat ../skills/engineering-team/senior-data-engineer/references/frameworks.md | grep -A 100 "Real-Time Streaming Architecture"
@@ -769,6 +799,7 @@ python3 ../skills/engineering-team/senior-data-engineer/scripts/etl_performance_
    ```
 
 2. **Create Streaming Pipeline Configuration** - Define YAML configuration for streaming pipeline with sources, processing, and sinks
+
    ```yaml
    # streaming_config.yaml
    name: user-events-pipeline
@@ -818,6 +849,7 @@ python3 ../skills/engineering-team/senior-data-engineer/scripts/etl_performance_
    ```
 
 3. **Generate Kafka Configuration** - Create production Kafka topic and client configurations
+
    ```bash
    # Generate topic configuration
    python3 ../skills/engineering-team/senior-data-engineer/scripts/kafka_config_generator.py \
@@ -842,6 +874,7 @@ python3 ../skills/engineering-team/senior-data-engineer/scripts/etl_performance_
    ```
 
 4. **Generate Streaming Job** - Create Flink or Spark Streaming job from configuration
+
    ```bash
    # Validate streaming configuration
    python3 ../skills/engineering-team/senior-data-engineer/scripts/stream_processor.py \
@@ -864,6 +897,7 @@ python3 ../skills/engineering-team/senior-data-engineer/scripts/etl_performance_
    ```
 
 5. **Deploy and Configure Monitoring** - Deploy streaming infrastructure and set up monitoring
+
    ```bash
    # Local development testing
    cd docker/streaming-stack/
@@ -889,6 +923,7 @@ python3 ../skills/engineering-team/senior-data-engineer/scripts/etl_performance_
    ```
 
 6. **Validate Streaming Quality** - Run comprehensive streaming quality validation
+
    ```bash
    # Full streaming quality validation
    python3 ../skills/engineering-team/senior-data-engineer/scripts/streaming_quality_validator.py \
@@ -912,6 +947,7 @@ python3 ../skills/engineering-team/senior-data-engineer/scripts/etl_performance_
 **Time Estimate:** 3-5 days for initial implementation, 1-2 days for testing and monitoring setup
 
 **Example:**
+
 ```bash
 # Complete streaming pipeline setup workflow
 
@@ -1108,36 +1144,42 @@ mail -s "Weekly Pipeline Performance Report" data-eng@company.com < ".docs/repor
 ## Success Metrics
 
 **Pipeline Reliability:**
+
 - **Success Rate:** 99%+ for production pipelines (target: zero critical failures)
 - **Data Freshness:** P95 latency under 2 hours from source to warehouse
 - **SLA Compliance:** 98%+ pipelines meet defined SLAs
 - **Recovery Time:** < 15 minutes mean time to recovery (MTTR) for transient failures
 
 **Data Quality:**
+
 - **Quality Score:** 95%+ across all quality dimensions (completeness, accuracy, consistency, timeliness, validity)
 - **Completeness:** 99%+ for critical business columns
 - **Accuracy:** < 1% data validation failures
 - **Timeliness:** Data lag < 1 hour for real-time pipelines, < 4 hours for batch pipelines
 
 **Performance and Efficiency:**
+
 - **Execution Time:** 60-80% reduction in pipeline execution time after optimization
 - **Cost Efficiency:** 50-70% reduction in cloud infrastructure costs through optimization
 - **Resource Utilization:** 70%+ cluster utilization (avoiding over-provisioning)
 - **Scalability:** Linear scaling with data volume growth (no performance degradation)
 
 **Team Productivity:**
+
 - **Pipeline Development Time:** 50%+ reduction through DAG generation and templates
 - **Debugging Time:** 40%+ reduction through automated performance analysis
 - **Code Reuse:** 80%+ of pipelines use standard templates and patterns
 - **Documentation Coverage:** 100% of production pipelines documented with data lineage
 
 **Streaming Performance:**
+
 - **Throughput:** 10K+ events/second sustained processing capacity
 - **End-to-End Latency:** P99 < 1 second from source to sink
 - **Consumer Lag:** < 10K records behind during normal operations
 - **Exactly-Once Delivery:** Zero duplicate or lost messages in production
 
 **Streaming Quality:**
+
 - **Data Freshness:** P95 < 5 minutes from event generation to availability
 - **Late Data Rate:** < 5% of events arriving outside watermark window
 - **Dead Letter Queue Rate:** < 1% of events routed to DLQ

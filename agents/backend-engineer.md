@@ -121,6 +121,7 @@ Expert backend development agent specializing in scalable API design, database o
 This agent provides comprehensive backend development capabilities for building production-ready backend systems. It orchestrates API scaffolding, database schema design, authentication implementation, performance optimization, and load testing through guided workflows and Python automation tools.
 
 **Primary Use Cases:**
+
 - Design and scaffold REST and GraphQL APIs
 - Optimize database schemas and queries
 - Implement authentication and authorization systems
@@ -164,6 +165,7 @@ python ../skills/engineering-team/senior-backend/scripts/api_load_tester.py ENDP
 **Steps:**
 
 1. **Scaffold API Project**
+
    ```bash
    cd /path/to/workspace
    python ../skills/engineering-team/senior-backend/scripts/api_scaffolder.py my-api --type rest --stack express-typescript --auth
@@ -177,6 +179,7 @@ python ../skills/engineering-team/senior-backend/scripts/api_load_tester.py ENDP
    - CI/CD pipeline (GitHub Actions)
 
 2. **Configure Environment**
+
    ```bash
    cd my-api
    cp .env.example .env
@@ -184,12 +187,14 @@ python ../skills/engineering-team/senior-backend/scripts/api_load_tester.py ENDP
    ```
 
 3. **Start Services**
+
    ```bash
    docker-compose up -d
    # Starts PostgreSQL and Redis containers
    ```
 
 4. **Run Database Migrations**
+
    ```bash
    npm install
    npm run migrate
@@ -197,12 +202,14 @@ python ../skills/engineering-team/senior-backend/scripts/api_load_tester.py ENDP
    ```
 
 5. **Start Development Server**
+
    ```bash
    npm run dev
    # API running on http://localhost:3000
    ```
 
 6. **Verify Setup**
+
    ```bash
    # Test health endpoint
    curl http://localhost:3000/health
@@ -214,6 +221,7 @@ python ../skills/engineering-team/senior-backend/scripts/api_load_tester.py ENDP
    ```
 
 **Success Criteria:**
+
 - API responds to health checks
 - Authentication endpoints working
 - Database connection successful
@@ -230,6 +238,7 @@ python ../skills/engineering-team/senior-backend/scripts/api_load_tester.py ENDP
 **Steps:**
 
 1. **Scaffold GraphQL API**
+
    ```bash
    python ../skills/engineering-team/senior-backend/scripts/api_scaffolder.py graphql-api --type graphql --stack apollo-typescript
    ```
@@ -241,6 +250,7 @@ python ../skills/engineering-team/senior-backend/scripts/api_load_tester.py ENDP
 3. **Implement DataLoader for Efficient Queries**
 
    Open `src/graphql/loaders.ts` and verify DataLoader implementation:
+
    ```typescript
    // Batch loading to prevent N+1 queries
    const userLoader = new DataLoader(async (userIds) => {
@@ -260,6 +270,7 @@ python ../skills/engineering-team/senior-backend/scripts/api_load_tester.py ENDP
    - Authentication checks with context
 
 5. **Set Up Database**
+
    ```bash
    npm install
    docker-compose up -d
@@ -271,9 +282,10 @@ python ../skills/engineering-team/senior-backend/scripts/api_load_tester.py ENDP
 
    Start server: `npm run dev`
 
-   Open GraphQL Playground: http://localhost:4000/graphql
+   Open GraphQL Playground: <http://localhost:4000/graphql>
 
    Test query:
+
    ```graphql
    query {
      users {
@@ -296,6 +308,7 @@ python ../skills/engineering-team/senior-backend/scripts/api_load_tester.py ENDP
    Check logs for database queries - should see batch queries instead of individual queries per record.
 
 **Success Criteria:**
+
 - GraphQL schema properly defined
 - Resolvers return correct data
 - DataLoader batching queries (check logs)
@@ -323,6 +336,7 @@ python ../skills/engineering-team/senior-backend/scripts/api_load_tester.py ENDP
 2. **Design Prisma Schema**
 
    Edit `prisma/schema.prisma`:
+
    ```prisma
    model User {
      id        String   @id @default(uuid())
@@ -381,6 +395,7 @@ python ../skills/engineering-team/senior-backend/scripts/api_load_tester.py ENDP
    ```
 
 3. **Create Migration**
+
    ```bash
    python ../skills/engineering-team/senior-backend/scripts/database_migration_tool.py create "add_optimized_schema"
    ```
@@ -396,11 +411,13 @@ python ../skills/engineering-team/senior-backend/scripts/api_load_tester.py ENDP
    - Unique constraints where needed
 
 5. **Run Migration**
+
    ```bash
    python ../skills/engineering-team/senior-backend/scripts/database_migration_tool.py migrate
    ```
 
 6. **Verify Schema**
+
    ```bash
    # Check migration status
    python ../skills/engineering-team/senior-backend/scripts/database_migration_tool.py status
@@ -415,6 +432,7 @@ python ../skills/engineering-team/senior-backend/scripts/api_load_tester.py ENDP
 7. **Implement Optimized Queries**
 
    Edit repository layer with optimized queries:
+
    ```typescript
    // Efficient query with includes and select
    async findPostsWithAuthorAndComments(limit: number) {
@@ -442,6 +460,7 @@ python ../skills/engineering-team/senior-backend/scripts/api_load_tester.py ENDP
 8. **Test Query Performance**
 
    Run queries and check execution time:
+
    ```bash
    npm run dev
    # Test endpoint: GET /api/posts
@@ -449,6 +468,7 @@ python ../skills/engineering-team/senior-backend/scripts/api_load_tester.py ENDP
    ```
 
 **Success Criteria:**
+
 - Schema properly normalized with appropriate relationships
 - Indexes on all foreign keys and frequently queried fields
 - Unique constraints preventing duplicate data
@@ -466,6 +486,7 @@ python ../skills/engineering-team/senior-backend/scripts/api_load_tester.py ENDP
 **Steps:**
 
 1. **Establish Baseline Performance**
+
    ```bash
    # Start API in production mode
    npm run build
@@ -485,6 +506,7 @@ python ../skills/engineering-team/senior-backend/scripts/api_load_tester.py ENDP
    - Error rate
 
 2. **Increase Load Gradually**
+
    ```bash
    # 50 concurrent users
    python ../skills/engineering-team/senior-backend/scripts/api_load_tester.py \
@@ -513,6 +535,7 @@ python ../skills/engineering-team/senior-backend/scripts/api_load_tester.py ENDP
 4. **Implement Caching Layer (Redis)**
 
    Edit service layer to add caching:
+
    ```typescript
    // src/services/post.service.ts
    import Redis from 'ioredis';
@@ -549,6 +572,7 @@ python ../skills/engineering-team/senior-backend/scripts/api_load_tester.py ENDP
 6. **Implement Connection Pooling**
 
    Edit `src/lib/db.ts`:
+
    ```typescript
    const prisma = new PrismaClient({
      datasources: {
@@ -566,6 +590,7 @@ python ../skills/engineering-team/senior-backend/scripts/api_load_tester.py ENDP
    ```
 
 7. **Re-test After Optimizations**
+
    ```bash
    # Rebuild and restart
    npm run build
@@ -589,6 +614,7 @@ python ../skills/engineering-team/senior-backend/scripts/api_load_tester.py ENDP
    - Zero or minimal error rates
 
 9. **Stress Test to Find Limits**
+
    ```bash
    # Push to failure point
    python ../skills/engineering-team/senior-backend/scripts/api_load_tester.py \
@@ -600,6 +626,7 @@ python ../skills/engineering-team/senior-backend/scripts/api_load_tester.py ENDP
    Document capacity limits for production planning.
 
 **Success Criteria:**
+
 - 30%+ improvement in average response time
 - P95 latency < 200ms under normal load
 - RPS increased by 50%+
@@ -615,6 +642,7 @@ python ../skills/engineering-team/senior-backend/scripts/api_load_tester.py ENDP
 **Goal:** Design and implement microservices with inter-service communication.
 
 **Key Steps:**
+
 1. Scaffold multiple API services (auth, users, posts, notifications)
 2. Implement API Gateway pattern
 3. Set up service-to-service communication (REST/gRPC)
@@ -628,6 +656,7 @@ python ../skills/engineering-team/senior-backend/scripts/api_load_tester.py ENDP
 **Goal:** Build secure JWT-based authentication with refresh tokens.
 
 **Key Components:**
+
 - User registration with email verification
 - Login with password hashing (bcrypt)
 - JWT access tokens (15min) and refresh tokens (7 days)
@@ -642,6 +671,7 @@ python ../skills/engineering-team/senior-backend/scripts/api_load_tester.py ENDP
 **Goal:** Establish safe migration practices for production environments.
 
 **Best Practices:**
+
 1. Always write DOWN migrations for rollback capability
 2. Test migrations on staging environment first
 3. Back up database before production migrations
@@ -658,6 +688,7 @@ python ../skills/engineering-team/senior-backend/scripts/api_load_tester.py ENDP
 **Purpose:** Generate production-ready API projects with complete infrastructure.
 
 **Options:**
+
 - `--type rest|graphql` - API type
 - `--stack express-typescript|fastify-typescript|nestjs` - Framework
 - `--auth` - Include JWT authentication
@@ -666,6 +697,7 @@ python ../skills/engineering-team/senior-backend/scripts/api_load_tester.py ENDP
 - `--minimal` - Minimal setup without optional features
 
 **Generated Structure:**
+
 ```
 project/
 ├── src/
@@ -688,12 +720,14 @@ project/
 **Purpose:** Version control for database schemas with safe migration management.
 
 **Commands:**
+
 - `create "migration_name"` - Create new migration file
 - `migrate` - Run pending migrations
 - `rollback [--steps N]` - Rollback last N migrations
 - `status` - Show migration history and pending migrations
 
 **Safety Features:**
+
 - Checksum validation
 - Transaction support
 - Dry-run mode
@@ -704,6 +738,7 @@ project/
 **Purpose:** Benchmark API performance and capacity planning.
 
 **Options:**
+
 - `--users N` - Number of concurrent users
 - `--requests N` - Total requests to send
 - `--method GET|POST|PUT|DELETE` - HTTP method
@@ -713,6 +748,7 @@ project/
 - `--save FILE` - Save report to file
 
 **Metrics Provided:**
+
 - Min/Max/Avg/Median response times
 - P95 and P99 latency percentiles
 - Requests per second (RPS)
@@ -723,24 +759,28 @@ project/
 ## Success Metrics
 
 **API Performance:**
+
 - Response time < 100ms for simple queries
 - P95 latency < 200ms under normal load
 - RPS > 1000 for typical API endpoints
 - Error rate < 0.1% in production
 
 **Code Quality:**
+
 - Test coverage > 80%
 - Zero critical security vulnerabilities
 - All API endpoints documented (Swagger/OpenAPI)
 - TypeScript strict mode with no errors
 
 **Database Performance:**
+
 - Query execution time < 50ms
 - Connection pool utilization < 80%
 - Zero N+1 query issues
 - All foreign keys indexed
 
 **Deployment Readiness:**
+
 - Docker containers build successfully
 - CI/CD pipeline passes all checks
 - Environment variables properly configured
@@ -749,27 +789,32 @@ project/
 ## Tech Stack
 
 **Backend Frameworks:**
+
 - Express.js (minimal, flexible)
 - Fastify (high performance)
 - NestJS (enterprise, structured)
 - Apollo Server (GraphQL)
 
 **Database:**
+
 - PostgreSQL (primary RDBMS)
 - Redis (caching, sessions)
 - Prisma ORM (type-safe queries)
 
 **Authentication:**
+
 - JWT (JSON Web Tokens)
 - bcrypt (password hashing)
 - Passport.js (strategy-based auth)
 
 **Testing:**
+
 - Jest (unit tests)
 - Supertest (integration tests)
 - Factory functions (test data)
 
 **DevOps:**
+
 - Docker + Docker Compose
 - GitHub Actions (CI/CD)
 - Nginx (reverse proxy)
@@ -777,6 +822,7 @@ project/
 ## Best Practices
 
 ### API Design
+
 - Use RESTful resource naming conventions
 - Implement proper HTTP status codes
 - Version APIs (v1, v2) for breaking changes
@@ -784,6 +830,7 @@ project/
 - Rate limit public endpoints
 
 ### Security
+
 - Hash passwords with bcrypt (10+ rounds)
 - Validate all inputs with Zod schemas
 - Use parameterized queries (Prisma prevents SQL injection)
@@ -792,6 +839,7 @@ project/
 - Never expose stack traces in production
 
 ### Performance
+
 - Cache frequently accessed data (Redis)
 - Optimize database queries (avoid N+1)
 - Use connection pooling
@@ -800,6 +848,7 @@ project/
 - Monitor query performance (logging)
 
 ### Code Organization
+
 - Layered architecture (controller → service → repository)
 - Dependency injection for testability
 - Separate business logic from HTTP layer
@@ -811,6 +860,7 @@ project/
 ### Issue: Slow API Response Times
 
 **Diagnosis:**
+
 ```bash
 # Profile endpoint performance
 python ../skills/engineering-team/senior-backend/scripts/api_load_tester.py \
@@ -819,6 +869,7 @@ python ../skills/engineering-team/senior-backend/scripts/api_load_tester.py \
 ```
 
 **Solutions:**
+
 1. Add Redis caching for frequently accessed data
 2. Optimize database queries (add indexes, reduce joins)
 3. Implement pagination to limit result sets
@@ -828,12 +879,14 @@ python ../skills/engineering-team/senior-backend/scripts/api_load_tester.py \
 ### Issue: Database Migration Failures
 
 **Diagnosis:**
+
 ```bash
 # Check migration status
 python ../skills/engineering-team/senior-backend/scripts/database_migration_tool.py status
 ```
 
 **Solutions:**
+
 1. Rollback failed migration
 2. Fix migration SQL/Prisma schema
 3. Test on local database first
@@ -843,12 +896,14 @@ python ../skills/engineering-team/senior-backend/scripts/database_migration_tool
 ### Issue: Authentication Not Working
 
 **Diagnosis:**
+
 - Check JWT secret in environment variables
 - Verify token expiration times
 - Check middleware order (auth before protected routes)
 - Test token generation and validation separately
 
 **Solutions:**
+
 1. Verify JWT_SECRET is set in .env
 2. Check token format in Authorization header (Bearer <token>)
 3. Ensure bcrypt rounds are consistent (10-12 recommended)
@@ -857,11 +912,13 @@ python ../skills/engineering-team/senior-backend/scripts/database_migration_tool
 ### Issue: N+1 Query Problems
 
 **Diagnosis:**
+
 - Enable Prisma query logging
 - Check for multiple individual queries instead of batch queries
 - Monitor database connection count
 
 **Solutions:**
+
 1. Use Prisma `include` to load relations in single query
 2. Implement DataLoader for GraphQL APIs
 3. Use `_count` instead of loading full relations when only count needed
@@ -904,18 +961,21 @@ python3 ../skills/engineering-team/senior-backend/scripts/performance_analyzer.p
 ## Integration with Other Skills
 
 **Frontend Integration:**
+
 - REST APIs consumed by React/Next.js frontends
 - GraphQL APIs with Apollo Client
 - WebSocket endpoints for real-time features
 - OpenAPI/Swagger documentation for frontend teams
 
 **DevOps Integration:**
+
 - Docker images deployed to Kubernetes
 - CI/CD pipelines trigger on Git push
 - Environment variables managed by secrets management
 - Monitoring with Prometheus/Grafana
 
 **QA Integration:**
+
 - Integration tests with Supertest
 - API contract testing
 - Performance benchmarking in CI pipeline
@@ -924,12 +984,14 @@ python3 ../skills/engineering-team/senior-backend/scripts/performance_analyzer.p
 ## References
 
 **Skill Documentation:**
+
 - `../skills/engineering-team/senior-backend/SKILL.md` - Complete skill overview
 - `../skills/engineering-team/senior-backend/references/frameworks.md` - Architecture patterns
 - `../skills/engineering-team/senior-backend/references/templates.md` - Code templates
 - `../skills/engineering-team/senior-backend/references/tools.md` - Tool documentation
 
 **Project Documentation:**
+
 - `/docs/WORKFLOW.md` - Git workflow and branching strategy
 - `/docs/INSTALL.md` - Setup instructions
 - `/docs/standards/` - Quality and security standards

@@ -23,6 +23,7 @@ Ask questions for:
 ## When NOT to Use
 
 Don't ask when:
+
 - **Request is clear and unambiguous** - One obvious implementation path
 - **You can determine the answer from context** - Codebase patterns, project structure, existing conventions
 - **Over-clarification** - Questions that don't materially affect implementation
@@ -48,6 +49,7 @@ Don't ask when:
    - "I found your API endpoints and see you're using Express..."
 
 2. **Present clear options** - Offer 2-5 specific choices with brief context
+
    ```
    I can implement this in several ways:
    1. **Global middleware** - Catches all errors centrally (simplest)
@@ -66,10 +68,12 @@ Don't ask when:
 Layer questions instead of asking everything upfront:
 
 **Good ✓**
+
 - First: "For real-time updates, should I use WebSockets, Server-Sent Events, or polling?"
 - Then: "For WebSockets, do you want Socket.io (easier) or native (lighter)?"
 
 **Bad ✗**
+
 - "For real-time updates should I use WebSockets or SSE or polling and if WebSockets should I use Socket.io or native and should I implement reconnection and what about authentication and..."
 
 ## Examples
@@ -77,6 +81,7 @@ Layer questions instead of asking everything upfront:
 ### Good ✓
 
 "I see you're using JWT authentication. To add refresh tokens, I can:
+
 1. **httpOnly cookies** - More secure, harder to XSS
 2. **localStorage** - Simpler, works with mobile apps  
 3. **In-memory only** - Most secure, lost on refresh

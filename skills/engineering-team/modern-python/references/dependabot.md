@@ -13,6 +13,7 @@
 Copy [templates/dependabot.yml](../templates/dependabot.yml) to `.github/dependabot.yml`.
 
 The template includes:
+
 - Weekly update schedule for pip and GitHub Actions
 - 7-day cooldown for supply chain protection
 - Grouping to reduce PR noise
@@ -22,6 +23,7 @@ The template includes:
 The `cooldown.default-days: 7` setting delays updates for newly published versions. This provides time for the community to detect compromised packages before they reach your project.
 
 **Why this matters:**
+
 - Attackers sometimes publish malicious versions of legitimate packages
 - A 7-day delay allows time for detection and removal
 - Combined with weekly schedules, this balances security with freshness

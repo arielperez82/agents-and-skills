@@ -73,6 +73,7 @@ This skill delivers production-ready code review capabilities through three Pyth
 **Reviewing development plans and backlogs:** If the plan or backlog has no "Phase 0 — Quality gate" (or equivalent) and starts with "Scaffold" or "Initialize app," recommend adding Phase 0 before scaffold/features. For the full checklist (type-check, pre-commit, lint, format, markdown lint, a11y, audit script) and where to document it, use `/skill/find-local-skill` with "quality gate" or "Phase 0".
 
 **Use this skill when:**
+
 - Reviewing pull requests for quality and security
 - Receiving code review feedback (especially unclear or technically questionable)
 - Completing tasks or major features requiring review before proceeding
@@ -86,6 +87,7 @@ This skill delivers production-ready code review capabilities through three Pyth
 ## Quick Start
 
 ### Analyze a Pull Request
+
 ```bash
 # Basic PR analysis
 python scripts/pr_analyzer.py 123 --repo=company/project
@@ -98,6 +100,7 @@ python scripts/review_report_generator.py 123 --format=markdown
 ```
 
 ### Access Documentation
+
 - Review Checklist: `references/code_review_checklist.md`
 - Coding Standards: `references/coding_standards.md`
 - Anti-Patterns Guide: `references/common_antipatterns.md`
@@ -162,6 +165,7 @@ SITUATION?
 Automated pull request analysis with comprehensive metrics and insights.
 
 **Features:**
+
 - Code diff analysis and impact assessment
 - Complexity metrics calculation
 - Test coverage evaluation
@@ -170,12 +174,14 @@ Automated pull request analysis with comprehensive metrics and insights.
 - Review priority recommendations
 
 **Usage:**
+
 ```bash
 python scripts/pr_analyzer.py <pr-number> [--repo=owner/name]
 python scripts/pr_analyzer.py 123 --repo=company/project --json
 ```
 
 **Output:**
+
 ```
 PR Analysis Report (#123):
 - Files Changed: 12 files
@@ -197,6 +203,7 @@ Recommendations:
 Comprehensive code analysis across multiple languages with actionable recommendations.
 
 **Features:**
+
 - Multi-language support (TS/JS/Python/Swift/Kotlin/Go)
 - SOLID principles validation
 - Code smell detection
@@ -205,12 +212,14 @@ Comprehensive code analysis across multiple languages with actionable recommenda
 - Configurable rulesets
 
 **Usage:**
+
 ```bash
 python scripts/code_quality_checker.py <path> [--language=typescript]
 python scripts/code_quality_checker.py ./src --verbose --json
 ```
 
 **Checks:**
+
 - Cyclomatic complexity
 - Function/method length
 - Code duplication
@@ -223,6 +232,7 @@ python scripts/code_quality_checker.py ./src --verbose --json
 Generate detailed, actionable review reports with categorized findings.
 
 **Features:**
+
 - Multi-level issue categorization (blocking/major/minor)
 - Language-specific best practice checks
 - Security vulnerability assessment
@@ -231,6 +241,7 @@ Generate detailed, actionable review reports with categorized findings.
 - Automated feedback suggestions
 
 **Usage:**
+
 ```bash
 python scripts/review_report_generator.py <pr-number> [options]
 python scripts/review_report_generator.py 123 --format=markdown
@@ -241,7 +252,9 @@ python scripts/review_report_generator.py 123 --format=markdown
 Detailed guides available in the `references/` directory:
 
 ### Code Review Checklist
+
 **[code_review_checklist.md](references/code_review_checklist.md)** - Comprehensive review guide covering:
+
 - Pre-review preparation and context gathering
 - Code quality assessment (functionality, readability, maintainability)
 - Language-specific checklists (TypeScript/JavaScript, Python, Swift, Kotlin, Go)
@@ -254,7 +267,9 @@ Detailed guides available in the `references/` directory:
 - Feedback guidelines and review priorities
 
 ### Coding Standards
+
 **[coding_standards.md](references/coding_standards.md)** - Language-specific standards including:
+
 - Naming conventions across all supported languages
 - TypeScript/JavaScript best practices and modern patterns
 - React-specific standards (hooks, components, performance)
@@ -267,7 +282,9 @@ Detailed guides available in the `references/` directory:
 - Linting and formatting tool recommendations
 
 ### Common Anti-Patterns
+
 **[common_antipatterns.md](references/common_antipatterns.md)** - Catalog of anti-patterns to avoid:
+
 - General anti-patterns (God objects, magic numbers, deep nesting, premature optimization)
 - TypeScript/JavaScript issues (callback hell, 'any' type abuse, React prop mutations)
 - Python problems (mutable defaults, bare except, context manager neglect)
@@ -339,6 +356,7 @@ chmod +x .git/hooks/pre-commit
 ## Language Support
 
 **TypeScript/JavaScript**
+
 - Type safety validation
 - React patterns and hooks
 - Async/await best practices
@@ -346,6 +364,7 @@ chmod +x .git/hooks/pre-commit
 - ESLint/Prettier integration
 
 **Python**
+
 - PEP 8 compliance
 - Type hints validation
 - Pythonic patterns
@@ -353,18 +372,21 @@ chmod +x .git/hooks/pre-commit
 - Import organization
 
 **Swift**
+
 - Optional safety
 - Protocol-oriented design
 - Memory management
 - SwiftLint integration
 
 **Kotlin**
+
 - Null safety
 - Data classes
 - Coroutines
 - Extension functions
 
 **Go**
+
 - Error handling
 - Goroutine management
 - Interface design
@@ -393,6 +415,7 @@ chmod +x .git/hooks/pre-commit
 ### Effective Feedback
 
 **DO:**
+
 - Be constructive and specific
 - Explain the "why" behind suggestions
 - Acknowledge good practices
@@ -400,6 +423,7 @@ chmod +x .git/hooks/pre-commit
 - Use questions to guide learning
 
 **DON'T:**
+
 - Focus on personal preferences
 - Be vague or unclear
 - Nitpick trivial issues

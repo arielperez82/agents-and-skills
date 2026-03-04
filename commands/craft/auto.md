@@ -51,6 +51,7 @@ Even in auto-mode, the following conditions MUST pause for human review:
 **Auto-Clarify:** When an agent flags uncertainty or ambiguity, automatically trigger the Clarify protocol (see `craft.md`) — dispatch the relevant prior-phase agent, incorporate the answer, and continue. Only pause for human input if the Clarify loop cannot resolve the issue agent-to-agent. Log every Auto-Clarify as a `CLARIFY` audit entry regardless of outcome.
 
 **Pause only when:**
+
 - An agent reports an error (non-zero exit, missing required output)
 - A Clarify loop cannot be resolved agent-to-agent (ambiguity persists after one round)
 - Required precondition artifacts are missing
@@ -72,6 +73,7 @@ Record mode as `auto` instead of `interactive` in the status file frontmatter.
 ## 5. Completion
 
 After Phase 6, present a final summary of all artifacts produced across all phases:
+
 - List every file created or modified, grouped by phase
 - Report total phase count and any phases that required human intervention
 - Report any skipped phases and the reason

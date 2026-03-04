@@ -132,6 +132,7 @@ The agent leverages these automation tools:
 **Objective:** Generate a complete mobile project with best practices baked in.
 
 **When to Use:**
+
 - Starting a new mobile project
 - Need consistent project structure
 - Want CI/CD configuration included
@@ -146,6 +147,7 @@ The agent leverages these automation tools:
    - CI/CD requirements
 
 2. **Run Scaffolder**
+
    ```bash
    python3 ../skills/engineering-team/senior-mobile/scripts/mobile_scaffolder.py \
      --framework react-native \
@@ -167,6 +169,7 @@ The agent leverages these automation tools:
    - Set up development tooling
 
 **Success Criteria:**
+
 - Project builds successfully on both platforms
 - CI/CD pipeline runs without errors
 - Development workflow is documented
@@ -176,6 +179,7 @@ The agent leverages these automation tools:
 **Objective:** Provide data-driven recommendation for React Native vs Flutter.
 
 **When to Use:**
+
 - Greenfield mobile project
 - Evaluating framework migration
 - Technical leadership decision support
@@ -213,6 +217,7 @@ The agent leverages these automation tools:
    - Migration considerations
 
 **Success Criteria:**
+
 - Clear recommendation documented
 - Decision rationale understood by stakeholders
 - Risk factors identified
@@ -222,6 +227,7 @@ The agent leverages these automation tools:
 **Objective:** Analyze existing mobile project for capabilities and issues.
 
 **When to Use:**
+
 - Onboarding to existing project
 - Debugging platform issues
 - Pre-release verification
@@ -229,6 +235,7 @@ The agent leverages these automation tools:
 **Process:**
 
 1. **Run Platform Detector**
+
    ```bash
    python3 ../skills/engineering-team/senior-mobile/scripts/platform_detector.py \
      --check all \
@@ -253,6 +260,7 @@ The agent leverages these automation tools:
    - Document environment requirements
 
 **Success Criteria:**
+
 - All platform configurations valid
 - Health score above 90%
 - Documentation updated
@@ -262,6 +270,7 @@ The agent leverages these automation tools:
 **Objective:** Ensure app meets store requirements before submission.
 
 **When to Use:**
+
 - Before App Store submission
 - Before Play Store submission
 - As part of release pipeline
@@ -273,6 +282,7 @@ The agent leverages these automation tools:
    - Android: Build signed APK/AAB
 
 2. **Run Validator**
+
    ```bash
    # Apple App Store
    python3 ../skills/engineering-team/senior-mobile/scripts/app_store_validator.py \
@@ -303,6 +313,7 @@ The agent leverages these automation tools:
    - Submit for review
 
 **Success Criteria:**
+
 - Zero critical issues
 - Zero high-priority issues
 - Validation report archived
@@ -330,12 +341,14 @@ The agent leverages these automation tools:
 **Request:** "Create a new e-commerce mobile app with React Native"
 
 **Process:**
+
 1. Run framework analysis to confirm React Native fit
 2. Generate project with Redux for cart state
 3. Set up CI/CD with GitHub Actions
 4. Validate iOS and Android configurations
 
 **Output:** Complete project structure with:
+
 - Navigation configured for product flows
 - State management for cart and user
 - CI pipelines for both platforms
@@ -345,6 +358,7 @@ The agent leverages these automation tools:
 **Request:** "Validate our app before App Store submission"
 
 **Process:**
+
 1. Run `app_store_validator.py --store apple --strict`
 2. Review and fix critical issues
 3. Re-validate until passing

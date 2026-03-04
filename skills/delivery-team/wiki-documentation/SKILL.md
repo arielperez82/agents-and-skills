@@ -291,6 +291,7 @@ Use consistent labels for organization and filtering:
 ### Quality Standards
 
 Every knowledge base article must have:
+
 - Clear title describing the content
 - Structured headings for scanning
 - Updated date visible
@@ -349,6 +350,7 @@ This skill's templates and governance patterns apply to both wiki platforms and 
 ## Best Practices
 
 **Writing Style:**
+
 - Active voice, present tense
 - Scannable content (headings, bullets, short paragraphs)
 - Include visuals and diagrams where helpful
@@ -356,6 +358,7 @@ This skill's templates and governance patterns apply to both wiki platforms and 
 - Keep language simple and direct
 
 **Organization:**
+
 - Consistent naming conventions across all spaces
 - Meaningful labels/tags on every page
 - Logical page hierarchy (max 3 levels)
@@ -363,6 +366,7 @@ This skill's templates and governance patterns apply to both wiki platforms and 
 - Clear navigation from any page back to home
 
 **Maintenance:**
+
 - Regular content audits (quarterly minimum)
 - Remove duplication when found
 - Update outdated information immediately

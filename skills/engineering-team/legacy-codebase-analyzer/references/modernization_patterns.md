@@ -21,6 +21,7 @@ Comprehensive guide to modernizing legacy codebases through proven patterns, mig
 **Overview:** Gradually modernize the system by replacing components piece-by-piece while maintaining system functionality throughout the process.
 
 **When to Use:**
+
 - System must remain operational during modernization
 - Risk tolerance is low (cannot afford big bang failures)
 - Team capacity is limited (cannot dedicate full team)
@@ -28,12 +29,14 @@ Comprehensive guide to modernizing legacy codebases through proven patterns, mig
 - Stakeholders need to see incremental progress
 
 **When to Avoid:**
+
 - System is too tightly coupled (refactoring is harder than rewriting)
 - Modernization cost exceeds rewrite cost
 - Legacy system will be completely replaced soon
 - Architecture is fundamentally flawed
 
 **Key Characteristics:**
+
 - Low risk (changes are small and testable)
 - Continuous value delivery
 - Parallel running of old and new systems
@@ -43,6 +46,7 @@ Comprehensive guide to modernizing legacy codebases through proven patterns, mig
 **Implementation Steps:**
 
 1. **Establish Safety Nets**
+
 ```bash
 # Add comprehensive monitoring
 - Application performance monitoring (APM)
@@ -56,7 +60,8 @@ Comprehensive guide to modernizing legacy codebases through proven patterns, mig
 - End-to-end smoke tests
 ```
 
-2. **Identify Modernization Boundaries**
+1. **Identify Modernization Boundaries**
+
 ```markdown
 ## Component Analysis
 
@@ -86,7 +91,8 @@ Comprehensive guide to modernizing legacy codebases through proven patterns, mig
   - Not worth the effort
 ```
 
-3. **Create Seams and Interfaces**
+1. **Create Seams and Interfaces**
+
 ```python
 # Before: Tightly coupled
 class UserService:
@@ -141,7 +147,8 @@ service = UserService(LegacyUserRepository())  # Initially
 service = UserService(ModernUserRepository())  # After migration
 ```
 
-4. **Implement Feature Toggles**
+1. **Implement Feature Toggles**
+
 ```python
 # Feature toggle system for gradual rollout
 class FeatureFlags:
@@ -161,7 +168,8 @@ def authenticate_user(username, password):
         return legacy_auth_service.authenticate(username, password)
 ```
 
-5. **Parallel Running and Comparison**
+1. **Parallel Running and Comparison**
+
 ```python
 # Run both implementations and compare results
 def authenticate_with_validation(username, password):
@@ -186,7 +194,8 @@ def authenticate_with_validation(username, password):
     return legacy_result
 ```
 
-6. **Gradual Cutover**
+1. **Gradual Cutover**
+
 ```markdown
 ## Cutover Plan
 
@@ -220,6 +229,7 @@ def authenticate_with_validation(username, password):
 ```
 
 **Pros:**
+
 - Low risk (small, testable changes)
 - Continuous delivery (no big bang release)
 - Learning opportunity (team upskills gradually)
@@ -227,12 +237,14 @@ def authenticate_with_validation(username, password):
 - Maintains business continuity
 
 **Cons:**
+
 - Longer timeline (months to years)
 - Increased complexity (running two systems in parallel)
 - Requires discipline (easy to accumulate more technical debt)
 - May cost more upfront (dual maintenance)
 
 **Real-World Example:**
+
 ```markdown
 # Case Study: E-commerce Platform Modernization
 
@@ -282,6 +294,7 @@ def authenticate_with_validation(username, password):
 **Origin:** Named after strangler fig trees that grow around host trees, eventually replacing them.
 
 **When to Use:**
+
 - Legacy system has well-defined external interfaces
 - Business logic can be extracted incrementally
 - Need to minimize risk while modernizing
@@ -289,6 +302,7 @@ def authenticate_with_validation(username, password):
 - Legacy system is operational but hard to maintain
 
 **When to Avoid:**
+
 - Legacy system is unstable or unmaintainable (fix stability first)
 - No clear boundaries between legacy and new
 - Business logic is too intertwined
@@ -297,6 +311,7 @@ def authenticate_with_validation(username, password):
 **Implementation Pattern:**
 
 **Step 1: Create Facade Layer**
+
 ```python
 # Facade that routes to legacy or modern implementation
 class StranglerFacade:
@@ -331,6 +346,7 @@ class RoutingDecision:
 ```
 
 **Step 2: Implement New Functionality**
+
 ```markdown
 ## Prioritization for Strangler Fig
 
@@ -347,6 +363,7 @@ class RoutingDecision:
 ```
 
 **Step 3: Extract and Redirect**
+
 ```python
 # Example: Extracting user authentication
 
@@ -402,6 +419,7 @@ class AuthFacade:
 ```
 
 **Step 4: Monitor and Validate**
+
 ```python
 # Monitoring during strangler fig migration
 class MonitoredStranglerFacade:
@@ -445,6 +463,7 @@ class MonitoredStranglerFacade:
 ```
 
 **Step 5: Decommission Legacy**
+
 ```markdown
 ## Decommissioning Checklist
 
@@ -470,6 +489,7 @@ class MonitoredStranglerFacade:
 ```
 
 **Pros:**
+
 - Very low risk (legacy remains available)
 - Continuous delivery (new features immediately in modern system)
 - Business continuity (zero downtime)
@@ -477,6 +497,7 @@ class MonitoredStranglerFacade:
 - Validates approach incrementally
 
 **Cons:**
+
 - Complexity (managing facade and routing)
 - Longer timeline (measured in years for large systems)
 - Requires discipline (easy to let legacy linger)
@@ -484,6 +505,7 @@ class MonitoredStranglerFacade:
 - Cognitive load (team must understand both systems)
 
 **Real-World Example:**
+
 ```markdown
 # Case Study: SoundCloud Audio Processing
 
@@ -530,6 +552,7 @@ class MonitoredStranglerFacade:
 **Overview:** Complete replacement of legacy system with new implementation, followed by single cutover event.
 
 **When to Use (Rarely Appropriate):**
+
 - Legacy system is fundamentally broken (unfixable architecture)
 - Cost of incremental migration exceeds rewrite cost
 - Business requirements have completely changed
@@ -538,6 +561,7 @@ class MonitoredStranglerFacade:
 - Business can tolerate risk of failure
 
 **When to Avoid (Most Cases):**
+
 - System is operational and meeting business needs
 - Incremental approach is feasible
 - Business cannot tolerate downtime or risk
@@ -548,24 +572,28 @@ class MonitoredStranglerFacade:
 **Why It Usually Fails:**
 
 **Second System Effect:**
+
 - Tendency to over-engineer the replacement
 - Adding unnecessary features ("while we're at it...")
 - Underestimating complexity of existing system
 - Losing accumulated business logic and edge cases
 
 **Moving Target Problem:**
+
 - Requirements change during long rewrite
 - Legacy system continues to evolve
 - Rewrite becomes outdated before completion
 - Business needs diverge from rewrite plan
 
 **Risk Concentration:**
+
 - All risk concentrated in single release
 - No incremental validation
 - Large blast radius if something goes wrong
 - Difficult to rollback
 
 **Hidden Complexity:**
+
 - Legacy system has decades of bug fixes
 - Undocumented business rules embedded in code
 - Edge cases only discovered through operation
@@ -626,6 +654,7 @@ Big bang releases concentrate risk catastrophically.
 **If You Must Do Big Bang:**
 
 **1. Minimize Scope**
+
 ```markdown
 ## Ruthless Scope Reduction
 
@@ -647,6 +676,7 @@ Big bang releases concentrate risk catastrophically.
 ```
 
 **2. Parallel Running**
+
 ```bash
 # Run both systems in parallel before cutover
 # Dual-write to both systems for X months
@@ -671,6 +701,7 @@ END TRANSACTION
 ```
 
 **3. Comprehensive Testing**
+
 ```markdown
 ## Testing Strategy for Big Bang
 
@@ -698,6 +729,7 @@ END TRANSACTION
 ```
 
 **4. Robust Rollback Plan**
+
 ```markdown
 ## Rollback Plan
 
@@ -722,12 +754,14 @@ END TRANSACTION
 ```
 
 **Pros (Limited):**
+
 - Clean slate (no technical debt carried forward)
 - Opportunity to fundamentally rethink architecture
 - Team momentum (clear goal and timeline)
 - Potentially faster than incremental (if scope is small)
 
 **Cons (Significant):**
+
 - High risk (single point of failure)
 - Long time to value (no incremental delivery)
 - Expensive (full team for months)
@@ -736,6 +770,7 @@ END TRANSACTION
 - Difficult to estimate (uncertainty is high)
 
 **Recommendation:**
+
 ```
 Big Bang Rewrite Risk Assessment:
 
@@ -765,6 +800,7 @@ Total Score: ___/35
 **Strategic Approach:**
 
 **Phase 1: Prepare the Monolith**
+
 ```markdown
 ## Monolith Preparation (3-6 months)
 
@@ -821,7 +857,8 @@ class OrderController:
         return order
 ```
 
-3. **Eliminate Shared Database Access**
+1. **Eliminate Shared Database Access**
+
 ```python
 # Anti-pattern: Cross-module database access
 class OrderService:
@@ -844,6 +881,7 @@ class OrderService:
 ```
 
 **Phase 2: Extract First Microservice**
+
 ```markdown
 ## Extraction Priority
 
@@ -899,6 +937,7 @@ class MonolithNotificationService(NotificationService):
 ```
 
 ### 2. Build Microservice (Weeks 2-4)
+
 ```python
 # New microservice implementation
 # notification-service/app.py
@@ -926,6 +965,7 @@ def send_sms():
 ```
 
 ### 3. Create HTTP Client (Week 5)
+
 ```python
 # Client that calls microservice
 class MicroserviceNotificationService(NotificationService):
@@ -948,6 +988,7 @@ class MicroserviceNotificationService(NotificationService):
 ```
 
 ### 4. Parallel Running (Weeks 6-8)
+
 ```python
 # Run both implementations and compare
 class ValidationNotificationService(NotificationService):
@@ -972,15 +1013,18 @@ class ValidationNotificationService(NotificationService):
 ```
 
 ### 5. Gradual Cutover (Weeks 9-12)
+
 - Week 9: 10% of traffic to microservice
 - Week 10: 50% of traffic
 - Week 11: 100% of traffic
 - Week 12: Remove monolith implementation
 
 ### 6. Decommission (Week 13+)
+
 - Remove monolith notification code
 - Update documentation
 - Team retrospective
+
 ```
 
 **Data Decomposition:**
@@ -990,6 +1034,7 @@ class ValidationNotificationService(NotificationService):
 
 ### Strategy 1: Database per Service (Ideal)
 ```
+
 ┌─────────────┐         ┌─────────────┐
 │  User       │         │  Order      │
 │  Service    │         │  Service    │
@@ -1002,6 +1047,7 @@ class ValidationNotificationService(NotificationService):
 │ - users     │         │ - orders    │
 │ - profiles  │         │ - items     │
 └─────────────┘         └─────────────┘
+
 ```
 
 ### Strategy 2: Dual-Write Pattern (Transition)
@@ -1023,6 +1069,7 @@ def create_order(order_data):
 ```
 
 ### Strategy 3: Event Sourcing (Eventual Consistency)
+
 ```python
 # Publish events instead of shared database
 def create_order(order_data):
@@ -1043,6 +1090,7 @@ def create_order(order_data):
 ```
 
 **Phase 3: Iterate and Refine**
+
 ```markdown
 ## Post-Extraction Refinement
 
@@ -1074,6 +1122,7 @@ def get_notification_service():
 ```
 
 ### API Gateway
+
 ```python
 # Single entry point for clients
 # API Gateway routes to appropriate microservices
@@ -1135,6 +1184,7 @@ def get_order_details(order_id):
 ```
 
 **Solution:**
+
 ```python
 # Pattern: Batch calls or data duplication
 def get_order_details(order_id):
@@ -1152,9 +1202,11 @@ def get_order_details(order_id):
 ```
 
 ### 3. Data Consistency Issues
+
 **Problem:** No transactions across services
 
 **Solution:** Saga pattern
+
 ```python
 # Distributed transaction using saga
 class OrderSaga:
@@ -1195,6 +1247,7 @@ class OrderSaga:
 ### Legacy API Modernization
 
 **Facade Pattern:**
+
 ```python
 # Modern API with backward compatibility
 class LegacyAPIFacade:
@@ -1231,6 +1284,7 @@ class LegacyAPIFacade:
 ```
 
 **Versioning Strategy:**
+
 ```markdown
 ## API Versioning Best Practices
 
@@ -1267,6 +1321,7 @@ Warning: 299 - "API v1 is deprecated and will be removed on 2026-06-13"
 ### Refactoring Patterns
 
 **Extract Method:**
+
 ```python
 # Before: Long method doing too much
 def process_order(order_data):
@@ -1338,6 +1393,7 @@ def send_order_confirmation(order_id):
 ```
 
 **Replace Conditional with Polymorphism:**
+
 ```python
 # Before: Type checking and conditionals
 def calculate_price(customer_type, base_price):
@@ -1386,6 +1442,7 @@ class StudentPricing(PricingStrategy):
 ### Testing Legacy Code
 
 **Characterization Tests:**
+
 ```python
 # When you don't understand legacy code, document current behavior
 # These tests aren't about "correct" behavior, but "current" behavior
@@ -1412,6 +1469,7 @@ def test_legacy_discount_calculation():
 ```
 
 **Finding Seams:**
+
 ```python
 # Legacy code with no seams (hard to test)
 def send_welcome_email(user_id):
@@ -1462,6 +1520,7 @@ def test_send_welcome_email():
 ### Python 2 to Python 3 Migration
 
 **Assessment:**
+
 ```bash
 # Check Python 3 compatibility
 pylint --py3k your_project/
@@ -1556,6 +1615,7 @@ except ValueError as e:  # New syntax
 ```
 
 **Migration Strategy:**
+
 ```markdown
 ## Phased Python 3 Migration
 
@@ -1570,11 +1630,13 @@ from __future__ import (
     unicode_literals
 )
 ```
+
 - Update deprecated library usage
 - Add comprehensive test coverage (target: 80%)
 - Set up CI to test on both Python 2.7 and 3.x
 
 ### Phase 2: Automated Conversion (1-2 weeks)
+
 ```bash
 # Run 2to3 tool
 2to3 -w your_project/
@@ -1582,11 +1644,13 @@ from __future__ import (
 # Or use python-modernize for more conservative changes
 python-modernize -w your_project/
 ```
+
 - Review and test all automated changes
 - Fix issues that automated tools missed
 - Ensure tests pass on Python 3
 
 ### Phase 3: Dependency Updates (1-3 weeks)
+
 - Update all dependencies to Python 3 compatible versions
 - Replace deprecated libraries with modern alternatives
   - urllib2 → requests
@@ -1594,16 +1658,19 @@ python-modernize -w your_project/
   - imp → importlib
 
 ### Phase 4: Testing and Validation (2-4 weeks)
+
 - Comprehensive testing on Python 3.x
 - Performance testing (Python 3 is often faster)
 - Beta deployment to staging environment
 - User acceptance testing
 
 ### Phase 5: Deployment (1-2 weeks)
+
 - Deploy to production with Python 3
 - Monitor for issues
 - Keep Python 2.7 environment available for rollback (1 month)
 - Decommission Python 2.7 after confidence period
+
 ```
 
 ---
@@ -1665,6 +1732,7 @@ MIDDLEWARE = [
 ```
 
 **Testing:**
+
 ```bash
 # Install Django 2.2
 pip install Django==2.2.28  # Latest 2.2 LTS
@@ -1682,11 +1750,13 @@ python manage.py runserver
 ### Phase 2: Django 2.2 → 3.2 LTS (2-3 weeks)
 
 **Breaking Changes:**
+
 - ASGI support (async views)
 - JSONField moved from contrib.postgres to models
 - Changed default value for DEFAULT_AUTO_FIELD
 
 **Migration Steps:**
+
 ```python
 # 1. Update JSONField imports
 # Before (Django 2.2)
@@ -1719,11 +1789,13 @@ urlpatterns = [
 ### Phase 3: Django 3.2 → 4.2 LTS (2-3 weeks)
 
 **Breaking Changes:**
+
 - Support for Pytz dropped (use zoneinfo)
 - CSRF protection enhanced
 - Template tag changes
 
 **Migration Steps:**
+
 ```python
 # 1. Replace pytz with zoneinfo
 # Before (Django 3.2)
@@ -1751,12 +1823,14 @@ tz = ZoneInfo('America/New_York')
 **Problem:** Tendency to over-engineer the replacement system
 
 **Symptoms:**
+
 - Adding features that weren't in the original ("while we're at it...")
 - Trying to solve every problem at once
 - Building for scalability you don't need yet
 - Perfectionism preventing progress
 
 **Example:**
+
 ```markdown
 # Original System
 - Handles 100 requests/second
@@ -1780,6 +1854,7 @@ tz = ZoneInfo('America/New_York')
 ```
 
 **Solution:**
+
 - Build for current needs plus 2-3x capacity
 - Use boring, proven technology
 - Defer decisions until you have more information
@@ -1793,6 +1868,7 @@ tz = ZoneInfo('America/New_York')
 **Problem:** Spending too much time planning and not enough time doing
 
 **Symptoms:**
+
 - Months of architecture discussions
 - Endless POCs and comparisons
 - Waiting for "perfect" solution
@@ -1800,6 +1876,7 @@ tz = ZoneInfo('America/New_York')
 - No code written
 
 **Example:**
+
 ```markdown
 # Analysis Paralysis Timeline
 - Month 1-2: Evaluate 15 different frameworks
@@ -1818,6 +1895,7 @@ tz = ZoneInfo('America/New_York')
 ```
 
 **Solution:**
+
 - Set time-boxes for decisions (e.g., 2 weeks max)
 - Use decision frameworks (RICE, cost-benefit)
 - Bias toward action: choose and start, adjust later
@@ -1831,6 +1909,7 @@ tz = ZoneInfo('America/New_York')
 **Problem:** Optimizing before understanding actual performance requirements
 
 **Symptoms:**
+
 - Complex caching strategies from day one
 - Microservices for a small application
 - Custom solutions instead of proven libraries
@@ -1838,6 +1917,7 @@ tz = ZoneInfo('America/New_York')
 - "What if we need to handle 1 million users?"
 
 **Example:**
+
 ```python
 # Premature optimization
 class CachedUserRepository:
@@ -1884,6 +1964,7 @@ class UserRepository:
 ```
 
 **Solution:**
+
 - Measure first, optimize second
 - Start simple, add complexity when needed
 - Use proven solutions (frameworks, libraries)
@@ -1891,6 +1972,7 @@ class UserRepository:
 - Optimize based on actual bottlenecks (profiling data)
 
 **When to Optimize:**
+
 - After measuring and finding bottleneck
 - When performance doesn't meet requirements
 - When ROI justifies the complexity

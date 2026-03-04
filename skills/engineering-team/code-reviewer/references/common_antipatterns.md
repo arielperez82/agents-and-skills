@@ -706,6 +706,7 @@ def test_update_user():
 ## Conclusion
 
 Recognizing and avoiding these anti-patterns leads to:
+
 - More maintainable code
 - Fewer bugs
 - Better performance
@@ -713,6 +714,7 @@ Recognizing and avoiding these anti-patterns leads to:
 - Easier testing
 
 **Key Takeaways:**
+
 - Use proper error handling
 - Follow language idioms
 - Keep it simple (KISS)

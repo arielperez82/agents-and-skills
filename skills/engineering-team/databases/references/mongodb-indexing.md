@@ -20,6 +20,7 @@ db.users.find({ email: "user@example.com" }).explain("executionStats")
 ## Index Types
 
 ### Single Field Index
+
 ```javascript
 // Create index on single field
 db.users.createIndex({ email: 1 })  // 1: ascending, -1: descending
@@ -33,6 +34,7 @@ db.users.dropIndex("email_1")  // By name
 ```
 
 ### Compound Index
+
 ```javascript
 // Index on multiple fields (order matters!)
 db.orders.createIndex({ status: 1, createdAt: -1 })
@@ -49,6 +51,7 @@ db.orders.createIndex({ a: 1, b: 1, c: 1 })
 ```
 
 ### Text Index (Full-Text Search)
+
 ```javascript
 // Create text index
 db.articles.createIndex({ title: "text", body: "text" })
@@ -77,6 +80,7 @@ db.articles.find(
 ```
 
 ### Geospatial Indexes
+
 ```javascript
 // 2dsphere index (spherical geometry)
 db.places.createIndex({ location: "2dsphere" })
@@ -116,6 +120,7 @@ db.places.find({
 ```
 
 ### Wildcard Index
+
 ```javascript
 // Index all fields in subdocuments
 db.products.createIndex({ "attributes.$**": 1 })
@@ -132,6 +137,7 @@ db.products.createIndex(
 ```
 
 ### Hashed Index
+
 ```javascript
 // Hashed index (for even distribution in sharding)
 db.users.createIndex({ userId: "hashed" })
@@ -141,6 +147,7 @@ sh.shardCollection("mydb.users", { userId: "hashed" })
 ```
 
 ### TTL Index (Auto-Expiration)
+
 ```javascript
 // Delete documents after specified time
 db.sessions.createIndex(
@@ -153,6 +160,7 @@ db.sessions.createIndex(
 ```
 
 ### Partial Index
+
 ```javascript
 // Index only documents matching filter
 db.orders.createIndex(
@@ -166,6 +174,7 @@ db.orders.find({ customerId: "123" })  // Does not use index
 ```
 
 ### Unique Index
+
 ```javascript
 // Enforce uniqueness
 db.users.createIndex({ email: 1 }, { unique: true })
@@ -178,6 +187,7 @@ db.users.createIndex({ email: 1 }, { unique: true, sparse: true })
 ```
 
 ### Sparse Index
+
 ```javascript
 // Index only documents with field present
 db.users.createIndex({ phoneNumber: 1 }, { sparse: true })
@@ -189,6 +199,7 @@ db.users.createIndex({ phoneNumber: 1 }, { sparse: true })
 ## Index Management
 
 ### List Indexes
+
 ```javascript
 // Show all indexes
 db.collection.getIndexes()
@@ -198,6 +209,7 @@ db.collection.aggregate([{ $indexStats: {} }])
 ```
 
 ### Create Index Options
+
 ```javascript
 // Background index (doesn't block operations)
 db.collection.createIndex({ field: 1 }, { background: true })
@@ -213,6 +225,7 @@ db.collection.createIndex(
 ```
 
 ### Hide/Unhide Index
+
 ```javascript
 // Hide index (test before dropping)
 db.collection.hideIndex("index_name")
@@ -226,6 +239,7 @@ db.collection.dropIndex("index_name")
 ```
 
 ### Rebuild Indexes
+
 ```javascript
 // Rebuild all indexes (after data changes)
 db.collection.reIndex()
@@ -236,6 +250,7 @@ db.collection.reIndex()
 ## Query Optimization
 
 ### Covered Queries
+
 ```javascript
 // Query covered by index (no document fetch)
 db.users.createIndex({ email: 1, name: 1 })
@@ -250,6 +265,7 @@ db.users.find(
 ```
 
 ### Index Intersection
+
 ```javascript
 // MongoDB can use multiple indexes
 db.collection.createIndex({ a: 1 })
@@ -263,6 +279,7 @@ db.collection.createIndex({ a: 1, b: 1 })
 ```
 
 ### Index Hints
+
 ```javascript
 // Force specific index
 db.orders.find({ status: "active", city: "NYC" })
@@ -273,6 +290,7 @@ db.orders.find({ status: "active" }).hint({ $natural: 1 })
 ```
 
 ### ESR Rule (Equality, Sort, Range)
+
 ```javascript
 // Optimal compound index order: Equality → Sort → Range
 
@@ -310,6 +328,7 @@ db.orders.createIndex({
 ## Performance Analysis
 
 ### explain() Modes
+
 ```javascript
 // Query planner (default)
 db.collection.find({ field: value }).explain()
@@ -322,6 +341,7 @@ db.collection.find({ field: value }).explain("allPlansExecution")
 ```
 
 ### Key Metrics
+
 ```javascript
 // Good performance indicators:
 // - executionTimeMillis < 100ms
@@ -336,6 +356,7 @@ db.collection.find({ field: value }).explain("allPlansExecution")
 ```
 
 ### Index Selectivity
+
 ```javascript
 // High selectivity = good (returns few documents)
 // Low selectivity = bad (returns many documents)
@@ -352,6 +373,7 @@ db.collection.aggregate([
 ## Index Strategies
 
 ### Multi-Tenant Applications
+
 ```javascript
 // Always filter by tenant first
 db.data.createIndex({ tenantId: 1, createdAt: -1 })
@@ -361,6 +383,7 @@ db.data.find({ tenantId: "tenant1", createdAt: { $gte: date } })
 ```
 
 ### Time-Series Data
+
 ```javascript
 // Index on timestamp descending (recent data accessed more)
 db.events.createIndex({ timestamp: -1 })
@@ -370,6 +393,7 @@ db.events.createIndex({ userId: 1, timestamp: -1 })
 ```
 
 ### Lookup Optimization
+
 ```javascript
 // Index foreign key fields
 db.orders.createIndex({ customerId: 1 })
@@ -386,16 +410,18 @@ db.customers.createIndex({ _id: 1 })  // Default _id index
 4. **Follow ESR rule** - Equality, Sort, Range order
 5. **Use covered queries** - When possible, avoid document fetches
 6. **Monitor index usage** - Drop unused indexes
+
 ```javascript
 db.collection.aggregate([{ $indexStats: {} }])
 ```
-7. **Partial indexes for filtered queries** - Reduce index size
-8. **Consider index size** - Should fit in RAM
+1. **Partial indexes for filtered queries** - Reduce index size
+2. **Consider index size** - Should fit in RAM
+
 ```javascript
 db.collection.stats().indexSizes
 ```
-9. **Background index creation** - Don't block operations (deprecated in 4.2+)
-10. **Test with explain** - Verify query plan before production
+1. **Background index creation** - Don't block operations (deprecated in 4.2+)
+2. **Test with explain** - Verify query plan before production
 
 ## Common Pitfalls
 

@@ -7,17 +7,20 @@ Understanding boundaries and measuring effectiveness of documentation discovery.
 ### Not All Libraries Indexed
 
 **Limitation:**
+
 - context7.com doesn't index every repository/website
 - Very new libraries may not be available yet
 - Private repositories not accessible
 - Some niche libraries missing
 
 **Impact:**
+
 - Need fallback to official llms.txt or repository analysis
 - May add 10-20 seconds to discovery time
 - Requires manual search for obscure libraries
 
 **Workarounds:**
+
 ```
 1. Try context7.com first (always)
 2. If 404, fall back to official llms.txt search
@@ -26,6 +29,7 @@ Understanding boundaries and measuring effectiveness of documentation discovery.
 ```
 
 **Example:**
+
 ```
 Tried: https://context7.com/org/new-lib/llms.txt → 404
 Fallback: WebSearch for "new-lib llms.txt" → Found
@@ -35,16 +39,19 @@ Used: Official llms.txt from website
 ### Topic Filtering Accuracy
 
 **Limitation:**
+
 - ?topic= parameter relies on keyword matching
 - May miss relevant content with different terminology
 - May include tangentially related content
 - Quality depends on context7 indexing
 
 **Impact:**
+
 - Occasionally need to review base llms.txt without topic filter
 - May miss some relevant documentation
 
 **Workarounds:**
+
 ```
 - Try multiple topic keywords
 - Fall back to full llms.txt if topic search insufficient
@@ -56,18 +63,21 @@ Used: Official llms.txt from website
 ### Password-Protected Documentation
 
 **Limitation:**
+
 - No access to authentication-required content
 - Cannot log in to platforms
 - No credential management
 - Cannot access organization-internal docs
 
 **Impact:**
+
 - Enterprise documentation inaccessible
 - Premium content unavailable
 - Private beta docs unreachable
 - Internal wikis not readable
 
 **Workarounds:**
+
 ```
 - Ask user for public alternatives
 - Search for public subset of docs
@@ -77,6 +87,7 @@ Used: Official llms.txt from website
 ```
 
 **Report template:**
+
 ```markdown
 ⚠️ **Access Limitation**
 
@@ -98,18 +109,21 @@ Documentation requires authentication.
 ### Rate-Limited APIs
 
 **Limitation:**
+
 - No API credentials for authenticated access
 - Subject to anonymous rate limits
 - Cannot request increased limits
 - No retry with authentication
 
 **Impact:**
+
 - Limited requests per hour (e.g., GitHub: 60/hour anonymous)
 - May hit limits during comprehensive search
 - Slower fallback required
 - Incomplete coverage possible
 
 **Workarounds:**
+
 ```
 - Add delays between requests
 - Use alternative sources (cached, mirrors)
@@ -119,6 +133,7 @@ Documentation requires authentication.
 ```
 
 **Detection:**
+
 ```
 Symptoms:
 - 429 Too Many Requests
@@ -134,18 +149,21 @@ Response:
 ### Real-Time Documentation
 
 **Limitation:**
+
 - Uses snapshot at time of access
 - Cannot monitor for updates
 - No real-time synchronization
 - May miss very recent changes
 
 **Impact:**
+
 - Documentation updated minutes ago may not be reflected
 - Breaking changes announced today might be missed
 - Latest release notes may not be current
 - Version just released may not be documented
 
 **Workarounds:**
+
 ```
 - Note access date in report
 - Recommend user verify if critical
@@ -155,6 +173,7 @@ Response:
 ```
 
 **Report template:**
+
 ```markdown
 ℹ️ **Snapshot Information**
 
@@ -170,18 +189,21 @@ Documentation retrieved: 2025-10-26 14:30 UTC
 ### Interactive Documentation
 
 **Limitation:**
+
 - Cannot run interactive examples
 - Cannot execute code playgrounds
 - No ability to test API calls
 - Cannot verify functionality
 
 **Impact:**
+
 - Cannot confirm examples work
 - Cannot test edge cases
 - Cannot validate API responses
 - Cannot verify performance claims
 
 **Workarounds:**
+
 ```
 - Provide code examples as-is
 - Note: "Example provided, not tested"
@@ -191,6 +213,7 @@ Documentation retrieved: 2025-10-26 14:30 UTC
 ```
 
 **Report template:**
+
 ```markdown
 ## Example Usage
 
@@ -204,6 +227,7 @@ result = library.do_thing()
 Please test in your environment.
 
 **Interactive playground**: [url if available]
+
 ```
 
 ### Video-Only Documentation
@@ -222,11 +246,13 @@ Please test in your environment.
 
 **Workarounds:**
 ```
+
 - Search for transcript if available
 - Look for accompanying blog post
 - Find text-based alternative
 - Check for community notes
 - Use automated captions if available (low quality)
+
 ```
 
 **Report template:**
@@ -252,6 +278,7 @@ Primary documentation is video-based: [url]
 ### Very Large Repositories (>1GB)
 
 **Challenge:**
+
 - Repomix may fail or hang
 - Clone takes very long time
 - Processing exceeds memory limits
@@ -260,6 +287,7 @@ Primary documentation is video-based: [url]
 **Success rate:** ~30% for >1GB repos
 
 **Mitigation:**
+
 ```
 1. Try shallow clone: git clone --depth 1
 2. Focus on docs only: repomix --include "docs/**"
@@ -269,6 +297,7 @@ Primary documentation is video-based: [url]
 ```
 
 **When to skip:**
+
 ```
 Repository size indicators:
 - Git clone shows >1GB download
@@ -282,6 +311,7 @@ Repository size indicators:
 ### Documentation in Images/PDFs
 
 **Challenge:**
+
 - Cannot reliably extract text from images
 - PDF parsing limited
 - Formatting often lost
@@ -290,6 +320,7 @@ Repository size indicators:
 **Success rate:** ~50% quality for PDFs, ~10% for images
 
 **Mitigation:**
+
 ```
 1. Search for text alternative
 2. Try OCR if critical (low quality)
@@ -299,6 +330,7 @@ Repository size indicators:
 ```
 
 **Report template:**
+
 ```markdown
 ⚠️ **Image-Based Documentation**
 
@@ -314,6 +346,7 @@ Primary documentation in PDF/images: [url]
 ### Non-English Documentation
 
 **Challenge:**
+
 - No automatic translation
 - May miss context/nuance
 - Technical terms may not translate well
@@ -322,6 +355,7 @@ Primary documentation in PDF/images: [url]
 **Success rate:** Variable (depends on user needs)
 
 **Mitigation:**
+
 ```
 1. Note language in report
 2. Offer key section translation if user requests
@@ -331,6 +365,7 @@ Primary documentation in PDF/images: [url]
 ```
 
 **Report template:**
+
 ```markdown
 ℹ️ **Language Notice**
 
@@ -347,6 +382,7 @@ Primary documentation in: Japanese
 ### Scattered Documentation
 
 **Challenge:**
+
 - Multiple sites/repositories
 - Inconsistent structure
 - Conflicting information
@@ -355,6 +391,7 @@ Primary documentation in: Japanese
 **Success rate:** ~60% coverage
 
 **Mitigation:**
+
 ```
 1. Use Researcher agents
 2. Prioritize official sources
@@ -364,6 +401,7 @@ Primary documentation in: Japanese
 ```
 
 **Report template:**
+
 ```markdown
 ℹ️ **Fragmented Documentation**
 
@@ -384,6 +422,7 @@ multiple sources. Conflicts resolved by prioritizing official sources.
 ### Deprecated/Legacy Libraries
 
 **Challenge:**
+
 - Documentation removed or archived
 - Only old versions available
 - Outdated information
@@ -392,6 +431,7 @@ multiple sources. Conflicts resolved by prioritizing official sources.
 **Success rate:** ~40% for fully deprecated libraries
 
 **Mitigation:**
+
 ```
 1. Use Internet Archive (Wayback Machine)
 2. Search GitHub repository history
@@ -401,6 +441,7 @@ multiple sources. Conflicts resolved by prioritizing official sources.
 ```
 
 **Report template:**
+
 ```markdown
 ⚠️ **Legacy Library**
 
@@ -421,6 +462,7 @@ multiple sources. Conflicts resolved by prioritizing official sources.
 ### 1. Finds Relevant Information
 
 **Measured by:**
+
 - [ ] Answers user's specific question
 - [ ] Covers requested topics
 - [ ] Appropriate depth/detail
@@ -430,6 +472,7 @@ multiple sources. Conflicts resolved by prioritizing official sources.
 **Quality levels:**
 
 **Excellent (100%):**
+
 ```
 - All requested topics covered
 - Examples for each major concept
@@ -439,6 +482,7 @@ multiple sources. Conflicts resolved by prioritizing official sources.
 ```
 
 **Good (80-99%):**
+
 ```
 - Most requested topics covered
 - Examples for core concepts
@@ -448,6 +492,7 @@ multiple sources. Conflicts resolved by prioritizing official sources.
 ```
 
 **Acceptable (60-79%):**
+
 ```
 - Core topics covered
 - Some examples present
@@ -457,6 +502,7 @@ multiple sources. Conflicts resolved by prioritizing official sources.
 ```
 
 **Poor (<60%):**
+
 ```
 - Only partial coverage
 - Few or no examples
@@ -468,6 +514,7 @@ multiple sources. Conflicts resolved by prioritizing official sources.
 ### 2. Uses Most Efficient Method
 
 **Measured by:**
+
 - [ ] Started with llms.txt
 - [ ] Used parallel agents appropriately
 - [ ] Avoided unnecessary operations
@@ -477,6 +524,7 @@ multiple sources. Conflicts resolved by prioritizing official sources.
 **Efficiency score:**
 
 **Optimal:**
+
 ```
 - Found llms.txt immediately
 - Parallel agents for all URLs
@@ -486,6 +534,7 @@ multiple sources. Conflicts resolved by prioritizing official sources.
 ```
 
 **Good:**
+
 ```
 - Found llms.txt after 1-2 tries
 - Mostly parallel processing
@@ -495,6 +544,7 @@ multiple sources. Conflicts resolved by prioritizing official sources.
 ```
 
 **Acceptable:**
+
 ```
 - Fell back to repository after llms.txt search
 - Mix of parallel and sequential
@@ -504,6 +554,7 @@ multiple sources. Conflicts resolved by prioritizing official sources.
 ```
 
 **Poor:**
+
 ```
 - Didn't try llms.txt first
 - Mostly sequential processing
@@ -525,6 +576,7 @@ multiple sources. Conflicts resolved by prioritizing official sources.
 | Research | <5 min | 5-8 min | 8-12 min | >12 min |
 
 **Factors affecting time:**
+
 - Documentation structure (well-organized vs scattered)
 - Source availability (llms.txt vs research)
 - Content volume (few pages vs many)
@@ -534,6 +586,7 @@ multiple sources. Conflicts resolved by prioritizing official sources.
 ### 4. Provides Clear Source Attribution
 
 **Measured by:**
+
 - [ ] Lists all sources used
 - [ ] Notes method employed
 - [ ] Includes URLs/references
@@ -543,6 +596,7 @@ multiple sources. Conflicts resolved by prioritizing official sources.
 **Quality template:**
 
 **Excellent:**
+
 ```markdown
 ## Sources
 
@@ -565,6 +619,7 @@ multiple sources. Conflicts resolved by prioritizing official sources.
 ### 5. Identifies Version/Date
 
 **Measured by:**
+
 - [ ] Documentation version noted
 - [ ] Last-updated date included
 - [ ] Matches user's version requirement
@@ -572,6 +627,7 @@ multiple sources. Conflicts resolved by prioritizing official sources.
 - [ ] Notes if version unclear
 
 **Best practice:**
+
 ```markdown
 ## Version Information
 
@@ -587,6 +643,7 @@ multiple sources. Conflicts resolved by prioritizing official sources.
 ### 6. Notes Limitations/Gaps
 
 **Measured by:**
+
 - [ ] Missing information identified
 - [ ] Incomplete sections noted
 - [ ] Known issues mentioned
@@ -594,6 +651,7 @@ multiple sources. Conflicts resolved by prioritizing official sources.
 - [ ] Workarounds provided
 
 **Good practice:**
+
 ```markdown
 ## ⚠️ Limitations
 
@@ -617,6 +675,7 @@ multiple sources. Conflicts resolved by prioritizing official sources.
 ### 7. Well-Organized Output
 
 **Measured by:**
+
 - [ ] Clear structure
 - [ ] Logical flow
 - [ ] Easy to scan
@@ -624,6 +683,7 @@ multiple sources. Conflicts resolved by prioritizing official sources.
 - [ ] Proper formatting
 
 **Structure template:**
+
 ```markdown
 # Documentation for [Library] [Version]
 
@@ -660,6 +720,7 @@ multiple sources. Conflicts resolved by prioritizing official sources.
 ### Before Presenting Report
 
 **Content quality:**
+
 - [ ] Information is accurate
 - [ ] Sources are official (or noted as unofficial)
 - [ ] Version matches request
@@ -667,6 +728,7 @@ multiple sources. Conflicts resolved by prioritizing official sources.
 - [ ] No obvious errors
 
 **Completeness:**
+
 - [ ] All key topics covered
 - [ ] Installation instructions present
 - [ ] Usage examples included
@@ -674,6 +736,7 @@ multiple sources. Conflicts resolved by prioritizing official sources.
 - [ ] Troubleshooting information available
 
 **Organization:**
+
 - [ ] Logical flow
 - [ ] Clear headings
 - [ ] Proper code formatting
@@ -681,6 +744,7 @@ multiple sources. Conflicts resolved by prioritizing official sources.
 - [ ] Easy to scan
 
 **Attribution:**
+
 - [ ] Sources listed
 - [ ] Method documented
 - [ ] Version identified
@@ -688,6 +752,7 @@ multiple sources. Conflicts resolved by prioritizing official sources.
 - [ ] Limitations disclosed
 
 **Usability:**
+
 - [ ] Actionable information
 - [ ] Copy-paste ready examples
 - [ ] Next steps clear
@@ -701,6 +766,7 @@ multiple sources. Conflicts resolved by prioritizing official sources.
 **Measures:** How quickly user gets useful information
 
 **Targets:**
+
 ```
 First useful info: <30 seconds
 Core coverage: <2 minutes
@@ -708,6 +774,7 @@ Complete report: <5 minutes
 ```
 
 **Tracking:**
+
 ```
 Start → llms.txt found → First URL fetched → Critical info extracted
   15s        30s               45s                  60s
@@ -721,6 +788,7 @@ User can act on info at 60s mark
 **Measures:** Percentage of user needs met
 
 **Calculation:**
+
 ```
 User needs 5 topics:
 - Installation ✓
@@ -733,6 +801,7 @@ Coverage: 4/5 = 80%
 ```
 
 **Targets:**
+
 ```
 Excellent: 90-100%
 Good: 75-89%
@@ -745,6 +814,7 @@ Poor: <60%
 **Measures:** Reliability of sources used
 
 **Scoring:**
+
 ```
 Official docs: 100 points
 Official repository: 80 points
@@ -758,6 +828,7 @@ Old community (unverified): 20 points
 ### User Satisfaction Indicators
 
 **Positive signals:**
+
 ```
 - User proceeds immediately with info
 - No follow-up questions needed
@@ -766,6 +837,7 @@ Old community (unverified): 20 points
 ```
 
 **Negative signals:**
+
 ```
 - User asks same question differently
 - User requests more details
@@ -780,6 +852,7 @@ Old community (unverified): 20 points
 **When documentation discovery struggles:**
 
 1. **Document the issue**
+
    ```
    - What was attempted
    - What failed
@@ -788,6 +861,7 @@ Old community (unverified): 20 points
    ```
 
 2. **Identify patterns**
+
    ```
    - Is this library-specific?
    - Is this ecosystem-specific?
@@ -795,6 +869,7 @@ Old community (unverified): 20 points
    ```
 
 3. **Update strategies**
+
    ```
    - Add workaround to playbook
    - Update fallback sequence
@@ -804,6 +879,7 @@ Old community (unverified): 20 points
 ### Measure and Optimize
 
 **Track these metrics:**
+
 ```
 - Average time to complete
 - Coverage percentage
@@ -813,6 +889,7 @@ Old community (unverified): 20 points
 ```
 
 **Optimize based on data:**
+
 ```
 - Which method succeeds most often?
 - Which ecosystems need special handling?

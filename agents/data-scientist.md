@@ -137,16 +137,19 @@ The skill package includes user-customizable templates in the `assets/` director
 **Steps:**
 
 1. **Load and Inspect Dataset** - Import data and perform initial quality checks
+
    ```bash
    python3 ../skills/engineering-team/senior-data-scientist/scripts/feature_engineering_pipeline.py --input raw_data.csv --output text --mode inspect
    ```
 
 2. **Generate Automated EDA Report** - Create comprehensive statistical summary with distributions, correlations, and missing value analysis
+
    ```bash
    python3 ../skills/engineering-team/senior-data-scientist/scripts/feature_engineering_pipeline.py --input raw_data.csv --output json --mode eda > eda_report.json
    ```
 
 3. **Visualize Key Relationships** - Examine correlations, distributions, and relationships between variables
+
    ```bash
    # Review correlation matrix and distribution plots
    # Identify highly correlated features (|r| > 0.7)
@@ -165,6 +168,7 @@ The skill package includes user-customizable templates in the `assets/` director
 **Time Estimate:** 2-4 hours for medium datasets (10K-1M rows)
 
 **Example:**
+
 ```bash
 # Complete EDA workflow
 python3 ../skills/engineering-team/senior-data-scientist/scripts/feature_engineering_pipeline.py \
@@ -186,6 +190,7 @@ python3 ../skills/engineering-team/senior-data-scientist/scripts/feature_enginee
 **Steps:**
 
 1. **Feature Engineering** - Generate and select optimal features for predictive modeling
+
    ```bash
    python3 ../skills/engineering-team/senior-data-scientist/scripts/feature_engineering_pipeline.py \
      --input train_data.csv \
@@ -195,6 +200,7 @@ python3 ../skills/engineering-team/senior-data-scientist/scripts/feature_enginee
    ```
 
 2. **Feature Selection** - Identify most predictive features using correlation analysis and feature importance
+
    ```bash
    python3 ../skills/engineering-team/senior-data-scientist/scripts/feature_engineering_pipeline.py \
      --input train_data.csv \
@@ -204,6 +210,7 @@ python3 ../skills/engineering-team/senior-data-scientist/scripts/feature_enginee
    ```
 
 3. **Train Baseline Models** - Build multiple baseline models for comparison (logistic regression, random forest, gradient boosting)
+
    ```bash
    # Train models using scikit-learn or XGBoost
    # Document training parameters
@@ -211,6 +218,7 @@ python3 ../skills/engineering-team/senior-data-scientist/scripts/feature_enginee
    ```
 
 4. **Evaluate Model Performance** - Comprehensive evaluation using cross-validation and test set
+
    ```bash
    python3 ../skills/engineering-team/senior-data-scientist/scripts/model_evaluation_suite.py \
      --input trained_model.pkl \
@@ -220,6 +228,7 @@ python3 ../skills/engineering-team/senior-data-scientist/scripts/feature_enginee
    ```
 
 5. **Analyze Results** - Review classification metrics, confusion matrix, ROC curves, and feature importance
+
    ```bash
    # Review metrics:
    # - AUC-ROC > 0.75 for production deployment
@@ -237,6 +246,7 @@ python3 ../skills/engineering-team/senior-data-scientist/scripts/feature_enginee
 **Time Estimate:** 1-2 days for initial modeling, 2-3 days including hyperparameter tuning
 
 **Example:**
+
 ```bash
 # Complete model building workflow
 # 1. Engineer features
@@ -274,6 +284,7 @@ python3 ../skills/engineering-team/senior-data-scientist/scripts/model_evaluatio
 **Steps:**
 
 1. **Define Hypothesis** - Clearly state null and alternative hypotheses with expected effect size
+
    ```bash
    # H0: Treatment has no effect on conversion rate
    # H1: Treatment increases conversion rate by at least 5% (relative)
@@ -282,6 +293,7 @@ python3 ../skills/engineering-team/senior-data-scientist/scripts/model_evaluatio
    ```
 
 2. **Calculate Sample Size** - Determine required sample size using power analysis
+
    ```bash
    python3 ../skills/engineering-team/senior-data-scientist/scripts/experiment_designer.py \
      --baseline-rate 0.10 \
@@ -292,6 +304,7 @@ python3 ../skills/engineering-team/senior-data-scientist/scripts/model_evaluatio
    ```
 
 3. **Design Randomization Strategy** - Configure treatment assignment ensuring balance across covariates
+
    ```bash
    python3 ../skills/engineering-team/senior-data-scientist/scripts/experiment_designer.py \
      --mode randomization \
@@ -301,6 +314,7 @@ python3 ../skills/engineering-team/senior-data-scientist/scripts/model_evaluatio
    ```
 
 4. **Implement Experiment Tracking** - Set up data collection and monitoring infrastructure
+
    ```bash
    # Configure event tracking for:
    # - Treatment assignment events
@@ -310,6 +324,7 @@ python3 ../skills/engineering-team/senior-data-scientist/scripts/model_evaluatio
    ```
 
 5. **Monitor Experiment Progress** - Track enrollment, balance checks, and interim results
+
    ```bash
    # Daily monitoring checklist:
    # - Sample size progress vs. target
@@ -319,6 +334,7 @@ python3 ../skills/engineering-team/senior-data-scientist/scripts/model_evaluatio
    ```
 
 6. **Analyze Results** - Conduct statistical tests and estimate treatment effects
+
    ```bash
    python3 ../skills/engineering-team/senior-data-scientist/scripts/experiment_designer.py \
      --mode analysis \
@@ -335,6 +351,7 @@ python3 ../skills/engineering-team/senior-data-scientist/scripts/model_evaluatio
 **Time Estimate:** 1 week from design to results (varies by sample size requirements)
 
 **Example:**
+
 ```bash
 # Complete A/B test workflow
 # 1. Design experiment
@@ -369,6 +386,7 @@ python3 ../skills/engineering-team/senior-data-scientist/scripts/experiment_desi
 **Steps:**
 
 1. **Identify Key Findings** - Extract most important patterns, relationships, and anomalies from analysis
+
    ```bash
    # Review model outputs, experiment results, and EDA findings
    # Prioritize findings by business impact
@@ -376,6 +394,7 @@ python3 ../skills/engineering-team/senior-data-scientist/scripts/experiment_desi
    ```
 
 2. **Generate Visualizations** - Create clear, interpretable visualizations for stakeholders
+
    ```bash
    python3 ../skills/engineering-team/senior-data-scientist/scripts/feature_engineering_pipeline.py \
      --input results.csv \
@@ -385,6 +404,7 @@ python3 ../skills/engineering-team/senior-data-scientist/scripts/experiment_desi
    ```
 
 3. **Estimate Business Impact** - Quantify findings in business metrics (revenue, conversion, retention)
+
    ```bash
    # Calculate:
    # - Expected revenue impact from model deployment
@@ -394,6 +414,7 @@ python3 ../skills/engineering-team/senior-data-scientist/scripts/experiment_desi
    ```
 
 4. **Create Executive Summary** - Write non-technical summary highlighting key insights and recommendations
+
    ```bash
    # Structure:
    # 1. Business question addressed
@@ -415,6 +436,7 @@ python3 ../skills/engineering-team/senior-data-scientist/scripts/experiment_desi
 **Time Estimate:** 2-3 days from analysis completion to stakeholder presentation
 
 **Example:**
+
 ```bash
 # Generate insights report
 # 1. Create summary statistics
@@ -572,24 +594,28 @@ echo "Analysis complete! Report saved to $REPORT_DIR"
 ## Success Metrics
 
 **Model Performance:**
+
 - **Predictive Accuracy:** Models achieve > 75% AUC-ROC on test sets (classification) or R² > 0.70 (regression)
 - **Cross-Validation Stability:** Cross-validation score variance < 5% indicating robust models
 - **Feature Engineering Impact:** Engineered features improve model performance by 10-20% over raw features
 - **Production Deployment Rate:** > 80% of models pass production readiness assessment
 
 **Experiment Quality:**
+
 - **Statistical Power:** All A/B tests designed with minimum 80% power to detect meaningful effects
 - **Sample Size Efficiency:** Accurate sample size calculations prevent under/over-powered experiments
 - **False Discovery Rate:** < 5% false positive rate through proper significance threshold selection
 - **Experiment Velocity:** Reduce experiment design time by 40% through automation
 
 **Business Impact:**
+
 - **Decision Quality:** Data-driven decisions lead to 15-25% better outcomes vs. intuition-based decisions
 - **Time to Insights:** Reduce analysis time from weeks to days (60% time savings)
 - **Revenue Impact:** Model deployments generate measurable ROI > 5x implementation cost
 - **Stakeholder Satisfaction:** > 85% of stakeholders rate insights as actionable and valuable
 
 **Technical Excellence:**
+
 - **Code Quality:** All Python tools achieve 90%+ test coverage with comprehensive unit tests
 - **Documentation Standards:** Model cards and experiment documentation complete for 100% of projects
 - **Reproducibility:** All analyses reproducible with documented seeds and versioned data/code

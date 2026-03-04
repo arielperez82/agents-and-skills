@@ -20,6 +20,7 @@ python3 --version  # Requires Python 3.8+
 ### Usage
 
 **Basic Commands:**
+
 ```bash
 # Create REST API with Express + TypeScript + PostgreSQL
 python scripts/api_scaffolder.py my-api --type rest --stack express-typescript
@@ -35,6 +36,7 @@ python scripts/api_scaffolder.py --help
 ```
 
 **Available Options:**
+
 - `name`: Project name (required)
 - `--type/-t`: API type (rest, graphql) - default: rest
 - `--stack/-s`: Tech stack (express-typescript, express-javascript, fastify, apollo, etc.)
@@ -48,12 +50,14 @@ python scripts/api_scaffolder.py --help
 ### Supported Stacks
 
 **REST API:**
+
 - `express-typescript`: Express + TypeScript + Prisma
 - `express-javascript`: Express + JavaScript + Sequelize
 - `fastify-typescript`: Fastify + TypeScript + Prisma
 - `nestjs`: NestJS framework with TypeScript
 
 **GraphQL:**
+
 - `apollo-typescript`: Apollo Server + TypeScript + Prisma
 - `apollo-javascript`: Apollo Server + JavaScript
 - `graphql-yoga`: GraphQL Yoga + TypeScript
@@ -61,6 +65,7 @@ python scripts/api_scaffolder.py --help
 ### Generated Project Structure
 
 **Express + TypeScript + PostgreSQL:**
+
 ```
 my-api/
 ├── src/
@@ -123,6 +128,7 @@ my-api/
 ### Features Included
 
 **Authentication Setup (--auth):**
+
 - JWT-based authentication
 - Password hashing with bcrypt
 - Login/register endpoints
@@ -130,6 +136,7 @@ my-api/
 - Token refresh mechanism
 
 **Database Integration:**
+
 - Prisma ORM configuration
 - Database schema with User model
 - Migration setup
@@ -137,6 +144,7 @@ my-api/
 - Connection pooling
 
 **Middleware:**
+
 - Authentication middleware
 - Request validation (Zod)
 - Error handling
@@ -145,6 +153,7 @@ my-api/
 - CORS and Helmet security
 
 **Testing Infrastructure:**
+
 - Jest configuration
 - Unit test templates
 - Integration test setup
@@ -152,6 +161,7 @@ my-api/
 - Coverage reporting
 
 **Docker Configuration:**
+
 - Multi-stage Dockerfile
 - docker-compose.yml with:
   - App container
@@ -161,6 +171,7 @@ my-api/
 - Environment variables
 
 **CI/CD Pipelines:**
+
 - GitHub Actions workflow
 - Automated testing
 - Linting and formatting
@@ -210,6 +221,7 @@ Your API will be available at http://localhost:3000
 ### Configuration Options
 
 **Customization:**
+
 ```bash
 # Minimal setup (no auth, docker, or CI/CD)
 python scripts/api_scaffolder.py simple-api --minimal
@@ -227,6 +239,7 @@ python scripts/api_scaffolder.py my-api --output /path/to/projects/
 ### Common Workflows
 
 **Standard REST API Project:**
+
 ```bash
 # 1. Scaffold project
 python scripts/api_scaffolder.py my-api --type rest --stack express-typescript
@@ -249,6 +262,7 @@ npm run dev
 ```
 
 **GraphQL API Project:**
+
 ```bash
 # 1. Scaffold GraphQL project
 python scripts/api_scaffolder.py graphql-api --type graphql --stack apollo-typescript
@@ -278,6 +292,7 @@ Automates database schema migrations with support for PostgreSQL, MySQL, and Mon
 ### Usage
 
 **Basic Commands:**
+
 ```bash
 # Create new migration
 python scripts/database_migration_tool.py create "add_user_table"
@@ -296,6 +311,7 @@ python scripts/database_migration_tool.py --help
 ```
 
 **Available Options:**
+
 - `command`: Action to perform (create, migrate, rollback, status, reset)
 - `name`: Migration name (for create command)
 - `--database/-d`: Database type (postgresql, mysql, mongodb) - default: postgresql
@@ -308,6 +324,7 @@ python scripts/database_migration_tool.py --help
 ### Migration Commands
 
 **Create Migration:**
+
 ```bash
 # Create new migration file
 python scripts/database_migration_tool.py create "add_user_table"
@@ -316,6 +333,7 @@ python scripts/database_migration_tool.py create "add_user_table"
 ```
 
 **Run Migrations:**
+
 ```bash
 # Run all pending migrations
 python scripts/database_migration_tool.py migrate
@@ -328,6 +346,7 @@ python scripts/database_migration_tool.py migrate --verbose
 ```
 
 **Rollback Migrations:**
+
 ```bash
 # Rollback last migration
 python scripts/database_migration_tool.py rollback
@@ -340,6 +359,7 @@ python scripts/database_migration_tool.py rollback --force
 ```
 
 **Check Status:**
+
 ```bash
 # Show migration status
 python scripts/database_migration_tool.py status
@@ -359,6 +379,7 @@ python scripts/database_migration_tool.py status
 ### Migration File Format
 
 **PostgreSQL Migration:**
+
 ```sql
 -- migrations/20250108_120000_add_user_table.sql
 
@@ -397,24 +418,28 @@ DROP FUNCTION IF EXISTS update_updated_at_column();
 ### Features
 
 **Version Tracking:**
+
 - Stores migration history in database
 - Tracks applied migrations with timestamps
 - Prevents duplicate migrations
 - Supports out-of-order migration detection
 
 **Rollback Support:**
+
 - DOWN migrations for reverting changes
 - Multi-step rollback capability
 - Transaction support for safety
 - Dry-run mode for testing
 
 **Safety Features:**
+
 - Transaction wrapping for atomic operations
 - Confirmation prompts for destructive operations
 - Dry-run mode for previewing changes
 - Migration checksum validation
 
 **Multi-Database Support:**
+
 - PostgreSQL (native)
 - MySQL (dialect translation)
 - MongoDB (schema-less migrations)
@@ -451,6 +476,7 @@ Total duration: 97ms
 ### Common Workflows
 
 **Development Workflow:**
+
 ```bash
 # 1. Create migration for new feature
 python scripts/database_migration_tool.py create "add_comments_table"
@@ -469,6 +495,7 @@ python scripts/database_migration_tool.py rollback
 ```
 
 **Production Deployment:**
+
 ```bash
 # 1. Check status before deployment
 python scripts/database_migration_tool.py status
@@ -496,6 +523,7 @@ Simulates real-world traffic patterns to test API performance under load. Suppor
 ### Usage
 
 **Basic Commands:**
+
 ```bash
 # Simple load test
 python scripts/api_load_tester.py http://localhost:3000/api/users
@@ -514,6 +542,7 @@ python scripts/api_load_tester.py --help
 ```
 
 **Available Options:**
+
 - `url`: Target API endpoint (required)
 - `--method/-m`: HTTP method (GET, POST, PUT, DELETE) - default: GET
 - `--users/-u`: Concurrent users - default: 10
@@ -529,6 +558,7 @@ python scripts/api_load_tester.py --help
 ### Load Testing Scenarios
 
 **Steady Load Test:**
+
 ```bash
 # 50 concurrent users, 1000 total requests
 python scripts/api_load_tester.py http://localhost:3000/api/users \
@@ -537,6 +567,7 @@ python scripts/api_load_tester.py http://localhost:3000/api/users \
 ```
 
 **Spike Test:**
+
 ```bash
 # Sudden spike: 200 concurrent users for 60 seconds
 python scripts/api_load_tester.py http://localhost:3000/api/users \
@@ -545,6 +576,7 @@ python scripts/api_load_tester.py http://localhost:3000/api/users \
 ```
 
 **Endurance Test:**
+
 ```bash
 # Sustained load: 30 users for 30 minutes
 python scripts/api_load_tester.py http://localhost:3000/api/users \
@@ -553,6 +585,7 @@ python scripts/api_load_tester.py http://localhost:3000/api/users \
 ```
 
 **Stress Test:**
+
 ```bash
 # Increasing load until failure
 python scripts/api_load_tester.py http://localhost:3000/api/users \
@@ -563,6 +596,7 @@ python scripts/api_load_tester.py http://localhost:3000/api/users \
 ### Features
 
 **Performance Metrics:**
+
 - Response times (min, max, avg, median, p95, p99)
 - Requests per second (RPS)
 - Success/failure rates
@@ -571,6 +605,7 @@ python scripts/api_load_tester.py http://localhost:3000/api/users \
 - Concurrent connections
 
 **Request Customization:**
+
 - Custom HTTP headers
 - Request body from JSON file
 - Query parameters
@@ -578,6 +613,7 @@ python scripts/api_load_tester.py http://localhost:3000/api/users \
 - Authentication tokens
 
 **Output Formats:**
+
 - Text (console-friendly)
 - JSON (machine-readable)
 - HTML (visual reports)
@@ -625,6 +661,7 @@ Errors:
 ```
 
 **HTML Report:**
+
 ```bash
 # Generate HTML report
 python scripts/api_load_tester.py http://localhost:3000/api/users \
@@ -644,6 +681,7 @@ python scripts/api_load_tester.py http://localhost:3000/api/users \
 ### Common Workflows
 
 **API Health Check:**
+
 ```bash
 # Quick health check
 python scripts/api_load_tester.py http://localhost:3000/health \
@@ -652,6 +690,7 @@ python scripts/api_load_tester.py http://localhost:3000/health \
 ```
 
 **Performance Benchmarking:**
+
 ```bash
 # Benchmark API endpoint
 python scripts/api_load_tester.py http://localhost:3000/api/users \
@@ -672,6 +711,7 @@ python scripts/compare_load_tests.py baseline.json optimized.json
 ```
 
 **Capacity Planning:**
+
 ```bash
 # Test increasing load levels
 for users in 10 50 100 200 500; do
@@ -689,18 +729,21 @@ done
 ### Best Practices
 
 **Before Load Testing:**
+
 1. Test in staging environment (never production)
 2. Baseline current performance
 3. Set up monitoring (CPU, memory, database)
 4. Inform team of testing schedule
 
 **During Load Testing:**
+
 1. Monitor server metrics
 2. Watch for error rate spikes
 3. Track database connection pool
 4. Check log files for errors
 
 **After Load Testing:**
+
 1. Analyze bottlenecks
 2. Document findings
 3. Create optimization tickets
@@ -709,6 +752,7 @@ done
 ### Integration with Monitoring
 
 **Grafana Dashboard:**
+
 ```bash
 # Run load test while monitoring Grafana
 python scripts/api_load_tester.py http://localhost:3000/api/users \

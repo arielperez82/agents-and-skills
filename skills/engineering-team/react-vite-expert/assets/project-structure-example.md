@@ -147,6 +147,7 @@ my-react-app/
 ## Key Files Content
 
 ### src/main.tsx
+
 ```typescript
 import React from 'react';
 import ReactDOM from 'react-dom/client';
@@ -161,6 +162,7 @@ ReactDOM.createRoot(document.getElementById('root')!).render(
 ```
 
 ### src/app/App.tsx
+
 ```typescript
 import { Providers } from './providers';
 import { Router } from './router';
@@ -175,6 +177,7 @@ export function App() {
 ```
 
 ### src/app/providers.tsx
+
 ```typescript
 import { QueryClientProvider } from '@tanstack/react-query';
 import { queryClient } from '@/lib/queryClient';
@@ -192,6 +195,7 @@ export function Providers({ children }: { children: React.ReactNode }) {
 ```
 
 ### src/app/router.tsx
+
 ```typescript
 import { Routes, Route } from 'react-router-dom';
 import { Suspense } from 'react';
@@ -214,6 +218,7 @@ export function Router() {
 ```
 
 ### src/lib/queryClient.ts
+
 ```typescript
 import { QueryClient } from '@tanstack/react-query';
 
@@ -230,6 +235,7 @@ export const queryClient = new QueryClient({
 ```
 
 ### src/lib/axios.ts
+
 ```typescript
 import axios from 'axios';
 
@@ -268,6 +274,7 @@ api.interceptors.response.use(
 ```
 
 ### src/utils/constants/routes.ts
+
 ```typescript
 export const ROUTES = {
   HOME: '/',
@@ -279,6 +286,7 @@ export const ROUTES = {
 ```
 
 ### src/types/api.types.ts
+
 ```typescript
 export interface ApiResponse<T> {
   data: T;
@@ -301,6 +309,7 @@ export interface ApiError {
 ```
 
 ### src/test/setup.ts
+
 ```typescript
 import { expect, afterEach } from 'vitest';
 import { cleanup } from '@testing-library/react';
@@ -314,6 +323,7 @@ afterEach(() => {
 ```
 
 ### src/test/utils.tsx
+
 ```typescript
 import { render, RenderOptions } from '@testing-library/react';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
@@ -352,6 +362,7 @@ export { customRender as render };
 ```
 
 ### vitest.config.ts
+
 ```typescript
 import { defineConfig } from 'vitest/config';
 import react from '@vitejs/plugin-react';
@@ -386,6 +397,7 @@ export default defineConfig({
 ```
 
 ### .eslintrc.cjs
+
 ```javascript
 module.exports = {
   root: true,
@@ -412,6 +424,7 @@ module.exports = {
 ```
 
 ### .prettierrc
+
 ```json
 {
   "semi": true,
@@ -457,17 +470,20 @@ mkdir -p src/features/auth/{components,hooks,api,store}
 ## Scaling Guidelines
 
 ### Small App (< 10 components)
+
 - Flat structure in `src/components`
 - Single `hooks` folder
 - Minimal organization
 
 ### Medium App (10-50 components)
+
 - Use feature folders
 - Separate pages
 - Shared components folder
 - Custom hooks folder
 
 ### Large App (50+ components)
+
 - Full feature-based architecture
 - Domain-driven design
 - Microservice-ready structure

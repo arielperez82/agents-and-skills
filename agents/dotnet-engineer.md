@@ -99,6 +99,7 @@ Expert C# and .NET development agent specializing in enterprise applications, AS
 This agent provides comprehensive C# and .NET development capabilities for building production-ready enterprise systems. It orchestrates project scaffolding, EF Core entity generation, API development, security configuration, dependency analysis, and performance profiling through guided workflows and Python automation tools.
 
 **Primary Use Cases:**
+
 - Scaffold ASP.NET Core Web APIs and Blazor applications
 - Generate EF Core entities with full stack (repository, service, controller, DTO)
 - Implement ASP.NET Core Identity with JWT/OIDC authentication
@@ -153,6 +154,7 @@ python ../skills/engineering-team/senior-dotnet/scripts/performance_profiler.py 
 **Steps:**
 
 1. **Scaffold Project**
+
    ```bash
    cd /path/to/workspace
    python ../skills/engineering-team/senior-dotnet/scripts/dotnet_project_scaffolder.py OrderService --type webapi --database postgresql --auth jwt --docker
@@ -167,6 +169,7 @@ python ../skills/engineering-team/senior-dotnet/scripts/performance_profiler.py 
    - Testing infrastructure (xUnit, Moq, Testcontainers)
 
 2. **Configure Environment**
+
    ```bash
    cd OrderService
    # Edit appsettings.Development.json
@@ -174,18 +177,21 @@ python ../skills/engineering-team/senior-dotnet/scripts/performance_profiler.py 
    ```
 
 3. **Start Services**
+
    ```bash
    docker-compose up -d
    # Starts PostgreSQL and Redis containers
    ```
 
 4. **Run Migrations**
+
    ```bash
    dotnet ef database update
    # Or: dotnet ef migrations add InitialCreate
    ```
 
 5. **Start Development Server**
+
    ```bash
    dotnet run --project src/OrderService.Api
    # API running on https://localhost:5001
@@ -203,6 +209,7 @@ python ../skills/engineering-team/senior-dotnet/scripts/performance_profiler.py 
 **Steps:**
 
 1. **Generate Entity**
+
    ```bash
    python ../skills/engineering-team/senior-dotnet/scripts/entity_generator.py Product \
      --properties "Name:string:required,Description:string,Price:decimal:required,CategoryId:int" \
@@ -234,6 +241,7 @@ python ../skills/engineering-team/senior-dotnet/scripts/performance_profiler.py 
 **Steps:**
 
 1. **Generate Security Config**
+
    ```bash
    python ../skills/engineering-team/senior-dotnet/scripts/security_config_generator.py jwt \
      --issuer "https://myapp.com" \
@@ -248,6 +256,7 @@ python ../skills/engineering-team/senior-dotnet/scripts/performance_profiler.py 
    - `AuthorizationPolicies.cs` - Policy definitions
 
 3. **Configure Properties**
+
    ```json
    // appsettings.json
    {
@@ -261,6 +270,7 @@ python ../skills/engineering-team/senior-dotnet/scripts/performance_profiler.py 
    ```
 
 4. **Implement Method Security**
+
    ```csharp
    [Authorize(Policy = "RequireAdmin")]
    public async Task<IActionResult> AdminOnly() { }
@@ -279,6 +289,7 @@ python ../skills/engineering-team/senior-dotnet/scripts/performance_profiler.py 
 **Steps:**
 
 1. **Analyze Code**
+
    ```bash
    python ../skills/engineering-team/senior-dotnet/scripts/performance_profiler.py ./src \
      --format markdown \
@@ -295,6 +306,7 @@ python ../skills/engineering-team/senior-dotnet/scripts/performance_profiler.py 
    - Configure EF Core batch size
 
 4. **Validate Improvements**
+
    ```bash
    # Re-run analysis
    python ../skills/engineering-team/senior-dotnet/scripts/performance_profiler.py ./src \
@@ -381,21 +393,25 @@ echo "Security audit complete. Review .docs/reports/report-repo-security-audit-$
 ## Success Metrics
 
 **Development Efficiency:**
+
 - **Project Scaffolding:** < 30 minutes for complete Web API setup
 - **Entity Generation:** < 5 minutes per entity stack
 - **Security Setup:** < 2 hours for JWT/Identity implementation
 
 **Code Quality:**
+
 - **Test Coverage:** 80%+ for business logic
 - **Static Analysis:** 0 critical/high issues
 - **Security Vulnerabilities:** 0 in NuGet packages
 
 **Runtime Performance:**
+
 - **API Latency:** P99 < 200ms for CRUD operations
 - **Throughput:** > 1000 RPS per instance
 - **Memory:** < 256MB for typical service
 
 **Maintainability:**
+
 - **Documentation:** 100% OpenAPI coverage
 - **Architecture:** Consistent Clean Architecture structure
 - **Code Style:** StyleCop/Roslyn analyzer compliance

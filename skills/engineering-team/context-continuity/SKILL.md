@@ -35,24 +35,28 @@ A handoff snapshot is a compact summary of orchestrator state, optimized for a f
 1. **Objective Focus** -- What you are currently working toward. The active plan step, phase goal, or task description.
 
 2. **Completed Work** -- Summary of work done since the last snapshot, with commit SHAs where applicable.
+
    ```
    - Step 1: defined snapshot format in craft.md (`ef4c35e`)
    - Step 2: enhanced resume.md with reconstruction protocol (`2d83c2f`)
    ```
 
 3. **Key Anchors** (max 5) -- The files and symbols a resuming session should read first. Each entry: `<file-path> :: <symbol/section> -- why it matters`.
+
    ```
    - commands/craft/craft.md :: Handoff Snapshot Protocol -- defines the format being implemented
    - commands/craft/resume.md :: §4 Reconstruct from Handoff Snapshot -- the consumer of snapshots
    ```
 
 4. **Decision Rationale** (max 3) -- Non-obvious choices made and why. Include what was considered and rejected.
+
    ```
    - Embedded snapshots in status file Phase Log (not separate files): keeps all state in one place for /craft:resume
    - Used heuristic estimation (not token counting): token counting API not available; heuristic is conservative
    ```
 
 5. **Next Steps** (ordered) -- What to do next, in priority order.
+
    ```
    1. Create context-continuity skill
    2. Create /context/handoff command
@@ -61,8 +65,8 @@ A handoff snapshot is a compact summary of orchestrator state, optimized for a f
 
 **Phase transition snapshots** add two fields:
 
-6. **Phase Completed** -- Which phase finished and the gate decision.
-7. **Artifacts Produced** -- List of artifact paths created in the phase.
+1. **Phase Completed** -- Which phase finished and the gate decision.
+2. **Artifacts Produced** -- List of artifact paths created in the phase.
 
 **Collapsible markup** (for embedding in logs or status files):
 
@@ -140,6 +144,7 @@ Before starting any new unit of work (plan step, build step, phase transition, r
 1. **Do NOT start the next unit of work.** Quality degrades silently beyond this point.
 2. Write a handoff snapshot immediately (if not already written for the current step).
 3. Inform the user:
+
    ```
    Context at ~X%. Recommending session handoff before starting [next thing].
 
@@ -148,6 +153,7 @@ Before starting any new unit of work (plan step, build step, phase transition, r
      (b) Start a new session with /craft:resume or read the handoff snapshot (recommended)
      (c) Override and continue (risk: silent quality degradation)
    ```
+
 4. Wait for the user's choice before proceeding. Do not auto-select.
 
 This is a **pre-flight check** — run it before dispatching work, not after observing degradation. A clean handoff at 55% is always better than degraded output at 80%.

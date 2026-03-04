@@ -197,6 +197,7 @@ ty is significantly faster than mypy or pyright and integrates well with the mod
 ### From flake8
 
 Ruff covers most flake8 plugins. Remove:
+
 - flake8
 - flake8-* plugins
 - .flake8 config file
@@ -204,12 +205,14 @@ Ruff covers most flake8 plugins. Remove:
 ### From black
 
 Remove black and use `ruff format`. Remove:
+
 - black
 - [tool.black] config
 
 ### From isort
 
 Ruff includes isort. Remove:
+
 - isort
 - [tool.isort] config
 
@@ -225,6 +228,7 @@ uv run ruff check --select=UP .        # Preview only
 ```
 
 Common modernizations include:
+
 - `typing.Optional[X]` → `X | None`
 - `typing.List[X]` → `list[X]`
 - `super(ClassName, self)` → `super()`

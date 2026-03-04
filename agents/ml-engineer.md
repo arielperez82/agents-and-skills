@@ -179,6 +179,7 @@ The skill package includes production-ready templates in the `assets/` directory
 **Steps:**
 
 1. **Prepare Model Artifacts** - Package trained model with preprocessing code and dependencies
+
    ```bash
    # Organize model directory structure
    mkdir -p model_package/{model,preprocessing,config}
@@ -188,6 +189,7 @@ The skill package includes production-ready templates in the `assets/` directory
    ```
 
 2. **Generate Deployment Pipeline** - Use deployment tool to create serving infrastructure
+
    ```bash
    python3 ../skills/engineering-team/senior-ml-engineer/scripts/model_deployment_pipeline.py \
      --input model_package/ \
@@ -197,6 +199,7 @@ The skill package includes production-ready templates in the `assets/` directory
    ```
 
 3. **Review Generated Infrastructure** - Verify all deployment components created correctly
+
    ```bash
    # Expected outputs:
    # - Dockerfile (FastAPI serving)
@@ -209,6 +212,7 @@ The skill package includes production-ready templates in the `assets/` directory
    ```
 
 4. **Build and Test Docker Image** - Create containerized model serving application
+
    ```bash
    docker build -t ml-model-serving:v1.0.0 -f Dockerfile .
    docker run -d -p 8000:8000 --name model-server ml-model-serving:v1.0.0
@@ -225,6 +229,7 @@ The skill package includes production-ready templates in the `assets/` directory
    ```
 
 5. **Deploy to Kubernetes** - Launch production model serving with auto-scaling
+
    ```bash
    # Create namespace
    kubectl create namespace ml-production
@@ -240,6 +245,7 @@ The skill package includes production-ready templates in the `assets/` directory
    ```
 
 6. **Configure Monitoring** - Set up Prometheus metrics and Grafana dashboards
+
    ```bash
    # Apply monitoring configuration
    kubectl apply -f monitoring/servicemonitor.yaml -n ml-production
@@ -249,6 +255,7 @@ The skill package includes production-ready templates in the `assets/` directory
    ```
 
 7. **Run Load Tests** - Verify performance meets SLA requirements
+
    ```bash
    # Install locust or k6 for load testing
    k6 run loadtest.js --vus 100 --duration 5m
@@ -260,6 +267,7 @@ The skill package includes production-ready templates in the `assets/` directory
    ```
 
 8. **Enable A/B Testing** (optional) - Deploy multiple model versions for comparison
+
    ```bash
    # Deploy model v2 with traffic split
    kubectl apply -f kubernetes/deployment-v2.yaml
@@ -274,6 +282,7 @@ The skill package includes production-ready templates in the `assets/` directory
 **Time Estimate:** 3-4 hours for initial deployment setup, 30-45 minutes for subsequent model version deployments
 
 **Example:**
+
 ```bash
 # Complete deployment workflow
 python3 ../skills/engineering-team/senior-ml-engineer/scripts/model_deployment_pipeline.py --input model_dir/ --output text --verbose
@@ -291,6 +300,7 @@ curl https://api.example.com/predict -d '{"features": [1,2,3]}'
 **Steps:**
 
 1. **Prepare Knowledge Base** - Organize documents and data for ingestion
+
    ```bash
    mkdir -p knowledge_base/{docs,code,faqs}
    # Add markdown files, PDFs, code files, structured data
@@ -308,6 +318,7 @@ curl https://api.example.com/predict -d '{"features": [1,2,3]}'
    ```
 
 2. **Generate RAG System Architecture** - Use RAG builder to create complete system
+
    ```bash
    python3 ../skills/engineering-team/senior-ml-engineer/scripts/rag_system_builder.py \
      --input knowledge_base/ \
@@ -318,6 +329,7 @@ curl https://api.example.com/predict -d '{"features": [1,2,3]}'
    ```
 
 3. **Review Generated Components** - Verify RAG system structure
+
    ```bash
    # Expected outputs:
    # - document_loaders/ (PDF, markdown, code parsers)
@@ -330,6 +342,7 @@ curl https://api.example.com/predict -d '{"features": [1,2,3]}'
    ```
 
 4. **Set Up Vector Database** - Initialize vector store with proper indexing
+
    ```bash
    # Install dependencies
    pip install pinecone-client langchain anthropic
@@ -340,6 +353,7 @@ curl https://api.example.com/predict -d '{"features": [1,2,3]}'
    ```
 
 5. **Ingest Documents** - Process and embed knowledge base
+
    ```bash
    # Run document ingestion pipeline
    python ingest_documents.py --source knowledge_base/ --batch-size 100
@@ -353,6 +367,7 @@ curl https://api.example.com/predict -d '{"features": [1,2,3]}'
    ```
 
 6. **Test Retrieval Quality** - Evaluate search accuracy before LLM integration
+
    ```bash
    # Run retrieval benchmarks
    python evaluate_retrieval.py --test-queries test_queries.json
@@ -365,6 +380,7 @@ curl https://api.example.com/predict -d '{"features": [1,2,3]}'
    ```
 
 7. **Integrate LLM Chain** - Connect retriever with Claude/GPT for answer generation
+
    ```bash
    # Configure LLM chain
    export ANTHROPIC_API_KEY=your_key
@@ -380,6 +396,7 @@ curl https://api.example.com/predict -d '{"features": [1,2,3]}'
    ```
 
 8. **Deploy RAG API** - Launch production Q&A service
+
    ```bash
    # Start FastAPI server
    uvicorn api.main:app --host 0.0.0.0 --port 8000
@@ -393,6 +410,7 @@ curl https://api.example.com/predict -d '{"features": [1,2,3]}'
    ```
 
 9. **Optimize Performance** - Tune retrieval and generation parameters
+
    ```bash
    # Experiment with:
    # - Chunk size (256, 512, 1024 tokens)
@@ -406,6 +424,7 @@ curl https://api.example.com/predict -d '{"features": [1,2,3]}'
    ```
 
 10. **Set Up Monitoring** - Track RAG system performance in production
+
     ```bash
     # Monitor metrics:
     # - Query latency (retrieval + LLM)
@@ -423,6 +442,7 @@ curl https://api.example.com/predict -d '{"features": [1,2,3]}'
 **Time Estimate:** 6-8 hours for complete RAG system implementation including evaluation and optimization
 
 **Example:**
+
 ```bash
 # Quick RAG system setup
 python3 ../skills/engineering-team/senior-ml-engineer/scripts/rag_system_builder.py --input docs/ --config rag.yaml --output json
@@ -438,6 +458,7 @@ curl -X POST http://localhost:8000/query -d '{"question": "How to train a model?
 **Steps:**
 
 1. **Configure Monitoring System** - Set up monitoring configuration for production models
+
    ```bash
    # Create monitoring configuration
    cat > monitoring_config.yaml <<EOF
@@ -467,6 +488,7 @@ curl -X POST http://localhost:8000/query -d '{"question": "How to train a model?
    ```
 
 2. **Collect Production Data** - Gather predictions and ground truth for analysis
+
    ```bash
    # Export production logs
    # Logs include: timestamp, features, prediction, actual (if available), latency
@@ -477,6 +499,7 @@ curl -X POST http://localhost:8000/query -d '{"question": "How to train a model?
    ```
 
 3. **Run Monitoring Suite** - Analyze production performance and detect drift
+
    ```bash
    python3 ../skills/engineering-team/senior-ml-engineer/scripts/ml_monitoring_suite.py \
      --input production_logs.jsonl \
@@ -487,6 +510,7 @@ curl -X POST http://localhost:8000/query -d '{"question": "How to train a model?
    ```
 
 4. **Review Monitoring Report** - Examine model health metrics
+
    ```bash
    cat monitoring_report.json | jq '.'
 
@@ -517,6 +541,7 @@ curl -X POST http://localhost:8000/query -d '{"question": "How to train a model?
    ```
 
 5. **Visualize Drift Analysis** - Generate drift detection plots
+
    ```bash
    # Create drift visualizations
    python generate_drift_plots.py --input monitoring_report.json --output plots/
@@ -529,6 +554,7 @@ curl -X POST http://localhost:8000/query -d '{"question": "How to train a model?
    ```
 
 6. **Configure Alerting Rules** - Set up automated alerts for issues
+
    ```bash
    # Deploy Prometheus alerting rules
    kubectl apply -f monitoring/prometheus-rules.yaml
@@ -542,6 +568,7 @@ curl -X POST http://localhost:8000/query -d '{"question": "How to train a model?
    ```
 
 7. **Set Up Grafana Dashboards** - Create real-time monitoring visualization
+
    ```bash
    # Import pre-built ML monitoring dashboard
    curl -X POST http://grafana:3000/api/dashboards/db \
@@ -558,6 +585,7 @@ curl -X POST http://localhost:8000/query -d '{"question": "How to train a model?
    ```
 
 8. **Investigate Drift Root Cause** - Analyze why drift occurred
+
    ```bash
    # Compare feature distributions
    python analyze_drift.py \
@@ -578,6 +606,7 @@ curl -X POST http://localhost:8000/query -d '{"question": "How to train a model?
    ```
 
 9. **Trigger Model Retraining** - Initiate retraining pipeline if drift severe
+
    ```bash
    # Check if retraining needed
    if [ $(jq -r '.drift_detection.data_drift' monitoring_report.json) == "true" ]; then
@@ -592,6 +621,7 @@ curl -X POST http://localhost:8000/query -d '{"question": "How to train a model?
    ```
 
 10. **Validate Retrained Model** - Ensure new model performs better before deployment
+
     ```bash
     # Run A/B test with new model
     # Deploy new model to 10% of traffic
@@ -606,6 +636,7 @@ curl -X POST http://localhost:8000/query -d '{"question": "How to train a model?
     ```
 
 11. **Document Incident** - Record drift event and resolution
+
     ```bash
     # Create incident report
     cat > incidents/drift_2025_11_12.md <<EOF
@@ -635,6 +666,7 @@ curl -X POST http://localhost:8000/query -d '{"question": "How to train a model?
 **Time Estimate:** 4-6 hours for initial monitoring setup, 15-30 minutes daily for monitoring review, 4-8 hours for drift investigation and retraining
 
 **Example:**
+
 ```bash
 # Quick monitoring check
 python3 ../skills/engineering-team/senior-ml-engineer/scripts/ml_monitoring_suite.py --input logs.jsonl --config monitor.yaml --output text
@@ -651,6 +683,7 @@ kubectl apply -f training/retrain-job.yaml
 **Steps:**
 
 1. **Set Up MLflow Experiment Tracking** - Initialize experiment tracking infrastructure
+
    ```bash
    # Start MLflow server
    mlflow server \
@@ -664,6 +697,7 @@ kubectl apply -f training/retrain-job.yaml
    ```
 
 2. **Configure Distributed Training** - Set up multi-GPU or multi-node training
+
    ```bash
    # PyTorch Distributed Data Parallel (DDP) configuration
    cat > training_config.yaml <<EOF
@@ -693,6 +727,7 @@ kubectl apply -f training/retrain-job.yaml
    ```
 
 3. **Implement Training Script with MLflow Integration** - Add experiment logging
+
    ```python
    # train.py (example structure)
    import mlflow
@@ -728,6 +763,7 @@ kubectl apply -f training/retrain-job.yaml
    ```
 
 4. **Launch Distributed Training Job** - Execute training on multiple GPUs/nodes
+
    ```bash
    # Launch with torchrun (PyTorch DDP)
    torchrun \
@@ -743,6 +779,7 @@ kubectl apply -f training/retrain-job.yaml
    ```
 
 5. **Run Hyperparameter Tuning** - Use Optuna or Ray Tune for optimization
+
    ```bash
    # Hyperparameter search with Optuna
    python hyperparameter_search.py \
@@ -756,6 +793,7 @@ kubectl apply -f training/retrain-job.yaml
    ```
 
 6. **Monitor Training Progress** - Track experiments in MLflow UI
+
    ```bash
    # Access MLflow UI
    # Navigate to http://mlflow:5000
@@ -771,6 +809,7 @@ kubectl apply -f training/retrain-job.yaml
    ```
 
 7. **Analyze Best Performing Model** - Identify optimal hyperparameters
+
    ```bash
    # Query MLflow for best run
    python get_best_model.py \
@@ -789,6 +828,7 @@ kubectl apply -f training/retrain-job.yaml
    ```
 
 8. **Register Model in MLflow Registry** - Version and stage models
+
    ```bash
    # Register best model
    mlflow models register \
@@ -809,6 +849,7 @@ kubectl apply -f training/retrain-job.yaml
    ```
 
 9. **Profile Training Performance** - Identify bottlenecks
+
    ```bash
    # PyTorch profiler
    python profile_training.py --config training_config.yaml
@@ -823,6 +864,7 @@ kubectl apply -f training/retrain-job.yaml
    ```
 
 10. **Optimize Training Pipeline** - Implement improvements
+
     ```bash
     # Optimizations:
     # - Use mixed precision (AMP): 1.5-2x speedup
@@ -842,6 +884,7 @@ kubectl apply -f training/retrain-job.yaml
 **Time Estimate:** 2-3 hours for MLflow setup and integration, 6-12 hours for hyperparameter tuning (depending on search space), 4-6 hours for training optimization
 
 **Example:**
+
 ```bash
 # Quick experiment tracking setup
 mlflow server --backend-store-uri sqlite:///mlflow.db --host 0.0.0.0 --port 5000 &
@@ -1247,6 +1290,7 @@ echo "📍 API endpoint: http://llm-api:8000/generate"
 ### Model Performance Metrics
 
 **Production Model Quality:**
+
 - **Model Accuracy:** 85%+ (classification tasks)
 - **Model AUC-ROC:** 0.90+ (binary classification)
 - **Precision/Recall:** 85%+ (configurable based on business requirements)
@@ -1254,6 +1298,7 @@ echo "📍 API endpoint: http://llm-api:8000/generate"
 - **Retraining Trigger Accuracy:** 95%+ (appropriate retraining decisions)
 
 **Inference Performance:**
+
 - **P50 Latency:** <50ms (fast predictions)
 - **P95 Latency:** <100ms (consistent performance)
 - **P99 Latency:** <200ms (tail latency control)
@@ -1263,18 +1308,21 @@ echo "📍 API endpoint: http://llm-api:8000/generate"
 ### MLOps Efficiency Metrics
 
 **Deployment Speed:**
+
 - **Model Deployment Time:** 30-45 minutes (vs 2-3 days manual)
 - **Time Reduction:** 90-95% faster deployment
 - **Infrastructure Setup:** 3-4 hours (vs 1-2 weeks manual)
 - **CI/CD Pipeline Creation:** Automated (included in deployment)
 
 **Monitoring & Observability:**
+
 - **Drift Detection Coverage:** 100% of production models
 - **Alert Response Time:** <15 minutes (automated alerts)
 - **Monitoring Dashboard Setup:** <1 hour (pre-built Grafana dashboards)
 - **Metric Tracking:** Real-time (latency, accuracy, drift, throughput)
 
 **Experiment Tracking:**
+
 - **Experiment Logging:** 100% automated with MLflow
 - **Hyperparameter Comparison:** Visual comparison across 50+ experiments
 - **Model Versioning:** Automatic with model registry
@@ -1283,18 +1331,21 @@ echo "📍 API endpoint: http://llm-api:8000/generate"
 ### RAG System Metrics
 
 **Retrieval Quality:**
+
 - **Retrieval Precision@5:** 90%+ (relevant documents retrieved)
 - **Retrieval Recall@5:** 85%+ (comprehensive coverage)
 - **Mean Reciprocal Rank (MRR):** 0.85+ (correct document ranking)
 - **Retrieval Latency:** <200ms (vector search + ranking)
 
 **Answer Quality:**
+
 - **Answer Relevance:** 90%+ (measured by human evaluation)
 - **Source Citation Accuracy:** 95%+ (correct source attribution)
 - **Hallucination Rate:** <5% (LLM generates ungrounded responses)
 - **End-to-End Latency:** <2s (retrieval + LLM generation)
 
 **System Scalability:**
+
 - **Query Throughput:** 100+ queries/minute
 - **Document Corpus Size:** 100,000+ documents supported
 - **Vector Database Size:** 1M+ embeddings
@@ -1303,12 +1354,14 @@ echo "📍 API endpoint: http://llm-api:8000/generate"
 ### Training Optimization Metrics
 
 **Training Speed Improvements:**
+
 - **Distributed Training Speedup:** 3-8x (multi-GPU/multi-node)
 - **Mixed Precision Speedup:** 1.5-2x (FP16/BF16 training)
 - **Data Loading Optimization:** 20-30% faster (optimized workers)
 - **Overall Training Time Reduction:** 50-70% (combined optimizations)
 
 **Hyperparameter Tuning:**
+
 - **Search Space Coverage:** 50-100 trials (comprehensive exploration)
 - **Optimal Configuration Discovery:** 90%+ (vs manual tuning)
 - **Tuning Time:** 6-12 hours (parallel search with Ray Tune/Optuna)
@@ -1317,12 +1370,14 @@ echo "📍 API endpoint: http://llm-api:8000/generate"
 ### Team Productivity Metrics
 
 **ML Engineer Productivity:**
+
 - **Time to First Model Deployment:** 4 hours (vs 1-2 weeks manual)
 - **Model Iteration Velocity:** 3-5x faster (automated pipelines)
 - **Experimentation Speed:** 10+ experiments/day (vs 1-2 manual)
 - **Onboarding Time:** <1 day (vs 2-3 weeks)
 
 **Operational Efficiency:**
+
 - **Manual Monitoring Time:** 90% reduction (automated drift detection)
 - **Incident Response Time:** <30 minutes (automated alerts + runbooks)
 - **Model Debugging Time:** 40-50% faster (comprehensive logging)
@@ -1331,12 +1386,14 @@ echo "📍 API endpoint: http://llm-api:8000/generate"
 ### Cost Optimization Metrics
 
 **Infrastructure Costs:**
+
 - **Training Cost Reduction:** 50-70% (spot instances, distributed training)
 - **Inference Cost:** Optimized (auto-scaling, batching, caching)
 - **Storage Costs:** Controlled (artifact lifecycle management)
 - **LLM API Costs:** 30-40% reduction (prompt optimization, caching)
 
 **Resource Utilization:**
+
 - **GPU Utilization:** 85-95% (efficient batch sizes)
 - **CPU Utilization:** 70-80% (balanced workloads)
 - **Memory Efficiency:** Optimized (gradient checkpointing, mixed precision)

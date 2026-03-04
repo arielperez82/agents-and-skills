@@ -52,16 +52,19 @@ This reference covers enterprise connectivity options including dedicated connec
 ### Virtual Interface Types
 
 **Private VIF:**
+
 - Access VPC resources via private IPs
 - Requires Virtual Private Gateway or Direct Connect Gateway
 - BGP peering with customer ASN
 
 **Public VIF:**
+
 - Access AWS public services (S3, DynamoDB, etc.)
 - Receive AWS public IP prefixes via BGP
 - Alternative to internet for AWS API access
 
 **Transit VIF:**
+
 - Connect to Transit Gateway
 - Access multiple VPCs across regions
 - Simplified multi-VPC connectivity
@@ -108,6 +111,7 @@ This reference covers enterprise connectivity options including dedicated connec
 ### BGP Configuration
 
 **Customer Router Configuration (Cisco IOS):**
+
 ```
 ! BGP Configuration for Direct Connect
 router bgp 65000
@@ -127,6 +131,7 @@ ip prefix-list ACCEPT-FROM-AWS seq 10 permit 10.0.0.0/8 le 24
 ```
 
 **AS Path Prepending for Failover:**
+
 ```
 ! Primary path - no prepending
 route-map AWS-PRIMARY permit 10
@@ -170,11 +175,13 @@ route-map AWS-BACKUP permit 10
 ### Peering Types
 
 **Private Peering:**
+
 - Connect to VNets via private IPs
 - Access Azure VMs, Load Balancers, etc.
 - Primary /30 and Secondary /30 subnets required
 
 **Microsoft Peering:**
+
 - Access Microsoft 365 and Azure PaaS services
 - Requires public IPs owned by customer
 - Route filters to control prefix advertisements
@@ -190,6 +197,7 @@ route-map AWS-BACKUP permit 10
 ### High Availability
 
 **Zone-Redundant Gateway:**
+
 ```hcl
 resource "azurerm_virtual_network_gateway" "expressroute" {
   name                = "er-gateway"
@@ -209,6 +217,7 @@ resource "azurerm_virtual_network_gateway" "expressroute" {
 ```
 
 **Dual Circuits (Different Peering Locations):**
+
 ```
 Circuit 1: Equinix Washington DC
 Circuit 2: Equinix Dallas
@@ -248,12 +257,14 @@ BGP handles automatic failover
 ### Connection Types
 
 **Dedicated Interconnect:**
+
 - Direct physical connection to Google
 - 10 Gbps or 100 Gbps per link
 - 8 links maximum (800 Gbps total)
 - Requires colocation at Google POP
 
 **Partner Interconnect:**
+
 - Through service provider
 - 50 Mbps to 50 Gbps
 - Layer 2 or Layer 3 options
@@ -310,6 +321,7 @@ resource "google_compute_router_peer" "primary" {
 ### Site-to-Site VPN Best Practices
 
 **AWS Site-to-Site VPN:**
+
 ```
 ┌─────────────────────────────────────────────────────────────┐
 │              AWS Site-to-Site VPN (Redundant)               │
@@ -334,6 +346,7 @@ resource "google_compute_router_peer" "primary" {
 ```
 
 **Key Configuration:**
+
 - AWS automatically provides 2 tunnel endpoints
 - Configure BGP or static routing
 - Use both tunnels for redundancy
@@ -411,11 +424,13 @@ resource "aws_vpn_connection" "main" {
 ### AWS to Azure Connectivity
 
 **Option 1: VPN over Internet**
+
 ```
 AWS VPN Gateway ◄──── IPsec ────► Azure VPN Gateway
 ```
 
 **Option 2: Private Connectivity via Equinix/Megaport**
+
 ```
 AWS Direct Connect ◄──── Exchange ────► Azure ExpressRoute
         │                                      │
@@ -473,6 +488,7 @@ AWS Direct Connect ◄──── Exchange ────► Azure ExpressRoute
 ### BGP Communities
 
 **AWS Communities:**
+
 | Community | Meaning |
 |-----------|---------|
 | 7224:8100 | Prefer Direct Connect |
@@ -482,6 +498,7 @@ AWS Direct Connect ◄──── Exchange ────► Azure ExpressRoute
 | 7224:9300 | Local preference 300 |
 
 **Usage Example:**
+
 ```
 ! Set community on routes advertised to AWS
 route-map TO-AWS permit 10
@@ -491,6 +508,7 @@ route-map TO-AWS permit 10
 ### BGP Prefix Filtering
 
 **Inbound Filter (Accept from AWS):**
+
 ```
 ip prefix-list AWS-PREFIXES seq 10 permit 10.0.0.0/8 le 24
 ip prefix-list AWS-PREFIXES seq 20 permit 172.16.0.0/12 le 24
@@ -501,6 +519,7 @@ router bgp 65000
 ```
 
 **Outbound Filter (Advertise to AWS):**
+
 ```
 ip prefix-list ADVERTISE-TO-AWS seq 10 permit 192.168.0.0/16
 ip prefix-list ADVERTISE-TO-AWS seq 20 permit 10.100.0.0/16
@@ -513,6 +532,7 @@ router bgp 65000
 ### BGP Failover Tuning
 
 **Fast Failover Configuration:**
+
 ```
 router bgp 65000
   ! BFD for sub-second failover
@@ -538,12 +558,14 @@ router bgp 65000
 | Minimum Commitment | None | None |
 
 **Break-Even Analysis:**
+
 - At ~2 TB/month outbound, Direct Connect becomes cheaper
 - Consider latency and bandwidth requirements beyond cost
 
 ### Data Transfer Optimization
 
 **Use VPC Endpoints:**
+
 ```hcl
 resource "aws_vpc_endpoint" "s3" {
   vpc_id       = aws_vpc.main.id
@@ -559,6 +581,7 @@ resource "aws_vpc_endpoint" "s3" {
 ```
 
 **Benefits:**
+
 - S3/DynamoDB: Free gateway endpoints
 - Traffic stays on AWS backbone
 - Reduces NAT Gateway data processing charges
@@ -566,6 +589,7 @@ resource "aws_vpc_endpoint" "s3" {
 ### Bandwidth Right-Sizing
 
 **Monitor and Adjust:**
+
 ```bash
 # AWS - Check Direct Connect utilization
 aws cloudwatch get-metric-statistics \
@@ -579,6 +603,7 @@ aws cloudwatch get-metric-statistics \
 ```
 
 **Recommendations:**
+
 - Start with hosted connection (lower commitment)
 - Monitor utilization for 3-6 months
 - Upgrade to dedicated if consistently >70% utilization
@@ -589,18 +614,21 @@ aws cloudwatch get-metric-statistics \
 ### Common Issues
 
 **BGP Session Not Establishing:**
+
 1. Verify BGP ASN configuration on both sides
 2. Check IP addressing (must be in same /30 or /31)
 3. Confirm firewall allows TCP 179
 4. Verify MD5 authentication (if configured)
 
 **VPN Tunnel Flapping:**
+
 1. Check for NAT device in path (NAT-T required)
 2. Verify IKE/IPsec parameters match exactly
 3. Review DPD (Dead Peer Detection) settings
 4. Check for MTU issues (enable PMTUD or reduce MTU)
 
 **Asymmetric Routing:**
+
 1. Verify BGP route preferences
 2. Check AS path prepending configuration
 3. Confirm routing tables on both ends
@@ -609,6 +637,7 @@ aws cloudwatch get-metric-statistics \
 ### Diagnostic Commands
 
 **AWS VPN Status:**
+
 ```bash
 aws ec2 describe-vpn-connections \
   --vpn-connection-ids vpn-xxx \
@@ -616,12 +645,14 @@ aws ec2 describe-vpn-connections \
 ```
 
 **BGP Route Table:**
+
 ```bash
 aws ec2 describe-transit-gateway-route-tables \
   --transit-gateway-route-table-id tgw-rtb-xxx
 ```
 
 **Direct Connect Virtual Interface:**
+
 ```bash
 aws directconnect describe-virtual-interfaces \
   --virtual-interface-id dxvif-xxx
@@ -629,8 +660,8 @@ aws directconnect describe-virtual-interfaces \
 
 ## Resources
 
-- AWS Direct Connect: https://docs.aws.amazon.com/directconnect/
-- Azure ExpressRoute: https://docs.microsoft.com/azure/expressroute/
-- GCP Cloud Interconnect: https://cloud.google.com/network-connectivity/docs/interconnect
-- Megaport: https://docs.megaport.com/
-- Equinix Fabric: https://docs.equinix.com/
+- AWS Direct Connect: <https://docs.aws.amazon.com/directconnect/>
+- Azure ExpressRoute: <https://docs.microsoft.com/azure/expressroute/>
+- GCP Cloud Interconnect: <https://cloud.google.com/network-connectivity/docs/interconnect>
+- Megaport: <https://docs.megaport.com/>
+- Equinix Fabric: <https://docs.equinix.com/>

@@ -18,6 +18,7 @@ Testing Library exists to solve a fundamental problem: tests that break when you
 ### Two Types of Users
 
 Your UI components have two users:
+
 1. **End-users**: Interact through the DOM (clicks, typing, reading text)
 2. **Developers**: You, refactoring implementation
 
@@ -26,6 +27,7 @@ Your UI components have two users:
 ### Why This Matters
 
 **False negatives** (tests break on refactor):
+
 ```typescript
 // ❌ WRONG - Testing implementation (will break on refactor)
 it('updates internal state', () => {
@@ -36,6 +38,7 @@ it('updates internal state', () => {
 ```
 
 **False positives** (bugs pass tests):
+
 ```typescript
 // ❌ WRONG - Testing wrong thing
 it('renders button', () => {
@@ -46,6 +49,7 @@ it('renders button', () => {
 ```
 
 **Correct approach** (behavior-driven):
+
 ```typescript
 // ✅ CORRECT - Testing user-visible behavior
 it('submits form when user clicks submit', async () => {
@@ -74,6 +78,7 @@ it('submits form when user clicks submit', async () => {
 ```
 
 This test:
+
 - Survives refactoring (state → signals → stores)
 - Tests the contract (what users see)
 - Catches real bugs (broken onClick, validation errors)
@@ -123,6 +128,7 @@ Use queries in this order (accessibility-first):
 Three variants for every query:
 
 **`getBy*`** - Element must exist (throws if not found)
+
 ```typescript
 // ✅ Use when asserting element EXISTS
 const button = screen.getByRole('button', { name: /submit/i });
@@ -130,6 +136,7 @@ expect(button).toBeDisabled();
 ```
 
 **`queryBy*`** - Returns null if not found
+
 ```typescript
 // ✅ Use when asserting element DOESN'T exist
 expect(screen.queryByRole('dialog')).not.toBeInTheDocument();
@@ -139,6 +146,7 @@ expect(() => screen.getByRole('dialog')).toThrow(); // Ugly!
 ```
 
 **`findBy*`** - Async, waits for element to appear
+
 ```typescript
 // ✅ Use when element appears after async operation
 const message = await screen.findByText(/success/i);
@@ -147,11 +155,13 @@ const message = await screen.findByText(/success/i);
 ### Common Mistakes
 
 ❌ **Using `container.querySelector`**
+
 ```typescript
 const button = container.querySelector('.submit-button'); // DOM implementation detail
 ```
 
 ✅ **CORRECT - Query by accessible role**
+
 ```typescript
 const button = screen.getByRole('button', { name: /submit/i }); // User-facing
 ```
@@ -159,11 +169,13 @@ const button = screen.getByRole('button', { name: /submit/i }); // User-facing
 ---
 
 ❌ **Using `getByTestId` when role available**
+
 ```typescript
 screen.getByTestId('submit-button'); // Not how users find button
 ```
 
 ✅ **CORRECT - Query by role**
+
 ```typescript
 screen.getByRole('button', { name: /submit/i }); // How screen readers find it
 ```
@@ -171,11 +183,13 @@ screen.getByRole('button', { name: /submit/i }); // How screen readers find it
 ---
 
 ❌ **Not using accessible names**
+
 ```typescript
 screen.getByRole('button'); // Which button? Multiple on page!
 ```
 
 ✅ **CORRECT - Specify accessible name**
+
 ```typescript
 screen.getByRole('button', { name: /submit/i }); // Specific button
 ```
@@ -183,11 +197,13 @@ screen.getByRole('button', { name: /submit/i }); // Specific button
 ---
 
 ❌ **Using getBy to assert non-existence**
+
 ```typescript
 expect(() => screen.getByText(/error/i)).toThrow(); // Awkward
 ```
 
 ✅ **CORRECT - Use queryBy**
+
 ```typescript
 expect(screen.queryByText(/error/i)).not.toBeInTheDocument();
 ```
@@ -201,6 +217,7 @@ expect(screen.queryByText(/error/i)).not.toBeInTheDocument();
 ### userEvent vs fireEvent
 
 **Why userEvent is superior:**
+
 - Simulates complete interaction sequence (hover → focus → click → blur)
 - Triggers all associated events
 - Respects browser timing and order
@@ -220,6 +237,7 @@ await user.click(button);
 ```
 
 **Only use `fireEvent` when:**
+
 - `userEvent` doesn't support the event (rare)
 - Testing non-standard browser behavior
 
@@ -254,23 +272,27 @@ it('test 1', async () => {
 ### Common Interactions
 
 **Clicking:**
+
 ```typescript
 const user = userEvent.setup();
 await user.click(screen.getByRole('button', { name: /submit/i }));
 ```
 
 **Typing:**
+
 ```typescript
 await user.type(screen.getByLabelText(/email/i), 'test@example.com');
 ```
 
 **Keyboard:**
+
 ```typescript
 await user.keyboard('{Enter}'); // Press Enter
 await user.keyboard('{Shift>}A{/Shift}'); // Shift+A
 ```
 
 **Selecting options:**
+
 ```typescript
 await user.selectOptions(
   screen.getByLabelText(/country/i),
@@ -279,6 +301,7 @@ await user.selectOptions(
 ```
 
 **Clearing input:**
+
 ```typescript
 await user.clear(screen.getByLabelText(/search/i));
 ```
@@ -301,11 +324,13 @@ const message = await screen.findByText(/success/i);
 ```
 
 **When to use:**
+
 - Element appears after async operation
 - Loading states disappear
 - API responses render content
 
 **Configuration:**
+
 ```typescript
 // Default: 1000ms timeout
 const message = await screen.findByText(/success/i);
@@ -331,12 +356,14 @@ await waitFor(() => {
 ```
 
 **waitFor retries until:**
+
 - Assertion passes (doesn't throw)
 - Timeout reached (default 1000ms)
 
 **Common mistakes:**
 
 ❌ **Side effects in waitFor**
+
 ```typescript
 await waitFor(() => {
   fireEvent.click(button); // Side effect! Will click multiple times
@@ -345,6 +372,7 @@ await waitFor(() => {
 ```
 
 ✅ **CORRECT - Only assertions**
+
 ```typescript
 fireEvent.click(button); // Outside waitFor
 await waitFor(() => {
@@ -355,6 +383,7 @@ await waitFor(() => {
 ---
 
 ❌ **Multiple assertions**
+
 ```typescript
 await waitFor(() => {
   expect(screen.getByText(/name/i)).toBeInTheDocument();
@@ -363,6 +392,7 @@ await waitFor(() => {
 ```
 
 ✅ **CORRECT - Single assertion per waitFor**
+
 ```typescript
 await waitFor(() => {
   expect(screen.getByText(/name/i)).toBeInTheDocument();
@@ -373,11 +403,13 @@ expect(screen.getByText(/email/i)).toBeInTheDocument();
 ---
 
 ❌ **Wrapping findBy in waitFor**
+
 ```typescript
 await waitFor(() => screen.findByText(/success/i)); // Redundant!
 ```
 
 ✅ **CORRECT - findBy already waits**
+
 ```typescript
 await screen.findByText(/success/i);
 ```
@@ -399,6 +431,7 @@ await waitForElementToBeRemoved(() => screen.queryByRole('dialog'));
 ### Common Patterns
 
 **Loading states:**
+
 ```typescript
 render('<div id="container"></div>');
 
@@ -422,6 +455,7 @@ expect(screen.queryByText(/loading/i)).not.toBeInTheDocument();
 ```
 
 **API responses:**
+
 ```typescript
 const user = userEvent.setup();
 render(`
@@ -442,6 +476,7 @@ await waitFor(() => {
 ```
 
 **Debounced inputs:**
+
 ```typescript
 const user = userEvent.setup();
 render(`
@@ -464,6 +499,7 @@ await screen.findByText(/react testing library/i);
 ### Why MSW
 
 **Network-level interception:**
+
 - Intercepts requests at network layer (not fetch/axios mocks)
 - Same mocks work in tests, Storybook, development
 - No client-specific mocking logic
@@ -575,6 +611,7 @@ If accessible query fails, **your app has an accessibility issue.**
 **When to add ARIA:**
 
 ✅ **Custom components** (where semantic HTML unavailable):
+
 ```html
 <div role="dialog" aria-label="Confirmation Dialog">
   <h2>Are you sure?</h2>
@@ -583,11 +620,13 @@ If accessible query fails, **your app has an accessibility issue.**
 ```
 
 Query:
+
 ```typescript
 screen.getByRole('dialog', { name: /confirmation/i });
 ```
 
 ❌ **DON'T add to semantic HTML** (redundant):
+
 ```html
 <!-- ❌ WRONG - Semantic HTML already has role -->
 <button role="button">Submit</button>
@@ -613,6 +652,7 @@ screen.getByRole('dialog', { name: /confirmation/i });
 ```
 
 **Semantic HTML provides:**
+
 - Built-in keyboard navigation
 - Built-in focus management
 - Built-in screen reader support
@@ -625,12 +665,14 @@ screen.getByRole('dialog', { name: /confirmation/i });
 ### 1. Not using `screen` object
 
 ❌ **WRONG - Query from render result**
+
 ```typescript
 const { getByRole } = render('<button>Submit</button>');
 const button = getByRole('button');
 ```
 
 ✅ **CORRECT - Use screen**
+
 ```typescript
 render('<button>Submit</button>');
 const button = screen.getByRole('button');
@@ -643,12 +685,14 @@ const button = screen.getByRole('button');
 ### 2. Using querySelector
 
 ❌ **WRONG - DOM implementation**
+
 ```typescript
 const { container } = render('<button class="submit-btn">Submit</button>');
 const button = container.querySelector('.submit-btn');
 ```
 
 ✅ **CORRECT - Accessible query**
+
 ```typescript
 render('<button>Submit</button>');
 const button = screen.getByRole('button', { name: /submit/i });
@@ -659,12 +703,14 @@ const button = screen.getByRole('button', { name: /submit/i });
 ### 3. Testing implementation details
 
 ❌ **WRONG - Internal state**
+
 ```typescript
 const component = new Component();
 expect(component._internalState).toBe('value'); // Private implementation
 ```
 
 ✅ **CORRECT - User-visible behavior**
+
 ```typescript
 render('<div id="output"></div>');
 expect(screen.getByText(/value/i)).toBeInTheDocument();
@@ -675,12 +721,14 @@ expect(screen.getByText(/value/i)).toBeInTheDocument();
 ### 4. Not using jest-dom matchers
 
 ❌ **WRONG - Manual assertions**
+
 ```typescript
 expect(button.disabled).toBe(true);
 expect(element.classList.contains('active')).toBe(true);
 ```
 
 ✅ **CORRECT - jest-dom matchers**
+
 ```typescript
 expect(button).toBeDisabled();
 expect(element).toHaveClass('active');
@@ -693,6 +741,7 @@ expect(element).toHaveClass('active');
 ### 5. Manual cleanup() calls
 
 ❌ **WRONG - Manual cleanup**
+
 ```typescript
 afterEach(() => {
   cleanup(); // Automatic in modern Testing Library!
@@ -700,6 +749,7 @@ afterEach(() => {
 ```
 
 ✅ **CORRECT - No cleanup needed**
+
 ```typescript
 // Cleanup happens automatically
 ```
@@ -709,12 +759,14 @@ afterEach(() => {
 ### 6. Wrong assertion methods
 
 ❌ **WRONG - Property access**
+
 ```typescript
 expect(input.value).toBe('test');
 expect(checkbox.checked).toBe(true);
 ```
 
 ✅ **CORRECT - jest-dom matchers**
+
 ```typescript
 expect(input).toHaveValue('test');
 expect(checkbox).toBeChecked();
@@ -725,6 +777,7 @@ expect(checkbox).toBeChecked();
 ### 7. beforeEach render pattern
 
 ❌ **WRONG - Shared render in beforeEach**
+
 ```typescript
 let button;
 beforeEach(() => {
@@ -738,6 +791,7 @@ it('test 1', () => {
 ```
 
 ✅ **CORRECT - Factory function per test**
+
 ```typescript
 const renderButton = () => {
   render('<button>Submit</button>');
@@ -758,6 +812,7 @@ For factory patterns and behavior-driven test structure, use capability discover
 ### 8. Multiple assertions in waitFor
 
 ❌ **WRONG - Multiple assertions**
+
 ```typescript
 await waitFor(() => {
   expect(screen.getByText(/name/i)).toBeInTheDocument();
@@ -766,6 +821,7 @@ await waitFor(() => {
 ```
 
 ✅ **CORRECT - Single assertion per waitFor**
+
 ```typescript
 await waitFor(() => {
   expect(screen.getByText(/name/i)).toBeInTheDocument();
@@ -778,6 +834,7 @@ expect(screen.getByText(/email/i)).toBeInTheDocument();
 ### 9. Side effects in waitFor
 
 ❌ **WRONG - Mutation in callback**
+
 ```typescript
 await waitFor(() => {
   fireEvent.click(button); // Clicks multiple times!
@@ -786,6 +843,7 @@ await waitFor(() => {
 ```
 
 ✅ **CORRECT - Side effects outside**
+
 ```typescript
 fireEvent.click(button);
 await waitFor(() => {
@@ -798,11 +856,13 @@ await waitFor(() => {
 ### 10. Exact string matching
 
 ❌ **WRONG - Fragile exact match**
+
 ```typescript
 screen.getByText('Welcome, John Doe'); // Breaks on whitespace change
 ```
 
 ✅ **CORRECT - Regex for flexibility**
+
 ```typescript
 screen.getByText(/welcome.*john doe/i);
 ```
@@ -812,11 +872,13 @@ screen.getByText(/welcome.*john doe/i);
 ### 11. Wrong query variant for assertion
 
 ❌ **WRONG - getBy for non-existence**
+
 ```typescript
 expect(() => screen.getByText(/error/i)).toThrow();
 ```
 
 ✅ **CORRECT - queryBy**
+
 ```typescript
 expect(screen.queryByText(/error/i)).not.toBeInTheDocument();
 ```
@@ -826,11 +888,13 @@ expect(screen.queryByText(/error/i)).not.toBeInTheDocument();
 ### 12. Wrapping findBy in waitFor
 
 ❌ **WRONG - Redundant**
+
 ```typescript
 await waitFor(() => screen.findByText(/success/i));
 ```
 
 ✅ **CORRECT - findBy already waits**
+
 ```typescript
 await screen.findByText(/success/i);
 ```
@@ -840,11 +904,13 @@ await screen.findByText(/success/i);
 ### 13. Using testId when role available
 
 ❌ **WRONG - testId**
+
 ```typescript
 screen.getByTestId('submit-button');
 ```
 
 ✅ **CORRECT - Role**
+
 ```typescript
 screen.getByRole('button', { name: /submit/i });
 ```
@@ -854,11 +920,13 @@ screen.getByRole('button', { name: /submit/i });
 ### 14. Not installing ESLint plugins
 
 **Install these plugins:**
+
 ```bash
 npm install -D eslint-plugin-testing-library eslint-plugin-jest-dom
 ```
 
 **.eslintrc.js:**
+
 ```javascript
 {
   extends: [

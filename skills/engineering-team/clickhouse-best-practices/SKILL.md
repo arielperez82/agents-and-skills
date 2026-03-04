@@ -48,6 +48,7 @@ When performing a formal review of schemas, queries, or data ingestion:
 9. `rules/schema-partition-lifecycle.md` - Partitioning purpose
 
 **Check for:**
+
 - [ ] PRIMARY KEY / ORDER BY column order (low-to-high cardinality)
 - [ ] Data types match actual data ranges
 - [ ] LowCardinality applied to appropriate string columns
@@ -65,6 +66,7 @@ When performing a formal review of schemas, queries, or data ingestion:
 5. `rules/schema-pk-filter-on-orderby.md` - Filter alignment with ORDER BY
 
 **Check for:**
+
 - [ ] Filters use ORDER BY prefix columns
 - [ ] JOINs filter tables before joining (not after)
 - [ ] Correct JOIN algorithm for table sizes
@@ -81,6 +83,7 @@ When performing a formal review of schemas, queries, or data ingestion:
 5. `rules/insert-optimize-avoid-final.md` - OPTIMIZE TABLE risks
 
 **Check for:**
+
 - [ ] Batch size 10K-100K rows per INSERT
 - [ ] No ALTER TABLE UPDATE for frequent changes
 - [ ] ReplacingMergeTree or CollapsingMergeTree for update patterns

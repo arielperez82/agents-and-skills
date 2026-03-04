@@ -41,17 +41,21 @@ Use the first path that exists; then load that file for the roll-call test.
 ## What It Tests
 
 ### Agent Loading
+
 1. **Load agent in Cursor** - Verify agent file can be parsed and loaded
 2. **Frontmatter parsing** - Confirm YAML frontmatter is valid
 3. **Skill access** - Verify agent can reference its core skills
 
 ### Skill Access Verification
+
 For each core skill declared in `skills`:
+
 - ✅ Skill file exists and is readable
 - ✅ Agent can reference skill documentation
 - ✅ Skill path resolves correctly
 
 ### Agent Behavior Test
+
 - ✅ Agent follows its own guidance (loads skills automatically)
 - ✅ Agent can reference Python tools from skills
 - ✅ Agent understands its classification and execution model
@@ -66,6 +70,7 @@ For each core skill declared in `skills`:
 ## Expected Output
 
 **Success:**
+
 ```
 ✅ Agent roll-call PASSED
   ✓ Agent loaded successfully
@@ -75,6 +80,7 @@ For each core skill declared in `skills`:
 ```
 
 **Failure:**
+
 ```
 ❌ Agent roll-call FAILED
   ✗ Skill 'tdd' not found at expected path
@@ -84,6 +90,7 @@ For each core skill declared in `skills`:
 ## Integration
 
 Use this command after:
+
 - Creating a new agent
 - Updating agent frontmatter
 - Modifying skill references
@@ -96,16 +103,19 @@ To manually test an agent:
 1. **Resolve the agent** using the [Agent resolution](#agent-resolution-search-hierarchy) hierarchy, then **load that file** in Cursor Chat (e.g. `@agents/frontend-engineer.md` if under project `agents/`, or the resolved path).
 
 2. **Verify it loads skills automatically**:
+
    ```
    What skills are you using?
    ```
 
 3. **Test skill access**:
+
    ```
    Show me the TDD workflow from your skills
    ```
 
 4. **Verify collaboration**:
+
    ```
    When would you collaborate with tdd-reviewer?
    ```

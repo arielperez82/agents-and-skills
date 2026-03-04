@@ -2,6 +2,7 @@
 ---
 
 # === CORE IDENTITY ===
+
 name: incident-responder
 title: Incident Responder
 description: Security incident response specialist for detection, containment, investigation, and post-incident analysis with automated playbooks and forensic evidence collection
@@ -10,15 +11,18 @@ subdomain: security-engineering
 skills: engineering-team/incident-response
 
 # === USE CASES ===
+
 difficulty: advanced
 use-cases:
-  - Triaging and classifying security alerts by severity
-  - Executing containment playbooks for phishing, ransomware, data breaches
-  - Collecting forensic evidence with chain of custody
-  - Conducting root cause analysis and impact assessment
-  - Generating post-incident reports and remediation plans
+
+- Triaging and classifying security alerts by severity
+- Executing containment playbooks for phishing, ransomware, data breaches
+- Collecting forensic evidence with chain of custody
+- Conducting root cause analysis and impact assessment
+- Generating post-incident reports and remediation plans
 
 # === AGENT CLASSIFICATION ===
+
 classification:
   type: implementation
   color: green
@@ -28,24 +32,27 @@ classification:
   model: sonnet
 
 # === RELATIONSHIPS ===
+
 related-agents: [devsecops-engineer, technical-writer]
 related-skills: [engineering-team/avoid-feature-creep, engineering-team/incident-response, engineering-team/senior-secops, engineering-team/sre-reliability-engineering]
 related-commands: []
 collaborates-with:
-  - agent: devsecops-engineer
+
+- agent: devsecops-engineer
     purpose: DevSecOps security controls coordination and security incident response integration
     required: recommended
     without-collaborator: "Security incident response lacks DevSecOps pipeline and infrastructure context"
-  - agent: devsecops-engineer
+- agent: devsecops-engineer
     purpose: DevSecOps infrastructure isolation and emergency deployment rollback during security incidents
     required: recommended
     without-collaborator: "Security incident containment will require manual infrastructure changes"
-  - agent: technical-writer
+- agent: technical-writer
     purpose: Post-incident documentation and runbook updates
     required: optional
     without-collaborator: "Incident documentation will use basic templates"
 
 # === TECHNICAL ===
+
 tools: [Read, Write, Bash, Grep, Glob]
 dependencies:
   tools: [Read, Write, Bash, Grep, Glob]
@@ -58,14 +65,16 @@ dependencies:
     - servicenow_status_sync.py
 
 # === EXAMPLES ===
+
 examples:
-  - title: Ransomware Incident Response
+
+- title: Ransomware Incident Response
     input: "We have detected ransomware on server-01. Files are being encrypted. Help!"
     output: "Executing ransomware containment playbook: 1) Network isolation initiated, 2) Memory forensics preserved, 3) Ransomware variant identified, 4) Backup integrity verified, 5) Timeline generated for investigation"
-  - title: Phishing Investigation
+- title: Phishing Investigation
     input: "Multiple users clicked a suspicious link in an email. What should we do?"
     output: "Phishing incident detected: 1) Identified 12 affected users, 2) Sessions revoked and passwords reset, 3) Malicious domain blocked, 4) Email quarantined organization-wide, 5) IOCs extracted for threat intel"
-  - title: Data Breach Assessment
+- title: Data Breach Assessment
     input: "Unauthorized access to customer database detected. Need to assess impact."
     output: "Data breach analysis: 1) Access timeline reconstructed (3 days dwell time), 2) 15,000 records potentially exposed, 3) PII categories identified, 4) Regulatory notifications required (GDPR 72h), 5) Remediation plan generated"
 
@@ -82,6 +91,7 @@ Designed for SOC analysts, security engineers, and incident commanders respondin
 The incident-responder agent bridges the gap between security alerts and effective response. It ensures that incidents are triaged rapidly, contained before spreading, investigated thoroughly, and documented for compliance and continuous improvement. By leveraging Python-based automation tools and extensive playbook documentation, the agent enables teams to respond to incidents systematically while maintaining forensic integrity and regulatory compliance.
 
 **Key Differentiation from devsecops-engineer:**
+
 - **devsecops-engineer** focuses on preventive security integration: DevSecOps pipelines, vulnerability management, compliance monitoring, security automation
 - **incident-responder** focuses on reactive security: incident detection, containment, investigation, and recovery
 - **incident-responder** focuses on reactive security: incident detection, containment, investigation, and recovery
@@ -185,6 +195,7 @@ The skill package includes user-customizable templates in the `assets/` director
 **Steps:**
 
 1. **Collect Security Alerts** - Gather alerts from various sources (SIEM, EDR, IDS, user reports)
+
    ```bash
    # Export alerts from SIEM or log aggregator
    # Example: Collect last 24 hours of security alerts
@@ -192,6 +203,7 @@ The skill package includes user-customizable templates in the `assets/` director
    ```
 
 2. **Run Incident Detector** - Analyze alerts for patterns and severity classification
+
    ```bash
    python3 ../skills/engineering-team/incident-response/scripts/incident_detector.py \
      --input ./alerts/ \
@@ -201,6 +213,7 @@ The skill package includes user-customizable templates in the `assets/` director
    ```
 
 3. **Review Triage Results** - Examine detected incidents and their severity
+
    ```bash
    # View summary of detected incidents
    cat triage-results.json | jq '.summary'
@@ -210,6 +223,7 @@ The skill package includes user-customizable templates in the `assets/` director
    ```
 
 4. **Correlate with IOCs** - Match against known indicators of compromise
+
    ```bash
    python3 ../skills/engineering-team/incident-response/scripts/incident_detector.py \
      --input ./alerts/ \
@@ -219,6 +233,7 @@ The skill package includes user-customizable templates in the `assets/` director
    ```
 
 5. **Classify Incident Type** - Determine incident category for playbook selection
+
    ```bash
    # Review detected patterns
    cat triage-with-iocs.json | jq '.incidents[] | {
@@ -232,6 +247,7 @@ The skill package includes user-customizable templates in the `assets/` director
    ```
 
 6. **Generate Triage Report** - Create summary for incident commander
+
    ```bash
    # Generate human-readable triage report
    python3 ../skills/engineering-team/incident-response/scripts/incident_detector.py \
@@ -243,6 +259,7 @@ The skill package includes user-customizable templates in the `assets/` director
    ```
 
 7. **Escalate Based on Severity** - Follow escalation matrix
+
    ```bash
    # Reference escalation procedures
    cat ../skills/engineering-team/incident-response/references/incident-response-playbooks.md | grep -A20 "Escalation Matrix"
@@ -258,6 +275,7 @@ The skill package includes user-customizable templates in the `assets/` director
 **Time Estimate:** 15-30 minutes for comprehensive triage
 
 **Example:**
+
 ```bash
 # Quick triage workflow
 python3 ../skills/engineering-team/incident-response/scripts/incident_detector.py --input /var/log/security/ --severity P1 --output json
@@ -270,6 +288,7 @@ python3 ../skills/engineering-team/incident-response/scripts/incident_detector.p
 **Steps:**
 
 1. **Initialize Incident** - Create incident record and assign ID
+
    ```bash
    # Generate incident ID
    INCIDENT_ID="INC-$(date +%Y-%m-%d)-001"
@@ -279,6 +298,7 @@ python3 ../skills/engineering-team/incident-response/scripts/incident_detector.p
    ```
 
 2. **Select Appropriate Playbook** - Choose containment strategy based on incident type
+
    ```bash
    # Available playbooks: phishing, ransomware, data_breach, cloud_compromise, insider_threat, malware
    PLAYBOOK="ransomware"  # Example
@@ -288,6 +308,7 @@ python3 ../skills/engineering-team/incident-response/scripts/incident_detector.p
    ```
 
 3. **Execute Containment Playbook** - Run automated containment actions
+
    ```bash
    python3 ../skills/engineering-team/incident-response/scripts/incident_responder.py \
      --incident $INCIDENT_ID \
@@ -299,6 +320,7 @@ python3 ../skills/engineering-team/incident-response/scripts/incident_detector.p
    ```
 
 4. **Review Containment Actions** - Verify actions executed
+
    ```bash
    cat ./incidents/$INCIDENT_ID/containment-actions.json | jq '.actions[] | {
      action: .action_type,
@@ -309,6 +331,7 @@ python3 ../skills/engineering-team/incident-response/scripts/incident_detector.p
    ```
 
 5. **Collect Evidence** - Preserve forensic evidence with chain of custody
+
    ```bash
    python3 ../skills/engineering-team/incident-response/scripts/incident_responder.py \
      --incident $INCIDENT_ID \
@@ -321,6 +344,7 @@ python3 ../skills/engineering-team/incident-response/scripts/incident_detector.p
    ```
 
 6. **Track Timeline** - Document all events and actions
+
    ```bash
    python3 ../skills/engineering-team/incident-response/scripts/incident_responder.py \
      --incident $INCIDENT_ID \
@@ -332,6 +356,7 @@ python3 ../skills/engineering-team/incident-response/scripts/incident_detector.p
    ```
 
 7. **Verify Containment Success** - Confirm threat is isolated
+
    ```bash
    # Check for ongoing malicious activity
    python3 ../skills/engineering-team/incident-response/scripts/incident_detector.py \
@@ -343,6 +368,7 @@ python3 ../skills/engineering-team/incident-response/scripts/incident_detector.p
    ```
 
 8. **Update Incident Status** - Document containment completion
+
    ```bash
    python3 ../skills/engineering-team/incident-response/scripts/incident_responder.py \
      --incident $INCIDENT_ID \
@@ -355,6 +381,7 @@ python3 ../skills/engineering-team/incident-response/scripts/incident_detector.p
 **Time Estimate:** 30 minutes - 2 hours depending on incident scope
 
 **Example:**
+
 ```bash
 # Ransomware containment
 python3 ../skills/engineering-team/incident-response/scripts/incident_responder.py --incident INC-2025-12-16-001 --playbook ransomware --collect-evidence --output-dir ./evidence
@@ -367,6 +394,7 @@ python3 ../skills/engineering-team/incident-response/scripts/incident_responder.
 **Steps:**
 
 1. **Gather Investigation Inputs** - Collect all available evidence and logs
+
    ```bash
    # Ensure all evidence is collected
    ls -la ./incidents/$INCIDENT_ID/evidence/
@@ -376,6 +404,7 @@ python3 ../skills/engineering-team/incident-response/scripts/incident_responder.
    ```
 
 2. **Run Root Cause Analysis** - Analyze attack vector and entry point
+
    ```bash
    python3 ../skills/engineering-team/incident-response/scripts/incident_analyzer.py \
      --incident $INCIDENT_ID \
@@ -387,6 +416,7 @@ python3 ../skills/engineering-team/incident-response/scripts/incident_responder.
    ```
 
 3. **Review Attack Vector** - Understand how attacker gained access
+
    ```bash
    cat ./incidents/$INCIDENT_ID/rca-results.json | jq '{
      attack_vector: .root_cause.attack_vector,
@@ -398,6 +428,7 @@ python3 ../skills/engineering-team/incident-response/scripts/incident_responder.
    ```
 
 4. **Map Attack Timeline** - Reconstruct sequence of events
+
    ```bash
    python3 ../skills/engineering-team/incident-response/scripts/incident_analyzer.py \
      --incident $INCIDENT_ID \
@@ -410,6 +441,7 @@ python3 ../skills/engineering-team/incident-response/scripts/incident_responder.
    ```
 
 5. **Assess Impact** - Determine scope of damage
+
    ```bash
    python3 ../skills/engineering-team/incident-response/scripts/incident_analyzer.py \
      --incident $INCIDENT_ID \
@@ -427,6 +459,7 @@ python3 ../skills/engineering-team/incident-response/scripts/incident_responder.
    ```
 
 6. **Identify MITRE ATT&CK TTPs** - Map to threat framework
+
    ```bash
    cat ./incidents/$INCIDENT_ID/rca-results.json | jq '.mitre_attack_mapping[] | {
      tactic: .tactic,
@@ -437,6 +470,7 @@ python3 ../skills/engineering-team/incident-response/scripts/incident_responder.
    ```
 
 7. **Calculate Response Metrics** - Measure incident response effectiveness
+
    ```bash
    python3 ../skills/engineering-team/incident-response/scripts/incident_analyzer.py \
      --incident $INCIDENT_ID \
@@ -453,30 +487,39 @@ python3 ../skills/engineering-team/incident-response/scripts/incident_responder.
    ```
 
 8. **Document Findings** - Compile investigation results
+
    ```bash
    # Generate investigation summary
    mkdir -p .docs/reports/incidents/$INCIDENT_ID
-cat > .docs/reports/incidents/$INCIDENT_ID/investigation-summary.md <<EOF
-   # Investigation Summary: $INCIDENT_ID
 
-   ## Attack Vector
+cat > .docs/reports/incidents/$INCIDENT_ID/investigation-summary.md <<EOF
+
+# Investigation Summary: $INCIDENT_ID
+
+## Attack Vector
+
    $(cat ./incidents/$INCIDENT_ID/rca-results.json | jq -r '.root_cause.attack_vector')
 
-   ## Entry Point
+## Entry Point
+
    $(cat ./incidents/$INCIDENT_ID/rca-results.json | jq -r '.root_cause.entry_point')
 
-   ## Dwell Time
+## Dwell Time
+
    $(cat ./incidents/$INCIDENT_ID/rca-results.json | jq -r '.root_cause.dwell_time_hours') hours
 
-   ## Impact
-   - Systems: $(cat ./incidents/$INCIDENT_ID/impact-assessment.json | jq -r '.impact.systems_count')
-   - Users: $(cat ./incidents/$INCIDENT_ID/impact-assessment.json | jq -r '.impact.users_count')
-   - Data Exposure: $(cat ./incidents/$INCIDENT_ID/impact-assessment.json | jq -r '.impact.data_exposure')
+## Impact
 
-   ## Response Metrics
-   - MTTD: $(cat ./incidents/$INCIDENT_ID/metrics.json | jq -r '.metrics.mean_time_to_detect')
-   - MTTR: $(cat ./incidents/$INCIDENT_ID/metrics.json | jq -r '.metrics.mean_time_to_respond')
+- Systems: $(cat ./incidents/$INCIDENT_ID/impact-assessment.json | jq -r '.impact.systems_count')
+- Users: $(cat ./incidents/$INCIDENT_ID/impact-assessment.json | jq -r '.impact.users_count')
+- Data Exposure: $(cat ./incidents/$INCIDENT_ID/impact-assessment.json | jq -r '.impact.data_exposure')
+
+## Response Metrics
+
+- MTTD: $(cat ./incidents/$INCIDENT_ID/metrics.json | jq -r '.metrics.mean_time_to_detect')
+- MTTR: $(cat ./incidents/$INCIDENT_ID/metrics.json | jq -r '.metrics.mean_time_to_respond')
    EOF
+
    ```
 
 **Expected Output:** Complete root cause analysis with attack vector, timeline, impact assessment, MITRE ATT&CK mapping, and response metrics
@@ -496,6 +539,7 @@ python3 ../skills/engineering-team/incident-response/scripts/incident_analyzer.p
 **Steps:**
 
 1. **Generate Incident Report** - Create comprehensive documentation
+
    ```bash
    python3 ../skills/engineering-team/incident-response/scripts/incident_analyzer.py \
      --incident $INCIDENT_ID \
@@ -506,6 +550,7 @@ python3 ../skills/engineering-team/incident-response/scripts/incident_analyzer.p
    ```
 
 2. **Review Report Sections** - Ensure completeness
+
    ```bash
    # View report structure
    cat ./incidents/$INCIDENT_ID/incident-report.md | head -100
@@ -522,6 +567,7 @@ python3 ../skills/engineering-team/incident-response/scripts/incident_analyzer.p
    ```
 
 3. **Develop Remediation Plan** - Create action items to prevent recurrence
+
    ```bash
    python3 ../skills/engineering-team/incident-response/scripts/incident_analyzer.py \
      --incident $INCIDENT_ID \
@@ -539,6 +585,7 @@ python3 ../skills/engineering-team/incident-response/scripts/incident_analyzer.p
    ```
 
 4. **Identify Regulatory Notifications** - Determine compliance requirements
+
    ```bash
    cat ./incidents/$INCIDENT_ID/impact-assessment.json | jq '.regulatory_notifications[] | {
      regulation: .regulation,
@@ -552,6 +599,7 @@ python3 ../skills/engineering-team/incident-response/scripts/incident_analyzer.p
    ```
 
 5. **Schedule Lessons Learned Meeting** - Plan post-incident review
+
    ```bash
    cat > ./incidents/$INCIDENT_ID/lessons-learned-invite.md <<EOF
    # Incident $INCIDENT_ID Post-Incident Review
@@ -580,6 +628,7 @@ python3 ../skills/engineering-team/incident-response/scripts/incident_analyzer.p
    ```
 
 6. **Update Security Controls** - Implement immediate improvements
+
    ```bash
    # Based on remediation plan, update:
    # - Detection rules (SIEM, EDR)
@@ -593,6 +642,7 @@ python3 ../skills/engineering-team/incident-response/scripts/incident_analyzer.p
    ```
 
 7. **Archive Incident** - Preserve records for compliance and future reference
+
    ```bash
    # Create incident archive
    tar -czf ./archives/$INCIDENT_ID.tar.gz ./incidents/$INCIDENT_ID/
@@ -604,6 +654,7 @@ python3 ../skills/engineering-team/incident-response/scripts/incident_analyzer.p
    ```
 
 8. **Update Metrics Dashboard** - Track organizational metrics
+
    ```bash
    # Append to metrics tracking
    cat ./incidents/$INCIDENT_ID/metrics.json >> ./metrics/incident-metrics-$(date +%Y).json
@@ -622,6 +673,7 @@ python3 ../skills/engineering-team/incident-response/scripts/incident_analyzer.p
 **Time Estimate:** 4-8 hours for complete documentation
 
 **Example:**
+
 ```bash
 # Generate full incident report
 python3 ../skills/engineering-team/incident-response/scripts/incident_analyzer.py --incident INC-001 --report --output markdown --file final-report.md
@@ -634,6 +686,7 @@ python3 ../skills/engineering-team/incident-response/scripts/incident_analyzer.p
 **Steps:**
 
 1. **Detect Alert and Determine Escalation** - Triage alert and decide if ServiceNow ticket is needed
+
    ```bash
    # Run incident detector to triage the alert
    python3 ../skills/engineering-team/incident-response/scripts/incident_detector.py \
@@ -647,6 +700,7 @@ python3 ../skills/engineering-team/incident-response/scripts/incident_analyzer.p
    ```
 
 2. **Generate ServiceNow Incident Payload** - Create incident request from alert data
+
    ```bash
    python3 ../skills/engineering-team/incident-response/scripts/servicenow_incident_manager.py \
      --alert-file alert-triage.json \
@@ -666,6 +720,7 @@ python3 ../skills/engineering-team/incident-response/scripts/incident_analyzer.p
    ```
 
 3. **Create ServiceNow Incident** - Submit incident to ServiceNow via API
+
    ```bash
    # Generate curl command for testing/execution
    python3 ../skills/engineering-team/incident-response/scripts/servicenow_incident_manager.py \
@@ -684,6 +739,7 @@ python3 ../skills/engineering-team/incident-response/scripts/incident_analyzer.p
    ```
 
 4. **Update ServiceNow During Response** - Add work notes as investigation progresses
+
    ```bash
    # Acknowledge the incident
    python3 ../skills/engineering-team/incident-response/scripts/servicenow_status_sync.py \
@@ -708,6 +764,7 @@ python3 ../skills/engineering-team/incident-response/scripts/incident_analyzer.p
    ```
 
 5. **Resolve ServiceNow Incident** - Close ticket when incident is resolved
+
    ```bash
    # Resolve with appropriate resolution code
    python3 ../skills/engineering-team/incident-response/scripts/servicenow_status_sync.py \
@@ -727,6 +784,7 @@ python3 ../skills/engineering-team/incident-response/scripts/incident_analyzer.p
    ```
 
 6. **Link Related Records** - Connect to problems, changes, or other incidents
+
    ```bash
    # Generate work notes with cross-references
    python3 ../skills/engineering-team/incident-response/scripts/servicenow_status_sync.py \
@@ -737,6 +795,7 @@ python3 ../skills/engineering-team/incident-response/scripts/incident_analyzer.p
    ```
 
 7. **Close Incident** - Final closure after confirmation
+
    ```bash
    python3 ../skills/engineering-team/incident-response/scripts/servicenow_status_sync.py \
      --action close \
@@ -750,6 +809,7 @@ python3 ../skills/engineering-team/incident-response/scripts/incident_analyzer.p
 **Time Estimate:** 5-15 minutes for initial creation, ongoing updates throughout incident lifecycle
 
 **Example:**
+
 ```bash
 # Quick escalation workflow
 python3 ../skills/engineering-team/incident-response/scripts/servicenow_incident_manager.py --alert-file alert.json --assignment-group "Security Operations" --output curl | bash
@@ -762,6 +822,7 @@ python3 ../skills/engineering-team/incident-response/scripts/servicenow_incident
 **Steps:**
 
 1. **Detect Security Incident** - Identify potential security incident through monitoring alerts or DevSecOps pipeline failures
+
    ```bash
    # Review security monitoring alerts from DevSecOps environments
    # Example: Security scan failures, vulnerability exploitation attempts, unauthorized access
@@ -769,6 +830,7 @@ python3 ../skills/engineering-team/incident-response/scripts/servicenow_incident
    ```
 
 2. **Run Emergency Security Assessment** - Immediately assess affected systems using DevSecOps security tools
+
    ```bash
    python3 ../skills/engineering-team/senior-secops/scripts/security_scanner.py \
      --input /path/to/affected/system \
@@ -779,6 +841,7 @@ python3 ../skills/engineering-team/incident-response/scripts/servicenow_incident
    ```
 
 3. **Assess Security Impact** - Evaluate scope, severity, and business impact of security incident
+
    ```bash
    python3 ../skills/engineering-team/senior-secops/scripts/vulnerability_assessor.py \
      --input security-incident-scan-*.json \
@@ -800,6 +863,7 @@ python3 ../skills/engineering-team/incident-response/scripts/servicenow_incident
    ```
 
 4. **Initiate Security Incident Response Playbook** - Execute appropriate security response based on incident type
+
    ```bash
    # Reference security incident response playbook from DevSecOps framework
    cat ../skills/engineering-team/senior-secops/references/security-incident-response-playbooks.md
@@ -812,6 +876,7 @@ python3 ../skills/engineering-team/incident-response/scripts/servicenow_incident
    ```
 
 5. **Coordinate with DevSecOps Team** - Work with DevOps engineers for containment and system isolation
+
    ```bash
    # Notify DevSecOps engineer for infrastructure isolation
    # Request emergency deployment rollback if needed
@@ -820,6 +885,7 @@ python3 ../skills/engineering-team/incident-response/scripts/servicenow_incident
    ```
 
 6. **Collect Security Evidence** - Preserve forensic evidence for security investigation and compliance
+
    ```bash
    # Collect security-relevant logs and evidence
    mkdir security-incident-evidence-$(date +%Y%m%d)
@@ -837,6 +903,7 @@ python3 ../skills/engineering-team/incident-response/scripts/servicenow_incident
    ```
 
 7. **Execute Security Remediation** - Fix identified security vulnerabilities and implement hardening
+
    ```bash
    # Apply security patches and updates
    # Update vulnerable dependencies in DevSecOps pipeline
@@ -850,6 +917,7 @@ python3 ../skills/engineering-team/incident-response/scripts/servicenow_incident
    ```
 
 8. **Verify Security Remediation** - Confirm security vulnerabilities are resolved
+
    ```bash
    # Re-scan systems after security remediation
    python3 ../skills/engineering-team/senior-secops/scripts/security_scanner.py \
@@ -862,6 +930,7 @@ python3 ../skills/engineering-team/incident-response/scripts/servicenow_incident
    ```
 
 9. **Conduct Security Post-Incident Review** - Document security lessons learned and improve DevSecOps practices
+
    ```bash
    # Create security incident report
    cat > security-incident-report-$(date +%Y%m%d).md <<EOF
@@ -901,6 +970,7 @@ python3 ../skills/engineering-team/incident-response/scripts/servicenow_incident
    ```
 
 10. **Update DevSecOps Security Controls** - Implement preventive measures based on security incident learnings
+
     ```bash
     # Update DevSecOps pipeline with additional security gates
     # Enhance security scanning configurations
@@ -914,6 +984,7 @@ python3 ../skills/engineering-team/incident-response/scripts/servicenow_incident
 **Time Estimate:** 4-12 hours depending on security incident severity and scope, including DevSecOps coordination
 
 **Example:**
+
 ```bash
 # Security incident response workflow
 python3 ../skills/engineering-team/senior-secops/scripts/security_scanner.py --input ./ --output json --file security-incident-scan.json --emergency-mode
@@ -1203,11 +1274,13 @@ echo "Full Report: .docs/reports/incidents/$INCIDENT_ID/data-breach-report.md"
 ### Detection Effectiveness
 
 **Mean Time to Detect (MTTD):**
+
 - **Target:** < 1 hour for P0/P1 incidents
 - **Typical:** 15-30 minutes with automated detection
 - **Best Case:** < 5 minutes with real-time alerting
 
 **Detection Coverage:**
+
 - **Pattern detection accuracy:** 95%+ for known attack patterns
 - **IOC correlation rate:** 98%+ matches for known indicators
 - **False positive rate:** < 5% (accurate severity classification)
@@ -1215,26 +1288,31 @@ echo "Full Report: .docs/reports/incidents/$INCIDENT_ID/data-breach-report.md"
 ### Response Efficiency
 
 **Mean Time to Respond (MTTR):**
+
 - **P0 (Critical):** < 30 minutes (target: < 15 minutes)
 - **P1 (High):** < 2 hours (target: < 1 hour)
 - **P2 (Medium):** < 8 hours (target: < 4 hours)
 
 **Mean Time to Contain (MTTC):**
+
 - **P0 (Critical):** < 1 hour (target: < 30 minutes)
 - **P1 (High):** < 4 hours (target: < 2 hours)
 - **P2 (Medium):** < 24 hours (target: < 12 hours)
 
 **Containment Success Rate:**
+
 - **Target:** 98%+ incidents contained before lateral movement
 - **Playbook execution success:** 95%+ automated actions complete successfully
 
 ### Investigation Quality
 
 **Root Cause Identification:**
+
 - **Target:** 95%+ incidents with identified root cause
 - **Attack path reconstruction:** 90%+ incidents with complete timeline
 
 **Evidence Integrity:**
+
 - **Chain of custody compliance:** 100%
 - **Evidence hash verification:** 100%
 - **Forensic admissibility:** 95%+ evidence meets legal standards
@@ -1242,22 +1320,26 @@ echo "Full Report: .docs/reports/incidents/$INCIDENT_ID/data-breach-report.md"
 ### Post-Incident Effectiveness
 
 **Remediation Completion:**
+
 - **Immediate actions (24-48h):** 100% completion rate
 - **Short-term (30 days):** 95%+ completion rate
 - **Long-term (90 days):** 90%+ completion rate
 
 **Recurrence Prevention:**
+
 - **Target:** < 2% incidents recur after remediation
 - **Lessons learned implementation:** 85%+ recommendations implemented
 
 ### Compliance Metrics
 
 **Regulatory Notification Compliance:**
+
 - **GDPR (72h):** 100% on-time notification
 - **HIPAA (60 days):** 100% on-time notification
 - **PCI-DSS (immediate):** 100% on-time notification
 
 **Documentation Quality:**
+
 - **Report completeness:** 100% required sections documented
 - **Audit readiness:** 95%+ incidents fully documented within 30 days
 

@@ -41,6 +41,7 @@ For each subdirectory under `.docs/canonical/` (`charters`, `backlogs`, `plans`,
 ### 3. Display archive summary
 
 Print a table showing:
+
 - Directory
 - Filename
 - Reason for archiving (e.g. "status: done", "initiative I05-ATEL is Done", "initiative-specific roadmap")
@@ -69,6 +70,7 @@ Write the updated roadmap back.
 ### 6. Report results
 
 Print a summary:
+
 - Total files archived per directory
 - Total files archived overall
 - Reminder: "Run `git status` to verify moves. Run `git diff` on roadmap-repo.md to verify link updates."

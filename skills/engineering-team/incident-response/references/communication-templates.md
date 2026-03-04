@@ -397,7 +397,8 @@ Date: [YYYY-MM-DD]
 
 ## Communication Don'ts
 
-### Never Include in External Communications:
+### Never Include in External Communications
+
 - Technical details of vulnerabilities
 - Specific attack methods
 - Names of attackers (if known)
@@ -405,7 +406,8 @@ Date: [YYYY-MM-DD]
 - Unverified information
 - Blame or finger-pointing
 
-### Never Share Externally Without Legal Review:
+### Never Share Externally Without Legal Review
+
 - Customer notifications
 - Regulatory filings
 - Press statements

@@ -472,6 +472,6 @@ docker logs nocodb 2>&1 | grep -i error
 
 ## References
 
-- **NocoDB Documentation:** https://nocodb.com/docs
-- **Docker Logging:** https://docs.docker.com/config/containers/logging/
-- **PostgreSQL Backup:** https://www.postgresql.org/docs/current/backup.html
+- **NocoDB Documentation:** <https://nocodb.com/docs>
+- **Docker Logging:** <https://docs.docker.com/config/containers/logging/>
+- **PostgreSQL Backup:** <https://www.postgresql.org/docs/current/backup.html>

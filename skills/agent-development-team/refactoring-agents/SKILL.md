@@ -205,4 +205,3 @@ When starting an agent ecosystem refactor:
 5. Validate with the checklist and share the refactor report for review
 
 For detailed principles, rubrics, and examples, always consult `references/refactor-guide.md`.
-

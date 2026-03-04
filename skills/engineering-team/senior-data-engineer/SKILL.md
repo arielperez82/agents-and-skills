@@ -91,7 +91,6 @@ metadata:
 - **Streaming Quality Monitoring** - Track consumer lag, data freshness, schema drift, throughput, and dead letter queue rates for streaming pipelines
 - **Performance Optimization** - Analyze and optimize pipeline performance with query optimization, Spark tuning, and cost analysis recommendations
 
-
 ## Key Workflows
 
 ### Workflow 1: Build ETL Pipeline
@@ -99,6 +98,7 @@ metadata:
 **Time:** 2-4 hours
 
 **Steps:**
+
 1. Design pipeline architecture using Lambda, Kappa, or Medallion pattern
 2. Configure YAML pipeline definition with sources, transformations, targets
 3. Generate Airflow DAG with `pipeline_orchestrator.py`
@@ -112,6 +112,7 @@ metadata:
 **Time:** 3-5 days
 
 **Steps:**
+
 1. Select streaming architecture (Kappa vs Lambda) based on requirements
 2. Configure streaming pipeline YAML (sources, processing, sinks, quality)
 3. Generate Kafka configurations with `kafka_config_generator.py`
@@ -120,7 +121,6 @@ metadata:
 
 **Expected Output:** Streaming pipeline processing 10K+ events/sec with P99 latency < 1s, exactly-once delivery, and real-time quality monitoring
 
-
 World-class data engineering for production-grade data systems, scalable pipelines, and enterprise data platforms.
 
 ## Overview
@@ -128,6 +128,7 @@ World-class data engineering for production-grade data systems, scalable pipelin
 This skill provides comprehensive expertise in data engineering fundamentals through advanced production patterns. From designing medallion architectures to implementing real-time streaming pipelines, it covers the full spectrum of modern data engineering including ETL/ELT design, data quality frameworks, pipeline orchestration, and DataOps practices.
 
 **What This Skill Provides:**
+
 - Production-ready pipeline templates (Airflow, Spark, dbt)
 - Comprehensive data quality validation framework
 - Performance optimization and cost analysis tools
@@ -135,6 +136,7 @@ This skill provides comprehensive expertise in data engineering fundamentals thr
 - Complete DataOps CI/CD workflows
 
 **Best For:**
+
 - Building scalable data pipelines for enterprise systems
 - Implementing data quality and governance frameworks
 - Optimizing ETL performance and cloud costs
@@ -224,6 +226,7 @@ python scripts/streaming_quality_validator.py \
 ### 1. Building Production Data Pipelines
 
 **Steps:**
+
 1. **Design Architecture:** Choose pattern (Lambda, Kappa, Medallion) based on requirements
 2. **Configure Pipeline:** Create YAML configuration with sources, transformations, targets
 3. **Generate DAG:** `python scripts/pipeline_orchestrator.py --config config.yaml`
@@ -237,6 +240,7 @@ python scripts/streaming_quality_validator.py \
 ### 2. Data Quality Management
 
 **Steps:**
+
 1. **Define Rules:** Create validation rules covering completeness, accuracy, consistency
 2. **Run Validation:** `python scripts/data_quality_validator.py --rules rules.yaml`
 3. **Review Results:** Analyze quality scores and failed checks
@@ -250,6 +254,7 @@ python scripts/streaming_quality_validator.py \
 ### 3. Data Modeling & Transformation
 
 **Steps:**
+
 1. **Choose Modeling Approach:** Dimensional (Kimball), Data Vault 2.0, or One Big Table
 2. **Design Schema:** Define fact tables, dimensions, and relationships
 3. **Implement with dbt:** Create staging, intermediate, and mart models
@@ -263,6 +268,7 @@ python scripts/streaming_quality_validator.py \
 ### 4. Performance Optimization
 
 **Steps:**
+
 1. **Profile Pipeline:** Run performance analyzer on recent pipeline executions
 2. **Identify Bottlenecks:** Review execution time breakdown and slow tasks
 3. **Apply Optimizations:** Implement recommendations (partitioning, indexing, batching)
@@ -276,6 +282,7 @@ python scripts/streaming_quality_validator.py \
 ### 5. Building Real-Time Streaming Pipelines
 
 **Steps:**
+
 1. **Architecture Selection:** Choose Kappa (streaming-only) or Lambda (batch + streaming) architecture
 2. **Configure Pipeline:** Create YAML config with sources, processing engine, sinks, quality thresholds
 3. **Generate Kafka Configs:** `python scripts/kafka_config_generator.py --topic events --partitions 12`
@@ -294,6 +301,7 @@ python scripts/streaming_quality_validator.py \
 Automated Airflow DAG generation with intelligent dependency resolution and monitoring.
 
 **Key Features:**
+
 - Generate production-ready DAGs from YAML configuration
 - Automatic task dependency resolution
 - Built-in retry logic and error handling
@@ -301,6 +309,7 @@ Automated Airflow DAG generation with intelligent dependency resolution and moni
 - Integrated quality checks and alerting
 
 **Usage:**
+
 ```bash
 # Basic DAG generation
 python scripts/pipeline_orchestrator.py --config pipeline_config.yaml --output dags/
@@ -319,6 +328,7 @@ python scripts/pipeline_orchestrator.py --template incremental --output dags/
 Comprehensive data quality validation framework with automated checks and reporting.
 
 **Capabilities:**
+
 - Multi-dimensional validation (completeness, accuracy, consistency, timeliness, validity)
 - Great Expectations integration
 - Custom business rule validation
@@ -327,6 +337,7 @@ Comprehensive data quality validation framework with automated checks and report
 - Historical trend tracking
 
 **Usage:**
+
 ```bash
 # Validate with custom rules
 python scripts/data_quality_validator.py \
@@ -348,6 +359,7 @@ python scripts/data_quality_validator.py \
 Pipeline performance analysis with actionable optimization recommendations.
 
 **Capabilities:**
+
 - Airflow DAG execution profiling
 - Bottleneck detection and analysis
 - SQL query optimization suggestions
@@ -356,6 +368,7 @@ Pipeline performance analysis with actionable optimization recommendations.
 - Historical performance trending
 
 **Usage:**
+
 ```bash
 # Analyze Airflow DAG
 python scripts/etl_performance_optimizer.py \
@@ -377,6 +390,7 @@ python scripts/etl_performance_optimizer.py \
 Streaming pipeline configuration generator and validator for Kafka, Flink, and Kinesis.
 
 **Capabilities:**
+
 - Multi-platform support (Kafka, Flink, Kinesis, Spark Streaming)
 - Configuration validation with best practice checks
 - Flink/Spark job scaffolding generation
@@ -385,6 +399,7 @@ Streaming pipeline configuration generator and validator for Kafka, Flink, and K
 - Exactly-once semantics configuration
 
 **Usage:**
+
 ```bash
 # Validate configuration
 python scripts/stream_processor.py --config streaming_config.yaml --validate
@@ -406,6 +421,7 @@ python scripts/stream_processor.py --config streaming_config.yaml --mode docker 
 Real-time streaming data quality monitoring with comprehensive health scoring.
 
 **Capabilities:**
+
 - Consumer lag monitoring with thresholds
 - Data freshness validation (P50/P95/P99 latency)
 - Schema drift detection
@@ -415,6 +431,7 @@ Real-time streaming data quality monitoring with comprehensive health scoring.
 - Prometheus metrics export
 
 **Usage:**
+
 ```bash
 # Monitor consumer lag
 python scripts/streaming_quality_validator.py \
@@ -437,6 +454,7 @@ python scripts/streaming_quality_validator.py \
 Production-grade Kafka configuration generator with performance and security profiles.
 
 **Capabilities:**
+
 - Topic configuration (partitions, replication, retention, compaction)
 - Producer profiles (high-throughput, exactly-once, low-latency, ordered)
 - Consumer profiles (exactly-once, high-throughput, batch)
@@ -446,6 +464,7 @@ Production-grade Kafka configuration generator with performance and security pro
 - Multiple output formats (properties, YAML, JSON)
 
 **Usage:**
+
 ```bash
 # Generate topic configuration
 python scripts/kafka_config_generator.py \
@@ -467,6 +486,7 @@ python scripts/kafka_config_generator.py \
 ### Frameworks ([frameworks.md](references/frameworks.md))
 
 Comprehensive data engineering frameworks and patterns:
+
 - **Architecture Patterns:** Lambda, Kappa, Medallion, Microservices data architecture
 - **Data Modeling:** Dimensional (Kimball), Data Vault 2.0, One Big Table
 - **ETL/ELT Patterns:** Full load, incremental load, CDC, SCD, idempotent pipelines
@@ -479,6 +499,7 @@ Comprehensive data engineering frameworks and patterns:
 ### Templates ([templates.md](references/templates.md))
 
 Production-ready code templates and examples:
+
 - **Airflow DAGs:** Complete ETL DAG, incremental load, dynamic task generation
 - **Spark Jobs:** Batch processing, streaming, optimized configurations
 - **dbt Models:** Staging, intermediate, fact tables, dimensions with SCD Type 2
@@ -493,6 +514,7 @@ Production-ready code templates and examples:
 ### Tools ([tools.md](references/tools.md))
 
 Python automation tool documentation:
+
 - **pipeline_orchestrator.py:** Complete usage guide, configuration format, DAG templates
 - **data_quality_validator.py:** Validation rules, dimension checks, Great Expectations integration
 - **etl_performance_optimizer.py:** Performance analysis, query optimization, Spark tuning
@@ -505,6 +527,7 @@ Python automation tool documentation:
 ## Tech Stack
 
 **Core Technologies:**
+
 - **Languages:** Python 3.8+, SQL, Scala (Spark), Java (Flink)
 - **Orchestration:** Apache Airflow, Prefect, Dagster
 - **Batch Processing:** Apache Spark, dbt, Pandas
@@ -515,6 +538,7 @@ Python automation tool documentation:
 - **Monitoring:** Datadog, Prometheus, Grafana, Kafka UI
 
 **Data Platforms:**
+
 - **Cloud Data Warehouses:** Snowflake, BigQuery, Redshift
 - **Data Lakes:** Delta Lake, Apache Iceberg, Apache Hudi
 - **Streaming Platforms:** Apache Kafka, AWS Kinesis, Google Pub/Sub, Azure Event Hubs
@@ -524,6 +548,7 @@ Python automation tool documentation:
 ## Integration Points
 
 This skill integrates with:
+
 - **Orchestration:** Airflow, Prefect, Dagster for workflow management
 - **Transformation:** dbt for SQL transformations and testing
 - **Quality:** Great Expectations for data validation
@@ -537,6 +562,7 @@ See [tools.md](references/tools.md) for detailed integration patterns and exampl
 ## Best Practices
 
 **Pipeline Design:**
+
 1. Idempotent operations for safe reruns
 2. Incremental processing where possible
 3. Clear data lineage and documentation
@@ -544,6 +570,7 @@ See [tools.md](references/tools.md) for detailed integration patterns and exampl
 5. Automated recovery mechanisms
 
 **Data Quality:**
+
 1. Define quality rules early
 2. Validate at every pipeline stage
 3. Automate quality monitoring
@@ -551,6 +578,7 @@ See [tools.md](references/tools.md) for detailed integration patterns and exampl
 5. Block bad data from downstream
 
 **Performance:**
+
 1. Partition large tables by date/region
 2. Use columnar formats (Parquet, ORC)
 3. Leverage predicate pushdown
@@ -558,6 +586,7 @@ See [tools.md](references/tools.md) for detailed integration patterns and exampl
 5. Monitor and tune regularly
 
 **Operations:**
+
 1. Version control everything
 2. Automate testing and deployment
 3. Implement comprehensive monitoring
@@ -567,30 +596,35 @@ See [tools.md](references/tools.md) for detailed integration patterns and exampl
 ## Performance Targets
 
 **Batch Pipeline Execution:**
+
 - P50 latency: < 5 minutes (hourly pipelines)
 - P95 latency: < 15 minutes
 - Success rate: > 99%
 - Data freshness: < 1 hour behind source
 
 **Streaming Pipeline Execution:**
+
 - Throughput: 10K+ events/second sustained
 - End-to-end latency: P99 < 1 second
 - Consumer lag: < 10K records behind
 - Exactly-once delivery: Zero duplicates or losses
 
 **Data Quality (Batch):**
+
 - Quality score: > 95%
 - Completeness: > 99%
 - Timeliness: < 2 hours data lag
 - Zero critical failures
 
 **Streaming Quality:**
+
 - Data freshness: P95 < 5 minutes from event generation
 - Late data rate: < 5% outside watermark window
 - Dead letter queue rate: < 1%
 - Schema compatibility: 100% backward/forward compatible changes
 
 **Cost Efficiency:**
+
 - Cost per GB processed: < $0.10
 - Cloud cost trend: Stable or decreasing
 - Resource utilization: > 70%

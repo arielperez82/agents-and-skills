@@ -11,6 +11,7 @@ Complete reference for the Python CLI tools included in the senior-mobile skill 
 | `app_store_validator.py` | Pre-submission validation | Release preparation |
 
 All tools:
+
 - Use Python standard library only (no pip dependencies)
 - Support `--help` for usage information
 - Output in multiple formats (text, JSON, CSV, markdown)
@@ -79,6 +80,7 @@ python3 scripts/mobile_scaffolder.py \
 ### Generated Structure
 
 **React Native:**
+
 ```
 my-app/
 ├── src/
@@ -99,6 +101,7 @@ my-app/
 ```
 
 **Flutter:**
+
 ```
 my-flutter-app/
 ├── lib/
@@ -153,6 +156,7 @@ python3 scripts/platform_detector.py --project-path /path/to/app --check all
 ### Output
 
 **Text Output:**
+
 ```
 === Mobile Project Analysis ===
 
@@ -177,6 +181,7 @@ Health Score: 92/100
 ```
 
 **JSON Output:**
+
 ```json
 {
   "project_type": "react-native",
@@ -202,13 +207,15 @@ Health Score: 92/100
 ### Detection Capabilities
 
 **Project Type Detection:**
+
 - React Native (package.json with react-native)
 - Flutter (pubspec.yaml)
 - Expo (app.json with expo)
-- Native iOS (*.xcodeproj or *.xcworkspace)
+- Native iOS (*.xcodeproj or*.xcworkspace)
 - Native Android (build.gradle with com.android.application)
 
 **iOS Checks:**
+
 - Bundle identifier
 - Minimum iOS version
 - Provisioning profiles
@@ -217,6 +224,7 @@ Health Score: 92/100
 - Code signing configuration
 
 **Android Checks:**
+
 - Package name
 - Min/Target SDK versions
 - Signing configuration
@@ -292,6 +300,7 @@ python3 scripts/app_store_validator.py --store apple --check icons
 ### Output
 
 **Text Output:**
+
 ```
 === App Store Validation Report ===
 
@@ -316,6 +325,7 @@ Recommendation: Ready for submission (address warning for best experience)
 ```
 
 **Markdown Output:**
+
 ```markdown
 # App Store Validation Report
 
@@ -427,16 +437,19 @@ echo "✅ Project $PROJECT_NAME created successfully"
 ### Common Issues
 
 **"Project type not detected"**
+
 - Ensure you're in the project root directory
 - Check that package.json, pubspec.yaml, or app.json exists
 - Use `--project-path` to specify exact location
 
 **"Validation warnings for missing icons"**
+
 - Generate all required icon sizes
 - Use tools like app-icon or flutter_launcher_icons
 - Verify icon locations match expected paths
 
 **"Signing not configured"**
+
 - iOS: Check Xcode signing settings
 - Android: Verify keystore in build.gradle
 - Use `--depth signing` for detailed analysis

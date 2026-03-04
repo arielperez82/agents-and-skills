@@ -31,6 +31,7 @@ The Legacy Codebase Analysis Framework provides a systematic approach to underst
 ### When to Use
 
 **Initial Assessment Scenarios:**
+
 - Inheriting legacy systems from acquisition or team transition
 - Planning major version upgrades or technology migrations
 - Evaluating codebases for strategic investment decisions
@@ -38,6 +39,7 @@ The Legacy Codebase Analysis Framework provides a systematic approach to underst
 - Preparing for regulatory compliance audits
 
 **Ongoing Assessment Scenarios:**
+
 - Quarterly technical debt reviews
 - Post-incident root cause analysis
 - Release planning and capacity allocation
@@ -49,29 +51,35 @@ The Legacy Codebase Analysis Framework provides a systematic approach to underst
 Choose the appropriate assessment depth based on available time, resources, and decision-making needs:
 
 #### Quick Assessment (1-3 days)
+
 **Scope:** High-level overview for initial triage or executive briefing
 
 **Activities:**
+
 - Automated tool scanning (code quality, security, dependencies)
 - Repository metrics analysis (size, age, commit patterns)
 - Stakeholder interviews (2-3 key people)
 - Critical issue identification
 
 **Deliverables:**
+
 - Executive summary (1-2 pages)
 - Critical findings list (top 10 issues)
 - Preliminary risk assessment
 - Rough effort estimate
 
 **Use When:**
+
 - Evaluating potential acquisition targets
 - Initial triage after inheriting codebase
 - Preparing business case for deeper analysis
 
 #### Standard Assessment (1-2 weeks)
+
 **Scope:** Comprehensive analysis for planning modernization or remediation
 
 **Activities:**
+
 - Full automated scanning suite
 - Manual code review of critical paths
 - Architecture documentation and analysis
@@ -81,6 +89,7 @@ Choose the appropriate assessment depth based on available time, resources, and 
 - Dependency analysis and upgrade planning
 
 **Deliverables:**
+
 - Technical debt report (15-30 pages)
 - Prioritized remediation backlog
 - Risk register with mitigation strategies
@@ -88,15 +97,18 @@ Choose the appropriate assessment depth based on available time, resources, and 
 - Cost-benefit analysis
 
 **Use When:**
+
 - Planning modernization initiatives
 - Annual strategic planning
 - Pre-funding technical debt sprints
 - Regulatory compliance preparation
 
 #### Comprehensive Assessment (3-6 weeks)
+
 **Scope:** Deep analysis for major migrations, rewrites, or strategic decisions
 
 **Activities:**
+
 - All standard assessment activities
 - Performance profiling and load testing
 - Security penetration testing
@@ -107,6 +119,7 @@ Choose the appropriate assessment depth based on available time, resources, and 
 - Detailed effort estimation
 
 **Deliverables:**
+
 - Complete technical assessment (50+ pages)
 - Detailed modernization plan with phases
 - Architecture blueprints (current and target)
@@ -115,6 +128,7 @@ Choose the appropriate assessment depth based on available time, resources, and 
 - Team training plan
 
 **Use When:**
+
 - Planning major rewrites or migrations
 - Making build vs. buy decisions
 - Strategic technology shifts
@@ -133,6 +147,7 @@ Choose the appropriate assessment depth based on available time, resources, and 
 #### 1.1 Codebase Inventory
 
 **Repository Analysis:**
+
 ```bash
 # Size and complexity
 find . -type f -name "*.py" | wc -l  # File count
@@ -149,6 +164,7 @@ git tag | wc -l  # Release count
 ```
 
 **Technology Stack Identification:**
+
 - Primary languages and versions
 - Frameworks and their versions
 - Build tools and package managers
@@ -157,6 +173,7 @@ git tag | wc -l  # Release count
 - Third-party services and APIs
 
 **Architecture Documentation:**
+
 - System architecture diagrams (create if missing)
 - Component relationships and dependencies
 - Data flow diagrams
@@ -164,6 +181,7 @@ git tag | wc -l  # Release count
 - Deployment architecture
 
 **Document Template:**
+
 ```markdown
 # Codebase Inventory Report
 
@@ -195,22 +213,26 @@ git tag | wc -l  # Release count
 **Interview Types:**
 
 **Executive Stakeholders (30-45 min each):**
+
 - Business objectives and strategic priorities
 - Budget and timeline constraints
 - Risk tolerance
 - Success criteria
 
 **Sample Questions:**
+
 - What business problems does this system solve?
 - What are the top 3 pain points?
 - What's driving the need for modernization now?
 - What does success look like in 6/12/24 months?
 
 **Technical Stakeholders (45-60 min each):**
+
 - Current team (developers, architects, DevOps)
 - Historical knowledge (former team members if available)
 
 **Sample Questions:**
+
 - What are the most problematic areas of the codebase?
 - What incidents have occurred in the last 12 months?
 - What features are hardest to implement?
@@ -218,12 +240,14 @@ git tag | wc -l  # Release count
 - What technical debt keeps you up at night?
 
 **End Users and Support Teams (30-45 min each):**
+
 - User experience and pain points
 - Feature requests and workarounds
 - Performance issues
 - Common support tickets
 
 **Interview Documentation Template:**
+
 ```markdown
 # Stakeholder Interview Summary
 
@@ -256,6 +280,7 @@ git tag | wc -l  # Release count
 #### 1.3 Documentation Review
 
 **Existing Documentation Assessment:**
+
 - README files and getting started guides
 - Architecture documentation
 - API documentation
@@ -265,6 +290,7 @@ git tag | wc -l  # Release count
 - Code comments and docstrings
 
 **Documentation Quality Scoring:**
+
 ```
 Score (0-10):
 - Completeness: [How much is documented?]
@@ -274,6 +300,7 @@ Score (0-10):
 ```
 
 **Documentation Gaps:**
+
 ```markdown
 # Critical Missing Documentation
 1. Architecture Decision Records (ADRs) - No history of why choices were made
@@ -294,6 +321,7 @@ Score (0-10):
 #### 2.1 Security Analysis
 
 **Automated Security Scanning:**
+
 ```bash
 # Python projects
 bandit -r . -f json -o security-report.json
@@ -307,6 +335,7 @@ truffleHog --json --regex --entropy=True . > secrets-scan.json
 ```
 
 **Manual Security Review:**
+
 - Authentication and authorization mechanisms
 - Input validation and sanitization
 - SQL injection and XSS vulnerabilities
@@ -317,6 +346,7 @@ truffleHog --json --regex --entropy=True . > secrets-scan.json
 - Logging and monitoring capabilities
 
 **Security Checklist:**
+
 ```markdown
 ## Authentication & Authorization
 - [ ] Strong password policies enforced
@@ -348,6 +378,7 @@ truffleHog --json --regex --entropy=True . > secrets-scan.json
 ```
 
 **Critical Security Findings Template:**
+
 ```markdown
 # Security Finding: [Title]
 
@@ -371,22 +402,26 @@ payload = "admin' OR '1'='1' --"
 ```
 
 ## Impact
+
 - **Confidentiality:** High - Allows unauthorized access to user accounts
 - **Integrity:** High - Attacker can modify user data
 - **Availability:** Low - No direct impact on system availability
 - **Business Impact:** Critical - Potential data breach, regulatory fines
 
 ## Affected Systems
+
 - Production environment (api.example.com)
 - Staging environment
 - Development environments
 
 ## Remediation
+
 1. **Immediate:** Deploy hotfix using parameterized queries
 2. **Short-term:** Implement input validation middleware
 3. **Long-term:** Security audit of all database queries
 
 ## Remediation Code
+
 ```python
 # Before (vulnerable)
 query = f"SELECT * FROM users WHERE username='{username}' AND password='{password}'"
@@ -397,15 +432,18 @@ cursor.execute(query, (username, hashed_password))
 ```
 
 ## Verification
+
 - [ ] Unit test for SQL injection attempt
 - [ ] Penetration test confirms fix
 - [ ] Code review completed
 - [ ] Security scan shows no vulnerability
 
 ## References
+
 - OWASP Top 10: A1 - Injection
 - CWE-89: SQL Injection
 - CVE: [If applicable]
+
 ```
 
 #### 2.2 Performance Analysis
@@ -425,6 +463,7 @@ locust -f locustfile.py --headless -u 100 -r 10 --run-time 5m
 ```
 
 **Key Performance Indicators:**
+
 - Response times (p50, p95, p99)
 - Throughput (requests per second)
 - Error rates
@@ -433,6 +472,7 @@ locust -f locustfile.py --headless -u 100 -r 10 --run-time 5m
 - Third-party API latency
 
 **Performance Bottleneck Documentation:**
+
 ```markdown
 # Performance Bottleneck: [Title]
 
@@ -458,22 +498,27 @@ SELECT * FROM products WHERE id = 456;     # Executed 100 times
 ```
 
 ## Business Impact
+
 - User frustration: 35% bounce rate on dashboard page
 - Lost revenue: Estimated $50K/month from abandoned sessions
 - Operational cost: Over-provisioned servers to compensate
 
 ## Proposed Solution
+
 1. **Immediate:** Add database indexes (2 hours implementation)
 2. **Short-term:** Optimize queries with eager loading (1 week)
 3. **Long-term:** Implement caching layer (1 month)
 
 ## Expected Improvement
+
 - Page load time: 8-12s → 1-2s (80-90% improvement)
 - Database load: 150 queries → 3 queries (98% reduction)
 - Server cost: Reduce by 40% through better resource utilization
 
 ## Implementation Plan
+
 [Detailed steps with timeline and owner]
+
 ```
 
 #### 2.3 Code Quality Analysis
@@ -493,6 +538,7 @@ jscpd . --format json --output duplication-report.json
 ```
 
 **Code Quality Metrics:**
+
 - Cyclomatic complexity (per function and file)
 - Code duplication percentage
 - Test coverage percentage
@@ -502,6 +548,7 @@ jscpd . --format json --output duplication-report.json
 - Linting violations
 
 **Quality Scoring Framework:**
+
 ```markdown
 # Code Quality Assessment
 
@@ -543,11 +590,13 @@ jscpd . --format json --output duplication-report.json
 **Architecture Assessment Areas:**
 
 **1. Architectural Style:**
+
 - Current pattern (monolith, microservices, layered, etc.)
 - Adherence to chosen pattern
 - Violations and deviations
 
 **2. Component Coupling:**
+
 ```bash
 # Python dependency analysis
 pydeps . --show-deps --max-bacon=2 --cluster
@@ -556,17 +605,20 @@ pydeps . --show-deps --max-bacon=2 --cluster
 ```
 
 **Coupling Metrics:**
+
 - Afferent Coupling (Ca): Number of classes depending on this class
 - Efferent Coupling (Ce): Number of classes this class depends on
 - Instability (I): Ce / (Ce + Ca)
 - Abstractness (A): Abstract classes / Total classes
 
 **3. Separation of Concerns:**
+
 - Business logic in presentation layer (violation)
 - Database queries in UI code (violation)
 - Mixed responsibilities in classes
 
 **4. Technical Debt Hotspots:**
+
 ```markdown
 # Architecture Debt Hotspot Analysis
 
@@ -595,6 +647,7 @@ pydeps . --show-deps --max-bacon=2 --cluster
 ```
 
 **Architecture Scoring:**
+
 ```markdown
 ## Architecture Health Score: 45/100 (High Debt)
 
@@ -635,6 +688,7 @@ pydeps . --show-deps --max-bacon=2 --cluster
 #### 3.1 Technical Debt Calculation
 
 **Debt Formula:**
+
 ```
 Technical Debt Score = Severity × Frequency × Remediation Effort
 
@@ -645,6 +699,7 @@ Where:
 ```
 
 **Example Calculation:**
+
 ```markdown
 ## Issue: N+1 Query Problem in Dashboard
 
@@ -672,24 +727,28 @@ Justification: High severity and frequency with moderate effort makes this top p
 **Debt Categories:**
 
 **Critical Debt (Score 150+):**
+
 - Security vulnerabilities (critical/high severity)
 - Performance issues impacting users
 - Data integrity risks
 - Compliance violations
 
 **High Debt (Score 80-149):**
+
 - Significant code quality issues
 - Architectural problems limiting growth
 - Major dependencies on EOL technologies
 - High-friction development bottlenecks
 
 **Medium Debt (Score 40-79):**
+
 - Code smells and maintainability issues
 - Minor performance optimizations
 - Test coverage gaps
 - Documentation deficiencies
 
 **Low Debt (Score 0-39):**
+
 - Style and formatting issues
 - Nice-to-have refactorings
 - Optional optimizations
@@ -698,6 +757,7 @@ Justification: High severity and frequency with moderate effort makes this top p
 #### 3.2 Risk Assessment
 
 **Risk Matrix:**
+
 ```
 Likelihood →
     Low        Medium      High
@@ -716,6 +776,7 @@ Low     Low        Low        Medium
 ```
 
 **Risk Documentation Template:**
+
 ```markdown
 # Risk: [Title]
 
@@ -758,6 +819,7 @@ After mitigation: Medium (Likelihood 3 × Impact 5 = 15)
 #### 3.3 Impact Analysis
 
 **Business Impact Scoring:**
+
 ```markdown
 # Business Impact Assessment
 
@@ -797,6 +859,7 @@ After mitigation: Medium (Likelihood 3 × Impact 5 = 15)
 ```
 
 **ROI Calculation Framework:**
+
 ```markdown
 # ROI Analysis: Modernization Initiative
 
@@ -853,6 +916,7 @@ After mitigation: Medium (Likelihood 3 × Impact 5 = 15)
 #### 4.1 Prioritization Framework
 
 **RICE Scoring for Technical Debt:**
+
 ```
 RICE Score = (Reach × Impact × Confidence) / Effort
 
@@ -864,6 +928,7 @@ Where:
 ```
 
 **Example Prioritization:**
+
 ```markdown
 # Technical Debt Backlog (RICE Sorted)
 
@@ -901,6 +966,7 @@ Where:
 #### 4.2 Roadmap Development
 
 **Phased Approach Template:**
+
 ```markdown
 # Modernization Roadmap: 18-Month Plan
 
@@ -1008,12 +1074,14 @@ Where:
 **Definition:** Number of linearly independent paths through code
 
 **Thresholds:**
+
 - **1-10:** Simple, low risk
 - **11-20:** Moderate complexity, medium risk
 - **21-50:** Complex, high risk
 - **50+:** Very complex, very high risk (refactor immediately)
 
 **Interpretation:**
+
 ```python
 def calculate_discount(user, cart_total):  # Complexity: 1
     return cart_total * 0.1
@@ -1036,6 +1104,7 @@ def calculate_complex_discount(user, cart_total, promo_code):  # Complexity: 12
 ```
 
 **Remediation:**
+
 - Extract complex conditionals into separate functions
 - Use strategy pattern for multiple conditions
 - Simplify boolean expressions
@@ -1045,18 +1114,21 @@ def calculate_complex_discount(user, cart_total, promo_code):  # Complexity: 12
 **Definition:** Percentage of code that is duplicated elsewhere
 
 **Thresholds:**
+
 - **0-3%:** Excellent
 - **3-5%:** Good
 - **5-10%:** Acceptable
 - **10%+:** Poor, significant technical debt
 
 **Measurement:**
+
 ```bash
 # Detect duplicated code blocks (6+ lines)
 jscpd . --min-lines 6 --min-tokens 50
 ```
 
 **Impact:**
+
 - Maintenance burden (changes need to be made in multiple places)
 - Bug propagation (fixing a bug in one place leaves others vulnerable)
 - Increased codebase size
@@ -1066,18 +1138,21 @@ jscpd . --min-lines 6 --min-tokens 50
 **Definition:** Percentage of code executed by tests
 
 **Thresholds:**
+
 - **80-100%:** Excellent
 - **60-80%:** Good
 - **40-60%:** Adequate for legacy systems
 - **<40%:** Poor, high risk
 
 **Coverage Types:**
+
 - **Line Coverage:** Percentage of lines executed
 - **Branch Coverage:** Percentage of branches (if/else) executed
 - **Function Coverage:** Percentage of functions called
 - **Statement Coverage:** Percentage of statements executed
 
 **Target by Code Type:**
+
 - Business logic: 90-100%
 - Controllers/APIs: 80-90%
 - Utilities: 80-90%
@@ -1089,12 +1164,14 @@ jscpd . --min-lines 6 --min-tokens 50
 #### CVSS Scoring (Common Vulnerability Scoring System)
 
 **Score Ranges:**
+
 - **9.0-10.0:** Critical
 - **7.0-8.9:** High
 - **4.0-6.9:** Medium
 - **0.1-3.9:** Low
 
 **Example Vulnerabilities:**
+
 ```markdown
 ## Critical (CVSS 9.0+)
 - Remote code execution without authentication
@@ -1120,6 +1197,7 @@ jscpd . --min-lines 6 --min-tokens 50
 #### Security Debt Score
 
 **Formula:**
+
 ```
 Security Debt = Σ(Vulnerability Count × CVSS Score × Exposure)
 
@@ -1130,6 +1208,7 @@ Where Exposure:
 ```
 
 **Example:**
+
 ```markdown
 # Security Debt Calculation
 
@@ -1150,14 +1229,17 @@ Where Exposure:
 #### Coupling Metrics
 
 **Afferent Coupling (Ca):**
+
 - Number of classes that depend on this class
 - Higher Ca = More responsibility, more stable (harder to change)
 
 **Efferent Coupling (Ce):**
+
 - Number of classes this class depends on
 - Higher Ce = More dependencies, less stable (changes propagate)
 
 **Instability (I):**
+
 ```
 I = Ce / (Ce + Ca)
 
@@ -1167,6 +1249,7 @@ Range: 0 to 1
 ```
 
 **Guidelines:**
+
 - Core business logic: I < 0.3 (stable)
 - UI components: I > 0.7 (unstable, flexible)
 - Middle layers: 0.3 < I < 0.7
@@ -1174,6 +1257,7 @@ Range: 0 to 1
 #### Abstractness
 
 **Formula:**
+
 ```
 A = Abstract Classes / Total Classes
 
@@ -1183,6 +1267,7 @@ Range: 0 to 1
 ```
 
 **Distance from Main Sequence:**
+
 ```
 D = |A + I - 1|
 
@@ -1192,6 +1277,7 @@ Range: 0 to 1
 ```
 
 **Zones:**
+
 - **Zone of Pain:** Low A, Low I (concrete and stable, hard to change)
 - **Zone of Uselessness:** High A, High I (abstract and unstable, overly complex)
 - **Main Sequence:** Balanced A and I (healthy design)
@@ -1201,12 +1287,14 @@ Range: 0 to 1
 #### Response Time Percentiles
 
 **Metrics:**
+
 - **p50 (Median):** 50% of requests faster than this
 - **p95:** 95% of requests faster than this
 - **p99:** 99% of requests faster than this
 - **p99.9:** 99.9% of requests faster than this
 
 **Thresholds (Web Applications):**
+
 ```
 Excellent: p95 < 200ms
 Good:      p95 < 500ms
@@ -1215,6 +1303,7 @@ Poor:       p95 > 1000ms
 ```
 
 **Why Percentiles Matter:**
+
 - Averages hide outliers
 - p95/p99 show user experience for slowest requests
 - High percentiles often indicate scalability issues
@@ -1222,6 +1311,7 @@ Poor:       p95 > 1000ms
 #### Apdex Score (Application Performance Index)
 
 **Formula:**
+
 ```
 Apdex = (Satisfied + (Tolerating / 2)) / Total Requests
 
@@ -1232,6 +1322,7 @@ Where:
 ```
 
 **Score Interpretation:**
+
 - **0.94-1.00:** Excellent
 - **0.85-0.94:** Good
 - **0.70-0.85:** Fair
@@ -1239,6 +1330,7 @@ Where:
 - **0.00-0.50:** Unacceptable
 
 **Example (T = 500ms):**
+
 - 850 requests ≤ 500ms (Satisfied)
 - 100 requests 501-2000ms (Tolerating)
 - 50 requests >2000ms (Frustrated)
@@ -1252,6 +1344,7 @@ Apdex = (850 + 100/2) / 1000 = 0.90 (Good)
 ### Issue Severity Matrix
 
 **Critical Severity:**
+
 - Security vulnerabilities (CVSS 9.0+)
 - Data corruption risks
 - Complete system outages
@@ -1259,6 +1352,7 @@ Apdex = (850 + 100/2) / 1000 = 0.90 (Good)
 - Customer-facing bugs affecting >50% of users
 
 **High Severity:**
+
 - Security vulnerabilities (CVSS 7.0-8.9)
 - Performance degradation affecting user experience
 - Significant functionality broken
@@ -1266,6 +1360,7 @@ Apdex = (850 + 100/2) / 1000 = 0.90 (Good)
 - Dependencies on EOL technologies
 
 **Medium Severity:**
+
 - Security vulnerabilities (CVSS 4.0-6.9)
 - Code quality issues (high complexity, duplication)
 - Test coverage gaps
@@ -1273,6 +1368,7 @@ Apdex = (850 + 100/2) / 1000 = 0.90 (Good)
 - Documentation gaps
 
 **Low Severity:**
+
 - Security vulnerabilities (CVSS <4.0)
 - Code style violations
 - Minor refactoring opportunities
@@ -1306,6 +1402,7 @@ Does it affect security?
 ### Revenue Impact
 
 **Lost Revenue (Conversion):**
+
 ```
 Lost Revenue = Current Revenue × (Current Conversion - Expected Conversion)
 
@@ -1317,6 +1414,7 @@ Example:
 ```
 
 **Lost Revenue (Performance):**
+
 ```
 Lost Revenue = Traffic × Conversion × AOV × Abandonment Rate
 
@@ -1335,6 +1433,7 @@ Example:
 ### Cost Impact
 
 **Infrastructure Overprovisioning:**
+
 ```
 Excess Cost = (Current Infrastructure - Needed Infrastructure) × Unit Cost
 
@@ -1345,6 +1444,7 @@ Example:
 ```
 
 **Support Overhead:**
+
 ```
 Support Cost = Ticket Volume × Avg Handle Time × Hourly Rate
 
@@ -1358,6 +1458,7 @@ Example:
 ### Development Velocity Impact
 
 **Opportunity Cost:**
+
 ```
 Opportunity Cost = (Current Cycle Time - Target Cycle Time) × Cycles/Year × Value/Cycle
 
@@ -1378,16 +1479,19 @@ Example:
 #### Code Quality Benchmarks
 
 **Cyclomatic Complexity (Industry Average):**
+
 - Open source projects: 7.2
 - Commercial software: 9.5
 - Legacy systems: 15.8
 
 **Test Coverage (Industry Average):**
+
 - Startups: 40-50%
 - Enterprise: 60-70%
 - Safety-critical: 90-100%
 
 **Code Duplication (Industry Average):**
+
 - Well-maintained projects: 2-5%
 - Average projects: 8-12%
 - Legacy codebases: 15-25%
@@ -1395,11 +1499,13 @@ Example:
 #### Security Benchmarks
 
 **Vulnerabilities per 1,000 Lines of Code:**
+
 - High-quality code: 0.5-1.0
 - Average code: 2.0-5.0
 - Legacy code: 10.0-20.0
 
 **Time to Patch Critical Vulnerabilities:**
+
 - Industry leader: <7 days
 - Industry average: 30-60 days
 - Laggards: 90+ days
@@ -1407,11 +1513,13 @@ Example:
 #### Performance Benchmarks
 
 **Web Application Response Times:**
+
 - E-commerce (p95): 200-500ms
 - SaaS applications (p95): 500-1000ms
 - Mobile apps (p95): 1000-2000ms
 
 **API Response Times:**
+
 - REST APIs (p95): 100-300ms
 - GraphQL APIs (p95): 200-500ms
 - Database queries (p95): 10-50ms
@@ -1419,6 +1527,7 @@ Example:
 #### Technical Debt
 
 **Technical Debt Ratio (TD Ratio):**
+
 ```
 TD Ratio = Cost to Fix Debt / Cost to Build From Scratch
 
@@ -1431,6 +1540,7 @@ Benchmarks:
 ```
 
 **Remediation Cost per Issue (Industry Average):**
+
 - Critical security: $50K-$200K
 - High complexity refactor: $10K-$50K
 - Medium issue: $2K-$10K
@@ -1443,6 +1553,7 @@ Benchmarks:
 ### Pre-Analysis Checklist
 
 **Environment Access:**
+
 - [ ] Source code repository access
 - [ ] Development environment access
 - [ ] Staging environment access
@@ -1452,6 +1563,7 @@ Benchmarks:
 - [ ] Database schema access
 
 **Tooling Setup:**
+
 - [ ] Static analysis tools installed
 - [ ] Security scanning tools configured
 - [ ] Performance profiling tools ready
@@ -1459,6 +1571,7 @@ Benchmarks:
 - [ ] Documentation tools available
 
 **Stakeholder Engagement:**
+
 - [ ] Executive sponsor identified
 - [ ] Technical stakeholders scheduled for interviews
 - [ ] User/customer feedback available
@@ -1466,6 +1579,7 @@ Benchmarks:
 - [ ] Business metrics and KPIs available
 
 **Documentation Gathering:**
+
 - [ ] Architecture diagrams collected
 - [ ] API documentation reviewed
 - [ ] Deployment runbooks obtained
@@ -1475,6 +1589,7 @@ Benchmarks:
 ### Data Gathering Checklist
 
 **Codebase Metrics:**
+
 - [ ] Lines of code (total and by language)
 - [ ] File and module count
 - [ ] Contributor statistics
@@ -1483,6 +1598,7 @@ Benchmarks:
 - [ ] Age and history of codebase
 
 **Quality Metrics:**
+
 - [ ] Cyclomatic complexity scores
 - [ ] Code duplication percentage
 - [ ] Linting violations count
@@ -1490,6 +1606,7 @@ Benchmarks:
 - [ ] Documentation coverage
 
 **Security Metrics:**
+
 - [ ] Vulnerability scan results
 - [ ] Dependency audit results
 - [ ] Secrets scanning results
@@ -1497,6 +1614,7 @@ Benchmarks:
 - [ ] Data encryption assessment
 
 **Performance Metrics:**
+
 - [ ] Response time percentiles (p50, p95, p99)
 - [ ] Throughput measurements
 - [ ] Error rates
@@ -1505,6 +1623,7 @@ Benchmarks:
 - [ ] Third-party API latency
 
 **Architecture Metrics:**
+
 - [ ] Component dependency map
 - [ ] Coupling and cohesion metrics
 - [ ] Architectural violations
@@ -1512,6 +1631,7 @@ Benchmarks:
 - [ ] Integration points documented
 
 **Business Metrics:**
+
 - [ ] User/customer count
 - [ ] Revenue metrics
 - [ ] Support ticket volume
@@ -1522,6 +1642,7 @@ Benchmarks:
 ### Reporting Checklist
 
 **Executive Summary:**
+
 - [ ] One-page overview
 - [ ] Top 3-5 findings
 - [ ] Business impact summary
@@ -1530,6 +1651,7 @@ Benchmarks:
 - [ ] Expected ROI
 
 **Technical Details:**
+
 - [ ] Methodology described
 - [ ] Metrics and scoring explained
 - [ ] Detailed findings with evidence
@@ -1538,6 +1660,7 @@ Benchmarks:
 - [ ] Comparison with industry benchmarks
 
 **Recommendations:**
+
 - [ ] Prioritized remediation backlog
 - [ ] Phased roadmap with timelines
 - [ ] Effort estimates for each item
@@ -1546,6 +1669,7 @@ Benchmarks:
 - [ ] Implementation guidance
 
 **Appendices:**
+
 - [ ] Raw data and metrics
 - [ ] Tool outputs and reports
 - [ ] Interview summaries
@@ -1555,6 +1679,7 @@ Benchmarks:
 ### Post-Analysis Checklist
 
 **Deliverable Review:**
+
 - [ ] Executive summary reviewed by sponsor
 - [ ] Technical details reviewed by architecture team
 - [ ] Recommendations validated with development team
@@ -1562,12 +1687,14 @@ Benchmarks:
 - [ ] Estimates reviewed by engineering management
 
 **Presentation:**
+
 - [ ] Executive presentation prepared (5-10 slides)
 - [ ] Technical deep-dive prepared (30-60 min)
 - [ ] Q&A anticipated and prepared
 - [ ] Follow-up meeting scheduled
 
 **Follow-Up:**
+
 - [ ] Prioritized backlog created in tracking system
 - [ ] Owners assigned to top priorities
 - [ ] Timeline established

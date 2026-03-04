@@ -10,6 +10,7 @@ Convene domain experts and methodological specialists to solve problems through 
 ## Panel Format
 
 ### Single-Round Consultation
+
 For simpler problems requiring multiple viewpoints:
 
 1. **Assemble panel** (3-5 experts based on problem domain)
@@ -17,6 +18,7 @@ For simpler problems requiring multiple viewpoints:
 3. **Synthesize recommendations** with attribution
 
 ### Multi-Round Discussion
+
 For complex problems requiring collaborative reasoning:
 
 1. **Round 1**: Each expert analyzes problem independently
@@ -27,6 +29,7 @@ For complex problems requiring collaborative reasoning:
 ## Expert Roles
 
 **Available expertise spans:**
+
 - MSD domain experts (life sciences, engineering, manufacturing, quality, corporate functions)
 - Consulting framework specialists (strategic, process improvement, innovation, systems analysis, root cause)
 
@@ -174,6 +177,7 @@ assessment-<endeavor>-<subject>-<YYYY-MM-DD>.md
 ```
 
 Follow the canonical naming grammar. Examples:
+
 - `assessment-repo-initiative-naming-2026-02-10.md`
 - `assessment-product-pricing-strategy-2026-02-25.md`
 
@@ -211,24 +215,28 @@ The persistent file is the canonical record. Screen output helps the user quickl
 ## Expert Behavior Guidelines
 
 **Domain Experts:**
+
 - Apply MSD context (ECL platform, regulatory constraints, validated systems)
 - Use domain-appropriate terminology without over-explanation
 - Prioritize practical implementation over theoretical perfection
 - Flag domain-specific risks and constraints
 
 **Framework Experts:**
+
 - Apply frameworks systematically (show the structure)
 - Adapt frameworks to problem context (not rigid application)
 - Explain "why this framework" for this problem
 - Integrate domain context when applying generic frameworks
 
 **Cross-Panel Interaction:**
+
 - Reference other experts' points specifically ("Building on [Expert]'s observation about...")
 - Challenge constructively ("I see it differently because...")
 - Synthesize across disciplines ("This connects [Expert 1]'s technical constraint with [Expert 2]'s business priority...")
 - Flag tensions between perspectives explicitly
 
 **Disagreement Handling:**
+
 - Make disagreements productive (what assumptions differ?)
 - Present multiple valid approaches when consensus isn't required
 - Identify decision criteria to resolve disagreements
@@ -239,6 +247,7 @@ The persistent file is the canonical record. Screen output helps the user quickl
 When panel must recommend action:
 
 **RAPID (Bain)**
+
 - **Recommend**: Panel's recommendation with rationale
 - **Agree**: Which stakeholders must agree
 - **Perform**: Who implements
@@ -246,11 +255,13 @@ When panel must recommend action:
 - **Decide**: Who makes final decision
 
 **Weighted Decision Matrix**
+
 - Criteria (importance weighted)
 - Options scored on each criterion
 - Total score with sensitivity analysis
 
 **Risk-Benefit Analysis**
+
 - Upside potential (probability × impact)
 - Downside risk (probability × impact)
 - Mitigation strategies
@@ -261,17 +272,20 @@ When panel must recommend action:
 Apply MSD-specific context automatically:
 
 **Technical constraints:**
+
 - ECL platform and assay chemistry
 - ISO 13485 compliance and validated systems
 - Regulatory requirements (FDA, CE marking)
 - Technology stack (Python, AWS, Java, TypeScript)
 
 **Business context:**
+
 - Life sciences market dynamics
 - Customer segments (pharma, biotech, CRO, academic)
 - Competitive landscape
 
 **Cultural factors:**
+
 - Scientific rigor and data-driven decisions
 - Cross-functional collaboration norms
 - Innovation balanced with risk management
@@ -358,6 +372,7 @@ For full orchestration logic and checkpoint behavior, see [commands/craft/craft.
 ## Constraints
 
 **Never:**
+
 - Use fictional names for experts (use role titles only: "Software Engineer", not "Dr. John Smith, Software Engineer")
 - Invent MSD-specific details beyond general domain knowledge
 - Apply frameworks rigidly without problem context
@@ -366,6 +381,7 @@ For full orchestration logic and checkpoint behavior, see [commands/craft/craft.
 - Make experts repeat information (each should contribute uniquely)
 
 **Always:**
+
 - Write the complete panel session to `.docs/canonical/assessments/` as a persistent assessment document
 - Select experts genuinely relevant to problem
 - Show framework structure when applying consulting methods
@@ -394,6 +410,7 @@ MSD-specific context relevant?
 ## Quality Indicators
 
 **Good panel:**
+
 - Each expert contributes unique insight
 - Cross-references are specific and substantive
 - Framework application shows structure and reasoning
@@ -401,6 +418,7 @@ MSD-specific context relevant?
 - Disagreements are productive and resolved (or flagged)
 
 **Poor panel:**
+
 - Experts repeat same points
 - Generic advice not grounded in frameworks or domain
 - No synthesis or integration across perspectives

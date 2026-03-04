@@ -33,18 +33,22 @@ See: `references/backend-technologies.md` for detailed comparisons
 ## Reference Navigation
 
 **Core Technologies:**
+
 - `backend-technologies.md` - Languages, frameworks, databases, message queues, ORMs
 - `backend-api-design.md` - REST, GraphQL, gRPC patterns and best practices
 
 **Security & Authentication:**
+
 - `backend-security.md` - OWASP Top 10 2025, security best practices, input validation
 - `backend-authentication.md` - OAuth 2.1, JWT, RBAC, MFA, session management
 
 **Performance & Architecture:**
+
 - `backend-performance.md` - Caching, query optimization, load balancing, scaling
 - `backend-architecture.md` - Microservices, event-driven, CQRS, saga patterns
 
 **Quality & Operations:**
+
 - `backend-testing.md` - Testing strategies, frameworks, tools, CI/CD testing
 - `backend-code-quality.md` - SOLID principles, design patterns, clean code
 - `backend-devops.md` - Docker, Kubernetes, deployment strategies, monitoring
@@ -162,6 +166,7 @@ describe('RLS enforcement', () => {
 ### RLS Coverage Checklist
 
 **Before production deployment, verify:**
+
 - [ ] RLS enabled on all application tables (100% coverage)
 - [ ] RLS policies defined and tested
 - [ ] Security tests verify RLS enforcement for all operations (SELECT, INSERT, UPDATE, DELETE)
@@ -174,6 +179,6 @@ describe('RLS enforcement', () => {
 
 ## Resources
 
-- OWASP Top 10: https://owasp.org/www-project-top-ten/
-- OAuth 2.1: https://oauth.net/2.1/
-- OpenTelemetry: https://opentelemetry.io/
+- OWASP Top 10: <https://owasp.org/www-project-top-ten/>
+- OAuth 2.1: <https://oauth.net/2.1/>
+- OpenTelemetry: <https://opentelemetry.io/>

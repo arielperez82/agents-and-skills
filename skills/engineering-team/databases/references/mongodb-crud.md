@@ -5,6 +5,7 @@ CRUD operations (Create, Read, Update, Delete) in MongoDB with query operators a
 ## Create Operations
 
 ### insertOne
+
 ```javascript
 // Insert single document
 db.users.insertOne({
@@ -18,6 +19,7 @@ db.users.insertOne({
 ```
 
 ### insertMany
+
 ```javascript
 // Insert multiple documents
 db.users.insertMany([
@@ -33,6 +35,7 @@ db.users.insertMany(docs, { ordered: false })
 ## Read Operations
 
 ### find
+
 ```javascript
 // Find all documents
 db.users.find()
@@ -51,6 +54,7 @@ db.users.find()
 ```
 
 ### findOne
+
 ```javascript
 // Get single document
 db.users.findOne({ email: "alice@example.com" })
@@ -60,6 +64,7 @@ db.users.findOne({ _id: ObjectId("...") }, { name: 1, email: 1 })
 ```
 
 ### count/estimatedDocumentCount
+
 ```javascript
 // Count matching documents
 db.users.countDocuments({ status: "active" })
@@ -69,6 +74,7 @@ db.users.estimatedDocumentCount()
 ```
 
 ### distinct
+
 ```javascript
 // Get unique values
 db.users.distinct("status")
@@ -78,6 +84,7 @@ db.users.distinct("city", { country: "USA" })
 ## Update Operations
 
 ### updateOne
+
 ```javascript
 // Update first matching document
 db.users.updateOne(
@@ -94,6 +101,7 @@ db.users.updateOne(
 ```
 
 ### updateMany
+
 ```javascript
 // Update all matching documents
 db.users.updateMany(
@@ -112,6 +120,7 @@ db.users.updateMany(
 ```
 
 ### replaceOne
+
 ```javascript
 // Replace entire document (except _id)
 db.users.replaceOne(
@@ -123,12 +132,14 @@ db.users.replaceOne(
 ## Delete Operations
 
 ### deleteOne
+
 ```javascript
 // Delete first matching document
 db.users.deleteOne({ email: "alice@example.com" })
 ```
 
 ### deleteMany
+
 ```javascript
 // Delete all matching documents
 db.users.deleteMany({ status: "deleted" })
@@ -140,6 +151,7 @@ db.users.deleteMany({})
 ## Query Operators
 
 ### Comparison Operators
+
 ```javascript
 // $eq (equals)
 db.users.find({ age: { $eq: 30 } })
@@ -159,6 +171,7 @@ db.users.find({ status: { $nin: ["deleted", "banned"] } })
 ```
 
 ### Logical Operators
+
 ```javascript
 // $and (implicit for multiple conditions)
 db.users.find({ age: { $gte: 18 }, status: "active" })
@@ -192,6 +205,7 @@ db.users.find({
 ```
 
 ### Element Operators
+
 ```javascript
 // $exists
 db.users.find({ phoneNumber: { $exists: true } })
@@ -203,6 +217,7 @@ db.users.find({ age: { $type: ["int", "double"] } })
 ```
 
 ### Array Operators
+
 ```javascript
 // $all (contains all elements)
 db.posts.find({ tags: { $all: ["mongodb", "database"] } })
@@ -219,6 +234,7 @@ db.posts.find({ tags: { $size: 3 } })
 ```
 
 ### String Operators
+
 ```javascript
 // $regex (regular expression)
 db.users.find({ name: { $regex: /^A/i } })
@@ -231,6 +247,7 @@ db.articles.find({ $text: { $search: "mongodb database" } })
 ## Update Operators
 
 ### Field Update Operators
+
 ```javascript
 // $set (set field value)
 db.users.updateOne(
@@ -258,6 +275,7 @@ db.users.updateOne(
 ```
 
 ### Numeric Update Operators
+
 ```javascript
 // $inc (increment)
 db.posts.updateOne(
@@ -285,6 +303,7 @@ db.scores.updateOne(
 ```
 
 ### Array Update Operators
+
 ```javascript
 // $push (add to array)
 db.posts.updateOne(
@@ -339,6 +358,7 @@ db.posts.updateOne(
 ## Atomic Operations
 
 ### findAndModify / findOneAndUpdate
+
 ```javascript
 // Find and update (returns old document by default)
 db.users.findOneAndUpdate(
@@ -362,6 +382,7 @@ db.counters.findOneAndUpdate(
 ```
 
 ### findOneAndReplace
+
 ```javascript
 // Find and replace entire document
 db.users.findOneAndReplace(
@@ -372,6 +393,7 @@ db.users.findOneAndReplace(
 ```
 
 ### findOneAndDelete
+
 ```javascript
 // Find and delete (returns deleted document)
 const deletedUser = db.users.findOneAndDelete(

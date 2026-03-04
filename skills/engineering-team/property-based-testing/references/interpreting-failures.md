@@ -5,6 +5,7 @@ How to analyze failures and determine if they represent genuine bugs.
 ## The Self-Reflection Problem
 
 Property-based testing generates many failing examples. Not all failures are bugs:
+
 - **Test bugs**: Property is wrong, strategy generates invalid inputs
 - **Ambiguous specs**: Behavior undefined for edge cases
 - **Genuine bugs**: Code violates documented guarantees
@@ -44,6 +45,7 @@ Before assuming a bug, verify your property against authoritative sources:
 | **External docs/specs** | Protocol specs, format definitions |
 
 **Example grounding check:**
+
 ```python
 def normalize(s: str) -> str:
     """Normalize a string to NFC form.
@@ -63,11 +65,13 @@ The docstring says "any unicode" - so null bytes should be valid input. The prop
 Does the strategy generate inputs the function should actually handle?
 
 **Red flags:**
+
 - Generating inputs outside documented domain
 - Missing constraints that real callers would have
 - Overly aggressive size/complexity
 
 **Questions to ask:**
+
 - Would real code pass this input?
 - Does the docstring exclude this case?
 - Is this a precondition violation, not a bug?
@@ -120,20 +124,26 @@ def test_bug():
 ```
 
 ## Expected Behavior
+
 According to [docstring/spec/docs], the function should:
+
 - [Specific guarantee that was violated]
 
 ## Actual Behavior
+
 - [What actually happened]
 
 ## Evidence
+
 - Docstring states: "[relevant quote]"
 - Type signature promises: `-> PositiveInt`
 
 ## Environment
+
 - Library version: X.Y.Z
 - Python version: 3.X
 - Platform: [OS]
+
 ```
 
 ## Real-World Failure Patterns
@@ -197,6 +207,7 @@ def test_roundtrip(s):
 **Grounding check**: Is `'\uD800'` (lone surrogate) valid input?
 
 **Classification**:
+
 - If docs say "valid UTF-8 only" → Strategy bug, fix filter
 - If docs say "any string" → Genuine bug, report it
 
@@ -213,6 +224,7 @@ def test_format_safe(template):
 **Grounding check**: Does function claim to handle arbitrary strings?
 
 **Classification**:
+
 - If user-facing, should handle gracefully → Genuine bug
 - If internal API with preconditions → Check preconditions met
 

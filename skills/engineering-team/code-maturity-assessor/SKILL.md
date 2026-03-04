@@ -16,14 +16,18 @@ I will systematically assess this codebase's maturity using Trail of Bits' 9-cat
 ## How This Works
 
 ### Phase 1: Discovery
+
 I'll explore the codebase to understand:
+
 - Project structure and platform
 - Contract/module files
 - Test coverage
 - Documentation availability
 
 ### Phase 2: Analysis
+
 For each of 9 categories, I'll:
+
 - **Search the code** for relevant patterns
 - **Read key files** to assess implementation
 - **Present findings** with file references
@@ -31,7 +35,9 @@ For each of 9 categories, I'll:
 - **Determine rating** based on criteria
 
 ### Phase 3: Report
+
 I'll generate:
+
 - Executive summary
 - Maturity scorecard (ratings for all 9 categories)
 - Detailed analysis with evidence
@@ -48,6 +54,7 @@ I'll generate:
 - **Strong (4)**: Exceptional, only small improvements possible
 
 **Rating Logic**:
+
 - ANY "Weak" criteria → **Weak**
 - NO "Weak" + SOME "Moderate" unmet → **Moderate**
 - ALL "Moderate" + SOME "Satisfactory" met → **Satisfactory**
@@ -59,56 +66,65 @@ I'll generate:
 
 I assess 9 comprehensive categories covering all aspects of code maturity. For detailed criteria, analysis approaches, and rating thresholds, see [ASSESSMENT_CRITERIA.md](resources/ASSESSMENT_CRITERIA.md).
 
-### Quick Reference:
+### Quick Reference
 
 **1. ARITHMETIC**
+
 - Overflow protection mechanisms
 - Precision handling and rounding
 - Formula specifications
 - Edge case testing
 
 **2. AUDITING**
+
 - Event definitions and coverage
 - Monitoring infrastructure
 - Incident response planning
 
 **3. AUTHENTICATION / ACCESS CONTROLS**
+
 - Privilege management
 - Role separation
 - Access control testing
 - Key compromise scenarios
 
 **4. COMPLEXITY MANAGEMENT**
+
 - Function scope and clarity
 - Cyclomatic complexity
 - Inheritance hierarchies
 - Code duplication
 
 **5. DECENTRALIZATION**
+
 - Centralization risks
 - Upgrade control mechanisms
 - User opt-out paths
 - Timelock/multisig patterns
 
 **6. DOCUMENTATION**
+
 - Specifications and architecture
 - Inline code documentation
 - User stories
 - Domain glossaries
 
 **7. TRANSACTION ORDERING RISKS**
+
 - MEV vulnerabilities
 - Front-running protections
 - Slippage controls
 - Oracle security
 
 **8. LOW-LEVEL MANIPULATION**
+
 - Assembly usage
 - Unsafe code sections
 - Low-level calls
 - Justification and testing
 
 **9. TESTING & VERIFICATION**
+
 - Test coverage
 - Fuzzing and formal verification
 - CI/CD integration
@@ -179,7 +195,7 @@ When invoked, I will:
 
 For detailed report structure and templates, see [REPORT_FORMAT.md](resources/REPORT_FORMAT.md).
 
-### Structure:
+### Structure
 
 1. **Executive Summary**
    - Project name and platform
@@ -211,6 +227,7 @@ For detailed report structure and templates, see [REPORT_FORMAT.md](resources/RE
 **Estimated Time**: 30-40 minutes
 
 **I'll need**:
+
 - Access to full codebase
 - Your knowledge of processes (monitoring, incident response, team practices)
 - Context about the project (DeFi, NFT, infrastructure, etc.)

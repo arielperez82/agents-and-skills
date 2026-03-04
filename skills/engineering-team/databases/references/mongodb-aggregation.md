@@ -17,6 +17,7 @@ db.collection.aggregate([
 ## Core Pipeline Stages
 
 ### $match (Filter Documents)
+
 ```javascript
 // Filter early in pipeline for efficiency
 db.orders.aggregate([
@@ -36,6 +37,7 @@ db.orders.aggregate([
 ```
 
 ### $project (Reshape Documents)
+
 ```javascript
 // Select and reshape fields
 db.orders.aggregate([
@@ -59,6 +61,7 @@ db.orders.aggregate([
 ```
 
 ### $group (Aggregate Data)
+
 ```javascript
 // Group and count
 db.orders.aggregate([
@@ -94,6 +97,7 @@ db.sales.aggregate([
 ```
 
 ### $sort (Order Results)
+
 ```javascript
 // Sort by field
 db.orders.aggregate([
@@ -107,6 +111,7 @@ db.orders.aggregate([
 ```
 
 ### $limit / $skip (Pagination)
+
 ```javascript
 // Limit results
 db.orders.aggregate([
@@ -125,6 +130,7 @@ db.orders.aggregate([
 ```
 
 ### $lookup (Join Collections)
+
 ```javascript
 // Simple join
 db.orders.aggregate([
@@ -152,6 +158,7 @@ db.orders.aggregate([
 ```
 
 ### $unwind (Deconstruct Arrays)
+
 ```javascript
 // Unwind array field
 db.orders.aggregate([
@@ -176,6 +183,7 @@ db.orders.aggregate([
 ```
 
 ### $addFields (Add New Fields)
+
 ```javascript
 // Add computed fields
 db.orders.aggregate([
@@ -187,6 +195,7 @@ db.orders.aggregate([
 ```
 
 ### $replaceRoot (Replace Document Root)
+
 ```javascript
 // Promote subdocument to root
 db.orders.aggregate([
@@ -204,6 +213,7 @@ db.orders.aggregate([
 ## Aggregation Operators
 
 ### Arithmetic Operators
+
 ```javascript
 // Basic math
 db.products.aggregate([
@@ -224,6 +234,7 @@ db.products.aggregate([
 ```
 
 ### String Operators
+
 ```javascript
 // String manipulation
 db.users.aggregate([
@@ -241,6 +252,7 @@ db.users.aggregate([
 ```
 
 ### Date Operators
+
 ```javascript
 // Date extraction
 db.events.aggregate([
@@ -268,6 +280,7 @@ db.events.aggregate([
 ```
 
 ### Array Operators
+
 ```javascript
 // Array operations
 db.posts.aggregate([
@@ -296,6 +309,7 @@ db.posts.aggregate([
 ```
 
 ### Conditional Operators
+
 ```javascript
 // $cond (ternary)
 db.products.aggregate([
@@ -331,6 +345,7 @@ db.orders.aggregate([
 ## Advanced Patterns
 
 ### Time-Based Aggregation
+
 ```javascript
 // Daily sales
 db.orders.aggregate([
@@ -349,6 +364,7 @@ db.orders.aggregate([
 ```
 
 ### Faceted Search
+
 ```javascript
 // Multiple aggregations in one query
 db.products.aggregate([
@@ -375,6 +391,7 @@ db.products.aggregate([
 ```
 
 ### Window Functions
+
 ```javascript
 // Running totals and moving averages
 db.sales.aggregate([
@@ -396,6 +413,7 @@ db.sales.aggregate([
 ```
 
 ### Text Search with Aggregation
+
 ```javascript
 // Full-text search (requires text index)
 db.articles.aggregate([
@@ -407,6 +425,7 @@ db.articles.aggregate([
 ```
 
 ### Geospatial Aggregation
+
 ```javascript
 // Find nearby locations
 db.places.aggregate([
@@ -429,6 +448,7 @@ db.places.aggregate([
 5. **Avoid $lookup** - Prefer embedded documents when possible
 6. **Use $facet sparingly** - Can be memory intensive
 7. **allowDiskUse** - Enable for large datasets
+
 ```javascript
 db.collection.aggregate(pipeline, { allowDiskUse: true })
 ```
@@ -439,9 +459,10 @@ db.collection.aggregate(pipeline, { allowDiskUse: true })
 2. **Use $expr carefully** - Can prevent index usage
 3. **Monitor memory** - Default limit: 100MB per stage
 4. **Test with explain** - Analyze pipeline performance
+
 ```javascript
 db.collection.explain("executionStats").aggregate(pipeline)
 ```
-5. **Break complex pipelines** - Use $out/$merge for intermediate results
-6. **Use $sample** - For random document selection
-7. **Leverage $addFields** - Cleaner than $project for adding fields
+1. **Break complex pipelines** - Use $out/$merge for intermediate results
+2. **Use $sample** - For random document selection
+3. **Leverage $addFields** - Cleaner than $project for adding fields

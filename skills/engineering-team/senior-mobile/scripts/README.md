@@ -11,6 +11,7 @@ Pre-submission validation for Apple App Store and Google Play Store requirements
 **Purpose:** Catch common app store submission issues before uploading, reducing rejection risk and saving time.
 
 **Features:**
+
 - Apple App Store validation (Info.plist, icons, launch screens, privacy manifest)
 - Google Play Store validation (AndroidManifest.xml, Gradle config, 64-bit support)
 - Multiple output formats (text, JSON, markdown)
@@ -19,6 +20,7 @@ Pre-submission validation for Apple App Store and Google Play Store requirements
 - Cross-platform asset validation
 
 **Usage:**
+
 ```bash
 # Validate both stores
 python app_store_validator.py ./my-app
@@ -37,6 +39,7 @@ python app_store_validator.py ./my-app --verbose
 ```
 
 **Exit Codes:**
+
 - `0` - Success (ready for submission)
 - `1` - Unexpected error
 - `2` - Validation errors found
@@ -46,6 +49,7 @@ python app_store_validator.py ./my-app --verbose
 **Output Formats:**
 
 *Text (default):*
+
 ```
 === Apple App Store Validation Results ===
 
@@ -68,6 +72,7 @@ Info: 0
 ```
 
 *JSON:*
+
 ```json
 {
   "metadata": {
@@ -92,6 +97,7 @@ Info: 0
 ```
 
 *Markdown:*
+
 ```markdown
 # App Store Validation Report
 
@@ -113,6 +119,7 @@ Info: 0
 ```
 
 **Apple App Store Checks:**
+
 - ✓ Info.plist required keys (CFBundleIdentifier, CFBundleVersion, etc.)
 - ✓ App icon sizes (20, 29, 40, 60, 76, 83.5, 1024)
 - ✓ Launch screen configuration
@@ -123,6 +130,7 @@ Info: 0
 - ✓ App size estimation
 
 **Google Play Store Checks:**
+
 - ✓ AndroidManifest.xml required elements
 - ✓ Package name format validation
 - ✓ Target SDK version (34+ required for new apps in 2024)
@@ -135,6 +143,7 @@ Info: 0
 - ✓ Code minification (ProGuard/R8)
 
 **CI/CD Integration:**
+
 ```yaml
 # GitHub Actions example
 - name: Validate App Store Requirements
@@ -149,6 +158,7 @@ Info: 0
 ```
 
 **Best Practices:**
+
 1. Run validator before every app store submission
 2. Use `--strict` mode in CI/CD pipelines
 3. Generate markdown reports for PR reviews
@@ -156,6 +166,7 @@ Info: 0
 5. Address all errors and warnings before submission
 
 **Common Issues Detected:**
+
 - Missing required Info.plist keys
 - Incomplete app icon sets
 - Missing privacy manifest (iOS 17+)
@@ -165,6 +176,7 @@ Info: 0
 - Invalid package name format
 
 **Requirements:**
+
 - Python 3.8+
 - No external dependencies (uses standard library only)
 - Works on macOS, Linux, Windows
@@ -178,6 +190,7 @@ Info: 0
 ## Development
 
 All tools follow claude-skills standards:
+
 - Standard library only (no pip dependencies)
 - Support `--help` flag
 - Multiple output formats
@@ -186,6 +199,7 @@ All tools follow claude-skills standards:
 - Comprehensive error handling
 
 For more information, see:
+
 - [Senior Mobile Skill Documentation](../SKILL.md)
 - [Python CLI Template](/templates/python-cli-template.py)
 - [CLI Standards](/docs/standards/cli-standards.md)

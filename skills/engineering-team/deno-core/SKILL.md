@@ -8,6 +8,7 @@ description: "Essential Deno TypeScript practices for ALL Deno development: conf
 ## When to Use This Skill
 
 Use this skill for ALL Deno TypeScript development:
+
 - Setting up new Deno projects
 - Writing Deno applications or libraries
 - Configuring build, test, and deployment
@@ -16,18 +17,21 @@ Use this skill for ALL Deno TypeScript development:
 ## Core Deno Philosophy
 
 ### One Tool, Zero Dependencies
+
 - Deno is the **only tool you need** for TypeScript development
 - Built-in tooling: typecheck, lint, format, test, coverage, benchmark
 - **Avoid `node_modules` at all costs** - reduce supply chain attack surface
 - No need for: tsc, eslint, prettier, jest, vitest, webpack, etc.
 
 ### TypeScript Excellence
+
 - **Strict TypeScript adherence** - not just "TS support"
 - **Bleeding-edge TypeScript features by default** - no flags, no config needed
 - No compilation step - just run your code
 - Target **ES2024+** with Stage 3 TC39 proposals
 
 ### Security First
+
 - Explicit permissions model (no implicit file system or network access)
 - Supply chain security through minimal external dependencies
 - First-class support for modern security patterns
@@ -68,6 +72,7 @@ Always use the strictest possible settings in `deno.json`:
 ### deno.json - Single Source of Truth
 
 Use `deno.json` or `deno.jsonc` as the single configuration file for:
+
 - Compiler options
 - Linting and formatting rules
 - Tasks (script aliases)
@@ -119,6 +124,7 @@ Use `deno.json` or `deno.jsonc` as the single configuration file for:
 ### Essential Tasks
 
 Define these **`deno task`** aliases at minimum:
+
 - `dev` - Development with watch mode
 - `test`, `test:watch` - Testing
 - `coverage` - Generate coverage reports
@@ -160,11 +166,13 @@ import { validatePrompt } from "./validation.ts";
 Use sources in this order:
 
 1. **`jsr:` registry** (first choice for TypeScript modules)
+
    ```json
    "@std/assert": "jsr:@std/assert@^1.0.14"
    ```
 
 2. **`npm:` specifier** (when needed; prefer ESM-compatible)
+
    ```json
    "zod": "npm:zod@^3.23.8"
    ```
@@ -242,6 +250,7 @@ tests/
 ```
 
 **Why Co-location:**
+
 - Discoverability - tests next to code
 - Maintenance - easy to keep in sync
 - Deno convention - follows `deno test` discovery
@@ -295,6 +304,7 @@ deno test src/domain/agent.test.ts --watch
 **CRITICAL:** All tests must be deterministic.
 
 **Test Flakiness Policy:**
+
 - Flakiness = **highest priority bug**
 - **Never ignore, retry, or "fix" with delays**
 - Action: investigate, quarantine, fix
@@ -527,6 +537,6 @@ deno task coverage
 
 ## Additional Resources
 
-- **Deno Manual:** https://docs.deno.com/
-- **Deno Standard Library:** https://jsr.io/@std
-- **JSR Registry:** https://jsr.io/
+- **Deno Manual:** <https://docs.deno.com/>
+- **Deno Standard Library:** <https://jsr.io/@std>
+- **JSR Registry:** <https://jsr.io/>

@@ -11,26 +11,31 @@ Comprehensive guide to coding standards, testing strategies, security practices,
 **SOLID Principles**
 
 **S - Single Responsibility Principle**
+
 - Each class/function does one thing
 - Easy to understand and test
 - Minimal coupling
 
 **O - Open/Closed Principle**
+
 - Open for extension, closed for modification
 - Use interfaces and abstract classes
 - Plugin architecture
 
 **L - Liskov Substitution Principle**
+
 - Subtypes must be substitutable for base types
 - Maintain behavioral consistency
 - Contract-driven development
 
 **I - Interface Segregation Principle**
+
 - Many specific interfaces > one general interface
 - Clients shouldn't depend on unused methods
 - Focused contracts
 
 **D - Dependency Inversion Principle**
+
 - Depend on abstractions, not concretions
 - High-level modules independent of low-level modules
 - Dependency injection
@@ -38,6 +43,7 @@ Comprehensive guide to coding standards, testing strategies, security practices,
 ### Code Style
 
 **Naming Conventions**
+
 - Use descriptive names
 - Variables: camelCase (`userName`)
 - Classes: PascalCase (`UserService`)
@@ -45,18 +51,21 @@ Comprehensive guide to coding standards, testing strategies, security practices,
 - Files: kebab-case (`user-service.ts`)
 
 **Function Design**
+
 - Keep functions small (< 20 lines)
 - One level of abstraction
 - Descriptive names (verbs)
 - Pure functions when possible
 
 **Comments**
+
 - Explain "why", not "what"
 - Document complex algorithms
 - Keep comments up-to-date
 - Use JSDoc/TSDoc for documentation
 
 **Code Organization**
+
 ```
 src/
 ├── components/       # React components
@@ -71,27 +80,32 @@ src/
 ### Code Review Checklist
 
 **Functionality**
+
 - Does it meet requirements?
 - Are edge cases handled?
 - Is error handling appropriate?
 
 **Code Quality**
+
 - Follows style guide?
 - No code duplication?
 - Good naming?
 - Appropriate comments?
 
 **Testing**
+
 - Tests included?
 - Coverage adequate?
 - Edge cases tested?
 
 **Performance**
+
 - Efficient algorithms?
 - No N+1 queries?
 - Appropriate caching?
 
 **Security**
+
 - Input validation?
 - No sensitive data in logs?
 - Secure dependencies?
@@ -101,18 +115,21 @@ src/
 ### Testing Pyramid
 
 **Unit Tests (70%)**
+
 - Test individual functions/methods
 - Fast execution
 - High coverage
 - Isolated from dependencies
 
 **Integration Tests (20%)**
+
 - Test component interactions
 - Database operations
 - API endpoints
 - Mock external services
 
 **End-to-end Tests (10%)**
+
 - Test complete user flows
 - Real browser testing
 - Critical paths only
@@ -121,6 +138,7 @@ src/
 ### Unit Testing Best Practices
 
 **AAA Pattern: Arrange, Act, Assert**
+
 ```javascript
 test('calculates total price', () => {
   // Arrange
@@ -135,15 +153,18 @@ test('calculates total price', () => {
 ```
 
 **Test Naming**
+
 - Descriptive: "should calculate total when items exist"
 - Format: "should [expected behavior] when [condition]"
 
 **Test Independence**
+
 - Each test runs in isolation
 - No shared state
 - Order doesn't matter
 
 **Mock External Dependencies**
+
 ```javascript
 jest.mock('../services/api');
 
@@ -161,12 +182,14 @@ test('fetches user data', async () => {
 ### Integration Testing
 
 **Database Tests**
+
 - Use test database
 - Seed data before tests
 - Clean up after tests
 - Test transactions
 
 **API Tests**
+
 ```javascript
 describe('POST /api/users', () => {
   test('creates a user', async () => {
@@ -186,18 +209,21 @@ describe('POST /api/users', () => {
 ### End-to-end Testing
 
 **Critical User Flows**
+
 - User registration/login
 - Purchase flow
 - Content creation
 - Account management
 
 **Best Practices**
+
 - Test happy paths and error scenarios
 - Use data attributes for selectors
 - Wait for elements properly
 - Keep tests maintainable
 
 **Example (Cypress)**
+
 ```javascript
 describe('Checkout flow', () => {
   beforeEach(() => {
@@ -223,17 +249,20 @@ describe('Checkout flow', () => {
 ### Test Coverage
 
 **Target Coverage**
+
 - Overall: 80%+
 - Critical paths: 100%
 - Utils/helpers: 95%+
 - UI components: 70%+
 
 **Coverage Tools**
+
 - Istanbul (nyc)
 - Jest coverage
 - Codecov
 
 **What Not to Test**
+
 - Third-party libraries
 - Configuration files
 - Type definitions
@@ -244,6 +273,7 @@ describe('Checkout flow', () => {
 ### Frontend Performance
 
 **Code Splitting**
+
 ```javascript
 // Dynamic imports
 const HeavyComponent = lazy(() => import('./HeavyComponent'));
@@ -253,6 +283,7 @@ const Dashboard = lazy(() => import('./pages/Dashboard'));
 ```
 
 **Memoization**
+
 ```javascript
 // Expensive computation
 const expensiveValue = useMemo(() => {
@@ -266,6 +297,7 @@ const handleClick = useCallback(() => {
 ```
 
 **Image Optimization**
+
 ```jsx
 // Next.js Image component
 <Image
@@ -279,6 +311,7 @@ const handleClick = useCallback(() => {
 ```
 
 **Virtual Scrolling**
+
 - Render only visible items
 - React Virtual, React Window
 - Improves performance with large lists
@@ -288,6 +321,7 @@ const handleClick = useCallback(() => {
 **Database Optimization**
 
 **Indexing**
+
 ```sql
 -- Index frequently queried columns
 CREATE INDEX idx_users_email ON users(email);
@@ -297,12 +331,14 @@ CREATE INDEX idx_posts_user_created ON posts(user_id, created_at);
 ```
 
 **Query Optimization**
+
 - Use EXPLAIN to analyze queries
 - Avoid SELECT *
 - Use joins instead of multiple queries
 - Limit result sets
 
 **N+1 Query Prevention**
+
 ```javascript
 // Bad: N+1 queries
 const users = await User.findAll();
@@ -319,6 +355,7 @@ const users = await User.findAll({
 **Caching Strategies**
 
 **In-memory Cache (Redis)**
+
 ```javascript
 async function getUser(id) {
   // Check cache
@@ -336,6 +373,7 @@ async function getUser(id) {
 ```
 
 **CDN for Static Assets**
+
 - CloudFront, Cloudflare
 - Edge locations worldwide
 - Reduced latency
@@ -343,6 +381,7 @@ async function getUser(id) {
 ### API Performance
 
 **Pagination**
+
 ```javascript
 // Offset-based
 GET /api/posts?page=2&limit=20
@@ -352,6 +391,7 @@ GET /api/posts?cursor=abc123&limit=20
 ```
 
 **Rate Limiting**
+
 ```javascript
 const rateLimit = require('express-rate-limit');
 
@@ -364,6 +404,7 @@ app.use('/api/', limiter);
 ```
 
 **Compression**
+
 ```javascript
 const compression = require('compression');
 app.use(compression());
@@ -374,6 +415,7 @@ app.use(compression());
 ### Authentication
 
 **Password Security**
+
 - Hash passwords (bcrypt, argon2)
 - Minimum length: 8 characters
 - Enforce complexity
@@ -390,6 +432,7 @@ const isValid = await bcrypt.compare(password, hashedPassword);
 ```
 
 **JWT Best Practices**
+
 - Short expiration (15 minutes)
 - Refresh token pattern
 - Secure storage (httpOnly cookies)
@@ -406,6 +449,7 @@ const decoded = jwt.verify(token, SECRET);
 ### Authorization
 
 **Role-Based Access Control**
+
 ```javascript
 function requireRole(role) {
   return (req, res, next) => {
@@ -422,6 +466,7 @@ app.delete('/api/users/:id', requireRole('admin'), deleteUser);
 ### Input Validation
 
 **Server-side Validation (Required)**
+
 ```javascript
 const { body, validationResult } = require('express-validator');
 
@@ -439,6 +484,7 @@ app.post('/api/users',
 ```
 
 **SQL Injection Prevention**
+
 ```javascript
 // Bad: SQL injection vulnerable
 const query = `SELECT * FROM users WHERE email = '${email}'`;
@@ -449,6 +495,7 @@ const users = await db.query(query, [email]);
 ```
 
 **XSS Prevention**
+
 - Escape user input
 - Content Security Policy
 - Sanitize HTML
@@ -461,6 +508,7 @@ const safeContent = escape(userInput);
 ### HTTPS
 
 **Enforce HTTPS**
+
 ```javascript
 app.use((req, res, next) => {
   if (!req.secure && req.get('x-forwarded-proto') !== 'https') {
@@ -473,6 +521,7 @@ app.use((req, res, next) => {
 ### Environment Variables
 
 **Never commit secrets**
+
 ```bash
 # .env (gitignored)
 DATABASE_URL=postgresql://user:pass@localhost:5432/mydb
@@ -481,6 +530,7 @@ API_KEY=your-api-key
 ```
 
 **Access in code**
+
 ```javascript
 const dbUrl = process.env.DATABASE_URL;
 ```
@@ -500,6 +550,7 @@ app.use(cors({
 ### Dependency Security
 
 **Regular Updates**
+
 ```bash
 # Check for vulnerabilities
 npm audit
@@ -512,6 +563,7 @@ npm update
 ```
 
 **Use Security Tools**
+
 - Snyk
 - Dependabot
 - npm audit
@@ -580,6 +632,7 @@ logger.error('Error occurred', { error: err, userId: req.user.id });
 ### Code Documentation
 
 **JSDoc/TSDoc**
+
 ```typescript
 /**
  * Calculate the total price of items in cart
@@ -601,6 +654,7 @@ function calculateTotal(items: CartItem[], taxRate: number): number {
 ### API Documentation
 
 **OpenAPI/Swagger**
+
 ```yaml
 paths:
   /users:
@@ -640,22 +694,29 @@ cp .env.example .env
 ```
 
 ## Configuration
+
 Environment variables...
 
 ## Usage
+
 How to run...
 
 ## Testing
+
 How to test...
 
 ## Deployment
+
 Deployment instructions...
 
 ## Contributing
+
 Contribution guidelines...
 
 ## License
+
 License information...
+
 ```
 
 ## Git Workflow
@@ -664,12 +725,14 @@ License information...
 
 **Conventional Commits**
 ```
+
 feat: add user authentication
 fix: resolve memory leak in data processor
 docs: update API documentation
 test: add integration tests for payments
 refactor: extract validation logic
 chore: update dependencies
+
 ```
 
 ### Branch Strategy
@@ -709,12 +772,14 @@ git merge --no-ff feature/user-auth
 ### Zero-downtime Deployment
 
 **Blue-Green Deployment**
+
 1. Deploy to new environment (green)
 2. Run smoke tests
 3. Switch traffic to green
 4. Keep blue for rollback
 
 **Database Migrations**
+
 - Make migrations backward compatible
 - Run migrations before code deployment
 - Test rollback procedures
@@ -731,12 +796,14 @@ git merge --no-ff feature/user-auth
 ### Key Metrics
 
 **Application Metrics**
+
 - Request rate
 - Error rate
 - Response time (p50, p95, p99)
 - Throughput
 
 **Business Metrics**
+
 - User signups
 - Conversion rate
 - Revenue
@@ -745,6 +812,7 @@ git merge --no-ff feature/user-auth
 ### Alerting
 
 **Alert Conditions**
+
 - Error rate > 1%
 - Response time > 2s (p95)
 - CPU > 80%
@@ -752,6 +820,7 @@ git merge --no-ff feature/user-auth
 - Disk > 90%
 
 **Alert Channels**
+
 - Email
 - Slack
 - PagerDuty
@@ -762,16 +831,19 @@ git merge --no-ff feature/user-auth
 ### Regular Tasks
 
 **Daily**
+
 - Review error logs
 - Check performance metrics
 - Monitor deployments
 
 **Weekly**
+
 - Review security alerts
 - Update dependencies
 - Refactor technical debt
 
 **Monthly**
+
 - Review architecture
 - Update documentation
 - Conduct postmortems
@@ -779,11 +851,13 @@ git merge --no-ff feature/user-auth
 ### Technical Debt
 
 **Track Debt**
+
 - Document in issues
 - Estimate impact
 - Prioritize with features
 
 **Regular Refactoring**
+
 - Allocate 20% time
 - Boy Scout Rule (leave code better)
 - Incremental improvements
@@ -791,6 +865,7 @@ git merge --no-ff feature/user-auth
 ## Conclusion
 
 Following these best practices ensures:
+
 - High code quality
 - Strong security
 - Good performance

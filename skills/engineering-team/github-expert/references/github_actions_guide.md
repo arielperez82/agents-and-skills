@@ -3,6 +3,7 @@
 ## Quick Reference
 
 ### Workflow Syntax
+
 ```yaml
 name: Workflow Name
 on: [push, pull_request]  # Events that trigger
@@ -15,6 +16,7 @@ jobs:
 ```
 
 ### Common Events
+
 - `push`: Code pushed
 - `pull_request`: PR opened/updated
 - `workflow_dispatch`: Manual trigger
@@ -22,6 +24,7 @@ jobs:
 - `release`: Release published
 
 ### Common Actions
+
 - `actions/checkout@v4`: Clone repo
 - `actions/setup-node@v4`: Setup Node.js
 - `actions/setup-python@v5`: Setup Python
@@ -32,6 +35,7 @@ jobs:
 ## CI/CD Patterns
 
 ### Matrix Strategy
+
 ```yaml
 strategy:
   matrix:
@@ -44,6 +48,7 @@ steps:
 ```
 
 ### Caching Dependencies
+
 ```yaml
 - uses: actions/setup-node@v4
   with:
@@ -52,6 +57,7 @@ steps:
 ```
 
 ### Environment Variables
+
 ```yaml
 env:
   NODE_ENV: production
@@ -62,6 +68,7 @@ steps:
 ```
 
 ### Conditional Execution
+
 ```yaml
 - name: Deploy
   if: github.ref == 'refs/heads/main'
@@ -71,6 +78,7 @@ steps:
 ## Secrets Management
 
 ### Setting Secrets
+
 ```bash
 # Via GitHub CLI
 gh secret set API_KEY --body "secret-value"
@@ -79,6 +87,7 @@ gh secret set API_KEY --body "secret-value"
 ```
 
 ### Using Secrets
+
 ```yaml
 - name: Deploy
   run: |
@@ -88,6 +97,7 @@ gh secret set API_KEY --body "secret-value"
 ```
 
 **⚠️ Never:**
+
 - Log secrets: `echo ${{ secrets.API_KEY }}`
 - Commit secrets to code
 - Use secrets in PR from forks (security risk)
@@ -95,6 +105,7 @@ gh secret set API_KEY --body "secret-value"
 ## Best Practices
 
 ### 1. Pin Actions to SHA
+
 ```yaml
 # ❌ Risky: Can change
 uses: actions/checkout@v4
@@ -104,6 +115,7 @@ uses: actions/checkout@b4ffde65f46336ab88eb53be808477a3936bae11  # v4.1.1
 ```
 
 ### 2. Minimize Permissions
+
 ```yaml
 permissions:
   contents: read  # Only what you need
@@ -111,6 +123,7 @@ permissions:
 ```
 
 ### 3. Use Concurrency
+
 ```yaml
 concurrency:
   group: ${{ github.workflow }}-${{ github.ref }}
@@ -118,6 +131,7 @@ concurrency:
 ```
 
 ### 4. Cache Appropriately
+
 ```yaml
 - uses: actions/cache@v3
   with:
@@ -130,6 +144,7 @@ concurrency:
 ## Common Workflows
 
 ### Node.js CI
+
 ```yaml
 name: CI
 on: [push, pull_request]
@@ -148,6 +163,7 @@ jobs:
 ```
 
 ### Release on Tag
+
 ```yaml
 name: Release
 on:
@@ -164,6 +180,7 @@ jobs:
 ```
 
 ### Deploy to Azure
+
 ```yaml
 - uses: azure/login@v1
   with:
@@ -176,11 +193,14 @@ jobs:
 ## Troubleshooting
 
 ### Debug Mode
+
 Enable debug logging:
+
 - Repository Settings → Secrets → New secret
 - Name: `ACTIONS_STEP_DEBUG`, Value: `true`
 
 ### Common Issues
+
 1. **Workflow not triggering**: Check event filters, branch names
 2. **Permission denied**: Check `permissions:` block
 3. **Cache miss**: Verify cache key matches
@@ -208,6 +228,7 @@ gh workflow run <workflow-name>
 ## Advanced Patterns
 
 ### Reusable Workflows
+
 ```yaml
 # .github/workflows/reusable.yml
 on:
@@ -226,6 +247,7 @@ jobs:
 ```
 
 ### Composite Actions
+
 ```yaml
 # action.yml
 name: 'Setup Project'
@@ -239,6 +261,7 @@ runs:
 ```
 
 ### Job Dependencies
+
 ```yaml
 jobs:
   build:

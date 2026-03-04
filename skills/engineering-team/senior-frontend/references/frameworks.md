@@ -7,6 +7,7 @@ Comprehensive guide to React/Next.js architecture patterns, component design, st
 ### Atomic Design Pattern
 
 **Hierarchy:**
+
 ```
 Atoms       → Button, Input, Label, Icon
 Molecules   → SearchBar, FormField, Card
@@ -16,6 +17,7 @@ Pages       → HomePage, ProductDetailPage
 ```
 
 **Implementation:**
+
 ```typescript
 // atoms/Button.tsx
 export interface ButtonProps {
@@ -83,6 +85,7 @@ export const LoginForm: React.FC = () => {
 ### Compound Component Pattern
 
 **Usage:**
+
 ```typescript
 // components/Select/index.tsx
 interface SelectContextValue {

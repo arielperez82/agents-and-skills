@@ -9,24 +9,28 @@ Comprehensive guide to modern software architecture patterns for building scalab
 ### Traditional Monolith
 
 **When to Use:**
+
 - Small to medium applications
 - Limited team size (< 10 developers)
 - Simple deployment requirements
 - Rapid prototyping
 
 **Benefits:**
+
 - Simple deployment
 - Easy debugging
 - Strong consistency
 - Lower operational overhead
 
 **Trade-offs:**
+
 - Scalability limitations
 - Technology lock-in
 - Slower deployment cycles
 - All-or-nothing scaling
 
 **Example Structure:**
+
 ```
 monolith/
 ├── web/              # Presentation layer
@@ -40,12 +44,14 @@ monolith/
 **Description:** Monolith organized into well-defined modules with clear boundaries.
 
 **When to Use:**
+
 - Growing applications
 - Teams need independence
 - Not ready for microservices
 - Need monolith benefits with better organization
 
 **Structure:**
+
 ```typescript
 // Module boundaries
 modules/
@@ -70,6 +76,7 @@ export class UsersModule {
 ```
 
 **Key Principles:**
+
 - Strong module boundaries
 - No cross-module database access
 - Clear public APIs
@@ -80,6 +87,7 @@ export class UsersModule {
 ### Service Decomposition Strategies
 
 **By Business Capability**
+
 ```
 Services:
 - User Service (identity, profile)
@@ -90,6 +98,7 @@ Services:
 ```
 
 **By Subdomain (DDD)**
+
 ```
 Core Domain:
 - Order Management (competitive advantage)
@@ -107,6 +116,7 @@ Generic Domains:
 **Synchronous Communication**
 
 **REST APIs**
+
 ```typescript
 // API Gateway pattern
 @Controller('/api/orders')
@@ -137,6 +147,7 @@ export class OrdersController {
 ```
 
 **GraphQL Federation**
+
 ```typescript
 // User service schema
 type User @key(fields: "id") {
@@ -167,6 +178,7 @@ query {
 **Asynchronous Communication**
 
 **Event-Driven Architecture**
+
 ```typescript
 // Publisher
 class OrderService {
@@ -207,6 +219,7 @@ class InventoryService {
 ```
 
 **Message Queues (RabbitMQ/Kafka)**
+
 ```typescript
 // Producer
 await channel.sendToQueue('orders.processing', {
@@ -225,6 +238,7 @@ channel.consume('orders.processing', async (msg) => {
 ### Service Mesh
 
 **Features:**
+
 - Service discovery
 - Load balancing
 - Circuit breaking
@@ -232,6 +246,7 @@ channel.consume('orders.processing', async (msg) => {
 - Security (mTLS)
 
 **Istio Example:**
+
 ```yaml
 apiVersion: networking.istio.io/v1alpha3
 kind: VirtualService
@@ -267,6 +282,7 @@ spec:
 **Concept:** Store state changes as events rather than current state.
 
 **Implementation:**
+
 ```typescript
 // Events
 interface OrderEvent {
@@ -333,12 +349,14 @@ class Order {
 ```
 
 **Benefits:**
+
 - Complete audit trail
 - Temporal queries (state at any point in time)
 - Event replay for debugging
 - Multiple read models from same events
 
 **Trade-offs:**
+
 - Increased complexity
 - Storage requirements
 - Eventual consistency
@@ -399,6 +417,7 @@ class OrderProjection {
 ### Strategic Design
 
 **Bounded Contexts**
+
 ```
 E-commerce System:
 
@@ -419,6 +438,7 @@ E-commerce System:
 ```
 
 **Context Mapping**
+
 ```typescript
 // Anti-Corruption Layer
 class SalesOrderAdapter {
@@ -443,6 +463,7 @@ class SalesOrderAdapter {
 ### Tactical Design
 
 **Aggregates**
+
 ```typescript
 // Order Aggregate Root
 class Order {
@@ -533,6 +554,7 @@ class Money {
 ### Container Orchestration (Kubernetes)
 
 **Deployment Strategy:**
+
 ```yaml
 apiVersion: apps/v1
 kind: Deployment
@@ -576,6 +598,7 @@ spec:
 ### Resilience Patterns
 
 **Circuit Breaker**
+
 ```typescript
 class CircuitBreaker {
   private state: 'CLOSED' | 'OPEN' | 'HALF_OPEN' = 'CLOSED';
@@ -618,6 +641,7 @@ class CircuitBreaker {
 ```
 
 **Retry Pattern**
+
 ```typescript
 async function withRetry<T>(
   fn: () => Promise<T>,
@@ -645,6 +669,7 @@ async function withRetry<T>(
 ## Conclusion
 
 Choose architecture patterns based on:
+
 - System complexity
 - Team size and structure
 - Scalability requirements
@@ -654,6 +679,7 @@ Choose architecture patterns based on:
 Start simple (modular monolith), evolve to complexity (microservices) only when needed.
 
 **Key Takeaways:**
+
 - Monoliths aren't bad - modular monoliths are often ideal
 - Microservices add operational complexity
 - Event-driven architectures enable loose coupling

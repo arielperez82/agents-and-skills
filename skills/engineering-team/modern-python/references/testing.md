@@ -273,12 +273,12 @@ def test_unix_feature():
 .PHONY: test
 
 test:
-	uv run pytest
+ uv run pytest
 
 test-cov:
-	uv run pytest --cov-report=html
-	open htmlcov/index.html
+ uv run pytest --cov-report=html
+ open htmlcov/index.html
 
 test-fast:
-	uv run pytest -x -q --no-cov
+ uv run pytest -x -q --no-cov
 ```

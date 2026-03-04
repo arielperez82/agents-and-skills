@@ -31,6 +31,7 @@ python3 skills/agent-development-team/creating-agents/scripts/validate_agent.py 
 ## What It Validates
 
 ### CRITICAL (exit 1 — must fix)
+
 - YAML syntax valid
 - Required fields present (name, title, description, domain, subdomain, skills)
 - `ap-` prefix on name
@@ -43,6 +44,7 @@ python3 skills/agent-development-team/creating-agents/scripts/validate_agent.py 
 - Collaboration agents exist as `agents/{name}.md`
 
 ### HIGH (exit 0 with warnings)
+
 - Agent listed in `agents/README.md`
 - Core skills indexed in body (Skill Integration section)
 - No deprecated fields (`orchestrates`)
@@ -52,6 +54,7 @@ python3 skills/agent-development-team/creating-agents/scripts/validate_agent.py 
 - No loose `model:`/`color:` fields outside classification block
 
 ### MEDIUM (informational)
+
 - Body has `## Purpose` section
 - Body has `## Skill Integration` section (when skills declared)
 - Body has `## Workflows` section
@@ -61,6 +64,7 @@ python3 skills/agent-development-team/creating-agents/scripts/validate_agent.py 
 ## Output
 
 **Pass:**
+
 ```
 ============================================================
   frontend-engineer.md
@@ -70,6 +74,7 @@ python3 skills/agent-development-team/creating-agents/scripts/validate_agent.py 
 ```
 
 **Fail (critical):**
+
 ```
 ============================================================
   ap-broken-agent.md
@@ -84,6 +89,7 @@ python3 skills/agent-development-team/creating-agents/scripts/validate_agent.py 
 ```
 
 **Batch summary:**
+
 ```
 ============================================================
   SUMMARY

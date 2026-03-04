@@ -7,16 +7,19 @@ Hey Claude—I just added the "senior-architect" skill. Can you help me design a
 ## Example Invocations
 
 ### Example 1: Basic Usage
+
 ```
 Hey Claude—I just added the "senior-architect" skill. Can you help me design a scalable architecture?
 ```
 
 ### Example 2: Specific Workflow
+
 ```
 Hey Claude—I just added the "senior-architect" skill. Can you help me with system architecture design?
 ```
 
 ### Example 3: Integration with Other Skills
+
 ```
 Hey Claude—I just added the "senior-architect" skill. Can you use it together with related skills to deliver a complete solution?
 ```

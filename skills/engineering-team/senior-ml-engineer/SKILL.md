@@ -102,6 +102,7 @@ python scripts/ml_monitoring_suite.py --config config.yaml --deploy
 Automate ML model deployment with production-ready serving infrastructure.
 
 **Key Features:**
+
 - Containerized model serving (Docker, Kubernetes)
 - REST API generation with FastAPI
 - Batch inference pipelines
@@ -110,6 +111,7 @@ Automate ML model deployment with production-ready serving infrastructure.
 - Multi-model serving support
 
 **Common Usage:**
+
 ```bash
 # Deploy model as REST API
 python scripts/model_deployment_pipeline.py --model model.pkl --framework sklearn --port 8000
@@ -125,6 +127,7 @@ python scripts/model_deployment_pipeline.py --help
 ```
 
 **Use Cases:**
+
 - Deploying trained models to production
 - Setting up model serving infrastructure
 - Implementing batch prediction pipelines
@@ -134,6 +137,7 @@ python scripts/model_deployment_pipeline.py --help
 Build production-ready RAG (Retrieval Augmented Generation) systems.
 
 **Key Features:**
+
 - Vector database setup (Pinecone, Weaviate, Chroma)
 - Document chunking strategies
 - Embedding generation (OpenAI, Sentence Transformers)
@@ -142,6 +146,7 @@ Build production-ready RAG (Retrieval Augmented Generation) systems.
 - LLM integration (OpenAI, Anthropic, open-source)
 
 **Common Usage:**
+
 ```bash
 # Build RAG system
 python scripts/rag_system_builder.py --docs ./documents --vector-db pinecone --llm openai
@@ -157,6 +162,7 @@ python scripts/rag_system_builder.py --help
 ```
 
 **Use Cases:**
+
 - Building knowledge-base Q&A systems
 - Document search and retrieval
 - Chatbots with domain knowledge
@@ -166,6 +172,7 @@ python scripts/rag_system_builder.py --help
 Comprehensive model monitoring with drift detection and alerting.
 
 **Key Features:**
+
 - Data drift detection (KS test, PSI, KL divergence)
 - Model performance tracking
 - Prediction distribution monitoring
@@ -174,6 +181,7 @@ Comprehensive model monitoring with drift detection and alerting.
 - Integration with MLflow and Weights & Biases
 
 **Common Usage:**
+
 ```bash
 # Monitor deployed model
 python scripts/ml_monitoring_suite.py --model-endpoint http://api/predict --baseline baseline.csv
@@ -189,6 +197,7 @@ python scripts/ml_monitoring_suite.py --help
 ```
 
 **Use Cases:**
+
 - Monitoring production models for drift
 - Detecting performance degradation
 - Triggering automated retraining
@@ -228,20 +237,26 @@ This skill covers world-class capabilities in:
 
 1. **Prepare Model for Deployment** - Save model, dependencies, preprocessing pipelines
 2. **Containerize Model** - Create Docker image with serving infrastructure
+
    ```bash
    # Deploy as REST API
    python scripts/model_deployment_pipeline.py --model model.pkl --framework sklearn --port 8000
    ```
+
 3. **Deploy to Kubernetes** - Setup load balancer, autoscaling, health checks
+
    ```bash
    # Deploy to K8s
    python scripts/model_deployment_pipeline.py --model model.pth --framework pytorch --deploy k8s
    ```
+
 4. **Setup Monitoring** - Configure drift detection, performance tracking
+
    ```bash
    # Setup monitoring
    python scripts/ml_monitoring_suite.py --model-endpoint http://api/predict --deploy-monitoring
    ```
+
 5. **Load Testing** - Validate latency, throughput, resource usage
 
 See [mlops_production_patterns.md](references/mlops_production_patterns.md) for deployment patterns.
@@ -252,10 +267,12 @@ See [mlops_production_patterns.md](references/mlops_production_patterns.md) for 
 
 1. **Prepare Documents** - Collect and preprocess knowledge base
 2. **Build RAG Pipeline** - Setup vector DB, embeddings, retrieval
+
    ```bash
    # Build RAG system
    python scripts/rag_system_builder.py --docs ./documents --vector-db pinecone --llm openai
    ```
+
 3. **Optimize Retrieval** - Tune chunking, embedding models, top-k
 4. **LLM Integration** - Connect to LLM API, implement prompt templates
 5. **Evaluate Performance** - Test retrieval accuracy, answer quality
@@ -271,6 +288,7 @@ See [rag_system_architecture.md](references/rag_system_architecture.md) for RAG 
 3. **Create Model Registry** - Centralize model storage, versioning, metadata
 4. **Build CI/CD Pipeline** - Automated training, testing, deployment
 5. **Deploy Monitoring** - Dashboards, alerting, drift detection
+
    ```bash
    # Setup monitoring suite
    python scripts/ml_monitoring_suite.py --deploy-monitoring --grafana
@@ -284,10 +302,12 @@ See [rag_system_architecture.md](references/rag_system_architecture.md) for RAG 
 2. **Fine-Tune Model** - Use OpenAI fine-tuning API or local training
 3. **Evaluate Performance** - Compare to base model, test on validation set
 4. **Deploy Fine-Tuned Model** - Setup serving infrastructure
+
    ```bash
    # Deploy custom LLM
    python scripts/model_deployment_pipeline.py --model finetuned-model --framework transformers
    ```
+
 5. **Monitor Usage** - Track costs, latency, quality metrics
 
 See [llm_integration_guide.md](references/llm_integration_guide.md) for LLM deployment strategies.
@@ -386,15 +406,18 @@ High-throughput inference system:
 ## Performance Targets
 
 **Latency:**
+
 - P50: < 50ms
 - P95: < 100ms
 - P99: < 200ms
 
 **Throughput:**
+
 - Requests/second: > 1000
 - Concurrent users: > 10,000
 
 **Availability:**
+
 - Uptime: 99.9%
 - Error rate: < 0.1%
 

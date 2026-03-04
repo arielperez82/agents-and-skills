@@ -81,7 +81,6 @@ metadata:
 - **[Capability 3]** - [Description]
 - **[Capability 4]** - [Description]
 
-
 ## Key Workflows
 
 ### Workflow 1: [Workflow Name]
@@ -89,6 +88,7 @@ metadata:
 **Time:** [Duration estimate]
 
 **Steps:**
+
 1. [Step 1]
 2. [Step 2]
 3. [Step 3]
@@ -100,12 +100,12 @@ metadata:
 **Time:** [Duration estimate]
 
 **Steps:**
+
 1. [Step 1]
 2. [Step 2]
 3. [Step 3]
 
 **Expected Output:** [What success looks like]
-
 
 Expert backend development skill with comprehensive tools for building scalable, secure, and performant backend systems using modern tech stacks and architectural patterns.
 
@@ -114,6 +114,7 @@ Expert backend development skill with comprehensive tools for building scalable,
 This skill provides production-ready backend development capabilities through three Python automation tools and extensive reference documentation. Whether building REST APIs, implementing GraphQL servers, designing database schemas, or optimizing performance, this skill ensures best practices and scalable architecture.
 
 **What This Skill Provides:**
+
 - API scaffolding for REST and GraphQL projects
 - Database migration management and optimization
 - Load testing and performance benchmarking
@@ -122,6 +123,7 @@ This skill provides production-ready backend development capabilities through th
 - Comprehensive code templates and examples
 
 **Use this skill when:**
+
 - Designing and building backend APIs
 - Implementing authentication and authorization
 - Optimizing database queries and schemas
@@ -179,6 +181,7 @@ python scripts/api_load_tester.py http://localhost:3000/api/users --users 100 --
 ### 1. New Backend Project Setup
 
 **Steps:**
+
 1. Scaffold project structure with api_scaffolder.py
    - Choose REST or GraphQL
    - Select tech stack (Express, Fastify, NestJS)
@@ -194,6 +197,7 @@ python scripts/api_load_tester.py http://localhost:3000/api/users --users 100 --
 ### 2. API Design and Implementation
 
 **REST API Design:**
+
 - Resource-based URL structure
 - Proper HTTP methods and status codes
 - Request/response validation with Zod
@@ -201,6 +205,7 @@ python scripts/api_load_tester.py http://localhost:3000/api/users --users 100 --
 - Rate limiting and authentication middleware
 
 **GraphQL API Design:**
+
 - Type-safe schema definitions
 - Efficient resolver implementation
 - DataLoader for N+1 query prevention
@@ -212,6 +217,7 @@ python scripts/api_load_tester.py http://localhost:3000/api/users --users 100 --
 ### 3. Database Schema Design and Optimization
 
 **Schema Design:**
+
 1. Design entities and relationships (Prisma schema)
 2. Create migration: `python scripts/database_migration_tool.py create "schema_name"`
 3. Define indexes for query optimization
@@ -219,6 +225,7 @@ python scripts/api_load_tester.py http://localhost:3000/api/users --users 100 --
 5. Run migration: `python scripts/database_migration_tool.py migrate`
 
 **Query Optimization:**
+
 - N+1 query prevention
 - Proper indexing strategies
 - Connection pooling
@@ -230,6 +237,7 @@ python scripts/api_load_tester.py http://localhost:3000/api/users --users 100 --
 ### 4. Authentication and Authorization
 
 **Implementation:**
+
 1. JWT-based authentication with bcrypt password hashing
 2. Login/register endpoints
 3. Authentication middleware for protected routes
@@ -242,6 +250,7 @@ python scripts/api_load_tester.py http://localhost:3000/api/users --users 100 --
 ### 5. Performance Testing and Optimization
 
 **Load Testing Workflow:**
+
 1. Establish baseline: `python scripts/api_load_tester.py <endpoint> --users 10 --requests 100`
 2. Test under load: Increase concurrent users gradually
 3. Identify bottlenecks (response times, error rates)
@@ -250,6 +259,7 @@ python scripts/api_load_tester.py http://localhost:3000/api/users --users 100 --
 6. Document capacity limits
 
 **Optimization Techniques:**
+
 - Redis caching (cache-aside pattern)
 - Database query optimization
 - Connection pooling
@@ -265,6 +275,7 @@ python scripts/api_load_tester.py http://localhost:3000/api/users --users 100 --
 Production-ready API project generator with complete infrastructure.
 
 **Key Features:**
+
 - REST and GraphQL API scaffolding
 - Multiple tech stacks (Express, Fastify, NestJS, Apollo)
 - Authentication setup (JWT + bcrypt)
@@ -275,6 +286,7 @@ Production-ready API project generator with complete infrastructure.
 - Middleware (auth, validation, rate limiting, logging)
 
 **Usage:**
+
 ```bash
 # Express + TypeScript + PostgreSQL
 python scripts/api_scaffolder.py my-api --type rest --stack express-typescript
@@ -295,6 +307,7 @@ python scripts/api_scaffolder.py simple-api --minimal
 Comprehensive database migration management for schema versioning and rollbacks.
 
 **Key Features:**
+
 - Create, run, and rollback migrations
 - Version tracking and migration history
 - Transaction support for atomic operations
@@ -303,6 +316,7 @@ Comprehensive database migration management for schema versioning and rollbacks.
 - Migration status reporting
 
 **Usage:**
+
 ```bash
 # Create migration
 python scripts/database_migration_tool.py create "add_user_table"
@@ -326,6 +340,7 @@ python scripts/database_migration_tool.py status
 Advanced load testing tool for API performance benchmarking.
 
 **Key Features:**
+
 - Concurrent user simulation
 - Customizable request scenarios
 - Performance metrics (response times, RPS, throughput)
@@ -334,6 +349,7 @@ Advanced load testing tool for API performance benchmarking.
 - Authentication and custom headers support
 
 **Usage:**
+
 ```bash
 # Simple load test
 python scripts/api_load_tester.py http://localhost:3000/api/users --users 50 --requests 1000
@@ -401,12 +417,14 @@ Complete tool documentation:
 ## Best Practices Summary
 
 ### Code Organization
+
 - Use layered architecture (controllers → services → repositories)
 - Implement dependency injection for testability
 - Separate business logic from HTTP layer
 - Use DTOs for request/response validation
 
 ### Security
+
 - Hash passwords with bcrypt (10+ rounds)
 - Implement JWT with proper expiration
 - Validate all inputs with Zod schemas
@@ -416,6 +434,7 @@ Complete tool documentation:
 - Never expose sensitive data in error messages
 
 ### Performance
+
 - Cache frequently accessed data with Redis
 - Optimize database queries (avoid N+1 problems)
 - Use connection pooling
@@ -424,6 +443,7 @@ Complete tool documentation:
 - Use compression middleware
 
 ### Testing
+
 - Write unit tests for business logic
 - Write integration tests for API endpoints
 - Aim for 80%+ code coverage
@@ -432,6 +452,7 @@ Complete tool documentation:
 - Use factories for test data
 
 ### Database
+
 - Use migrations for all schema changes
 - Never modify migrations after deployment
 - Always write DOWN migrations for rollback
@@ -471,6 +492,7 @@ docker-compose logs -f   # View logs
 ## Integration Points
 
 This skill integrates with:
+
 - **Frontend Skills:** REST/GraphQL API consumption
 - **DevOps Skills:** Docker deployment, CI/CD pipelines
 - **QA Skills:** API testing, integration testing

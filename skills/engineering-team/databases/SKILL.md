@@ -26,7 +26,7 @@ Use when:
 
 ## Database Selection Guide
 
-### Choose MongoDB When:
+### Choose MongoDB When
 
 - Schema flexibility: frequent structure changes, heterogeneous data
 - Document-centric: natural JSON/BSON data model
@@ -37,7 +37,7 @@ Use when:
 
 **Best for:** Content management, catalogs, IoT time series, real-time analytics, mobile apps, user profiles
 
-### Choose PostgreSQL When:
+### Choose PostgreSQL When
 
 - Strong consistency: ACID transactions critical
 - Complex relationships: many-to-many joins, referential integrity
@@ -48,7 +48,7 @@ Use when:
 
 **Best for:** Financial systems, e-commerce transactions, ERP, CRM, data warehousing, analytics
 
-### Both Support:
+### Both Support
 
 - JSON/JSONB storage and querying
 - Full-text search capabilities
@@ -306,7 +306,7 @@ NocoDB is a database UI tool that connects to external databases (PostgreSQL, My
 - Security patterns (RLS bypass, image scanning, audit logging)
 - Operational procedures (backup, monitoring, error handling)
 
-**Reference:** NocoDB documentation at https://nocodb.com/docs
+**Reference:** NocoDB documentation at <https://nocodb.com/docs>
 
 ## Migration Safety Patterns
 
@@ -385,7 +385,7 @@ CREATE TRIGGER update_entity_updated_at ON entity ...;
 
 ## Resources
 
-- MongoDB: https://www.mongodb.com/docs/
-- PostgreSQL: https://www.postgresql.org/docs/
-- MongoDB University: https://learn.mongodb.com/
-- PostgreSQL Tutorial: https://www.postgresqltutorial.com/
+- MongoDB: <https://www.mongodb.com/docs/>
+- PostgreSQL: <https://www.postgresql.org/docs/>
+- MongoDB University: <https://learn.mongodb.com/>
+- PostgreSQL Tutorial: <https://www.postgresqltutorial.com/>

@@ -16,6 +16,7 @@
 ## Executive Summary
 
 [Provide a 2-3 paragraph summary suitable for executive leadership. Include:
+
 - What happened (high-level)
 - Business impact
 - Current status
@@ -62,11 +63,13 @@
 ## Root Cause Analysis
 
 ### Attack Vector
+
 [Describe how the attacker gained initial access]
 
 **Classification:** [ ] Phishing [ ] Vulnerability [ ] Credential Theft [ ] Misconfiguration [ ] Insider [ ] Other
 
 ### Entry Point
+
 [Specific system, service, or user account that was compromised first]
 
 ### Attack Path
@@ -79,6 +82,7 @@ Phishing Email → Macro Execution → Credential Dumping → Domain Admin → D
 ```
 
 ### Vulnerability Exploited
+
 - **CVE ID:** [If applicable]
 - **Description:** [Vulnerability description]
 - **Patch Status:** [Available/Applied/Pending]
@@ -108,6 +112,7 @@ Phishing Email → Macro Execution → Credential Dumping → Domain Admin → D
 | [System 2] | [Role] | [Impact] | Recovered |
 
 ### Users Affected
+
 - **Internal Users:** [Number]
 - **External Users/Customers:** [Number]
 
@@ -149,18 +154,22 @@ Phishing Email → Macro Execution → Credential Dumping → Domain Admin → D
 ## Response Actions Taken
 
 ### Detection Phase
+
 1. [Action taken]
 2. [Action taken]
 
 ### Containment Phase
+
 1. [Action taken]
 2. [Action taken]
 
 ### Eradication Phase
+
 1. [Action taken]
 2. [Action taken]
 
 ### Recovery Phase
+
 1. [Action taken]
 2. [Action taken]
 
@@ -178,6 +187,7 @@ Phishing Email → Macro Execution → Credential Dumping → Domain Admin → D
 | State Laws | Yes/No | [Date] | Pending/Complete | [Date] |
 
 ### Customer Notifications
+
 - **Required:** Yes / No
 - **Number to Notify:** [Number]
 - **Status:** Pending / In Progress / Complete
@@ -188,11 +198,13 @@ Phishing Email → Macro Execution → Credential Dumping → Domain Admin → D
 ## Lessons Learned
 
 ### What Went Well
+
 1. [Positive observation]
 2. [Positive observation]
 3. [Positive observation]
 
 ### Areas for Improvement
+
 1. [Improvement area]
 2. [Improvement area]
 3. [Improvement area]

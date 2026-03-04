@@ -562,22 +562,26 @@ payload = "admin' OR '1'='1' --"
 ```
 
 **Impact:**
+
 - **Confidentiality:** [High/Medium/Low] - [Description]
 - **Integrity:** [High/Medium/Low] - [Description]
 - **Availability:** [High/Medium/Low] - [Description]
 - **Business Impact:** [Description]
 
 **Affected Systems:**
+
 - Production environment
 - Staging environment
 - [Other environments]
 
 **Remediation:**
+
 1. **Immediate Action:** [Quick fix or mitigation]
 2. **Short-term (1-2 weeks):** [Proper fix]
 3. **Long-term (1-3 months):** [Systemic improvements]
 
 **Remediation Code:**
+
 ```python
 # Before (vulnerable)
 query = f"SELECT * FROM users WHERE username='{username}'"
@@ -588,6 +592,7 @@ cursor.execute(query, (username,))
 ```
 
 **Verification:**
+
 - [ ] Unit test added for exploit attempt
 - [ ] Manual penetration test confirms fix
 - [ ] Code review completed
@@ -614,6 +619,7 @@ cursor.execute(query, (username,))
 #### 4.4.1 Response Time Analysis
 
 **Current Performance:**
+
 - p50 (Median): [number]ms
 - p95: [number]ms (target: <500ms)
 - p99: [number]ms
@@ -634,11 +640,13 @@ cursor.execute(query, (username,))
 **Impact:** 40% of user sessions experience >5 second page loads
 
 **Root Cause:**
+
 - Inefficient ORM usage generates 150+ database queries per page load
 - Missing database indexes on frequently queried columns
 - No query caching
 
 **Evidence:**
+
 ```sql
 -- Slow query log excerpt (repeated 50 times)
 SELECT * FROM orders WHERE user_id = 123;  -- 120ms each
@@ -647,18 +655,22 @@ SELECT * FROM products WHERE id = 456;     -- 80ms each (repeated 100 times)
 ```
 
 **Business Impact:**
+
 - 35% bounce rate on dashboard page
 - Estimated $50K/month in lost revenue from abandoned sessions
 - Poor user experience (NPS score 6.2/10)
 
 **Proposed Solution:**
+
 1. **Immediate (2 hours):** Add database indexes
+
    ```sql
    CREATE INDEX idx_orders_user_id ON orders(user_id);
    CREATE INDEX idx_products_id ON products(id);
    ```
 
 2. **Short-term (1 week):** Optimize queries with eager loading
+
    ```python
    # Before: N+1 queries
    orders = Order.objects.filter(user=user)
@@ -672,6 +684,7 @@ SELECT * FROM products WHERE id = 456;     -- 80ms each (repeated 100 times)
 3. **Long-term (1 month):** Implement caching layer (Redis)
 
 **Expected Improvement:**
+
 - Page load time: 8-12s → 1-2s (80-90% improvement)
 - Database load: 150 queries → 3 queries (98% reduction)
 - Server cost reduction: 40% (better resource utilization)
@@ -683,16 +696,19 @@ SELECT * FROM products WHERE id = 456;     -- 80ms each (repeated 100 times)
 #### 4.4.3 Resource Utilization
 
 **CPU:**
+
 - Average: [percentage]%
 - Peak: [percentage]%
 - Status: [Normal/High/Critical]
 
 **Memory:**
+
 - Average: [GB]
 - Peak: [GB]
 - Memory leaks detected: [Yes/No]
 
 **Database:**
+
 - Query response time avg: [ms]
 - Connection pool utilization: [percentage]%
 - Slow queries (>1s): [number]
@@ -708,10 +724,12 @@ SELECT * FROM products WHERE id = 456;     -- 80ms each (repeated 100 times)
 **Current Architecture Pattern:** [e.g., Monolithic, Layered]
 
 **Strengths:**
+
 - [Strength 1]
 - [Strength 2]
 
 **Weaknesses:**
+
 - [Weakness 1]
 - [Weakness 2]
 
@@ -722,11 +740,13 @@ SELECT * FROM products WHERE id = 456;     -- 80ms each (repeated 100 times)
 **Location:** Throughout application (183 files)
 
 **Issue:** Database queries scattered across application layers
+
 - UI components directly query database
 - Business logic mixed with data access
 - No abstraction layer or repository pattern
 
 **Impact:**
+
 - Difficult to change database schema
 - Impossible to add caching without widespread refactoring
 - Testing requires full database setup
@@ -769,12 +789,14 @@ SELECT * FROM products WHERE id = 456;     -- 80ms each (repeated 100 times)
 **Overall Test Coverage: [percentage]%** (target: 80%)
 
 **Coverage by Type:**
+
 - Unit tests: [percentage]%
 - Integration tests: [percentage]%
 - End-to-end tests: [percentage]%
 - Critical path coverage: [percentage]%
 
 **Untested Critical Components:**
+
 - [Component 1]: 0% coverage
 - [Component 2]: 15% coverage
 
@@ -793,6 +815,7 @@ SELECT * FROM products WHERE id = 456;     -- 80ms each (repeated 100 times)
 | Code Comments | [Good/Fair/Poor] | [percentage]% |
 
 **Critical Missing Documentation:**
+
 - [Item 1]
 - [Item 2]
 
@@ -802,10 +825,12 @@ SELECT * FROM products WHERE id = 456;     -- 80ms each (repeated 100 times)
 [Summary of developer interviews and surveys]
 
 **Pain Points:**
+
 - [Pain point 1]: [percentage]% of developers mentioned
 - [Pain point 2]: [percentage]% of developers mentioned
 
 **Development Velocity:**
+
 - Average feature development time: [duration]
 - Time spent on bug fixes: [percentage]% of development time
 - Deployment frequency: [frequency]
@@ -835,15 +860,18 @@ SELECT * FROM products WHERE id = 456;     -- 80ms each (repeated 100 times)
 [Specific, actionable steps to address the issue]
 
 **Expected Benefits:**
+
 - [Benefit 1]
 - [Benefit 2]
 
 **Implementation Steps:**
+
 1. [Step 1] - [duration]
 2. [Step 2] - [duration]
 3. [Step 3] - [duration]
 
 **Success Criteria:**
+
 - [Measurable criterion 1]
 - [Measurable criterion 2]
 
@@ -887,24 +915,28 @@ SELECT * FROM products WHERE id = 456;     -- 80ms each (repeated 100 times)
 **Sprint Breakdown:**
 
 **Sprint 1-2 (Weeks 1-4): Security Hardening**
+
 - Fix authentication vulnerability (RISK-001)
 - Update critical dependencies with known CVEs
 - Implement security monitoring and alerting
 - **Deliverable:** Zero critical security vulnerabilities
 
 **Sprint 3-4 (Weeks 5-8): Performance Quick Wins**
+
 - Fix N+1 query problem in dashboard
 - Add database indexes for frequently queried columns
 - Implement query result caching (Redis)
 - **Deliverable:** Page load times <2 seconds (p95)
 
 **Sprint 5-6 (Weeks 9-12): Testing Infrastructure**
+
 - Set up CI/CD pipeline with automated testing
 - Add test coverage for critical paths (target: 60%)
 - Implement automated regression testing
 - **Deliverable:** Automated testing infrastructure operational
 
 **Phase 1 Success Metrics:**
+
 - [ ] Zero critical security issues
 - [ ] p95 response time <2 seconds
 - [ ] Test coverage >60% on critical paths
@@ -952,14 +984,17 @@ SELECT * FROM products WHERE id = 456;     -- 80ms each (repeated 100 times)
 [What could go wrong]
 
 **Potential Impact:**
+
 - [Impact 1]
 - [Impact 2]
 
 **Mitigation Strategy:**
+
 - [Mitigation action 1]
 - [Mitigation action 2]
 
 **Contingency Plan:**
+
 - [What to do if risk materializes]
 
 **Owner:** [Name]
@@ -975,14 +1010,17 @@ SELECT * FROM products WHERE id = 456;     -- 80ms each (repeated 100 times)
 ### 7.3 Risks of Inaction
 
 **Short-term (0-6 months):**
+
 - [Risk 1]
 - [Risk 2]
 
 **Medium-term (6-18 months):**
+
 - [Risk 1]
 - [Risk 2]
 
 **Long-term (18+ months):**
+
 - [Risk 1]
 - [Risk 2]
 
@@ -995,11 +1033,13 @@ SELECT * FROM products WHERE id = 456;     -- 80ms each (repeated 100 times)
 **Total Investment:** $[amount]
 
 **Breakdown by Phase:**
+
 - Phase 1 (Stabilize): $[amount]
 - Phase 2 (Modernize): $[amount]
 - Phase 3 (Optimize): $[amount]
 
 **Cost Components:**
+
 - Engineering labor: $[amount] ([X] engineers × [Y] months)
 - Infrastructure and tools: $[amount]
 - Training and onboarding: $[amount]
@@ -1010,16 +1050,19 @@ SELECT * FROM products WHERE id = 456;     -- 80ms each (repeated 100 times)
 **Annual Recurring Benefits:**
 
 **Direct Cost Savings:** $[amount]/year
+
 - Reduced infrastructure costs: $[X]/year
 - Lower support costs: $[Y]/year
 - Reduced incident costs: $[Z]/year
 
 **Revenue Impact:** $[amount]/year
+
 - Reduced cart abandonment: $[X]/year
 - Faster feature delivery: $[Y]/year
 - New capabilities enabling revenue: $[Z]/year
 
 **One-Time Benefits:**
+
 - Security breach avoidance: $[X] (risk-adjusted)
 - Compliance fine avoidance: $[Y] (risk-adjusted)
 
@@ -1028,6 +1071,7 @@ SELECT * FROM products WHERE id = 456;     -- 80ms each (repeated 100 times)
 ### 8.3 ROI Calculation
 
 **Year 1:**
+
 - Investment: $[amount]
 - Benefits: $[amount]
 - Net Benefit: $[amount]
@@ -1082,6 +1126,7 @@ SELECT * FROM products WHERE id = 456;     -- 80ms each (repeated 100 times)
 ---
 
 **End of Report**
+
 ```
 
 ---
@@ -1247,6 +1292,7 @@ gantt
 ### Critical Path Dependencies
 
 **Dependency 1:**
+
 - **Blocks:** [What it blocks]
 - **Status:** [On track/At risk/Blocked]
 - **Owner:** [Name]
@@ -1284,16 +1330,19 @@ Phase 3: ░░░░░░░░░░░░░░░░░░░░   0% (Not 
 ## Communication Plan
 
 **Weekly Updates:**
+
 - **Audience:** Engineering team
 - **Format:** Slack standup
 - **Owner:** Tech Lead
 
 **Monthly Reports:**
+
 - **Audience:** Engineering leadership
 - **Format:** Written report + metrics dashboard
 - **Owner:** Engineering Manager
 
 **Quarterly Reviews:**
+
 - **Audience:** Executive team
 - **Format:** Presentation (30 min)
 - **Owner:** VP Engineering
@@ -1308,6 +1357,7 @@ Phase 3: ░░░░░░░░░░░░░░░░░░░░   0% (Not 
 | 1.1 | [Date] | Updated Phase 1 timeline | [Name] |
 
 ---
+
 ```
 
 ---
@@ -1337,6 +1387,7 @@ Business Impact:
 ```
 
 **Slide 2: Recommendation**
+
 ```markdown
 ## Proposed Modernization Program
 
@@ -1351,6 +1402,7 @@ Team: 4 engineers dedicated full-time
 ```
 
 **Slide 3: Business Case**
+
 ```markdown
 ## Return on Investment
 
@@ -1366,6 +1418,7 @@ Payback: 7 months
 ```
 
 **Slide 4: Risks**
+
 ```markdown
 ## Risks of Inaction vs. Action
 
@@ -1382,6 +1435,7 @@ Payback: 7 months
 ```
 
 **Slide 5: Decision**
+
 ```markdown
 ## Recommended Next Steps
 
@@ -1401,6 +1455,7 @@ Questions?
 **Purpose:** Technical presentation for engineering team and technical stakeholders
 
 [Include technical slides covering:]
+
 - Assessment methodology
 - Detailed findings (code quality, security, performance, architecture)
 - Technical debt examples with code snippets
@@ -1416,6 +1471,7 @@ Questions?
 **Purpose:** Regular update on modernization progress
 
 **Slide Template:**
+
 ```markdown
 ## Modernization Progress Update
 [Month Year]
@@ -1474,19 +1530,25 @@ Status: [On budget / Over budget / Under budget]
 ```
 
 ### Impact
+
 **Technical Impact:**
+
 - [How it affects the system]
 
 **Business Impact:**
+
 - [How it affects users, revenue, or operations]
 
 **Quantified Impact (if possible):**
+
 - [Specific numbers: users affected, revenue lost, time wasted]
 
 ### Root Cause
+
 [Why this issue exists - often more valuable than the symptom]
 
 ### Recommendation
+
 **Short-term (Quick Win):**
 [Temporary fix or mitigation]
 
@@ -1494,12 +1556,14 @@ Status: [On budget / Over budget / Under budget]
 [Proper fix addressing root cause]
 
 ### Implementation Guidance
+
 ```python
 # Proposed solution code
 [fixed code here]
 ```
 
 **Steps:**
+
 1. [Step 1] - [Time estimate]
 2. [Step 2] - [Time estimate]
 3. [Step 3] - [Time estimate]
@@ -1507,9 +1571,11 @@ Status: [On budget / Over budget / Under budget]
 **Estimated Effort:** [person-days/weeks]
 
 ### Success Criteria
+
 - [ ] [Measurable criterion 1]
 - [ ] [Measurable criterion 2]
 - [ ] [Verification method]
+
 ```
 
 ---
@@ -1524,12 +1590,14 @@ Status: [On budget / Over budget / Under budget]
 ```
 
 **2. Include Visual Evidence:**
+
 - Screenshots of monitoring dashboards
 - Performance graphs showing degradation
 - Architecture diagrams highlighting issues
 - Code snippets with line numbers
 
 **3. Quantify When Possible:**
+
 ```markdown
 ❌ Poor: "Many users are affected"
 
@@ -1537,6 +1605,7 @@ Status: [On budget / Over budget / Under budget]
 ```
 
 **4. Provide Context:**
+
 ```markdown
 ❌ Poor: "Cyclomatic complexity is 45"
 
@@ -1548,6 +1617,7 @@ Status: [On budget / Over budget / Under budget]
 ### Recommendations Format Best Practices
 
 **1. Be Specific and Actionable:**
+
 ```markdown
 ❌ Poor: "Improve code quality"
 
@@ -1555,6 +1625,7 @@ Status: [On budget / Over budget / Under budget]
 ```
 
 **2. Provide Multiple Options:**
+
 ```markdown
 ## Solution Options
 
@@ -1571,6 +1642,7 @@ Status: [On budget / Over budget / Under budget]
 ```
 
 **3. Include Implementation Guidance:**
+
 - Step-by-step instructions
 - Code examples (before and after)
 - Testing approach
@@ -1578,6 +1650,7 @@ Status: [On budget / Over budget / Under budget]
 - Success criteria
 
 **4. Estimate Effort Realistically:**
+
 ```markdown
 **Effort Estimate: 2-3 weeks (80-120 hours)**
 
@@ -1601,6 +1674,7 @@ Breakdown:
 **1. Audience-Appropriate Language:**
 
 **Executive Audience:**
+
 - Focus on business impact
 - Use plain language
 - Minimize technical jargon
@@ -1611,6 +1685,7 @@ Breakdown:
 ```
 
 **Technical Audience:**
+
 - Include technical details
 - Use precise terminology
 - Provide code examples
@@ -1621,6 +1696,7 @@ Breakdown:
 ```
 
 **2. Clear and Concise Writing:**
+
 ```markdown
 ❌ Poor: "It has been observed that there exists a situation whereby the system, under certain circumstances and conditions, may potentially experience some degree of performance degradation"
 
@@ -1628,6 +1704,7 @@ Breakdown:
 ```
 
 **3. Active Voice:**
+
 ```markdown
 ❌ Passive: "The vulnerability should be fixed by the security team"
 
@@ -1635,6 +1712,7 @@ Breakdown:
 ```
 
 **4. Positive and Constructive Tone:**
+
 ```markdown
 ❌ Negative: "The code is terrible and full of bugs"
 
@@ -1648,6 +1726,7 @@ Breakdown:
 **Before Finalizing:**
 
 **Content Completeness:**
+
 - [ ] Executive summary present and accurate
 - [ ] All critical findings documented with evidence
 - [ ] Recommendations specific and actionable
@@ -1656,6 +1735,7 @@ Breakdown:
 - [ ] Roadmap clear and realistic
 
 **Accuracy:**
+
 - [ ] All metrics verified and current
 - [ ] Code examples tested and accurate
 - [ ] Estimates reviewed by technical leads
@@ -1663,6 +1743,7 @@ Breakdown:
 - [ ] All claims have supporting evidence
 
 **Clarity:**
+
 - [ ] Technical jargon explained or avoided
 - [ ] Consistent terminology throughout
 - [ ] Visual aids (charts, diagrams) clear
@@ -1670,6 +1751,7 @@ Breakdown:
 - [ ] No ambiguous recommendations
 
 **Formatting:**
+
 - [ ] Consistent heading hierarchy
 - [ ] Proper code formatting and syntax highlighting
 - [ ] Tables formatted consistently
@@ -1677,6 +1759,7 @@ Breakdown:
 - [ ] Professional appearance
 
 **Review Process:**
+
 - [ ] Peer review by technical lead
 - [ ] Review by engineering manager
 - [ ] Review by executive sponsor

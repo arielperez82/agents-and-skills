@@ -28,6 +28,7 @@ Duplicates `testing` skill. Replace with one-liner: "For test structure, factori
 ### CONDENSE → POINTER: Coverage Verification (lines 58-193)
 
 Keep 5-line summary + pointer to `references/coverage-verification.md`:
+
 - 100% coverage required, always verify yourself
 - Ask "What behavior am I not testing?" not "What line am I missing?"
 - Re-exports are the only auto-exception
@@ -39,6 +40,7 @@ Keep 3-line summary + pointer to `references/qa-planning.md`.
 ### KEEP (condensed): Test Type Strategy (lines 252-556)
 
 This is the **core value** of this skill. Keep the structure but:
+
 - **Unit/Integration/E2E definitions**: Keep purpose, location, belongs/not-belongs lists (already concise)
 - **"How to stub the boundary" sections**: Replace code examples with 2-3 line summaries + pointer to `references/test-type-examples.md`
 - **Dependency Boundaries & Injection Rules**: Keep the cardinal rule, the 4-step list, and the anti-pattern/correct-pattern one-liners. Move ASCII diagram and code examples to `references/dependency-boundaries.md`

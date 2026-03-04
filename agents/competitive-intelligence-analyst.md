@@ -78,6 +78,7 @@ The competitive-intelligence-analyst bridges the gap between raw competitive sig
 ## Skill Integration
 
 **Skill Locations:**
+
 - `../skills/marketing-team/competitive-intel/` — Market-facing CI operations (monitoring, battlecards, win/loss)
 - `../skills/product-team/competitive-analysis/` — Product-focused scorecard analysis
 
@@ -101,6 +102,7 @@ This agent currently has no dedicated Python tools. For automated competitor tra
 **Goal:** Maintain continuous awareness of competitor activities across multiple signal sources
 
 **Steps:**
+
 1. **Define competitive set** — List direct competitors, indirect competitors, and emerging threats
 2. **Set up monitoring cadence:**
    - Daily: Product updates, pricing changes, outages, executive moves
@@ -113,6 +115,7 @@ This agent currently has no dedicated Python tools. For automated competitor tra
    - Medium: New capability that may affect us → include in weekly digest
    - Low: Activity that doesn't directly impact position → monthly report
 5. **Distribute intelligence:**
+
    ```bash
    # Example: Generate weekly CI digest
    echo "Weekly CI Digest - $(date +%Y-%m-%d)"
@@ -121,6 +124,7 @@ This agent currently has no dedicated Python tools. For automated competitor tra
    echo "MEDIUM SIGNALS: [list notable changes]"
    echo "MARKET MOVES: [pricing, funding, partnerships]"
    ```
+
 6. **Archive signals** — Maintain competitive timeline for trend analysis
 7. **Quarterly review** — Identify long-term competitive trends, update landscape map
 
@@ -133,11 +137,14 @@ This agent currently has no dedicated Python tools. For automated competitor tra
 **Goal:** Create actionable sales battlecards for each major competitor
 
 **Steps:**
+
 1. **Research competitor** — Product trial, website analysis, review sites (G2, Capterra), sales call recordings (Gong), news/PR
 2. **Structure battlecard** — Use template from competitive-intel skill:
+
    ```bash
    cat ../skills/marketing-team/competitive-intel/references/battlecard-template.md
    ```
+
 3. **Fill 8 sections:**
    - Overview (funding, team, customers, pricing)
    - Positioning (messaging vs. reality)
@@ -159,6 +166,7 @@ This agent currently has no dedicated Python tools. For automated competitor tra
 **Time Estimate:** 3-4 hours per competitor (initial), 1 hour per update
 
 **Example:**
+
 ```bash
 # Battlecard creation workflow
 echo "Battlecard: CompetitorX"
@@ -180,6 +188,7 @@ echo "- Avoid Kubernetes comparison (parity, no advantage)"
 **Goal:** Extract actionable patterns from closed deals to improve competitive positioning
 
 **Steps:**
+
 1. **Select deals** — Last 30 days, mix of wins and losses, prioritize competitive deals
 2. **Request interviews** — Within 7 days of close, 30-minute call, offer incentive
 3. **Conduct structured interviews:**
@@ -191,6 +200,7 @@ echo "- Avoid Kubernetes comparison (parity, no advantage)"
    - Top 3 loss reasons → address in product/messaging
    - Competitor frequency → prioritize battlecard investment
 5. **Monthly reporting:**
+
    ```bash
    echo "Win/Loss Report - $(date +%B %Y)"
    echo "Overall Win Rate: 34% (up from 31%)"
@@ -206,16 +216,19 @@ echo "- Avoid Kubernetes comparison (parity, no advantage)"
 ## Success Metrics
 
 **Intelligence Quality:**
+
 - **Signal Coverage:** 90%+ of competitor announcements captured within 24 hours
 - **Battlecard Currency:** 95%+ of battlecards updated within 48 hours of competitor changes
 - **Win/Loss Insight Velocity:** Monthly reports delivered within 5 business days of month end
 
 **Sales Impact:**
+
 - **Competitive Win Rate:** 5-10% improvement within 90 days of battlecard deployment
 - **Sales Adoption:** 80%+ of sales team actively using battlecards within 30 days
 - **Objection Conversion:** 50%+ improvement in competitive objection handling
 
 **Strategic Value:**
+
 - **Product Roadmap Influence:** Monthly CI reports inform at least 1 roadmap decision per quarter
 - **Positioning Freshness:** Positioning refreshed within 30 days of material competitive change
 - **Share-of-Voice:** Tracked quarterly with improvement targets

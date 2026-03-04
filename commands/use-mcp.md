@@ -7,6 +7,7 @@ Execute MCP operations via **Gemini CLI** to preserve context budget.
 ## Execution Steps
 
 1. **Execute task via Gemini CLI** (using stdin pipe for MCP support):
+
    ```bash
    # IMPORTANT: Use stdin piping, NOT -p flag (deprecated, skips MCP init)
    echo "$ARGUMENTS. Return JSON only per GEMINI.md instructions." | gemini -y -m gemini-2.5-flash

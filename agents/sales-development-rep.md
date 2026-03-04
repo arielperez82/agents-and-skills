@@ -218,24 +218,28 @@ All skills use Input/Output Contracts: the agent provides the intelligence (rese
 ## Success Metrics
 
 **Lead Research Quality:**
+
 - Research brief completeness: 90%+ of fields populated per lead
 - Company profile accuracy: verified against public sources
 - Personalization hook identification: 2+ hooks per lead minimum
 - Research turnaround: lightweight brief in under 10 minutes, comprehensive in under 30
 
 **Qualification Accuracy:**
+
 - ICP scoring consistency: less than 10% variance on re-scoring same lead
 - Framework completion rate: 100% of scored leads have BANT minimum
 - False positive rate: less than 15% of MQL-routed leads disqualified by AE
 - False negative rate: less than 5% of disqualified leads later convert through other channels
 
 **Outreach Performance:**
+
 - Email open rate: 40-60% (personalized cold), 50-70% (ABM)
 - Reply rate: 8-15% (cold), 15-25% (ABM)
 - Positive reply rate: 3-8% (cold), 8-15% (ABM)
 - Meeting conversion: 2-5% of total outreach converts to booked meeting
 
 **Workflow Efficiency:**
+
 - New lead processing: research-to-outreach in under 30 minutes
 - Batch qualification: 50 leads scored and routed in under 2 hours
 - ABM sequence creation: full 4-touch sequence per account in under 1 hour

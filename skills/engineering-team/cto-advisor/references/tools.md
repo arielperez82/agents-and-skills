@@ -9,6 +9,7 @@ Comprehensive guide to CTO advisory Python tools for technical debt analysis and
 ### Purpose
 
 Analyzes technical debt across five critical dimensions:
+
 - Architecture debt (monolithic design, tight coupling)
 - Code quality debt (test coverage, complexity)
 - Infrastructure debt (deployments, CI/CD)
@@ -68,42 +69,49 @@ The tool accepts JSON input with system assessment data:
 ### Field Definitions
 
 **Debt Category Scores (0-100)**
+
 - Score represents severity/presence of technical debt
 - Higher scores = more severe debt
 - 0 = no debt, 100 = critical debt
 - Each category contains 2-3 specific debt indicators
 
 **architecture**
+
 - `monolithic_design`: Degree of monolithic architecture (vs microservices)
 - `tight_coupling`: Level of component coupling
 - `no_microservices`: Lack of service decomposition
 - Optional: `poor_scalability`, `legacy_patterns`
 
 **code_quality**
+
 - `low_test_coverage`: Insufficient automated testing
 - `high_complexity`: Code complexity and maintainability issues
 - `poor_documentation`: Missing or outdated documentation
 - Optional: `code_duplication`, `inconsistent_standards`
 
 **infrastructure**
+
 - `manual_deployments`: Lack of deployment automation
 - `no_ci_cd`: Missing continuous integration/deployment
 - `outdated_tools`: Legacy infrastructure tools
 - Optional: `no_monitoring`, `poor_scalability`
 
 **security**
+
 - `outdated_dependencies`: Vulnerable or unmaintained dependencies
 - `no_security_scans`: Lack of security testing
 - `missing_authentication`: Security control gaps
 - Optional: `unencrypted_data`, `compliance_issues`
 
 **performance**
+
 - `slow_response_times`: Performance bottlenecks
 - `no_caching`: Missing caching strategies
 - `unoptimized_queries`: Database/query inefficiencies
 - Optional: `memory_leaks`, `resource_waste`
 
 **Context Information**
+
 - `team_size`: Number of engineers maintaining the system
 - `system_criticality`: "low", "medium", "high", "critical"
 - `business_context`:
@@ -113,11 +121,13 @@ The tool accepts JSON input with system assessment data:
 ### Usage Examples
 
 **Basic Analysis (Human-Readable Output)**
+
 ```bash
 python scripts/tech_debt_analyzer.py system_data.json
 ```
 
 Output includes:
+
 - Overall debt score and level
 - Category-by-category breakdown
 - Prioritized recommendations
@@ -125,6 +135,7 @@ Output includes:
 - Risk assessment
 
 **JSON Output (For Dashboards/Integration)**
+
 ```bash
 python scripts/tech_debt_analyzer.py system_data.json --output json
 ```
@@ -132,11 +143,13 @@ python scripts/tech_debt_analyzer.py system_data.json --output json
 Returns structured JSON with all analysis results.
 
 **Save to File**
+
 ```bash
 python scripts/tech_debt_analyzer.py system_data.json -o json -f debt_report.json
 ```
 
 **View Help and Schema**
+
 ```bash
 python scripts/tech_debt_analyzer.py --help
 ```
@@ -144,18 +157,21 @@ python scripts/tech_debt_analyzer.py --help
 ### Output Interpretation
 
 **Debt Levels**
+
 - **Critical (>80)**: Urgent attention required, high risk
 - **High (60-80)**: Significant debt, prioritize remediation
 - **Medium (40-60)**: Manageable, plan reduction
 - **Low (<40)**: Acceptable level, monitor
 
 **Capacity Allocation Recommendations**
+
 - Critical debt: 40% engineering capacity
 - High debt: 25% engineering capacity
 - Medium debt: 15% engineering capacity
 - Low debt: 10% ongoing maintenance
 
 **Priority Framework**
+
 1. **P0 (Critical)**: Security vulnerabilities, system instability
 2. **P1 (High)**: Performance issues, scalability blockers
 3. **P2 (Medium)**: Code quality, maintainability
@@ -192,21 +208,25 @@ cat exec_report.json | python -m json.tool
 ### Reduction Planning
 
 **Quarter 1: Critical Issues**
+
 - Address security vulnerabilities
 - Implement basic CI/CD
 - Add monitoring and alerting
 
 **Quarter 2: High Priority**
+
 - Increase test coverage to 60%
 - Decompose into 2-3 services
 - Implement caching layer
 
 **Quarter 3: Medium Priority**
+
 - Refactor high-complexity modules
 - Complete documentation
 - Performance optimization
 
 **Quarter 4: Ongoing**
+
 - Maintain test coverage >70%
 - Continue service decomposition
 - Monitor and prevent new debt
@@ -218,6 +238,7 @@ cat exec_report.json | python -m json.tool
 ### Purpose
 
 Calculates optimal engineering team scaling strategy including:
+
 - Hiring timeline and velocity
 - Team structure and roles
 - Budget projections
@@ -264,6 +285,7 @@ python --version  # Requires Python 3.8+
 ### Field Definitions
 
 **current_state**
+
 - `headcount`: Current number of engineers
 - `velocity`: Current sprint velocity (story points/sprint)
 - `roles`: Breakdown by role/level
@@ -277,11 +299,13 @@ python --version  # Requires Python 3.8+
   - Options: "US", "EU", "APAC", "Remote"
 
 **growth_targets**
+
 - `target_headcount`: Desired final headcount
 - `timeline_quarters`: Number of quarters to reach target
 - `priority_roles`: Array of roles to prioritize in hiring
 
 **constraints** (optional)
+
 - `max_hires_per_quarter`: Hiring velocity limit
 - `onboarding_capacity`: Max simultaneous onboardings
 - `budget_per_quarter`: Quarterly budget in dollars
@@ -289,21 +313,25 @@ python --version  # Requires Python 3.8+
 ### Usage Examples
 
 **Basic Analysis**
+
 ```bash
 python scripts/team_scaling_calculator.py team_data.json
 ```
 
 **JSON Output**
+
 ```bash
 python scripts/team_scaling_calculator.py team_data.json --output json
 ```
 
 **Save Plan**
+
 ```bash
 python scripts/team_scaling_calculator.py team_data.json -o json -f scaling_plan.json
 ```
 
 **View Help**
+
 ```bash
 python scripts/team_scaling_calculator.py --help
 ```
@@ -311,24 +339,28 @@ python scripts/team_scaling_calculator.py --help
 ### Output Interpretation
 
 **Hiring Plan**
+
 - Quarter-by-quarter hiring targets
 - Role distribution per quarter
 - Cumulative headcount growth
 - Budget requirements
 
 **Team Structure**
+
 - Recommended org structure
 - Manager-to-engineer ratios
 - Senior-to-junior ratios
 - Specialization recommendations
 
 **Productivity Analysis**
+
 - Expected velocity changes
 - Ramp-up timeline per role
 - Aggregate productivity impact
 - Break-even point
 
 **Risk Assessment**
+
 - Attrition impact modeling
 - Onboarding capacity constraints
 - Budget overrun risks
@@ -337,6 +369,7 @@ python scripts/team_scaling_calculator.py --help
 ### Example Scenarios
 
 **Rapid Growth Scenario**
+
 ```bash
 cat > rapid_growth.json << 'EOF'
 {
@@ -358,6 +391,7 @@ python scripts/team_scaling_calculator.py rapid_growth.json
 ```
 
 **Controlled Growth Scenario**
+
 ```bash
 cat > controlled_growth.json << 'EOF'
 {
@@ -386,16 +420,19 @@ python scripts/team_scaling_calculator.py controlled_growth.json
 ### Hiring Velocity Guidelines
 
 **Conservative (Safe)**
+
 - 10-15% headcount growth per quarter
 - 2-3 simultaneous onboardings
 - High senior-to-junior ratio (50%+ senior)
 
 **Moderate (Balanced)**
+
 - 20-25% headcount growth per quarter
 - 4-5 simultaneous onboardings
 - Balanced ratios (30% senior, 50% mid, 20% junior)
 
 **Aggressive (Risky)**
+
 - 30%+ headcount growth per quarter
 - 6+ simultaneous onboardings
 - More junior-heavy to scale faster
@@ -404,6 +441,7 @@ python scripts/team_scaling_calculator.py controlled_growth.json
 ### Budget Estimation
 
 **US Market (2024 Estimates)**
+
 - Junior Engineer: $120-150K total comp
 - Mid Engineer: $150-200K total comp
 - Senior Engineer: $180-250K total comp
@@ -411,11 +449,13 @@ python scripts/team_scaling_calculator.py controlled_growth.json
 - Engineering Manager: $180-280K total comp
 
 **Multipliers by Location**
+
 - Remote (US): 0.9x
 - EU: 0.7-0.8x
 - APAC: 0.5-0.7x
 
 **Additional Costs**
+
 - Recruiting: $25-30K per hire
 - Onboarding: $10-15K per hire
 - Tools/equipment: $5-10K per person/year
@@ -474,18 +514,21 @@ python scripts/tech_debt_analyzer.py system_after.json -o json -f after.json
 ### Technical Debt Analysis
 
 **Regular Cadence**
+
 - Run analysis quarterly
 - Track trends over time
 - Celebrate debt reduction
 - Prevent new debt accumulation
 
 **Honest Assessment**
+
 - Don't underestimate debt scores
 - Include team in assessment
 - Use objective metrics where possible
 - Document assumptions
 
 **Action-Oriented**
+
 - Convert analysis to OKRs
 - Assign ownership
 - Track progress
@@ -494,24 +537,28 @@ python scripts/tech_debt_analyzer.py system_after.json -o json -f after.json
 ### Team Scaling
 
 **Plan Ahead**
+
 - Start hiring 6 months before need
 - Account for ramp-up time
 - Build hiring pipeline early
 - Over-communicate needs
 
 **Hire for Diversity**
+
 - Experience levels (senior + mid)
 - Backgrounds and perspectives
 - Skills and specializations
 - Remote vs on-site
 
 **Onboarding Excellence**
+
 - Structured 90-day plan
 - Buddy system
 - Clear first tasks
 - Regular check-ins
 
 **Monitor Ratios**
+
 - Manager : Engineer (1:7-10)
 - Senior : Mid : Junior (3:5:2)
 - Stay within healthy ranges
@@ -522,12 +569,14 @@ python scripts/tech_debt_analyzer.py system_after.json -o json -f after.json
 ### Common Issues
 
 **Issue: "File not found" error**
+
 ```bash
 # Solution: Use absolute path or verify location
 python scripts/tech_debt_analyzer.py /full/path/to/data.json
 ```
 
 **Issue: "Invalid JSON" error**
+
 ```bash
 # Solution: Validate JSON syntax
 python -m json.tool your_file.json
@@ -535,6 +584,7 @@ python -m json.tool your_file.json
 ```
 
 **Issue: Unexpected debt scores**
+
 ```bash
 # Solution: Verify input ranges
 # - Debt scores should be 0-100
@@ -543,6 +593,7 @@ python -m json.tool your_file.json
 ```
 
 **Issue: Scaling plan seems unrealistic**
+
 ```bash
 # Solution: Adjust constraints
 # - Lower max_hires_per_quarter

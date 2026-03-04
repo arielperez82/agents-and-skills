@@ -235,7 +235,9 @@ These skills apply only to **frontend and/or website** work. Do not load them fo
 **Goal:** Build a production-ready component library using Atomic Design principles with TypeScript, tests, and Storybook documentation
 
 **Steps:**
+
 1. **Scaffold Project Structure** - Initialize component library foundation
+
    ```bash
    python ../skills/engineering-team/senior-frontend/scripts/frontend_scaffolder.py ui-library --framework nextjs --complete
    cd ui-library
@@ -243,6 +245,7 @@ These skills apply only to **frontend and/or website** work. Do not load them fo
    ```
 
 2. **Generate Atom Components** - Create foundational UI elements
+
    ```bash
    # Button component with variants
    python ../skills/engineering-team/senior-frontend/scripts/component_generator.py Button --complete --level atom
@@ -255,7 +258,7 @@ These skills apply only to **frontend and/or website** work. Do not load them fo
    ```
 
 3. **Generate Molecule Components** - Compose atoms into functional units
-   
+
    ```sh
    # FormField combining Label + Input
    python ../skills/engineering-team/senior-frontend/scripts/component_generator.py FormField --complete --level molecule
@@ -265,7 +268,7 @@ These skills apply only to **frontend and/or website** work. Do not load them fo
    ```
 
 4. **Generate Organism Components** - Build complex UI sections
-   
+
    ```sh
    # LoginForm using FormField molecules
    python ../skills/engineering-team/senior-frontend/scripts/component_generator.py LoginForm --complete --level organism
@@ -275,7 +278,7 @@ These skills apply only to **frontend and/or website** work. Do not load them fo
    ```
 
 5. **Add Tests and Documentation** - Ensure quality and usability
-   
+
    ```sh
    # Run all tests
    npm test
@@ -311,25 +314,26 @@ npm test && npm run storybook
 **Goal:** Identify and resolve performance bottlenecks through bundle analysis, code splitting, and optimization techniques
 
 **Steps:**
+
 1. **Build Production Bundle** - Generate optimized build
-   
+
 ```sh
    pnpm run build
 ```
 
-2. **Analyze Bundle Composition** - Identify optimization opportunities
+1. **Analyze Bundle Composition** - Identify optimization opportunities
 
 ```sh
    python ../skills/engineering-team/senior-frontend/scripts/bundle_analyzer.py .next/ --verbose
 ```
 
-3. **Review Analysis Output** - Study bundle metrics:
+1. **Review Analysis Output** - Study bundle metrics:
    - **Total Bundle Size**: Page-by-page breakdown
    - **Largest Dependencies**: Identify heavy libraries (moment.js, lodash)
    - **Duplicate Packages**: Find version conflicts
    - **Optimization Recommendations**: Actionable suggestions
 
-4. **Implement Code Splitting** - Reduce initial bundle size
+2. **Implement Code Splitting** - Reduce initial bundle size
 
 ```javascript
    // Before: Heavy synchronous import
@@ -339,7 +343,7 @@ npm test && npm run storybook
    const HeavyComponent = lazy(() => import('./HeavyComponent'));
 ```
 
-5. **Replace Heavy Dependencies** - Swap large libraries for lighter alternatives
+1. **Replace Heavy Dependencies** - Swap large libraries for lighter alternatives
 
 ```sh
    # Replace moment.js (71KB) with date-fns (13KB)
@@ -350,7 +354,7 @@ npm test && npm run storybook
    pnpm install lodash-es
    ```
 
-6. **Implement Memoization** - Optimize expensive computations
+1. **Implement Memoization** - Optimize expensive computations
 
 ```javascript
    // Memoize expensive component renders
@@ -360,14 +364,14 @@ npm test && npm run storybook
    });
    ```
 
-7. **Re-analyze and Compare** - Verify improvements
+1. **Re-analyze and Compare** - Verify improvements
 
 ```sh
    pnpm run build
    python ../skills/engineering-team/senior-frontend/scripts/bundle_analyzer.py .next/ --compare baseline-report.html
    ```
 
-8. **Monitor Core Web Vitals** - Track real-world performance:
+1. **Monitor Core Web Vitals** - Track real-world performance:
    - **LCP** (Largest Contentful Paint): <2.5s
    - **FID** (First Input Delay): <100ms
    - **CLS** (Cumulative Layout Shift): <0.1
@@ -399,20 +403,21 @@ diff baseline-report.txt optimized-report.txt
 **Goal:** Implement accessible, keyboard-navigable UI components that meet WCAG 2.1 AA standards
 
 **Steps:**
+
 1. **Review Accessibility Requirements** - Understand WCAG standards
 
 ```sh
    cat ../skills/engineering-team/senior-frontend/references/frameworks.md | grep -A 20 "Accessibility"
    ```
 
-2. **Generate Accessible Components** - Use semantic HTML and ARIA labels
+1. **Generate Accessible Components** - Use semantic HTML and ARIA labels
 
 ```sh
    # Generate button with proper ARIA support
    python ../skills/engineering-team/senior-frontend/scripts/component_generator.py AccessibleButton --complete
    ```
 
-3. **Implement Keyboard Navigation** - Ensure keyboard-only usability:
+1. **Implement Keyboard Navigation** - Ensure keyboard-only usability:
 
 ```javascript
    // Modal with focus trap
@@ -444,7 +449,7 @@ diff baseline-report.txt optimized-report.txt
    };
    ```
 
-4. **Add ARIA Labels and Roles** - Improve screen reader support
+1. **Add ARIA Labels and Roles** - Improve screen reader support
 
 ```javascript
    // Form with proper labels
@@ -462,18 +467,18 @@ diff baseline-report.txt optimized-report.txt
    </form>
    ```
 
-5. **Test with Screen Readers** - Validate accessibility:
+1. **Test with Screen Readers** - Validate accessibility:
    - macOS: VoiceOver (Cmd+F5)
    - Windows: NVDA or JAWS
    - Verify all interactive elements announced correctly
    - Test keyboard navigation flow
 
-6. **Check Color Contrast** - Ensure readability:
+2. **Check Color Contrast** - Ensure readability:
    - Use browser DevTools Accessibility panel
    - Minimum contrast ratio: 4.5:1 for normal text, 3:1 for large text
    - Test in dark mode if applicable
 
-7. **Run Automated Accessibility Tests** - Catch common issues
+3. **Run Automated Accessibility Tests** - Catch common issues
 
 ```sh
    # Install axe-core for automated testing
@@ -483,7 +488,7 @@ diff baseline-report.txt optimized-report.txt
    npm test -- --coverage
    ```
 
-8. **Manual Testing Checklist**:
+1. **Manual Testing Checklist**:
    - [ ] All interactive elements keyboard accessible (Tab, Enter, Space)
    - [ ] Focus indicators visible
    - [ ] Screen reader announces all content correctly
@@ -513,6 +518,7 @@ npm test
 **Goal:** Build a production-ready Next.js application with server components, API routes, and optimized data fetching
 
 **Steps:**
+
 1. **Scaffold Next.js Project** - Initialize with complete configuration
 
 ```sh
@@ -521,7 +527,7 @@ npm test
    npm install
    ```
 
-2. **Implement Layout System** - Create reusable layouts
+1. **Implement Layout System** - Create reusable layouts
 
 ```sh
    # Generate dashboard layout
@@ -531,7 +537,7 @@ npm test
    python ../skills/engineering-team/senior-frontend/scripts/component_generator.py AuthLayout --type functional --complete
    ```
 
-3. **Create Server Components** - Leverage Next.js App Router
+1. **Create Server Components** - Leverage Next.js App Router
 
 ```javascript
    // app/dashboard/page.tsx (Server Component)
@@ -546,14 +552,15 @@ npm test
    }
    ```
 
-4. **Add Client Components** - Interactive UI elements
+1. **Add Client Components** - Interactive UI elements
 
 ```sh
    # Generate interactive components
    python ../skills/engineering-team/senior-frontend/scripts/component_generator.py InteractiveChart --complete
    ```
 
-5. **Implement API Routes** - Backend logic in Next.js
+1. **Implement API Routes** - Backend logic in Next.js
+
    ```javascript
    // app/api/users/route.ts
    export async function GET(request: Request) {
@@ -568,7 +575,7 @@ npm test
    }
    ```
 
-6. **Configure Data Fetching** - React Query for client-side data
+2. **Configure Data Fetching** - React Query for client-side data
 
 ```sh
    npm install @tanstack/react-query
@@ -582,18 +589,19 @@ npm test
    });
    ```
 
-7. **Add Authentication** - JWT or NextAuth implementation
+1. **Add Authentication** - JWT or NextAuth implementation
 
 ```sh
    npm install next-auth
    ```
 
    Review authentication patterns in:
+
 ```sh
    cat ../skills/engineering-team/senior-frontend/references/templates.md | grep -A 30 "Authentication"
    ```
 
-8. **Optimize for Production** - Performance tuning
+1. **Optimize for Production** - Performance tuning
 
 ```sh
    # Build and analyze
@@ -604,14 +612,14 @@ npm test
    # (code splitting, image optimization, caching)
    ```
 
-9. **Test Application** - Run full test suite
+1. **Test Application** - Run full test suite
 
 ```sh
    pnpm test
    pnpm run test:e2e  # if Playwright configured
    ```
 
-10. **Deploy** - Production deployment
+1. **Deploy** - Production deployment
 
 ```bash
     # Vercel deployment
@@ -790,12 +798,14 @@ echo "✅ Audit complete. Review a11y-report.txt for findings."
 ## Success Metrics
 
 **Development Efficiency:**
+
 - **Component Generation Speed:** <5 minutes from design to scaffolded component with tests
 - **Code Reusability:** 70%+ of UI built from reusable component library
 - **Development Time:** 40% reduction in feature implementation time using scaffolding tools
 - **Storybook Coverage:** 100% of components documented in Storybook
 
 **Performance Metrics:**
+
 - **Bundle Size:** <200KB gzipped initial bundle for production
 - **Largest Contentful Paint (LCP):** <2.5 seconds on 3G
 - **First Input Delay (FID):** <100ms
@@ -803,12 +813,14 @@ echo "✅ Audit complete. Review a11y-report.txt for findings."
 - **Optimization Impact:** 30-50% bundle size reduction after optimization sprint
 
 **Code Quality:**
+
 - **TypeScript Coverage:** 100% (no `any` types except unavoidable cases)
 - **Test Coverage:** >80% line coverage for components
 - **Accessibility Score:** WCAG 2.1 AA compliance (axe-core 0 violations)
 - **Lighthouse Score:** >90 on Performance, Accessibility, Best Practices, SEO
 
 **Accessibility Compliance:**
+
 - **Keyboard Navigation:** 100% of interactive elements keyboard accessible
 - **Screen Reader Support:** All content properly announced
 - **Color Contrast:** 100% of text meets WCAG AA (4.5:1 ratio)

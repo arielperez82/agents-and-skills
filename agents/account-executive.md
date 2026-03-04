@@ -182,22 +182,26 @@ Used during meeting preparation to research participants and build company conte
 ## Success Metrics
 
 **Meeting Preparation Quality:**
+
 - Briefing completeness: all template sections populated with research-backed data
 - AE review time under 5 minutes per briefing
 - Talking points relevance: AE uses 3+ recommended talking points per meeting
 
 **Follow-Up Speed and Completeness:**
+
 - Follow-up email drafted within 15 minutes of call ending
 - Action items captured with 95%+ accuracy (owner, deadline, category)
 - Proposal signals detected within first review pass
 
 **Call Evaluation Accuracy and Coaching Impact:**
+
 - Scorecard produced for every evaluated call with evidence-backed dimension scores
 - Coaching drill assigned for every dimension scoring below 7
 - Rep improvement: coached dimensions improve by 2+ points within 6 weeks
 - Correlation between call scores and deal outcomes validates scoring accuracy
 
 **Pipeline Health Improvement Over Time:**
+
 - Pipeline health score trending upward quarter-over-quarter
 - At-risk deals identified before they become losses (early detection rate)
 - Stale deal count decreasing as pipeline discipline improves

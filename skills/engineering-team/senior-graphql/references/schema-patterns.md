@@ -5,6 +5,7 @@ Best practices and patterns for designing GraphQL schemas.
 ## Naming Conventions
 
 ### Types
+
 - **PascalCase** for type names: `User`, `BlogPost`, `OrderItem`
 - Suffix input types with `Input`: `CreateUserInput`, `UpdatePostInput`
 - Suffix payload types with `Payload`: `CreateUserPayload`, `DeletePostPayload`
@@ -12,15 +13,18 @@ Best practices and patterns for designing GraphQL schemas.
 - Suffix edge types with `Edge`: `UserEdge`, `PostEdge`
 
 ### Fields
+
 - **camelCase** for field names: `firstName`, `createdAt`, `isPublished`
 - Boolean fields: prefix with `is`, `has`, `can`: `isActive`, `hasComments`, `canEdit`
 - Avoid abbreviations: `firstName` not `fName`
 
 ### Enums
+
 - **SCREAMING_SNAKE_CASE** for enum values: `PENDING`, `IN_PROGRESS`, `COMPLETED`
 - Prefix with type context if needed: `ORDER_STATUS_PENDING`
 
 ### Arguments
+
 - **camelCase** for argument names: `first`, `after`, `orderBy`
 - Pagination: use Relay convention (`first`, `last`, `before`, `after`)
 - Filtering: use clear names (`where`, `filter`, `search`)
@@ -59,6 +63,7 @@ type User {
 ```
 
 **Best Practices:**
+
 - Always include descriptions for types and fields
 - Use `ID!` for identifiers (not `String!` or `Int!`)
 - Include timestamps (`createdAt`, `updatedAt`)
@@ -98,6 +103,7 @@ input UpdateUserInput {
 ```
 
 **Best Practices:**
+
 - Create mutations use required fields
 - Update mutations use optional fields
 - Nest related inputs for complex updates
@@ -136,6 +142,7 @@ enum CreateUserErrorCode {
 ```
 
 **Benefits:**
+
 - Clear success/error handling
 - Type-safe error codes
 - Field-level error information
@@ -190,6 +197,7 @@ type PageInfo {
 ```
 
 **When to Use:**
+
 - Large datasets (100+ items)
 - Real-time data (items may be added/removed)
 - Infinite scroll UIs
@@ -212,6 +220,7 @@ type UserList {
 ```
 
 **When to Use:**
+
 - Small datasets
 - Traditional page-based UIs
 - Simpler implementation needs

@@ -15,6 +15,7 @@ rules:
 ## Pattern Operators
 
 ### Basic Matching
+
 ```yaml
 pattern: foo(...)              # Match function call
 patterns:                      # AND - all must match
@@ -27,6 +28,7 @@ pattern-regex: ^foo.*bar$      # PCRE2 regex matching (multiline mode)
 ```
 
 ### Metavariables
+
 - `$VAR` - Match any single expression
   - **Must be uppercase**: `$X`, `$FUNC`, `$VAR_1` (NOT `$x`, `$var`)
 - `$_` - Anonymous metavariable (matches but doesn't bind)
@@ -66,6 +68,7 @@ pattern-sources:
 ```
 
 ### Scope Operators
+
 ```yaml
 pattern-inside: |              # Must be inside this pattern
   def $FUNC(...):
@@ -76,12 +79,14 @@ pattern-not-inside: |          # Must NOT be inside this pattern
 ```
 
 ### Negation
+
 ```yaml
 pattern-not: safe(...)         # Exclude this pattern
 pattern-not-regex: ^test_      # Exclude by regex
 ```
 
 ### Metavariable Filters
+
 ```yaml
 metavariable-regex:
   metavariable: $FUNC
@@ -97,6 +102,7 @@ metavariable-comparison:
 ```
 
 ### Focus
+
 ```yaml
 focus-metavariable: $TARGET    # Report finding on this metavariable only
 ```
@@ -123,6 +129,7 @@ rules:
 ```
 
 ### Taint Options
+
 ```yaml
 pattern-sources:
   - pattern: source(...)
@@ -152,7 +159,7 @@ safe_code()                    # This line MUST NOT match
 ```
 
 DO NOT use multi-line comments for test annotations, for example:
-/* ruleid: ... */
+/*ruleid: ...*/
 
 ## Debugging Commands
 

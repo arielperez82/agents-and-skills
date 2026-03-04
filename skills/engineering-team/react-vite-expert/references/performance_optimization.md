@@ -5,6 +5,7 @@ Comprehensive guide to optimizing React + Vite applications for maximum performa
 ## Performance Metrics to Track
 
 ### Core Web Vitals
+
 - **LCP (Largest Contentful Paint)**: < 2.5s (Good)
 - **FID (First Input Delay)**: < 100ms (Good)
 - **CLS (Cumulative Layout Shift)**: < 0.1 (Good)
@@ -12,6 +13,7 @@ Comprehensive guide to optimizing React + Vite applications for maximum performa
 - **TTI (Time to Interactive)**: < 3.8s (Good)
 
 ### Bundle Size Goals
+
 - **Initial JS bundle**: < 200KB (gzipped)
 - **Total JS**: < 500KB (gzipped)
 - **CSS**: < 50KB (gzipped)
@@ -45,6 +47,7 @@ export const ExpensiveComponent = React.memo(
 ```
 
 **When to use React.memo():**
+
 - ✅ Pure components that render often
 - ✅ Components with expensive rendering
 - ✅ Components that receive same props frequently
@@ -74,6 +77,7 @@ function ProductList({ products }) {
 ```
 
 **When to use useMemo():**
+
 - ✅ Expensive calculations (sorting, filtering large arrays)
 - ✅ Creating objects/arrays passed as props to memoized components
 - ✅ Complex transformations
@@ -113,6 +117,7 @@ function Parent() {
 ```
 
 **When to use useCallback():**
+
 - ✅ Passing callbacks to memoized child components
 - ✅ Callbacks in dependency arrays of other hooks
 - ✅ Event handlers passed to many children
@@ -146,6 +151,7 @@ function App() {
 ```
 
 **Route-based code splitting pattern:**
+
 ```typescript
 // pages/DashboardPage/DashboardPage.lazy.tsx
 import { lazy } from 'react';
@@ -193,6 +199,7 @@ function ProductList({ products }) {
 ```
 
 **Libraries:**
+
 - **react-window**: Lighter, most use cases
 - **react-virtualized**: More features, heavier
 
@@ -541,6 +548,7 @@ export const Button = ({ variant = 'primary', children }) => (
 ```
 
 **Benefits:**
+
 - ✅ Scoped styles (no conflicts)
 - ✅ Tree-shakeable
 - ✅ Better for code splitting
@@ -679,12 +687,14 @@ function onRenderCallback(
 ## Performance Checklist
 
 ### Development
+
 - [ ] Use React DevTools Profiler to identify slow components
 - [ ] Check for unnecessary re-renders
 - [ ] Verify memoization is working
 - [ ] Monitor bundle size during development
 
 ### Before Production
+
 - [ ] Run bundle analyzer (`npm run build` with visualizer)
 - [ ] Check bundle sizes < targets
 - [ ] Verify code splitting is working
@@ -698,6 +708,7 @@ function onRenderCallback(
 - [ ] Enable minification
 
 ### Production Monitoring
+
 - [ ] Track Web Vitals in production
 - [ ] Monitor bundle sizes on each deployment
 - [ ] Set up performance budgets

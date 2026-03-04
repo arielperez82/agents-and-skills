@@ -89,6 +89,7 @@ Expert GraphQL API design agent specializing in schema architecture, resolver pa
 This agent provides comprehensive GraphQL development capabilities for building production-ready, type-safe APIs. It orchestrates schema analysis, resolver generation, federation scaffolding, and performance optimization through guided workflows and Python automation tools.
 
 **Primary Use Cases:**
+
 - Design schema-first GraphQL APIs with proper conventions
 - Generate TypeScript resolvers with DataLoader integration
 - Build federated supergraphs with Apollo Federation
@@ -140,6 +141,7 @@ python ../skills/engineering-team/senior-graphql/scripts/federation_scaffolder.p
 2. **Design Schema**
 
    Create `schema.graphql` with proper conventions:
+
    ```graphql
    """
    User account with authentication details.
@@ -193,6 +195,7 @@ python ../skills/engineering-team/senior-graphql/scripts/federation_scaffolder.p
    ```
 
 3. **Validate Schema**
+
    ```bash
    python ../skills/engineering-team/senior-graphql/scripts/schema_analyzer.py schema.graphql --validate
    ```
@@ -212,12 +215,14 @@ python ../skills/engineering-team/senior-graphql/scripts/federation_scaffolder.p
    - Use Payload types for mutations
 
 5. **Generate Types**
+
    ```bash
    # After validation passes
    npx graphql-codegen
    ```
 
 **Success Criteria:**
+
 - Schema validates with no errors
 - All types and fields documented
 - Relay pagination implemented
@@ -235,6 +240,7 @@ python ../skills/engineering-team/senior-graphql/scripts/federation_scaffolder.p
 **Steps:**
 
 1. **Analyze Schema**
+
    ```bash
    python ../skills/engineering-team/senior-graphql/scripts/schema_analyzer.py schema.graphql --output json > analysis.json
    ```
@@ -245,6 +251,7 @@ python ../skills/engineering-team/senior-graphql/scripts/federation_scaffolder.p
    - Subscription requirements
 
 2. **Generate Resolvers**
+
    ```bash
    python ../skills/engineering-team/senior-graphql/scripts/resolver_generator.py \
      schema.graphql \
@@ -266,6 +273,7 @@ python ../skills/engineering-team/senior-graphql/scripts/federation_scaffolder.p
 3. **Configure DataLoaders**
 
    Review and customize `src/resolvers/dataloaders.ts`:
+
    ```typescript
    export const createLoaders = (prisma: PrismaClient) => ({
      userLoader: new DataLoader<string, User>(async (ids) => {
@@ -293,6 +301,7 @@ python ../skills/engineering-team/senior-graphql/scripts/federation_scaffolder.p
 4. **Implement Business Logic**
 
    Edit generated resolvers with actual logic:
+
    ```typescript
    // src/resolvers/query.resolver.ts
    export const QueryResolvers = {
@@ -328,6 +337,7 @@ python ../skills/engineering-team/senior-graphql/scripts/federation_scaffolder.p
    ```
 
 5. **Add Context Setup**
+
    ```typescript
    // src/server.ts
    import { createLoaders } from './resolvers/dataloaders';
@@ -344,11 +354,13 @@ python ../skills/engineering-team/senior-graphql/scripts/federation_scaffolder.p
    ```
 
 6. **Test Resolvers**
+
    ```bash
    npm test
    ```
 
 **Success Criteria:**
+
 - All resolvers compile without errors
 - DataLoader prevents N+1 queries (verify in logs)
 - Tests pass
@@ -372,6 +384,7 @@ python ../skills/engineering-team/senior-graphql/scripts/federation_scaffolder.p
    - `comments-service` - Comment, Reaction
 
 2. **Scaffold Subgraphs**
+
    ```bash
    # Users subgraph (owns User, Profile)
    python ../skills/engineering-team/senior-graphql/scripts/federation_scaffolder.py \
@@ -400,6 +413,7 @@ python ../skills/engineering-team/senior-graphql/scripts/federation_scaffolder.p
 3. **Configure Entity Extensions**
 
    In `posts-service/src/schema.graphql`:
+
    ```graphql
    extend schema
      @link(url: "https://specs.apollo.dev/federation/v2.0",
@@ -423,6 +437,7 @@ python ../skills/engineering-team/senior-graphql/scripts/federation_scaffolder.p
 4. **Implement Reference Resolvers**
 
    In `posts-service/src/resolvers/reference.ts`:
+
    ```typescript
    export const referenceResolvers = {
      Post: {
@@ -442,6 +457,7 @@ python ../skills/engineering-team/senior-graphql/scripts/federation_scaffolder.p
    ```
 
 5. **Scaffold Gateway**
+
    ```bash
    python ../skills/engineering-team/senior-graphql/scripts/federation_scaffolder.py \
      gateway \
@@ -450,6 +466,7 @@ python ../skills/engineering-team/senior-graphql/scripts/federation_scaffolder.p
    ```
 
 6. **Start Services**
+
    ```bash
    # Terminal 1
    cd services/users-service && npm run dev
@@ -465,6 +482,7 @@ python ../skills/engineering-team/senior-graphql/scripts/federation_scaffolder.p
    ```
 
 7. **Test Federated Query**
+
    ```graphql
    query FederatedQuery {
      user(id: "1") {
@@ -485,6 +503,7 @@ python ../skills/engineering-team/senior-graphql/scripts/federation_scaffolder.p
    ```
 
 **Success Criteria:**
+
 - All subgraphs start without errors
 - Gateway composes supergraph successfully
 - Cross-subgraph queries resolve correctly
@@ -503,6 +522,7 @@ python ../skills/engineering-team/senior-graphql/scripts/federation_scaffolder.p
 **Steps:**
 
 1. **Analyze Current Performance**
+
    ```bash
    # Schema complexity
    python ../skills/engineering-team/senior-graphql/scripts/schema_analyzer.py \
@@ -511,6 +531,7 @@ python ../skills/engineering-team/senior-graphql/scripts/federation_scaffolder.p
    ```
 
 2. **Implement Query Complexity Limits**
+
    ```typescript
    import { createComplexityLimitRule } from 'graphql-validation-complexity';
 
@@ -527,6 +548,7 @@ python ../skills/engineering-team/senior-graphql/scripts/federation_scaffolder.p
    ```
 
 3. **Add Depth Limiting**
+
    ```typescript
    import depthLimit from 'graphql-depth-limit';
 
@@ -539,6 +561,7 @@ python ../skills/engineering-team/senior-graphql/scripts/federation_scaffolder.p
    ```
 
 4. **Configure Response Caching**
+
    ```typescript
    import responseCachePlugin from '@apollo/server-plugin-response-cache';
 
@@ -552,6 +575,7 @@ python ../skills/engineering-team/senior-graphql/scripts/federation_scaffolder.p
    ```
 
 5. **Add Cache Hints**
+
    ```graphql
    type User @cacheControl(maxAge: 60) {
      id: ID!
@@ -562,6 +586,7 @@ python ../skills/engineering-team/senior-graphql/scripts/federation_scaffolder.p
    ```
 
 6. **Enable Automatic Persisted Queries**
+
    ```typescript
    const server = new ApolloServer({
      persistedQueries: {
@@ -571,6 +596,7 @@ python ../skills/engineering-team/senior-graphql/scripts/federation_scaffolder.p
    ```
 
 7. **Monitor Performance**
+
    ```typescript
    const loggingPlugin = {
      async requestDidStart() {
@@ -585,6 +611,7 @@ python ../skills/engineering-team/senior-graphql/scripts/federation_scaffolder.p
    ```
 
 **Success Criteria:**
+
 - Query complexity enforced
 - Depth limiting active
 - Response caching working
@@ -600,12 +627,14 @@ python ../skills/engineering-team/senior-graphql/scripts/federation_scaffolder.p
 **Purpose:** Analyze GraphQL schemas for quality and best practices.
 
 **Options:**
+
 - `--output text|json` - Output format
 - `--validate` - Exit with error on issues
 - `--complexity` - Show only complexity analysis
 - `-v, --verbose` - Verbose output
 
 **Analysis Includes:**
+
 - Type count and statistics
 - Naming convention validation
 - Best practice checks
@@ -617,6 +646,7 @@ python ../skills/engineering-team/senior-graphql/scripts/federation_scaffolder.p
 **Purpose:** Generate TypeScript resolvers from GraphQL schema.
 
 **Options:**
+
 - `-o, --output DIR` - Output directory
 - `--dataloader` - Include DataLoader factories
 - `--tests` - Generate test stubs
@@ -624,6 +654,7 @@ python ../skills/engineering-team/senior-graphql/scripts/federation_scaffolder.p
 - `--dry-run` - Preview without writing
 
 **Generated Files:**
+
 - Type-specific resolvers
 - Query/Mutation resolvers
 - TypeScript interfaces
@@ -635,14 +666,17 @@ python ../skills/engineering-team/senior-graphql/scripts/federation_scaffolder.p
 **Purpose:** Scaffold Apollo Federation subgraphs and gateway.
 
 **For Subgraphs:**
+
 - `--entities` - Owned entity types
 - `--references` - External entity references
 - `--port` - Service port
 
 **For Gateway:**
+
 - `--subgraphs name:port,...` - Subgraph endpoints
 
 **Generated Structure:**
+
 - Apollo Server setup
 - Federation schema
 - Reference resolvers
@@ -707,16 +741,19 @@ docker-compose up -d
 ## Success Metrics
 
 **Schema Quality:**
+
 - All types documented
 - Naming conventions followed
 - Complexity score < 50
 
 **Performance:**
+
 - P95 latency < 200ms
 - No N+1 queries
 - Response caching active
 
 **Federation:**
+
 - Subgraphs independently deployable
 - Cross-subgraph queries work
 - Gateway health checks pass
@@ -732,12 +769,14 @@ docker-compose up -d
 ## References
 
 **Skill Documentation:**
+
 - `../skills/engineering-team/senior-graphql/SKILL.md` - Complete skill overview
 - `../skills/engineering-team/senior-graphql/references/schema-patterns.md` - Schema design
 - `../skills/engineering-team/senior-graphql/references/federation-guide.md` - Federation setup
 - `../skills/engineering-team/senior-graphql/references/performance-optimization.md` - Performance tuning
 
 **External Resources:**
+
 - [GraphQL Specification](https://spec.graphql.org/)
 - [Apollo Server Documentation](https://www.apollographql.com/docs/apollo-server/)
 - [Apollo Federation](https://www.apollographql.com/docs/federation/)

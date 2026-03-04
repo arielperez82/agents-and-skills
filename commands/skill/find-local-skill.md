@@ -161,4 +161,3 @@ The calling agent should then:
 - After receiving results:
   - Load and follow the returned skills’ guidance.
   - Combine them with any mandatory core skills from AGENTS.md (e.g. `tdd`, `typescript-strict`, `testing`, `refactoring`, `planning`).
-

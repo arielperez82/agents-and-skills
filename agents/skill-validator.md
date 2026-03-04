@@ -106,19 +106,25 @@ Use this agent when:
 **Goal:** Validate all skills changed in the current diff.
 
 **Steps:**
+
 1. Identify changed files under `skills/` from the diff.
 2. Run cross-reference check:
+
    ```bash
    python3 skills/agent-development-team/creating-agents/scripts/validate_agent.py --all --summary
    ```
+
 3. Run per-skill validation for each changed skill:
+
    ```bash
    python3 skills/agent-development-team/skill-creator/scripts/quick_validate.py <skill-dir>
    ```
+
    Pass the parent directory of SKILL.md, not the file itself.
 4. Collect results and produce a combined report.
 
 **Exit codes:**
+
 - `validate_agent.py`: 0 = all pass, 1 = critical issues found
 - `quick_validate.py`: 0 = valid (may include metadata warnings), 1 = invalid (missing required fields or non-standard top-level keys)
 
@@ -129,14 +135,19 @@ Use this agent when:
 **Goal:** Validate one skill directory.
 
 **Steps:**
+
 1. Run frontmatter validation:
+
    ```bash
    python3 skills/agent-development-team/skill-creator/scripts/quick_validate.py skills/<team>/<skill-name>
    ```
+
 2. Run cross-reference check to verify no agents have broken references:
+
    ```bash
    python3 skills/agent-development-team/creating-agents/scripts/validate_agent.py --all --summary
    ```
+
 3. Report results.
 
 **Expected output:** Frontmatter validation result + cross-reference summary.
@@ -146,6 +157,7 @@ Use this agent when:
 **Goal:** Validate the entire skill catalog.
 
 **Steps:**
+
 1. List all skill directories (those containing SKILL.md).
 2. Run `quick_validate.py` for each.
 3. Run `validate_agent.py --all --summary` once for cross-references.

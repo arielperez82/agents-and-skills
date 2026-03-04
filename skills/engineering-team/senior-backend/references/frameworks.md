@@ -7,6 +7,7 @@ Comprehensive guide to backend architecture patterns, API design principles, and
 ### REST API Design Principles
 
 **Resource-Based URL Structure:**
+
 ```
 GET    /api/v1/users           # List all users
 GET    /api/v1/users/:id       # Get specific user
@@ -21,6 +22,7 @@ GET    /api/v1/posts/:id/comments       # Post's comments
 ```
 
 **HTTP Status Codes:**
+
 - `200 OK`: Successful GET, PUT, PATCH
 - `201 Created`: Successful POST
 - `204 No Content`: Successful DELETE
@@ -35,6 +37,7 @@ GET    /api/v1/posts/:id/comments       # Post's comments
 - `503 Service Unavailable`: Temporary downtime
 
 **Response Format:**
+
 ```json
 {
   "success": true,
@@ -52,6 +55,7 @@ GET    /api/v1/posts/:id/comments       # Post's comments
 ```
 
 **Error Response Format:**
+
 ```json
 {
   "success": false,
@@ -71,6 +75,7 @@ GET    /api/v1/posts/:id/comments       # Post's comments
 ### GraphQL API Design
 
 **Schema Design Principles:**
+
 ```graphql
 # Type definitions
 type User {
@@ -124,6 +129,7 @@ input UpdateUserInput {
 ```
 
 **Resolver Pattern:**
+
 ```typescript
 // Efficient N+1 query prevention with DataLoader
 const userLoader = new DataLoader(async (ids: string[]) => {
@@ -157,6 +163,7 @@ const resolvers = {
 ```
 
 **Error Handling:**
+
 ```typescript
 import { ApolloError, UserInputError, AuthenticationError } from 'apollo-server';
 
@@ -186,6 +193,7 @@ if (!isValidEmail(input.email)) {
 ### Layered Architecture
 
 **Structure:**
+
 ```
 src/
 ├── controllers/      # HTTP handlers, route logic
@@ -198,6 +206,7 @@ src/
 ```
 
 **Controller Layer:**
+
 ```typescript
 // controllers/userController.ts
 import { Request, Response, NextFunction } from 'express';
@@ -242,6 +251,7 @@ export class UserController {
 ```
 
 **Service Layer:**
+
 ```typescript
 // services/userService.ts
 import { UserRepository } from '../repositories/userRepository';
@@ -283,6 +293,7 @@ export class UserService {
 ```
 
 **Repository Layer:**
+
 ```typescript
 // repositories/userRepository.ts
 import { PrismaClient } from '@prisma/client';
@@ -339,6 +350,7 @@ export class UserRepository {
 ### Dependency Injection Pattern
 
 **Setup with TypeDI:**
+
 ```typescript
 // container.ts
 import { Container } from 'typedi';
@@ -355,6 +367,7 @@ Container.set(UserController, new UserController(Container.get(UserService)));
 ```
 
 **Usage in Routes:**
+
 ```typescript
 // routes/userRoutes.ts
 import { Router } from 'express';
@@ -377,6 +390,7 @@ export default router;
 ### Repository Pattern
 
 **Generic Repository:**
+
 ```typescript
 // repositories/baseRepository.ts
 export abstract class BaseRepository<T> {
@@ -415,6 +429,7 @@ export abstract class BaseRepository<T> {
 ### CQRS Pattern (Command Query Responsibility Segregation)
 
 **Separate Read and Write Models:**
+
 ```typescript
 // commands/createUserCommand.ts
 export class CreateUserCommand {
@@ -469,6 +484,7 @@ export class GetUserHandler {
 ### Service Communication
 
 **Synchronous (REST):**
+
 ```typescript
 // Service A calling Service B
 import axios from 'axios';
@@ -502,6 +518,7 @@ class OrderService {
 ```
 
 **Asynchronous (Message Queue):**
+
 ```typescript
 // Using RabbitMQ
 import amqp from 'amqplib';
@@ -553,6 +570,7 @@ class OrderCreatedConsumer {
 ### Circuit Breaker Pattern
 
 **Prevent cascading failures:**
+
 ```typescript
 class CircuitBreaker {
   private failures = 0;
@@ -612,6 +630,7 @@ async function callExternalService() {
 ### API Gateway Pattern
 
 **Single entry point for multiple microservices:**
+
 ```typescript
 // gateway/routes.ts
 import express from 'express';
@@ -646,6 +665,7 @@ app.use('/api/products', createProxyMiddleware({
 ### Caching Strategies
 
 **Redis Caching:**
+
 ```typescript
 import Redis from 'ioredis';
 
@@ -687,6 +707,7 @@ class UserService {
 ```
 
 **Cache Invalidation:**
+
 ```typescript
 class UserService {
   async updateUser(id: string, data: UpdateUserDTO) {
@@ -704,6 +725,7 @@ class UserService {
 ### Database Query Optimization
 
 **N+1 Query Prevention:**
+
 ```typescript
 // Bad: N+1 queries
 const users = await User.findAll();
@@ -720,6 +742,7 @@ const users = await prisma.user.findMany({
 ```
 
 **Pagination:**
+
 ```typescript
 // Offset-based (simple but slow for large datasets)
 async function getUsers(page: number, limit: number) {
@@ -746,6 +769,7 @@ async function getUsersCursor(cursor?: string, limit = 20) {
 ### Connection Pooling
 
 **PostgreSQL Connection Pool:**
+
 ```typescript
 import { Pool } from 'pg';
 

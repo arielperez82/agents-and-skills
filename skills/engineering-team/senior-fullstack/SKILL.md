@@ -70,6 +70,7 @@ Expert-level fullstack development skill with production-ready tools for modern 
 This skill provides comprehensive fullstack development capabilities through three core automation tools and extensive reference documentation. Whether you're scaffolding a new project, analyzing code quality, or implementing complex architecture patterns, this skill delivers production-ready solutions.
 
 **Use this skill when:**
+
 - Starting new fullstack projects with modern tech stacks
 - Analyzing and improving code quality
 - Implementing microservices or clean architecture
@@ -83,6 +84,7 @@ This skill provides comprehensive fullstack development capabilities through thr
 Generate production-ready fullstack projects with complete infrastructure.
 
 **Features:**
+
 - Multiple stack templates (Next.js, React, Vue + GraphQL/REST)
 - Docker Compose configuration
 - CI/CD pipelines (GitHub Actions)
@@ -91,12 +93,14 @@ Generate production-ready fullstack projects with complete infrastructure.
 - TypeScript, ESLint, Prettier pre-configured
 
 **Usage:**
+
 ```bash
 python scripts/project_scaffolder.py my-project --type nextjs-graphql
 cd my-project && docker-compose up -d
 ```
 
 **Supported Stacks:**
+
 - Next.js + GraphQL + PostgreSQL
 - React + REST + MongoDB
 - Vue + GraphQL + MySQL
@@ -107,6 +111,7 @@ cd my-project && docker-compose up -d
 Comprehensive code analysis with actionable recommendations.
 
 **Features:**
+
 - Security vulnerability scanning
 - Performance issue detection
 - Test coverage assessment
@@ -115,6 +120,7 @@ Comprehensive code analysis with actionable recommendations.
 - Prioritized recommendations
 
 **Usage:**
+
 ```bash
 python scripts/code_quality_analyzer.py /path/to/project
 python scripts/code_quality_analyzer.py /path/to/project --json
@@ -125,6 +131,7 @@ python scripts/code_quality_analyzer.py /path/to/project --json
 Rapid fullstack application generation with best practices built-in.
 
 **Usage:**
+
 ```bash
 python scripts/fullstack_scaffolder.py my-app --stack nextjs-graphql
 ```
@@ -136,6 +143,7 @@ python scripts/fullstack_scaffolder.py my-app --stack nextjs-graphql
 Generate production-ready fullstack projects with complete infrastructure.
 
 **Key Features:**
+
 - Multiple stack templates (Next.js, React, Vue + GraphQL/REST)
 - Docker Compose configuration
 - CI/CD pipelines (GitHub Actions)
@@ -144,6 +152,7 @@ Generate production-ready fullstack projects with complete infrastructure.
 - TypeScript, ESLint, Prettier pre-configured
 
 **Common Usage:**
+
 ```bash
 # Create Next.js + GraphQL project
 python scripts/project_scaffolder.py my-project --type nextjs-graphql
@@ -159,6 +168,7 @@ python scripts/project_scaffolder.py --help
 ```
 
 **Use Cases:**
+
 - Starting new fullstack projects with best practices
 - Creating proof-of-concept applications
 - Standardizing project structure across teams
@@ -168,6 +178,7 @@ python scripts/project_scaffolder.py --help
 Comprehensive code analysis with actionable recommendations.
 
 **Key Features:**
+
 - Security vulnerability scanning
 - Performance issue detection
 - Test coverage assessment
@@ -176,6 +187,7 @@ Comprehensive code analysis with actionable recommendations.
 - Prioritized recommendations
 
 **Common Usage:**
+
 ```bash
 # Analyze project
 python scripts/code_quality_analyzer.py /path/to/project
@@ -191,6 +203,7 @@ python scripts/code_quality_analyzer.py --help
 ```
 
 **Use Cases:**
+
 - Pre-deployment quality checks
 - Technical debt identification
 - Security audit automation
@@ -200,12 +213,14 @@ python scripts/code_quality_analyzer.py --help
 Rapid fullstack application generation with best practices built-in.
 
 **Key Features:**
+
 - Quick project setup
 - Modern tech stack selection
 - Best practices integration
 - Ready-to-deploy configuration
 
 **Common Usage:**
+
 ```bash
 # Scaffold fullstack app
 python scripts/fullstack_scaffolder.py my-app --stack nextjs-graphql
@@ -218,6 +233,7 @@ python scripts/fullstack_scaffolder.py --help
 ```
 
 **Use Cases:**
+
 - Rapid prototyping
 - Hackathon projects
 - Client POC development
@@ -231,25 +247,34 @@ See [tech-stacks.md](references/tech-stacks.md) for comprehensive tool documenta
 **Time:** 30 minutes for complete setup
 
 1. **Generate Project Structure** - Scaffold with optimal tech stack
+
    ```bash
    # Create project
    python scripts/project_scaffolder.py my-app --type nextjs-graphql
    ```
+
 2. **Configure Environment** - Setup environment variables, database connection
+
    ```bash
    cd my-app
    cp .env.example .env
    # Edit .env with configuration
    ```
+
 3. **Start Development Services** - Launch Docker containers
+
    ```bash
    docker-compose up -d
    ```
+
 4. **Run Database Migrations** - Initialize database schema
+
    ```bash
    npm run migrate
    ```
+
 5. **Start Development Server** - Begin development
+
    ```bash
    npm run dev
    ```
@@ -261,27 +286,38 @@ See [architecture-patterns.md](references/architecture-patterns.md) for architec
 **Time:** 15-20 minutes for full analysis
 
 1. **Run Comprehensive Analysis** - Analyze entire codebase
+
    ```bash
    python scripts/code_quality_analyzer.py ./
    ```
+
 2. **Review Recommendations** - Prioritize issues by severity
 3. **Fix Security Vulnerabilities** - Update dependencies
+
    ```bash
    npm audit fix
    ```
+
 4. **Fix Linting Errors** - Automated fixes where possible
+
    ```bash
    npm run lint -- --fix
    ```
+
 5. **Run Test Suite** - Ensure all tests pass
+
    ```bash
    npm test
    ```
+
 6. **Build for Production** - Verify production build succeeds
+
    ```bash
    npm run build
    ```
+
 7. **Re-analyze** - Verify improvements
+
    ```bash
    python scripts/code_quality_analyzer.py ./ --json > quality-report.json
    ```
@@ -291,25 +327,35 @@ See [architecture-patterns.md](references/architecture-patterns.md) for architec
 **Time:** 1-2 hours for initial deployment
 
 1. **Quality Checks** - Ensure tests and build pass
+
    ```bash
    npm test && npm run build
    ```
+
 2. **Build Docker Image** - Create production container
+
    ```bash
    docker build -t my-app:latest .
    ```
+
 3. **Deploy with Docker Compose** - Production deployment
+
    ```bash
    docker-compose -f docker-compose.prod.yml up -d
    ```
+
    Or deploy to Kubernetes:
+
    ```bash
    kubectl apply -f k8s/
    ```
+
 4. **Verify Deployment** - Health check and smoke tests
+
    ```bash
    curl https://your-app.com/health
    ```
+
 5. **Monitor** - Setup logging and monitoring dashboards
 
 See [best-practices.md](references/best-practices.md) for deployment best practices.
@@ -319,7 +365,9 @@ See [best-practices.md](references/best-practices.md) for deployment best practi
 Detailed guides available in the `references/` directory:
 
 ### Architecture Patterns
+
 **[architecture-patterns.md](references/architecture-patterns.md)** - Comprehensive architecture guide covering:
+
 - Microservices architecture and service design
 - Clean architecture and layer patterns
 - Domain-driven design (DDD)
@@ -329,7 +377,9 @@ Detailed guides available in the `references/` directory:
 - Security patterns and deployment approaches
 
 ### Technology Stacks
+
 **[tech-stacks.md](references/tech-stacks.md)** - Complete technology reference including:
+
 - Languages (TypeScript, Python, Go, Kotlin, Swift)
 - Frontend frameworks (React, Next.js, React Native, Flutter)
 - Backend frameworks (Node.js, Express, GraphQL, REST)
@@ -339,7 +389,9 @@ Detailed guides available in the `references/` directory:
 - Testing frameworks and development tools
 
 ### Best Practices
+
 **[best-practices.md](references/best-practices.md)** - Industry standards and guidelines for:
+
 - Code quality and SOLID principles
 - Testing strategies (unit, integration, e2e)
 - Performance optimization (frontend and backend)
@@ -422,24 +474,28 @@ For detailed technology guides, see [tech-stacks.md](references/tech-stacks.md).
 ## Common Use Cases
 
 **1. E-commerce Platform**
+
 - Next.js for SEO-optimized storefront
 - GraphQL API for product catalog
 - PostgreSQL for transactions
 - Stripe integration for payments
 
 **2. SaaS Dashboard**
+
 - React SPA with complex state management
 - REST API with Node.js/Express
 - Real-time updates with WebSockets
 - Role-based access control
 
 **3. Mobile + Web App**
+
 - React Native for iOS/Android
 - Next.js for web presence
 - Shared GraphQL API
 - Supabase for backend services
 
 **4. Content Management System**
+
 - Next.js with ISR (Incremental Static Regeneration)
 - Headless CMS integration
 - PostgreSQL for structured data

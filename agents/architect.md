@@ -158,6 +158,7 @@ The architect agent bridges the gap between business requirements and technical 
 **Goal:** Design comprehensive system architecture and generate professional documentation for stakeholders
 
 **Steps:**
+
 1. **Gather Requirements** - Collect functional and non-functional requirements:
    - Business capabilities and user needs
    - Performance targets (latency, throughput, concurrency)
@@ -166,10 +167,12 @@ The architect agent bridges the gap between business requirements and technical 
    - Budget and timeline considerations
 
 2. **Select Architecture Pattern** - Choose appropriate pattern based on requirements:
+
    ```bash
    # Review architecture patterns reference
    cat ../skills/engineering-team/senior-architect/references/architecture_patterns.md
    ```
+
    - **Modular Monolith**: Small-medium apps, limited team (<10 devs)
    - **Microservices**: Large-scale apps, multiple teams, independent deployment
    - **Event-Driven**: Real-time systems, loose coupling, asynchronous workflows
@@ -186,30 +189,33 @@ The architect agent bridges the gap between business requirements and technical 
    - **Operational readiness** — How we run it: health checks, graceful shutdown, configuration management, secrets handling, scaling triggers
 
 4. **Generate Architecture Diagrams** - Create visual documentation:
+
    ```bash
    python ../skills/engineering-team/senior-architect/scripts/architecture_diagram_generator.py --input ./project --output text
    ```
+
    - C4 Model: Context, Container, Component, Code views
    - Deployment diagrams
    - Data flow diagrams
    - Integration patterns
 
 5. **Document Architecture Decisions** - For significant architectural decisions, invoke the `adr-writer` agent:
-   
+
    **Decision Criteria**: Use the adr-writer agent's decision framework to determine if a decision merits an ADR:
    - Is this a one-way door? (Hard/expensive to reverse)
    - Did we evaluate alternatives? (Considered trade-offs)
    - Will this affect future architectural decisions? (Foundational)
    - Will future developers wonder "why did they do it this way?"
-   
+
    **When to Invoke adr-writer:**
    - Technology stack selection (frontend framework, backend framework, database)
    - Architecture pattern choice (microservices vs monolith vs event-driven)
    - Infrastructure decisions (cloud provider, deployment strategy)
    - Security architecture decisions (authentication approach, encryption strategy)
    - Performance trade-offs with long-term impact (caching strategy, optimization decisions)
-   
+
    **Invocation Pattern:**
+
    ```markdown
    # After making a significant architectural decision:
    
@@ -219,8 +225,9 @@ The architect agent bridges the gap between business requirements and technical 
    4. adr-writer creates structured ADR document following standard format
    5. Reference the ADR in architecture documentation
    ```
-   
+
    **Example:**
+
    ```markdown
    After selecting PostgreSQL as database:
    → Decision meets criteria: one-way door (YES), alternatives evaluated (YES), foundational (YES), future developers will wonder why (YES)
@@ -232,7 +239,7 @@ The architect agent bridges the gap between business requirements and technical 
    → adr-writer creates ADR-001: Database Selection
    → Reference ADR-001 in architecture documentation
    ```
-   
+
    **What NOT to Invoke adr-writer For:**
    - Implementation details (variable naming, function structure)
    - Temporary workarounds
@@ -253,6 +260,7 @@ The architect agent bridges the gap between business requirements and technical 
 **Time Estimate:** 3-5 days for comprehensive system design (depending on complexity)
 
 **Example:**
+
 ```bash
 # Complete architecture design workflow
 mkdir -p architecture-docs
@@ -266,7 +274,9 @@ cat ../skills/engineering-team/senior-architect/references/architecture_patterns
 **Goal:** Evaluate existing system architecture and identify optimization opportunities
 
 **Steps:**
+
 1. **Run Project Architect Analysis** - Execute comprehensive codebase analysis:
+
    ```bash
    python ../skills/engineering-team/senior-architect/scripts/project_architect.py --input ./project --verbose > architecture-audit.txt
    ```
@@ -279,9 +289,11 @@ cat ../skills/engineering-team/senior-architect/references/architecture_patterns
    - **Security**: Vulnerability assessment, authentication/authorization patterns
 
 3. **Analyze Dependencies** - Identify coupling issues:
+
    ```bash
    python ../skills/engineering-team/senior-architect/scripts/dependency_analyzer.py --input ./project --output json > dependency-analysis.json
    ```
+
    - Circular dependencies
    - Tight coupling between modules
    - Excessive external dependencies
@@ -310,6 +322,7 @@ cat ../skills/engineering-team/senior-architect/references/architecture_patterns
 **Time Estimate:** 1-2 weeks for complete audit (depending on codebase size)
 
 **Example:**
+
 ```bash
 # Complete architecture audit workflow
 python ../skills/engineering-team/senior-architect/scripts/project_architect.py --input . --verbose --output json --file audit-report.json
@@ -322,6 +335,7 @@ python ../skills/engineering-team/senior-architect/scripts/dependency_analyzer.p
 **Goal:** Evaluate technology options and plan migration strategy for modernization initiatives
 
 **Steps:**
+
 1. **Define Evaluation Criteria** - Establish decision framework:
    - **Technical Fit**: Meets functional requirements, performance targets
    - **Team Capability**: Team has expertise or can learn quickly
@@ -332,9 +346,11 @@ python ../skills/engineering-team/senior-architect/scripts/dependency_analyzer.p
    - **Risk**: Migration complexity, vendor lock-in, technology maturity
 
 2. **Research Technology Options** - Review reference guide:
+
    ```bash
    cat ../skills/engineering-team/senior-architect/references/tech_decision_guide.md
    ```
+
    - **Frontend**: React vs Next.js vs Vue
    - **Backend**: Node.js/Express vs Go vs Python
    - **Mobile**: React Native vs Flutter vs Swift/Kotlin
@@ -349,9 +365,11 @@ python ../skills/engineering-team/senior-architect/scripts/dependency_analyzer.p
    - Integration testing with existing systems
 
 4. **Analyze Current Architecture** - Assess migration feasibility:
+
    ```bash
    python ../skills/engineering-team/senior-architect/scripts/project_architect.py --input . --verbose
    ```
+
    - Identify migration boundaries (what stays, what moves)
    - Estimate migration effort (person-months)
    - Assess risks and dependencies
@@ -376,6 +394,7 @@ python ../skills/engineering-team/senior-architect/scripts/dependency_analyzer.p
 **Time Estimate:** 3-4 weeks for complete evaluation and planning (including POC development)
 
 **Example:**
+
 ```bash
 # Technology evaluation workflow
 mkdir -p tech-evaluation
@@ -389,6 +408,7 @@ python ../skills/engineering-team/senior-architect/scripts/project_architect.py 
 **Goal:** Design scalability strategy and optimize system performance for growth
 
 **Steps:**
+
 1. **Establish Performance Baselines** - Measure current system metrics:
    - Response times (p50, p95, p99 latency)
    - Throughput (requests per second, transactions per minute)
@@ -397,9 +417,11 @@ python ../skills/engineering-team/senior-architect/scripts/project_architect.py 
    - Database query performance
 
 2. **Analyze Bottlenecks** - Identify performance constraints:
+
    ```bash
    python ../skills/engineering-team/senior-architect/scripts/project_architect.py --input . --verbose
    ```
+
    - Database slow queries and N+1 problems
    - Synchronous blocking operations
    - Inefficient algorithms and data structures
@@ -407,9 +429,11 @@ python ../skills/engineering-team/senior-architect/scripts/project_architect.py 
    - Resource contention and lock contention
 
 3. **Review Scalability Patterns** - Select appropriate strategies:
+
    ```bash
    cat ../skills/engineering-team/senior-architect/references/architecture_patterns.md
    ```
+
    - **Horizontal Scaling**: Load balancing, stateless services, session management
    - **Caching**: Redis, CDN, application-level caching
    - **Database Optimization**: Read replicas, connection pooling, query optimization
@@ -429,11 +453,13 @@ python ../skills/engineering-team/senior-architect/scripts/project_architect.py 
    - **Long Term**: Microservices migration, database sharding, service mesh
 
 6. **Load Testing & Validation** - Verify scalability improvements:
+
    ```bash
    # Example load testing setup
    # Using k6, Apache Bench, or Gatling
    k6 run --vus 1000 --duration 5m load-test.js
    ```
+
    - Stress testing (max capacity before failure)
    - Spike testing (sudden traffic increases)
    - Endurance testing (sustained load over time)
@@ -444,6 +470,7 @@ python ../skills/engineering-team/senior-architect/scripts/project_architect.py 
 **Time Estimate:** 2-4 weeks for complete scalability planning and implementation
 
 **Example:**
+
 ```bash
 # Scalability planning workflow
 python ../skills/engineering-team/senior-architect/scripts/project_architect.py --input . --verbose --file performance-analysis.txt
@@ -640,23 +667,27 @@ echo "4. Plan migration strategy"
 ## Success Metrics
 
 **System Design Quality:**
+
 - **Architecture Score:** Achieve 85%+ on architecture quality assessment (modularity, scalability, maintainability)
 - **Design Documentation:** 100% of major components documented with architecture diagrams and ADRs
 - **Pattern Compliance:** 90%+ adherence to selected architecture patterns (monolith, microservices, event-driven)
 
 **Performance & Scalability:**
+
 - **Response Time:** Maintain p95 latency <200ms under normal load, <500ms under peak load
 - **Throughput:** Support 10x traffic growth without architecture changes
 - **Availability:** Achieve 99.9% uptime with proper resilience patterns (circuit breakers, retries)
 - **Resource Efficiency:** Reduce infrastructure costs by 20-30% through optimization
 
 **Technical Debt Management:**
+
 - **Dependency Health:** Zero circular dependencies, <10% high-coupling modules
 - **Code Quality:** Maintain 80%+ architecture score from project architect tool
 - **Security Posture:** Zero critical vulnerabilities, 100% of security patterns implemented
 - **Documentation Currency:** Architecture docs updated within 1 week of major changes
 
 **Team Effectiveness:**
+
 - **Decision Velocity:** Reduce architecture decision time by 40% with documented patterns and frameworks
 - **Onboarding Time:** New architects productive in 2 weeks with comprehensive documentation
 - **Review Efficiency:** Architecture reviews completed in 1-2 hours with automated analysis tools
@@ -737,6 +768,7 @@ python ../skills/engineering-team/technical-writer/scripts/mermaid_diagram_gener
 ```
 
 **Diagram Types Available:**
+
 - `architecture` - System components and layers
 - `sequence` - API interactions and message flows
 - `class` - Domain models and object relationships

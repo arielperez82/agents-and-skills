@@ -53,6 +53,7 @@ Plan (canonical)              Status (report)              Learnings (layers)
 ## What Makes a "Known-Good Increment"
 
 Each step MUST:
+
 - Leave all tests passing
 - Be independently deployable
 - Have clear done criteria
@@ -64,6 +65,7 @@ Each step MUST:
 ## Step Size Heuristics
 
 **Too big if:**
+
 - Takes more than one session
 - Requires multiple commits to complete
 - Has multiple "and"s in description
@@ -71,6 +73,7 @@ Each step MUST:
 - Involves more than 3 files
 
 **Right size if:**
+
 - One clear test case
 - One logical change
 - Can explain to someone in 30 seconds
@@ -242,24 +245,31 @@ Per repo policy: archive the plan or mark it complete; status report can be supe
 ## Anti-patterns
 
 ❌ **Committing without approval**
+
 - Always wait for explicit "yes" before committing
 
 ❌ **Steps that span multiple commits**
+
 - Break down further until one step = one commit
 
 ❌ **Writing code before tests**
+
 - RED comes first, always
 
 ❌ **Letting status report become stale**
+
 - Update immediately when reality changes
 
 ❌ **Waiting until end to capture learnings**
+
 - Route to the appropriate layer as discoveries occur
 
 ❌ **Plans that change silently**
+
 - All plan changes require discussion and approval
 
 ❌ **Using PLAN.md / WIP.md / LEARNINGS.md when .docs/ is adopted**
+
 - Use `.docs/canonical/plans/`, `.docs/reports/`, and the three-layer learnings model instead. See `.docs/AGENTS.md` for the operating reference.
 
 ## Quick reference

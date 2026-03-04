@@ -13,6 +13,7 @@ Refactor bloated agent instruction files (AGENTS.md, CLAUDE.md, COPILOT.md, etc.
 ## Triggers
 
 Use this skill when:
+
 - "refactor my AGENTS.md" / "refactor my CLAUDE.md"
 - "split my agent instructions"
 - "organize my CLAUDE.md file"
@@ -41,12 +42,14 @@ Use this skill when:
 Identify any instructions that conflict with each other.
 
 **Look for:**
+
 - Contradictory style guidelines (e.g., "use semicolons" vs "no semicolons")
 - Conflicting workflow instructions
 - Incompatible tool preferences
 - Mutually exclusive patterns
 
 **For each contradiction found:**
+
 ```markdown
 ## Contradiction Found
 
@@ -65,6 +68,7 @@ Ask the user to resolve before proceeding.
 Extract ONLY what belongs in the root agent file. The root should be minimal - information that applies to **every single task**.
 
 **Essential content (keep in root):**
+
 | Category | Example |
 |----------|---------|
 | Project description | One sentence: "A React dashboard for analytics" |
@@ -74,6 +78,7 @@ Extract ONLY what belongs in the root agent file. The root should be minimal - i
 | Universal rules | Applies to 100% of tasks |
 
 **NOT essential (move to linked files):**
+
 - Language-specific conventions
 - Testing guidelines
 - Code style details
@@ -88,6 +93,7 @@ Extract ONLY what belongs in the root agent file. The root should be minimal - i
 Organize remaining instructions into logical categories.
 
 **Common categories:**
+
 | Category | Contents |
 |----------|----------|
 | `typescript.md` | TS conventions, type patterns, strict mode rules |
@@ -100,6 +106,7 @@ Organize remaining instructions into logical categories.
 | `performance.md` | Optimization rules, caching, lazy loading |
 
 **Grouping rules:**
+
 1. Each file should be self-contained for its topic
 2. Aim for 3-8 files (not too granular, not too broad)
 3. Name files clearly: `{topic}.md`
@@ -110,6 +117,7 @@ Organize remaining instructions into logical categories.
 ### Phase 4: Create the File Structure
 
 **Output structure:**
+
 ```
 project-root/
 ├── CLAUDE.md (or AGENTS.md)     # Minimal root with links
@@ -122,6 +130,7 @@ project-root/
 ```
 
 **Root file template:**
+
 ```markdown
 # Project Name
 
@@ -145,6 +154,7 @@ For specific guidelines, see:
 ```
 
 **Each linked file template:**
+
 ```markdown
 # {Topic} Guidelines
 
@@ -180,6 +190,7 @@ Brief context for when these guidelines apply.
 Identify instructions that should be removed entirely.
 
 **Delete if:**
+
 | Criterion | Example | Why Delete |
 |-----------|---------|------------|
 | Redundant | "Use TypeScript" (in a .ts project) | Agent already knows |
@@ -189,6 +200,7 @@ Identify instructions that should be removed entirely.
 | Outdated | References deprecated APIs | No longer applies |
 
 **Output format:**
+
 ```markdown
 ## Flagged for Deletion
 
@@ -232,6 +244,7 @@ Identify instructions that should be removed entirely.
 ## Examples
 
 ### Before (Bloated Root)
+
 ```markdown
 # CLAUDE.md
 
@@ -255,6 +268,7 @@ This is a React project.
 ```
 
 ### After (Progressive Disclosure)
+
 ```markdown
 # CLAUDE.md
 

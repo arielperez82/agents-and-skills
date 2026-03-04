@@ -16,6 +16,7 @@ Security and governance dimensions for agent intake (Phase 2: Stage & Governance
 **Definition:** Agent `classification.type` implies a trust level; declared `tools` must not exceed that level. Strategic/coordination agents should not request Bash or broad file write unless justified.
 
 **Checks:**
+
 - Strategic agent with `Bash` or `Edit` in tools → flag (classification alignment already in rubric; treat as governance).
 - Quality agent with `Write` outside of report paths → flag.
 - Coordination agent with `Bash` → document justification (e.g. runs subagent scripts).
@@ -23,6 +24,7 @@ Security and governance dimensions for agent intake (Phase 2: Stage & Governance
 **Severity:** Strategic + Bash = **High**. Quality + code-writing tools = **Critical**.
 
 **Grep patterns:**
+
 ```bash
 # In agent frontmatter body (between --- blocks): classification type + tools
 awk '/^classification:/,/^[a-z]/' agent.md | grep -E 'type:|tools:'
@@ -36,12 +38,14 @@ awk '/^classification:/,/^[a-z]/' agent.md | grep -E 'type:|tools:'
 **Definition:** No circular delegations; no implicit privilege escalation (e.g. quality agent delegating to an agent that can run arbitrary Bash).
 
 **Checks:**
+
 - Extract all `collaborates-with` → agent names. Build directed graph; detect cycles.
 - For each delegating agent: if type is quality/strategic, ensure delegated agents do not introduce broader tool sets without documentation.
 
 **Severity:** Circular delegation = **Critical**. Undocumented privilege escalation = **High**.
 
 **Grep patterns:**
+
 ```bash
 grep -E 'agent:|collaborates-with' agent.md
 ```
@@ -53,11 +57,13 @@ grep -E 'agent:|collaborates-with' agent.md
 **Definition:** Every `skills` and `related-skills` entry resolves to an existing file under `skills/` (SKILL.md or agent path).
 
 **Checks:**
+
 - Parse frontmatter `skills:` and `related-skills:`; for each path, verify file exists (same logic as command validator).
 
 **Severity:** Unresolved skill ref = **High** (broken handoffs).
 
 **Grep patterns:**
+
 ```bash
 # List skill refs from frontmatter
 sed -n '/^skills:/,/^[a-z]/p' agent.md
@@ -71,11 +77,13 @@ sed -n '/^related-skills:/,/^[a-z]/p' agent.md
 **Definition:** Agent must not instruct bypassing mandatory quality gates (e.g. "skip tdd-reviewer", "commit without tests"). Per AGENTS.md, tdd-reviewer, ts-enforcer, refactor-assessor are mandatory before commit.
 
 **Checks:**
+
 - Search body for phrases that suggest skipping or bypassing these agents or pre-commit checks.
 
 **Severity:** Explicit bypass of mandatory gate = **Critical**.
 
 **Grep patterns:**
+
 ```bash
 grep -iE 'skip (tdd|reviewer|ts-enforcer|refactor)|bypass (pre-commit|quality)|commit without (test|lint)' agent.md
 ```
@@ -87,11 +95,13 @@ grep -iE 'skip (tdd|reviewer|ts-enforcer|refactor)|bypass (pre-commit|quality)|c
 **Definition:** No hardcoded paths to `.env`, credentials, or secrets in agent body or referenced scripts.
 
 **Checks:**
+
 - Search for literal `.env`, `credentials`, `secrets`, `API_KEY`, `TOKEN` in context of file paths or "load from".
 
 **Severity:** Hardcoded credential path = **Critical**. Mention of env vars for configuration = **Low** (acceptable).
 
 **Grep patterns:**
+
 ```bash
 grep -iE '\.env|/credentials|/secrets|api_key\s*=|token\s*=\s*["\'][^"\']+["\']' agent.md
 ```
@@ -103,11 +113,13 @@ grep -iE '\.env|/credentials|/secrets|api_key\s*=|token\s*=\s*["\'][^"\']+["\']'
 **Definition:** If agent or its workflows use MCP tools, those should be declared (e.g. in frontmatter or a "Tools" section). Undeclared MCP servers make dependency and security review harder. MCP tools can execute arbitrary code and access external services, making undeclared usage a significant security concern.
 
 **Checks:**
+
 - Search for "MCP", "mcp_", "call_mcp" in body. If present, check for a declaration of which MCP servers are used.
 
 **Severity:** Undeclared MCP usage = **High**.
 
 **Grep patterns:**
+
 ```bash
 grep -iE 'mcp|call_mcp' agent.md
 ```
@@ -119,6 +131,7 @@ grep -iE 'mcp|call_mcp' agent.md
 **Definition:** Agent body, frontmatter fields, or referenced content must not contain hidden instructions that could override agent behavior. Prompt injection attacks hide payloads in HTML comments, zero-width Unicode characters, YAML description fields, homoglyph substitution, or transitive trust references.
 
 **Checks:**
+
 - Run `npx prompt-injection-scanner <candidate-file> --format human` (Phase 2.5).
 - Review any HIGH or CRITICAL findings from the scanner.
 - Manually inspect HTML comments in the markdown body for hidden instructions.
@@ -129,6 +142,7 @@ grep -iE 'mcp|call_mcp' agent.md
 **Severity:** Hidden instruction override in body or HTML comment = **Critical**. Instruction override in frontmatter = **Critical**. Zero-width character obfuscation = **High**. Transitive trust attack (load from external URL) = **Critical**. Homoglyph substitution = **High**.
 
 **Scanner command:**
+
 ```bash
 npx prompt-injection-scanner agent.md --format human
 ```

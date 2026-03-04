@@ -7,31 +7,37 @@ Architecture Tradeoff Analysis Method (ATAM) from the Software Engineering Insti
 Eight characteristics for architecture evaluation. These form the vocabulary for ATAM scenarios and tradeoff analysis.
 
 ### 1. Functional Suitability
+
 - **Completeness**: Degree to which functions cover all specified tasks
 - **Correctness**: Degree to which functions provide correct results
 - **Appropriateness**: Degree to which functions facilitate task accomplishment
 
 ### 2. Performance Efficiency
+
 - **Time behavior**: Response times, processing times, throughput rates
 - **Resource utilization**: Amounts and types of resources used
 - **Capacity**: Maximum limits of a product parameter
 
 ### 3. Compatibility
+
 - **Coexistence**: Ability to perform alongside other products sharing resources
 - **Interoperability**: Ability to exchange and use information with other systems
 
 ### 4. Usability
+
 - **Learnability**: Ease of learning to use the system
 - **Operability**: Ease of operation and control
 - **Accessibility**: Usability by people with diverse capabilities
 
 ### 5. Reliability
+
 - **Maturity**: Degree to which system meets reliability needs under normal operation
 - **Availability**: Degree to which system is operational and accessible when required
 - **Fault tolerance**: Degree to which system operates despite hardware/software faults
 - **Recoverability**: Degree to which system can recover data and re-establish desired state after failure
 
 ### 6. Security
+
 - **Confidentiality**: Data accessible only to those authorized
 - **Integrity**: Prevention of unauthorized data modification
 - **Non-repudiation**: Actions can be proven to have taken place
@@ -39,6 +45,7 @@ Eight characteristics for architecture evaluation. These form the vocabulary for
 - **Authenticity**: Identity of a subject or resource can be proved
 
 ### 7. Maintainability
+
 - **Modularity**: Degree to which system is composed of discrete components
 - **Reusability**: Degree to which an asset can be used in more than one system
 - **Analyzability**: Ease of assessing impact of changes
@@ -46,6 +53,7 @@ Eight characteristics for architecture evaluation. These form the vocabulary for
 - **Testability**: Ease of establishing test criteria and performing tests
 
 ### 8. Portability
+
 - **Adaptability**: Ability to be adapted for different environments
 - **Installability**: Ease of installation and uninstallation
 - **Replaceability**: Ability to replace another product for the same purpose
@@ -72,7 +80,7 @@ Eight characteristics for architecture evaluation. These form the vocabulary for
 
 ### Phase 2: Investigation and Analysis
 
-4. **Generate quality attribute utility tree**: Hierarchical decomposition of quality attributes into specific, measurable scenarios. Prioritize by importance (H/M/L) and difficulty (H/M/L).
+1. **Generate quality attribute utility tree**: Hierarchical decomposition of quality attributes into specific, measurable scenarios. Prioritize by importance (H/M/L) and difficulty (H/M/L).
 
 ```
 Quality Attribute
@@ -88,19 +96,19 @@ Performance
        |-- "System processes 1000 orders/minute during peak" [H, H]
 ```
 
-5. **Analyze architectural approaches**: For each high-priority scenario, analyze how the architecture addresses it. Identify:
+1. **Analyze architectural approaches**: For each high-priority scenario, analyze how the architecture addresses it. Identify:
    - **Sensitivity points**: Architectural decisions where a small change significantly affects one quality attribute
    - **Tradeoff points**: Architectural decisions that affect multiple quality attributes (improving one, degrading another)
 
-6. **Identify risks and non-risks**:
+2. **Identify risks and non-risks**:
    - **Risk**: An architectural decision that may fail to achieve a quality attribute requirement
    - **Non-risk**: An architectural decision that is considered safe for achieving its quality attribute requirement
 
 ### Phase 3: Testing
 
-7. **Brainstorm and prioritize scenarios**: Broader stakeholder group generates additional scenarios. Vote to prioritize.
-8. **Analyze high-priority scenarios**: Deep-dive analysis of top-voted scenarios against the architecture.
-9. **Present results**: Document all risks, non-risks, sensitivity points, tradeoff points, and recommendations.
+1. **Brainstorm and prioritize scenarios**: Broader stakeholder group generates additional scenarios. Vote to prioritize.
+2. **Analyze high-priority scenarios**: Deep-dive analysis of top-voted scenarios against the architecture.
+3. **Present results**: Document all risks, non-risks, sensitivity points, tradeoff points, and recommendations.
 
 ## Key Concepts
 
@@ -143,6 +151,7 @@ For teams that cannot invest in a full multi-day ATAM workshop, a half-day Mini-
 ### Output
 
 A single document containing:
+
 - Prioritized quality attribute scenarios
 - Identified risks (with severity)
 - Tradeoff points (with affected quality attributes)

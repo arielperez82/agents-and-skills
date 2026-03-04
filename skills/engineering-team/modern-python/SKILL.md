@@ -37,6 +37,7 @@ Guide for modern Python tooling and best practices, based on [trailofbits/cookie
 | pre-commit | prek (faster, no Python runtime needed) |
 
 **Key principles:**
+
 - Always use `uv add` and `uv remove` to manage dependencies
 - Never manually activate or manage virtual environments—use `uv run` for all commands
 - Use `[dependency-groups]` for dev/test/docs dependencies, not `[project.optional-dependencies]`
@@ -106,6 +107,7 @@ uv run ruff check .
 ```
 
 ## Full Project Setup
+
 If starting from scratch, ask the user if they prefer to use the Trail of Bits cookiecutter template to bootstrap a complete project with already preconfigured tooling.
 
 ```bash
@@ -120,6 +122,7 @@ cd myproject
 ```
 
 This creates:
+
 ```
 myproject/
 ├── pyproject.toml
@@ -135,6 +138,7 @@ myproject/
 See [pyproject.md](./references/pyproject.md) for complete configuration reference.
 
 Key sections:
+
 ```toml
 [project]
 name = "myproject"
@@ -187,19 +191,19 @@ uv sync --group dev
 .PHONY: dev lint format test build
 
 dev:
-	uv sync --all-groups
+ uv sync --all-groups
 
 lint:
-	uv run ruff format --check && uv run ruff check && uv run ty check src/
+ uv run ruff format --check && uv run ruff check && uv run ty check src/
 
 format:
-	uv run ruff format .
+ uv run ruff format .
 
 test:
-	uv run pytest
+ uv run pytest
 
 build:
-	uv build
+ uv build
 ```
 
 ## Migration Guide
@@ -213,6 +217,7 @@ First, determine the nature of the code:
 **For standalone scripts**: Convert to PEP 723 inline metadata (see [pep723-scripts.md](./references/pep723-scripts.md))
 
 **For projects**:
+
 ```bash
 # Initialize uv in existing project
 uv init --bare
@@ -230,6 +235,7 @@ uv sync
 ```
 
 Then:
+
 1. Delete `requirements.txt`, `requirements-dev.txt`
 2. Delete virtual environment (`venv/`, `.venv/`)
 3. Add `uv.lock` to version control
@@ -293,6 +299,7 @@ uv run --with httpx pytest  # project deps + httpx
 ```
 
 **When to use `--with` vs `uv add`:**
+
 - `uv add`: Package is a project dependency (goes in pyproject.toml/uv.lock)
 - `--with`: One-off usage, testing, or scripts outside a project context
 

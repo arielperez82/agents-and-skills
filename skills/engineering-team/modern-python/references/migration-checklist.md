@@ -21,6 +21,7 @@ uv run ruff check --select=INP001 .
 ```
 
 Remove these files after migration:
+
 - [ ] `requirements.txt`, `requirements-dev.txt`
 - [ ] `setup.py`, `setup.cfg`, `MANIFEST.in`
 - [ ] `.flake8`, `mypy.ini`, `pyrightconfig.json`

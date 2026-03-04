@@ -7,16 +7,19 @@ Hey Claude—I just added the "cto-advisor" skill. Can you analyze my current co
 ## Example Invocations
 
 ### Example 1: Basic Usage
+
 ```
 Hey Claude—I just added the "cto-advisor" skill. Can you analyze my current codebase?
 ```
 
 ### Example 2: Specific Workflow
+
 ```
 Hey Claude—I just added the "cto-advisor" skill. Can you help me with comprehensive technical debt assessment?
 ```
 
 ### Example 3: Integration with Other Skills
+
 ```
 Hey Claude—I just added the "cto-advisor" skill. Can you use it together with related skills to deliver a complete solution?
 ```

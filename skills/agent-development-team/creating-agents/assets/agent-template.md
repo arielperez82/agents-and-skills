@@ -112,6 +112,7 @@ execution: coordinated
 **Goal:** Description
 
 **Steps:**
+
 1. Step 1
 2. Step 2
 3. Step 3
@@ -119,6 +120,7 @@ execution: coordinated
 **Expected Output:** Success criteria
 
 **Example:**
+
 ```bash
 python ../../skills/domain-team/skill-name/scripts/tool.py input.txt
 ```
@@ -149,4 +151,3 @@ python ../../skills/domain-team/skill-name/scripts/tool.py input.txt
 
 - [Skill Documentation](../../skills/domain-team/skill-name/SKILL.md)
 - [Domain Guide](../../skills/domain-team/CLAUDE.md)
-

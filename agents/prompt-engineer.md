@@ -134,13 +134,16 @@ The agent solves the critical challenge of transforming prototype AI features in
 **Goal:** Transform prototype prompts into production-optimized versions that reduce costs by 30%+ while maintaining or improving output quality
 
 **Steps:**
+
 1. **Analyze Current Prompt** - Run prompt optimizer to establish baseline metrics
+
    ```bash
    python3 ../skills/engineering-team/senior-prompt-engineer/scripts/prompt_optimizer.py \
      --input current_prompt.txt \
      --output json \
      --file baseline_metrics.json
    ```
+
 2. **Review Optimization Recommendations** - Examine token usage, pattern effectiveness, and cost projections
 3. **Apply Prompt Engineering Patterns** - Consult `prompt_engineering_patterns.md` for compression techniques and structural improvements
 4. **Test Optimized Variations** - Create 3-5 prompt variations implementing different optimization strategies
@@ -153,6 +156,7 @@ The agent solves the critical challenge of transforming prototype AI features in
 **Time Estimate:** 2-3 hours for single prompt optimization; 1 day for system-wide prompt suite
 
 **Example:**
+
 ```bash
 # Complete optimization workflow
 cd /path/to/prompts
@@ -183,16 +187,19 @@ python3 ../skills/engineering-team/senior-prompt-engineer/scripts/prompt_optimiz
 **Goal:** Build and validate a production-ready RAG pipeline with 85%+ retrieval accuracy and sub-500ms latency
 
 **Steps:**
+
 1. **Design RAG Architecture** - Define document processing, embedding strategy, vector database, and retrieval approach
 2. **Prepare Evaluation Dataset** - Create test queries with ground truth answers (minimum 50 examples)
 3. **Implement Initial Pipeline** - Build RAG system with baseline configuration
 4. **Run RAG Evaluator** - Measure retrieval accuracy, context relevance, and answer quality
+
    ```bash
    python3 ../skills/engineering-team/senior-prompt-engineer/scripts/rag_evaluator.py \
      --input rag_config.yaml \
      --output json \
      --verbose
    ```
+
 5. **Analyze Performance Bottlenecks** - Identify issues in retrieval, context quality, or generation
 6. **Optimize Configuration** - Adjust chunk size, embedding model, retrieval strategy, or reranking
 7. **Validate Improvements** - Re-run evaluator to confirm optimization impact
@@ -207,16 +214,19 @@ python3 ../skills/engineering-team/senior-prompt-engineer/scripts/prompt_optimiz
 **Goal:** Design and implement a multi-agent system for complex task execution with tool calling, state management, and error handling
 
 **Steps:**
+
 1. **Define Agent Architecture** - Map task requirements to agent specializations and tool access
 2. **Design Workflow State Machine** - Document state transitions, decision points, and error paths
 3. **Specify Tool Calling Interface** - Define tool signatures, input validation, and output parsing
 4. **Generate Agent Configuration** - Use agent orchestrator to create implementation scaffold
+
    ```bash
    python3 ../skills/engineering-team/senior-prompt-engineer/scripts/agent_orchestrator.py \
      --input agent_spec.yaml \
      --output json \
      --config orchestration.yaml
    ```
+
 5. **Implement Agent Logic** - Build agent prompts, tool integration, and state management
 6. **Test Individual Agents** - Validate each agent's tool usage and decision-making
 7. **Test Orchestration** - Run end-to-end workflows with multiple agents
@@ -231,15 +241,18 @@ python3 ../skills/engineering-team/senior-prompt-engineer/scripts/prompt_optimiz
 **Goal:** Establish automated evaluation infrastructure for continuous quality monitoring of LLM features
 
 **Steps:**
+
 1. **Define Quality Metrics** - Select accuracy, relevance, safety, and latency targets
 2. **Create Test Dataset** - Build representative test cases with expected outputs (100+ examples)
 3. **Implement Evaluation Pipeline** - Setup automated testing with prompt optimizer and custom metrics
+
    ```bash
    python3 ../skills/engineering-team/senior-prompt-engineer/scripts/prompt_optimizer.py \
      --input test_suite/ \
      --output json \
      --file evaluation_results.json
    ```
+
 4. **Configure CI/CD Integration** - Add evaluation runs to deployment pipeline
 5. **Setup Monitoring Dashboards** - Track quality metrics over time
 6. **Establish Regression Thresholds** - Define acceptable quality ranges for deployment gates
@@ -381,24 +394,28 @@ echo "  4. Write tests in tests/"
 ## Success Metrics
 
 **Prompt Performance:**
+
 - **Token Reduction:** 30-40% decrease in average tokens per request
 - **Cost Savings:** 35%+ reduction in monthly API costs
 - **Quality Score:** Maintain or improve output quality (measured by eval framework)
 - **Response Time:** Reduce latency by 20%+ through optimized prompts
 
 **RAG System Quality:**
+
 - **Retrieval Accuracy:** 85%+ precision and recall on evaluation dataset
 - **Context Relevance:** 90%+ of retrieved contexts directly relevant to query
 - **Answer Quality:** 80%+ user satisfaction score on generated answers
 - **Latency:** P95 latency under 500ms for end-to-end retrieval and generation
 
 **Agent System Reliability:**
+
 - **Task Completion Rate:** 95%+ successful completion of multi-step workflows
 - **Tool Calling Accuracy:** 98%+ correct tool selection and parameter passing
 - **Error Recovery:** 90%+ of failures resolved through automatic retry logic
 - **State Management:** Zero state corruption incidents in production
 
 **Development Velocity:**
+
 - **Prompt Iteration Speed:** 50% reduction in time from prototype to production prompt
 - **RAG Time-to-Production:** Complete RAG pipeline in 3-5 days vs 2-3 weeks
 - **Agent Development:** Multi-agent system scaffolding in hours vs days

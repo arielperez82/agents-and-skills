@@ -1,9 +1,11 @@
 ## The 9 Categories
 
 ### 1. ARITHMETIC
+
 **Focus**: Overflow protection, precision handling, formula specification, edge case testing
 
 **I'll analyze**:
+
 - Overflow protection mechanisms (Solidity 0.8, SafeMath, checked_*, saturating_*)
 - Unchecked arithmetic blocks and documentation
 - Division/rounding operations
@@ -12,6 +14,7 @@
 - Arithmetic specification documents
 
 **WEAK if**:
+
 - No overflow protection without justification
 - Unchecked arithmetic not documented
 - No arithmetic specification OR spec doesn't match code
@@ -19,6 +22,7 @@
 - Critical edge cases not tested
 
 **MODERATE requires**:
+
 - All weak criteria resolved
 - Unchecked arithmetic minimal, justified, documented
 - Overflow/underflow risks documented and tested
@@ -28,6 +32,7 @@
 - Bounded parameters with explained ranges
 
 **SATISFACTORY requires**:
+
 - All moderate criteria met
 - Precision loss analyzed vs ground-truth
 - All trapping operations identified
@@ -37,26 +42,31 @@
 ---
 
 ### 2. AUDITING
+
 **Focus**: Events, monitoring systems, incident response
 
 **I'll analyze**:
+
 - Event definitions and emission patterns
 - Events for critical operations (transfers, access changes, parameter updates)
 - Event naming consistency
 - Critical functions without events
 
 **I'll ask you**:
+
 - Off-chain monitoring infrastructure?
 - Monitoring plan documented?
 - Incident response plan exists and tested?
 
 **WEAK if**:
+
 - No event strategy
 - Events missing for critical updates
 - No consistent event guidelines
 - Same events reused for different purposes
 
 **MODERATE requires**:
+
 - All weak criteria resolved
 - Events for all critical functions
 - Off-chain monitoring logs events
@@ -66,6 +76,7 @@
 - Incident response plan exists
 
 **SATISFACTORY requires**:
+
 - All moderate criteria met
 - Monitoring triggers alerts on unexpected behavior
 - Defined roles for incident detection
@@ -74,9 +85,11 @@
 ---
 
 ### 3. AUTHENTICATION / ACCESS CONTROLS
+
 **Focus**: Privilege management, role separation, access patterns
 
 **I'll analyze**:
+
 - Access control modifiers/functions
 - Role definitions and separation
 - Admin/owner patterns
@@ -84,11 +97,13 @@
 - Test coverage for access controls
 
 **I'll ask you**:
+
 - Who are privileged actors? (EOA, multisig, DAO?)
 - Documentation of roles and privileges?
 - Key compromise scenarios?
 
 **WEAK if**:
+
 - Access controls unclear or inconsistent
 - Single address controls system without safeguards
 - Missing access controls on privileged functions
@@ -96,6 +111,7 @@
 - All privileges on one address
 
 **MODERATE requires**:
+
 - All weak criteria resolved
 - All privileged functions have access control
 - Least privilege principle followed
@@ -106,6 +122,7 @@
 - Two-step processes for EOA operations
 
 **SATISFACTORY requires**:
+
 - All moderate criteria met
 - All actors well documented
 - Implementation matches specification
@@ -116,9 +133,11 @@
 ---
 
 ### 4. COMPLEXITY MANAGEMENT
+
 **Focus**: Code clarity, function scope, avoiding unnecessary complexity
 
 **I'll analyze**:
+
 - Function length and nesting depth
 - Cyclomatic complexity
 - Code duplication
@@ -127,11 +146,13 @@
 - Function clarity
 
 **I'll ask you**:
+
 - Complex parts documented?
 - Naming convention documented?
 - Complexity measurements?
 
 **WEAK if**:
+
 - Unnecessary complexity hinders review
 - Functions overuse nested operations
 - Functions have unclear scope
@@ -139,6 +160,7 @@
 - Complex inheritance tree
 
 **MODERATE requires**:
+
 - All weak criteria resolved
 - Complex parts identified, minimized
 - High complexity (≥11) justified
@@ -149,6 +171,7 @@
 - Types not misused
 
 **SATISFACTORY requires**:
+
 - All moderate criteria met
 - Minimal unnecessary complexity
 - Necessary complexity documented
@@ -159,20 +182,24 @@
 ---
 
 ### 5. DECENTRALIZATION
+
 **Focus**: Centralization risks, upgrade control, user opt-out
 
 **I'll analyze**:
+
 - Upgrade mechanisms (proxies, governance)
 - Owner/admin control scope
 - Timelock/multisig patterns
 - User opt-out mechanisms
 
 **I'll ask you**:
+
 - Upgrade mechanism and control?
 - User opt-out/exit paths?
 - Centralization risk documentation?
 
 **WEAK if**:
+
 - Centralization points not visible to users
 - Critical functions upgradable by single entity without opt-out
 - Single entity controls user funds
@@ -181,6 +208,7 @@
 - Centralized permission required
 
 **MODERATE requires**:
+
 - All weak criteria resolved
 - Centralization risks identified, justified, documented
 - User opt-out/exit path documented
@@ -189,6 +217,7 @@
 - All privileges documented
 
 **SATISFACTORY requires**:
+
 - All moderate criteria met
 - Clear decentralization path justified
 - On-chain voting risks addressed OR no centralization
@@ -199,9 +228,11 @@
 ---
 
 ### 6. DOCUMENTATION
+
 **Focus**: Specifications, architecture, user stories, inline comments
 
 **I'll analyze**:
+
 - README, specification, architecture docs
 - Inline code comments (NatSpec, rustdoc, etc.)
 - User stories
@@ -209,11 +240,13 @@
 - Documentation completeness and accuracy
 
 **I'll ask you**:
+
 - User stories documented?
 - Architecture diagrams exist?
 - Glossary for domain terms?
 
 **WEAK if**:
+
 - Minimal or incomplete/outdated documentation
 - Only high-level description
 - Code comments don't match docs
@@ -221,6 +254,7 @@
 - Unexplained artificial terms
 
 **MODERATE requires**:
+
 - All weak criteria resolved
 - Clear, unambiguous writing
 - Glossary for business terms
@@ -232,6 +266,7 @@
 - Known risks/limitations documented
 
 **SATISFACTORY requires**:
+
 - All moderate criteria met
 - User stories cover all operations
 - Detailed behavior descriptions
@@ -243,27 +278,32 @@
 ---
 
 ### 7. TRANSACTION ORDERING RISKS
+
 **Focus**: MEV, front-running, sandwich attacks
 
 **I'll analyze**:
+
 - MEV-vulnerable patterns (AMM swaps, arbitrage, large trades)
 - Front-running protections
 - Slippage/deadline checks
 - Oracle implementations
 
 **I'll ask you**:
+
 - Transaction ordering risks identified/documented?
 - Known MEV opportunities?
 - Mitigation strategies?
 - Testing for ordering attacks?
 
 **WEAK if**:
+
 - Ordering risks not identified/documented
 - Protocols/assets at risk from unexpected ordering
 - Relies on unjustified MEV prevention constraints
 - Unproven assumptions about MEV extractors
 
 **MODERATE requires**:
+
 - All weak criteria resolved
 - User operation ordering risks limited, justified, documented
 - MEV mitigations in place (delays, slippage checks)
@@ -271,6 +311,7 @@
 - Tamper-resistant oracles used
 
 **SATISFACTORY requires**:
+
 - All moderate criteria met
 - All ordering risks documented and justified
 - Known risks highlighted in docs/tests, visible to users
@@ -281,9 +322,11 @@
 ---
 
 ### 8. LOW-LEVEL MANIPULATION
+
 **Focus**: Assembly, unsafe code, low-level operations
 
 **I'll analyze**:
+
 - Assembly blocks
 - Unsafe code sections
 - Low-level calls
@@ -291,15 +334,18 @@
 - Justification and documentation
 
 **I'll ask you**:
+
 - Why use assembly/unsafe here?
 - High-level reference implementation?
 - How is this tested?
 
 **WEAK if**:
+
 - Unjustified low-level manipulations
 - Assembly/low-level not justified, could be high-level
 
 **MODERATE requires**:
+
 - All weak criteria resolved
 - Assembly use limited and justified
 - Inline comments for each operation
@@ -307,6 +353,7 @@
 - High-level reference for complex assembly
 
 **SATISFACTORY requires**:
+
 - All moderate criteria met
 - Thorough documentation/justification/testing
 - Validated with automated testing vs reference
@@ -316,9 +363,11 @@
 ---
 
 ### 9. TESTING AND VERIFICATION
+
 **Focus**: Coverage, testing techniques, CI/CD
 
 **I'll analyze**:
+
 - Test file count and organization
 - Test coverage reports
 - CI/CD configuration
@@ -326,18 +375,21 @@
 - Test quality and isolation
 
 **I'll ask you**:
+
 - Test coverage percentage?
 - Do all tests pass?
 - Testing techniques used?
 - Easy to run tests?
 
 **WEAK if**:
+
 - Limited testing, only happy paths
 - Common use cases not tested
 - Tests fail
 - Can't run tests "out of the box"
 
 **MODERATE requires**:
+
 - All weak criteria resolved
 - Most functions/use cases tested
 - All tests pass
@@ -348,9 +400,9 @@
 - Test code follows best practices
 
 **SATISFACTORY requires**:
+
 - All moderate criteria met
 - 100% reachable branch/statement coverage
 - End-to-end testing covers all entry points
 - Isolated test cases (no dependencies)
 - Mutation testing used
-

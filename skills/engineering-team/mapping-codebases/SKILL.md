@@ -32,6 +32,7 @@ python scripts/codemap.py /path/to/repo
 ## What It Produces
 
 Per-directory `_MAP.md` files listing:
+
 - Directory statistics (file count, subdirectory count)
 - Subdirectories (with links to their maps)
 - **Symbol hierarchy** with kind markers: (C) class, (m) method, (f) function
@@ -39,6 +40,7 @@ Per-directory `_MAP.md` files listing:
 - Import previews
 
 Example output:
+
 ```markdown
 # auth/
 *Files: 3 | Subdirectories: 1*
@@ -137,6 +139,7 @@ python /path/to/mapping-codebases/scripts/codemap.py .
 ```
 
 Consider adding a git pre-commit hook to auto-update maps (see mapping-codebases skill documentation).
+
 ```
 
 **Why this matters:** Claude Code sessions are persistent. Documenting the maps in CLAUDE.md ensures future Claude instances (and developers) know the maps exist and how to use/maintain them.
@@ -149,6 +152,7 @@ If working in a Claude.ai chat session (web/mobile):
 2. **Tell the user** to add instructions to their Project Instructions if they want to use maps in future conversations:
 
 ```
+
 I've generated _MAP.md files for this codebase. Since this is an ephemeral session,
 these maps won't persist to the next conversation. If you want to use code maps in
 future conversations, add this to your Project Instructions:
@@ -156,6 +160,7 @@ future conversations, add this to your Project Instructions:
 "When exploring this codebase, first invoke the mapping-codebases skill to generate
 _MAP.md files, then navigate using those hierarchical maps rather than reading all
 source files directly."
+
 ```
 
 ### Environment Detection

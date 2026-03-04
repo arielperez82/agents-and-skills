@@ -15,6 +15,7 @@ Comprehensive testing approaches, frameworks, and quality assurance practices (2
 ```
 
 **Rationale:**
+
 - Unit tests: Fast, cheap, isolate bugs quickly
 - Integration tests: Verify component interactions
 - E2E tests: Expensive, slow, but validate real user flows
@@ -24,14 +25,17 @@ Comprehensive testing approaches, frameworks, and quality assurance practices (2
 ### Frameworks by Language
 
 **TypeScript/JavaScript:**
+
 - **Vitest** - 50% faster than Jest in CI/CD, ESM native
 - **Jest** - Mature, large ecosystem, snapshot testing
 
 **Python:**
+
 - **Pytest** - Industry standard, fixtures, parametrization
 - **Unittest** - Built-in, standard library
 
 **Go:**
+
 - **testing** - Built-in, table-driven tests
 - **testify** - Assertions and mocking
 
@@ -206,6 +210,7 @@ describe('Auth Service Contract', () => {
 ### Tools Comparison
 
 **k6** (Modern, Developer-Friendly)
+
 ```javascript
 import http from 'k6/http';
 import { check, sleep } from 'k6';
@@ -422,8 +427,8 @@ jobs:
 
 ## Resources
 
-- **Vitest:** https://vitest.dev/
-- **Playwright:** https://playwright.dev/
-- **k6:** https://k6.io/docs/
-- **Pact:** https://docs.pact.io/
-- **TestContainers:** https://testcontainers.com/
+- **Vitest:** <https://vitest.dev/>
+- **Playwright:** <https://playwright.dev/>
+- **k6:** <https://k6.io/docs/>
+- **Pact:** <https://docs.pact.io/>
+- **TestContainers:** <https://testcontainers.com/>

@@ -74,6 +74,7 @@ metadata:
 **Time:** 3-4 hours (data gathering and analysis)
 
 **Steps:**
+
 1. **Gather system data across 5 categories** - Collect metrics from engineering systems
    - Code metrics: Test coverage, cyclomatic complexity, code duplication percentage
    - Infrastructure: Deployment frequency, change lead time, incident rate, uptime
@@ -82,9 +83,11 @@ metadata:
    - Technical: Outdated dependencies, security vulnerabilities, scalability assessment
    - Source data from: CI/CD dashboards, incident management systems, code analysis tools, sprint metrics
 2. **Run tech debt analyzer Python tool** - Execute comprehensive analysis
+
    ```bash
    python scripts/tech_debt_analyzer.py system_data.json
    ```
+
    - Scores each category 0-100 (100=excellent, 0=critical)
    - Produces prioritized reduction plan with estimated effort
    - Identifies which debt is blocking velocity, reliability, or hiring
@@ -120,6 +123,7 @@ See [references/tools.md](references/tools.md) for detailed tech debt analyzer d
 **Time:** 3-4 hours (analysis and planning)
 
 **Steps:**
+
 1. **Assess current team state** - Establish baseline for scaling decisions
    - Headcount by discipline: Frontend, backend, QA, DevOps, data engineers, etc.
    - Seniority distribution: % junior, mid, senior, staff engineers
@@ -135,9 +139,11 @@ See [references/tools.md](references/tools.md) for detailed tech debt analyzer d
    - Capability expansion: New skills needed (AI/ML, security, data, mobile)?
    - Quality improvements: Need for QA, DevOps, site reliability engineers?
 3. **Run team scaling calculator** - Calculate optimal hiring plan
+
    ```bash
    python scripts/team_scaling_calculator.py team_data.json
    ```
+
    - Outputs: Recommended team size, hiring plan by quarter, budget projections
    - Models: Conservative (10% growth/quarter), Steady (20% growth/quarter), Aggressive (40% growth/quarter)
    - Factors: Historical hiring velocity, onboarding ramp time, market competition, budget constraints
@@ -175,6 +181,7 @@ See [references/tools.md](references/tools.md) for team scaling calculator docum
 **Time:** 1-2 weeks from proposal to decision
 
 **Steps:**
+
 1. **Identify architecture decision point** - When to formally decide
    - New system/service design: Microservice vs monolith vs serverless?
    - Technology selection: Database (PostgreSQL vs MongoDB), language, framework
@@ -220,6 +227,7 @@ See [references/frameworks.md](references/frameworks.md) for architecture govern
 **Time:** 4-6 weeks for implementation, ongoing monitoring
 
 **Steps:**
+
 1. **Understand DORA metrics framework** - The 4 key engineering performance indicators
    - **Deployment Frequency:** How often do we deploy to production? (Target: Daily or on-demand, Elite: >1/day, High: 1/week, Medium: 1/month)
    - **Lead Time for Changes:** From code commit to production deploy? (Target: <1 day, Elite: <1 day, High: <1 week, Medium: <1 month)
@@ -273,6 +281,7 @@ This skill addresses the full scope of CTO responsibilities: defining technology
 ## Core Capabilities
 
 **Technology Strategy & Planning**
+
 - 3-5 year technology vision development
 - Quarterly roadmap planning and execution
 - Innovation management frameworks
@@ -280,6 +289,7 @@ This skill addresses the full scope of CTO responsibilities: defining technology
 - Python-based tech debt analyzer tool
 
 **Team Scaling & Development**
+
 - Engineering team scaling strategies
 - Hiring velocity and pipeline planning
 - Performance management frameworks
@@ -287,6 +297,7 @@ This skill addresses the full scope of CTO responsibilities: defining technology
 - Python-based team scaling calculator
 
 **Architecture Governance**
+
 - Architecture Decision Records (ADR) templates
 - Technology standards and guidelines
 - System design review processes
@@ -294,6 +305,7 @@ This skill addresses the full scope of CTO responsibilities: defining technology
 - Build vs buy analysis
 
 **Engineering Excellence**
+
 - DORA metrics implementation
 - Quality metrics tracking
 - Team health indicators
@@ -301,6 +313,7 @@ This skill addresses the full scope of CTO responsibilities: defining technology
 - Post-mortem frameworks
 
 **Stakeholder Management**
+
 - Board and executive reporting
 - Cross-functional partnerships
 - Strategic initiative planning
@@ -353,6 +366,7 @@ See [references/tools.md](references/tools.md) for scenario examples, budget est
    - Testing coverage (unit, integration, E2E test gaps)
 
 2. **Run Tech Debt Analyzer** - Generate prioritized reduction plan
+
    ```bash
    python scripts/tech_debt_analyzer.py system_data.json
    ```
@@ -381,6 +395,7 @@ See [references/tools.md](references/tools.md) for scenario examples, budget est
    - Budget constraints and runway
 
 2. **Run Team Scaling Calculator** - Generate hiring plan and budget projections
+
    ```bash
    python scripts/team_scaling_calculator.py team_data.json
    ```
@@ -477,6 +492,7 @@ See [references/tools.md](references/tools.md) for scenario examples, budget est
 Analyzes technical debt across 5 categories with severity scoring and prioritized reduction recommendations.
 
 **Key Features:**
+
 - Multi-category debt assessment (code quality, infrastructure, architecture, documentation, testing)
 - Severity scoring (0-100 scale with critical/high/medium/low classification)
 - Impact analysis (velocity, quality, incident risk)
@@ -485,6 +501,7 @@ Analyzes technical debt across 5 categories with severity scoring and prioritize
 - Capacity planning recommendations (10-20% allocation guidance)
 
 **Common Usage:**
+
 ```bash
 # Basic analysis
 python scripts/tech_debt_analyzer.py system_data.json
@@ -497,6 +514,7 @@ python scripts/tech_debt_analyzer.py --help
 ```
 
 **Use Cases:**
+
 - Quarterly technical debt assessments for executive planning
 - Budget justification for engineering quality initiatives
 - Risk assessment before major product launches
@@ -509,6 +527,7 @@ See [references/tools.md](references/tools.md) for input format specifications, 
 Calculates optimal hiring plans, team structure recommendations, and budget projections for engineering organizations.
 
 **Key Features:**
+
 - Hiring velocity modeling based on growth targets
 - Team composition recommendations (IC vs. manager ratios by org size)
 - Budget projections with salary bands by role and location
@@ -518,6 +537,7 @@ Calculates optimal hiring plans, team structure recommendations, and budget proj
 - Runway impact analysis
 
 **Common Usage:**
+
 ```bash
 # Basic team scaling analysis
 python scripts/team_scaling_calculator.py team_data.json
@@ -530,6 +550,7 @@ python scripts/team_scaling_calculator.py --help
 ```
 
 **Use Cases:**
+
 - Annual and quarterly hiring planning
 - Board-level budget discussions
 - Fundraising planning (runway and hiring velocity modeling)
@@ -543,6 +564,7 @@ See [references/tools.md](references/tools.md) for input format specifications, 
 All detailed frameworks, templates, and tool documentation have been organized into focused reference files:
 
 ### [Technical Leadership Frameworks](references/frameworks.md)
+
 - Technology strategy and roadmap development
 - Innovation management frameworks
 - Technical debt assessment strategies
@@ -557,6 +579,7 @@ All detailed frameworks, templates, and tool documentation have been organized i
 - Strategic initiatives (cloud, AI/ML, platform)
 
 ### [Communication Templates](references/templates.md)
+
 - Weekly CTO schedule template
 - Technology strategy presentation
 - Team all-hands structure
@@ -569,6 +592,7 @@ All detailed frameworks, templates, and tool documentation have been organized i
 - 1-on-1 meeting template
 
 ### [Python Tools Guide](references/tools.md)
+
 - Tech debt analyzer comprehensive documentation
 - Team scaling calculator detailed guide
 - Input format specifications and examples
@@ -581,6 +605,7 @@ All detailed frameworks, templates, and tool documentation have been organized i
 ## Success Indicators
 
 **Technical Excellence**
+
 - System uptime >99.9%
 - Deploy frequency >1 per day
 - Technical debt <10% capacity allocation
@@ -588,6 +613,7 @@ All detailed frameworks, templates, and tool documentation have been organized i
 - Lead time for changes <1 day
 
 **Team Success**
+
 - Team satisfaction score >8/10
 - Voluntary attrition <10% annually
 - Key positions filled >90%
@@ -595,6 +621,7 @@ All detailed frameworks, templates, and tool documentation have been organized i
 - Internal promotion rate >30%
 
 **Business Impact**
+
 - Features delivered on-time >80%
 - Engineering enables revenue growth
 - Cost per transaction decreasing

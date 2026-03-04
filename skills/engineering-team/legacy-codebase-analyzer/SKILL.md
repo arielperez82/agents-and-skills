@@ -86,6 +86,7 @@ Comprehensive legacy codebase analysis skill with automated tools for technical 
 This skill delivers enterprise-grade legacy codebase analysis capabilities through seven specialized Python automation tools and extensive reference documentation. Whether assessing technical debt, scanning for security vulnerabilities, identifying performance bottlenecks, or planning modernization strategies, this skill provides the analytical depth and strategic guidance needed to transform legacy systems into modern, maintainable architectures.
 
 **Target Users:**
+
 - Engineering leaders managing legacy system modernization
 - CTOs planning technical debt reduction strategies
 - Architects designing migration paths to modern stacks
@@ -94,6 +95,7 @@ This skill delivers enterprise-grade legacy codebase analysis capabilities throu
 - Platform teams planning infrastructure modernization
 
 **Quantified Benefits:**
+
 - **60% time savings** on legacy codebase analysis through automation
 - **40% improvement** in technical debt prioritization accuracy
 - **75% reduction** in security vulnerability detection time
@@ -103,6 +105,7 @@ This skill delivers enterprise-grade legacy codebase analysis capabilities throu
 **Artifact conventions:** When this repo's artifact conventions are in use (see `.docs/AGENTS.md`), write assessments to `.docs/canonical/assessments/assessment-<endeavor>-<subject>-<date>.md` and reports (e.g. baseline, quarterly, progress) to `.docs/reports/report-<endeavor>-<topic>-<timeframe>.md`. Use the naming grammar for all coordination outputs (executive summary, modernization roadmap, assessment summary). When writing a roadmap or plan to `.docs/canonical/roadmaps/` or `.docs/canonical/plans/`, include `initiative` and `initiative_name` in front matter per `.docs/AGENTS.md` initiative naming. Scripts that write to `reports/` can be directed to `.docs/reports/` when the project adopts conventions.
 
 **Use this skill when:**
+
 - Inheriting a legacy codebase and need comprehensive assessment
 - Planning major system modernization or replatforming initiatives
 - Conducting technical due diligence for acquisitions
@@ -124,6 +127,7 @@ This skill delivers enterprise-grade legacy codebase analysis capabilities throu
 ## Quick Start
 
 ### Complete Codebase Inventory
+
 ```bash
 # Basic codebase scan
 python scripts/codebase_inventory.py /path/to/legacy-project
@@ -136,6 +140,7 @@ python scripts/codebase_inventory.py /path/to/legacy-project --format json --out
 ```
 
 ### Scan for Security Vulnerabilities
+
 ```bash
 # Basic security scan
 python scripts/security_vulnerability_scanner.py /path/to/legacy-project
@@ -148,6 +153,7 @@ python scripts/security_vulnerability_scanner.py /path/to/legacy-project --detai
 ```
 
 ### Detect Performance Bottlenecks
+
 ```bash
 # Identify performance issues
 python scripts/performance_bottleneck_detector.py /path/to/legacy-project
@@ -160,6 +166,7 @@ python scripts/performance_bottleneck_detector.py /path/to/legacy-project --deta
 ```
 
 ### Generate Modernization Roadmap
+
 ```bash
 # Create comprehensive roadmap
 python scripts/modernization_roadmap_generator.py /path/to/legacy-project
@@ -172,6 +179,7 @@ python scripts/modernization_roadmap_generator.py /path/to/legacy-project --exec
 ```
 
 ### Access Documentation
+
 - Analysis Framework: `references/analysis_framework.md`
 - Modernization Patterns: `references/modernization_patterns.md`
 - Deliverable Templates: `references/deliverable_templates.md`
@@ -241,6 +249,7 @@ echo "Baseline assessment complete: $(date)" > reports/baseline-$(date +%Y-%m-%d
 **Time Estimate:** 2-4 hours (vs 8-12 hours manual assessment)
 
 **Success Criteria:**
+
 - Complete inventory of all technologies and dependencies
 - Technical debt baseline score established
 - Architecture health assessment documented
@@ -310,6 +319,7 @@ python scripts/code_quality_analyzer.py /path/to/legacy-project --security-focus
 **Time Estimate:** 1-2 hours (vs 6-8 hours manual security audit)
 
 **Success Criteria:**
+
 - All high and critical vulnerabilities identified
 - OWASP Top 10 compliance assessed
 - Dependency vulnerabilities mapped to CVEs
@@ -384,6 +394,7 @@ python scripts/architecture_health_analyzer.py /path/to/legacy-project --perform
 **Time Estimate:** 2-3 hours (vs 8-12 hours manual analysis)
 
 **Success Criteria:**
+
 - All major performance bottlenecks identified
 - Algorithm complexity issues documented
 - Database optimization opportunities listed
@@ -472,6 +483,7 @@ echo "Baseline: $(jq '.overall_score' debt-analysis.json)" > reports/debt-tracki
 **Time Estimate:** 3-5 hours (vs 16-24 hours manual debt analysis)
 
 **Success Criteria:**
+
 - Complete technical debt inventory
 - Multi-dimensional debt scoring complete
 - Prioritized remediation roadmap created
@@ -609,6 +621,7 @@ python scripts/performance_bottleneck_detector.py /path/to/legacy-project
 **Time Estimate:** 4-8 hours (vs 3-5 days manual roadmap creation)
 
 **Success Criteria:**
+
 - Comprehensive current state assessment documented
 - Target architecture clearly defined
 - Phased migration strategy with 3+ phases
@@ -673,6 +686,7 @@ python scripts/modernization_roadmap_generator.py /path/to/legacy-project --prog
 **Time Estimate:** 1-2 hours (vs 4-6 hours manual review)
 
 **Success Criteria:**
+
 - All metrics updated with current state
 - Trend analysis showing progress or regressions
 - Modernization progress tracked against plan
@@ -687,6 +701,7 @@ python scripts/modernization_roadmap_generator.py /path/to/legacy-project --prog
 Comprehensive automated discovery and cataloging of legacy codebase composition.
 
 **Key Features:**
+
 - Language detection and LOC (lines of code) counting
 - Framework and library identification
 - Dependency analysis with version detection
@@ -699,6 +714,7 @@ Comprehensive automated discovery and cataloging of legacy codebase composition.
 - Multi-format output (JSON, CSV, HTML)
 
 **Common Usage:**
+
 ```bash
 # Basic inventory scan
 python scripts/codebase_inventory.py /path/to/legacy-project
@@ -717,6 +733,7 @@ python scripts/codebase_inventory.py /path/to/legacy-project --file-details
 ```
 
 **Use Cases:**
+
 - Initial assessment of inherited codebases
 - Technology stack documentation
 - Dependency upgrade planning
@@ -725,6 +742,7 @@ python scripts/codebase_inventory.py /path/to/legacy-project --file-details
 - Dead code identification for cleanup
 
 **Output Example:**
+
 ```json
 {
   "summary": {
@@ -753,6 +771,7 @@ python scripts/codebase_inventory.py /path/to/legacy-project --file-details
 Pattern-based security vulnerability detection with OWASP coverage.
 
 **Key Features:**
+
 - SQL injection detection (parameterization checks)
 - XSS vulnerability identification
 - CSRF token validation
@@ -766,6 +785,7 @@ Pattern-based security vulnerability detection with OWASP coverage.
 - Remediation guidance
 
 **Common Usage:**
+
 ```bash
 # Basic security scan
 python scripts/security_vulnerability_scanner.py /path/to/legacy-project
@@ -784,6 +804,7 @@ python scripts/security_vulnerability_scanner.py /path/to/legacy-project --detai
 ```
 
 **Use Cases:**
+
 - Pre-deployment security audits
 - Acquisition due diligence
 - Compliance assessments (SOC 2, PCI DSS)
@@ -792,6 +813,7 @@ python scripts/security_vulnerability_scanner.py /path/to/legacy-project --detai
 - Penetration test preparation
 
 **Output Example:**
+
 ```json
 {
   "summary": {
@@ -828,6 +850,7 @@ python scripts/security_vulnerability_scanner.py /path/to/legacy-project --detai
 Algorithm complexity analysis and performance optimization identification.
 
 **Key Features:**
+
 - Algorithm complexity detection (O(n²) or worse)
 - Database query efficiency analysis (N+1 problems)
 - Memory leak pattern detection
@@ -840,6 +863,7 @@ Algorithm complexity analysis and performance optimization identification.
 - Scalability bottleneck identification
 
 **Common Usage:**
+
 ```bash
 # Detect performance bottlenecks
 python scripts/performance_bottleneck_detector.py /path/to/legacy-project
@@ -858,6 +882,7 @@ python scripts/performance_bottleneck_detector.py /path/to/legacy-project --deta
 ```
 
 **Use Cases:**
+
 - Performance troubleshooting
 - Scalability planning
 - Pre-launch performance audits
@@ -866,6 +891,7 @@ python scripts/performance_bottleneck_detector.py /path/to/legacy-project --deta
 - Algorithm refactoring planning
 
 **Output Example:**
+
 ```json
 {
   "summary": {
@@ -902,6 +928,7 @@ python scripts/performance_bottleneck_detector.py /path/to/legacy-project --deta
 Comprehensive code quality metrics and maintainability assessment.
 
 **Key Features:**
+
 - Cyclomatic complexity calculation
 - Code duplication detection
 - Maintainability index scoring
@@ -914,6 +941,7 @@ Comprehensive code quality metrics and maintainability assessment.
 - Technical debt estimation per file
 
 **Common Usage:**
+
 ```bash
 # Analyze code quality
 python scripts/code_quality_analyzer.py /path/to/legacy-project
@@ -932,6 +960,7 @@ python scripts/code_quality_analyzer.py /path/to/legacy-project --output quality
 ```
 
 **Use Cases:**
+
 - Code review automation
 - Refactoring prioritization
 - Technical debt quantification
@@ -940,6 +969,7 @@ python scripts/code_quality_analyzer.py /path/to/legacy-project --output quality
 - Quality trend tracking
 
 **Output Example:**
+
 ```json
 {
   "summary": {
@@ -985,6 +1015,7 @@ python scripts/code_quality_analyzer.py /path/to/legacy-project --output quality
 Dependency graph analysis and architectural quality assessment.
 
 **Key Features:**
+
 - Dependency graph generation
 - Circular dependency detection
 - Coupling and cohesion metrics
@@ -997,6 +1028,7 @@ Dependency graph analysis and architectural quality assessment.
 - Modularization recommendations
 
 **Common Usage:**
+
 ```bash
 # Analyze architecture health
 python scripts/architecture_health_analyzer.py /path/to/legacy-project
@@ -1015,6 +1047,7 @@ python scripts/architecture_health_analyzer.py /path/to/legacy-project --perform
 ```
 
 **Use Cases:**
+
 - Architectural refactoring planning
 - Microservices extraction planning
 - Circular dependency resolution
@@ -1023,6 +1056,7 @@ python scripts/architecture_health_analyzer.py /path/to/legacy-project --perform
 - Architecture documentation
 
 **Output Example:**
+
 ```json
 {
   "summary": {
@@ -1066,6 +1100,7 @@ python scripts/architecture_health_analyzer.py /path/to/legacy-project --perform
 Multi-dimensional technical debt quantification and prioritization.
 
 **Key Features:**
+
 - Overall technical debt scoring (0-100)
 - Debt categorization (code quality, architecture, security, performance)
 - Remediation effort estimation (person-days)
@@ -1077,6 +1112,7 @@ Multi-dimensional technical debt quantification and prioritization.
 - ROI calculation for remediation
 
 **Common Usage:**
+
 ```bash
 # Calculate technical debt score
 python scripts/technical_debt_scorer.py /path/to/legacy-project
@@ -1095,6 +1131,7 @@ python scripts/technical_debt_scorer.py /path/to/legacy-project --remediation-pl
 ```
 
 **Use Cases:**
+
 - Quarterly technical debt reviews
 - Budget justification for refactoring
 - Prioritization of remediation efforts
@@ -1103,6 +1140,7 @@ python scripts/technical_debt_scorer.py /path/to/legacy-project --remediation-pl
 - Risk communication to stakeholders
 
 **Output Example:**
+
 ```json
 {
   "summary": {
@@ -1144,6 +1182,7 @@ python scripts/technical_debt_scorer.py /path/to/legacy-project --remediation-pl
 Strategic migration planning with phased approaches and ROI analysis.
 
 **Key Features:**
+
 - Current state to target state gap analysis
 - Migration strategy recommendations (Strangler Fig, Big Bang, etc.)
 - Phased implementation planning
@@ -1156,6 +1195,7 @@ Strategic migration planning with phased approaches and ROI analysis.
 - Executive summary generation
 
 **Common Usage:**
+
 ```bash
 # Generate modernization roadmap
 python scripts/modernization_roadmap_generator.py /path/to/legacy-project
@@ -1174,6 +1214,7 @@ python scripts/modernization_roadmap_generator.py /path/to/legacy-project --prog
 ```
 
 **Use Cases:**
+
 - Legacy system modernization planning
 - Stakeholder communication
 - Budget and resource planning
@@ -1183,6 +1224,7 @@ python scripts/modernization_roadmap_generator.py /path/to/legacy-project --prog
 - Multi-year strategic planning
 
 **Output Example:**
+
 ```markdown
 # Legacy System Modernization Roadmap
 
@@ -1247,7 +1289,9 @@ python scripts/modernization_roadmap_generator.py /path/to/legacy-project --prog
 Detailed guides available in the `references/` directory:
 
 ### Analysis Framework
+
 **[analysis_framework.md](references/analysis_framework.md)** - Comprehensive analysis methodology including:
+
 - Multi-phase assessment process
 - Analysis dimensions (technical, business, operational)
 - Scoring methodologies and metrics
@@ -1258,7 +1302,9 @@ Detailed guides available in the `references/` directory:
 - Common pitfalls and how to avoid them
 
 ### Modernization Patterns
+
 **[modernization_patterns.md](references/modernization_patterns.md)** - Proven migration strategies covering:
+
 - Strangler Fig pattern (incremental replacement)
 - Branch by Abstraction (parallel development)
 - Anti-Corruption Layer (protect new from legacy)
@@ -1270,7 +1316,9 @@ Detailed guides available in the `references/` directory:
 - Case studies and lessons learned
 
 ### Deliverable Templates
+
 **[deliverable_templates.md](references/deliverable_templates.md)** - Stakeholder-ready templates including:
+
 - Executive summary template
 - Technical debt assessment report
 - Security vulnerability report
@@ -1287,6 +1335,7 @@ Detailed guides available in the `references/` directory:
 ### Analysis Best Practices
 
 **Comprehensive Coverage:**
+
 - Run all 7 tools for complete picture
 - Cross-reference findings between tools
 - Validate automated findings manually
@@ -1294,6 +1343,7 @@ Detailed guides available in the `references/` directory:
 - Include both quantitative and qualitative analysis
 
 **Stakeholder Communication:**
+
 - Tailor reports to audience (technical vs executive)
 - Use visualizations for complex data
 - Provide actionable recommendations
@@ -1301,6 +1351,7 @@ Detailed guides available in the `references/` directory:
 - Set clear success criteria
 
 **Continuous Assessment:**
+
 - Establish baseline metrics
 - Schedule regular reassessments (quarterly)
 - Track trends over time
@@ -1310,6 +1361,7 @@ Detailed guides available in the `references/` directory:
 ### Technical Debt Management
 
 **Prioritization:**
+
 - Quick wins first (high impact, low effort)
 - Address critical security issues immediately
 - Balance short-term fixes with long-term strategy
@@ -1317,6 +1369,7 @@ Detailed guides available in the `references/` directory:
 - Align with business priorities
 
 **Remediation:**
+
 - Fix root causes, not just symptoms
 - Refactor incrementally, not big bang
 - Maintain backward compatibility during migration
@@ -1326,6 +1379,7 @@ Detailed guides available in the `references/` directory:
 ### Modernization Strategy
 
 **Planning:**
+
 - Start with comprehensive assessment
 - Define clear target architecture
 - Plan in phases with clear milestones
@@ -1333,6 +1387,7 @@ Detailed guides available in the `references/` directory:
 - Secure stakeholder buy-in upfront
 
 **Execution:**
+
 - Implement CI/CD before major changes
 - Increase test coverage progressively
 - Deploy incrementally with rollback plans
@@ -1340,6 +1395,7 @@ Detailed guides available in the `references/` directory:
 - Communicate progress regularly
 
 **Risk Mitigation:**
+
 - Maintain legacy system in parallel initially
 - Use feature flags for gradual rollout
 - Implement blue-green deployment
@@ -1411,6 +1467,7 @@ python scripts/modernization_roadmap_generator.py /path/to/legacy-project --time
 ### Common Issues
 
 **Issue: Tool runs slowly on large codebases**
+
 ```bash
 # Solution: Use file type filtering
 python scripts/codebase_inventory.py /path/to/project --file-types .py,.js --exclude node_modules,venv
@@ -1420,12 +1477,14 @@ python scripts/code_quality_analyzer.py /path/to/project --exclude tests,migrati
 ```
 
 **Issue: Too many false positives in security scan**
+
 ```bash
 # Solution: Adjust severity threshold and use suppressions
 python scripts/security_vulnerability_scanner.py /path/to/project --min-severity high --suppress-file .security-suppressions.json
 ```
 
 **Issue: Performance detector missing known bottlenecks**
+
 ```bash
 # Solution: Use verbose mode and manual review
 python scripts/performance_bottleneck_detector.py /path/to/project --verbose --detailed
@@ -1435,6 +1494,7 @@ python scripts/performance_bottleneck_detector.py /path/to/project --verbose --d
 ```
 
 **Issue: Technical debt score doesn't match intuition**
+
 ```bash
 # Solution: Review individual component scores
 python scripts/technical_debt_scorer.py /path/to/project --detailed --breakdown
@@ -1444,6 +1504,7 @@ python scripts/technical_debt_scorer.py /path/to/project --weights architecture:
 ```
 
 **Issue: Roadmap generation fails on complex projects**
+
 ```bash
 # Solution: Run prerequisite analyses first
 python scripts/codebase_inventory.py /path/to/project --output inventory.json

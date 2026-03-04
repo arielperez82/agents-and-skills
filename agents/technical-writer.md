@@ -232,6 +232,7 @@ This agent leverages five production-ready Python automation tools for comprehen
 **Steps:**
 
 1. **Analyze Repository State**
+
    ```bash
    cd /path/to/project
 
@@ -248,6 +249,7 @@ This agent leverages five production-ready Python automation tools for comprehen
    - Broken links
 
 2. **Update README**
+
    ```bash
    # Generate fresh README from current repository state
    python ../skills/engineering-team/technical-writer/scripts/readme_generator.py \
@@ -265,6 +267,7 @@ This agent leverages five production-ready Python automation tools for comprehen
    - Badges (verify all links work)
 
 3. **Update CHANGELOG**
+
    ```bash
    # Add unreleased changes from recent commits
    python ../skills/engineering-team/technical-writer/scripts/changelog_generator.py add \
@@ -281,6 +284,7 @@ This agent leverages five production-ready Python automation tools for comprehen
    ```
 
    Or for release:
+
    ```bash
    # Promote unreleased changes to new version
    python ../skills/engineering-team/technical-writer/scripts/changelog_generator.py release \
@@ -288,6 +292,7 @@ This agent leverages five production-ready Python automation tools for comprehen
    ```
 
 4. **Update API Documentation**
+
    ```bash
    # Generate API docs from OpenAPI spec
    python ../skills/engineering-team/technical-writer/scripts/api_doc_formatter.py \
@@ -305,6 +310,7 @@ This agent leverages five production-ready Python automation tools for comprehen
    ```
 
 5. **Validate All Documentation**
+
    ```bash
    # Run quality analysis to verify improvements
    python ../skills/engineering-team/technical-writer/scripts/doc_quality_analyzer.py \
@@ -321,6 +327,7 @@ This agent leverages five production-ready Python automation tools for comprehen
    - Readability scores acceptable (60+ Flesch-Kincaid)
 
 6. **Review and Commit**
+
    ```bash
    # Review all changes
    git diff README.md CHANGELOG.md docs/API.md
@@ -331,6 +338,7 @@ This agent leverages five production-ready Python automation tools for comprehen
    ```
 
 **Expected Output:**
+
 - README.md with current features, accurate installation steps, working examples
 - CHANGELOG.md with categorized changes and proper version header
 - API.md with complete endpoint documentation and examples
@@ -338,6 +346,7 @@ This agent leverages five production-ready Python automation tools for comprehen
 - All links validated and working
 
 **Success Criteria:**
+
 - Documentation coverage score above 80%
 - Zero broken links
 - All code examples syntactically valid
@@ -364,6 +373,7 @@ This agent leverages five production-ready Python automation tools for comprehen
 2. **Generate Initial API Documentation**
 
    For OpenAPI spec:
+
    ```bash
    python ../skills/engineering-team/technical-writer/scripts/api_doc_formatter.py \
      --source openapi.yaml \
@@ -373,6 +383,7 @@ This agent leverages five production-ready Python automation tools for comprehen
    ```
 
    For route handlers (Express example):
+
    ```bash
    python ../skills/engineering-team/technical-writer/scripts/api_doc_formatter.py \
      --source src/routes/ \
@@ -404,6 +415,7 @@ This agent leverages five production-ready Python automation tools for comprehen
 5. **Add Interactive Examples**
 
    For each endpoint, ensure examples include:
+
    ```markdown
    ### POST /api/users
 
@@ -422,6 +434,7 @@ This agent leverages five production-ready Python automation tools for comprehen
    ```
 
    **Response (201 Created):**
+
    ```json
    {
      "id": "usr_abc123",
@@ -435,9 +448,11 @@ This agent leverages five production-ready Python automation tools for comprehen
    - `400 Bad Request` - Invalid email format or password too weak
    - `409 Conflict` - Email already registered
    - `429 Too Many Requests` - Rate limit exceeded (max 10 requests/minute)
+
    ```
 
 6. **Generate Multiple Output Formats**
+
    ```bash
    # Markdown for GitHub
    python ../skills/engineering-team/technical-writer/scripts/api_doc_formatter.py \
@@ -459,6 +474,7 @@ This agent leverages five production-ready Python automation tools for comprehen
    ```
 
 7. **Validate Documentation Accuracy**
+
    ```bash
    # Test all curl examples against running API
    # Extract curl commands from docs/API.md
@@ -474,6 +490,7 @@ This agent leverages five production-ready Python automation tools for comprehen
 8. **Link API Docs in README**
 
    Edit README.md to add API documentation link:
+
    ```markdown
    ## API Documentation
 
@@ -487,6 +504,7 @@ This agent leverages five production-ready Python automation tools for comprehen
    ```
 
 **Expected Output:**
+
 - Comprehensive API.md with all endpoints documented
 - Request/response examples for each endpoint
 - Error documentation with all status codes
@@ -495,6 +513,7 @@ This agent leverages five production-ready Python automation tools for comprehen
 - All examples tested and validated
 
 **Success Criteria:**
+
 - Every API endpoint documented with examples
 - Request/response schemas match implementation
 - All curl examples execute successfully
@@ -513,6 +532,7 @@ This agent leverages five production-ready Python automation tools for comprehen
 **Steps:**
 
 1. **Run Comprehensive Quality Analysis**
+
    ```bash
    cd /path/to/project
 
@@ -583,6 +603,7 @@ This agent leverages five production-ready Python automation tools for comprehen
 4. **Fix Critical Issues Immediately**
 
    Example fixes:
+
    ```bash
    # Fix broken installation commands
    # Test each command on clean environment
@@ -598,6 +619,7 @@ This agent leverages five production-ready Python automation tools for comprehen
    ```
 
 5. **Create Issues for Remaining Work**
+
    ```bash
    # High priority issues
    gh issue create --title "Add authentication examples to API docs" \
@@ -612,6 +634,7 @@ This agent leverages five production-ready Python automation tools for comprehen
 6. **Track Documentation Debt**
 
    Create documentation improvement tracking:
+
    ```bash
    # Create docs/DOCUMENTATION_TODO.md
    cat > docs/DOCUMENTATION_TODO.md << 'EOF'
@@ -646,6 +669,7 @@ This agent leverages five production-ready Python automation tools for comprehen
 7. **Set Up Automated Quality Gates**
 
    Add to CI/CD pipeline (`.github/workflows/docs-quality.yml`):
+
    ```yaml
    name: Documentation Quality Check
 
@@ -692,6 +716,7 @@ This agent leverages five production-ready Python automation tools for comprehen
    ```
 
 8. **Schedule Regular Audits**
+
    ```bash
    # Add to weekly maintenance tasks
    # Run every Friday before sprint planning
@@ -702,6 +727,7 @@ This agent leverages five production-ready Python automation tools for comprehen
    ```
 
 **Expected Output:**
+
 - Comprehensive quality audit report with scores and specific issues
 - Prioritized issue list (critical, high, medium, low)
 - GitHub issues created for high-priority items
@@ -710,6 +736,7 @@ This agent leverages five production-ready Python automation tools for comprehen
 - Weekly audit schedule for continuous improvement
 
 **Success Criteria:**
+
 - Overall documentation score above 75%
 - All critical issues resolved within 24 hours
 - High-priority issues planned for current sprint
@@ -730,6 +757,7 @@ This agent leverages five production-ready Python automation tools for comprehen
 1. **Pre-Release Checklist Review**
 
    Create release documentation checklist:
+
    ```bash
    cat > docs/RELEASE_CHECKLIST.md << 'EOF'
    # Release Documentation Checklist - v2.0.0
@@ -776,6 +804,7 @@ This agent leverages five production-ready Python automation tools for comprehen
    ```
 
 2. **Update CHANGELOG for Release**
+
    ```bash
    # Review git commits since last release
    git log v1.9.0..HEAD --oneline --no-merges
@@ -805,6 +834,7 @@ This agent leverages five production-ready Python automation tools for comprehen
 3. **Generate Migration Guide**
 
    Create `docs/MIGRATION_v2.md`:
+
    ```bash
    cat > docs/MIGRATION_v2.md << 'EOF'
    # Migration Guide: v1.x to v2.0
@@ -824,6 +854,7 @@ This agent leverages five production-ready Python automation tools for comprehen
    ```
 
    **After (v2.0):**
+
    ```javascript
    // JWT token auth
    fetch('/api/users', {
@@ -852,6 +883,7 @@ This agent leverages five production-ready Python automation tools for comprehen
    ### 3. Configuration Changes
 
    **Before:**
+
    ```json
    {
      "auth": {
@@ -862,6 +894,7 @@ This agent leverages five production-ready Python automation tools for comprehen
    ```
 
    **After:**
+
    ```json
    {
      "auth": {
@@ -876,6 +909,7 @@ This agent leverages five production-ready Python automation tools for comprehen
    ## Step-by-Step Migration
 
    1. **Update Dependencies**
+
       ```bash
       npm install your-package@2.0.0
       ```
@@ -906,9 +940,11 @@ This agent leverages five production-ready Python automation tools for comprehen
    - [Discord Community](https://discord.gg/community)
    - [Email Support](mailto:support@example.com)
    EOF
+
    ```
 
 4. **Update README for New Version**
+
    ```bash
    # Regenerate README with current state
    python ../skills/engineering-team/technical-writer/scripts/readme_generator.py \
@@ -921,6 +957,7 @@ This agent leverages five production-ready Python automation tools for comprehen
    ```
 
    Edit README.md to add:
+
    ```markdown
    ## What's New in v2.0
 
@@ -934,6 +971,7 @@ This agent leverages five production-ready Python automation tools for comprehen
    ```
 
 5. **Update All API Documentation**
+
    ```bash
    # Regenerate API docs from updated OpenAPI spec
    python ../skills/engineering-team/technical-writer/scripts/api_doc_formatter.py \
@@ -950,6 +988,7 @@ This agent leverages five production-ready Python automation tools for comprehen
    ```
 
 6. **Run Final Quality Audit**
+
    ```bash
    # Comprehensive quality check before release
    python ../skills/engineering-team/technical-writer/scripts/doc_quality_analyzer.py \
@@ -967,6 +1006,7 @@ This agent leverages five production-ready Python automation tools for comprehen
    - Migration guide complete
 
 7. **Test All Documentation Examples**
+
    ```bash
    # Test installation instructions
    cd /tmp
@@ -984,6 +1024,7 @@ This agent leverages five production-ready Python automation tools for comprehen
    ```
 
 8. **Create Release Notes**
+
    ```bash
    # Extract CHANGELOG entry for release
    python ../skills/engineering-team/technical-writer/scripts/changelog_generator.py extract \
@@ -998,6 +1039,7 @@ This agent leverages five production-ready Python automation tools for comprehen
    - Download links
 
 9. **Publish Documentation**
+
    ```bash
    # Commit all documentation updates
    git add README.md CHANGELOG.md docs/
@@ -1015,6 +1057,7 @@ This agent leverages five production-ready Python automation tools for comprehen
    ```
 
 10. **Post-Release Documentation Tasks**
+
     ```bash
     # Update version badges
     # Verify npm/PyPI package pages show updated docs
@@ -1024,6 +1067,7 @@ This agent leverages five production-ready Python automation tools for comprehen
     ```
 
 **Expected Output:**
+
 - Complete CHANGELOG entry with all changes categorized
 - Comprehensive migration guide with before/after examples
 - Updated README highlighting new features and breaking changes
@@ -1034,6 +1078,7 @@ This agent leverages five production-ready Python automation tools for comprehen
 - Documentation published and accessible
 
 **Success Criteria:**
+
 - CHANGELOG follows Keep a Changelog format perfectly
 - Migration guide includes all breaking changes with examples
 - Zero documentation issues reported post-release
@@ -1063,6 +1108,7 @@ This agent leverages five production-ready Python automation tools for comprehen
    - **User Guide** (12 steps): Developer onboarding documentation
 
 2. **Start Interactive Wizard**
+
    ```bash
    cd /path/to/project
 
@@ -1093,6 +1139,7 @@ This agent leverages five production-ready Python automation tools for comprehen
    - Contextual help and suggestions
 
    Example README workflow steps:
+
    ```
    Step 1/8: Project Information
    - Auto-detected name, description from package.json
@@ -1129,6 +1176,7 @@ This agent leverages five production-ready Python automation tools for comprehen
    ```
 
 4. **Preview and Confirm Output**
+
    ```bash
    # Dry-run mode to preview without writing
    python ../skills/engineering-team/technical-writer/scripts/interactive_doc_wizard.py \
@@ -1140,6 +1188,7 @@ This agent leverages five production-ready Python automation tools for comprehen
    ```
 
 5. **Validate Generated Documentation**
+
    ```bash
    # Run quality analyzer on generated docs
    python ../skills/engineering-team/technical-writer/scripts/doc_quality_analyzer.py \
@@ -1151,6 +1200,7 @@ This agent leverages five production-ready Python automation tools for comprehen
 6. **Non-Interactive Mode for Automation**
 
    For CI/CD or batch processing, use config file mode:
+
    ```bash
    # Create config file with wizard responses
    cat > readme_config.yaml << 'EOF'
@@ -1176,6 +1226,7 @@ This agent leverages five production-ready Python automation tools for comprehen
    ```
 
 **Expected Output:**
+
 - Documentation created/updated based on wizard selections
 - Auto-detected project context incorporated
 - Consistent format following best practices
@@ -1183,6 +1234,7 @@ This agent leverages five production-ready Python automation tools for comprehen
 - Ready for commit and review
 
 **Success Criteria:**
+
 - All wizard steps complete successfully
 - Generated documentation passes quality analyzer
 - No manual editing required for basic documentation
@@ -1206,6 +1258,7 @@ This agent leverages five production-ready Python automation tools for comprehen
 ### When to Use This Agent
 
 **Primary Scenarios:**
+
 - New project initialization requiring comprehensive documentation
 - Major version releases with breaking changes
 - API launches requiring developer-facing documentation
@@ -1214,6 +1267,7 @@ This agent leverages five production-ready Python automation tools for comprehen
 - Developer onboarding experience improvement
 
 **Trigger Events:**
+
 - New repository created
 - Major version tag created
 - Pull request with user-facing changes
@@ -1224,16 +1278,19 @@ This agent leverages five production-ready Python automation tools for comprehen
 ### When to Escalate
 
 **Escalate to [code-reviewer](code-reviewer.md) when:**
+
 - Code quality issues block documentation (unclear APIs, inconsistent naming)
 - Documentation reveals architectural problems
 - Code examples fail due to implementation bugs
 
 **Escalate to [architect](architect.md) when:**
+
 - System architecture requires explanation beyond surface-level docs
 - Migration guide needs architectural context
 - API design decisions need review before documentation
 
 **Escalate to [devsecops-engineer](devsecops-engineer.md) when:**
+
 - Deployment documentation needs infrastructure details
 - CI/CD integration for documentation automation
 - Documentation hosting and deployment strategy
@@ -1241,17 +1298,20 @@ This agent leverages five production-ready Python automation tools for comprehen
 ### When to Collaborate
 
 **Collaborate with [backend-engineer](backend-engineer.md) for:**
+
 - API documentation accuracy verification
 - Authentication flow documentation
 - Database schema documentation
 - Performance characteristics documentation
 
 **Collaborate with [frontend-engineer](frontend-engineer.md) for:**
+
 - Client SDK documentation
 - Integration examples from frontend perspective
 - UI component documentation
 
 **Collaborate with [product-manager](../product-manager.md) for:**
+
 - Feature description accuracy
 - User-facing release notes
 - Migration guide user impact assessment
@@ -1261,12 +1321,14 @@ This agent leverages five production-ready Python automation tools for comprehen
 ### FROM Code Review Agent
 
 **Receives:**
+
 - List of user-facing changes requiring documentation
 - API endpoint modifications needing docs updates
 - Breaking changes requiring migration guides
 - Security vulnerabilities fixed (need SECURITY.md updates)
 
 **Actions:**
+
 1. Review code changes for documentation impact
 2. Update affected documentation sections
 3. Create migration guides for breaking changes
@@ -1274,6 +1336,7 @@ This agent leverages five production-ready Python automation tools for comprehen
 5. Verify code examples still valid
 
 **Deliverables:**
+
 - Updated documentation matching code changes
 - CHANGELOG entries for all user-facing changes
 - Migration guides for breaking changes
@@ -1281,12 +1344,14 @@ This agent leverages five production-ready Python automation tools for comprehen
 ### FROM Architecture Agent
 
 **Receives:**
+
 - High-level system design documents
 - Architecture decision records (ADRs)
 - Technology stack decisions
 - Integration patterns
 
 **Actions:**
+
 1. Translate architecture docs into developer-facing documentation
 2. Create system overview diagrams
 3. Document architectural patterns used
@@ -1294,6 +1359,7 @@ This agent leverages five production-ready Python automation tools for comprehen
 5. Create contributing guidelines aligned with architecture
 
 **Deliverables:**
+
 - Architecture section in README
 - System design documentation
 - Integration guides
@@ -1302,12 +1368,14 @@ This agent leverages five production-ready Python automation tools for comprehen
 ### TO DevOps Agent
 
 **Hands Off:**
+
 - Documentation requiring deployment
 - CI/CD documentation automation needs
 - Documentation quality gates for pipeline integration
 - Hosted documentation site requirements
 
 **Handoff Format:**
+
 ```yaml
 handoff:
   type: documentation-deployment
@@ -1328,12 +1396,14 @@ handoff:
 ### TO Product Team
 
 **Hands Off:**
+
 - Release notes for user communication
 - Feature documentation for product announcements
 - Migration guides for breaking changes
 - API capabilities for product planning
 
 **Handoff Format:**
+
 - Release notes extracted from CHANGELOG
 - Feature summary for marketing
 - Known limitations documented
@@ -1344,18 +1414,21 @@ handoff:
 ### Documentation Writing
 
 **Clarity First:**
+
 - Use simple, direct language (Flesch-Kincaid score 60+)
 - Avoid jargon unless defined
 - Write in active voice
 - Use concrete examples over abstract explanations
 
 **Structure for Scanning:**
+
 - Use descriptive headings (not "Usage" but "Installing with npm")
 - Keep paragraphs short (3-4 sentences max)
 - Use bullet points for lists
 - Include table of contents for long documents
 
 **Code Examples:**
+
 - Always include complete, runnable examples
 - Test all examples before committing
 - Show output/results when helpful
@@ -1365,11 +1438,13 @@ handoff:
 ### CHANGELOG Management
 
 **Semantic Versioning:**
+
 - MAJOR: Breaking changes
 - MINOR: New features (backward compatible)
 - PATCH: Bug fixes (backward compatible)
 
 **Change Categories:**
+
 - **Added**: New features
 - **Changed**: Changes to existing functionality
 - **Deprecated**: Features to be removed
@@ -1378,6 +1453,7 @@ handoff:
 - **Security**: Security vulnerability fixes
 
 **Keep Changes User-Focused:**
+
 - Describe impact, not implementation
 - Link to relevant documentation
 - Include migration instructions for breaking changes
@@ -1386,12 +1462,14 @@ handoff:
 ### API Documentation
 
 **Organization:**
+
 - Group endpoints by resource
 - Order by common usage patterns
 - Place authentication first
 - Include error handling section
 
 **Completeness:**
+
 - Every endpoint documented
 - All parameters explained (required/optional)
 - Request/response examples for each
@@ -1400,6 +1478,7 @@ handoff:
 - Error responses with all status codes
 
 **Examples:**
+
 - Multiple client languages (curl, JavaScript, Python)
 - Realistic request data
 - Complete response objects
@@ -1408,17 +1487,20 @@ handoff:
 ### Quality Standards
 
 **Coverage Targets:**
+
 - Overall documentation: 80%+
 - Public API: 100%
 - Configuration options: 100%
 - Installation steps: 100%
 
 **Readability Targets:**
+
 - Flesch-Kincaid Reading Ease: 60+
 - Gunning Fog Index: <12
 - Average sentence length: <20 words
 
 **Technical Quality:**
+
 - Zero broken links
 - All code examples syntactically valid
 - Consistent terminology throughout
@@ -1427,18 +1509,21 @@ handoff:
 ### Maintenance
 
 **Regular Audits:**
+
 - Weekly quality checks
 - Monthly comprehensive reviews
 - Pre-release validation
 - Post-release issue monitoring
 
 **Continuous Improvement:**
+
 - Track documentation debt
 - Monitor user questions (GitHub issues, support tickets)
 - Update based on feedback
 - Keep examples current with latest versions
 
 **Automation:**
+
 - Quality checks in CI/CD
 - Link validation automated
 - Code example testing
@@ -1598,24 +1683,28 @@ echo "Report generated: $REPORT_DIR/report-$WEEK.html"
 ## Success Metrics
 
 **Documentation Quality:**
+
 - Overall documentation coverage above 80%
 - Readability scores above 60 (Flesch-Kincaid)
 - Zero broken links in production documentation
 - 100% API endpoint documentation coverage
 
 **Developer Experience:**
+
 - 50% reduction in "how do I...?" GitHub issues
 - Time to first successful integration reduced by 40%
 - Developer satisfaction score above 8/10
 - Onboarding time reduced by 30%
 
 **Maintenance Efficiency:**
+
 - Documentation updates automated 60%+
 - Time to document new feature reduced from 2 hours to 30 minutes
 - CHANGELOG maintenance time reduced by 70%
 - Pre-release documentation prep time reduced from 4 hours to 1 hour
 
 **Content Quality:**
+
 - All code examples execute successfully
 - Migration guides tested on real projects
 - Installation instructions verified on clean environments
@@ -1632,22 +1721,26 @@ echo "Report generated: $REPORT_DIR/report-$WEEK.html"
 ## References
 
 **Skill Documentation:**
+
 - `../skills/engineering-team/technical-writer/SKILL.md` - Complete skill overview (to be created)
 - `../skills/engineering-team/technical-writer/references/technical_writing_standards.md` - Documentation best practices
 - `../skills/engineering-team/technical-writer/references/developer_documentation_guide.md` - Markdown formatting standards
 - `../skills/engineering-team/technical-writer/references/api_documentation_patterns.md` - API documentation patterns
 
 **Templates:**
+
 - `../skills/engineering-team/technical-writer/assets/readme_template.md` - README structure template
 - `../skills/engineering-team/technical-writer/assets/changelog_template.md` - CHANGELOG format template
 - `../skills/engineering-team/technical-writer/assets/api_endpoint_template.md` - API documentation template
 - `../skills/engineering-team/technical-writer/assets/user_guide_template.md` - Contributing guide template
 
 **Related Commands:**
+
 - `/update.docs` - Quick documentation update command
 - `/generate.api-docs` - API documentation generation command
 
 **Project Documentation:**
+
 - `/docs/WORKFLOW.md` - Git workflow and branching strategy
 - `/docs/standards/documentation-standards.md` - Repository documentation standards
 

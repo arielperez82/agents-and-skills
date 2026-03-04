@@ -19,6 +19,7 @@ Comprehensive guide for integrating observability tools with ServiceNow for inci
 ## ServiceNow REST API Overview
 
 ### Base URL Structure
+
 ```
 https://<instance>.service-now.com/api/now/<version>/<resource>
 ```
@@ -43,6 +44,7 @@ Authorization: Basic <base64(username:password)>
 ```
 
 Or with OAuth:
+
 ```http
 Authorization: Bearer <access_token>
 ```
@@ -56,6 +58,7 @@ Authorization: Bearer <access_token>
 **Endpoint:** `POST /api/now/table/incident`
 
 **Request Body:**
+
 ```json
 {
   "short_description": "High CPU on payment-service-prod",
@@ -75,6 +78,7 @@ Authorization: Bearer <access_token>
 ```
 
 **Response (201 Created):**
+
 ```json
 {
   "result": {
@@ -92,6 +96,7 @@ Authorization: Bearer <access_token>
 **Endpoint:** `PUT /api/now/table/incident/{sys_id}`
 
 **Request Body (Acknowledge):**
+
 ```json
 {
   "state": "2",
@@ -100,6 +105,7 @@ Authorization: Bearer <access_token>
 ```
 
 **Request Body (Resolve):**
+
 ```json
 {
   "state": "6",
@@ -115,6 +121,7 @@ Authorization: Bearer <access_token>
 **Endpoint:** `GET /api/now/table/incident`
 
 **Query Parameters:**
+
 ```
 ?sysparm_query=active=true^priority<=2^assignment_group=Platform Engineering
 &sysparm_display_value=true
@@ -146,6 +153,7 @@ If your ServiceNow instance has Event Management licensed, use the Event API for
 **Endpoint:** `POST /api/global/em/jsonv2`
 
 **Request Body:**
+
 ```json
 {
   "records": [
@@ -186,12 +194,14 @@ If your ServiceNow instance has Event Management licensed, use the Event API for
 ### Event-to-Incident Correlation
 
 ServiceNow Event Management can automatically:
+
 1. **Deduplicate** events from the same source/CI
 2. **Correlate** related events into a single incident
 3. **Auto-resolve** incidents when OK events are received
 4. **Enrich** events with CMDB data
 
 **Alert Rule Example (for auto-incident creation):**
+
 ```
 IF event.severity <= 2 AND event.resource IN cmdb_ci
 THEN create incident WITH priority = event.severity
@@ -206,12 +216,14 @@ THEN create incident WITH priority = event.severity
 **Endpoint:** `GET /api/now/table/cmdb_ci_appl`
 
 **Query:**
+
 ```
 ?sysparm_query=name=payment-service-prod
 &sysparm_fields=sys_id,name,operational_status,business_criticality,supported_by
 ```
 
 **Response:**
+
 ```json
 {
   "result": [
@@ -244,6 +256,7 @@ THEN create incident WITH priority = event.severity
 ### Link Incident to CI
 
 Include the CI reference when creating an incident:
+
 ```json
 {
   "cmdb_ci": "ci_sys_id_or_name",
@@ -252,6 +265,7 @@ Include the CI reference when creating an incident:
 ```
 
 Or use CI identifier for auto-lookup:
+
 ```json
 {
   "cmdb_ci.name": "payment-service-prod"
@@ -309,6 +323,7 @@ Configure ServiceNow Business Rule to send updates back to monitoring:
 ### Prometheus AlertManager → ServiceNow
 
 **AlertManager Webhook Config:**
+
 ```yaml
 receivers:
   - name: servicenow
@@ -335,6 +350,7 @@ receivers:
 ### NewRelic → ServiceNow
 
 **NewRelic Webhook Payload:**
+
 ```json
 {
   "condition_name": "High Error Rate",
@@ -387,6 +403,7 @@ Authorization: Basic dXNlcm5hbWU6cGFzc3dvcmQ=
 ### OAuth 2.0
 
 **Token Request:**
+
 ```bash
 curl -X POST "https://instance.service-now.com/oauth_token.do" \
   -d "grant_type=password" \
@@ -397,6 +414,7 @@ curl -X POST "https://instance.service-now.com/oauth_token.do" \
 ```
 
 **Response:**
+
 ```json
 {
   "access_token": "abc123...",
@@ -409,6 +427,7 @@ curl -X POST "https://instance.service-now.com/oauth_token.do" \
 ### API Key (Scoped Application)
 
 For server-to-server integrations, create a scoped application with an API key:
+
 ```
 Authorization: Bearer <api_key>
 ```
@@ -420,6 +439,7 @@ Authorization: Bearer <api_key>
 ### Common Error Responses
 
 **401 Unauthorized:**
+
 ```json
 {
   "error": {
@@ -431,6 +451,7 @@ Authorization: Bearer <api_key>
 ```
 
 **403 Forbidden:**
+
 ```json
 {
   "error": {
@@ -442,6 +463,7 @@ Authorization: Bearer <api_key>
 ```
 
 **400 Bad Request:**
+
 ```json
 {
   "error": {
@@ -474,6 +496,7 @@ for attempt in range(MAX_RETRIES):
 ### Rate Limiting
 
 ServiceNow default rate limits:
+
 - **REST API:** 100 requests/minute per user
 - **Event API:** 500 events/minute
 
@@ -486,6 +509,7 @@ Handle `429 Too Many Requests` with exponential backoff.
 ### 1. Use Display Values for Readability
 
 Add `sysparm_display_value=true` to get human-readable values:
+
 ```
 GET /api/now/table/incident?sysparm_display_value=true
 ```
@@ -493,6 +517,7 @@ GET /api/now/table/incident?sysparm_display_value=true
 ### 2. Limit Fields Returned
 
 Reduce payload size by specifying needed fields:
+
 ```
 &sysparm_fields=number,short_description,state,priority
 ```
@@ -500,6 +525,7 @@ Reduce payload size by specifying needed fields:
 ### 3. Use Batch Operations
 
 For multiple incidents, use batch API:
+
 ```
 POST /api/now/v2/table/incident/batch
 ```
@@ -507,6 +533,7 @@ POST /api/now/v2/table/incident/batch
 ### 4. Include Correlation IDs
 
 Always include external alert IDs for traceability:
+
 ```json
 {
   "correlation_id": "prometheus-alert-12345",
@@ -517,6 +544,7 @@ Always include external alert IDs for traceability:
 ### 5. Structure Descriptions
 
 Use consistent formatting in descriptions:
+
 ```
 Alert: {alert_name}
 Severity: {severity}
@@ -536,6 +564,7 @@ Runbook: {runbook_url}
 ### 6. Test in Sub-Production
 
 Always test integrations in ServiceNow sub-production instance first:
+
 ```
 https://instance-dev.service-now.com
 ```
@@ -543,6 +572,7 @@ https://instance-dev.service-now.com
 ### 7. Monitor Integration Health
 
 Track these metrics:
+
 - API response times
 - Error rates by type
 - Incident creation latency
@@ -553,6 +583,7 @@ Track these metrics:
 ## Quick Reference: curl Examples
 
 ### Create Incident
+
 ```bash
 curl -X POST "https://instance.service-now.com/api/now/table/incident" \
   -H "Content-Type: application/json" \
@@ -565,6 +596,7 @@ curl -X POST "https://instance.service-now.com/api/now/table/incident" \
 ```
 
 ### Update Incident
+
 ```bash
 curl -X PUT "https://instance.service-now.com/api/now/table/incident/INC0012345" \
   -H "Content-Type: application/json" \
@@ -576,6 +608,7 @@ curl -X PUT "https://instance.service-now.com/api/now/table/incident/INC0012345"
 ```
 
 ### Query CI
+
 ```bash
 curl -G "https://instance.service-now.com/api/now/table/cmdb_ci_appl" \
   -H "Authorization: Basic $(echo -n 'user:pass' | base64)" \

@@ -276,12 +276,14 @@ After fixing Theater tests, some test methods may become redundant (they tested 
 Testing Theater most commonly arises when tests are written **after** production code to "cover" it, rather than **before** production code to drive it (TDD).
 
 When writing tests after the fact:
+
 - The developer already knows the code works (it was just written and manually tested)
 - Tests become a checkbox exercise ("get coverage up") rather than a design tool
 - Assertions tend toward existence checks ("it returns something") rather than behavioral verification ("it returns the right thing")
 - Expected values get copied from actual output rather than derived from requirements
 
 **TDD prevents Testing Theater by construction.** When the test is written first:
+
 - The test must fail initially (proving it can detect absence of behavior)
 - The expected values come from requirements, not from existing code
 - Each test drives a specific behavior into existence

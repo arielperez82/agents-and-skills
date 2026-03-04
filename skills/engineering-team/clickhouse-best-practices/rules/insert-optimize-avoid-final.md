@@ -37,12 +37,14 @@ SELECT * FROM events FINAL WHERE user_id = 123;
 ```
 
 **Problems with OPTIMIZE FINAL:**
+
 - Rewrites entire partition regardless of need
 - Ignores the ~150 GB part size safeguard
 - Can cause memory pressure or OOM errors
 - Lengthy execution time for large datasets
 
 **When OPTIMIZE FINAL may be acceptable:**
+
 - Finalizing data before table freezing
 - Preparing data for export operations
 - One-time operations, not regular workflows

@@ -3,14 +3,15 @@ description: ⚡⚡⚡ Use subagents to plan and fix hard issues
 argument-hint: [issues]
 ---
 
-**Think harder** to plan & start fixing these issues follow the Orchestration Protocol, Core Responsibilities, Subagents Team and Development Rules: 
+**Think harder** to plan & start fixing these issues follow the Orchestration Protocol, Core Responsibilities, Subagents Team and Development Rules:
 <issues>$ARGUMENTS</issues>
 
-## Workflow:
+## Workflow
 
 If the user provides a screenshots or videos, use `ai-multimodal` skill to describe as detailed as possible the issue, make sure developers can predict the root causes easily based on the description.
 
 ### Fulfill the request
+
 **Question Everything**: Use `AskUserQuestion` tool to ask probing questions to fully understand the user's request, constraints, and true objectives. Don't assume - clarify until you're 100% certain.
 
 * If you have any questions, use `AskUserQuestion` tool to ask the user to clarify them.
@@ -28,7 +29,9 @@ Analyze the skills catalog and activate other skills that are needed for the tas
 3. Use `implementation-planner` subagent to create an implementation plan based on the reports, then report back to main agent.
 4. Then use `/code` SlashCommand to implement the plan step by step.
 5. Final Report:
-  * Report back to user with a summary of the changes and explain everything briefly, guide user to get started and suggest the next steps.
-  * Ask the user if they want to commit and push to git repository, if yes, use `git-manager` subagent to commit and push to git repository.
-  - **IMPORTANT:** Sacrifice grammar for the sake of concision when writing reports.
-  - **IMPORTANT:** In reports, list any unresolved questions at the end, if any.
+
+* Report back to user with a summary of the changes and explain everything briefly, guide user to get started and suggest the next steps.
+* Ask the user if they want to commit and push to git repository, if yes, use `git-manager` subagent to commit and push to git repository.
+
+* **IMPORTANT:** Sacrifice grammar for the sake of concision when writing reports.
+* **IMPORTANT:** In reports, list any unresolved questions at the end, if any.

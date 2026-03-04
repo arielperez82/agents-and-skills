@@ -34,6 +34,7 @@ Use this skill proactively during development when you encounter patterns where 
 ## When NOT to Use
 
 Do NOT use this skill for:
+
 - Simple CRUD operations without transformation logic
 - One-off scripts or throwaway code
 - Code with side effects that cannot be isolated (network calls, database writes)

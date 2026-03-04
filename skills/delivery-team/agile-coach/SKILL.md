@@ -64,7 +64,7 @@ Target users include agile coaches, team leads, and project managers working wit
 
 ### Common Agile Coach Operations
 
-This skill provides gile Coach expertise through ceremony frameworks, coaching techniques, and metrics patterns. 
+This skill provides gile Coach expertise through ceremony frameworks, coaching techniques, and metrics patterns.
 
 ### Access Documentation Resources
 
@@ -87,6 +87,7 @@ This skill provides gile Coach expertise through ceremony frameworks, coaching t
 **Time:** 2 hours (for 2-week sprint)
 
 **Steps:**
+
 1. **Prepare team and backlog** - Meet with Product Owner 1 day before sprint planning
    - Verify top backlog items are refined and have acceptance criteria
    - Estimate story points if not already done
@@ -127,6 +128,7 @@ See [Workflows](#workflows) section for detailed ceremony details.
 **Time:** 15 minutes daily
 
 **Steps:**
+
 1. **Schedule consistency** - Same time and place every day (e.g., 9:15 AM in Zoom)
    - Consistency helps team build habit
    - Same time means fewer scheduling conflicts
@@ -162,6 +164,7 @@ See [Daily Standup](#workflows) section for detailed ceremony format.
 **Time:** 1.5 hours (for 2-week sprint)
 
 **Steps:**
+
 1. **Set retrospective time and agenda** - Schedule 1-2 days after sprint ends
    - Announce retro agenda to team
    - Use Confluence Expert to create retro page
@@ -205,6 +208,7 @@ See [Sprint Retrospective](#workflows) section for detailed retro format.
 **Time:** 1 hour per sprint cycle
 
 **Steps:**
+
 1. **Calculate sprint velocity** - After sprint ends
    - Velocity = total story points of completed work
    - Only count work marked "Done" (not in progress or review)
@@ -244,6 +248,7 @@ See [Velocity Tracking](#workflows) section for detailed metrics and reporting.
 This skill includes 4 Python automation tools for sprint metrics, backlog prioritization, and retrospective facilitation:
 
 ### sprint_metrics_calculator.py
+
 **6-Metric Sprint Health Analysis**
 
 Calculates comprehensive sprint metrics including velocity trends, completion rates, and a weighted health score.
@@ -266,6 +271,7 @@ python skills/delivery-team/scrum-master/scripts/sprint_metrics_calculator.py \
 ```
 
 **Health Score Components (6-metric weighted formula):**
+
 - Velocity Stability: 15% (stable=15, moderate=10, volatile=5)
 - Velocity Trend: 15% (increasing=15, stable=12, decreasing=5)
 - Completion Rate: 25% (>=95%=25, >=85%=20, >=70%=12, <70%=5)
@@ -278,6 +284,7 @@ python skills/delivery-team/scrum-master/scripts/sprint_metrics_calculator.py \
 ---
 
 ### prioritize_backlog.py
+
 **Value/Effort/Risk Backlog Prioritization**
 
 Standalone prioritization tool using value/effort/risk scoring formula, independent of RICE.
@@ -297,6 +304,7 @@ python skills/delivery-team/scrum-master/scripts/prioritize_backlog.py backlog.j
 ```
 
 **Input JSON format:**
+
 ```json
 [
   {"id": "PROJ-123", "title": "User auth", "value": 8, "effort": 5, "risk": 3},
@@ -311,6 +319,7 @@ python skills/delivery-team/scrum-master/scripts/prioritize_backlog.py backlog.j
 ---
 
 ### sprint_backlog_optimizer.py
+
 **RICE Integration + MCP Command Generation**
 
 Wraps RICE-prioritized output for sprint-specific optimization with Jira MCP command generation.
@@ -338,6 +347,7 @@ python skills/delivery-team/scrum-master/scripts/sprint_backlog_optimizer.py ric
 ---
 
 ### retro_format_selector.py
+
 **Intelligent Retrospective Format Recommendation**
 
 Recommends optimal retrospective format from 8 options based on team context.
@@ -361,6 +371,7 @@ python skills/delivery-team/scrum-master/scripts/retro_format_selector.py \
 ```
 
 **8 Supported Formats:**
+
 1. Start-Stop-Continue (default, all-purpose)
 2. Mad-Sad-Glad (emotional check-in)
 3. 4Ls (Liked, Learned, Lacked, Longed For)
@@ -396,24 +407,28 @@ The following sections provide comprehensive frameworks, ceremony patterns, and 
 ## Core Responsibilities
 
 **Sprint Facilitation**
+
 - Plan and run sprint ceremonies (planning, daily standup, review, retrospective)
 - Ensure team adheres to Scrum framework
 - Track sprint progress and velocity
 - Facilitate backlog refinement
 
 **Team Coaching**
+
 - Coach team on agile principles and Scrum practices
 - Build self-organizing, high-performing teams
 - Foster continuous improvement culture
 - Mentor team members on estimation and collaboration
 
 **Impediment Removal**
+
 - Identify and remove blockers quickly
 - Escalate critical issues to Senior PM
 - Shield team from external interruptions
 - Facilitate cross-team dependencies
 
 **Metrics & Reporting**
+
 - Track velocity, burndown, and sprint health
 - Report sprint outcomes and team capacity
 - Identify trends and improvement opportunities
@@ -422,6 +437,7 @@ The following sections provide comprehensive frameworks, ceremony patterns, and 
 ## Workflows
 
 ### Sprint Planning
+
 1. Review and refine product backlog with Product Owner
 2. Confirm team capacity and availability
 3. Facilitate sprint goal definition
@@ -431,6 +447,7 @@ The following sections provide comprehensive frameworks, ceremony patterns, and 
 7. **HANDOFF TO**: Team for execution
 
 ### Daily Standup
+
 1. Facilitate 15-minute timebox
 2. Each team member answers: What did I do? What will I do? Blockers?
 3. Update sprint board with progress
@@ -439,6 +456,7 @@ The following sections provide comprehensive frameworks, ceremony patterns, and 
 6. **USE**: Jira Expert to update board status
 
 ### Sprint Review
+
 1. Demonstrate completed work to stakeholders
 2. Gather feedback on delivered increment
 3. Update product backlog based on feedback
@@ -446,6 +464,7 @@ The following sections provide comprehensive frameworks, ceremony patterns, and 
 5. **USE**: Confluence Expert to document feedback
 
 ### Sprint Retrospective
+
 1. Review what went well and what didn't
 2. Identify actionable improvements
 3. Commit to 1-3 improvement actions
@@ -453,6 +472,7 @@ The following sections provide comprehensive frameworks, ceremony patterns, and 
 5. **USE**: Confluence Expert to document retrospective notes
 
 ### Backlog Refinement
+
 1. Review upcoming backlog items with team
 2. Break down large stories into smaller ones
 3. Clarify requirements and acceptance criteria
@@ -461,6 +481,7 @@ The following sections provide comprehensive frameworks, ceremony patterns, and 
 6. **USE**: Jira Expert to update and organize backlog
 
 ### Velocity Tracking
+
 1. Track completed story points per sprint
 2. Calculate rolling average velocity
 3. Identify velocity trends and anomalies
@@ -470,6 +491,7 @@ The following sections provide comprehensive frameworks, ceremony patterns, and 
 ## Decision Framework
 
 **When to Escalate to Senior PM**
+
 - Sprint goals at risk of not being met
 - Team velocity declining >20% for 2+ sprints
 - Critical impediments blocking entire team
@@ -477,6 +499,7 @@ The following sections provide comprehensive frameworks, ceremony patterns, and 
 - Cross-project dependencies blocking progress
 
 **When to Request Jira Expert**
+
 - Complex workflow configuration needed
 - Custom fields or issue types required
 - Advanced filtering or reporting needs
@@ -484,6 +507,7 @@ The following sections provide comprehensive frameworks, ceremony patterns, and 
 - Automation rules setup
 
 **When to Request Confluence Expert**
+
 - Team documentation structure needed
 - Meeting notes templates required
 - Decision log setup
@@ -492,6 +516,7 @@ The following sections provide comprehensive frameworks, ceremony patterns, and 
 ## Scrum Metrics
 
 **Sprint Health Indicators**:
+
 - Sprint burndown: On track vs. behind
 - Velocity trend: Stable, increasing, decreasing
 - Commitment reliability: % stories completed
@@ -499,6 +524,7 @@ The following sections provide comprehensive frameworks, ceremony patterns, and 
 - Sprint goal achievement rate
 
 **Team Health Indicators**:
+
 - Team morale and engagement
 - Collaboration quality
 - Technical debt accumulation
@@ -508,12 +534,14 @@ The following sections provide comprehensive frameworks, ceremony patterns, and 
 ## Handoff Protocols
 
 **FROM Senior PM**:
+
 - Project scope and objectives
 - Initial backlog priorities
 - Team composition
 - Sprint cadence and ceremony schedule
 
 **TO Senior PM**:
+
 - Sprint completion reports
 - Velocity trends and forecasts
 - Team capacity changes
@@ -521,12 +549,14 @@ The following sections provide comprehensive frameworks, ceremony patterns, and 
 - Risk identification
 
 **WITH Jira Expert**:
+
 - Sprint board configuration
 - Workflow status updates
 - Velocity and burndown data
 - Backlog organization
 
 **WITH Confluence Expert**:
+
 - Sprint planning documentation
 - Retrospective notes
 - Team agreements and working protocols
@@ -535,12 +565,14 @@ The following sections provide comprehensive frameworks, ceremony patterns, and 
 ## Agile Best Practices
 
 **Story Estimation**:
+
 - Use planning poker for team consensus
 - Estimate in story points (Fibonacci sequence)
 - Reference story for baseline
 - Re-estimate only when new information emerges
 
 **Definition of Done**:
+
 - Code reviewed and approved
 - All tests passing (unit, integration, E2E)
 - Documentation updated
@@ -548,6 +580,7 @@ The following sections provide comprehensive frameworks, ceremony patterns, and 
 - Acceptance criteria met
 
 **Definition of Ready**:
+
 - User story clearly defined
 - Acceptance criteria documented
 - Story estimated by team
@@ -565,10 +598,12 @@ The following sections provide comprehensive frameworks, ceremony patterns, and 
 ## Atlassian MCP Integration
 
 **Tools Used**:
+
 - Jira for sprint management, backlog, and velocity tracking
 - Confluence for ceremony notes, team documentation, and retrospectives
 
 **Key Actions**:
+
 - Use Jira MCP to create sprints, move issues, track progress
 - Use Jira MCP to generate burndown charts and velocity reports
 - Use Confluence MCP to create sprint planning and retrospective pages

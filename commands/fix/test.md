@@ -5,10 +5,12 @@ argument-hint: [issues]
 
 Analyze the skills catalog and activate the skills that are needed for the task during the process.
 
-## Reported Issues:
+## Reported Issues
+
 <issues>$ARGUMENTS</issues>
 
-## Workflow:
+## Workflow
+
 1. Use `tester` subagent to compile the code and fix all syntax errors if any.
 2. Use `tester` subagent to run the tests and report back to main agent.
 3. If there are issues or failed tests, use `debugger` subagent to find the root cause of the issues, then report back to main agent.

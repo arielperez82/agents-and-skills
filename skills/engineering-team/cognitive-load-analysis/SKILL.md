@@ -19,6 +19,7 @@ All scoring is done by the CLI calculator. Invoke from the skill root (or pass a
 **Path**: `lib/cli_calculator.py` (relative to this skill directory).
 
 **Normalize a dimension** (raw metrics in, normalized 0–1 out):
+
 ```bash
 python <skill-root>/lib/cli_calculator.py normalize-d1 '{"complexity_scores": [5, 10, 15]}'
 python <skill-root>/lib/cli_calculator.py normalize-d2 '{"nesting_depths": [2, 4, 6]}'
@@ -26,6 +27,7 @@ python <skill-root>/lib/cli_calculator.py normalize-d2 '{"nesting_depths": [2, 4
 ```
 
 **Aggregate dimension scores into final CLI**:
+
 ```bash
 python <skill-root>/lib/cli_calculator.py aggregate '{"D1": 0.45, "D2": 0.32, "D3": 0.28, "D4": 0.35, "D5": 0.40, "D6": 0.22, "D7": 0.18, "D8": 0.25}'
 ```

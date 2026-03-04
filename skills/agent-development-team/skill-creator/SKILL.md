@@ -11,12 +11,14 @@ This skill provides guidance for creating effective skills.
 ## When to Create Skills
 
 Skills are appropriate when:
+
 - Capability needed across multiple projects/conversations
 - Procedural knowledge that applies broadly (not project-specific)
 - Instructions should activate automatically on trigger patterns
 - Want portable expertise that loads progressively on-demand
 
 Not appropriate when:
+
 - Context is project-specific (use Project instructions instead)
 - One-off task (use standalone prompt instead)
 - For the detailed decision framework (when to use skills vs project instructions vs standalone prompts), use `/skill/find-local-skill` with "crafting instructions" or "instruction design"
@@ -77,6 +79,7 @@ skill-name/
 #### Naming Convention
 
 Use gerund form (verb + -ing):
+
 - ✅ `processing-pdfs`, `analyzing-data`, `creating-reports`
 - ❌ `pdf-helper`, `data-tool`, `report-maker`
 

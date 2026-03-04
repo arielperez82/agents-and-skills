@@ -5,6 +5,7 @@
 ## Expert Panel: ML Infrastructure Strategy
 
 **Panel Members:**
+
 - Dr. Sarah Chen, Software Architect
 - James Morrison, McKinsey Consultant
 - David Kumar, Finance Analyst
@@ -17,12 +18,14 @@
 The technical decision hinges on three factors: customization needs, team capability, and long-term flexibility.
 
 **Build Considerations:**
+
 - Full control over model architecture and feature engineering
 - Can optimize for MSD's specific assay data characteristics
 - Integration with existing Python data pipelines (pandas, scikit-learn already in use)
 - Team has Python/AWS expertise but limited ML ops experience
 
 **Buy Considerations:**
+
 - AWS SageMaker provides managed infrastructure we already use
 - Reduces time-to-production by 6-9 months
 - Built-in monitoring, versioning, A/B testing capabilities
@@ -37,6 +40,7 @@ The technical decision hinges on three factors: customization needs, team capabi
 Let's structure this with a classic make-vs-buy framework, examining strategic fit and capability gaps.
 
 **Issue Tree:**
+
 ```
 ML Infrastructure Decision
 ├─ Strategic Importance
@@ -63,12 +67,14 @@ ML Infrastructure Decision
 **5-Year TCO Comparison:**
 
 **Build Option:**
+
 - Year 1: $800K (3 ML engineers, AWS infrastructure)
 - Years 2-5: $450K/year (maintenance, scaling)
 - Total: $2.6M
 - Risk: High upfront investment, 12-18 month delay to revenue
 
 **Buy Option (SageMaker):**
+
 - Year 1: $120K (training, inference, storage)
 - Years 2-5: $180K/year (scales with model usage)
 - Total: $840K
@@ -87,17 +93,20 @@ ML Infrastructure Decision
 **Operational Reality Check:**
 
 **Current Infrastructure:**
+
 - AWS ECS for containers, Jenkins for CI/CD
 - No existing ML ops tooling (no MLflow, no model registry)
 - On-call team of 4, already at capacity for production incidents
 
 **Build Operational Cost:**
+
 - New on-call rotation for ML infrastructure (+1.5 FTE)
 - Model monitoring and drift detection systems (custom build = 6 months)
 - Integration with existing observability stack (DataDog)
 - Training required: team has limited Kubernetes/Kubeflow experience
 
 **Buy Operational Benefits:**
+
 - SageMaker integrates with existing AWS IAM, CloudWatch, ECS
 - Managed endpoints eliminate infra on-call burden
 - Built-in model registry, versioning, rollback
@@ -113,6 +122,7 @@ ML Infrastructure Decision
 **Recommend:** Start with AWS SageMaker for ML infrastructure, build custom explainability layer for regulatory compliance.
 
 **Rationale:**
+
 1. **Strategic:** ML infrastructure is not core competency (Chen, Morrison)
 2. **Financial:** 3x cost advantage, faster time-to-revenue (Kumar)
 3. **Operational:** Reduces operational burden on constrained team (Torres)
@@ -121,11 +131,13 @@ ML Infrastructure Decision
 **Agree:** Engineering leadership, Finance, Quality/Regulatory
 
 **Perform:**
+
 - Platform team: SageMaker setup and integration
 - ML team: Model development and explainability layer
 - DevOps: Monitoring and deployment automation
 
 **Input:**
+
 - Regulatory: Explainability requirements review
 - Customer Success: Model performance SLAs
 - Security: Vendor risk assessment
@@ -133,6 +145,7 @@ ML Infrastructure Decision
 **Decide:** VP Engineering (with CFO sign-off for budget)
 
 **Implementation Roadmap:**
+
 1. Month 1-2: SageMaker pilot with one non-critical model
 2. Month 3-4: Build custom explainability wrapper for regulatory-critical models
 3. Month 5-6: Production deployment with monitoring

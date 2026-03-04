@@ -109,11 +109,14 @@ The ux-researcher agent bridges the gap between user insights and product decisi
 **Goal:** Create research-backed user personas from interview data, analytics, and behavioral research
 
 **Steps:**
+
 1. **Plan Research Study** - Define persona research scope:
+
    ```bash
    cp ../skills/ux-team/ux-researcher-designer/assets/research-plan-template.md .docs/canonical/plans/plan-repo-research-persona-2026.md
    # When the plan belongs to an initiative, add initiative + initiative_name to front matter (see .docs/AGENTS.md initiative naming).
    ```
+
    - Research objectives: Understand user segments and their needs
    - Research questions: Who are our users? What are their goals? What problems do they face?
    - Methods: User interviews (15-20), surveys (200+ responses), analytics analysis
@@ -142,6 +145,7 @@ The ux-researcher agent bridges the gap between user insights and product decisi
    - Prioritization: Focus on primary (80% users) and secondary personas
 
 4. **Structure Persona Data** - Create JSON input for persona generator:
+
    ```json
    {
      "research_participants": 18,
@@ -175,6 +179,7 @@ The ux-researcher agent bridges the gap between user insights and product decisi
    ```
 
 5. **Generate Personas** - Run persona generator tool:
+
    ```bash
    python ../skills/ux-team/ux-researcher-designer/scripts/persona_generator.py research-data.json --output human
    ```
@@ -205,6 +210,7 @@ The ux-researcher agent bridges the gap between user insights and product decisi
 **Time Estimate:** 3-4 weeks for complete persona research and development (15-20 interviews + synthesis)
 
 **Example:**
+
 ```bash
 # Complete persona development workflow
 cat > user-research-data.json << 'EOF'
@@ -233,6 +239,7 @@ python ../skills/ux-team/ux-researcher-designer/scripts/persona_generator.py use
 **Goal:** Conduct moderated usability testing to identify interface issues and validate design decisions
 
 **Steps:**
+
 1. **Define Test Objectives** - Clarify what you're testing:
    - New feature validation: Does the new design work?
    - Problem identification: Where do users struggle?
@@ -240,9 +247,11 @@ python ../skills/ux-team/ux-researcher-designer/scripts/persona_generator.py use
    - Competitive analysis: How do we compare to competitors?
 
 2. **Create Test Plan** - Document study details:
+
    ```bash
    cp ../skills/ux-team/ux-researcher-designer/assets/research-plan-template.md .docs/canonical/plans/plan-repo-research-usability-test-2026.md
    ```
+
    - Research questions: What do we want to learn?
    - Tasks: 5-7 realistic user tasks
    - Participants: 5-8 users per persona segment
@@ -250,15 +259,18 @@ python ../skills/ux-team/ux-researcher-designer/scripts/persona_generator.py use
    - Timeline: 1-2 weeks (recruit → test → analyze)
 
 3. **Develop Task Scenarios** - Create realistic tasks:
+
    ```bash
    cat ../skills/ux-team/ux-researcher-designer/references/usability_testing_guide.md | grep -A 20 "Task Scenarios"
    ```
+
    - **Realistic**: Based on actual use cases
    - **Goal-oriented**: Focus on what users want to accomplish (not how)
    - **Specific**: Clear starting point and success criteria
    - **Unbiased**: Don't use interface language or hints
 
    Example Task:
+
    ```
    You need to schedule a recurring team meeting every Monday at 10am.
    Create this meeting and invite your team members.
@@ -288,9 +300,11 @@ python ../skills/ux-team/ux-researcher-designer/scripts/persona_generator.py use
    - **Positive Findings**: What worked well, exceeded expectations
 
 7. **Rate Issue Severity** - Prioritize findings:
+
    ```bash
    cat ../skills/ux-team/ux-researcher-designer/references/usability_testing_guide.md | grep -A 15 "Severity Rating"
    ```
+
    - **Critical (P0)**: Prevents task completion, affects all users
    - **High (P1)**: Major obstacle, affects most users, workarounds exist
    - **Medium (P2)**: Causes confusion/errors for some users
@@ -318,10 +332,13 @@ python ../skills/ux-team/ux-researcher-designer/scripts/persona_generator.py use
 **Goal:** Analyze user interviews to extract themes, pain points, and opportunities
 
 **Steps:**
+
 1. **Conduct User Interviews** - Gather qualitative insights:
+
    ```bash
    cat ../skills/ux-team/ux-researcher-designer/references/ux_research_methods.md | grep -A 30 "User Interviews"
    ```
+
    - Sample size: 10-15 interviews for pattern saturation
    - Duration: 45-60 minutes per interview
    - Format: Semi-structured (prepared questions, flexible flow)
@@ -366,6 +383,7 @@ python ../skills/ux-team/ux-researcher-designer/scripts/persona_generator.py use
    - **Low Priority**: Rare issues or low-impact improvements
 
 7. **Create Insight Report** - Document research findings:
+
    ```markdown
    # User Research Insights Report
 
@@ -407,6 +425,7 @@ python ../skills/ux-team/ux-researcher-designer/scripts/persona_generator.py use
 **Goal:** Validate feature concepts with users before development using lightweight research methods
 
 **Steps:**
+
 1. **Define Validation Questions** - What do we need to learn?
    - Does this feature solve a real user problem?
    - Will users understand how to use it?
@@ -415,9 +434,11 @@ python ../skills/ux-team/ux-researcher-designer/scripts/persona_generator.py use
    - What concerns or objections exist?
 
 2. **Select Research Method** - Choose appropriate technique:
+
    ```bash
    cat ../skills/ux-team/ux-researcher-designer/references/ux_research_methods.md | grep "^## " | head -10
    ```
+
    - **Concept Testing**: Show mockups, measure reactions
    - **Prototype Testing**: Interactive prototype, task-based testing
    - **Survey**: Quantitative validation with large sample
@@ -459,6 +480,7 @@ python ../skills/ux-team/ux-researcher-designer/scripts/persona_generator.py use
    - **No-Go**: <30% intent, unclear value, fundamental problems
 
 8. **Document Validation Findings** - Create decision artifact:
+
    ```markdown
    # Feature Validation Report: [Feature Name]
 
@@ -620,24 +642,28 @@ echo "- Usability Testing: ../skills/ux-team/ux-researcher-designer/references/u
 ## Success Metrics
 
 **Research Quality:**
+
 - **Persona Accuracy:** >85% product team agreement that personas reflect real users
 - **Research Coverage:** 3-5 validated personas covering 90%+ of user base
 - **Insight Actionability:** 70%+ of research findings lead to product decisions
 - **Sample Size:** 10-15 interviews for qualitative, 200+ for quantitative validation
 
 **Usability Testing Impact:**
+
 - **Issue Identification:** Average 15-20 usability issues per study (5-8 participants)
 - **Issue Resolution:** 80%+ of critical issues addressed before launch
 - **Task Success Rate:** >80% task completion after design iteration
 - **Satisfaction Improvement:** +20 points NPS improvement post-redesign
 
 **Research Velocity:**
+
 - **Persona Development:** <4 weeks from research start to validated personas
 - **Usability Testing:** <2 weeks from planning to insights delivery
 - **Interview Synthesis:** <1 week from interviews to insight report
 - **Feature Validation:** <1 week for concept testing (8 participants)
 
 **Business Impact:**
+
 - **Feature Adoption:** >60% adoption for research-validated features
 - **User Satisfaction:** +15% increase in CSAT for research-informed redesigns
 - **Development Efficiency:** 30% reduction in rework due to early validation

@@ -57,6 +57,7 @@ Skill content supports dynamic values at invocation time:
 | `` !`command` `` | Shell preprocessing. Command runs before Claude sees the content; output replaces the placeholder. |
 
 **Design implications:**
+
 - Use `$ARGUMENTS` when the skill accepts free-form input (file paths, issue numbers)
 - Use positional args (`$0`, `$1`) when the skill expects structured input (e.g., `/migrate-component SearchBar React Vue`)
 - Use `` !`command` `` to inject live context (git status, PR diff) — pairs well with `context: fork`
@@ -192,6 +193,7 @@ When spawning a subagent via the Task tool, include:
 4. **What tools to use** — specify the subagent_type so it has appropriate tools
 
 **Good prompt:**
+
 ```
 Read all files in plugins/my-skill/skills/my-skill/. Check that:
 1. SKILL.md has valid YAML frontmatter with name and description
@@ -202,6 +204,7 @@ Return a pass/fail checklist with details for each failure.
 ```
 
 **Bad prompt:**
+
 ```
 Review the skill and tell me if it's good.
 ```

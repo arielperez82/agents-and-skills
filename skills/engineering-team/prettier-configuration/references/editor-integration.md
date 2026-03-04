@@ -127,11 +127,13 @@ If the extension fails to load `prettier.config.ts`:
 
 1. Verify your VS Code is using Node 22+ (check `prettier.nodeVersion` in output panel).
 2. Set the Prettier extension to use the workspace Node version:
+
    ```json
    {
      "prettier.resolveGlobalModules": false
    }
    ```
+
 3. As a fallback, create a thin `prettier.config.mjs` that re-exports the `.ts` config. This is rarely needed with current extension versions.
 
 ## Cursor Editor
@@ -189,6 +191,7 @@ If another extension formats the file differently, the per-language `editor.defa
 ### Slow formatting
 
 If format-on-save is slow:
+
 - Ensure Prettier is installed locally (not globally). The extension uses the local installation.
 - Use `--cache` in CLI commands but note the extension does its own caching.
 - Large files (>1MB) are slow to format. Consider adding them to `.prettierignore`.

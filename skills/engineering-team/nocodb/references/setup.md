@@ -392,6 +392,6 @@ Before proceeding to external data source setup:
 
 ## References
 
-- **NocoDB Documentation:** https://nocodb.com/docs/tags/getting-started
-- **Docker Compose:** https://docs.docker.com/compose/
-- **Trivy:** https://aquasecurity.github.io/trivy/
+- **NocoDB Documentation:** <https://nocodb.com/docs/tags/getting-started>
+- **Docker Compose:** <https://docs.docker.com/compose/>
+- **Trivy:** <https://aquasecurity.github.io/trivy/>

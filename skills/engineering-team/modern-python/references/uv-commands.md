@@ -187,6 +187,7 @@ uv sync  # creates .venv-dev on host
 ```
 
 Add both to `.gitignore`:
+
 ```
 .venv/
 .venv-dev/

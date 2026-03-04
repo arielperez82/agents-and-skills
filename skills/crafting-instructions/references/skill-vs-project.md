@@ -5,11 +5,13 @@ Comprehensive guide to understanding when to use Skills versus Project instructi
 ## Core Distinction
 
 **Projects:** "Here's what you need to know" (declarative knowledge)
+
 - Static reference material always loaded
 - Background knowledge for specific initiative
 - Team workspace with shared context
 
 **Skills:** "Here's how to do things" (procedural knowledge)
+
 - Dynamic expertise loading on-demand
 - Portable capabilities across conversations
 - Methods that work everywhere
@@ -21,9 +23,10 @@ Comprehensive guide to understanding when to use Skills versus Project instructi
 You have extensive domain knowledge but need consistent execution methods.
 
 **Example:**
+
 - **Project:** "Legal Contract Review"
   - Contains: 50+ template contracts, past negotiations, company policies
-- **Add Skills:** 
+- **Add Skills:**
   - `contract-analysis` - How to structure reviews systematically
   - `redline-standards` - How to mark changes consistently
   - `risk-assessment` - How to evaluate clause liability
@@ -35,6 +38,7 @@ You have extensive domain knowledge but need consistent execution methods.
 Project approaches context limits but needs specialized capabilities.
 
 **Example:**
+
 - **Project:** "Product Development"
   - Contains: Specs, user research, competitive analysis (approaching 200K tokens)
 - **Add Skills:**
@@ -49,6 +53,7 @@ Project approaches context limits but needs specialized capabilities.
 Multiple projects need same execution patterns.
 
 **Example:**
+
 - **Projects:** "Client A Implementation", "Client B Implementation", "Client C Implementation"
 - **Add Skills:**
   - `deployment-checklist` - Consistent deployment procedures
@@ -64,6 +69,7 @@ Multiple projects need same execution patterns.
 General-purpose Skill needs scoping to specific reference material.
 
 **Example:**
+
 - **Skill:** `competitive-analysis` - General framework for analyzing competitors
 - **Add Project:** "Q4 Market Intelligence"
   - Contains: Recent industry reports, your product roadmap, target market data
@@ -75,6 +81,7 @@ General-purpose Skill needs scoping to specific reference material.
 Multiple team members need shared knowledge while using Skills.
 
 **Example:**
+
 - **Skills:** `brand-guidelines`, `content-review`, `seo-optimization`
 - **Add Project:** "Website Redesign 2025"
   - Contains: Design mockups, copy drafts, stakeholder feedback
@@ -87,6 +94,7 @@ Multiple team members need shared knowledge while using Skills.
 Time-bound work with specific data needs but proven methods.
 
 **Example:**
+
 - **Skills:** `financial-modeling`, `data-visualization`, `risk-analysis`
 - **Add Project:** "2025 Budget Planning"
   - Contains: Historical data, department requests, economic forecasts
@@ -142,6 +150,7 @@ Is this knowledge organization-wide or project-specific?
 ### Example 1: Research Agent
 
 **Setup:**
+
 ```
 Project: "Competitive Intelligence"
 ├─ Knowledge: Industry reports, competitor docs, customer feedback
@@ -153,6 +162,7 @@ Skills:
 ```
 
 **Why both?**
+
 - Project: Provides "what we know about our market"
 - Skills: Provide "how to analyze competitors systematically"
 - Result: Contextually aware + methodologically consistent research agent
@@ -160,6 +170,7 @@ Skills:
 ### Example 2: Development Team
 
 **Setup:**
+
 ```
 Project: "Backend API Development"
 ├─ Knowledge: API specs, database schema, integration requirements
@@ -172,6 +183,7 @@ Skills:
 ```
 
 **Why both?**
+
 - Project: Specific API requirements and team context
 - Skills: Reusable development practices across all projects
 - Result: Project-specific implementation with consistent quality standards
@@ -179,6 +191,7 @@ Skills:
 ### Example 3: Content Creation
 
 **Setup:**
+
 ```
 Project: "Marketing Campaign Q4"
 ├─ Knowledge: Brand guidelines, campaign brief, target personas
@@ -191,6 +204,7 @@ Skills:
 ```
 
 **Why both?**
+
 - Project: Campaign-specific messaging and context
 - Skills: Portable content creation capabilities
 - Result: On-brand, optimized content for this campaign
@@ -200,6 +214,7 @@ Skills:
 ### ❌ Duplicating Procedures Across Projects
 
 **Bad:**
+
 ```
 Project A Instructions: "When analyzing data, first clean, then normalize, 
 then apply statistical tests..."
@@ -212,6 +227,7 @@ then apply statistical tests..."
 ```
 
 **Good:**
+
 ```
 Skill: data-analysis
 └─ Contains systematic analysis procedures
@@ -223,12 +239,14 @@ Projects A, B, C:
 ### ❌ Putting Reference Material in Skills
 
 **Bad:**
+
 ```
 Skill: q4-market-data
 └─ Contains: Q4 competitor reports, market trends, customer data
 ```
 
 **Good:**
+
 ```
 Project: "Q4 Market Intelligence"
 └─ Contains: Q4 reports, trends, customer data
@@ -240,6 +258,7 @@ Skill: competitive-analysis
 ### ❌ Project Instructions for Cross-Project Capabilities
 
 **Bad:**
+
 ```
 Project: "Client A Implementation"
 Instructions: 
@@ -251,6 +270,7 @@ Instructions:
 ```
 
 **Good:**
+
 ```
 Skills:
 ├─ security-review (reusable across all clients)
@@ -264,12 +284,14 @@ Projects: Client A, B, C
 ### ❌ Skill for Workspace-Specific Knowledge
 
 **Bad:**
+
 ```
 Skill: team-onboarding-materials
 └─ Contains: Company policies, team directory, internal tools
 ```
 
 **Good:**
+
 ```
 Project: "Team Onboarding"
 └─ Contains: Policies, directory, tool access
@@ -281,26 +303,31 @@ Project: "Team Onboarding"
 Using Projects AND Skills together creates powerful workflows:
 
 **Benefit 1: Separation of Concerns**
+
 - Project: Domain knowledge and context
 - Skills: Methods and procedures
 - Result: Clean separation, easy to update each independently
 
 **Benefit 2: Token Efficiency**
+
 - Project: Always-relevant context
 - Skills: Load only when needed
 - Result: Maximum context window utilization
 
 **Benefit 3: Reusability**
+
 - Project: Initiative-specific
 - Skills: Organization-wide
 - Result: Build once, use everywhere
 
 **Benefit 4: Collaboration**
+
 - Project: Team shared workspace
 - Skills: Individual or org-deployed capabilities
 - Result: Team context + portable expertise
 
 **Benefit 5: Evolution**
+
 - Project: Update as initiative evolves
 - Skills: Refine as methods improve
 - Result: Both improve independently
@@ -312,6 +339,7 @@ Using Projects AND Skills together creates powerful workflows:
 **When:** Project instructions exceed ~1000 words and include procedures
 
 **Process:**
+
 1. Identify procedural content in project instructions
 2. Extract procedures into Skills
 3. Keep context and requirements in project
@@ -319,6 +347,7 @@ Using Projects AND Skills together creates powerful workflows:
 5. Iterate based on usage
 
 **Example:**
+
 ```
 Before: Project "Data Science"
 ├─ 2000 words of instructions
@@ -339,6 +368,7 @@ After: Project "Data Science"
 **When:** Using same Skills repeatedly on related work
 
 **Process:**
+
 1. Identify common context needed across conversations
 2. Create project with that context
 3. Keep Skills for capabilities
@@ -346,6 +376,7 @@ After: Project "Data Science"
 5. Skills still work everywhere else
 
 **Example:**
+
 ```
 Before: Skills
 ├─ competitive-analysis
@@ -363,13 +394,15 @@ Project provides workspace for market-related work
 
 ## When Neither Is Right
 
-### Use Standalone Prompts When:
+### Use Standalone Prompts When
+
 - One-off request with unique context
 - Experimenting with approaches
 - Task doesn't need persistence
 - No reuse expected
 
-### Use Other Tools When:
+### Use Other Tools When
+
 - Need data access → MCP
 - Need specialized agents → Subagents (Claude Code)
 - Need API integration → API with custom instructions
@@ -378,24 +411,28 @@ Project provides workspace for market-related work
 ## Summary: Quick Decision Guide
 
 **Choose Project when:**
+
 - ✓ Need persistent context for workspace
 - ✓ Team collaboration required
 - ✓ Background knowledge for initiative
 - ✓ Workspace-scoped behavior
 
 **Choose Skill when:**
+
 - ✓ Capability needed across contexts
 - ✓ Procedural knowledge to teach
 - ✓ Want automatic activation
 - ✓ Portable expertise desired
 
 **Choose Both when:**
+
 - ✓ Have persistent context AND reusable methods
 - ✓ Large knowledge base AND specialized procedures
 - ✓ Team workspace AND consistent capabilities
 - ✓ Want maximum efficiency and flexibility
 
 **Choose Neither when:**
+
 - ✓ One-off request
 - ✓ Simple prompt suffices
 - ✓ No persistence needed

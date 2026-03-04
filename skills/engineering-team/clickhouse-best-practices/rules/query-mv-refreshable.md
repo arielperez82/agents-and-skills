@@ -12,6 +12,7 @@ tags: [query, materialized-view, refresh, batch]
 Refreshable MVs execute queries periodically on a schedule. The full query re-executes and overwrites (or appends to) the target table.
 
 **Best for:**
+
 - Sub-millisecond latency where minor staleness is acceptable
 - Caching "top N" results or lookup tables
 - Complex multi-table joins requiring denormalization

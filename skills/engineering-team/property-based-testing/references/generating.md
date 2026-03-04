@@ -17,6 +17,7 @@ How to create complete, runnable property-based tests.
 Create appropriate generator strategies for each input parameter.
 
 **Principles**:
+
 - Build constraints INTO the strategy, not via `assume()`
 - Use realistic size limits to prevent slow tests
 - Match real-world constraints
@@ -39,6 +40,7 @@ Create appropriate generator strategies for each input parameter.
 ### 4. Generate Test Code
 
 Create test functions with:
+
 - Clear docstrings explaining what each property verifies
 - Appropriate `@settings` for the context
 - `@example` decorators for critical edge cases
@@ -46,6 +48,7 @@ Create test functions with:
 ### 5. Include Edge Cases
 
 Always add explicit examples:
+
 ```python
 @example([])           # Empty
 @example([1])          # Single element
@@ -190,10 +193,12 @@ pytest test_file.py --hypothesis-show-statistics
 ## Red Flags
 
 - **Reimplementing the function**: If your assertion contains the same logic as the function under test, you've written a tautology
+
   ```python
   # BAD - this tests nothing
   assert add(a, b) == a + b
   ```
+
 - **Only testing "no crash"**: This is the weakest property - always look for stronger ones first
 - **Overly constrained strategies**: If you're using multiple `assume()` calls, redesign the strategy instead
 - **Missing edge cases**: No `@example` decorators for empty, single-element, or boundary values

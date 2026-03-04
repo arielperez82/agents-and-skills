@@ -17,7 +17,7 @@ Comprehensive comparison of React Native, Flutter, and Expo for cross-platform m
 
 ## When to Choose Each
 
-### Choose React Native When:
+### Choose React Native When
 
 - **Team has JavaScript/TypeScript expertise** - Leverage existing skills
 - **Existing React web app** - Share logic and patterns
@@ -26,12 +26,13 @@ Comprehensive comparison of React Native, Flutter, and Expo for cross-platform m
 - **Gradual migration** - Can embed in existing native apps
 
 **Typical Use Cases:**
+
 - Social media apps
 - E-commerce apps
 - Apps requiring platform-native feel
 - Teams with React web experience
 
-### Choose Flutter When:
+### Choose Flutter When
 
 - **UI consistency is critical** - Same pixels on every platform
 - **Custom, branded UI** - Material Design or complete custom
@@ -40,12 +41,13 @@ Comprehensive comparison of React Native, Flutter, and Expo for cross-platform m
 - **Greenfield project** - No existing codebase constraints
 
 **Typical Use Cases:**
+
 - Fintech and banking apps
 - Brand-heavy consumer apps
 - Internal business apps
 - Apps targeting web + mobile
 
-### Choose Expo When:
+### Choose Expo When
 
 - **Rapid prototyping** - Fastest path to app
 - **Small team / solo developer** - Managed complexity
@@ -54,6 +56,7 @@ Comprehensive comparison of React Native, Flutter, and Expo for cross-platform m
 - **Limited native needs** - Expo SDK covers requirements
 
 **Typical Use Cases:**
+
 - MVP and prototypes
 - Content apps
 - Simple utilities
@@ -74,6 +77,7 @@ Comprehensive comparison of React Native, Flutter, and Expo for cross-platform m
 ### Architecture & Code Structure
 
 **React Native:**
+
 ```javascript
 // Component-based, similar to React web
 import { View, Text, TouchableOpacity } from 'react-native';
@@ -88,6 +92,7 @@ const MyComponent = ({ onPress, title }) => (
 ```
 
 **Flutter:**
+
 ```dart
 // Widget-based, declarative
 class MyWidget extends StatelessWidget {
@@ -107,6 +112,7 @@ class MyWidget extends StatelessWidget {
 ```
 
 **Expo:**
+
 ```javascript
 // Same as React Native, managed workflow
 import { View, Text, Pressable } from 'react-native';
@@ -123,6 +129,7 @@ const MyComponent = ({ onPress, title }) => (
 ### Native Access Patterns
 
 **React Native - Native Modules:**
+
 ```javascript
 // JavaScript side
 import { NativeModules } from 'react-native';
@@ -132,6 +139,7 @@ const level = await BatteryModule.getBatteryLevel();
 ```
 
 **Flutter - Platform Channels:**
+
 ```dart
 // Dart side
 const channel = MethodChannel('com.example/battery');
@@ -139,6 +147,7 @@ final level = await channel.invokeMethod('getBatteryLevel');
 ```
 
 **Expo - Limited to SDK:**
+
 ```javascript
 // Must use Expo SDK or eject
 import * as Battery from 'expo-battery';
@@ -165,16 +174,19 @@ const level = await Battery.getBatteryLevelAsync();
 ## Performance Benchmarks
 
 ### Startup Time (Cold Start)
+
 - React Native: 1.5-2.5s
 - Flutter: 1.0-2.0s
 - Expo: 2.0-3.0s
 
 ### Memory Usage
+
 - React Native: Medium
 - Flutter: Medium-High
 - Expo: Medium
 
 ### Animation Performance
+
 - React Native: 60fps (with native driver)
 - Flutter: 60fps (optimized)
 - Expo: 60fps (with native driver)
@@ -204,16 +216,19 @@ const level = await Battery.getBatteryLevelAsync();
 ## Migration Paths
 
 ### Expo → React Native
+
 - Eject to bare workflow
 - Gradually add native modules
 - Keep using Expo SDK where possible
 
 ### React Native → Flutter
+
 - Rewrite required (different language)
 - Can share backend logic
 - Consider hybrid during transition
 
 ### Flutter → React Native
+
 - Rewrite required
 - Can share business logic via shared modules
 - Consider embedding approach
@@ -221,6 +236,7 @@ const level = await Battery.getBatteryLevelAsync();
 ## Recommendations by Team Size
 
 ### Solo Developer / Small Team (1-3)
+
 **Recommendation:** Expo
 
 - Fastest iteration
@@ -228,12 +244,14 @@ const level = await Battery.getBatteryLevelAsync();
 - Good enough for most apps
 
 ### Medium Team (4-10)
+
 **Recommendation:** React Native or Flutter
 
 - React Native if JS expertise
 - Flutter if starting fresh or UI-critical
 
 ### Large Team (10+)
+
 **Recommendation:** Flutter or React Native (bare)
 
 - Better tooling for large codebases
