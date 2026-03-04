@@ -12,12 +12,18 @@ if [ ! -f "$SKILL_PATH" ]; then
 fi
 
 TOTAL=$(wc -l < "$SKILL_PATH")
-SECTIONS=$(grep -c "^#" "$SKILL_PATH" || echo 0)
-CODE_BLOCKS=$(($(grep -c '```' "$SKILL_PATH" || echo 0) / 2))
-ASCII_LINES=$(grep -cE '┌|└|│|─|╭|╰|├|╮|╯' "$SKILL_PATH" || echo 0)
-BLANK_LINES=$(grep -c '^$' "$SKILL_PATH" || echo 0)
+SECTIONS=$(grep -c "^#" "$SKILL_PATH" || true)
+SECTIONS=${SECTIONS:-0}
+CODE_BLOCKS=$(grep -c '```' "$SKILL_PATH" || true)
+CODE_BLOCKS=$(( ${CODE_BLOCKS:-0} / 2 ))
+ASCII_LINES=$(grep -cE '┌|└|│|─|╭|╰|├|╮|╯' "$SKILL_PATH" || true)
+ASCII_LINES=${ASCII_LINES:-0}
 FRONTMATTER_LINES=$(awk '/^---$/{c++; if(c==2) {print NR; exit}}' "$SKILL_PATH")
 FRONTMATTER_LINES=${FRONTMATTER_LINES:-0}
+# Count blank lines only in the body (after frontmatter) to avoid double-subtracting
+BODY_START=$((FRONTMATTER_LINES + 1))
+BLANK_LINES=$(tail -n +"$BODY_START" "$SKILL_PATH" | grep -c '^$' || true)
+BLANK_LINES=${BLANK_LINES:-0}
 
 CONTENT_LINES=$((TOTAL - BLANK_LINES - FRONTMATTER_LINES))
 if [ "$TOTAL" -gt 0 ]; then
