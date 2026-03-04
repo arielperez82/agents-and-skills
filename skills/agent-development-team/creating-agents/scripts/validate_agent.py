@@ -76,6 +76,12 @@ def resolve_skill_path(skill: str, root: Path) -> Path:
     return team_path
 
 
+def has_section(body: str, title: str) -> bool:
+    """Check if body contains a markdown heading with the given title (case-insensitive, flexible spacing)."""
+    pattern = r"^#{1,3}\s+" + re.escape(title) + r"(\s|$)"
+    return bool(re.search(pattern, body, re.MULTILINE | re.IGNORECASE))
+
+
 def validate_agent(agent_path: Path):
     critical = []
     high = []
@@ -179,7 +185,7 @@ def validate_agent(agent_path: Path):
         high.append("agents/README.md not found")
 
     if skills_list:
-        skill_integration_present = "## Skill Integration" in body or "# Skill Integration" in body
+        skill_integration_present = has_section(body, "Skill Integration")
         for skill in skills_list:
             if isinstance(skill, str):
                 skill_name = skill.split("/")[-1]
@@ -220,19 +226,19 @@ def validate_agent(agent_path: Path):
     if loose_color_pattern.search(lines_outside_classification):
         high.append("Loose 'color:' field found outside classification block")
 
-    if "## Purpose" not in body and "# Purpose" not in body:
+    if not has_section(body, "Purpose"):
         medium.append("Missing '## Purpose' section")
 
-    if skills_list and "## Skill Integration" not in body and "# Skill Integration" not in body:
+    if skills_list and not has_section(body, "Skill Integration"):
         medium.append("Missing '## Skill Integration' section (skills are declared)")
 
-    if "## Workflows" not in body and "# Workflows" not in body and "## Workflow" not in body:
+    if not has_section(body, "Workflows") and not has_section(body, "Workflow"):
         medium.append("Missing '## Workflows' section")
 
-    if "## Success Metrics" not in body and "# Success Metrics" not in body:
+    if not has_section(body, "Success Metrics"):
         medium.append("Missing '## Success Metrics' section")
 
-    if "## Related Agents" not in body and "# Related Agents" not in body:
+    if not has_section(body, "Related Agents"):
         medium.append("Missing '## Related Agents' section")
 
     return {"critical": critical, "high": high, "medium": medium}
