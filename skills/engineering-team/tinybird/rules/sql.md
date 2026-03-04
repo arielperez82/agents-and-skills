@@ -11,7 +11,7 @@
 
 - SQL must be valid ClickHouse SQL with Tinybird templating (Tornado).
 - Only SELECT statements are allowed.
-- Avoid CTEs; use nodes or subqueries instead.
+- Avoid CTEs; use nodes or subqueries instead. If CTEs are unavoidable within a node, see "Multi-node pipes: always use explicit column aliases" below.
 - Do not use system tables (system.tables, system.datasources, information_schema.tables).
 - Do not use CREATE/INSERT/DELETE/TRUNCATE or currentDatabase().
 
@@ -123,6 +123,22 @@ LEFT JOIN (SELECT id, max(ts) AS max_ts FROM other GROUP BY id) AS sub ON base.i
 ### Pipe nodes compile to CTEs — no scalar subqueries referencing outer FROM
 
 Tinybird compiles pipe nodes into CTEs internally. Scalar subqueries inside SELECT cannot reference outer FROM aliases. Structure queries so each node is self-contained.
+
+### Multi-node pipes: always use explicit column aliases in final SELECT
+
+When Tinybird Forward (cloud) compiles multi-node pipes, each node is inlined as a subquery. If a node's final `SELECT` uses qualified column references (e.g., `pa.pending_count` from a CTE or subquery alias), the outer node cannot resolve them through the subquery alias (e.g., `rd.pending_count` fails with "no column in Data Source").
+
+This works in Tinybird Local but **fails on cloud deploy**. Always add explicit `AS` aliases to the final SELECT of every non-endpoint node.
+
+```sql
+-- BAD: qualified reference loses column name after inlining
+SELECT pa.pending_count, ps.median_seconds FROM pending_agg AS pa CROSS JOIN proc AS ps
+
+-- GOOD: explicit aliases survive inlining as subquery
+SELECT pa.pending_count AS pending_count, ps.median_seconds AS median_seconds FROM pending_agg AS pa CROSS JOIN proc AS ps
+```
+
+This is especially important when a node uses CTEs (`WITH`) — the CTE alias qualifiers do not propagate through the subquery boundary.
 
 ### LEFT JOIN returns 0 for non-Nullable columns on unmatched rows
 
