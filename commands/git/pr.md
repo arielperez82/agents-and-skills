@@ -1,6 +1,6 @@
 ---
 description: Create a pull request
-argument-hint: [branch] [from-branch]
+argument-hint: "[branch] [from-branch]"
 ---
 
 ## Variables

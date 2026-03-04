@@ -47,7 +47,6 @@ collaborates-with:
     purpose: Backend integration for resolvers, data sources, and database optimization
     required: optional
     without-collaborator: "Resolver implementation may require additional backend expertise"
-collaborates-with:
   - agent: architect
     purpose: High-level API architecture decisions and technology stack evaluation
     required: optional

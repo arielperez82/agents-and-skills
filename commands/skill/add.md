@@ -1,6 +1,6 @@
 ---
 description: Add new reference files or scripts to a skill
-argument-hint: [skill-name] [reference-or-script-prompt]
+argument-hint: "[skill-name] [reference-or-script-prompt]"
 ---
 
 Think harder.

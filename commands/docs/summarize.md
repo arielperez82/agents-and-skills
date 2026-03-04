@@ -1,6 +1,6 @@
 ---
 description: ⚡ Summarize the codebase based on existing documentation
-argument-hint: [focused-topics] [should-scan-codebase]
+argument-hint: "[focused-topics] [should-scan-codebase]"
 ---
 
 Use `docs-manager` agent to analyze the codebase based on `docs/codebase-summary.md` and respond with a summary report.

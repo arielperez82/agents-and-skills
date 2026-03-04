@@ -1,6 +1,6 @@
 ---
-description: ⚡⚡ Scout given directories to respond to the user's requests (adaptive: external tools preferred, internal tools fallback)
-argument-hint: [user-prompt] [scale]
+description: "⚡⚡ Scout given directories to respond to the user's requests (adaptive: external tools preferred, internal tools fallback)"
+argument-hint: "[user-prompt] [scale]"
 ---
 
 ## Purpose

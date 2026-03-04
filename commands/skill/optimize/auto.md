@@ -1,6 +1,6 @@
 ---
 description: Optimize an existing agent skill [auto]
-argument-hint: [skill-name] [prompt]
+argument-hint: "[skill-name] [prompt]"
 ---
 
 Think harder.

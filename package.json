@@ -12,7 +12,8 @@
     "test:unit": "pnpm -r run test:unit",
     "lint-staged": "pnpx lint-staged",
     "lint:changed": "lint-changed",
-    "hooks:install": "pnpm --filter lint-changed run install-hook"
+    "hooks:install": "pnpm --filter lint-changed run install-hook",
+    "scan:prompt-injection": "find agents skills commands -name '*.md' -not -path '*/tests/fixtures/*' -print0 | xargs -0 npx prompt-injection-scanner --severity HIGH"
   },
   "devDependencies": {
     "@types/node": "^25.3.0",

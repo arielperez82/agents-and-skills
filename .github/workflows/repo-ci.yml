@@ -103,10 +103,4 @@ jobs:
         run: pnpm install --frozen-lockfile
 
       - name: Scan artifacts for prompt injection
-        run: |
-          npx prompt-injection-scanner \
-            --format json \
-            --severity HIGH \
-            agents/**/*.md \
-            skills/**/*.md \
-            commands/**/*.md      
+        run: pnpm scan:prompt-injection
