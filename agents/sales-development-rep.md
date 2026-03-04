@@ -31,6 +31,7 @@ classification:
 # === RELATIONSHIPS ===
 related-agents:
   - account-executive
+  - gtm-strategist
 related-skills:
   - sales-team/lead-research
   - sales-team/lead-qualification
@@ -41,6 +42,10 @@ collaborates-with:
     purpose: Hand off qualified leads with enrichment data and qualification scores for meeting preparation
     required: optional
     without-collaborator: "Qualified leads documented as standalone reports without AE handoff"
+  - agent: gtm-strategist
+    purpose: ICP criteria and scoring models from gtm-strategist inform lead qualification and outreach targeting
+    required: optional
+    without-collaborator: "Lead qualification uses generic ICP criteria without structured scoring models"
 
 # === TECHNICAL ===
 tools: [Read, Write, Bash, Grep, Glob]

@@ -26,7 +26,7 @@ classification:
   model: sonnet
 
 # === RELATIONSHIPS ===
-related-agents: [sales-development-rep]
+related-agents: [sales-development-rep, copywriter]
 related-skills:
   - marketing-team/content-creator
   - marketing-team/marketing-psychology
@@ -38,6 +38,10 @@ collaborates-with:
     purpose: Lead research insights on industry trends and company signals inform trending content topics
     required: optional
     without-collaborator: "Trending content based on general industry research without lead-specific signals"
+  - agent: copywriter
+    purpose: Content-creator defines strategy and editorial calendar; copywriter executes high-volume copy production
+    required: optional
+    without-collaborator: "Content-creator handles both strategy and execution at lower volume"
 
 # === TECHNICAL ===
 tools: [Read, Write, Bash, Grep, Glob]

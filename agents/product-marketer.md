@@ -26,11 +26,23 @@ classification:
   model: sonnet
 
 # === RELATIONSHIPS ===
-related-agents: []
+related-agents:
+  - gtm-strategist
+  - competitive-intelligence-analyst
 related-skills:
   - marketing-team/marketing-strategy-pmm
   - marketing-team/marketing-psychology
+  - marketing-team/competitive-intel
 related-commands: []
+collaborates-with:
+  - agent: gtm-strategist
+    purpose: Market segmentation and ICP definitions inform positioning strategy and messaging
+    required: optional
+    without-collaborator: "Positioning developed from internal market assumptions without structured ICP data"
+  - agent: competitive-intelligence-analyst
+    purpose: Competitive intelligence and battlecards inform positioning differentiation and messaging
+    required: optional
+    without-collaborator: "Positioning developed without systematic competitive benchmarking"
 
 # === TECHNICAL ===
 tools: [Read, Write, Bash, Grep, Glob]

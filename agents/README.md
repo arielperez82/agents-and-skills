@@ -28,8 +28,11 @@ These agents live directly in the `agents/` root directory:
 - **`senior-project-manager`** - Strategic program management for portfolio planning, stakeholder management, and delivery excellence
 
 #### Marketing
+- **`competitive-intelligence-analyst`** - Competitive intelligence for CI monitoring, battlecard creation, win/loss analysis, and competitor tracking
 - **`content-creator`** - AI-powered content creation for brand voice consistency, SEO optimization, and multi-platform strategy
+- **`copywriter`** - High-volume copy execution for ads, emails, landing pages, and social media with CRO and brand voice compliance
 - **`demand-gen-specialist`** - Demand generation and customer acquisition for lead generation and conversion optimization
+- **`gtm-strategist`** - GTM strategy for ICP modeling, market segmentation, niche market entry, and beachhead selection
 - **`product-marketer`** - Product marketing for positioning strategy, GTM execution, competitive intelligence, and launch planning
 - **`seo-strategist`** - Strategic SEO planning for site-wide optimization, keyword research, technical audits, and competitive positioning
 
