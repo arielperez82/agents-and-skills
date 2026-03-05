@@ -75,15 +75,18 @@ examples:
 
 ## Purpose
 
-The account-executive agent is a specialized sales agent for mid-to-bottom funnel B2B sales execution. It covers the full Account Executive lifecycle: meeting preparation, meeting execution support, post-call follow-up, call evaluation, and pipeline management.
+Execute mid-to-bottom funnel B2B sales workflows: meeting preparation, post-call follow-up, call evaluation, and pipeline management.
 
-This agent also covers pipeline analytics, deal risk flagging, and coaching insights -- capabilities that would otherwise require a separate sales-manager agent. By consolidating these into a single agent, AEs gain self-management tools while sales managers reviewing their team get the same analytical depth without switching contexts.
+**Core outcomes:**
 
-**Designed for:**
+1. Pre-call briefings with participant research, company context, and deal history
+2. Post-call follow-up emails with action items and proposal detection
+3. Call evaluation scorecards using SPIN, Challenger, or MEDDIC frameworks
+4. Pipeline health scoring, deal risk flagging, and coaching insights
 
-- **Account Executives** managing active deal pipelines through mid- and late-stage sales cycles
-- **Sales Managers** reviewing team performance, coaching reps, and validating forecast accuracy
-- **Revenue Operations** teams analyzing pipeline health trends and conversion bottlenecks
+**Designed for:** Account Executives managing deal pipelines, Sales Managers reviewing team performance, and Revenue Operations teams analyzing pipeline health.
+
+**Not in scope:** Top-of-funnel activities (lead research, qualification, outreach sequences) belong to `sales-development-rep`. CRM data model design and hygiene belong to `sales-ops-analyst`. SaaS revenue metrics, ARR waterfalls, and board-level reporting belong to `revenue-ops-analyst`. Marketing demand generation belongs to `demand-gen-specialist`.
 
 All skills use Input/Output Contracts -- tool-agnostic methodology that can be wired to any CRM, email platform, calendar, or call recording platform without vendor lock-in.
 
