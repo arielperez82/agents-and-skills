@@ -1,6 +1,6 @@
 ---
 description: Write a handoff snapshot for the current session
-argument-hint: "[output-path] [--focus <area>]"
+argument-hint: "[context-slug] [--focus <area>]"
 ---
 
 # /context/handoff — Session Handoff Snapshot
@@ -11,21 +11,37 @@ Load the **`context-continuity` skill** (`skills/engineering-team/context-contin
 
 ## Arguments
 
-- **`output-path`** (optional): File path to write the snapshot. Default: `.claude/handoff/HANDOFF.md`
+- **`context-slug`** (optional): Short context identifier for the handoff (e.g., `auth-migration`, `eslint-upgrade`). Used in the filename. If omitted, derive from the session objective (kebab-case, max 40 chars).
 - **`--focus <area>`** (optional): Narrow the snapshot scope to a specific area (e.g., `--focus "database migration"`). When provided, limit Key Anchors and Next Steps to files and actions related to that area.
 
-## Path Safety
+## Craft-First Rule
 
-If an output path is provided:
+**Before writing a standalone handoff, check for an active craft status file.**
 
-- Must not contain `..` (no path traversal)
-- Must be a relative path (no absolute paths starting with `/`)
-- Must end in `.md`
-- If validation fails, reject and use the default path
+1. Look for `.docs/reports/report-*-craft-status-*.md` files with `workflow_status: in_progress` or any phase with `status: in_progress`.
+2. **If an active craft status file exists:** Do NOT create a standalone handoff. Instead, update the craft status file's Phase Log with an embedded handoff snapshot (collapsible `<details>` format from the `context-continuity` skill). Inform the user: "Active craft detected for {initiative}. Updating craft status file instead of creating standalone handoff."
+3. **If no active craft status file exists:** Proceed with standalone handoff below.
 
-## Protocol
+## Standalone Handoff
 
-### 1. Gather Session State
+### Output Location
+
+All standalone handoffs write to `.docs/reports/` with a timestamped, context-prefixed filename:
+
+```
+.docs/reports/handoff-{context-slug}-{YYYYMMDDHHmmss}.md
+```
+
+Examples:
+- `.docs/reports/handoff-auth-migration-20260305143022.md`
+- `.docs/reports/handoff-eslint-upgrade-20260305160511.md`
+- `.docs/reports/handoff-I14-MATO-P2-20260303120000.md`
+
+Multiple handoffs can coexist — each file is uniquely identified by context and timestamp.
+
+### Protocol
+
+#### 1. Gather Session State
 
 Collect the following (keep it compact — summaries, not full output):
 
@@ -36,7 +52,7 @@ git --no-pager log -5 --oneline # Recent commits
 git branch --show-current       # Current branch
 ```
 
-### 2. Assess Current Work
+#### 2. Assess Current Work
 
 Review the conversation to identify:
 
@@ -49,12 +65,12 @@ Review the conversation to identify:
 
 If `--focus` is provided, filter all of the above to the specified area.
 
-### 3. Write Snapshot
+#### 3. Write Snapshot
 
 Write the handoff snapshot to the output path using this format:
 
 ```markdown
-# Handoff
+# Handoff: {context-slug}
 
 ## Objective
 [What this session was working toward]
@@ -94,7 +110,7 @@ Write the handoff snapshot to the output path using this format:
 - [anything uncertain or requiring human input]
 ```
 
-### 4. Confirm
+#### 4. Confirm
 
 After writing, report:
 
@@ -106,14 +122,11 @@ To resume in a new session, read this file first, then follow the
 Key Anchors to load relevant context before continuing from Next Steps.
 ```
 
-## Standalone vs Craft-Embedded Snapshots
-
-This command produces **standalone snapshots** that include Git State, Verification, and Open Questions sections. Craft-embedded snapshots (written during `/craft` Phase 4) use the compact 5-field format from the `context-continuity` skill and omit Git State (already tracked in the status file YAML). Use this command for non-`/craft` work; use `/craft` for initiative-driven development.
-
 ## Constraints
 
 - Snapshot must be under 2KB (compact summaries, not transcripts)
 - Do not paste large diffs — summarize changes
 - If uncertain about something, mark it as UNKNOWN and point to the file/symbol to confirm
-- This command works independently of `/craft` — no dependency on craft status files
 - Optimize for someone (or a fresh Claude session) to resume in under 5 minutes
+- Craft-first: always check for active craft before writing standalone
+- Standalone handoffs are committed to the repo (not ephemeral)

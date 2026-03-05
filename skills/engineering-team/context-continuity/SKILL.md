@@ -186,7 +186,7 @@ When starting a new session and a handoff snapshot exists:
 
 This skill adapts patterns from the **handoff skill** (SpliceLabs/rlm pattern), which writes a compact `HANDOFF.md` capturing goal, current state, key anchors, git diff summary, and next steps. The key adaptations:
 
-- **Embedded vs. standalone**: `/craft` embeds snapshots in the status file Phase Log; standalone use writes to `.claude/handoff/HANDOFF.md`
+- **Craft-first rule**: If an active craft status file exists, handoff updates the status file Phase Log (embedded snapshot). Otherwise, standalone handoffs write to `.docs/reports/handoff-{context-slug}-{timestamp}.md`
 - **Budget discipline added**: The original pattern writes snapshots on demand; this skill adds proactive budget monitoring
 - **Selective reconstruction**: The original assumes full re-read; this skill targets <15% context budget on resume
 
@@ -205,11 +205,15 @@ The orchestrator loads this skill at session start (before Phase 4) to have the 
 For non-`/craft` sessions, use the `/context/handoff` command to write a standalone snapshot:
 
 ```
-/context/handoff                          # Write to default path
-/context/handoff .claude/handoff/WIP.md   # Write to custom path
-/context/handoff --focus "auth migration" # Narrow scope to specific area
+/context/handoff                          # Auto-derive context slug from objective
+/context/handoff auth-migration           # Explicit context slug
+/context/handoff eslint-upgrade --focus "config files" # Slug + narrowed scope
 ```
+
+Standalone handoffs write to `.docs/reports/handoff-{context-slug}-{YYYYMMDDHHmmss}.md`. Multiple handoffs coexist — each is uniquely identified by context and timestamp.
+
+**Craft-first rule:** `/context/handoff` checks for an active craft status file first. If one exists, it updates the craft status file's Phase Log instead of creating a standalone file.
 
 The standalone snapshot includes a Git State section (branch, uncommitted changes, recent commits) that the `/craft`-embedded variant omits (craft already tracks this in the status file).
 
-To resume from a standalone snapshot, start a new session and read the snapshot file. Use the Key Anchors to selectively load context, then continue from the Next Steps.
+To resume from a standalone snapshot, start a new session and read the most recent handoff file for the relevant context. Use the Key Anchors to selectively load context, then continue from the Next Steps.
