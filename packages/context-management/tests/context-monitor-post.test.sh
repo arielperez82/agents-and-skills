@@ -68,13 +68,13 @@ assert_output "39% = suppress" '{}' '{"suppressOutput": true}' "39"
 echo ""
 echo "--- Warning zone (40-49%) ---"
 assert_contains "40% = wrap up warning" '{}' "CONTEXT AT 40%" "40"
-assert_contains "45% = wrap up warning" '{}' "Wrap up current task" "45"
+assert_contains "45% = wrap up warning" '{}' "Wrap up your current task" "45"
 
 # 50%+ = STOP directive
 echo ""
 echo "--- STOP zone (50%+) ---"
 assert_contains "50% = STOP" '{}' "CONTEXT AT 50%" "50"
-assert_contains "55% = STOP with handoff" '{}' "Initiate handoff NOW" "55"
+assert_contains "55% = STOP with handoff" '{}' "/context:handoff" "55"
 assert_contains "65% = STOP" '{}' "CONTEXT AT 65%" "65"
 
 # Throttle behavior

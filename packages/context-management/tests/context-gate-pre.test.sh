@@ -72,11 +72,14 @@ assert_exit "59% Bash = allow" '{"tool_name":"Bash"}' 0
 echo ""
 echo "--- At/above 60% ---"
 echo "60" > "$CTX_CACHE"
-assert_exit "60% Bash = block" '{"tool_name":"Bash"}' 2
 assert_exit "60% Agent = block" '{"tool_name":"Agent"}' 2
+assert_exit "60% WebSearch = block" '{"tool_name":"WebSearch"}' 2
+assert_exit "60% Bash(non-git) = block" '{"tool_name":"Bash","tool_input":{"command":"npm test"}}' 2
+assert_exit "60% Skill(other) = block" '{"tool_name":"Skill","tool_input":{"skillName":"code:full"}}' 2
+assert_exit "60% Skill(no input) = block" '{"tool_name":"Skill"}' 2
 
 echo "90" > "$CTX_CACHE"
-assert_exit "90% Bash = block" '{"tool_name":"Bash"}' 2
+assert_exit "90% Agent = block" '{"tool_name":"Agent"}' 2
 
 # Allowlisted tools pass at 60%+
 echo ""
@@ -87,12 +90,25 @@ assert_exit "65% Edit = allow" '{"tool_name":"Edit"}' 0
 assert_exit "65% Read = allow" '{"tool_name":"Read"}' 0
 assert_exit "65% Glob = allow" '{"tool_name":"Glob"}' 0
 assert_exit "65% Grep = allow" '{"tool_name":"Grep"}' 0
+assert_exit "65% Bash(git add) = allow" '{"tool_name":"Bash","tool_input":{"command":"git add -A"}}' 0
+assert_exit "65% Bash(git commit) = allow" '{"tool_name":"Bash","tool_input":{"command":"git commit -m \"wip\""}}' 0
+assert_exit "65% Bash(git status) = allow" '{"tool_name":"Bash","tool_input":{"command":"git status"}}' 0
+assert_exit "65% Bash(git with leading space) = allow" '{"tool_name":"Bash","tool_input":{"command":"  git status"}}' 0
+assert_exit "65% Bash(non-git) = block" '{"tool_name":"Bash","tool_input":{"command":"npm test"}}' 2
+assert_exit "65% Bash(gitk = not git) = block" '{"tool_name":"Bash","tool_input":{"command":"gitk --all"}}' 2
+assert_exit "65% Bash(git chained &&) = block" '{"tool_name":"Bash","tool_input":{"command":"git status && npm test"}}' 2
+assert_exit "65% Bash(git chained ;) = block" '{"tool_name":"Bash","tool_input":{"command":"git status; rm -rf /"}}' 2
+assert_exit "65% Bash(git piped) = block" '{"tool_name":"Bash","tool_input":{"command":"git log | head"}}' 2
+assert_exit "65% Bash(git subshell) = block" '{"tool_name":"Bash","tool_input":{"command":"git commit -m $(whoami)"}}' 2
+assert_exit "65% Bash(git backtick) = block" '{"tool_name":"Bash","tool_input":{"command":"git commit -m `whoami`"}}' 2
+assert_exit "65% Bash(no input) = block" '{"tool_name":"Bash"}' 2
+assert_exit "65% Skill(context:handoff) = allow" '{"tool_name":"Skill","tool_input":{"skillName":"context:handoff"}}' 0
 
 # Stderr message when blocking
 echo ""
 echo "--- Block message ---"
 echo "67" > "$CTX_CACHE"
-assert_stderr_contains "block message includes percentage" '{"tool_name":"Bash"}' "Context at 67%"
+assert_stderr_contains "block message includes percentage" '{"tool_name":"Agent"}' "Context at 67%"
 
 # Invalid cache content = allow
 echo ""

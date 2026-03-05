@@ -64,15 +64,15 @@ After running `install.sh`, add the hook registrations to `~/.claude/settings.js
 | < 40% | Green | Silent | Allow all |
 | 40-49% | Yellow | Warning: "wrap up, past 50% you'll be asked to STOP" | Allow all |
 | 50-59% | Orange | STOP: "initiate handoff NOW, at 60% tools BLOCKED" | Allow all |
-| 60%+ | Red | STOP (same) | **exit 2 blocks** all tools except Write/Edit/Read/Glob/Grep |
+| 60%+ | Red | STOP (same) | **exit 2 blocks** all tools except Write/Edit/Read/Glob/Grep, Bash(`git *`), Skill(`context:handoff`) |
 
 ### Why these thresholds?
 
 These thresholds are derived from empirical research on LLM accuracy degradation as context length increases. See [Research Basis](#research-basis) below for the full analysis.
 
 - **40%**: Early warning. On a 200K window this is ~80K tokens — at the edge of where research shows "effective context" begins to cap for most models. Agent has room to finish current task and commit.
-- **50%**: Firm directive. At ~100K tokens, accuracy on semantic reasoning tasks has degraded meaningfully. Agent must stop feature work and begin handoff.
-- **60%**: Hard gate. At ~120K tokens, the agent is past the effective context ceiling. Only file read/write for producing the handoff document.
+- **50%**: Firm directive. At ~100K tokens, accuracy on semantic reasoning tasks has degraded meaningfully. Agent must stop feature work, commit, and begin handoff.
+- **60%**: Hard gate. At ~120K tokens, the agent is past the effective context ceiling. Only file read/write, Bash (git commands only), and `/context/handoff` — just enough to commit and produce the handoff document.
 
 ### Why exit 2, not exit 1?
 
@@ -210,4 +210,4 @@ To adjust thresholds, edit the percentage checks in:
 
 To adjust throttle interval, change `THROTTLE_SECONDS=60` in `scripts/context-monitor-post.sh`.
 
-To allow additional tools through the 60%+ gate, add them to the `case` statement in `scripts/context-gate-pre.sh`.
+To allow additional tools through the 60%+ gate, edit `scripts/context-gate-pre.sh`. Currently allowed: Write, Edit, Read, Glob, Grep (file operations via `case`), Bash (simple git commands only — must start with `git`, no shell metacharacters like `&&`, `;`, `|`, backticks, or `$()` allowed), Skill(`context:handoff` only, checked via `skillName` field). All other tools and non-git/chained Bash commands are blocked.
