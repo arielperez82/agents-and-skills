@@ -1,10 +1,6 @@
 packages:
   - telemetry
-  - scripts/skills-deploy
-  - packages/claude-ui-upload
-  - packages/lint-changed
-  - packages/prompt-injection-scanner
-  - packages/context-management
+  - packages/*
 
 onlyBuiltDependencies:
   - esbuild
