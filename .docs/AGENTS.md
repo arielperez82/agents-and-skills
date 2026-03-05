@@ -27,6 +27,7 @@ Do **not** create or expect PLAN.md, WIP.md, LEARNINGS.md, or ad-hoc names like 
 - **Naming (reports):** `report-<endeavor>-<topic>-<timeframe>.md` under `.docs/reports/`.
 - **ADRs:** `.docs/canonical/adrs/adr-YYYYMMDD-<subject>.md`.
 - **Decision hierarchy:** Roadmap (evergreen, project-level — Now / Next / Later) sequences initiatives; Charter scopes each initiative and includes outcome sequences; Backlog ranks execution order; Plan details how to build. Disputes resolve upstream: Roadmap for inter-initiative sequencing, Charter for intra-initiative scope.
+- **Archive policy:** Completed initiative artifacts are archived to `{dir}/archive/` subdirectories via `/docs/archive`. Criteria: frontmatter `status: done/complete/completed` or initiative in roadmap Done section. See `commands/docs/archive.md` for full rules.
 
 ---
 

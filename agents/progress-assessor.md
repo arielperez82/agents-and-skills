@@ -36,7 +36,7 @@ related-agents:
   - ts-enforcer
   - docs-reviewer
 related-skills: [engineering-team/quality-gate-first, delivery-team/wiki-documentation, engineering-team/tiered-review]
-related-commands: [review/phase-0-check]
+related-commands: [review/phase-0-check, docs/archive]
 collaborates-with:
   - agent: implementation-planner
     purpose: Review and validate implementation plans for quality and tracking readiness
@@ -256,6 +256,7 @@ Read .docs/AGENTS.md   # for layer 1 learnings
 - [ ] Status report shows all steps complete?
 - [ ] Learnings reviewed for merge (AGENTS.md + canonical Learnings sections)?
 - [ ] No blockers remaining?
+- [ ] Completed initiative artifacts archived? (run `/docs/archive --dry-run` to check)
 
 **Report Format:**
 
