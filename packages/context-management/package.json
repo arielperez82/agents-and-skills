@@ -1,0 +1,22 @@
+{
+  "name": "context-management",
+  "version": "0.1.0",
+  "private": true,
+  "description": "Context window monitoring and handoff enforcement hooks for Claude Code",
+  "scripts": {
+    "test": "bash test.sh",
+    "shellcheck": "shellcheck scripts/*.sh install.sh",
+    "validate": "bash test.sh && shellcheck scripts/*.sh install.sh"
+  },
+  "lint-staged": {
+    "scripts/*.sh": [
+      "shellcheck --severity=warning"
+    ],
+    "install.sh": [
+      "shellcheck --severity=warning"
+    ],
+    "tests/*.sh": [
+      "shellcheck --severity=warning"
+    ]
+  }
+}

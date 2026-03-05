@@ -4,6 +4,7 @@ packages:
   - scripts/claude-ui-upload
   - packages/lint-changed
   - packages/prompt-injection-scanner
+  - packages/context-management
 
 onlyBuiltDependencies:
   - esbuild
