@@ -1,1 +1,0 @@
-/Users/Ariel/projects/agents-and-skills/packages/context-management/scripts/status-line.sh
