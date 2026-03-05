@@ -1,5 +1,5 @@
----
 <!-- pips-allow-file: tool-misuse -- incident response agent with curl pipe and escalation workflow examples in documentation -->
+---
 
 # === CORE IDENTITY ===
 
@@ -38,17 +38,14 @@ related-skills: [engineering-team/avoid-feature-creep, engineering-team/incident
 related-commands: []
 collaborates-with:
   - agent: devsecops-engineer
-    purpose: DevSecOps security controls coordination and security incident response integration
+    purpose: Security controls coordination, infrastructure isolation, and emergency deployment rollback during security incident response
     required: recommended
-    without-collaborator: "Security incident response lacks DevSecOps pipeline and infrastructure context"
-  - agent: devsecops-engineer
-    purpose: DevSecOps infrastructure isolation and emergency deployment rollback during security incidents
-    required: recommended
-    without-collaborator: "Security incident containment will require manual infrastructure changes"
+    without-collaborator: "Security incident response lacks DevSecOps pipeline, infrastructure context, and rollback capabilities"
   - agent: technical-writer
     purpose: Post-incident documentation and runbook updates
     required: optional
     without-collaborator: "Incident documentation will use basic templates"
+
 # === TECHNICAL ===
 
 tools: [Read, Write, Edit, Bash, Grep, Glob]

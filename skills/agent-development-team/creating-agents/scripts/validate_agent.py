@@ -44,8 +44,16 @@ def find_repo_root(start: Path) -> Path:
 
 
 def extract_frontmatter(content: str):
-    if not content.startswith("---"):
+    # Skip leading HTML comments (e.g. <!-- pips-allow-file: ... -->) before frontmatter
+    stripped = content
+    while stripped.startswith("<!--"):
+        end = stripped.find("-->")
+        if end == -1:
+            break
+        stripped = stripped[end + 3:].lstrip("\r\n")
+    if not stripped.startswith("---"):
         return None, content, "No YAML frontmatter found (file must start with ---)"
+    content = stripped
     # Use string search instead of regex to avoid backtracking on large files
     first_newline = content.index("\n")
     # Find closing --- delimiter (handles both \n--- and \r\n---)
