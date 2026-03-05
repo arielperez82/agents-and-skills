@@ -43,7 +43,14 @@ Using the gathered data, present these four areas:
 - Recommend attention shifts if needed.
 - If no roadmap exists, note that and suggest creating one.
 
-### 4. What's ahead of us?
+### 4. What have we learned recently?
+
+- Summarize the most recent cross-cutting learnings from AGENTS.md (the L* entries).
+- Highlight any initiative-specific learnings from active charters or plans.
+- Note recent ADRs and the architectural decisions they capture.
+- Call out learnings that are particularly relevant to current in-progress or upcoming work.
+
+### 5. What's ahead of us?
 
 - List next items on the roadmap or backlog not yet started.
 - Call out blockers, risks, or dependencies for upcoming work.

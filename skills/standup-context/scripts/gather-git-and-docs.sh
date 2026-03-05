@@ -69,6 +69,52 @@ else
 fi
 echo ""
 
+# --- Learnings ---
+echo "## RECENT LEARNINGS"
+
+# Layer 1: Recorded learnings from AGENTS.md (last 10 L* entries)
+agents_md="$REPO_ROOT/.docs/AGENTS.md"
+if [ -f "$agents_md" ]; then
+  echo ""
+  echo "### Cross-cutting learnings (AGENTS.md)"
+  grep -n '^\*\*L[0-9]' "$agents_md" 2>/dev/null | tail -10 || echo "(no recorded learnings found)"
+fi
+
+# Layer 2: Learnings sections from canonical docs (charters and plans)
+for doctype in charters plans; do
+  dir="$REPO_ROOT/.docs/canonical/$doctype"
+  if [ -d "$dir" ]; then
+    while IFS= read -r -d '' f; do
+      # Check if file has a Learnings section (## or ###)
+      if grep -q '^##\+ .*[Ll]earnings' "$f" 2>/dev/null; then
+        basename_f="$(basename "$f")"
+        echo ""
+        echo "### Learnings from $basename_f"
+        # Extract from the Learnings heading to the next heading of same or higher level, max 30 lines
+        sed -n '/^##\+ .*[Ll]earnings/,/^##\+ /p' "$f" 2>/dev/null | head -30
+      fi
+    done < <(find "$dir" -name '*.md' -not -path '*/archive/*' -not -name '.gitkeep' -print0 2>/dev/null)
+  fi
+done
+
+# Layer 3: Recent ADRs
+adr_dir="$REPO_ROOT/.docs/canonical/adrs"
+if [ -d "$adr_dir" ]; then
+  adr_files=()
+  while IFS= read -r f; do
+    adr_files+=("$f")
+  done < <(find "$adr_dir" -name '*.md' -not -name '.gitkeep' -type f 2>/dev/null | sort -r | head -3)
+  if [ ${#adr_files[@]} -gt 0 ]; then
+    echo ""
+    echo "### Recent ADRs"
+    for f in "${adr_files[@]}"; do
+      title="$(grep -m1 '^#' "$f" 2>/dev/null | sed 's/^#* *//' || basename "$f")"
+      echo "- $(basename "$f"): $title"
+    done
+  fi
+fi
+echo ""
+
 # --- Memory ---
 echo "## MEMORY"
 # Claude Code memory path: ~/.claude/projects/{encoded-cwd}/memory/MEMORY.md
