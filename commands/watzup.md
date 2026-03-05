@@ -9,10 +9,10 @@ Run both scripts from repo root. These replace manual git commands, file reads, 
 
 ```bash
 # Git + canonical docs + memory (single invocation)
-bash skills/watzup/scripts/gather-git-and-docs.sh
+bash skills/standup-context/scripts/gather-git-and-docs.sh
 
 # Telemetry (single invocation, skips gracefully if no credentials)
-bash skills/watzup/scripts/gather-telemetry.sh "$(basename "$(pwd)")"
+bash skills/standup-context/scripts/gather-telemetry.sh "$(basename "$(pwd)")"
 ```
 
 The scripts output structured markdown with labeled sections. Use their output to write the standup below.
