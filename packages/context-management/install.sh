@@ -17,13 +17,40 @@ SCRIPTS_SRC="$SCRIPT_DIR/scripts"
 
 HOOKS_DIR="$HOME/.claude/hooks"
 SCRIPTS_DIR="$HOME/.claude/scripts"
+REPO_ROOT="$(cd "$SCRIPT_DIR/../.." && pwd)"
 
-# Source -> Target pairs (space-separated)
+# Source -> Target pairs (colon-separated)
 LINKS=(
   "$SCRIPTS_SRC/context-gate-pre.sh:$HOOKS_DIR/context-gate-pre.sh"
   "$SCRIPTS_SRC/context-monitor-post.sh:$HOOKS_DIR/context-monitor-post.sh"
   "$SCRIPTS_SRC/status-line.sh:$SCRIPTS_DIR/status-line.sh"
 )
+
+# Legacy paths to clean up (moved into this package)
+LEGACY_PATHS=(
+  "$REPO_ROOT/scripts/status-line.sh"
+)
+
+check_legacy() {
+  for legacy in "${LEGACY_PATHS[@]}"; do
+    if [ -e "$legacy" ]; then
+      echo "  LEGACY  $legacy (will be removed by install)"
+    fi
+  done
+}
+
+clean_legacy() {
+  for legacy in "${LEGACY_PATHS[@]}"; do
+    if [ -L "$legacy" ]; then
+      rm "$legacy"
+      echo "  removed legacy symlink  $legacy"
+    elif [ -f "$legacy" ]; then
+      backup="${legacy}.bak.$(date +%s)"
+      mv "$legacy" "$backup"
+      echo "  backed up legacy file  $legacy -> $backup"
+    fi
+  done
+}
 
 check_mode() {
   echo "Context Management — symlink check"
@@ -44,11 +71,13 @@ check_mode() {
       echo "  MISSING  $target (will be created by install)"
     fi
   done
+  check_legacy
 }
 
 install_mode() {
   echo "Installing context-management symlinks..."
 
+  clean_legacy
   mkdir -p "$HOOKS_DIR" "$SCRIPTS_DIR"
 
   for pair in "${LINKS[@]}"; do
