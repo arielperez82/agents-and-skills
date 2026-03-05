@@ -13,5 +13,5 @@ export default {
     `sh ${semgrepScript} ${stagedFiles.join(' ')}`,
   ],
   'src/**/*.ts': () => ['pnpm test:coverage'],
-  '**/*.sh': `sh ${shellcheckScript}`,
+  '**/*.sh': (stagedFiles: string[]) => [`sh ${shellcheckScript} ${stagedFiles.join(' ')}`],
 };

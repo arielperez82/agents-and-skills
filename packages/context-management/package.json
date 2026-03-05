@@ -11,6 +11,8 @@
     "test": "bash test.sh",
     "lint:sh": "sh ../../scripts/run-shellcheck.sh scripts/*.sh install.sh",
     "lint:sh:fix": "sh ../../scripts/run-shellcheck.sh --fix scripts/*.sh install.sh",
-    "validate": "concurrently 'pnpm test' 'pnpm lint:sh'"
+    "check": "concurrently 'pnpm lint:sh'",
+    "check:fix": "concurrently 'pnpm lint:sh:fix'",
+    "validate": "concurrently 'pnpm lint:sh:fix' 'pnpm test'"
   }
 }

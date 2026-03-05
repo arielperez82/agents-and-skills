@@ -3,11 +3,13 @@
 import { dirname, resolve } from 'node:path';
 import { fileURLToPath } from 'node:url';
 
-const semgrepScript = resolve(dirname(fileURLToPath(import.meta.url)), '../../scripts/run-semgrep.sh');
+const scriptsDir = resolve(dirname(fileURLToPath(import.meta.url)), '../../scripts');
+const semgrepScript = resolve(scriptsDir, 'run-semgrep.sh');
+const shellcheckScript = resolve(scriptsDir, 'run-shellcheck.sh');
 
 export default {
   '**/*.sh': (stagedFiles: string[]) => [
-    `shellcheck --severity=warning ${stagedFiles.join(' ')}`,
+    `sh ${shellcheckScript} --fix ${stagedFiles.join(' ')}`,
     `sh ${semgrepScript} ${stagedFiles.join(' ')}`,
     'bash test.sh',
   ],
