@@ -27,7 +27,7 @@
         "hooks": [
           {
             "type": "command",
-            "command": "rm -f /tmp/claude-commit-risk-${CLAUDE_CODE_SSE_PORT:-global} /tmp/claude-commit-nudged-${CLAUDE_CODE_SSE_PORT:-global}"
+            "command": "rm -f /tmp/claude-commit-risk-${CLAUDE_CODE_SSE_PORT:-global} /tmp/claude-commit-nudged-${CLAUDE_CODE_SSE_PORT:-global} /tmp/claude-commit-session-${CLAUDE_CODE_SSE_PORT:-global}"
           }
         ]
       }

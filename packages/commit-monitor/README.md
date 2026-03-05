@@ -12,10 +12,11 @@ Agents get "in the zone" and accumulate hundreds of lines of uncommitted changes
 commit-nudge-post.sh (PostToolUse: computes git metrics + nudges)
     |
     v
-/tmp/claude-commit-risk-{SSE_PORT}   <-- per-session cache
+/tmp/claude-commit-risk-{SSE_PORT}      <-- per-session score cache
+/tmp/claude-commit-session-{SSE_PORT}   <-- session start timestamp
     ^
     |
-commit-gate-pre.sh (PreToolUse: reads cache, blocks at red)
+commit-gate-pre.sh (PreToolUse: reads score cache, blocks at red)
 ```
 
 The **PostToolUse hook** runs after every tool call, computes a risk score from git state, caches it, and outputs escalating nudge messages. The **PreToolUse hook** reads the cached score and blocks expansive tools when risk is critical.
@@ -30,9 +31,11 @@ The score is a weighted composite of multiple git metrics:
 score = prod_lines * 1.0
       + test_lines * 0.25
       + doc_lines  * 0.5
-      + minutes_since_commit * 3
+      + minutes * 3
       + unique_dirs_touched * 5
 ```
+
+**Time component:** `minutes = now - max(last_commit_ts, session_start_ts)`. The time is capped at the session duration so that reopening a repo after weeks of inactivity doesn't instantly inflate the score. A session start marker (`/tmp/claude-commit-session-{SSE_PORT}`) is created on first hook run and cleaned up by the SessionEnd hook.
 
 **File classification:**
 - **Test files** (0.25x): `*.test.*`, `*.spec.*`, `__tests__/*`, `tests/*`
@@ -169,6 +172,14 @@ packages/commit-monitor/
 |---|---|
 | `scripts/commit-gate-pre.sh` | `~/.claude/hooks/commit-gate-pre.sh` |
 | `scripts/commit-nudge-post.sh` | `~/.claude/hooks/commit-nudge-post.sh` |
+
+### Per-session temp files
+
+| File | Created by | Cleaned by |
+|---|---|---|
+| `/tmp/claude-commit-risk-{SSE_PORT}` | `commit-nudge-post.sh` | SessionEnd hook |
+| `/tmp/claude-commit-nudged-{SSE_PORT}` | `commit-nudge-post.sh` | SessionEnd hook |
+| `/tmp/claude-commit-session-{SSE_PORT}` | `commit-nudge-post.sh` | SessionEnd hook |
 
 ## Testing
 

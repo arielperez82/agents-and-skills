@@ -12,11 +12,12 @@ FAIL=0
 export CLAUDE_CODE_SSE_PORT="test-riskscore-$$"
 RISK_CACHE="/tmp/claude-commit-risk-${CLAUDE_CODE_SSE_PORT}"
 THROTTLE_FILE="/tmp/claude-commit-nudged-${CLAUDE_CODE_SSE_PORT}"
+SESSION_FILE="/tmp/claude-commit-session-${CLAUDE_CODE_SSE_PORT}"
 ORIG_DIR="$(pwd)"
 TEST_REPO=""
 
 cleanup_session() {
-  rm -f "$RISK_CACHE" "$THROTTLE_FILE"
+  rm -f "$RISK_CACHE" "$THROTTLE_FILE" "$SESSION_FILE"
 }
 
 setup_repo() {
@@ -223,6 +224,25 @@ printf '%s\n' $(seq 1 5) >> README.md  # unstaged change to tracked file
 # 5 prod (staged) + 5 doc (unstaged) = 5 + 2 = 7
 score=$(COMMIT_MONITOR_TIME_WEIGHT=0 COMMIT_MONITOR_DIR_WEIGHT=0 get_score)
 assert_score_eq "staged + unstaged = 7" "7" "$score"
+teardown_repo
+
+# Session start caps time component (old commit should not inflate score)
+echo ""
+echo "--- Session start caps time ---"
+setup_repo
+mkdir -p src
+printf '%s\n' $(seq 1 5) > src/app.ts
+git add src/app.ts
+# Backdate the last commit by 2 hours (7200 seconds) using amend
+GIT_COMMITTER_DATE="$(date -v-2H +%Y-%m-%dT%H:%M:%S 2>/dev/null || date -d '2 hours ago' +%Y-%m-%dT%H:%M:%S)" \
+  git commit -q --amend --no-edit --date="$(date -v-2H +%Y-%m-%dT%H:%M:%S 2>/dev/null || date -d '2 hours ago' +%Y-%m-%dT%H:%M:%S)"
+# Make a new change so there's something uncommitted
+printf '%s\n' $(seq 1 5) > src/new.ts
+git add src/new.ts
+# Without session cap: 120min * 3 = 360 time points + 5 prod lines = 365
+# With session cap: session just started, so minutes ~= 0, score ~= 5
+score=$(COMMIT_MONITOR_DIR_WEIGHT=0 get_score)
+assert_score_range "old commit capped by session start" 0 15 "$score"
 teardown_repo
 
 # Summary

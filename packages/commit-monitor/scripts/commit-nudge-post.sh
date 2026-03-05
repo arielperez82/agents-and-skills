@@ -15,6 +15,7 @@ cat > /dev/null
 
 CACHE="/tmp/claude-commit-risk-${CLAUDE_CODE_SSE_PORT:-global}"
 THROTTLE="/tmp/claude-commit-nudged-${CLAUDE_CODE_SSE_PORT:-global}"
+SESSION_START="/tmp/claude-commit-session-${CLAUDE_CODE_SSE_PORT:-global}"
 
 # Thresholds (overridable)
 YELLOW=${COMMIT_MONITOR_YELLOW:-200}
@@ -34,6 +35,12 @@ suppress() {
   printf '{"suppressOutput": true}'
   exit 0
 }
+
+# --- Session start marker (created once per session, cleaned by SessionEnd) ---
+if [ ! -f "$SESSION_START" ]; then
+  date +%s > "$SESSION_START"
+fi
+session_start_ts=$(cat "$SESSION_START" 2>/dev/null)
 
 # --- Score computation ---
 
@@ -96,12 +103,19 @@ else
     dir_count=$(printf '%s' "$dirs" | tr '|' '\n' | sort -u | grep -c . 2>/dev/null || echo 0)
   fi
 
-  # Minutes since last commit
+  # Minutes since last commit, capped at session duration.
+  # Without the cap, reopening a repo after weeks of inactivity would
+  # instantly push the score into red from time alone.
   minutes=0
   last_ts=$(git log -1 --format=%ct 2>/dev/null || echo "")
   if [ -n "$last_ts" ]; then
     now=$(date +%s)
-    minutes=$(( (now - last_ts) / 60 ))
+    # Use the later of (last commit, session start) as the reference point
+    ref_ts="$last_ts"
+    if [ -n "${session_start_ts:-}" ] && [ "$session_start_ts" -gt "$last_ts" ] 2>/dev/null; then
+      ref_ts="$session_start_ts"
+    fi
+    minutes=$(( (now - ref_ts) / 60 ))
   fi
 
   # Weighted score
@@ -119,7 +133,7 @@ fi
 # Red zone always bypasses throttle (critical message must get through)
 if [ "$score" -ge "$RED" ]; then
   date +%s > "$THROTTLE"
-  printf '{"systemMessage":"UNCOMMITTED RISK CRITICAL (score: %d). %d uncommitted lines, %dm since last commit. BLOCKED from new work. Commit NOW: run tests, fix issues, then git add and git commit. Only convergent tools (Bash, Write, Edit, Read) allowed until you commit."}' "$score" "$total_lines" "$minutes"
+  printf '{"systemMessage":"UNCOMMITTED RISK CRITICAL (score: %d). %d uncommitted lines, %dm since last commit. You are BLOCKED from new work.\n\nYour ONLY available tools are: Bash, Write, Edit, Read, Glob, Grep.\nNo other tools (Agent, WebSearch, Skill, etc.) are available until you commit.\n\nDo the following steps IN ORDER:\n1. Bash: run the project test suite (e.g. pnpm test)\n2. If tests fail: Edit/Write to fix, then re-run tests\n3. If tests pass: Bash(git add -u && git commit -m \"<describe changes>\")\n4. Tell the user what you committed and what work remains.\n\nDo NOT attempt any other work. Every blocked tool call wastes context."}' "$score" "$total_lines" "$minutes"
   exit 0
 fi
 
@@ -135,10 +149,10 @@ date +%s > "$THROTTLE"
 
 # Orange zone
 if [ "$score" -ge "$ORANGE" ]; then
-  printf '{"systemMessage":"UNCOMMITTED RISK HIGH (score: %d). %d uncommitted lines, %dm since last commit. STOP and COMMIT NOW. Run tests, fix issues, then git add and git commit. Do not start new work."}' "$score" "$total_lines" "$minutes"
+  printf '{"systemMessage":"UNCOMMITTED RISK HIGH (score: %d). %d uncommitted lines, %dm since last commit. STOP new work and COMMIT NOW.\n\nDo the following steps IN ORDER:\n1. Bash: run the project test suite (e.g. pnpm test)\n2. If tests fail: fix them, then re-run\n3. If tests pass: Bash(git add -u && git commit -m \"<describe changes>\")\n4. Resume work after committing.\n\nAt score %d (threshold %d) all tools except Bash, Write, Edit, Read, Glob, Grep will be BLOCKED. Act now while you still have full tool access."}' "$score" "$total_lines" "$minutes" "$RED" "$RED"
   exit 0
 fi
 
 # Yellow zone
-printf '{"systemMessage":"UNCOMMITTED RISK RISING (score: %d). %d uncommitted lines, %dm since last commit. Consider committing this increment before continuing."}' "$score" "$total_lines" "$minutes"
+printf '{"systemMessage":"UNCOMMITTED RISK RISING (score: %d). %d uncommitted lines, %dm since last commit. Finish your current RED-GREEN-REFACTOR cycle, then commit before continuing. Run tests, then: git add -u && git commit -m \"<describe changes>\"."}' "$score" "$total_lines" "$minutes"
 exit 0

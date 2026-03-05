@@ -52,6 +52,19 @@ if echo "$cached" | grep -q '|'; then
   minutes=$(echo "$cached" | cut -d'|' -f3)
 fi
 
-# Block everything else
-echo "BLOCKED: ${lines} uncommitted lines over ${minutes}m (risk score: ${score}, threshold: ${RED}). You MUST commit before continuing. Run tests, fix any issues, then: git add <files> && git commit. Only Bash, Write, Edit, Read, Glob, Grep allowed until you commit." >&2
+# Block everything else with exit 2
+cat >&2 <<EOF
+BLOCKED: ${lines} uncommitted lines over ${minutes}m (risk score: ${score}, threshold: ${RED}).
+
+Your ONLY available tools are: Bash, Write, Edit, Read, Glob, Grep.
+No other tools are available until you commit.
+
+Do the following steps IN ORDER:
+1. Bash: run the project test suite (e.g. pnpm test)
+2. If tests fail: Edit/Write to fix, then re-run tests
+3. If tests pass: Bash(git add -u && git commit -m "<describe changes>")
+4. Tell the user what you committed and what work remains.
+
+Do NOT attempt any other work. Every blocked tool call wastes context.
+EOF
 exit 2
