@@ -52,8 +52,12 @@ collaborates-with:
     when: At end of features when learnings need merging to canonical docs
     without-collaborator: Learnings remain in plan/status docs and are not promoted to canonical documentation; risk of knowledge loss across initiatives
 
-# === CONFIGURATION ===
+# === TECHNICAL ===
 tools: [Read, Write, Edit, Grep, Glob, Bash]
+dependencies:
+  tools: [Read, Write, Edit, Grep, Glob, Bash]
+  mcp-tools: []
+  scripts: []
 ---
 
 > **Note**: This agent was renamed from `learn` to `learner` (title: Lorekeeper) as part of the Guardians/Monitors/Validators cleanup (2026-01-27). It remains in the root `agents/` directory as a cross-cutting concern for knowledge management.

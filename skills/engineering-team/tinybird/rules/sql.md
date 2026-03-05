@@ -122,6 +122,25 @@ Workaround: If you need the original column name downstream, rename in a subsequ
 
 Complex CTEs containing CROSS JOIN subqueries can fail in Tinybird Local even when valid ClickHouse SQL. The compilation from pipe nodes to CTEs creates nesting that exceeds local processing limits.
 
+```sql
+-- BAD: CROSS JOIN inside a single node with other logic
+SELECT a.id, b.threshold, count() AS cnt
+FROM events AS a
+CROSS JOIN (SELECT max(value) AS threshold FROM config) AS b
+WHERE a.value > b.threshold
+GROUP BY a.id, b.threshold
+
+-- GOOD: extract CROSS JOIN into its own pipe node
+-- Node 1 (cross_product_node):
+SELECT max(value) AS threshold FROM config
+
+-- Node 2 (final_node, references cross_product_node):
+SELECT a.id, threshold, count() AS cnt
+FROM events AS a, cross_product_node
+WHERE a.value > threshold
+GROUP BY a.id, threshold
+```
+
 **Fix:** Extract the CROSS JOIN query into its own pipe node. Each node compiles to a separate CTE, keeping individual node complexity manageable.
 
 ### No correlated subqueries referencing CTE aliases

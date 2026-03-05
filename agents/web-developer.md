@@ -97,8 +97,12 @@ collaborates-with:
     when: Building interactive features that warrant test-driven development
     without-collaborator: "Interactive features may lack test coverage"
 
-# === CONFIGURATION ===
+# === TECHNICAL ===
 tools: [Read, Write, Edit, Bash, Grep, Glob]
+dependencies:
+  tools: [Read, Write, Edit, Bash, Grep, Glob]
+  mcp-tools: []
+  scripts: []
 ---
 
 # Web Developer
