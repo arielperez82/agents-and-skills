@@ -25,6 +25,38 @@ The **status line** computes context percentage on every render and caches it to
 
 A **SessionEnd** hook cleans up temp files when the session terminates.
 
+## Installation
+
+### Quick install
+
+```bash
+cd packages/context-management
+./install.sh
+```
+
+This creates symlinks from `~/.claude/hooks/` and `~/.claude/scripts/` to the canonical scripts in this package. Existing files are backed up with a `.bak` timestamp.
+
+### Check current state
+
+```bash
+./install.sh --check
+```
+
+### Uninstall
+
+```bash
+./install.sh --uninstall
+```
+
+### Settings.json
+
+After running `install.sh`, add the hook registrations to `~/.claude/settings.json`. See `claude-settings.example.json` for the exact entries needed:
+
+- **PreToolUse**: `context-gate-pre.sh` (hard blocker at 75%+)
+- **PostToolUse**: `context-monitor-post.sh` (warnings at 55%+)
+- **SessionEnd**: cleanup temp files
+- **statusLine**: `status-line.sh` (colored context bar)
+
 ## Escalation Tiers
 
 | Context | Status Line | PostToolUse Hook | PreToolUse Hook |
@@ -50,62 +82,48 @@ A **SessionEnd** hook cleans up temp files when the session terminates.
 
 Exit 1 is invisible to the agent. Only exit 2 actually blocks.
 
-## Files
+## Package Structure
 
-### Hook scripts (`~/.claude/hooks/`)
-
-**`context-monitor-post.sh`** — PostToolUse (soft warnings)
-- Reads cached percentage from `/tmp/claude-ctx-pct-{SSE_PORT}`
-- Returns `{"suppressOutput": true}` when below threshold (silent)
-- Returns `{"systemMessage": "..."}` at 55%+ (Claude sees the warning)
-- Throttled: max one warning per 60 seconds to avoid consuming context with warnings about context
-
-**`context-gate-pre.sh`** — PreToolUse (hard blocker)
-- Reads cached percentage from `/tmp/claude-ctx-pct-{SSE_PORT}`
-- Allows everything below 75%
-- At 75%+: allows Write, Edit, Read, Glob, Grep (needed for handoff)
-- At 75%+: blocks everything else with `exit 2` and stderr message
-
-### Status line (`~/.claude/scripts/status-line.sh`)
-
-- Caches context percentage to `/tmp/claude-ctx-pct-{CLAUDE_CODE_SSE_PORT:-global}`
-- Zone classification: OK / CAUTION / STOP / BLOCKED
-- Colors: green / yellow / orange (256-color) / red
-
-### Settings (`~/.claude/settings.json`)
-
-Hook registrations:
-
-```json
-{
-  "PreToolUse": [
-    {
-      "hooks": [{
-        "type": "command",
-        "command": "~/.claude/hooks/context-gate-pre.sh",
-        "timeout": 2
-      }]
-    }
-  ],
-  "PostToolUse": [
-    {
-      "hooks": [{
-        "type": "command",
-        "command": "~/.claude/hooks/context-monitor-post.sh",
-        "timeout": 2
-      }]
-    }
-  ],
-  "SessionEnd": [
-    {
-      "hooks": [{
-        "type": "command",
-        "command": "rm -f /tmp/claude-ctx-pct-${CLAUDE_CODE_SSE_PORT:-global} /tmp/claude-ctx-warned-${CLAUDE_CODE_SSE_PORT:-global}"
-      }]
-    }
-  ]
-}
 ```
+packages/context-management/
+  scripts/
+    status-line.sh           # Status line + cache writer
+    context-monitor-post.sh  # PostToolUse (soft warnings)
+    context-gate-pre.sh      # PreToolUse (hard blocker)
+  tests/
+    status-line.test.sh
+    context-gate-pre.test.sh
+    context-monitor-post.test.sh
+  install.sh                 # Symlink installer
+  test.sh                    # Test runner
+  claude-settings.example.json
+  README.md
+```
+
+### Installed symlinks
+
+| Canonical source | Symlink target |
+|---|---|
+| `scripts/status-line.sh` | `~/.claude/scripts/status-line.sh` |
+| `scripts/context-gate-pre.sh` | `~/.claude/hooks/context-gate-pre.sh` |
+| `scripts/context-monitor-post.sh` | `~/.claude/hooks/context-monitor-post.sh` |
+
+## Testing
+
+```bash
+# Run all tests
+./test.sh
+
+# Run individual test suites
+bash tests/status-line.test.sh
+bash tests/context-gate-pre.test.sh
+bash tests/context-monitor-post.test.sh
+
+# Shellcheck
+shellcheck scripts/*.sh install.sh
+```
+
+Tests use fake `CLAUDE_CODE_SSE_PORT` values and clean up after themselves — they never touch real session cache files.
 
 ## Per-Session Isolation
 
@@ -120,10 +138,10 @@ The PreToolUse hook has no throttling — it checks on every call but the check 
 ## Tuning
 
 To adjust thresholds, edit the percentage checks in:
-- `context-monitor-post.sh`: lines checking `$pct -lt 55` and `$pct -ge 65`
-- `context-gate-pre.sh`: line checking `$pct -lt 75`
-- `status-line.sh`: `classify_zone()` function
+- `scripts/context-monitor-post.sh`: lines checking `$pct -lt 55` and `$pct -ge 65`
+- `scripts/context-gate-pre.sh`: line checking `$pct -lt 75`
+- `scripts/status-line.sh`: `classify_zone()` function
 
-To adjust throttle interval, change `THROTTLE_SECONDS=60` in `context-monitor-post.sh`.
+To adjust throttle interval, change `THROTTLE_SECONDS=60` in `scripts/context-monitor-post.sh`.
 
-To allow additional tools through the 75%+ gate, add them to the `case` statement in `context-gate-pre.sh`.
+To allow additional tools through the 75%+ gate, add them to the `case` statement in `scripts/context-gate-pre.sh`.
