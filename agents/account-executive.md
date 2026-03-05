@@ -31,17 +31,24 @@ classification:
 # === RELATIONSHIPS ===
 related-agents:
   - sales-development-rep
+  - sales-ops-analyst
+  - revenue-ops-analyst
 related-skills:
   - sales-team/meeting-intelligence
   - sales-team/sales-call-analysis
   - sales-team/pipeline-analytics
   - sales-team/lead-research
+  - sales-team/pipeline-forecasting
 related-commands: []
 collaborates-with:
   - agent: sales-development-rep
     purpose: Receive qualified leads with enrichment data and qualification scores for meeting preparation
     required: optional
     without-collaborator: "Meeting prep uses available deal context without SDR qualification data"
+  - agent: sales-ops-analyst
+    purpose: Pipeline data and CRM health inputs inform deal strategy and forecast accuracy
+    required: optional
+    without-collaborator: "Pipeline analysis uses local deal data without cross-pipeline CRM health context"
 
 # === TECHNICAL ===
 tools: [Read, Write, Bash, Grep, Glob]

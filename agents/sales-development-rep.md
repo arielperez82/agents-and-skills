@@ -32,10 +32,12 @@ classification:
 related-agents:
   - account-executive
   - gtm-strategist
+  - sales-ops-analyst
 related-skills:
   - sales-team/lead-research
   - sales-team/lead-qualification
   - sales-team/sales-outreach
+  - sales-team/cadence-design
 related-commands: []
 collaborates-with:
   - agent: account-executive

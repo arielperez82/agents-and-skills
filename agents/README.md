@@ -126,6 +126,8 @@ These agents live directly in the `agents/` root directory:
 
 - **`sales-development-rep`** - Sales development for lead research, enrichment, qualification, and personalized outreach in B2B sales workflows
 - **`account-executive`** - Account executive for meeting intelligence, sales call analysis, and pipeline analytics in B2B sales workflows
+- **`sales-ops-analyst`** - Sales operations for CRM data health, pipeline forecasting, and operational analytics in B2B sales workflows
+- **`revenue-ops-analyst`** - Revenue intelligence for SaaS metrics analysis, GTM efficiency measurement, cohort analytics, and board-level reporting
 
 ### Product Agents
 

@@ -1,18 +1,24 @@
 # Sales Team Skills - Claude Code Guidance
 
-This guide covers the 6 sales enablement skills for B2B sales execution workflows.
+This guide covers the 10 sales enablement skills for B2B sales execution and operations workflows.
 
-> **Note:** These skills focus on sales execution (SDR + AE workflows). Marketing demand generation is in `skills/marketing-team/`. Product management is in `skills/product-team/`.
+> **Note:** These skills cover sales execution (SDR + AE workflows) and sales operations (CRM health, forecasting, revenue analytics). Marketing demand generation is in `skills/marketing-team/`. Product management is in `skills/product-team/`.
 
 ## Sales Skills Overview
 
-**Available Skills:**
+**Execution Skills (SDR + AE):**
 1. **lead-research/** - Company research, lead enrichment, web intelligence synthesis
 2. **lead-qualification/** - Enterprise scoring rubrics, ICP matching, BANT/MEDDIC frameworks
 3. **sales-outreach/** - ABM email personalization, cold outreach drafting, tone frameworks
 4. **meeting-intelligence/** - Pre-call briefing, post-call follow-up, proposal detection
 5. **sales-call-analysis/** - Call evaluation frameworks (SPIN, Challenger, MEDDIC), scoring
 6. **pipeline-analytics/** - Pipeline health monitoring, deal risk flagging, coaching insights
+
+**Operations & Revenue Skills (Sales Ops + Rev Ops):**
+7. **crm-ops/** - CRM data model design, data hygiene, integration patterns, audit checklists
+8. **pipeline-forecasting/** - Forecast methods, coverage ratios, commit calls, accuracy tracking
+9. **cadence-design/** - Multi-channel sequence architecture, timing, persona adaptation, A/B testing
+10. **revenue-analytics/** - SaaS revenue metrics, GTM efficiency, funnel analytics, cohort intelligence
 
 **Total Tools:** 0 (methodology-first; Python tools planned for follow-on initiative)
 
@@ -22,6 +28,8 @@ This guide covers the 6 sales enablement skills for B2B sales execution workflow
 |-------|-------------|------|
 | `sales-development-rep` | lead-research, lead-qualification, sales-outreach | Top-of-funnel: research, qualify, outreach |
 | `account-executive` | meeting-intelligence, sales-call-analysis, pipeline-analytics | Mid/bottom-funnel: meetings, analysis, pipeline |
+| `sales-ops-analyst` | crm-ops, pipeline-forecasting | Sales operations: CRM health, forecasting |
+| `revenue-ops-analyst` | revenue-analytics | Revenue intelligence: SaaS metrics, GTM efficiency |
 
 ## Integration Abstraction
 
@@ -36,7 +44,8 @@ All skills use **tool-agnostic language**. No vendor-specific integrations (HubS
 ### Workflow 1: SDR Lead Processing
 ```
 Lead arrives → lead-research (research company) → lead-qualification (score against ICP)
-→ sales-outreach (draft personalized email) → Send via email platform
+→ sales-outreach (draft personalized email) → cadence-design (sequence the follow-ups)
+→ Send via email platform
 ```
 
 ### Workflow 2: AE Meeting Lifecycle
@@ -52,6 +61,26 @@ Daily trigger → pipeline-analytics (review all deals) → Flag risks
 → sales-call-analysis (review flagged calls) → Coaching recommendations → Report
 ```
 
+### Workflow 4: CRM Health Audit
+```
+Quarterly trigger → crm-ops (audit CRM data quality) → Score findings
+→ crm-ops (remediation plan) → Track improvements → Re-audit
+```
+
+### Workflow 5: Weekly Forecast Cycle
+```
+Weekly trigger → pipeline-forecasting (pull pipeline + calculate coverage)
+→ pipeline-forecasting (commit call prep) → Commit call with reps
+→ pipeline-forecasting (compare actuals) → Track accuracy over time
+```
+
+### Workflow 6: Revenue Intelligence Report
+```
+Monthly trigger → revenue-analytics (collect metrics + calculate ARR waterfall)
+→ revenue-analytics (cohort analysis + GTM efficiency) → Benchmark against targets
+→ revenue-analytics (produce executive/board report) → Distribute
+```
+
 ## Quality Standards
 
 **All sales skills must:**
@@ -62,6 +91,6 @@ Daily trigger → pipeline-analytics (review all deals) → Flag risks
 
 ---
 
-**Last Updated:** February 11, 2026
-**Skills Deployed:** 6/6 sales skills
+**Last Updated:** March 5, 2026
+**Skills Deployed:** 10/10 sales skills
 **Total Tools:** 0 (methodology-first release)
