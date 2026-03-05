@@ -2,7 +2,7 @@
 type: roadmap
 endeavor: repo
 status: active
-updated: 2026-03-04
+updated: 2026-03-05
 ---
 
 # Roadmap: agents-and-skills
@@ -17,7 +17,7 @@ Initiatives actively in progress.
 
 | Initiative | Name | Description | Status | Charter |
 |------------|------|-------------|--------|---------|
-| I28-GTMMC | GTM Marketing Ops & Channels | Marketing ops & channels: marketing-ops-manager, abm-strategist, linkedin-strategist, email-marketing-specialist, aeo-geo-strategist agents + 6 skills. Depends on I27 (done). | Chartered | [charter](../charters/charter-repo-I28-GTMMC-gtm-marketing-channels.md) |
+| I29-GTMSO | GTM Sales Ops & Revenue | Sales ops & revenue: sales-ops-analyst, revenue-ops-analyst agents + crm-ops, pipeline-forecasting, revenue-analytics, cadence-design skills. Depends on I27 (done)+I28 (done). | Chartered | [charter](../charters/charter-repo-I29-GTMSO-gtm-sales-ops-revenue.md) |
 
 ## Next
 
@@ -25,7 +25,7 @@ Initiatives chartered and ready to start when capacity allows.
 
 | Initiative | Name | Description | Status | Charter |
 |------------|------|-------------|--------|---------|
-| I29-GTMSO | GTM Sales Ops & Revenue | Sales ops & revenue: sales-ops-analyst, revenue-ops-analyst agents + crm-ops, pipeline-forecasting, revenue-analytics, cadence-design skills. Depends on I27 (done)+I28. | Chartered | [charter](../charters/charter-repo-I29-GTMSO-gtm-sales-ops-revenue.md) |
+| *(none)* | | | | |
 
 ## Later
 
@@ -70,3 +70,4 @@ Completed initiatives.
 | I26-CXCO | Craft Context Continuity | Handoff snapshots, context budget protocol, enhanced resume reconstruction, context-continuity skill, /context/handoff command | [charter](../charters/charter-repo-I26-CXCO-craft-context-continuity.md) |
 | I14-MATO (Phase 2) | Multi-Agent Token Optimization | Cross-vendor dispatch: CLAUDE.md rules, /dispatch command, gemini/codex backends, pre-flight auth, telemetry | [charter](../charters/charter-repo-I14-MATO-multi-agent-token-optimization.md) |
 | I27-GTMSI | GTM Strategy & Intelligence | Strategy layer: gtm-strategist, competitive-intelligence-analyst, copywriter agents + icp-modeling, niche-market-strategy, competitive-intel skills. Fixed 4 dangling copywriter command refs. | [charter](../charters/charter-repo-I27-GTMSI-gtm-strategy-intelligence.md) |
+| I28-GTMMC | GTM Marketing Ops & Channels | Marketing ops & channels: marketing-ops-manager, abm-strategist, linkedin-strategist, email-marketing-specialist, aeo-geo-strategist agents + 7 skills (lead-scoring, abm-strategy, marketing-automation, attribution-modeling, linkedin-strategy, email-sequences, aeo-geo-optimization). | [charter](../charters/charter-repo-I28-GTMMC-gtm-marketing-channels.md) |
