@@ -1,5 +1,5 @@
 #!/bin/bash
-# PreToolUse hook: block tool calls when context is critically high (>=75%).
+# PreToolUse hook: block tool calls when context is critically high (>=60%).
 # Allows Write, Edit, Read, Glob, Grep through so the agent can still write a handoff.
 # Uses exit 2 to block (stderr shown to Claude as error).
 #

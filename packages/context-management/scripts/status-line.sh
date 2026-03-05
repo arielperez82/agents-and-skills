@@ -18,8 +18,8 @@
 #   echo '{"model":...,"context_window":...}' | ~/.claude/scripts/status-line.sh
 #
 #   # Agent pre-flight check:
-#   echo '{"context_window":{"used_percentage":57}}' | ~/.claude/scripts/status-line.sh --agent
-#   # Output: CTX 57% CAUTION Wrap up current task. Past 65% you will be asked to STOP.
+#   echo '{"context_window":{"used_percentage":42}}' | ~/.claude/scripts/status-line.sh --agent
+#   # Output: CTX 42% CAUTION Wrap up current task. Past 50% you will be asked to STOP.
 
 MODE="human"
 if [ "$1" = "--agent" ]; then
