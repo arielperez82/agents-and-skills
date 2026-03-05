@@ -6,7 +6,6 @@
 #
 # Uses exit 2 to block (stderr shown to Claude as error).
 # No set -e: hooks need granular exit code control (fail-open design).
-#
 # Canonical source: packages/commit-monitor/scripts/commit-gate-pre.sh
 # Installed at: ~/.claude/hooks/commit-gate-pre.sh (symlink)
 
