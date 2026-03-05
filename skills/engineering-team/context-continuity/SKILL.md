@@ -6,9 +6,12 @@ metadata:
   domain: engineering
   subdomain: workflow-optimization
   tags: [context-management, handoff, session-continuity, resumability, context-budget]
+  related-agents: [engineering-lead, senior-project-manager]
+  related-skills: [subagent-driven-development, planning]
+  related-commands: [context/handoff, craft/craft, craft/resume]
   status: active
-  version: 1.0.0
-  updated: 2026-03-02
+  version: 1.0.1
+  updated: 2026-03-05
   initiative: I26-CXCO
   initiative_name: Craft Context Continuity
 ---
@@ -184,7 +187,7 @@ When starting a new session and a handoff snapshot exists:
 
 ## Prior Art
 
-This skill adapts patterns from the **handoff skill** (SpliceLabs/rlm pattern), which writes a compact `HANDOFF.md` capturing goal, current state, key anchors, git diff summary, and next steps. The key adaptations:
+This skill adapts patterns from the **handoff skill** (SpliceLabs/rlm pattern), which originally wrote a single `HANDOFF.md` file at the repo root. That approach was replaced by the patterns below:
 
 - **Craft-first rule**: If an active craft status file exists, handoff updates the status file Phase Log (embedded snapshot). Otherwise, standalone handoffs write to `.docs/reports/handoff-{context-slug}-{timestamp}.md`
 - **Budget discipline added**: The original pattern writes snapshots on demand; this skill adds proactive budget monitoring

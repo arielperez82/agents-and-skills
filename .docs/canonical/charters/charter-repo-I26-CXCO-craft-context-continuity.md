@@ -46,7 +46,7 @@ Evidence from prior initiatives:
 
 4. **`context-continuity` skill** (`skills/engineering-team/context-continuity/SKILL.md`) — General-purpose skill documenting the handoff pattern, context budget discipline, and snapshot format. Usable by any workflow, not just `/craft`. References the handoff skill pattern as prior art.
 
-5. **`/context/handoff` command** (`commands/context/handoff.md`) — Standalone command that writes a handoff snapshot for non-`/craft` work sessions. Uses the same format as the craft-embedded snapshots but writes to `.claude/handoff/HANDOFF.md` (or user-specified path). Loadable by any fresh session.
+5. **`/context/handoff` command** (`commands/context/handoff.md`) — Standalone command that writes a handoff snapshot. Checks for an active craft status file first (Craft-First Rule): if found, embeds the snapshot in the status file Phase Log; otherwise writes a standalone handoff to `.docs/reports/handoff-{context-slug}-{timestamp}.md`. Loadable by any fresh session.
 
 6. **Status file schema extension** — Add `handoff_snapshots` array to track snapshot timestamps and the snapshot content embedded in the Phase Log.
 

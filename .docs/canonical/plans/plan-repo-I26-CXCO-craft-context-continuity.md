@@ -186,10 +186,9 @@ Body sections:
 Create `commands/context/handoff.md` with frontmatter (description, argument-hint). Protocol:
 1. Load the `context-continuity` skill for format guidance
 2. Assess current session state: gather git status, git diff --stat summary, recent commits (last 5)
-3. Write handoff snapshot to `.claude/handoff/HANDOFF.md` (default) or user-specified path
+3. Craft-First Rule: check for active craft status file — if found, embed snapshot in Phase Log; otherwise write standalone to `.docs/reports/handoff-{context-slug}-{timestamp}.md`
 4. Snapshot follows the same 5-field format as craft-embedded snapshots plus a Git State section (branch, uncommitted changes summary, recent commits)
 5. Optional `--focus` argument narrows scope (limits Key Anchors and Next Steps to that area)
-6. No dependency on craft status files -- works independently
 
 **Files to create:** `commands/context/handoff.md`
 

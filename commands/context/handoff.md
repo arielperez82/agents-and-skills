@@ -11,7 +11,7 @@ Load the **`context-continuity` skill** (`skills/engineering-team/context-contin
 
 ## Arguments
 
-- **`context-slug`** (optional): Short context identifier for the handoff (e.g., `auth-migration`, `eslint-upgrade`). Used in the filename. If omitted, derive from the session objective (kebab-case, max 40 chars).
+- **`context-slug`** (optional): Short context identifier for the handoff (e.g., `auth-migration`, `eslint-upgrade`). Used in the filename. If omitted, derive from the session objective (kebab-case, max 40 chars). **Path safety:** The slug must match `^[a-zA-Z0-9][a-zA-Z0-9_-]{0,39}$` — alphanumeric start, only letters/digits/hyphens/underscores, max 40 chars. Reject any slug containing `/`, `..`, or path separators.
 - **`--focus <area>`** (optional): Narrow the snapshot scope to a specific area (e.g., `--focus "database migration"`). When provided, limit Key Anchors and Next Steps to files and actions related to that area.
 
 ## Craft-First Rule
@@ -38,6 +38,8 @@ Examples:
 - `.docs/reports/handoff-I14-MATO-P2-20260303120000.md`
 
 Multiple handoffs can coexist — each file is uniquely identified by context and timestamp.
+
+**Path safety:** The output path is always `.docs/reports/handoff-{slug}-{timestamp}.md` — never user-specified. The slug is validated against `^[a-zA-Z0-9][a-zA-Z0-9_-]{0,39}$` before use. If the slug fails validation, reject with an error and ask the user to provide a valid slug.
 
 ### Protocol
 
