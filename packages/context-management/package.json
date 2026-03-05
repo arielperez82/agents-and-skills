@@ -9,7 +9,8 @@
   },
   "scripts": {
     "test": "bash test.sh",
-    "shellcheck": "shellcheck scripts/*.sh install.sh",
-    "validate": "concurrently 'pnpm test' 'pnpm shellcheck'"
+    "lint:sh": "sh ../../scripts/run-shellcheck.sh scripts/*.sh install.sh",
+    "lint:sh:fix": "sh ../../scripts/run-shellcheck.sh --fix scripts/*.sh install.sh",
+    "validate": "concurrently 'pnpm test' 'pnpm lint:sh'"
   }
 }
