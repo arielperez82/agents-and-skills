@@ -123,6 +123,12 @@ All thresholds and weights are configurable via environment variables:
 |----------|---------|-------------|
 | `COMMIT_MONITOR_THROTTLE` | 120 | Seconds between yellow/orange nudges |
 
+### Debug / Testing
+
+| Variable | Default | Description |
+|----------|---------|-------------|
+| `COMMIT_MONITOR_SCORE_OVERRIDE` | (unset) | Bypasses git computation and uses this value as the score. For testing only. |
+
 ### Tuning strategy
 
 Start with the generous defaults. As commit habits improve, tighten:
