@@ -1,0 +1,12 @@
+{
+  "name": "@anthropic/commit-monitor",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Commit frequency enforcement hooks for Claude Code - nudges and blocks agents to commit early and often",
+  "scripts": {
+    "test": "./test.sh",
+    "install-hooks": "./install.sh",
+    "check": "./install.sh --check",
+    "uninstall": "./install.sh --uninstall"
+  }
+}
