@@ -3,9 +3,9 @@ goal: ".docs/canonical/charters/charter-repo-I31-EDPUB-editorial-publishing-pipe
 initiative_id: "I31-EDPUB"
 mode: auto
 auto_mode_confirmed_at: "2026-03-05T17:21:58Z"
-overall_status: in_progress
+overall_status: complete
 created_at: "2026-03-05T17:21:58Z"
-updated_at: "2026-03-05T18:00:00Z"
+updated_at: "2026-03-05T19:00:00Z"
 complexity_tier: light
 scope_type: docs-only
 session_ids: []
@@ -67,19 +67,36 @@ phases:
     panel_artifact_path: null
   - name: Build
     number: 4
-    status: pending
+    status: approved
     agents: [engineering-lead]
-    artifact_paths: []
-    commit_shas: []
-    current_step: null
-    steps_completed: []
+    artifact_paths:
+      - agents/editorial-writer.md
+      - agents/newsletter-producer.md
+      - agents/fact-checker.md
+      - agents/poll-writer.md
+      - agents/voice-consistency-reviewer.md
+      - agents/reader-clarity-reviewer.md
+      - agents/editorial-accuracy-reviewer.md
+      - skills/editorial-team/CLAUDE.md
+      - skills/editorial-team/script-to-article/SKILL.md
+      - skills/editorial-team/story-selection/SKILL.md
+      - skills/editorial-team/newsletter-assembly/SKILL.md
+      - skills/editorial-team/editorial-voice-matching/SKILL.md
+      - skills/editorial-team/bias-screening/SKILL.md
+      - skills/editorial-team/reader-clarity/SKILL.md
+      - commands/newsletter/generate.md
+      - commands/content/fact-check.md
+      - commands/review/editorial-review.md
+    commit_shas: [22a5c58, 8189c67, 67b04ea, 8e264d0]
+    current_step: 12
+    steps_completed: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12]
     handoff_snapshots:
       - step: "phase-3"
         timestamp: "2026-03-05T18:05:00Z"
         size_bytes: 3200
-    started_at: null
-    completed_at: null
-    human_decision: null
+    started_at: "2026-03-05T18:05:00Z"
+    completed_at: "2026-03-05T19:00:00Z"
+    human_decision: approve
     feedback: null
   - name: Validate
     number: 5

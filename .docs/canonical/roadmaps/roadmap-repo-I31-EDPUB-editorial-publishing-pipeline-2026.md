@@ -2,7 +2,7 @@
 
 **Initiative:** I31-EDPUB
 **Date:** 2026-03-05
-**Status:** Draft
+**Status:** Complete
 **Charter:** [charter-repo-I31-EDPUB](../charters/charter-repo-I31-EDPUB-editorial-publishing-pipeline.md)
 
 ## Outcome Sequence

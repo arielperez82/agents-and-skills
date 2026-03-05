@@ -29,6 +29,7 @@ classification:
 # === RELATIONSHIPS ===
 related-agents:
   - content-creator
+  - editorial-writer
 related-skills:
   - marketing-team/content-creator
   - marketing-team/page-cro

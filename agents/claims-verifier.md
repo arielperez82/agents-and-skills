@@ -33,6 +33,7 @@ related-agents:
   - ux-researcher
   - product-analyst
   - code-reviewer
+  - fact-checker
 related-skills:
   - engineering-team/code-reviewer
 related-commands: []

@@ -29,6 +29,7 @@ classification:
 related-agents:
   - sales-development-rep
   - copywriter
+  - editorial-writer
   - linkedin-strategist
   - aeo-geo-strategist
 related-skills:

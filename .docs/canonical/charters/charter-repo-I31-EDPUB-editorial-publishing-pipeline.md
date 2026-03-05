@@ -2,7 +2,7 @@
 
 **Initiative:** I31-EDPUB
 **Date:** 2026-03-05
-**Status:** Draft
+**Status:** Complete
 **First consumer:** Daily Dip Newsletter (Phil & Davin's team)
 
 ## Problem Statement

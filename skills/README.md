@@ -207,6 +207,17 @@ Role and specialist skills (same folder):
 | **page-cro** | Conversion optimization | Marketing pages, CRO, landing pages |
 | **marketing-psychology** | Marketing + psychology | Mental models, persuasion, consumer behavior |
 
+### Editorial Team (`editorial-team/`)
+
+| Skill | When to Use | What It Provides |
+|-------|-------------|------------------|
+| **script-to-article** | Transforming scripts/transcripts to articles | Verbal tic removal, reading flow, 3-5x compression, multi-story segmentation |
+| **story-selection** | Selecting stories for newsletter | 5 weighted criteria (relevance, newsworthiness, diversity, engagement, narrative), explicit picks and auto-select |
+| **newsletter-assembly** | Assembling newsletter editions | Edition template, subject lines, story ordering, format-agnostic markdown output |
+| **editorial-voice-matching** | Matching publication voice | Reference pair approach, voice extraction, distilled principles, prompt patterns |
+| **bias-screening** | Detecting editorial bias | 6 bias categories, severity classification, neutral rewriting patterns |
+| **reader-clarity** | Evaluating readability | Flesch-Kincaid grade 8-10 target, jargon detection, rewriting patterns |
+
 ### Sales Team (`sales-team/`)
 
 | Skill | When to Use | What It Provides |

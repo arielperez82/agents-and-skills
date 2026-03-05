@@ -44,6 +44,16 @@ These agents live directly in the `agents/` root directory:
 - **`product-marketer`** - Product marketing for positioning strategy, GTM execution, competitive intelligence, and launch planning
 - **`seo-strategist`** - Strategic SEO planning for site-wide optimization, keyword research, technical audits, and competitive positioning
 
+#### Editorial
+
+- **`editorial-writer`** - Transforms teleprompter scripts, video transcripts, and show outlines into polished newsletter articles with neutral tone and 3-5x compression
+- **`newsletter-producer`** - Coordinates the full editorial newsletter pipeline from raw script to finished edition
+- **`fact-checker`** - Screens editorial content for bias, loaded language, partisan framing, and tone issues (assess-only)
+- **`poll-writer`** - Creates balanced, engaging polls for newsletter editions
+- **`voice-consistency-reviewer`** - Adversarial review agent checking content against a publication's voice profile (6 dimensions, 0-100 score)
+- **`reader-clarity-reviewer`** - Adversarial review agent checking readability — jargon, unclear antecedents, sentence complexity (0-100 score)
+- **`editorial-accuracy-reviewer`** - Adversarial review agent comparing editorial output against source scripts for hallucinated facts, misattributions, and omissions (0-100 score)
+
 #### Documentation & Knowledge
 
 - **`docs-reviewer`** - Creates and maintains world-class permanent documentation (README, guides, API docs) with DIVIO/Diataxis classification
