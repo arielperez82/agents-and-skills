@@ -4,9 +4,12 @@
   "private": true,
   "type": "module",
   "description": "Context window monitoring and handoff enforcement hooks for Claude Code",
+  "devDependencies": {
+    "concurrently": "^9.2.1"
+  },
   "scripts": {
     "test": "bash test.sh",
     "shellcheck": "shellcheck scripts/*.sh install.sh",
-    "validate": "bash test.sh && shellcheck scripts/*.sh install.sh"
+    "validate": "concurrently 'pnpm test' 'pnpm shellcheck'"
   }
 }
