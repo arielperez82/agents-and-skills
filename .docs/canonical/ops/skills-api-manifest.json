@@ -536,6 +536,27 @@
     },
     "skills/marketing-team/niche-market-strategy": {
       "skill_id": "skill_011EnsXeXcMvs27LwPHrJPx8"
+    },
+    "skills/marketing-team/abm-strategy": {
+      "skill_id": "skill_01XkVDA3bGbnF7KhdLPybf4n"
+    },
+    "skills/marketing-team/aeo-geo-optimization": {
+      "skill_id": "skill_01UnZUDwVuMrPubt7nkzRcQD"
+    },
+    "skills/marketing-team/attribution-modeling": {
+      "skill_id": "skill_0132QWrQob47FpLQQENVRgQw"
+    },
+    "skills/marketing-team/email-sequences": {
+      "skill_id": "skill_019Ldme6EjDMYKKucHvkL4rp"
+    },
+    "skills/marketing-team/lead-scoring": {
+      "skill_id": "skill_01TRGHGhgwn5RTu3xRmBwvNX"
+    },
+    "skills/marketing-team/linkedin-strategy": {
+      "skill_id": "skill_01SdKELBaUkzhA81VjTauPkX"
+    },
+    "skills/marketing-team/marketing-automation": {
+      "skill_id": "skill_013C5vQmkJE7WqvWwjSgXufd"
     }
   }
 }
