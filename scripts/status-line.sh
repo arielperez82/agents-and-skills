@@ -35,11 +35,11 @@ used_pct=$(echo "$data" | jq -r '.context_window.used_percentage // empty')
 # Classify zone
 classify_zone() {
     local pct=$1
-    if [ "$pct" -gt 60 ]; then
-        echo "HIGH-RISK"
+    if [ "$pct" -ge 75 ]; then
+        echo "BLOCKED"
+    elif [ "$pct" -ge 65 ]; then
+        echo "STOP"
     elif [ "$pct" -ge 55 ]; then
-        echo "START-GATE"
-    elif [ "$pct" -ge 50 ]; then
         echo "CAUTION"
     else
         echo "OK"
@@ -50,10 +50,10 @@ classify_zone() {
 zone_action() {
     local zone=$1
     case "$zone" in
-        OK)         echo "Continue normally." ;;
-        CAUTION)    echo "Write snapshot. Continue." ;;
-        START-GATE) echo "Do NOT start new work. Write snapshot. Recommend handoff." ;;
-        HIGH-RISK)  echo "Recommend /compact or new session." ;;
+        OK)      echo "Continue normally." ;;
+        CAUTION) echo "Wrap up current task. Past 65% you will be asked to STOP." ;;
+        STOP)    echo "STOP. Initiate handoff NOW. At 75% tools will be BLOCKED." ;;
+        BLOCKED) echo "BLOCKED. Write handoff with /context/handoff immediately." ;;
     esac
 }
 
@@ -95,15 +95,17 @@ bar=""
 filled=$(( pct / 10 ))
 
 # Color codes
-BLUE='\033[34m'
+GREEN='\033[32m'
 YELLOW='\033[33m'
+ORANGE='\033[38;5;208m'
 RED='\033[31m'
 RESET='\033[0m'
 
 case "$zone" in
-    HIGH-RISK)  COLOR="$RED" ;;
-    START-GATE) COLOR="$YELLOW" ;;
-    *)          COLOR="$BLUE" ;;
+    BLOCKED) COLOR="$RED" ;;
+    STOP)    COLOR="$ORANGE" ;;
+    CAUTION) COLOR="$YELLOW" ;;
+    *)       COLOR="$GREEN" ;;
 esac
 
 for i in 0 1 2 3 4 5 6 7 8 9; do
