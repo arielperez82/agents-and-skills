@@ -217,6 +217,10 @@ Role and specialist skills (same folder):
 | **meeting-intelligence** | Sales meetings | Pre-call briefings, post-call follow-up, proposal detection |
 | **sales-call-analysis** | Call evaluation | SPIN/Challenger/MEDDIC scoring, coaching drills, trend tracking |
 | **pipeline-analytics** | Pipeline health | Deal risk flagging, stage velocity, conversion analysis, coaching insights |
+| **crm-ops** | CRM management | Data model design, hygiene rules, integration patterns, audit checklists |
+| **pipeline-forecasting** | Sales forecasting | Forecast methods, coverage ratios, commit calls, accuracy tracking |
+| **cadence-design** | Outreach sequences | Multi-channel cadence architecture, timing, persona adaptation, A/B testing |
+| **revenue-analytics** | Revenue intelligence | SaaS metrics, GTM efficiency, funnel analytics, cohort analysis, dashboards |
 
 ### UX Team (`ux-team/`)
 
