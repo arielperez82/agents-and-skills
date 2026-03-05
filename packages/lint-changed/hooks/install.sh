@@ -23,6 +23,19 @@ case "$choice" in
 esac
 
 mkdir -p "$DEST"
-cp "$SOURCE" "$DEST/lint-changed.sh"
-chmod +x "$DEST/lint-changed.sh"
-echo "Installed → $DEST/lint-changed.sh"
+
+if [ -L "$DEST/lint-changed.sh" ]; then
+  current=$(readlink "$DEST/lint-changed.sh")
+  if [ "$current" = "$SOURCE" ]; then
+    echo "Already linked → $DEST/lint-changed.sh"
+    exit 0
+  fi
+  rm "$DEST/lint-changed.sh"
+elif [ -f "$DEST/lint-changed.sh" ]; then
+  backup="$DEST/lint-changed.sh.bak.$(date +%s)"
+  echo "Backing up existing file → $backup"
+  mv "$DEST/lint-changed.sh" "$backup"
+fi
+
+ln -s "$SOURCE" "$DEST/lint-changed.sh"
+echo "Installed → $DEST/lint-changed.sh -> $SOURCE"

@@ -1,0 +1,30 @@
+{
+  "hooks": {
+    "PostToolUse": [
+      {
+        "matcher": "Write|Edit",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "~/.claude/hooks/lint-changed.sh",
+            "timeout": 300,
+            "statusMessage": "Linting written/edited files...",
+            "async": true
+          }
+        ]
+      }
+    ],
+    "Stop": [
+      {
+        "hooks": [
+          {
+            "type": "command",
+            "command": "~/.claude/hooks/lint-changed.sh --gate",
+            "timeout": 300,
+            "statusMessage": "Final lint check on uncommitted files..."
+          }
+        ]
+      }
+    ]
+  }
+}
