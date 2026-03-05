@@ -56,49 +56,38 @@ else
     base_ref=$(git hash-object -t tree /dev/null)
   fi
 
-  # Count lines by file type from tracked changes
+  # Classify file and accumulate lines by type (test/doc/prod)
   prod_lines=0
   test_lines=0
   doc_lines=0
   dirs=""
 
+  classify_and_count() {
+    local file="$1" count="$2"
+    case "$file" in
+      *.test.*|*.spec.*|*__tests__/*|tests/*)
+        test_lines=$((test_lines + count)) ;;
+      *.md)
+        doc_lines=$((doc_lines + count)) ;;
+      *)
+        prod_lines=$((prod_lines + count)) ;;
+    esac
+    dirs="${dirs}|$(dirname "$file")"
+  }
+
+  # Tracked changes (staged + unstaged vs HEAD)
   while IFS=$'\t' read -r added deleted file; do
     [ -z "$file" ] && continue
     [ "$added" = "-" ] && continue  # binary file
-    lines=$((added + deleted))
-
-    case "$file" in
-      *.test.*|*.spec.*|*__tests__/*|tests/*)
-        test_lines=$((test_lines + lines))
-        ;;
-      *.md)
-        doc_lines=$((doc_lines + lines))
-        ;;
-      *)
-        prod_lines=$((prod_lines + lines))
-        ;;
-    esac
-    dirs="${dirs}|$(dirname "$file")"
+    classify_and_count "$file" $((added + deleted))
   done <<< "$(git diff --numstat "$base_ref" 2>/dev/null)"
 
-  # Count lines from untracked files
+  # Untracked files
   while IFS= read -r file; do
     [ -z "$file" ] && continue
     ulines=$(wc -l < "$file" 2>/dev/null | tr -d ' ')
     [ -z "$ulines" ] && ulines=0
-
-    case "$file" in
-      *.test.*|*.spec.*|*__tests__/*|tests/*)
-        test_lines=$((test_lines + ulines))
-        ;;
-      *.md)
-        doc_lines=$((doc_lines + ulines))
-        ;;
-      *)
-        prod_lines=$((prod_lines + ulines))
-        ;;
-    esac
-    dirs="${dirs}|$(dirname "$file")"
+    classify_and_count "$file" "$ulines"
   done <<< "$(git ls-files --others --exclude-standard 2>/dev/null)"
 
   # Unique directory count
