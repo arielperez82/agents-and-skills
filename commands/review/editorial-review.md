@@ -1,0 +1,91 @@
+---
+description: Run parallel editorial review agents on a newsletter edition
+argument-hint: <newsletter-path> <source-path> [--voice-ref <path>]
+---
+
+# Purpose
+
+Run the editorial review gate: 4 adversarial agents in parallel evaluating a newsletter edition for bias, voice consistency, reader clarity, and source fidelity. Produces a combined verdict.
+
+## Parameters
+
+| Parameter | Required | Default | Description |
+|-----------|----------|---------|-------------|
+| `newsletter` | Yes | — | Path to the newsletter edition to review |
+| `source` | Yes | — | Path to the source script/transcript (for fidelity checking) |
+| `voice-ref` | No | — | Path to a reference edition or voice profile (for voice consistency checking) |
+
+## Review Agents (run in parallel)
+
+| # | Agent | Focus | Skill |
+|---|-------|-------|-------|
+| 1 | `fact-checker` | Bias, loaded language, partisan framing | `editorial-team/bias-screening` |
+| 2 | `voice-consistency-reviewer` | Voice alignment across 6 dimensions | `editorial-team/editorial-voice-matching` |
+| 3 | `reader-clarity-reviewer` | Readability, jargon, assumed context | `editorial-team/reader-clarity` |
+| 4 | `editorial-accuracy-reviewer` | Source fidelity, hallucinated facts | `editorial-team/script-to-article` |
+
+## Verdict Logic
+
+| Verdict | Criteria |
+|---------|----------|
+| **PASS** | All 4 agents report no Block/critical findings. All scores 80+. |
+| **PASS WITH NOTES** | No Block findings from any agent. Some Warning findings or scores 60-79. |
+| **FAIL** | Any agent reports a Block finding, OR any agent score below 60. |
+
+## Workflow
+
+1. Read the newsletter edition and source script
+2. Launch all 4 agents in parallel, each with:
+   - The newsletter content
+   - The source script (for editorial-accuracy-reviewer)
+   - The voice reference (for voice-consistency-reviewer, if provided)
+3. Wait for all agents to complete
+4. Collate findings into a combined report
+5. Apply verdict logic
+6. Output combined editorial review report
+
+## Output Format
+
+```markdown
+## Editorial Review Summary
+
+**Newsletter:** [path]
+**Source:** [path]
+**Verdict:** PASS / PASS WITH NOTES / FAIL
+
+### Agent Results
+
+| Agent | Score | Blocks | Warnings | Flags | Status |
+|-------|-------|--------|----------|-------|--------|
+| fact-checker | — | N | N | N | Pass/Fail |
+| voice-consistency-reviewer | N/100 | — | N | N | Pass/Fail |
+| reader-clarity-reviewer | N/100 | — | N | N | Pass/Fail |
+| editorial-accuracy-reviewer | N/100 | N | N | N | Pass/Fail |
+
+### Block Findings (must fix)
+
+[List of all Block-severity findings from all agents]
+
+### Warning Findings (should fix)
+
+[List of all Warning-severity findings]
+
+### Flag Findings (awareness)
+
+[List of all Flag-severity findings]
+```
+
+## Examples
+
+```bash
+# Full editorial review
+/review/editorial-review editions/2026-03-05.md scripts/show-2026-03-05.md
+
+# With voice reference
+/review/editorial-review editions/2026-03-05.md scripts/show-2026-03-05.md --voice-ref editions/2026-03-01.md
+```
+
+## References
+
+- Agents: [fact-checker](../../agents/fact-checker.md), [voice-consistency-reviewer](../../agents/voice-consistency-reviewer.md), [reader-clarity-reviewer](../../agents/reader-clarity-reviewer.md), [editorial-accuracy-reviewer](../../agents/editorial-accuracy-reviewer.md)
+- Pattern: follows [review-changes](review-changes.md) parallel review command pattern
