@@ -6,7 +6,7 @@ import { fileURLToPath } from 'node:url';
 const semgrepScript = resolve(dirname(fileURLToPath(import.meta.url)), '../../scripts/run-semgrep.sh');
 
 export default {
-  '**/*.sh': (stagedFiles) => [
+  '**/*.sh': (stagedFiles: string[]) => [
     `shellcheck --severity=warning ${stagedFiles.join(' ')}`,
     `sh ${semgrepScript} ${stagedFiles.join(' ')}`,
     'bash test.sh',
