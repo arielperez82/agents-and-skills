@@ -72,6 +72,10 @@ pct=$(printf "%.0f" "$used_pct" 2>/dev/null || echo "$used_pct")
 
 zone=$(classify_zone "$pct")
 
+# Cache percentage for context-monitor hooks to read (per-session via SSE port)
+CTX_CACHE="/tmp/claude-ctx-pct-${CLAUDE_CODE_SSE_PORT:-global}"
+echo "$pct" > "$CTX_CACHE" 2>/dev/null
+
 if [ "$MODE" = "agent" ]; then
     action=$(zone_action "$zone")
     echo "CTX ${pct}% ${zone} ${action}"
