@@ -58,30 +58,30 @@ echo ""
 echo "--- No cache file ---"
 assert_output "no cache = suppress" '{}' '{"suppressOutput": true}'
 
-# Below 55% = silent
+# Below 40% = silent
 echo ""
 echo "--- Below threshold ---"
 assert_output "30% = suppress" '{}' '{"suppressOutput": true}' "30"
-assert_output "54% = suppress" '{}' '{"suppressOutput": true}' "54"
+assert_output "39% = suppress" '{}' '{"suppressOutput": true}' "39"
 
-# 55-64% = warning
+# 40-49% = warning
 echo ""
-echo "--- Warning zone (55-64%) ---"
-assert_contains "55% = wrap up warning" '{}' "CONTEXT AT 55%" "55"
-assert_contains "60% = wrap up warning" '{}' "Wrap up current task" "60"
+echo "--- Warning zone (40-49%) ---"
+assert_contains "40% = wrap up warning" '{}' "CONTEXT AT 40%" "40"
+assert_contains "45% = wrap up warning" '{}' "Wrap up current task" "45"
 
-# 65%+ = STOP directive
+# 50%+ = STOP directive
 echo ""
-echo "--- STOP zone (65%+) ---"
+echo "--- STOP zone (50%+) ---"
+assert_contains "50% = STOP" '{}' "CONTEXT AT 50%" "50"
+assert_contains "55% = STOP with handoff" '{}' "Initiate handoff NOW" "55"
 assert_contains "65% = STOP" '{}' "CONTEXT AT 65%" "65"
-assert_contains "70% = STOP with handoff" '{}' "Initiate handoff NOW" "70"
-assert_contains "80% = STOP" '{}' "CONTEXT AT 80%" "80"
 
 # Throttle behavior
 echo ""
 echo "--- Throttle ---"
 cleanup
-echo "60" > "$CTX_CACHE"
+echo "45" > "$CTX_CACHE"
 # First call: should warn
 out1=$(echo '{}' | bash "$SUT")
 # Second call immediately: should suppress

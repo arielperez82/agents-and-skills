@@ -35,11 +35,11 @@ used_pct=$(echo "$data" | jq -r '.context_window.used_percentage // empty')
 # Classify zone
 classify_zone() {
     local pct=$1
-    if [ "$pct" -ge 75 ]; then
+    if [ "$pct" -ge 60 ]; then
         echo "BLOCKED"
-    elif [ "$pct" -ge 65 ]; then
+    elif [ "$pct" -ge 50 ]; then
         echo "STOP"
-    elif [ "$pct" -ge 55 ]; then
+    elif [ "$pct" -ge 40 ]; then
         echo "CAUTION"
     else
         echo "OK"
@@ -51,8 +51,8 @@ zone_action() {
     local zone=$1
     case "$zone" in
         OK)      echo "Continue normally." ;;
-        CAUTION) echo "Wrap up current task. Past 65% you will be asked to STOP." ;;
-        STOP)    echo "STOP. Initiate handoff NOW. At 75% tools will be BLOCKED." ;;
+        CAUTION) echo "Wrap up current task. Past 50% you will be asked to STOP." ;;
+        STOP)    echo "STOP. Initiate handoff NOW. At 60% tools will be BLOCKED." ;;
         BLOCKED) echo "BLOCKED. Write handoff with /context/handoff immediately." ;;
     esac
 }

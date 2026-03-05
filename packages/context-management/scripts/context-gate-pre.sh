@@ -19,8 +19,8 @@ if [ -z "$pct" ] || ! [ "$pct" -eq "$pct" ] 2>/dev/null; then
   exit 0
 fi
 
-# Below 75%: allow everything
-if [ "$pct" -lt 75 ]; then
+# Below 60%: allow everything
+if [ "$pct" -lt 60 ]; then
   exit 0
 fi
 

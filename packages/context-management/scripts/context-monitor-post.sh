@@ -23,8 +23,8 @@ if [ -z "$pct" ] || ! [ "$pct" -eq "$pct" ] 2>/dev/null; then
   exit 0
 fi
 
-# Below 55%: silent
-if [ "$pct" -lt 55 ]; then
+# Below 40%: silent
+if [ "$pct" -lt 40 ]; then
   printf '{"suppressOutput": true}'
   exit 0
 fi
@@ -42,12 +42,12 @@ fi
 # Record throttle timestamp
 date +%s > "$THROTTLE_FILE"
 
-# 65%+: STOP directive
-if [ "$pct" -ge 65 ]; then
-  printf '{"systemMessage":"CONTEXT AT %d%% — STOP. Initiate handoff NOW using /context/handoff. At 75%% all tool calls except Write/Edit/Read will be BLOCKED."}' "$pct"
+# 50%+: STOP directive
+if [ "$pct" -ge 50 ]; then
+  printf '{"systemMessage":"CONTEXT AT %d%% — STOP. Initiate handoff NOW using /context/handoff. At 60%% all tool calls except Write/Edit/Read will be BLOCKED."}' "$pct"
   exit 0
 fi
 
-# 55-64%: strong warning
-printf '{"systemMessage":"CONTEXT AT %d%% — Wrap up current task and commit. Past 65%% you will be asked to STOP and write a handoff."}' "$pct"
+# 40-49%: strong warning
+printf '{"systemMessage":"CONTEXT AT %d%% — Wrap up current task and commit. Past 50%% you will be asked to STOP and write a handoff."}' "$pct"
 exit 0

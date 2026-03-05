@@ -482,7 +482,7 @@ Before writing any code, verify:
 - Ask "What do I wish I'd known at the start?" after significant changes
 - Document gotchas, patterns, decisions, edge cases while context is fresh
 
-**Context Awareness:** Before starting any new unit of work in a multi-step workflow, check context utilization. Quick check: `echo '{"context_window":{"used_percentage":N}}' | ~/.claude/scripts/status-line.sh --agent` (returns zone: `OK`/`CAUTION`/`START-GATE`/`HIGH-RISK`). If at 55%+ (`START-GATE`), prioritize handoff over starting new work. Use `/context/handoff` — it auto-detects whether to update an active craft status file or write a standalone handoff to `.docs/reports/handoff-{context}-{timestamp}.md`. A clean handoff at 55% is always better than degraded output at 80%.
+**Context Awareness:** Before starting any new unit of work in a multi-step workflow, check context utilization. Quick check: `echo '{"context_window":{"used_percentage":N}}' | ~/.claude/scripts/status-line.sh --agent` (returns zone: `OK`/`CAUTION`/`STOP`/`BLOCKED`). If at 40%+ (`CAUTION`), prioritize handoff over starting new work. Use `/context/handoff` — it auto-detects whether to update an active craft status file or write a standalone handoff to `.docs/reports/handoff-{context}-{timestamp}.md`. A clean handoff at 55% is always better than degraded output at 80%.
 
 **Validation gate:** Per-commit validation is handled automatically by hooks and pre-commit. Run `/review/review-changes` once per story/issue/use-case (heavyweight gate). See "Canonical Development Flow → 4. Validate" above for the full agent list. Details in `commands/review/review-changes.md`.
 

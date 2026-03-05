@@ -54,14 +54,14 @@ out=$(echo '{"context_window":{"used_percentage":20}}' | bash "$SUT" --agent)
 assert_contains "20% = OK zone" "$out" "CTX 20% OK"
 assert_contains "20% = continue" "$out" "Continue normally."
 
-out=$(echo '{"context_window":{"used_percentage":57}}' | bash "$SUT" --agent)
-assert_contains "57% = CAUTION zone" "$out" "CTX 57% CAUTION"
+out=$(echo '{"context_window":{"used_percentage":42}}' | bash "$SUT" --agent)
+assert_contains "42% = CAUTION zone" "$out" "CTX 42% CAUTION"
 
-out=$(echo '{"context_window":{"used_percentage":68}}' | bash "$SUT" --agent)
-assert_contains "68% = STOP zone" "$out" "CTX 68% STOP"
+out=$(echo '{"context_window":{"used_percentage":53}}' | bash "$SUT" --agent)
+assert_contains "53% = STOP zone" "$out" "CTX 53% STOP"
 
-out=$(echo '{"context_window":{"used_percentage":80}}' | bash "$SUT" --agent)
-assert_contains "80% = BLOCKED zone" "$out" "CTX 80% BLOCKED"
+out=$(echo '{"context_window":{"used_percentage":65}}' | bash "$SUT" --agent)
+assert_contains "65% = BLOCKED zone" "$out" "CTX 65% BLOCKED"
 
 out=$(echo '{"context_window":{}}' | bash "$SUT" --agent)
 assert_equals "missing pct = unknown" "$out" "CTX unknown"
@@ -90,23 +90,23 @@ assert_contains "human mode loading state" "$out" "loading..."
 echo ""
 echo "--- Boundaries ---"
 
-out=$(echo '{"context_window":{"used_percentage":54}}' | bash "$SUT" --agent)
-assert_contains "54% = OK (just under)" "$out" "CTX 54% OK"
+out=$(echo '{"context_window":{"used_percentage":39}}' | bash "$SUT" --agent)
+assert_contains "39% = OK (just under)" "$out" "CTX 39% OK"
 
-out=$(echo '{"context_window":{"used_percentage":55}}' | bash "$SUT" --agent)
-assert_contains "55% = CAUTION (exact)" "$out" "CTX 55% CAUTION"
+out=$(echo '{"context_window":{"used_percentage":40}}' | bash "$SUT" --agent)
+assert_contains "40% = CAUTION (exact)" "$out" "CTX 40% CAUTION"
 
-out=$(echo '{"context_window":{"used_percentage":64}}' | bash "$SUT" --agent)
-assert_contains "64% = CAUTION (just under STOP)" "$out" "CTX 64% CAUTION"
+out=$(echo '{"context_window":{"used_percentage":49}}' | bash "$SUT" --agent)
+assert_contains "49% = CAUTION (just under STOP)" "$out" "CTX 49% CAUTION"
 
-out=$(echo '{"context_window":{"used_percentage":65}}' | bash "$SUT" --agent)
-assert_contains "65% = STOP (exact)" "$out" "CTX 65% STOP"
+out=$(echo '{"context_window":{"used_percentage":50}}' | bash "$SUT" --agent)
+assert_contains "50% = STOP (exact)" "$out" "CTX 50% STOP"
 
-out=$(echo '{"context_window":{"used_percentage":74}}' | bash "$SUT" --agent)
-assert_contains "74% = STOP (just under BLOCKED)" "$out" "CTX 74% STOP"
+out=$(echo '{"context_window":{"used_percentage":59}}' | bash "$SUT" --agent)
+assert_contains "59% = STOP (just under BLOCKED)" "$out" "CTX 59% STOP"
 
-out=$(echo '{"context_window":{"used_percentage":75}}' | bash "$SUT" --agent)
-assert_contains "75% = BLOCKED (exact)" "$out" "CTX 75% BLOCKED"
+out=$(echo '{"context_window":{"used_percentage":60}}' | bash "$SUT" --agent)
+assert_contains "60% = BLOCKED (exact)" "$out" "CTX 60% BLOCKED"
 
 # Summary
 echo ""

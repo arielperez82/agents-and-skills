@@ -59,40 +59,40 @@ echo "--- No cache file ---"
 cleanup
 assert_exit "no cache file = allow" '{"tool_name":"Bash"}' 0
 
-# Below 75% = allow
+# Below 60% = allow
 echo ""
 echo "--- Below threshold ---"
-echo "50" > "$CTX_CACHE"
-assert_exit "50% Bash = allow" '{"tool_name":"Bash"}' 0
+echo "40" > "$CTX_CACHE"
+assert_exit "40% Bash = allow" '{"tool_name":"Bash"}' 0
 
-echo "74" > "$CTX_CACHE"
-assert_exit "74% Bash = allow" '{"tool_name":"Bash"}' 0
+echo "59" > "$CTX_CACHE"
+assert_exit "59% Bash = allow" '{"tool_name":"Bash"}' 0
 
-# At 75%+ = block non-allowlisted tools
+# At 60%+ = block non-allowlisted tools
 echo ""
-echo "--- At/above 75% ---"
-echo "75" > "$CTX_CACHE"
-assert_exit "75% Bash = block" '{"tool_name":"Bash"}' 2
-assert_exit "75% Agent = block" '{"tool_name":"Agent"}' 2
+echo "--- At/above 60% ---"
+echo "60" > "$CTX_CACHE"
+assert_exit "60% Bash = block" '{"tool_name":"Bash"}' 2
+assert_exit "60% Agent = block" '{"tool_name":"Agent"}' 2
 
 echo "90" > "$CTX_CACHE"
 assert_exit "90% Bash = block" '{"tool_name":"Bash"}' 2
 
-# Allowlisted tools pass at 75%+
+# Allowlisted tools pass at 60%+
 echo ""
-echo "--- Allowlist at 75%+ ---"
-echo "80" > "$CTX_CACHE"
-assert_exit "80% Write = allow" '{"tool_name":"Write"}' 0
-assert_exit "80% Edit = allow" '{"tool_name":"Edit"}' 0
-assert_exit "80% Read = allow" '{"tool_name":"Read"}' 0
-assert_exit "80% Glob = allow" '{"tool_name":"Glob"}' 0
-assert_exit "80% Grep = allow" '{"tool_name":"Grep"}' 0
+echo "--- Allowlist at 60%+ ---"
+echo "65" > "$CTX_CACHE"
+assert_exit "65% Write = allow" '{"tool_name":"Write"}' 0
+assert_exit "65% Edit = allow" '{"tool_name":"Edit"}' 0
+assert_exit "65% Read = allow" '{"tool_name":"Read"}' 0
+assert_exit "65% Glob = allow" '{"tool_name":"Glob"}' 0
+assert_exit "65% Grep = allow" '{"tool_name":"Grep"}' 0
 
 # Stderr message when blocking
 echo ""
 echo "--- Block message ---"
-echo "82" > "$CTX_CACHE"
-assert_stderr_contains "block message includes percentage" '{"tool_name":"Bash"}' "Context at 82%"
+echo "67" > "$CTX_CACHE"
+assert_stderr_contains "block message includes percentage" '{"tool_name":"Bash"}' "Context at 67%"
 
 # Invalid cache content = allow
 echo ""
