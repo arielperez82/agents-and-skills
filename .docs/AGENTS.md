@@ -389,6 +389,10 @@ Filenames under `.docs/canonical/` should follow the naming grammar above. To au
 - Plan: [plan-repo-I31-EDPUB-editorial-publishing-pipeline.md](canonical/plans/plan-repo-I31-EDPUB-editorial-publishing-pipeline.md)
 - Research: [researcher-20260305-I31-EDPUB-editorial-publishing-pipeline.md](reports/researcher-20260305-I31-EDPUB-editorial-publishing-pipeline.md)
 
+**I34-WSINT** (waste-snake-integration):
+
+- Charter: [charter-repo-I34-WSINT-waste-snake-integration.md](canonical/charters/charter-repo-I34-WSINT-waste-snake-integration.md)
+
 Root `AGENTS.md` (if present) should point here: "See .docs/AGENTS.md for agent artifact conventions and operating reference."
 
 ---

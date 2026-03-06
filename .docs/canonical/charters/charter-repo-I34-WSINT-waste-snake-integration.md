@@ -184,10 +184,10 @@ All changes are documentation edits to 4 existing files. No scripts, no hooks, n
 
 ## References
 
-- **Waste identification skill:** `skills/delivery-team/waste-identification/SKILL.md`
-- **Waste add command:** `commands/waste/add.md`
-- **Waste snake review command:** `commands/retro/waste-snake.md`
-- **Learner agent:** `agents/learner.md`
-- **Craft command:** `commands/craft/craft.md`
-- **Code command:** `commands/code.md`
-- **Code auto command:** `commands/code/auto.md`
+- **Waste identification skill:** [SKILL.md](../../../skills/delivery-team/waste-identification/SKILL.md)
+- **Waste add command:** [add.md](../../../commands/waste/add.md)
+- **Waste snake review command:** [waste-snake.md](../../../commands/retro/waste-snake.md)
+- **Learner agent:** [learner.md](../../../agents/learner.md)
+- **Craft command:** [craft.md](../../../commands/craft/craft.md)
+- **Code command:** [code.md](../../../commands/code.md)
+- **Code auto command:** [auto.md](../../../commands/code/auto.md)
