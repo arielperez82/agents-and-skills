@@ -17,8 +17,6 @@ Initiatives actively in progress.
 
 | Initiative | Name | Description | Status | Charter |
 |------------|------|-------------|--------|---------|
-| I33-SHLFT | Shift-Left Quality Hooks | Pre/post tool-use hooks for context management and commit monitoring | In progress | [charter](../charters/charter-repo-I33-SHLFT-shift-left-quality-hooks.md) |
-
 ## Next
 
 Initiatives chartered and ready to start when capacity allows.
@@ -75,4 +73,5 @@ Completed initiatives.
 | I31-EDPUB | Editorial Publishing Pipeline | Editorial team agents (7), skills (6), commands (3) for source-to-newsletter pipeline with quality gates | [charter](../charters/charter-repo-I31-EDPUB-editorial-publishing-pipeline.md) |
 | I33-WSNK | Waste Snake | Process waste visibility practice (skill, command, agent updates, waste-snake ledger) | — |
 | I34-WSINT | Waste Snake Integration | Wired /waste/add into craft workflow, /code, /code:auto, and learner agent for systematic waste capture | [charter](../charters/charter-repo-I34-WSINT-waste-snake-integration.md) |
+| I33-SHLFT | Shift-Left Quality Hooks | Programmatic hooks (worktree-guard, review-nudge) and TDD/skill/agent updates shifting quality checks left from L65-L84 retro findings | [charter](../charters/charter-repo-I33-SHLFT-shift-left-quality-hooks.md) |
 | I35-LPATH | Locate Path Commands | 6 /locate/* commands for dynamic artifact path resolution; decouples orchestrators from hardcoded paths | |

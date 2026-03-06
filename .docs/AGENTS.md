@@ -240,6 +240,22 @@ Agents that capture or encode learnings (learner, docs-reviewer, agent-author) m
 
 **L86 — Single-commit docs-only delivery validates the light complexity tier** (I33-WSNK, 2026-03-06): I33-WSNK delivered 10 files (6 new, 4 modified, 364 insertions) in a single commit across 4 build waves. Pre-commit hooks passed on first attempt. Agent validator: 84/84 pass, 0 critical. This confirms the "light" complexity tier (docs-only, no source code, no schema changes) can reliably complete in a single commit when scope is bounded to skill + artifact + commands + agent updates. Compare with L64 (auto-mode completing 6 phases in one session with 4 commits) — I33-WSNK compressed further to 1 commit. The single-commit pattern works when all waves are independent enough to be committed atomically and there is no code requiring incremental RED-GREEN-REFACTOR cycles.
 
+**L87 — Convention discovery ("analog diff") as plan step zero** (I33-SHLFT, 2026-03-06): The implementation plan opened with a "Convention Discovery (Analog Diff)" section that read the template package (`packages/commit-monitor/`) and extracted a 6-file package structure checklist plus 7 coding conventions (no `set -e`, session isolation via SSE_PORT, cache file patterns, test port naming, installer strictness, JSON parsing without jq, SessionEnd cleanup). This upfront inventory meant both new packages (worktree-guard, review-nudge) matched the existing ecosystem exactly on first attempt — zero convention violations in Phase 5 review. When building artifacts that must match an existing ecosystem pattern, dedicate the first plan section to reading and documenting the template before any build steps.
+
+**L88 — Convention before enforcement: measure adoption, then decide on hooks** (I33-SHLFT, 2026-03-06): ADR-004 chose to introduce the `red:` commit prefix as a skill convention (agent-discretionary) rather than a Husky `commit-msg` hook (programmatic enforcement), despite the initiative's thesis being "hooks are guarantees; prompts are suggestions." The rationale: (1) a commit-msg hook cannot distinguish which commits should have the prefix, (2) the convention is untested and needs adoption data, (3) the real value is in `.skip`/`.todo` test commits, not the prefix label. The revisit trigger is explicit: if `red:` adoption is below 50% after 3+ initiatives, escalate to a PostToolUse nudge.
+
+**L89 — Cross-cutting fixes applied to all packages, not just the target** (I33-SHLFT, 2026-03-06): Phase 5 security review identified 4 cross-cutting improvements (SSE_PORT sanitization, integer validation for env vars, `printf` over `echo` for untrusted data, `$TMPDIR` over hardcoded `/tmp`). Rather than fixing only the new packages, all 14 deferred suggestions were applied across all 4 hook packages in a single commit (a4d9e8b, 19 files, +104/-59 lines). This "fix everywhere or fix nowhere" approach for cross-cutting concerns prevents ecosystem drift. When a Phase 5 finding applies to multiple packages, always apply uniformly.
+
+**L90 — Deferred suggestions as a batch after Phase 5 approval** (I33-SHLFT, 2026-03-06): Phase 5 produced 3 Fix Required items (resolved immediately) and 14 Suggestions (deferred to a suggestions report). The suggestions were then applied in a single follow-up commit after Phase 5 approval. This two-pass pattern — resolve blockers for approval, batch suggestions after — keeps the validation gate clean while still capturing all improvement opportunities. The suggestions report serves as a mini-backlog with file paths, rationale, and concrete changes.
+
+**L91 — Human scope expansion during Plan phase absorbed without rework** (I33-SHLFT, 2026-03-06): During Phase 3 (Plan) approval, the human expanded Steps 4, 5, and 11 to include a "double-loop cycle checklist" convention flowing through 5 touchpoints (TDD skill, tdd-reviewer, engineering-lead, craft.md, code.md). Because the plan was structured as discrete steps with clear file-to-step mappings, the expansion was absorbed by augmenting existing steps rather than adding new ones. Well-structured plans with explicit step boundaries can absorb scope refinements at approval time without cascading rework.
+
+**L92 — Fail-open as explicit hook design principle with ADR** (I33-SHLFT, 2026-03-06): ADR-003 codified fail-open as the design principle for all development workflow hooks: no `set -e`, git errors suppressed with `2>/dev/null`, JSON parse failures exit 0, missing cache files treated as "no data." Key insight: false positives are worse than false negatives because a false block halts the entire agent session. Future hook packages must include error-condition tests that verify fail-open behavior. The ADR carves out security-boundary hooks as potentially needing fail-closed.
+
+**L93 — Mixed-scope initiatives need wave-aligned commit strategy** (I33-SHLFT, 2026-03-06): I33-SHLFT delivered 2 hook packages (code with TDD) + 9 doc updates across 4 waves in 3 commits. Waves 3-4 were committed together due to context pressure. For mixed-scope initiatives, the 1:1 wave-to-commit ideal may not hold — code steps have natural TDD commit points while doc steps batch well. The pragmatic approach: commit code steps at their natural TDD boundaries, batch adjacent doc steps, accept approximate wave-to-commit alignment. What matters is each commit leaves all tests passing and is a safe rollback point.
+
+**L94 — Four ADRs for a medium initiative signals good architectural hygiene** (I33-SHLFT, 2026-03-06): I33-SHLFT produced 4 ADRs covering major design trade-offs: separate packages (ADR-001), nudge vs. block (ADR-002), fail-open design (ADR-003), convention vs. hook (ADR-004). Each documented 3-4 alternatives with rejection rationale and revisit triggers. The design panel validated all 4 as SOUND. For initiatives that introduce new infrastructure patterns, err toward writing ADRs — they are cheap to produce during Phase 2 and prevent future contributors from relitigating settled decisions.
+
 ---
 
 ## Development practices — GitHub workflows
@@ -388,6 +404,15 @@ Filenames under `.docs/canonical/` should follow the naming grammar above. To au
 - Backlog: [backlog-repo-I31-EDPUB-editorial-publishing-pipeline.md](canonical/backlogs/backlog-repo-I31-EDPUB-editorial-publishing-pipeline.md)
 - Plan: [plan-repo-I31-EDPUB-editorial-publishing-pipeline.md](canonical/plans/plan-repo-I31-EDPUB-editorial-publishing-pipeline.md)
 - Research: [researcher-20260305-I31-EDPUB-editorial-publishing-pipeline.md](reports/researcher-20260305-I31-EDPUB-editorial-publishing-pipeline.md)
+
+**I33-SHLFT** (shift-left-quality-hooks):
+
+- Charter: [charter-repo-I33-SHLFT-shift-left-quality-hooks.md](canonical/charters/charter-repo-I33-SHLFT-shift-left-quality-hooks.md)
+- Scenarios: [charter-repo-I33-SHLFT-shift-left-quality-hooks-scenarios.md](canonical/charters/charter-repo-I33-SHLFT-shift-left-quality-hooks-scenarios.md)
+- Backlog: [backlog-repo-I33-SHLFT-shift-left-quality-hooks.md](canonical/backlogs/backlog-repo-I33-SHLFT-shift-left-quality-hooks.md)
+- Plan: [plan-repo-I33-SHLFT-shift-left-quality-hooks.md](canonical/plans/plan-repo-I33-SHLFT-shift-left-quality-hooks.md)
+- ADRs: I33-SHLFT-001 through I33-SHLFT-004
+- Research: [researcher-260306-shift-left-quality-hooks.md](reports/researcher-260306-shift-left-quality-hooks.md)
 
 **I34-WSINT** (waste-snake-integration):
 

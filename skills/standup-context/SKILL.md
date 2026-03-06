@@ -44,13 +44,13 @@ Each non-git section is controlled by an env var. Sections are **skipped** when 
 
 | Var | Purpose | Example |
 |-----|---------|---------|
-| `CANONICAL_ROOT` | Parent dir for canonical doc subdirs | `.docs/canonical` |
+| `CANONICAL_ROOT` | Parent dir for canonical doc subdirs | per `/docs/layout` |
 | `CANONICAL_DIRS` | Space-separated subdirs to scan | `roadmaps charters backlogs plans` |
-| `REPORTS_DIR` | Directory with `craft-status-*` files | `.docs/reports` |
-| `LEARNINGS_FILE` | File with cross-cutting `L*` entries | `.docs/AGENTS.md` |
-| `LEARNINGS_DIRS` | Space-separated dirs to scan for `## Learnings` sections | `.docs/canonical/charters .docs/canonical/plans` |
-| `ADR_DIR` | Directory with ADR `.md` files | `.docs/canonical/adrs` |
-| `WASTE_SNAKE` | Path to waste snake file | `.docs/canonical/waste-snake.md` |
+| `REPORTS_DIR` | Directory with `craft-status-*` files | per `/docs/layout` |
+| `LEARNINGS_FILE` | File with cross-cutting `L*` entries | per `/docs/layout` |
+| `LEARNINGS_DIRS` | Space-separated dirs to scan for `## Learnings` sections | subdirs under `CANONICAL_ROOT` |
+| `ADR_DIR` | Directory with ADR `.md` files | per `/docs/layout` |
+| `WASTE_SNAKE` | Path to waste snake file | per `/docs/layout` |
 | `MEMORY_FILE` | Path to cross-session memory file | `~/.claude/projects/.../memory/MEMORY.md` |
 
 **How to run:** Use the `/locate/*` commands to resolve artifact paths, then pass them as env vars to the script. Each locate command outputs `KEY=value` lines that map directly to the env vars below.
@@ -64,14 +64,14 @@ Each non-git section is controlled by an env var. Sections are **skipped** when 
 #    /locate/waste-snake -> WASTE_SNAKE
 #    /locate/memory     -> MEMORY_FILE
 #
-# 2. Pass non-empty values as env vars:
-CANONICAL_ROOT=.docs/canonical \
+# 2. Pass non-empty values as env vars (paths resolved via /docs/layout):
+CANONICAL_ROOT=<resolved CANONICAL_ROOT> \
 CANONICAL_DIRS="roadmaps charters backlogs plans" \
-REPORTS_DIR=.docs/reports \
-LEARNINGS_FILE=.docs/AGENTS.md \
-LEARNINGS_DIRS=".docs/canonical/charters .docs/canonical/plans" \
-ADR_DIR=.docs/canonical/adrs \
-WASTE_SNAKE=.docs/canonical/waste-snake.md \
+REPORTS_DIR=<resolved REPORTS_DIR> \
+LEARNINGS_FILE=<resolved LEARNINGS_FILE> \
+LEARNINGS_DIRS="<resolved CANONICAL_ROOT>/charters <resolved CANONICAL_ROOT>/plans" \
+ADR_DIR=<resolved ADR_DIR> \
+WASTE_SNAKE=<resolved WASTE_SNAKE> \
 MEMORY_FILE=~/.claude/projects/-Users-me-projects-my-repo/memory/MEMORY.md \
 bash <SKILL_DIR>/scripts/gather-git-and-docs.sh
 ```

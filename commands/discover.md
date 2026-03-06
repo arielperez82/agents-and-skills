@@ -72,7 +72,7 @@ Combine all agent outputs into a discovery report:
 
 ### Phase 5: Write Discovery Report
 
-Write the report to `.docs/reports/discovery-{date}-{subject}.md` where:
+Write the report to `{REPORTS_DIR}/discovery-{date}-{subject}.md` (per `/docs/layout`) where:
 
 - `{date}` is today's date in YYYY-MM-DD format
 - `{subject}` is a kebab-case slug derived from the problem hypothesis (max 5 words)

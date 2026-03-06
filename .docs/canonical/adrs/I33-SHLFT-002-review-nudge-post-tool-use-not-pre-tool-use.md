@@ -4,7 +4,7 @@ endeavor: repo
 initiative: I33-SHLFT
 adr_id: I33-SHLFT-002
 title: review-nudge as PostToolUse nudge, not PreToolUse block
-status: proposed
+status: accepted
 date: 2026-03-06
 supersedes: []
 superseded_by: null

@@ -4,7 +4,7 @@ endeavor: repo
 initiative: I33-SHLFT
 adr_id: I33-SHLFT-004
 title: RED evidence as skill convention, not Husky commit-msg hook
-status: proposed
+status: accepted
 date: 2026-03-06
 supersedes: []
 superseded_by: null

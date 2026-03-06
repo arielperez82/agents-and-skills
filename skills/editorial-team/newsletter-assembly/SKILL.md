@@ -159,22 +159,41 @@ Each supplemental section in a template's Section Guidance follows this pattern:
 - position: [before-stories | between-stories | after-stories | after-poll]
 ```
 
-### Common Supplemental Sections
+### Example Supplemental Sections
 
-| Section | Agent | Brief Pattern | Inputs |
-|---------|-------|--------------|--------|
-| TL;DR / Before We Dip In | `editorial-writer` | "Write 3-4 ultra-condensed bullet points summarizing these stories" | Drafted stories |
-| Sweet Dip | `editorial-writer` + `researcher` | "Write 3-5 heartwarming mini-stories (2-4 sentences each). If unused candidates are insufficient, dispatch `researcher` with WebSearch to find recent feel-good news. Then dispatch `editorial-writer` to craft conversational narratives with playful commentary and emojis." | Unused story candidates, transcript; researcher web-searches if needed |
+These illustrate the pattern. Actual sections and briefs are defined by each newsletter's template.
+
+| Section | Agent(s) | Brief Pattern | Inputs |
+|---------|----------|--------------|--------|
+| TL;DR | `editorial-writer` | "Write 3-4 ultra-condensed bullet points summarizing these stories" | Drafted stories |
+| Feel-good roundup | `researcher` → `editorial-writer` | "Find recent uplifting news" → "Craft into narratives matching voice" | Unused candidates; web search as fallback |
 | Fun Facts | `researcher` | "Find 3-4 surprising, verified facts related to {categories}" | Story categories |
-| QOTD | `editorial-writer` | "Generate a thought-provoking question for {date} related to {topics}" | Story topics, date |
-| Subject Line | `editorial-writer` | "Generate 3-5 subject line candidates. Punchy, emoji-tagged" | Drafted stories |
+| Trivia / QOTD | `editorial-writer` | "Generate a thought-provoking question for {date} related to {topics}" | Story topics, date |
+| Subject Line | `editorial-writer` | "Generate 3-5 subject line candidates" | Drafted stories |
+
+### Multi-Agent Supplemental Sections
+
+Some supplemental sections require **chained dispatch** — one agent gathers material, then another crafts the output. The template declares this by specifying multiple agents in order:
+
+```markdown
+### [Section Name] (supplemental)
+- agents: [researcher, editorial-writer]
+- researcher-brief: "[What to find — e.g., recent news matching {criteria}]"
+- editorial-brief: "[How to write it — tone, format, length]"
+- fallback: "If {unused} candidates are sufficient, skip researcher and pass directly to editorial-writer"
+- inputs: [unused story candidates, transcript, {any template-specific context}]
+- position: after-stories
+```
+
+The assembler checks whether existing inputs (unused candidates, transcript excerpts) are sufficient before dispatching the researcher. This avoids unnecessary web searches when the template's source material is already rich enough.
 
 ### Design Principles
 
-- **Briefs live in the template, not the skill** — Each newsletter customizes its own supplemental sections
+- **Briefs live in the template, not the skill** — Each newsletter customizes its own supplemental sections, tone, and agent briefs
 - **Existing agents only** — No new agents needed; supplemental sections dispatch to `editorial-writer`, `researcher`, etc.
 - **Parameterized** — Briefs reference edition context (`{stories}`, `{categories}`, `{date}`, `{unused}`) that the assembler fills in
 - **Position-aware** — Each section declares where it appears, so the assembler can compose the full edition in order
+- **Researcher as fallback** — Templates can declare `researcher` for web-sourced content, but should specify when existing inputs are sufficient to skip the search
 
 ## Integration
 

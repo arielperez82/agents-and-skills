@@ -46,9 +46,9 @@ collaborates-with:
     without-collaborator: "Architecture decisions may lack comprehensive technology research"
 
 # === TECHNICAL ===
-tools: [Read, Write, Bash, Grep, Glob]
+tools: [Read, Write, Bash, Grep, Glob, WebSearch, WebFetch]
 dependencies:
-  tools: [Read, Write, Bash, Grep, Glob]
+  tools: [Read, Write, Bash, Grep, Glob, WebSearch, WebFetch]
   mcp-tools: []
   scripts: []
 

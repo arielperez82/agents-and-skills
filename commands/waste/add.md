@@ -5,7 +5,7 @@ argument-hint: '"description of what frustrated, bored, or delayed you"'
 
 # /waste/add — Report a Waste Observation
 
-Append a waste observation to the living waste snake at `.docs/canonical/waste-snake.md`.
+Append a waste observation to the living waste snake at `WASTE_SNAKE` (per `/docs/layout`).
 
 ## Arguments
 
@@ -15,7 +15,7 @@ Append a waste observation to the living waste snake at `.docs/canonical/waste-s
 
 1. **Validate input** — Ensure a description was provided. If empty, ask for one.
 2. **Generate timestamp** — Use current date and time in `YYYY-MM-DD HH:MM` format.
-3. **Append observation** — Add a new entry to `.docs/canonical/waste-snake.md` under the `## Observations` section, above the second `---` divider (before `## Ledger`):
+3. **Append observation** — Add a new entry to the waste snake file at `WASTE_SNAKE` (per `/docs/layout`) under the `## Observations` section, above the second `---` divider (before `## Ledger`):
 
 ```markdown
 ### YYYY-MM-DD HH:MM
@@ -29,7 +29,7 @@ Append a waste observation to the living waste snake at `.docs/canonical/waste-s
 
 Input: `/waste/add "Spent 15 min manually reformatting YAML frontmatter that a script could fix"`
 
-Output appended to `.docs/canonical/waste-snake.md`:
+Output appended to the waste snake file at `WASTE_SNAKE` (per `/docs/layout`):
 
 ```markdown
 ### 2026-03-06 14:30
@@ -37,7 +37,7 @@ Output appended to `.docs/canonical/waste-snake.md`:
 Spent 15 min manually reformatting YAML frontmatter that a script could fix
 ```
 
-Confirmation: "Waste observation appended to `.docs/canonical/waste-snake.md`."
+Confirmation: "Waste observation appended to the waste snake file."
 
 ## Notes
 
@@ -45,4 +45,4 @@ Confirmation: "Waste observation appended to `.docs/canonical/waste-snake.md`."
 - Do NOT ask follow-up questions — just capture what was said
 - The format is intentionally simple (sticky-note style)
 - Any agent or human can use this command
-- If `.docs/canonical/waste-snake.md` does not exist, create it using the template from `skills/delivery-team/waste-identification/SKILL.md`
+- If the waste snake file at `WASTE_SNAKE` (per `/docs/layout`) does not exist, create it using the template from `skills/delivery-team/waste-identification/SKILL.md`

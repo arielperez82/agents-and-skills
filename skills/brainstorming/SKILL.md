@@ -39,7 +39,7 @@ Start by understanding the current project context, then ask questions one at a 
 
 **Documentation:**
 
-- Write the validated design to a plan document. When this repo's artifact conventions are in use (see `.docs/AGENTS.md`), use `.docs/canonical/plans/plan-<endeavor>-<subject>[-<timeframe>].md` (e.g. `plan-repo-auth-design-2026-02-06.md`) and include front matter `initiative` and `initiative_name` when the plan belongs to an initiative. Otherwise `docs/plans/YYYY-MM-DD-<topic>-design.md` is acceptable.
+- Write the validated design to a plan document. When this repo's artifact conventions are in use (per `/docs/layout`), use `{CANONICAL_ROOT}/plans/plan-<endeavor>-<subject>[-<timeframe>].md` (e.g. `plan-repo-auth-design-2026-02-06.md`) and include front matter `initiative` and `initiative_name` when the plan belongs to an initiative. Otherwise `docs/plans/YYYY-MM-DD-<topic>-design.md` is acceptable.
 - Use elements-of-style:writing-clearly-and-concisely skill if available
 - Commit the design document to git
 
