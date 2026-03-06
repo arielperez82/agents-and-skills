@@ -1,11 +1,23 @@
 ---
 name: supabase-best-practices
-description: Supabase security and performance guidelines with Clerk authentication integration. Contains 40+ rules across 10 categories covering RLS policies, Clerk setup, database security, and more.
+description: Supabase security and performance guidelines with Clerk authentication
+  integration. Contains 40+ rules across 10 categories covering RLS policies, Clerk
+  setup, database security, and more.
 license: MIT
 metadata:
   author: AI Engineering Team
-  version: "1.0.1"
-  last_updated: "2025-01-27"
+  version: 1.0.1
+  last_updated: '2025-01-27'
+  domain: engineering
+  tags:
+  - supabase
+  - backend
+  - database
+  - auth
+  related-agents:
+  - senior-backend
+  related-skills:
+  - supabase-edge-functions
 ---
 
 # Supabase Best Practices
