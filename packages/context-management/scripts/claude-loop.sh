@@ -5,10 +5,10 @@
 #
 # Usage: claude-loop [claude-code-args...]
 #
-# The wrapper spawns Claude Code via `script` for transparent output capture.
-# When Claude exits, it checks the last output for restart block markers
-# (---HANDOFF-RESTART--- / ---END-RESTART---). If found, it extracts the
-# content and starts a new session with that as the initial prompt.
+# The wrapper spawns Claude Code via `script` for transparent output capture,
+# while a background watcher polls the log for restart block markers
+# (---HANDOFF-RESTART--- / ---END-RESTART---). When detected, the watcher
+# kills the session and the wrapper restarts with the extracted prompt.
 #
 # Ctrl+C during the pause between sessions stops the loop.
 
@@ -16,18 +16,19 @@ set -euo pipefail
 
 PAUSE_SECONDS=3
 TAIL_LINES=80
+POLL_INTERVAL=2
 START_MARKER="---HANDOFF-RESTART---"
 END_MARKER="---END-RESTART---"
 
+watcher_pid=""
+
 strip_ansi() {
-  # Strip ANSI escape sequences (colors, cursor movement, etc.)
   sed $'s/\x1b\[[0-9;]*[a-zA-Z]//g; s/\x1b\][^\x07]*\x07//g; s/\x1b[()][0-9A-B]//g; s/\x1b\[?[0-9;]*[hlm]//g; s/\r//g'
 }
 
 extract_restart_block() {
   local logfile="$1"
 
-  # Read last N lines, strip ANSI codes, extract between markers
   local cleaned
   cleaned=$(tail -n "$TAIL_LINES" "$logfile" | strip_ansi)
 
@@ -58,19 +59,54 @@ extract_restart_block() {
   return 1
 }
 
+cleanup_watcher() {
+  if [ -n "$watcher_pid" ]; then
+    kill "$watcher_pid" 2>/dev/null || true
+    wait "$watcher_pid" 2>/dev/null || true
+    watcher_pid=""
+  fi
+}
+
+start_watcher() {
+  local logfile="$1"
+  local pidfile="$2"
+
+  (
+    while true; do
+      sleep "$POLL_INTERVAL"
+      [ -f "$pidfile" ] || continue
+      if tail -n "$TAIL_LINES" "$logfile" 2>/dev/null | strip_ansi | grep -q "$END_MARKER" 2>/dev/null; then
+        # Give a moment for output to flush
+        sleep 1
+        kill "$(cat "$pidfile" 2>/dev/null)" 2>/dev/null || true
+        exit 0
+      fi
+    done
+  ) &
+  watcher_pid=$!
+}
+
 run_session() {
   local logfile="$1"
   shift
-  # All remaining args go to claude
+  local pidfile="${logfile}.pid"
 
-  # script -q: quiet mode (no "Script started/done" messages)
-  # On macOS, script syntax is: script -q <file> <command...>
-  # On Linux, script syntax is: script -q -c "<command>" <file>
+  touch "$logfile"
+
+  # Start background watcher that polls for restart markers
+  start_watcher "$logfile" "$pidfile"
+  trap cleanup_watcher EXIT
+
+  # Run script in foreground with terminal access.
+  # sh -c writes its PID then execs into script, so the watcher can kill it.
   if [[ "$(uname)" == "Darwin" ]]; then
-    script -q "$logfile" claude "$@"
+    sh -c 'echo $$ > "$1"; shift; exec "$@"' _ "$pidfile" script -q "$logfile" claude "$@"
   else
-    script -q -c "claude $*" "$logfile"
+    sh -c 'echo $$ > "$1"; shift; exec "$@"' _ "$pidfile" script -q -c "claude $*" "$logfile"
   fi
+
+  cleanup_watcher
+  rm -f "$pidfile"
 }
 
 main() {
@@ -90,10 +126,8 @@ main() {
       echo ""
       sleep "$PAUSE_SECONDS"
 
-      # Pass restart prompt via --prompt and add --yes for non-interactive start
       run_session "$logfile" --yes --prompt "$restart_prompt" ${extra_args[@]+"${extra_args[@]}"}
     else
-      # First session — pass through all args as-is
       run_session "$logfile" ${extra_args[@]+"${extra_args[@]}"}
     fi
 
