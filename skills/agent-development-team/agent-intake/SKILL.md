@@ -11,6 +11,16 @@ metadata:
   - incorporation
   - validation
   version: 1.0.0
+  domain: agent-development
+  tags:
+  - agent-intake
+  - governance
+  - ecosystem-fit
+  related-agents:
+  - agent-validator
+  related-skills:
+  - creating-agents
+  - refactoring-agents
 ---
 
 # Agent Intake
