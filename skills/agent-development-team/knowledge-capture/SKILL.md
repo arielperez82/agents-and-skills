@@ -40,10 +40,10 @@ Guides the capture, classification, and routing of institutional knowledge into 
 
 | Learning Type | Target Location |
 |---|---|
-| Cross-agent conventions, guardrails | `.docs/AGENTS.md` (Layer 1) |
-| Initiative-specific decisions | `.docs/canonical/` charter/plan "Learnings" section (Layer 2) |
+| Cross-agent conventions, guardrails | `LEARNINGS_FILE` (Layer 1, per `/docs/layout`) |
+| Initiative-specific decisions | `CANONICAL_ROOT` charter/plan "Learnings" section (Layer 2, per `/docs/layout`) |
 | How-to patterns, gotchas, tool knowledge | Skill references under `skills/` (Layer 3) |
-| Significant architectural choices | ADR via `adr-writer` under `.docs/canonical/adrs/` |
+| Significant architectural choices | ADR via `adr-writer` under `ADR_DIR` (per `/docs/layout`) |
 | Agent authoring patterns | `skills/agent-development-team/creating-agents/references/authoring-guide.md` |
 | Agent refactoring patterns | `skills/agent-development-team/refactoring-agents/references/refactor-guide.md` |
 | Project-specific patterns | `CLAUDE.md` in project root |

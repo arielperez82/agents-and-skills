@@ -89,7 +89,7 @@ The agent body, frontmatter description, and any referenced skill content are al
 
 - Run `validate_agent.py` (creating-agents) on new/updated agent.
 - Run `analyze-agent.sh` (agent-optimizer) for rubric summary.
-- Generate final report from `references/intake-report-template.md`. Save to `.docs/reports/` or project plans.
+- Generate final report from `references/intake-report-template.md`. Save to `REPORTS_DIR` (per `/docs/layout`) or project plans.
 
 ## References
 

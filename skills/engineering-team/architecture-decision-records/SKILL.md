@@ -373,14 +373,14 @@ This directory contains Architecture Decision Records (ADRs) for [Project Name].
 
 ### Automation (adr-tools)
 
-**Preferred (repos using this repo's artifact conventions):** Store ADRs under `.docs/canonical/adrs/` with naming `adr-YYYYMMDD-<subject>.md`. See `.docs/AGENTS.md` for the operating reference. When an ADR belongs to an initiative, include `initiative` and `initiative_name` in front matter (see initiative naming in `.docs/AGENTS.md`).
+**Preferred (repos using this repo's artifact conventions):** Store ADRs under `ADR_DIR` (per `/docs/layout`) with naming `adr-YYYYMMDD-<subject>.md`. See `LEARNINGS_FILE` for the operating reference (per `/docs/layout`). When an ADR belongs to an initiative, include `initiative` and `initiative_name` in front matter (see initiative naming in `LEARNINGS_FILE`).
 
 ```bash
 # Install adr-tools
 brew install adr-tools
 
-# Initialize ADR directory (canonical layout)
-adr init .docs/canonical/adrs
+# Initialize ADR directory (canonical layout, path from /docs/layout)
+adr init <ADR_DIR>
 
 # Create new ADR (use date-prefixed naming: adr-YYYYMMDD-<subject>.md)
 adr new "Use PostgreSQL as Primary Database"
@@ -389,13 +389,13 @@ adr new "Use PostgreSQL as Primary Database"
 adr new -s 3 "Deprecate MongoDB in Favor of PostgreSQL"
 
 # Generate table of contents (optional index)
-adr generate toc > .docs/canonical/adrs/index.md
+adr generate toc > <ADR_DIR>/index.md
 
 # Link related ADRs
 adr link 2 "Complements" 1 "Is complemented by"
 ```
 
-**Alternative (repos not yet using conventions):** You can use `docs/adr` and `adr init docs/adr`, `adr generate toc > docs/adr/README.md`; migrate to `.docs/canonical/adrs/` when adopting the conventions.
+**Alternative (repos not yet using conventions):** You can use `docs/adr` and `adr init docs/adr`, `adr generate toc > docs/adr/README.md`; migrate to `ADR_DIR` (per `/docs/layout`) when adopting the conventions.
 
 ## Review Process
 

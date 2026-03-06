@@ -16,7 +16,7 @@ Run the agent-intake pipeline: discover candidate agent, run governance audit, a
 3. **Governance audit:** Apply `references/governance-checklist.md`. Critical → REJECT and report. High → FLAGGED; proceed with approval.
 4. **Ecosystem fit:** Run optimization rubric (agent-optimizer); overlap analysis vs existing agents; decision ADD / MERGE-IN / ADAPT / REPLACE / REJECT.
 5. **Incorporate (if not REJECT):** Place or merge agent under `agents/`; wire skills and collaborators; run validate_agent.py and analyze-agent.sh.
-6. **Report:** Generate intake report from `references/intake-report-template.md`; save to `.docs/reports/` or project plans.
+6. **Report:** Generate intake report from `references/intake-report-template.md`; save to `REPORTS_DIR` (per `/docs/layout`) or project plans.
 
 ## Output
 

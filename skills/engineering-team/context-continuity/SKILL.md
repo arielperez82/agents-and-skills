@@ -189,7 +189,7 @@ When starting a new session and a handoff snapshot exists:
 
 This skill adapts patterns from the **handoff skill** (SpliceLabs/rlm pattern), which originally wrote a single `HANDOFF.md` file at the repo root. That approach was replaced by the patterns below:
 
-- **Craft-first rule**: If an active craft status file exists, handoff updates the status file Phase Log (embedded snapshot). Otherwise, standalone handoffs write to `.docs/reports/handoff-{context-slug}-{timestamp}.md`
+- **Craft-first rule**: If an active craft status file exists, handoff updates the status file Phase Log (embedded snapshot). Otherwise, standalone handoffs write to `{REPORTS_DIR}/handoff-{context-slug}-{timestamp}.md` (per `/docs/layout`)
 - **Budget discipline added**: The original pattern writes snapshots on demand; this skill adds proactive budget monitoring
 - **Selective reconstruction**: The original assumes full re-read; this skill targets <15% context budget on resume
 
@@ -213,7 +213,7 @@ For non-`/craft` sessions, use the `/context/handoff` command to write a standal
 /context/handoff eslint-upgrade --focus "config files" # Slug + narrowed scope
 ```
 
-Standalone handoffs write to `.docs/reports/handoff-{context-slug}-{YYYYMMDDHHmmss}.md`. Multiple handoffs coexist — each is uniquely identified by context and timestamp.
+Standalone handoffs write to `{REPORTS_DIR}/handoff-{context-slug}-{YYYYMMDDHHmmss}.md` (per `/docs/layout`). Multiple handoffs coexist — each is uniquely identified by context and timestamp.
 
 **Craft-first rule:** `/context/handoff` checks for an active craft status file first. If one exists, it updates the craft status file's Phase Log instead of creating a standalone file.
 

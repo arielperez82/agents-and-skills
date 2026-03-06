@@ -5,7 +5,7 @@ argument-hint: [--dry-run]
 
 ## Purpose
 
-Archive completed initiative artifacts from `.docs/canonical/` subdirectories into `archive/` folders, and update the master roadmap links. This keeps the canonical directory focused on active and planned work.
+Archive completed initiative artifacts from `CANONICAL_ROOT` (per `/docs/layout`) subdirectories into `archive/` folders, and update the master roadmap links. This keeps the canonical directory focused on active and planned work.
 
 ## Inputs
 
@@ -15,11 +15,11 @@ Archive completed initiative artifacts from `.docs/canonical/` subdirectories in
 
 ### 1. Load the master roadmap and identify done initiatives
 
-Read `.docs/canonical/roadmaps/roadmap-repo.md`. Extract the list of initiative IDs from the **Done** section (e.g. `I01-ACM`, `I02-INNC`, ..., `I20-MUTT`). These are the "done initiatives."
+Read `{CANONICAL_ROOT}/roadmaps/roadmap-repo.md` (per `/docs/layout`). Extract the list of initiative IDs from the **Done** section (e.g. `I01-ACM`, `I02-INNC`, ..., `I20-MUTT`). These are the "done initiatives."
 
 ### 2. Scan canonical subdirectories for archivable files
 
-For each subdirectory under `.docs/canonical/` (`charters`, `backlogs`, `plans`, `roadmaps`, `assessments`, `adrs`, `reviews`):
+For each subdirectory under `CANONICAL_ROOT` (per `/docs/layout`) (`charters`, `backlogs`, `plans`, `roadmaps`, `assessments`, `adrs`, `reviews`):
 
 1. List all `.md` files (excluding any already in `archive/` and excluding `index.md` files)
 2. Determine if each file is archivable using the rules below
@@ -54,13 +54,13 @@ Always show this summary, even in `--dry-run` mode.
 
 For each directory that has archivable files:
 
-1. Create `{dir}/archive/` if it does not exist: `mkdir -p .docs/canonical/{dir}/archive/`
-2. Move each archivable file: `git mv .docs/canonical/{dir}/{file} .docs/canonical/{dir}/archive/{file}`
+1. Create `{dir}/archive/` if it does not exist: `mkdir -p {CANONICAL_ROOT}/{dir}/archive/` (per `/docs/layout`)
+2. Move each archivable file: `git mv {CANONICAL_ROOT}/{dir}/{file} {CANONICAL_ROOT}/{dir}/archive/{file}`
 3. Report each move
 
 ### 5. Update master roadmap charter links
 
-Read `.docs/canonical/roadmaps/roadmap-repo.md` and update charter links in the **Done** section:
+Read `{CANONICAL_ROOT}/roadmaps/roadmap-repo.md` (per `/docs/layout`) and update charter links in the **Done** section:
 
 - Replace `../charters/charter-*.md` with `../charters/archive/charter-*.md` (only for files that were actually moved)
 - Do NOT modify links in Now, Next, or Later sections

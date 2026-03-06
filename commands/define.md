@@ -15,7 +15,7 @@ Transform a problem statement or discovery report into a structured charter with
 
 Determine what the user provided:
 
-1. **Path to a discovery report** (e.g., `.docs/reports/discovery-*.md`) — Read and use as input context.
+1. **Path to a discovery report** (e.g., `{REPORTS_DIR}/discovery-*.md` per `/docs/layout`) — Read and use as input context.
 2. **Prose problem statement** — Use directly as the problem to define.
 3. **Empty** — Use `AskUserQuestion` to gather: What problem are we solving? Who is it for? What does success look like?
 
@@ -36,7 +36,7 @@ Launch **`product-analyst`** with the problem statement / discovery context. Ins
 - **Success metrics** — How we'll measure if we solved the problem
 - **Risks & assumptions** — What could go wrong, what we're assuming is true
 
-**Output format:** Charter at `.docs/canonical/charters/charter-{subject}.md` where `{subject}` is a kebab-case slug (max 5 words).
+**Output format:** Charter at `{CANONICAL_ROOT}/charters/charter-{subject}.md` (per `/docs/layout`) where `{subject}` is a kebab-case slug (max 5 words).
 
 ### Step 2: BDD Scenarios & Roadmap (acceptance-designer)
 
@@ -53,7 +53,7 @@ Instruct to produce:
    - Phase 1: Walking skeleton (minimal end-to-end)
    - Phase 2+: Incremental user stories, ordered by MoSCoW priority and dependency
 
-**Output:** Append BDD scenarios to the charter file. Write roadmap to `.docs/canonical/roadmaps/roadmap-{subject}-{year}.md`.
+**Output:** Append BDD scenarios to the charter file. Write roadmap to `{CANONICAL_ROOT}/roadmaps/roadmap-{subject}-{year}.md` (per `/docs/layout`).
 
 ### Step 3: Present to User
 
@@ -76,4 +76,4 @@ Suggest next steps:
 - **This is NOT implementation planning.** `/define` produces business requirements (what to build and why). `/plan` produces technical plans (how to build it).
 - **Sacrifice grammar for concision** in all agent prompts and outputs.
 - **List unresolved questions** at the end of every artifact.
-- **Ensure directories exist** before writing files — create `.docs/canonical/charters/` and `.docs/canonical/roadmaps/` if needed.
+- **Ensure directories exist** before writing files — create the charters and roadmaps directories under `CANONICAL_ROOT` (per `/docs/layout`) if needed.
