@@ -15,7 +15,8 @@ metadata:
   contributors: []
   created: 2026-03-05
   dependencies:
-    scripts: []
+    scripts:
+      - scripts/reading-time.sh
     references:
       - references/newsletter-edition-template.md
       - references/templates/default.md
@@ -81,6 +82,7 @@ Newsletter assembly is the final production step: taking individually crafted co
 - **Story Ordering Logic** — Lead = strongest/most newsworthy, close = most engaging/shareable, middle = substance/depth
 - **Format-Agnostic Output** — Clean markdown that adapts to email HTML, web pages, or RSS feeds
 - **Component Integration** — Weave stories, poll, and show notes into a coherent reading experience
+- **Reading Time Calculation** — Count words with `wc -w` and divide by 250 to produce accurate reading time
 
 ## Quick Start
 
@@ -121,6 +123,24 @@ Templates live in `references/templates/`. When no `--template` is provided, the
 2. **Generate 3-5 candidates** using the 5 patterns above
 3. **Score each** on: clarity (does it tell you what you'll get?), curiosity (does it make you want to open?), length (under 60 characters preferred)
 4. **Recommend top pick** with rationale
+
+### 3. Reading Time Calculation
+
+**Always use `wc -w` to count words.** Never estimate or eyeball word counts.
+
+1. **Run the script** — `scripts/reading-time.sh <file>` on the assembled edition markdown
+2. **Outputs** — `words: <count>` and `minutes: <total>` (word count / 250)
+3. **Insert into edition** — Place the reading time in the intro section (e.g., "Today's estimated reading time is **X minutes and Y seconds**.")
+
+**Manual calculation (when script is unavailable):**
+```bash
+words=$(wc -w < edition.md | tr -d '[:space:]')
+minutes=$(echo "scale=2; $words / 250" | bc)
+echo "words: $words"
+echo "minutes: $minutes"
+```
+
+The formula is fixed: **total words / 250 = minutes**. No rounding, no adjustments.
 
 ## Best Practices
 
