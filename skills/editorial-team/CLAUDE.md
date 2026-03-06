@@ -69,12 +69,12 @@ newsletter-assembly  (edition assembly)
 **Purpose:** Combine selected stories, polls, and metadata into a finished edition.
 
 **Key capabilities:**
-- Edition template with standard sections
+- Parameterized edition templates (`references/templates/`; defaults to `default.md`)
 - Subject line methodology
 - Story ordering logic (lead, follow, closer)
 - Format-agnostic markdown output
 
-**References:** `references/newsletter-edition-template.md` - edition structure template
+**References:** `references/newsletter-edition-template.md` - template index; `references/templates/default.md` - default edition template
 
 ### 4. Editorial Voice Matching (`editorial-voice-matching/`)
 

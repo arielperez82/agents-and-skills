@@ -142,7 +142,7 @@ The primary consumer is the Daily Dip newsletter, which produces editions from v
 
 5. **Generate poll** — Dispatch `poll-writer` to create a balanced poll related to the edition's stories.
 
-6. **Assemble newsletter** — Apply `newsletter-assembly` skill: order stories (lead/middle/close), generate subject line candidates, compose the complete edition using the edition template.
+6. **Assemble newsletter** — Apply `newsletter-assembly` skill: if no `--template` was provided, list available templates from `references/templates/` and ask the user which to use (default: `default.md`). Then order stories (lead/middle/close), generate subject line candidates, compose the complete edition using the selected template.
 
 7. **Run editorial review gate** — Dispatch the editorial review command (`review/editorial-review`) which runs 4 agents in parallel: `fact-checker`, `voice-consistency-reviewer`, `reader-clarity-reviewer`, `editorial-accuracy-reviewer`. Result is PASS / PASS WITH NOTES / FAIL.
 

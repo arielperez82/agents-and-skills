@@ -18,6 +18,7 @@ metadata:
     scripts: []
     references:
       - references/newsletter-edition-template.md
+      - references/templates/default.md
     assets: []
   difficulty: intermediate
   domain: editorial
@@ -75,7 +76,7 @@ Newsletter assembly is the final production step: taking individually crafted co
 
 ## Core Capabilities
 
-- **Edition Template** — Standard structure: subject line, intro, 3 stories, poll, show notes, footer
+- **Edition Template** — Parameterized templates in `references/templates/`; defaults to `default.md` if none specified
 - **Subject Line Methodology** — Generate 3-5 candidates using proven patterns, rank by open-rate potential
 - **Story Ordering Logic** — Lead = strongest/most newsworthy, close = most engaging/shareable, middle = substance/depth
 - **Format-Agnostic Output** — Clean markdown that adapts to email HTML, web pages, or RSS feeds
@@ -84,10 +85,16 @@ Newsletter assembly is the final production step: taking individually crafted co
 ## Quick Start
 
 1. Gather all components: selected stories, poll (if any), show notes
-2. Use the edition template at `references/newsletter-edition-template.md`
+2. Select an edition template from `references/templates/` (defaults to `default.md` if none specified)
 3. Generate subject line candidates
 4. Order stories: lead, middle, close
 5. Assemble into complete edition
+
+## Template Selection
+
+Templates live in `references/templates/`. When no `--template` is provided, the workflow prompts the user to choose from available templates or accept the default.
+
+**Adding a new template:** Create a `.md` file in `references/templates/` following the same structure as `default.md` — a markdown code block defining the edition skeleton, followed by section guidance. The template is automatically discoverable.
 
 ## Key Workflows
 
@@ -126,7 +133,8 @@ Newsletter assembly is the final production step: taking individually crafted co
 
 ## Reference Guides
 
-- **[newsletter-edition-template.md](references/newsletter-edition-template.md)** — Complete edition template with all sections and guidance
+- **[newsletter-edition-template.md](references/newsletter-edition-template.md)** — Template index and instructions for adding custom templates
+- **[templates/default.md](references/templates/default.md)** — Default edition template (3-story + poll + show notes)
 
 ## Integration
 
