@@ -43,6 +43,12 @@ metadata:
   - ESLint
   - Jest
   title: Senior Frontend Skill Package
+  related-agents:
+  - frontend-engineer
+  related-skills:
+  - react-best-practices
+  - tailwind-configuration
+  version: 1.0.0
 ---
 
 # Senior Frontend
