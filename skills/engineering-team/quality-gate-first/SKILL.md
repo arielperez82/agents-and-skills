@@ -122,6 +122,72 @@ Proven config patterns for common project types in `references/`:
 
 Each exemplar includes a directory tree, complete file contents with inline code blocks, and key pattern callouts.
 
+## Type-Check in Pre-Commit
+
+`tsc --noEmit` is a **required** lint-staged step for `.ts` and `.tsx` files. Type-checking catches entire categories of bugs that linters miss (incorrect function signatures, missing properties, incompatible types across modules). Without it in pre-commit, broken types can be committed and only caught later in CI.
+
+**lint-staged configuration:**
+
+```json
+{
+  "*.{ts,tsx}": [
+    "tsc --noEmit",
+    "eslint --fix",
+    "prettier --write"
+  ]
+}
+```
+
+**Performance:** For large projects (>500 files), use `tsc --noEmit --incremental` to leverage the TypeScript compiler cache. This stores a `.tsbuildinfo` file and only re-checks changed files and their dependents. Add `.tsbuildinfo` to `.gitignore`.
+
+```json
+{
+  "*.{ts,tsx}": [
+    "tsc --noEmit --incremental",
+    "eslint --fix",
+    "prettier --write"
+  ]
+}
+```
+
+**Note:** Type-checking runs on the full project regardless of which files are staged, because a change in one file can break types in another. This is by design — see "Pre-commit behavior" above.
+
+**Phase 0 checklist update:** The `type-check` entry in the universal requirements table (row 1) and the Phase 0 checklist must include `tsc --noEmit` as a lint-staged command. A project without type-checking in pre-commit has an incomplete Phase 0.
+
+## Hook Latency Budget
+
+Claude Code hooks (PreToolUse, PostToolUse) run on every tool call. Slow hooks degrade the agent's responsiveness and waste context on timeout handling. Every hook must respect a latency budget.
+
+| Constraint | Target |
+|---|---|
+| **Total PreToolUse latency** (sum of all PreToolUse hooks) | < 500ms |
+| **Total PostToolUse latency** (sum of all PostToolUse hooks) | < 500ms |
+| **Individual hook target** | < 100ms each |
+
+**Guidelines:**
+
+- Measure hook latency with `time bash hook.sh` during development.
+- Cache expensive computations (e.g., git diff output) in `/tmp/` files with short TTLs.
+- Avoid network calls in hooks. If unavoidable, set aggressive timeouts (< 200ms) and fail open.
+- Use throttling (e.g., max 1 execution per N seconds) for PostToolUse hooks that do not need to run on every call.
+- When adding a new hook, measure total hook latency before and after to confirm the budget is not exceeded.
+
+## Hook Enforcement Levels
+
+Every Claude Code hook must declare its enforcement level. The two levels correspond to different hook types and exit code semantics.
+
+| Level | Name | Hook type | Mechanism | Agent behavior |
+|---|---|---|---|---|
+| **Level 1** | Advisory nudge | PostToolUse | Returns `systemMessage` (exit 0) | Agent receives the message but can continue. Used for warnings, reminders, and soft nudges (e.g., commit monitor yellow zone). |
+| **Level 2** | Blocking gate | PreToolUse | Returns exit code 2 | Agent's tool call is blocked. Agent must address the issue before proceeding (e.g., commit monitor red zone, context management hard block). |
+
+**Rules for new hooks:**
+
+- Each hook's README must declare `Enforcement Level: 1` or `Enforcement Level: 2` in its documentation.
+- Level 2 (blocking) hooks must include an allowlist of tools that are never blocked (e.g., Read, Write, Edit for handoff scenarios).
+- Level 1 hooks should use throttling to avoid flooding the agent with repeated messages.
+- A hook may operate at Level 1 in some conditions and Level 2 in others (e.g., commit-monitor is Level 1 at yellow/orange, Level 2 at red). Document the threshold that triggers each level.
+
 ## One-line summary
 
 **Phase 0 = full delivery pipeline before feature work: scaffold, pre-commit (Husky/lint-staged), lint/format/type-check, CI pipeline (GitHub Actions), deploy pipeline (workflow_dispatch). Delivering to production safely is the first feature. Document as Phase 0 in backlog, development plan, and technical spec. For CI and deploy pipeline, collaborate with devsecops-engineer.**

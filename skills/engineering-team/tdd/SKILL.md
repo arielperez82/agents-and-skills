@@ -148,6 +148,120 @@ Test Evidence:
 
 ---
 
+## RED Evidence Protocol
+
+The RED Evidence Protocol captures proof-of-RED in the commit history without ever breaking the build. It uses `.skip` / `.todo` markers so CI stays green while the intent of the failing test is recorded as a commit.
+
+### The 4-Step Cycle
+
+1. **Write the test with `.skip` or `.todo`** — Describe the expected behavior in a skipped test. The test exists in the file but does not execute, so the build stays green.
+
+   ```ts
+   // Jest and Vitest both support these markers:
+   it.skip('returns 401 for expired tokens', () => {
+     const result = authenticateUser({ token: expiredToken });
+     expect(result.status).toBe(401);
+   });
+
+   // .todo is even lighter — no body required:
+   it.todo('returns 401 for expired tokens');
+   ```
+
+2. **Commit with `red:` prefix** — The commit message documents the RED intent. This is the evidence that a failing test was conceived before any production code.
+
+   ```
+   red: user login returns 401 for expired tokens
+   ```
+
+3. **Enable the test and make it pass** — Remove `.skip`, write the minimum production code to make the test GREEN, then refactor if valuable.
+
+4. **Commit on GREEN** — Use the standard conventional commit prefix for the work done.
+
+   ```
+   feat: implement expired token check in user login
+   ```
+
+### Compatibility
+
+Both Jest and Vitest support the same marker API:
+
+| Marker | Effect | Use when |
+|--------|--------|----------|
+| `it.skip()` / `test.skip()` | Test exists with body, skipped during run | You have the full assertion ready |
+| `it.todo()` / `test.todo()` | Test exists as name only, no body | You are sketching the test list |
+
+### Rules
+
+- **Never use `.only`** — `.only` restricts the test suite to a single test, which can mask failures in other tests. It is a debugging tool, not a workflow tool.
+- **Never merge a branch with `.skip` tests still present** — Every `.skip` test represents unfinished work. A PR with remaining `.skip` tests is incomplete by definition. The only `.skip` tests that may exist on the main branch are those with a documented exception and a tracking issue.
+- **The build never breaks** — `.skip` and `.todo` markers keep CI green throughout the RED phase. This is the key advantage over committing an actually-failing test.
+
+---
+
+## Double-Loop Cycle Checklist
+
+The double-loop pattern (outside-in TDD) is the standard development workflow for feature-level work. An outer acceptance test stays RED while inner unit tests are completed one cycle at a time. This section surfaces the pattern as a concrete, repeatable checklist.
+
+For the full theory behind outside-in double-loop TDD, see `references/outside-in-double-loop.md`.
+
+### The 5 Steps
+
+**1. Start with the outer test**
+
+Take the BDD scenario (or feature requirement) and write it as a `.skip` acceptance test. This is the feature-level test that stays RED until all inner tests pass.
+
+```ts
+it.skip('blocks worktree add when unpushed commits exist');
+```
+
+**2. Enumerate inner tests**
+
+Break the feature into unit-level `.skip` tests. Each test is one RED-GREEN-REFACTOR-COMMIT cycle. This list IS the developer's task checklist. Use the Security Checklist (above) and edge-case thinking to identify all cases upfront.
+
+```ts
+describe('worktree-guard', () => {
+  it.skip('exits 0 for non-worktree commands');        // cycle 1
+  it.skip('exits 0 when branch is pushed');             // cycle 2
+  it.skip('exits 2 when unpushed commits exist');       // cycle 3
+  it.skip('exits 0 when no remote tracking branch');    // cycle 4
+  it.skip('exits 0 on malformed JSON input');           // cycle 5
+});
+```
+
+**3. Work inside-out**
+
+Unskip one inner test at a time, make it GREEN, refactor, commit. Each commit is a checkpoint. The `.skip` list tracks remaining work.
+
+```ts
+// Cycle 1: unskip first test
+it('exits 0 for non-worktree commands', () => {       // was .skip
+  const result = worktreeGuard({ command: 'status' });
+  expect(result.exitCode).toBe(0);
+});
+// Write minimum code -> GREEN -> refactor -> commit
+```
+
+**4. Unskip the outer test**
+
+When all inner tests pass, unskip the acceptance test. It should now pass. If it does not, the gap reveals a missing inner test — add it, complete the cycle, then retry. Commit when GREEN.
+
+**5. The `.skip` list = progress tracker**
+
+At any point, the ratio of active tests to skipped tests shows exactly how far along the feature is. The engineering-lead (or any reviewer) can check progress without reading implementation code:
+
+```
+5 tests: 3 active, 2 skipped = 60% complete
+```
+
+### Key Rules
+
+- **The `.skip` list must exist BEFORE the first GREEN.** Write all test skeletons upfront during step 2. This forces you to think through the full scope before writing any production code.
+- **Each `.skip` test has a descriptive name** that documents the expected behavior. The test name is a specification. If you cannot name the test clearly, you do not yet understand the requirement.
+- **The outer acceptance test is the LAST test to go GREEN.** It integrates all inner behaviors. If it passes before all inner tests are done, either the outer test is too weak or the inner tests are redundant.
+- **Commit the `.skip` skeleton as your first commit** using the `red:` prefix from the RED Evidence Protocol. This records the full scope of work in version control before any implementation begins.
+
+---
+
 ## Coverage Verification - CRITICAL
 
 ### NEVER Trust Coverage Claims Without Verification

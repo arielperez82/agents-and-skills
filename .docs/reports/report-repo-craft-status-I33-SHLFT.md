@@ -72,14 +72,14 @@ phases:
     panel_artifact_path: null
   - name: Build
     number: 4
-    status: pending
+    status: in_progress
     agents: [engineering-lead]
     artifact_paths: []
     commit_shas: []
-    current_step: null
+    current_step: 1
     steps_completed: []
     handoff_snapshots: []
-    started_at: null
+    started_at: "2026-03-06T01:00:00Z"
     completed_at: null
     human_decision: null
     feedback: null

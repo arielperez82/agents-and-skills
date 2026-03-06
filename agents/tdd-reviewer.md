@@ -190,6 +190,46 @@ Fix the identity-value test, then we can assess refactoring."
 
 Manual mutation testing is part of every GREEN step. Load the `mutation-testing` skill for the full operator checklist, identity value traps, and per-function verification process.
 
+### RED Evidence Check (Advisory)
+
+When reviewing code changes, check git history for evidence of test-first discipline. All findings from this check are **advisory observations** -- they inform the developer but do not block commits or fail reviews.
+
+**How to check:**
+
+1. Run `git log --oneline` and look for commits with a `red:` prefix (e.g., `red: user rejects empty password`)
+2. Check whether test file changes appear in commits before or alongside corresponding production code changes
+3. Look for the RED-GREEN-REFACTOR rhythm in commit history (small, focused commits alternating between test and production code)
+
+**Reporting:**
+
+- If `red:` prefix commits are found: report as **Observation** -- "RED evidence found in git history: test-first discipline confirmed"
+- If no `red:` prefix commits are found: report as **Observation** -- "No `red:` prefix commits found in git history. This may indicate test-first discipline is not being signaled via commit messages. Consider adopting the `red:` commit prefix convention (see TDD skill, RED Evidence Protocol)"
+- Never escalate missing RED evidence to a blocking finding -- absence of `red:` commits does not prove tests were not written first
+
+**Reference:** See `engineering-team/tdd` skill, "RED Evidence Protocol" section for the full commit prefix convention.
+
+### Double-Loop Cycle Checklist Verification (Advisory)
+
+When reviewing work that follows the double-loop TDD pattern (BDD acceptance tests driving unit TDD), verify the cycle checklist integrity. All findings from this check are **advisory observations** -- they inform the developer but do not block commits or fail reviews.
+
+**Checks to perform:**
+
+1. **Outer acceptance test exists as `.skip`:** Verify that an outer acceptance test (BDD-style) exists and is marked `.skip` (or `.todo`) while inner unit work is in progress. If the feature is complete, verify the outer test is now GREEN (no longer skipped).
+
+2. **Inner `.skip` tests were enumerated before first GREEN:** Check git history for a skeleton commit where inner unit tests were listed as `.skip` or `.todo` before any of them were made to pass. This confirms the developer planned the test cases up front rather than adding them ad hoc.
+
+3. **Remaining `.skip` count matches expected remaining work:** Count current `.skip`/`.todo` tests and compare against the expected remaining scope. A mismatch may indicate scope creep (more skips than planned) or forgotten tests (fewer skips than expected).
+
+4. **Outer test is LAST to pass (outer-last rule):** If the outer acceptance test is GREEN but inner unit tests are still `.skip`, flag as an anomaly. The outer acceptance test should be the last test to pass, since it exercises the full behavior that the inner unit tests build toward. Report as: "Anomaly: outer acceptance test is GREEN but N inner tests are still `.skip`. The outer test should be the last to go GREEN."
+
+**Reporting:**
+
+- Report all findings as **Observation** (blue tier)
+- Frame findings as coaching opportunities, not violations
+- When the double-loop pattern is followed correctly, acknowledge it positively
+
+**Reference:** See `engineering-team/tdd` skill, "Double-Loop Cycle Checklist" section for the full checklist and rationale.
+
 ### Analysis Mode (Reactive)
 
 **Triggers:** Requests like "review test quality", "score these tests", "analyze test design", providing a path for test analysis, asking for a Farley Index or Farley Score, detecting test theatre or mock anti-patterns.
