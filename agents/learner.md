@@ -33,7 +33,7 @@ related-agents:
   - adr-writer
   - progress-assessor
   - architect
-related-skills: [markdown-documentation, markdown-syntax-fundamentals, markdown-tables]
+related-skills: [markdown-documentation, markdown-syntax-fundamentals, markdown-tables, delivery-team/waste-identification]
 related-commands: []
 collaborates-with:
   - agent: docs-reviewer
@@ -101,6 +101,7 @@ Learnings go to the **appropriate location** per `.docs/AGENTS.md`:
 - Patterns that worked particularly well
 - Anti-patterns encountered
 - Tooling or setup knowledge gained
+- **Waste moments** — frustration, boredom, delays, tedious repetitive work, idle waiting (offer to capture via `/waste/add`)
 
 **Process:**
 

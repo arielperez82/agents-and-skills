@@ -193,6 +193,7 @@ Role and specialist skills (same folder):
 | **ticket-management** | Issue tracking | Product-agnostic ticket workflows, JQL patterns, automation |
 | **wiki-documentation** | Team wikis | Product-agnostic wiki structure, knowledge bases, macros |
 | **agile-coach** | Agile/Scrum | Ceremonies, backlog, velocity, impediments |
+| **waste-identification** | Process waste | Waste Snake practice, observation format, Lean waste taxonomy, periodic review |
 | **senior-project-manager** | Program management | Portfolio, stakeholders, delivery |
 
 ### Marketing Team (`marketing-team/`)

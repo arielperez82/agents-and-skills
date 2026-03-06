@@ -26,9 +26,10 @@ classification:
   model: sonnet
 
 # === RELATIONSHIPS ===
-related-agents: []
-related-skills: [delivery-team/agile-coach, delivery-team/ticket-management, product-team/prioritization-frameworks]
-related-commands: []
+related-agents:
+  - learner
+related-skills: [delivery-team/agile-coach, delivery-team/ticket-management, product-team/prioritization-frameworks, delivery-team/waste-identification]
+related-commands: [waste/add, retro/waste-snake]
 
 # === TECHNICAL ===
 tools: [Read, Write, Bash, Grep, Glob]
@@ -70,7 +71,7 @@ This is a coaching-driven skill focused on facilitation, communication, and agil
 
 1. **Retrospective Formats**
    - **Location:** `../skills/delivery-team/agile-coach/references/retro-formats.md`
-   - **Content:** 8 proven retrospective formats including Start/Stop/Continue, Glad/Sad/Mad, 4Ls (Liked/Learned/Lacked/Longed For), Sailboat, Timeline, Starfish, Speed Dating, and Three Little Pigs. Each format includes structure, process steps, duration estimates, example outputs, and facilitation tips.
+   - **Content:** 9 proven retrospective formats including Start/Stop/Continue, Glad/Sad/Mad, 4Ls (Liked/Learned/Lacked/Longed For), Sailboat, Timeline, Starfish, Speed Dating, Three Little Pigs, and Waste Snake. Each format includes structure, process steps, duration estimates, example outputs, and facilitation tips.
    - **Use Case:** Selecting and running effective retrospectives based on team needs, varying formats to maintain engagement, and facilitating productive improvement discussions
 
 ## Workflows
@@ -249,6 +250,29 @@ cat ../skills/delivery-team/scrum-master/SKILL.md
 # "Team throughput stable at 10 items/week. Capacity utilization at 78% with good flow efficiency.
 # No capacity constraints identified. Team demonstrating good self-organization and sustainable pace."
 ```
+
+### Workflow 5: Waste Snake Review
+
+**Goal:** Aggregate waste observations from the waste snake, classify by Lean waste type, identify patterns, and produce a ledger entry with recommendations for elimination
+
+**Steps:**
+
+1. **Load waste-identification skill** — Read `skills/delivery-team/waste-identification/SKILL.md` and `references/waste-types.md` for the Lean taxonomy
+2. **Read the waste snake** — Open `.docs/canonical/waste-snake.md` and identify all observations since the last ledger entry
+3. **Count and cluster** — Group similar observations, count occurrences per cluster
+4. **Classify clusters** — Assign each cluster a Lean waste type (DOWNTIME: Defects, Overproduction, Waiting, Non-utilized talent, Transportation, Inventory, Motion, Extra processing)
+5. **Calculate compound cost** — Where observations include duration, compute `duration x occurrences = total waste`
+6. **Rank patterns** — Order clusters by frequency and compound cost
+7. **Recommend actions** — Propose 2-3 concrete actions to eliminate or reduce top wastes
+8. **Append ledger entry** — Write the review results to `.docs/canonical/waste-snake.md` under `## Ledger`
+
+**Expected Output:** Ledger entry with waste type distribution, top patterns ranked by impact, compound cost estimates, and 2-3 actionable recommendations
+
+**Time Estimate:** 15-30 minutes depending on observation count
+
+**Recommended cadence:** Monthly, or when the snake has 10+ unreviewed observations
+
+**Command:** `/retro/waste-snake`
 
 ## Integration Examples
 

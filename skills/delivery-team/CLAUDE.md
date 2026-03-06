@@ -10,6 +10,7 @@ This guide covers the 4 production-ready delivery management skills.
 2. **agile-coach/** - Agile ceremonies, coaching, team facilitation
 3. **wiki-documentation/** - Documentation strategy, space architecture, templates, governance
 4. **ticket-management/** - Issue tracking, workflow design, queries, dashboards, automation
+5. **waste-identification/** - Waste Snake practice for making process waste visible through continuous observation and periodic review
 
 ## Skill-Specific Guidance
 
@@ -89,6 +90,6 @@ python ../product-team/agile-product-owner/scripts/user_story_generator.py sprin
 
 ---
 
-**Last Updated:** February 9, 2026
-**Skills Deployed:** 4/4 delivery skills production-ready
+**Last Updated:** March 6, 2026
+**Skills Deployed:** 5/5 delivery skills production-ready
 **Integration:** Product-agnostic patterns for any wiki/ticket platform or `.docs/` hierarchy

@@ -394,3 +394,57 @@ Based on the story:
 - Let team choose occasionally
 - Match format to team mood
 - Try new format when stuck
+
+---
+
+## Waste Snake
+
+**Best for:** Making invisible process waste visible, identifying systemic inefficiencies
+**Duration:** 45-60 minutes
+**Source:** Tim Ottinger (Industrial Logic), crediting Martine Devos
+
+### Structure
+
+The waste snake is a living record of waste observations collected continuously between retrospectives. The retro reviews and aggregates them:
+
+- **Review existing snake** — Read observations accumulated since last review
+- **Add new observations** — Team members add any waste they haven't reported yet
+- **Identify patterns** — Group similar observations, classify by Lean waste type
+- **Pick wastes to eliminate** — Select top 2-3 patterns and commit to actions
+
+### Process
+
+1. Read the waste snake aloud — review all observations since last review (10 min)
+2. Team adds any new waste observations they haven't reported (5 min)
+3. Group similar observations into clusters (5 min)
+4. Classify clusters using Lean waste types: Defects, Overproduction, Waiting, Non-utilized talent, Transportation, Inventory, Motion, Extra processing (10 min)
+5. Calculate compound cost where possible: duration x occurrences = total waste (5 min)
+6. Vote on which wastes to eliminate first (5 min)
+7. Create concrete action items for top 2-3 wastes (10 min)
+
+### Example Output
+
+**Observations reviewed:** 12 since last review
+
+**Top Waste Patterns:**
+
+| Pattern | Type | Occurrences | Compound Cost |
+|---------|------|-------------|---------------|
+| Manual YAML formatting | Extra processing | 6 | ~1.5 hours |
+| Waiting for CI on docs-only PRs | Waiting | 4 | ~1.3 hours |
+| Re-finding skill paths | Motion | 3 | ~45 min |
+
+**Actions:**
+
+- Write a YAML formatting script (Owner: DevEx, Sprint 26)
+- Add path filtering to CI for docs-only changes (Owner: DevOps, Sprint 26)
+- Add `/skill/find-local-skill` command (Owner: Platform, Sprint 27)
+
+### Facilitation Tips
+
+- The snake grows between retros — encourage daily observation via `/waste/add`
+- Do not solve during observation — just capture
+- Classification happens during the retro, not when reporting
+- Small wastes matter — they compound
+- Celebrate eliminated wastes from previous reviews
+- Reference: `skills/delivery-team/waste-identification/references/waste-types.md` for the full Lean taxonomy
