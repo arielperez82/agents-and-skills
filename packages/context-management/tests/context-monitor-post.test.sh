@@ -111,10 +111,95 @@ stale_ts=$(( $(date +%s) - 15 ))
 echo "55|${stale_ts}" > "$CTX_CACHE"
 out=$(echo '{}' | bash "$SUT")
 if [ "$out" = '{"suppressOutput": true}' ]; then
-  echo "  PASS  stale 55% cache = suppress (older than 30s)"
+  echo "  PASS  stale 55% cache = suppress (older than 10s)"
   PASS=$((PASS + 1))
 else
-  echo "  FAIL  stale 55% cache = suppress (older than 30s)"
+  echo "  FAIL  stale 55% cache = suppress (older than 10s)"
+  echo "    got: $out"
+  FAIL=$((FAIL + 1))
+fi
+
+# Boundary: exactly STALE_SECONDS old (default 10) = stale (-ge)
+cleanup
+exact_ts=$(( $(date +%s) - 10 ))
+echo "55|${exact_ts}" > "$CTX_CACHE"
+out=$(echo '{}' | bash "$SUT")
+if [ "$out" = '{"suppressOutput": true}' ]; then
+  echo "  PASS  exactly 10s old cache = suppress (boundary)"
+  PASS=$((PASS + 1))
+else
+  echo "  FAIL  exactly 10s old cache = suppress (boundary)"
+  echo "    got: $out"
+  FAIL=$((FAIL + 1))
+fi
+
+# Boundary: 9 seconds old = fresh (just under threshold)
+cleanup
+almost_ts=$(( $(date +%s) - 9 ))
+echo "55|${almost_ts}" > "$CTX_CACHE"
+out=$(echo '{}' | bash "$SUT")
+if echo "$out" | grep -qF "CONTEXT AT 55%"; then
+  echo "  PASS  9s old cache = warn (just under threshold)"
+  PASS=$((PASS + 1))
+else
+  echo "  FAIL  9s old cache = warn (just under threshold)"
+  echo "    got: $out"
+  FAIL=$((FAIL + 1))
+fi
+
+# Old-format cache (no timestamp) — cut returns pct as "timestamp" (epoch ~55 = 1970),
+# so staleness check treats it as ancient → suppress (fail open). Safe behavior.
+echo ""
+echo "--- Old-format cache (backward compat) ---"
+cleanup
+echo "55" > "$CTX_CACHE"
+out=$(echo '{}' | bash "$SUT")
+if [ "$out" = '{"suppressOutput": true}' ]; then
+  echo "  PASS  old-format 55% cache (no pipe) = suppress (stale epoch)"
+  PASS=$((PASS + 1))
+else
+  echo "  FAIL  old-format 55% cache (no pipe) = suppress (stale epoch)"
+  echo "    got: $out"
+  FAIL=$((FAIL + 1))
+fi
+
+cleanup
+echo "30" > "$CTX_CACHE"
+out=$(echo '{}' | bash "$SUT")
+if [ "$out" = '{"suppressOutput": true}' ]; then
+  echo "  PASS  old-format 30% cache (no pipe) = suppress (stale epoch)"
+  PASS=$((PASS + 1))
+else
+  echo "  FAIL  old-format 30% cache (no pipe) = suppress (stale epoch)"
+  echo "    got: $out"
+  FAIL=$((FAIL + 1))
+fi
+
+# Custom CTX_STALE_SECONDS override
+echo ""
+echo "--- Custom CTX_STALE_SECONDS ---"
+cleanup
+custom_ts=$(( $(date +%s) - 7 ))
+echo "55|${custom_ts}" > "$CTX_CACHE"
+out=$(CTX_STALE_SECONDS=5 bash "$SUT" <<< '{}')
+if [ "$out" = '{"suppressOutput": true}' ]; then
+  echo "  PASS  7s old with CTX_STALE_SECONDS=5 = suppress"
+  PASS=$((PASS + 1))
+else
+  echo "  FAIL  7s old with CTX_STALE_SECONDS=5 = suppress"
+  echo "    got: $out"
+  FAIL=$((FAIL + 1))
+fi
+
+cleanup
+custom_ts2=$(( $(date +%s) - 3 ))
+echo "55|${custom_ts2}" > "$CTX_CACHE"
+out=$(CTX_STALE_SECONDS=5 bash "$SUT" <<< '{}')
+if echo "$out" | grep -qF "CONTEXT AT 55%"; then
+  echo "  PASS  3s old with CTX_STALE_SECONDS=5 = warn"
+  PASS=$((PASS + 1))
+else
+  echo "  FAIL  3s old with CTX_STALE_SECONDS=5 = warn"
   echo "    got: $out"
   FAIL=$((FAIL + 1))
 fi

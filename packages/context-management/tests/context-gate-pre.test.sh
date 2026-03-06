@@ -125,6 +125,37 @@ fresh_ts=$(date +%s)
 echo "65|${fresh_ts}" > "$CTX_CACHE"
 assert_exit "fresh 65% cache = block" '{"tool_name":"Agent"}' 2
 
+# Boundary: exactly STALE_SECONDS old (default 10) = stale (-ge, not -gt)
+exact_ts=$(( $(date +%s) - 10 ))
+echo "65|${exact_ts}" > "$CTX_CACHE"
+assert_exit "exactly 10s old cache = allow (boundary)" '{"tool_name":"Agent"}' 0
+
+# Boundary: 9 seconds old = fresh (just under threshold)
+almost_ts=$(( $(date +%s) - 9 ))
+echo "65|${almost_ts}" > "$CTX_CACHE"
+assert_exit "9s old cache = block (just under threshold)" '{"tool_name":"Agent"}' 2
+
+# Old-format cache (no timestamp) — cut returns pct as "timestamp" (epoch ~65 = 1970),
+# so staleness check treats it as ancient → fails open (allow). This is safe behavior.
+echo ""
+echo "--- Old-format cache (backward compat) ---"
+echo "65" > "$CTX_CACHE"
+assert_exit "old-format 65% cache (no pipe) = allow (stale epoch)" '{"tool_name":"Agent"}' 0
+
+echo "45" > "$CTX_CACHE"
+assert_exit "old-format 45% cache (no pipe) = allow (stale epoch)" '{"tool_name":"Bash"}' 0
+
+# Custom CTX_STALE_SECONDS override
+echo ""
+echo "--- Custom CTX_STALE_SECONDS ---"
+custom_ts=$(( $(date +%s) - 7 ))
+echo "65|${custom_ts}" > "$CTX_CACHE"
+CTX_STALE_SECONDS=5 assert_exit "7s old with CTX_STALE_SECONDS=5 = allow" '{"tool_name":"Agent"}' 0
+
+custom_ts2=$(( $(date +%s) - 3 ))
+echo "65|${custom_ts2}" > "$CTX_CACHE"
+CTX_STALE_SECONDS=5 assert_exit "3s old with CTX_STALE_SECONDS=5 = block" '{"tool_name":"Agent"}' 2
+
 # Invalid cache content = allow
 echo ""
 echo "--- Invalid cache ---"
