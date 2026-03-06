@@ -1,31 +1,27 @@
 ---
 description: ⚡ Standup — summarize current state of play
+argument-hint: (no arguments)
 ---
-Run a standup-style status review. Use the data-gathering scripts to collect all data first, then synthesize the four areas below.
+Run a standup-style status review. Load the **standup-context** skill and use it to gather all data, then synthesize the results below.
 
-## Step 1: Gather Data (run both scripts)
+## Step 1: Gather Data
 
-Run both scripts from repo root. These replace manual git commands, file reads, and API calls with deterministic single-invocation scripts.
+Load the `standup-context` skill. It provides two data-gathering capabilities:
 
-```bash
-# Git + canonical docs + memory (single invocation)
-bash skills/standup-context/scripts/gather-git-and-docs.sh
+1. **Git and canonical docs** — recent commits, status, diff, branches, canonical docs, status reports, learnings, ADRs, and cross-session memory. Run this from the repo root.
+2. **Telemetry** — session overview, agent usage, cost breakdown, and skill frequency from Tinybird. Pass the current project name. Gracefully skips if credentials are unavailable.
 
-# Telemetry (single invocation, skips gracefully if no credentials)
-bash skills/standup-context/scripts/gather-telemetry.sh "$(basename "$(pwd)")"
-```
-
-The scripts output structured markdown with labeled sections. Use their output to write the standup below.
+Run both capabilities. The skill knows which scripts to invoke and how to invoke them. Use their structured markdown output to write the standup below.
 
 ## Step 2: Synthesize the Standup
 
-Using the gathered data, present these four areas:
+Using the gathered data, present these five areas:
 
 ### 1. What have we accomplished in the last 12 hours?
 
 - Summarize recent git commits: features shipped, bugs fixed, refactors completed, docs updated.
 - Note the scope and impact of each change.
-- If telemetry is available, include: number of sessions, total tokens used, total cost, most-used agents/skills.
+- If telemetry is available, include: number of sessions, total tokens used, total cost, most-used agents and skills.
 
 ### 2. What is currently in progress?
 
