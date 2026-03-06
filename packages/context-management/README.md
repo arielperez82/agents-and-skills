@@ -174,6 +174,33 @@ The restart block format is defined in the `/context:handoff` command (`commands
 
 **Design principle:** The agent has no awareness of any external wrapper or orchestrator. It simply follows its handoff instructions, which include outputting a restart block as the last thing it does. If a wrapper is listening, it can parse the block and auto-restart. If no wrapper exists, the block is harmless text the user can read.
 
+### Session Wrapper (claude-loop)
+
+`scripts/claude-loop.sh` is a transparent wrapper that auto-restarts Claude Code sessions after context exhaustion. It uses `script -q` to capture session output without interfering with the TUI, then parses the restart block markers from the last lines of output.
+
+**Usage:**
+
+```bash
+# Instead of: claude
+claude-loop
+
+# All args pass through:
+claude-loop --model sonnet --yes
+
+# Symlink for convenience:
+ln -s /path/to/packages/context-management/scripts/claude-loop.sh /usr/local/bin/claude-loop
+```
+
+**Behavior:**
+
+1. Spawns `claude` via `script -q` for transparent output capture
+2. User interacts normally — the wrapper is invisible during a session
+3. When Claude exits, reads the last ~80 lines of output for restart block markers
+4. If `---HANDOFF-RESTART---` / `---END-RESTART---` found: extracts content, pauses 3 seconds (Ctrl+C to abort), starts a new session with the extracted prompt
+5. If no markers found: exits normally
+
+**What it does NOT do:** No IPC, no signal files, no parsing of restart block content. It passes the extracted text verbatim as `--prompt` to the next session.
+
 ## Package Structure
 
 ```
@@ -182,6 +209,7 @@ packages/context-management/
     status-line.sh           # Status line + cache writer
     context-monitor-post.sh  # PostToolUse (soft warnings)
     context-gate-pre.sh      # PreToolUse (hard blocker)
+    claude-loop.sh           # Session wrapper (auto-restart)
   tests/
     status-line.test.sh
     context-gate-pre.test.sh
