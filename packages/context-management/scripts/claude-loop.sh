@@ -91,10 +91,10 @@ main() {
       sleep "$PAUSE_SECONDS"
 
       # Pass restart prompt via --prompt and add --yes for non-interactive start
-      run_session "$logfile" --yes --prompt "$restart_prompt" "${extra_args[@]}"
+      run_session "$logfile" --yes --prompt "$restart_prompt" ${extra_args[@]+"${extra_args[@]}"}
     else
       # First session — pass through all args as-is
-      run_session "$logfile" "${extra_args[@]}"
+      run_session "$logfile" ${extra_args[@]+"${extra_args[@]}"}
     fi
 
     # Session ended — check for restart block
