@@ -74,3 +74,4 @@ Completed initiatives.
 | I29-GTMSO | GTM Sales Ops & Revenue | Sales ops & revenue: sales-ops-analyst, revenue-ops-analyst agents + crm-ops, pipeline-forecasting, revenue-analytics, cadence-design skills | [charter](../charters/charter-repo-I29-GTMSO-gtm-sales-ops-revenue.md) |
 | I31-EDPUB | Editorial Publishing Pipeline | Editorial team agents (7), skills (6), commands (3) for source-to-newsletter pipeline with quality gates | [charter](../charters/charter-repo-I31-EDPUB-editorial-publishing-pipeline.md) |
 | I33-WSNK | Waste Snake | Process waste visibility practice (skill, command, agent updates, waste-snake ledger) | |
+| I34-WSINT | Waste Snake Integration | Wired /waste/add into craft workflow, /code, /code:auto, and learner agent for systematic waste capture | [charter](../charters/charter-repo-I34-WSINT-waste-snake-integration.md) |

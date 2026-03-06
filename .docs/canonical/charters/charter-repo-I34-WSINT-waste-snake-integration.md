@@ -3,7 +3,7 @@ type: charter
 endeavor: repo
 initiative: I34-WSINT
 initiative_name: waste-snake-integration
-status: proposed
+status: delivered
 scope_type: docs-only
 complexity: light
 created: 2026-03-06
