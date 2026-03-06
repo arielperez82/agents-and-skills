@@ -102,7 +102,7 @@ This skill delivers enterprise-grade legacy codebase analysis capabilities throu
 - **50% faster** modernization roadmap creation
 - **80% increase** in stakeholder confidence with data-driven insights
 
-**Artifact conventions:** When this repo's artifact conventions are in use (see `.docs/AGENTS.md`), write assessments to `.docs/canonical/assessments/assessment-<endeavor>-<subject>-<date>.md` and reports (e.g. baseline, quarterly, progress) to `.docs/reports/report-<endeavor>-<topic>-<timeframe>.md`. Use the naming grammar for all coordination outputs (executive summary, modernization roadmap, assessment summary). When writing a roadmap or plan to `.docs/canonical/roadmaps/` or `.docs/canonical/plans/`, include `initiative` and `initiative_name` in front matter per `.docs/AGENTS.md` initiative naming. Scripts that write to `reports/` can be directed to `.docs/reports/` when the project adopts conventions.
+**Artifact conventions:** When this repo's artifact conventions are in use, write assessments to `{CANONICAL_ROOT}/assessments/assessment-<endeavor>-<subject>-<date>.md` and reports to `{REPORTS_DIR}/report-<endeavor>-<topic>-<timeframe>.md` (per `/docs/layout`). Use the naming grammar for all coordination outputs. When writing a roadmap or plan to `{CANONICAL_ROOT}/roadmaps/` or `{CANONICAL_ROOT}/plans/`, include `initiative` and `initiative_name` in front matter per the learnings file (`LEARNINGS_FILE` per `/docs/layout`). Scripts that write to `reports/` can be directed to `REPORTS_DIR` when the project adopts conventions.
 
 **Use this skill when:**
 
@@ -175,7 +175,7 @@ python scripts/modernization_roadmap_generator.py /path/to/legacy-project
 python scripts/modernization_roadmap_generator.py /path/to/legacy-project --timeline 12
 
 # Generate executive summary
-python scripts/modernization_roadmap_generator.py /path/to/legacy-project --executive-summary --output .docs/canonical/assessments/assessment-repo-modernization-$(date +%Y-%m-%d).md
+python scripts/modernization_roadmap_generator.py /path/to/legacy-project --executive-summary --output {CANONICAL_ROOT}/assessments/assessment-repo-modernization-$(date +%Y-%m-%d).md
 ```
 
 ### Access Documentation
@@ -1204,7 +1204,7 @@ python scripts/modernization_roadmap_generator.py /path/to/legacy-project
 python scripts/modernization_roadmap_generator.py /path/to/legacy-project --timeline 24
 
 # Executive summary format
-python scripts/modernization_roadmap_generator.py /path/to/legacy-project --executive-summary --output .docs/canonical/assessments/assessment-repo-modernization-$(date +%Y-%m-%d).md
+python scripts/modernization_roadmap_generator.py /path/to/legacy-project --executive-summary --output {CANONICAL_ROOT}/assessments/assessment-repo-modernization-$(date +%Y-%m-%d).md
 
 # Include cost analysis
 python scripts/modernization_roadmap_generator.py /path/to/legacy-project --cost-analysis --team-size 8
