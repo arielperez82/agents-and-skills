@@ -142,7 +142,11 @@ The primary consumer is the Daily Dip newsletter, which produces editions from v
 
 5. **Generate poll** — Dispatch `poll-writer` to create a balanced poll related to the edition's stories.
 
-6. **Assemble newsletter** — Apply `newsletter-assembly` skill: if no `--template` was provided, list available templates from `references/templates/` and ask the user which to use (default: `default.md`). Then order stories (lead/middle/close), generate subject line candidates, compose the complete edition using the selected template.
+6. **Assemble newsletter** — Apply `newsletter-assembly` skill: if no `--template` was provided, list available templates from `references/templates/` and ask the user which to use (default: `default.md`). Then:
+   - Order stories (lead/middle/close)
+   - Generate subject line candidates
+   - **Dispatch supplemental sections** — Read the template for supplemental section definitions. For each one, send the brief (parameterized with edition context) to the specified agent. Common supplemental sections include TL;DR, Sweet Dip, Fun Facts, QOTD, and subject line candidates. Unused story candidates from step 2 are passed to supplemental sections that need them (e.g., Sweet Dip).
+   - Compose the complete edition using the template, placing supplemental section results at their declared positions
 
 7. **Run editorial review gate** — Dispatch the editorial review command (`review/editorial-review`) which runs 4 agents in parallel: `fact-checker`, `voice-consistency-reviewer`, `reader-clarity-reviewer`, `editorial-accuracy-reviewer`. Result is PASS / PASS WITH NOTES / FAIL.
 
@@ -171,6 +175,12 @@ Script ──► [1] Segment ──► [2] Select ──► [3] Draft ──► 
               │                 │              │             │             │              │               │
           editorial-        story-         editorial-    fact-         poll-         newsletter-      editorial-
           writer           selection       writer        checker       writer        assembly         review
+                               │                                                       │
+                               └── unused candidates ──────────────────────────► supplemental
+                                                                                 dispatches
+                                                                                (TL;DR, Sweet Dip,
+                                                                                Fun Facts, QOTD,
+                                                                                subject lines)
 ```
 
 ## Success Metrics

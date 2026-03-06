@@ -136,6 +136,46 @@ Templates live in `references/templates/`. When no `--template` is provided, the
 - **[newsletter-edition-template.md](references/newsletter-edition-template.md)** — Template index and instructions for adding custom templates
 - **[templates/default.md](references/templates/default.md)** — Default edition template (3-story + poll + show notes)
 
+## Supplemental Sections
+
+Templates can define **supplemental sections** — additional content blocks generated during assembly by dispatching briefs to existing agents. This keeps the pipeline generic: different newsletters define different supplemental sections.
+
+### How It Works
+
+1. **Template defines sections** — Each supplemental section in the template specifies: section name, target agent, brief text, required inputs, and position in the edition
+2. **Assembly reads the template** — During step 6, the assembler discovers all supplemental section definitions
+3. **Brief dispatch** — For each supplemental section, the assembler sends the brief (parameterized with edition context) to the specified agent
+4. **Result placement** — Generated content is placed at the specified position in the edition
+
+### Supplemental Section Schema
+
+Each supplemental section in a template's Section Guidance follows this pattern:
+
+```markdown
+### [Section Name] (supplemental)
+- agent: [agent-name]
+- brief: "[Prompt text with placeholders like {stories}, {categories}, {date}]"
+- inputs: [what context to pass — e.g., drafted stories, unused candidates, story categories]
+- position: [before-stories | between-stories | after-stories | after-poll]
+```
+
+### Common Supplemental Sections
+
+| Section | Agent | Brief Pattern | Inputs |
+|---------|-------|--------------|--------|
+| TL;DR / Before We Dip In | `editorial-writer` | "Write 3-4 ultra-condensed bullet points summarizing these stories" | Drafted stories |
+| Sweet Dip | `editorial-writer` | "Extract positive/uplifting moments. 3-5 celebratory one-liners" | Unused story candidates, transcript |
+| Fun Facts | `researcher` | "Find 3-4 surprising, verified facts related to {categories}" | Story categories |
+| QOTD | `editorial-writer` | "Generate a thought-provoking question for {date} related to {topics}" | Story topics, date |
+| Subject Line | `editorial-writer` | "Generate 3-5 subject line candidates. Punchy, emoji-tagged" | Drafted stories |
+
+### Design Principles
+
+- **Briefs live in the template, not the skill** — Each newsletter customizes its own supplemental sections
+- **Existing agents only** — No new agents needed; supplemental sections dispatch to `editorial-writer`, `researcher`, etc.
+- **Parameterized** — Briefs reference edition context (`{stories}`, `{categories}`, `{date}`, `{unused}`) that the assembler fills in
+- **Position-aware** — Each section declares where it appears, so the assembler can compose the full edition in order
+
 ## Integration
 
-Consumed by `newsletter-producer` agent as the final assembly step (step 6 of the 7-step pipeline). Receives stories from `story-selection`, poll from `poll-writer`, show notes from `editorial-writer`.
+Consumed by `newsletter-producer` agent as the final assembly step (step 6 of the 7-step pipeline). Receives stories from `story-selection`, poll from `poll-writer`, show notes from `editorial-writer`. Additionally receives unused story candidates from the selection step for supplemental section dispatch.
