@@ -1,11 +1,27 @@
 ---
 name: frontend-design
-description: Creative design direction for distinctive, production-grade frontend interfaces that avoid generic AI aesthetics. Use when building web components, pages, or applications that need bold visual identity, memorable aesthetics, and intentional design choices. Complements visual-design-foundations (systematic tokens) with creative philosophy and aesthetic methodology.
+description: Creative design direction for distinctive, production-grade frontend
+  interfaces that avoid generic AI aesthetics. Use when building web components, pages,
+  or applications that need bold visual identity, memorable aesthetics, and intentional
+  design choices. Complements visual-design-foundations (systematic tokens) with creative
+  philosophy and aesthetic methodology.
 metadata:
   author: Prithvi Rajasekaran, Alexander Bricken (Anthropic)
-  version: "1.0.0"
+  version: 1.0.0
   source: https://github.com/anthropics/claude-code/tree/main/plugins/frontend-design
   license: See LICENSE.txt in source repository
+  domain: design
+  tags:
+  - ui
+  - design
+  - frontend
+  - components
+  related-agents:
+  - frontend-engineer
+  - ux-designer
+  related-skills:
+  - visual-design-foundations
+  - tailwind-configuration
 ---
 
 # Frontend Design
