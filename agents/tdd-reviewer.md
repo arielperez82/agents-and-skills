@@ -230,6 +230,32 @@ When reviewing work that follows the double-loop TDD pattern (BDD acceptance tes
 
 **Reference:** See `engineering-team/tdd` skill, "Double-Loop Cycle Checklist" section for the full checklist and rationale.
 
+### Pre-RED Checklist and Enumeration Verification (Advisory)
+
+When reviewing test suites or code changes, check for evidence that the developer consulted the Pre-RED Checklist and performed edge case enumeration before writing tests. All findings from this check are **advisory observations** -- they inform the developer but do not block commits or fail reviews.
+
+**Checks to perform:**
+
+1. **Pre-RED checklist evidence:** Look for tests that cover trust boundaries, boundary values, and error paths -- indicators that the developer consulted the Pre-RED Checklist before writing their first test. Specific signals include:
+   - Tests for input validation at trust boundaries (API inputs, file reads, user input, external service responses)
+   - Tests for boundary values (zero, empty, null/undefined, max length, off-by-one)
+   - Tests for error and exception paths (not just happy path coverage)
+
+2. **Skeleton `.skip` tests for enumeration:** Check git history for evidence that edge case tests were enumerated as `.skip` or `.todo` stubs before the first GREEN. This confirms the developer planned their test cases up front (enumeration-first) rather than discovering them incrementally. Signals include:
+   - A commit containing multiple `.skip`/`.todo` test stubs added at once (skeleton commit)
+   - `.skip` test names that describe edge cases, boundary conditions, or error scenarios
+   - Progressive conversion of `.skip` tests to passing tests in subsequent commits
+
+**Reporting:**
+
+- Report all findings as **Observation** (blue tier)
+- If edge case tests and boundary value tests are present: "Pre-RED checklist evidence found: trust boundary and boundary value tests present"
+- If skeleton `.skip` commits are found: "Edge case enumeration evidence found: skeleton tests were enumerated before first GREEN"
+- If neither signal is found: "No Pre-RED checklist or enumeration evidence detected. Consider consulting the Pre-RED Checklist before writing tests and enumerating edge cases as `.skip` stubs up front (see TDD skill)"
+- Never escalate missing evidence to a blocking finding -- absence of these signals does not prove the practices were not followed
+
+**Reference:** See `engineering-team/tdd` skill, "Pre-RED Checklist" and "Edge Case Enumeration" sections for the full checklist and enumeration workflow.
+
 ### Analysis Mode (Reactive)
 
 **Triggers:** Requests like "review test quality", "score these tests", "analyze test design", providing a path for test analysis, asking for a Farley Index or Farley Score, detecting test theatre or mock anti-patterns.

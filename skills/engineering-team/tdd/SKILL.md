@@ -21,6 +21,34 @@ Write code before the test? Delete it. Start over.
 
 **No exceptions:** Don't keep it as "reference", don't "adapt" it while writing tests, don't look at it. Delete means delete. Implement fresh from tests.
 
+## Pre-RED Checklist
+
+Before writing the first test for any new feature or module, scan these questions. Each "yes" means you need at least one `.skip` test for that concern. This checklist shapes the edge cases you enumerate during RED.
+
+| # | Question | If yes, test for... |
+|---|----------|---------------------|
+| 1 | Does it accept user input (form fields, CLI args, query params)? | Empty string, null, undefined, whitespace-only |
+| 2 | Does it accept numeric input? | 0, -1, NaN, Infinity, MAX_SAFE_INTEGER, non-integer |
+| 3 | Does it process strings with a regex? | ReDoS payloads (`(a+)+$` patterns), catastrophic backtracking |
+| 4 | Does it build or interpolate shell commands? | Shell injection (`; rm -rf /`, backticks, `$()`) |
+| 5 | Does it resolve file paths from input? | Path traversal (`../../etc/passwd`), absolute paths |
+| 6 | Does it stat or read files? | Symlink following to unexpected locations |
+| 7 | Does it cross a network boundary (HTTP, DB, queue)? | Timeout, connection refused, retry exhaustion, auth failure |
+| 8 | Does it handle authentication or authorization? | Expired tokens, missing credentials, privilege escalation |
+| 9 | Does it parse structured data (JSON, XML, YAML)? | Malformed input, deeply nested payloads, empty documents |
+| 10 | Does it produce error messages from user input? | Reflected content (XSS in error output) |
+| 11 | Does it handle collections or arrays? | Empty array, single element, very large collections |
+| 12 | Does it deal with concurrency or shared state? | Race conditions, partial writes, stale reads |
+| 13 | Does it depend on environment variables or config? | Missing config, empty string values, unexpected types |
+| 14 | Does it return or expose secrets in logs/responses? | Credential leakage in error paths |
+| 15 | Does it handle dates, times, or timezones? | Epoch zero, DST boundaries, invalid date strings |
+
+Not every question applies to every feature. Skip irrelevant ones. The goal is one quick pass (under 60 seconds) to surface edge cases before you write any test code.
+
+For deeper security analysis of skill packages and scripts, see `skills/agent-development-team/skill-intake/references/security-checklist.md`.
+
+---
+
 ## RED-GREEN-REFACTOR-COMMIT Cycle
 
 **The rhythm: RED → GREEN → REFACTOR → COMMIT. Every passing cycle ends with a commit.**
@@ -41,6 +69,38 @@ Before writing the GREEN implementation for any script that processes files or s
 4. **Does this accept external input?** Validate and sanitize before use. For file paths: resolve and containment-check. For strings used in commands: never interpolate into shell strings.
 
 This checklist derives from L68 (I18-RLMP) where all four categories were caught by reviewers, not by TDD. Writing failing tests for these concerns during RED prevents post-hoc security fix cascades.
+
+### Edge Case Enumeration
+
+After writing your primary `.skip` test, enumerate all edge cases before writing any production code. This step turns the Pre-RED Checklist answers into concrete test skeletons.
+
+**The process:**
+
+1. Review each "yes" from the Pre-RED Checklist
+2. Write a `.skip` or `.todo` test for each edge case with a descriptive name
+3. Commit the full skeleton with a `red:` prefix (per the RED Evidence Protocol)
+
+**Example:** For a `validateEmail` function, the Pre-RED Checklist flags user input (#1), string regex (#3), and collections (#11):
+
+```ts
+describe('validateEmail', () => {
+  it.skip('returns valid result for well-formed email');           // happy path
+  it.skip('returns error when email is empty string');             // #1 empty
+  it.skip('returns error when email is null');                     // #1 null
+  it.skip('returns error when email is undefined');                // #1 undefined
+  it.skip('returns error when email is whitespace-only');          // #1 whitespace
+  it.skip('completes in <10ms for pathological regex input');      // #3 ReDoS
+  it.skip('returns error when email list is empty array');         // #11 empty
+  it.skip('validates single-element email list');                  // #11 single
+});
+```
+
+**Rules:**
+
+- **Enumerate before the first GREEN.** The edge case list shapes your interface design. Discovering a boundary condition after implementation leads to rework.
+- **Each test name is a specification.** Use the pattern: `it.skip('<verb> <expected outcome> when <condition>')`. If you cannot name it clearly, you do not yet understand the requirement.
+- **The `.skip` list is your task backlog.** Unskip one test at a time, make it GREEN, refactor, commit. The ratio of active to skipped tests shows progress (see Double-Loop Cycle Checklist).
+- **Do not aim for exhaustive coverage upfront.** Add new `.skip` tests as you discover cases during implementation. The initial enumeration catches the obvious ones; TDD catches the rest.
 
 ### Verify RED (MANDATORY)
 
