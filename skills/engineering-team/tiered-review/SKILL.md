@@ -1,16 +1,26 @@
 ---
 name: tiered-review
-description: T1-T2-T3 processing pattern for review agents — deterministic pre-filtering before LLM analysis to reduce token consumption 50-70%.
+description: T1-T2-T3 processing pattern for review agents — deterministic pre-filtering
+  before LLM analysis to reduce token consumption 50-70%.
 metadata:
   title: Tiered Review Processing
   domain: engineering
   subdomain: review-optimization
-  tags: [review, pre-filtering, token-optimization, tiered-processing]
+  tags:
+  - review
+  - pre-filtering
+  - token-optimization
+  - tiered-processing
   status: active
   version: 1.0.0
   updated: 2026-02-25
   initiative: I18-RLMP
   initiative_name: Review-Led Model Processing
+  related-agents:
+  - code-reviewer
+  - refactor-assessor
+  related-skills:
+  - coverage-analysis
 ---
 
 # Tiered Review Processing
