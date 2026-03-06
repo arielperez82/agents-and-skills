@@ -41,9 +41,18 @@ Each non-git section is controlled by an env var. Sections are **skipped** when 
 | `WASTE_SNAKE` | Path to waste snake file | `.docs/canonical/waste-snake.md` |
 | `MEMORY_FILE` | Path to cross-session memory file | `~/.claude/projects/.../memory/MEMORY.md` |
 
-**How to run:** Set the relevant env vars, then execute the script from the repo root.
+**How to run:** Use the `/locate/*` commands to resolve artifact paths, then pass them as env vars to the script. Each locate command outputs `KEY=value` lines that map directly to the env vars below.
 
 ```bash
+# 1. Resolve paths via /locate/* commands:
+#    /locate/canonical  -> CANONICAL_ROOT, CANONICAL_DIRS
+#    /locate/reports    -> REPORTS_DIR
+#    /locate/learnings  -> LEARNINGS_FILE, LEARNINGS_DIRS
+#    /locate/adrs       -> ADR_DIR
+#    /locate/waste-snake -> WASTE_SNAKE
+#    /locate/memory     -> MEMORY_FILE
+#
+# 2. Pass non-empty values as env vars:
 CANONICAL_ROOT=.docs/canonical \
 CANONICAL_DIRS="roadmaps charters backlogs plans" \
 REPORTS_DIR=.docs/reports \
@@ -54,6 +63,8 @@ WASTE_SNAKE=.docs/canonical/waste-snake.md \
 MEMORY_FILE=~/.claude/projects/-Users-me-projects-my-repo/memory/MEMORY.md \
 bash <SKILL_DIR>/scripts/gather-git-and-docs.sh
 ```
+
+Omit any env var whose `/locate/*` command returned an empty value — the script skips that section.
 
 ### 2. Telemetry
 
