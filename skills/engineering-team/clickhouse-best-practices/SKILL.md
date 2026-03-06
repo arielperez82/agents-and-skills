@@ -1,10 +1,22 @@
 ---
 name: clickhouse-best-practices
-description: MUST USE when reviewing ClickHouse schemas, queries, or configurations. Contains 28 rules that MUST be checked before providing recommendations. Always read relevant rule files and cite specific rules in responses.
+description: MUST USE when reviewing ClickHouse schemas, queries, or configurations.
+  Contains 28 rules that MUST be checked before providing recommendations. Always
+  read relevant rule files and cite specific rules in responses.
 license: Apache-2.0
 metadata:
   author: ClickHouse Inc
-  version: "0.3.0"
+  version: 0.3.0
+  domain: engineering
+  tags:
+  - clickhouse
+  - database
+  - analytics
+  - olap
+  related-agents:
+  - senior-data-engineer
+  related-skills:
+  - databases
 ---
 
 # ClickHouse Best Practices
