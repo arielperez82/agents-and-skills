@@ -30,6 +30,8 @@ These are the non-negotiable foundations. Everything else in this document flows
 
 8. **Route to the cheapest capable tier.** T1 local scripts > T2 haiku/gemini/codex > T3 sonnet/opus. Always prefer the cheapest tier that can do the job.
 
+9. **Document friction, fix it, learn from it.** When something slows you down, log it (`/waste/add`). Small fixes get fixed now. Systemic issues become backlog items. Each session leaves the system better than it was found.
+
 ---
 
 ## Design Principles
@@ -242,6 +244,27 @@ Before starting new work in a multi-step workflow, check context utilization. If
 
 ---
 
+## Continuous Improvement
+
+Every friction point is a learning opportunity. When something slows you down — a confusing API, a missing test helper, a brittle config, a manual step that should be automated — **document it immediately** so it can be reviewed and fixed.
+
+Use `/waste/add` to log friction as it happens. Each observation captures what went wrong, the time wasted, and a suggested fix. These accumulate in the waste snake ledger. Run `/retro/waste-snake` periodically to review observations, identify patterns, and convert recurring waste into actionable backlog items.
+
+**What to capture:**
+- Process friction (slow feedback loops, manual steps, unclear workflows)
+- Tooling gaps (missing scripts, bad defaults, config that fights you)
+- Knowledge gaps (undocumented decisions, tribal knowledge, surprising behavior)
+- Repeated mistakes (same bug class, same misconfiguration, same misunderstanding)
+
+**What to do with it:**
+- Small fixes: fix immediately and commit (don't document what you can just fix)
+- Systemic issues: `/waste/add` to log, then address in the next planning cycle
+- Learnings: capture via `learner` agent into `.docs/AGENTS.md` or relevant skill
+
+The goal is not perfection — it's momentum. Each session should leave the system slightly better than it was found.
+
+---
+
 ## Setup Commands
 
 ```bash
@@ -258,4 +281,4 @@ pnpm lint:fix          # Auto-fix issues
 
 ## Summary
 
-Small, tested, immutable, committed. TDD drives every line of code. Each cycle ends with a commit. Skills and agents are loaded proactively. Phase 0 ships before features. The cheapest capable tier does the work. When in doubt, favor simplicity. For detailed patterns, load the appropriate skill from `skills/`.
+Small, tested, immutable, committed, improving. TDD drives every line of code. Each cycle ends with a commit. Skills and agents are loaded proactively. Phase 0 ships before features. The cheapest capable tier does the work. Friction is documented and fixed, not tolerated. When in doubt, favor simplicity. For detailed patterns, load the appropriate skill from `skills/`.
