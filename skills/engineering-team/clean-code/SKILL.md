@@ -6,6 +6,16 @@ allowed-tools: Read, Write, Edit
 metadata:
   priority: CRITICAL
   version: 2.0
+  domain: engineering
+  tags:
+  - clean-code
+  - readability
+  - maintainability
+  related-agents:
+  - code-reviewer
+  - refactor-assessor
+  related-skills:
+  - best-practices
 ---
 
 # Clean Code - Pragmatic AI Coding Standards
