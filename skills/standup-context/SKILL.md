@@ -1,8 +1,20 @@
 ---
 name: standup-context
-description: Data-gathering scripts for sync/standup reviews, reducing tool calls from ~15+ down to 2-3. Collects git state, canonical docs, telemetry, and cross-session memory into structured markdown for synthesis.
+description: Data-gathering scripts for sync/standup reviews, reducing tool calls
+  from ~15+ down to 2-3. Collects git state, canonical docs, telemetry, and cross-session
+  memory into structured markdown for synthesis.
 metadata:
   version: 2.0.0
+  domain: delivery
+  tags:
+  - standup
+  - status
+  - git
+  - context-gathering
+  related-agents:
+  - senior-project-manager
+  related-skills:
+  - planning
 ---
 
 # Standup Context
