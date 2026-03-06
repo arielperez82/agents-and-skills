@@ -18,7 +18,7 @@ phases:
       - .docs/reports/researcher-260306-shift-left-quality-hooks.md
       - .docs/reports/researcher-260306-shift-left-quality-hooks-strategic-assessment.md
       - .docs/reports/claims-verifier-260306-shift-left-quality-hooks.md
-    commit_shas: []
+    commit_shas: [dc24e6b]
     started_at: "2026-03-06T00:00:00Z"
     completed_at: "2026-03-06T00:01:00Z"
     human_decision: approve
