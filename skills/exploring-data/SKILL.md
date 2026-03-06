@@ -1,8 +1,21 @@
 ---
 name: exploring-data
-description: Exploratory data analysis using ydata-profiling. Use when users upload .csv/.xlsx/.json/.parquet files or request "explore data", "analyze dataset", "EDA", "profile data". Generates interactive HTML or JSON reports with statistics, visualizations, correlations, and quality alerts.
+description: Exploratory data analysis using ydata-profiling. Use when users upload
+  .csv/.xlsx/.json/.parquet files or request "explore data", "analyze dataset", "EDA",
+  "profile data". Generates interactive HTML or JSON reports with statistics, visualizations,
+  correlations, and quality alerts.
 metadata:
   version: 0.0.3
+  domain: data-analysis
+  tags:
+  - eda
+  - profiling
+  - data-quality
+  - visualization
+  related-agents:
+  - senior-data-scientist
+  related-skills:
+  - extracting-keywords
 ---
 
 # Exploring Data
