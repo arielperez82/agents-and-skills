@@ -7,6 +7,14 @@ description: Apply structured, reflective problem-solving for complex tasks requ
 license: MIT
 metadata:
   version: 1.0.0
+  domain: reasoning
+  tags:
+  - problem-solving
+  - structured-thinking
+  - analysis
+  related-agents: []
+  related-skills:
+  - problem-solving
 ---
 
 # Sequential Thinking
