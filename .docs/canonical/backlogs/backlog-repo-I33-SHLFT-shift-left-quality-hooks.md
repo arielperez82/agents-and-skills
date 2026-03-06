@@ -3,7 +3,7 @@ type: backlog
 endeavor: repo
 initiative: I33-SHLFT
 initiative_name: shift-left-quality-hooks
-status: proposed
+status: complete
 created: 2026-03-06
 updated: 2026-03-06
 ---

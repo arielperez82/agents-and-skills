@@ -265,6 +265,18 @@ The goal is not perfection — it's momentum. Each session should leave the syst
 
 ---
 
+## Doc Layout
+
+Artifact conventions for this repo. Agents resolve paths via `/docs/layout`.
+
+```text
+DOCS_ROOT=.docs
+```
+
+All other paths derive from `DOCS_ROOT`: `CANONICAL_ROOT={DOCS_ROOT}/canonical`, `REPORTS_DIR={DOCS_ROOT}/reports`, `LEARNINGS_FILE={DOCS_ROOT}/AGENTS.md`, `ADR_DIR={DOCS_ROOT}/canonical/adrs`, `WASTE_SNAKE={DOCS_ROOT}/canonical/waste-snake.md`. See `commands/docs/layout.md` for the full derivation table.
+
+---
+
 ## Setup Commands
 
 ```bash

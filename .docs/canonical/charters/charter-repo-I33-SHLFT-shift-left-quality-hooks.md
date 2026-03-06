@@ -3,7 +3,7 @@ type: charter
 endeavor: repo
 initiative: I33-SHLFT
 initiative_name: shift-left-quality-hooks
-status: proposed
+status: complete
 scope_type: mixed
 complexity: light
 created: 2026-03-06
