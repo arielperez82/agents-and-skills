@@ -26,7 +26,7 @@ The user can provide any combination of the following in natural language:
 
 ## Workflow
 
-1. **Intake & gap analysis** — Read whatever the user provided. Inspect the content and identify what's present vs. missing. Then ask the user about gaps, prioritized by impact:
+1. **Intake & gap analysis** — Read whatever the user provided. Inspect the content and identify what's present vs. missing. Then use the asking-questions skill to clarify gaps — present clear options with trade-offs, use progressive disclosure (2-3 questions max per message), and respect "just go with what you have" as an immediate proceed signal. Prioritize questions by impact:
 
    **Always ask if missing:**
    - Template selection (if not specified): "Which edition template? Here are the available ones: [list]. Or I can use the default."
@@ -84,6 +84,7 @@ The user can provide any combination of the following in natural language:
 
 ## References
 
-- Agent: [newsletter-producer](../../agents/newsletter-producer.md)
-- Skills: [story-selection](../../skills/editorial-team/story-selection/SKILL.md), [newsletter-assembly](../../skills/editorial-team/newsletter-assembly/SKILL.md)
-- Voice profile: generate with [/voice/extract](../voice/extract.md), consumed by [editorial-voice-matching](../../skills/editorial-team/editorial-voice-matching/SKILL.md)
+- Agent: `newsletter-producer`
+- Skills: `story-selection`, `newsletter-assembly`
+- Intake clarification: `asking-questions` skill (clarifying ambiguous inputs)
+- Voice profile: generate with `/voice/extract`, consumed by `editorial-voice-matching` skill
