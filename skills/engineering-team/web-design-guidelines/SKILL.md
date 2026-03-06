@@ -1,10 +1,24 @@
 ---
 name: web-design-guidelines
-description: Review UI code for Web Interface Guidelines compliance. Use when asked to "review my UI", "check accessibility", "audit design", "review UX", or "check my site against best practices".
+description: Review UI code for Web Interface Guidelines compliance. Use when asked
+  to "review my UI", "check accessibility", "audit design", "review UX", or "check
+  my site against best practices".
 metadata:
   author: vercel
-  version: "1.0.0"
+  version: 1.0.0
   argument-hint: <file-or-pattern>
+  domain: engineering
+  tags:
+  - web-design
+  - responsive
+  - ui
+  - layout
+  related-agents:
+  - web-developer
+  - frontend-engineer
+  related-skills:
+  - tailwind-configuration
+  - frontend-design
 ---
 
 # Web Interface Guidelines
