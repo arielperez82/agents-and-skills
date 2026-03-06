@@ -81,7 +81,7 @@ main() {
   while true; do
     iteration=$((iteration + 1))
     local logfile
-    logfile=$(mktemp "/tmp/claude-loop-${iteration}-XXXXXX.log")
+    logfile=$(mktemp "/tmp/claude-loop-${iteration}-XXXXXX")
 
     if [ -n "$restart_prompt" ]; then
       echo ""
