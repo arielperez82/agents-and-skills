@@ -45,6 +45,11 @@ None. This hook has no configurable thresholds.
 bash test.sh
 ```
 
+## Known limitations
+
+- JSON parsing uses `grep`/`sed` (no `jq` dependency). Commands containing escaped quotes (e.g., heredoc-style commit messages) may truncate the extracted `command` field. The failure mode is always fail-open (allow), consistent with ADR-003.
+- If Claude Code's JSON field ordering changes (e.g., `tool_result` before `tool_input`), the `head -1` extraction could pick the wrong `command` value. This is a known coupling to the current protocol.
+
 ## Dependencies
 
 - `bash` (4.0+)

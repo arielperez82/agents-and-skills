@@ -649,9 +649,9 @@ When reviewers catch the same class of issue more than once, that issue should b
 
 ### The 4-Step Escalation
 
-1. **Identify** -- Find the issue class in `.docs/reports/review-overrides.md` or in review findings. Each row in `review-overrides.md` records the reviewer agent, severity, finding description, and location. Group rows by finding description to identify recurring classes.
+1. **Identify** -- Find the issue class in review findings (e.g., `/review/review-changes` output, PR review comments, or waste snake observations). Look for the reviewer agent, severity, finding description, and location. Group findings by description to identify recurring classes.
 
-2. **Count** -- If the same issue class appears 2 or more times across any combination of reviews, it qualifies for automation. The `review-overrides.md` tabular format supports this directly: filter rows by finding description and count occurrences.
+2. **Count** -- If the same issue class appears 2 or more times across any combination of reviews, it qualifies for automation. Search git history for review commits and waste snake entries to count occurrences.
 
 3. **Determine mechanism** -- Choose the cheapest enforcement layer that can catch the issue:
    - **Lint rule** (ESLint, markdownlint, custom rule) -- for code patterns detectable by static analysis

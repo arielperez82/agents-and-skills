@@ -56,10 +56,10 @@ if [ -n "$command_str" ] && echo "$command_str" | grep -qF "/review/review-chang
 fi
 
 # --- Detect successful git commit ---
-# Check for "git commit" in the raw INPUT (handles escaped quotes in JSON)
-if [ "$tool_name" = "Bash" ] && echo "$INPUT" | grep -q "git commit" && [ "$exit_code" = "0" ]; then
-  # Check for ignored prefixes (wip: or docs:) in the raw input
-  # The commit message in JSON looks like: -m \"wip: checkpoint\" or -m \\\"wip: ...
+# Match "git commit" in command_str (not full INPUT — avoids false positives from stdout)
+if [ "$tool_name" = "Bash" ] && echo "$command_str" | grep -q "git commit" && [ "$exit_code" = "0" ]; then
+  # Check for ignored prefixes in raw INPUT (command_str truncates at escaped quotes,
+  # so the commit message text after -m \" is only visible in the full JSON)
   # Match -m followed by optional escaping then the prefix
   if echo "$INPUT" | grep -qi '\-m[[:space:]]*[^a-zA-Z]*wip:'; then
     suppress
