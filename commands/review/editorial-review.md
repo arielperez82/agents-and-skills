@@ -82,7 +82,7 @@ Run the editorial review gate: 4 adversarial agents in parallel evaluating a new
 /review/editorial-review editions/2026-03-05.md scripts/show-2026-03-05.md
 
 # With voice reference
-/review/editorial-review editions/2026-03-05.md scripts/show-2026-03-05.md --voice-profile editions/2026-03-01.md
+/review/editorial-review editions/2026-03-05.md scripts/show-2026-03-05.md --voice-profile voice-profiles/show.voice-profile.md
 ```
 
 ## References
