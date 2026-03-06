@@ -569,6 +569,30 @@
     },
     "skills/sales-team/revenue-analytics": {
       "skill_id": "skill_011vwnUAuZpdmSvf5UfW7bmK"
+    },
+    "skills/delivery-team/waste-identification": {
+      "skill_id": "skill_01PCHNAEdyjv6VbhjmqocweN"
+    },
+    "skills/editorial-team/bias-screening": {
+      "skill_id": "skill_01U3sqtAAovhyfFrF7y7PPDf"
+    },
+    "skills/editorial-team/editorial-voice-matching": {
+      "skill_id": "skill_01XHYKPAnT5hyiLqnFWcqddZ"
+    },
+    "skills/editorial-team/newsletter-assembly": {
+      "skill_id": "skill_01ASssQqvNhTVXD7JqtMWMxH"
+    },
+    "skills/editorial-team/reader-clarity": {
+      "skill_id": "skill_01ExuAgq1RNRQL26F47r2qXk"
+    },
+    "skills/editorial-team/script-to-article": {
+      "skill_id": "skill_01QqPbBnxnDZdrY1oKD8QYWU"
+    },
+    "skills/editorial-team/story-selection": {
+      "skill_id": "skill_01SDhH8Mnq5cqndMjz6jFMid"
+    },
+    "skills/standup-context": {
+      "skill_id": "skill_01FRUwxvEv14yT5YLjMjQ4aF"
     }
   }
 }
