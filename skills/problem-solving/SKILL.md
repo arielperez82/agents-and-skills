@@ -7,6 +7,15 @@ description: Apply systematic problem-solving techniques for complexity spirals 
   patterns adapted for immediate application.
 metadata:
   version: 2.0.0
+  domain: reasoning
+  tags:
+  - problem-solving
+  - complexity
+  - innovation
+  - patterns
+  related-agents: []
+  related-skills:
+  - sequential-thinking
 ---
 
 # Problem-Solving Techniques
