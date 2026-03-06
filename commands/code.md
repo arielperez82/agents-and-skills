@@ -170,7 +170,7 @@ Mark Step 5 complete in TodoWrite, mark Step 6 in_progress.
 - Run only if: Steps 1-3 successful + User approved + Tests passed + uncommitted changes exist
 - Auto-stage, commit with message [phase - plan] and push
 
-**Validation:** Steps 1-3 must complete successfully. Step 4 (auto-commit) runs only if conditions met.
+**Validation:** Steps 1-2 must complete successfully. Step 3 (auto-commit) runs only if conditions met.
 
 Mark Step 6 complete in TodoWrite.
 
