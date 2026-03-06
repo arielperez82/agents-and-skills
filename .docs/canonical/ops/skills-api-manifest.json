@@ -593,6 +593,9 @@
     },
     "skills/standup-context": {
       "skill_id": "skill_01FRUwxvEv14yT5YLjMjQ4aF"
+    },
+    "skills/agent-development-team/knowledge-capture": {
+      "skill_id": "skill_01134WxEqJWTnAhhZpQBS4Ld"
     }
   }
 }
