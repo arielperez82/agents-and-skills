@@ -2,7 +2,7 @@
 
 **Initiative:** I33-SHLFT
 **Date:** 2026-03-06
-**Status:** Proposed
+**Status:** Complete
 **Charter:** [charter-repo-I33-SHLFT](../charters/charter-repo-I33-SHLFT-shift-left-quality-hooks.md)
 **Scenarios:** [acceptance scenarios](../charters/charter-repo-I33-SHLFT-shift-left-quality-hooks-scenarios.md)
 

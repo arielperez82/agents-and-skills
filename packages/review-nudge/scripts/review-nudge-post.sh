@@ -56,22 +56,15 @@ if [ -n "$command_str" ] && echo "$command_str" | grep -qF "/review/review-chang
 fi
 
 # --- Detect successful git commit ---
-if [ "$tool_name" = "Bash" ] && [ -n "$command_str" ] && echo "$command_str" | grep -q "git commit" && [ "$exit_code" = "0" ]; then
-  # Check for ignored prefixes (wip: or docs:)
-  # Extract the commit message from the command string
-  commit_msg=""
-  # Try -m "msg" pattern
-  if echo "$command_str" | grep -q '\-m '; then
-    # Extract text after -m, handling both -m "msg" and -m 'msg' patterns
-    # The JSON has escaped quotes, so the message appears after -m \"
-    commit_msg=$(echo "$command_str" | sed 's/.*-m [^a-zA-Z]*//;s/["\].*//')
-  fi
-
-  # Check for wip: or docs: prefix (case-insensitive on the prefix)
-  if echo "$commit_msg" | grep -qi '^wip:'; then
+# Check for "git commit" in the raw INPUT (handles escaped quotes in JSON)
+if [ "$tool_name" = "Bash" ] && echo "$INPUT" | grep -q "git commit" && [ "$exit_code" = "0" ]; then
+  # Check for ignored prefixes (wip: or docs:) in the raw input
+  # The commit message in JSON looks like: -m \"wip: checkpoint\" or -m \\\"wip: ...
+  # Match -m followed by optional escaping then the prefix
+  if echo "$INPUT" | grep -qi '\-m[[:space:]]*[^a-zA-Z]*wip:'; then
     suppress
   fi
-  if echo "$commit_msg" | grep -qi '^docs:'; then
+  if echo "$INPUT" | grep -qi '\-m[[:space:]]*[^a-zA-Z]*docs:'; then
     suppress
   fi
 
