@@ -1058,7 +1058,7 @@ Present the collated tier summary to the human.
 Before dispatching parallel agents, generate the craft efficiency report:
 
 ```bash
-node --experimental-strip-types \
+pnpx tsx \
   telemetry/src/hooks/entrypoints/generate-craft-efficiency-report.ts \
   "<status-file-path>" ".docs/reports"
 ```
