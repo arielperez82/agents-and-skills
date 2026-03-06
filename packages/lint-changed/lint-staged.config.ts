@@ -10,8 +10,8 @@ export default {
     'pnpm type-check',
     'pnpm lint:fix',
     `pnpm format:fix ${stagedFiles.join(' ')}`,
-    `sh ${semgrepScript} ${stagedFiles.join(' ')}`,
   ],
   'src/**/*.ts': () => ['pnpm test:coverage'],
   '**/*.sh': (stagedFiles: string[]) => [`sh ${shellcheckScript} ${stagedFiles.join(' ')}`],
+  '**/*.{sh,ts}': () => [`sh ${semgrepScript}`],
 };
