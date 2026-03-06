@@ -9,6 +9,16 @@ metadata:
   version: 1.0.0
   author: AI Engineering Team
   last_updated: '2026-02-09'
+  domain: engineering
+  tags:
+  - supabase
+  - edge-functions
+  - deno
+  - serverless
+  related-agents:
+  - senior-backend
+  related-skills:
+  - supabase-best-practices
 ---
 
 # Supabase Edge Functions
