@@ -127,7 +127,8 @@ main() {
       echo ""
       sleep "$PAUSE_SECONDS"
 
-      run_session "$logfile" --yes --prompt "$restart_prompt" ${extra_args[@]+"${extra_args[@]}"}
+      # Restart prompt as positional arg (starts interactive session with initial prompt)
+      run_session "$logfile" ${extra_args[@]+"${extra_args[@]}"} "$restart_prompt"
     else
       run_session "$logfile" ${extra_args[@]+"${extra_args[@]}"}
     fi
