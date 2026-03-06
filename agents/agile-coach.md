@@ -258,13 +258,13 @@ cat ../skills/delivery-team/scrum-master/SKILL.md
 **Steps:**
 
 1. **Load waste-identification skill** — Read `skills/delivery-team/waste-identification/SKILL.md` and `references/waste-types.md` for the Lean taxonomy
-2. **Read the waste snake** — Open `.docs/canonical/waste-snake.md` and identify all observations since the last ledger entry
+2. **Read the waste snake** — Open the waste snake file (`WASTE_SNAKE` per `/docs/layout`) and identify all observations since the last ledger entry
 3. **Count and cluster** — Group similar observations, count occurrences per cluster
 4. **Classify clusters** — Assign each cluster a Lean waste type (DOWNTIME: Defects, Overproduction, Waiting, Non-utilized talent, Transportation, Inventory, Motion, Extra processing)
 5. **Calculate compound cost** — Where observations include duration, compute `duration x occurrences = total waste`
 6. **Rank patterns** — Order clusters by frequency and compound cost
 7. **Recommend actions** — Propose 2-3 concrete actions to eliminate or reduce top wastes
-8. **Append ledger entry** — Write the review results to `.docs/canonical/waste-snake.md` under `## Ledger`
+8. **Append ledger entry** — Write the review results to the waste snake file (`WASTE_SNAKE` per `/docs/layout`) under `## Ledger`
 
 **Expected Output:** Ledger entry with waste type distribution, top patterns ranked by impact, compound cost estimates, and 2-3 actionable recommendations
 

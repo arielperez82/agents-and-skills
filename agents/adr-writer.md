@@ -297,8 +297,8 @@ assistant: "That's an important infrastructure decision. Let me invoke the adr-w
 
    ```markdown
    ## Authentication System
-   
-   We use JWT tokens for authentication. For the rationale behind this decision, see [ADR: Authentication Approach](.docs/canonical/adrs/adr-YYYYMMDD-authentication-approach.md).
+
+   We use JWT tokens for authentication. For the rationale behind this decision, see [ADR: Authentication Approach]({ADR_DIR}/adr-YYYYMMDD-authentication-approach.md) (resolve `ADR_DIR` via `/docs/layout`).
    ```
 
 ```
@@ -450,12 +450,12 @@ user: "We're going with a monorepo structure"
 When triggered, create a new ADR:
 
 ```bash
-# Create new ADR under .docs/canonical/adrs/
+# Create new ADR under {ADR_DIR}/ (per /docs/layout)
 # Naming: adr-YYYYMMDD-<subject>.md (e.g. adr-20260206-validation-library-choice.md)
-# File: .docs/canonical/adrs/adr-YYYYMMDD-<subject>.md
+# File: {ADR_DIR}/adr-YYYYMMDD-<subject>.md
 ```
 
-Required front matter: type, endeavor, status (proposed|accepted|superseded), date, supersedes, superseded_by. See .docs/AGENTS.md and charter for placement. Accepted ADRs that change constraints must update Charter/Plan/Backlog links. Do not create roadmap, backlog, or plan files; when referencing plan/backlog, use initiative from .docs/AGENTS.md References (by initiative).
+Required front matter: type, endeavor, status (proposed|accepted|superseded), date, supersedes, superseded_by. See the learnings file (`LEARNINGS_FILE` per `/docs/layout`) and charter for placement. Accepted ADRs that change constraints must update Charter/Plan/Backlog links. Do not create roadmap, backlog, or plan files; when referencing plan/backlog, use initiative from the learnings file References (by initiative).
 
 ### 3. Gather Context
 
@@ -488,7 +488,7 @@ Before writing the ADR, gather:
 
 ### 5. Required front matter and post-acceptance
 
-Every ADR under `.docs/canonical/adrs/` must include this front matter (minimal):
+Every ADR under the ADR directory (`ADR_DIR` per `/docs/layout`) must include this front matter (minimal):
 
 ```yaml
 ---
@@ -505,7 +505,7 @@ superseded_by: null
 
 ### 6. Maintain ADR Index (optional)
 
-Optionally keep `.docs/canonical/adrs/index.md` updated with links and statuses.
+Optionally keep `{ADR_DIR}/index.md` (per `/docs/layout`) updated with links and statuses.
 
 ## Examples
 
@@ -608,7 +608,7 @@ We will use **SendGrid** for all email sending.
 
 ### Neutral
 
-- Need to add rate limiting to handle free tier limits (see current plan or status report under .docs/canonical/plans/ or .docs/reports/)
+- Need to add rate limiting to handle free tier limits (see current plan or status report under `{CANONICAL_ROOT}/plans/` or the reports directory, per `/docs/layout`)
 
 ## Implementation Notes
 
