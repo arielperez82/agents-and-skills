@@ -2,7 +2,7 @@
 
 **Date:** 2026-03-06
 **Source:** Phase 5 Final Sweep (7 parallel review agents)
-**Status:** Open — fix after Phase 5 commit
+**Status:** RESOLVED — all 14 items applied (12 code, 2 noted as future practice)
 
 ---
 

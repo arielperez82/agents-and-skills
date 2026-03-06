@@ -11,8 +11,9 @@ FAIL=0
 
 # Use a fake SSE port so tests never touch real session cache
 export CLAUDE_CODE_SSE_PORT="test-monitor-$$"
-CTX_CACHE="/tmp/claude-ctx-pct-${CLAUDE_CODE_SSE_PORT}"
-THROTTLE_FILE="/tmp/claude-ctx-warned-${CLAUDE_CODE_SSE_PORT}"
+TMPBASE="${TMPDIR:-/tmp}"
+CTX_CACHE="${TMPBASE}/claude-ctx-pct-${CLAUDE_CODE_SSE_PORT}"
+THROTTLE_FILE="${TMPBASE}/claude-ctx-warned-${CLAUDE_CODE_SSE_PORT}"
 
 cleanup() {
   rm -f "$CTX_CACHE" "$THROTTLE_FILE"

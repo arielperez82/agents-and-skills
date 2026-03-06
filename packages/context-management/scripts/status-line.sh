@@ -74,7 +74,8 @@ zone=$(classify_zone "$pct")
 
 # Cache percentage + timestamp for context-monitor hooks (per-session via SSE port)
 # Format: pct|epoch — hooks ignore values older than 10s (stale after /clear)
-CTX_CACHE="/tmp/claude-ctx-pct-${CLAUDE_CODE_SSE_PORT:-global}"
+SAFE_PORT=$(printf '%s' "${CLAUDE_CODE_SSE_PORT:-global}" | tr -cd 'a-zA-Z0-9._-')
+CTX_CACHE="${TMPDIR:-/tmp}/claude-ctx-pct-${SAFE_PORT}"
 echo "${pct}|$(date +%s)" > "$CTX_CACHE" 2>/dev/null
 
 if [ "$MODE" = "agent" ]; then

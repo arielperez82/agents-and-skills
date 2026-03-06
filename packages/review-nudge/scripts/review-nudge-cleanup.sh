@@ -5,8 +5,11 @@
 # Canonical source: packages/review-nudge/scripts/review-nudge-cleanup.sh
 # Installed at: ~/.claude/hooks/review-nudge-cleanup.sh (symlink)
 
-rm -f "/tmp/claude-review-pending-${CLAUDE_CODE_SSE_PORT:-global}" \
-      "/tmp/claude-review-throttle-${CLAUDE_CODE_SSE_PORT:-global}" \
+SAFE_PORT=$(printf '%s' "${CLAUDE_CODE_SSE_PORT:-global}" | tr -cd 'a-zA-Z0-9._-')
+TMPBASE="${TMPDIR:-/tmp}"
+
+rm -f "${TMPBASE}/claude-review-pending-${SAFE_PORT}" \
+      "${TMPBASE}/claude-review-throttle-${SAFE_PORT}" \
       2>/dev/null
 
 exit 0

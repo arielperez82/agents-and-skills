@@ -7,8 +7,10 @@
 # Installed at: ~/.claude/hooks/context-monitor-post.sh (symlink)
 
 cat > /dev/null
-CTX_CACHE="/tmp/claude-ctx-pct-${CLAUDE_CODE_SSE_PORT:-global}"
-THROTTLE_FILE="/tmp/claude-ctx-warned-${CLAUDE_CODE_SSE_PORT:-global}"
+SAFE_PORT=$(printf '%s' "${CLAUDE_CODE_SSE_PORT:-global}" | tr -cd 'a-zA-Z0-9._-')
+TMPBASE="${TMPDIR:-/tmp}"
+CTX_CACHE="${TMPBASE}/claude-ctx-pct-${SAFE_PORT}"
+THROTTLE_FILE="${TMPBASE}/claude-ctx-warned-${SAFE_PORT}"
 THROTTLE_SECONDS=60
 STALE_SECONDS="${CTX_STALE_SECONDS:-10}"
 

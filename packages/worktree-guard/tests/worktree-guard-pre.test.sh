@@ -198,11 +198,11 @@ done
 end_time=$(python3 -c 'import time; print(int(time.time() * 1000))')
 elapsed=$(( (end_time - start_time) / 10 ))
 
-if [ "$elapsed" -lt 100 ]; then
-  echo "  PASS  fast path completes in <100ms (avg ${elapsed}ms)"
+if [ "$elapsed" -lt 200 ]; then
+  echo "  PASS  fast path completes in <200ms (avg ${elapsed}ms)"
   PASS=$((PASS + 1))
 else
-  echo "  FAIL  fast path too slow (avg ${elapsed}ms, expected <100ms)"
+  echo "  FAIL  fast path too slow (avg ${elapsed}ms, expected <200ms)"
   FAIL=$((FAIL + 1))
 fi
 

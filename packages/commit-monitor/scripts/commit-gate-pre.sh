@@ -12,7 +12,9 @@
 set -u
 
 STDIN=$(cat)
-CACHE="/tmp/claude-commit-risk-${CLAUDE_CODE_SSE_PORT:-global}"
+SAFE_PORT=$(printf '%s' "${CLAUDE_CODE_SSE_PORT:-global}" | tr -cd 'a-zA-Z0-9._-')
+TMPBASE="${TMPDIR:-/tmp}"
+CACHE="${TMPBASE}/claude-commit-risk-${SAFE_PORT}"
 
 # No cache = allow (not in git repo, or nudge hook hasn't run yet)
 if [ ! -f "$CACHE" ]; then

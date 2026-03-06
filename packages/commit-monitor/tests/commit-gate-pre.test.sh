@@ -10,7 +10,8 @@ PASS=0
 FAIL=0
 
 export CLAUDE_CODE_SSE_PORT="test-commitgate-$$"
-RISK_CACHE="/tmp/claude-commit-risk-${CLAUDE_CODE_SSE_PORT}"
+TMPBASE="${TMPDIR:-/tmp}"
+RISK_CACHE="${TMPBASE}/claude-commit-risk-${CLAUDE_CODE_SSE_PORT}"
 
 cleanup() {
   rm -f "$RISK_CACHE"
@@ -22,7 +23,7 @@ assert_exit() {
   local env_prefix="${4:-}"
   set +e
   if [ -n "$env_prefix" ]; then
-    echo "$input" | env $env_prefix bash "$SUT" > /dev/null 2>&1
+    echo "$input" | env "$env_prefix" bash "$SUT" > /dev/null 2>&1
   else
     echo "$input" | bash "$SUT" > /dev/null 2>&1
   fi

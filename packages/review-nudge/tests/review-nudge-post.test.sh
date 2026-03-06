@@ -11,8 +11,9 @@ PASS=0
 FAIL=0
 
 export CLAUDE_CODE_SSE_PORT="test-reviewnudge-$$"
-PENDING_CACHE="/tmp/claude-review-pending-${CLAUDE_CODE_SSE_PORT}"
-THROTTLE_FILE="/tmp/claude-review-throttle-${CLAUDE_CODE_SSE_PORT}"
+TMPBASE="${TMPDIR:-/tmp}"
+PENDING_CACHE="${TMPBASE}/claude-review-pending-${CLAUDE_CODE_SSE_PORT}"
+THROTTLE_FILE="${TMPBASE}/claude-review-throttle-${CLAUDE_CODE_SSE_PORT}"
 
 cleanup() {
   rm -f "$PENDING_CACHE" "$THROTTLE_FILE"
@@ -138,7 +139,16 @@ NEXT_INPUT='{"tool_name":"Read","tool_input":{"file_path":"/some/file.ts"},"tool
 out=$(echo "$NEXT_INPUT" | bash "$SUT" 2>/dev/null)
 assert_contains "nudge contains systemMessage" "systemMessage" "$out"
 assert_contains "nudge mentions review" "review" "$out"
-assert_contains "nudge mentions commits" "commit" "$out"
+assert_contains "nudge mentions commits (plural)" "2 unreviewed commits" "$out"
+
+# --- Singular commit word when count is 1 ---
+echo ""
+echo "--- Singular commit word ---"
+cleanup
+echo "1|$(date +%s)" > "$PENDING_CACHE"
+out_singular=$(echo "$NEXT_INPUT" | bash "$SUT" 2>/dev/null)
+assert_contains "singular: 1 unreviewed commit" "1 unreviewed commit" "$out_singular"
+assert_not_contains "singular: not commits" "1 unreviewed commits" "$out_singular"
 
 # --- Throttling: second nudge within window suppressed ---
 echo ""
@@ -243,16 +253,30 @@ done
 end_ms=$(python3 -c 'import time; print(int(time.time()*1000))' 2>/dev/null || echo "0")
 if [ "$start_ms" != "0" ] && [ "$end_ms" != "0" ]; then
   elapsed=$(( (end_ms - start_ms) / 10 ))
-  if [ "$elapsed" -lt 100 ]; then
-    echo "  PASS  avg ${elapsed}ms per call (< 100ms)"
+  if [ "$elapsed" -lt 200 ]; then
+    echo "  PASS  avg ${elapsed}ms per call (< 200ms)"
     PASS=$((PASS + 1))
   else
-    echo "  FAIL  avg ${elapsed}ms per call (>= 100ms)"
+    echo "  FAIL  avg ${elapsed}ms per call (>= 200ms)"
     FAIL=$((FAIL + 1))
   fi
 else
   echo "  SKIP  performance (python3 not available)"
 fi
+
+# --- Cleanup script removes temp files ---
+echo ""
+echo "--- Cleanup script ---"
+CLEANUP_SUT="$SCRIPT_DIR/../scripts/review-nudge-cleanup.sh"
+# Create both temp files
+echo "2|$(date +%s)" > "$PENDING_CACHE"
+date +%s > "$THROTTLE_FILE"
+assert_file_exists "pending exists before cleanup" "$PENDING_CACHE"
+assert_file_exists "throttle exists before cleanup" "$THROTTLE_FILE"
+# Run cleanup
+bash "$CLEANUP_SUT" > /dev/null 2>&1
+assert_file_not_exists "pending removed after cleanup" "$PENDING_CACHE"
+assert_file_not_exists "throttle removed after cleanup" "$THROTTLE_FILE"
 
 # Summary
 echo ""

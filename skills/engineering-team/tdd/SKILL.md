@@ -45,6 +45,8 @@ Before writing the first test for any new feature or module, scan these question
 
 Not every question applies to every feature. Skip irrelevant ones. The goal is one quick pass (under 60 seconds) to surface edge cases before you write any test code.
 
+For file/process scripts specifically, also consult the [Security Checklist for File/Process Scripts](#security-checklist-for-fileprocess-scripts) in the RED section below.
+
 For deeper security analysis of skill packages and scripts, see `skills/agent-development-team/skill-intake/references/security-checklist.md`.
 
 ---
@@ -78,7 +80,7 @@ After writing your primary `.skip` test, enumerate all edge cases before writing
 
 1. Review each "yes" from the Pre-RED Checklist
 2. Write a `.skip` or `.todo` test for each edge case with a descriptive name
-3. Commit the full skeleton with a `red:` prefix (per the RED Evidence Protocol)
+3. Commit the full skeleton with a `red:` prefix (per the [RED Evidence Protocol](#red-evidence-protocol))
 
 **Example:** For a `validateEmail` function, the Pre-RED Checklist flags user input (#1), string regex (#3), and collections (#11):
 

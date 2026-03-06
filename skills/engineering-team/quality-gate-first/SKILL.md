@@ -156,7 +156,9 @@ Each exemplar includes a directory tree, complete file contents with inline code
 
 ## Hook Latency Budget
 
-Claude Code hooks (PreToolUse, PostToolUse) run on every tool call. Slow hooks degrade the agent's responsiveness and waste context on timeout handling. Every hook must respect a latency budget.
+This section covers Claude Code agent hooks (PreToolUse/PostToolUse), which complement the git pre-commit hooks described above. Both are quality gate mechanisms but operate at different layers: pre-commit hooks run during `git commit`, while agent hooks run during every Claude Code tool call.
+
+Claude Code hooks run on every tool call. Slow hooks degrade the agent's responsiveness and waste context on timeout handling. Every hook must respect a latency budget.
 
 | Constraint | Target |
 |---|---|

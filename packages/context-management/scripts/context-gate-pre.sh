@@ -7,7 +7,9 @@
 # Installed at: ~/.claude/hooks/context-gate-pre.sh (symlink)
 
 STDIN=$(cat)
-CTX_CACHE="/tmp/claude-ctx-pct-${CLAUDE_CODE_SSE_PORT:-global}"
+SAFE_PORT=$(printf '%s' "${CLAUDE_CODE_SSE_PORT:-global}" | tr -cd 'a-zA-Z0-9._-')
+TMPBASE="${TMPDIR:-/tmp}"
+CTX_CACHE="${TMPBASE}/claude-ctx-pct-${SAFE_PORT}"
 STALE_SECONDS="${CTX_STALE_SECONDS:-10}"
 
 # Read cached context percentage (format: pct|epoch)

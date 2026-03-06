@@ -13,9 +13,11 @@ set -u
 # Drain stdin (PostToolUse receives tool result info)
 cat > /dev/null
 
-CACHE="/tmp/claude-commit-risk-${CLAUDE_CODE_SSE_PORT:-global}"
-THROTTLE="/tmp/claude-commit-nudged-${CLAUDE_CODE_SSE_PORT:-global}"
-SESSION_START="/tmp/claude-commit-session-${CLAUDE_CODE_SSE_PORT:-global}"
+SAFE_PORT=$(printf '%s' "${CLAUDE_CODE_SSE_PORT:-global}" | tr -cd 'a-zA-Z0-9._-')
+TMPBASE="${TMPDIR:-/tmp}"
+CACHE="${TMPBASE}/claude-commit-risk-${SAFE_PORT}"
+THROTTLE="${TMPBASE}/claude-commit-nudged-${SAFE_PORT}"
+SESSION_START="${TMPBASE}/claude-commit-session-${SAFE_PORT}"
 
 # Thresholds (overridable)
 YELLOW=${COMMIT_MONITOR_YELLOW:-200}

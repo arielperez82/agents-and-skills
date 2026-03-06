@@ -12,25 +12,32 @@ set -u
 # Drain stdin into variable (need to inspect it)
 INPUT=$(cat 2>/dev/null) || INPUT=""
 
-PENDING="/tmp/claude-review-pending-${CLAUDE_CODE_SSE_PORT:-global}"
-THROTTLE="/tmp/claude-review-throttle-${CLAUDE_CODE_SSE_PORT:-global}"
+# Sanitize SSE port for safe use in file paths
+SAFE_PORT=$(printf '%s' "${CLAUDE_CODE_SSE_PORT:-global}" | tr -cd 'a-zA-Z0-9._-')
+TMPBASE="${TMPDIR:-/tmp}"
 
-# Nudge throttle (overridable)
+PENDING="${TMPBASE}/claude-review-pending-${SAFE_PORT}"
+THROTTLE="${TMPBASE}/claude-review-throttle-${SAFE_PORT}"
+
+# Nudge throttle (overridable, validated as integer)
 THROTTLE_SECONDS=${REVIEW_NUDGE_THROTTLE:-60}
+case "$THROTTLE_SECONDS" in *[!0-9]*) THROTTLE_SECONDS=60 ;; esac
 
 suppress() {
   printf '{"suppressOutput": true}'
   exit 0
 }
 
-# --- Extract fields from JSON via bash string manipulation ---
-# Fail-open: if parsing fails, just suppress
+# --- JSON field extraction helpers (fail-open: return empty on parse failure) ---
+json_str_field() {
+  printf '%s\n' "$INPUT" | grep -o "\"$1\" *: *\"[^\"]*\"" | head -1 | sed 's/.*: *"//;s/"//'
+}
+json_int_field() {
+  printf '%s\n' "$INPUT" | grep -o "\"$1\" *: *[0-9]*" | head -1 | sed 's/.*: *//'
+}
 
-# Extract tool_name
-tool_name=""
-if echo "$INPUT" | grep -q '"tool_name"'; then
-  tool_name=$(echo "$INPUT" | grep -o '"tool_name" *: *"[^"]*"' | sed 's/.*: *"//;s/"//')
-fi
+# --- Extract fields from JSON ---
+tool_name=$(json_str_field tool_name)
 
 # If we can't parse tool_name, fail-open
 if [ -z "$tool_name" ]; then
@@ -38,33 +45,24 @@ if [ -z "$tool_name" ]; then
 fi
 
 # Extract tool_input.command (may not exist for non-Bash tools)
-command_str=""
-if echo "$INPUT" | grep -q '"command"'; then
-  command_str=$(echo "$INPUT" | grep -o '"command" *: *"[^"]*"' | head -1 | sed 's/.*: *"//;s/"//')
-fi
+command_str=$(json_str_field command)
 
 # Extract exit_code
-exit_code=""
-if echo "$INPUT" | grep -q '"exit_code"'; then
-  exit_code=$(echo "$INPUT" | grep -o '"exit_code" *: *[0-9]*' | sed 's/.*: *//')
-fi
+exit_code=$(json_int_field exit_code)
 
 # --- Detect /review/review-changes command ---
-if [ -n "$command_str" ] && echo "$command_str" | grep -qF "/review/review-changes"; then
+if [ -n "$command_str" ] && printf '%s\n' "$command_str" | grep -qF "/review/review-changes"; then
   rm -f "$PENDING" "$THROTTLE"
   suppress
 fi
 
 # --- Detect successful git commit ---
 # Match "git commit" in command_str (not full INPUT — avoids false positives from stdout)
-if [ "$tool_name" = "Bash" ] && echo "$command_str" | grep -q "git commit" && [ "$exit_code" = "0" ]; then
+if [ "$tool_name" = "Bash" ] && printf '%s\n' "$command_str" | grep -q "git commit" && [ "$exit_code" = "0" ]; then
   # Check for ignored prefixes in raw INPUT (command_str truncates at escaped quotes,
   # so the commit message text after -m \" is only visible in the full JSON)
-  # Match -m followed by optional escaping then the prefix
-  if echo "$INPUT" | grep -qi '\-m[[:space:]]*[^a-zA-Z]*wip:'; then
-    suppress
-  fi
-  if echo "$INPUT" | grep -qi '\-m[[:space:]]*[^a-zA-Z]*docs:'; then
+  IGNORE_PREFIXES="wip|docs"
+  if printf '%s\n' "$INPUT" | grep -qiE '\-m[[:space:]]*[^a-zA-Z]*('"${IGNORE_PREFIXES}"'):'; then
     suppress
   fi
 

@@ -11,8 +11,9 @@ PASS=0
 FAIL=0
 
 export CLAUDE_CODE_SSE_PORT="test-commitnudge-$$"
-RISK_CACHE="/tmp/claude-commit-risk-${CLAUDE_CODE_SSE_PORT}"
-THROTTLE_FILE="/tmp/claude-commit-nudged-${CLAUDE_CODE_SSE_PORT}"
+TMPBASE="${TMPDIR:-/tmp}"
+RISK_CACHE="${TMPBASE}/claude-commit-risk-${CLAUDE_CODE_SSE_PORT}"
+THROTTLE_FILE="${TMPBASE}/claude-commit-nudged-${CLAUDE_CODE_SSE_PORT}"
 
 cleanup() {
   rm -f "$RISK_CACHE" "$THROTTLE_FILE"
@@ -25,7 +26,7 @@ run_hook() {
   local env_extra="${2:-}"
   cleanup
   if [ -n "$env_extra" ]; then
-    echo '{}' | env COMMIT_MONITOR_SCORE_OVERRIDE="$score" $env_extra bash "$SUT"
+    echo '{}' | env COMMIT_MONITOR_SCORE_OVERRIDE="$score" "$env_extra" bash "$SUT"
   else
     echo '{}' | COMMIT_MONITOR_SCORE_OVERRIDE="$score" bash "$SUT"
   fi

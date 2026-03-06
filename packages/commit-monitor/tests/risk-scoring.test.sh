@@ -10,9 +10,10 @@ PASS=0
 FAIL=0
 
 export CLAUDE_CODE_SSE_PORT="test-riskscore-$$"
-RISK_CACHE="/tmp/claude-commit-risk-${CLAUDE_CODE_SSE_PORT}"
-THROTTLE_FILE="/tmp/claude-commit-nudged-${CLAUDE_CODE_SSE_PORT}"
-SESSION_FILE="/tmp/claude-commit-session-${CLAUDE_CODE_SSE_PORT}"
+TMPBASE="${TMPDIR:-/tmp}"
+RISK_CACHE="${TMPBASE}/claude-commit-risk-${CLAUDE_CODE_SSE_PORT}"
+THROTTLE_FILE="${TMPBASE}/claude-commit-nudged-${CLAUDE_CODE_SSE_PORT}"
+SESSION_FILE="${TMPBASE}/claude-commit-session-${CLAUDE_CODE_SSE_PORT}"
 ORIG_DIR="$(pwd)"
 TEST_REPO=""
 
