@@ -1,8 +1,22 @@
 ---
 name: orchestrating-agents
-description: Orchestrates parallel API instances, delegated sub-tasks, and multi-agent workflows across four CLI backends (Claude Code, Cursor Agent, Gemini, Codex). Supports cost-optimized tier routing, streaming, and tool-enabled delegation patterns. Use for parallel analysis, multi-perspective reviews, cross-vendor delegation, or complex task decomposition.
+description: Orchestrates parallel API instances, delegated sub-tasks, and multi-agent
+  workflows across four CLI backends (Claude Code, Cursor Agent, Gemini, Codex). Supports
+  cost-optimized tier routing, streaming, and tool-enabled delegation patterns. Use
+  for parallel analysis, multi-perspective reviews, cross-vendor delegation, or complex
+  task decomposition.
 metadata:
   version: 0.4.0
+  domain: coordination
+  tags:
+  - multi-agent
+  - parallel-execution
+  - delegation
+  - cost-optimization
+  related-agents:
+  - engineering-lead
+  related-skills:
+  - creating-agents
 ---
 
 # Orchestrating Agents
