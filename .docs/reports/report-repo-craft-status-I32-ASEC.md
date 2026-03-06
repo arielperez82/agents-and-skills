@@ -18,7 +18,7 @@ phases:
       - .docs/reports/researcher-260306-artifact-security-analysis.md
       - .docs/reports/researcher-260306-artifact-security-strategic-assessment.md
       - .docs/reports/claims-verifier-260306-artifact-security.md
-    commit_shas: []
+    commit_shas: ["f722e8e", "4dd6132"]
     started_at: "2026-03-06T10:34:21Z"
     completed_at: "2026-03-06T11:15:00Z"
     human_decision: approve
@@ -120,3 +120,38 @@ Initiative: I32-ASEC
   - Trigger: Auto-mode gate, claims-verifier PASS WITH WARNINGS
   - Detail: 3 agents completed, 3 artifacts produced, 0 critical-path blockers. Scope reduction accepted.
   - Resolution: Advanced to Phase 1
+
+<details><summary>Handoff snapshot (Phase 0 complete)</summary>
+
+**Phase Completed:** Phase 0 (Discover) — gate decision: approve
+**Artifacts Produced:**
+- .docs/reports/researcher-260306-artifact-security-analysis.md
+- .docs/reports/researcher-260306-artifact-security-strategic-assessment.md
+- .docs/reports/claims-verifier-260306-artifact-security.md
+
+**Objective Focus:** Build artifact-alignment-checker and bash-taint-checker with pre-commit/CI integration. Scope reduced per product-director: defer trigger overlap, trust chains, and skill-scanner-wrapper to I32-ASEC-P2.
+
+**Completed Work:**
+- Phase 0 research: validated codebase patterns (validate_agent.py, lint-staged, CI), confirmed approach (`f722e8e`)
+- Strategic assessment: GO with scope reduction — keep alignment checker + taint checker + integration (`4dd6132`)
+- Claims verification: PASS WITH WARNINGS, 26/33 verified, 3 contradicted (non-blocking), 4 unverifiable (non-critical)
+
+**Key Anchors** (start here when resuming):
+- `.docs/canonical/charters/charter-repo-I32-ASEC-artifact-security-analysis.md` :: full charter — scope, user stories, technical approach, wave sequence
+- `.docs/reports/researcher-260306-artifact-security-analysis.md` :: research report — codebase patterns, integration points, risks
+- `.docs/reports/researcher-260306-artifact-security-strategic-assessment.md` :: GO recommendation with scope reduction rationale
+- `skills/agent-development-team/creating-agents/scripts/validate_agent.py` :: existing validator pattern to extend
+- `.docs/reports/report-repo-craft-status-I32-ASEC.md` :: this status file
+
+**Decision Rationale:**
+- Scope reduction: defer overlap/trust-chain/wrapper to capture 80% security value at 50% effort (product-director)
+- Shell-first approach: T1 tools, zero deps, matches existing scripts/* pattern (researcher)
+
+**Next Steps:**
+1. Complexity classification (between Phase 0 and Phase 1): scope=mixed (bash scripts), 2 domains, ~10 steps → likely Medium
+2. Phase 1 (Define): product-analyst creates charter (can reuse existing charter as base), acceptance-designer creates BDD scenarios and roadmap
+3. Phase 2 (Design): architect creates backlog from charter
+4. Phase 3 (Plan): implementation-planner creates step-by-step plan
+5. Phase 4 (Build): engineering-lead executes plan steps with TDD
+
+</details>
