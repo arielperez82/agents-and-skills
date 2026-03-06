@@ -1,8 +1,18 @@
 ---
 name: versioning-skills
-description: REQUIRED for all skill development. Automatically version control every skill file modification for rollback/comparison. Use after init_skill.sh, after every str_replace/create_file, and before packaging.
+description: REQUIRED for all skill development. Automatically version control every
+  skill file modification for rollback/comparison. Use after init_skill.sh, after
+  every str_replace/create_file, and before packaging.
 metadata:
   version: 1.1.0
+  domain: agent-development
+  tags:
+  - versioning
+  - semver
+  - skill-lifecycle
+  related-agents: []
+  related-skills:
+  - creating-agents
 ---
 
 # Versioning Skills
