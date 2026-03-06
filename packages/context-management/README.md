@@ -148,6 +148,32 @@ The previous thresholds allowed the agent to operate in degraded-accuracy territ
 - [Context Is What You Need: The Maximum Effective Context Window](https://arxiv.org/abs/2509.21361) (Paulsen, 2025)
 - [Introducing Claude Opus 4.6](https://www.anthropic.com/news/claude-opus-4-6) (Anthropic, 2026)
 
+## Restart Block Convention
+
+When an agent writes a handoff, its very last output must be a **restart block** — a structured block between sentinel markers that tells a fresh session how to resume. This enables external wrapper scripts to automatically restart sessions after context exhaustion.
+
+```
+---HANDOFF-RESTART---
+Resume work from handoff snapshot.
+Handoff file: .docs/reports/handoff-auth-migration-20260305143022.md
+Read the handoff file, then follow Key Anchors to load context and continue from Next Steps.
+---END-RESTART---
+```
+
+For craft flows, the restart block references the status file instead:
+
+```
+---HANDOFF-RESTART---
+Resume craft initiative from status file.
+Status file: .docs/reports/craft-status-I33-SHLFT.md
+To resume: /craft:resume .docs/reports/craft-status-I33-SHLFT.md
+---END-RESTART---
+```
+
+The restart block format is defined in the `/context:handoff` command (`commands/context/handoff.md`). The hooks reference it but do not define it — the handoff command is the single source of truth for the format.
+
+**Design principle:** The agent has no awareness of any external wrapper or orchestrator. It simply follows its handoff instructions, which include outputting a restart block as the last thing it does. If a wrapper is listening, it can parse the block and auto-restart. If no wrapper exists, the block is harmless text the user can read.
+
 ## Package Structure
 
 ```

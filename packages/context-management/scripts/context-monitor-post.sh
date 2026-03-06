@@ -57,7 +57,7 @@ date +%s > "$THROTTLE_FILE"
 
 # 50%+: STOP directive
 if [ "$pct" -ge 50 ]; then
-  printf '{"systemMessage":"CONTEXT AT %d%% — STOP. Do NOT start new work. You MUST do the following immediately:\n1. Bash(git add -u)\n2. Bash(git commit -m \"wip: checkpoint before handoff\")\n3. Run /context:handoff to write a handoff snapshot\n4. Tell the user: \"Context at %d%%. Handoff written to .docs/reports/. Please start a new session and read the handoff file to resume.\"\n\nAt 60%% all tools will be BLOCKED except: Write, Edit, Read, Glob, Grep, Bash (simple git commands only — no chaining), and /context:handoff. Act now while you still have full tool access."}' "$pct" "$pct"
+  printf '{"systemMessage":"CONTEXT AT %d%% — STOP. Do NOT start new work. You MUST do the following immediately:\n1. Bash(git add -u)\n2. Bash(git commit -m \"wip: checkpoint before handoff\")\n3. Run /context:handoff to write a handoff snapshot\n4. Output the restart block (between ---HANDOFF-RESTART--- and ---END-RESTART--- markers) as your VERY LAST output. See the /context:handoff command for the exact format.\n\nAt 60%% all tools will be BLOCKED except: Write, Edit, Read, Glob, Grep, Bash (simple git commands only — no chaining), and /context:handoff. Act now while you still have full tool access."}' "$pct"
   exit 0
 fi
 

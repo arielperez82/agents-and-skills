@@ -112,17 +112,41 @@ Write the handoff snapshot to the output path using this format:
 - [anything uncertain or requiring human input]
 ```
 
-#### 4. Confirm
+#### 4. Confirm and Output Restart Block
 
-After writing, report:
+After writing, report the handoff path and size, then output a **restart block** — a structured block that tells the next session exactly how to resume. This block MUST be the last thing you output.
+
+**If this handoff is for an active craft flow** (status file exists):
 
 ```
 Handoff snapshot written to: <path>
 Size: <bytes>
 
-To resume in a new session, read this file first, then follow the
-Key Anchors to load relevant context before continuing from Next Steps.
+---HANDOFF-RESTART---
+Resume craft initiative from status file.
+Status file: <path to craft status file>
+To resume: /craft:resume <path to craft status file>
+---END-RESTART---
 ```
+
+**If this is a standalone handoff** (no active craft):
+
+```
+Handoff snapshot written to: <path>
+Size: <bytes>
+
+---HANDOFF-RESTART---
+Resume work from handoff snapshot.
+Handoff file: <path to handoff file>
+Read the handoff file, then follow Key Anchors to load context and continue from Next Steps.
+---END-RESTART---
+```
+
+The restart block between `---HANDOFF-RESTART---` and `---END-RESTART---` must:
+- Be the **very last output** of the session
+- Contain enough context for a fresh session to know what to do
+- Include the exact file path(s) needed to resume
+- Not reference any tools, skills, or commands the next session wouldn't have access to
 
 ## Constraints
 

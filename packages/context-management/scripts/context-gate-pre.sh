@@ -74,7 +74,7 @@ Do the following steps IN ORDER:
 1. Bash(git add -u)
 2. Bash(git commit -m "wip: checkpoint before handoff")
 3. Run /context:handoff to write a handoff snapshot
-4. Tell the user: "Handoff written. Start a new session and read the handoff file to resume."
+4. Output the restart block (between ---HANDOFF-RESTART--- and ---END-RESTART--- markers) as your VERY LAST output. See the /context:handoff command for the exact format.
 
 Do NOT attempt any other work. Every blocked tool call wastes context.
 EOF
