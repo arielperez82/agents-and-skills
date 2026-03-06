@@ -18,7 +18,6 @@ Initiatives actively in progress.
 | Initiative | Name | Description | Status | Charter |
 |------------|------|-------------|--------|---------|
 | I33-SHLFT | Shift-Left Quality Hooks | Pre/post tool-use hooks for context management and commit monitoring | In progress | |
-| I33-WSNK | Waste Snake | Process waste visibility practice | In progress | |
 
 ## Next
 
@@ -74,3 +73,4 @@ Completed initiatives.
 | I28-GTMMC | GTM Marketing Ops & Channels | Marketing ops & channels: marketing-ops-manager, abm-strategist, linkedin-strategist, email-marketing-specialist, aeo-geo-strategist agents + 7 skills (lead-scoring, abm-strategy, marketing-automation, attribution-modeling, linkedin-strategy, email-sequences, aeo-geo-optimization). | [charter](../charters/charter-repo-I28-GTMMC-gtm-marketing-channels.md) |
 | I29-GTMSO | GTM Sales Ops & Revenue | Sales ops & revenue: sales-ops-analyst, revenue-ops-analyst agents + crm-ops, pipeline-forecasting, revenue-analytics, cadence-design skills | [charter](../charters/charter-repo-I29-GTMSO-gtm-sales-ops-revenue.md) |
 | I31-EDPUB | Editorial Publishing Pipeline | Editorial team agents (7), skills (6), commands (3) for source-to-newsletter pipeline with quality gates | [charter](../charters/charter-repo-I31-EDPUB-editorial-publishing-pipeline.md) |
+| I33-WSNK | Waste Snake | Process waste visibility practice (skill, command, agent updates, waste-snake ledger) | |
