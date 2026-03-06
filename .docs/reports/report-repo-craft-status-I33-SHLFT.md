@@ -122,6 +122,36 @@ Initiative: I33-SHLFT
 - acceptance-designer: `.docs/canonical/roadmaps/roadmap-repo-I33-SHLFT-shift-left-quality-hooks-2026.md` — 4 waves, 10 outcomes, walking skeleton first
 - Panel: skipped (medium complexity)
 
+### Handoff Snapshot (Phase 2 complete, awaiting approval)
+
+<details><summary>Handoff snapshot (Phase 2)</summary>
+
+**Objective Focus:** I33-SHLFT Shift-Left Quality Hooks -- converting 10 L65-L84 retro findings into programmatic hooks and skill/agent updates.
+
+**Completed Work:**
+- Phase 0 (Discover): Research report + strategic assessment + claims verification. GO recommendation. Commit dc24e6b.
+- Phase 1 (Define): Charter (10 user stories, MoSCoW), BDD scenarios (45, 59% error/edge), roadmap (4 waves, 10 outcomes). Commit 5e22e1f.
+- Phase 2 (Design): Backlog (12 items, 4 waves), 4 ADRs, Design Panel (SOUND, all ADRs validated). Commits 1f66493, 3506c47.
+
+**Key Anchors:**
+- `.docs/canonical/backlogs/backlog-repo-I33-SHLFT-shift-left-quality-hooks.md :: Architecture Design` -- full component structure, interface contracts, dependency graph
+- `.docs/canonical/charters/charter-repo-I33-SHLFT-shift-left-quality-hooks.md :: User Stories` -- 10 stories with acceptance criteria
+- `.docs/canonical/assessments/assessment-repo-design-panel-I33-SHLFT-2026-03-06.md :: Recommendations` -- 6 non-blocking panel recommendations (R1-R6)
+- `.docs/reports/researcher-260306-shift-left-quality-hooks.md :: Implementation Priority` -- original priority ordering
+
+**Decision Rationale:**
+- ADR-001: Separate packages (worktree-guard, review-nudge) over extending commit-monitor -- one-concern-per-package pattern
+- ADR-002: review-nudge as PostToolUse nudge, not PreToolUse block -- preserves TDD cycles
+- ADR-003: Fail-open design for all hooks -- availability over precision for dev workflow hooks
+- ADR-004: RED evidence as skill convention, not commit-msg hook -- convention needs adoption data before enforcement
+
+**Next Steps:**
+1. Human approves Phase 2 (Design)
+2. Phase 3 (Plan): implementation-planner produces step-by-step plan from backlog, incorporating panel recommendations R1/R2/R4/R5
+3. Phase 4 (Build): engineering-lead dispatches per backlog waves, TDD for hook packages, additive edits for skills/agents
+
+</details>
+
 ### Phase 2: Design -- AWAITING APPROVAL
 - architect: `.docs/canonical/backlogs/backlog-repo-I33-SHLFT-shift-left-quality-hooks.md` -- 12 items, 4 waves, 2 new hook packages + skill/agent updates
 - adr-writer: 4 ADRs (separate packages, nudge vs block, fail-open, RED convention)
