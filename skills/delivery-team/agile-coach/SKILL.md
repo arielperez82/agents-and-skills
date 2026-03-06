@@ -40,6 +40,7 @@ metadata:
   - Analysis and recommendations for agile coach tasks
   - Best practices implementation for agile coach
   - Integration with related skills and workflows
+  version: 1.0.0
 ---
 
 
