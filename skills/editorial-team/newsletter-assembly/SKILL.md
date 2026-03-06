@@ -164,7 +164,7 @@ Each supplemental section in a template's Section Guidance follows this pattern:
 | Section | Agent | Brief Pattern | Inputs |
 |---------|-------|--------------|--------|
 | TL;DR / Before We Dip In | `editorial-writer` | "Write 3-4 ultra-condensed bullet points summarizing these stories" | Drafted stories |
-| Sweet Dip | `editorial-writer` | "Extract positive/uplifting moments. 3-5 celebratory one-liners" | Unused story candidates, transcript |
+| Sweet Dip | `editorial-writer` + `researcher` | "Write 3-5 heartwarming mini-stories (2-4 sentences each). If unused candidates are insufficient, dispatch `researcher` with WebSearch to find recent feel-good news. Then dispatch `editorial-writer` to craft conversational narratives with playful commentary and emojis." | Unused story candidates, transcript; researcher web-searches if needed |
 | Fun Facts | `researcher` | "Find 3-4 surprising, verified facts related to {categories}" | Story categories |
 | QOTD | `editorial-writer` | "Generate a thought-provoking question for {date} related to {topics}" | Story topics, date |
 | Subject Line | `editorial-writer` | "Generate 3-5 subject line candidates. Punchy, emoji-tagged" | Drafted stories |

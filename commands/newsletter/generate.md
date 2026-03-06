@@ -34,7 +34,7 @@ The user can provide any combination of the following in natural language:
    **Ask if missing but proceed without if user declines:**
    - Voice profile: "I don't see a voice profile. Do you have one? It helps match the publication's tone. You can generate one with `/voice/extract`."
    - Show notes / episode URL: "Do you have the show notes or the episode link? This helps me add 'Watch The Full Episode' links and source attribution."
-   - Unused stories: "Are there stories from the show that weren't covered in full? These feed the Sweet Dip section."
+   - Unused stories: "Are there stories from the show that weren't covered in full? These feed the Sweet Dip section. If you don't have any, I can search for recent feel-good news instead."
    - Edition number: "What edition number is this? (e.g., #573)"
 
    **Never block on:**
