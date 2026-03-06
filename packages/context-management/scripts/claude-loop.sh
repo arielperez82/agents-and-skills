@@ -75,7 +75,8 @@ start_watcher() {
     while true; do
       sleep "$POLL_INTERVAL"
       [ -f "$pidfile" ] || continue
-      if tail -n "$TAIL_LINES" "$logfile" 2>/dev/null | strip_ansi | grep -q "$END_MARKER" 2>/dev/null; then
+      # Match END marker only on its own line (not inside hook instruction text)
+      if tail -n "$TAIL_LINES" "$logfile" 2>/dev/null | strip_ansi | grep -qE "^\s*${END_MARKER}\s*$" 2>/dev/null; then
         # Give a moment for output to flush
         sleep 1
         kill "$(cat "$pidfile" 2>/dev/null)" 2>/dev/null || true
