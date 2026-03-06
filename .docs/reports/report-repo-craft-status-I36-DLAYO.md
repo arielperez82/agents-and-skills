@@ -67,14 +67,17 @@ phases:
     panel_artifact_path: null
   - name: Build
     number: 4
-    status: pending
+    status: in_progress
     agents: [engineering-lead]
-    artifact_paths: []
-    commit_shas: []
-    started_at: null
+    artifact_paths:
+      - commands/docs/layout.md
+    commit_shas: [0488ce7, dbb19d6, d2364a9]
+    current_step: 5
+    steps_completed: [1, 2, 4, 5]
+    started_at: "2026-03-07T00:00:00Z"
     completed_at: null
     human_decision: null
-    feedback: null
+    feedback: "Steps 1-2 (Wave 1) + Steps 4-5 (Wave 2 commands/skills) complete. Step 3 (agents) and Steps 6-9 remain."
   - name: Validate
     number: 5
     status: pending
@@ -108,6 +111,22 @@ Initiative: I36-DLAYO
 - product-director: `.docs/reports/product-director-260306-I36-DLAYO-strategic-assessment.md` — GO, Low risk, Roadmap: Now
 - claims-verifier: Skipped (all claims are internal codebase observations, not external)
 
+### Phase 1: Define — APPROVED
+- product-analyst: Charter with 6 user stories, 10 backlog items, 4 waves
+- acceptance-designer: 19 BDD scenarios (53% error/edge)
+
+### Phase 2: Design — APPROVED
+- architect: Backlog with architecture design (command format, CLAUDE.md section format, migration pattern)
+- No ADR needed, no panel (light complexity)
+
+### Phase 3: Plan — APPROVED
+- implementation-planner: 9-step plan across 4 waves
+
+### Phase 4: Build — IN PROGRESS
+- **Wave 1 (Steps 1-2):** COMPLETE — `0488ce7`
+- **Wave 2 (Steps 3-6):** Steps 4, 5 complete (`dbb19d6`, `d2364a9`). Step 3 (agents, 35 files) and Step 6 (CLAUDE.md refs) pending.
+- **Waves 3-4 (Steps 7-9):** Pending
+
 ## Audit Log
 
 | Timestamp | Phase | Event | Details |
@@ -116,3 +135,4 @@ Initiative: I36-DLAYO
 | 2026-03-06 | 1 | AUTO_APPROVE | Charter (6 stories, 10 backlog items, 4 waves) + 19 BDD scenarios (53% error/edge) |
 | 2026-03-06 | 2 | AUTO_APPROVE | Backlog with architecture design. No ADR (simple). No panel (light). |
 | 2026-03-06 | 3 | AUTO_APPROVE | Plan: 9 steps, 4 waves, parallel execution for Waves 1-2 |
+| 2026-03-07 | 4 | BUILD_PARTIAL | Wave 1 complete (0488ce7). Wave 2: commands + skills done (dbb19d6, d2364a9). Agents (35 files) pending. Context exhausted at 61%. |
