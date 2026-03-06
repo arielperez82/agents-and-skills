@@ -1,8 +1,21 @@
 ---
 name: refactoring-agents
-description: Guides ecosystem-level refactors of agents in this repo. Use when agents overlap, responsibilities are unclear, or you need to merge, split, rename, or re-scope agents and formalize collaboration contracts.
+description: Guides ecosystem-level refactors of agents in this repo. Use when agents
+  overlap, responsibilities are unclear, or you need to merge, split, rename, or re-scope
+  agents and formalize collaboration contracts.
 metadata:
   short-description: Refactor and reshape the agent catalogue
+  domain: agent-development
+  tags:
+  - agent-refactoring
+  - agent-ecosystem
+  - merge-split
+  related-agents:
+  - agent-validator
+  related-skills:
+  - creating-agents
+  - agent-intake
+  version: 1.0.0
 ---
 
 # Refactoring Agents
