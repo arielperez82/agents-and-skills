@@ -8,7 +8,8 @@
 # The wrapper spawns Claude Code via `script` for transparent output capture,
 # while a background watcher polls the log for restart block markers
 # (---HANDOFF-RESTART--- / ---END-RESTART---). When detected, the watcher
-# kills the session and the wrapper restarts with the extracted prompt.
+# extracts the restart block, saves it to a sidecar file, then kills the
+# session. The wrapper reads the sidecar and restarts with the extracted prompt.
 #
 # Ctrl+C during the pause between sessions stops the loop.
 
@@ -27,10 +28,7 @@ strip_ansi() {
 }
 
 extract_restart_block() {
-  local logfile="$1"
-
-  local cleaned
-  cleaned=$(tail -n "$TAIL_LINES" "$logfile" | strip_ansi)
+  local input="$1"
 
   local in_block=false
   local block=""
@@ -54,7 +52,7 @@ extract_restart_block() {
         block="$line"
       fi
     fi
-  done <<< "$cleaned"
+  done <<< "$input"
 
   return 1
 }
@@ -70,14 +68,21 @@ cleanup_watcher() {
 start_watcher() {
   local logfile="$1"
   local pidfile="$2"
+  local restartfile="$3"
 
   (
     while true; do
       sleep "$POLL_INTERVAL"
       [ -f "$pidfile" ] || continue
+
+      cleaned=$(tail -n "$TAIL_LINES" "$logfile" 2>/dev/null | strip_ansi)
+
       # Match END marker only on its own line (not inside hook instruction text)
-      if tail -n "$TAIL_LINES" "$logfile" 2>/dev/null | strip_ansi | grep -qE "^\s*${END_MARKER}\s*$" 2>/dev/null; then
-        # Give a moment for output to flush
+      if echo "$cleaned" | grep -qE "^\s*${END_MARKER}\s*$" 2>/dev/null; then
+        # Extract and save BEFORE killing — script may corrupt the log on exit
+        if block=$(extract_restart_block "$cleaned"); then
+          printf '%s' "$block" > "$restartfile"
+        fi
         sleep 1
         kill "$(cat "$pidfile" 2>/dev/null)" 2>/dev/null || true
         exit 0
@@ -91,11 +96,11 @@ run_session() {
   local logfile="$1"
   shift
   local pidfile="${logfile}.pid"
+  local restartfile="${logfile}.restart"
 
   touch "$logfile"
 
-  # Start background watcher that polls for restart markers
-  start_watcher "$logfile" "$pidfile"
+  start_watcher "$logfile" "$pidfile" "$restartfile"
   trap cleanup_watcher EXIT
 
   # Run script in foreground with terminal access.
@@ -119,6 +124,7 @@ main() {
     iteration=$((iteration + 1))
     local logfile
     logfile=$(mktemp "/tmp/claude-loop-${iteration}-XXXXXX")
+    local restartfile="${logfile}.restart"
 
     if [ -n "$restart_prompt" ]; then
       echo ""
@@ -127,23 +133,21 @@ main() {
       echo ""
       sleep "$PAUSE_SECONDS"
 
-      # Restart prompt as positional arg (starts interactive session with initial prompt)
       run_session "$logfile" ${extra_args[@]+"${extra_args[@]}"} "$restart_prompt"
     else
       run_session "$logfile" ${extra_args[@]+"${extra_args[@]}"}
     fi
 
-    # Session ended — check for restart block
+    # Read restart block from sidecar file (written by watcher before kill)
     restart_prompt=""
-    if extracted=$(extract_restart_block "$logfile"); then
-      restart_prompt="$extracted"
+    if [ -f "$restartfile" ]; then
+      restart_prompt=$(cat "$restartfile")
     fi
 
-    # Clean up logfile
-    rm -f "$logfile"
+    # Clean up
+    rm -f "$logfile" "$restartfile"
 
     if [ -z "$restart_prompt" ]; then
-      # No restart block found — normal exit
       break
     fi
 
