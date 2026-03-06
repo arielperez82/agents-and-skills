@@ -370,7 +370,7 @@ services:
 - **Skill Catalog:** `../README.md` — complete skill inventory with "when to use" guidance
 - **Agent Catalog:** `../../agents/README.md` — all agents and their skill mappings
 - **Agent Authoring Guide:** `../../agents/agent-author.md`
-- **Engineering Roadmap:** Repo-level roadmaps live under `.docs/canonical/roadmaps/` when artifact conventions are in use (see `.docs/AGENTS.md`)
+- **Engineering Roadmap:** Repo-level roadmaps live under `{CANONICAL_ROOT}/roadmaps/` when artifact conventions are in use (per `/docs/layout`)
 
 ---
 

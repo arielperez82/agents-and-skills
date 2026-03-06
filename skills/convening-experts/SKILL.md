@@ -168,7 +168,7 @@ initiative: <ID> (optional, when part of an initiative)
 
 ## Persistent Report (Mandatory)
 
-Every expert panel session MUST be written to `.docs/canonical/assessments/` as a persistent artifact. The file is the primary deliverable; screen output is a summary.
+Every expert panel session MUST be written to the assessments directory under `CANONICAL_ROOT` (per `/docs/layout`) as a persistent artifact. The file is the primary deliverable; screen output is a summary.
 
 ### File Naming Convention
 
@@ -207,7 +207,7 @@ The written file must include ALL of:
 
 ### Workflow
 
-1. **Write the file first** to `.docs/canonical/assessments/` with all sections above
+1. **Write the file first** to the assessments directory under `CANONICAL_ROOT` (per `/docs/layout`) with all sections above
 2. **Then summarize to screen** — concise summary with key findings and a reference to the file path
 
 The persistent file is the canonical record. Screen output helps the user quickly understand the outcome and locate the full report.
@@ -382,7 +382,7 @@ For full orchestration logic and checkpoint behavior, see [commands/craft/craft.
 
 **Always:**
 
-- Write the complete panel session to `.docs/canonical/assessments/` as a persistent assessment document
+- Write the complete panel session to the assessments directory under `CANONICAL_ROOT` (per `/docs/layout`) as a persistent assessment document
 - Select experts genuinely relevant to problem
 - Show framework structure when applying consulting methods
 - Make cross-expert references specific and substantive

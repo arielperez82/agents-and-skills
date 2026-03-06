@@ -451,6 +451,6 @@ Common errors:
 
 - [references/api-reference.md](references/api-reference.md) — Detailed Python API documentation
 - [references/workflows.md](references/workflows.md) — Multi-expert review, parallel analysis, recursive delegation
-- [I14-MATO Charter](/.docs/canonical/charters/charter-repo-I14-MATO-multi-agent-token-optimization.md) — Full tier classification and roadmap
+- I14-MATO Charter (under `{CANONICAL_ROOT}/charters/`, per `/docs/layout`) — Full tier classification and roadmap
 - [Claude Code CLI](https://docs.anthropic.com/en/docs/claude-code) — Official Claude Code docs
 - [Cursor Agent CLI](https://cursor.com/docs/cli/using) — Official Cursor CLI docs

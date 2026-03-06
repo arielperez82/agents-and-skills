@@ -46,7 +46,7 @@ This guide covers the 4 production-ready delivery management skills.
 - Template library management
 - Content governance and review cycles
 - Knowledge base organization
-- `.docs/` hierarchy integration
+- `DOCS_ROOT` hierarchy integration (per `/docs/layout`)
 
 ### Ticket Management (`ticket-management/`)
 
@@ -58,7 +58,7 @@ This guide covers the 4 production-ready delivery management skills.
 - Advanced query patterns for reporting
 - Automation rules (assignment, transitions, notifications)
 - Dashboard creation for sprint and portfolio metrics
-- `.docs/` hierarchy integration for markdown-based tracking
+- `DOCS_ROOT` hierarchy integration (per `/docs/layout`) for markdown-based tracking
 
 ## Integration Patterns
 
@@ -86,7 +86,7 @@ python ../product-team/agile-product-owner/scripts/user_story_generator.py sprin
 ## Additional Resources
 
 - **Agent Authoring Guide:** `../../agents/agent-author.md`
-- **Artifact Conventions:** `../../.docs/AGENTS.md`
+- **Artifact Conventions:** the learnings file at `LEARNINGS_FILE` (per `/docs/layout`)
 
 ---
 

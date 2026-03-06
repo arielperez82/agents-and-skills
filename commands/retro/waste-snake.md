@@ -5,7 +5,7 @@ argument-hint: "[--since YYYY-MM-DD]"
 
 # /retro/waste-snake — Waste Snake Review
 
-Aggregate waste observations from `.docs/canonical/waste-snake.md`, classify them, and produce a ledger entry with counts, trends, and recommendations.
+Aggregate waste observations from the waste snake file at `WASTE_SNAKE` (per `/docs/layout`), classify them, and produce a ledger entry with counts, trends, and recommendations.
 
 ## Arguments
 
@@ -18,7 +18,7 @@ Aggregate waste observations from `.docs/canonical/waste-snake.md`, classify the
 
 ## Process
 
-1. **Read the waste snake** — Read `.docs/canonical/waste-snake.md`
+1. **Read the waste snake** — Read the waste snake file at `WASTE_SNAKE` (per `/docs/layout`)
 2. **Identify review window** — Find all observations since the last ledger entry (or `--since` date)
 3. **Count observations** — Report total count in the review window
 4. **Group similar observations** — Cluster observations that describe the same kind of waste
@@ -26,7 +26,7 @@ Aggregate waste observations from `.docs/canonical/waste-snake.md`, classify the
 6. **Calculate compound cost** — Where observations include duration estimates, compute `duration x occurrences = total`
 7. **Identify top patterns** — Rank clusters by frequency and/or compound cost
 8. **Produce recommendations** — Suggest 2-3 concrete actions to eliminate or reduce the top wastes
-9. **Append ledger entry** — Add a new entry to `.docs/canonical/waste-snake.md` under the `## Ledger` section:
+9. **Append ledger entry** — Add a new entry to the waste snake file at `WASTE_SNAKE` (per `/docs/layout`) under the `## Ledger` section:
 
 ```markdown
 ### Review: YYYY-MM-DD

@@ -18,7 +18,7 @@ Load the **`context-continuity` skill** (`skills/engineering-team/context-contin
 
 **Before writing a standalone handoff, check for an active craft status file.**
 
-1. Look for `.docs/reports/report-*-craft-status-*.md` files with `workflow_status: in_progress` or any phase with `status: in_progress`.
+1. Look for `{REPORTS_DIR}/report-*-craft-status-*.md` (per `/docs/layout`) files with `workflow_status: in_progress` or any phase with `status: in_progress`.
 2. **If an active craft status file exists:** Do NOT create a standalone handoff. Instead, update the craft status file's Phase Log with an embedded handoff snapshot (collapsible `<details>` format from the `context-continuity` skill). Inform the user: "Active craft detected for {initiative}. Updating craft status file instead of creating standalone handoff."
 3. **If no active craft status file exists:** Proceed with standalone handoff below.
 
@@ -26,20 +26,20 @@ Load the **`context-continuity` skill** (`skills/engineering-team/context-contin
 
 ### Output Location
 
-All standalone handoffs write to `.docs/reports/` with a timestamped, context-prefixed filename:
+All standalone handoffs write to `REPORTS_DIR` (per `/docs/layout`) with a timestamped, context-prefixed filename:
 
 ```
-.docs/reports/handoff-{context-slug}-{YYYYMMDDHHmmss}.md
+{REPORTS_DIR}/handoff-{context-slug}-{YYYYMMDDHHmmss}.md
 ```
 
 Examples:
-- `.docs/reports/handoff-auth-migration-20260305143022.md`
-- `.docs/reports/handoff-eslint-upgrade-20260305160511.md`
-- `.docs/reports/handoff-I14-MATO-P2-20260303120000.md`
+- `{REPORTS_DIR}/handoff-auth-migration-20260305143022.md`
+- `{REPORTS_DIR}/handoff-eslint-upgrade-20260305160511.md`
+- `{REPORTS_DIR}/handoff-I14-MATO-P2-20260303120000.md`
 
 Multiple handoffs can coexist — each file is uniquely identified by context and timestamp.
 
-**Path safety:** The output path is always `.docs/reports/handoff-{slug}-{timestamp}.md` — never user-specified. The slug is validated against `^[a-zA-Z0-9][a-zA-Z0-9_-]{0,39}$` before use. If the slug fails validation, reject with an error and ask the user to provide a valid slug.
+**Path safety:** The output path is always `{REPORTS_DIR}/handoff-{slug}-{timestamp}.md` (per `/docs/layout`) — never user-specified. The slug is validated against `^[a-zA-Z0-9][a-zA-Z0-9_-]{0,39}$` before use. If the slug fails validation, reject with an error and ask the user to provide a valid slug.
 
 ### Protocol
 

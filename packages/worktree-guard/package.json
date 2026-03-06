@@ -1,0 +1,20 @@
+{
+  "name": "worktree-guard",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "description": "PreToolUse hook that blocks git worktree add when local commits are not pushed to remote",
+  "devDependencies": {
+    "concurrently": "^9.2.1"
+  },
+  "scripts": {
+    "test": "bash test.sh",
+    "lint:sh": "sh ../../scripts/run-shellcheck.sh scripts/*.sh install.sh",
+    "lint:sh:fix": "sh ../../scripts/run-shellcheck.sh --fix scripts/*.sh install.sh",
+    "check": "concurrently 'pnpm lint:sh'",
+    "check:fix": "concurrently 'pnpm lint:sh:fix'",
+    "validate": "concurrently 'pnpm lint:sh:fix' 'pnpm test'",
+    "install-hooks": "./install.sh",
+    "uninstall": "./install.sh --uninstall"
+  }
+}

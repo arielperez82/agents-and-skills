@@ -75,7 +75,7 @@ metadata:
 
 ## Overview
 
-This skill provides product-agnostic documentation expertise for structuring wiki spaces, creating template libraries, implementing content governance, and managing knowledge bases. The patterns work with any wiki platform (Confluence, Notion, GitBook, wiki.js) or with plain markdown under the `.docs/` hierarchy.
+This skill provides product-agnostic documentation expertise for structuring wiki spaces, creating template libraries, implementing content governance, and managing knowledge bases. The patterns work with any wiki platform (Confluence, Notion, GitBook, wiki.js) or with plain markdown under the `DOCS_ROOT` hierarchy (per `/docs/layout`).
 
 **Core Value:** Reduce documentation creation time through templates, improve content findability through structured architecture, and increase documentation adoption through governance frameworks.
 
@@ -85,7 +85,7 @@ This skill provides product-agnostic documentation expertise for structuring wik
 - **Template Libraries** - Build reusable templates for recurring document types (meeting notes, decisions, project overviews, retrospectives)
 - **Content Governance** - Implement review cycles, archiving strategies, quality standards, and ownership tracking
 - **Knowledge Base Management** - Organize reference documentation, how-to guides, troubleshooting docs, and FAQs
-- **`.docs/` Integration** - Align with the repository's `.docs/` hierarchy for canonical docs, plans, reports, and learnings
+- **`DOCS_ROOT` Integration** - Align with the repository's `DOCS_ROOT` hierarchy (per `/docs/layout`) for canonical docs, plans, reports, and learnings
 
 ## Space Architecture
 
@@ -298,17 +298,17 @@ Every knowledge base article must have:
 - Owner identified
 - Review date scheduled
 
-## `.docs/` Integration
+## `DOCS_ROOT` Integration
 
-When using the repository's `.docs/` hierarchy (per `.docs/AGENTS.md`):
+When using the repository's `DOCS_ROOT` hierarchy (per `/docs/layout`):
 
-- **Canonical docs** live under `.docs/canonical/`
-- **Plans** under `.docs/plans/`
-- **Reports** under `.docs/reports/` using pattern `report-<endeavor>-<topic>-<timeframe>.md`
-- **Learnings** in `.docs/learnings/` or `AGENTS.md`
-- **Roadmaps** under `.docs/canonical/roadmaps/`
+- **Canonical docs** live under `CANONICAL_ROOT`
+- **Plans** under `{CANONICAL_ROOT}/plans/`
+- **Reports** under `REPORTS_DIR` using pattern `report-<endeavor>-<topic>-<timeframe>.md`
+- **Learnings** in `LEARNINGS_FILE`
+- **Roadmaps** under `{CANONICAL_ROOT}/roadmaps/`
 
-This skill's templates and governance patterns apply to both wiki platforms and the `.docs/` file hierarchy.
+This skill's templates and governance patterns apply to both wiki platforms and the `DOCS_ROOT` file hierarchy.
 
 ## Workflows
 

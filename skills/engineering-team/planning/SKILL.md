@@ -7,16 +7,16 @@ description: Planning work in small, known-good increments. Use when starting si
 
 **All work must be done in small, known-good increments.** Each increment leaves the codebase in a working state where all tests pass.
 
-**Document management:** When this repo's artifact conventions are in use, all coordination artifacts live under `.docs/`. Use the `progress-assessor` agent to assess and validate progress: it checks `.docs/canonical/plans/plan-<endeavor>-*.md`, `.docs/reports/report-<endeavor>-status-*.md`, and learnings in `.docs/AGENTS.md` plus "Learnings" sections in canonical docs. Implementers create and maintain those documents. **Initiative naming:** Roadmap, backlog, and plan must include `initiative` and `initiative_name` in front matter; use `.docs/AGENTS.md` **References (by initiative)** to resolve the current plan for an initiative. Do not use PLAN.md, WIP.md, or LEARNINGS.md at repo root.
+**Document management:** When this repo's artifact conventions are in use (per `/docs/layout`), all coordination artifacts live under `DOCS_ROOT`. Use the `progress-assessor` agent to assess and validate progress: it checks `{CANONICAL_ROOT}/plans/plan-<endeavor>-*.md`, `{REPORTS_DIR}/report-<endeavor>-status-*.md`, and learnings in `LEARNINGS_FILE` plus "Learnings" sections in canonical docs. Implementers create and maintain those documents. **Initiative naming:** Roadmap, backlog, and plan must include `initiative` and `initiative_name` in front matter; use `LEARNINGS_FILE` **References (by initiative)** to resolve the current plan for an initiative. Do not use PLAN.md, WIP.md, or LEARNINGS.md at repo root.
 
-## Canonical layout (when using .docs/)
+## Canonical layout (per `/docs/layout`)
 
 For significant work under artifact conventions:
 
 | Artifact | Location | Purpose |
 |----------|----------|---------|
-| **Plan** | `.docs/canonical/plans/plan-<endeavor>-<subject>[-<timeframe>].md` | What we're doing; created at start, changes need approval. **Initiative naming:** Plan must have front matter `initiative: I<nn>-<ACRONYM>`, `initiative_name: <long-form>` when it belongs to an initiative; steps reference backlog items (Bnn or full ID). See `.docs/AGENTS.md` initiative naming and **References (by initiative)**. |
-| **Status** | `.docs/reports/report-<endeavor>-status-<timeframe>.md` | Where we are now; updated constantly |
+| **Plan** | `{CANONICAL_ROOT}/plans/plan-<endeavor>-<subject>[-<timeframe>].md` | What we're doing; created at start, changes need approval. **Initiative naming:** Plan must have front matter `initiative: I<nn>-<ACRONYM>`, `initiative_name: <long-form>` when it belongs to an initiative; steps reference backlog items (Bnn or full ID). See `LEARNINGS_FILE` initiative naming and **References (by initiative)** (per `/docs/layout`). |
+| **Status** | `{REPORTS_DIR}/report-<endeavor>-status-<timeframe>.md` | Where we are now; updated constantly |
 | **Learnings** | Three layers (see below) | What we discovered; routed by scope |
 
 ### Learnings (three layers)
@@ -24,11 +24,11 @@ For significant work under artifact conventions:
 Route learnings by scope and half-life:
 
 <!-- pips-allow: privilege-escalation -- planning skill describing governance conventions for agent behavior -->
-1. **Layer 1 — Operational (cross-agent):** `.docs/AGENTS.md`. Use for: gotchas and patterns that change how agents behave; global conventions. Bridge rule: cross-agent behavior change → short entry in AGENTS.md + pointer to source.
-2. **Layer 2 — Domain (endeavor-level):** `.docs/canonical/assessments/assessment-<endeavor>-<subject>-<date>.md` or a **"Learnings" section** in the relevant plan, charter, roadmap, or backlog. Use for: conclusions that shape prioritization, constraints, architecture direction. Rule: if a learning changes what we do next, it must land in canonical docs.
+1. **Layer 1 — Operational (cross-agent):** `LEARNINGS_FILE` (per `/docs/layout`). Use for: gotchas and patterns that change how agents behave; global conventions. Bridge rule: cross-agent behavior change → short entry in learnings file + pointer to source.
+2. **Layer 2 — Domain (endeavor-level):** `{CANONICAL_ROOT}/assessments/assessment-<endeavor>-<subject>-<date>.md` (per `/docs/layout`) or a **"Learnings" section** in the relevant plan, charter, roadmap, or backlog. Use for: conclusions that shape prioritization, constraints, architecture direction. Rule: if a learning changes what we do next, it must land in canonical docs.
 3. **Layer 3 — Deep specialist:** With the agent's skills/commands. Use for: checklists, frameworks, implementation patterns. Rule: "how to think/do", not "what this repo has decided."
 
-**ADR:** Architectural decisions → `.docs/canonical/adrs/adr-YYYYMMDD-<subject>.md`. Use the `adr-writer` agent when appropriate.
+**ADR:** Architectural decisions → `{ADR_DIR}/adr-YYYYMMDD-<subject>.md` (per `/docs/layout`). Use the `adr-writer` agent when appropriate.
 
 ### Document flow
 
@@ -114,7 +114,7 @@ After completing a step (RED-GREEN-REFACTOR):
 
 1. Verify all tests pass
 2. Verify static analysis passes
-3. Update status report (`.docs/reports/report-<endeavor>-status-<timeframe>.md`) with progress
+3. Update status report (`{REPORTS_DIR}/report-<endeavor>-status-<timeframe>.md`, per `/docs/layout`) with progress
 4. Capture learnings in the appropriate layer (AGENTS.md, assessment or Learnings section, or skill)
 5. **STOP and ask**: "Ready to commit [description]. Approve?"
 
@@ -129,11 +129,11 @@ Only proceed with commit after explicit approval.
 
 ## Phase 0 (Quality Gate) First
 
-When the plan involves a **new project**, the quality gate must be **complete before any feature work**. Two valid patterns: (1) minimal skeleton then add all gates (type-check, pre-commit, lint, format, markdown lint, a11y lint, audit script), or (2) scaffold that includes quality tooling then verify and add missing pieces. Document which pattern in the plan (under `.docs/canonical/plans/`). For the full Phase 0 checklist (quality gate before feature work: type-check, pre-commit, lint, format, markdown lint, a11y, audit script), use `/skill/find-local-skill` with "quality gate" or "Phase 0" to load the matching skill. Feature work starts only after the gate is in place (Phase 1 or Step 2+).
+When the plan involves a **new project**, the quality gate must be **complete before any feature work**. Two valid patterns: (1) minimal skeleton then add all gates (type-check, pre-commit, lint, format, markdown lint, a11y lint, audit script), or (2) scaffold that includes quality tooling then verify and add missing pieces. Document which pattern in the plan (under `{CANONICAL_ROOT}/plans/`, per `/docs/layout`). For the full Phase 0 checklist (quality gate before feature work: type-check, pre-commit, lint, format, markdown lint, a11y, audit script), use `/skill/find-local-skill` with "quality gate" or "Phase 0" to load the matching skill. Feature work starts only after the gate is in place (Phase 1 or Step 2+).
 
 ## Plan structure (canonical)
 
-Plans live under `.docs/canonical/plans/` with naming `plan-<endeavor>-<subject>[-<timeframe>].md`. Example structure:
+Plans live under `{CANONICAL_ROOT}/plans/` (per `/docs/layout`) with naming `plan-<endeavor>-<subject>[-<timeframe>].md`. Example structure:
 
 ```markdown
 # Plan: [Feature Name]
@@ -178,7 +178,7 @@ Plans are not immutable, but changes must be explicit and approved.
 
 ## Status report structure
 
-Status lives under `.docs/reports/report-<endeavor>-status-<timeframe>.md` (e.g. `report-repo-status-2026-w06.md`). Keep it current.
+Status lives under `{REPORTS_DIR}/report-<endeavor>-status-<timeframe>.md` (per `/docs/layout`, e.g. `report-repo-status-2026-w06.md`). Keep it current.
 
 ```markdown
 # Status: [Feature Name]
@@ -217,10 +217,10 @@ Capture learnings as they occur. Route by type:
 
 | Learning type | Destination |
 |---------------|-------------|
-| Gotchas, patterns (cross-agent) | Layer 1: `.docs/AGENTS.md` (use `learner` or equivalent) |
+| Gotchas, patterns (cross-agent) | Layer 1: `LEARNINGS_FILE` (per `/docs/layout`; use `learner` or equivalent) |
 | Domain conclusions, "what we do next" | Layer 2: assessment or "Learnings" section in plan/charter/roadmap/backlog |
 | How-to, checklists, templates | Layer 3: with the relevant skill or command |
-| Architectural decisions | `.docs/canonical/adrs/adr-YYYYMMDD-<subject>.md` (use `adr-writer` when applicable) |
+| Architectural decisions | `{ADR_DIR}/adr-YYYYMMDD-<subject>.md` (per `/docs/layout`; use `adr-writer` when applicable) |
 
 Don't wait until the end of the feature; add to the appropriate place as you discover.
 
@@ -236,11 +236,11 @@ When all steps are complete:
 
 ### 2. Merge learnings
 
-Ensure every learning is in the right layer (AGENTS.md, canonical "Learnings" or assessment, skill, or ADR). No standalone LEARNINGS file; knowledge lives in the three-layer model and ADRs.
+Ensure every learning is in the right layer (`LEARNINGS_FILE`, canonical "Learnings" or assessment, skill, or ADR). No standalone LEARNINGS file; knowledge lives in the three-layer model and ADRs.
 
 ### 3. Archive or supersede plan/status
 
-Per repo policy: archive the plan or mark it complete; status report can be superseded by a final report or removed when no longer needed. No deletion of canonical docs required—they remain under `.docs/`.
+Per repo policy: archive the plan or mark it complete; status report can be superseded by a final report or removed when no longer needed. No deletion of canonical docs required—they remain under `DOCS_ROOT`.
 
 ## Anti-patterns
 
@@ -270,16 +270,16 @@ Per repo policy: archive the plan or mark it complete; status report can be supe
 
 ❌ **Using PLAN.md / WIP.md / LEARNINGS.md when .docs/ is adopted**
 
-- Use `.docs/canonical/plans/`, `.docs/reports/`, and the three-layer learnings model instead. See `.docs/AGENTS.md` for the operating reference.
+- Use `{CANONICAL_ROOT}/plans/`, `REPORTS_DIR`, and the three-layer learnings model instead. See `LEARNINGS_FILE` for the operating reference (per `/docs/layout`).
 
 ## Quick reference
 
 ```
 START FEATURE (with .docs/)
 │
-├─► Create plan under .docs/canonical/plans/ (get approval)
-├─► Create/update status under .docs/reports/report-<endeavor>-status-<timeframe>.md
-├─► Capture learnings in layers 1–3 (AGENTS.md, canonical Learnings/assessment, skills) as you go
+├─► Create plan under {CANONICAL_ROOT}/plans/ (get approval; per /docs/layout)
+├─► Create/update status under {REPORTS_DIR}/report-<endeavor>-status-<timeframe>.md
+├─► Capture learnings in layers 1–3 (LEARNINGS_FILE, canonical Learnings/assessment, skills) as you go
 │
 │   FOR EACH STEP:
 │   │
@@ -331,7 +331,7 @@ END FEATURE
 
 ### Architecture Decision Record (ADR) template
 
-**For significant architectural decisions:** Write under `.docs/canonical/adrs/adr-YYYYMMDD-<subject>.md`. Required front matter: `type: adr`, `endeavor`, `status: proposed|accepted|superseded`, `date`, `supersedes`, `superseded_by`. See `.docs/AGENTS.md` for placement. For writing and maintaining Architecture Decision Records (ADRs), use `/skill/find-local-skill` with "ADR" or "architecture decision records" to load the matching skill.
+**For significant architectural decisions:** Write under `{ADR_DIR}/adr-YYYYMMDD-<subject>.md` (per `/docs/layout`). Required front matter: `type: adr`, `endeavor`, `status: proposed|accepted|superseded`, `date`, `supersedes`, `superseded_by`. See `LEARNINGS_FILE` for placement (per `/docs/layout`). For writing and maintaining Architecture Decision Records (ADRs), use `/skill/find-local-skill` with "ADR" or "architecture decision records" to load the matching skill.
 
 ```markdown
 # ADR-XXX: [Decision Title]

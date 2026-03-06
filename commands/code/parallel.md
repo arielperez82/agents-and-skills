@@ -11,7 +11,7 @@ Execute plan: <plan>$ARGUMENTS</plan>
 
 ### 1. Plan Analysis
 
-- Read `plan.md` from given path (or from `.docs/canonical/plans/` when project uses artifact conventions; see `.docs/AGENTS.md`)
+- Read `plan.md` from given path (or from the plans directory under `CANONICAL_ROOT` per `/docs/layout`; see `LEARNINGS_FILE` per `/docs/layout`)
 - **Check for:** Dependency graph, Execution strategy, Parallelization Info, File Ownership matrix
 - **Decision:** IF parallel-executable → Step 2A, ELSE → Step 2B
 

@@ -88,7 +88,7 @@ All 13 agents default to **included**. Each agent has documented exclusion crite
 | 5 | **code-reviewer** | Diff contains zero source code files | No code to review |
 | 6 | **cognitive-load-assessor** | Diff contains zero source code files | No code metrics to compute |
 | 7 | **docs-reviewer** | **Never excluded** — always runs | Primary reviewer for docs-only; valuable for any diff |
-| 8 | **progress-assessor** | No plan context (no plan files in diff, no status under `.docs/reports/`, user didn't indicate plan-based work) | Requires plan/status context to be meaningful |
+| 8 | **progress-assessor** | No plan context (no plan files in diff, no status under `REPORTS_DIR` per `/docs/layout`, user didn't indicate plan-based work) | Requires plan/status context to be meaningful |
 | 9 | **agent-validator** | Diff does NOT touch `agents/` | Agent-specific validation |
 | 10 | **agent-quality-assessor** | Diff does NOT touch `agents/` | Agent-specific quality scoring |
 | 11 | **skill-validator** | Diff does NOT touch `skills/` | Skill-specific validation |
@@ -97,7 +97,7 @@ All 13 agents default to **included**. Each agent has documented exclusion crite
 
 **Source code files** = `.ts`, `.tsx`, `.js`, `.jsx`, `.py`, `.sh`, `.bash`. If ANY source code file appears in the diff, ALL code-focused agents run (they assess the full diff, not just the code portion). The only per-agent exception is **ts-enforcer**, which is excluded when zero TypeScript files are in the diff even if other code files are present.
 
-**Artifact markdown files** = `agents/*.md`, `skills/**/*.md`, `commands/**/*.md`. These are agent, skill, and command definitions that get loaded as LLM context. When ANY artifact markdown file appears in the diff, **security-assessor** is included to run its content security scan (Workflow 4) for prompt injection detection, even if no source code or config files are present. Non-artifact markdown (README.md, docs/, `.docs/`) does NOT trigger security-assessor on its own.
+**Artifact markdown files** = `agents/*.md`, `skills/**/*.md`, `commands/**/*.md`. These are agent, skill, and command definitions that get loaded as LLM context. When ANY artifact markdown file appears in the diff, **security-assessor** is included to run its content security scan (Workflow 4) for prompt injection detection, even if no source code or config files are present. Non-artifact markdown (README.md, docs/, `DOCS_ROOT` per `/docs/layout`) does NOT trigger security-assessor on its own.
 
 ### Agent Details
 
@@ -108,7 +108,7 @@ All 13 agents default to **included**. Each agent has documented exclusion crite
 5. **code-reviewer** – Code quality, security, best practices, merge readiness. Tiered output: broken patterns/security → Fix required, best-practice deviations → Suggestion, style/positive → Observation.
 6. **cognitive-load-assessor** – Cognitive Load Index (CLI) for changed code; 8-dimension report, top offenders, recommendations (read-only). Tiered output: CLI >600 → Fix required, 400-600 → Suggestion, <400 → Observation.
 7. **docs-reviewer** – Reviews markdown structure, frontmatter correctness, progressive disclosure, section ordering, and formatting quality. Runs on any diff containing documentation (`*.md`, `README*`, `docs/`), agent specs (`agents/*.md`), skill definitions (`skills/**/SKILL.md`), or command definitions (`commands/**/*.md`).
-8. **progress-assessor** – Validates progress tracking and plan alignment. Include when the review is based on a plan or roadmap (e.g. plan under `.docs/canonical/plans/`, status under `.docs/reports/`, or user says work is plan-based).
+8. **progress-assessor** – Validates progress tracking and plan alignment. Include when the review is based on a plan or roadmap (e.g. plan under the plans directory within `CANONICAL_ROOT`, status under `REPORTS_DIR`, per `/docs/layout`, or user says work is plan-based).
 9. **agent-validator** – Validates frontmatter, name-vs-filename consistency, and absence of stale `ap-` references. Include when the diff touches `agents/` (agent specs, renames, or README).
 10. **agent-quality-assessor** – Runs `analyze-agent.sh` per changed agent file, scoring on 5 quality dimensions. Tiered output: Grade D/F or Status=OPTIMIZE → Fix Required; Grade C or Status=REVIEW → Suggestion; Grade A/B, Status=OK → Observation. Include alongside agent-validator when diff touches `agents/`.
 11. **skill-validator** – Runs two checks: (1) `validate_agent.py --all --summary` to catch broken agent→skill references, (2) `quick_validate.py <skill-dir>` per changed skill for frontmatter structure. Tiered output: script failures or CRITICAL → Fix Required; HIGH → Suggestion; all pass → Observation. Include when diff touches `skills/`.
@@ -195,14 +195,14 @@ When including **phase0-assessor**, use this scope:
    - Classify files from the diff by type:
      - Markdown files (`*.md`) → `prefilter-markdown` candidate
      - Source code files (`.ts`, `.tsx`, `.js`, `.jsx`, `.py`, `.sh`) → `prefilter-diff` candidate
-     - `.docs/` files → `prefilter-progress` candidate
+     - `DOCS_ROOT` files (per `/docs/layout`) → `prefilter-progress` candidate
    - Run applicable pre-filters:
      - If markdown files present AND docs-reviewer not excluded:
        `npx tsx skills/engineering-team/tiered-review/scripts/prefilter-markdown.ts <md-paths>`
      - If source code files present AND code-reviewer not excluded:
        `echo "<diff>" | npx tsx skills/engineering-team/tiered-review/scripts/prefilter-diff.ts`
-     - If `.docs/` files present AND progress-assessor not excluded:
-       `npx tsx skills/engineering-team/tiered-review/scripts/prefilter-progress.ts .docs/`
+     - If `DOCS_ROOT` files present AND progress-assessor not excluded:
+       `npx tsx skills/engineering-team/tiered-review/scripts/prefilter-progress.ts <DOCS_ROOT per /docs/layout>`
    - Capture each script's JSON stdout.
    - If any pre-filter fails (non-zero exit): log warning, proceed without that pre-filter's data (agents fall back to full-context behavior).
 
@@ -262,7 +262,7 @@ When including **phase0-assessor**, use this scope:
    After presenting the collated summary, if the developer disagrees with any finding (particularly Fix Required findings they choose not to address):
 
    - Prompt: "You're overriding [N] Fix Required finding(s). Would you like to log the override reason for effectiveness tracking?"
-   - If yes: Engage `learner` agent to capture the override in `.docs/reports/review-overrides.md` using the format defined in `skills/engineering-team/planning/references/review-effectiveness-tracking.md`.
+   - If yes: Engage `learner` agent to capture the override in `{REPORTS_DIR}/review-overrides.md` (per `/docs/layout`) using the format defined in `skills/engineering-team/planning/references/review-effectiveness-tracking.md`.
    - Fields captured: date, agent, tier, finding description, location, developer's override rationale.
    - This step is optional and should not block the developer from proceeding.
 

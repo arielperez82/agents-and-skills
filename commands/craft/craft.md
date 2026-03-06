@@ -38,9 +38,9 @@ After generating the Initiative ID:
 
 Before writing or reading ANY artifact file:
 
-1. **Path must start with** `.docs/` (relative) — no absolute paths.
+1. **Path must start with** `DOCS_ROOT` (per `/docs/layout`, relative) — no absolute paths.
 2. **No path traversal:** Reject paths containing `..`.
-3. **Resolve and verify:** After path resolution, confirm the file is still within the `.docs/` directory of the project root.
+3. **Resolve and verify:** After path resolution, confirm the file is still within `DOCS_ROOT` of the project root.
 4. If any check fails, report the violation and stop — do not write or read the file.
 
 ### Status File Integrity
@@ -82,11 +82,11 @@ Agents should pull in domain specialists when their expertise is needed. The orc
 
 ### Artifact Alignment
 
-All artifacts follow the existing canonical hierarchy and naming conventions from `.docs/AGENTS.md`. No new document types — everything maps to: research reports, charters, roadmaps, backlogs, ADRs, plans, assessments, and reviews.
+All artifacts follow the existing canonical hierarchy and naming conventions from `LEARNINGS_FILE` (per `/docs/layout`). No new document types — everything maps to: research reports, charters, roadmaps, backlogs, ADRs, plans, assessments, and reviews.
 
 ### Symlink Awareness
 
-When editing files, be aware that some files may be symlinks (e.g., `CLAUDE.md` → `.docs/AGENTS.md`). Edits via symlink work correctly, but agents should reference the canonical path in artifact listings and cross-references.
+When editing files, be aware that some files may be symlinks (e.g., `CLAUDE.md` → `LEARNINGS_FILE` per `/docs/layout`). Edits via symlink work correctly, but agents should reference the canonical path in artifact listings and cross-references.
 
 ### Context Continuity
 
@@ -96,7 +96,7 @@ Load the **`context-continuity` skill** (`skills/engineering-team/context-contin
 
 The /craft orchestrator (the agent executing this command) is responsible for infrastructure that subagents cannot handle:
 
-1. **Directory creation** — Before dispatching any agent that writes artifacts, ensure the target directory exists (e.g., `.docs/canonical/charters/`, `.docs/reports/`). Subagents dispatched via the Task tool may lack Bash/Write permissions to create directories.
+1. **Directory creation** — Before dispatching any agent that writes artifacts, ensure the target directory exists (e.g., the charters directory under `CANONICAL_ROOT`, `REPORTS_DIR` — per `/docs/layout`). Subagents dispatched via the Task tool may lack Bash/Write permissions to create directories.
 2. **File writing on behalf of subagents** — If a subagent returns artifact content but cannot write it to disk (permission denied), the orchestrator must write the file itself using the subagent's output.
 3. **Status file updates** — The orchestrator owns the status file. Subagents report results; the orchestrator records them.
 4. **Context management** — Do not dispatch a single agent for an entire multi-step phase. Break large phases into per-step or per-wave agent dispatches to stay within context limits. See Phase 4 for the specific pattern.
@@ -196,19 +196,19 @@ Stop and wait for input.
 
 Derive an initiative ID in `I<nn>-<ACRONYM>` format from the goal:
 
-- `<nn>`: Next sequential number. Check `.docs/canonical/` for existing initiative IDs and increment.
+- `<nn>`: Next sequential number. Check `CANONICAL_ROOT` (per `/docs/layout`) for existing initiative IDs and increment.
 - `<ACRONYM>`: 3-5 letter acronym from the goal's key noun/verb (e.g., "Add physics simulation" -> `PHYS`, "Build webhook system" -> `WHOOK`).
 
 ### 3. Detect or Create Status File
 
-**Check for existing status:** Search `.docs/reports/report-*-craft-status-*.md` for a file whose `goal` field is semantically similar to the current goal.
+**Check for existing status:** Search `{REPORTS_DIR}/report-*-craft-status-*.md` (per `/docs/layout`) for a file whose `goal` field is semantically similar to the current goal.
 
 - **If found:** Present it and ask: "Found existing craft session for a similar goal. Resume this session, or start fresh?"
   - Resume: Load status, jump to first incomplete phase.
   - Fresh: Archive old file (append `-archived-{date}`), create new.
 - **If not found:** Create new status file.
 
-**Status file path:** `.docs/reports/report-{endeavor}-craft-status-{initiative-id}.md`
+**Status file path:** `{REPORTS_DIR}/report-{endeavor}-craft-status-{initiative-id}.md` (per `/docs/layout`)
 
 **Status file schema:**
 
@@ -356,7 +356,7 @@ Focus on:
 5. Dependencies (libraries, services, APIs) that may be needed.
 
 Produce a research report. Keep it concise (150 lines max) but cover all topics with specific references.
-Save the report to: .docs/reports/researcher-{date}-{subject}.md
+Save the report to: {REPORTS_DIR}/researcher-{date}-{subject}.md (per /docs/layout)
 ```
 
 **Prompt for product-director:**
@@ -379,7 +379,7 @@ If you recommend refining, suggest specific changes to the goal.
 If you recommend abandoning, explain why clearly.
 
 Include your assessment in the research report or save separately to:
-.docs/reports/researcher-{date}-{subject}-strategic-assessment.md
+{REPORTS_DIR}/researcher-{date}-{subject}-strategic-assessment.md (per /docs/layout)
 ```
 
 **Prompt for claims-verifier (runs after all Phase 0 agents complete):**
@@ -403,7 +403,7 @@ statistics, market data, user behavior, or regulatory requirements:
 4. Tag each claim with its originating agent
 
 Produce a verification report. Any Contradicted or Unverifiable claim on the critical path is a blocker.
-Save to: .docs/reports/claims-verifier-{date}-{subject}.md
+Save to: {REPORTS_DIR}/claims-verifier-{date}-{subject}.md (per /docs/layout)
 ```
 
 **If verifier verdict is FAIL:** Trigger Clarify loop — send the Verification Failure blocks back to each **originating agent** with:
@@ -438,17 +438,17 @@ After claims-verifier completes, evaluate whether a Discovery Panel is warranted
 2. **Recommendation:** `"Discovery Panel recommended (goal appears to span multiple domains). Run panel / Skip?"`
 3. **Run path:**
    - Invoke `convening-experts` with the Discovery Panel template from `skills/convening-experts/references/craft-panel-templates.md#discovery-panel`
-   - Save output to `.docs/canonical/assessments/assessment-{endeavor}-discovery-panel-{date}.md`
+   - Save output to the assessments directory under `CANONICAL_ROOT` (per `/docs/layout`): `assessment-{endeavor}-discovery-panel-{date}.md`
    - Present panel output alongside research findings and strategic assessment at the gate
 4. **Skip path:** Record `panel_invoked: false` in the Phase 0 status entry. Proceed to standard gate.
 5. **Status recording:** Record `panel_invoked: true/false` and `panel_artifact_path` (if invoked) in the Phase 0 entry.
 
 **Output artifacts:**
 
-- `.docs/reports/researcher-{date}-{subject}.md` (research report)
-- `.docs/reports/claims-verifier-{date}-{subject}.md` (verification report)
+- `{REPORTS_DIR}/researcher-{date}-{subject}.md` (research report) (per `/docs/layout`)
+- `{REPORTS_DIR}/claims-verifier-{date}-{subject}.md` (verification report) (per `/docs/layout`)
 - Any additional assessment reports (strategic, UX, architecture)
-- `.docs/canonical/assessments/assessment-{endeavor}-discovery-panel-{date}.md` (conditional — only when panel invoked)
+- Assessments directory under `CANONICAL_ROOT`: `assessment-{endeavor}-discovery-panel-{date}.md` (conditional — only when panel invoked) (per `/docs/layout`)
 
 **Gate behavior:** This phase's gate is special — it includes a go/no-go recommendation and a research verification verdict. Present the research findings, strategic assessment, **and verification verdict**, then offer the standard gate options plus:
 
@@ -546,7 +546,7 @@ IMPORTANT — Walking skeleton priority: The thinnest end-to-end vertical slice 
 
 If you are uncertain about prioritization or strategic direction, escalate to product-director for guidance before finalizing. Do not guess — ask.
 
-Save to: .docs/canonical/charters/charter-{endeavor}-{initiative-id}-{subject}.md
+Save to: {CANONICAL_ROOT}/charters/charter-{endeavor}-{initiative-id}-{subject}.md (per /docs/layout)
 ```
 
 **Prompt for acceptance-designer:**
@@ -566,14 +566,14 @@ Requirements:
 - Identify which scenarios validate the walking skeleton
 
 Append the BDD scenarios to the charter as an "Acceptance Scenarios" section, or if the charter is already large, save as a companion document:
-.docs/canonical/charters/charter-{endeavor}-{initiative-id}-{subject}-scenarios.md
+{CANONICAL_ROOT}/charters/charter-{endeavor}-{initiative-id}-{subject}-scenarios.md (per /docs/layout)
 
 Also produce a roadmap that sequences the outcomes:
 - Walking skeleton outcomes first
 - Then breadth/depth expansion grouped by priority
 - Each outcome with validation criteria
 
-Save roadmap to: .docs/canonical/roadmaps/roadmap-{endeavor}-{initiative-id}-{subject}-{year}.md
+Save roadmap to: {CANONICAL_ROOT}/roadmaps/roadmap-{endeavor}-{initiative-id}-{subject}-{year}.md (per /docs/layout)
 ```
 
 **Panel Checkpoint (Requirements Panel):**
@@ -584,16 +584,16 @@ After acceptance-designer completes, evaluate `complexity_tier` against the tier
 2. **Recommendation:** `"Requirements Panel recommended ({tier} complexity). Run panel / Skip?"`
 3. **Run path:**
    - Invoke `convening-experts` with the Requirements Panel template from `skills/convening-experts/references/craft-panel-templates.md#requirements-panel`
-   - Save output to `.docs/canonical/assessments/assessment-{endeavor}-requirements-panel-{date}.md`
+   - Save output to the assessments directory under `CANONICAL_ROOT` (per `/docs/layout`): `assessment-{endeavor}-requirements-panel-{date}.md`
    - Panel output validates user stories and acceptance criteria; feeds back into acceptance-designer context if refinement needed
 4. **Skip path:** Record `panel_invoked: false` in the Phase 1 status entry. Proceed to standard gate.
 5. **Status recording:** Record `panel_invoked: true/false` and `panel_artifact_path` (if invoked) in the Phase 1 entry.
 
 **Output artifacts:**
 
-- `.docs/canonical/charters/charter-{endeavor}-{initiative-id}-{subject}.md` (with user stories, acceptance criteria, BDD scenarios)
-- `.docs/canonical/roadmaps/roadmap-{endeavor}-{initiative-id}-{subject}-{year}.md`
-- `.docs/canonical/assessments/assessment-{endeavor}-requirements-panel-{date}.md` (conditional — only when panel invoked)
+- `{CANONICAL_ROOT}/charters/charter-{endeavor}-{initiative-id}-{subject}.md` (with user stories, acceptance criteria, BDD scenarios) (per `/docs/layout`)
+- `{CANONICAL_ROOT}/roadmaps/roadmap-{endeavor}-{initiative-id}-{subject}-{year}.md` (per `/docs/layout`)
+- `{CANONICAL_ROOT}/assessments/assessment-{endeavor}-requirements-panel-{date}.md` (conditional — only when panel invoked) (per `/docs/layout`)
 
 ---
 
@@ -647,7 +647,7 @@ BACKLOG — Produce a backlog from the architecture:
 - Mark which items can be parallelized vs. must be sequential
 - Each item specifies: what to build, acceptance criteria, estimated complexity
 
-Save the backlog to: .docs/canonical/backlogs/backlog-{endeavor}-{initiative-id}-{subject}.md
+Save the backlog to: {CANONICAL_ROOT}/backlogs/backlog-{endeavor}-{initiative-id}-{subject}.md (per /docs/layout)
 ```
 
 **Prompt for adr-writer:**
@@ -665,13 +665,13 @@ For each decision that involves a meaningful trade-off (technology choice, patte
 - Consequences: Trade-offs accepted
 - Alternatives considered: What was rejected and why
 
-Save ADRs to: .docs/canonical/adrs/{initiative-id}-{NNN}-{decision-slug}.md
+Save ADRs to: {ADR_DIR}/{initiative-id}-{NNN}-{decision-slug}.md (per /docs/layout)
 Use sequential numbering (001, 002, ...).
 ```
 
 **ADR writer resilience:** The `adr-writer` is a secondary agent in this phase — the backlog is the critical artifact. If the `adr-writer` fails (rate limits, dispatch errors, context overflow):
 
-1. Check for existing ADRs in `.docs/canonical/adrs/` that already cover the initiative's decisions. Scope narrowings, deferrals, and refinements of existing decisions do not need new ADRs.
+1. Check for existing ADRs in `ADR_DIR` (per `/docs/layout`) that already cover the initiative's decisions. Scope narrowings, deferrals, and refinements of existing decisions do not need new ADRs.
 2. If existing ADRs are sufficient, proceed without re-running the `adr-writer`. Note this in the Phase Log.
 3. If new ADRs are genuinely needed, retry once. If the retry fails, proceed with the backlog and flag "ADRs pending" in the status file — they can be written in Phase 6 (Close) or as a follow-up.
 
@@ -685,7 +685,7 @@ After architect and adr-writer complete, evaluate `complexity_tier` against the 
    - Invoke `convening-experts` with the Design Panel template from `skills/convening-experts/references/craft-panel-templates.md#design-panel`
    - Select code/mixed or docs-only variant based on `scope_type`
    - When `complexity_tier` is `light`, use single-round format; otherwise use 3-round format
-   - Save output to `.docs/canonical/assessments/assessment-{endeavor}-design-panel-{date}.md`
+   - Save output to the assessments directory under `CANONICAL_ROOT` (per `/docs/layout`): `assessment-{endeavor}-design-panel-{date}.md`
    - Present panel output alongside architect output at the gate
 4. **Skip path:** Record `panel_invoked: false` in the Phase 2 status entry. Proceed to standard gate.
 5. **Status recording:** Record `panel_invoked: true/false` and `panel_artifact_path` (if invoked) in the Phase 2 entry.
@@ -693,9 +693,9 @@ After architect and adr-writer complete, evaluate `complexity_tier` against the 
 
 **Output artifacts:**
 
-- `.docs/canonical/backlogs/backlog-{endeavor}-{initiative-id}-{subject}.md`
-- `.docs/canonical/adrs/{initiative-id}-*.md`
-- `.docs/canonical/assessments/assessment-{endeavor}-design-panel-{date}.md` (conditional — only when panel invoked)
+- `{CANONICAL_ROOT}/backlogs/backlog-{endeavor}-{initiative-id}-{subject}.md` (per `/docs/layout`)
+- `{ADR_DIR}/{initiative-id}-*.md` (per `/docs/layout`)
+- `{CANONICAL_ROOT}/assessments/assessment-{endeavor}-design-panel-{date}.md` (conditional — only when panel invoked) (per `/docs/layout`)
 
 ---
 
@@ -753,7 +753,7 @@ DEFERRED ITEMS: Every deferred item (D01, D02, etc.) in the plan MUST have a cor
 
 LOOK-BACK: Reference the charter for acceptance criteria, the roadmap for outcome sequencing, the backlog for dependencies, and ADRs for technical constraints. If anything is unclear, push back to prior phase agents for clarification rather than making assumptions.
 
-Save to: .docs/canonical/plans/plan-{endeavor}-{initiative-id}-{subject}.md
+Save to: {CANONICAL_ROOT}/plans/plan-{endeavor}-{initiative-id}-{subject}.md (per /docs/layout)
 ```
 
 **Panel Checkpoint (Plan Review Panel):**
@@ -764,15 +764,15 @@ After implementation-planner completes, evaluate `complexity_tier`. If Strategic
 2. **Recommendation:** `"Plan Review Panel recommended (Strategic complexity). Run panel / Skip?"`
 3. **Run path:**
    - Invoke `convening-experts` with the Plan Review Panel template from `skills/convening-experts/references/craft-panel-templates.md#plan-review-panel`
-   - Save output to `.docs/canonical/assessments/assessment-{endeavor}-plan-review-panel-{date}.md`
+   - Save output to the assessments directory under `CANONICAL_ROOT` (per `/docs/layout`): `assessment-{endeavor}-plan-review-panel-{date}.md`
    - Panel validates step decomposition, dependencies, and wave structure
 4. **Skip path:** Record `panel_invoked: false` in the Phase 3 status entry. Proceed to standard gate.
 5. **Status recording:** Record `panel_invoked: true/false` and `panel_artifact_path` (if invoked) in the Phase 3 entry.
 
 **Output artifacts:**
 
-- `.docs/canonical/plans/plan-{endeavor}-{initiative-id}-{subject}.md`
-- `.docs/canonical/assessments/assessment-{endeavor}-plan-review-panel-{date}.md` (conditional — only when panel invoked)
+- `{CANONICAL_ROOT}/plans/plan-{endeavor}-{initiative-id}-{subject}.md` (per `/docs/layout`)
+- `{CANONICAL_ROOT}/assessments/assessment-{endeavor}-plan-review-panel-{date}.md` (conditional — only when panel invoked) (per `/docs/layout`)
 
 ---
 
@@ -1062,7 +1062,7 @@ Before dispatching parallel agents, generate the craft efficiency report:
 ```bash
 pnpx tsx \
   telemetry/src/hooks/entrypoints/generate-craft-efficiency-report.ts \
-  "<status-file-path>" ".docs/reports"
+  "<status-file-path>" "<REPORTS_DIR per /docs/layout>"
 ```
 
 Capture `reportPath` from the stdout JSON. Store as `<efficiency-report-path>`. If the script fails or returns `reportPath: null`, continue — the report is optional.
@@ -1109,7 +1109,7 @@ Instructions:
    - REJECT — any criterion NOT MET without justification
 
 6. On ACCEPT or ACCEPT WITH CONDITIONS: recommend moving the initiative to Done
-   on the evergreen roadmap (.docs/canonical/roadmaps/roadmap-repo.md).
+   on the evergreen roadmap (roadmaps directory under CANONICAL_ROOT per /docs/layout: roadmap-repo.md).
 
 Report: reconciliation table + verdict + scope additions (if any) + roadmap recommendation.
 ```
@@ -1204,7 +1204,7 @@ Also capture:
 - Decisions that worked well or poorly
 - Anything a future developer should know
 
-Merge findings into .docs/AGENTS.md under "Recorded learnings" or the appropriate section.
+Merge findings into LEARNINGS_FILE (per /docs/layout) under "Recorded learnings" or the appropriate section.
 If audit log analysis reveals actionable improvements to the /craft process itself, note them
 as "Process improvement candidates" for the craft command maintainer.
 ```

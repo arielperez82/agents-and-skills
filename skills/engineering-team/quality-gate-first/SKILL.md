@@ -59,7 +59,7 @@ When generating or reviewing plans/backlogs:
 - If a plan lacks Phase 0 or starts features before the gate is complete, flag it.
 - **Conditional checks to include:** `eslint-plugin-security` + `no-restricted-properties` when TS/JS present (see eslint-configuration skill), Semgrep with `.semgrep.yml` when TS/JS present (see semgrep-scanning skill), ShellCheck when `*.sh` present (see shell-scripting skill), Terraform fmt/validate/test when `*.tf` present (see terraform-configuration skill), Stylelint when frontend, jsx-a11y when React/JSX, dependency audit (`pnpm audit --prod --audit-level high`) when Node.js project -- CI only, NOT pre-commit, mutation testing (Stryker) when project has 70%+ line coverage and critical business logic modules -- scheduled CI job only, NOT pre-commit (see mutation-testing skill).
 - **TS/JS projects:** Include path aliases (`tsconfig.json` paths + bundler `resolve.alias`). See typescript-strict and vitest-configuration skills.
-- **Initiative context:** When plans live under `.docs/canonical/`, include `initiative` and `initiative_name` in front matter.
+- **Initiative context:** When plans live under `CANONICAL_ROOT` (per `/docs/layout`), include `initiative` and `initiative_name` in front matter.
 
 ## Three layers of Phase 0
 

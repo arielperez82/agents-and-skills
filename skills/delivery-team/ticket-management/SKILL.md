@@ -76,11 +76,11 @@ metadata:
 
 ## Overview
 
-This skill provides product-agnostic expertise for configuring issue tracking projects, designing workflows, writing advanced queries, building dashboards, and implementing automation. The patterns work with any ticket system (Jira, Linear, GitHub Issues, Shortcut) or with markdown-based tracking under the `.docs/` hierarchy.
+This skill provides product-agnostic expertise for configuring issue tracking projects, designing workflows, writing advanced queries, building dashboards, and implementing automation. The patterns work with any ticket system (Jira, Linear, GitHub Issues, Shortcut) or with markdown-based tracking under the `DOCS_ROOT` hierarchy (per `/docs/layout`).
 
 **Core Value:** Reduce project setup time through templates, improve team productivity through optimized workflows and queries, and increase reporting efficiency through custom dashboards.
 
-**Initiative naming (when using .docs/):** Initiative code = epic key (e.g. `I<nn>-<ACRONYM>`). Backlog item ID format: `I<nn>-<ACRONYM>-B<nn>` (in-doc shorthand `B<nn>`). Front matter **MUST** include `initiative_name: <long-form>` so search works by code or name. Add to data quality / maintenance cadence: initiative code and initiative_name present and consistent across roadmap, backlog, plan. See `.docs/AGENTS.md` initiative naming and References (by initiative).
+**Initiative naming (when using DOCS_ROOT, per `/docs/layout`):** Initiative code = epic key (e.g. `I<nn>-<ACRONYM>`). Backlog item ID format: `I<nn>-<ACRONYM>-B<nn>` (in-doc shorthand `B<nn>`). Front matter **MUST** include `initiative_name: <long-form>` so search works by code or name. Add to data quality / maintenance cadence: initiative code and initiative_name present and consistent across roadmap, backlog, plan. See `LEARNINGS_FILE` initiative naming and References (by initiative) (per `/docs/layout`).
 
 ## Core Capabilities
 
@@ -321,14 +321,14 @@ For large-scale data cleanup:
 4. Verify sample of updated issues
 5. Document changes in audit trail
 
-## `.docs/` Integration
+## `DOCS_ROOT` Integration
 
-When using markdown-based tracking under the `.docs/` hierarchy:
+When using markdown-based tracking under the `DOCS_ROOT` hierarchy (per `/docs/layout`):
 
-- **Backlogs** can live under `.docs/canonical/backlogs/`
-- **Sprint plans** under `.docs/plans/`
-- **Status reports** under `.docs/reports/` using pattern `report-<endeavor>-<topic>-<timeframe>.md`
-- **Retrospective notes** under `.docs/learnings/`
+- **Backlogs** can live under `{CANONICAL_ROOT}/backlogs/`
+- **Sprint plans** under `{CANONICAL_ROOT}/plans/`
+- **Status reports** under `REPORTS_DIR` using pattern `report-<endeavor>-<topic>-<timeframe>.md`
+- **Retrospective notes** under learnings directories
 
 This skill's workflow patterns, query concepts, and governance standards apply whether using a dedicated issue tracker or markdown files.
 

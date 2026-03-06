@@ -21,7 +21,7 @@ Report what frustrated, bored, or delayed you. Do not classify, analyze, or solv
 
 ## Observation Format
 
-When you encounter waste, append an observation to `.docs/canonical/waste-snake.md`:
+When you encounter waste, append an observation to the waste snake file at `WASTE_SNAKE` (per `/docs/layout`):
 
 ```markdown
 ### YYYY-MM-DD HH:MM
@@ -49,7 +49,7 @@ That's it. No category. No severity. No root cause. Just describe the moment.
 
 Use `/waste/add` with a free-text description. The command handles formatting and appending.
 
-Or append directly to `.docs/canonical/waste-snake.md` using the format above.
+Or append directly to the waste snake file at `WASTE_SNAKE` (per `/docs/layout`) using the format above.
 
 ## Waste Snake Review
 

@@ -224,7 +224,7 @@ python marketing-demand-acquisition/scripts/demand_gen_analyzer.py data.csv
 - Viral content analyzer
 - Influencer collaboration tools
 
-See `marketing_skills_roadmap.md` for detailed expansion plans. Repo-level roadmaps live under `.docs/canonical/roadmaps/` when artifact conventions are in use (see `.docs/AGENTS.md`).
+See `marketing_skills_roadmap.md` for detailed expansion plans. Repo-level roadmaps live under `{CANONICAL_ROOT}/roadmaps/` when artifact conventions are in use (per `/docs/layout`).
 
 ## Related Skills
 
@@ -242,7 +242,7 @@ See `marketing_skills_roadmap.md` for detailed expansion plans. Repo-level roadm
 
 ## Additional Resources
 
-- **Marketing Roadmap:** `marketing_skills_roadmap.md`. Repo-level: `.docs/canonical/roadmaps/` per `.docs/AGENTS.md` when conventions apply.
+- **Marketing Roadmap:** `marketing_skills_roadmap.md`. Repo-level: `{CANONICAL_ROOT}/roadmaps/` per `/docs/layout` when conventions apply.
 - **Team Overview:** `README.md`
 - **Agent Authoring Guide:** `../../agents/agent-author.md`
 

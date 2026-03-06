@@ -93,7 +93,7 @@ digraph process {
 ```
 You: I'm using Subagent-Driven Development to execute this plan.
 
-[Read plan file once: .docs/canonical/plans/plan-<endeavor>-<subject>[-<timeframe>].md — e.g. plan-repo-feature-auth.md. When artifact conventions are in use, plans live under .docs/canonical/plans/. Plan front matter must include initiative and initiative_name when the plan belongs to an initiative (see .docs/AGENTS.md).]
+[Read plan file once: {CANONICAL_ROOT}/plans/plan-<endeavor>-<subject>[-<timeframe>].md — e.g. plan-repo-feature-auth.md. When artifact conventions are in use, plans live under {CANONICAL_ROOT}/plans/ (per /docs/layout). Plan front matter must include initiative and initiative_name when the plan belongs to an initiative (see LEARNINGS_FILE per /docs/layout).]
 [Extract all 5 tasks with full text and context]
 [Create TodoWrite with all tasks]
 
@@ -229,7 +229,7 @@ Done!
 ## Integration
 
 **Required workflow capabilities/agents:**
-- **Implementation planning** — A plan this skill executes (plans under `.docs/canonical/plans/`). Use capability discovery with "planning" or "implementation plan" for the planning skill; use the implementation-planner agent when available.
+- **Implementation planning** — A plan this skill executes (plans under `{CANONICAL_ROOT}/plans/`, per `/docs/layout`). Use capability discovery with "planning" or "implementation plan" for the planning skill; use the implementation-planner agent when available.
 - **Code review** — Code review template for reviewer subagents (see `code-reviewer/references/requesting-code-review.md` and `./code-quality-reviewer-prompt.md`). Use the code-reviewer agent when available.
 - **`/review/review-changes`** command — Run 6 parallel review agents on uncommitted changes as a final gate.
 - **`/git/cm`** or **`/git/cp`** command — Commit (and optionally push) after all tasks complete.
