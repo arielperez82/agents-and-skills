@@ -328,6 +328,7 @@ The implementation-planner agent bridges the gap between architecture design and
 - [ ] Plan structured as sprint-sized increments with clear milestones
 - [ ] Success criteria align with product requirements and strategic objectives
 - [ ] **Convention discovery done** (if Nth-of-kind: analog diff produced, integration checklist created)
+- [ ] **Team CLAUDE.md ordering (L83):** If the plan creates a new `skills/{team}/` directory, the first plan step MUST be "Create `skills/{team}/CLAUDE.md`." The team CLAUDE.md is a domain brief (shared vocabulary, boundaries, workflow context) that all subsequent skill-authoring steps consume. Creating it first gives every subagent a consistent frame. This is a constraint, not a suggestion.
 - [ ] **Integration steps included** (not just build — how does new code wire into existing systems?)
 - [ ] **Deployment steps included** (CI/CD, deploy pipeline, rollback, environment config)
 - [ ] **Monitoring/observability steps included** (logging, metrics, alerting, health checks, SLIs/SLOs)

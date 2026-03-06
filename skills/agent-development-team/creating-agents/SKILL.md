@@ -209,6 +209,7 @@ Before committing an agent, validate against:
 - [ ] Integration examples provided and tested
 - [ ] Success metrics defined
 - [ ] Related agents cross-referenced
+- [ ] **Quality agent examples**: If `type: quality`, at least 2 examples (1 pass + 1 fail) present
 - [ ] **Roll-call test passed**: Verify agent loads correctly in Cursor using `/agent/roll-call agent-name`
 - [ ] **Referenced skills deploy-ready**: Skills referenced by this agent pass deploy-readiness rules (name format, name-folder match, YAML-safe description, required fields)
 
@@ -286,6 +287,22 @@ Guardian agents assess, guide, and validate but **never implement**:
 - **Output**: Prioritized findings (Critical → High Priority → Nice to Have)
 
 **Examples**: `tdd-reviewer`, `docs-reviewer`, `refactor-assessor`
+
+### Quality Agent Example Requirements
+
+Agents classified as `type: quality` assess code, artifacts, or configurations. Consistent assessment behavior requires concrete examples showing what "pass" and "fail" look like.
+
+**Rule:** Every `type: quality` agent must include **at least 2 examples** in its body or frontmatter `examples` field:
+
+1. **One PASS example** -- an input that meets quality standards, showing the expected positive assessment output
+2. **One FAIL example** -- an input that violates quality standards, showing the expected negative assessment output with specific findings
+
+**Rationale:** Without pass/fail examples, quality agents produce inconsistent assessments. The examples serve as calibration anchors -- they define the agent's judgment baseline so different sessions produce comparable results.
+
+**Where to place examples:**
+- **Frontmatter `examples` field** -- structured input/output pairs (preferred for discovery)
+- **Body `## Integration Examples` section** -- longer narrative examples with context
+- Both locations count toward the minimum; at least one pass and one fail must be clearly identifiable
 
 ### Delegation Pattern
 

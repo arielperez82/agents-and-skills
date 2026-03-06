@@ -737,6 +737,7 @@ Requirements:
 5. Include a Phase 0 quality gate step if the project is new or lacks pre-commit hooks, CI, or deploy pipeline.
 6. Keep the plan to a manageable number of steps — roughly 10-15 is a good target. Plans with 20+ steps tend to exceed agent context limits and produce worse results. If the scope naturally requires more, break the initiative into sub-phases or split into multiple initiatives rather than producing one sprawling plan. Use your judgment — a plan with 18 tightly-scoped steps may be fine, while 12 broad steps may be too much.
 7. **Convention discovery (Nth-of-kind):** If the task adds a new instance of an existing pattern (new service, collector, module, endpoint), the FIRST plan step must be convention discovery — grep the repo for the nearest analog, catalog every file that references it, and produce an integration checklist. Use that checklist to verify completeness at the end.
+   - **Team CLAUDE.md ordering (L83):** If the plan creates a new `skills/{team}/` directory, the first plan step MUST be "Create `skills/{team}/CLAUDE.md`." The team CLAUDE.md functions as a domain brief — shared vocabulary, domain boundaries, and workflow context — that all subsequent skill-authoring steps consume. Creating it last means subagents work without shared context; creating it first gives every skill author a consistent frame. This is a constraint, not a suggestion.
 8. **Separate Build, Integrate, and Deploy:** Do not stop at "code works and tests pass." The plan must include explicit steps for:
    - **Integration** — wiring new code into all systems that need to know about it (workflows, configs, scripts, IaC, workspace files)
    - **Deployment** — CI/CD pipeline updates, deploy verification, rollback testing
@@ -839,11 +840,12 @@ Prior step output: <summary of what was built in previous steps, if any>
 
 Follow the /code workflow:
 1. Read the step requirements and execution mode
-2. Write failing tests first (TDD — non-negotiable)
-3. Write minimum production code to pass tests
-4. Refactor if warranted
-5. Run fast feedback loop BEFORE marking step complete (see below)
-6. Verify all tests pass
+2. For code steps: produce a .skip cycle checklist BEFORE writing any production code — one outer acceptance test (BDD-style, .skipped) and enumerated inner unit tests (each .skipped). The engineering-lead verifies this checklist exists before implementation proceeds. Docs-only steps are exempt.
+3. Write failing tests first (TDD — non-negotiable). Convert .skip tests to active one at a time. The outer acceptance test MUST be the LAST to go GREEN.
+4. Write minimum production code to pass tests
+5. Refactor if warranted
+6. Run fast feedback loop BEFORE marking step complete (see below)
+7. Verify all tests pass
 
 FAST FEEDBACK LOOPS (mandatory):
 After achieving GREEN (tests passing), run the project's local validation suite using its

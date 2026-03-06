@@ -322,6 +322,40 @@ At any point, the ratio of active tests to skipped tests shows exactly how far a
 
 ---
 
+## Shared Test Exemplar
+
+The first test file in a directory is the **exemplar**. Every subsequent sibling test file in that directory copies the exemplar's structural choices. This ensures consistency without requiring a style guide for every decision.
+
+### What the exemplar defines
+
+The exemplar establishes the structural conventions for its directory:
+
+- **Import style** -- named vs. default imports, grouping order, path alias usage
+- **Factory pattern** -- how test data is constructed (inline factory functions, shared `createX` helpers, builder pattern)
+- **Describe/it nesting** -- depth, grouping strategy (by method, by behavior, by scenario)
+- **Assertion style** -- `expect(x).toBe(y)` vs. `expect(x).toEqual(y)`, matcher preferences, assertion granularity
+- **Setup approach** -- factory functions per test vs. shared helpers, absence of `let`/`beforeEach`
+
+### How siblings follow
+
+When adding a new test file in a directory that already contains tests:
+
+1. **Read the exemplar** -- open the first (alphabetically or oldest) test file in the directory
+2. **Copy its structure** -- use the same import pattern, factory approach, describe/it nesting, and assertion style
+3. **Adapt only the behavior under test** -- the test content changes, the structural shell stays consistent
+
+### Divergence requires justification
+
+If a sibling test file must diverge from the exemplar's structure, the reason must be explicit:
+
+- **Different test boundary** -- the exemplar tests pure functions but this file tests an HTTP adapter (integration), requiring different setup patterns
+- **Framework constraint** -- the module under test requires a specific testing utility (e.g., `renderHook` for React hooks) that changes the structure
+- **Exemplar is outdated** -- the exemplar predates a team convention change; in this case, update the exemplar first, then write the new file
+
+Unjustified divergence -- different style purely by preference or habit -- is a review finding. Consistency across sibling test files reduces cognitive load for every developer who reads them.
+
+---
+
 ## Coverage Verification - CRITICAL
 
 ### NEVER Trust Coverage Claims Without Verification
@@ -606,6 +640,33 @@ After green, classify any issues:
 | Skip | Don't change | Already clean code |
 
 For detailed refactoring methodology (assessment and patterns after GREEN), use `/skill/find-local-skill` with "refactoring" to load the matching skill.
+
+---
+
+## Automate Recurring Issues
+
+When reviewers catch the same class of issue more than once, that issue should be automated out of existence. Reserve human review for design judgment, not missing types or format violations.
+
+### The 4-Step Escalation
+
+1. **Identify** -- Find the issue class in `.docs/reports/review-overrides.md` or in review findings. Each row in `review-overrides.md` records the reviewer agent, severity, finding description, and location. Group rows by finding description to identify recurring classes.
+
+2. **Count** -- If the same issue class appears 2 or more times across any combination of reviews, it qualifies for automation. The `review-overrides.md` tabular format supports this directly: filter rows by finding description and count occurrences.
+
+3. **Determine mechanism** -- Choose the cheapest enforcement layer that can catch the issue:
+   - **Lint rule** (ESLint, markdownlint, custom rule) -- for code patterns detectable by static analysis
+   - **Pre-commit hook** (Husky + lint-staged) -- for checks that need file-level or cross-file context
+   - **PostToolUse hook** (Claude Code hook) -- for agent-workflow concerns that only apply during AI-assisted development
+
+   Prefer earlier layers: lint rules run fastest and give the tightest feedback loop.
+
+4. **Implement** -- Create the automation within 48 hours of the second occurrence. Verify it catches the issue by reproducing the original finding and confirming the automation flags it. Commit the automation with a reference to the issue class it addresses.
+
+### Model Pattern: L72
+
+L72 (I21-PIPS) demonstrates this process end-to-end. The prompt injection scanner was promoted from a standalone tool to a pre-commit hook. On first run against the real corpus, it caught 3 categories of issues immediately. The key insight: deploy the automation to pre-commit and iterate on false positive reduction using the real codebase -- do not wait until the end.
+
+This is the target state for all mechanical issues: caught automatically before the reviewer ever sees the code.
 
 ---
 

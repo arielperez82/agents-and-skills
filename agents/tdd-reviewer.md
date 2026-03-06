@@ -256,6 +256,32 @@ When reviewing test suites or code changes, check for evidence that the develope
 
 **Reference:** See `engineering-team/tdd` skill, "Pre-RED Checklist" and "Edge Case Enumeration" sections for the full checklist and enumeration workflow.
 
+### Sibling Test Consistency Check (Advisory)
+
+When reviewing test files, check whether sibling test files in the same directory follow a consistent structural pattern established by the exemplar (the first test file in that directory). All findings from this check are **advisory observations** -- they inform the developer but do not block commits or fail reviews.
+
+**Checks to perform:**
+
+1. **Identify the exemplar:** Find the first test file in the directory (alphabetically or by git history). This file's structure defines the directory's conventions for imports, factory patterns, describe/it nesting, and assertion style.
+
+2. **Compare sibling structure:** For each sibling test file in the same directory, check whether it follows the exemplar's structural conventions:
+   - Import grouping and style (named vs. default, path aliases)
+   - Test data construction (factory functions, builders, inline objects)
+   - Describe/it nesting depth and grouping strategy
+   - Assertion matcher usage (toBe vs. toEqual, consistent patterns)
+   - Setup approach (per-test factories vs. `let`/`beforeEach`)
+
+3. **Flag unjustified divergence:** If a sibling diverges from the exemplar's structure without an apparent reason (different test boundary, framework constraint, or outdated exemplar), report as an observation.
+
+**Reporting:**
+
+- Report all findings as **Observation** (blue tier)
+- If siblings are consistent: "Sibling test consistency confirmed: test files in `[directory]` follow a consistent structural pattern"
+- If divergence is found: "Structural divergence in `[file]` from directory exemplar `[exemplar]`: [specific difference]. Consider aligning with the exemplar's pattern or updating the exemplar if the new approach is preferred (see TDD skill, Shared Test Exemplar)"
+- Never escalate structural divergence to a blocking finding -- consistency is a coaching goal, not a gate
+
+**Reference:** See `engineering-team/tdd` skill, "Shared Test Exemplar" section for the full exemplar-sibling relationship and divergence rules.
+
 ### Analysis Mode (Reactive)
 
 **Triggers:** Requests like "review test quality", "score these tests", "analyze test design", providing a path for test analysis, asking for a Farley Index or Farley Score, detecting test theatre or mock anti-patterns.

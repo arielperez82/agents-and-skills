@@ -181,9 +181,12 @@ tags: [coordination, orchestration, subagent, engineering, lead, plan-execution]
 1. Read plan file (e.g. `.docs/canonical/plans/plan-repo-<subject>.md`)
 2. Extract all tasks with full text, note dependencies and context
 3. Create TodoWrite with all tasks
-4. For each task — repeat steps 4a–4f:
+4. For each task — repeat steps 4a–4h:
+   - **Classify step type:** Determine if the step is a code step (creates/modifies source code with tests) or a docs-only step (modifies only `.md`, `.yaml`, `.json` files with no test requirements). Docs-only steps are exempt from the `.skip` cycle checklist requirement below.
    - Select the right engineer subagent (fullstack, backend, or frontend based on task scope)
    - Dispatch implementer with full task text + scene-setting context
+   - **Verify `.skip` cycle checklist (code steps only, MANDATORY):** Before the implementer writes any production code, verify they have produced a `.skip` cycle checklist containing: (1) one outer acceptance test (BDD-style, `.skip`ped), and (2) enumerated inner unit tests (each `.skip`ped). If no `.skip` list is produced, ask the implementer to produce it before proceeding. This is a gate, not a suggestion.
+   - **Track progress:** After each commit, check the `.skip` to active test ratio. Progress = tests converted from `.skip` to passing. The outer acceptance test MUST be the LAST test to go GREEN. If it passes before all inner tests are active, flag as anomaly — this indicates the acceptance test is too shallow or inner tests are missing.
    - Answer any implementer questions before they begin
    - After implementation: dispatch spec compliance reviewer
    - After spec passes: dispatch code quality reviewer

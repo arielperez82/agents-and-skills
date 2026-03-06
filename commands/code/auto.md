@@ -8,6 +8,10 @@ argument-hint: [plan]
 
 Follow the **`/code` workflow** (see `commands/code.md`) with these modifications:
 
+### Double-Loop TDD Convention
+
+When dispatching `engineering-lead` for code steps, the implementer MUST produce a `.skip` cycle checklist before writing any production code. The checklist contains: (1) one outer acceptance test (BDD-style, `.skip`ped), and (2) enumerated inner unit tests (each `.skip`ped). The `engineering-lead` verifies this checklist exists before allowing implementation to proceed. Docs-only steps are exempt. See `engineering-lead` Workflow 1 for the full verification protocol.
+
 ## Modifications from `/code`
 
 1. **Step 4 (Step Review) auto-approval** — Run `/review/review-changes --mode diff` as in `/code` Step 4. Auto-approve if zero Fix Required findings. Fix Required findings still block even in auto mode — fix, re-run tests, re-run Step Review until clear.

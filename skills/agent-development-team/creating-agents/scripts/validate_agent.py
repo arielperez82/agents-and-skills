@@ -259,6 +259,22 @@ def validate_agent(agent_path: Path):
     if not has_section(body, "Related Agents"):
         medium.append("Missing '## Related Agents' section")
 
+    # Quality agents must have at least 2 examples (1 pass + 1 fail)
+    agent_type = classification.get("type") if isinstance(classification, dict) else None
+    if agent_type == "quality":
+        example_count = 0
+        # Count frontmatter examples
+        fm_examples = fm.get("examples", [])
+        if isinstance(fm_examples, list):
+            example_count += len(fm_examples)
+        # Count body example sections (## Example, ### Example 1, etc.)
+        body_example_matches = re.findall(r"^#{1,6}\s+.*[Ee]xample", body, re.MULTILINE)
+        example_count += len(body_example_matches)
+        if example_count < 2:
+            high.append(
+                f"Quality agent has {example_count} example(s) (minimum 2 required: 1 pass + 1 fail)"
+            )
+
     return {"critical": critical, "high": high, "medium": medium}
 
 
