@@ -33,7 +33,7 @@ esac
 
 # Check for unpushed commits. If git log @{push}..HEAD fails (no tracking
 # branch, not a git repo, etc.), fail open.
-unpushed=$(git log @{push}..HEAD --oneline 2>/dev/null) || exit 0
+unpushed=$(git log '@{push}..HEAD' --oneline 2>/dev/null) || exit 0
 
 # Count unpushed commits
 count=$(printf '%s' "$unpushed" | grep -c '.' 2>/dev/null) || true

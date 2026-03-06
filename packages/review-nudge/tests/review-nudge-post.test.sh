@@ -247,7 +247,7 @@ echo ""
 echo "--- Performance ---"
 cleanup
 start_ms=$(python3 -c 'import time; print(int(time.time()*1000))' 2>/dev/null || echo "0")
-for i in {1..10}; do
+for _i in {1..10}; do
   echo "$NEXT_INPUT" | bash "$SUT" > /dev/null 2>&1
 done
 end_ms=$(python3 -c 'import time; print(int(time.time()*1000))' 2>/dev/null || echo "0")

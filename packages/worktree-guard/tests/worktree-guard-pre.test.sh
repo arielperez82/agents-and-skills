@@ -191,7 +191,7 @@ setup_test_repo
 
 start_time=$(python3 -c 'import time; print(int(time.time() * 1000))')
 
-for i in $(seq 1 10); do
+for _i in $(seq 1 10); do
   echo '{"tool_name":"Bash","tool_input":{"command":"ls"}}' | bash "$SUT" > /dev/null 2>&1
 done
 
