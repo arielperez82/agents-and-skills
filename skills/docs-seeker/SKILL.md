@@ -7,6 +7,16 @@ description: 'Search technical documentation using executable scripts to detect 
   discovery with automated agent distribution strategy'
 metadata:
   version: 3.1.0
+  domain: documentation
+  tags:
+  - documentation
+  - search
+  - llms-txt
+  - context7
+  related-agents:
+  - technical-writer
+  related-skills:
+  - markdown-documentation
 ---
 
 # Documentation Discovery via Scripts
