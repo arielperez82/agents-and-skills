@@ -1,14 +1,26 @@
 ---
 name: prompt-injection-security
-description: Detection and prevention of prompt injection attacks in AI agent/skill/command systems. Use when authoring, reviewing, or ingesting markdown artifacts that will be loaded as LLM context.
+description: Detection and prevention of prompt injection attacks in AI agent/skill/command
+  systems. Use when authoring, reviewing, or ingesting markdown artifacts that will
+  be loaded as LLM context.
 metadata:
   title: Prompt Injection Security
   domain: security
   subdomain: prompt-injection
-  tags: [security, prompt-injection, content-safety, intake-security]
+  tags:
+  - security
+  - prompt-injection
+  - content-safety
+  - intake-security
   difficulty: intermediate
   time-saved: 30m
   frequency: daily
+  related-agents:
+  - security-assessor
+  related-skills:
+  - creating-agents
+  - agent-intake
+  version: 1.0.0
 ---
 
 # Prompt Injection Security
