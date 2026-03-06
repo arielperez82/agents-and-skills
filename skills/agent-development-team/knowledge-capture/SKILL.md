@@ -1,3 +1,22 @@
+---
+name: knowledge-capture
+description: 'Guides capture, classification, and routing of institutional knowledge
+  into durable documentation. Triggers: learning moment, gotcha, architectural decision,
+  post-feature knowledge extraction.'
+metadata:
+  domain: agent-development
+  tags:
+  - documentation
+  - learnings
+  - knowledge-management
+  related-agents:
+  - learner
+  related-skills:
+  - creating-agents
+  - refactoring-agents
+  version: 1.0.0
+---
+
 # Knowledge Capture Skill
 
 Guides the capture, classification, and routing of institutional knowledge into durable documentation.
