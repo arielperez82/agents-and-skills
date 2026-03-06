@@ -5,6 +5,17 @@ description: Generate comprehensive test plans, manual test cases, regression te
   validation.
 metadata:
   trigger: explicit
+  domain: engineering
+  tags:
+  - qa
+  - test-planning
+  - test-strategy
+  related-agents:
+  - qa-engineer
+  related-skills:
+  - testing
+  - acceptance-test-design
+  version: 1.0.0
 ---
 
 # QA Test Planner
