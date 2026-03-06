@@ -4,6 +4,17 @@ description: Coverage analysis measures code exercised during fuzzing. Use when 
   harness effectiveness or identifying fuzzing blockers.
 metadata:
   type: technique
+  domain: engineering
+  tags:
+  - coverage
+  - testing
+  - quality-metrics
+  related-agents:
+  - qa-engineer
+  - tdd-reviewer
+  related-skills:
+  - testing
+  - mutation-testing
 ---
 
 # Coverage Analysis
