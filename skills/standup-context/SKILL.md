@@ -53,30 +53,23 @@ Each non-git section is controlled by an env var. Sections are **skipped** when 
 | `WASTE_SNAKE` | Path to waste snake file | per `/docs/layout` |
 | `MEMORY_FILE` | Path to cross-session memory file | `~/.claude/projects/.../memory/MEMORY.md` |
 
-**How to run:** Use the `/locate/*` commands to resolve artifact paths, then pass them as env vars to the script. Each locate command outputs `KEY=value` lines that map directly to the env vars below.
+**How to run:** Use `/docs/layout` to resolve all artifact paths, then pass them as env vars to the script. The command outputs `KEY=value` lines that map directly to the env vars below.
 
 ```bash
-# 1. Resolve paths via /locate/* commands:
-#    /locate/canonical  -> CANONICAL_ROOT, CANONICAL_DIRS
-#    /locate/reports    -> REPORTS_DIR
-#    /locate/learnings  -> LEARNINGS_FILE, LEARNINGS_DIRS
-#    /locate/adrs       -> ADR_DIR
-#    /locate/waste-snake -> WASTE_SNAKE
-#    /locate/memory     -> MEMORY_FILE
-#
-# 2. Pass non-empty values as env vars (paths resolved via /docs/layout):
-CANONICAL_ROOT=<resolved CANONICAL_ROOT> \
+# 1. Resolve paths via /docs/layout (outputs KEY=value for all keys)
+# 2. Pass non-empty values as env vars:
+CANONICAL_ROOT=<from /docs/layout> \
 CANONICAL_DIRS="roadmaps charters backlogs plans" \
-REPORTS_DIR=<resolved REPORTS_DIR> \
-LEARNINGS_FILE=<resolved LEARNINGS_FILE> \
-LEARNINGS_DIRS="<resolved CANONICAL_ROOT>/charters <resolved CANONICAL_ROOT>/plans" \
-ADR_DIR=<resolved ADR_DIR> \
-WASTE_SNAKE=<resolved WASTE_SNAKE> \
+REPORTS_DIR=<from /docs/layout> \
+LEARNINGS_FILE=<from /docs/layout> \
+LEARNINGS_DIRS="<CANONICAL_ROOT>/charters <CANONICAL_ROOT>/plans" \
+ADR_DIR=<from /docs/layout> \
+WASTE_SNAKE=<from /docs/layout> \
 MEMORY_FILE=~/.claude/projects/-Users-me-projects-my-repo/memory/MEMORY.md \
 bash <SKILL_DIR>/scripts/gather-git-and-docs.sh
 ```
 
-Omit any env var whose `/locate/*` command returned an empty value — the script skips that section.
+Omit any env var whose `/docs/layout` value is empty — the script skips that section.
 
 ### 2. Telemetry
 

@@ -160,7 +160,7 @@ If codebase is large (>100 files) or unfamiliar:
 - Identify key directories that likely contain relevant files (e.g., `app/`, `lib/`, `api/`, `db/`, `components/`, etc.)
 - Determine if pattern discovery is needed (delegate to researcher if unclear)
 - Determine optimal number of parallel searches (SCALE) based on codebase size and complexity
-- Consider project structure from `.docs/canonical/` and `.docs/reports/` when present; else `./README.md`, `./docs/codebase-summary.md`, and `_MAP.md` if available
+- Consider project structure from `{CANONICAL_ROOT}/` and `{REPORTS_DIR}/` when present (per `/docs/layout`); else `./README.md`, `./docs/codebase-summary.md`, and `_MAP.md` if available
 
 ### 2. Pattern Discovery (Optional)
 

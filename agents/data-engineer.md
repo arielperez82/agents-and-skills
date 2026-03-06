@@ -1116,7 +1116,7 @@ done
 
 # Generate summary report
 echo "Generating executive summary..."
-cat > ".docs/reports/report-repo-pipeline-$(date +%Y-w%V).md" << EOF
+cat > "{REPORTS_DIR}/report-repo-pipeline-$(date +%Y-w%V).md" << EOF
 # Weekly Pipeline Performance Report
 **Week Ending:** $REPORT_DATE
 
@@ -1135,10 +1135,10 @@ $(python3 summarize_metrics.py "$REPORT_DIR"/*_metrics.json)
 
 EOF
 
-echo "Report generated at .docs/reports/report-repo-pipeline-$(date +%Y-w%V).md"
+echo "Report generated at {REPORTS_DIR}/report-repo-pipeline-$(date +%Y-w%V).md"
 
 # Email report to data engineering team
-mail -s "Weekly Pipeline Performance Report" data-eng@company.com < ".docs/reports/report-repo-pipeline-$(date +%Y-w%V).md"
+mail -s "Weekly Pipeline Performance Report" data-eng@company.com < "{REPORTS_DIR}/report-repo-pipeline-$(date +%Y-w%V).md"
 ```
 
 ## Success Metrics

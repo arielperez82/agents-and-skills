@@ -78,7 +78,7 @@ examples:
 
 ## Artifact Conventions
 
-When creating or updating documentation under `.docs/canonical/` (plans, roadmaps, backlogs), include `initiative` and `initiative_name` in front matter when tied to an initiative (see `.docs/AGENTS.md` initiative naming).
+When creating or updating documentation under `{CANONICAL_ROOT}/` (plans, roadmaps, backlogs), include `initiative` and `initiative_name` in front matter when tied to an initiative (see `LEARNINGS_FILE` initiative naming) (per `/docs/layout`).
 
 ## Purpose
 
@@ -1126,7 +1126,7 @@ This agent leverages five production-ready Python automation tools for comprehen
 
    # Or run documentation audit
    python ../skills/engineering-team/technical-writer/scripts/interactive_doc_wizard.py \
-     --workflow audit --output .docs/reports/report-repo-audit-$(date +%Y-%m-%d).md
+     --workflow audit --output {REPORTS_DIR}/report-repo-audit-$(date +%Y-%m-%d).md
    ```
 
 3. **Follow Step-by-Step Prompts**

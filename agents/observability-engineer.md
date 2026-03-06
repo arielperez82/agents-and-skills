@@ -1268,8 +1268,8 @@ python3 ../skills/engineering-team/senior-observability/scripts/metrics_analyzer
   --file "$REPORT_DIR/anomalies.json"
 
 # 3. Generate summary report
-# When tied to an initiative, add initiative + initiative_name to front matter (see .docs/AGENTS.md initiative naming).
-cat > ".docs/reports/report-repo-weekly-$(date +%Y-w%V).md" <<EOF
+# When tied to an initiative, add initiative + initiative_name to front matter (see LEARNINGS_FILE initiative naming).
+cat > "{REPORTS_DIR}/report-repo-weekly-$(date +%Y-w%V).md" <<EOF
 # Weekly SLO Review - $REPORT_DATE
 
 ### SLO Status Summary
@@ -1293,8 +1293,8 @@ $(jq -r 'if .budget_remaining < 50 then "- [ ] Review error budget consumption f
 Generated: $(date)
 EOF
 
-echo "Report saved to .docs/reports/report-repo-weekly-$(date +%Y-w%V).md"
-cat ".docs/reports/report-repo-weekly-$(date +%Y-w%V).md"
+echo "Report saved to {REPORTS_DIR}/report-repo-weekly-$(date +%Y-w%V).md"
+cat "{REPORTS_DIR}/report-repo-weekly-$(date +%Y-w%V).md"
 ```
 
 ### Example 2: Automated Dashboard Sync

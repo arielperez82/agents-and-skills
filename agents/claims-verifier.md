@@ -65,10 +65,10 @@ dependencies:
 # === EXAMPLES ===
 examples:
   - title: "Verify a research report"
-    input: "Verify the external claims in .docs/reports/researcher-260226-webhook-providers.md"
+    input: "Verify the external claims in {REPORTS_DIR}/researcher-260226-webhook-providers.md"
     output: "Verification report with per-claim table, source audit, blockers list, and overall verdict (PASS/FAIL)"
   - title: "Verify a UX research artifact"
-    input: "Verify the statistical claims in .docs/reports/ux-researcher-260226-checkout-flow.md — especially the drop-off rates and user behavior assertions"
+    input: "Verify the statistical claims in {REPORTS_DIR}/ux-researcher-260226-checkout-flow.md — especially the drop-off rates and user behavior assertions"
     output: "Verification report flagging unsourced statistics and unverifiable behavioral claims"
   - title: "Verify a strategic assessment"
     input: "Verify the market data and competitive claims in the product-director's strategic assessment"
@@ -187,7 +187,7 @@ A **Claims Verification Report** containing:
    - Verify independence (detect circular references)
    - Calculate reputation summary statistics
 7. **Produce the verification report** with all tables, blockers list, and verdict.
-8. **Save to:** `.docs/reports/claims-verifier-{date}-{subject}.md`
+8. **Save to:** `{REPORTS_DIR}/claims-verifier-{date}-{subject}.md` (per `/docs/layout`)
 
 **Expected output:** Claims Verification Report with verdict.
 

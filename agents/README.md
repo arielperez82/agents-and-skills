@@ -26,7 +26,7 @@ These agents live directly in the `agents/` root directory:
 #### Delivery & Project Management
 
 - **`agile-coach`** - Agile coaching specialist for ceremonies, team dynamics, communication, and agile manifesto adherence
-- **`progress-assessor`** - Assesses and validates progress tracking through canonical docs under `.docs/` (plans, status reports, learnings in AGENTS.md and canonical docs)
+- **`progress-assessor`** - Assesses and validates progress tracking through canonical docs under `{DOCS_ROOT}` (per `/docs/layout`) (plans, status reports, learnings in `LEARNINGS_FILE` and canonical docs)
 - **`senior-project-manager`** - Strategic program management for portfolio planning, stakeholder management, and delivery excellence
 
 #### Marketing
@@ -435,31 +435,31 @@ These agents live directly in the `agents/` root directory:
 
 **Use reactively when**:
 
-- Completing a step (update status report under `.docs/reports/`)
-- Discovering something (add via learner to `.docs/AGENTS.md` or Learnings section in canonical doc)
+- Completing a step (update status report under `{REPORTS_DIR}/`)
+- Discovering something (add via learner to `LEARNINGS_FILE` or Learnings section in canonical doc)
 - Plan needs changing (propose changes, get approval)
 - End of work session (checkpoint)
 - Feature complete (merge learnings, update canonical docs as needed)
 
 **Core responsibility**:
 
-- Use canonical docs under `.docs/`: plan(s) in `.docs/canonical/plans/`, status in `.docs/reports/`, learnings in `.docs/AGENTS.md` or "Learnings" sections in charter/roadmap/backlog/plan
+- Use canonical docs under `{DOCS_ROOT}` (per `/docs/layout`): plan(s) in `{CANONICAL_ROOT}/plans/`, status in `{REPORTS_DIR}/`, learnings in `LEARNINGS_FILE` or "Learnings" sections in charter/roadmap/backlog/plan
 - Enforce small increments, TDD, commit approval
 - Never modify the plan without explicit user approval
 - Capture learnings as they occur (via learner)
 - At end: orchestrate learning merge; no root-level PLAN.md/WIP.md/LEARNINGS.md
 
-**Canonical docs model** (see `.docs/AGENTS.md`):
+**Canonical docs model** (see `LEARNINGS_FILE`):
 
 | Location | Purpose | Updates |
 |----------|---------|---------|
-| `.docs/canonical/plans/plan-<endeavor>-*.md` | What we're doing (approved steps) | Only with user approval |
-| `.docs/reports/report-<endeavor>-status-*.md` | Where we are now (current state) | Constantly |
-| `.docs/AGENTS.md` + Learnings sections | What we discovered | As discoveries occur; merge via learner |
+| `{CANONICAL_ROOT}/plans/plan-<endeavor>-*.md` | What we're doing (approved steps) | Only with user approval |
+| `{REPORTS_DIR}/report-<endeavor>-status-*.md` | Where we are now (current state) | Constantly |
+| `LEARNINGS_FILE` + Learnings sections | What we discovered | As discoveries occur; merge via learner |
 
-**Initiative naming:** All agents that create or reference backlog or plan under `.docs/canonical/` must follow the initiative naming convention: front matter **MUST** include `initiative: I<nn>-<ACRONYM>` and `initiative_name: <long-form>`. The project roadmap (`roadmap-repo.md`) is evergreen and project-level — it has no `initiative` field. Use **References (by initiative)** in `.docs/AGENTS.md` to resolve the current plan for an initiative. See charter: `.docs/canonical/charters/charter-repo-initiative-naming-convention.md`.
+**Initiative naming:** All agents that create or reference backlog or plan under `{CANONICAL_ROOT}/` must follow the initiative naming convention: front matter **MUST** include `initiative: I<nn>-<ACRONYM>` and `initiative_name: <long-form>`. The project roadmap (`roadmap-repo.md`) is evergreen and project-level — it has no `initiative` field. Use **References (by initiative)** in `LEARNINGS_FILE` to resolve the current plan for an initiative. See charter: `{CANONICAL_ROOT}/charters/charter-repo-initiative-naming-convention.md`.
 
-**Key distinction**: Progress tracking uses `.docs/` only. Learnings merged into `.docs/AGENTS.md` or canonical Learnings sections; ADRs under `.docs/canonical/adrs/`.
+**Key distinction**: Progress tracking uses `{DOCS_ROOT}` (per `/docs/layout`) only. Learnings merged into `LEARNINGS_FILE` or canonical Learnings sections; ADRs under `{ADR_DIR}/`.
 
 **Related skill**: Load `planning` skill for detailed incremental work principles.
 
@@ -496,13 +496,13 @@ acceptance-designer
     |  (BDD Given-When-Then scenarios, walking skeleton strategy)
     v
 architect / adr-writer
-    |  (system design, ADRs for significant decisions -> .docs/canonical/adrs/)
+    |  (system design, ADRs for significant decisions -> {ADR_DIR}/)
     v
 implementation-planner
-    |  (step-by-step plan -> .docs/canonical/plans/)
+    |  (step-by-step plan -> {CANONICAL_ROOT}/plans/)
     v
 progress-assessor
-    |  (validates plan + status report exist, initializes tracking under .docs/)
+    |  (validates plan + status report exist, initializes tracking under {DOCS_ROOT}/)
 ```
 
 **Key outputs:**
@@ -510,8 +510,8 @@ progress-assessor
 - PRD / user stories with acceptance criteria
 - BDD acceptance scenarios in business language (outer-loop tests)
 - Architecture decisions documented as ADRs
-- Implementation plan in `.docs/canonical/plans/`
-- Status report initialized in `.docs/reports/`
+- Implementation plan in `{CANONICAL_ROOT}/plans/`
+- Status report initialized in `{REPORTS_DIR}/`
 
 **Canonical artifact hierarchy:** Roadmap (evergreen, project-level Now/Next/Later) sequences initiatives; Charter scopes each initiative (includes outcome sequences); Backlog -> Plan drive execution. Disputes resolve upstream: Roadmap for inter-initiative sequencing, Charter for intra-initiative scope. All use initiative IDs (`I<nn>-<ACRONYM>`) consistently.
 
@@ -535,7 +535,7 @@ This is the inner loop that repeats for every task in the plan:
 |     (refactor-assessor classifies:                    |
 |      Critical / High Value / Nice / Skip)             |
 |                                                       |
-|  4. Update status report (.docs/reports/)             |
+|  4. Update status report ({REPORTS_DIR}/)             |
 |  5. Capture discoveries via learner                   |
 |                                                       |
 |  For database/schema work:                            |
@@ -543,7 +543,7 @@ This is the inner loop that repeats for every task in the plan:
 |      migrations)                                      |
 |                                                       |
 |  When architectural decisions arise:                  |
-|     adr-writer (-> .docs/canonical/adrs/)             |
+|     adr-writer (-> {ADR_DIR}/)             |
 |                                                       |
 |  Repeat for next step                                 |
 +-------------------------------------------------------+
@@ -603,9 +603,9 @@ After `/review/review-changes` passes: **ask for commit approval**, then commit 
 ### Phase 5 — Feature Complete & Knowledge Capture
 
 1. Invoke `progress-assessor`: Verify all criteria met, status report is final
-2. Review learnings for merge destinations (`.docs/AGENTS.md` or canonical Learnings sections)
-3. Invoke `learner`: Merge gotchas/patterns -> `.docs/AGENTS.md` or canonical docs
-4. Invoke `adr-writer`: Create ADRs for any significant decisions (`.docs/canonical/adrs/`)
+2. Review learnings for merge destinations (`LEARNINGS_FILE` or canonical Learnings sections)
+3. Invoke `learner`: Merge gotchas/patterns -> `LEARNINGS_FILE` or canonical docs
+4. Invoke `adr-writer`: Create ADRs for any significant decisions (`{ADR_DIR}/`)
 5. Invoke `docs-reviewer`: Update permanent docs (README, guides, API docs)
 6. Update/archive canonical docs as needed
 
@@ -613,7 +613,7 @@ After `/review/review-changes` passes: **ask for commit approval**, then commit 
 
 - **When plan needs changing:** Invoke `progress-assessor`, propose changes, **get approval before modifying plan**
 - **End of session:** Invoke `progress-assessor` to validate status report is up to date, report what's missing
-- **Between sessions:** Status reports in `.docs/reports/` preserve continuity
+- **Between sessions:** Status reports in `{REPORTS_DIR}/` preserve continuity
 
 ### Quick Reference: Agent Invocation Sequence
 
@@ -624,7 +624,7 @@ After `/review/review-changes` passes: **ask for commit approval**, then commit 
 | While writing TypeScript | Invoke `ts-enforcer` (verify strict compliance) |
 | After tests turn GREEN | Invoke `refactor-assessor` (assess improvements) |
 | Before commit/PR | Run `/review/review-changes` (parallel validation gate) |
-| Architectural decision | Invoke `adr-writer` (document in `.docs/canonical/adrs/`) |
+| Architectural decision | Invoke `adr-writer` (document in `{ADR_DIR}/`) |
 | Feature complete | Invoke `learner` + `docs-reviewer` + `progress-assessor` |
 
 ## Agent Relationships
@@ -634,7 +634,7 @@ After `/review/review-changes` passes: **ask for commit approval**, then commit 
 ```
 progress-assessor (orchestrates significant work)
     |
-    +-> Uses: .docs/canonical/plans/, .docs/reports/, .docs/AGENTS.md + Learnings sections
+    +-> Uses: {CANONICAL_ROOT}/plans/, {REPORTS_DIR}/, `LEARNINGS_FILE` + Learnings sections
     |
     +-> Phase 1 -- Planning:
     |   +-> product-analyst (user stories, acceptance criteria)
@@ -659,10 +659,10 @@ progress-assessor (orchestrates significant work)
     |       agent-quality-assessor, skill-validator, command-validator)
     |
     +-> When decisions arise:
-    |   +-> adr-writer (architectural decisions -> .docs/canonical/adrs/)
+    |   +-> adr-writer (architectural decisions -> {ADR_DIR}/)
     |
     +-> Phase 5 -- At end:
-    |   +-> learner (merge learnings -> .docs/AGENTS.md or canonical Learnings sections)
+    |   +-> learner (merge learnings -> `LEARNINGS_FILE` or canonical Learnings sections)
     |   +-> docs-reviewer (update permanent docs)
     |   +-> Update/archive canonical docs as needed
     |
@@ -675,12 +675,12 @@ progress-assessor (orchestrates significant work)
 
 | Aspect | progress-assessor | adr-writer | learner | docs-reviewer |
 |--------|------------------|-----|-------|---------------|
-| **Lifespan** | Plan/status in .docs/ (updated; may archive) | Permanent | Permanent | Permanent |
+| **Lifespan** | Plan/status in {DOCS_ROOT}/ (updated; may archive) | Permanent | Permanent | Permanent |
 | **Audience** | Current developer | Future developers | AI assistant + developers | Users + developers |
 | **Purpose** | Track progress, capture learnings | Explain "why" decisions | Explain "how" to work | Explain "what" and "how to use" |
-| **Content** | Plan + status report + learnings (all under .docs/) | Context, decision, consequences | Gotchas, patterns | Features, API, setup |
+| **Content** | Plan + status report + learnings (all under {DOCS_ROOT}/) | Context, decision, consequences | Gotchas, patterns | Features, API, setup |
 | **Updates** | Constantly (status), on approval (plan) | Once (rarely updated) | As learning occurs | When features change |
-| **Format** | Canonical naming in .docs/ | Structured ADR in .docs/canonical/adrs/ | .docs/AGENTS.md or Learnings sections | Professional, polished |
+| **Format** | Canonical naming in {DOCS_ROOT}/ | Structured ADR in {ADR_DIR}/ | `LEARNINGS_FILE` or Learnings sections | Professional, polished |
 | **End of life** | Archive/update as needed | Lives forever | Lives forever | Lives forever |
 
 ### When to Use Which Documentation Agent
@@ -691,21 +691,21 @@ progress-assessor (orchestrates significant work)
 - "What's the next step?"
 - "Where was I when I stopped yesterday?"
 - "What have we discovered so far?"
-- Answer: Canonical plan and status under `.docs/`; learnings in `.docs/AGENTS.md` or Learnings sections
+- Answer: Canonical plan and status under `{DOCS_ROOT}` (per `/docs/layout`); learnings in `LEARNINGS_FILE` or Learnings sections
 
 **Use `adr-writer`** for:
 
 - "Why did we choose technology X over Y?"
 - "What were the trade-offs in this architectural decision?"
 - "Why is the system designed this way?"
-- Answer: Permanent ADR in `.docs/canonical/adrs/`
+- Answer: Permanent ADR in `{ADR_DIR}/`
 
 **Use `learner`** for:
 
 - "What gotchas should I know about?"
 - "What patterns work well here?"
 - "How do I avoid this common mistake?"
-- Answer: Permanent entry in `.docs/AGENTS.md` or canonical Learnings sections
+- Answer: Permanent entry in `LEARNINGS_FILE` or canonical Learnings sections
 
 **Use `docs-reviewer`** for:
 

@@ -311,9 +311,9 @@ const payment = processPayment({
 
 **When the document is an assessment or contains a "Learnings" section:** Ensure learnings that change what we do next are reflected in canonical docs — e.g. backlog items or charter updates. Assessments must produce backlog candidates or constraints (charter updates); recommend linking or updating those when reviewing.
 
-**When the document is a skill, agent, or command that encodes a learning:** Content must be **self-contained**. Consumer projects use these artifacts without this repo's `.docs/` or learnings. Do not reference "L27", ".docs/AGENTS.md", or other metarepo learnings from inside the artifact — write the actionable practice in full (see .docs/AGENTS.md "Document vs. encode").
+**When the document is a skill, agent, or command that encodes a learning:** Content must be **self-contained**. Consumer projects use these artifacts without this repo's `{DOCS_ROOT}/` (per `/docs/layout`) or learnings. Do not reference "L27", LEARNINGS_FILE, or other metarepo learnings from inside the artifact — write the actionable practice in full (see LEARNINGS_FILE "Document vs. encode").
 
-**When the document is a roadmap, backlog, or plan under .docs/canonical/:** Verify front matter includes `initiative: I<nn>-<ACRONYM>` and `initiative_name: <long-form>` per .docs/AGENTS.md initiative naming. Do not recommend creating roadmap/backlog/plan without these fields.
+**When the document is a roadmap, backlog, or plan under `{CANONICAL_ROOT}/` (per `/docs/layout`):** Verify front matter includes `initiative: I<nn>-<ACRONYM>` and `initiative_name: <long-form>` per LEARNINGS_FILE initiative naming. Do not recommend creating roadmap/backlog/plan without these fields.
 
 **Analysis Process:**
 
@@ -323,8 +323,8 @@ const payment = processPayment({
 # Read the documentation file(s)
 Read <file>
 
-# Search for related docs (prefer canonical under .docs/)
-Glob ".docs/**/*.md"
+# Search for related docs (prefer canonical under {CANONICAL_ROOT}/)
+Glob "{DOCS_ROOT}/**/*.md"
 Grep "pattern" --type md
 ```
 
@@ -1024,7 +1024,7 @@ Apply the `adr-writer` agent's decision framework to assess if a decision merits
    ```markdown
    ## Authentication System
    
-   We use JWT tokens for authentication. For the rationale behind this decision, including alternatives considered and trade-offs, see [ADR: Authentication Approach](.docs/canonical/adrs/adr-YYYYMMDD-authentication-approach.md).
+   We use JWT tokens for authentication. For the rationale behind this decision, including alternatives considered and trade-offs, see [ADR: Authentication Approach]({ADR_DIR}/adr-YYYYMMDD-authentication-approach.md).
    ```
 
 **Common Scenarios:**
@@ -1113,7 +1113,7 @@ Together, they ensure documentation is both well-structured (docs-reviewer) and 
 1. **Discovery Phase:**
    - docs-reviewer: "Let me read the current README and assess it against world-class standards."
    - Use `Read README.md` to understand current state
-   - Use `Glob ".docs/**/*.md"` for canonical docs; treat `.docs/canonical/**` as authoritative. Optionally `Glob "docs/**/*.md"` for legacy docs.
+   - Use `Glob "{DOCS_ROOT}/**/*.md"` for canonical docs; treat `{CANONICAL_ROOT}/**` as authoritative (per `/docs/layout`). Optionally `Glob "docs/**/*.md"` for legacy docs.
 
 2. **Analysis Phase:**
    - Apply 7 pillars checklist
@@ -1164,7 +1164,7 @@ Together, they ensure documentation is both well-structured (docs-reviewer) and 
 
 3. **Documentation Update:**
    - docs-reviewer references ADR in architecture documentation
-   - Update architecture docs: "We use PostgreSQL. For rationale, see [ADR-001: Database Selection](.docs/canonical/adrs/adr-YYYYMMDD-database-selection.md)."
+   - Update architecture docs: "We use PostgreSQL. For rationale, see [ADR-001: Database Selection]({ADR_DIR}/adr-YYYYMMDD-database-selection.md)."
    - Ensure documentation follows 7 pillars with proper cross-references
 ```
 
@@ -1226,7 +1226,7 @@ Together, they ensure documentation is both well-structured (docs-reviewer) and 
 
 - Find all documentation files matching patterns
 - Use when: Discovering documentation structure, finding related docs, auditing documentation coverage
-- Prefer `Glob ".docs/**/*.md"` for coordination/canonical docs; `.docs/canonical/**` is authoritative. Example: `Glob "**/*.md"` for project-wide markdown.
+- Prefer `Glob "{DOCS_ROOT}/**/*.md"` for coordination/canonical docs; `{CANONICAL_ROOT}/**` is authoritative (per `/docs/layout`). Example: `Glob "**/*.md"` for project-wide markdown.
 
 **Grep:**
 

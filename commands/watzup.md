@@ -11,26 +11,19 @@ Load the `standup-context` skill. It provides two data-gathering capabilities:
 1. **Git and project context** — recent commits, status, diff, branches, plus any project-specific sections controlled by env vars. The caller (this command) provides the paths; the script collects only what it's told about.
 2. **Telemetry** — session overview, agent usage, cost breakdown, and skill frequency from Tinybird. Pass the current project name. Gracefully skips if credentials are unavailable.
 
-**Setting up the paths:** Use the `/locate/*` commands to resolve artifact paths dynamically, then pass them as env vars to the gather script. Run each locate command and collect its `KEY=value` output:
-
-1. `/locate/canonical` — provides `CANONICAL_ROOT` and `CANONICAL_DIRS`
-2. `/locate/reports` — provides `REPORTS_DIR`
-3. `/locate/learnings` — provides `LEARNINGS_FILE` and `LEARNINGS_DIRS`
-4. `/locate/adrs` — provides `ADR_DIR`
-5. `/locate/waste-snake` — provides `WASTE_SNAKE`
-6. `/locate/memory` — provides `MEMORY_FILE`
+**Setting up the paths:** Use `/docs/layout` to resolve all artifact paths, then pass them as env vars to the gather script. The command outputs `KEY=value` lines for: `CANONICAL_ROOT`, `CANONICAL_DIRS`, `REPORTS_DIR`, `LEARNINGS_FILE`, `LEARNINGS_DIRS`, `ADR_DIR`, `WASTE_SNAKE`, `MEMORY_FILE`.
 
 Pass all non-empty values as env vars to the gather script:
 
 ```bash
-CANONICAL_ROOT=<from /locate/canonical> \
-CANONICAL_DIRS=<from /locate/canonical> \
-REPORTS_DIR=<from /locate/reports> \
-LEARNINGS_FILE=<from /locate/learnings> \
-LEARNINGS_DIRS=<from /locate/learnings> \
-ADR_DIR=<from /locate/adrs> \
-WASTE_SNAKE=<from /locate/waste-snake> \
-MEMORY_FILE=<from /locate/memory> \
+CANONICAL_ROOT=<from /docs/layout> \
+CANONICAL_DIRS=<from /docs/layout> \
+REPORTS_DIR=<from /docs/layout> \
+LEARNINGS_FILE=<from /docs/layout> \
+LEARNINGS_DIRS=<from /docs/layout> \
+ADR_DIR=<from /docs/layout> \
+WASTE_SNAKE=<from /docs/layout> \
+MEMORY_FILE=<from /docs/layout> \
 bash <SKILL_DIR>/scripts/gather-git-and-docs.sh
 ```
 

@@ -157,7 +157,7 @@ All scripts live at `../skills/engineering-team/incident-response/scripts/`.
 4. Assess impact: add `--impact` flag — extract systems, users, data exposure, financial estimate, regulatory triggers
 5. Map MITRE ATT&CK TTPs from `mitre_attack_mapping` in RCA output
 6. Calculate metrics: add `--metrics` flag — MTTD, MTTR, MTTC, MTTRec
-7. Document findings in `.docs/reports/incidents/$ID/investigation-summary.md`
+7. Document findings in `{REPORTS_DIR}/incidents/$ID/investigation-summary.md` (per `/docs/layout`)
 
 **Output:** Attack vector, full timeline, impact scope, MITRE mapping, response metrics
 

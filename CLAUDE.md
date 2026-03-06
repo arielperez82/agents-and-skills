@@ -1,6 +1,6 @@
 # Development Guidelines for AI Agents
 
-**Artifact conventions:** For canonical docs, plans, roadmaps, backlogs, and learnings, see **`.docs/AGENTS.md`** — the single operating reference. Read and write coordination artifacts only under `.docs/` when using the artifact-conventions layout.
+**Artifact conventions:** For canonical docs, plans, roadmaps, backlogs, and learnings, see **`LEARNINGS_FILE`** (per `/docs/layout`) — the single operating reference. Read and write coordination artifacts only under `{DOCS_ROOT}` (per `/docs/layout`) when using the artifact-conventions layout.
 
 > **Architecture:**
 >
@@ -69,7 +69,7 @@ End-to-end lifecycle for all work. See `agents/README.md` for full agent relatio
  2. PLAN
     researcher + product-director (parallel) --> claims-verifier (sequential)
     product-analyst --> acceptance-designer --> architect --> implementation-planner
-    |  Charter evaluated against evergreen Roadmap; Backlog -> Plan (.docs/canonical/)
+    |  Charter evaluated against evergreen Roadmap; Backlog -> Plan ({CANONICAL_ROOT}/)
     v
  3. BUILD  <---------------------------------------------+
     |                                                     |
@@ -81,7 +81,7 @@ End-to-end lifecycle for all work. See `agents/README.md` for full agent relatio
     |       |     ts-enforcer  refactor-assessor           |
     |       tpp-assessor                                  |
     |                                                     |
-    |  Update .docs/reports/ --> Capture via learner       |
+    |  Update {REPORTS_DIR}/ --> Capture via learner        |
     v                                                     |
  4. VALIDATE (per-story, not per-commit)                  |
     /review/review-changes (parallel agents)              |
@@ -102,7 +102,7 @@ End-to-end lifecycle for all work. See `agents/README.md` for full agent relatio
 
 **Phase 0 — Quality Gate.** Three required layers: (1) Pre-commit: Husky + lint-staged (type-check, lint, format, tests on staged files); (2) CI: GitHub Actions on push/PR (format, lint, type-check, build, tests — pinned actions, frozen lockfile); (3) Deploy: GitHub Actions workflow_dispatch (build, dry-run, deploy — repo secrets, no local deploys). Additional: markdown linting for `.md`-heavy repos, Stylelint for CSS, jsx-a11y, audit scripts. Load the `quality-gate-first` skill. Run `/review/phase-0-check` to audit.
 
-**Phase 2 — Plan.** Artifact hierarchy: **Roadmap** (evergreen Now/Next/Later) → **Charter** (per initiative, `I<nn>-<ACRONYM>`) → **Backlog** → **Plan**. All artifacts under `.docs/canonical/`.
+**Phase 2 — Plan.** Artifact hierarchy: **Roadmap** (evergreen Now/Next/Later) → **Charter** (per initiative, `I<nn>-<ACRONYM>`) → **Backlog** → **Plan**. All artifacts under `{CANONICAL_ROOT}/` (per `/docs/layout`).
 
 **Phase 3 — Build.** Double-loop TDD: BDD acceptance tests (outer) drive unit TDD (inner). Each cycle: RED (failing test) → GREEN (minimum code) → REFACTOR (assess via priority classification) → COMMIT. For multi-task initiatives: `engineering-lead` dispatches specialist subagents.
 
@@ -240,7 +240,7 @@ Types: `feat`, `fix`, `refactor`, `test`, `docs`, `chore`
 
 ## Context Awareness
 
-Before starting new work in a multi-step workflow, check context utilization. If at 40%+ (CAUTION zone), prioritize handoff over new work. Use `/context/handoff` — it auto-detects active craft status or writes standalone handoff to `.docs/reports/`. A clean handoff at 40% is always better than degraded output at 60%.
+Before starting new work in a multi-step workflow, check context utilization. If at 40%+ (CAUTION zone), prioritize handoff over new work. Use `/context/handoff` — it auto-detects active craft status or writes standalone handoff to `{REPORTS_DIR}/` (per `/docs/layout`). A clean handoff at 40% is always better than degraded output at 60%.
 
 ---
 
@@ -259,7 +259,7 @@ Use `/waste/add` to log friction as it happens. Each observation captures what w
 **What to do with it:**
 - Small fixes: fix immediately and commit (don't document what you can just fix)
 - Systemic issues: `/waste/add` to log, then address in the next planning cycle
-- Learnings: capture via `learner` agent into `.docs/AGENTS.md` or relevant skill
+- Learnings: capture via `learner` agent into `LEARNINGS_FILE` (per `/docs/layout`) or relevant skill
 
 The goal is not perfection — it's momentum. Each session should leave the system slightly better than it was found.
 

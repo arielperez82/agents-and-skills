@@ -160,7 +160,7 @@ For large research tasks with multiple independent questions, delegate sub-tasks
 
 ## Report Output
 
-**Location:** Write all research reports under **`.docs/reports/`**. This repo's artifact conventions (`.docs/AGENTS.md`) define time-stamped reports there.
+**Location:** Write all research reports under **`{REPORTS_DIR}/`** (per `/docs/layout`). This repo's artifact conventions (`LEARNINGS_FILE`) define time-stamped reports there.
 
 ### File Naming
 
@@ -246,7 +246,7 @@ Include a **Source Analysis Table** (using the template from `skills/research/re
 2. Search using Query Fan-Out: run parallel searches across official docs, GitHub repos, industry sources.
 3. Cross-reference findings across 3+ independent sources per major claim.
 4. Synthesize into a research report following the Report Structure above.
-5. Save to `.docs/reports/researcher-{date}-{topic-slug}.md`.
+5. Save to `{REPORTS_DIR}/researcher-{date}-{topic-slug}.md`.
 
 ### Workflow 2: Comparative Research (alternatives evaluation)
 
@@ -259,7 +259,7 @@ Include a **Source Analysis Table** (using the template from `skills/research/re
 3. Build a comparison matrix with consistent criteria across all alternatives.
 4. Assess trade-offs, risks, and fit for the specific context.
 5. Produce a research report with comparison table, trade-off analysis, and a recommendation.
-6. Save to `.docs/reports/researcher-{date}-{topic-slug}.md`.
+6. Save to `{REPORTS_DIR}/researcher-{date}-{topic-slug}.md` (per `/docs/layout`).
 
 ### Workflow 3: Fan-Out Research (broad scope)
 
@@ -271,7 +271,7 @@ Include a **Source Analysis Table** (using the template from `skills/research/re
 2. Dispatch T2 agents in parallel to gather raw findings per sub-question.
 3. Collect all T2 outputs.
 4. Synthesize at T3: cross-reference, evaluate trade-offs, produce final report with recommendations.
-5. Save to `.docs/reports/researcher-{date}-{topic-slug}.md`.
+5. Save to `{REPORTS_DIR}/researcher-{date}-{topic-slug}.md`.
 
 ## Success Metrics
 

@@ -364,12 +364,12 @@ echo "Domain model generated!"
 # security-audit.sh - Run security analysis on Spring Boot project
 
 # Check dependencies for vulnerabilities
-python ../skills/engineering-team/senior-java/scripts/dependency_analyzer.py pom.xml --check-security --output .docs/reports/report-repo-security-audit-$(date +%Y-%m-%d).md
+python ../skills/engineering-team/senior-java/scripts/dependency_analyzer.py pom.xml --check-security --output {REPORTS_DIR}/report-repo-security-audit-$(date +%Y-%m-%d).md
 
 # Analyze security configuration
 python ../skills/engineering-team/senior-java/scripts/security_config_generator.py --audit src/main/java
 
-echo "Security audit complete. Review .docs/reports/report-repo-security-audit-$(date +%Y-%m-%d).md"
+echo "Security audit complete. Review {REPORTS_DIR}/report-repo-security-audit-$(date +%Y-%m-%d).md"
 ```
 
 ## Success Metrics

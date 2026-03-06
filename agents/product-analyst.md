@@ -62,7 +62,7 @@ Designed for product analysts, requirements specialists, agile product owners, a
 
 The product-analyst agent bridges the gap between business strategy and agile execution, providing actionable guidance on requirements analysis, process improvement, user story development, and delivery optimization. It focuses on the complete product analysis cycle from strategic process assessment to sprint execution.
 
-**Canonical artifacts:** When creating or writing backlog or plan under `.docs/canonical/`, include YAML front matter with `initiative: I<nn>-<ACRONYM>` and `initiative_name: <long-form>` per `.docs/AGENTS.md` initiative naming. The project roadmap is evergreen and project-level (`roadmap-repo.md`) — maintained by product-director, not per-initiative. Use ID grammar for backlog items (I<nn>-<ACRONYM>-B<nn>) and plan steps (B<nn>, B<nn>-P<p>.<s>).
+**Canonical artifacts:** When creating or writing backlog or plan under `{CANONICAL_ROOT}/` (per `/docs/layout`), include YAML front matter with `initiative: I<nn>-<ACRONYM>` and `initiative_name: <long-form>` per LEARNINGS_FILE initiative naming. The project roadmap is evergreen and project-level (`roadmap-repo.md`) — maintained by product-director, not per-initiative. Use ID grammar for backlog items (I<nn>-<ACRONYM>-B<nn>) and plan steps (B<nn>, B<nn>-P<p>.<s>).
 
 ## Skill Integration
 
@@ -244,7 +244,7 @@ See [Session-Based Output Guide](../../output/README.md) for complete documentat
 4. **Generate Improvement Plan** - Create phased roadmap with priorities and timelines
 
    ```bash
-   python3 ../skills/product-team/business-analyst-toolkit/scripts/improvement_planner.py --gaps gaps.json --timeline 12 --output markdown > .docs/canonical/plans/plan-repo-improvement-2026.md
+   python3 ../skills/product-team/business-analyst-toolkit/scripts/improvement_planner.py --gaps gaps.json --timeline 12 --output markdown > {CANONICAL_ROOT}/plans/plan-repo-improvement-2026.md
    ```
 
 5. **Create Process Charter** - Build comprehensive charter integrating all analysis
@@ -384,7 +384,7 @@ python3 ../skills/product-team/business-analyst-toolkit/scripts/stakeholder_mapp
 
 # Phase 3: Planning & Charter
 echo "📈 Phase 3: Generating improvement plan and charter..."
-python3 ../skills/product-team/business-analyst-toolkit/scripts/improvement_planner.py --gaps gaps.json --timeline 12 --output markdown > .docs/canonical/plans/plan-repo-improvement-2026.md
+python3 ../skills/product-team/business-analyst-toolkit/scripts/improvement_planner.py --gaps gaps.json --timeline 12 --output markdown > {CANONICAL_ROOT}/plans/plan-repo-improvement-2026.md
 python3 ../skills/product-team/business-analyst-toolkit/scripts/charter_builder.py \
   --process process.json \
   --objectives "$OBJECTIVES" \
@@ -400,15 +400,15 @@ python ../skills/product-team/agile-product-owner/scripts/user_story_generator.p
 
 # Phase 5: Sprint Planning
 echo "📅 Phase 5: Generating sprint backlog..."
-cp ../skills/product-team/agile-product-owner/assets/sprint-backlog-template.md .docs/canonical/backlogs/backlog-repo.md
+cp ../skills/product-team/agile-product-owner/assets/sprint-backlog-template.md {CANONICAL_ROOT}/backlogs/backlog-repo.md
 
 echo "✅ Process improvement and sprint planning complete!"
-echo "📁 Deliverables (under .docs/ per convention):"
-echo "   - process-charter (in .docs/canonical/ or report)"
-echo "   - .docs/canonical/plans/plan-repo-improvement-*.md (Implementation roadmap)"
-echo "   - stakeholder-analysis (in .docs/canonical/ or report)"
+echo "📁 Deliverables (under {DOCS_ROOT}/ per /docs/layout):"
+echo "   - process-charter (in {CANONICAL_ROOT}/ or report)"
+echo "   - {CANONICAL_ROOT}/plans/plan-repo-improvement-*.md (Implementation roadmap)"
+echo "   - stakeholder-analysis (in {CANONICAL_ROOT}/ or report)"
 echo "   - sprint-stories.json (Ready user stories)"
-echo "   - .docs/canonical/backlogs/backlog-repo.md (Single backlog)"
+echo "   - {CANONICAL_ROOT}/backlogs/backlog-repo.md (Single backlog)"
 ```
 
 ### Example 2: Weekly Process Health & Sprint Readiness Dashboard

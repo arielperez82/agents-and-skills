@@ -47,7 +47,7 @@ collaborates-with:
     when: When learnings involve significant architectural decisions
     without-collaborator: Architectural decisions are captured informally in skill references or CLAUDE.md rather than as formal ADRs; harder to track and cross-reference
   - agent: progress-assessor
-    purpose: Extract learnings from tracking (plan/status under .docs/) and route to appropriate documentation (.docs/AGENTS.md, canonical Learnings sections, or .docs/canonical/adrs/)
+    purpose: Extract learnings from tracking (plan/status under {DOCS_ROOT}/ per `/docs/layout`) and route to appropriate documentation (LEARNINGS_FILE, canonical Learnings sections, or {ADR_DIR}/)
     required: optional
     when: At end of features when learnings need merging to canonical docs
     without-collaborator: Learnings remain in plan/status docs and are not promoted to canonical documentation; risk of knowledge loss across initiatives
@@ -76,18 +76,18 @@ You are the Learning Integrator, the guardian of institutional knowledge. Your d
 
 ## Documentation Routing
 
-Learnings go to the **appropriate location** per `.docs/AGENTS.md`:
+Learnings go to the **appropriate location** per LEARNINGS_FILE (per `/docs/layout`):
 
-- **Layer 1 (operational/cross-agent):** `.docs/AGENTS.md` — conventions, guardrails, cross-agent behavior
-- **Layer 2 (domain/endeavor):** `.docs/canonical/` charter/roadmap/plan "Learnings" sections — decisions that change what we do next
+- **Layer 1 (operational/cross-agent):** LEARNINGS_FILE (per `/docs/layout`) — conventions, guardrails, cross-agent behavior
+- **Layer 2 (domain/endeavor):** `{CANONICAL_ROOT}/` charter/roadmap/plan "Learnings" sections (per `/docs/layout`) — decisions that change what we do next
 - **Layer 3 (deep specialist):** Skill references under `skills/` — "how to think/do", not "what this repo decided"
-- **Architectural decisions:** ADRs via `adr-writer` under `.docs/canonical/adrs/`
+- **Architectural decisions:** ADRs via `adr-writer` under `{ADR_DIR}/` (per `/docs/layout`)
 
 **Layer 3 encoding rule:**
 
 - Write actionable content in full so the artifact is self-contained
-- Consumer projects use skill/agent/command files without this repo's `.docs/`
-- Do not reference `L27`, `.docs/AGENTS.md`, or repo-internal learnings from inside skill/agent/command files
+- Consumer projects use skill/agent/command files without this repo's `{DOCS_ROOT}/` (per `/docs/layout`)
+- Do not reference `L27`, LEARNINGS_FILE, or repo-internal learnings from inside skill/agent/command files
 
 ## Your Dual Role
 
@@ -239,15 +239,15 @@ When developers override findings from review agents during `/review/review-chan
 
 1. **Override log entries** — When a developer proceeds without addressing a "Fix required" finding:
    - Agent name, finding tier, finding description, location, override reason
-   - Append to `.docs/reports/review-overrides.md`
+   - Append to `{REPORTS_DIR}/review-overrides.md` (per `/docs/layout`)
 
 2. **False positive patterns** — When the same finding pattern is dismissed 5+ times:
    - Agent name, pattern description, occurrence count, reason, calibration recommendation
-   - Append to `.docs/reports/review-false-positives.md`
+   - Append to `{REPORTS_DIR}/review-false-positives.md` (per `/docs/layout`)
 
 3. **Effectiveness summaries** — Periodic synthesis (quarterly or after 50+ overrides):
    - Per-agent metrics: findings count, override rate, false positive count, signal-to-noise classification
-   - Store at `.docs/reports/review-effectiveness-summary-YYYY-QN.md`
+   - Store at `{REPORTS_DIR}/review-effectiveness-summary-YYYY-QN.md` (per `/docs/layout`)
 
 ### When You Act
 
@@ -279,7 +279,7 @@ When developers override findings from review agents during `/review/review-chan
 
 ```
 → learner identifies architectural decision
-→ adr-writer creates formal ADR under .docs/canonical/adrs/
+→ adr-writer creates formal ADR under {ADR_DIR}/
 → learner documents practical implications in appropriate skill reference or CLAUDE.md
 → Both documents cross-reference each other
 ```
@@ -288,7 +288,7 @@ When developers override findings from review agents during `/review/review-chan
 
 ```
 → progress-assessor validates completion; identifies learnings in plan/status docs
-→ learner extracts learnings and routes to .docs/AGENTS.md, canonical Learnings, or ADRs
+→ learner extracts learnings and routes to LEARNINGS_FILE, canonical Learnings, or ADRs
 → learner integrates into target documentation with proper structure
 → progress-assessor confirms knowledge preservation
 ```
@@ -316,7 +316,7 @@ You are the **guardian of institutional knowledge**. Hard-won insights must be c
 - Route learnings to the appropriate location (skill references, CLAUDE.md, or ADRs)
 - Maintain consistent voice and quality standards
 
-**Waste capture rule:** All waste observations MUST go through `/waste/add`. Never read from or write to `.docs/canonical/waste-snake.md` directly. The command owns the format, location, and append logic — this prevents format drift and location sprawl.
+**Waste capture rule:** All waste observations MUST go through `/waste/add`. Never read from or write to WASTE_SNAKE (per `/docs/layout`) directly. The command owns the format, location, and append logic — this prevents format drift and location sprawl.
 
 **Balance:**
 

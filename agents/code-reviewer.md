@@ -225,11 +225,11 @@ python ../skills/engineering-team/code-reviewer/scripts/pr_analyzer.py 123 --rep
 python ../skills/engineering-team/code-reviewer/scripts/code_quality_checker.py ./src/services/UserService.ts --language=typescript
 
 # Step 3: Generate comprehensive report
-python ../skills/engineering-team/code-reviewer/scripts/review_report_generator.py 123 --format=markdown > .docs/canonical/reviews/review-repo-commit-<hash>.md
-# When tied to an initiative, add initiative + initiative_name to front matter (see .docs/AGENTS.md initiative naming).
+python ../skills/engineering-team/code-reviewer/scripts/review_report_generator.py 123 --format=markdown > {CANONICAL_ROOT}/reviews/review-repo-commit-<hash>.md
+# When tied to an initiative, add initiative + initiative_name to front matter (see LEARNINGS_FILE initiative naming).
 
 # Step 4: Review output and post feedback
-cat .docs/canonical/reviews/review-repo-commit-<hash>.md
+cat {CANONICAL_ROOT}/reviews/review-repo-commit-<hash>.md
 ```
 
 ### Workflow 2: Codebase Architecture Review
@@ -455,9 +455,9 @@ for PR in $OPEN_PRS; do
     python ../skills/engineering-team/code-reviewer/scripts/pr_analyzer.py $PR --repo=$REPO --json > pr-$PR-analysis.json
 
     # Generate review report
-    python ../skills/engineering-team/code-reviewer/scripts/review_report_generator.py $PR --format=markdown > .docs/canonical/reviews/review-repo-commit-$COMMIT_HASH.md
+    python ../skills/engineering-team/code-reviewer/scripts/review_report_generator.py $PR --format=markdown > {CANONICAL_ROOT}/reviews/review-repo-commit-$COMMIT_HASH.md
 
-    echo "Review complete. Report saved to .docs/canonical/reviews/review-repo-commit-$COMMIT_HASH.md"
+    echo "Review complete. Report saved to {CANONICAL_ROOT}/reviews/review-repo-commit-$COMMIT_HASH.md"
 done
 
 echo "Daily PR review complete. Reviewed $OPEN_PRS PRs."

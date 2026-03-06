@@ -456,8 +456,8 @@ echo "Risk Assessment:" >> "$PLANNING_DIR/board_summary.txt"
 cat "$PLANNING_DIR/scaling_plan.json" | jq -r '.risk_assessment' >> "$PLANNING_DIR/board_summary.txt"
 
 # Step 4: Use board update template
-cat ../skills/engineering-team/cto-advisor/references/templates.md | grep -A 40 "Board Update Email" > ".docs/reports/report-repo-board-email-$(date +%Y-%m-%d).md"
-# When tied to an initiative, add initiative + initiative_name to front matter (see .docs/AGENTS.md initiative naming).
+cat ../skills/engineering-team/cto-advisor/references/templates.md | grep -A 40 "Board Update Email" > "{REPORTS_DIR}/report-repo-board-email-$(date +%Y-%m-%d).md"
+# When tied to an initiative, add initiative + initiative_name to front matter (see LEARNINGS_FILE initiative naming).
 
 # Output results
 cat "$PLANNING_DIR/board_summary.txt"
@@ -475,7 +475,7 @@ echo "- Board presentation template ready for customization"
 # adr-workflow.sh - Create and manage Architecture Decision Records
 
 # Configuration
-ADR_DIR=".docs/canonical/adrs"
+ADR_DIR="{ADR_DIR}"
 mkdir -p "$ADR_DIR"
 ADR_FILE="$ADR_DIR/adr-$(date +%Y%m%d)-database-selection.md"
 

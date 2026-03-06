@@ -256,7 +256,7 @@ The roadmap is **evergreen** — it is not created per-initiative or per-quarter
    - Understand the outcomes and effort required
 
 2. **Evaluate Against Current Roadmap** - Assess the new initiative relative to everything else:
-   - Read the current roadmap at `.docs/canonical/roadmaps/roadmap-repo.md`
+   - Read the current roadmap at `{CANONICAL_ROOT}/roadmaps/roadmap-repo.md` (per `/docs/layout`)
    - Consider dependencies between initiatives
    - Assess capacity and resource constraints
    - Evaluate strategic alignment with current priorities
@@ -271,7 +271,7 @@ The roadmap is **evergreen** — it is not created per-initiative or per-quarter
    - Add or move the initiative to the appropriate horizon
    - Update status descriptions
    - Adjust other initiatives if priorities shifted
-   - The roadmap file is `.docs/canonical/roadmaps/roadmap-repo.md`
+   - The roadmap file is `{CANONICAL_ROOT}/roadmaps/roadmap-repo.md` (per `/docs/layout`)
 
 5. **Communicate Changes** - Share updates with stakeholders:
    - Explain why the initiative was slotted where it was
@@ -345,7 +345,7 @@ The roadmap is **evergreen** — it is not created per-initiative or per-quarter
    - **Now**: Must-Do features critical for current OKRs
    - **Next**: Should-Do features supporting upcoming OKRs
    - **Later**: Could-Do features for future consideration
-   - Update `.docs/canonical/roadmaps/roadmap-repo.md` with priority decisions
+   - Update `{CANONICAL_ROOT}/roadmaps/roadmap-repo.md` (per `/docs/layout`) with priority decisions
 
 **Expected Output:** Prioritized feature backlog with OKR contribution scores and strategic rationale
 
@@ -417,7 +417,7 @@ python ../skills/product-team/product-strategist/scripts/okr_cascade_generator.p
    - **Resource Allocation**: Rebalance team focus?
 
 7. **Update Roadmap** - Revise initiative sequencing in the evergreen roadmap:
-   - Edit `.docs/canonical/roadmaps/roadmap-repo.md`
+   - Edit `{CANONICAL_ROOT}/roadmaps/roadmap-repo.md` (per `/docs/layout`)
    - Move "Next" items to "Now"
    - Promote "Later" items to "Next"
    - Add new "Later" items from learnings
@@ -454,7 +454,7 @@ python ../skills/product-team/product-strategist/scripts/okr_cascade_generator.p
    - **ACCEPT** — all criteria MET, no unapproved scope additions
    - **ACCEPT WITH CONDITIONS** — all criteria MET but unapproved scope additions exist, or some criteria PARTIALLY MET with acceptable justification
    - **REJECT** — any criterion NOT MET without justification
-6. **Roadmap recommendation** — on ACCEPT or ACCEPT WITH CONDITIONS, recommend moving the initiative to Done on the evergreen roadmap (`.docs/canonical/roadmaps/roadmap-repo.md`).
+6. **Roadmap recommendation** — on ACCEPT or ACCEPT WITH CONDITIONS, recommend moving the initiative to Done on the evergreen roadmap (`{CANONICAL_ROOT}/roadmaps/roadmap-repo.md` per `/docs/layout`).
 
 **Expected Output:** Reconciliation table + verdict + scope additions (if any) + roadmap recommendation.
 
@@ -530,10 +530,10 @@ echo "4. Schedule weekly check-ins and monthly reviews"
 echo "Evaluating new charter against roadmap..."
 
 # Read the evergreen roadmap
-cat .docs/canonical/roadmaps/roadmap-repo.md
+cat {CANONICAL_ROOT}/roadmaps/roadmap-repo.md
 
 # Read the new charter
-cat .docs/canonical/charters/charter-repo-<initiative>.md
+cat {CANONICAL_ROOT}/charters/charter-repo-<initiative>.md
 
 # Decision: Where does this initiative slot in Now/Next/Later?
 # Consider: dependencies, capacity, strategic alignment, urgency

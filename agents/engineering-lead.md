@@ -95,7 +95,7 @@ compatibility:
 # === EXAMPLES ===
 examples:
   - title: "Execute a feature plan"
-    input: "Execute the implementation plan at .docs/canonical/plans/plan-repo-auth-flow-2026.md using subagent-driven development"
+    input: "Execute the implementation plan at {CANONICAL_ROOT}/plans/plan-repo-auth-flow-2026.md using subagent-driven development"
     output: "All tasks implemented via fresh subagents, each passing spec compliance and code quality review, with a final whole-implementation review"
   - title: "Multi-capability initiative"
     input: "We need to add real-time notifications: backend WebSocket service, frontend notification center, and database schema changes"
@@ -154,7 +154,7 @@ tags: [coordination, orchestration, subagent, engineering, lead, plan-execution]
 
 - Understand how tasks are decomposed and ordered
 - Determine what context each task needs
-- Locate plans under `.docs/canonical/plans/` (artifact conventions)
+- Locate plans under `{CANONICAL_ROOT}/plans/` (per `/docs/layout`)
 
 ### Core: Orchestrating Agents (`skills/orchestrating-agents/SKILL.md`)
 
@@ -178,7 +178,7 @@ tags: [coordination, orchestration, subagent, engineering, lead, plan-execution]
 
 > Goal: Take a completed implementation plan and execute all tasks via subagent-driven development
 
-1. Read plan file (e.g. `.docs/canonical/plans/plan-repo-<subject>.md`)
+1. Read plan file (e.g. `{CANONICAL_ROOT}/plans/plan-repo-<subject>.md`)
 2. Extract all tasks with full text, note dependencies and context
 3. Create TodoWrite with all tasks
 4. For each task — repeat steps 4a–4h:
@@ -209,7 +209,7 @@ tags: [coordination, orchestration, subagent, engineering, lead, plan-execution]
 
 > Goal: Coordinate an initiative spanning multiple engineering specialties working sequentially on related tasks
 
-1. Review the initiative's backlog (e.g. `.docs/canonical/backlogs/backlog-repo-<subject>.md`)
+1. Review the initiative's backlog (e.g. `{CANONICAL_ROOT}/backlogs/backlog-repo-<subject>.md`)
 2. If no implementation plan exists, delegate to `implementation-planner` first
 3. Group tasks by dependency into waves (see L2 — wave-based parallelization)
 4. Execute Wave 1 tasks sequentially via Workflow 1

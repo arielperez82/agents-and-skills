@@ -329,7 +329,7 @@ echo "- [ ] Schedule additional coaching session if morale concerns arise"
 # Track retrospective action items across sprints
 
 # Create action item template
-cat > .docs/reports/report-repo-retro-$(date +%Y-w%V).md << 'EOF'
+cat > {REPORTS_DIR}/report-repo-retro-$(date +%Y-w%V).md << 'EOF'
 # Sprint 25 Retrospective Action Items
 Date: 2025-11-13
 Format: Start/Stop/Continue

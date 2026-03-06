@@ -203,7 +203,7 @@ Design and deploy VPC architecture for multi-region, high-availability applicati
      --check-redundancy \
      --security-audit \
      --compliance pci-dss \
-     --output .docs/reports/report-repo-network-$(date +%Y-%m-%d).md
+     --output {REPORTS_DIR}/report-repo-network-$(date +%Y-%m-%d).md
    ```
 
 5. **Review and Deploy**
@@ -342,7 +342,7 @@ Comprehensive security audit for compliance validation.
      --check-redundancy \
      --security-audit \
      --compliance pci-dss \
-     --output .docs/reports/report-repo-network-audit-$(date +%Y-%m-%d).md \
+     --output {REPORTS_DIR}/report-repo-network-audit-$(date +%Y-%m-%d).md \
      --verbose
    ```
 
@@ -438,10 +438,10 @@ python3 ../skills/engineering-team/senior-network-infrastructure/scripts/network
   --check-redundancy \
   --security-audit \
   --compliance pci-dss \
-  --output .docs/reports/report-repo-network-audit-$(date +%Y-%m-%d).md
+  --output {REPORTS_DIR}/report-repo-network-audit-$(date +%Y-%m-%d).md
 
 # Check for critical findings
-if grep -q "severity.*critical" ".docs/reports/report-repo-network-audit-$(date +%Y-%m-%d).md"; then
+if grep -q "severity.*critical" "{REPORTS_DIR}/report-repo-network-audit-$(date +%Y-%m-%d).md"; then
   echo "CRITICAL FINDINGS DETECTED"
   exit 1
 fi

@@ -351,8 +351,8 @@ This agent leverages seven production-ready Python analysis tools for comprehens
 
    ```bash
    # Copy and populate template
-   cp ${SKILL_PATH}/assets/technical_debt_report_template.md .docs/canonical/assessments/assessment-repo-legacy-$(date +%Y-%m-%d).md
-   # When tied to an initiative, add initiative + initiative_name to front matter (see .docs/AGENTS.md initiative naming).
+   cp ${SKILL_PATH}/assets/technical_debt_report_template.md {CANONICAL_ROOT}/assessments/assessment-repo-legacy-$(date +%Y-%m-%d).md
+   # When tied to an initiative, add initiative + initiative_name to front matter (see LEARNINGS_FILE initiative naming).
    ```
 
    Edit that assessment file to populate:
@@ -369,7 +369,7 @@ This agent leverages seven production-ready Python analysis tools for comprehens
 
    ```bash
    # Copy executive template
-   cp ${SKILL_PATH}/assets/executive_summary_template.md .docs/canonical/assessments/assessment-repo-legacy-executive-$(date +%Y-%m-%d).md
+   cp ${SKILL_PATH}/assets/executive_summary_template.md {CANONICAL_ROOT}/assessments/assessment-repo-legacy-executive-$(date +%Y-%m-%d).md
    ```
 
    Populate with:
@@ -724,7 +724,7 @@ This agent leverages seven production-ready Python analysis tools for comprehens
    Use executive summary template:
 
    ```bash
-   cp ${SKILL_PATH}/assets/executive_summary_template.md .docs/reports/report-repo-debt-presentation-$(date +%Y-%m-%d).md
+   cp ${SKILL_PATH}/assets/executive_summary_template.md {REPORTS_DIR}/report-repo-debt-presentation-$(date +%Y-%m-%d).md
    ```
 
    Populate with:
@@ -868,7 +868,7 @@ This agent leverages seven production-ready Python analysis tools for comprehens
    Copy roadmap template and populate:
 
    ```bash
-   cp ${SKILL_PATH}/assets/roadmap_template.md .docs/canonical/plans/plan-repo-modernization-$(date +%Y).md
+   cp ${SKILL_PATH}/assets/roadmap_template.md {CANONICAL_ROOT}/plans/plan-repo-modernization-$(date +%Y).md
    ```
 
    **Phase 1 (Months 1-3): Foundation & Quick Wins**

@@ -110,7 +110,7 @@ The implementation-planner agent bridges the gap between architecture design and
 - **IMPORTANT**: Ensure token efficiency while maintaining high quality.
 - **IMPORTANT:** Sacrifice grammar for the sake of concision when writing reports.
 - **IMPORTANT:** In reports, list any unresolved questions at the end, if any.
-- **IMPORTANT:** Respect the rules in `.docs/AGENTS.md` and, if present, `.docs/canonical/ops/ops-<endeavor>-development-rules.md`. Read and write plans only under `.docs/` (canonical plan path: `.docs/canonical/plans/plan-<endeavor>-<subject>[-<timeframe>].md`).
+- **IMPORTANT:** Respect the rules in LEARNINGS_FILE (per `/docs/layout`) and, if present, `{CANONICAL_ROOT}/ops/ops-<endeavor>-development-rules.md`. Read and write plans only under `{DOCS_ROOT}/` (canonical plan path: `{CANONICAL_ROOT}/plans/plan-<endeavor>-<subject>[-<timeframe>].md`).
 - **IMPORTANT:** You do NOT do external research - delegate to `researcher` for all research needs.
 - **IMPORTANT:** You do NOT design system architecture - consume architecture designs from `architect` or delegate architecture design to `architect`.
 - **Phase 0 (Quality gate) first:** The quality gate must be complete before any feature work. Before creating or executing a phase plan, verify Phase 0 is the quality gate. Two valid patterns: (1) minimal skeleton then add all gates, or (2) scaffold that includes quality tooling then verify and add missing pieces. If the plan starts feature work before the gate is complete, insert or renumber so Phase 0 = one of these patterns + full gate; feature work is Phase 1. When implementing Phase 0: use full-project type-check in lint-staged when source files are staged; add CI recommendation for check + lint on push/PR. Load the `quality-gate-first` skill. Run `/review/phase-0-check` to audit repo or plan.
@@ -416,8 +416,8 @@ If you see a section like this at the start of your context:
 
 ```
 ## Plan Context (auto-injected)
-- Active Plan: `.docs/canonical/plans/plan-<endeavor>-<subject>-<timeframe>.md` (use naming grammar from .docs/AGENTS.md)
-- Reports Path: `.docs/reports/` (e.g. report-<endeavor>-<topic>-<timeframe>.md)
+- Active Plan: `{CANONICAL_ROOT}/plans/plan-<endeavor>-<subject>-<timeframe>.md` (use naming grammar from LEARNINGS_FILE)
+- Reports Path: `{REPORTS_DIR}/` (e.g. report-<endeavor>-<topic>-<timeframe>.md)
 - Naming Format: {date}-{issue}-{slug}
 - Issue ID: GH-88
 - Git Branch: kai/feat/plan-name-config
@@ -427,11 +427,11 @@ If you see a section like this at the start of your context:
 
 | If Plan Context shows... | Then create folder like... |
 |--------------------------|---------------------------|
-| Naming (canonical) | `.docs/canonical/plans/plan-<endeavor>-<subject>[-<timeframe>].md` |
+| Naming (canonical) | `{CANONICAL_ROOT}/plans/plan-<endeavor>-<subject>[-<timeframe>].md` |
 | With issue/slug | `plan-repo-<subject>-<timeframe>.md` (e.g. plan-repo-auth-2026-02) |
-| No plan context | Create under `.docs/canonical/plans/` with endeavor slug and subject; use grammar in .docs/AGENTS.md |
+| No plan context | Create under `{CANONICAL_ROOT}/plans/` with endeavor slug and subject; use grammar in LEARNINGS_FILE |
 
-**Initiative naming (required):** Every plan that belongs to an initiative MUST have in front matter: `initiative: I<nn>-<ACRONYM>`, `initiative_name: <long-form>`. Same values as the roadmap and backlog for that initiative. Plan steps MUST reference backlog items by ID (Bnn or full I<nn>-<ACRONYM>-B<nn>). Sub-steps use plan step IDs: Bnn-Pp.s (e.g. B07-P1.1, B07-P1.2). See initiative naming in `.docs/AGENTS.md`.
+**Initiative naming (required):** Every plan that belongs to an initiative MUST have in front matter: `initiative: I<nn>-<ACRONYM>`, `initiative_name: <long-form>`. Same values as the roadmap and backlog for that initiative. Plan steps MUST reference backlog items by ID (Bnn or full I<nn>-<ACRONYM>-B<nn>). Sub-steps use plan step IDs: Bnn-Pp.s (e.g. B07-P1.1, B07-P1.2). See initiative naming in LEARNINGS_FILE (per `/docs/layout`).
 
 **STEP 3: Get current date dynamically.**
 
@@ -442,13 +442,13 @@ Use `$CK_PLAN_DATE_FORMAT` env var (injected by session hooks) for the format.
 After creating the plan folder, update session state so subagents receive the latest context:
 
 ```bash
-Update session state so active plan path is the canonical plan path (e.g. .docs/canonical/plans/plan-repo-<subject>-<timeframe>.md). If using set-active-plan script, point it at the .docs path.
+Update session state so active plan path is the canonical plan path (e.g. {CANONICAL_ROOT}/plans/plan-repo-<subject>-<timeframe>.md). If using set-active-plan script, point it at the {DOCS_ROOT} path.
 ```
 
 Example:
 
 ```bash
-e.g. .docs/canonical/plans/plan-repo-add-authentication-2026-02.md
+e.g. {CANONICAL_ROOT}/plans/plan-repo-add-authentication-2026-02.md
 ```
 
 This updates the session temp file so all subsequent subagents receive the correct plan context.

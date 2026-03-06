@@ -16,7 +16,7 @@ When a developer proceeds without addressing a "Fix required" finding, the learn
 | `reason` | Developer's rationale for overriding | Type comes from untyped third-party lib; adding assertion with TODO |
 | `outcome` | Post-merge result (filled in later if relevant) | No issues after 2 weeks |
 
-**Log entry format (single line, append to `.docs/reports/review-overrides.md`):**
+**Log entry format (single line, append to `{REPORTS_DIR}/review-overrides.md` per `/docs/layout`):**
 
 ```markdown
 | 2026-02-17 | ts-enforcer | Fix required | Use of `any` type in API handler | src/api/handler.ts:45 | Type from untyped third-party lib; adding assertion with TODO | — |
@@ -35,7 +35,7 @@ When a finding is consistently dismissed (5+ instances of same pattern), the lea
 | `reason` | Why it's a false positive | Test factories are intentionally verbose for readability |
 | `recommendation` | Suggested calibration action | Add exclusion for test factory files in refactor-assessor |
 
-**Log entry (append to `.docs/reports/review-false-positives.md`):**
+**Log entry (append to `{REPORTS_DIR}/review-false-positives.md` per `/docs/layout`):**
 
 ```markdown
 | refactor-assessor | "Long function" on test factories | Suggestion | 7 | Test factories intentionally verbose | Add exclusion for test factory files |
@@ -43,7 +43,7 @@ When a finding is consistently dismissed (5+ instances of same pattern), the lea
 
 ## Effectiveness Summary Template
 
-Periodic synthesis (quarterly or after significant calibration events). Produced by learner agent, stored at `.docs/reports/review-effectiveness-summary-YYYY-QN.md`.
+Periodic synthesis (quarterly or after significant calibration events). Produced by learner agent, stored at `{REPORTS_DIR}/review-effectiveness-summary-YYYY-QN.md` (per `/docs/layout`).
 
 ```markdown
 # Review Effectiveness Summary — YYYY QN

@@ -40,7 +40,7 @@ Plan (canonical)              Status (report)              Learnings (layers)
 │ Steps 1-N       │           │ Blockers        │           │   or Learnings   │
 │ (approved)      │           │ Next action     │           │   section       │
 └─────────────────┘           └─────────────────┘           │ Layer 3→skills  │
-        │                             │                     │ ADR→.docs/.../adrs
+        │                             │                     │ ADR→{ADR_DIR}/
         └─────────────────────────────┴─────────────────────┘
                                       │
                                       ▼
@@ -268,14 +268,14 @@ Per repo policy: archive the plan or mark it complete; status report can be supe
 
 - All plan changes require discussion and approval
 
-❌ **Using PLAN.md / WIP.md / LEARNINGS.md when .docs/ is adopted**
+❌ **Using PLAN.md / WIP.md / LEARNINGS.md when `{DOCS_ROOT}` is adopted**
 
 - Use `{CANONICAL_ROOT}/plans/`, `REPORTS_DIR`, and the three-layer learnings model instead. See `LEARNINGS_FILE` for the operating reference (per `/docs/layout`).
 
 ## Quick reference
 
 ```
-START FEATURE (with .docs/)
+START FEATURE (with {DOCS_ROOT})
 │
 ├─► Create plan under {CANONICAL_ROOT}/plans/ (get approval; per /docs/layout)
 ├─► Create/update status under {REPORTS_DIR}/report-<endeavor>-status-<timeframe>.md

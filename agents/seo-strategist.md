@@ -223,8 +223,8 @@ python ../skills/marketing-team/seo-strategist/scripts/technical_seo_auditor.py 
 2. **Generate roadmap** - Create prioritized action plan
 
    ```bash
-   python ../skills/marketing-team/seo-strategist/scripts/seo_roadmap_generator.py audit.json --quarters 4 --output md > .docs/canonical/plans/plan-repo-seo-quarterly-2026.md
-   # Add initiative + initiative_name to the plan front matter when it belongs to an initiative (see .docs/AGENTS.md initiative naming).
+   python ../skills/marketing-team/seo-strategist/scripts/seo_roadmap_generator.py audit.json --quarters 4 --output md > {CANONICAL_ROOT}/plans/plan-repo-seo-quarterly-2026.md
+   # Add initiative + initiative_name to the plan front matter when it belongs to an initiative (see LEARNINGS_FILE initiative naming).
    ```
 
 3. **Identify quick wins** - Focus on high-impact, low-effort tasks
@@ -248,7 +248,7 @@ python ../skills/marketing-team/seo-strategist/scripts/technical_seo_auditor.py 
 python ../skills/marketing-team/seo-strategist/scripts/seo_roadmap_generator.py audit.json --quick-wins
 
 # Full quarterly roadmap in markdown
-python ../skills/marketing-team/seo-strategist/scripts/seo_roadmap_generator.py audit.json --quarters 4 --output md > .docs/canonical/plans/plan-repo-seo-quarterly-2026.md
+python ../skills/marketing-team/seo-strategist/scripts/seo_roadmap_generator.py audit.json --quarters 4 --output md > {CANONICAL_ROOT}/plans/plan-repo-seo-quarterly-2026.md
 
 # Custom hours per quarter
 python ../skills/marketing-team/seo-strategist/scripts/seo_roadmap_generator.py audit.json --quarters 4 --hours-per-quarter 120
@@ -300,7 +300,7 @@ python ../skills/marketing-team/seo-strategist/scripts/technical_seo_auditor.py 
 
 echo "Generating SEO roadmap..."
 python ../skills/marketing-team/seo-strategist/scripts/seo_roadmap_generator.py \
-    "$OUTPUT_DIR/audit.json" --quarters 4 --output md > ".docs/canonical/plans/plan-repo-seo-quarterly-$(date +%Y).md"
+    "$OUTPUT_DIR/audit.json" --quarters 4 --output md > "{CANONICAL_ROOT}/plans/plan-repo-seo-quarterly-$(date +%Y).md"
 
 echo "Identifying quick wins..."
 python ../skills/marketing-team/seo-strategist/scripts/seo_roadmap_generator.py \

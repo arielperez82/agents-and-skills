@@ -112,7 +112,7 @@ The senior-project-manager skill provides comprehensive workflows for:
 5. **Mark Completed Items** - Update backlog items and plan steps to done when acceptance criteria are met
 6. **Flag Risks** - Identify early warning signs that may require calling in specialized expertise
 7. **Orchestrate Expertise** - Call in appropriate agents (security, architecture, technical specialists) when risks are identified
-8. **Write Status Report** - Document findings in `.docs/reports/report-repo-portfolio-status-<date>.md`
+8. **Write Status Report** - Document findings in `{REPORTS_DIR}/report-repo-portfolio-status-<date>.md` (per `/docs/layout`)
 
 **Expected Output:** Portfolio status report with RAG assessments, dependency map, and flagged risks
 
@@ -122,16 +122,16 @@ The senior-project-manager skill provides comprehensive workflows for:
 
 ```bash
 # Review the evergreen roadmap
-cat .docs/canonical/roadmaps/roadmap-repo.md
+cat {CANONICAL_ROOT}/roadmaps/roadmap-repo.md
 
 # Review active backlogs for each Now initiative
-cat .docs/canonical/backlogs/backlog-repo-*.md
+cat {CANONICAL_ROOT}/backlogs/backlog-repo-*.md
 
 # Check for items missing acceptance criteria or dependencies
-grep -L "acceptance" .docs/canonical/backlogs/backlog-repo-*.md
+grep -L "acceptance" {CANONICAL_ROOT}/backlogs/backlog-repo-*.md
 
 # Write portfolio status report
-cat > .docs/reports/report-repo-portfolio-status-$(date +%Y-%m-%d).md << 'EOF'
+cat > {REPORTS_DIR}/report-repo-portfolio-status-$(date +%Y-%m-%d).md << 'EOF'
 # Portfolio Status Report
 
 ## RAG Summary
@@ -255,7 +255,7 @@ mkdir -p stakeholder-reporting/$(date +%Y-%m)
 
 # Create executive status update
 cd stakeholder-reporting/$(date +%Y-%m)
-cat > .docs/reports/report-repo-executive-summary-$(date +%Y-%m-%d).md << 'EOF'
+cat > {REPORTS_DIR}/report-repo-executive-summary-$(date +%Y-%m-%d).md << 'EOF'
 # Executive Status Update - November 12, 2025
 
 ## Portfolio Health: 🟢 GREEN (On Track)
@@ -350,7 +350,7 @@ echo "✅ Executive summary and stakeholder log created"
 6. **Create Risk Mitigation Plan** - Pre-plan responses for identified high-probability risks
 7. **Set RAG Monitoring Baseline** - Establish initial RAG status and monitoring frequency
 8. **Define Escalation Protocols** - Document when and how to call in expertise for different risk categories
-9. **Write Risk Assessment Report** - Document findings in `.docs/reports/report-repo-risk-assessment-<subject>-<date>.md`
+9. **Write Risk Assessment Report** - Document findings in `{REPORTS_DIR}/report-repo-risk-assessment-<subject>-<date>.md` (per `/docs/layout`)
 
 **Expected Output:** Risk assessment report with identified risks, mitigation plans, and escalation protocols
 
@@ -360,10 +360,10 @@ echo "✅ Executive summary and stakeholder log created"
 
 ```bash
 # Review a charter produced by product-analyst / architect
-cat .docs/canonical/charters/charter-repo-customer-portal.md
+cat {CANONICAL_ROOT}/charters/charter-repo-customer-portal.md
 
 # Write risk assessment report
-cat > .docs/reports/report-repo-risk-assessment-customer-portal-$(date +%Y-%m-%d).md << 'EOF'
+cat > {REPORTS_DIR}/report-repo-risk-assessment-customer-portal-$(date +%Y-%m-%d).md << 'EOF'
 # Risk Assessment: Customer Portal Redesign
 
 ## Charter Review Findings
@@ -440,7 +440,7 @@ mkdir -p "$REPORT_DIR"
 echo "📊 Generating Monthly Portfolio Report for $MONTH"
 
 # Create portfolio summary
-cat > ".docs/reports/report-repo-portfolio-summary-$(date +%Y-%m-%d).md" << 'EOF'
+cat > "{REPORTS_DIR}/report-repo-portfolio-summary-$(date +%Y-%m-%d).md" << 'EOF'
 # Portfolio Summary Report
 
 ### Portfolio Overview

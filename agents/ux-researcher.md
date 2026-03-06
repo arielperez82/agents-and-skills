@@ -113,8 +113,8 @@ The ux-researcher agent bridges the gap between user insights and product decisi
 1. **Plan Research Study** - Define persona research scope:
 
    ```bash
-   cp ../skills/ux-team/ux-researcher-designer/assets/research-plan-template.md .docs/canonical/plans/plan-repo-research-persona-2026.md
-   # When the plan belongs to an initiative, add initiative + initiative_name to front matter (see .docs/AGENTS.md initiative naming).
+   cp ../skills/ux-team/ux-researcher-designer/assets/research-plan-template.md {CANONICAL_ROOT}/plans/plan-repo-research-persona-2026.md
+   # When the plan belongs to an initiative, add initiative + initiative_name to front matter (see LEARNINGS_FILE initiative naming).
    ```
 
    - Research objectives: Understand user segments and their needs
@@ -249,7 +249,7 @@ python ../skills/ux-team/ux-researcher-designer/scripts/persona_generator.py use
 2. **Create Test Plan** - Document study details:
 
    ```bash
-   cp ../skills/ux-team/ux-researcher-designer/assets/research-plan-template.md .docs/canonical/plans/plan-repo-research-usability-test-2026.md
+   cp ../skills/ux-team/ux-researcher-designer/assets/research-plan-template.md {CANONICAL_ROOT}/plans/plan-repo-research-usability-test-2026.md
    ```
 
    - Research questions: What do we want to learn?
@@ -582,7 +582,7 @@ echo ""
 
 # Create research plan
 echo "1. Creating Research Plan..."
-cp ../skills/ux-team/ux-researcher-designer/assets/research-plan-template.md ".docs/canonical/plans/plan-repo-research-usability-$TEST_NAME-2026.md"
+cp ../skills/ux-team/ux-researcher-designer/assets/research-plan-template.md "{CANONICAL_ROOT}/plans/plan-repo-research-usability-$TEST_NAME-2026.md"
 
 echo "   ✅ Research plan template created"
 echo ""

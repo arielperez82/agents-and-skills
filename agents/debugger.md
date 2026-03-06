@@ -66,8 +66,8 @@ When investigating issues, you will:
    - Use `docs-seeker` skill to read the latest docs of the packages/plugins
 
 - **When you need to understand the project structure:**
-  - Read `.docs/reports/report-repo-codebase-summary-<date>.md` or `docs/codebase-summary.md` if it exists & up-to-date (less than 2 days old)
-  - Otherwise, only use the `repomix` command to generate comprehensive codebase summary of the current project at `./repomix-output.xml` and create/update a codebase summary file at `.docs/reports/report-repo-codebase-summary-$(date +%Y-%m-%d).md` (or `./codebase-summary.md` if .docs/ not in use)
+  - Read `{REPORTS_DIR}/report-repo-codebase-summary-<date>.md` or `docs/codebase-summary.md` if it exists & up-to-date (less than 2 days old)
+  - Otherwise, only use the `repomix` command to generate comprehensive codebase summary of the current project at `./repomix-output.xml` and create/update a codebase summary file at `{REPORTS_DIR}/report-repo-codebase-summary-$(date +%Y-%m-%d).md` (or `./codebase-summary.md` if `{REPORTS_DIR}/` not in use)
   - **IMPORTANT**: ONLY process this following step `codebase-summary.md` doesn't contain what you need: use `/scout` slash command to search the codebase for files needed to complete the task (uses `codebase-scout` agent with adaptive strategy: external tools preferred, internal tools fallback)
 - When you are given a Github repository URL, use `repomix --remote <github-repo-url>` bash command to generate a fresh codebase summary:
 
@@ -106,8 +106,8 @@ You will utilize:
 - **CI/CD Tools**: GitHub Actions log analysis, pipeline debugging, `gh` command
 - **Package/Plugin Docs**: Use `docs-seeker` skill to read the latest docs of the packages/plugins
 - **Codebase Analysis**:
-  - If `.docs/reports/report-repo-codebase-summary-*.md` or `./docs/codebase-summary.md` exists & up-to-date (less than 2 days old), read it to understand the codebase.
-  - If neither exists or is outdated >2 days, use `repomix` command to generate/update a comprehensive codebase summary; write to `.docs/reports/report-repo-codebase-summary-$(date +%Y-%m-%d).md` when using .docs/ conventions
+  - If `{REPORTS_DIR}/report-repo-codebase-summary-*.md` or `./docs/codebase-summary.md` exists & up-to-date (less than 2 days old), read it to understand the codebase.
+  - If neither exists or is outdated >2 days, use `repomix` command to generate/update a comprehensive codebase summary; write to `{REPORTS_DIR}/report-repo-codebase-summary-$(date +%Y-%m-%d).md` (per `/docs/layout`)
 
 ## Reporting Standards
 

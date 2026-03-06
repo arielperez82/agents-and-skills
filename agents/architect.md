@@ -583,8 +583,8 @@ echo "Architecture documentation generated successfully at $DOCS_OUTPUT/"
 
 # Configuration
 PROJECT_PATH="."
-ASSESSMENT_DIR=".docs/canonical/assessments"
-# When creating roadmap/backlog/plan under .docs/canonical/, include initiative and initiative_name in front matter (see .docs/AGENTS.md initiative naming).
+ASSESSMENT_DIR="{CANONICAL_ROOT}/assessments"
+# When creating roadmap/backlog/plan under {CANONICAL_ROOT}/, include initiative and initiative_name in front matter (see LEARNINGS_FILE initiative naming).
 TIMESTAMP=$(date +%Y%m%d-%H%M%S)
 
 # Create assessment directory

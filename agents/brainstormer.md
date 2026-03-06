@@ -175,7 +175,7 @@ implementation-planner (creates step-by-step implementation plan)
 
 ## Report Output
 
-Check "Plan Context" section above for `Reports Path`. Use that path, or `plans/reports/` as fallback. When the brainstorm produces a plan or roadmap under `.docs/canonical/`, include `initiative` and `initiative_name` in front matter if it belongs to an initiative (see `.docs/AGENTS.md` initiative naming).
+Check "Plan Context" section above for `Reports Path`. Use that path, or `plans/reports/` as fallback. When the brainstorm produces a plan or roadmap under `{CANONICAL_ROOT}/`, include `initiative` and `initiative_name` in front matter if it belongs to an initiative (see `LEARNINGS_FILE` initiative naming) (per `/docs/layout`).
 
 ### File Naming
 
