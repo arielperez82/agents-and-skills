@@ -1,6 +1,7 @@
 ---
 name: senior-graphql
-description: GraphQL API design specialist for schema architecture, resolver patterns, federation, and performance optimization
+description: GraphQL API design specialist for schema architecture, resolver patterns,
+  federation, and performance optimization
 license: MIT
 metadata:
   version: 1.0.0
@@ -9,27 +10,36 @@ metadata:
   domain: engineering
   updated: 2025-12-16
   keywords:
-    - graphql
-    - api
-    - schema
-    - federation
-    - apollo
-    - resolvers
-    - subscriptions
-    - dataloader
-    - performance
+  - graphql
+  - api
+  - schema
+  - federation
+  - apollo
+  - resolvers
+  - subscriptions
+  - dataloader
+  - performance
   tech-stack:
-    - GraphQL
-    - Apollo Server
-    - Apollo Federation
-    - DataLoader
-    - TypeScript
-    - Node.js
-    - Prisma
+  - GraphQL
+  - Apollo Server
+  - Apollo Federation
+  - DataLoader
+  - TypeScript
+  - Node.js
+  - Prisma
   python-tools:
-    - schema_analyzer.py
-    - resolver_generator.py
-    - federation_scaffolder.py
+  - schema_analyzer.py
+  - resolver_generator.py
+  - federation_scaffolder.py
+  tags:
+  - graphql
+  - api
+  - schema
+  - resolvers
+  related-agents:
+  - senior-backend
+  related-skills:
+  - api-design-principles
 ---
 
 # Senior GraphQL Specialist
