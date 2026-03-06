@@ -1,8 +1,18 @@
 ---
 name: check-tools
-description: Validates development tool installations across Python, Node.js, Java, Go, Rust, C/C++, Git, and system utilities. Use when verifying environments or troubleshooting dependencies.
+description: Validates development tool installations across Python, Node.js, Java,
+  Go, Rust, C/C++, Git, and system utilities. Use when verifying environments or troubleshooting
+  dependencies.
 metadata:
   version: 1.1.3
+  domain: engineering
+  tags:
+  - tooling
+  - linting
+  - validation
+  related-agents: []
+  related-skills:
+  - quality-gate-first
 ---
 
 # Check Tools - Development Environment Validator
