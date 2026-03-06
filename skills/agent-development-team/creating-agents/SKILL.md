@@ -1,8 +1,23 @@
 ---
 name: creating-agents
-description: Guide for designing and writing agent specifications in this repo. Use when creating a new agent, drafting agent frontmatter, defining agent workflows, or structuring agent collaborations. For ecosystem-wide refactoring (agent overlap, merge/split, collaboration contracts), use `/skill/find-local-skill` with "refactoring agents" or "agent ecosystem".
+description: Guide for designing and writing agent specifications in this repo. Use
+  when creating a new agent, drafting agent frontmatter, defining agent workflows,
+  or structuring agent collaborations. For ecosystem-wide refactoring (agent overlap,
+  merge/split, collaboration contracts), use `/skill/find-local-skill` with "refactoring
+  agents" or "agent ecosystem".
 metadata:
   short-description: Create or update agent specifications
+  domain: agent-development
+  tags:
+  - agent-authoring
+  - frontmatter
+  - specification
+  related-agents:
+  - agent-validator
+  related-skills:
+  - refactoring-agents
+  - agent-intake
+  version: 1.0.0
 ---
 
 # Creating Agents
