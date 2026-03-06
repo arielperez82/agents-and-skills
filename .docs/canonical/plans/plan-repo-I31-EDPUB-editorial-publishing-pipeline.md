@@ -3,7 +3,7 @@ type: plan
 endeavor: repo
 initiative: I31-EDPUB
 initiative_name: editorial-publishing-pipeline
-status: draft
+status: done
 created: 2026-03-05
 updated: 2026-03-05
 ---

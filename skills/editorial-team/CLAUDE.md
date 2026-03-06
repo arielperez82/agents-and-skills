@@ -12,7 +12,7 @@ This guide covers the 6 editorial skills for transforming raw scripts into polis
 5. **bias-screening/** - Detect editorial bias across 6 categories with severity classification
 6. **reader-clarity/** - Evaluate readability targeting Flesch-Kincaid grade 8-10
 
-**Total Reference Files:** 5 reference documents across skills
+**Total Reference Files:** 6 reference documents across skills
 
 ## Pipeline Overview
 

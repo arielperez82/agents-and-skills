@@ -222,6 +222,20 @@ Agents that capture or encode learnings (learner, docs-reviewer, agent-author) m
 
 **L77 — Bounded quantifiers prevent ReDoS in regex patterns** (I24-PRFX2, 2026-03-02): Replacing unbounded `.*` with `.{0,200}` is an effective ReDoS mitigation. The 200-character limit covers legitimate matches while preventing exponential backtracking on adversarial inputs — a practical trade-off for security-sensitive regex patterns.
 
+**L78 — Docs-only initiatives benefit from the full craft pipeline** (I31-EDPUB, 2026-03-05): Even with zero source code, the full 6-phase craft pipeline (Discover through Close) provided value: researcher identified industry patterns, claims-verifier caught count inaccuracies in Phase 0 artifacts, and the 7-agent Final Sweep in Phase 5 returned all-Observation with zero Fix Required findings. The pipeline is not code-specific — it validates consistency, cross-references, and completeness for any artifact type. Classified as "light" complexity, which correctly predicted smooth auto-approve flow (all phases auto-approved or approved on first pass).
+
+**L79 — Context handoff at 67% preserves session continuity** (I31-EDPUB, 2026-03-05): Phase 4 Build hit 67% context utilization at wave 4 of 5 (10/12 steps complete). The handoff file captured: completed work per wave with commit SHAs, remaining steps with exact file paths and modification instructions, key anchors (status file, plan, template references), and git state. The resume session reconstructed full context from the handoff and completed waves 5 in a single pass. Pattern: structure handoff files as "what was done (with SHAs) + what remains (with file paths and instructions) + key anchors" — not as a narrative summary.
+
+**L80 — Wave-commit alignment simplifies audit trails** (I31-EDPUB, 2026-03-05): Each of the 5 build waves mapped to exactly one commit (`22a5c58` through `e956c0c`), with commit messages matching wave numbers (`wave 1: ...`, `wave 2: ...`). This 1:1 wave-to-commit mapping made Phase 5 validation trivial — reviewers could trace any artifact back to its wave and commit without ambiguity. In contrast, initiatives where multiple waves share a commit or a wave spans multiple commits create audit friction.
+
+**L81 — Agent quality scores correlate with example section depth** (I31-EDPUB, 2026-03-05): The 7 new editorial agents scored 4xA + 3xB in quality assessment. The B-scoring agents (the three reviewers: voice-consistency-reviewer, reader-clarity-reviewer, editorial-accuracy-reviewer) had fewer example sections compared to the A-scoring agents (editorial-writer, newsletter-producer, fact-checker, poll-writer). When creating review/quality-gate agents, invest more in example sections showing pass/fail outputs and borderline cases — these drive quality scores up and, more importantly, make the agent more effective.
+
+**L82 — ADR skip decision should be explicit in audit log** (I31-EDPUB, 2026-03-05): Phase 2 explicitly logged "ADRs skipped — no significant architectural trade-offs (docs-only, follows established patterns)" rather than silently omitting the adr-writer agent. This explicit skip-with-rationale pattern prevents future reviewers from wondering whether ADRs were forgotten. Apply to any optional agent in the craft pipeline: log the skip decision and reason in the audit log.
+
+**L83 — Team CLAUDE.md as first artifact accelerates skill authoring** (I31-EDPUB, 2026-03-05): The editorial-team CLAUDE.md was created in wave 5 (last), but in retrospect, drafting it first (wave 1) would have given all subsequent skill authors a shared vocabulary, domain boundaries, and workflow context. This reinforces L8 (Team CLAUDE.md as onboarding guide) with a sequencing refinement: create the team CLAUDE.md *before* individual skills, not after. It functions as a domain brief for the skill-authoring subagents.
+
+**L84 — Seven-agent Final Sweep validates cross-cutting concerns** (I31-EDPUB, 2026-03-05): Phase 5 ran 7 specialized validators in parallel (docs-reviewer, security-assessor, progress-assessor, agent-validator, agent-quality-assessor, skill-validator, command-validator). Each found only Observation-tier items (zero Fix Required). This confirms that per-wave commits with validation (Phase 4) plus a comprehensive Final Sweep (Phase 5) is an effective two-tier quality model — per-wave catches structural issues early, Final Sweep catches cross-cutting concerns (cross-references, security, catalog completeness).
+
 ---
 
 ## Development practices — GitHub workflows
@@ -362,6 +376,14 @@ Filenames under `.docs/canonical/` should follow the naming grammar above. To au
 - Plan: [plan-repo-I21-PIPS.md](canonical/plans/plan-repo-I21-PIPS.md)
 - ADRs: I21-PIPS-001 through I21-PIPS-004
 - Retroactive Audit: [report-repo-I21-PIPS-retroactive-audit-2026-02.md](reports/report-repo-I21-PIPS-retroactive-audit-2026-02.md)
+
+**I31-EDPUB** (editorial-publishing-pipeline):
+
+- Charter: [charter-repo-I31-EDPUB-editorial-publishing-pipeline.md](canonical/charters/charter-repo-I31-EDPUB-editorial-publishing-pipeline.md)
+- Roadmap: [roadmap-repo-I31-EDPUB-editorial-publishing-pipeline-2026.md](canonical/roadmaps/roadmap-repo-I31-EDPUB-editorial-publishing-pipeline-2026.md)
+- Backlog: [backlog-repo-I31-EDPUB-editorial-publishing-pipeline.md](canonical/backlogs/backlog-repo-I31-EDPUB-editorial-publishing-pipeline.md)
+- Plan: [plan-repo-I31-EDPUB-editorial-publishing-pipeline.md](canonical/plans/plan-repo-I31-EDPUB-editorial-publishing-pipeline.md)
+- Research: [researcher-20260305-I31-EDPUB-editorial-publishing-pipeline.md](reports/researcher-20260305-I31-EDPUB-editorial-publishing-pipeline.md)
 
 Root `AGENTS.md` (if present) should point here: "See .docs/AGENTS.md for agent artifact conventions and operating reference."
 
