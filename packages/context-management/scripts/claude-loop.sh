@@ -32,6 +32,8 @@ extract_restart_block() {
 
   local in_block=false
   local block=""
+  local last_block=""
+  local found=false
 
   while IFS= read -r line; do
     if [[ "$line" == *"$START_MARKER"* ]]; then
@@ -41,9 +43,11 @@ extract_restart_block() {
     fi
     if [[ "$line" == *"$END_MARKER"* ]]; then
       if $in_block; then
-        echo "$block"
-        return 0
+        last_block="$block"
+        found=true
+        in_block=false
       fi
+      continue
     fi
     if $in_block; then
       if [ -n "$block" ]; then
@@ -54,6 +58,10 @@ extract_restart_block() {
     fi
   done <<< "$input"
 
+  if $found; then
+    echo "$last_block"
+    return 0
+  fi
   return 1
 }
 
