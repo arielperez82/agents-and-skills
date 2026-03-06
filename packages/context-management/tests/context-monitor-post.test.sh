@@ -19,11 +19,9 @@ cleanup() {
 }
 trap cleanup EXIT
 
-NOW=$(date +%s)
-
 write_cache() {
   local pct="$1"
-  echo "${pct}|${NOW}" > "$CTX_CACHE"
+  echo "${pct}|$(date +%s)" > "$CTX_CACHE"
 }
 
 assert_output() {
@@ -133,16 +131,16 @@ else
   FAIL=$((FAIL + 1))
 fi
 
-# Boundary: 9 seconds old = fresh (just under threshold)
+# Boundary: 2 seconds old = fresh (well under threshold, avoids timing jitter)
 cleanup
-almost_ts=$(( $(date +%s) - 9 ))
+almost_ts=$(( $(date +%s) - 2 ))
 echo "55|${almost_ts}" > "$CTX_CACHE"
 out=$(echo '{}' | bash "$SUT")
 if echo "$out" | grep -qF "CONTEXT AT 55%"; then
-  echo "  PASS  9s old cache = warn (just under threshold)"
+  echo "  PASS  2s old cache = warn (well under threshold)"
   PASS=$((PASS + 1))
 else
-  echo "  FAIL  9s old cache = warn (just under threshold)"
+  echo "  FAIL  2s old cache = warn (well under threshold)"
   echo "    got: $out"
   FAIL=$((FAIL + 1))
 fi

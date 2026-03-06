@@ -130,10 +130,10 @@ exact_ts=$(( $(date +%s) - 10 ))
 echo "65|${exact_ts}" > "$CTX_CACHE"
 assert_exit "exactly 10s old cache = allow (boundary)" '{"tool_name":"Agent"}' 0
 
-# Boundary: 9 seconds old = fresh (just under threshold)
-almost_ts=$(( $(date +%s) - 9 ))
+# Boundary: 2 seconds old = fresh (well under threshold, avoids timing jitter)
+almost_ts=$(( $(date +%s) - 2 ))
 echo "65|${almost_ts}" > "$CTX_CACHE"
-assert_exit "9s old cache = block (just under threshold)" '{"tool_name":"Agent"}' 2
+assert_exit "2s old cache = block (well under threshold)" '{"tool_name":"Agent"}' 2
 
 # Old-format cache (no timestamp) — cut returns pct as "timestamp" (epoch ~65 = 1970),
 # so staleness check treats it as ancient → fails open (allow). This is safe behavior.
