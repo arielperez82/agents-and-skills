@@ -115,6 +115,33 @@ if [ -d "$adr_dir" ]; then
 fi
 echo ""
 
+# --- Waste Snake ---
+echo "## WASTE SNAKE"
+waste_file="$REPO_ROOT/.docs/canonical/waste-snake.md"
+if [ -f "$waste_file" ]; then
+  # Count total observations (### headings under Observations section, excluding Review headings)
+  obs_count="$(sed -n '/^## Observations/,/^## Ledger/p' "$waste_file" | grep -c '^### [0-9]' 2>/dev/null || echo "0")"
+  echo "Total observations: $obs_count"
+
+  # Show recent observations (last 5)
+  echo ""
+  echo "### Recent Observations"
+  sed -n '/^## Observations/,/^## Ledger/p' "$waste_file" | grep -B0 -A1 '^### [0-9]' 2>/dev/null | tail -20 || echo "(none)"
+
+  # Show most recent ledger entry summary (if any)
+  echo ""
+  echo "### Latest Ledger Entry"
+  if grep -q '^### Review:' "$waste_file" 2>/dev/null; then
+    # Extract from last Review heading to end of file, max 30 lines
+    tac "$waste_file" | sed '/^### Review:/q' | tac | head -30
+  else
+    echo "(no reviews yet)"
+  fi
+else
+  echo "(no waste snake at .docs/canonical/waste-snake.md)"
+fi
+echo ""
+
 # --- Memory ---
 echo "## MEMORY"
 # Claude Code memory path: ~/.claude/projects/{encoded-cwd}/memory/MEMORY.md

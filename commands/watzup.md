@@ -39,12 +39,15 @@ Using the gathered data, present these five areas:
 - Recommend attention shifts if needed.
 - If no roadmap exists, note that and suggest creating one.
 
-### 4. What have we learned recently?
+### 4. What have we learned recently — and what's slowing us down?
 
 - Summarize the most recent cross-cutting learnings from AGENTS.md (the L* entries).
 - Highlight any initiative-specific learnings from active charters or plans.
 - Note recent ADRs and the architectural decisions they capture.
 - Call out learnings that are particularly relevant to current in-progress or upcoming work.
+- **Waste patterns:** Summarize recent waste snake observations — group similar ones, note recurring themes.
+- If a ledger review exists, surface the top waste patterns and any open recommendations.
+- Connect waste to learnings where they overlap (e.g., a learning that addresses a recurring waste).
 
 ### 5. What's ahead of us?
 

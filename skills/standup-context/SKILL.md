@@ -23,6 +23,7 @@ This skill provides two data-gathering capabilities via shell scripts. All scrip
 - Canonical docs: roadmaps, charters, backlogs, plans (file listing with titles)
 - Status reports: 3 most recent craft-status files (content)
 - Learnings: cross-cutting (AGENTS.md L* entries), per-charter/plan, recent ADRs
+- Waste snake: recent observations, total count, latest ledger entry
 - MEMORY.md: cross-session context (first 200 lines)
 
 **How to run:** Execute `./scripts/gather-git-and-docs.sh` relative to this skill's directory. Run from the repo root.
