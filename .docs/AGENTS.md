@@ -256,6 +256,8 @@ Agents that capture or encode learnings (learner, docs-reviewer, agent-author) m
 
 **L94 — Four ADRs for a medium initiative signals good architectural hygiene** (I33-SHLFT, 2026-03-06): I33-SHLFT produced 4 ADRs covering major design trade-offs: separate packages (ADR-001), nudge vs. block (ADR-002), fail-open design (ADR-003), convention vs. hook (ADR-004). Each documented 3-4 alternatives with rejection rationale and revisit triggers. The design panel validated all 4 as SOUND. For initiatives that introduce new infrastructure patterns, err toward writing ADRs — they are cheap to produce during Phase 2 and prevent future contributors from relitigating settled decisions.
 
+**L95 — New packages must inherit Phase 0 scaffolding from the template package** (I33-SHLFT, 2026-03-06): worktree-guard and review-nudge shipped without `package.json` and `lint-staged.config.ts`, despite both existing in the template packages (commit-monitor, context-management). The root lint-staged only covers `{scripts,skills}/**/*.sh` — it does NOT cover `packages/**/*.sh`. Without per-package lint-staged configs, shellcheck and semgrep never run on staged hook scripts during pre-commit. The "Convention Discovery (Analog Diff)" step (L87) documented the 6-file package structure but the build phase missed 2 of them. Fix: the convention discovery checklist must be verified as a post-build gate, not just used as a planning reference. When creating new packages that mirror existing ones, diff the file lists after build to catch missing scaffolding.
+
 ---
 
 ## Development practices — GitHub workflows
