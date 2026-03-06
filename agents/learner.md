@@ -34,7 +34,7 @@ related-agents:
   - progress-assessor
   - architect
 related-skills: [markdown-documentation, markdown-syntax-fundamentals, markdown-tables, delivery-team/waste-identification]
-related-commands: []
+related-commands: [waste/add]
 collaborates-with:
   - agent: docs-reviewer
     purpose: Ensure documented learnings follow world-class documentation standards and structure
@@ -101,7 +101,7 @@ Learnings go to the **appropriate location** per `.docs/AGENTS.md`:
 - Patterns that worked particularly well
 - Anti-patterns encountered
 - Tooling or setup knowledge gained
-- **Waste moments** — frustration, boredom, delays, tedious repetitive work, idle waiting (offer to capture via `/waste/add`)
+- **Waste moments** — frustration, boredom, delays, tedious repetitive work, idle waiting (capture via `/waste/add` — never write to the waste snake file directly)
 
 **Process:**
 
@@ -199,6 +199,32 @@ I'll propose documentation and route it to the appropriate location."
 → Developer approves → learner applies edit
 ```
 
+## Workflow: Waste Mining (Phase 6 Audit Log)
+
+**Trigger:** Invoked as part of `/craft` Phase 6 close, or explicitly asked to mine waste from a craft session.
+
+When reviewing a craft session's audit log, extract waste signals and record each via `/waste/add`:
+
+1. **Read the audit log** from the status file's `## Audit Log` section
+2. **Scan for waste-mapped events** using the DOWNTIME taxonomy:
+
+   | Audit Event | Waste Type | `/waste/add` template |
+   |-------------|-----------|----------------------|
+   | `REJECT` | Defects | "Phase N rejected: [feedback] — rework required" |
+   | `CLARIFY` | Waiting | "Phase N blocked on clarification from Phase M: [question]" |
+   | Repeated `REJECT` (same phase, 2+) | Motion | "Phase N rejected [count] times — recurring gap in [area]" |
+   | `AUTO_APPROVE` after `REJECT` | Extra Processing | "Phase N required reject-then-approve cycle — missed [what]" |
+
+3. **For each signal found**, invoke `/waste/add` with a concise description derived from the audit entry. Include enough context for later classification during `/retro/waste-snake`.
+4. **Check for existing session waste** — if `/code` friction capture or other agents already added observations during this initiative, note whether any should be promoted to permanent learnings.
+5. **Report waste count** — include in learner output: "Waste mining: [N] observations captured from audit log via `/waste/add`."
+
+**IMPORTANT:** Always use `/waste/add` to record waste observations. Never read from or write to the waste snake file directly. The command owns the format, location, and append logic.
+
+**Reference:** `skills/delivery-team/waste-identification/references/waste-types.md` for the full DOWNTIME taxonomy.
+
+---
+
 ## Review Effectiveness Domain
 
 When developers override findings from review agents during `/review/review-changes`:
@@ -289,6 +315,8 @@ You are the **guardian of institutional knowledge**. Hard-won insights must be c
 - Extract comprehensive learnings after work completion
 - Route learnings to the appropriate location (skill references, CLAUDE.md, or ADRs)
 - Maintain consistent voice and quality standards
+
+**Waste capture rule:** All waste observations MUST go through `/waste/add`. Never read from or write to `.docs/canonical/waste-snake.md` directly. The command owns the format, location, and append logic — this prevents format drift and location sprawl.
 
 **Balance:**
 

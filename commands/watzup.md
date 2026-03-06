@@ -8,10 +8,29 @@ Run a standup-style status review. Load the **standup-context** skill and use it
 
 Load the `standup-context` skill. It provides two data-gathering capabilities:
 
-1. **Git and canonical docs** — recent commits, status, diff, branches, canonical docs, status reports, learnings, ADRs, and cross-session memory. Run this from the repo root.
+1. **Git and project context** — recent commits, status, diff, branches, plus any project-specific sections controlled by env vars. The caller (this command) provides the paths; the script collects only what it's told about.
 2. **Telemetry** — session overview, agent usage, cost breakdown, and skill frequency from Tinybird. Pass the current project name. Gracefully skips if credentials are unavailable.
 
-Run both capabilities. The skill knows which scripts to invoke and how to invoke them. Use their structured markdown output to write the standup below.
+**Setting up the paths:** Before running the git-and-docs script, resolve the repo root and compute the memory file path, then pass them as env vars. For a project using the `.docs/` artifact-conventions layout:
+
+```bash
+REPO_ROOT="$(git rev-parse --show-toplevel)"
+ENCODED_CWD="$(echo "$REPO_ROOT" | sed 's|^/|-|; s|/|-|g')"
+
+CANONICAL_ROOT="$REPO_ROOT/.docs/canonical" \
+CANONICAL_DIRS="roadmaps charters backlogs plans" \
+REPORTS_DIR="$REPO_ROOT/.docs/reports" \
+LEARNINGS_FILE="$REPO_ROOT/.docs/AGENTS.md" \
+LEARNINGS_DIRS="$REPO_ROOT/.docs/canonical/charters $REPO_ROOT/.docs/canonical/plans" \
+ADR_DIR="$REPO_ROOT/.docs/canonical/adrs" \
+WASTE_SNAKE="$REPO_ROOT/.docs/canonical/waste-snake.md" \
+MEMORY_FILE="$HOME/.claude/projects/$ENCODED_CWD/memory/MEMORY.md" \
+bash <SKILL_DIR>/scripts/gather-git-and-docs.sh
+```
+
+If a project doesn't use a particular artifact (e.g., no waste snake, no ADRs), simply omit that env var — the script skips the section.
+
+Run both capabilities. Use their structured markdown output to write the standup below.
 
 ## Step 2: Synthesize the Standup
 

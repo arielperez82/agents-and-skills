@@ -116,6 +116,8 @@ The review-changes command's inclusion/exclusion rules decide which agents actua
 
 **If any Fix Required findings:** STOP, fix all issues, re-run tests to verify fixes, re-run `/review/review-changes --mode diff`. Repeat until zero Fix Required findings.
 
+**Systemic waste capture:** If review agents surface the same pattern across multiple files (e.g., ts-enforcer finds 5+ untyped imports, refactor-assessor flags deep nesting in 3+ locations), this indicates a systemic issue worth tracking. Invoke `/waste/add` with a description of the systemic pattern (e.g., "ts-enforcer found 8 untyped imports from @acme/sdk — upstream package missing type definitions"). Only capture genuine systemic patterns, not individual one-off findings.
+
 **If only Suggestions/Observations:** Note for later, proceed to Step 5.
 
 **Output:** `✓ Step 4: Code reviewed - [0] Fix Required findings`
@@ -153,13 +155,22 @@ Mark Step 5 complete in TodoWrite, mark Step 6 in_progress.
 
 1. **ONBOARDING CHECK:** Detect onboarding requirements (API keys, env vars, config) + generate summary report with next steps.
 
-2. **FINAL COMMIT (after steps 1 and 2 completes):**
+2. **FRICTION CAPTURE (after steps 1 and 2, before commit):** Reflect on friction encountered during this plan phase. If any of these occurred, invoke `/waste/add` with a concise description for each (cap: 0-3 observations, only genuine friction):
+   - Repeated test failures from unclear requirements or missing test helpers
+   - Confusing or undocumented APIs that required trial-and-error
+   - Missing type definitions or schemas that forced workarounds
+   - Slow feedback loops (test suite, type-check, lint)
+   - Manual steps that should be automated
+   - Plan steps that were ambiguous or required re-reading prior artifacts
+   If no friction was encountered, skip this step silently.
+
+3. **FINAL COMMIT (after steps 1-3 complete):**
 
 - Most code should already be committed via per-cycle commits in Step 2. This commit captures any remaining changes (status updates, doc updates, review fixes).
-- Run only if: Steps 1 and 2 successful + User approved + Tests passed + uncommitted changes exist
+- Run only if: Steps 1-3 successful + User approved + Tests passed + uncommitted changes exist
 - Auto-stage, commit with message [phase - plan] and push
 
-**Validation:** Steps 1 and 2 must complete successfully. Step 3 (auto-commit) runs only if conditions met.
+**Validation:** Steps 1-3 must complete successfully. Step 4 (auto-commit) runs only if conditions met.
 
 Mark Step 6 complete in TodoWrite.
 

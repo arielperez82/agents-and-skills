@@ -15,6 +15,7 @@ Follow the **`/code` workflow** (see `commands/code.md`) with these modification
 3. **Step 5 (Finalize) replaces Steps 5+6** — Combine into a single finalize step:
    - STATUS UPDATE: Call `project-manager` AND `docs-manager` in parallel
    - ONBOARDING CHECK: Detect requirements (API keys, env vars, config)
+   - FRICTION CAPTURE: Reflect on friction encountered during this plan phase. For each genuine friction point (cap: 0-3), invoke `/waste/add` with a concise description. Examples: slow test suite, unclear plan steps, missing type definitions, confusing API. Skip silently if no friction encountered.
    - FINAL COMMIT: Most code already committed via per-cycle commits in Step 2. Call `git-manager` to auto-stage any remaining changes (status updates, doc updates), commit with message [phase - plan], and push
 
 ## Step Output Format

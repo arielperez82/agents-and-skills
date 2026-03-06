@@ -1178,6 +1178,24 @@ entries for every REJECT, CLARIFY, and AUTO_APPROVE event. Mine these for proces
 - AUTO_APPROVE patterns (if auto-mode): Were any auto-approvals followed by issues caught later?
   Should any auto-approve conditions be tightened?
 
+**Waste Mining (from audit log):**
+
+Mine the audit log for waste signals and capture each as a waste observation via `/waste/add`.
+Use the `waste_type` field in audit log entries when available; otherwise infer from event type:
+
+| Audit Event | Waste Type (DOWNTIME) | /waste/add description template |
+|-------------|----------------------|--------------------------------|
+| `REJECT` | Defects (rework) | "Phase N rejected: [feedback summary] — rework required" |
+| `CLARIFY` | Waiting (blocked on information) | "Phase N needed clarification from Phase M: [question] — blocked until resolved" |
+| Repeated `REJECT` on same phase (2+) | Motion (unnecessary movement) | "Phase N rejected [count] times — recurring quality gap in [area]" |
+| `AUTO_APPROVE` after prior `REJECT` | Extra Processing (rework cycle) | "Phase N required reject-then-approve cycle — initial output missed [what]" |
+
+For each waste signal identified, invoke `/waste/add` with a concise description.
+IMPORTANT: Always use the `/waste/add` command. Never write to the waste snake file directly.
+
+Also check: did any waste observations get captured during this initiative (by /code friction
+capture or other agents)? If so, note whether any should be promoted to permanent learnings.
+
 Also capture:
 - Patterns discovered or reinforced
 - Gotchas and edge cases encountered
@@ -1232,7 +1250,8 @@ Make updates or report what needs updating.
 **After parallel agents complete:**
 
 1. Present combined results from all five agents.
-2. **Artifact metadata sweep**: Update all artifact frontmatter to post-delivery status:
+2. **Mini waste-snake review (advisory):** Check whether waste observations were added during this craft session (by the learner's waste mining above, or by `/code` friction capture during Phase 4). If 3+ observations were added during this initiative, include a note: `"[N] waste observations captured during this session. Consider running /retro/waste-snake to review patterns."` This is advisory — it does not block the gate or require action.
+3. **Artifact metadata sweep**: Update all artifact frontmatter to post-delivery status:
    - Architecture designs: `status: approved`
    - Implementation plans: `status: completed`
    - ADRs with `status: proposed`: update to `accepted`
@@ -1308,15 +1327,20 @@ Append structured entries to an `## Audit Log` section in the status file markdo
   - Trigger: [what caused this event]
   - Detail: [concise context — max 200 chars]
   - Resolution: [outcome]
+  - Waste type: [DOWNTIME category, if applicable — omit line when not applicable]
 ```
 
 **Event types to log:**
 
-| Event | When | What to capture |
-|-------|------|-----------------|
-| `REJECT` | Human or auto-mode rejects a phase | Which phase, the feedback (truncated 200 chars), which agents will re-run |
-| `CLARIFY` | Clarify protocol triggered (human or auto-clarify) | Which phase asked, which prior-phase agent was consulted, the question asked, whether it resolved or escalated to Reject |
-| `AUTO_APPROVE` | Auto-mode approves a phase gate (only in `/craft:auto`) | Which phase, whether any warnings were present, agent count and artifacts produced |
+| Event | When | What to capture | Waste Type (DOWNTIME) |
+|-------|------|-----------------|----------------------|
+| `REJECT` | Human or auto-mode rejects a phase | Which phase, the feedback (truncated 200 chars), which agents will re-run | Defects (rework) |
+| `CLARIFY` | Clarify protocol triggered (human or auto-clarify) | Which phase asked, which prior-phase agent was consulted, the question asked, whether it resolved or escalated to Reject | Waiting (blocked on information) |
+| `AUTO_APPROVE` | Auto-mode approves a phase gate (only in `/craft:auto`) | Which phase, whether any warnings were present, agent count and artifacts produced | _(omit — no waste)_ |
+| `REJECT` after prior `REJECT` on same phase | Phase rejected 2+ times | Same as REJECT, plus count of prior rejections | Motion (repeated rework) |
+| `AUTO_APPROVE` after `REJECT` | Phase passes after a previous rejection | Which phase, what changed between attempts | Extra Processing (rework cycle) |
+
+The `Waste type` line is optional — include only when the event maps to a DOWNTIME waste category. The learner agent mines these annotations in Phase 6 to generate waste observations via `/waste/add`.
 
 **Example entries:**
 
@@ -1327,11 +1351,13 @@ Append structured entries to an `## Audit Log` section in the status file markdo
   - Trigger: Human rejected at gate
   - Detail: "No error boundaries or retry logic in the component design. Need graceful degradation."
   - Resolution: Re-running Phase 2 with feedback
+  - Waste type: Defects
 
 - **2026-02-19T14:45:00Z** `CLARIFY` Phase 3 (Plan) — Ambiguous acceptance criterion in US-3
   - Trigger: implementation-planner flagged "real-time" as undefined
   - Detail: Asked product-analyst: "Does 'real-time' mean WebSockets or polling?"
   - Resolution: Clarified as WebSockets; product-analyst updated charter; plan updated
+  - Waste type: Waiting
 
 - **2026-02-19T15:10:00Z** `AUTO_APPROVE` Phase 1 (Define) — Clean pass
   - Trigger: Auto-mode gate, no warnings

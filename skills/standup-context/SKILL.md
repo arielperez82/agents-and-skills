@@ -19,16 +19,39 @@ This skill provides two data-gathering capabilities via shell scripts. All scrip
 
 **What it collects:**
 
-- Git: recent commits (12h), status, diff stat, branches
-- Canonical docs: roadmaps, charters, backlogs, plans (file listing with titles)
+- Git: recent commits (12h), status, diff stat, branches — always collected
+- Canonical docs: file listing with titles from caller-specified directories
 - Status reports: 3 most recent craft-status files (content)
-- Learnings: cross-cutting (AGENTS.md L* entries), per-charter/plan, recent ADRs
+- Learnings: cross-cutting entries, per-charter/plan learnings, recent ADRs
 - Waste snake: recent observations, total count, latest ledger entry
-- MEMORY.md: cross-session context (first 200 lines)
+- Memory: cross-session context (first 200 lines)
 
-**How to run:** Execute `./scripts/gather-git-and-docs.sh` relative to this skill's directory. Run from the repo root.
+Each non-git section is controlled by an env var. Sections are **skipped** when their var is unset, so the script collects only what the caller tells it about. This keeps the script decoupled from any specific project layout.
+
+**Env vars:**
+
+| Var | Purpose | Example |
+|-----|---------|---------|
+| `CANONICAL_ROOT` | Parent dir for canonical doc subdirs | `.docs/canonical` |
+| `CANONICAL_DIRS` | Space-separated subdirs to scan | `roadmaps charters backlogs plans` |
+| `REPORTS_DIR` | Directory with `craft-status-*` files | `.docs/reports` |
+| `LEARNINGS_FILE` | File with cross-cutting `L*` entries | `.docs/AGENTS.md` |
+| `LEARNINGS_DIRS` | Space-separated dirs to scan for `## Learnings` sections | `.docs/canonical/charters .docs/canonical/plans` |
+| `ADR_DIR` | Directory with ADR `.md` files | `.docs/canonical/adrs` |
+| `WASTE_SNAKE` | Path to waste snake file | `.docs/canonical/waste-snake.md` |
+| `MEMORY_FILE` | Path to cross-session memory file | `~/.claude/projects/.../memory/MEMORY.md` |
+
+**How to run:** Set the relevant env vars, then execute the script from the repo root.
 
 ```bash
+CANONICAL_ROOT=.docs/canonical \
+CANONICAL_DIRS="roadmaps charters backlogs plans" \
+REPORTS_DIR=.docs/reports \
+LEARNINGS_FILE=.docs/AGENTS.md \
+LEARNINGS_DIRS=".docs/canonical/charters .docs/canonical/plans" \
+ADR_DIR=.docs/canonical/adrs \
+WASTE_SNAKE=.docs/canonical/waste-snake.md \
+MEMORY_FILE=~/.claude/projects/-Users-me-projects-my-repo/memory/MEMORY.md \
 bash <SKILL_DIR>/scripts/gather-git-and-docs.sh
 ```
 

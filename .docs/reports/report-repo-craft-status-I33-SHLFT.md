@@ -42,11 +42,16 @@ phases:
     panel_artifact_path: null
   - name: Design
     number: 2
-    status: pending
+    status: in_progress
     agents: [architect, adr-writer]
-    artifact_paths: []
+    artifact_paths:
+      - .docs/canonical/backlogs/backlog-repo-I33-SHLFT-shift-left-quality-hooks.md
+      - .docs/canonical/adrs/I33-SHLFT-001-separate-packages-over-extending-commit-monitor.md
+      - .docs/canonical/adrs/I33-SHLFT-002-review-nudge-post-tool-use-not-pre-tool-use.md
+      - .docs/canonical/adrs/I33-SHLFT-003-fail-open-design-for-all-hooks.md
+      - .docs/canonical/adrs/I33-SHLFT-004-red-evidence-as-skill-convention-not-commit-msg-hook.md
     commit_shas: []
-    started_at: null
+    started_at: "2026-03-06T00:04:00Z"
     completed_at: null
     human_decision: null
     feedback: null

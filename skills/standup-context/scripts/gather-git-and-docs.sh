@@ -1,9 +1,21 @@
 #!/usr/bin/env bash
-# Gather git status and canonical docs for /watzup standup command.
+# Gather git status and project context for standup reviews.
 # Outputs structured markdown to stdout. Run from repo root.
+#
+# All non-git paths are passed via env vars by the caller.
+# Sections are skipped when their env var is unset or empty.
+#
+# Env vars:
+#   CANONICAL_DIRS  — space-separated list of directories to scan for .md files
+#                     (e.g., "roadmaps charters backlogs plans" subdirs)
+#   CANONICAL_ROOT  — parent directory that CANONICAL_DIRS are relative to
+#   REPORTS_DIR     — directory containing craft-status-* report files
+#   LEARNINGS_FILE  — file containing cross-cutting learnings (L* entries)
+#   LEARNINGS_DIRS  — space-separated list of dirs to scan for Learnings sections
+#   ADR_DIR         — directory containing ADR .md files
+#   WASTE_SNAKE     — path to waste snake .md file
+#   MEMORY_FILE     — path to cross-session memory file
 set -euo pipefail
-
-REPO_ROOT="$(git rev-parse --show-toplevel 2>/dev/null || pwd)"
 
 # --- Git Data ---
 echo "## GIT RECENT COMMITS"
@@ -23,87 +35,82 @@ git branch --list 2>/dev/null || echo "(no branches)"
 echo ""
 
 # --- Canonical Docs ---
-echo "## CANONICAL DOCS"
+if [ -n "${CANONICAL_ROOT:-}" ] && [ -n "${CANONICAL_DIRS:-}" ]; then
+  echo "## CANONICAL DOCS"
 
-for doctype in roadmaps charters backlogs plans; do
-  dir="$REPO_ROOT/.docs/canonical/$doctype"
-  if [ -d "$dir" ]; then
-    files=()
-    while IFS= read -r -d '' f; do
-      files+=("$f")
-    done < <(find "$dir" -name '*.md' -not -name '.gitkeep' -print0 2>/dev/null)
-    if [ ${#files[@]} -gt 0 ]; then
-      echo ""
-      echo "### $doctype (${#files[@]} files)"
-      for f in "${files[@]}"; do
-        basename_f="$(basename "$f")"
-        # Extract title: first markdown heading or first non-empty line
-        title="$(grep -m1 '^#' "$f" 2>/dev/null | sed 's/^#* *//' || head -1 "$f")"
-        echo "- $basename_f: $title"
-      done
+  for doctype in $CANONICAL_DIRS; do
+    dir="$CANONICAL_ROOT/$doctype"
+    if [ -d "$dir" ]; then
+      files=()
+      while IFS= read -r -d '' f; do
+        files+=("$f")
+      done < <(find "$dir" -name '*.md' -not -name '.gitkeep' -print0 2>/dev/null)
+      if [ ${#files[@]} -gt 0 ]; then
+        echo ""
+        echo "### $doctype (${#files[@]} files)"
+        for f in "${files[@]}"; do
+          basename_f="$(basename "$f")"
+          title="$(grep -m1 '^#' "$f" 2>/dev/null | sed 's/^#* *//' || head -1 "$f")"
+          echo "- $basename_f: $title"
+        done
+      fi
     fi
-  fi
-done
-echo ""
+  done
+  echo ""
+fi
 
 # --- Status Reports ---
-echo "## STATUS REPORTS"
-report_dir="$REPO_ROOT/.docs/reports"
-if [ -d "$report_dir" ]; then
-  # Show the 3 most recent craft-status files
-  recent_reports=()
-  while IFS= read -r f; do
-    recent_reports+=("$f")
-  done < <(find "$report_dir" -name 'craft-status-*' -type f 2>/dev/null | sort -r | head -3)
-  if [ ${#recent_reports[@]} -gt 0 ]; then
-    for f in "${recent_reports[@]}"; do
-      echo ""
-      echo "### $(basename "$f")"
-      head -60 "$f"
-    done
+if [ -n "${REPORTS_DIR:-}" ]; then
+  echo "## STATUS REPORTS"
+  if [ -d "$REPORTS_DIR" ]; then
+    recent_reports=()
+    while IFS= read -r f; do
+      recent_reports+=("$f")
+    done < <(find "$REPORTS_DIR" -name 'craft-status-*' -type f 2>/dev/null | sort -r | head -3)
+    if [ ${#recent_reports[@]} -gt 0 ]; then
+      for f in "${recent_reports[@]}"; do
+        echo ""
+        echo "### $(basename "$f")"
+        head -60 "$f"
+      done
+    else
+      echo "(no craft-status reports found)"
+    fi
   else
-    echo "(no craft-status reports found)"
+    echo "(directory not found: $REPORTS_DIR)"
   fi
-else
-  echo "(no .docs/reports/ directory)"
+  echo ""
 fi
-echo ""
 
 # --- Learnings ---
 echo "## RECENT LEARNINGS"
 
-# Layer 1: Recorded learnings from AGENTS.md (last 10 L* entries)
-agents_md="$REPO_ROOT/.docs/AGENTS.md"
-if [ -f "$agents_md" ]; then
+if [ -n "${LEARNINGS_FILE:-}" ] && [ -f "$LEARNINGS_FILE" ]; then
   echo ""
-  echo "### Cross-cutting learnings (AGENTS.md)"
-  grep -n '^\*\*L[0-9]' "$agents_md" 2>/dev/null | tail -10 || echo "(no recorded learnings found)"
+  echo "### Cross-cutting learnings"
+  grep -n '^\*\*L[0-9]' "$LEARNINGS_FILE" 2>/dev/null | tail -10 || echo "(no recorded learnings found)"
 fi
 
-# Layer 2: Learnings sections from canonical docs (charters and plans)
-for doctype in charters plans; do
-  dir="$REPO_ROOT/.docs/canonical/$doctype"
-  if [ -d "$dir" ]; then
-    while IFS= read -r -d '' f; do
-      # Check if file has a Learnings section (## or ###)
-      if grep -q '^##\+ .*[Ll]earnings' "$f" 2>/dev/null; then
-        basename_f="$(basename "$f")"
-        echo ""
-        echo "### Learnings from $basename_f"
-        # Extract from the Learnings heading to the next heading of same or higher level, max 30 lines
-        sed -n '/^##\+ .*[Ll]earnings/,/^##\+ /p' "$f" 2>/dev/null | head -30
-      fi
-    done < <(find "$dir" -name '*.md' -not -path '*/archive/*' -not -name '.gitkeep' -print0 2>/dev/null)
-  fi
-done
+if [ -n "${LEARNINGS_DIRS:-}" ]; then
+  for dir in $LEARNINGS_DIRS; do
+    if [ -d "$dir" ]; then
+      while IFS= read -r -d '' f; do
+        if grep -q '^##\+ .*[Ll]earnings' "$f" 2>/dev/null; then
+          basename_f="$(basename "$f")"
+          echo ""
+          echo "### Learnings from $basename_f"
+          sed -n '/^##\+ .*[Ll]earnings/,/^##\+ /p' "$f" 2>/dev/null | head -30
+        fi
+      done < <(find "$dir" -name '*.md' -not -path '*/archive/*' -not -name '.gitkeep' -print0 2>/dev/null)
+    fi
+  done
+fi
 
-# Layer 3: Recent ADRs
-adr_dir="$REPO_ROOT/.docs/canonical/adrs"
-if [ -d "$adr_dir" ]; then
+if [ -n "${ADR_DIR:-}" ] && [ -d "$ADR_DIR" ]; then
   adr_files=()
   while IFS= read -r f; do
     adr_files+=("$f")
-  done < <(find "$adr_dir" -name '*.md' -not -name '.gitkeep' -type f 2>/dev/null | sort -r | head -3)
+  done < <(find "$ADR_DIR" -name '*.md' -not -name '.gitkeep' -type f 2>/dev/null | sort -r | head -3)
   if [ ${#adr_files[@]} -gt 0 ]; then
     echo ""
     echo "### Recent ADRs"
@@ -116,40 +123,35 @@ fi
 echo ""
 
 # --- Waste Snake ---
-echo "## WASTE SNAKE"
-waste_file="$REPO_ROOT/.docs/canonical/waste-snake.md"
-if [ -f "$waste_file" ]; then
-  # Count total observations (### headings under Observations section, excluding Review headings)
-  obs_count="$(sed -n '/^## Observations/,/^## Ledger/p' "$waste_file" | grep -c '^### [0-9]' 2>/dev/null || echo "0")"
-  echo "Total observations: $obs_count"
+if [ -n "${WASTE_SNAKE:-}" ]; then
+  echo "## WASTE SNAKE"
+  if [ -f "$WASTE_SNAKE" ]; then
+    obs_count="$(sed -n '/^## Observations/,/^## Ledger/p' "$WASTE_SNAKE" | grep -c '^### [0-9]' 2>/dev/null || echo "0")"
+    echo "Total observations: $obs_count"
 
-  # Show recent observations (last 5)
-  echo ""
-  echo "### Recent Observations"
-  sed -n '/^## Observations/,/^## Ledger/p' "$waste_file" | grep -B0 -A1 '^### [0-9]' 2>/dev/null | tail -20 || echo "(none)"
+    echo ""
+    echo "### Recent Observations"
+    sed -n '/^## Observations/,/^## Ledger/p' "$WASTE_SNAKE" | grep -B0 -A1 '^### [0-9]' 2>/dev/null | tail -20 || echo "(none)"
 
-  # Show most recent ledger entry summary (if any)
-  echo ""
-  echo "### Latest Ledger Entry"
-  if grep -q '^### Review:' "$waste_file" 2>/dev/null; then
-    # Extract from last Review heading to end of file, max 30 lines
-    tac "$waste_file" | sed '/^### Review:/q' | tac | head -30
+    echo ""
+    echo "### Latest Ledger Entry"
+    if grep -q '^### Review:' "$WASTE_SNAKE" 2>/dev/null; then
+      tac "$WASTE_SNAKE" | sed '/^### Review:/q' | tac | head -30
+    else
+      echo "(no reviews yet)"
+    fi
   else
-    echo "(no reviews yet)"
+    echo "(file not found: $WASTE_SNAKE)"
   fi
-else
-  echo "(no waste snake at .docs/canonical/waste-snake.md)"
+  echo ""
 fi
-echo ""
 
 # --- Memory ---
-echo "## MEMORY"
-# Claude Code memory path: ~/.claude/projects/{encoded-cwd}/memory/MEMORY.md
-# Encoded CWD: absolute path with / replaced by -
-encoded_cwd="$(echo "$REPO_ROOT" | sed 's|^/|-|; s|/|-|g')"
-memory_file="$HOME/.claude/projects/$encoded_cwd/memory/MEMORY.md"
-if [ -f "$memory_file" ]; then
-  head -200 "$memory_file"
-else
-  echo "(no MEMORY.md found at $memory_file)"
+if [ -n "${MEMORY_FILE:-}" ]; then
+  echo "## MEMORY"
+  if [ -f "$MEMORY_FILE" ]; then
+    head -200 "$MEMORY_FILE"
+  else
+    echo "(file not found: $MEMORY_FILE)"
+  fi
 fi
