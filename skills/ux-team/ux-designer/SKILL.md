@@ -3,6 +3,17 @@ name: ux-designer
 description: User experience and interface design specialist
 metadata:
   version: 6.0.0
+  domain: design
+  tags:
+  - ux
+  - user-experience
+  - design-thinking
+  - usability
+  related-agents:
+  - ux-designer
+  related-skills:
+  - frontend-design
+  - visual-design-foundations
 ---
 
 # UX Designer
