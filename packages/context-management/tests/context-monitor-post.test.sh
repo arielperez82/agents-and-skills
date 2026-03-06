@@ -19,10 +19,17 @@ cleanup() {
 }
 trap cleanup EXIT
 
+NOW=$(date +%s)
+
+write_cache() {
+  local pct="$1"
+  echo "${pct}|${NOW}" > "$CTX_CACHE"
+}
+
 assert_output() {
   local label="$1" input="$2" expected="$3"
   cleanup  # Reset throttle between tests
-  [ -n "${4:-}" ] && echo "$4" > "$CTX_CACHE"  # Set cache if provided
+  [ -n "${4:-}" ] && write_cache "$4"  # Set cache if provided
   out=$(echo "$input" | bash "$SUT")
   if [ "$out" = "$expected" ]; then
     echo "  PASS  $label"
@@ -38,7 +45,7 @@ assert_output() {
 assert_contains() {
   local label="$1" input="$2" expected="$3"
   cleanup  # Reset throttle between tests
-  [ -n "${4:-}" ] && echo "$4" > "$CTX_CACHE"
+  [ -n "${4:-}" ] && write_cache "$4"
   out=$(echo "$input" | bash "$SUT")
   if echo "$out" | grep -qF "$expected"; then
     echo "  PASS  $label"
@@ -81,7 +88,7 @@ assert_contains "65% = STOP" '{}' "CONTEXT AT 65%" "65"
 echo ""
 echo "--- Throttle ---"
 cleanup
-echo "45" > "$CTX_CACHE"
+write_cache "45"
 # First call: should warn
 out1=$(echo '{}' | bash "$SUT")
 # Second call immediately: should suppress
@@ -93,6 +100,22 @@ else
   echo "  FAIL  throttle suppresses second call"
   echo "    first: $out1"
   echo "    second: $out2"
+  FAIL=$((FAIL + 1))
+fi
+
+# Stale cache = silent (simulates /clear scenario)
+echo ""
+echo "--- Stale cache (post-clear safety) ---"
+cleanup
+stale_ts=$(( $(date +%s) - 15 ))
+echo "55|${stale_ts}" > "$CTX_CACHE"
+out=$(echo '{}' | bash "$SUT")
+if [ "$out" = '{"suppressOutput": true}' ]; then
+  echo "  PASS  stale 55% cache = suppress (older than 30s)"
+  PASS=$((PASS + 1))
+else
+  echo "  FAIL  stale 55% cache = suppress (older than 30s)"
+  echo "    got: $out"
   FAIL=$((FAIL + 1))
 fi
 

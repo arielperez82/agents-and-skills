@@ -20,6 +20,7 @@ metadata:
     references:
       - references/voice-analysis-template.md
       - references/style-guide-skeleton.md
+      - references/voice-profile-template.md
     assets: []
   difficulty: advanced
   domain: editorial
@@ -36,7 +37,8 @@ metadata:
   related-agents:
     - editorial-writer
     - voice-consistency-reviewer
-  related-commands: []
+  related-commands:
+    - voice/extract
   related-skills:
     - editorial-team/script-to-article
     - editorial-team/bias-screening
@@ -136,10 +138,22 @@ Every publication has a voice — the combination of sentence rhythm, vocabulary
 - When voice matching conflicts with clarity, clarity wins
 - Don't over-match — slight natural variation keeps writing from sounding robotic
 
+## Voice Profile (Standard Artifact)
+
+The voice profile (`.voice-profile.md`) is the standard output of the extraction process and the standard input for all voice-related operations. It contains YAML frontmatter (for machine parsing) and a markdown body (for human reading and agent consumption).
+
+**Generate:** `/voice/extract <editions-dir> --name "Publication Name"`
+**Consume:** Pass via `--voice-profile <path>` to `/newsletter/generate`, `/review/editorial-review`, or any agent using this skill.
+
+The profile is publication-scoped and reusable — extract once, use for every edition. Re-extract quarterly or when the publication's voice evolves.
+
+See `references/voice-profile-template.md` for the full template structure.
+
 ## Reference Guides
 
+- **[voice-profile-template.md](references/voice-profile-template.md)** — Standard voice profile format (output of `/voice/extract`, input to all voice consumers)
 - **[voice-analysis-template.md](references/voice-analysis-template.md)** — Template for analyzing a single edition across 6 dimensions
-- **[style-guide-skeleton.md](references/style-guide-skeleton.md)** — Template for compiling a complete voice profile
+- **[style-guide-skeleton.md](references/style-guide-skeleton.md)** — Template for compiling a complete voice profile (superseded by voice-profile-template for new work)
 
 ## Integration
 

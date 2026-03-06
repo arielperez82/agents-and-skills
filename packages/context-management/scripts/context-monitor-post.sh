@@ -10,17 +10,30 @@ cat > /dev/null
 CTX_CACHE="/tmp/claude-ctx-pct-${CLAUDE_CODE_SSE_PORT:-global}"
 THROTTLE_FILE="/tmp/claude-ctx-warned-${CLAUDE_CODE_SSE_PORT:-global}"
 THROTTLE_SECONDS=60
+STALE_SECONDS="${CTX_STALE_SECONDS:-10}"
 
-# Read cached context percentage
+# Read cached context percentage (format: pct|epoch)
 if [ ! -f "$CTX_CACHE" ]; then
   printf '{"suppressOutput": true}'
   exit 0
 fi
 
-pct=$(cat "$CTX_CACHE" 2>/dev/null)
+cached=$(cat "$CTX_CACHE" 2>/dev/null)
+pct=$(echo "$cached" | cut -d'|' -f1)
+cached_ts=$(echo "$cached" | cut -d'|' -f2)
+
 if [ -z "$pct" ] || ! [ "$pct" -eq "$pct" ] 2>/dev/null; then
   printf '{"suppressOutput": true}'
   exit 0
+fi
+
+# Ignore stale cache (e.g. after /clear resets context)
+if [ -n "$cached_ts" ] && [ "$cached_ts" -eq "$cached_ts" ] 2>/dev/null; then
+  now=$(date +%s)
+  if [ $((now - cached_ts)) -ge "$STALE_SECONDS" ]; then
+    printf '{"suppressOutput": true}'
+    exit 0
+  fi
 fi
 
 # Below 40%: silent

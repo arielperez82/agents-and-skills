@@ -13,7 +13,7 @@
 - Work on small defined tasks.
 - Work with small batch sizes.
 - Do the simplest possible thing that meets the requirements.
-- Use TDD.
+- Use Canon TDD.
 - Make small atomic commits.
 - Work iteratively.
 - Refactor when needed.
@@ -21,7 +21,7 @@
 - Trust, but verify.
 - Leverage tools.
 - Commit early, commit often.
-- Route work to the cheapest capable model (T1 local scripts → T2 haiku/subscription CLIs → T3 sonnet/opus for novel judgment).
+- Route work to the cheapest capable model, including external ones via the dispatch command (T1 local scripts → T2 haiku/subscription CLIs → T3 sonnet/opus for novel judgment).
 
 ### Commit Early, Commit Often
 
@@ -42,7 +42,7 @@
 | Tier | When | What | Weight |
 |------|------|------|--------|
 | **Per-commit (lightweight)** | Every RED-GREEN-REFACTOR-COMMIT cycle | Validation hooks (PostToolUse lint, Stop lint), pre-commit hooks (Husky + lint-staged: type-check, lint, format, tests) | Automatic, unskippable |
-| **Per-story (heavyweight)** | Once per story/issue/bug/use-case | `/review/review-changes` — full 13-agent parallel gate | Manual trigger, comprehensive |
+| **Per-story (heavyweight)** | Once per story/issue/bug/use-case | `/review/review-changes --mode diff` — full 13-agent parallel gate | Manual trigger, comprehensive |
 
 Per-commit safety is cheap and automatic. Per-story review is thorough and deliberate. Both are required — they are complementary, not alternatives.
 
@@ -182,7 +182,7 @@ The following agents and skills provide detailed guidance and can be loaded on-d
 
 ### Agents
 
-**See [agents/README.md](agents/README.md)** for the complete agent catalog: when to invoke each agent, what each provides, and how they hand off. Agents in this repo are named without a prefix (e.g. `tdd-reviewer`, `ts-enforcer`).
+**See [agents/README.md](agents/README.md)** for the complete agent catalog: when to invoke each agent, what each provides, and how they hand off.
 
 **Understanding agent frontmatter:** When parsing agent definitions, `skills` are core skills that define the agent (agent provides index/paths; load skill SKILL.md for details), while `related-skills` are supplementary skills to pull in as-needed. Agents serve as an index pointing to skills—prefer retrieval-led reasoning. See [agents/README.md#understanding-agent-frontmatter](agents/README.md#understanding-agent-frontmatter) for operational interpretation.
 
@@ -190,7 +190,7 @@ The following agents and skills provide detailed guidance and can be loaded on-d
 
 **See [skills/README.md](skills/README.md)** for the complete skill catalog: when to load each skill, what each provides, and where skills live (engineering-team, agent-development-team, etc.).
 
-**To use:** In Cursor Agent/Chat, reference the agent or skill by name or describe your task. Cursor will automatically load relevant resources.
+**To use:** Reference the agent or skill by name or describe your task. Agent will automatically load relevant resources.
 
 **MANDATORY USAGE**: You MUST proactively load skills and engage agents at the start of relevant work. See "Working with AI Agents" section below for automatic engagement rules. ALWAYS specify which agent you're using and which skills you're leveraging. ALWAYS.
 
@@ -249,7 +249,7 @@ The following agents and skills provide detailed guidance and can be loaded on-d
 
 This is the end-to-end lifecycle for all work — features, bug fixes, refactoring, infrastructure. See `agents/README.md` "Canonical Development Flow" for full diagrams and agent relationships.
 
-```
+```text
  ┌──────────────────────────────────────────────────┐
  │                 DEVELOPMENT FLOW                 │
  └──────────────────────────────────────────────────┘
@@ -330,7 +330,7 @@ For multi-task initiatives: `engineering-lead` dispatches specialist subagents w
 
 ### 4. Validate (per-story gate, before PR)
 
-Run `/review/review-changes` once per story/issue/bug/use-case — not per commit. Per-commit safety comes from hooks (PostToolUse lint, Stop lint) and pre-commit hooks (Husky + lint-staged). The heavyweight review gate runs when the story is complete:
+Run `/review/review-changes --mode diff` once per story/issue/bug/use-case — not per commit. Per-commit safety comes from hooks (PostToolUse lint, Stop lint) and pre-commit hooks (Husky + lint-staged). The heavyweight review gate runs when the story is complete:
 
 | Core (always) | Optional (when applicable) |
 |---|---|
@@ -347,7 +347,7 @@ After pass: **ask for commit approval** (if uncommitted changes remain from fixe
 
 ### 5. PR & Merge
 
-Run `/review/review-changes` final time → fix issues → `/pr`.
+Run `/review/review-changes` final time → fix issues → commit.
 
 ### 6. Close (feature complete)
 

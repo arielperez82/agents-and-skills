@@ -21,7 +21,7 @@ context-monitor-post.sh      context-gate-pre.sh
 (PostToolUse: warnings)      (PreToolUse: blocks)
 ```
 
-The **status line** computes context percentage on every render and caches it to a temp file namespaced by `CLAUDE_CODE_SSE_PORT` (unique per Claude Code instance). The **hooks** read that cached value — no computation, < 1ms overhead.
+The **status line** computes context percentage on every render and caches it (with a timestamp) to a temp file namespaced by `CLAUDE_CODE_SSE_PORT` (unique per Claude Code instance). The **hooks** read that cached value — no computation, < 1ms overhead. Cache entries older than 10 seconds are treated as stale and ignored, preventing false blocks after `/clear` resets context.
 
 A **SessionEnd** hook cleans up temp files when the session terminates.
 
@@ -209,5 +209,7 @@ To adjust thresholds, edit the percentage checks in:
 - `scripts/status-line.sh`: `classify_zone()` function
 
 To adjust throttle interval, change `THROTTLE_SECONDS=60` in `scripts/context-monitor-post.sh`.
+
+To adjust the staleness threshold (how old a cached value can be before hooks ignore it), set `CTX_STALE_SECONDS` (default: 10). This prevents stale cache from blocking tools after `/clear`.
 
 To allow additional tools through the 60%+ gate, edit `scripts/context-gate-pre.sh`. Currently allowed: Write, Edit, Read, Glob, Grep (file operations via `case`), Bash (simple git commands only — must start with `git`, no shell metacharacters like `&&`, `;`, `|`, backticks, or `$()` allowed), Skill(`context:handoff` only, checked via `skillName` field). All other tools and non-git/chained Bash commands are blocked.

@@ -37,7 +37,8 @@ related-agents:
   - editorial-accuracy-reviewer
 related-skills:
   - editorial-team/bias-screening
-related-commands: []
+related-commands:
+  - voice/extract
 collaborates-with:
   - agent: fact-checker
     purpose: Hands off drafted articles for neutrality and bias review before newsletter assembly
@@ -124,7 +125,7 @@ Unlike the `content-creator` agent (which writes original marketing content with
 4. **Restructure for reading** — Reorder to inverted pyramid: lead with news, support with context, close with implications
 5. **Draft article** — Write clean prose targeting 3-5x compression
 6. **Run transformation checklist** — Verify using `references/transformation-checklist.md`
-7. **Apply voice matching** — If voice reference provided, align output to publication style
+7. **Apply voice matching** — If voice profile provided (`--voice-profile`), load the distilled rules and reference pairs from the `.voice-profile.md` file and align output to publication style
 
 **Expected Output:** Polished article with headline and body, compression ratio noted, fidelity checklist passed
 

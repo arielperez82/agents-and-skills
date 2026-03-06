@@ -73,7 +73,19 @@ echo "--- Cache file ---"
 cleanup
 echo '{"context_window":{"used_percentage":42}}' | bash "$SUT" --agent > /dev/null
 cached=$(cat "$CTX_CACHE" 2>/dev/null)
-assert_equals "caches percentage to tmp file" "$cached" "42"
+# Cache format: pct|timestamp
+cached_pct=$(echo "$cached" | cut -d'|' -f1)
+cached_ts=$(echo "$cached" | cut -d'|' -f2)
+assert_equals "caches percentage to tmp file" "$cached_pct" "42"
+now=$(date +%s)
+if [ -n "$cached_ts" ] && [ "$cached_ts" -eq "$cached_ts" ] 2>/dev/null && [ $((now - cached_ts)) -lt 5 ]; then
+  echo "  PASS  cache includes recent timestamp"
+  PASS=$((PASS + 1))
+else
+  echo "  FAIL  cache includes recent timestamp"
+  echo "    cached line: $cached"
+  FAIL=$((FAIL + 1))
+fi
 
 # Human mode tests
 echo ""

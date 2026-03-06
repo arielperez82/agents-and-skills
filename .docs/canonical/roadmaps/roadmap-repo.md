@@ -2,7 +2,7 @@
 type: roadmap
 endeavor: repo
 status: active
-updated: 2026-03-05
+updated: 2026-03-06
 ---
 
 # Roadmap: agents-and-skills
@@ -17,7 +17,8 @@ Initiatives actively in progress.
 
 | Initiative | Name | Description | Status | Charter |
 |------------|------|-------------|--------|---------|
-| *(none)* | | | | |
+| I33-SHLFT | Shift-Left Quality Hooks | Pre/post tool-use hooks for context management and commit monitoring | In progress | |
+| I33-WSNK | Waste Snake | Process waste visibility practice | In progress | |
 
 ## Next
 
@@ -25,7 +26,7 @@ Initiatives chartered and ready to start when capacity allows.
 
 | Initiative | Name | Description | Status | Charter |
 |------------|------|-------------|--------|---------|
-| *(none)* | | | | |
+| I32-ASEC | Artifact Security Analysis | Alignment checker + bash taint checker + pre-commit/CI integration (scope-reduced: core alignment, taint, integration only) | Chartered (scope-reduced) | [charter](../charters/charter-repo-I32-ASEC-artifact-security-analysis.md) |
 
 ## Later
 
@@ -33,7 +34,7 @@ Ideas and potential initiatives not yet chartered or deferred.
 
 | Initiative | Name | Description | Status | Charter |
 |------------|------|-------------|--------|---------|
-| *(none)* | | | | |
+| I32-ASEC-P2 | Artifact Security Phase 2 | Trigger overlap detection, trust chain mapping, skill-scanner wrapper (deferred from I32-ASEC) | Idea | |
 
 ## Done
 

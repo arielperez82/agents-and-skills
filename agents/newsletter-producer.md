@@ -43,6 +43,7 @@ related-skills:
 related-commands:
   - newsletter/generate
   - review/editorial-review
+  - voice/extract
 collaborates-with:
   - agent: editorial-writer
     purpose: Dispatched for story segmentation (step 1) and individual story drafting (step 3). Transforms raw script into newsletter-ready articles.
@@ -129,13 +130,13 @@ The primary consumer is the Daily Dip newsletter, which produces editions from v
 
 **Steps:**
 
-1. **Segment script** — Dispatch `editorial-writer` to split the multi-topic script into individual story segments. If a voice reference is provided, pass it along for all subsequent steps.
+1. **Segment script** — Dispatch `editorial-writer` to split the multi-topic script into individual story segments. If a voice profile is provided (`--voice-profile`), pass it to all drafting, voice matching, and review steps.
 
 2. **Select stories** — Apply `story-selection` skill:
    - **Auto-select mode:** Score all candidates on 5 criteria, pick top N (default 3) with diversity constraint
    - **Explicit mode:** Validate editor's pre-selections against criteria, flag concerns
 
-3. **Draft each story** — Dispatch `editorial-writer` for each selected story to produce a polished newsletter article. Run in parallel for independent stories. If voice reference provided, apply voice matching.
+3. **Draft each story** — Dispatch `editorial-writer` for each selected story to produce a polished newsletter article. Run in parallel for independent stories. If voice profile provided, apply voice matching using the profile's distilled rules and reference pairs.
 
 4. **Screen each draft** — Dispatch `fact-checker` for each drafted story to check for bias, loaded language, and partisan framing. If issues found, send back to `editorial-writer` for revision.
 

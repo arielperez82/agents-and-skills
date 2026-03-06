@@ -62,29 +62,29 @@ assert_exit "no cache file = allow" '{"tool_name":"Bash"}' 0
 # Below 60% = allow
 echo ""
 echo "--- Below threshold ---"
-echo "40" > "$CTX_CACHE"
+echo "40|$(date +%s)" > "$CTX_CACHE"
 assert_exit "40% Bash = allow" '{"tool_name":"Bash"}' 0
 
-echo "59" > "$CTX_CACHE"
+echo "59|$(date +%s)" > "$CTX_CACHE"
 assert_exit "59% Bash = allow" '{"tool_name":"Bash"}' 0
 
 # At 60%+ = block non-allowlisted tools
 echo ""
 echo "--- At/above 60% ---"
-echo "60" > "$CTX_CACHE"
+echo "60|$(date +%s)" > "$CTX_CACHE"
 assert_exit "60% Agent = block" '{"tool_name":"Agent"}' 2
 assert_exit "60% WebSearch = block" '{"tool_name":"WebSearch"}' 2
 assert_exit "60% Bash(non-git) = block" '{"tool_name":"Bash","tool_input":{"command":"npm test"}}' 2
 assert_exit "60% Skill(other) = block" '{"tool_name":"Skill","tool_input":{"skillName":"code:full"}}' 2
 assert_exit "60% Skill(no input) = block" '{"tool_name":"Skill"}' 2
 
-echo "90" > "$CTX_CACHE"
+echo "90|$(date +%s)" > "$CTX_CACHE"
 assert_exit "90% Agent = block" '{"tool_name":"Agent"}' 2
 
 # Allowlisted tools pass at 60%+
 echo ""
 echo "--- Allowlist at 60%+ ---"
-echo "65" > "$CTX_CACHE"
+echo "65|$(date +%s)" > "$CTX_CACHE"
 assert_exit "65% Write = allow" '{"tool_name":"Write"}' 0
 assert_exit "65% Edit = allow" '{"tool_name":"Edit"}' 0
 assert_exit "65% Read = allow" '{"tool_name":"Read"}' 0
@@ -107,8 +107,23 @@ assert_exit "65% Skill(context:handoff) = allow" '{"tool_name":"Skill","tool_inp
 # Stderr message when blocking
 echo ""
 echo "--- Block message ---"
-echo "67" > "$CTX_CACHE"
+echo "67|$(date +%s)" > "$CTX_CACHE"
 assert_stderr_contains "block message includes percentage" '{"tool_name":"Agent"}' "Context at 67%"
+
+# Stale cache = allow (simulates /clear scenario)
+echo ""
+echo "--- Stale cache (post-clear safety) ---"
+stale_ts=$(( $(date +%s) - 15 ))
+echo "65|${stale_ts}" > "$CTX_CACHE"
+assert_exit "stale 65% cache = allow (older than 10s)" '{"tool_name":"Agent"}' 0
+
+echo "90|${stale_ts}" > "$CTX_CACHE"
+assert_exit "stale 90% cache = allow" '{"tool_name":"Agent"}' 0
+
+# Fresh cache still blocks
+fresh_ts=$(date +%s)
+echo "65|${fresh_ts}" > "$CTX_CACHE"
+assert_exit "fresh 65% cache = block" '{"tool_name":"Agent"}' 2
 
 # Invalid cache content = allow
 echo ""

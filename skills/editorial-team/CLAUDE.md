@@ -87,7 +87,8 @@ newsletter-assembly  (edition assembly)
 - 6-dimension voice profile (rhythm, register, humor, openings/closings, attribution, density)
 
 **References:**
-- `references/voice-analysis-template.md` - voice profile extraction template
+- `references/voice-profile-template.md` - standard voice profile format (output of `/voice/extract`)
+- `references/voice-analysis-template.md` - per-edition analysis template
 - `references/style-guide-skeleton.md` - publication style guide skeleton
 
 ### 5. Bias Screening (`bias-screening/`)
@@ -127,9 +128,10 @@ newsletter-assembly  (edition assembly)
 
 ## Related Commands
 
-- `/newsletter/generate` - Generate a complete newsletter edition from a script
+- `/voice/extract` - Extract a publication's voice profile from reference editions (one-time setup per publication)
+- `/newsletter/generate` - Generate a complete newsletter edition from a script (accepts `--voice-profile`)
 - `/content/fact-check` - Screen content for editorial bias and loaded language
-- `/review/editorial-review` - Run parallel editorial review agents on a newsletter edition
+- `/review/editorial-review` - Run parallel editorial review agents on a newsletter edition (accepts `--voice-profile`)
 
 ## Quality Standards
 
@@ -142,5 +144,6 @@ newsletter-assembly  (edition assembly)
 
 ---
 
-**Last Updated:** 2026-03-05
+**Last Updated:** 2026-03-06
 **Skills Deployed:** 6/6 editorial skills production-ready
+**Voice Profile:** Standard `.voice-profile.md` artifact — extract once per publication via `/voice/extract`, pass to pipeline via `--voice-profile`
