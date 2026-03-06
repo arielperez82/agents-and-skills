@@ -9,6 +9,13 @@ description: Systematic debugging framework ensuring root cause investigation be
 metadata:
   languages: all
   version: 4.0.0
+  domain: engineering
+  tags:
+  - debugging
+  - troubleshooting
+  - root-cause
+  related-agents: []
+  related-skills: []
 ---
 
 # Debugging
