@@ -552,6 +552,26 @@ unset CLAUDE_LOOP_READER_MODE
 
 # -------------------------------------------------------------------
 echo ""
+echo "--- split applescript adapters ---"
+
+if type read_buffer_terminal_app &>/dev/null; then
+  echo "  PASS  read_buffer_terminal_app exists as function"
+  PASS=$((PASS + 1))
+else
+  echo "  FAIL  read_buffer_terminal_app exists as function"
+  FAIL=$((FAIL + 1))
+fi
+
+if type read_buffer_iterm2 &>/dev/null; then
+  echo "  PASS  read_buffer_iterm2 exists as function"
+  PASS=$((PASS + 1))
+else
+  echo "  FAIL  read_buffer_iterm2 exists as function"
+  FAIL=$((FAIL + 1))
+fi
+
+# -------------------------------------------------------------------
+echo ""
 echo "--- CLAUDE_LOOP_COMMAND ---"
 
 assert_eq "CLAUDE_LOOP_COMMAND default is claude" "claude" "$CLAUDE_LOOP_COMMAND"

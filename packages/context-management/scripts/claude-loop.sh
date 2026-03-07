@@ -57,13 +57,9 @@ reader_mode() {
   esac
 }
 
-read_buffer_applescript() {
+read_buffer_terminal_app() {
   local my_tty="$1"
-  local term
-  term=$(detect_terminal)
-  case "$term" in
-    terminal_app)
-      osascript -e "
+  osascript -e "
 tell application \"Terminal\"
   repeat with i from 1 to (count of windows)
     try
@@ -74,9 +70,11 @@ tell application \"Terminal\"
   end repeat
   return \"\"
 end tell" 2>/dev/null || true
-      ;;
-    iterm2)
-      osascript -e "
+}
+
+read_buffer_iterm2() {
+  local my_tty="$1"
+  osascript -e "
 tell application \"iTerm2\"
   repeat with aWindow in windows
     repeat with aTab in tabs of aWindow
@@ -91,7 +89,15 @@ tell application \"iTerm2\"
   end repeat
   return \"\"
 end tell" 2>/dev/null || true
-      ;;
+}
+
+read_buffer_applescript() {
+  local my_tty="$1"
+  local term
+  term=$(detect_terminal)
+  case "$term" in
+    terminal_app) read_buffer_terminal_app "$my_tty" ;;
+    iterm2)       read_buffer_iterm2 "$my_tty" ;;
   esac
 }
 
