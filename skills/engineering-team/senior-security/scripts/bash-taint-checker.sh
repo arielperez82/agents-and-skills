@@ -15,6 +15,7 @@ set -euo pipefail
 FORMAT="human"
 QUIET=false
 FILES=()
+IGNORE_PATTERNS=()
 
 while [ $# -gt 0 ]; do
   case "$1" in
@@ -26,6 +27,10 @@ while [ $# -gt 0 ]; do
       QUIET=true
       shift
       ;;
+    --ignore-pattern)
+      IGNORE_PATTERNS+=("$2")
+      shift 2
+      ;;
     *)
       FILES+=("$1")
       shift
@@ -34,7 +39,7 @@ while [ $# -gt 0 ]; do
 done
 
 if [ ${#FILES[@]} -eq 0 ]; then
-  echo "Usage: bash-taint-checker.sh [--format json|human] [--quiet] FILE [FILE...]" >&2
+  echo "Usage: bash-taint-checker.sh [--format json|human] [--quiet] [--ignore-pattern PAT] FILE [FILE...]" >&2
   exit 1
 fi
 
@@ -142,6 +147,17 @@ is_sanitized() {
   local s
   for s in "${SANITIZED_VARS[@]+"${SANITIZED_VARS[@]}"}"; do
     if [ "$s" = "$var" ]; then
+      return 0
+    fi
+  done
+  return 1
+}
+
+line_matches_ignore_pattern() {
+  local trimmed="$1"
+  local pat
+  for pat in "${IGNORE_PATTERNS[@]+"${IGNORE_PATTERNS[@]}"}"; do
+    if echo "$trimmed" | grep -q "$pat"; then
       return 0
     fi
   done
@@ -285,6 +301,11 @@ check_file() {
 
     # Skip taint-ok annotated lines
     if echo "$line" | grep -q '# taint-ok:'; then
+      continue
+    fi
+
+    # Skip lines matching --ignore-pattern
+    if line_matches_ignore_pattern "$trimmed"; then
       continue
     fi
 

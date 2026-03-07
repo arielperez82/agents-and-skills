@@ -261,6 +261,64 @@ run_sut "$TEST_DIR/unquoted-cmd.sh"
 assert_exit_code "unquoted cmd exits 1" 1
 assert_output_contains "unquoted cmd flags" "command position" "$SUT_OUTPUT"
 
+# ============================================================
+# Step 5 tests: multi-file, --quiet, --ignore-pattern
+# ============================================================
+
+# --- Multi-file scan ---
+echo ""
+echo "--- Multi-file scan ---"
+run_sut "$TEST_DIR/clean.sh" "$TEST_DIR/direct-eval.sh"
+assert_exit_code "multi-file exits 1 (has tainted)" 1
+assert_output_contains "multi-file flags direct-eval" "direct-eval" "$SUT_OUTPUT"
+
+# --- --quiet mode (count only) ---
+echo ""
+echo "--- --quiet mode ---"
+run_sut --quiet "$TEST_DIR/direct-eval.sh"
+local_count=$(echo "$SUT_OUTPUT" | tr -d '[:space:]')
+if [[ "$local_count" =~ ^[0-9]+$ ]] && [ "$local_count" -gt 0 ]; then
+  echo "  PASS  --quiet outputs a number ($local_count)"
+  PASS=$((PASS + 1))
+else
+  echo "  FAIL  --quiet should output a positive number"
+  echo "    got: $SUT_OUTPUT"
+  FAIL=$((FAIL + 1))
+fi
+
+# --- --quiet with clean file ---
+echo ""
+echo "--- --quiet with clean file ---"
+run_sut --quiet "$TEST_DIR/clean.sh"
+assert_exit_code "--quiet clean exits 0" 0
+local_count=$(echo "$SUT_OUTPUT" | tr -d '[:space:]')
+if [ "$local_count" = "0" ]; then
+  echo "  PASS  --quiet clean outputs 0"
+  PASS=$((PASS + 1))
+else
+  echo "  FAIL  --quiet clean should output 0"
+  echo "    got: $SUT_OUTPUT"
+  FAIL=$((FAIL + 1))
+fi
+
+# --- --ignore-pattern suppresses matching findings ---
+echo ""
+echo "--- --ignore-pattern ---"
+cat > "$TEST_DIR/exec-shellcheck.sh" << 'FIXTURE'
+#!/bin/bash
+cmd="$1"
+eval "$cmd"
+FIXTURE
+run_sut --ignore-pattern 'eval' "$TEST_DIR/exec-shellcheck.sh"
+assert_exit_code "--ignore-pattern suppresses eval" 0
+
+# --- Non-shell file in multi-file skipped ---
+echo ""
+echo "--- Non-shell in multi-file ---"
+run_sut "$TEST_DIR/readme.md" "$TEST_DIR/clean.sh"
+assert_exit_code "mixed file types exits 0" 0
+assert_output_contains "non-shell skipped in multi" "Skipping" "$SUT_OUTPUT"
+
 # Summary
 echo ""
 echo "=== Results: $PASS passed, $FAIL failed ==="
