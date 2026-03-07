@@ -118,13 +118,17 @@ def validate_skill(skill_path):
 
 
 def _find_alignment_checker():
-    script_dir = Path(__file__).resolve().parent
-    current = script_dir
-    while current != current.parent:
-        candidate = current / "skills" / "agent-development-team" / "creating-agents" / "scripts" / "artifact-alignment-checker.sh"
-        if candidate.exists():
-            return candidate
-        current = current.parent
+    try:
+        repo_root = subprocess.run(
+            ["git", "rev-parse", "--show-toplevel"],
+            capture_output=True, text=True, timeout=5,
+        ).stdout.strip()
+        if repo_root:
+            candidate = Path(repo_root) / "skills" / "agent-development-team" / "creating-agents" / "scripts" / "artifact-alignment-checker.sh"
+            if candidate.exists():
+                return candidate
+    except (subprocess.TimeoutExpired, OSError):
+        pass
     return None
 
 if __name__ == "__main__":
