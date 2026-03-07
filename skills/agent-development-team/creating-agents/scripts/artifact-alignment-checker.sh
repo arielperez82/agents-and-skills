@@ -229,15 +229,18 @@ check_file() {
     fi
   fi
 
+  check_alignment "$file" "$frontmatter"
+}
+
+check_alignment() {
+  local file="$1"
+  local frontmatter="$2"
+
   local description tools
   description=$(get_yaml_value "$frontmatter" "description")
   tools=$(get_yaml_value "$frontmatter" "tools")
 
-  if [ -z "$tools" ]; then
-    return
-  fi
-
-  if [ -z "$description" ]; then
+  if [ -z "$tools" ] || [ -z "$description" ]; then
     return
   fi
 
@@ -246,7 +249,6 @@ check_file() {
       local write_caps
       if write_caps=$(tools_contain_write_capabilities "$tools"); then
         local write_list
-        write_list=$(echo "$write_caps" | tr ',' ', ' | sed 's/\b\w/\u&/g')
         write_list=$(echo "$write_caps" | awk -F',' '{for(i=1;i<=NF;i++){sub(/^[[:space:]]*/,"",$i); $i=toupper(substr($i,1,1)) substr($i,2)} print}' OFS=", ")
 
         local severity="High"
