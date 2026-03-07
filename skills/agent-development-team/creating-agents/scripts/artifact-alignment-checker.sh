@@ -151,15 +151,8 @@ description_has_write_keyword() {
 
   # Only match action-oriented verbs that imply the agent DOES write/modify
   # Exclude "produces" (report generation is read-only behavior)
-  local keywords=("implement" "build" "create" "generate" "write" "edit" "fix" "refactor" "develop" "construct" "execute" "orchestrat" "coordinat" "dispatch" "transform" "modif")
+  local keywords=("implement" "implements" "build" "builds" "create" "creates" "generate" "generates" "write" "writes" "edit" "edits" "fix" "fixes" "refactor" "develop" "develops" "construct" "execute" "orchestrat" "coordinat" "dispatch" "transform" "modif")
   for kw in "${keywords[@]}"; do
-    if echo "$cleaned" | grep -qw "$kw"; then
-      return 0
-    fi
-  done
-  # Check for word stems that need word-boundary matching
-  local stem_keywords=("creates" "builds" "generates" "writes" "edits" "fixes" "develops" "implements")
-  for kw in "${stem_keywords[@]}"; do
     if echo "$cleaned" | grep -qw "$kw"; then
       return 0
     fi
