@@ -36,6 +36,7 @@ PAUSE_SECONDS="${PAUSE_SECONDS:-3}"
 TAIL_LINES="${TAIL_LINES:-80}"
 POLL_INTERVAL="${POLL_INTERVAL:-2}"
 CLAUDE_LOOP_COMMAND="${CLAUDE_LOOP_COMMAND:-claude}"
+KILL_DELAY="${KILL_DELAY:-1}"
 START_MARKER="---HANDOFF-RESTART---"
 END_MARKER="---END-RESTART---"
 
@@ -53,37 +54,45 @@ detect_terminal() {
   fi
 }
 
+terminal_to_mode() {
+  local term="$1"
+  case "$term" in
+    terminal_app|iterm2|tmux) echo "$term" ;;
+    *) echo "logfile" ;;
+  esac
+}
+
 reader_mode() {
   if [ -n "${CLAUDE_LOOP_READER_MODE:-}" ]; then
     local override="$CLAUDE_LOOP_READER_MODE"
     if [ "$override" = "applescript" ]; then
-      local term
-      term=$(detect_terminal)
-      case "$term" in
-        iterm2) override="iterm2" ;;
-        *)      override="terminal_app" ;;
-      esac
+      override=$(terminal_to_mode "$(detect_terminal)")
     fi
     echo "$override"
     return
   fi
-  local term
-  term=$(detect_terminal)
-  case "$term" in
-    terminal_app) echo "terminal_app" ;;
-    iterm2)       echo "iterm2" ;;
-    tmux)         echo "tmux" ;;
-    *)            echo "logfile" ;;
-  esac
+  terminal_to_mode "$(detect_terminal)"
 }
+
+# --- Reader adapter contract ---
+# Each read_buffer_{mode} function has signature:
+#   read_buffer_{mode} <tty_path> [logfile_path]
+# Args: $1=tty path (used by terminal_app/iterm2, ignored by tmux/logfile)
+#       $2=logfile path (used by logfile, ignored by others)
+# Returns: last TAIL_LINES of terminal buffer content on stdout
+# Must not fail (use || true on external commands)
 
 read_buffer_terminal_app() {
   local my_tty="$1"
+  if [[ "$my_tty" =~ [^a-zA-Z0-9/._-] ]]; then
+    echo "" ; return
+  fi
   osascript -e "
 tell application \"Terminal\"
+  set ttyPath to \"$my_tty\"
   repeat with i from 1 to (count of windows)
     try
-      if tty of tab 1 of window i is \"$my_tty\" then
+      if tty of tab 1 of window i is ttyPath then
         return contents of tab 1 of window i
       end if
     end try
@@ -94,13 +103,17 @@ end tell" 2>/dev/null || true
 
 read_buffer_iterm2() {
   local my_tty="$1"
+  if [[ "$my_tty" =~ [^a-zA-Z0-9/._-] ]]; then
+    echo "" ; return
+  fi
   osascript -e "
 tell application \"iTerm2\"
+  set ttyPath to \"$my_tty\"
   repeat with aWindow in windows
     repeat with aTab in tabs of aWindow
       repeat with aSession in sessions of aTab
         try
-          if tty of aSession is \"$my_tty\" then
+          if tty of aSession is ttyPath then
             return contents of aSession
           end if
         end try
@@ -181,7 +194,7 @@ watcher_check() {
     if block=$(extract_restart_block "$cleaned"); then
       printf '%s' "$block" > "$restartfile"
     fi
-    sleep 1
+    sleep "$KILL_DELAY"
     kill "$(cat "$pidfile" 2>/dev/null)" 2>/dev/null || true
     return 0
   fi
@@ -197,7 +210,7 @@ start_watcher() {
   local my_tty="${CLAUDE_LOOP_TTY:-}"
   local reader_fn="read_buffer_${mode}"
 
-  if ! type "$reader_fn" &>/dev/null; then
+  if ! declare -f "$reader_fn" &>/dev/null; then
     echo "Error: unknown reader mode '$mode'" >&2
     return 1
   fi
@@ -223,7 +236,7 @@ launch_command() {
       if [[ "$(uname)" == "Darwin" ]]; then
         sh -c 'echo $$ > "$1"; shift; exec "$@"' _ "$pidfile" script -q "$logfile" "$CLAUDE_LOOP_COMMAND" "$@"
       else
-        sh -c 'echo $$ > "$1"; shift; exec "$@"' _ "$pidfile" script -q -c "$CLAUDE_LOOP_COMMAND $(printf '%q ' "$@")" "$logfile"
+        sh -c 'echo $$ > "$1"; shift; exec "$@"' _ "$pidfile" script -q -c "$(printf '%q ' "$CLAUDE_LOOP_COMMAND" "$@")" "$logfile"
       fi
       ;;
     *)

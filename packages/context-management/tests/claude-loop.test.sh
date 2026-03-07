@@ -31,11 +31,11 @@ make_tmp() {
 source "$SUT"
 
 # Poll for a condition instead of fixed sleep (faster + no flakiness)
-wait_for() {
-  local check_cmd="$1" timeout="${2:-10}"
+wait_for_pid_exit() {
+  local pid="$1" timeout="${2:-10}"
   local i=0
   while [ "$i" -lt "$timeout" ]; do
-    if eval "$check_cmd"; then return 0; fi
+    if ! kill -0 "$pid" 2>/dev/null; then return 0; fi
     sleep 0.5
     i=$((i + 1))
   done
@@ -282,7 +282,7 @@ start_watcher "$logfile" "$pidfile" "$restartfile"
 test_watcher_pid=$watcher_pid
 
 # Wait for watcher to detect, extract, and kill
-wait_for '! kill -0 "$fake_pid" 2>/dev/null' 20
+wait_for_pid_exit "$fake_pid" 20
 
 # Check that the fake process was killed
 if kill -0 "$fake_pid" 2>/dev/null; then
@@ -547,7 +547,7 @@ start_watcher "$logfile_bc" "$pidfile_bc" "$restartfile_bc"
 test_watcher_bc=$watcher_pid
 
 # Wait for watcher to detect and kill
-wait_for '! kill -0 "$fake_pid_bc" 2>/dev/null' 20
+wait_for_pid_exit "$fake_pid_bc" 20
 
 if kill -0 "$fake_pid_bc" 2>/dev/null; then
   echo "  FAIL  logfile-mode watcher kills target"
@@ -575,7 +575,7 @@ unset CLAUDE_LOOP_READER_MODE
 echo ""
 echo "--- split applescript adapters ---"
 
-if type read_buffer_terminal_app &>/dev/null; then
+if declare -f read_buffer_terminal_app &>/dev/null; then
   echo "  PASS  read_buffer_terminal_app exists as function"
   PASS=$((PASS + 1))
 else
@@ -583,7 +583,7 @@ else
   FAIL=$((FAIL + 1))
 fi
 
-if type read_buffer_iterm2 &>/dev/null; then
+if declare -f read_buffer_iterm2 &>/dev/null; then
   echo "  PASS  read_buffer_iterm2 exists as function"
   PASS=$((PASS + 1))
 else
@@ -609,16 +609,29 @@ Some output
 Restart from watcher_check test.
 ---END-RESTART---
 FAKELOG
+export KILL_DELAY=0
 set +e
 watcher_check "read_buffer_logfile" "" "$wc_logfile" "$wc_pidfile" "$wc_restartfile"
 wc_exit=$?
 set -e
+export KILL_DELAY=1
 if [ "$wc_exit" -eq 0 ]; then
   echo "  PASS  watcher_check returns 0 when END marker found"
   PASS=$((PASS + 1))
 else
   echo "  FAIL  watcher_check returns 0 when END marker found"
   FAIL=$((FAIL + 1))
+fi
+
+# Assert process was killed (side effect)
+sleep 0.2
+if kill -0 "$wc_fake_pid" 2>/dev/null; then
+  echo "  FAIL  watcher_check kills the target process"
+  kill "$wc_fake_pid" 2>/dev/null || true
+  FAIL=$((FAIL + 1))
+else
+  echo "  PASS  watcher_check kills the target process"
+  PASS=$((PASS + 1))
 fi
 wait "$wc_fake_pid" 2>/dev/null || true
 
@@ -659,7 +672,7 @@ echo ""
 echo "--- convention-based reader dispatch ---"
 
 # read_buffer_tmux accepts normalized args (tty, logfile)
-if type read_buffer_tmux &>/dev/null; then
+if declare -f read_buffer_tmux &>/dev/null; then
   echo "  PASS  read_buffer_tmux accepts normalized args"
   PASS=$((PASS + 1))
 else
@@ -670,7 +683,7 @@ fi
 # convention lookup resolves logfile reader
 TMUX=""
 TERM_PROGRAM=""
-if type "read_buffer_$(reader_mode)" &>/dev/null; then
+if declare -f "read_buffer_$(reader_mode)" &>/dev/null; then
   echo "  PASS  convention lookup resolves logfile reader"
   PASS=$((PASS + 1))
 else
@@ -696,13 +709,27 @@ unset CLAUDE_LOOP_READER_MODE
 echo ""
 echo "--- launch_command ---"
 
-if type launch_command &>/dev/null; then
+if declare -f launch_command &>/dev/null; then
   echo "  PASS  launch_command function exists"
   PASS=$((PASS + 1))
 else
   echo "  FAIL  launch_command function exists"
   FAIL=$((FAIL + 1))
 fi
+
+# launch_command writes PID and runs the command (non-logfile mode)
+lc_pidfile=$(make_tmp)
+lc_logfile=$(make_tmp)
+CLAUDE_LOOP_COMMAND="echo"
+launch_command "terminal_app" "$lc_logfile" "$lc_pidfile" "hello"
+if [ -f "$lc_pidfile" ] && [ -s "$lc_pidfile" ]; then
+  echo "  PASS  launch_command writes pidfile"
+  PASS=$((PASS + 1))
+else
+  echo "  FAIL  launch_command writes pidfile"
+  FAIL=$((FAIL + 1))
+fi
+CLAUDE_LOOP_COMMAND="claude"
 
 # -------------------------------------------------------------------
 echo ""
@@ -711,24 +738,13 @@ echo "--- CLAUDE_LOOP_COMMAND ---"
 assert_eq "CLAUDE_LOOP_COMMAND default is claude" "claude" "$CLAUDE_LOOP_COMMAND"
 
 # Override: re-source with env var set
-(
+override_result=$(
   export CLAUDE_LOOP_COMMAND="my-custom-claude"
   # shellcheck source=../scripts/claude-loop.sh
   source "$SUT"
-  if [ "$CLAUDE_LOOP_COMMAND" = "my-custom-claude" ]; then
-    echo "  PASS  CLAUDE_LOOP_COMMAND override respected"
-  else
-    echo "  FAIL  CLAUDE_LOOP_COMMAND override respected"
-    echo "    expected: my-custom-claude"
-    echo "    got: $CLAUDE_LOOP_COMMAND"
-    exit 1
-  fi
+  echo "$CLAUDE_LOOP_COMMAND"
 )
-if [ $? -eq 0 ]; then
-  PASS=$((PASS + 1))
-else
-  FAIL=$((FAIL + 1))
-fi
+assert_eq "CLAUDE_LOOP_COMMAND override respected" "my-custom-claude" "$override_result"
 
 # ===================================================================
 echo ""
