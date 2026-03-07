@@ -14,6 +14,7 @@ set -euo pipefail
 FORMAT="human"
 QUIET=false
 ALL_MODE=false
+SKIP_ANALYZABILITY=false
 RAW_ARGS=()
 
 while [ $# -gt 0 ]; do
@@ -28,6 +29,10 @@ while [ $# -gt 0 ]; do
       ;;
     --all)
       ALL_MODE=true
+      shift
+      ;;
+    --skip-analyzability)
+      SKIP_ANALYZABILITY=true
       shift
       ;;
     *)
@@ -238,6 +243,71 @@ check_file() {
       fi
     fi
   fi
+
+  # --- Analyzability scoring for SKILL.md files ---
+  if [ "$SKIP_ANALYZABILITY" = false ]; then
+    local basename
+    basename=$(basename "$file")
+    if [ "$basename" = "SKILL.md" ]; then
+      local skill_dir
+      skill_dir=$(dirname "$file")
+      local scripts_dir="$skill_dir/scripts"
+      if [ -d "$scripts_dir" ]; then
+        local script
+        for script in "$scripts_dir"/*.sh; do
+          [ -f "$script" ] || continue
+          check_script_analyzability "$file" "$script"
+        done
+      fi
+    fi
+  fi
+}
+
+check_script_analyzability() {
+  local parent_file="$1"
+  local script_file="$2"
+  local script_basename
+  script_basename=$(basename "$script_file")
+
+  local line_num=0
+  while IFS= read -r line || [ -n "$line" ]; do
+    line_num=$((line_num + 1))
+    local trimmed="${line#"${line%%[![:space:]]*}"}"
+
+    # Skip comments
+    if [[ "$trimmed" == \#* ]] || [ -z "$trimmed" ]; then
+      continue
+    fi
+
+    # eval (not in comments, not exec)
+    if echo "$trimmed" | grep -qE '^\s*eval\b'; then
+      add_finding "$parent_file" "Medium" "analyzability" "Script $script_basename contains eval (line $line_num) — low analyzability"
+      return
+    fi
+
+    # dynamic source: source "$var" or . "$var" (variable, not literal)
+    if echo "$trimmed" | grep -qE '^\s*(source|\.)\s+"\$'; then
+      add_finding "$parent_file" "Medium" "analyzability" "Script $script_basename contains dynamic source (line $line_num) — low analyzability"
+      return
+    fi
+
+    # exec with variable args (not exec <literal>)
+    if echo "$trimmed" | grep -qE '^\s*exec\b'; then
+      # Check if exec is followed by a literal command (safe) or variable (opaque)
+      local after_exec
+      after_exec=$(echo "$trimmed" | sed 's/^\s*exec\s*//')
+      if echo "$after_exec" | grep -qE '^\$'; then
+        add_finding "$parent_file" "Medium" "analyzability" "Script $script_basename contains exec with variable args (line $line_num) — low analyzability"
+        return
+      fi
+    fi
+
+    # base64 decode or hex escapes
+    if echo "$trimmed" | grep -qE 'base64\s+(-d|--decode)|\\x[0-9a-fA-F]{2}'; then
+      add_finding "$parent_file" "Medium" "analyzability" "Script $script_basename contains obfuscation pattern (line $line_num) — low analyzability"
+      return
+    fi
+  done < "$script_file"
 }
 
 for file in "${FILES[@]}"; do

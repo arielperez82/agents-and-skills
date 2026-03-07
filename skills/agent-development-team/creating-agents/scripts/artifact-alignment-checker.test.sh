@@ -333,6 +333,119 @@ run_sut "nonexistent-dir-xyz/*.md"
 assert_exit_code "empty glob exits 0" 0
 assert_output_contains "empty glob warns" "No files matched" "$SUT_OUTPUT"
 
+# ============================================================
+# Step 6 tests: analyzability scoring
+# ============================================================
+
+# Create test fixtures for analyzability
+mkdir -p "$TEST_DIR/skill-with-eval/scripts"
+cat > "$TEST_DIR/skill-with-eval/SKILL.md" << 'FIXTURE'
+---
+name: test-skill
+description: A test skill
+---
+
+# Test Skill
+FIXTURE
+cat > "$TEST_DIR/skill-with-eval/scripts/dangerous.sh" << 'FIXTURE'
+#!/bin/bash
+eval "$user_input"
+FIXTURE
+
+mkdir -p "$TEST_DIR/skill-clean/scripts"
+cat > "$TEST_DIR/skill-clean/SKILL.md" << 'FIXTURE'
+---
+name: clean-skill
+description: A clean skill
+---
+
+# Clean Skill
+FIXTURE
+cat > "$TEST_DIR/skill-clean/scripts/safe.sh" << 'FIXTURE'
+#!/bin/bash
+set -euo pipefail
+echo "hello"
+FIXTURE
+
+mkdir -p "$TEST_DIR/skill-exec-literal/scripts"
+cat > "$TEST_DIR/skill-exec-literal/SKILL.md" << 'FIXTURE'
+---
+name: exec-literal-skill
+description: A skill with exec literal
+---
+
+# Exec Literal Skill
+FIXTURE
+cat > "$TEST_DIR/skill-exec-literal/scripts/wrapper.sh" << 'FIXTURE'
+#!/bin/bash
+exec shellcheck "$@"
+FIXTURE
+
+mkdir -p "$TEST_DIR/skill-no-scripts"
+cat > "$TEST_DIR/skill-no-scripts/SKILL.md" << 'FIXTURE'
+---
+name: no-scripts-skill
+description: Docs only skill
+---
+
+# No Scripts Skill
+FIXTURE
+
+mkdir -p "$TEST_DIR/skill-dynamic-source/scripts"
+cat > "$TEST_DIR/skill-dynamic-source/SKILL.md" << 'FIXTURE'
+---
+name: dynamic-source-skill
+description: A skill with dynamic source
+---
+
+# Dynamic Source Skill
+FIXTURE
+cat > "$TEST_DIR/skill-dynamic-source/scripts/loader.sh" << 'FIXTURE'
+#!/bin/bash
+source "$CONFIG_PATH"
+FIXTURE
+
+# --- Script with eval gets analyzability finding (Scenario 2.1) ---
+echo ""
+echo "--- Analyzability: eval in script ---"
+run_sut "$TEST_DIR/skill-with-eval/SKILL.md"
+assert_exit_code "eval skill exits 0 (Medium, not Critical)" 0
+assert_output_contains "eval analyzability finding" "analyzability" "$SUT_OUTPUT"
+
+# --- Clean script: no analyzability findings (Scenario 2.2) ---
+echo ""
+echo "--- Analyzability: clean script ---"
+run_sut "$TEST_DIR/skill-clean/SKILL.md"
+assert_exit_code "clean skill exits 0" 0
+assert_output_not_contains "clean skill no analyzability" "analyzability" "$SUT_OUTPUT"
+
+# --- exec with literal command NOT flagged (Scenario 2.4) ---
+echo ""
+echo "--- Analyzability: exec literal ---"
+run_sut "$TEST_DIR/skill-exec-literal/SKILL.md"
+assert_exit_code "exec literal exits 0" 0
+assert_output_not_contains "exec literal not flagged" "analyzability" "$SUT_OUTPUT"
+
+# --- Skill with no scripts: no findings (Scenario 2.5) ---
+echo ""
+echo "--- Analyzability: no scripts ---"
+run_sut "$TEST_DIR/skill-no-scripts/SKILL.md"
+assert_exit_code "no scripts exits 0" 0
+
+# --- Dynamic source flagged (Scenario 2.3) ---
+echo ""
+echo "--- Analyzability: dynamic source ---"
+run_sut "$TEST_DIR/skill-dynamic-source/SKILL.md"
+assert_exit_code "dynamic source exits 0 (Medium)" 0
+assert_output_contains "dynamic source flagged" "analyzability" "$SUT_OUTPUT"
+
+# --- --skip-analyzability disables (Scenario 2.6) ---
+echo ""
+echo "--- --skip-analyzability ---"
+run_sut --skip-analyzability "$TEST_DIR/skill-with-eval/SKILL.md"
+assert_exit_code "--skip-analyzability exits 0" 0
+assert_output_not_contains "--skip-analyzability no findings" "analyzability" "$SUT_OUTPUT"
+
 # Summary
 echo ""
 echo "=== Results: $PASS passed, $FAIL failed ==="
