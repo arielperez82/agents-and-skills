@@ -55,6 +55,9 @@ dependencies:
   mcp-tools: []
   scripts:
     - packages/prompt-injection-scanner/bin/scan.mjs
+  external-tools:
+    - skills/agent-development-team/creating-agents/scripts/artifact-alignment-checker.sh
+    - skills/engineering-team/senior-security/scripts/bash-taint-checker.sh
 ---
 
 # Security Assessor
@@ -217,6 +220,32 @@ git diff --cached
 5. If no artifact markdown files are in the diff, skip this workflow silently (do not add an empty section to the report).
 
 **Expected output:** Content security subsection appended to the standard Security Assessment Report, or omitted if no artifact files changed.
+
+### Workflow 5: Artifact alignment and script taint analysis
+
+**Goal:** Detect behavioral misalignment in agent/skill artifacts and taint flows in shell scripts.
+
+**When to run:** The diff includes agent `.md` files, skill `SKILL.md` files, or shell scripts. This workflow runs **in addition to** standard assessment, not instead of it.
+
+**Steps:**
+
+1. Run alignment checker on changed artifact markdown files:
+
+   ```bash
+   bash skills/agent-development-team/creating-agents/scripts/artifact-alignment-checker.sh --format json <files...>
+   ```
+
+2. Run taint checker on changed shell scripts:
+
+   ```bash
+   bash skills/engineering-team/senior-security/scripts/bash-taint-checker.sh --format json <files...>
+   ```
+
+3. Include findings in the Security Assessment Report under dedicated subsections (Behavioral Alignment, Script Taint Analysis).
+
+4. If the tools are not available, fall back to manual assessment of description-vs-tools alignment and eval/source/pipe-to-bash patterns.
+
+**Expected output:** Alignment and taint subsections appended to the standard Security Assessment Report, or omitted if no relevant files changed.
 
 ## Report format (canonical)
 

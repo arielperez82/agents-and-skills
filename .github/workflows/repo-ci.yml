@@ -98,7 +98,7 @@ jobs:
         uses: actions/checkout@v4
 
       - name: Run taint checker
-        run: bash skills/engineering-team/senior-security/scripts/bash-taint-checker.sh skills/*/scripts/*.sh packages/*/scripts/*.sh packages/*/hooks/*.sh --format json
+        run: bash skills/engineering-team/senior-security/scripts/bash-taint-checker.sh skills/*/scripts/*.sh skills/*/*/scripts/*.sh packages/*/scripts/*.sh packages/*/hooks/*.sh scripts/*.sh --format json
 
   prompt-injection-scan:
     name: Prompt Injection Scan

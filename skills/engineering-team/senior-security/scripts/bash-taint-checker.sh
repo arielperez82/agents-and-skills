@@ -310,9 +310,16 @@ check_file() {
     fi
 
     # --- Sink: pipe to bash/sh (always Critical) ---
-    if echo "$trimmed" | grep -qE '\|\s*(bash|sh)\b'; then
-      add_finding "$file" "Critical" "pipe input" "pipe to bash/sh" "$line_num" "$line_num" "Pipe to bash/sh detected (line $line_num)"
-      continue
+    # Only flag when bash/sh is the actual pipe target, not inside grep/sed patterns
+    # Match: ... | bash, ... | sh -c, etc. (pipe followed directly by bash/sh command)
+    if echo "$trimmed" | grep -qE '\|\s*(bash|sh)(\s|$)'; then
+      # Exclude lines where bash/sh appears inside quotes (grep/sed regex patterns)
+      local pipe_target
+      pipe_target=$(echo "$trimmed" | sed 's/.*|\s*//' | awk '{print $1}')
+      if [ "$pipe_target" = "bash" ] || [ "$pipe_target" = "sh" ]; then
+        add_finding "$file" "Critical" "pipe input" "pipe to bash/sh" "$line_num" "$line_num" "Pipe to bash/sh detected (line $line_num)"
+        continue
+      fi
     fi
 
     # --- Sink: eval with tainted variable ---

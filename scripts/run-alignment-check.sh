@@ -16,4 +16,6 @@ if [ ! -f "$CHECKER" ]; then
   exit 0
 fi
 
-exec bash "$CHECKER" --quiet "$@"
+# Run as informational (non-blocking) — alignment findings are warnings, not blockers.
+# CI (--all mode) uses the checker directly and enforces exit codes.
+bash "$CHECKER" --quiet "$@" || true
