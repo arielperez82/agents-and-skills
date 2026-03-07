@@ -320,6 +320,21 @@ assert_exit_code "mixed file types exits 0" 0
 assert_output_contains "non-shell skipped in multi" "Skipping" "$SUT_OUTPUT"
 
 # ============================================================
+# R2 tests: JSON escaping of special characters
+# ============================================================
+
+# --- File path with backslash produces valid JSON ---
+echo ""
+echo "--- JSON escaping: backslash in path ---"
+cat > "$TEST_DIR/back\\slash.sh" << 'FIXTURE'
+#!/bin/bash
+input="$1"
+eval "$input"
+FIXTURE
+run_sut --format json "$TEST_DIR/back\\slash.sh"
+assert_valid_json "backslash path produces valid JSON" "$SUT_OUTPUT"
+
+# ============================================================
 # R1+S1 tests: argument bounds checking + format validation
 # ============================================================
 

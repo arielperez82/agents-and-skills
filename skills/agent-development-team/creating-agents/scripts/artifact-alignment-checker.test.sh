@@ -447,6 +447,43 @@ assert_exit_code "--skip-analyzability exits 0" 0
 assert_output_not_contains "--skip-analyzability no findings" "analyzability" "$SUT_OUTPUT"
 
 # ============================================================
+# R2 tests: JSON escaping of special characters
+# ============================================================
+
+# --- File path with backslash produces valid JSON ---
+echo ""
+echo "--- JSON escaping: backslash in path ---"
+mkdir -p "$TEST_DIR/sub\\dir"
+cat > "$TEST_DIR/sub\\dir/agent.md" << 'FIXTURE'
+---
+name: backslash-agent
+title: Backslash Agent
+description: Assessment agent that reviews code
+tools: [Read, Write, Edit]
+---
+
+# Backslash Agent
+FIXTURE
+run_sut --format json "$TEST_DIR/sub\\dir/agent.md"
+assert_valid_json "backslash path produces valid JSON" "$SUT_OUTPUT"
+
+# --- Description with tab character produces valid JSON ---
+echo ""
+echo "--- JSON escaping: special chars in finding ---"
+cat > "$TEST_DIR/tab-desc.md" << FIXTURE
+---
+name: tab-agent
+title: Tab Agent
+description: Read-only	assessment with tab
+tools: [Read, Write]
+---
+
+# Tab Agent
+FIXTURE
+run_sut --format json "$TEST_DIR/tab-desc.md"
+assert_valid_json "tab in description produces valid JSON" "$SUT_OUTPUT"
+
+# ============================================================
 # R1+S1 tests: argument bounds checking + format validation
 # ============================================================
 

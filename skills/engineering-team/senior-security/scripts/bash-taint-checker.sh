@@ -70,8 +70,8 @@ add_finding() {
   fi
 
   local escaped_file escaped_message
-  escaped_file=$(echo "$file" | sed 's/"/\\"/g')
-  escaped_message=$(echo "$message" | sed 's/"/\\"/g')
+  escaped_file=$(printf '%s' "$file" | sed -e 's/\\/\\\\/g' -e 's/"/\\"/g' -e $'s/\t/\\\\t/g')
+  escaped_message=$(printf '%s' "$message" | sed -e 's/\\/\\\\/g' -e 's/"/\\"/g' -e $'s/\t/\\\\t/g')
 
   local finding="{\"file\":\"$escaped_file\",\"severity\":\"$severity\",\"source\":\"$source_desc\",\"sink\":\"$sink_desc\",\"source_line\":$source_line,\"sink_line\":$sink_line,\"message\":\"$escaped_message\"}"
 
