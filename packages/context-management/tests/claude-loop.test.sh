@@ -861,6 +861,36 @@ unset CLAUDE_LOOP_READER_MODE
 
 # -------------------------------------------------------------------
 echo ""
+echo "--- call_reader (contract enforcement) ---"
+
+# call_reader delegates to valid adapter
+cr_logfile=$(make_tmp)
+echo "test buffer content" > "$cr_logfile"
+cr_result=$(call_reader "read_buffer_logfile" "" "$cr_logfile")
+assert_eq "call_reader delegates to valid adapter" "test buffer content" "$cr_result"
+
+# call_reader rejects nonexistent function
+set +e
+cr_err=$(call_reader "read_buffer_nonexistent" "" "" 2>&1)
+cr_exit=$?
+set -e
+assert_eq "call_reader returns 1 for missing adapter" "1" "$cr_exit"
+if echo "$cr_err" | grep -q "not found"; then
+  echo "  PASS  call_reader error message mentions 'not found'"
+  PASS=$((PASS + 1))
+else
+  echo "  FAIL  call_reader error message mentions 'not found'"
+  FAIL=$((FAIL + 1))
+fi
+
+# call_reader rejects external commands (not shell functions)
+assert_exit "call_reader rejects external commands" 1 call_reader "ls" "" ""
+
+# detect_restart fails gracefully when adapter is invalid
+assert_exit "detect_restart returns 1 for invalid adapter" 1 detect_restart "read_buffer_nonexistent" "" ""
+
+# -------------------------------------------------------------------
+echo ""
 echo "--- launch_command ---"
 
 if declare -f launch_command &>/dev/null; then

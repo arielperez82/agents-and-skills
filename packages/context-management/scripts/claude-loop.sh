@@ -82,6 +82,15 @@ reader_mode() {
 # Returns: last TAIL_LINES of terminal buffer content on stdout
 # Must not fail (use || true on external commands)
 
+call_reader() {
+  local reader_fn="$1" my_tty="$2" logfile="${3:-}"
+  if ! declare -f "$reader_fn" &>/dev/null; then
+    echo "Error: reader function '$reader_fn' not found" >&2
+    return 1
+  fi
+  "$reader_fn" "$my_tty" "$logfile"
+}
+
 read_buffer_terminal_app() {
   local my_tty="$1"
   if [[ "$my_tty" =~ [^a-zA-Z0-9/._-] ]]; then
@@ -202,7 +211,7 @@ read_restart_sidecar() {
 detect_restart() {
   local reader_fn="$1" my_tty="$2" logfile="$3"
   local cleaned
-  cleaned=$("$reader_fn" "$my_tty" "$logfile")
+  cleaned=$(call_reader "$reader_fn" "$my_tty" "$logfile") || return 1
 
   if echo "$cleaned" | grep -qE "^\s*${END_MARKER}\s*$" 2>/dev/null; then
     extract_restart_block "$cleaned"
