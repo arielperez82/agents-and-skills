@@ -2,7 +2,7 @@
 type: roadmap
 endeavor: repo
 initiative: I32-ASEC
-status: active
+status: done
 updated: 2026-03-07
 ---
 

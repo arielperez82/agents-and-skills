@@ -3,7 +3,7 @@ type: charter
 endeavor: repo
 initiative: I32-ASEC
 initiative_name: artifact-security-analysis
-status: draft
+status: done
 scope_type: tooling
 complexity: medium
 created: 2026-03-06
