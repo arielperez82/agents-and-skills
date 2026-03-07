@@ -322,6 +322,13 @@ User: "Assess `src/payment/processor.ts` for security." Guardian reads file, pro
 - **Content security coverage:** All artifact markdown files in the diff are scanned for prompt injection patterns when present.
 - **Scanner performance:** Content security scan completes in <500ms for typical staged sets.
 
+## Out of Scope
+
+- **Implementing fixes** — Use security-engineer for remediation of findings.
+- **Full penetration testing** — Use security-engineer with senior-security skill's pentest workflows.
+- **Compliance certification** — Assessor identifies issues but does not certify SOC 2, PCI-DSS, or similar standards.
+- **Infrastructure security** — Use devsecops-engineer for CI/CD pipelines, secrets management, and cloud configuration.
+
 ## Related agents
 
 - [security-engineer](security-engineer.md) – Implements security fixes, full audits, threat modeling, and remediation. Consumes findings reports from this assessor.
