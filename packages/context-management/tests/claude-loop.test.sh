@@ -593,6 +593,44 @@ fi
 
 # -------------------------------------------------------------------
 echo ""
+echo "--- convention-based reader dispatch ---"
+
+# read_buffer_tmux accepts normalized args (tty, logfile)
+if type read_buffer_tmux &>/dev/null; then
+  echo "  PASS  read_buffer_tmux accepts normalized args"
+  PASS=$((PASS + 1))
+else
+  echo "  FAIL  read_buffer_tmux accepts normalized args"
+  FAIL=$((FAIL + 1))
+fi
+
+# convention lookup resolves logfile reader
+TMUX=""
+TERM_PROGRAM=""
+if type "read_buffer_$(reader_mode)" &>/dev/null; then
+  echo "  PASS  convention lookup resolves logfile reader"
+  PASS=$((PASS + 1))
+else
+  echo "  FAIL  convention lookup resolves logfile reader"
+  FAIL=$((FAIL + 1))
+fi
+
+# unknown reader mode errors
+set +e
+CLAUDE_LOOP_READER_MODE="bogus" start_watcher "/dev/null" "/dev/null" "/dev/null" 2>/dev/null
+bogus_exit=$?
+set -e
+if [ "$bogus_exit" -ne 0 ]; then
+  echo "  PASS  unknown reader mode errors"
+  PASS=$((PASS + 1))
+else
+  echo "  FAIL  unknown reader mode errors"
+  FAIL=$((FAIL + 1))
+fi
+unset CLAUDE_LOOP_READER_MODE
+
+# -------------------------------------------------------------------
+echo ""
 echo "--- CLAUDE_LOOP_COMMAND ---"
 
 assert_eq "CLAUDE_LOOP_COMMAND default is claude" "claude" "$CLAUDE_LOOP_COMMAND"

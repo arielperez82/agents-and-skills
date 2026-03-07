@@ -101,22 +101,14 @@ tell application \"iTerm2\"
 end tell" 2>/dev/null || true
 }
 
-read_buffer_applescript() {
-  local my_tty="$1"
-  local term
-  term=$(detect_terminal)
-  case "$term" in
-    terminal_app) read_buffer_terminal_app "$my_tty" ;;
-    iterm2)       read_buffer_iterm2 "$my_tty" ;;
-  esac
-}
-
 read_buffer_tmux() {
+  local _my_tty="$1"
   tmux capture-pane -p -S -"$TAIL_LINES" 2>/dev/null || true
 }
 
 read_buffer_logfile() {
-  local logfile="$1"
+  local _my_tty="$1"
+  local logfile="$2"
   tail -n "$TAIL_LINES" "$logfile" 2>/dev/null | strip_ansi
 }
 
@@ -177,6 +169,12 @@ start_watcher() {
   local mode
   mode=$(reader_mode)
   local my_tty="${CLAUDE_LOOP_TTY:-}"
+  local reader_fn="read_buffer_${mode}"
+
+  if ! type "$reader_fn" &>/dev/null; then
+    echo "Error: unknown reader mode '$mode'" >&2
+    return 1
+  fi
 
   (
     while true; do
@@ -184,20 +182,7 @@ start_watcher() {
       [ -f "$pidfile" ] || continue
 
       local cleaned=""
-      case "$mode" in
-        terminal_app)
-          cleaned=$(read_buffer_terminal_app "$my_tty")
-          ;;
-        iterm2)
-          cleaned=$(read_buffer_iterm2 "$my_tty")
-          ;;
-        tmux)
-          cleaned=$(read_buffer_tmux)
-          ;;
-        logfile)
-          cleaned=$(read_buffer_logfile "$logfile")
-          ;;
-      esac
+      cleaned=$("$reader_fn" "$my_tty" "$logfile")
 
       if echo "$cleaned" | grep -qE "^\s*${END_MARKER}\s*$" 2>/dev/null; then
         if block=$(extract_restart_block "$cleaned"); then
