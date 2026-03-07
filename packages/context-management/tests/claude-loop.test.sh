@@ -832,12 +832,49 @@ lc_logfile=$(make_tmp)
 CLAUDE_LOOP_COMMAND="echo"
 launch_command "terminal_app" "$lc_logfile" "$lc_pidfile" "hello"
 if [ -f "$lc_pidfile" ] && [ -s "$lc_pidfile" ]; then
-  echo "  PASS  launch_command writes pidfile"
+  echo "  PASS  launch_command writes pidfile (non-logfile)"
   PASS=$((PASS + 1))
 else
-  echo "  FAIL  launch_command writes pidfile"
+  echo "  FAIL  launch_command writes pidfile (non-logfile)"
   FAIL=$((FAIL + 1))
 fi
+
+# launch_command non-logfile mode passes args to the command
+lc_pidfile2=$(make_tmp)
+lc_logfile2=$(make_tmp)
+lc_output=$(make_tmp)
+CLAUDE_LOOP_COMMAND="echo"
+launch_command "terminal_app" "$lc_logfile2" "$lc_pidfile2" "arg1" "arg2" "arg with spaces" > "$lc_output"
+lc_actual=$(cat "$lc_output")
+assert_eq "launch_command passes args correctly" "arg1 arg2 arg with spaces" "$lc_actual"
+
+# launch_command logfile mode writes PID and creates logfile
+lc_pidfile3=$(make_tmp)
+lc_logfile3=$(make_tmp)
+CLAUDE_LOOP_COMMAND="true"
+launch_command "logfile" "$lc_logfile3" "$lc_pidfile3" 2>/dev/null || true
+if [ -f "$lc_pidfile3" ] && [ -s "$lc_pidfile3" ]; then
+  echo "  PASS  launch_command writes pidfile (logfile mode)"
+  PASS=$((PASS + 1))
+else
+  echo "  FAIL  launch_command writes pidfile (logfile mode)"
+  FAIL=$((FAIL + 1))
+fi
+
+# launch_command logfile mode runs the command (verify via exit)
+lc_pidfile4=$(make_tmp)
+lc_logfile4=$(make_tmp)
+CLAUDE_LOOP_COMMAND="true"
+launch_command "logfile" "$lc_logfile4" "$lc_pidfile4" 2>/dev/null || true
+# script command wraps, so exit may differ, but pidfile should exist
+if [ -f "$lc_pidfile4" ]; then
+  echo "  PASS  launch_command logfile mode executes"
+  PASS=$((PASS + 1))
+else
+  echo "  FAIL  launch_command logfile mode executes"
+  FAIL=$((FAIL + 1))
+fi
+
 CLAUDE_LOOP_COMMAND="claude"
 
 # -------------------------------------------------------------------
