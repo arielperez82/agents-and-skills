@@ -250,6 +250,7 @@ echo ""
 echo "--- watcher integration: writes sidecar and kills process ---"
 
 export POLL_INTERVAL=1
+CLAUDE_LOOP_READER_MODE="logfile"
 logfile=$(make_tmp)
 pidfile="${logfile}.pid"
 restartfile="${logfile}.restart"
@@ -314,6 +315,7 @@ echo ""
 echo "--- watcher integration: no sidecar when no markers ---"
 
 export POLL_INTERVAL=1
+CLAUDE_LOOP_READER_MODE="logfile"
 logfile2=$(make_tmp)
 pidfile2="${logfile2}.pid"
 restartfile2="${logfile2}.restart"
@@ -361,6 +363,7 @@ echo ""
 echo "--- watcher integration: ignores hook instruction text ---"
 
 export POLL_INTERVAL=1
+CLAUDE_LOOP_READER_MODE="logfile"
 logfile3=$(make_tmp)
 pidfile3="${logfile3}.pid"
 restartfile3="${logfile3}.restart"
@@ -403,6 +406,140 @@ kill "$test_watcher_pid3" 2>/dev/null || true
 wait "$fake_pid3" 2>/dev/null || true
 wait "$test_watcher_pid3" 2>/dev/null || true
 watcher_pid=""
+unset CLAUDE_LOOP_READER_MODE
+
+# -------------------------------------------------------------------
+echo ""
+echo "--- detect_terminal ---"
+
+# Save and restore TERM_PROGRAM
+orig_term_program="${TERM_PROGRAM:-}"
+
+TERM_PROGRAM="Apple_Terminal"
+result=$(detect_terminal)
+assert_eq "detects Terminal.app" "terminal_app" "$result"
+
+TERM_PROGRAM="iTerm.app"
+result=$(detect_terminal)
+assert_eq "detects iTerm2" "iterm2" "$result"
+
+TERM_PROGRAM="vscode"
+result=$(detect_terminal)
+assert_eq "detects Cursor/VS Code as unsupported" "unsupported" "$result"
+
+TERM_PROGRAM=""
+result=$(detect_terminal)
+assert_eq "empty TERM_PROGRAM returns unsupported" "unsupported" "$result"
+
+unset TERM_PROGRAM
+result=$(detect_terminal)
+assert_eq "unset TERM_PROGRAM returns unsupported" "unsupported" "$result"
+
+# Restore
+TERM_PROGRAM="$orig_term_program"
+
+# -------------------------------------------------------------------
+echo ""
+echo "--- detect_terminal: tmux detection ---"
+
+export TMUX="${TMUX:-}"
+orig_tmux="$TMUX"
+orig_term_program2="${TERM_PROGRAM:-}"
+
+TMUX="/tmp/tmux-501/default,12345,0"
+TERM_PROGRAM=""
+result=$(detect_terminal)
+assert_eq "detects tmux via TMUX env var" "tmux" "$result"
+
+# TMUX takes priority over TERM_PROGRAM
+TMUX="/tmp/tmux-501/default,12345,0"
+TERM_PROGRAM="Apple_Terminal"
+result=$(detect_terminal)
+assert_eq "tmux takes priority over TERM_PROGRAM" "tmux" "$result"
+
+TMUX="$orig_tmux"
+TERM_PROGRAM="$orig_term_program2"
+
+# -------------------------------------------------------------------
+echo ""
+echo "--- reader_mode: selects correct reader ---"
+
+orig_term_program3="${TERM_PROGRAM:-}"
+orig_tmux2="${TMUX:-}"
+TMUX=""
+
+TERM_PROGRAM="Apple_Terminal"
+result=$(reader_mode)
+assert_eq "Terminal.app uses applescript reader" "applescript" "$result"
+
+TERM_PROGRAM="iTerm.app"
+result=$(reader_mode)
+assert_eq "iTerm2 uses applescript reader" "applescript" "$result"
+
+TERM_PROGRAM="vscode"
+result=$(reader_mode)
+assert_eq "VS Code/Cursor uses logfile reader" "logfile" "$result"
+
+TERM_PROGRAM=""
+result=$(reader_mode)
+assert_eq "unknown terminal uses logfile reader" "logfile" "$result"
+
+TMUX="/tmp/tmux-501/default,12345,0"
+TERM_PROGRAM=""
+result=$(reader_mode)
+assert_eq "tmux uses tmux reader" "tmux" "$result"
+
+TMUX="$orig_tmux2"
+TERM_PROGRAM="$orig_term_program3"
+
+# -------------------------------------------------------------------
+echo ""
+echo "--- watcher integration (logfile mode): backward compat ---"
+
+export POLL_INTERVAL=1
+logfile_bc=$(make_tmp)
+pidfile_bc="${logfile_bc}.pid"
+restartfile_bc="${logfile_bc}.restart"
+cleanup_files+=("$pidfile_bc" "$restartfile_bc")
+
+sleep 30 &
+fake_pid_bc=$!
+echo "$fake_pid_bc" > "$pidfile_bc"
+
+cat > "$logfile_bc" <<'FAKELOG'
+Some session output here
+---HANDOFF-RESTART---
+Resume from backward compat test.
+---END-RESTART---
+FAKELOG
+
+export CLAUDE_LOOP_READER_MODE="logfile"
+start_watcher "$logfile_bc" "$pidfile_bc" "$restartfile_bc"
+test_watcher_bc=$watcher_pid
+
+sleep 4
+
+if kill -0 "$fake_pid_bc" 2>/dev/null; then
+  echo "  FAIL  logfile-mode watcher kills target"
+  kill "$fake_pid_bc" 2>/dev/null || true
+  FAIL=$((FAIL + 1))
+else
+  echo "  PASS  logfile-mode watcher kills target"
+  PASS=$((PASS + 1))
+fi
+
+if [ -f "$restartfile_bc" ]; then
+  sidecar_bc=$(cat "$restartfile_bc")
+  assert_eq "logfile-mode sidecar content" "Resume from backward compat test." "$sidecar_bc"
+else
+  echo "  FAIL  logfile-mode watcher writes sidecar"
+  FAIL=$((FAIL + 1))
+fi
+
+kill "$test_watcher_bc" 2>/dev/null || true
+wait "$test_watcher_bc" 2>/dev/null || true
+watcher_pid=""
+unset CLAUDE_LOOP_READER_MODE
 
 # ===================================================================
 echo ""

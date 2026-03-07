@@ -176,7 +176,7 @@ The restart block format is defined in the `/context:handoff` command (`commands
 
 ### Session Wrapper (claude-loop)
 
-`scripts/claude-loop.sh` is a transparent wrapper that auto-restarts Claude Code sessions after context exhaustion. It uses `script -q` to capture session output without interfering with the TUI, then parses the restart block markers from the last lines of output.
+`scripts/claude-loop.sh` is a transparent wrapper that auto-restarts Claude Code sessions after context exhaustion. A background watcher polls the terminal buffer for restart block markers, extracts the restart prompt, kills the session, and restarts with the extracted prompt.
 
 **Usage:**
 
@@ -191,15 +191,100 @@ claude-loop --model sonnet --yes
 ln -s /path/to/packages/context-management/scripts/claude-loop.sh /usr/local/bin/claude-loop
 ```
 
-**Behavior:**
+#### How it works
 
-1. Spawns `claude` via `script -q` for transparent output capture
-2. User interacts normally — the wrapper is invisible during a session
-3. When Claude exits, reads the last ~80 lines of output for restart block markers
-4. If `---HANDOFF-RESTART---` / `---END-RESTART---` found: extracts content, pauses 3 seconds (Ctrl+C to abort), starts a new session with the extracted prompt
-5. If no markers found: exits normally
+```
+claude-loop.sh
+  |
+  +-- detect_terminal()          # Check TMUX, TERM_PROGRAM env vars
+  |     |
+  |     v
+  +-- reader_mode()              # Select reading strategy
+  |     |
+  |     +-- "applescript"        # Terminal.app or iTerm2
+  |     +-- "tmux"               # Inside tmux session
+  |     +-- "logfile"            # Cursor, VS Code, or unknown
+  |
+  +-- run_session()
+  |     |
+  |     +-- [applescript/tmux]   # Run `claude` directly (native TUI)
+  |     +-- [logfile]            # Run `claude` via `script -q` (captures output)
+  |     |
+  |     +-- start_watcher() ---- background subprocess, polls every 2s
+  |           |
+  |           +-- read_buffer_applescript(tty)    # osascript get contents
+  |           +-- read_buffer_tmux()              # tmux capture-pane -p
+  |           +-- read_buffer_logfile(file)       # tail + strip_ansi
+  |           |
+  |           v
+  |         grep for ---END-RESTART---
+  |           |
+  |           +-- extract_restart_block()
+  |           +-- write sidecar file
+  |           +-- kill claude process
+  |
+  +-- main loop
+        |
+        +-- read sidecar file
+        +-- if restart prompt found:
+        |     pause 3s (Ctrl+C to abort)
+        |     restart with extracted prompt
+        +-- else: exit
+```
 
-**What it does NOT do:** No IPC, no signal files, no parsing of restart block content. It passes the extracted text verbatim as `--prompt` to the next session.
+#### Reader backends
+
+The watcher needs to read the terminal buffer to detect restart markers. How it reads depends on the terminal emulator:
+
+| Terminal | Detection | Reader | How | Claude runs as |
+|----------|-----------|--------|-----|----------------|
+| Terminal.app | `TERM_PROGRAM=Apple_Terminal` | `applescript` | `osascript` reads buffer by TTY | Direct (native TUI) |
+| iTerm2 | `TERM_PROGRAM=iTerm.app` | `applescript` | `osascript` reads buffer by TTY | Direct (native TUI) |
+| tmux | `TMUX` env var set | `tmux` | `tmux capture-pane -p` | Direct (native TUI) |
+| Cursor / VS Code | `TERM_PROGRAM=vscode` | `logfile` | `script -q` + ANSI strip | Via `script` wrapper |
+| Unknown | Fallback | `logfile` | `script -q` + ANSI strip | Via `script` wrapper |
+
+**Why multiple backends?** The original implementation used Unix `script` to capture all output to a log file, then stripped ANSI escape codes with regex to find markers. This is flaky — `script` captures raw terminal output including cursor movement sequences, screen redraws, and control codes that regex cannot reliably strip. AppleScript `get contents` returns clean text directly from the terminal buffer, bypassing all of this.
+
+The `logfile` backend is kept as a fallback for terminals that don't expose their buffer (Cursor's integrated terminal is xterm.js in Electron — no AppleScript access). The `tmux` backend works cross-platform (macOS and Linux).
+
+**Override auto-detection:**
+
+```bash
+# Force a specific reader
+CLAUDE_LOOP_READER_MODE=logfile claude-loop
+CLAUDE_LOOP_READER_MODE=applescript claude-loop
+CLAUDE_LOOP_READER_MODE=tmux claude-loop
+```
+
+#### AppleScript reader details
+
+The AppleScript reader targets windows by TTY device path (e.g., `/dev/ttys003`), not by window name. This is important because Claude Code dynamically rewrites the terminal title during a session — name-based targeting is unreliable.
+
+At session start, `run_session()` captures `$(tty)` and exports it as `CLAUDE_LOOP_TTY`. The watcher subprocess inherits this and passes it to `read_buffer_applescript()`, which iterates all windows/tabs/sessions in the terminal app looking for the matching TTY.
+
+The AppleScript `get contents` call:
+- Returns clean text (no ANSI codes)
+- Takes ~50-140ms per invocation
+- Does not interfere with the running session
+- Works even if the window is obscured or minimized
+- Returns the visible buffer plus some scrollback (~10-19K chars)
+
+#### Linux support
+
+On Linux, the `logfile` reader is the automatic fallback since `TERM_PROGRAM` won't match `Apple_Terminal` or `iTerm.app`. The `script` command's Linux syntax (`script -q -c "cmd" file`) is handled separately from macOS (`script -q file cmd`).
+
+The `tmux` reader works identically on Linux — if the user runs inside tmux, it auto-detects via the `TMUX` env var.
+
+Future: kitty (`kitten @ get-text`) and wezterm (`wezterm cli get-text`) could be added as additional reader backends for native Linux terminal support.
+
+#### Key design decisions
+
+- **Agent-unaware:** The agent has no knowledge of the wrapper. It follows its handoff instructions (which include outputting a restart block) regardless of whether a wrapper is listening. If no wrapper exists, the restart block is harmless text.
+- **Poll-based, not event-based:** The watcher polls every 2 seconds rather than using file watchers or signals. This is simple, portable, and the overhead is negligible (~100ms per poll for AppleScript, ~10ms for tmux).
+- **Last block wins:** If multiple restart blocks appear in the buffer (e.g., from a previous failed attempt), `extract_restart_block()` returns the last one.
+- **Kill before corrupt:** The watcher extracts and saves the restart block to a sidecar file *before* killing the claude process. In the `logfile` mode, killing `script` can corrupt the log file — extracting first avoids this race condition.
+- **No IPC, no signal files:** The only coordination mechanism is the sidecar file (`$logfile.restart`). The watcher writes it, the main loop reads it after the session exits.
 
 ## Package Structure
 
@@ -214,6 +299,7 @@ packages/context-management/
     status-line.test.sh
     context-gate-pre.test.sh
     context-monitor-post.test.sh
+    claude-loop.test.sh      # 40 tests: unit + integration
   install.sh                 # Symlink installer
   test.sh                    # Test runner
   claude-settings.example.json
@@ -238,12 +324,13 @@ packages/context-management/
 bash tests/status-line.test.sh
 bash tests/context-gate-pre.test.sh
 bash tests/context-monitor-post.test.sh
+bash tests/claude-loop.test.sh
 
 # Shellcheck
 shellcheck scripts/*.sh install.sh
 ```
 
-Tests use fake `CLAUDE_CODE_SSE_PORT` values and clean up after themselves — they never touch real session cache files.
+Tests use fake `CLAUDE_CODE_SSE_PORT` values and clean up after themselves — they never touch real session cache files. The claude-loop watcher integration tests use `CLAUDE_LOOP_READER_MODE=logfile` to force the logfile backend regardless of the test runner's terminal.
 
 ## Per-Session Isolation
 
