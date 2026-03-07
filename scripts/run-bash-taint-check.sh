@@ -16,4 +16,6 @@ if [ ! -f "$CHECKER" ]; then
   exit 0
 fi
 
+# Taint findings are blocking (exit 1 on Critical/High) — unlike alignment checks
+# which are informational (|| true). Taint = security risk, alignment = style mismatch.
 exec bash "$CHECKER" --quiet "$@"
