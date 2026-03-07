@@ -593,6 +593,69 @@ fi
 
 # -------------------------------------------------------------------
 echo ""
+echo "--- watcher_check unit tests ---"
+
+# watcher_check returns 0 when END marker found
+wc_logfile=$(make_tmp)
+wc_pidfile=$(make_tmp)
+wc_restartfile="${wc_logfile}.restart"
+cleanup_files+=("$wc_restartfile")
+sleep 30 &
+wc_fake_pid=$!
+echo "$wc_fake_pid" > "$wc_pidfile"
+cat > "$wc_logfile" <<'FAKELOG'
+Some output
+---HANDOFF-RESTART---
+Restart from watcher_check test.
+---END-RESTART---
+FAKELOG
+set +e
+watcher_check "read_buffer_logfile" "" "$wc_logfile" "$wc_pidfile" "$wc_restartfile"
+wc_exit=$?
+set -e
+if [ "$wc_exit" -eq 0 ]; then
+  echo "  PASS  watcher_check returns 0 when END marker found"
+  PASS=$((PASS + 1))
+else
+  echo "  FAIL  watcher_check returns 0 when END marker found"
+  FAIL=$((FAIL + 1))
+fi
+wait "$wc_fake_pid" 2>/dev/null || true
+
+# watcher_check returns 1 when no markers
+wc_logfile2=$(make_tmp)
+wc_pidfile2=$(make_tmp)
+wc_restartfile2="${wc_logfile2}.restart"
+cleanup_files+=("$wc_restartfile2")
+sleep 30 &
+wc_fake_pid2=$!
+echo "$wc_fake_pid2" > "$wc_pidfile2"
+echo "Normal output" > "$wc_logfile2"
+set +e
+watcher_check "read_buffer_logfile" "" "$wc_logfile2" "$wc_pidfile2" "$wc_restartfile2"
+wc_exit2=$?
+set -e
+if [ "$wc_exit2" -eq 1 ]; then
+  echo "  PASS  watcher_check returns 1 when no markers"
+  PASS=$((PASS + 1))
+else
+  echo "  FAIL  watcher_check returns 1 when no markers"
+  FAIL=$((FAIL + 1))
+fi
+kill "$wc_fake_pid2" 2>/dev/null || true
+wait "$wc_fake_pid2" 2>/dev/null || true
+
+# watcher_check writes sidecar on match
+if [ -f "$wc_restartfile" ]; then
+  wc_content=$(cat "$wc_restartfile")
+  assert_eq "watcher_check writes sidecar on match" "Restart from watcher_check test." "$wc_content"
+else
+  echo "  FAIL  watcher_check writes sidecar on match"
+  FAIL=$((FAIL + 1))
+fi
+
+# -------------------------------------------------------------------
+echo ""
 echo "--- convention-based reader dispatch ---"
 
 # read_buffer_tmux accepts normalized args (tty, logfile)

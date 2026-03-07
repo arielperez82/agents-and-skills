@@ -298,3 +298,511 @@ This proves: the CLI interface pattern, the frontmatter parsing approach, the li
 | `skill-scanner-wrapper` | Any project using Cisco skill-scanner; solves the glob/aggregation gap regardless of context |
 | Trust chain mapping | Applicable to any multi-agent system with declared relationships |
 | Trigger overlap detection | Applicable to any agent catalog with natural-language routing |
+
+## Scope Reduction
+
+The following charter features are **deferred** to reduce initial delivery risk:
+
+- **Trigger overlap detection** (original US-2) -- deferred; no routing issues reported yet
+- **Cross-artifact trust chain mapping** (original US-3) -- deferred; complex graph analysis, questionable ROI for 84 agents
+- **Skill scanner wrapper** (original US-5) -- deferred; Cisco scanner already usable manually, wrapper is convenience
+
+**Reduced user stories** (renumbered):
+
+| Reduced | Original | Feature |
+|---------|----------|---------|
+| US-1 | US-1 (partial) | Artifact alignment validation (description-vs-tools only) |
+| US-2 | US-1 (partial) | Analyzability scoring for scripts |
+| US-3 | US-4 | Bash taint analysis (source-to-sink tracking) |
+| US-4 | US-6 | Validator integration (extend validate_agent.py, quick_validate.py) |
+| US-5 | US-7 | Pre-commit and CI integration |
+
+Success criteria 2, 3, 6-8 are deferred with their respective features.
+
+## Acceptance Scenarios
+
+Scenarios are grouped by reduced user story. Walking skeleton scenarios are marked with `[WS]`. Error and edge-case scenarios represent 40% of the suite (19 of 47).
+
+### US-1: Artifact Alignment Validation
+
+#### 1.1 [WS] Read-only agent with write tools flagged as misaligned
+
+```gherkin
+Given an agent file "security-assessor.md" with description containing "assessment"
+  And the agent's tools list includes "Write" and "Edit"
+When I run artifact-alignment-checker on that file
+Then the report contains a finding with severity "High"
+  And the finding category is "alignment"
+  And the finding message indicates description claims assessment but tools allow writes
+  And the exit code is 1
+```
+
+#### 1.2 [WS] Well-aligned agent produces clean report
+
+```gherkin
+Given an agent file "tdd-reviewer.md" with description "TDD methodology coach and test quality analyst"
+  And the agent's tools list contains only "Read" and "Grep"
+When I run artifact-alignment-checker on that file
+Then the report contains zero findings
+  And the exit code is 0
+```
+
+#### 1.3 [WS] Single file input accepted
+
+```gherkin
+Given a valid agent file at "agents/security-assessor.md"
+When I run artifact-alignment-checker with argument "agents/security-assessor.md"
+Then the checker parses the file and produces a JSON report
+  And the report includes the file path in its output
+```
+
+#### 1.4 Multiple file input accepted
+
+```gherkin
+Given valid agent files at "agents/security-assessor.md" and "agents/tdd-reviewer.md"
+When I run artifact-alignment-checker with arguments "agents/security-assessor.md agents/tdd-reviewer.md"
+Then the report contains findings for both files
+  And each file's findings are listed separately
+```
+
+#### 1.5 Glob input accepted
+
+```gherkin
+Given a directory "agents/" containing multiple agent markdown files
+When I run artifact-alignment-checker with argument "agents/*.md"
+Then the checker expands the glob and processes all matching files
+  And the report contains a section for each matched file
+```
+
+#### 1.6 --all flag scans entire repo
+
+```gherkin
+Given a repo with agents in "agents/", skills in "skills/", and commands in "commands/"
+When I run artifact-alignment-checker with flag "--all"
+Then the checker scans all agent, skill, and command files
+  And the report summary shows the total count of files scanned
+```
+
+#### 1.7 JSON output format
+
+```gherkin
+Given an agent file with one alignment finding
+When I run artifact-alignment-checker with "--format json"
+Then the output is valid JSON
+  And the JSON contains a "findings" array
+  And each finding has "file", "severity", "category", and "message" fields
+```
+
+#### 1.8 Human-readable output is the default
+
+```gherkin
+Given an agent file with one alignment finding
+When I run artifact-alignment-checker with no format flag
+Then the output is human-readable text with labeled sections
+  And findings are grouped by severity
+```
+
+#### 1.9 [Error] --quiet mode outputs only count
+
+```gherkin
+Given an agent file with 2 alignment findings
+When I run artifact-alignment-checker with "--quiet"
+Then the output is exactly "2" followed by a newline
+  And no other text is printed to stdout
+```
+
+#### 1.10 [Error] Non-existent file produces clear error
+
+```gherkin
+Given no file exists at "agents/nonexistent.md"
+When I run artifact-alignment-checker with argument "agents/nonexistent.md"
+Then stderr contains "File not found: agents/nonexistent.md"
+  And the exit code is 1
+```
+
+#### 1.11 [Error] File without YAML frontmatter produces clear error
+
+```gherkin
+Given a file "agents/broken.md" that contains plain text with no YAML frontmatter
+When I run artifact-alignment-checker on that file
+Then the report contains a finding with severity "Critical"
+  And the finding message indicates missing or malformed frontmatter
+```
+
+#### 1.12 [Error] Agent with no tools field treated as having no tools
+
+```gherkin
+Given an agent file with a description containing "implementation" but no "tools" field in frontmatter
+When I run artifact-alignment-checker on that file
+Then the checker does not crash
+  And the report contains zero alignment findings for tools
+```
+
+#### 1.13 [Edge] Description keywords are case-insensitive
+
+```gherkin
+Given an agent file with description "Read-Only Assessment Guardian"
+  And the agent's tools list includes "Bash"
+When I run artifact-alignment-checker on that file
+Then the report contains a finding flagging the mismatch
+  And the detection works regardless of "read-only" capitalization
+```
+
+#### 1.14 Findings have correct severity levels
+
+```gherkin
+Given an agent with description "read-only reviewer" and tools including "Bash"
+When I run artifact-alignment-checker on that file
+Then findings with severity "Critical" or "High" cause exit code 1
+  And findings with severity "Medium" or "Low" cause exit code 0
+```
+
+#### 1.15 [Edge] Skill file with description-vs-scripts misalignment detected
+
+```gherkin
+Given a skill SKILL.md with description "data analysis and visualization"
+  And the skill's scripts directory contains a script that calls "curl" to post data to an external endpoint
+When I run artifact-alignment-checker on that skill file
+Then the report contains a finding with category "alignment"
+  And the finding indicates the skill claims analysis but scripts perform network writes
+```
+
+#### 1.16 [Error] Glob matching zero files produces informative message
+
+```gherkin
+Given no files match the pattern "agents/zzz-*.md"
+When I run artifact-alignment-checker with argument "agents/zzz-*.md"
+Then stderr contains a message indicating no files matched the pattern
+  And the exit code is 1
+```
+
+### US-2: Analyzability Scoring for Scripts
+
+#### 2.1 Script containing eval flagged as low analyzability
+
+```gherkin
+Given a shell script "skills/engineering-team/nocodb/scripts/setup-nocodb.sh" containing an "eval" statement
+When I run artifact-alignment-checker with analyzability scoring on that script
+Then the report contains a finding with category "analyzability"
+  And the finding identifies "eval" as the opaque pattern
+  And the finding includes the line number where "eval" appears
+```
+
+#### 2.2 Script with dynamic source flagged
+
+```gherkin
+Given a shell script containing "source $DYNAMIC_PATH"
+When I run artifact-alignment-checker with analyzability scoring on that script
+Then the report contains a finding with category "analyzability"
+  And the finding identifies dynamic source as the opaque pattern
+```
+
+#### 2.3 Clean script scores as fully analyzable
+
+```gherkin
+Given a shell script "packages/worktree-guard/scripts/worktree-guard-pre.sh"
+  And the script contains no eval, exec, dynamic source, or obfuscated patterns
+When I run artifact-alignment-checker with analyzability scoring on that script
+Then the report contains zero analyzability findings for that script
+```
+
+#### 2.4 Multiple opaque patterns reported individually
+
+```gherkin
+Given a shell script containing both "eval $cmd" on line 10 and "source $path" on line 25
+When I run artifact-alignment-checker with analyzability scoring on that script
+Then the report contains two separate analyzability findings
+  And each finding includes its respective line number
+```
+
+#### 2.5 [Error] Binary file skipped gracefully
+
+```gherkin
+Given a file path pointing to a binary file (not a text script)
+When I run artifact-alignment-checker with analyzability scoring on that file
+Then the checker skips the file without crashing
+  And the report notes the file was skipped as non-text
+```
+
+#### 2.6 [Edge] Eval in a comment is not flagged
+
+```gherkin
+Given a shell script where "eval" appears only inside comments (lines starting with #)
+When I run artifact-alignment-checker with analyzability scoring on that script
+Then the report contains zero analyzability findings
+```
+
+### US-3: Bash Taint Analysis
+
+#### 3.1 Positional argument flowing to eval detected
+
+```gherkin
+Given a shell script containing:
+  cmd="$1"
+  eval "$cmd"
+When I run bash-taint-checker on that script
+Then the report contains a taint finding
+  And the source is "$1" (positional argument) at the assignment line
+  And the sink is "eval" at the eval line
+  And the finding severity is "Critical"
+```
+
+#### 3.2 Curl output piped to bash detected
+
+```gherkin
+Given a shell script containing "curl -s https://example.com/install.sh | bash"
+When I run bash-taint-checker on that script
+Then the report contains a taint finding
+  And the source is "curl" (network input)
+  And the sink is "pipe to bash"
+  And the finding severity is "Critical"
+```
+
+#### 3.3 Clean script with no taint flows
+
+```gherkin
+Given a shell script "packages/worktree-guard/scripts/worktree-guard-pre.sh"
+  And the script uses only hardcoded paths and validated inputs
+When I run bash-taint-checker on that script
+Then the report contains zero findings
+  And the exit code is 0
+```
+
+#### 3.4 Glob input processes multiple scripts
+
+```gherkin
+Given shell scripts in "skills/engineering-team/*/scripts/*.sh"
+When I run bash-taint-checker with argument "skills/engineering-team/*/scripts/*.sh"
+Then the checker expands the glob and processes all matching files
+  And the report contains a section for each file with findings
+```
+
+#### 3.5 Read variable used in rm -rf detected
+
+```gherkin
+Given a shell script containing:
+  read -r target
+  rm -rf "$target"
+When I run bash-taint-checker on that script
+Then the report contains a taint finding
+  And the source is "read" (user input)
+  And the sink is "rm -rf" (destructive operation)
+```
+
+#### 3.6 [Error] Non-shell file skipped gracefully
+
+```gherkin
+Given a file "agents/security-assessor.md" which is not a shell script
+When I run bash-taint-checker on that file
+Then the checker skips the file without crashing
+  And stderr notes the file was skipped as non-shell
+```
+
+#### 3.7 [Edge] Tainted variable reassigned through intermediate variable
+
+```gherkin
+Given a shell script containing:
+  input="$1"
+  transformed="prefix_${input}"
+  eval "$transformed"
+When I run bash-taint-checker on that script
+Then the report contains a taint finding
+  And the chain shows: $1 -> input -> transformed -> eval
+```
+
+#### 3.8 [Edge] --ignore-pattern suppresses known-safe patterns
+
+```gherkin
+Given a shell script referencing "$1" in a case statement for option parsing
+When I run bash-taint-checker with "--ignore-pattern 'case.*\$1'"
+Then the report does not flag that usage as a taint source
+```
+
+#### 3.9 [Error] Exit code 1 when taint findings exist
+
+```gherkin
+Given a shell script with at least one taint finding
+When I run bash-taint-checker on that script
+Then the exit code is 1
+```
+
+#### 3.10 [Edge] Unquoted variable in command position detected
+
+```gherkin
+Given a shell script containing:
+  file="$1"
+  cat $file
+When I run bash-taint-checker on that script
+Then the report contains a taint finding
+  And the finding flags unquoted variable expansion in command position
+  And the severity is "Medium"
+```
+
+#### 3.11 [Error] Empty script produces zero findings
+
+```gherkin
+Given an empty shell script (only shebang line, no commands)
+When I run bash-taint-checker on that script
+Then the report contains zero findings
+  And the exit code is 0
+```
+
+#### 3.12 [Edge] Taint in heredoc passed to command detected
+
+```gherkin
+Given a shell script containing:
+  ssh remote_host <<EOF
+  rm -rf $1
+  EOF
+When I run bash-taint-checker on that script
+Then the report contains a taint finding
+  And the source is "$1" (positional argument)
+  And the sink is "ssh" with embedded command
+```
+
+#### 3.13 JSON output contains source-sink chain details
+
+```gherkin
+Given a shell script with a taint flow from "$1" to "eval"
+When I run bash-taint-checker with "--format json"
+Then the output is valid JSON
+  And each finding contains "source", "sink", "chain", "severity", and "line" fields
+```
+
+### US-4: Validator Integration
+
+#### 4.1 validate_agent.py includes alignment findings
+
+```gherkin
+Given an agent file "agents/security-assessor.md" with a description-tools misalignment
+When I run validate_agent.py on that agent
+Then the output includes a "Behavioral Alignment" section
+  And the section contains the alignment finding from artifact-alignment-checker
+```
+
+#### 4.2 Critical alignment finding causes validator exit 1
+
+```gherkin
+Given an agent file with a Critical alignment finding (description says "read-only", tools include "Bash")
+When I run validate_agent.py on that agent
+Then the exit code is 1
+  And the Critical alignment finding appears alongside structural findings
+```
+
+#### 4.3 --skip-alignment runs structural-only validation
+
+```gherkin
+Given an agent file with both a structural issue and an alignment issue
+When I run validate_agent.py with "--skip-alignment"
+Then the output shows the structural issue
+  And the output does not include a "Behavioral Alignment" section
+  And the alignment issue is not reported
+```
+
+#### 4.4 quick_validate.py includes analyzability scoring
+
+```gherkin
+Given a skill directory containing a script with "eval" usage
+When I run quick_validate.py on that skill
+Then the output includes an "Analyzability" section
+  And the section flags the script containing "eval"
+```
+
+#### 4.5 [Error] Alignment checker unavailable degrades gracefully
+
+```gherkin
+Given the artifact-alignment-checker script is not on PATH
+When I run validate_agent.py on any agent
+Then the validator completes structural validation normally
+  And a warning appears: "artifact-alignment-checker not found, skipping behavioral alignment"
+  And the exit code reflects only structural findings
+```
+
+### US-5: Pre-Commit and CI Integration
+
+#### 5.1 lint-staged runs alignment checker on agent changes
+
+```gherkin
+Given lint-staged is configured with artifact-alignment-checker for "agents/*.md"
+  And I have staged a modified agent file "agents/security-assessor.md"
+When lint-staged runs
+Then artifact-alignment-checker executes with "--quiet" on the staged agent file
+  And the lint-staged step passes or fails based on the checker's exit code
+```
+
+#### 5.2 lint-staged runs taint checker on shell script changes
+
+```gherkin
+Given lint-staged is configured with bash-taint-checker for "**/*.sh"
+  And I have staged a modified shell script "packages/commit-monitor/hooks/commit-risk-post.sh"
+When lint-staged runs
+Then bash-taint-checker executes with "--quiet" on the staged script
+  And the lint-staged step passes or fails based on the checker's exit code
+```
+
+#### 5.3 CI workflow runs full analysis on relevant path changes
+
+```gherkin
+Given a CI workflow with a "security-analysis" job
+  And a pull request changes files in "agents/" and "skills/"
+When the CI workflow triggers
+Then the job runs "artifact-alignment-checker --all --format json"
+  And the job runs "bash-taint-checker" on changed shell scripts with "--format json"
+  And the job exit code is non-zero if any Critical or High findings exist
+```
+
+#### 5.4 [Error] CI job succeeds when no relevant files changed
+
+```gherkin
+Given a pull request that only changes "README.md"
+When the CI workflow triggers
+Then the security-analysis job either skips or runs with zero findings
+  And the overall CI status is not blocked by the security-analysis job
+```
+
+#### 5.5 [Edge] Pre-commit does not block on Medium/Low findings
+
+```gherkin
+Given an agent file with only Medium-severity alignment findings
+When lint-staged runs artifact-alignment-checker on that file
+Then the checker exits with code 0
+  And lint-staged passes for that file
+```
+
+### Integration Scenarios
+
+#### INT-1 Walking skeleton end-to-end
+
+```gherkin
+Given the artifact-alignment-checker script exists and is executable
+  And the script handles single-file input with JSON output
+When I run artifact-alignment-checker on "agents/security-assessor.md" with "--format json"
+Then the output is valid JSON with findings array
+  And I run artifact-alignment-checker on "agents/tdd-reviewer.md" with "--format json"
+  And the well-aligned agent produces zero findings
+  And the exit codes are correct (1 for misaligned, 0 for aligned)
+```
+
+#### INT-2 Both tools coexist in lint-staged
+
+```gherkin
+Given lint-staged is configured with both artifact-alignment-checker and bash-taint-checker
+  And I stage both an agent file and a shell script
+When lint-staged runs
+Then both checkers execute on their respective file types
+  And each checker's exit code is independent
+  And lint-staged reports the combined result
+```
+
+### Scenario Budget
+
+| Category | Count | Percentage |
+|----------|-------|-----------|
+| Happy path | 26 | 55% |
+| Error path | 11 | 24% |
+| Edge case | 8 | 17% |
+| Integration | 2 | 4% |
+| **Total** | **47** | **100%** |
+| **Error + Edge** | **19** | **40%** |
+
+Walking skeleton scenarios: 1.1, 1.2, 1.3, INT-1 (4 scenarios that prove the CLI interface, frontmatter parsing, alignment detection, JSON output, and exit code semantics).
