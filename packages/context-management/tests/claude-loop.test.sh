@@ -694,6 +694,18 @@ unset CLAUDE_LOOP_READER_MODE
 
 # -------------------------------------------------------------------
 echo ""
+echo "--- launch_command ---"
+
+if type launch_command &>/dev/null; then
+  echo "  PASS  launch_command function exists"
+  PASS=$((PASS + 1))
+else
+  echo "  FAIL  launch_command function exists"
+  FAIL=$((FAIL + 1))
+fi
+
+# -------------------------------------------------------------------
+echo ""
 echo "--- CLAUDE_LOOP_COMMAND ---"
 
 assert_eq "CLAUDE_LOOP_COMMAND default is claude" "claude" "$CLAUDE_LOOP_COMMAND"

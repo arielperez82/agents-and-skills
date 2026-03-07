@@ -26,31 +26,45 @@ The user can provide any combination of the following in natural language:
 
 ## Workflow
 
-1. **Intake & gap analysis** — Read whatever the user provided. Inspect the content and identify what's present vs. missing. Then use the asking-questions skill to clarify gaps — present clear options with trade-offs, use progressive disclosure (2-3 questions max per message), and respect "just go with what you have" as an immediate proceed signal. Prioritize questions by impact:
+1. **Template selection (first)** — Resolve the template before anything else, since all subsequent questions derive from it:
+   - If the user provided a template path → use it
+   - If the user named a template (e.g., "use daily-dip") → resolve to the matching file in `skills/editorial-team/newsletter-assembly/references/templates/`
+   - Otherwise → list available templates and ask: "Which edition template? Here are the available ones: [list]. Or I can use the default."
+   - If the user confirms the default or provides no preference, use `templates/default.md`
 
-   **Always ask if missing:**
-   - Template selection (if not specified): "Which edition template? Here are the available ones: [list]. Or I can use the default."
+2. **Template-driven gap analysis** — Read the selected template and discover what it needs:
+   - **Manual sections:** Scan for `## ... (manual)` headings. Cross-reference each with the template's "Section Guidance" and "Manual Sections" list to determine: what the section needs, whether it has an auto-generation brief (e.g., Nostalgia Nerd has a `Brief for editorial-writer`), and what its normal external source is
+   - **Parameterized values:** Extract template variables that need values (e.g., `[NUMBER]` for edition number, `[date]`)
+   - **Standard pipeline inputs:** Note which inputs are present vs. missing (voice profile, show notes, source material, etc.)
 
-   **Ask if missing but proceed without if user declines:**
+3. **Dynamic questioning** — Use the asking-questions skill to ask questions derived from the template itself, grouped by priority:
+
+   **Must-ask (parameterized values with no default):**
+   - Edition number if template uses `[NUMBER]` and not yet provided
+   - Any other template variable without a derivable default
+
+   **Should-ask (manual sections — one question per section):**
+   For each `(manual)` section discovered in step 2, present a contextual question derived from the template's own guidance:
+
+   > *Example:* The template has a "Nostalgia Nerd" section (normally sourced from an external Google Doc — a trivia question with hint). Would you like to:
+   > (a) Provide the content
+   > (b) Have me generate it (I'll create an 'On This Day' trivia question for today's date)
+   > (c) Skip this section
+
+   The question text comes from the template, not from hardcoded logic. Option (b) is only offered when the template includes an auto-generation brief for that section. Different templates produce different questions.
+
+   **Nice-to-ask (standard pipeline inputs not yet provided):**
    - Voice profile: "I don't see a voice profile. Do you have one? It helps match the publication's tone. You can generate one with `/voice/extract`."
    - Show notes / episode URL: "Do you have the show notes or the episode link? This helps me add 'Watch The Full Episode' links and source attribution."
    - Unused stories: "Are there stories from the show that weren't covered in full? These provide additional context for supplemental sections that request them."
-   - Edition number: "What edition number is this? (e.g., #573)"
 
    **Never block on:**
    - Story count (default 3)
    - Story selection (default auto-select)
-   - Sponsor info (manual section, skip if not provided)
 
-   The goal is to be helpful, not interrogative. Ask at most 2-3 questions in one message. If the user says "just go with what you have," proceed immediately.
+   Present questions in batches of 2-3 max (progressive disclosure). Respect "just go with what you have" as an immediate proceed signal — all manual sections default to "generate" (if a brief exists) or "skip" (if no brief). The goal is to be helpful, not interrogative.
 
-2. **Template selection** — If no template was provided or chosen in step 1:
-   - List available templates from `skills/editorial-team/newsletter-assembly/references/templates/`
-   - Ask: "Which edition template would you like to use? (default: default.md)"
-   - If the user confirms the default or provides no preference, use `templates/default.md`
-   - If the user provides a path, use that custom template
-
-3. **Pipeline execution** — Engage `newsletter-producer` agent to orchestrate the 7-step pipeline:
+4. **Pipeline execution** — Engage `newsletter-producer` agent to orchestrate the 7-step pipeline:
    - Segment script into stories
    - Select stories (auto or explicit based on user's preferences)
    - Draft each selected story
@@ -59,7 +73,7 @@ The user can provide any combination of the following in natural language:
    - Assemble edition (including supplemental section dispatch)
    - Run editorial review gate
 
-4. **Output** — Complete newsletter edition in markdown, with editorial review verdict
+5. **Output** — Complete newsletter edition in markdown, with editorial review verdict
 
 ## Examples
 

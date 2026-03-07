@@ -132,6 +132,13 @@ The primary consumer is the Daily Dip newsletter, which produces editions from v
 
 1. **Segment script** — Dispatch `editorial-writer` to split the multi-topic script into individual story segments. If a voice profile is provided (`--voice-profile`), pass it to all drafting, voice matching, and review steps.
 
+1.5. **Resolve manual sections** — If the template contains `(manual)` sections (discovered during intake via the Manual Section Discovery capability in `newsletter-assembly`), resolve each based on the user's choice:
+   - **Provide** → store the user-supplied content for insertion during assembly (step 6)
+   - **Generate** → queue the template's auto-brief for dispatch during assembly (step 6), treating it like a supplemental section — the brief is sent to the agent specified in the template's guidance
+   - **Skip** → mark the section for omission from the assembled edition
+
+   This step bridges intake and assembly: manual sections with auto-generation briefs join the supplemental dispatch queue, user-provided content is held for direct insertion, and skipped sections are excluded from the template.
+
 2. **Select stories** — Apply `story-selection` skill:
    - **Auto-select mode:** Score all candidates on 5 criteria, pick top N (default 3) with diversity constraint
    - **Explicit mode:** Validate editor's pre-selections against criteria, flag concerns
@@ -142,11 +149,13 @@ The primary consumer is the Daily Dip newsletter, which produces editions from v
 
 5. **Generate poll** — Dispatch `poll-writer` to create a balanced poll related to the edition's stories.
 
-6. **Assemble newsletter** — Apply `newsletter-assembly` skill: if no `--template` was provided, list available templates from `references/templates/` and ask the user which to use (default: `default.md`). Then:
+6. **Assemble newsletter** — Apply `newsletter-assembly` skill. The template was already selected during intake (step 1 of the command). Then:
    - Order stories (lead/middle/close)
    - Generate subject line candidates
-   - **Dispatch supplemental sections** — Read the template for supplemental section definitions. For each one, send the brief (parameterized with edition context) to the specified agent. Common supplemental sections include TL;DR, Sweet Dip, Fun Facts, QOTD, and subject line candidates. Each supplemental section follows its own brief and source material instructions as defined in the template — do not assume unused story candidates feed into any particular section.
-   - Compose the complete edition using the template, placing supplemental section results at their declared positions
+   - **Insert user-provided manual sections** — For each manual section where the user chose "provide" in step 1.5, insert the supplied content at the section's position in the template
+   - **Dispatch supplemental and auto-generated manual sections** — Read the template for supplemental section definitions. For each supplemental section, send the brief (parameterized with edition context) to the specified agent. Manual sections queued for "generate" in step 1.5 join this dispatch queue — their auto-brief is sent to the agent specified in the template's guidance. Each section follows its own brief and source material instructions as defined in the template — do not assume unused story candidates feed into any particular section.
+   - **Omit skipped manual sections** — Sections marked "skip" in step 1.5 are removed from the template before composition
+   - Compose the complete edition using the template, placing all section results at their declared positions
 
 7. **Run editorial review gate** — Dispatch the editorial review command (`review/editorial-review`) which runs 4 agents in parallel: `fact-checker`, `voice-consistency-reviewer`, `reader-clarity-reviewer`, `editorial-accuracy-reviewer`. Result is PASS / PASS WITH NOTES / FAIL.
 

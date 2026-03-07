@@ -204,6 +204,24 @@ start_watcher() {
   watcher_pid=$!
 }
 
+launch_command() {
+  local mode="$1" logfile="$2" pidfile="$3"
+  shift 3
+
+  case "$mode" in
+    logfile)
+      if [[ "$(uname)" == "Darwin" ]]; then
+        sh -c 'echo $$ > "$1"; shift; exec "$@"' _ "$pidfile" script -q "$logfile" "$CLAUDE_LOOP_COMMAND" "$@"
+      else
+        sh -c 'echo $$ > "$1"; shift; exec "$@"' _ "$pidfile" script -q -c "$CLAUDE_LOOP_COMMAND $(printf '%q ' "$@")" "$logfile"
+      fi
+      ;;
+    *)
+      sh -c 'echo $$ > "$1"; shift; exec "$@"' _ "$pidfile" "$CLAUDE_LOOP_COMMAND" "$@"
+      ;;
+  esac
+}
+
 run_session() {
   local logfile="$1"
   shift
@@ -214,28 +232,13 @@ run_session() {
 
   touch "$logfile"
 
-  # Capture TTY for AppleScript-based readers
   CLAUDE_LOOP_TTY=$(tty 2>/dev/null || echo "")
   export CLAUDE_LOOP_TTY
 
   start_watcher "$logfile" "$pidfile" "$restartfile"
   trap cleanup_watcher EXIT
 
-  case "$mode" in
-    terminal_app|iterm2|tmux)
-      # Run claude directly — no script wrapper needed.
-      # Native interactive experience; buffer read via AppleScript/tmux.
-      sh -c 'echo $$ > "$1"; shift; exec "$@"' _ "$pidfile" "$CLAUDE_LOOP_COMMAND" "$@"
-      ;;
-    logfile)
-      # Fallback: capture output via script command for ANSI stripping.
-      if [[ "$(uname)" == "Darwin" ]]; then
-        sh -c 'echo $$ > "$1"; shift; exec "$@"' _ "$pidfile" script -q "$logfile" "$CLAUDE_LOOP_COMMAND" "$@"
-      else
-        sh -c 'echo $$ > "$1"; shift; exec "$@"' _ "$pidfile" script -q -c "$CLAUDE_LOOP_COMMAND $(printf '%q ' "$@")" "$logfile"
-      fi
-      ;;
-  esac
+  launch_command "$mode" "$logfile" "$pidfile" "$@"
 
   cleanup_watcher
   rm -f "$pidfile"
