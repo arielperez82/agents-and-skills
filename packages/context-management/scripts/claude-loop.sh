@@ -10,12 +10,22 @@
 # extracts the restart block, saves it to a sidecar file, then kills the
 # session. The wrapper reads the sidecar and restarts with the extracted prompt.
 #
-# Reader backends (auto-detected via TERM_PROGRAM / TMUX):
-#   applescript — Terminal.app / iTerm2: reads buffer via osascript (primary)
-#   tmux        — reads buffer via tmux capture-pane
-#   logfile     — Cursor / VS Code / unknown: captures via `script` + ANSI strip
+# Architecture: adapter registry pattern
+#   reader_mode()       — detects environment, returns mode name
+#   read_buffer_{mode}  — per-mode buffer reader (convention-based dispatch)
+#   watcher_check()     — testable check-and-act logic
+#   start_watcher()     — background polling loop
+#   launch_command()    — mode-specific process launch
+#   run_session()       — orchestration: setup → watcher → launch → cleanup
+#   main()              — restart loop with sidecar file protocol
 #
-# Override with: CLAUDE_LOOP_READER_MODE=applescript|tmux|logfile
+# Reader adapters (auto-detected via TERM_PROGRAM / TMUX):
+#   terminal_app — Terminal.app: reads buffer via osascript
+#   iterm2       — iTerm2: reads buffer via osascript
+#   tmux         — reads buffer via tmux capture-pane
+#   logfile      — Cursor / VS Code / unknown: captures via `script` + ANSI strip
+#
+# Override with: CLAUDE_LOOP_READER_MODE=terminal_app|iterm2|tmux|logfile
 #
 # Ctrl+C during the pause between sessions stops the loop.
 
