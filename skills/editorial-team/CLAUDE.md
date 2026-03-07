@@ -12,7 +12,7 @@ This guide covers the 6 editorial skills for transforming raw scripts into polis
 5. **bias-screening/** - Detect editorial bias across 6 categories with severity classification
 6. **reader-clarity/** - Evaluate readability targeting Flesch-Kincaid grade 8-10
 
-**Total Reference Files:** 6 reference documents across skills
+**Total Reference Files:** 8 reference documents across skills
 
 ## Pipeline Overview
 
@@ -53,7 +53,7 @@ newsletter-assembly  (edition assembly)
 - Factual preservation with 3-5x compression
 - Source attribution tracking
 
-**References:** `references/transformation-checklist.md` - step-by-step quality checklist
+**References:** `references/transformation-checklist.md` - step-by-step quality checklist; `references/inverted-pyramid-structure.md` - three-layer news structure, lede crafting, quote attribution, AP style
 
 ### 2. Story Selection (`story-selection/`)
 

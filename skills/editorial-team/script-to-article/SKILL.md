@@ -19,6 +19,7 @@ metadata:
     scripts: []
     references:
       - references/transformation-checklist.md
+      - references/inverted-pyramid-structure.md
     assets: []
   difficulty: advanced
   domain: editorial
@@ -57,7 +58,7 @@ metadata:
   tech-stack: []
   time-saved: "30-60 minutes per script transformation"
   title: Script-to-Article Transformation
-  updated: 2026-03-05
+  updated: 2026-03-07
   use-cases:
     - Transforming teleprompter scripts into newsletter articles
     - Converting video transcripts into written stories
@@ -81,7 +82,7 @@ Spoken content follows different structural rules than written content. Teleprom
 ## Core Capabilities
 
 - **Verbal Tic Removal** — Strip filler words, false starts, repeated phrases, and delivery-cadence artifacts without altering meaning
-- **Reading Flow Optimization** — Restructure from spoken delivery order to written reading order (inverted pyramid, thematic grouping, logical progression)
+- **Reading Flow Optimization** — Restructure from spoken delivery order to written reading order (inverted pyramid, thematic grouping, logical progression). See [inverted-pyramid-structure.md](references/inverted-pyramid-structure.md) for the three-layer structure, lede crafting, and AP style reference
 - **Factual Preservation** — Every claim, number, quote, and attribution in the output must trace to the source script. Nothing invented, nothing embellished
 - **Content Condensing** — Achieve 3-5x compression ratio while retaining all material facts. Target: 500-800 words from a 2,000-3,500 word script
 - **Multi-Story Segmentation** — Split multi-topic scripts into standalone story units, each self-contained with its own headline, summary, and body
@@ -179,6 +180,7 @@ This is not the default "clean prose" output. The template's per-story formattin
 ## Reference Guides
 
 - **[transformation-checklist.md](references/transformation-checklist.md)** — Step-by-step checklist for every transformation. Use as a quality gate before delivering output.
+- **[inverted-pyramid-structure.md](references/inverted-pyramid-structure.md)** — Three-layer news structure, lede crafting (5Ws, so-what test), quote selection and attribution rules, AP style quick reference, and revision techniques.
 
 ## Integration
 

@@ -21,9 +21,10 @@
 
 set -euo pipefail
 
-PAUSE_SECONDS=3
-TAIL_LINES=80
-POLL_INTERVAL=2
+# --- Configuration (env-overridable) ---
+PAUSE_SECONDS="${PAUSE_SECONDS:-3}"
+TAIL_LINES="${TAIL_LINES:-80}"
+POLL_INTERVAL="${POLL_INTERVAL:-2}"
 START_MARKER="---HANDOFF-RESTART---"
 END_MARKER="---END-RESTART---"
 
@@ -219,7 +220,7 @@ run_session() {
       if [[ "$(uname)" == "Darwin" ]]; then
         sh -c 'echo $$ > "$1"; shift; exec "$@"' _ "$pidfile" script -q "$logfile" claude "$@"
       else
-        sh -c 'echo $$ > "$1"; shift; exec "$@"' _ "$pidfile" script -q -c "claude $*" "$logfile"
+        sh -c 'echo $$ > "$1"; shift; exec "$@"' _ "$pidfile" script -q -c "claude $(printf '%q ' "$@")" "$logfile"
       fi
       ;;
   esac
@@ -269,4 +270,6 @@ main() {
   done
 }
 
-main "$@"
+if [[ "${BASH_SOURCE[0]}" == "${0}" ]]; then
+  main "$@"
+fi
