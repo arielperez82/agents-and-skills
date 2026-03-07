@@ -26,14 +26,21 @@ make_tmp() {
   echo "$f"
 }
 
-# Source functions from the SUT without running main
-# We override main to prevent execution
-source_functions() {
-  # Extract just the functions (everything before main "$@")
-  eval "$(sed '/^main "\$@"/d' "$SUT" | sed 's/^set -euo pipefail$//' | sed '/^main()/,/^}/{ s/^main()/____main()/; }')"
-}
+# Source functions from the SUT (BASH_SOURCE guard prevents main from running)
+# shellcheck source=../scripts/claude-loop.sh
+source "$SUT"
 
-source_functions
+# Poll for a condition instead of fixed sleep (faster + no flakiness)
+wait_for() {
+  local check_cmd="$1" timeout="${2:-10}"
+  local i=0
+  while [ "$i" -lt "$timeout" ]; do
+    if eval "$check_cmd"; then return 0; fi
+    sleep 0.5
+    i=$((i + 1))
+  done
+  return 1
+}
 
 assert_eq() {
   local label="$1" expected="$2" actual="$3"
@@ -274,8 +281,8 @@ FAKELOG
 start_watcher "$logfile" "$pidfile" "$restartfile"
 test_watcher_pid=$watcher_pid
 
-# Wait for the watcher to detect, extract, and kill (export POLL_INTERVAL=1 + sleep 1)
-sleep 4
+# Wait for watcher to detect, extract, and kill
+wait_for '! kill -0 "$fake_pid" 2>/dev/null' 20
 
 # Check that the fake process was killed
 if kill -0 "$fake_pid" 2>/dev/null; then
@@ -330,8 +337,8 @@ echo "Normal output with no restart markers" > "$logfile2"
 start_watcher "$logfile2" "$pidfile2" "$restartfile2"
 test_watcher_pid2=$watcher_pid
 
-# Wait a few poll cycles
-sleep 4
+# Wait a few poll cycles (negative test — must wait fixed time to confirm no action)
+sleep 3
 
 # Process should still be alive (watcher should not kill it)
 if kill -0 "$fake_pid2" 2>/dev/null; then
@@ -383,7 +390,8 @@ FAKELOG
 start_watcher "$logfile3" "$pidfile3" "$restartfile3"
 test_watcher_pid3=$watcher_pid
 
-sleep 4
+# Negative test — wait a few poll cycles to confirm no action
+sleep 3
 
 if kill -0 "$fake_pid3" 2>/dev/null; then
   echo "  PASS  watcher ignores markers inside hook instructions"
@@ -517,7 +525,8 @@ export CLAUDE_LOOP_READER_MODE="logfile"
 start_watcher "$logfile_bc" "$pidfile_bc" "$restartfile_bc"
 test_watcher_bc=$watcher_pid
 
-sleep 4
+# Wait for watcher to detect and kill
+wait_for '! kill -0 "$fake_pid_bc" 2>/dev/null' 20
 
 if kill -0 "$fake_pid_bc" 2>/dev/null; then
   echo "  FAIL  logfile-mode watcher kills target"
@@ -540,6 +549,32 @@ kill "$test_watcher_bc" 2>/dev/null || true
 wait "$test_watcher_bc" 2>/dev/null || true
 watcher_pid=""
 unset CLAUDE_LOOP_READER_MODE
+
+# -------------------------------------------------------------------
+echo ""
+echo "--- CLAUDE_LOOP_COMMAND ---"
+
+assert_eq "CLAUDE_LOOP_COMMAND default is claude" "claude" "$CLAUDE_LOOP_COMMAND"
+
+# Override: re-source with env var set
+(
+  export CLAUDE_LOOP_COMMAND="my-custom-claude"
+  # shellcheck source=../scripts/claude-loop.sh
+  source "$SUT"
+  if [ "$CLAUDE_LOOP_COMMAND" = "my-custom-claude" ]; then
+    echo "  PASS  CLAUDE_LOOP_COMMAND override respected"
+  else
+    echo "  FAIL  CLAUDE_LOOP_COMMAND override respected"
+    echo "    expected: my-custom-claude"
+    echo "    got: $CLAUDE_LOOP_COMMAND"
+    exit 1
+  fi
+)
+if [ $? -eq 0 ]; then
+  PASS=$((PASS + 1))
+else
+  FAIL=$((FAIL + 1))
+fi
 
 # ===================================================================
 echo ""

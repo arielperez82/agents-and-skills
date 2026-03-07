@@ -25,6 +25,7 @@ set -euo pipefail
 PAUSE_SECONDS="${PAUSE_SECONDS:-3}"
 TAIL_LINES="${TAIL_LINES:-80}"
 POLL_INTERVAL="${POLL_INTERVAL:-2}"
+CLAUDE_LOOP_COMMAND="${CLAUDE_LOOP_COMMAND:-claude}"
 START_MARKER="---HANDOFF-RESTART---"
 END_MARKER="---END-RESTART---"
 
@@ -213,14 +214,14 @@ run_session() {
     applescript|tmux)
       # Run claude directly — no script wrapper needed.
       # Native interactive experience; buffer read via AppleScript/tmux.
-      sh -c 'echo $$ > "$1"; shift; exec "$@"' _ "$pidfile" claude "$@"
+      sh -c 'echo $$ > "$1"; shift; exec "$@"' _ "$pidfile" "$CLAUDE_LOOP_COMMAND" "$@"
       ;;
     logfile)
       # Fallback: capture output via script command for ANSI stripping.
       if [[ "$(uname)" == "Darwin" ]]; then
-        sh -c 'echo $$ > "$1"; shift; exec "$@"' _ "$pidfile" script -q "$logfile" claude "$@"
+        sh -c 'echo $$ > "$1"; shift; exec "$@"' _ "$pidfile" script -q "$logfile" "$CLAUDE_LOOP_COMMAND" "$@"
       else
-        sh -c 'echo $$ > "$1"; shift; exec "$@"' _ "$pidfile" script -q -c "claude $(printf '%q ' "$@")" "$logfile"
+        sh -c 'echo $$ > "$1"; shift; exec "$@"' _ "$pidfile" script -q -c "$CLAUDE_LOOP_COMMAND $(printf '%q ' "$@")" "$logfile"
       fi
       ;;
   esac
