@@ -13,6 +13,7 @@ Usage:
 import sys
 import re
 import json
+import subprocess
 from pathlib import Path
 from typing import Dict, Any, Optional
 
@@ -100,7 +101,32 @@ def has_section(body: str, title: str) -> bool:
     return bool(re.search(pattern, body, re.MULTILINE | re.IGNORECASE))
 
 
-def validate_agent(agent_path: Path):
+def find_alignment_checker(root: Path) -> Optional[Path]:
+    checker = root / "skills" / "agent-development-team" / "creating-agents" / "scripts" / "artifact-alignment-checker.sh"
+    if checker.exists():
+        return checker
+    return None
+
+
+def run_alignment_check(agent_path: Path, root: Path) -> list:
+    checker = find_alignment_checker(root)
+    if checker is None:
+        return []
+
+    try:
+        result = subprocess.run(
+            ["bash", str(checker), "--format", "json", str(agent_path)],
+            capture_output=True,
+            text=True,
+            timeout=30,
+        )
+        output = json.loads(result.stdout)
+        return output.get("findings", [])
+    except (subprocess.TimeoutExpired, json.JSONDecodeError, OSError):
+        return []
+
+
+def validate_agent(agent_path: Path, skip_alignment: bool = False):
     critical = []
     high = []
     medium = []
@@ -275,6 +301,20 @@ def validate_agent(agent_path: Path):
                 f"Quality agent has {example_count} example(s) (minimum 2 required: 1 pass + 1 fail)"
             )
 
+    if not skip_alignment:
+        alignment_findings = run_alignment_check(agent_path, root)
+        for finding in alignment_findings:
+            severity = finding.get("severity", "Medium")
+            message = finding.get("message", "Alignment issue detected")
+            category = finding.get("category", "alignment")
+            tagged = f"[{category}] {message}"
+            if severity == "Critical":
+                critical.append(tagged)
+            elif severity == "High":
+                high.append(tagged)
+            else:
+                medium.append(tagged)
+
     return {"critical": critical, "high": high, "medium": medium}
 
 
@@ -310,8 +350,8 @@ def print_report(agent_name: str, results: Dict[str, list], verbose: bool = True
     return total_critical, total_high, total_medium
 
 
-def run_single(agent_path: Path, json_output: bool = False):
-    results = validate_agent(agent_path)
+def run_single(agent_path: Path, json_output: bool = False, skip_alignment: bool = False):
+    results = validate_agent(agent_path, skip_alignment=skip_alignment)
 
     if json_output:
         output = {
@@ -329,7 +369,7 @@ def run_single(agent_path: Path, json_output: bool = False):
     return 1 if results["critical"] else 0
 
 
-def run_all(json_output: bool = False, summary_only: bool = False):
+def run_all(json_output: bool = False, summary_only: bool = False, skip_alignment: bool = False):
     global REPO_ROOT
 
     script_path = Path(__file__).resolve()
@@ -353,7 +393,7 @@ def run_all(json_output: bool = False, summary_only: bool = False):
     failed_agents = []
 
     for agent_file in agent_files:
-        results = validate_agent(agent_file)
+        results = validate_agent(agent_file, skip_alignment=skip_alignment)
         all_results[agent_file.name] = results
 
         c = len(results["critical"])
@@ -428,11 +468,12 @@ def main():
     json_output = "--json" in args
     summary_only = "--summary" in args
     all_mode = "--all" in args
+    skip_alignment = "--skip-alignment" in args
 
     remaining = [a for a in args if not a.startswith("--")]
 
     if all_mode:
-        exit_code = run_all(json_output=json_output, summary_only=summary_only)
+        exit_code = run_all(json_output=json_output, summary_only=summary_only, skip_alignment=skip_alignment)
         sys.exit(exit_code)
 
     if not remaining:
@@ -451,7 +492,7 @@ def main():
 
     REPO_ROOT = find_repo_root(agent_path)
 
-    exit_code = run_single(agent_path, json_output=json_output)
+    exit_code = run_single(agent_path, json_output=json_output, skip_alignment=skip_alignment)
     sys.exit(exit_code)
 
 
