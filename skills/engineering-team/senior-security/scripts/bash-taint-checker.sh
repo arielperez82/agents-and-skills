@@ -4,7 +4,11 @@
 # (eval, source, bash -c, pipe to sh, rm -rf, unquoted command position)
 #
 # Usage:
-#   bash-taint-checker.sh [--format json|human] [--quiet] FILE [FILE...]
+#   bash-taint-checker.sh [--format json|human] [--quiet] [--ignore-pattern PAT] FILE [FILE...]
+#
+# Options:
+#   --ignore-pattern PAT  Skip files matching PAT (grep-compatible regex, not literal).
+#                         May be specified multiple times.
 #
 # Exit codes:
 #   0 = no Critical/High findings
