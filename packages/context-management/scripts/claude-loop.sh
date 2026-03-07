@@ -45,15 +45,25 @@ detect_terminal() {
 
 reader_mode() {
   if [ -n "${CLAUDE_LOOP_READER_MODE:-}" ]; then
-    echo "$CLAUDE_LOOP_READER_MODE"
+    local override="$CLAUDE_LOOP_READER_MODE"
+    if [ "$override" = "applescript" ]; then
+      local term
+      term=$(detect_terminal)
+      case "$term" in
+        iterm2) override="iterm2" ;;
+        *)      override="terminal_app" ;;
+      esac
+    fi
+    echo "$override"
     return
   fi
   local term
   term=$(detect_terminal)
   case "$term" in
-    terminal_app|iterm2) echo "applescript" ;;
-    tmux)                echo "tmux" ;;
-    *)                   echo "logfile" ;;
+    terminal_app) echo "terminal_app" ;;
+    iterm2)       echo "iterm2" ;;
+    tmux)         echo "tmux" ;;
+    *)            echo "logfile" ;;
   esac
 }
 
@@ -175,8 +185,11 @@ start_watcher() {
 
       local cleaned=""
       case "$mode" in
-        applescript)
-          cleaned=$(read_buffer_applescript "$my_tty")
+        terminal_app)
+          cleaned=$(read_buffer_terminal_app "$my_tty")
+          ;;
+        iterm2)
+          cleaned=$(read_buffer_iterm2 "$my_tty")
           ;;
         tmux)
           cleaned=$(read_buffer_tmux)
@@ -217,7 +230,7 @@ run_session() {
   trap cleanup_watcher EXIT
 
   case "$mode" in
-    applescript|tmux)
+    terminal_app|iterm2|tmux)
       # Run claude directly — no script wrapper needed.
       # Native interactive experience; buffer read via AppleScript/tmux.
       sh -c 'echo $$ > "$1"; shift; exec "$@"' _ "$pidfile" "$CLAUDE_LOOP_COMMAND" "$@"

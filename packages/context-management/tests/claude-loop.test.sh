@@ -478,11 +478,11 @@ TMUX=""
 
 TERM_PROGRAM="Apple_Terminal"
 result=$(reader_mode)
-assert_eq "Terminal.app uses applescript reader" "applescript" "$result"
+assert_eq "Terminal.app uses terminal_app reader" "terminal_app" "$result"
 
 TERM_PROGRAM="iTerm.app"
 result=$(reader_mode)
-assert_eq "iTerm2 uses applescript reader" "applescript" "$result"
+assert_eq "iTerm2 uses iterm2 reader" "iterm2" "$result"
 
 TERM_PROGRAM="vscode"
 result=$(reader_mode)
@@ -499,6 +499,27 @@ assert_eq "tmux uses tmux reader" "tmux" "$result"
 
 TMUX="$orig_tmux2"
 TERM_PROGRAM="$orig_term_program3"
+
+# -------------------------------------------------------------------
+echo ""
+echo "--- reader_mode: backward compat ---"
+
+orig_term_program4="${TERM_PROGRAM:-}"
+orig_tmux3="${TMUX:-}"
+TMUX=""
+
+CLAUDE_LOOP_READER_MODE="applescript"
+TERM_PROGRAM="Apple_Terminal"
+result=$(reader_mode)
+assert_eq "CLAUDE_LOOP_READER_MODE=applescript maps to terminal_app" "terminal_app" "$result"
+
+TERM_PROGRAM="iTerm.app"
+result=$(reader_mode)
+assert_eq "CLAUDE_LOOP_READER_MODE=applescript with iTerm maps to iterm2" "iterm2" "$result"
+
+unset CLAUDE_LOOP_READER_MODE
+TMUX="$orig_tmux3"
+TERM_PROGRAM="$orig_term_program4"
 
 # -------------------------------------------------------------------
 echo ""
