@@ -354,6 +354,56 @@ assert_exit_code "deep chain detected" 1
 assert_output_contains "deep chain has finding" "eval" "$SUT_OUTPUT"
 
 # ============================================================
+# S8 tests: human output format
+# ============================================================
+
+echo ""
+echo "--- S8: human output for tainted script ---"
+run_sut "$TEST_DIR/basic-taint.sh"
+assert_output_contains "human output has severity" "Critical" "$SUT_OUTPUT"
+assert_output_contains "human output has total" "Total" "$SUT_OUTPUT"
+
+# ============================================================
+# S9 tests: taint chain intermediate variable assertion
+# ============================================================
+
+echo ""
+echo "--- S9: chain intermediate variable ---"
+cat > "$TEST_DIR/chain-var.sh" << 'FIXTURE'
+#!/bin/bash
+input="$1"
+processed="$input"
+eval "$processed"
+FIXTURE
+run_sut --format json "$TEST_DIR/chain-var.sh"
+assert_exit_code "chain var detected" 1
+assert_output_contains "chain var mentions processed" "processed" "$SUT_OUTPUT"
+
+# ============================================================
+# S10 tests: malformed taint-ok negative test
+# ============================================================
+
+echo ""
+echo "--- S10: malformed taint-ok not suppressed ---"
+cat > "$TEST_DIR/bad-taint-ok.sh" << 'FIXTURE'
+#!/bin/bash
+input="$1"
+eval "$input" #taint-ok:no-space
+FIXTURE
+run_sut --format json "$TEST_DIR/bad-taint-ok.sh"
+assert_exit_code "malformed taint-ok not suppressed" 1
+
+echo ""
+echo "--- S10: missing colon taint-ok ---"
+cat > "$TEST_DIR/no-colon-ok.sh" << 'FIXTURE'
+#!/bin/bash
+input="$1"
+eval "$input" # taint-ok missing colon
+FIXTURE
+run_sut --format json "$TEST_DIR/no-colon-ok.sh"
+assert_exit_code "no-colon taint-ok not suppressed" 1
+
+# ============================================================
 # R1+S1 tests: argument bounds checking + format validation
 # ============================================================
 

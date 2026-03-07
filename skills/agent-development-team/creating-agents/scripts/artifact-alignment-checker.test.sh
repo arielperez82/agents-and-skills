@@ -520,6 +520,28 @@ run_sut --format json "$TEST_DIR/partial-negate-agent.md"
 assert_exit_code "negation only strips matched phrase, implements still found" 0
 
 # ============================================================
+# S8 tests: human output format
+# ============================================================
+
+echo ""
+echo "--- S8: human output format ---"
+run_sut "$TEST_DIR/misaligned-assessment.md"
+assert_output_contains "human output has severity" "High" "$SUT_OUTPUT"
+assert_output_contains "human output has file path" "misaligned-assessment.md" "$SUT_OUTPUT"
+assert_output_contains "human output has total" "Total" "$SUT_OUTPUT"
+
+# --- S11: empty glob stderr test ---
+echo ""
+echo "--- S11: empty glob stderr ---"
+SUT_STDERR=""
+SUT_OUTPUT=""
+SUT_EXIT=0
+SUT_OUTPUT=$(bash "$SUT" --quiet "$TEST_DIR/nonexistent-*.md" 2>"$TEST_DIR/stderr.txt") || SUT_EXIT=$?
+SUT_STDERR=$(cat "$TEST_DIR/stderr.txt")
+assert_exit_code "empty glob exits 0" 0 "$SUT_EXIT"
+assert_output_contains "empty glob stderr warns" "No files matched" "$SUT_STDERR"
+
+# ============================================================
 # R1+S1 tests: argument bounds checking + format validation
 # ============================================================
 
