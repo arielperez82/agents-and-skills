@@ -147,7 +147,7 @@ description_has_write_keyword() {
 
   # Remove negation phrases (including multi-word objects) before checking write keywords
   local cleaned
-  cleaned=$(echo "$desc_lower" | sed -E 's/(does not|do not|dont|doesn.t|never)[[:space:]]+[a-z]+([[:space:]]+[a-z]+)?//g; s/\bnot [a-z]+//g; s/\bno [a-z]+//g')
+  cleaned=$(echo "$desc_lower" | sed -E 's/(does not|do not|dont|doesn.t|never|cannot|can.t|won.t|will not)[[:space:]]+[a-z]+([[:space:]]+[a-z]+)?//g; s/\bno (write|edit|create|build|generate|implement|modify|execute|transform)[a-z]*\b//g; s/\bnot (write|edit|create|build|generate|implement|modify|execute|transform)[a-z]*\b//g')
 
   # Only match action-oriented verbs that imply the agent DOES write/modify
   # Exclude "produces" (report generation is read-only behavior)

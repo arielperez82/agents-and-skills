@@ -484,6 +484,42 @@ run_sut --format json "$TEST_DIR/tab-desc.md"
 assert_valid_json "tab in description produces valid JSON" "$SUT_OUTPUT"
 
 # ============================================================
+# S3 tests: negation stripping regex precision
+# ============================================================
+
+# --- "no-code review" should NOT strip the write keyword ---
+echo ""
+echo "--- S3: no-code in description ---"
+cat > "$TEST_DIR/nocode-agent.md" << 'FIXTURE'
+---
+name: nocode-reviewer
+title: No-Code Reviewer
+description: Assessment agent that performs no-code review of configurations
+tools: [Read, Write]
+---
+
+# No-Code Reviewer
+FIXTURE
+run_sut --format json "$TEST_DIR/nocode-agent.md"
+assert_output_contains "no-code still flags write tools" "alignment" "$SUT_OUTPUT"
+
+# --- "does not create" negated but other write keyword remains ---
+echo ""
+echo "--- S3: negation strips only matched phrase ---"
+cat > "$TEST_DIR/partial-negate-agent.md" << 'FIXTURE'
+---
+name: partial-negate
+title: Partial Negate Agent
+description: Assessment agent that does not create files but implements review standards
+tools: [Read, Write]
+---
+
+# Partial Negate Agent
+FIXTURE
+run_sut --format json "$TEST_DIR/partial-negate-agent.md"
+assert_exit_code "negation only strips matched phrase, implements still found" 0
+
+# ============================================================
 # R1+S1 tests: argument bounds checking + format validation
 # ============================================================
 
