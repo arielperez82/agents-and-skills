@@ -602,24 +602,36 @@ assert_eq "valid tty /dev/ttys003 accepted" "" "$valid_result"
 
 # AppleScript injection via quotes
 inject_result=$(read_buffer_terminal_app '"; do shell script "whoami' 2>/dev/null)
+inject_exit=$?
 assert_eq "rejects tty with quotes (terminal_app)" "" "$inject_result"
+assert_eq "rejects tty with quotes exits 0 (terminal_app)" "0" "$inject_exit"
 
 inject_result2=$(read_buffer_iterm2 '"; do shell script "whoami' 2>/dev/null)
+inject_exit2=$?
 assert_eq "rejects tty with quotes (iterm2)" "" "$inject_result2"
+assert_eq "rejects tty with quotes exits 0 (iterm2)" "0" "$inject_exit2"
 
 # Shell metacharacters
 inject_result3=$(read_buffer_terminal_app '/dev/tty$(whoami)' 2>/dev/null)
+inject_exit3=$?
 assert_eq "rejects tty with dollar-paren (terminal_app)" "" "$inject_result3"
+assert_eq "rejects tty with dollar-paren exits 0" "0" "$inject_exit3"
 
 inject_result4=$(read_buffer_terminal_app '/dev/tty;rm -rf /' 2>/dev/null)
+inject_exit4=$?
 assert_eq "rejects tty with semicolon (terminal_app)" "" "$inject_result4"
+assert_eq "rejects tty with semicolon exits 0" "0" "$inject_exit4"
 
 inject_result5=$(read_buffer_terminal_app '/dev/tty`whoami`' 2>/dev/null)
+inject_exit5=$?
 assert_eq "rejects tty with backticks (terminal_app)" "" "$inject_result5"
+assert_eq "rejects tty with backticks exits 0" "0" "$inject_exit5"
 
 # Spaces (not in allowlist)
 inject_result6=$(read_buffer_terminal_app '/dev/tty with spaces' 2>/dev/null)
+inject_exit6=$?
 assert_eq "rejects tty with spaces (terminal_app)" "" "$inject_result6"
+assert_eq "rejects tty with spaces exits 0" "0" "$inject_exit6"
 
 # -------------------------------------------------------------------
 echo ""
@@ -658,6 +670,12 @@ assert_eq "read_restart_sidecar reads content" "Read me back" "$sc_read"
 # read_restart_sidecar returns empty when file missing
 sc_read2=$(read_restart_sidecar "/tmp/nonexistent-sidecar-$$")
 assert_eq "read_restart_sidecar returns empty for missing file" "" "$sc_read2"
+
+# read_restart_sidecar returns empty when file is zero bytes
+sc_file_zero=$(make_tmp)
+: > "$sc_file_zero"
+sc_read_zero=$(read_restart_sidecar "$sc_file_zero")
+assert_eq "read_restart_sidecar returns empty for zero-byte file" "" "$sc_read_zero"
 
 # round-trip: write then read
 sc_file4=$(make_tmp)

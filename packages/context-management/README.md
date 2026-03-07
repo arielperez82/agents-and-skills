@@ -201,18 +201,20 @@ claude-loop.sh
   |     v
   +-- reader_mode()              # Select reading strategy
   |     |
-  |     +-- "applescript"        # Terminal.app or iTerm2
+  |     +-- "terminal_app"       # Terminal.app (osascript)
+  |     +-- "iterm2"             # iTerm2 (osascript)
   |     +-- "tmux"               # Inside tmux session
   |     +-- "logfile"            # Cursor, VS Code, or unknown
   |
   +-- run_session()
   |     |
-  |     +-- [applescript/tmux]   # Run `claude` directly (native TUI)
-  |     +-- [logfile]            # Run `claude` via `script -q` (captures output)
+  |     +-- [terminal_app/iterm2/tmux]  # Run `claude` directly (native TUI)
+  |     +-- [logfile]                  # Run `claude` via `script -q` (captures output)
   |     |
   |     +-- start_watcher() ---- background subprocess, polls every 2s
   |           |
-  |           +-- read_buffer_applescript(tty)    # osascript get contents
+  |           +-- read_buffer_terminal_app(tty)   # osascript get contents
+  |           +-- read_buffer_iterm2(tty)        # osascript get contents
   |           +-- read_buffer_tmux()              # tmux capture-pane -p
   |           +-- read_buffer_logfile(file)       # tail + strip_ansi
   |           |
@@ -238,8 +240,8 @@ The watcher needs to read the terminal buffer to detect restart markers. How it 
 
 | Terminal | Detection | Reader | How | Claude runs as |
 |----------|-----------|--------|-----|----------------|
-| Terminal.app | `TERM_PROGRAM=Apple_Terminal` | `applescript` | `osascript` reads buffer by TTY | Direct (native TUI) |
-| iTerm2 | `TERM_PROGRAM=iTerm.app` | `applescript` | `osascript` reads buffer by TTY | Direct (native TUI) |
+| Terminal.app | `TERM_PROGRAM=Apple_Terminal` | `terminal_app` | `osascript` reads buffer by TTY | Direct (native TUI) |
+| iTerm2 | `TERM_PROGRAM=iTerm.app` | `iterm2` | `osascript` reads buffer by TTY | Direct (native TUI) |
 | tmux | `TMUX` env var set | `tmux` | `tmux capture-pane -p` | Direct (native TUI) |
 | Cursor / VS Code | `TERM_PROGRAM=vscode` | `logfile` | `script -q` + ANSI strip | Via `script` wrapper |
 | Unknown | Fallback | `logfile` | `script -q` + ANSI strip | Via `script` wrapper |
@@ -253,15 +255,16 @@ The `logfile` backend is kept as a fallback for terminals that don't expose thei
 ```bash
 # Force a specific reader
 CLAUDE_LOOP_READER_MODE=logfile claude-loop
-CLAUDE_LOOP_READER_MODE=applescript claude-loop
+CLAUDE_LOOP_READER_MODE=terminal_app claude-loop
+CLAUDE_LOOP_READER_MODE=iterm2 claude-loop
 CLAUDE_LOOP_READER_MODE=tmux claude-loop
 ```
 
-#### AppleScript reader details
+#### osascript reader details (terminal_app / iterm2)
 
-The AppleScript reader targets windows by TTY device path (e.g., `/dev/ttys003`), not by window name. This is important because Claude Code dynamically rewrites the terminal title during a session — name-based targeting is unreliable.
+The osascript readers (`read_buffer_terminal_app` / `read_buffer_iterm2`) target windows by TTY device path (e.g., `/dev/ttys003`), not by window name. This is important because Claude Code dynamically rewrites the terminal title during a session — name-based targeting is unreliable.
 
-At session start, `run_session()` captures `$(tty)` and exports it as `CLAUDE_LOOP_TTY`. The watcher subprocess inherits this and passes it to `read_buffer_applescript()`, which iterates all windows/tabs/sessions in the terminal app looking for the matching TTY.
+At session start, `run_session()` captures `$(tty)` and exports it as `CLAUDE_LOOP_TTY`. The watcher subprocess inherits this and passes it to the reader function, which iterates all windows/tabs/sessions in the terminal app looking for the matching TTY.
 
 The AppleScript `get contents` call:
 - Returns clean text (no ANSI codes)
@@ -299,7 +302,7 @@ packages/context-management/
     status-line.test.sh
     context-gate-pre.test.sh
     context-monitor-post.test.sh
-    claude-loop.test.sh      # 40 tests: unit + integration
+    claude-loop.test.sh      # 90 tests: unit + integration
   install.sh                 # Symlink installer
   test.sh                    # Test runner
   claude-settings.example.json

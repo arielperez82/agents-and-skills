@@ -11,13 +11,19 @@
 # session. The wrapper reads the sidecar and restarts with the extracted prompt.
 #
 # Architecture: adapter registry pattern
-#   reader_mode()       — detects environment, returns mode name
-#   read_buffer_{mode}  — per-mode buffer reader (convention-based dispatch)
-#   watcher_check()     — testable check-and-act logic
-#   start_watcher()     — background polling loop
-#   launch_command()    — mode-specific process launch
-#   run_session()       — orchestration: setup → watcher → launch → cleanup
-#   main()              — restart loop with sidecar file protocol
+#   reader_mode()            — (pure) detects environment, returns mode name
+#   read_buffer_{mode}       — (side-effect) per-mode buffer reader (convention-based dispatch)
+#   call_reader()            — (side-effect) contract-enforcement wrapper for reader dispatch
+#   extract_restart_block()  — (pure) extracts last restart block from buffer text
+#   detect_restart()         — (side-effect) checks buffer for restart marker, extracts block
+#   act_on_restart()         — (side-effect) writes sidecar file + kills process
+#   write_restart_sidecar()  — (side-effect) writes restart block to sidecar file
+#   read_restart_sidecar()   — (side-effect) reads restart block from sidecar file
+#   watcher_check()          — (side-effect) testable check-and-act logic
+#   start_watcher()          — (side-effect) background polling loop
+#   launch_command()         — (side-effect) mode-specific process launch
+#   run_session()            — (side-effect) orchestration: setup → watcher → launch → cleanup
+#   main()                   — (side-effect) restart loop with sidecar file protocol
 #
 # Reader adapters (auto-detected via TERM_PROGRAM / TMUX):
 #   terminal_app — Terminal.app: reads buffer via osascript
@@ -37,6 +43,18 @@ TAIL_LINES="${TAIL_LINES:-80}"
 POLL_INTERVAL="${POLL_INTERVAL:-2}"
 CLAUDE_LOOP_COMMAND="${CLAUDE_LOOP_COMMAND:-claude}"
 KILL_DELAY="${KILL_DELAY:-1}"
+
+validate_numeric() {
+  local name="$1" value="$2"
+  if ! [[ "$value" =~ ^[0-9]+$ ]]; then
+    echo "Error: $name must be numeric, got '$value'" >&2
+    exit 1
+  fi
+}
+validate_numeric "PAUSE_SECONDS" "$PAUSE_SECONDS"
+validate_numeric "TAIL_LINES" "$TAIL_LINES"
+validate_numeric "POLL_INTERVAL" "$POLL_INTERVAL"
+validate_numeric "KILL_DELAY" "$KILL_DELAY"
 START_MARKER="---HANDOFF-RESTART---"
 END_MARKER="---END-RESTART---"
 
@@ -91,11 +109,17 @@ call_reader() {
   "$reader_fn" "$my_tty" "$logfile"
 }
 
+sanitize_tty() {
+  local tty_path="$1"
+  if [[ "$tty_path" =~ [^a-zA-Z0-9/._-] ]]; then
+    echo "" ; return 1
+  fi
+  return 0
+}
+
 read_buffer_terminal_app() {
   local my_tty="$1"
-  if [[ "$my_tty" =~ [^a-zA-Z0-9/._-] ]]; then
-    echo "" ; return
-  fi
+  sanitize_tty "$my_tty" || return 0
   osascript -e "
 tell application \"Terminal\"
   set ttyPath to \"$my_tty\"
@@ -112,9 +136,7 @@ end tell" 2>/dev/null || true
 
 read_buffer_iterm2() {
   local my_tty="$1"
-  if [[ "$my_tty" =~ [^a-zA-Z0-9/._-] ]]; then
-    echo "" ; return
-  fi
+  sanitize_tty "$my_tty" || return 0
   osascript -e "
 tell application \"iTerm2\"
   set ttyPath to \"$my_tty\"
@@ -197,7 +219,7 @@ cleanup_watcher() {
 write_restart_sidecar() {
   local block="$1" restartfile="$2"
   if [ -n "$block" ]; then
-    printf '%s' "$block" > "$restartfile"
+    (umask 077; printf '%s' "$block" > "$restartfile")
   fi
 }
 
@@ -209,7 +231,7 @@ read_restart_sidecar() {
 }
 
 detect_restart() {
-  local reader_fn="$1" my_tty="$2" logfile="$3"
+  local reader_fn="$1" my_tty="$2" logfile="${3:-}"
   local cleaned
   cleaned=$(call_reader "$reader_fn" "$my_tty" "$logfile") || return 1
 
@@ -224,7 +246,11 @@ act_on_restart() {
   local block="$1" pidfile="$2" restartfile="$3"
   write_restart_sidecar "$block" "$restartfile"
   sleep "$KILL_DELAY"
-  kill "$(cat "$pidfile" 2>/dev/null)" 2>/dev/null || true
+  local target_pid
+  target_pid=$(cat "$pidfile" 2>/dev/null) || true
+  if [[ "$target_pid" =~ ^[0-9]+$ ]]; then
+    kill "$target_pid" 2>/dev/null || true
+  fi
 }
 
 watcher_check() {
