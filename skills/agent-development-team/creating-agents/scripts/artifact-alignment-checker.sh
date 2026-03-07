@@ -13,7 +13,8 @@ set -euo pipefail
 
 FORMAT="human"
 QUIET=false
-FILES=()
+ALL_MODE=false
+RAW_ARGS=()
 
 while [ $# -gt 0 ]; do
   case "$1" in
@@ -25,16 +26,58 @@ while [ $# -gt 0 ]; do
       QUIET=true
       shift
       ;;
+    --all)
+      ALL_MODE=true
+      shift
+      ;;
     *)
-      FILES+=("$1")
+      RAW_ARGS+=("$1")
       shift
       ;;
   esac
 done
 
-if [ ${#FILES[@]} -eq 0 ]; then
-  echo "Usage: artifact-alignment-checker.sh [--format json|human] [--quiet] FILE [FILE...]" >&2
+REPO_ROOT="$(git rev-parse --show-toplevel 2>/dev/null || pwd)"
+
+FILES=()
+
+if [ "$ALL_MODE" = true ]; then
+  while IFS= read -r -d '' f; do
+    FILES+=("$f")
+  done < <(find "$REPO_ROOT/agents" -maxdepth 1 -name '*.md' -print0 2>/dev/null)
+  while IFS= read -r -d '' f; do
+    FILES+=("$f")
+  done < <(find "$REPO_ROOT/skills" -name 'SKILL.md' -print0 2>/dev/null)
+  while IFS= read -r -d '' f; do
+    FILES+=("$f")
+  done < <(find "$REPO_ROOT/commands" -name '*.md' -print0 2>/dev/null)
+elif [ ${#RAW_ARGS[@]} -gt 0 ]; then
+  for arg in "${RAW_ARGS[@]}"; do
+    if [[ "$arg" == *"*"* ]] || [[ "$arg" == *"?"* ]]; then
+      # Glob pattern — expand it (word splitting is intentional for glob)
+      shopt -s nullglob
+      # shellcheck disable=SC2206
+      expanded=($arg)
+      shopt -u nullglob
+      if [ ${#expanded[@]} -eq 0 ]; then
+        echo "No files matched pattern: $arg" >&2
+      else
+        FILES+=("${expanded[@]}")
+      fi
+    else
+      FILES+=("$arg")
+    fi
+  done
+else
+  echo "Usage: artifact-alignment-checker.sh [--format json|human] [--quiet] [--all] FILE [FILE...]" >&2
   exit 1
+fi
+
+if [ ${#FILES[@]} -eq 0 ] && [ "$ALL_MODE" = false ]; then
+  if [ "$QUIET" = true ]; then
+    echo "0"
+  fi
+  exit 0
 fi
 
 FINDINGS_JSON="[]"

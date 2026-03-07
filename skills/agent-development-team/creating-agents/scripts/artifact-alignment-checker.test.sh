@@ -278,6 +278,61 @@ else
   echo "  SKIP  tdd-reviewer not found at $REPO_ROOT/agents/tdd-reviewer.md"
 fi
 
+# ============================================================
+# Step 3 tests: multi-file, --all, --quiet
+# ============================================================
+
+# --- Multi-file input (findings only for misaligned) ---
+echo ""
+echo "--- Multi-file input ---"
+run_sut "$TEST_DIR/aligned-reviewer.md" "$TEST_DIR/misaligned-assessment.md"
+assert_exit_code "multi-file exits 1 (has misaligned)" 1
+assert_output_contains "multi-file flags misaligned" "misaligned-assessment" "$SUT_OUTPUT"
+assert_output_not_contains "multi-file skips aligned" "aligned-reviewer" "$SUT_OUTPUT"
+
+# --- --all mode scans real repo ---
+echo ""
+echo "--- --all mode ---"
+REPO_ROOT="$(cd "$SCRIPT_DIR/../../../.." && pwd)"
+run_sut --all
+assert_output_contains "--all reports total" "Total" "$SUT_OUTPUT"
+
+# --- --quiet mode outputs only count ---
+echo ""
+echo "--- --quiet mode ---"
+run_sut --quiet "$TEST_DIR/misaligned-assessment.md"
+local_count=$(echo "$SUT_OUTPUT" | tr -d '[:space:]')
+if [[ "$local_count" =~ ^[0-9]+$ ]]; then
+  echo "  PASS  --quiet outputs a number ($local_count)"
+  PASS=$((PASS + 1))
+else
+  echo "  FAIL  --quiet should output only a number"
+  echo "    got: $SUT_OUTPUT"
+  FAIL=$((FAIL + 1))
+fi
+
+# --- --quiet with aligned file outputs 0 ---
+echo ""
+echo "--- --quiet with aligned file ---"
+run_sut --quiet "$TEST_DIR/aligned-reviewer.md"
+assert_exit_code "--quiet aligned exits 0" 0
+local_count=$(echo "$SUT_OUTPUT" | tr -d '[:space:]')
+if [ "$local_count" = "0" ]; then
+  echo "  PASS  --quiet aligned outputs 0"
+  PASS=$((PASS + 1))
+else
+  echo "  FAIL  --quiet aligned should output 0"
+  echo "    got: $SUT_OUTPUT"
+  FAIL=$((FAIL + 1))
+fi
+
+# --- Empty glob matches no files (Scenario 1.13) ---
+echo ""
+echo "--- Empty glob ---"
+run_sut "nonexistent-dir-xyz/*.md"
+assert_exit_code "empty glob exits 0" 0
+assert_output_contains "empty glob warns" "No files matched" "$SUT_OUTPUT"
+
 # Summary
 echo ""
 echo "=== Results: $PASS passed, $FAIL failed ==="
