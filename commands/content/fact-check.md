@@ -1,41 +1,48 @@
 ---
-description: Screen content for editorial bias and loaded language
-argument-hint: <content-path> [--mode full|quick]
+description: Verify factual claims, attributions, and links in content
+argument-hint: <content-path> [--section "## Section Name"]
 ---
 
 # Purpose
 
-Run editorial bias screening on any content. Reusable for newsletters, articles, blog posts, or any text that should be neutral.
+Verify factual claims in any content — check that attributions are correct, links point to what they claim, quotes are accurate, and no facts are hallucinated. Uses the `claims-verifier` agent to independently validate claims against authoritative sources.
+
+This is distinct from bias checking (`/content/bias-check`), which checks *how* facts are presented. Fact-checking verifies *whether* the facts are true.
 
 ## Parameters
 
 | Parameter | Required | Default | Description |
 |-----------|----------|---------|-------------|
-| `content` | Yes | — | Path to the content file to screen |
-| `mode` | No | full | `full` = all 6 bias categories; `quick` = loaded language + editorializing only |
+| `content` | Yes | — | Path to the content file to verify |
+| `section` | No | — | Section heading to extract and verify (e.g., `"## FBI Arrests"`). Verifies only that section. Can be specified multiple times. |
 
 ## Workflow
 
 1. Read the content at the provided path
-2. Engage `fact-checker` agent to screen for editorial bias
-3. In `full` mode: check all 6 categories (loaded language, partisan framing, false balance, editorializing-as-reporting, selection bias, attribution asymmetry)
-4. In `quick` mode: check loaded language and editorializing only (faster, lighter)
-5. Output the bias screening report with findings, severity, and neutral rewrites
+2. If `--section` provided, extract the specified section(s)
+3. Engage `claims-verifier` agent to independently verify:
+   - Every factual claim has a traceable source
+   - Cited links point to content that supports the claim
+   - Quotes are accurately attributed
+   - Numbers and statistics are correct
+   - No facts appear to be hallucinated or invented
+4. Output a verification report with per-claim status, source audit, and verdict
 
 ## Examples
 
 ```bash
-# Full bias screening
+# Verify all claims in an article
 /content/fact-check articles/fed-rate-decision.md
 
-# Quick check (loaded language + editorializing only)
-/content/fact-check articles/fed-rate-decision.md --mode quick
+# Verify just one section
+/content/fact-check editions/2026-03-05.md --section "## FBI Arrests"
 
-# Screen a newsletter edition
-/content/fact-check editions/2026-03-05.md
+# Verify multiple sections
+/content/fact-check editions/2026-03-05.md --section "## FBI Arrests" --section "## Cuba Incident"
 ```
 
 ## References
 
-- Agent: [fact-checker](../../agents/fact-checker.md)
-- Skill: [bias-screening](../../skills/editorial-team/bias-screening/SKILL.md)
+- Agent: [claims-verifier](../../agents/claims-verifier.md)
+- Related: `/content/bias-check` (checks framing, not truth)
+- Related: `/content/accuracy-check` (checks fidelity to source material, not external truth)

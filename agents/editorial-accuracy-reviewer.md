@@ -39,6 +39,7 @@ related-skills:
   - editorial-team/bias-screening
 related-commands:
   - review/editorial-review
+  - content/accuracy-check
 collaborates-with:
   - agent: editorial-writer
     purpose: Adversarially reviews editorial-writer output by comparing to source scripts. Flags fidelity issues for revision.

@@ -42,6 +42,7 @@ related-skills:
   - editorial-team/reader-clarity
 related-commands:
   - newsletter/generate
+  - newsletter/revise
   - review/editorial-review
   - voice/extract
 collaborates-with:

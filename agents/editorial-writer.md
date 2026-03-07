@@ -39,6 +39,7 @@ related-skills:
   - editorial-team/bias-screening
 related-commands:
   - voice/extract
+  - newsletter/revise
 collaborates-with:
   - agent: fact-checker
     purpose: Hands off drafted articles for neutrality and bias review before newsletter assembly

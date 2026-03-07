@@ -37,6 +37,7 @@ related-skills:
   - editorial-team/script-to-article
 related-commands:
   - review/editorial-review
+  - content/voice-check
   - voice/extract
 collaborates-with:
   - agent: editorial-writer

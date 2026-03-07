@@ -38,6 +38,7 @@ related-skills:
   - editorial-team/script-to-article
 related-commands:
   - review/editorial-review
+  - content/clarity-check
 collaborates-with:
   - agent: editorial-writer
     purpose: Reviews editorial-writer output for clarity issues. Flags passages for revision.

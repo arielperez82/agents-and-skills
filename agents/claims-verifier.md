@@ -36,7 +36,8 @@ related-agents:
   - fact-checker
 related-skills:
   - engineering-team/code-reviewer
-related-commands: []
+related-commands:
+  - content/fact-check
 collaborates-with:
   - agent: researcher
     purpose: Primary collaboration — pushes back unverified technical claims for re-research with proper sourcing via Clarify loop

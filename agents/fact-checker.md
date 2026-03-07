@@ -37,7 +37,7 @@ related-agents:
 related-skills:
   - editorial-team/script-to-article
 related-commands:
-  - content/fact-check
+  - content/bias-check
 collaborates-with:
   - agent: editorial-writer
     purpose: Receives drafted articles for bias screening. Flags issues for editorial-writer to revise — never edits the draft directly.
