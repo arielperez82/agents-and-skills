@@ -94,9 +94,9 @@ if [ ${#FILES[@]} -eq 0 ] && [ "$ALL_MODE" = false ]; then
   exit 0
 fi
 
-FINDINGS_JSON="[]"
-TOTAL_FINDINGS=0
-HAS_CRITICAL_HIGH=false
+# shellcheck source=../../../../scripts/lib/findings-output.sh
+source "$REPO_ROOT/scripts/lib/findings-output.sh"
+init_findings
 
 extract_frontmatter() {
   local file="$1"
@@ -121,23 +121,11 @@ add_finding() {
   local category="$3"
   local message="$4"
 
-  TOTAL_FINDINGS=$((TOTAL_FINDINGS + 1))
-
-  if [ "$severity" = "Critical" ] || [ "$severity" = "High" ]; then
-    HAS_CRITICAL_HIGH=true
-  fi
-
   local escaped_file escaped_message
-  escaped_file=$(printf '%s' "$file" | sed -e 's/\\/\\\\/g' -e 's/"/\\"/g' -e $'s/\t/\\\\t/g')
-  escaped_message=$(printf '%s' "$message" | sed -e 's/\\/\\\\/g' -e 's/"/\\"/g' -e $'s/\t/\\\\t/g')
+  escaped_file=$(json_escape "$file")
+  escaped_message=$(json_escape "$message")
 
-  local finding="{\"file\":\"$escaped_file\",\"severity\":\"$severity\",\"category\":\"$category\",\"message\":\"$escaped_message\"}"
-
-  if [ "$FINDINGS_JSON" = "[]" ]; then
-    FINDINGS_JSON="[$finding]"
-  else
-    FINDINGS_JSON="${FINDINGS_JSON%]},$finding]"
-  fi
+  append_finding "$severity" "{\"file\":\"$escaped_file\",\"severity\":\"$severity\",\"category\":\"$category\",\"message\":\"$escaped_message\"}"
 }
 
 description_has_readonly_keyword() {
@@ -323,35 +311,5 @@ for file in "${FILES[@]}"; do
   check_file "$file"
 done
 
-if [ "$QUIET" = true ]; then
-  echo "$TOTAL_FINDINGS"
-  if [ "$HAS_CRITICAL_HIGH" = true ]; then
-    exit 1
-  fi
-  exit 0
-fi
-
-if [ "$FORMAT" = "json" ]; then
-  echo "{\"findings\":$FINDINGS_JSON,\"total\":$TOTAL_FINDINGS}"
-else
-  if [ "$TOTAL_FINDINGS" -eq 0 ]; then
-    echo "No alignment findings."
-  else
-    echo "$FINDINGS_JSON" | python3 -c "
-import json, sys
-findings = json.load(sys.stdin)
-for f in findings:
-    severity = f['severity']
-    print(f\"[{severity}] {f['file']}\")
-    print(f\"  Category: {f['category']}\")
-    print(f\"  {f['message']}\")
-    print()
-" 2>/dev/null || echo "$FINDINGS_JSON"
-    echo "Total findings: $TOTAL_FINDINGS"
-  fi
-fi
-
-if [ "$HAS_CRITICAL_HIGH" = true ]; then
-  exit 1
-fi
-exit 0
+output_findings "alignment"
+get_exit_code
