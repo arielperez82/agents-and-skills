@@ -185,17 +185,32 @@ cleanup_watcher() {
   fi
 }
 
-watcher_check() {
-  local reader_fn="$1" my_tty="$2" logfile="$3" pidfile="$4" restartfile="$5"
+detect_restart() {
+  local reader_fn="$1" my_tty="$2" logfile="$3"
   local cleaned
   cleaned=$("$reader_fn" "$my_tty" "$logfile")
 
   if echo "$cleaned" | grep -qE "^\s*${END_MARKER}\s*$" 2>/dev/null; then
-    if block=$(extract_restart_block "$cleaned"); then
-      printf '%s' "$block" > "$restartfile"
-    fi
-    sleep "$KILL_DELAY"
-    kill "$(cat "$pidfile" 2>/dev/null)" 2>/dev/null || true
+    extract_restart_block "$cleaned"
+    return $?
+  fi
+  return 1
+}
+
+act_on_restart() {
+  local block="$1" pidfile="$2" restartfile="$3"
+  if [ -n "$block" ]; then
+    printf '%s' "$block" > "$restartfile"
+  fi
+  sleep "$KILL_DELAY"
+  kill "$(cat "$pidfile" 2>/dev/null)" 2>/dev/null || true
+}
+
+watcher_check() {
+  local reader_fn="$1" my_tty="$2" logfile="$3" pidfile="$4" restartfile="$5"
+  local block
+  if block=$(detect_restart "$reader_fn" "$my_tty" "$logfile"); then
+    act_on_restart "$block" "$pidfile" "$restartfile"
     return 0
   fi
   return 1

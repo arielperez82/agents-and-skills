@@ -593,9 +593,102 @@ fi
 
 # -------------------------------------------------------------------
 echo ""
-echo "--- watcher_check unit tests ---"
+echo "--- detect_restart (pure detection) ---"
 
-# watcher_check returns 0 when END marker found
+# detect_restart returns 0 and outputs block when markers found
+dr_logfile=$(make_tmp)
+cat > "$dr_logfile" <<'FAKELOG'
+Some output
+---HANDOFF-RESTART---
+Restart from detect_restart test.
+---END-RESTART---
+FAKELOG
+set +e
+dr_result=$(detect_restart "read_buffer_logfile" "" "$dr_logfile")
+dr_exit=$?
+set -e
+assert_eq "detect_restart returns 0 when markers found" "0" "$dr_exit"
+assert_eq "detect_restart outputs the block" "Restart from detect_restart test." "$dr_result"
+
+# detect_restart returns 1 when no markers
+dr_logfile2=$(make_tmp)
+echo "Normal output" > "$dr_logfile2"
+set +e
+dr_result2=$(detect_restart "read_buffer_logfile" "" "$dr_logfile2")
+dr_exit2=$?
+set -e
+assert_eq "detect_restart returns 1 when no markers" "1" "$dr_exit2"
+assert_eq "detect_restart outputs nothing when no markers" "" "$dr_result2"
+
+# detect_restart returns 1 for inline markers (hook text)
+dr_logfile3=$(make_tmp)
+cat > "$dr_logfile3" <<'FAKELOG'
+Output the restart block (between ---HANDOFF-RESTART--- and ---END-RESTART--- markers).
+FAKELOG
+assert_exit "detect_restart rejects inline markers" 1 detect_restart "read_buffer_logfile" "" "$dr_logfile3"
+
+# -------------------------------------------------------------------
+echo ""
+echo "--- act_on_restart (side effects) ---"
+
+# act_on_restart writes sidecar and kills process
+ar_pidfile=$(make_tmp)
+ar_restartfile=$(make_tmp)
+cleanup_files+=("$ar_restartfile")
+sleep 30 &
+ar_fake_pid=$!
+echo "$ar_fake_pid" > "$ar_pidfile"
+export KILL_DELAY=0
+act_on_restart "Restart block content." "$ar_pidfile" "$ar_restartfile"
+export KILL_DELAY=1
+sleep 0.2
+
+if [ -f "$ar_restartfile" ]; then
+  ar_content=$(cat "$ar_restartfile")
+  assert_eq "act_on_restart writes sidecar" "Restart block content." "$ar_content"
+else
+  echo "  FAIL  act_on_restart writes sidecar"
+  FAIL=$((FAIL + 1))
+fi
+
+if kill -0 "$ar_fake_pid" 2>/dev/null; then
+  echo "  FAIL  act_on_restart kills the target process"
+  kill "$ar_fake_pid" 2>/dev/null || true
+  FAIL=$((FAIL + 1))
+else
+  echo "  PASS  act_on_restart kills the target process"
+  PASS=$((PASS + 1))
+fi
+wait "$ar_fake_pid" 2>/dev/null || true
+
+# act_on_restart with empty block does not write sidecar content
+ar_pidfile2=$(make_tmp)
+ar_restartfile2=$(make_tmp)
+cleanup_files+=("$ar_restartfile2")
+rm -f "$ar_restartfile2"
+sleep 30 &
+ar_fake_pid2=$!
+echo "$ar_fake_pid2" > "$ar_pidfile2"
+export KILL_DELAY=0
+act_on_restart "" "$ar_pidfile2" "$ar_restartfile2"
+export KILL_DELAY=1
+sleep 0.2
+
+if [ ! -f "$ar_restartfile2" ]; then
+  echo "  PASS  act_on_restart skips sidecar when block empty"
+  PASS=$((PASS + 1))
+else
+  echo "  FAIL  act_on_restart skips sidecar when block empty"
+  FAIL=$((FAIL + 1))
+fi
+kill "$ar_fake_pid2" 2>/dev/null || true
+wait "$ar_fake_pid2" 2>/dev/null || true
+
+# -------------------------------------------------------------------
+echo ""
+echo "--- watcher_check (composed detect+act) ---"
+
+# watcher_check returns 0, writes sidecar, kills process
 wc_logfile=$(make_tmp)
 wc_pidfile=$(make_tmp)
 wc_restartfile="${wc_logfile}.restart"
@@ -615,15 +708,8 @@ watcher_check "read_buffer_logfile" "" "$wc_logfile" "$wc_pidfile" "$wc_restartf
 wc_exit=$?
 set -e
 export KILL_DELAY=1
-if [ "$wc_exit" -eq 0 ]; then
-  echo "  PASS  watcher_check returns 0 when END marker found"
-  PASS=$((PASS + 1))
-else
-  echo "  FAIL  watcher_check returns 0 when END marker found"
-  FAIL=$((FAIL + 1))
-fi
+assert_eq "watcher_check returns 0 when END marker found" "0" "$wc_exit"
 
-# Assert process was killed (side effect)
 sleep 0.2
 if kill -0 "$wc_fake_pid" 2>/dev/null; then
   echo "  FAIL  watcher_check kills the target process"
@@ -634,6 +720,14 @@ else
   PASS=$((PASS + 1))
 fi
 wait "$wc_fake_pid" 2>/dev/null || true
+
+if [ -f "$wc_restartfile" ]; then
+  wc_content=$(cat "$wc_restartfile")
+  assert_eq "watcher_check writes sidecar on match" "Restart from watcher_check test." "$wc_content"
+else
+  echo "  FAIL  watcher_check writes sidecar on match"
+  FAIL=$((FAIL + 1))
+fi
 
 # watcher_check returns 1 when no markers
 wc_logfile2=$(make_tmp)
@@ -648,24 +742,9 @@ set +e
 watcher_check "read_buffer_logfile" "" "$wc_logfile2" "$wc_pidfile2" "$wc_restartfile2"
 wc_exit2=$?
 set -e
-if [ "$wc_exit2" -eq 1 ]; then
-  echo "  PASS  watcher_check returns 1 when no markers"
-  PASS=$((PASS + 1))
-else
-  echo "  FAIL  watcher_check returns 1 when no markers"
-  FAIL=$((FAIL + 1))
-fi
+assert_eq "watcher_check returns 1 when no markers" "1" "$wc_exit2"
 kill "$wc_fake_pid2" 2>/dev/null || true
 wait "$wc_fake_pid2" 2>/dev/null || true
-
-# watcher_check writes sidecar on match
-if [ -f "$wc_restartfile" ]; then
-  wc_content=$(cat "$wc_restartfile")
-  assert_eq "watcher_check writes sidecar on match" "Restart from watcher_check test." "$wc_content"
-else
-  echo "  FAIL  watcher_check writes sidecar on match"
-  FAIL=$((FAIL + 1))
-fi
 
 # -------------------------------------------------------------------
 echo ""
