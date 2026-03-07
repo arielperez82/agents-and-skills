@@ -259,7 +259,14 @@ check_file() {
 
   # --- Pass 2: Propagate taint through assignments ---
   local changed=true
+  local pass_count=0
+  local MAX_PROPAGATION_PASSES=10
   while [ "$changed" = true ]; do
+    pass_count=$((pass_count + 1))
+    if [ "$pass_count" -gt "$MAX_PROPAGATION_PASSES" ]; then
+      echo "warning: taint propagation cap ($MAX_PROPAGATION_PASSES passes) reached for $file" >&2
+      break
+    fi
     changed=false
     line_num=0
     while IFS= read -r line || [ -n "$line" ]; do

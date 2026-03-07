@@ -335,6 +335,25 @@ run_sut --format json "$TEST_DIR/back\\slash.sh"
 assert_valid_json "backslash path produces valid JSON" "$SUT_OUTPUT"
 
 # ============================================================
+# S2 tests: taint propagation iteration cap
+# ============================================================
+
+# --- Deep taint chain still detects sink ---
+echo ""
+echo "--- S2: deep taint chain with iteration cap ---"
+{
+  echo '#!/bin/bash'
+  echo 'v0="$1"'
+  for i in $(seq 1 15); do
+    echo "v$i=\"\$v$((i-1))\""
+  done
+  echo 'eval "$v15"'
+} > "$TEST_DIR/deep-chain.sh"
+run_sut --format json "$TEST_DIR/deep-chain.sh"
+assert_exit_code "deep chain detected" 1
+assert_output_contains "deep chain has finding" "eval" "$SUT_OUTPUT"
+
+# ============================================================
 # R1+S1 tests: argument bounds checking + format validation
 # ============================================================
 
