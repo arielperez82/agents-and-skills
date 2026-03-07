@@ -66,7 +66,7 @@ for f in findings:
         if k not in ('file', 'severity'):
             print(f\"  {k}: {v}\")
     print()
-" 2>/dev/null || echo "$FINDINGS_JSON"
+" 2>/dev/null || { echo "warning: python3 not available, showing raw JSON" >&2; echo "$FINDINGS_JSON"; }
       echo "Total $label findings: $TOTAL_FINDINGS"
     fi
   fi
