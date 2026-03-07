@@ -593,6 +593,36 @@ fi
 
 # -------------------------------------------------------------------
 echo ""
+echo "--- TTY path sanitization ---"
+
+# Valid TTY paths pass through (function returns without error)
+valid_result=$(read_buffer_terminal_app "/dev/ttys003" 2>/dev/null)
+# Can't assert content (no Terminal.app in test), but should not return early
+assert_eq "valid tty /dev/ttys003 accepted" "" "$valid_result"
+
+# AppleScript injection via quotes
+inject_result=$(read_buffer_terminal_app '"; do shell script "whoami' 2>/dev/null)
+assert_eq "rejects tty with quotes (terminal_app)" "" "$inject_result"
+
+inject_result2=$(read_buffer_iterm2 '"; do shell script "whoami' 2>/dev/null)
+assert_eq "rejects tty with quotes (iterm2)" "" "$inject_result2"
+
+# Shell metacharacters
+inject_result3=$(read_buffer_terminal_app '/dev/tty$(whoami)' 2>/dev/null)
+assert_eq "rejects tty with dollar-paren (terminal_app)" "" "$inject_result3"
+
+inject_result4=$(read_buffer_terminal_app '/dev/tty;rm -rf /' 2>/dev/null)
+assert_eq "rejects tty with semicolon (terminal_app)" "" "$inject_result4"
+
+inject_result5=$(read_buffer_terminal_app '/dev/tty`whoami`' 2>/dev/null)
+assert_eq "rejects tty with backticks (terminal_app)" "" "$inject_result5"
+
+# Spaces (not in allowlist)
+inject_result6=$(read_buffer_terminal_app '/dev/tty with spaces' 2>/dev/null)
+assert_eq "rejects tty with spaces (terminal_app)" "" "$inject_result6"
+
+# -------------------------------------------------------------------
+echo ""
 echo "--- detect_restart (pure detection) ---"
 
 # detect_restart returns 0 and outputs block when markers found
