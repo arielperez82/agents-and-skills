@@ -25,5 +25,8 @@ Optional index for Architecture Decision Records. ADRs live in this directory wi
 | I33-SHLFT-002 | [review-nudge as PostToolUse nudge, not PreToolUse block](I33-SHLFT-002-review-nudge-post-tool-use-not-pre-tool-use.md) | Proposed | 2026-03-06 |
 | I33-SHLFT-003 | [Fail-open design for all hooks](I33-SHLFT-003-fail-open-design-for-all-hooks.md) | Proposed | 2026-03-06 |
 | I33-SHLFT-004 | [RED evidence as skill convention, not commit-msg hook](I33-SHLFT-004-red-evidence-as-skill-convention-not-commit-msg-hook.md) | Proposed | 2026-03-06 |
+| I32-ASEC-001 | [Regex-based taint tracking over AST parsing](I32-ASEC-001-regex-taint-tracking-over-ast-parsing.md) | Accepted | 2026-03-07 |
+| I32-ASEC-002 | [Keyword-based alignment heuristics over NLP](I32-ASEC-002-keyword-alignment-heuristics-over-nlp.md) | Accepted | 2026-03-07 |
+| I32-ASEC-003 | [Defer trigger overlap, trust chains, skill-scanner-wrapper to P2](I32-ASEC-003-scope-reduction-defer-overlap-trust-chains-wrapper.md) | Accepted | 2026-03-07 |
 
 See [charter](../../charters/charter-repo-artifact-conventions.md) for ADR placement and front matter requirements.

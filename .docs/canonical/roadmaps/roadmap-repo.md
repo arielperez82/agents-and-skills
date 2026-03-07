@@ -23,7 +23,6 @@ Initiatives chartered and ready to start when capacity allows.
 
 | Initiative | Name | Description | Status | Charter |
 |------------|------|-------------|--------|---------|
-| I32-ASEC | Artifact Security Analysis | Alignment checker + bash taint checker + pre-commit/CI integration (scope-reduced: core alignment, taint, integration only) | Chartered (scope-reduced) | [charter](../charters/charter-repo-I32-ASEC-artifact-security-analysis.md) |
 
 ## Later
 
@@ -74,4 +73,5 @@ Completed initiatives.
 | I33-WSNK | Waste Snake | Process waste visibility practice (skill, command, agent updates, waste-snake ledger) | — |
 | I34-WSINT | Waste Snake Integration | Wired /waste/add into craft workflow, /code, /code:auto, and learner agent for systematic waste capture | [charter](../charters/charter-repo-I34-WSINT-waste-snake-integration.md) |
 | I33-SHLFT | Shift-Left Quality Hooks | Programmatic hooks (worktree-guard, review-nudge) and TDD/skill/agent updates shifting quality checks left from L65-L84 retro findings | [charter](../charters/charter-repo-I33-SHLFT-shift-left-quality-hooks.md) |
+| I32-ASEC | Artifact Security Analysis | Alignment checker + bash taint checker + validator integration + CI jobs (scope-reduced: core alignment, taint, integration only; enforcement deferred until existing findings remediated) | [charter](../charters/charter-repo-I32-ASEC-artifact-security-analysis.md) |
 | I35-LPATH | Locate Path Commands | 6 /locate/* commands for dynamic artifact path resolution; decouples orchestrators from hardcoded paths | |

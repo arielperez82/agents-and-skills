@@ -6,6 +6,8 @@ Quick validation script for skills - minimal version
 import sys
 import os
 import re
+import json
+import subprocess
 import yaml
 from pathlib import Path
 
@@ -92,7 +94,42 @@ def validate_skill(skill_path):
         if missing:
             print(f"WARNING: metadata is missing recommended fields: {', '.join(sorted(missing))}")
 
+    # Analyzability check for scripts/ directory
+    scripts_dir = skill_path / 'scripts'
+    if scripts_dir.is_dir():
+        checker = _find_alignment_checker()
+        if checker:
+            try:
+                result = subprocess.run(
+                    ["bash", str(checker), "--format", "json", str(skill_md)],
+                    capture_output=True,
+                    text=True,
+                    timeout=30,
+                )
+                output = json.loads(result.stdout)
+                findings = output.get("findings", [])
+                for f in findings:
+                    if f.get("category") == "analyzability":
+                        print(f"WARNING: [analyzability] {f.get('message', 'issue detected')}")
+            except (subprocess.TimeoutExpired, json.JSONDecodeError, OSError):
+                pass
+
     return True, "Skill is valid!"
+
+
+def _find_alignment_checker():
+    try:
+        repo_root = subprocess.run(
+            ["git", "rev-parse", "--show-toplevel"],
+            capture_output=True, text=True, timeout=5,
+        ).stdout.strip()
+        if repo_root:
+            candidate = Path(repo_root) / "skills" / "agent-development-team" / "creating-agents" / "scripts" / "artifact-alignment-checker.sh"
+            if candidate.exists():
+                return candidate
+    except (subprocess.TimeoutExpired, OSError):
+        pass
+    return None
 
 if __name__ == "__main__":
     if len(sys.argv) != 2:
