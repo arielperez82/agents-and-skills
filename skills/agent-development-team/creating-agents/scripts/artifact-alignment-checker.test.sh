@@ -446,6 +446,36 @@ run_sut --skip-analyzability "$TEST_DIR/skill-with-eval/SKILL.md"
 assert_exit_code "--skip-analyzability exits 0" 0
 assert_output_not_contains "--skip-analyzability no findings" "analyzability" "$SUT_OUTPUT"
 
+# ============================================================
+# R1+S1 tests: argument bounds checking + format validation
+# ============================================================
+
+# --- --format with no value (exit 1, stderr error) ---
+echo ""
+echo "--- --format with no value ---"
+run_sut --format
+assert_exit_code "--format no value exits 1" 1
+assert_output_contains "--format no value error" "requires a value" "$SUT_OUTPUT"
+
+# --- --format with unsupported value (exit 1, stderr error) ---
+echo ""
+echo "--- --format with unsupported value ---"
+run_sut --format xml "$TEST_DIR/aligned-reviewer.md"
+assert_exit_code "--format xml exits 1" 1
+assert_output_contains "--format xml error" "Unsupported format" "$SUT_OUTPUT"
+
+# --- --format json still works ---
+echo ""
+echo "--- --format json still works ---"
+run_sut --format json "$TEST_DIR/aligned-reviewer.md"
+assert_exit_code "--format json exits 0" 0
+
+# --- --format human still works ---
+echo ""
+echo "--- --format human still works ---"
+run_sut --format human "$TEST_DIR/aligned-reviewer.md"
+assert_exit_code "--format human exits 0" 0
+
 # Summary
 echo ""
 echo "=== Results: $PASS passed, $FAIL failed ==="

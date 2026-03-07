@@ -20,6 +20,10 @@ IGNORE_PATTERNS=()
 while [ $# -gt 0 ]; do
   case "$1" in
     --format)
+      if [ $# -lt 2 ]; then
+        echo "error: --format requires a value (json or human)" >&2
+        exit 1
+      fi
       FORMAT="$2"
       shift 2
       ;;
@@ -28,6 +32,10 @@ while [ $# -gt 0 ]; do
       shift
       ;;
     --ignore-pattern)
+      if [ $# -lt 2 ]; then
+        echo "error: --ignore-pattern requires a value" >&2
+        exit 1
+      fi
       IGNORE_PATTERNS+=("$2")
       shift 2
       ;;
@@ -37,6 +45,11 @@ while [ $# -gt 0 ]; do
       ;;
   esac
 done
+
+if [ "$FORMAT" != "json" ] && [ "$FORMAT" != "human" ]; then
+  echo "error: Unsupported format '$FORMAT'. Use 'json' or 'human'." >&2
+  exit 1
+fi
 
 if [ ${#FILES[@]} -eq 0 ]; then
   echo "Usage: bash-taint-checker.sh [--format json|human] [--quiet] [--ignore-pattern PAT] FILE [FILE...]" >&2

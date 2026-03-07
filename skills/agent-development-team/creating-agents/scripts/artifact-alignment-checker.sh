@@ -20,6 +20,10 @@ RAW_ARGS=()
 while [ $# -gt 0 ]; do
   case "$1" in
     --format)
+      if [ $# -lt 2 ]; then
+        echo "error: --format requires a value (json or human)" >&2
+        exit 1
+      fi
       FORMAT="$2"
       shift 2
       ;;
@@ -41,6 +45,11 @@ while [ $# -gt 0 ]; do
       ;;
   esac
 done
+
+if [ "$FORMAT" != "json" ] && [ "$FORMAT" != "human" ]; then
+  echo "error: Unsupported format '$FORMAT'. Use 'json' or 'human'." >&2
+  exit 1
+fi
 
 REPO_ROOT="$(git rev-parse --show-toplevel 2>/dev/null || pwd)"
 

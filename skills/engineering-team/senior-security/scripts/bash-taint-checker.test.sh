@@ -319,6 +319,43 @@ run_sut "$TEST_DIR/readme.md" "$TEST_DIR/clean.sh"
 assert_exit_code "mixed file types exits 0" 0
 assert_output_contains "non-shell skipped in multi" "Skipping" "$SUT_OUTPUT"
 
+# ============================================================
+# R1+S1 tests: argument bounds checking + format validation
+# ============================================================
+
+# --- --format with no value (exit 1, stderr error) ---
+echo ""
+echo "--- --format with no value ---"
+run_sut --format
+assert_exit_code "--format no value exits 1" 1
+assert_output_contains "--format no value error" "requires a value" "$SUT_OUTPUT"
+
+# --- --ignore-pattern with no value (exit 1, stderr error) ---
+echo ""
+echo "--- --ignore-pattern with no value ---"
+run_sut --ignore-pattern
+assert_exit_code "--ignore-pattern no value exits 1" 1
+assert_output_contains "--ignore-pattern no value error" "requires a value" "$SUT_OUTPUT"
+
+# --- --format with unsupported value (exit 1, stderr error) ---
+echo ""
+echo "--- --format with unsupported value ---"
+run_sut --format xml "$TEST_DIR/clean.sh"
+assert_exit_code "--format xml exits 1" 1
+assert_output_contains "--format xml error" "Unsupported format" "$SUT_OUTPUT"
+
+# --- --format json still works ---
+echo ""
+echo "--- --format json still works ---"
+run_sut --format json "$TEST_DIR/clean.sh"
+assert_exit_code "--format json exits 0" 0
+
+# --- --format human still works ---
+echo ""
+echo "--- --format human still works ---"
+run_sut --format human "$TEST_DIR/clean.sh"
+assert_exit_code "--format human exits 0" 0
+
 # Summary
 echo ""
 echo "=== Results: $PASS passed, $FAIL failed ==="
