@@ -214,6 +214,24 @@ check_file() {
     return
   fi
 
+  # --- Analyzability scoring for SKILL.md files (independent of alignment) ---
+  if [ "$SKIP_ANALYZABILITY" = false ]; then
+    local file_basename
+    file_basename=$(basename "$file")
+    if [ "$file_basename" = "SKILL.md" ]; then
+      local skill_dir
+      skill_dir=$(dirname "$file")
+      local scripts_dir="$skill_dir/scripts"
+      if [ -d "$scripts_dir" ]; then
+        local script
+        for script in "$scripts_dir"/*.sh; do
+          [ -f "$script" ] || continue
+          check_script_analyzability "$file" "$script"
+        done
+      fi
+    fi
+  fi
+
   local description tools
   description=$(get_yaml_value "$frontmatter" "description")
   tools=$(get_yaml_value "$frontmatter" "tools")
@@ -240,24 +258,6 @@ check_file() {
         fi
 
         add_finding "$file" "$severity" "alignment" "Description suggests read-only/assessment role but tools include write capabilities: $write_list"
-      fi
-    fi
-  fi
-
-  # --- Analyzability scoring for SKILL.md files ---
-  if [ "$SKIP_ANALYZABILITY" = false ]; then
-    local basename
-    basename=$(basename "$file")
-    if [ "$basename" = "SKILL.md" ]; then
-      local skill_dir
-      skill_dir=$(dirname "$file")
-      local scripts_dir="$skill_dir/scripts"
-      if [ -d "$scripts_dir" ]; then
-        local script
-        for script in "$scripts_dir"/*.sh; do
-          [ -f "$script" ] || continue
-          check_script_analyzability "$file" "$script"
-        done
       fi
     fi
   fi
