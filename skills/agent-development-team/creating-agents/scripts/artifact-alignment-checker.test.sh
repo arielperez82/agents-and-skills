@@ -1,0 +1,284 @@
+#!/bin/bash
+# Tests for artifact-alignment-checker.sh
+# Run: bash skills/agent-development-team/creating-agents/scripts/artifact-alignment-checker.test.sh
+
+set -euo pipefail
+
+SCRIPT_DIR="$(cd "$(dirname "$0")" && pwd)"
+SUT="$SCRIPT_DIR/artifact-alignment-checker.sh"
+PASS=0
+FAIL=0
+TMPDIR_BASE="${TMPDIR:-/tmp}"
+TEST_DIR=""
+
+cleanup() {
+  if [ -n "$TEST_DIR" ] && [ -d "$TEST_DIR" ]; then
+    rm -rf "$TEST_DIR"
+  fi
+}
+
+trap cleanup EXIT
+
+setup_fixtures() {
+  TEST_DIR=$(mktemp -d "${TMPDIR_BASE}/alignment-test-XXXXXX")
+
+  # Aligned agent: read-only description, read-only tools
+  cat > "$TEST_DIR/aligned-reviewer.md" << 'FIXTURE'
+---
+name: aligned-reviewer
+title: Aligned Reviewer
+description: Code review assessment that evaluates quality
+tools: [Read, Grep, Glob]
+---
+
+# Aligned Reviewer
+
+Reviews code for quality.
+FIXTURE
+
+  # Misaligned agent: "assessment" description + Write/Edit tools
+  cat > "$TEST_DIR/misaligned-assessment.md" << 'FIXTURE'
+---
+name: misaligned-assessment
+title: Misaligned Assessment
+description: Security assessment guardian that evaluates code
+tools: [Read, Write, Edit, Grep]
+---
+
+# Misaligned Assessment
+
+Assesses security.
+FIXTURE
+
+  # Misaligned agent: "read-only" description + Write tool
+  cat > "$TEST_DIR/readonly-with-write.md" << 'FIXTURE'
+---
+name: readonly-with-write
+title: Read-Only With Write
+description: Read-only code analysis tool
+tools: [Read, Write, Glob]
+---
+
+# Read-Only With Write
+
+Analyzes code in read-only mode.
+FIXTURE
+
+  # No frontmatter
+  cat > "$TEST_DIR/no-frontmatter.md" << 'FIXTURE'
+# No Frontmatter
+
+This file has no YAML frontmatter.
+FIXTURE
+
+  # No tools field
+  cat > "$TEST_DIR/no-tools.md" << 'FIXTURE'
+---
+name: no-tools-agent
+title: No Tools Agent
+description: Assessment agent with no tools field
+---
+
+# No Tools Agent
+
+Has no tools field at all.
+FIXTURE
+
+  # Mixed signals: description says "creates" AND "reviews"
+  cat > "$TEST_DIR/mixed-signals.md" << 'FIXTURE'
+---
+name: mixed-signals
+title: Mixed Signals
+description: Reviews code and creates fix suggestions
+tools: [Read, Write, Edit]
+---
+
+# Mixed Signals
+
+Reviews and creates.
+FIXTURE
+
+  # Implementation agent: description says "build", tools include Write (expected)
+  cat > "$TEST_DIR/builder.md" << 'FIXTURE'
+---
+name: builder
+title: Builder
+description: Implementation specialist that builds features
+tools: [Read, Write, Edit, Bash]
+---
+
+# Builder
+
+Builds features.
+FIXTURE
+}
+
+run_sut() {
+  set +e
+  SUT_OUTPUT=$(bash "$SUT" "$@" 2>&1)
+  SUT_EXIT=$?
+  set -e
+}
+
+assert_exit_code() {
+  local label="$1" expected="$2"
+  if [ "$SUT_EXIT" -eq "$expected" ]; then
+    echo "  PASS  $label (exit=$SUT_EXIT)"
+    PASS=$((PASS + 1))
+  else
+    echo "  FAIL  $label"
+    echo "    expected exit code: $expected"
+    echo "    got: $SUT_EXIT"
+    FAIL=$((FAIL + 1))
+  fi
+}
+
+assert_output_contains() {
+  local label="$1" expected="$2" actual="$3"
+  if echo "$actual" | grep -qi "$expected"; then
+    echo "  PASS  $label (contains '$expected')"
+    PASS=$((PASS + 1))
+  else
+    echo "  FAIL  $label"
+    echo "    expected output to contain: $expected"
+    echo "    got: $actual"
+    FAIL=$((FAIL + 1))
+  fi
+}
+
+assert_output_not_contains() {
+  local label="$1" unexpected="$2" actual="$3"
+  if echo "$actual" | grep -qi "$unexpected"; then
+    echo "  FAIL  $label"
+    echo "    expected output NOT to contain: $unexpected"
+    echo "    got: $actual"
+    FAIL=$((FAIL + 1))
+  else
+    echo "  PASS  $label (does not contain '$unexpected')"
+    PASS=$((PASS + 1))
+  fi
+}
+
+assert_valid_json() {
+  local label="$1" output="$2"
+  if echo "$output" | python3 -m json.tool > /dev/null 2>&1; then
+    echo "  PASS  $label (valid JSON)"
+    PASS=$((PASS + 1))
+  else
+    echo "  FAIL  $label"
+    echo "    output is not valid JSON"
+    echo "    got: $output"
+    FAIL=$((FAIL + 1))
+  fi
+}
+
+echo "=== artifact-alignment-checker tests ==="
+
+setup_fixtures
+
+# --- Scenario 1.2: Aligned agent passes check ---
+echo ""
+echo "--- Aligned agent (exit 0, zero findings) ---"
+run_sut "$TEST_DIR/aligned-reviewer.md"
+assert_exit_code "aligned agent exits 0" 0
+assert_output_not_contains "aligned agent has no findings" "severity" "$SUT_OUTPUT"
+
+# --- Scenario 1.1: Misaligned agent -- assessment + Write/Edit ---
+echo ""
+echo "--- Misaligned: assessment + Write/Edit (exit 1, High finding) ---"
+run_sut "$TEST_DIR/misaligned-assessment.md"
+assert_exit_code "misaligned assessment exits 1" 1
+assert_output_contains "misaligned has alignment finding" "alignment" "$SUT_OUTPUT"
+assert_output_contains "misaligned mentions Write" "Write" "$SUT_OUTPUT"
+
+# --- Read-only description + Write tool (exit 1, Critical finding) ---
+echo ""
+echo "--- Read-only + Write (exit 1) ---"
+run_sut "$TEST_DIR/readonly-with-write.md"
+assert_exit_code "read-only with write exits 1" 1
+assert_output_contains "read-only flags Write" "Write" "$SUT_OUTPUT"
+
+# --- Missing file (exit 1, stderr) ---
+echo ""
+echo "--- Missing file ---"
+run_sut "$TEST_DIR/nonexistent.md"
+assert_exit_code "missing file exits 1" 1
+assert_output_contains "missing file error message" "not found" "$SUT_OUTPUT"
+
+# --- No frontmatter (exit 1, parse-error) ---
+echo ""
+echo "--- No frontmatter ---"
+run_sut "$TEST_DIR/no-frontmatter.md"
+assert_exit_code "no frontmatter exits 1" 1
+assert_output_contains "no frontmatter parse-error" "parse-error" "$SUT_OUTPUT"
+
+# --- No tools field (exit 0) ---
+echo ""
+echo "--- No tools field ---"
+run_sut "$TEST_DIR/no-tools.md"
+assert_exit_code "no tools exits 0" 0
+
+# --- JSON output validity ---
+echo ""
+echo "--- JSON output format ---"
+run_sut --format json "$TEST_DIR/misaligned-assessment.md"
+assert_valid_json "JSON output is valid" "$SUT_OUTPUT"
+assert_output_contains "JSON has findings array" "findings" "$SUT_OUTPUT"
+assert_output_contains "JSON has severity field" "severity" "$SUT_OUTPUT"
+assert_output_contains "JSON has category field" "category" "$SUT_OUTPUT"
+assert_output_contains "JSON has file field" "file" "$SUT_OUTPUT"
+
+# --- Case-insensitive keyword matching ---
+echo ""
+echo "--- Case-insensitive matching ---"
+cat > "$TEST_DIR/uppercase-readonly.md" << 'FIXTURE'
+---
+name: uppercase-readonly
+title: Uppercase Read-Only
+description: READ-ONLY code checker
+tools: [Read, Write]
+---
+
+# Uppercase
+FIXTURE
+run_sut "$TEST_DIR/uppercase-readonly.md"
+assert_exit_code "case-insensitive read-only exits 1" 1
+
+# --- Mixed signals: "creates" justifies Write tools (Scenario 1.12) ---
+echo ""
+echo "--- Mixed signals (creates + reviews) ---"
+run_sut "$TEST_DIR/mixed-signals.md"
+assert_exit_code "mixed signals exits 0" 0
+
+# --- Implementation agent passes (not read-only) ---
+echo ""
+echo "--- Implementation agent (builder) ---"
+run_sut "$TEST_DIR/builder.md"
+assert_exit_code "builder exits 0" 0
+
+# --- Real agent: security-assessor (has Bash + assessment description) ---
+echo ""
+echo "--- Real agent: security-assessor ---"
+REPO_ROOT="$(cd "$SCRIPT_DIR/../../../.." && pwd)"
+if [ -f "$REPO_ROOT/agents/security-assessor.md" ]; then
+  run_sut "$REPO_ROOT/agents/security-assessor.md"
+  assert_exit_code "security-assessor has finding (exit 1)" 1
+  assert_output_contains "security-assessor flags Bash" "Bash" "$SUT_OUTPUT"
+else
+  echo "  SKIP  security-assessor not found at $REPO_ROOT/agents/security-assessor.md"
+fi
+
+# --- Real agent: tdd-reviewer (should pass) ---
+echo ""
+echo "--- Real agent: tdd-reviewer ---"
+if [ -f "$REPO_ROOT/agents/tdd-reviewer.md" ]; then
+  run_sut "$REPO_ROOT/agents/tdd-reviewer.md"
+  assert_exit_code "tdd-reviewer passes (exit 0)" 0
+else
+  echo "  SKIP  tdd-reviewer not found at $REPO_ROOT/agents/tdd-reviewer.md"
+fi
+
+# Summary
+echo ""
+echo "=== Results: $PASS passed, $FAIL failed ==="
+[ "$FAIL" -eq 0 ] || exit 1
