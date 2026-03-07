@@ -80,6 +80,26 @@ jobs:
       - name: Run Semgrep (local rules)
         run: semgrep scan --config .semgrep.yml --error --quiet
 
+  artifact-alignment:
+    name: Artifact Alignment Check
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Run alignment checker
+        run: bash skills/agent-development-team/creating-agents/scripts/artifact-alignment-checker.sh --all --format json
+
+  bash-taint:
+    name: Bash Taint Analysis
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Run taint checker
+        run: bash skills/engineering-team/senior-security/scripts/bash-taint-checker.sh skills/*/scripts/*.sh packages/*/scripts/*.sh packages/*/hooks/*.sh --format json
+
   prompt-injection-scan:
     name: Prompt Injection Scan
     runs-on: ubuntu-latest
