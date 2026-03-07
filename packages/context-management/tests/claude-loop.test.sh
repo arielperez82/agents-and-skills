@@ -623,6 +623,51 @@ assert_eq "rejects tty with spaces (terminal_app)" "" "$inject_result6"
 
 # -------------------------------------------------------------------
 echo ""
+echo "--- sidecar file protocol ---"
+
+# write_restart_sidecar writes content to file
+sc_file=$(make_tmp)
+rm -f "$sc_file"
+write_restart_sidecar "Hello from sidecar" "$sc_file"
+if [ -f "$sc_file" ]; then
+  sc_content=$(cat "$sc_file")
+  assert_eq "write_restart_sidecar writes content" "Hello from sidecar" "$sc_content"
+else
+  echo "  FAIL  write_restart_sidecar writes content"
+  FAIL=$((FAIL + 1))
+fi
+
+# write_restart_sidecar with empty block does not create file
+sc_file2=$(make_tmp)
+rm -f "$sc_file2"
+write_restart_sidecar "" "$sc_file2"
+if [ ! -f "$sc_file2" ]; then
+  echo "  PASS  write_restart_sidecar skips empty block"
+  PASS=$((PASS + 1))
+else
+  echo "  FAIL  write_restart_sidecar skips empty block"
+  FAIL=$((FAIL + 1))
+fi
+
+# read_restart_sidecar reads content from file
+sc_file3=$(make_tmp)
+printf '%s' "Read me back" > "$sc_file3"
+sc_read=$(read_restart_sidecar "$sc_file3")
+assert_eq "read_restart_sidecar reads content" "Read me back" "$sc_read"
+
+# read_restart_sidecar returns empty when file missing
+sc_read2=$(read_restart_sidecar "/tmp/nonexistent-sidecar-$$")
+assert_eq "read_restart_sidecar returns empty for missing file" "" "$sc_read2"
+
+# round-trip: write then read
+sc_file4=$(make_tmp)
+rm -f "$sc_file4"
+write_restart_sidecar "Round trip content" "$sc_file4"
+sc_roundtrip=$(read_restart_sidecar "$sc_file4")
+assert_eq "sidecar round-trip preserves content" "Round trip content" "$sc_roundtrip"
+
+# -------------------------------------------------------------------
+echo ""
 echo "--- detect_restart (pure detection) ---"
 
 # detect_restart returns 0 and outputs block when markers found

@@ -185,6 +185,20 @@ cleanup_watcher() {
   fi
 }
 
+write_restart_sidecar() {
+  local block="$1" restartfile="$2"
+  if [ -n "$block" ]; then
+    printf '%s' "$block" > "$restartfile"
+  fi
+}
+
+read_restart_sidecar() {
+  local restartfile="$1"
+  if [ -f "$restartfile" ]; then
+    cat "$restartfile"
+  fi
+}
+
 detect_restart() {
   local reader_fn="$1" my_tty="$2" logfile="$3"
   local cleaned
@@ -199,9 +213,7 @@ detect_restart() {
 
 act_on_restart() {
   local block="$1" pidfile="$2" restartfile="$3"
-  if [ -n "$block" ]; then
-    printf '%s' "$block" > "$restartfile"
-  fi
+  write_restart_sidecar "$block" "$restartfile"
   sleep "$KILL_DELAY"
   kill "$(cat "$pidfile" 2>/dev/null)" 2>/dev/null || true
 }
@@ -305,11 +317,7 @@ main() {
       run_session "$logfile" ${extra_args[@]+"${extra_args[@]}"}
     fi
 
-    # Read restart block from sidecar file (written by watcher before kill)
-    restart_prompt=""
-    if [ -f "$restartfile" ]; then
-      restart_prompt=$(cat "$restartfile")
-    fi
+    restart_prompt=$(read_restart_sidecar "$restartfile")
 
     # Clean up
     rm -f "$logfile" "$restartfile"
