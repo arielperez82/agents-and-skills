@@ -166,6 +166,16 @@ Common patterns to remove (non-exhaustive):
 - Use paragraph breaks at topic shifts, not at breathing pauses
 - Transitions should be logical ("however," "meanwhile") not conversational ("speaking of which")
 
+### Template-Driven Output Format
+
+When drafting stories for a newsletter, **always check the edition template for format requirements before writing.** Different newsletters require different body formats. For example, the Daily Dip template requires:
+
+- One intro/summary sentence
+- Exactly 3 bullet points (bold key phrase + completing phrase)
+- NO prose paragraphs
+
+This is not the default "clean prose" output. The template's per-story formatting section is the authoritative format spec. Read it before drafting, and verify each story matches the required structure after drafting.
+
 ## Reference Guides
 
 - **[transformation-checklist.md](references/transformation-checklist.md)** — Step-by-step checklist for every transformation. Use as a quality gate before delivering output.

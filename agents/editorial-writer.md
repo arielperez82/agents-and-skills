@@ -123,8 +123,8 @@ Unlike the `content-creator` agent (which writes original marketing content with
 2. **Extract factual skeleton** — List every claim, number, quote, and attribution
 3. **Strip verbal artifacts** — Remove filler, delivery cues, emphasis repetition, false starts
 4. **Restructure for reading** — Reorder to inverted pyramid: lead with news, support with context, close with implications
-5. **Draft article** — Write clean prose targeting 3-5x compression
-6. **Run transformation checklist** — Verify using `references/transformation-checklist.md`
+5. **Draft article** — If a newsletter template is provided, read its per-story formatting section and match the required structure exactly (e.g., intro sentence + 3 bullet points, NOT prose paragraphs). Otherwise, write clean prose targeting 3-5x compression
+6. **Run transformation checklist** — Verify using `references/transformation-checklist.md`. Verify the output format matches the template's required structure
 7. **Apply voice matching** — If voice profile provided (`--voice-profile`), load the distilled rules and reference pairs from the `.voice-profile.md` file and align output to publication style
 
 **Expected Output:** Polished article with headline and body, compression ratio noted, fidelity checklist passed

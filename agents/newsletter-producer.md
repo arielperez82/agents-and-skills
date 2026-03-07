@@ -136,7 +136,7 @@ The primary consumer is the Daily Dip newsletter, which produces editions from v
    - **Auto-select mode:** Score all candidates on 5 criteria, pick top N (default 3) with diversity constraint
    - **Explicit mode:** Validate editor's pre-selections against criteria, flag concerns
 
-3. **Draft each story** — Dispatch `editorial-writer` for each selected story to produce a polished newsletter article. Run in parallel for independent stories. If voice profile provided, apply voice matching using the profile's distilled rules and reference pairs.
+3. **Draft each story** — Dispatch `editorial-writer` for each selected story to produce a polished newsletter article. **Pass the edition template's per-story formatting requirements** (e.g., intro sentence + 3 bullet points) so the writer matches the required structure exactly — not prose paragraphs. Run in parallel for independent stories. If voice profile provided, apply voice matching using the profile's distilled rules and reference pairs.
 
 4. **Screen each draft** — Dispatch `fact-checker` for each drafted story to check for bias, loaded language, and partisan framing. If issues found, send back to `editorial-writer` for revision.
 
@@ -145,7 +145,7 @@ The primary consumer is the Daily Dip newsletter, which produces editions from v
 6. **Assemble newsletter** — Apply `newsletter-assembly` skill: if no `--template` was provided, list available templates from `references/templates/` and ask the user which to use (default: `default.md`). Then:
    - Order stories (lead/middle/close)
    - Generate subject line candidates
-   - **Dispatch supplemental sections** — Read the template for supplemental section definitions. For each one, send the brief (parameterized with edition context) to the specified agent. Common supplemental sections include TL;DR, Sweet Dip, Fun Facts, QOTD, and subject line candidates. Unused story candidates from step 2 are passed to supplemental sections that need them (e.g., Sweet Dip).
+   - **Dispatch supplemental sections** — Read the template for supplemental section definitions. For each one, send the brief (parameterized with edition context) to the specified agent. Common supplemental sections include TL;DR, Sweet Dip, Fun Facts, QOTD, and subject line candidates. Each supplemental section follows its own brief and source material instructions as defined in the template — do not assume unused story candidates feed into any particular section.
    - Compose the complete edition using the template, placing supplemental section results at their declared positions
 
 7. **Run editorial review gate** — Dispatch the editorial review command (`review/editorial-review`) which runs 4 agents in parallel: `fact-checker`, `voice-consistency-reviewer`, `reader-clarity-reviewer`, `editorial-accuracy-reviewer`. Result is PASS / PASS WITH NOTES / FAIL.
@@ -175,10 +175,11 @@ Script ──► [1] Segment ──► [2] Select ──► [3] Draft ──► 
               │                 │              │             │             │              │               │
           editorial-        story-         editorial-    fact-         poll-         newsletter-      editorial-
           writer           selection       writer        checker       writer        assembly         review
-                               │                                                       │
-                               └── unused candidates ──────────────────────────► supplemental
+                               │                                                                                                            │
+                                                                                supplemental
                                                                                  dispatches
-                                                                                (TL;DR, Sweet Dip,
+                                                                               (per template briefs:
+                                                                                TL;DR, Sweet Dip,
                                                                                 Fun Facts, QOTD,
                                                                                 subject lines)
 ```

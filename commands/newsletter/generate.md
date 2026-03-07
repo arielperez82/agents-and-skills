@@ -19,7 +19,7 @@ The user can provide any combination of the following in natural language:
 | **Voice profile** | A file path, or "use the Daily Dip voice" | No — works without one, but voice matching is better with it |
 | **Template** | A file path, or "use the daily-dip template" | No — will ask if not provided |
 | **Show notes** | Episode URL, episode title, sponsor info | No — enhances output but not required |
-| **Unused stories** | "the show also mentioned X and Y but didn't cover them" | No — enriches Sweet Dip section |
+| **Unused stories** | "the show also mentioned X and Y but didn't cover them" | No — available context for supplemental sections that request it |
 | **Edition number** | "#573" or "edition 573" | No — will ask if template needs it |
 
 **All parameters are optional except source material.** The command inspects what was provided and asks for anything it needs.
@@ -34,7 +34,7 @@ The user can provide any combination of the following in natural language:
    **Ask if missing but proceed without if user declines:**
    - Voice profile: "I don't see a voice profile. Do you have one? It helps match the publication's tone. You can generate one with `/voice/extract`."
    - Show notes / episode URL: "Do you have the show notes or the episode link? This helps me add 'Watch The Full Episode' links and source attribution."
-   - Unused stories: "Are there stories from the show that weren't covered in full? These feed the Sweet Dip section. If you don't have any, I can search for recent feel-good news instead."
+   - Unused stories: "Are there stories from the show that weren't covered in full? These provide additional context for supplemental sections that request them."
    - Edition number: "What edition number is this? (e.g., #573)"
 
    **Never block on:**

@@ -186,7 +186,7 @@ These illustrate the pattern. Actual sections and briefs are defined by each new
 | Section | Agent(s) | Brief Pattern | Inputs |
 |---------|----------|--------------|--------|
 | TL;DR | `editorial-writer` | "Write 3-4 ultra-condensed bullet points summarizing these stories" | Drafted stories |
-| Feel-good roundup | `researcher` → `editorial-writer` | "Find recent uplifting news" → "Craft into narratives matching voice" | Unused candidates; web search as fallback |
+| Feel-good roundup | `researcher` → `editorial-writer` | "Find recent uplifting news" → "Craft into narratives matching voice" | Editor-provided stories; web search as fallback |
 | Fun Facts | `researcher` | "Find 3-4 surprising, verified facts related to {categories}" | Story categories |
 | Trivia / QOTD | `editorial-writer` | "Generate a thought-provoking question for {date} related to {topics}" | Story topics, date |
 | Subject Line | `editorial-writer` | "Generate 3-5 subject line candidates" | Drafted stories |
@@ -200,12 +200,12 @@ Some supplemental sections require **chained dispatch** — one agent gathers ma
 - agents: [researcher, editorial-writer]
 - researcher-brief: "[What to find — e.g., recent news matching {criteria}]"
 - editorial-brief: "[How to write it — tone, format, length]"
-- fallback: "If {unused} candidates are sufficient, skip researcher and pass directly to editorial-writer"
-- inputs: [unused story candidates, transcript, {any template-specific context}]
+- fallback: "If editor-provided stories are sufficient, skip researcher and pass directly to editorial-writer"
+- inputs: [editor-provided content, {any template-specific context}]
 - position: after-stories
 ```
 
-The assembler checks whether existing inputs (unused candidates, transcript excerpts) are sufficient before dispatching the researcher. This avoids unnecessary web searches when the template's source material is already rich enough.
+The assembler checks whether existing inputs (editor-provided content) are sufficient before dispatching the researcher. This avoids unnecessary web searches when the template's source material is already rich enough. Each supplemental section follows its own brief and source material instructions as defined in the template.
 
 ### Design Principles
 
@@ -217,4 +217,4 @@ The assembler checks whether existing inputs (unused candidates, transcript exce
 
 ## Integration
 
-Consumed by `newsletter-producer` agent as the final assembly step (step 6 of the 7-step pipeline). Receives stories from `story-selection`, poll from `poll-writer`, show notes from `editorial-writer`. Additionally receives unused story candidates from the selection step for supplemental section dispatch.
+Consumed by `newsletter-producer` agent as the final assembly step (step 6 of the 7-step pipeline). Receives stories from `story-selection`, poll from `poll-writer`, show notes from `editorial-writer`. Supplemental sections are dispatched per their template-defined briefs and source material instructions.
