@@ -1,7 +1,10 @@
 // Root lint-staged: repo-wide files only.
 // Subprojects handle their own lint-staged (telemetry/, scripts/skills-deploy/).
 export default {
-  '{scripts,skills}/**/*.sh': `sh scripts/run-shellcheck.sh`,
+  '{scripts,skills}/**/*.sh': (files: readonly string[]) => [
+    `sh scripts/run-shellcheck.sh ${files.map((f) => '"' + f + '"').join(' ')}`,
+    `sh scripts/run-bash-taint-check.sh ${files.map((f) => '"' + f + '"').join(' ')}`,
+  ],
   '.github/workflows/*.{yml,yaml}': `sh scripts/run-actionlint.sh`,
   'skills/**/*.{ts,js,mjs,cjs,py}': `sh scripts/run-semgrep.sh`,
   '**/*/package.json': () => [
@@ -9,5 +12,6 @@ export default {
   ],
   '{agents,skills,commands}/**/*.md': (files: readonly string[]) => [
     `npx prompt-injection-scanner --severity HIGH ${files.map((f) => '"' + f + '"').join(' ')} --format json`,
+    `sh scripts/run-alignment-check.sh ${files.map((f) => '"' + f + '"').join(' ')}`,
   ],
 };
